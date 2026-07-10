@@ -1,0 +1,23 @@
+# Dữ liệu học tập và cấu hình cá nhân bảo mật
+database.db
+database.db-wal
+database.db-shm
+database.db.old
+database.db-wal.old
+database.db-shm.old
+.env
+chrome_profile/
+temp_update/
+kiosk_lock.log
+kiosk_exit_flag.tmp
+
+# Loại trừ các file build cài đặt setup lớn
+*.exe
+!kiosk_lock.exe
+!kiosk_lock_test.exe
+
+# Node modules
+node_modules/
+.port.tmp
+.write_test.tmp
+HocTap_Clean/

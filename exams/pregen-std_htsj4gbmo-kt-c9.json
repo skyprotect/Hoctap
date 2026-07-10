@@ -1,0 +1,505 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialTemp": {
+          "min": 0,
+          "max": 15,
+          "step": 1
+        },
+        "drop1": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "rise1": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        },
+        "drop2": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialTemp - drop1 + rise1 > -20"
+      ],
+      "formulas": {
+        "tempAfterMorning": "initialTemp - drop1",
+        "tempAfterNoon": "initialTemp - drop1 + rise1",
+        "ans": "initialTemp - drop1 + rise1 - drop2",
+        "w1": "initialTemp + drop1 + rise1 + drop2",
+        "w2": "initialTemp - drop1 - rise1 + drop2",
+        "w3": "initialTemp + drop1 - rise1 + drop2"
+      },
+      "questionText": "Vào lúc $6$ giờ sáng, nhiệt độ tại đỉnh Fansipan là $ {initialTemp} $ độ C. Đến $12$ giờ trưa, nhiệt độ giảm đi $ {drop1} $ độ C. Đến $6$ giờ tối, nhiệt độ lại tăng lên $ {rise1} $ độ C so với buổi trưa. Sau đó, đến $12$ giờ đêm, nhiệt độ tiếp tục giảm thêm $ {drop2} $ độ C nữa. Hỏi nhiệt độ tại đỉnh Fansipan vào lúc $12$ giờ đêm là bao nhiêu độ C?",
+      "options": [
+        "A. $ {w1} $ độ C",
+        "B. $ {ans} $ độ C",
+        "C. $ {w2} $ độ C",
+        "D. $ {w3} $ độ C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính nhiệt độ sau mỗi mốc thời gian: trưa, tối, rồi đêm.",
+        "Nhiệt độ giảm có nghĩa là thực hiện phép trừ. Nhiệt độ tăng có nghĩa là thực hiện phép cộng."
+      ],
+      "solutionHtml": "Nhiệt độ tại đỉnh Fansipan vào lúc $12$ giờ trưa là:<br/>$ {initialTemp} - {drop1} = {tempAfterMorning} $ (độ C).<br/><br/>Nhiệt độ tại đỉnh Fansipan vào lúc $6$ giờ tối là:<br/>$ {tempAfterMorning} + {rise1} = {tempAfterNoon} $ (độ C).<br/><br/>Nhiệt độ tại đỉnh Fansipan vào lúc $12$ giờ đêm là:<br/>$ {tempAfterNoon} - {drop2} = {ans} $ (độ C).<br/><br/>Vậy, nhiệt độ tại đỉnh Fansipan vào lúc $12$ giờ đêm là $ {ans} $ độ C.<br/>Đáp án đúng là B.",
+      "tip": "Để giải quyết các bài toán về nhiệt độ thay đổi, hãy ghi nhận nhiệt độ ban đầu và cộng hoặc trừ các giá trị thay đổi theo từng mốc thời gian một cách cẩn thận. Chú ý đến các trường hợp nhiệt độ có thể xuống dưới $0$ độ C (số âm).",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startDepth": {
+          "min": -20,
+          "max": -5,
+          "step": 1
+        },
+        "descend1": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        },
+        "ascend1": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "descend2": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "startDepth < 0"
+      ],
+      "formulas": {
+        "depthAfter1": "startDepth - descend1",
+        "depthAfter2": "startDepth - descend1 + ascend1",
+        "ans": "startDepth - descend1 + ascend1 - descend2",
+        "w1": "startDepth + descend1 + ascend1 + descend2",
+        "w2": "startDepth - descend1 - ascend1 + descend2",
+        "w3": "startDepth + descend1 - ascend1 + descend2"
+      },
+      "questionText": "Một nhà thám hiểm đang ở vị trí có độ cao $ {startDepth} $ mét so với mực nước biển (nghĩa là đang ở dưới mực nước biển). Anh ấy tiếp tục đi xuống thêm $ {descend1} $ mét để khám phá. Sau đó, anh ta leo lên $ {ascend1} $ mét để khảo sát một khu vực khác. Cuối cùng, anh ấy lại đi xuống thêm $ {descend2} $ mét để đến điểm sâu nhất. Hỏi vị trí cuối cùng của nhà thám hiểm đó là bao nhiêu mét so với mực nước biển?",
+      "options": [
+        "A. $ {w1} $ mét",
+        "B. $ {ans} $ mét",
+        "C. $ {w2} $ mét",
+        "D. $ {w3} $ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vị trí dưới mực nước biển được biểu diễn bằng số nguyên âm. Đi xuống là trừ đi, đi lên là cộng thêm.",
+        "Hãy tính toán vị trí sau mỗi lần di chuyển."
+      ],
+      "solutionHtml": "Vị trí ban đầu của nhà thám hiểm là $ {startDepth} $ mét.<br/><br/>Sau khi đi xuống $ {descend1} $ mét, vị trí mới là:<br/>$$ {startDepth} - {descend1} = {depthAfter1} $ (mét).<br/><br/>Sau đó leo lên $ {ascend1} $ mét, vị trí mới là:<br/>$$ {depthAfter1} + {ascend1} = {depthAfter2} $ (mét).<br/><br/>Cuối cùng, đi xuống thêm $ {descend2} $ mét, vị trí cuối cùng là:<br/>$$ {depthAfter2} - {descend2} = {ans} $ (mét).<br/><br/>Vậy, vị trí cuối cùng của nhà thám hiểm là $ {ans} $ mét so với mực nước biển.<br/>Đáp án đúng là B.",
+      "tip": "Khi làm việc với độ cao hay độ sâu so với mực nước biển (hoặc một mốc $0$ nào đó), hãy nhớ quy ước: trên mốc là số dương, dưới mốc là số âm. Đi xuống là phép trừ, đi lên là phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialMoney": {
+          "min": 50000,
+          "max": 100000,
+          "step": 5000
+        },
+        "deposit1": {
+          "min": 20000,
+          "max": 50000,
+          "step": 5000
+        },
+        "expense1": {
+          "min": 30000,
+          "max": 70000,
+          "step": 5000
+        },
+        "deposit2": {
+          "min": 10000,
+          "max": 30000,
+          "step": 5000
+        },
+        "expense2": {
+          "min": 40000,
+          "max": 60000,
+          "step": 5000
+        }
+      },
+      "constraints": [
+        "initialMoney + deposit1 - expense1 + deposit2 - expense2 > -100000"
+      ],
+      "formulas": {
+        "moneyAfter1": "initialMoney + deposit1",
+        "moneyAfter2": "initialMoney + deposit1 - expense1",
+        "moneyAfter3": "initialMoney + deposit1 - expense1 + deposit2",
+        "ans": "initialMoney + deposit1 - expense1 + deposit2 - expense2",
+        "w1": "initialMoney + expense1 - deposit1 + expense2 - deposit2",
+        "w2": "initialMoney - deposit1 - expense1 + deposit2 + expense2",
+        "w3": "initialMoney + deposit1 + expense1 + deposit2 + expense2"
+      },
+      "questionText": "Bạn An có số tiền ban đầu là $ {initialMoney} $ đồng. Đầu tuần, An được bố mẹ cho thêm $ {deposit1} $ đồng. Giữa tuần, An dùng $ {expense1} $ đồng để mua sách vở. Cuối tuần, An được lì xì $ {deposit2} $ đồng từ người thân. Tuy nhiên, An lại phải chi $ {expense2} $ đồng để mua một món đồ dùng học tập cần thiết. Hỏi số tiền An còn lại cuối tuần là bao nhiêu đồng?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {ans} $ đồng",
+        "C. $ {w2} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tiền được cho thêm hoặc lì xì là phép cộng. Tiền dùng để mua sắm hoặc chi tiêu là phép trừ.",
+        "Theo dõi số tiền của An sau mỗi giao dịch."
+      ],
+      "solutionHtml": "Số tiền An có ban đầu là $ {initialMoney} đồng.<br/><br/>Sau khi được bố mẹ cho thêm $ {deposit1} đồng, số tiền của An là:<br/>$$ {initialMoney} + {deposit1} = {moneyAfter1} $ (đồng).<br/><br/>Sau khi mua sách vở hết $ {expense1} đồng, số tiền còn lại là:<br/>$$ {moneyAfter1} - {expense1} = {moneyAfter2} $ (đồng).<br/><br/>Sau khi được lì xì $ {deposit2} đồng, số tiền của An là:<br/>$$ {moneyAfter2} + {deposit2} = {moneyAfter3} $ (đồng).<br/><br/>Cuối cùng, sau khi chi $ {expense2} đồng, số tiền còn lại của An là:<br/>$$ {moneyAfter3} - {expense2} = {ans} $ (đồng).<br/><br/>Vậy, số tiền An còn lại cuối tuần là $ {ans} đồng.<br/>Đáp án đúng là B.",
+      "tip": "Khi tính toán số dư tài chính, hãy coi tiền tăng lên là số dương và tiền giảm đi là số âm. Cẩn thận thực hiện các phép cộng và trừ theo đúng thứ tự của các giao dịch để tránh sai sót. Số tiền có thể là số âm nếu bị thâm hụt (nợ).",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "upperLimit": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "divisor": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "upperLimit > divisor",
+        "upperLimit % 1 === 0",
+        "divisor % 1 === 0"
+      ],
+      "formulas": {
+        "countPositiveMultiples": "Math.floor((upperLimit - 1) / divisor)",
+        "ans": "2 * Math.floor((upperLimit - 1) / divisor) + 1",
+        "w1": "Math.floor((upperLimit - 1) / divisor)",
+        "w2": "2 * Math.floor((upperLimit - 1) / divisor)",
+        "w3": "2 * Math.floor((upperLimit - 1) / divisor) + 2"
+      },
+      "questionText": "Có bao nhiêu số nguyên $x$ thỏa mãn đồng thời hai điều kiện sau: <br/> $1$. $ |x| < {upperLimit} $ <br/> $2$. $ x $ là bội của $ {divisor} $ ?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Điều kiện $ |x| < {upperLimit} $ nghĩa là $ -{upperLimit} < x < {upperLimit} $.",
+        "Hãy liệt kê các bội của $ {divisor} $ trong khoảng này. Đừng quên số $0$ (nếu nó là bội của $ {divisor} $)."
+      ],
+      "solutionHtml": "Điều kiện $ |x| < {upperLimit} $ có nghĩa là $ -{upperLimit} < x < {upperLimit} $. <br/>Các số nguyên $x$ cần tìm phải là bội của $ {divisor} $ và nằm trong khoảng từ $ -{upperLimit} $ đến $ {upperLimit} $ (không bao gồm hai đầu mút).<br/><br/>Các bội dương của $ {divisor} $ trong khoảng này là $ {divisor}, 2 \\cdot {divisor}, 3 \\cdot {divisor}, \\dots, k \\cdot {divisor} $ sao cho $ k \\cdot {divisor} < {upperLimit} $.<br/>Số lớn nhất thỏa mãn là $ k \\cdot {divisor} $ với $ k = {countPositiveMultiples} $.<br/>Vậy có $ {countPositiveMultiples} $ số bội dương của $ {divisor} $.<br/><br/>Tương tự, có $ {countPositiveMultiples} $ số bội âm của $ {divisor} $ là $ -{divisor}, -2 \\cdot {divisor}, \\dots, -{countPositiveMultiples} \\cdot {divisor} $.<br/><br/>Ngoài ra, số $0$ cũng là một bội của mọi số nguyên (khác $0$), và $ |0| = 0 < {upperLimit} $, nên $0$ cũng thỏa mãn.<br/><br/>Tổng số các số nguyên $x$ thỏa mãn là: <br/>$ {countPositiveMultiples} $ (bội dương) $ + {countPositiveMultiples} $ (bội âm) $ + 1 $ (số $0$) $$ = {ans} $ (số).<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi làm việc với giá trị tuyệt đối $ |x| < a $, hãy nhớ rằng nó tương đương với $ -a < x < a $. Sau đó, hãy cẩn thận liệt kê hoặc tính toán số lượng các bội của một số cho trước trong khoảng đó, đặc biệt lưu ý đến số $0$.",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numB": {
+          "min": -10,
+          "max": 10,
+          "step": 1
+        },
+        "sumC": {
+          "min": -5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numB !== 0",
+        "sumC !== 0"
+      ],
+      "formulas": {
+        "ans": "numB - sumC",
+        "w1": "numB + sumC",
+        "w2": "sumC - numB",
+        "w3": "Math.abs(numB) + Math.abs(sumC)"
+      },
+      "questionText": "Một số nguyên bí ẩn $A$ có tính chất: khi lấy số đối của nó cộng với $ {numB} $, ta được kết quả là $ {sumC} $. Hỏi số nguyên bí ẩn $A$ là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $",
+        "E. Một giá trị khác"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số đối của $A$ được kí hiệu là $ -A $.",
+        "Lập một phương trình từ các thông tin đã cho và giải nó để tìm $A$."
+      ],
+      "solutionHtml": "Gọi số nguyên bí ẩn là $A$.<br/>Số đối của $A$ là $ -A $.<br/><br/>Theo đề bài, khi lấy số đối của $A$ cộng với $ {numB} $, ta được kết quả là $ {sumC} $.<br/>Ta có phương trình:<br/>$ -A + {numB} = {sumC} $<br/><br/>Để tìm $A$, ta chuyển $ -A $ sang vế phải và $ {sumC} $ sang vế trái:<br/>$ {numB} - {sumC} = A $<br/><br/>Vậy, $ A = {numB} - {sumC} = {ans} $.<br/><br/>Số nguyên bí ẩn $A$ là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Hiểu rõ khái niệm số đối: số đối của $A$ là $ -A $. Sau đó, hãy chuyển đổi các mệnh đề trong bài toán thành một phương trình toán học và sử dụng quy tắc chuyển vế để giải tìm số nguyên cần thiết.",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "coeffA": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "valB": {
+          "min": -15,
+          "max": 15,
+          "step": 1
+        },
+        "valC": {
+          "min": -20,
+          "max": 20,
+          "step": 1
+        },
+        "valD": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "coeffA !== 0",
+        "(valC + valD - valB) % coeffA === 0"
+      ],
+      "formulas": {
+        "intermediateSum": "valC + valD",
+        "intermediateDiff": "intermediateSum - valB",
+        "ans": "(valC + valD - valB) / coeffA",
+        "w1": "(valC + valD + valB) / coeffA",
+        "w2": "(valC - valD - valB) / coeffA",
+        "w3": "(valB - valC - valD) / coeffA"
+      },
+      "questionText": "Tìm số nguyên $x$ thỏa mãn phương trình:<br/> $ {coeffA} \\cdot x + {valB} = {valC} + {valD} $",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $",
+        "E. Không có số nguyên nào thỏa mãn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng của vế phải.",
+        "Sử dụng quy tắc chuyển vế để đưa các số hạng có $x$ về một vế và các số hạng không chứa $x$ về vế còn lại.",
+        "Khi chuyển một số hạng từ vế này sang vế kia của dấu 'bằng', phải đổi dấu số hạng đó."
+      ],
+      "solutionHtml": "Để tìm số nguyên $x$, ta sẽ giải phương trình:<br/>$ {coeffA} \\cdot x + {valB} = {valC} + {valD} $<br/><br/>Bước 1: Tính toán vế phải.<br/>$ {valC} + {valD} = {intermediateSum} $<br/>Phương trình trở thành:<br/>$ {coeffA} \\cdot x + {valB} = {intermediateSum} $<br/><br/>Bước 2: Chuyển $ {valB} $ sang vế phải và đổi dấu.<br/>$ {coeffA} \\cdot x = {intermediateSum} - {valB} $<br/>$ {coeffA} \\cdot x = {intermediateDiff} $<br/><br/>Bước 3: Chia cả hai vế cho $ {coeffA} $ để tìm $x$.<br/>$ x = {intermediateDiff} \\div {coeffA} $<br/>$ x = {ans} $<br/><br/>Vậy, số nguyên $x$ cần tìm là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải phương trình, mục tiêu là cô lập biến $x$. Hãy thực hiện các phép tính từ đơn giản đến phức tạp: tính toán các vế, sau đó dùng quy tắc chuyển vế để nhóm các số hạng. Cuối cùng, thực hiện phép chia để tìm giá trị của $x$. Đảm bảo đổi dấu đúng khi chuyển vế!",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lowerBound": {
+          "min": -10,
+          "max": -5,
+          "step": 1
+        },
+        "upperBound": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "lowerBound < upperBound",
+        "upperBound > 0",
+        "lowerBound < 0"
+      ],
+      "formulas": {
+        "countTerms": "upperBound - lowerBound + 1",
+        "ans": "(lowerBound + upperBound) * (upperBound - lowerBound + 1) / 2",
+        "w1": "lowerBound + upperBound",
+        "w2": "Math.abs(lowerBound) + Math.abs(upperBound)",
+        "w3": "upperBound - lowerBound"
+      },
+      "questionText": "Tính tổng tất cả các số nguyên $x$ thỏa mãn $ {lowerBound} \\le x \\le {upperBound} $.",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Các số nguyên từ $ {lowerBound} $ đến $ {upperBound} $ bao gồm cả số âm, số $0$ và số dương.",
+        "Có thể sử dụng công thức tính tổng của một cấp số cộng."
+      ],
+      "solutionHtml": "Các số nguyên $x$ thỏa mãn $ {lowerBound} \\le x \\le {upperBound} $ là các số $ {lowerBound}, {lowerBound + 1}, \\dots, {upperBound - 1}, {upperBound} $.<br/><br/>Để tính tổng này, chúng ta sử dụng công thức tổng của một cấp số cộng:<br/>$ \\text{Tong} = (\\text{So hang dau} + \\text{So hang cuoi}) \\times \\text{So luong so hang} \\div 2 $.<br/><br/>Trong đó:<br/>- Số hạng đầu tiên là $ {lowerBound} $.<br/>- Số hạng cuối cùng là $ {upperBound} $.<br/>- Số lượng số hạng là $ {upperBound} - {lowerBound} + 1 = {countTerms} $ (số hạng).<br/><br/>Áp dụng công thức, ta có:<br/>$ ( {lowerBound} + {upperBound} ) \\times {countTerms} \\div 2 = {ans} $.<br/><br/>Vậy tổng tất cả các số nguyên là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng các số nguyên trong một khoảng $ [a, b] $, ta có thể sử dụng công thức tổng của một cấp số cộng: $ \\text{Tong} = (\\text{So hang dau} + \\text{So hang cuoi}) \\times \\text{So luong so hang} \\div 2 $. Lưu ý rằng số lượng số hạng là $ b - a + 1 $.",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lowerBound": {
+          "min": -25,
+          "max": -10,
+          "step": 1
+        },
+        "upperBound": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "multipleOf": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "lowerBound < upperBound",
+        "multipleOf > 0"
+      ],
+      "formulas": {
+        "firstMultipleVal": "Math.ceil((lowerBound + 1) / multipleOf) * multipleOf",
+        "lastMultipleVal": "Math.floor((upperBound - 1) / multipleOf) * multipleOf",
+        "ans": "(Math.ceil((lowerBound + 1) / multipleOf) * multipleOf > Math.floor((upperBound - 1) / multipleOf) * multipleOf) ? 0 : ((Math.floor((upperBound - 1) / multipleOf) * multipleOf - Math.ceil((lowerBound + 1) / multipleOf) * multipleOf) / multipleOf + 1)",
+        "w1": "(Math.floor((upperBound - 1) / multipleOf) - Math.ceil((lowerBound + 1) / multipleOf))",
+        "w2": "(Math.floor(upperBound / multipleOf) - Math.floor(lowerBound / multipleOf))",
+        "w3": "(Math.floor((upperBound - 1) / multipleOf) - Math.floor((lowerBound + 1) / multipleOf))"
+      },
+      "questionText": "Có bao nhiêu số nguyên $x$ thỏa mãn $ {lowerBound} < x < {upperBound} $ và $x$ là bội của $ {multipleOf} $?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định số bội nhỏ nhất lớn hơn $ {lowerBound} $ và số bội lớn nhất nhỏ hơn $ {upperBound} $.",
+        "Sau khi có số bội nhỏ nhất (min) và lớn nhất (max), số lượng các bội sẽ là $ (\\text{max} - \\text{min}) / {multipleOf} + 1 $."
+      ],
+      "solutionHtml": "Các số nguyên $x$ cần tìm phải là bội của $ {multipleOf} $ và nằm trong khoảng $ ( {lowerBound}, {upperBound} ) $, tức là $ {lowerBound} < x < {upperBound} $.<br/><br/>Bước 1: Tìm số bội của $ {multipleOf} $ nhỏ nhất mà lớn hơn $ {lowerBound} $.<br/>Số bội nhỏ nhất của $ {multipleOf} $ mà lớn hơn $ {lowerBound} $ là $ {firstMultipleVal} $.<br/><br/>Bước 2: Tìm số bội của $ {multipleOf} $ lớn nhất mà nhỏ hơn $ {upperBound} $.<br/>Số bội lớn nhất của $ {multipleOf} $ mà nhỏ hơn $ {upperBound} $ là $ {lastMultipleVal} $.<br/><br/>Bước 3: Đếm số lượng các bội trong khoảng này.<br/>Nếu $ {firstMultipleVal} > {lastMultipleVal} $, thì không có số bội nào thỏa mãn, số lượng là $0$.<br/>Ngược lại, số lượng các bội là:<br/>$ ( {lastMultipleVal} - {firstMultipleVal} ) / {multipleOf} + 1 $.<br/>$$ = ( {lastMultipleVal} - {firstMultipleVal} ) / {multipleOf} + 1 = {ans} $ (số).<br/><br/>Vậy có $ {ans} $ số nguyên $x$ thỏa mãn yêu cầu đề bài.<br/>Đáp án đúng là B.",
+      "tip": "Để đếm số lượng bội của một số $k$ trong khoảng $ (a, b) $, ta cần tìm bội $k \\cdot m_1$ nhỏ nhất lớn hơn $a$ và bội $k \\cdot m_2$ lớn nhất nhỏ hơn $b$. Sau đó, số lượng bội là $ (k \\cdot m_2 - k \\cdot m_1) / k + 1 $. Hãy cẩn thận với cận của khoảng và việc làm tròn lên (ceil) hay làm tròn xuống (floor).",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "firstTerm": {
+          "min": -10,
+          "max": 10,
+          "step": 1
+        },
+        "difference": {
+          "min": -5,
+          "max": 5,
+          "step": 1
+        },
+        "termIndex": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "difference !== 0",
+        "termIndex >= 1"
+      ],
+      "formulas": {
+        "diffProduct": "(termIndex - 1) * difference",
+        "ans": "firstTerm + (termIndex - 1) * difference",
+        "w1": "firstTerm + termIndex * difference",
+        "w2": "firstTerm + (termIndex + 1) * difference",
+        "w3": "firstTerm - (termIndex - 1) * difference"
+      },
+      "questionText": "Một dãy số nguyên có quy luật là mỗi số hạng (kể từ số hạng thứ hai) lớn hơn số hạng đứng ngay trước nó $ {difference} $ đơn vị. Biết số hạng đầu tiên của dãy là $ {firstTerm} $. Hỏi số hạng thứ $ {termIndex} $ của dãy là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là một cấp số cộng. Số hạng thứ $n$ được tính bằng công thức: $ u_n = u_1 + (n-1)d $.",
+        "Trong đó $ u_1 $ là số hạng đầu tiên, $ d $ là công sai (hiệu giữa hai số hạng liên tiếp), và $ n $ là chỉ số của số hạng cần tìm."
+      ],
+      "solutionHtml": "Gọi số hạng đầu tiên là $ u_1 = {firstTerm} $.<br/>Hiệu giữa hai số hạng liên tiếp (công sai) là $ d = {difference} $.<br/>Chúng ta cần tìm số hạng thứ $ {termIndex} $, tức là $ u_{ {termIndex} } $.<br/><br/>Công thức tổng quát để tìm số hạng thứ $n$ của một cấp số cộng là:<br/>$ u_n = u_1 + (n-1)d $<br/><br/>Áp dụng công thức với $ n = {termIndex} $:<br/>$ u_{ {termIndex} } = {firstTerm} + ( {termIndex} - 1) \\cdot {difference} $<br/>$ u_{ {termIndex} } = {firstTerm} + {diffProduct} $<br/>$ u_{ {termIndex} } = {ans} $<br/><br/>Vậy, số hạng thứ $ {termIndex} $ của dãy là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ công thức của số hạng thứ $n$ trong một cấp số cộng: $ u_n = u_1 + (n-1)d $. Trong đó, $(n-1)$ là số lần công sai $d$ được cộng vào (hoặc trừ đi) số hạng đầu tiên. Luôn cẩn thận với dấu của công sai $d$ (có thể là số âm).",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numA": {
+          "min": 24,
+          "max": 60,
+          "step": 12
+        },
+        "numB": {
+          "min": 36,
+          "max": 72,
+          "step": 12
+        },
+        "lowerBound": {
+          "min": -15,
+          "max": -5,
+          "step": 1
+        },
+        "upperBound": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numA > 0",
+        "numB > 0",
+        "numA !== numB",
+        "lowerBound < 0",
+        "upperBound > 0",
+        "lowerBound < -commonDivisor && upperBound > commonDivisor"
+      ],
+      "formulas": {
+        "math_gcd": "function math_gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "commonDivisor": "math_gcd(numA, numB)",
+        "factorsListPositive": "(() => { let n = commonDivisor; let factors = []; for (let i = 1; i * i <= n; i++) { if (n % i === 0) { factors.push(i); if (i * i !== n) factors.push(n / i); } } return factors.sort((a,b)=>a-b); })()",
+        "factorsListCombined": "(() => { let n = commonDivisor; let factors = new Set(); for (let i = 1; i * i <= n; i++) { if (n % i === 0) { factors.add(i); factors.add(-i); if (i * i !== n) { factors.add(n / i); factors.add(-(n / i)); } } } return Array.from(factors).sort((a, b) => a - b); })()",
+        "filteredFactors": "factorsListCombined.filter(f => f > lowerBound && f < upperBound)",
+        "ans": "filteredFactors.length",
+        "w1": "factorsListPositive.filter(f => f > 0 && f > lowerBound && f < upperBound).length",
+        "w2": "factorsListCombined.length",
+        "w3": "factorsListPositive.length"
+      },
+      "questionText": "Cho hai số nguyên $ {numA} $ và $ {numB} $. Có bao nhiêu số nguyên $X$ thỏa mãn đồng thời ba điều kiện sau: <br/> $1$. $ {lowerBound} < X < {upperBound} $ <br/> $2$. $X$ là ước của $ {numA} $ <br/> $3$. $X$ là ước của $ {numB} $",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một số nguyên $X$ là ước chung của $ {numA} $ và $ {numB} $ khi và chỉ khi $X$ là ước của Ước chung lớn nhất (ƯCLN) của $ {numA} $ và $ {numB} $.",
+        "Tìm ƯCLN của $ {numA} $ và $ {numB} $. Sau đó, liệt kê tất cả các ước (cả âm và dương) của ƯCLN này.",
+        "Cuối cùng, lọc ra những ước nằm trong khoảng $ ( {lowerBound}, {upperBound} ) $."
+      ],
+      "solutionHtml": "Để một số nguyên $X$ là ước của cả $ {numA} $ và $ {numB} $, thì $X$ phải là ước chung của $ {numA} $ và $ {numB} $. <br/>Tập hợp các ước chung của hai số nguyên chính là tập hợp các ước của Ước chung lớn nhất (ƯCLN) của chúng.<br/><br/>Bước 1: Tìm ƯCLN của $ {numA} $ và $ {numB} $.<br/>ƯCLN($ {numA} $, $ {numB} $) $ = {commonDivisor} $.<br/><br/>Bước 2: Tìm tất cả các ước của $ {commonDivisor} $ (bao gồm cả số âm và số dương).<br/>Các ước của $ {commonDivisor} $ là $ {factorsListCombined.join(', ')} $.<br/><br/>Bước 3: Lọc ra các ước thỏa mãn điều kiện $ {lowerBound} < X < {upperBound} $.<br/>Những ước này là: $ {filteredFactors.join(', ')} $.<br/><br/>Bước 4: Đếm số lượng các ước đã lọc.<br/>Có $ {ans} $ số nguyên thỏa mãn điều kiện.<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu tìm các ước chung của nhiều số nguyên trong một khoảng, hãy nhớ rằng ước chung của các số đó chính là ước của ƯCLN của chúng. Đừng quên xét cả các ước âm nếu khoảng đề bài cho bao gồm số âm. Hãy liệt kê cẩn thận và kiểm tra từng điều kiện.",
+      "level": "chat-luong-cao",
+      "type": "kt-c9-d10"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T00:32:14.628Z
+Lesson ID: bai-18
+Lesson Title: Bài 18: Hình tam giác đều. Hình vuông. Hình lục giác đều
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Server trả về mã lỗi: 401
+Error: Toàn bộ API Keys đều gặp sự cố: Server trả về mã lỗi: 401
+    at callGeminiAPI (D:\AntiGravity\HocTap\server.js:388:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async D:\AntiGravity\HocTap\server.js:1038:22
+

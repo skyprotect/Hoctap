@@ -1,0 +1,14 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T00:34:41.619Z
+Lesson ID: bai-20
+Lesson Title: Bài 20: Chu vi và diện tích của một số tứ giác đã học
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Server trả về mã lỗi: 401
+Error: Toàn bộ API Keys đều gặp sự cố: Server trả về mã lỗi: 401
+    at callGeminiAPI (D:\AntiGravity\HocTap\server.js:388:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async D:\AntiGravity\HocTap\server.js:1038:22
+

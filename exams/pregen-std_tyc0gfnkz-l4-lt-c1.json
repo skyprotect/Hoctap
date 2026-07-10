@@ -1,0 +1,721 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_lon": {
+          "min": 100,
+          "max": 900,
+          "step": 20
+        },
+        "so_be": {
+          "min": 50,
+          "max": 400,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "so_lon > so_be",
+        "(so_lon % 2) === (so_be % 2)"
+      ],
+      "formulas": {
+        "tong": "so_lon + so_be",
+        "hieu": "so_lon - so_be",
+        "ans_lon": "so_lon",
+        "ans_be": "so_be",
+        "w1_lon": "tong",
+        "w1_be": "hieu",
+        "w2_lon": "(tong + hieu) / 2 + 1",
+        "w2_be": "(tong - hieu) / 2 - 1",
+        "w3_lon": "(tong) / 2",
+        "w3_be": "(hieu) / 2"
+      },
+      "questionText": "Tìm hai số, biết tổng của chúng là $ {tong} $ và hiệu của chúng là $ {hieu} $.",
+      "options": [
+        "A. Số lớn là $ {w1_lon} $, số bé là $ {w1_be} $",
+        "B. Số lớn là $ {ans_lon} $, số bé là $ {ans_be} $",
+        "C. Số lớn là $ {w2_lon} $, số bé là $ {w2_be} $",
+        "D. Số lớn là $ {w3_lon} $, số bé là $ {w3_be} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số lớn, ta lấy tổng cộng hiệu rồi chia cho 2.",
+        "Để tìm số bé, ta lấy tổng trừ hiệu rồi chia cho 2."
+      ],
+      "solutionHtml": "Gọi hai số cần tìm là số lớn và số bé.<br/>Số lớn là: $ ({tong} + {hieu}) : 2 = {ans_lon} $<br/>Số bé là: $ ({tong} - {hieu}) : 2 = {ans_be} $<br/>Vậy, hai số cần tìm là $ {ans_lon} $ và $ {ans_be} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và hiệu của hai số, để tìm số lớn ta dùng công thức $ (\\text{Tong} + \\text{Hieu}) : 2 $ và để tìm số bé ta dùng công thức $ (\\text{Tong} - \\text{Hieu}) : 2 $.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "can_nang_an": {
+          "min": 25,
+          "max": 35,
+          "step": 1
+        },
+        "can_nang_binh": {
+          "min": 24,
+          "max": 34,
+          "step": 1
+        },
+        "can_nang_chi": {
+          "min": 26,
+          "max": 36,
+          "step": 1
+        },
+        "avg_can_nang": {
+          "min": 28,
+          "max": 38,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "avg_can_nang * 4 - (can_nang_an + can_nang_binh + can_nang_chi) > 15",
+        "avg_can_nang * 4 - (can_nang_an + can_nang_binh + can_nang_chi) < 45",
+        "(can_nang_an + can_nang_binh + can_nang_chi) % 3 === 0"
+      ],
+      "formulas": {
+        "tong_3_ban": "can_nang_an + can_nang_binh + can_nang_chi",
+        "tong_4_ban": "avg_can_nang * 4",
+        "ans_dung": "tong_4_ban - tong_3_ban",
+        "w1_goc": "avg_can_nang",
+        "w2_goc": "tong_3_ban / 3",
+        "w3_goc": "tong_4_ban",
+        "w1": "(w1_goc === ans_dung) ? avg_can_nang + 1 : w1_goc",
+        "w2": "(w2_goc === ans_dung || w2_goc === w1) ? (w1 + 1) : w2_goc",
+        "w3": "(w3_goc === ans_dung || w3_goc === w1 || w3_goc === w2) ? (w2 + 2) : w3_goc"
+      },
+      "questionText": "Bốn bạn An, Bình, Chi, Dũng có cân nặng trung bình là {avg_can_nang} kg. An nặng {can_nang_an} kg, Bình nặng {can_nang_binh} kg, Chi nặng {can_nang_chi} kg. Hỏi Dũng nặng bao nhiêu ki-lô-gam?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans_dung} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng cân nặng của cả 4 bạn bằng cách nhân cân nặng trung bình với 4.",
+        "Tính tổng cân nặng của 3 bạn An, Bình, Chi.",
+        "Lấy tổng cân nặng của 4 bạn trừ đi tổng cân nặng của 3 bạn đã biết để tìm cân nặng của Dũng."
+      ],
+      "solutionHtml": "Tổng cân nặng của cả 4 bạn là: {avg_can_nang} x 4 = {tong_4_ban} (kg)<br/>Tổng cân nặng của 3 bạn An, Bình, Chi là: {can_nang_an} + {can_nang_binh} + {can_nang_chi} = {tong_3_ban} (kg)<br/>Cân nặng của Dũng là: {tong_4_ban} - {tong_3_ban} = {ans_dung} (kg)<br/>Đáp án đúng là B.",
+      "tip": "Để tìm một số khi biết trung bình cộng và các số còn lại, ta tính tổng của tất cả các số, sau đó trừ đi tổng của các số đã biết.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "gia_but": {
+          "min": 8000,
+          "max": 15000,
+          "step": 1000
+        },
+        "so_but_mua": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "giam_gia_moi_but": {
+          "min": 500,
+          "max": 1500,
+          "step": 100
+        },
+        "tien_dua": {
+          "min": 150000,
+          "max": 300000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "gia_but > giam_gia_moi_but",
+        "tien_dua >= (gia_but - giam_gia_moi_but) * so_but_mua"
+      ],
+      "formulas": {
+        "gia_thuc_te_moi_but": "gia_but - giam_gia_moi_but",
+        "tong_tien_phai_tra": "gia_thuc_te_moi_but * so_but_mua",
+        "ans": "tien_dua - tong_tien_phai_tra",
+        "w1_raw": "tien_dua - (gia_but * so_but_mua)",
+        "w2_raw": "giam_gia_moi_but * so_but_mua",
+        "w3_raw": "tien_dua - (gia_thuc_te_moi_but * (so_but_mua - 1))",
+        "w1": "(w1_raw === ans || w1_raw < 0) ? ans + 5000 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 10000 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 15000 : w3_raw"
+      },
+      "questionText": "Một cửa hàng bán bút với giá {gia_but} đồng mỗi chiếc. Nếu mua từ {so_but_mua} chiếc trở lên, mỗi chiếc sẽ được giảm giá {giam_gia_moi_but} đồng. Bạn Mai mua {so_but_mua} chiếc bút và đưa cho cô bán hàng {tien_dua} đồng. Hỏi cô bán hàng phải trả lại Mai bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w2} đồng",
+        "C. {ans} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính giá thực tế của mỗi chiếc bút sau khi được giảm giá: lấy giá gốc trừ đi số tiền giảm.",
+        "Tính tổng số tiền Mai phải trả: lấy giá thực tế nhân với số bút mua.",
+        "Tính số tiền cô bán hàng phải trả lại Mai: lấy số tiền đưa trừ đi tổng tiền phải trả."
+      ],
+      "solutionHtml": "Giá thực tế của mỗi chiếc bút sau khi giảm giá là: {gia_but} - {giam_gia_moi_but} = {gia_thuc_te_moi_but} (đồng).<br/>Tổng số tiền bạn Mai phải trả là: {gia_thuc_te_moi_but} x {so_but_mua} = {tong_tien_phai_tra} (đồng).<br/>Số tiền cô bán hàng phải trả lại Mai là: {tien_dua} - {tong_tien_phai_tra} = {ans} (đồng).<br/>Đáp án đúng là C.",
+      "tip": "Cần đọc kỹ đề bài để xác định giá tiền thực tế của mỗi sản phẩm sau khi có khuyến mãi trước khi tính tổng số tiền và tiền thừa.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_doan_duong": {
+          "min": 800,
+          "max": 1500,
+          "step": 100
+        },
+        "doi1_lam_moi_ngay": {
+          "min": 40,
+          "max": 70,
+          "step": 5
+        },
+        "doi1_so_ngay": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "doi2_so_ngay": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "doi1_lam_moi_ngay * doi1_so_ngay < tong_doan_duong",
+        "(tong_doan_duong - (doi1_lam_moi_ngay * doi1_so_ngay)) % doi2_so_ngay === 0",
+        "(tong_doan_duong - (doi1_lam_moi_ngay * doi1_so_ngay)) / doi2_so_ngay > 20",
+        "((tong_doan_duong - (doi1_lam_moi_ngay * doi1_so_ngay)) / doi2_so_ngay) !== doi1_lam_moi_ngay",
+        "((tong_doan_duong - (doi1_lam_moi_ngay * doi1_so_ngay)) / doi2_so_ngay) !== (tong_doan_duong / (doi1_so_ngay + doi2_so_ngay))"
+      ],
+      "formulas": {
+        "doan_duong_doi1_lam": "doi1_lam_moi_ngay * doi1_so_ngay",
+        "doan_duong_doi2_lam": "tong_doan_duong - doan_duong_doi1_lam",
+        "ans": "doan_duong_doi2_lam / doi2_so_ngay",
+        "w1_raw": "ans + 5",
+        "w2_raw": "ans + 10",
+        "w3_raw": "ans + 15",
+        "w1": "w1_raw",
+        "w2": "(w2_raw === w1) ? w2_raw + 2 : w2_raw",
+        "w3": "(w3_raw === w1 || w3_raw === w2) ? w3_raw + 3 : w3_raw"
+      },
+      "questionText": "Hai đội công nhân cùng làm một con đường. Đội Một làm được {doi1_lam_moi_ngay} mét đường mỗi ngày và làm trong {doi1_so_ngay} ngày. Đội Hai làm trong {doi2_so_ngay} ngày và hoàn thành phần đường còn lại. Biết tổng chiều dài con đường là {tong_doan_duong} mét. Hỏi trung bình mỗi ngày đội Hai làm được bao nhiêu mét đường?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số mét đường đội Một đã làm.",
+        "Tính số mét đường còn lại mà đội Hai phải làm.",
+        "Tính trung bình mỗi ngày đội Hai làm được bao nhiêu mét bằng cách lấy số mét còn lại chia cho số ngày làm việc của đội Hai."
+      ],
+      "solutionHtml": "Số mét đường đội Một đã làm là: {doi1_lam_moi_ngay} x {doi1_so_ngay} = {doan_duong_doi1_lam} mét.<br/>Số mét đường đội Hai phải làm là: {tong_doan_duong} - {doan_duong_doi1_lam} = {doan_duong_doi2_lam} mét.<br/>Trung bình mỗi ngày đội Hai làm được số mét đường là: {doan_duong_doi2_lam} : {doi2_so_ngay} = {ans} mét.<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính toán từng bước: tìm phần đường đội Một làm, sau đó tìm phần đường còn lại, cuối cùng là chia cho số ngày làm việc của đội Hai để tìm năng suất mỗi ngày.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_bat_dau": {
+          "min": 100,
+          "max": 500,
+          "step": 1
+        },
+        "so_ket_thuc": {
+          "min": 600,
+          "max": 1000,
+          "step": 1
+        },
+        "so_chia": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "so_ket_thuc > so_bat_dau",
+        "so_chia > 1"
+      ],
+      "formulas": {
+        "tong_so_luong": "so_ket_thuc - so_bat_dau + 1",
+        "multiples_up_to_end": "Math.floor(so_ket_thuc / so_chia)",
+        "multiples_before_start": "Math.floor((so_bat_dau - 1) / so_chia)",
+        "multiples_in_range": "multiples_up_to_end - multiples_before_start",
+        "ans": "tong_so_luong - multiples_in_range",
+        "w1_goc": "multiples_in_range",
+        "w2_goc": "tong_so_luong",
+        "w3_goc": "multiples_up_to_end",
+        "w1": "(w1_goc === ans) ? ans + 7 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 11 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 13 : w3_goc"
+      },
+      "questionText": "Trong các số tự nhiên từ {so_bat_dau} đến {so_ket_thuc}, có bao nhiêu số không chia hết cho {so_chia}?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định tổng số lượng các số trong khoảng từ {so_bat_dau} đến {so_ket_thuc}.",
+        "Tìm số lượng các số chia hết cho {so_chia} trong khoảng đó.",
+        "Lấy tổng số lượng trừ đi số lượng các số chia hết để tìm số lượng các số không chia hết."
+      ],
+      "solutionHtml": "Tổng số lượng các số tự nhiên từ {so_bat_dau} đến {so_ket_thuc} là: {so_ket_thuc} - {so_bat_dau} + 1 = {tong_so_luong} (số)<br/>Số lượng các số chia hết cho {so_chia} từ 1 đến {so_ket_thuc} là: {multiples_up_to_end} số.<br/>Số lượng các số chia hết cho {so_chia} từ 1 đến {so_bat_dau} - 1 là: {multiples_before_start} số.<br/>Số lượng các số chia hết cho {so_chia} trong khoảng từ {so_bat_dau} đến {so_ket_thuc} là: {multiples_up_to_end} - {multiples_before_start} = {multiples_in_range} (số)<br/>Số lượng các số không chia hết cho {so_chia} trong khoảng từ {so_bat_dau} đến {so_ket_thuc} là: {tong_so_luong} - {multiples_in_range} = {ans} (số)<br/>Đáp án đúng là B.",
+      "tip": "Để đếm số lượng các số không chia hết cho một số trong một khoảng, trước hết ta đếm tổng số lượng các số trong khoảng đó, sau đó đếm số lượng các số chia hết và lấy hiệu của hai kết quả này.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_keo": {
+          "min": 120,
+          "max": 200,
+          "step": 10
+        },
+        "nhom1_so_ban": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "keo_moi_ban_nhom1": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "nhom2_so_ban": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong_keo > (nhom1_so_ban * keo_moi_ban_nhom1) + (nhom2_so_ban * 2)",
+        "(tong_keo - (nhom1_so_ban * keo_moi_ban_nhom1)) % nhom2_so_ban === 0",
+        "(tong_keo - (nhom1_so_ban * keo_moi_ban_nhom1)) / nhom2_so_ban > 2"
+      ],
+      "formulas": {
+        "keo_da_chia_nhom1": "nhom1_so_ban * keo_moi_ban_nhom1",
+        "keo_con_lai": "tong_keo - keo_da_chia_nhom1",
+        "ans": "keo_con_lai / nhom2_so_ban",
+        "w1_goc": "ans + 1",
+        "w2_goc": "keo_moi_ban_nhom1",
+        "w3_goc": "ans + 3",
+        "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 2) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 4) : w3_goc"
+      },
+      "questionText": "Mẹ có {tong_keo} chiếc kẹo. Mẹ chia đều cho {nhom1_so_ban} bạn ở nhóm thứ nhất, mỗi bạn {keo_moi_ban_nhom1} chiếc. Số kẹo còn lại, mẹ chia đều cho {nhom2_so_ban} bạn ở nhóm thứ hai. Hỏi mỗi bạn ở nhóm thứ hai nhận được bao nhiêu chiếc kẹo?",
+      "options": [
+        "A. {w1} chiếc kẹo",
+        "B. {w2} chiếc kẹo",
+        "C. {ans} chiếc kẹo",
+        "D. {w3} chiếc kẹo"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số kẹo đã chia cho nhóm thứ nhất bằng cách lấy {nhom1_so_ban} nhân với {keo_moi_ban_nhom1}.",
+        "Tính số kẹo còn lại bằng cách lấy {tong_keo} trừ đi số kẹo nhóm thứ nhất đã nhận.",
+        "Lấy số kẹo còn lại chia đều cho {nhom2_so_ban} bạn ở nhóm thứ hai."
+      ],
+      "solutionHtml": "Số kẹo đã chia cho nhóm thứ nhất là: {nhom1_so_ban} x {keo_moi_ban_nhom1} = {keo_da_chia_nhom1} (chiếc kẹo)<br/>Số kẹo còn lại sau khi chia cho nhóm thứ nhất là: {tong_keo} - {keo_da_chia_nhom1} = {keo_con_lai} (chiếc kẹo)<br/>Mỗi bạn ở nhóm thứ hai nhận được số kẹo là: {keo_con_lai} : {nhom2_so_ban} = {ans} (chiếc kẹo)<br/>Đáp án đúng là C.",
+      "tip": "Cần tính toán theo trình tự: xác định phần kẹo đã phát cho nhóm 1, tìm phần còn dư, sau đó thực hiện phép chia cho nhóm 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "gao_ban_dau": {
+          "min": 1500,
+          "max": 3000,
+          "step": 100
+        },
+        "nhap_them_ngay1": {
+          "min": 500,
+          "max": 1000,
+          "step": 50
+        },
+        "xuat_di_ngay2": {
+          "min": 300,
+          "max": 700,
+          "step": 50
+        },
+        "nhap_them_ngay3": {
+          "min": 200,
+          "max": 600,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "gao_ban_dau + nhap_them_ngay1 > xuat_di_ngay2"
+      ],
+      "formulas": {
+        "sau_ngay1": "gao_ban_dau + nhap_them_ngay1",
+        "sau_ngay2": "sau_ngay1 - xuat_di_ngay2",
+        "ans_cuoi_cung": "sau_ngay2 + nhap_them_ngay3",
+        "w1_raw": "gao_ban_dau + nhap_them_ngay1 + xuat_di_ngay2 + nhap_them_ngay3",
+        "w2_raw": "gao_ban_dau - nhap_them_ngay1 + xuat_di_ngay2 - nhap_them_ngay3",
+        "w3_raw": "gao_ban_dau + nhap_them_ngay1 + nhap_them_ngay3",
+        "w1": "(w1_raw === ans_cuoi_cung) ? ans_cuoi_cung + 100 : w1_raw",
+        "w2": "(w2_raw === ans_cuoi_cung || w2_raw === w1) ? ans_cuoi_cung + 200 : w2_raw",
+        "w3": "(w3_raw === ans_cuoi_cung || w3_raw === w1 || w3_raw === w2) ? ans_cuoi_cung + 300 : w3_raw"
+      },
+      "questionText": "Trong một kho ban đầu có {gao_ban_dau} kg gạo. Ngày thứ nhất nhập thêm {nhap_them_ngay1} kg. Ngày thứ hai xuất đi {xuat_di_ngay2} kg. Ngày thứ ba lại nhập thêm {nhap_them_ngay3} kg. Hỏi sau ba ngày, trong kho có tất cả bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans_cuoi_cung} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số gạo trong kho sau ngày thứ nhất (nhập thêm là cộng).",
+        "Tính số gạo trong kho sau ngày thứ hai (xuất đi là trừ).",
+        "Tính số gạo trong kho sau ngày thứ ba (nhập thêm là cộng)."
+      ],
+      "solutionHtml": "Số gạo trong kho sau ngày thứ nhất là:<br/>{gao_ban_dau} + {nhap_them_ngay1} = {sau_ngay1} (kg)<br/>Số gạo trong kho sau ngày thứ hai là:<br/>{sau_ngay1} - {xuat_di_ngay2} = {sau_ngay2} (kg)<br/>Số gạo trong kho sau ngày thứ ba là:<br/>{sau_ngay2} + {nhap_them_ngay3} = {ans_cuoi_cung} (kg)<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán nhiều bước liên quan đến các phép tính cộng, trừ. Hãy thực hiện từng phép tính theo đúng trình tự các sự kiện diễn ra.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_chieu_dai": {
+          "min": 100,
+          "max": 500,
+          "step": 50
+        },
+        "khoang_cach_cay": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong_chieu_dai % khoang_cach_cay === 0",
+        "tong_chieu_dai > 0",
+        "khoang_cach_cay > 0"
+      ],
+      "formulas": {
+        "so_khoang_cach": "tong_chieu_dai / khoang_cach_cay",
+        "ans_so_cay": "so_khoang_cach + 1",
+        "w1": "so_khoang_cach",
+        "w2": "tong_chieu_dai / 2",
+        "w3": "(so_khoang_cach + 2)",
+        "w1_final": "(w1 === ans_so_cay) ? (w1 + 5) : w1",
+        "w2_final": "(w2 === ans_so_cay || w2 === w1) ? (ans_so_cay + 5) : w2",
+        "w3_final": "(w3 === ans_so_cay || w3 === w1 || w3 === w2) ? (ans_so_cay + 10) : w3"
+      },
+      "questionText": "Trên một con đường thẳng dài {tong_chieu_dai} mét, người ta muốn trồng cây ở cả hai đầu đường và khoảng cách giữa hai cây liên tiếp là {khoang_cach_cay} mét. Hỏi cần tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1_final} cây",
+        "B. {ans_so_cay} cây",
+        "C. {w2_final} cây",
+        "D. {w3_final} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số khoảng cách giữa các cây trên đoạn đường bằng cách lấy tổng chiều dài chia cho khoảng cách giữa hai cây.",
+        "Khi trồng cây ở cả hai đầu đường, số cây sẽ nhiều hơn số khoảng cách là 1."
+      ],
+      "solutionHtml": "Số khoảng cách giữa các cây trên con đường là:<br/>{tong_chieu_dai} : {khoang_cach_cay} = {so_khoang_cach} (khoảng cách)<br/>Vì trồng cây ở cả hai đầu đường, nên số cây cần trồng là:<br/>{so_khoang_cach} + 1 = {ans_so_cay} (cây)<br/>Đáp án đúng là B.",
+      "tip": "Đối với bài toán trồng cây ở cả hai đầu đường, số cây sẽ bằng số khoảng cách cộng thêm 1. Hãy cẩn thận với dạng bài này, tránh sai sót quên 'cộng 1'.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_trang_sach": {
+          "min": 250,
+          "max": 400,
+          "step": 10
+        },
+        "ngay1_trang": {
+          "min": 60,
+          "max": 100,
+          "step": 5
+        },
+        "ngay2_so_gio": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "ngay2_trang_moi_gio": {
+          "min": 30,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "tong_trang_sach > ngay1_trang",
+        "tong_trang_sach - ngay1_trang > ngay2_so_gio * ngay2_trang_moi_gio",
+        "(tong_trang_sach - ngay1_trang - (ngay2_so_gio * ngay2_trang_moi_gio)) > 0",
+        "tong_trang_sach % 3 === 0"
+      ],
+      "formulas": {
+        "ngay2_tong_trang": "ngay2_so_gio * ngay2_trang_moi_gio",
+        "trang_da_doc_2_ngay": "ngay1_trang + ngay2_tong_trang",
+        "ans": "tong_trang_sach - trang_da_doc_2_ngay",
+        "w1_goc": "tong_trang_sach - ngay1_trang",
+        "w2_goc": "trang_da_doc_2_ngay",
+        "w3_goc": "tong_trang_sach / 3",
+        "w1": "(w1_goc === ans) ? ans + 7 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 13 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 17 : w3_goc"
+      },
+      "questionText": "Minh đọc một quyển sách dày {tong_trang_sach} trang. Ngày thứ nhất Minh đọc được {ngay1_trang} trang. Ngày thứ hai Minh đọc trong {ngay2_so_gio} giờ, mỗi giờ đọc được {ngay2_trang_moi_gio} trang. Hỏi ngày thứ ba Minh phải đọc bao nhiêu trang sách nữa để hoàn thành quyển sách?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số trang Minh đọc được trong ngày thứ hai bằng cách lấy số giờ nhân số trang mỗi giờ.",
+        "Tính tổng số trang Minh đã đọc trong hai ngày đầu bằng cách cộng số trang ngày 1 và ngày 2.",
+        "Lấy tổng số trang sách trừ đi số trang đã đọc trong hai ngày đầu để tìm số trang ngày thứ ba."
+      ],
+      "solutionHtml": "Số trang sách Minh đọc được trong ngày thứ hai là:<br/>{ngay2_so_gio} $\\times$ {ngay2_trang_moi_gio} $=$ {ngay2_tong_trang} (trang)<br/>Tổng số trang sách Minh đã đọc trong hai ngày đầu là:<br/>{ngay1_trang} $+$ {ngay2_tong_trang} $=$ {trang_da_doc_2_ngay} (trang)<br/>Số trang sách Minh phải đọc trong ngày thứ ba là:<br/>{tong_trang_sach} $-$ {trang_da_doc_2_ngay} $=$ {ans} (trang)<br/>Đáp án đúng là B.",
+      "tip": "Cần tính toán số trang đã đọc mỗi ngày một cách cẩn thận, sau đó cộng tổng lại và cuối cùng là tính phần còn lại bằng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_coc": {
+          "min": 1000,
+          "max": 2000,
+          "step": 100
+        },
+        "coc_vo": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        },
+        "coc_moi_hop": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        },
+        "gia_moi_hop": {
+          "min": 20000,
+          "max": 35000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "tong_coc > coc_vo",
+        "(tong_coc - coc_vo) % coc_moi_hop === 0",
+        "(tong_coc - coc_vo) / coc_moi_hop > 50"
+      ],
+      "formulas": {
+        "coc_lanh": "tong_coc - coc_vo",
+        "so_hop_coc": "coc_lanh / coc_moi_hop",
+        "ans": "so_hop_coc * gia_moi_hop",
+        "w1_goc": "tong_coc * gia_moi_hop",
+        "w1": "(w1_goc === ans) ? ans + gia_moi_hop : w1_goc",
+        "w2_goc": "coc_lanh + so_hop_coc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10000 : w2_goc",
+        "w3": "so_hop_coc"
+      },
+      "questionText": "Một xưởng sản xuất được {tong_coc} chiếc cốc. Trong đó có {coc_vo} chiếc bị vỡ, không dùng được. Số cốc còn lại được đóng vào các hộp, mỗi hộp {coc_moi_hop} chiếc. Biết mỗi hộp cốc được bán với giá {gia_moi_hop} đồng. Hỏi xưởng đó thu được bao nhiêu tiền từ việc bán số cốc không bị vỡ?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số chiếc cốc lành (không bị vỡ).",
+        "Tính số hộp cốc lành có được.",
+        "Tính tổng số tiền thu được từ việc bán các hộp cốc lành."
+      ],
+      "solutionHtml": "Số chiếc cốc lành (không bị vỡ) là: {tong_coc} - {coc_vo} = {coc_lanh} (chiếc)<br/>Số hộp cốc lành có được là: {coc_lanh} : {coc_moi_hop} = {so_hop_coc} (hộp)<br/>Tổng số tiền xưởng đó thu được là: {so_hop_coc} x {gia_moi_hop} = {ans} (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này đòi hỏi nhiều bước tính toán: trừ để tìm số lượng sản phẩm tốt, chia để đóng gói thành các đơn vị bán, rồi nhân để tính tổng doanh thu.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "gia_mot_quyen_vo": {
+          "min": 5000,
+          "max": 8000,
+          "step": 500
+        },
+        "so_quyen_vo_mua": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "tien_thua_con_lai": {
+          "min": 10000,
+          "max": 30000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "(gia_mot_quyen_vo * so_quyen_vo_mua + tien_thua_con_lai) % 1000 === 0"
+      ],
+      "formulas": {
+        "tong_tien_ban_dau": "gia_mot_quyen_vo * so_quyen_vo_mua + tien_thua_con_lai",
+        "ans": "gia_mot_quyen_vo",
+        "w1": "(gia_mot_quyen_vo + 500 === ans) ? gia_mot_quyen_vo + 1500 : gia_mot_quyen_vo + 500",
+        "w2": "(gia_mot_quyen_vo - 500 === ans || gia_mot_quyen_vo - 500 === w1) ? gia_mot_quyen_vo - 1000 : gia_mot_quyen_vo - 500",
+        "w3": "(gia_mot_quyen_vo * 2 === ans || gia_mot_quyen_vo * 2 === w1 || gia_mot_quyen_vo * 2 === w2) ? gia_mot_quyen_vo + 2000 : gia_mot_quyen_vo * 2"
+      },
+      "questionText": "Một bạn học sinh đi mua {so_quyen_vo_mua} quyển vở. Bạn đưa cho cô bán hàng {tong_tien_ban_dau} đồng và được trả lại {tien_thua_con_lai} đồng. Hỏi giá tiền của mỗi quyển vở là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w2} đồng",
+        "C. {ans} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số tiền thực tế bạn học sinh đã chi trả cho số quyển vở.",
+        "Lấy số tiền thực tế đã chi chia cho số quyển vở đã mua để tìm giá của mỗi quyển vở."
+      ],
+      "solutionHtml": "Số tiền thực tế bạn học sinh đã chi trả để mua vở là:<br/>{tong_tien_ban_dau} - {tien_thua_con_lai} = {ans} * {so_quyen_vo_mua} (đồng)<br/>Giá tiền của mỗi quyển vở là:<br/>( {tong_tien_ban_dau} - {tien_thua_con_lai} ) : {so_quyen_vo_mua} = {ans} (đồng)<br/>Đáp án đúng là C.",
+      "tip": "Để tìm giá tiền của một đơn vị sản phẩm khi biết tổng số tiền đã chi và số lượng sản phẩm, ta lấy tổng số tiền chi trả chia cho số lượng sản phẩm.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_hoc_sinh": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "nhom_nu": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "nhom_nam": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "hoc_sinh_chua_phan": {
+          "min": 10,
+          "max": 30,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong_hoc_sinh > (nhom_nu + nhom_nam)",
+        "tong_hoc_sinh - (nhom_nu + nhom_nam) == hoc_sinh_chua_phan"
+      ],
+      "formulas": {
+        "hoc_sinh_da_chia": "nhom_nu + nhom_nam",
+        "ans_chua_phan": "tong_hoc_sinh - hoc_sinh_da_chia",
+        "w1_raw": "tong_hoc_sinh",
+        "w2_raw": "nhom_nu + nhom_nam + 10",
+        "w3_raw": "hoc_sinh_da_chia",
+        "w1": "(w1_raw === ans_chua_phan) ? ans_chua_phan + 5 : w1_raw",
+        "w2": "(w2_raw === ans_chua_phan || w2_raw === w1) ? (((ans_chua_phan + 7) === w1) ? ans_chua_phan + 11 : ans_chua_phan + 7) : w2_raw",
+        "w3": "(w3_raw === ans_chua_phan || w3_raw === w1 || w3_raw === w2) ? ans_chua_phan + 15 : w3_raw"
+      },
+      "questionText": "Một trường tiểu học có tổng cộng {tong_hoc_sinh} học sinh. Trong đó có {nhom_nu} học sinh nữ và {nhom_nam} học sinh nam. Hỏi còn lại bao nhiêu học sinh chưa được phân vào nhóm nữ hay nhóm nam (có thể là học sinh mới chuyển đến hoặc vắng mặt hôm đó)?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans_chua_phan} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số học sinh đã được phân vào nhóm nữ và nhóm nam.",
+        "Lấy tổng số học sinh của trường trừ đi số học sinh đã được phân nhóm."
+      ],
+      "solutionHtml": "Tổng số học sinh đã được phân vào nhóm nữ và nhóm nam là: {nhom_nu} + {nhom_nam} = {hoc_sinh_da_chia} học sinh.<br/>Số học sinh còn lại chưa được phân nhóm là: {tong_hoc_sinh} - {hoc_sinh_da_chia} = {ans_chua_phan} học sinh.<br/>Đáp án đúng là B.",
+      "tip": "Cần tính tổng số lượng của các phần đã biết, sau đó lấy tổng thể trừ đi tổng các phần đã biết để tìm phần còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q12"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_bong": {
+          "min": 500,
+          "max": 1000,
+          "step": 50
+        },
+        "lan1_lay": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "lan2_lay_phan_con_lai": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "lan3_tra_lai": {
+          "min": 50,
+          "max": 100,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "tong_bong > lan1_lay",
+        "(tong_bong - lan1_lay) % lan2_lay_phan_con_lai === 0",
+        "((tong_bong - lan1_lay) / lan2_lay_phan_con_lai) + lan3_tra_lai < tong_bong",
+        "((tong_bong - lan1_lay) - ((tong_bong - lan1_lay) / lan2_lay_phan_con_lai)) + lan3_tra_lai > 100",
+        "((tong_bong - lan1_lay) - (tong_bong - lan1_lay) / lan2_lay_phan_con_lai + lan3_tra_lai) != (tong_bong - lan1_lay - (tong_bong - lan1_lay) / lan2_lay_phan_con_lai)",
+        "((tong_bong - lan1_lay) - (tong_bong - lan1_lay) / lan2_lay_phan_con_lai + lan3_tra_lai) != (tong_bong + lan1_lay + (tong_bong - lan1_lay) / lan2_lay_phan_con_lai + lan3_tra_lai)",
+        "((tong_bong - lan1_lay) - (tong_bong - lan1_lay) / lan2_lay_phan_con_lai + lan3_tra_lai) != ((tong_bong - lan1_lay) / lan2_lay_phan_con_lai)"
+      ],
+      "formulas": {
+        "con_lai_sau_lan1": "tong_bong - lan1_lay",
+        "lan2_lay_so_luong": "con_lai_sau_lan1 / lan2_lay_phan_con_lai",
+        "con_lai_sau_lan2": "con_lai_sau_lan1 - lan2_lay_so_luong",
+        "ans_cuoi_cung": "con_lai_sau_lan2 + lan3_tra_lai",
+        "w1_goc": "con_lai_sau_lan2",
+        "w2_goc": "tong_bong + lan1_lay + lan2_lay_so_luong + lan3_tra_lai",
+        "w3_goc": "lan2_lay_so_luong",
+        "w1": "(w1_goc === ans_cuoi_cung) ? ans_cuoi_cung + 5 : w1_goc",
+        "w2": "(w2_goc === ans_cuoi_cung || w2_goc === w1) ? (ans_cuoi_cung + 11) : w2_goc",
+        "w3": "(w3_goc === ans_cuoi_cung || w3_goc === w1 || w3_goc === w2) ? (ans_cuoi_cung + 17) : w3_goc"
+      },
+      "questionText": "Trong hộp có {tong_bong} quả bóng. Lần thứ nhất, lấy ra {lan1_lay} quả. Lần thứ hai, lấy ra 1/ {lan2_lay_phan_con_lai} số bóng còn lại. Sau đó, người ta bỏ thêm vào hộp {lan3_tra_lai} quả. Hỏi trong hộp có bao nhiêu quả bóng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans_cuoi_cung} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số bóng còn lại sau lần lấy thứ nhất bằng cách lấy {tong_bong} trừ {lan1_lay}.",
+        "Tính số bóng lấy ra trong lần thứ hai bằng cách lấy kết quả trên chia cho {lan2_lay_phan_con_lai}.",
+        "Tính số bóng còn lại sau lần lấy thứ hai bằng cách lấy số bóng sau lần 1 trừ số bóng đã lấy ở lần 2.",
+        "Tính số bóng trong hộp sau cùng bằng cách cộng thêm {lan3_tra_lai} quả."
+      ],
+      "solutionHtml": "Số bóng còn lại trong hộp sau lần lấy thứ nhất là: {tong_bong} - {lan1_lay} = {con_lai_sau_lan1} (quả).<br/>Số bóng lấy ra trong lần thứ hai là: {con_lai_sau_lan1} : {lan2_lay_phan_con_lai} = {lan2_lay_so_luong} (quả).<br/>Số bóng còn lại trong hộp sau lần lấy thứ hai là: {con_lai_sau_lan1} - {lan2_lay_so_luong} = {con_lai_sau_lan2} (quả).<br/>Số bóng trong hộp sau khi bỏ thêm vào là: {con_lai_sau_lan2} + {lan3_tra_lai} = {ans_cuoi_cung} (quả).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu thực hiện các phép tính theo đúng trình tự thời gian của các sự kiện, hãy xác định 'số bóng còn lại' trước khi thực hiện phép chia ở lần lấy thứ hai.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c1-q13"
+    }
+  ]
+}

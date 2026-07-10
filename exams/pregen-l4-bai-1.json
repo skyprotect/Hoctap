@@ -1,0 +1,581 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "d5_val": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "d4_val": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d3_val": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "factor_tens_units": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "d1": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d2 <= 9",
+        "ans_sum_all_digits <= 35",
+        "ans_sum_all_digits >= 5"
+      ],
+      "formulas": {
+        "d2": "d1 * factor_tens_units",
+        "sum_of_known_digits": "d5_val + d4_val + d3_val",
+        "sum_of_d1_d2": "d1 + d2",
+        "ans_sum_all_digits": "sum_of_known_digits + sum_of_d1_d2",
+        "ans_number": "d5_val * 10000 + d4_val * 1000 + d3_val * 100 + d2 * 10 + d1",
+        "w1_raw": "ans_number + 1",
+        "w2_raw": "ans_number - 10",
+        "w3_raw": "d5_val * 10000 + d4_val * 1000 + d2 * 100 + d3_val * 10 + d1",
+        "w1": "(w1_raw === ans_number) ? ans_number + 2 : w1_raw",
+        "w2": "(w2_raw === ans_number || w2_raw === w1) ? ans_number + 20 : w2_raw",
+        "w3": "(w3_raw === ans_number || w3_raw === w1 || w3_raw === w2) ? ans_number + 100 : w3_raw"
+      },
+      "questionText": "Một số có 5 chữ số thỏa mãn các điều kiện sau:<br/>* Chữ số hàng chục nghìn là {d5_val}.<br/>* Chữ số hàng nghìn là {d4_val}.<br/>* Chữ số hàng trăm là {d3_val}.<br/>* Chữ số hàng chục gấp {factor_tens_units} lần chữ số hàng đơn vị.<br/>* Tổng các chữ số của nó là {ans_sum_all_digits}.<br/>Số đó là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans_number}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi chữ số hàng đơn vị là x, chữ số hàng chục là y. Ta có y = {factor_tens_units} nhân x.",
+        "Tổng các chữ số hàng chục nghìn, hàng nghìn, hàng trăm là {d5_val} + {d4_val} + {d3_val} = {sum_of_known_digits}. Tổng các chữ số hàng chục và hàng đơn vị là {ans_sum_all_digits} - {sum_of_known_digits} = {sum_of_d1_d2}."
+      ],
+      "solutionHtml": "Gọi chữ số hàng đơn vị là x, chữ số hàng chục là y. Theo đề bài, y = {factor_tens_units} nhân x.<br/>Tổng các chữ số hàng chục nghìn, nghìn, trăm là {sum_of_known_digits}.<br/>Tổng của chữ số hàng đơn vị và hàng chục là: {ans_sum_all_digits} - {sum_of_known_digits} = {sum_of_d1_d2}.<br/>Ta có: x + ({factor_tens_units} nhân x) = {sum_of_d1_d2}, tức là {factor_tens_units + 1} nhân x = {sum_of_d1_d2}.<br/>Vậy x = {sum_of_d1_d2} chia {factor_tens_units + 1} = {d1}.<br/>Chữ số hàng đơn vị là {d1}, chữ số hàng chục là {d2}.<br/>Số cần tìm là {ans_number}.",
+      "tip": "Khi giải các bài toán về số có điều kiện, hãy gọi các chữ số chưa biết là biến, lập biểu thức tổng chữ số rồi tìm giá trị từng chữ số."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pop_a": {
+          "min": 25000,
+          "max": 40000,
+          "step": 1000
+        },
+        "pop_b_less": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        },
+        "pop_c_more": {
+          "min": 3000,
+          "max": 8000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "pop_a - pop_b_less > 10000",
+        "pop_a + pop_c_more < 100000"
+      ],
+      "formulas": {
+        "pop_b": "pop_a - pop_b_less",
+        "pop_c": "pop_a + pop_c_more",
+        "ans": "pop_a + pop_b + pop_c",
+        "w1_goc": "ans + 1000",
+        "w2_goc": "pop_a + pop_b - pop_c",
+        "w3_goc": "pop_a * 3",
+        "w1": "(w1_goc === ans) ? ans + 5000 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (((ans + 10000) === w1) ? ans + 20000 : ans + 10000) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 25000 : w3_goc"
+      },
+      "questionText": "Một tỉnh có ba huyện. Huyện A có {pop_a} người. Huyện B ít hơn huyện A {pop_b_less} người. Huyện C nhiều hơn huyện A {pop_c_more} người. Hỏi cả ba huyện có tất cả bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số dân của huyện B.",
+        "Tiếp theo, hãy tính số dân của huyện C.",
+        "Cuối cùng, tính tổng số dân của cả ba huyện."
+      ],
+      "solutionHtml": "Số dân của huyện B là:<br/>{pop_a} - {pop_b_less} = {pop_b} (người)<br/><br/>Số dân của huyện C là:<br/>{pop_a} + {pop_c_more} = {pop_c} (người)<br/><br/>Tổng số dân của cả ba huyện là:<br/>{pop_a} + {pop_b} + {pop_c} = {ans} (người)<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định mối quan hệ giữa các đại lượng. Hãy tính từng bước một: tìm số dân của huyện B, sau đó tìm số dân của huyện C, rồi mới tính tổng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start_num": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        },
+        "add_val": {
+          "min": 1000,
+          "max": 3000,
+          "step": 100
+        },
+        "num_steps": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "start_num + add_val * num_steps < 100000"
+      ],
+      "formulas": {
+        "num_steps_plus_1": "num_steps + 1",
+        "add_val_times_2": "add_val * 2",
+        "ans": "start_num + add_val * num_steps",
+        "w1_raw": "start_num + add_val * (num_steps - 1)",
+        "w2_raw": "start_num + add_val * (num_steps + 1)",
+        "w3_raw": "start_num + add_val",
+        "w1": "(w1_raw === ans) ? w1_raw + 1 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (((ans + 1) === w1) ? ans + 2 : ans + 1) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 3 : w3_raw"
+      },
+      "questionText": "Một dãy số được viết theo quy luật sau: bắt đầu từ {start_num}, số tiếp theo bằng số liền trước cộng thêm {add_val}. Hỏi số thứ {num_steps_plus_1} trong dãy là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số thứ nhất là {start_num}.",
+        "Số thứ hai là {start_num} + {add_val}.",
+        "Số thứ ba là {start_num} + {add_val_times_2}.",
+        "Hãy tìm quy luật tổng quát để tính số thứ {num_steps_plus_1}."
+      ],
+      "solutionHtml": "Dãy số có số hạng đầu tiên là {start_num}.<br/>Quy luật là số sau bằng số trước cộng thêm {add_val}.<br/>Số thứ 1: {start_num}<br/>Số thứ 2: {start_num} + {add_val} $\\times$ 1<br/>Số thứ 3: {start_num} + {add_val_times_2}<br/>...<br/>Số thứ $n$: {start_num} + {add_val} $\\times (n-1)$<br/><br/>Vậy, số thứ {num_steps_plus_1} trong dãy sẽ là:<br/>{start_num} + {add_val} $\\times$ ({num_steps_plus_1} - 1) = {start_num} + {add_val} $\\times$ {num_steps} = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi làm bài toán về dãy số, hãy tìm ra quy luật chung. Nếu số thứ nhất là $a$ và công sai là $d$, thì số thứ $n$ sẽ là $a + (n-1) \\times d$."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_money": {
+          "min": 50000,
+          "max": 70000,
+          "step": 5000
+        },
+        "spent_food": {
+          "min": 15000,
+          "max": 25000,
+          "step": 1000
+        },
+        "spent_book": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        },
+        "earned_money": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "initial_money > spent_food + spent_book",
+        "initial_money - spent_food - spent_book + earned_money < 100000"
+      ],
+      "formulas": {
+        "total_spent": "spent_food + spent_book",
+        "money_after_spending": "initial_money - total_spent",
+        "ans": "money_after_spending + earned_money",
+        "w1_orig": "initial_money - spent_food + spent_book + earned_money",
+        "w2_orig": "initial_money + spent_food - spent_book + earned_money",
+        "w3_orig": "initial_money - spent_food - spent_book - earned_money",
+        "w1": "(w1_orig === ans) ? (w1_orig + 5) : w1_orig",
+        "w2": "(w2_orig === ans || w2_orig === w1) ? ( ( (ans + 5) === w1) ? (ans + 9) : (ans + 5) ) : w2_orig",
+        "w3": "(w3_orig === ans || w3_orig === w1 || w3_orig === w2) ? (ans + 12) : w3_orig"
+      },
+      "questionText": "Dũng có {initial_money} đồng. Dũng mua đồ ăn hết {spent_food} đồng và mua một cuốn sách hết {spent_book} đồng. Sau đó, Dũng được bà cho thêm {earned_money} đồng. Hỏi hiện tại Dũng có bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số tiền Dũng đã tiêu.",
+        "Sau đó, tính số tiền còn lại của Dũng sau khi tiêu.",
+        "Cuối cùng, cộng số tiền Dũng được bà cho thêm vào số tiền còn lại."
+      ],
+      "solutionHtml": "Số tiền Dũng đã tiêu là:<br/>{spent_food} + {spent_book} = {total_spent} (đồng)<br/><br/>Số tiền Dũng còn lại sau khi tiêu là:<br/>{initial_money} - {total_spent} = {money_after_spending} (đồng)<br/><br/>Số tiền Dũng có hiện tại sau khi được bà cho thêm là:<br/>{money_after_spending} + {earned_money} = {ans} (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Trong bài toán nhiều phép tính, cần thực hiện đúng thứ tự các phép tính: trừ đi số tiền đã tiêu, sau đó cộng thêm số tiền được cho."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "original_num": {
+          "min": 12345,
+          "max": 19876,
+          "step": 1
+        },
+        "digit_to_change_pos": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "new_digit_val": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "parseInt(original_num.toString().charAt(5 - digit_to_change_pos)) !== new_digit_val",
+        "original_num.toString().charAt(0) !== '0'"
+      ],
+      "formulas": {
+        "original_str": "original_num.toString()",
+        "temp_digit_change_old_str": "original_num.toString().charAt(5 - digit_to_change_pos)",
+        "temp_digit_change_old": "parseInt(temp_digit_change_old_str)",
+        "temp_val_multiplier": "(digit_to_change_pos === 1) ? 1 : ((digit_to_change_pos === 2) ? 10 : ((digit_to_change_pos === 3) ? 100 : ((digit_to_change_pos === 4) ? 1000 : 10000)))",
+        "old_digit_value_at_pos": "temp_digit_change_old * temp_val_multiplier",
+        "new_digit_value_at_pos": "new_digit_val * temp_val_multiplier",
+        "ans": "original_num - old_digit_value_at_pos + new_digit_value_at_pos",
+        "digit_to_change_name": "['đơn vị', 'chục', 'trăm', 'nghìn', 'chục nghìn'][digit_to_change_pos - 1]",
+        "w1_initial": "ans + 10",
+        "w2_initial": "ans - 100",
+        "w3_initial": "original_num + new_digit_val * temp_val_multiplier",
+        "w1": "w1_initial",
+        "w2": "w2_initial",
+        "w3_check1": "(w3_initial === ans || w3_initial === w1 || w3_initial === w2) ? ans + 1 : w3_initial",
+        "w3_check2": "(w3_check1 === ans || w3_check1 === w1 || w3_check1 === w2) ? ans + 2 : w3_check1",
+        "w3": "(w3_check2 === ans || w3_check2 === w1 || w3_check2 === w2) ? ans + 3 : w3_check2"
+      },
+      "questionText": "Cho số {original_num}. Nếu thay đổi chữ số hàng {digit_to_change_name} thành {new_digit_val} thì ta được số mới là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định chữ số cũ ở vị trí cần thay đổi và giá trị của nó.",
+        "Tính phần giá trị thay đổi do việc thay thế chữ số."
+      ],
+      "solutionHtml": "Số ban đầu là {original_num}.<br/>Vị trí cần thay đổi là hàng {digit_to_change_name}.<br/>Chữ số cũ ở vị trí hàng {digit_to_change_name} là {temp_digit_change_old}.<br/>Chữ số mới là {new_digit_val}.<br/><br/>Giá trị của chữ số cũ ở vị trí đó là {temp_digit_change_old} $\\times$ {temp_val_multiplier} = {old_digit_value_at_pos}.<br/>Giá trị của chữ số mới ở vị trí đó là {new_digit_val} $\\times$ {temp_val_multiplier} = {new_digit_value_at_pos}.<br/><br/>Để tìm số mới, ta lấy số ban đầu trừ đi giá trị của chữ số cũ ở vị trí đó, rồi cộng với giá trị của chữ số mới ở vị trí đó.<br/>Số mới là: {original_num} - {old_digit_value_at_pos} + {new_digit_value_at_pos} = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi thay đổi một chữ số ở một vị trí cụ thể, hãy nhớ rằng giá trị của chữ số đó phụ thuộc vào vị trí của nó (hàng đơn vị, hàng chục, hàng trăm, ...)."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_trees": {
+          "min": 30000,
+          "max": 40000,
+          "step": 1000
+        },
+        "first_year_plant": {
+          "min": 5000,
+          "max": 8000,
+          "step": 500
+        },
+        "second_year_plant": {
+          "min": 7000,
+          "max": 10000,
+          "step": 500
+        },
+        "trees_lost": {
+          "min": 1000,
+          "max": 3000,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "initial_trees + first_year_plant + second_year_plant - trees_lost < 100000",
+        "initial_trees + first_year_plant + second_year_plant - trees_lost > 10000"
+      ],
+      "formulas": {
+        "total_planted": "first_year_plant + second_year_plant",
+        "total_after_planting": "initial_trees + total_planted",
+        "ans": "total_after_planting - trees_lost",
+        "w1_temp": "initial_trees + total_planted + trees_lost",
+        "w2_temp": "initial_trees - total_planted + trees_lost",
+        "w3_temp": "initial_trees + first_year_plant - second_year_plant - trees_lost",
+        "w1": "(w1_temp === ans) ? ans + 100 : w1_temp",
+        "w2_candidate": "(w2_temp === ans) ? ans + 200 : w2_temp",
+        "w2": "(w2_candidate === w1) ? ans + 300 : w2_candidate",
+        "w3_candidate": "(w3_temp === ans) ? ans + 400 : w3_temp",
+        "w3_candidate2": "(w3_candidate === w1) ? ans + 500 : w3_candidate",
+        "w3": "(w3_candidate2 === w2) ? ans + 600 : w3_candidate2"
+      },
+      "questionText": "Một lâm trường có {initial_trees} cây. Năm thứ nhất lâm trường trồng thêm {first_year_plant} cây. Năm thứ hai trồng thêm {second_year_plant} cây nữa. Tuy nhiên, trong hai năm đó, có {trees_lost} cây bị chết do sâu bệnh. Hỏi sau hai năm, lâm trường còn lại bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số cây đã được trồng thêm trong hai năm.",
+        "Sau đó, cộng số cây ban đầu với số cây đã trồng thêm và trừ đi số cây bị chết."
+      ],
+      "solutionHtml": "Tổng số cây lâm trường đã trồng thêm trong hai năm là:<br/>{first_year_plant} + {second_year_plant} = {total_planted} (cây)<br/><br/>Tổng số cây có sau khi trồng thêm là:<br/>{initial_trees} + {total_planted} = {total_after_planting} (cây)<br/><br/>Số cây còn lại sau khi trừ đi số cây bị chết là:<br/>{total_after_planting} - {trees_lost} = {ans} (cây)<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này có nhiều bước. Hãy cẩn thận với phép tính cộng (trồng thêm) và phép tính trừ (cây bị chết)."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_members": {
+          "min": 30,
+          "max": 50,
+          "step": 1
+        },
+        "group_a_size": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "group_b_size": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "max_group_c_size": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total_members > group_a_size + group_b_size",
+        "total_members - group_a_size - group_b_size <= max_group_c_size"
+      ],
+      "formulas": {
+        "group_a_b_total": "group_a_size + group_b_size",
+        "remaining_members": "total_members - group_a_b_total",
+        "ans": "remaining_members",
+        "w1_goc": "total_members + group_a_size + group_b_size",
+        "w2_goc": "group_a_size + group_b_size",
+        "w3_goc": "remaining_members + 1",
+        "w1": "(w1_goc === ans) ? (w1_goc + 5) : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (((ans + 5) === w1) ? (ans + 9) : (ans + 5)) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 12) : w3_goc"
+      },
+      "questionText": "Trong một câu lạc bộ có {total_members} thành viên. Có {group_a_size} thành viên tham gia nhóm bơi lội và {group_b_size} thành viên tham gia nhóm bóng đá. Những thành viên còn lại tham gia nhóm cờ vua. Hỏi nhóm cờ vua có bao nhiêu thành viên? (Biết mỗi thành viên chỉ tham gia đúng một nhóm).",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số thành viên của nhóm bơi lội và nhóm bóng đá.",
+        "Lấy tổng số thành viên của câu lạc bộ trừ đi tổng số thành viên của hai nhóm trên để tìm số thành viên của nhóm cờ vua."
+      ],
+      "solutionHtml": "Tổng số thành viên tham gia nhóm bơi lội và nhóm bóng đá là:<br/>{group_a_size} + {group_b_size} = {group_a_b_total} (thành viên)<br/><br/>Vì mỗi thành viên chỉ tham gia đúng một nhóm, nên số thành viên của nhóm cờ vua là:<br/>{total_members} - ({group_a_size} + {group_b_size}) = {total_members} - {group_a_b_total} = {ans} (thành viên)<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán 'tìm phần còn lại'. Hãy xác định tổng số lượng và các phần đã biết, sau đó dùng phép trừ để tìm phần chưa biết."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start_value": {
+          "min": 50000,
+          "max": 70000,
+          "step": 1000
+        },
+        "minus_first": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        },
+        "add_second": {
+          "min": 7000,
+          "max": 12000,
+          "step": 500
+        },
+        "minus_third": {
+          "min": 2000,
+          "max": 6000,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "start_value - minus_first > 10000",
+        "start_value - minus_first + add_second < 100000",
+        "start_value - minus_first + add_second - minus_third > 10000"
+      ],
+      "formulas": {
+        "after_first": "start_value - minus_first",
+        "after_second": "after_first + add_second",
+        "ans": "after_second - minus_third",
+        "w1": "ans + 100",
+        "w2": "ans - 1000",
+        "w3_base": "start_value + minus_first - add_second + minus_third",
+        "w3": "(w3_base === ans || w3_base === w1 || w3_base === w2) ? (ans + 1234) : w3_base"
+      },
+      "questionText": "Có một số, nếu lấy số đó trừ đi {minus_first}, sau đó cộng thêm {add_second}, rồi lại trừ đi {minus_third} thì được {ans}. Hỏi số ban đầu là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {start_value}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán 'tìm số ban đầu' bằng cách làm ngược lại các phép tính.",
+        "Nếu cuối cùng là 'trừ đi', thì khi làm ngược lại ta sẽ 'cộng thêm'.",
+        "Nếu cuối cùng là 'cộng thêm', thì khi làm ngược lại ta sẽ 'trừ đi'."
+      ],
+      "solutionHtml": "Để tìm số ban đầu, ta thực hiện các phép tính ngược lại:<br/>Số trước khi trừ đi {minus_third} là:<br/>{ans} + {minus_third} = {after_second}<br/><br/>Số trước khi cộng thêm {add_second} là:<br/>{after_second} - {add_second} = {after_first}<br/><br/>Số ban đầu (trước khi trừ đi {minus_first}) là:<br/>{after_first} + {minus_first} = {start_value}<br/>Vậy số ban đầu là {start_value}.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu tìm số ban đầu thông qua một chuỗi các phép tính, hãy thực hiện các phép tính ngược lại với thứ tự đảo ngược (từ cuối lên đầu)."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_classes": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "students_per_class": {
+          "min": 25,
+          "max": 35,
+          "step": 1
+        },
+        "total_extra_students": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num_classes * students_per_class + total_extra_students < 200",
+        "num_classes * students_per_class + total_extra_students > 100"
+      ],
+      "formulas": {
+        "students_in_classes": "num_classes * students_per_class",
+        "ans": "students_in_classes + total_extra_students",
+        "w1_goc": "students_in_classes - total_extra_students",
+        "w1": "(w1_goc === ans) ? w1_goc + 5 : w1_goc",
+        "w2_goc": "num_classes + students_per_class + total_extra_students",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (((ans + 5) === w1) ? ans + 9 : ans + 5) : w2_goc",
+        "w3_goc": "students_in_classes + total_extra_students + 1",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 12 : w3_goc"
+      },
+      "questionText": "Một trường tiểu học có {num_classes} lớp 4. Mỗi lớp có {students_per_class} học sinh. Ngoài ra, còn có {total_extra_students} học sinh giỏi khối 4 đang tham gia đội tuyển học sinh giỏi của trường. Hỏi khối 4 của trường đó có tất cả bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số học sinh trong các lớp 4.",
+        "Sau đó, cộng thêm số học sinh giỏi đang tham gia đội tuyển."
+      ],
+      "solutionHtml": "Tổng số học sinh trong các lớp 4 là:<br/>{num_classes} $ \\times $ {students_per_class} $ = $ {students_in_classes} (học sinh)<br/><br/>Tổng số học sinh khối 4 của trường là:<br/>{students_in_classes} $ + $ {total_extra_students} $ = $ {ans} (học sinh)<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến các thông tin riêng biệt. Số học sinh đội tuyển là 'bổ sung' cho tổng số học sinh của các lớp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_stations": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "items_per_station": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        },
+        "remaining_items": {
+          "min": 1000,
+          "max": 5000,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "num_stations * items_per_station + remaining_items < 100000"
+      ],
+      "formulas": {
+        "products_from_stations": "num_stations * items_per_station",
+        "ans": "products_from_stations + remaining_items",
+        "w1_base": "products_from_stations - remaining_items",
+        "w2_base": "num_stations + items_per_station + remaining_items",
+        "w3_base": "items_per_station + remaining_items",
+        "w1": "(w1_base === ans) ? ans + 5 : w1_base",
+        "w2": "(w2_base === ans || w2_base === w1) ? (((ans + 5) === w1) ? ans + 9 : ans + 5) : w2_base",
+        "w3": "(w3_base === ans || w3_base === w1 || w3_base === w2) ? ans + 12 : w3_base"
+      },
+      "questionText": "Một nhà máy sản xuất có {num_stations} dây chuyền hoạt động. Mỗi dây chuyền sản xuất được {items_per_station} sản phẩm mỗi ngày. Sau khi hoạt động hết công suất, nhà máy còn {remaining_items} sản phẩm đang chờ đóng gói. Hỏi trong ngày hôm đó, nhà máy đã sản xuất được tổng cộng bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số sản phẩm mà tất cả các dây chuyền đã sản xuất được.",
+        "Cộng thêm số sản phẩm đang chờ đóng gói để có tổng số sản phẩm đã sản xuất."
+      ],
+      "solutionHtml": "Tổng số sản phẩm mà {num_stations} dây chuyền đã sản xuất là:<br/>{num_stations} x {items_per_station} = {products_from_stations} (sản phẩm)<br/><br/>Tổng số sản phẩm nhà máy đã sản xuất trong ngày hôm đó là:<br/>{products_from_stations} + {remaining_items} = {ans} (sản phẩm)<br/>Đáp án đúng là B.",
+      "tip": "Đây là một bài toán kết hợp phép nhân và phép cộng. Đảm bảo bạn hiểu rõ từng phần của quá trình sản xuất."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "large_num": {
+          "min": 70000,
+          "max": 90000,
+          "step": 1000
+        },
+        "small_num_diff": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "large_num - small_num_diff > 10000"
+      ],
+      "formulas": {
+        "small_num_val": "large_num - small_num_diff",
+        "ans_base": "large_num + formulas.small_num_val",
+        "w1_base": "large_num - formulas.small_num_val",
+        "w2_base": "formulas.ans_base + 1000",
+        "w3_base": "large_num * 2",
+        "small_num": "formulas.small_num_val",
+        "ans": "formulas.ans_base",
+        "w1": "(formulas.w1_base === formulas.ans) ? formulas.w1_base + 5 : formulas.w1_base",
+        "w2": "(formulas.w2_base === formulas.ans || formulas.w2_base === formulas.w1) ? (((formulas.ans + 5) === formulas.w1) ? formulas.ans + 9 : formulas.ans + 5) : formulas.w2_base",
+        "w3": "(formulas.w3_base === formulas.ans || formulas.w3_base === formulas.w1 || formulas.w3_base === formulas.w2) ? (( (formulas.ans + 12 === formulas.w1) || (formulas.ans + 12 === formulas.w2) ) ? formulas.ans + 15 : formulas.ans + 12) : formulas.w3_base"
+      },
+      "questionText": "Hai số có tổng là một số có giá trị đặc biệt. Biết số lớn là {large_num}. Số bé ít hơn số lớn {small_num_diff} đơn vị. Hỏi tổng của hai số đó là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tìm số bé.",
+        "Sau đó, cộng số lớn và số bé để tìm tổng."
+      ],
+      "solutionHtml": "Số bé là:<br/>{large_num} - {small_num_diff} = {small_num} (đơn vị)<br/><br/>Tổng của hai số đó là:<br/>{large_num} + {small_num} = {ans} (đơn vị)<br/>Đáp án đúng là B.",
+      "tip": "Cần tìm đủ các số hạng trước khi thực hiện phép tính cuối cùng. Ở đây, bạn phải tìm số bé trước khi tính tổng."
+    }
+  ]
+}

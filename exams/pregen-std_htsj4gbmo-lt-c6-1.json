@@ -1,0 +1,613 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "row1": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "row2": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "remainder": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "lowerBound": {
+          "min": 200,
+          "max": 250,
+          "step": 1
+        },
+        "upperBound": {
+          "min": 300,
+          "max": 350,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "row1 !== row2",
+        "remainder < row1",
+        "remainder < row2",
+        "lowerBound < upperBound"
+      ],
+      "formulas": {
+        "gcd_val": "function(a, b) { while (b) { var temp = b; b = a % b; a = temp; } return a; }(row1, row2)",
+        "lcm_val": "(row1 * row2) / gcd_val",
+        "temp_ans": "lcm_val",
+        "ans": "function(lcm, rem, min, max) { var k = 1; var current = lcm * k + rem; while (current < min) { k++; current = lcm * k + rem; } if (current > max) return -1; return current; }(lcm_val, remainder, lowerBound, upperBound)",
+        "w1": "ans - lcm_val",
+        "w2": "ans + lcm_val",
+        "w3": "ans - remainder + 1",
+        "lcm_val_x2": "lcm_val * 2",
+        "lcm_val_x3": "lcm_val * 3",
+        "lcm_val_plus_remainder": "lcm_val + remainder",
+        "lcm_val_x2_plus_remainder": "lcm_val * 2 + remainder",
+        "lcm_val_x3_plus_remainder": "lcm_val * 3 + remainder"
+      },
+      "questionText": "Trong một buổi sinh hoạt ngoại khóa, một nhóm học sinh khi xếp hàng {row1} người một hàng thì thừa {remainder} người, khi xếp hàng {row2} người một hàng cũng thừa {remainder} người. Biết số học sinh của nhóm đó trong khoảng từ {lowerBound} đến {upperBound}. Hỏi nhóm đó có tất cả bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số học sinh của nhóm là $N$. Theo đề bài, khi xếp hàng $ {row1} $ người một hàng thì thừa $ {remainder} $ người, nghĩa là $N$ chia $ {row1} $ dư $ {remainder} $.",
+        "Tương tự, khi xếp hàng $ {row2} $ người một hàng cũng thừa $ {remainder} $ người, nghĩa là $N$ chia $ {row2} $ dư $ {remainder} $.",
+        "Từ đó suy ra, $N - {remainder}$ phải chia hết cho cả $ {row1} $ và $ {row2} $. Vậy $N - {remainder}$ là bội chung của $ {row1} $ và $ {row2} $."
+      ],
+      "solutionHtml": "Gọi số học sinh của nhóm là $N$.<br/>Theo đề bài, khi xếp hàng $ {row1} $ người một hàng thì thừa $ {remainder} $ người, nghĩa là $N$ chia $ {row1} $ dư $ {remainder} $.<br/>Khi xếp hàng $ {row2} $ người một hàng cũng thừa $ {remainder} $ người, nghĩa là $N$ chia $ {row2} $ dư $ {remainder} $.<br/>Vậy $N - {remainder}$ chia hết cho cả $ {row1} $ và $ {row2} $.<br/>Suy ra $N - {remainder}$ là bội chung của $ {row1} $ và $ {row2} $.<br/>Để tìm Bội chung nhỏ nhất (BCNN) của $ {row1} $ và $ {row2} $: <br/>Ta có $ {row1} = {row1} $ và $ {row2} = {row2} $.<br/>Phân tích ra thừa số nguyên tố: (Tùy thuộc giá trị $ {row1} $, $ {row2} $, phần này được tính toán trong bước trung gian) <br/>$BCNN({row1}, {row2}) = {lcm_val}$.<br/>Vì $N - {remainder}$ là bội chung của $ {row1} $ và $ {row2} $, nên $N - {remainder}$ là bội của $ {lcm_val} $.<br/>Các bội của $ {lcm_val} $ là: $ {lcm_val} $, $ {lcm_val_x2} $, $ {lcm_val_x3} $, ...<br/>Do đó $N$ có thể là: $ {lcm_val_plus_remainder} $, $ {lcm_val_x2_plus_remainder} $, $ {lcm_val_x3_plus_remainder} $, ...<br/>Theo đề bài, số học sinh trong khoảng từ $ {lowerBound} $ đến $ {upperBound} $.<br/>Ta kiểm tra các giá trị của $N$:<br/>Giá trị $N$ thỏa mãn điều kiện là $ {ans} $.<br/>Vậy nhóm đó có tất cả $ {ans} học sinh.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán 'xếp hàng thừa' hoặc 'chia dư', hãy xét số lượng *sau khi bớt đi số dư* sẽ chia hết cho các số đã cho. Từ đó, tìm Bội chung nhỏ nhất (BCNN) rồi cộng lại số dư.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalPages": {
+          "min": 180,
+          "max": 300,
+          "step": 20
+        },
+        "fracReadDay1Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fracReadDay1Den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "fracReadDay2Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fracReadDay2Den": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fracReadDay1Num / fracReadDay1Den < 1",
+        "fracReadDay2Num / fracReadDay2Den < 1",
+        "fracReadDay1Num / fracReadDay1Den + fracReadDay2Num / fracReadDay2Den < 1.5"
+      ],
+      "formulas": {
+        "pagesDay1": "totalPages * fracReadDay1Num / fracReadDay1Den",
+        "remainingAfterDay1": "totalPages - pagesDay1",
+        "pagesDay2": "remainingAfterDay1 * fracReadDay2Num / fracReadDay2Den",
+        "ans": "totalPages - pagesDay1 - pagesDay2",
+        "w1": "totalPages * (1 - fracReadDay1Num / fracReadDay1Den - fracReadDay2Num / fracReadDay2Den)",
+        "w2": "pagesDay1 + pagesDay2",
+        "w3": "totalPages - pagesDay1"
+      },
+      "questionText": "An đọc một quyển sách dày {totalPages} trang. Ngày thứ nhất, An đọc được $ \\frac{{fracReadDay1Num}}{{{fracReadDay1Den}}} $ tổng số trang sách. Ngày thứ hai, An đọc được $ \\frac{{fracReadDay2Num}}{{{fracReadDay2Den}}} $ số trang sách còn lại. Hỏi An còn bao nhiêu trang sách chưa đọc?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trước hết, hãy tính số trang sách An đọc được trong ngày thứ nhất.",
+        "Tiếp theo, tìm số trang sách còn lại sau ngày thứ nhất.",
+        "Sau đó, tính số trang sách An đọc được trong ngày thứ hai dựa trên số trang sách *còn lại*."
+      ],
+      "solutionHtml": "Tổng số trang sách là {totalPages} trang.<br/>Số trang sách An đọc được trong ngày thứ nhất là:<br/>$$ {totalPages} \\times \\frac{{{fracReadDay1Num}}}{{{fracReadDay1Den}}} = {pagesDay1} $ (trang)<br/>Số trang sách còn lại sau ngày thứ nhất là:<br/>$$ {totalPages} - {pagesDay1} = {remainingAfterDay1} $ (trang)<br/>Số trang sách An đọc được trong ngày thứ hai là (dựa trên số trang còn lại):<br/>$$ {remainingAfterDay1} \\times \\frac{{{fracReadDay2Num}}}{{{fracReadDay2Den}}} = {pagesDay2} $ (trang)<br/>Số trang sách An còn chưa đọc là:<br/>$$ {remainingAfterDay1} - {pagesDay2} = {ans} $ (trang)<br/>Đáp án đúng là B.",
+      "tip": "Cần đọc kỹ đề bài để xác định 'phân số của tổng số trang' hay 'phân số của số trang còn lại' để tránh nhầm lẫn trong phép tính.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialDepth": {
+          "min": -100,
+          "max": -50,
+          "step": 5
+        },
+        "ascend1": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "descend": {
+          "min": 10,
+          "max": 20,
+          "step": 5
+        },
+        "ascend2": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "initialDepth + ascend1 < 0",
+        "initialDepth + ascend1 - descend < 0",
+        "initialDepth + ascend1 - descend + ascend2 < 0"
+      ],
+      "formulas": {
+        "depthAfterAscend1": "initialDepth + ascend1",
+        "depthAfterDescend": "depthAfterAscend1 - descend",
+        "ans": "depthAfterDescend + ascend2",
+        "w1": "initialDepth - ascend1 + descend - ascend2",
+        "w2": "((initialDepth + ascend1 + descend + ascend2) === Math.abs(ans)) ? (initialDepth + ascend1 + descend + ascend2) + 5 : (initialDepth + ascend1 + descend + ascend2)",
+        "w3": "Math.abs(ans)",
+        "absInitialDepth": "Math.abs(initialDepth)"
+      },
+      "questionText": "Một tàu ngầm đang ở độ sâu {absInitialDepth} mét so với mặt nước biển (được biểu diễn bằng số nguyên {initialDepth} m). Sau đó, tàu nổi lên {ascend1} mét, rồi lại lặn xuống thêm {descend} mét. Cuối cùng, tàu nổi thêm {ascend2} mét. Hỏi vị trí cuối cùng của tàu ngầm so với mặt nước biển là bao nhiêu mét?",
+      "options": [
+        "A. {w1} m",
+        "B. {ans} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Độ sâu được biểu diễn bằng số nguyên âm. Nổi lên là cộng, lặn xuống là trừ.",
+        "Hãy thực hiện các phép tính cộng, trừ số nguyên theo thứ tự các sự kiện xảy ra."
+      ],
+      "solutionHtml": "Vị trí ban đầu của tàu ngầm là {initialDepth} mét.<br/>Khi tàu nổi lên {ascend1} mét, vị trí mới là:<br/>$$ {initialDepth} + {ascend1} = {depthAfterAscend1} $ (m)<br/>Sau đó, tàu lặn xuống thêm {descend} mét, vị trí mới là:<br/>$$ {depthAfterDescend} - {descend} = {depthAfterDescend} $ (m)<br/>Cuối cùng, tàu nổi thêm {ascend2} mét, vị trí cuối cùng là:<br/>$$ {depthAfterDescend} + {ascend2} = {ans} $ (m)<br/>Vậy vị trí cuối cùng của tàu ngầm so với mặt nước biển là {ans} mét.<br/>Đáp án đúng là B.",
+      "tip": "Khi làm việc với độ cao hoặc độ sâu so với mực nước biển, hãy nhớ quy ước: trên mực nước biển là số dương, dưới mực nước biển là số âm. Nổi lên là cộng, lặn xuống là trừ.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "originalPrice": {
+          "min": 800000,
+          "max": 1200000,
+          "step": 50000
+        },
+        "increasePercent": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "discountPercent": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "originalPrice > 0",
+        "increasePercent > 0",
+        "discountPercent > 0",
+        "increasePercent > discountPercent"
+      ],
+      "formulas": {
+        "priceAfterIncrease": "originalPrice * (1 + increasePercent / 100)",
+        "ans": "priceAfterIncrease * (1 - discountPercent / 100)",
+        "w1": "originalPrice * (1 + (increasePercent - discountPercent) / 100)",
+        "w2": "originalPrice * (1 - (increasePercent - discountPercent) / 100)",
+        "w3": "originalPrice * (1 + increasePercent / 100 + discountPercent / 100)"
+      },
+      "questionText": "Một cửa hàng niêm yết giá một chiếc tủ lạnh là {originalPrice} đồng. Dịp Tết Nguyên Đán, cửa hàng tăng giá bán lên {increasePercent}%. Sau Tết, để kích cầu mua sắm, cửa hàng lại giảm {discountPercent}% so với giá đã tăng. Hỏi giá bán chiếc tủ lạnh sau khi giảm là bao nhiêu đồng?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính giá chiếc tủ lạnh sau khi tăng {increasePercent}% so với giá niêm yết ban đầu.",
+        "Sau đó, tính giá chiếc tủ lạnh sau khi giảm {discountPercent}% so với giá *đã tăng*, không phải giá niêm yết ban đầu."
+      ],
+      "solutionHtml": "Giá niêm yết ban đầu của chiếc tủ lạnh là {originalPrice} đồng.<br/>Giá chiếc tủ lạnh sau khi tăng {increasePercent}% là:<br/>$$ {originalPrice} + {originalPrice} \\times \\frac{{{increasePercent}}}{{100}} = {originalPrice} \\times (1 + \\frac{{{increasePercent}}}{{100}}) = {priceAfterIncrease} $ (đồng)<br/>Giá chiếc tủ lạnh sau khi giảm {discountPercent}% so với giá đã tăng là:<br/>$$ {priceAfterIncrease} - {priceAfterIncrease} \\times \\frac{{{discountPercent}}}{{100}} = {priceAfterIncrease} \\times (1 - \\frac{{{discountPercent}}}{{100}}) = {ans} $ (đồng)<br/>Vậy giá bán chiếc tủ lạnh sau khi giảm là {ans} đồng.<br/>Đáp án đúng là B.",
+      "tip": "Khi giá trị thay đổi liên tiếp theo phần trăm, mỗi lần thay đổi phải dựa trên giá trị *mới nhất*, không phải giá trị ban đầu nếu đề bài không nói rõ.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalLength": {
+          "min": 300,
+          "max": 500,
+          "step": 50
+        },
+        "ratioPart1": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "ratioPart2": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "extraLength": {
+          "min": 10,
+          "max": 20,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "ratioPart1 < ratioPart2",
+        "totalLength % (ratioPart1 + ratioPart2) === 0"
+      ],
+      "formulas": {
+        "sumParts": "ratioPart1 + ratioPart2",
+        "unitValue": "totalLength / sumParts",
+        "initialWidth": "unitValue * ratioPart1",
+        "initialLength": "unitValue * ratioPart2",
+        "initialArea": "initialWidth * initialLength",
+        "newLength": "initialLength + extraLength",
+        "newArea": "initialWidth * newLength",
+        "ans": "initialWidth * newLength - initialArea",
+        "w1": "initialWidth * newLength",
+        "w2": "initialArea",
+        "w3": "initialWidth * extraLength / 2"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có tổng chiều dài và chiều rộng là {totalLength} mét. Chiều rộng bằng $ \\frac{{{ratioPart1}}}{{{ratioPart2}}} $ chiều dài. Để mở rộng, người ta giữ nguyên chiều rộng và tăng chiều dài thêm {extraLength} mét. Hỏi diện tích mảnh vườn tăng thêm bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} m²",
+        "B. {ans} m²",
+        "C. {w2} m²",
+        "D. {w3} m²"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dựa vào tổng chiều dài và chiều rộng cùng tỉ lệ, hãy tìm chiều dài và chiều rộng ban đầu.",
+        "Tính diện tích mảnh vườn ban đầu.",
+        "Tính chiều dài mới sau khi mở rộng và diện tích mới.",
+        "Diện tích tăng thêm bằng diện tích mới trừ đi diện tích ban đầu."
+      ],
+      "solutionHtml": "Tổng chiều dài và chiều rộng của mảnh vườn là {totalLength} mét.<br/>Tỉ số giữa chiều rộng và chiều dài là $ \\frac{{{ratioPart1}}}{{{ratioPart2}}} $.<br/>Tổng số phần bằng nhau là $ {ratioPart1} + {ratioPart2} = {sumParts} $ (phần)<br/>Giá trị một phần là $ {totalLength} :$ {sumParts} = {unitValue} $ (m)<br/>Chiều rộng ban đầu của mảnh vườn là: $$ {unitValue} \\times {ratioPart1} = {initialWidth} $ (m)<br/>Chiều dài ban đầu của mảnh vườn là: $$ {unitValue} \\times {ratioPart2} = {initialLength} $ (m)<br/>Diện tích mảnh vườn ban đầu là: $ {initialLength} \\times {initialWidth} = {initialArea} $ (m²)<br/>Sau khi tăng chiều dài thêm {extraLength} mét, chiều dài mới là:<br/>$$ {initialLength} + {extraLength} = {newLength} $ (m)<br/>Chiều rộng vẫn giữ nguyên là {initialWidth} mét.<br/>Diện tích mảnh vườn sau khi mở rộng là: $ {newLength} \\times {initialWidth} = {newArea} $ (m²)<br/>Diện tích mảnh vườn tăng thêm là:<br/>$ {newArea} - {initialArea} = {ans} $ (m²)<br/>Hoặc đơn giản hơn, diện tích tăng thêm chính là diện tích của một hình chữ nhật có chiều rộng là chiều rộng ban đầu và chiều dài là phần tăng thêm:<br/>$ {initialWidth} \\times {extraLength} = {ans} $ (m²)<br/>Đáp án đúng là B.",
+      "tip": "Khi một chiều của hình chữ nhật được giữ nguyên và chiều kia được tăng thêm, phần diện tích tăng thêm chính là diện tích của một hình chữ nhật mới có một cạnh bằng cạnh giữ nguyên và cạnh kia bằng phần tăng thêm.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sonAge": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "fatherMultiple": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "motherOlderThanSon": {
+          "min": 25,
+          "max": 30,
+          "step": 1
+        },
+        "futureYears": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "sonAge * fatherMultiple > sonAge + motherOlderThanSon"
+      ],
+      "formulas": {
+        "fatherAge": "sonAge * fatherMultiple",
+        "motherAge": "sonAge + motherOlderThanSon",
+        "currentTotalAge": "sonAge + fatherAge + motherAge",
+        "totalAgeIncrease": "3 * futureYears",
+        "ans": "currentTotalAge + totalAgeIncrease",
+        "w1": "currentTotalAge + futureYears",
+        "w2": "currentTotalAge + 2 * futureYears",
+        "w3": "currentTotalAge + fatherMultiple * futureYears"
+      },
+      "questionText": "Hiện nay, con {sonAge} tuổi. Tuổi của bố gấp {fatherMultiple} lần tuổi con. Tuổi mẹ hơn tuổi con {motherOlderThanSon} tuổi. Hỏi sau {futureYears} năm nữa, tổng số tuổi của cả ba bố con sẽ là bao nhiêu?",
+      "options": [
+        "A. {w1} tuổi",
+        "B. {ans} tuổi",
+        "C. {w2} tuổi",
+        "D. {w3} tuổi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính tuổi của bố và mẹ hiện nay.",
+        "Tính tổng số tuổi của cả ba người hiện nay.",
+        "Nhớ rằng sau {futureYears} năm, mỗi người đều tăng thêm {futureYears} tuổi."
+      ],
+      "solutionHtml": "Tuổi con hiện nay là {sonAge} tuổi.<br/>Tuổi bố hiện nay là: $$ {sonAge} \\times {fatherMultiple} = {fatherAge} $ (tuổi)<br/>Tuổi mẹ hiện nay là: $$ {sonAge} + {motherOlderThanSon} = {motherAge} $ (tuổi)<br/>Tổng số tuổi của cả ba người hiện nay là:<br/>$$ {sonAge} + {fatherAge} + {motherAge} = {currentTotalAge} $ (tuổi)<br/>Sau {futureYears} năm nữa, mỗi người sẽ tăng thêm {futureYears} tuổi.<br/>Vậy, tổng số tuổi của cả ba người sẽ tăng thêm: $$ 3 \\times {futureYears} = {totalAgeIncrease} $ (tuổi)<br/>Tổng số tuổi của cả ba người sau {futureYears} năm nữa là:<br/>$$ {currentTotalAge} + {totalAgeIncrease} = {ans} $ (tuổi)<br/>Đáp án đúng là B.",
+      "tip": "Khi tính tổng số tuổi trong tương lai cho một nhóm người, hãy nhớ rằng mỗi người trong nhóm đều sẽ lớn thêm số năm tương ứng. Do đó, tổng số tuổi sẽ tăng thêm bằng số năm nhân với số người.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numStudentsInitial": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "avgScoreInitial": {
+          "min": 7.5,
+          "max": 8.5,
+          "step": 0.5
+        },
+        "numStudentsAdded": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "newStudentScore": {
+          "min": 9,
+          "max": 10,
+          "step": 0.5
+        }
+      },
+      "constraints": [
+        "numStudentsInitial > 0",
+        "avgScoreInitial >= 0",
+        "numStudentsAdded > 0",
+        "newStudentScore >= 0",
+        "newStudentScore > avgScoreInitial"
+      ],
+      "formulas": {
+        "initialTotalScore": "numStudentsInitial * avgScoreInitial",
+        "totalStudentsAfterAdd": "numStudentsInitial + numStudentsAdded",
+        "totalScoreAdded": "newStudentScore * numStudentsAdded",
+        "finalTotalScore": "initialTotalScore + totalScoreAdded",
+        "ans": "finalTotalScore / totalStudentsAfterAdd",
+        "w1": "avgScoreInitial + newStudentScore",
+        "w2": "finalTotalScore / numStudentsInitial",
+        "w3": "initialTotalScore / totalStudentsAfterAdd"
+      },
+      "questionText": "Một nhóm {numStudentsInitial} học sinh có điểm trung bình môn Toán là {avgScoreInitial} điểm. Sau đó, có thêm {numStudentsAdded} học sinh mới tham gia nhóm, mỗi bạn đều đạt {newStudentScore} điểm môn Toán. Hỏi điểm trung bình môn Toán của cả nhóm mới là bao nhiêu?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {ans} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính tổng số điểm của {numStudentsInitial} học sinh ban đầu.",
+        "Sau đó, tính tổng số điểm của {numStudentsAdded} học sinh mới.",
+        "Cộng tổng điểm của hai nhóm lại để có tổng điểm của toàn bộ nhóm mới.",
+        "Cuối cùng, chia tổng điểm mới cho tổng số học sinh trong nhóm mới."
+      ],
+      "solutionHtml": "Tổng số điểm của {numStudentsInitial} học sinh ban đầu là:<br/>$ {numStudentsInitial} \\times {avgScoreInitial} = {initialTotalScore} $ (điểm)<br/>Tổng số điểm của {numStudentsAdded} học sinh mới là:<br/>$ {numStudentsAdded} \\times {newStudentScore} = {totalScoreAdded} $ (điểm)<br/>Tổng số học sinh của nhóm mới là:<br/>$$ {numStudentsInitial} + {numStudentsAdded} = {totalStudentsAfterAdd} $ (học sinh)<br/>Tổng số điểm của cả nhóm mới là:<br/>$ {initialTotalScore} + {totalScoreAdded} = {finalTotalScore} $ (điểm)<br/>Điểm trung bình môn Toán của cả nhóm mới là:<br/>$ {finalTotalScore} : {totalStudentsAfterAdd} = {ans} $ (điểm)<br/>Đáp án đúng là B.",
+      "tip": "Để tính điểm trung bình mới khi có sự thay đổi về số lượng hoặc điểm số, luôn cần tính lại tổng điểm và tổng số lượng, sau đó mới chia để tìm trung bình.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "div1": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "div2": {
+          "min": 5,
+          "max": 6,
+          "step": 1
+        },
+        "div3": {
+          "min": 8,
+          "max": 10,
+          "step": 1
+        },
+        "lowerBound": {
+          "min": 500,
+          "max": 700,
+          "step": 50
+        },
+        "upperBound": {
+          "min": 800,
+          "max": 1000,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "div1 !== div2",
+        "div1 !== div3",
+        "div2 !== div3",
+        "lowerBound < upperBound"
+      ],
+      "formulas": {
+        "gcd_q8_12": "function(a, b) { while (b) { var temp = b; b = a % b; a = temp; } return a; }(div1, div2)",
+        "lcm_q8_12": "(div1 * div2) / gcd_q8_12",
+        "gcd_q8_total": "function(a, b) { while (b) { var temp = b; b = a % b; a = temp; } return a; }(lcm_q8_12, div3)",
+        "lcm_val_q8": "(lcm_q8_12 * div3) / gcd_q8_total",
+        "floorDiv": "Math.floor(lowerBound / lcm_val_q8)",
+        "remainderDiv": "lowerBound % lcm_val_q8",
+        "k_val_q8_for_solution": "Math.floor(lowerBound / lcm_val_q8) + (lowerBound % lcm_val_q8 === 0 ? 0 : 1)",
+        "ans": "function(lcm, min, max) { var k = Math.ceil(min / lcm); var result = lcm * k; if (result >= min && result <= max) return result; return -1; }(lcm_val_q8, lowerBound, upperBound)",
+        "w1": "ans - lcm_val_q8",
+        "w2": "ans + lcm_val_q8",
+        "w3": "lcm_val_q8",
+        "lcm_val_q8_x2": "lcm_val_q8 * 2",
+        "lcm_val_q8_x3": "lcm_val_q8 * 3"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất có ba chữ số khác nhau, chia hết cho {div1}, {div2} và {div3}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một số chia hết cho cả {div1}, {div2} và {div3} thì nó là bội chung của ba số đó.",
+        "Hãy tìm Bội chung nhỏ nhất (BCNN) của {div1}, {div2} và {div3}.",
+        "Sau khi tìm được BCNN, các bội chung của {div1}, {div2}, {div3} sẽ là bội của BCNN đó.",
+        "Tìm bội nhỏ nhất của BCNN mà là số có ba chữ số và nằm trong khoảng {lowerBound} đến {upperBound}."
+      ],
+      "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, $N$ chia hết cho {div1}, {div2} và {div3}.<br/>Điều này có nghĩa là $N$ là bội chung của {div1}, {div2} và {div3}.<br/>Để tìm các bội chung, ta cần tìm Bội chung nhỏ nhất (BCNN) của {div1}, {div2} và {div3}.<br/>Phân tích các số ra thừa số nguyên tố:<br/>$ {div1} = {div1} $<br/>$ {div2} = {div2} $<br/>$ {div3} = {div3} $<br/>$BCNN({div1}, {div2}, {div3}) = {lcm_val_q8}$.<br/>Các bội chung của {div1}, {div2}, {div3} (cũng là bội của $ {lcm_val_q8} $) là: $ {lcm_val_q8} $, $ {lcm_val_q8_x2} $, $ {lcm_val_q8_x3} $, ...<br/>Ta cần tìm số tự nhiên nhỏ nhất trong khoảng từ $ {lowerBound} $ đến $ {upperBound} $.<br/>Số có ba chữ số nhỏ nhất là 100.<br/>Ta tìm bội của $ {lcm_val_q8} $ mà lớn hơn hoặc bằng $ {lowerBound} $.<br/>$ {lowerBound} \\div {lcm_val_q8} = {floorDiv} $ (dư $ {remainderDiv} $).<br/>Số bội tiếp theo (hoặc chính nó nếu chia hết) là $ {k_val_q8_for_solution} \\times {lcm_val_q8} = {ans} $.<br/>Kiểm tra: $ {ans} $ là số có ba chữ số và chia hết cho {div1}, {div2}, {div3}.<br/>Vậy số cần tìm là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Để tìm một số chia hết cho nhiều số, hãy tìm Bội chung nhỏ nhất (BCNN) của các số đó, sau đó tìm bội của BCNN thỏa mãn điều kiện đề bài (ví dụ: số có ba chữ số, trong một khoảng cho trước).",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "busAInterval": {
+          "min": 15,
+          "max": 20,
+          "step": 1
+        },
+        "busBInterval": {
+          "min": 25,
+          "max": 30,
+          "step": 1
+        },
+        "startHour": {
+          "min": 7,
+          "max": 8,
+          "step": 1
+        },
+        "startMinute": {
+          "min": 0,
+          "max": 30,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "busAInterval !== busBInterval",
+        "busAInterval % 5 === 0",
+        "busBInterval % 5 === 0"
+      ],
+      "formulas": {
+        "gcd_q9": "function(a, b) { while (b) { var temp = b; b = a % b; a = temp; } return a; }(busAInterval, busBInterval)",
+        "lcm_val_q9": "(busAInterval * busBInterval) / gcd_q9",
+        "futureTotalMinutes": "startHour * 60 + startMinute + lcm_val_q9",
+        "ansHour": "Math.floor(futureTotalMinutes / 60)",
+        "ansMinute": "futureTotalMinutes % 60",
+        "lcm_hours": "Math.floor(lcm_val_q9 / 60)",
+        "lcm_minutes": "lcm_val_q9 % 60",
+        "w1TotalMinutes": "startHour * 60 + startMinute + busAInterval",
+        "w1Hour": "Math.floor(w1TotalMinutes / 60)",
+        "w1Minute": "w1TotalMinutes % 60",
+        "w2TotalMinutes": "startHour * 60 + startMinute + lcm_val_q9 * 2",
+        "w2Hour": "Math.floor(w2TotalMinutes / 60)",
+        "w2Minute": "w2TotalMinutes % 60",
+        "w3TotalMinutes": "startHour * 60 + startMinute + busBInterval",
+        "w3Hour": "Math.floor(w3TotalMinutes / 60)",
+        "w3Minute": "w3TotalMinutes % 60"
+      },
+      "questionText": "Hai tuyến xe buýt A và B cùng xuất phát tại bến lúc {startHour} giờ {startMinute} phút sáng. Tuyến A cứ {busAInterval} phút lại có một chuyến, còn tuyến B cứ {busBInterval} phút lại có một chuyến. Hỏi lần tiếp theo hai tuyến xe buýt này cùng xuất phát tại bến là lúc mấy giờ mấy phút?",
+      "options": [
+        "A. {w1Hour} giờ {w1Minute} phút",
+        "B. {ansHour} giờ {ansMinute} phút",
+        "C. {w2Hour} giờ {w2Minute} phút",
+        "D. {w3Hour} giờ {w3Minute} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để hai tuyến xe buýt cùng xuất phát lần tiếp theo, thời gian trôi qua phải là một bội số chung của cả $ {busAInterval} $ phút và $ {busBInterval} $ phút.",
+        "Hãy tìm Bội chung nhỏ nhất (BCNN) của $ {busAInterval} $ và $ {busBInterval} $.",
+        "Chuyển đổi thời gian BCNN tìm được sang giờ và phút, sau đó cộng vào thời gian xuất phát ban đầu."
+      ],
+      "solutionHtml": "Thời gian để hai tuyến xe buýt cùng xuất phát lần tiếp theo phải là một bội chung của khoảng thời gian mỗi tuyến xuất phát.<br/>Cụ thể, đó là Bội chung nhỏ nhất (BCNN) của $ {busAInterval} $ phút và $ {busBInterval} $ phút.<br/>Để tìm BCNN của $ {busAInterval} $ và $ {busBInterval} $:<br/>Phân tích các số ra thừa số nguyên tố: (phần này tùy thuộc vào giá trị $ {busAInterval} $, $ {busBInterval} $ cụ thể) <br/>$BCNN({busAInterval}, {busBInterval}) = {lcm_val_q9}$.<br/>Vậy, sau $ {lcm_val_q9} $ phút kể từ lần xuất phát đầu tiên, hai tuyến xe buýt sẽ lại cùng xuất phát.<br/>Thời gian xuất phát ban đầu là {startHour} giờ {startMinute} phút.<br/>Thời gian $ {lcm_val_q9} $ phút có thể đổi ra giờ và phút là:<br/>$ {lcm_val_q9} $ phút $= {lcm_hours} $ giờ và $ {lcm_minutes} $ phút.<br/>Tổng số phút từ 0 giờ là: $ {startHour} \\times 60 + {startMinute} + {lcm_val_q9} = {futureTotalMinutes} $ (phút)<br/>Đổi ra giờ và phút: $ {futureTotalMinutes} \\div 60 = {ansHour} $ (giờ) và $ {futureTotalMinutes} \\% 60 = {ansMinute} $ (phút).<br/>Vậy, lần tiếp theo hai tuyến xe buýt này cùng xuất phát tại bến là lúc {ansHour} giờ {ansMinute} phút.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán về các sự kiện lặp lại (xe buýt, đèn tín hiệu) cùng xảy ra lần tiếp theo thường sử dụng khái niệm Bội chung nhỏ nhất (BCNN). Sau khi tìm được BCNN, cần chuyển đổi đơn vị và cộng vào thời gian gốc một cách chính xác.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "itemA_price": {
+          "min": 20000,
+          "max": 30000,
+          "step": 1000
+        },
+        "itemA_quantity": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "itemB_price": {
+          "min": 15000,
+          "max": 25000,
+          "step": 1000
+        },
+        "itemB_quantity": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "discountThreshold": {
+          "min": 200000,
+          "max": 250000,
+          "step": 10000
+        },
+        "discountPercentage": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "itemA_price > itemB_price",
+        "itemA_quantity < itemB_quantity",
+        "itemA_price * itemA_quantity + itemB_price * itemB_quantity >= discountThreshold"
+      ],
+      "formulas": {
+        "subtotalA": "itemA_price * itemA_quantity",
+        "subtotalB": "itemB_price * itemB_quantity",
+        "totalBeforeDiscount": "subtotalA + subtotalB",
+        "discountAmount": "totalBeforeDiscount * discountPercentage / 100",
+        "ans": "totalBeforeDiscount - discountAmount",
+        "w1": "totalBeforeDiscount",
+        "w2": "totalBeforeDiscount - totalBeforeDiscount * (discountPercentage / 2 / 100)",
+        "w3": "totalBeforeDiscount + discountAmount"
+      },
+      "questionText": "Mẹ bạn Lan đi siêu thị mua {itemA_quantity} gói kẹo, mỗi gói giá {itemA_price} đồng và {itemB_quantity} chai nước ngọt, mỗi chai giá {itemB_price} đồng. Siêu thị có chương trình khuyến mãi: nếu tổng hóa đơn trên {discountThreshold} đồng sẽ được giảm {discountPercentage}% trên tổng giá trị hóa đơn. Hỏi mẹ bạn Lan phải trả tất cả bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính tổng số tiền mua kẹo và tổng số tiền mua nước ngọt.",
+        "Sau đó, tính tổng giá trị hóa đơn trước khi giảm giá.",
+        "Kiểm tra xem tổng hóa đơn có đủ điều kiện để được giảm giá hay không (tức là có lớn hơn {discountThreshold} đồng không).",
+        "Nếu có, hãy tính số tiền được giảm và số tiền cuối cùng phải trả."
+      ],
+      "solutionHtml": "Giá tiền mua {itemA_quantity} gói kẹo là:<br/>$$ {itemA_price} \\times {itemA_quantity} = {subtotalA} $ (đồng)<br/>Giá tiền mua {itemB_quantity} chai nước ngọt là:<br/>$$ {itemB_price} \\times {itemB_quantity} = {subtotalB} $ (đồng)<br/>Tổng giá trị hóa đơn trước khi giảm giá là:<br/>$$ {subtotalA} + {subtotalB} = {totalBeforeDiscount} $ (đồng)<br/>Vì tổng hóa đơn là {totalBeforeDiscount} đồng, lớn hơn {discountThreshold} đồng, nên mẹ bạn Lan được giảm giá {discountPercentage}%<br/>Số tiền được giảm là:<br/>$$ {totalBeforeDiscount} \\times \\frac{{{discountPercentage}}}{{100}} = {discountAmount} $ (đồng)<br/>Số tiền mẹ bạn Lan phải trả là:<br/>$$ {totalBeforeDiscount} - {discountAmount} = {ans} $ (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán mua sắm có khuyến mãi, hãy luôn tính tổng tiền trước rồi mới so sánh với ngưỡng khuyến mãi. Sau đó, áp dụng phần trăm giảm giá trên tổng tiền *trước khi giảm* để tính số tiền phải trả.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-1-d10"
+    }
+  ]
+}

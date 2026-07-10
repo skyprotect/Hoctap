@@ -1,0 +1,854 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalMoney": {
+          "min": 240,
+          "max": 600,
+          "step": 120
+        },
+        "fraction1_num": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "fraction1_den": {
+          "min": 4,
+          "max": 8,
+          "step": 1,
+          "exclude": [
+            5,
+            7
+          ]
+        },
+        "fraction2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fraction2_den": {
+          "min": 3,
+          "max": 6,
+          "step": 1,
+          "exclude": [
+            5
+          ]
+        }
+      },
+      "constraints": [
+        "fraction1_num < fraction1_den",
+        "fraction2_num < fraction2_den",
+        "fraction1_den !== fraction2_den",
+        "totalMoney % fraction1_den === 0",
+        "totalMoney % fraction2_den === 0",
+        "fraction1_num * fraction2_den + fraction2_num * fraction1_den < fraction1_den * fraction2_den"
+      ],
+      "formulas": {
+        "lcmDen": "(fraction1_den * fraction2_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(fraction1_den, fraction2_den)",
+        "commonNum1": "fraction1_num * (lcmDen / fraction1_den)",
+        "commonNum2": "fraction2_num * (lcmDen / fraction2_den)",
+        "sumFraction_num": "commonNum1 + commonNum2",
+        "sumFraction_den": "lcmDen",
+        "remainingFraction_num": "lcmDen - sumFraction_num",
+        "remainingFraction_den": "lcmDen",
+        "gcdRemaining": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(remainingFraction_num, remainingFraction_den)",
+        "simplifiedRemaining_num": "remainingFraction_num / gcdRemaining",
+        "simplifiedRemaining_den": "remainingFraction_den / gcdRemaining",
+        "ans": "totalMoney * simplifiedRemaining_num / simplifiedRemaining_den",
+        "w1": "totalMoney * fraction1_num / fraction1_den",
+        "w2": "totalMoney * fraction2_num / fraction2_den",
+        "w3": "totalMoney * sumFraction_num / sumFraction_den"
+      },
+      "questionText": "Một người cha để lại tài sản là {totalMoney} triệu đồng. Ông chia cho người con cả $\\frac{{{fraction1_num}}}{{{fraction1_den}}}$ tổng tài sản, chia cho người con thứ $\\frac{{{fraction2_num}}}{{{fraction2_den}}}$ tổng tài sản. Phần còn lại ông dành cho quỹ từ thiện. Hỏi quỹ từ thiện nhận được bao nhiêu tiền?",
+      "options": [
+        "A. {w1} triệu đồng",
+        "B. {ans} triệu đồng",
+        "C. {w2} triệu đồng",
+        "D. {w3} triệu đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số phần tài sản đã chia cho hai người con.",
+        "Lấy 1 trừ đi tổng số phần đã chia để tìm phần còn lại.",
+        "Sau đó, nhân phần tài sản còn lại với tổng tài sản ban đầu để tìm số tiền."
+      ],
+      "solutionHtml": "Tổng số phần tài sản mà người cha đã chia cho hai người con là:<br/>$\\frac{{{fraction1_num}}}{{{fraction1_den}}} + \\frac{{{fraction2_num}}}{{{fraction2_den}}} = \\frac{{{commonNum1}}}{{{lcmDen}}} + \\frac{{{commonNum2}}}{{{lcmDen}}} = \\frac{{{sumFraction_num}}}{{{sumFraction_den}}}$ (tổng tài sản)<br/>Phần tài sản còn lại dành cho quỹ từ thiện là:<br/>$1 - \\frac{{{sumFraction_num}}}{{{sumFraction_den}}} = \\frac{{{lcmDen}}}{{{lcmDen}}} - \\frac{{{sumFraction_num}}}{{{lcmDen}}} = \\frac{{{remainingFraction_num}}}{{{remainingFraction_den}}}$<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdRemaining}), ta được phân số tối giản là $\\frac{{{simplifiedRemaining_num}}}{{{simplifiedRemaining_den}}}$.<br/>Số tiền quỹ từ thiện nhận được là:<br/>{totalMoney} \\times \\frac{{{simplifiedRemaining_num}}}{{{simplifiedRemaining_den}}} = {ans}$ (triệu đồng).<br/>Vậy, quỹ từ thiện nhận được {ans} triệu đồng.",
+      "tip": "Khi cộng hoặc trừ các phân số khác mẫu số, ta cần quy đồng mẫu số trước. Nhớ rằng 'phần còn lại' của một số lượng là $1$ trừ đi các phần đã cho.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "capacity": {
+          "min": 600,
+          "max": 1200,
+          "step": 60
+        },
+        "initialFill_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "initialFill_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "leak_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "leak_den": {
+          "min": 4,
+          "max": 6,
+          "step": 1,
+          "exclude": [
+            5
+          ]
+        },
+        "pump_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "pump_den": {
+          "min": 5,
+          "max": 8,
+          "step": 1,
+          "exclude": [
+            7
+          ]
+        }
+      },
+      "constraints": [
+        "initialFill_num < initialFill_den",
+        "leak_num < leak_den",
+        "pump_num < pump_den",
+        "capacity % initialFill_den === 0",
+        "capacity % leak_den === 0",
+        "capacity % pump_den === 0",
+        "(capacity * initialFill_num / initialFill_den - capacity * leak_num / leak_den + capacity * pump_num / pump_den) > 0",
+        "(capacity * initialFill_num / initialFill_den - capacity * leak_num / leak_den + capacity * pump_num / pump_den) <= capacity"
+      ],
+      "formulas": {
+        "lcm_ab": "(initialFill_den * leak_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(initialFill_den, leak_den)",
+        "lcmDen": "(lcm_ab * pump_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(lcm_ab, pump_den)",
+        "initNum": "initialFill_num * (lcmDen / initialFill_den)",
+        "leakNum": "leak_num * (lcmDen / leak_den)",
+        "pumpNum": "pump_num * (lcmDen / pump_den)",
+        "finalFraction_num": "initNum - leakNum + pumpNum",
+        "finalFraction_den": "lcmDen",
+        "gcdFinal": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(finalFraction_num, finalFraction_den)",
+        "simplifiedFinal_num": "finalFraction_num / gcdFinal",
+        "simplifiedFinal_den": "finalFraction_den / gcdFinal",
+        "ans": "capacity * simplifiedFinal_num / simplifiedFinal_den",
+        "w1": "capacity * initialFill_num / initialFill_den",
+        "w2": "capacity * (initialFill_num / initialFill_den - leak_num / leak_den)",
+        "w3": "capacity * (initialFill_num / initialFill_den + pump_num / pump_den)"
+      },
+      "questionText": "Một bể nước có dung tích {capacity} lít. Ban đầu, bể chứa $\\frac{{{initialFill_num}}}{{{initialFill_den}}}$ dung tích bể. Sau đó, bể bị rò rỉ mất $\\frac{{{leak_num}}}{{{leak_den}}}$ dung tích bể và người ta bơm thêm vào $\\frac{{{pump_num}}}{{{pump_den}}}$ dung tích bể. Hỏi hiện tại trong bể có bao nhiêu lít nước?",
+      "options": [
+        "A. {w1} lít",
+        "B. {ans} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định phần nước ban đầu trong bể.",
+        "Tính toán tổng số phần nước bị mất đi và được thêm vào.",
+        "Tìm số lượng nước cuối cùng bằng cách nhân dung tích bể với phân số nước còn lại."
+      ],
+      "solutionHtml": "Phân số biểu thị lượng nước ban đầu trong bể là $\\frac{{{initialFill_num}}}{{{initialFill_den}}}$.<br/>Bể rò rỉ mất $\\frac{{{leak_num}}}{{{leak_den}}}$ dung tích bể.<br/>Người ta bơm thêm vào $\\frac{{{pump_num}}}{{{pump_den}}}$ dung tích bể.<br/>Để tính lượng nước cuối cùng, ta thực hiện phép tính với các phân số:<br/>$\\frac{{{initialFill_num}}}{{{initialFill_den}}} - \\frac{{{leak_num}}}{{{leak_den}}} + \\frac{{{pump_num}}}{{{pump_den}}}$<br/>Quy đồng mẫu số chung nhỏ nhất của {initialFill_den}, {leak_den} và {pump_den} là {lcmDen}.<br/>Ta có: $\\frac{{{initNum}}}{{{lcmDen}}} - \\frac{{{leakNum}}}{{{lcmDen}}} + \\frac{{{pumpNum}}}{{{lcmDen}}} = \\frac{{{finalFraction_num}}}{{{finalFraction_den}}}$<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdFinal}), ta được phân số tối giản là $\\frac{{{simplifiedFinal_num}}}{{{simplifiedFinal_den}}}$.<br/>Lượng nước hiện tại trong bể là:<br/>{capacity} \\times \\frac{{{simplifiedFinal_num}}}{{{simplifiedFinal_den}}} = {ans}$ (lít).<br/>Vậy, hiện tại trong bể có {ans} lít nước.",
+      "tip": "Khi cộng, trừ nhiều phân số, ta cần tìm bội chung nhỏ nhất (BCNN) của các mẫu số để quy đồng. Lưu ý các từ khóa 'rò rỉ mất' (trừ) và 'bơm thêm vào' (cộng).",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalWork": {
+          "min": 1,
+          "max": 1,
+          "step": 1
+        },
+        "workerA_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "workerA_den": {
+          "min": 4,
+          "max": 6,
+          "step": 1,
+          "exclude": [
+            5
+          ]
+        },
+        "workerB_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "workerB_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "workerC_num": {
+          "min": 1,
+          "max": 1,
+          "step": 1
+        },
+        "workerC_den": {
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "exclude": [
+            9,
+            10,
+            11
+          ]
+        }
+      },
+      "constraints": [
+        "workerA_num < workerA_den",
+        "workerB_num < workerB_den",
+        "workerC_num < workerC_den",
+        "workerA_num * workerB_den * workerC_den + workerB_num * workerA_den * workerC_den + workerC_num * workerA_den * workerB_den < workerA_den * workerB_den * workerC_den"
+      ],
+      "formulas": {
+        "lcm_ab": "(workerA_den * workerB_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(workerA_den, workerB_den)",
+        "lcmDen": "(lcm_ab * workerC_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(lcm_ab, workerC_den)",
+        "commonANum": "workerA_num * (lcmDen / workerA_den)",
+        "commonBNum": "workerB_num * (lcmDen / workerB_den)",
+        "commonCNum": "workerC_num * (lcmDen / workerC_den)",
+        "totalDone_num": "commonANum + commonBNum + commonCNum",
+        "totalDone_den": "lcmDen",
+        "remainingWork_num": "lcmDen - totalDone_num",
+        "remainingWork_den": "lcmDen",
+        "gcdRemaining": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(remainingWork_num, remainingWork_den)",
+        "ans_num": "remainingWork_num / gcdRemaining",
+        "ans_den": "remainingWork_den / gcdRemaining",
+        "w1_num": "totalDone_num",
+        "w1_den": "totalDone_den",
+        "w2_num": "workerA_num",
+        "w2_den": "workerA_den",
+        "w3_num": "workerB_num",
+        "w3_den": "workerB_den"
+      },
+      "questionText": "Ba công nhân cùng làm một công việc. Người thứ nhất hoàn thành $\\frac{{{workerA_num}}}{{{workerA_den}}}$ công việc, người thứ hai hoàn thành $\\frac{{{workerB_num}}}{{{workerB_den}}}$ công việc, và người thứ ba hoàn thành $\\frac{{{workerC_num}}}{{{workerC_den}}}$ công việc. Hỏi còn lại bao nhiêu phần công việc chưa hoàn thành?",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+        "B. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+        "C. $\\frac{{{w2_num}}}{{{w2_den}}}$",
+        "D. $\\frac{{{w3_num}}}{{{w3_den}}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng các phần công việc mà ba công nhân đã hoàn thành.",
+        "Lấy $1$ (toàn bộ công việc) trừ đi tổng phần đã hoàn thành để tìm phần còn lại."
+      ],
+      "solutionHtml": "Tổng số phần công việc mà ba công nhân đã hoàn thành là:<br/>$\\frac{{{workerA_num}}}{{{workerA_den}}} + \\frac{{{workerB_num}}}{{{workerB_den}}} + \\frac{{{workerC_num}}}{{{workerC_den}}}$<br/>Để cộng các phân số này, ta cần quy đồng mẫu số chung nhỏ nhất của {workerA_den}, {workerB_den} và {workerC_den} là {lcmDen}.<br/>Ta có: $\\frac{{{commonANum}}}{{{lcmDen}}} + \\frac{{{commonBNum}}}{{{lcmDen}}} + \\frac{{{commonCNum}}}{{{lcmDen}}} = \\frac{{{totalDone_num}}}{{{totalDone_den}}}$ (công việc)<br/>Phần công việc còn lại chưa hoàn thành là:<br/>$1 - \\frac{{{totalDone_num}}}{{{totalDone_den}}} = \\frac{{{lcmDen}}}{{{lcmDen}}} - \\frac{{{totalDone_num}}}{{{lcmDen}}} = \\frac{{{remainingWork_num}}}{{{remainingWork_den}}}$<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdRemaining}), ta được phân số tối giản là $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Vậy, còn $\\frac{{{ans_num}}}{{{ans_den}}}$ công việc chưa hoàn thành.",
+      "tip": "Toàn bộ công việc được coi là 1 đơn vị. Hãy quy đồng mẫu số của tất cả các phân số để dễ dàng cộng hoặc trừ.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialStudents": {
+          "min": 1200,
+          "max": 2400,
+          "step": 120
+        },
+        "boysFraction_num": {
+          "min": 2,
+          "max": 4,
+          "step": 1,
+          "exclude": [
+            3
+          ]
+        },
+        "boysFraction_den": {
+          "min": 5,
+          "max": 8,
+          "step": 1,
+          "exclude": [
+            6,
+            7
+          ]
+        },
+        "newGirlsAdded": {
+          "min": 20,
+          "max": 60,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "boysFraction_num < boysFraction_den",
+        "initialStudents % boysFraction_den === 0"
+      ],
+      "formulas": {
+        "numBoysInitial": "initialStudents * boysFraction_num / boysFraction_den",
+        "numGirlsInitial": "initialStudents - numBoysInitial",
+        "numGirlsNew": "numGirlsInitial + newGirlsAdded",
+        "newTotalStudents": "initialStudents + newGirlsAdded",
+        "gcdFinal": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(numGirlsNew, newTotalStudents)",
+        "ans_num": "numGirlsNew / gcdFinal",
+        "ans_den": "newTotalStudents / gcdFinal",
+        "w1_num": "boysFraction_num",
+        "w1_den": "boysFraction_den",
+        "w2": "numGirlsInitial",
+        "w3": "numGirlsNew"
+      },
+      "questionText": "Một trường học có {initialStudents} học sinh. Trong đó, số nam sinh chiếm $\\frac{{{boysFraction_num}}}{{{boysFraction_den}}}$ tổng số học sinh. Sau đó, trường tiếp nhận thêm {newGirlsAdded} nữ sinh mới mà không có học sinh nào rời đi. Hỏi tỉ lệ nữ sinh trong trường sau khi tiếp nhận học sinh mới là bao nhiêu?",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+        "B. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số nam sinh và số nữ sinh ban đầu.",
+        "Cộng thêm số nữ sinh mới để tìm số nữ sinh và tổng số học sinh sau đó.",
+        "Lập phân số biểu thị tỉ lệ nữ sinh mới và rút gọn."
+      ],
+      "solutionHtml": "Số nam sinh ban đầu là:$ {initialStudents} \\times \\frac{{{boysFraction_num}}}{{{boysFraction_den}}} = {numBoysInitial} $ (học sinh).<br/>Số nữ sinh ban đầu là:$ {initialStudents} - {numBoysInitial} = {numGirlsInitial} $ (học sinh).<br/>Sau khi tiếp nhận thêm {newGirlsAdded} nữ sinh mới, số nữ sinh trong trường là:$ {numGirlsInitial} + {newGirlsAdded} = {numGirlsNew} $ (học sinh).<br/>Tổng số học sinh trong trường sau khi tiếp nhận là:$ {initialStudents} + {newGirlsAdded} = {newTotalStudents} $ (học sinh).<br/>Tỉ lệ nữ sinh trong trường sau khi tiếp nhận học sinh mới là:<br/>$\\frac{{{numGirlsNew}}}{{{newTotalStudents}}}$<br/>Để rút gọn phân số này, ta chia cả tử và mẫu cho ước chung lớn nhất là {gcdFinal}.<br/>Kết quả là $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Vậy, tỉ lệ nữ sinh trong trường sau khi tiếp nhận học sinh mới là $\\frac{{{ans_num}}}{{{ans_den}}}$.",
+      "tip": "Để tính tỉ lệ, bạn cần xác định cả 'số phần' và 'tổng số'. Luôn nhớ cập nhật tổng số khi có sự thay đổi về số lượng.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "length_num": {
+          "min": 7,
+          "max": 15,
+          "step": 1,
+          "exclude": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ]
+        },
+        "length_den": {
+          "min": 2,
+          "max": 4,
+          "step": 1,
+          "exclude": [
+            3
+          ]
+        },
+        "width_num": {
+          "min": 3,
+          "max": 7,
+          "step": 1,
+          "exclude": [
+            4,
+            5,
+            6
+          ]
+        },
+        "width_den": {
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            3,
+            4
+          ]
+        },
+        "plantFraction_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "plantFraction_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        }
+      },
+      "constraints": [
+        "length_num/length_den > width_num/width_den",
+        "plantFraction_num < plantFraction_den"
+      ],
+      "formulas": {
+        "areaTotal_num": "length_num * width_num",
+        "areaTotal_den": "length_den * width_den",
+        "gcdAreaTotal": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(areaTotal_num, areaTotal_den)",
+        "simplifiedAreaTotal_num": "areaTotal_num / gcdAreaTotal",
+        "simplifiedAreaTotal_den": "areaTotal_den / gcdAreaTotal",
+        "remainingFraction_num": "plantFraction_den - plantFraction_num",
+        "remainingFraction_den": "plantFraction_den",
+        "ans_num_raw": "simplifiedAreaTotal_num * remainingFraction_num",
+        "ans_den_raw": "simplifiedAreaTotal_den * remainingFraction_den",
+        "gcdAns": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(ans_num_raw, ans_den_raw)",
+        "ans_num": "ans_num_raw / gcdAns",
+        "ans_den": "ans_den_raw / gcdAns",
+        "w1_num_raw": "simplifiedAreaTotal_num * plantFraction_num",
+        "w1_den_raw": "simplifiedAreaTotal_den * plantFraction_den",
+        "gcdW1": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(w1_num_raw, w1_den_raw)",
+        "w1_num": "w1_num_raw / gcdW1",
+        "w1_den": "w1_den_raw / gcdW1",
+        "w2_num": "simplifiedAreaTotal_num",
+        "w2_den": "simplifiedAreaTotal_den",
+        "lcm_lw": "(length_den * width_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(length_den, width_den)",
+        "sum_len_num_adj": "length_num * (lcm_lw / length_den)",
+        "sum_wid_num_adj": "width_num * (lcm_lw / width_den)",
+        "raw_sum_lw_num": "sum_len_num_adj + sum_wid_num_adj",
+        "gcd_sum_lw": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(raw_sum_lw_num, lcm_lw)",
+        "w3_num": "raw_sum_lw_num / gcd_sum_lw",
+        "w3_den": "lcm_lw / gcd_sum_lw"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là $\\frac{{{length_num}}}{{{length_den}}}$ mét và chiều rộng là $\\frac{{{width_num}}}{{{width_den}}}$ mét. Người ta dành $\\frac{{{plantFraction_num}}}{{{plantFraction_den}}}$ diện tích mảnh vườn để trồng rau. Hỏi diện tích phần đất còn lại là bao nhiêu mét vuông?",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$ mét vuông",
+        "B. $\\frac{{{ans_num}}}{{{ans_den}}}$ mét vuông",
+        "C. $\\frac{{{w2_num}}}{{{w2_den}}}$ mét vuông",
+        "D. $\\frac{{{w3_num}}}{{{w3_den}}}$ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính diện tích tổng của mảnh vườn.",
+        "Tính phần diện tích còn lại sau khi trồng rau (dưới dạng phân số).",
+        "Nhân tổng diện tích với phân số diện tích còn lại để tìm kết quả."
+      ],
+      "solutionHtml": "Diện tích của mảnh vườn hình chữ nhật là:<br/>Chiều dài $\\times$ Chiều rộng $= \\frac{{{length_num}}}{{{length_den}}} \\times \\frac{{{width_num}}}{{{width_den}}} = \\frac{{{areaTotal_num}}}{{{areaTotal_den}}}$ (mét vuông).<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdAreaTotal}), ta được phân số tối giản là $\\frac{{{simplifiedAreaTotal_num}}}{{{simplifiedAreaTotal_den}}}$.<br/>Phần diện tích dành để trồng rau là $\\frac{{{plantFraction_num}}}{{{plantFraction_den}}}$. Vậy phần diện tích đất còn lại là $1 - \\frac{{{plantFraction_num}}}{{{plantFraction_den}}} = \\frac{{{remainingFraction_num}}}{{{remainingFraction_den}}}$.<br/>Diện tích phần đất còn lại là:<br/>$\\frac{{{simplifiedAreaTotal_num}}}{{{simplifiedAreaTotal_den}}} \\times \\frac{{{remainingFraction_num}}}{{{remainingFraction_den}}} = \\frac{{{ans_num_raw}}}{{{ans_den_raw}}}$ (mét vuông).<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdAns}), ta được phân số tối giản là $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Vậy, diện tích phần đất còn lại là $\\frac{{{ans_num}}}{{{ans_den}}}$ mét vuông.",
+      "tip": "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng. Phép nhân phân số là tử nhân tử, mẫu nhân mẫu. Luôn rút gọn phân số về dạng tối giản ở bước cuối cùng.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalDistance": {
+          "min": 100,
+          "max": 200,
+          "step": 20
+        },
+        "timeGo_num": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "timeGo_den": {
+          "min": 4,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "speedReturnFactor_num": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "speedReturnFactor_den": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "timeGo_num < timeGo_den",
+        "totalDistance % timeGo_num === 0",
+        "speedReturnFactor_num > speedReturnFactor_den"
+      ],
+      "formulas": {
+        "speedGo_num_calc": "totalDistance * timeGo_den",
+        "speedGo_den_calc": "timeGo_num",
+        "gcd_speedGo_frac": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(speedGo_num_calc, speedGo_den_calc)",
+        "speedGo_simplified_num": "speedGo_num_calc / gcd_speedGo_frac",
+        "speedGo_simplified_den": "speedGo_den_calc / gcd_speedGo_frac",
+        "speedGo_value": "speedGo_simplified_num / speedGo_simplified_den",
+        "speedReturn_num_calc": "speedGo_simplified_num * speedReturnFactor_num",
+        "speedReturn_den_calc": "speedGo_simplified_den * speedReturnFactor_den",
+        "gcd_speedReturn_frac": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(speedReturn_num_calc, speedReturn_den_calc)",
+        "speedReturn_simplified_num": "speedReturn_num_calc / gcd_speedReturn_frac",
+        "speedReturn_simplified_den": "speedReturn_den_calc / gcd_speedReturn_frac",
+        "speedReturn_value": "speedReturn_simplified_num / speedReturn_simplified_den",
+        "timeReturn_num_calc": "totalDistance * speedReturn_simplified_den",
+        "timeReturn_den_calc": "speedReturn_simplified_num",
+        "gcd_timeReturn_frac": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(timeReturn_num_calc, timeReturn_den_calc)",
+        "timeReturn_simplified_num": "timeReturn_num_calc / gcd_timeReturn_frac",
+        "timeReturn_simplified_den": "timeReturn_den_calc / gcd_timeReturn_frac",
+        "lcm_totalTime": "(timeGo_den * timeReturn_simplified_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(timeGo_den, timeReturn_simplified_den)",
+        "totalTime_num1_adj": "timeGo_num * (lcm_totalTime / timeGo_den)",
+        "totalTime_num2_adj": "timeReturn_simplified_num * (lcm_totalTime / timeReturn_simplified_den)",
+        "ans_num_raw": "totalTime_num1_adj + totalTime_num2_adj",
+        "ans_den_raw": "lcm_totalTime",
+        "gcdAns": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(ans_num_raw, ans_den_raw)",
+        "simplifiedAns_num": "ans_num_raw / gcdAns",
+        "simplifiedAns_den": "ans_den_raw / gcdAns",
+        "w1_num": "timeGo_num",
+        "w1_den": "timeGo_den",
+        "w2": "speedGo_value",
+        "w3": "speedReturn_value"
+      },
+      "questionText": "Một ô tô đi từ A đến B dài {totalDistance} km hết $\\frac{{{timeGo_num}}}{{{timeGo_den}}}$ giờ. Khi trở về, ô tô đi với vận tốc gấp $\\frac{{{speedReturnFactor_num}}}{{{speedReturnFactor_den}}}$ lần vận tốc lúc đi. Hỏi tổng thời gian cả đi và về của ô tô là bao nhiêu giờ?",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$ giờ",
+        "B. $\\frac{{{simplifiedAns_num}}}{{{simplifiedAns_den}}}$ giờ",
+        "C. {w2} km/h",
+        "D. {w3} km/h"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính vận tốc lúc đi (Vận tốc = Quãng đường / Thời gian).",
+        "Tính vận tốc lúc về (bằng vận tốc đi nhân với tỉ lệ vận tốc).",
+        "Tính thời gian lúc về (Thời gian = Quãng đường / Vận tốc).",
+        "Cộng thời gian đi và thời gian về để có tổng thời gian."
+      ],
+      "solutionHtml": "Vận tốc của ô tô lúc đi là:<br/>{totalDistance} \\div \\frac{{{timeGo_num}}}{{{timeGo_den}}} = {totalDistance} \\times \\frac{{{timeGo_den}}}{{{timeGo_num}}} = {speedGo_value}$ (km/h).<br/>Vận tốc của ô tô lúc về là:<br/>{speedGo_value} \\times \\frac{{{speedReturnFactor_num}}}{{{speedReturnFactor_den}}} = {speedReturn_value}$ (km/h).<br/>Thời gian ô tô đi lúc về là:<br/>{totalDistance} \\div {speedReturn_value} = \\frac{{{timeReturn_simplified_num}}}{{{timeReturn_simplified_den}}}$ (giờ).<br/>Tổng thời gian cả đi và về của ô tô là:<br/>$\\frac{{{timeGo_num}}}{{{timeGo_den}}} + \\frac{{{timeReturn_simplified_num}}}{{{timeReturn_simplified_den}}} = \\frac{{{simplifiedAns_num}}}{{{simplifiedAns_den}}}$ (giờ).<br/>Vậy, tổng thời gian cả đi và về của ô tô là $\\frac{{{simplifiedAns_num}}}{{{simplifiedAns_den}}}$ giờ.",
+      "tip": "Đọc kỹ đề bài để xác định các đại lượng cần tìm và các mối quan hệ giữa chúng (V = S/T, T = S/V). Phép chia phân số bằng cách nhân với phân số nghịch đảo.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialMoney": {
+          "min": 600,
+          "max": 1200,
+          "step": 120
+        },
+        "costItem1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "costItem1_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "costItem2_num": {
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "exclude": [
+            2
+          ]
+        },
+        "costItem2_den": {
+          "min": 4,
+          "max": 6,
+          "step": 1,
+          "exclude": [
+            5
+          ]
+        }
+      },
+      "constraints": [
+        "costItem1_num < costItem1_den",
+        "costItem2_num < costItem2_den",
+        "initialMoney % costItem1_den === 0",
+        "(initialMoney * (1 - costItem1_num / costItem1_den)) % costItem2_den === 0",
+        "1 - costItem1_num / costItem1_den > 0"
+      ],
+      "formulas": {
+        "moneyItem1": "initialMoney * costItem1_num / costItem1_den",
+        "moneyRemaining1": "initialMoney - moneyItem1",
+        "moneyItem2": "moneyRemaining1 * costItem2_num / costItem2_den",
+        "ans": "moneyRemaining1 - moneyItem2",
+        "w1": "initialMoney - moneyItem1 - initialMoney * costItem2_num / costItem2_den",
+        "w2": "moneyItem1 + moneyItem2",
+        "w3": "moneyRemaining1"
+      },
+      "questionText": "Bác An có {initialMoney} nghìn đồng. Bác dùng $\\frac{{{costItem1_num}}}{{{costItem1_den}}}$ số tiền đó để mua sách. Số tiền còn lại, bác dùng $\\frac{{{costItem2_num}}}{{{costItem2_den}}}$ để mua dụng cụ học tập cho con. Hỏi sau khi mua sắm, bác An còn lại bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số tiền bác An dùng mua sách.",
+        "Tính số tiền còn lại sau khi mua sách.",
+        "Từ số tiền còn lại, tính số tiền bác An dùng mua dụng cụ học tập.",
+        "Tính số tiền cuối cùng còn lại."
+      ],
+      "solutionHtml": "Số tiền bác An dùng để mua sách là:<br/>{initialMoney} \\times \\frac{{{costItem1_num}}}{{{costItem1_den}}} = {moneyItem1}$ (nghìn đồng).<br/>Số tiền còn lại sau khi mua sách là:<br/>{initialMoney} - {moneyItem1} = {moneyRemaining1}$ (nghìn đồng).<br/>Số tiền bác An dùng để mua dụng cụ học tập là:<br/>{moneyRemaining1} \\times \\frac{{{costItem2_num}}}{{{costItem2_den}}} = {moneyItem2}$ (nghìn đồng).<br/>Số tiền bác An còn lại sau khi mua sắm là:<br/>{moneyRemaining1} - {moneyItem2} = {ans}$ (nghìn đồng).<br/>Vậy, bác An còn lại {ans} nghìn đồng.",
+      "tip": "Khi bài toán nói 'phần còn lại, dùng ...', bạn phải tính phần còn lại trước khi nhân với phân số tiếp theo. Đây là dạng toán tính giá trị của một phân số của một phân số khác.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalProjectDays": {
+          "min": 1,
+          "max": 1,
+          "step": 1
+        },
+        "day1Fraction_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "day1Fraction_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "day2Fraction_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "day2Fraction_den": {
+          "min": 4,
+          "max": 6,
+          "step": 1,
+          "exclude": [
+            5
+          ]
+        }
+      },
+      "constraints": [
+        "day1Fraction_num < day1Fraction_den",
+        "day2Fraction_num < day2Fraction_den",
+        "day1Fraction_num * day2Fraction_den + day2Fraction_num * day1Fraction_den < day1Fraction_den * day2Fraction_den"
+      ],
+      "formulas": {
+        "lcmDen": "(day1Fraction_den * day2Fraction_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(day1Fraction_den, day2Fraction_den)",
+        "commonNum1": "day1Fraction_num * (lcmDen / day1Fraction_den)",
+        "commonNum2": "day2Fraction_num * (lcmDen / day2Fraction_den)",
+        "completedFraction_num": "commonNum1 + commonNum2",
+        "completedFraction_den": "lcmDen",
+        "remainingFraction_num": "lcmDen - completedFraction_num",
+        "remainingFraction_den": "lcmDen",
+        "gcdAns": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(remainingFraction_num, remainingFraction_den)",
+        "ans_num": "remainingFraction_num / gcdAns",
+        "ans_den": "remainingFraction_den / gcdAns",
+        "w1_num": "completedFraction_num",
+        "w1_den": "completedFraction_den",
+        "w2_num": "day1Fraction_num",
+        "w2_den": "day1Fraction_den",
+        "w3_num": "day2Fraction_num",
+        "w3_den": "day2Fraction_den"
+      },
+      "questionText": "Một nhóm kỹ sư được giao hoàn thành một dự án. Ngày đầu tiên họ hoàn thành $\\frac{{{day1Fraction_num}}}{{{day1Fraction_den}}}$ tổng số công việc. Ngày thứ hai, họ hoàn thành $\\frac{{{day2Fraction_num}}}{{{day2Fraction_den}}}$ tổng số công việc. Hỏi còn lại bao nhiêu phần công việc mà nhóm kỹ sư cần phải hoàn thành?",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+        "B. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+        "C. $\\frac{{{w2_num}}}{{{w2_den}}}$",
+        "D. $\\frac{{{w3_num}}}{{{w3_den}}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng các phần công việc đã hoàn thành trong ngày 1 và ngày 2.",
+        "Coi toàn bộ công việc là $1$ đơn vị. Lấy $1$ trừ đi tổng phần đã hoàn thành để tìm phần còn lại."
+      ],
+      "solutionHtml": "Tổng số phần công việc đã hoàn thành trong hai ngày là:<br/>$\\frac{{{day1Fraction_num}}}{{{day1Fraction_den}}} + \\frac{{{day2Fraction_num}}}{{{day2Fraction_den}}}$<br/>Quy đồng mẫu số chung nhỏ nhất của {day1Fraction_den} và {day2Fraction_den} là {lcmDen}.<br/>Ta có: $\\frac{{{commonNum1}}}{{{lcmDen}}} + \\frac{{{commonNum2}}}{{{lcmDen}}} = \\frac{{{completedFraction_num}}}{{{completedFraction_den}}}$ (tổng số công việc).<br/>Phần công việc còn lại cần hoàn thành là:<br/>$1 - \\frac{{{completedFraction_num}}}{{{completedFraction_den}}} = \\frac{{{lcmDen}}}{{{lcmDen}}} - \\frac{{{completedFraction_num}}}{{{lcmDen}}} = \\frac{{{remainingFraction_num}}}{{{remainingFraction_den}}}$<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdAns}), ta được phân số tối giản là $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Vậy, còn $\\frac{{{ans_num}}}{{{ans_den}}}$ công việc cần phải hoàn thành.",
+      "tip": "Công việc toàn phần được biểu thị bằng số $1$. Để tìm phần còn lại, ta lấy $1$ trừ đi tổng các phần đã hoàn thành. Hãy cẩn thận khi quy đồng mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialPopulation": {
+          "min": 50000,
+          "max": 100000,
+          "step": 10000
+        },
+        "migrateOut_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "migrateOut_den": {
+          "min": 5,
+          "max": 10,
+          "step": 1,
+          "exclude": [
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        "born_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "born_den": {
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "exclude": [
+            11,
+            12,
+            13,
+            14,
+            16,
+            17,
+            18,
+            19
+          ]
+        }
+      },
+      "constraints": [
+        "migrateOut_num < migrateOut_den",
+        "born_num < born_den",
+        "initialPopulation % migrateOut_den === 0",
+        "(initialPopulation * (1 - migrateOut_num / migrateOut_den)) % born_den === 0"
+      ],
+      "formulas": {
+        "migrateOutCount": "initialPopulation * migrateOut_num / migrateOut_den",
+        "populationAfterMigrateOut": "initialPopulation - migrateOutCount",
+        "newBornCount": "populationAfterMigrateOut * born_num / born_den",
+        "ans": "populationAfterMigrateOut + newBornCount",
+        "w1": "initialPopulation - migrateOutCount",
+        "w2": "initialPopulation + (initialPopulation * born_num / born_den)",
+        "w3": "migrateOutCount + (initialPopulation * born_num / born_den)"
+      },
+      "questionText": "Dân số của một thành phố vào đầu năm là {initialPopulation} người. Trong năm đó, có $\\frac{{{migrateOut_num}}}{{{migrateOut_den}}}$ số dân di cư sang thành phố khác. Đồng thời, số trẻ em sinh ra bằng $\\frac{{{born_num}}}{{{born_den}}}$ số dân còn lại sau khi di cư. Hỏi dân số của thành phố vào cuối năm là bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số dân sau khi di cư.",
+        "Từ số dân còn lại đó, tính số trẻ em sinh ra.",
+        "Cộng số dân sau di cư và số trẻ em sinh ra để có dân số cuối năm."
+      ],
+      "solutionHtml": "Số dân di cư là: {initialPopulation} \\times \\frac{{{migrateOut_num}}}{{{migrateOut_den}}} = {migrateOutCount}$ (người).<br/>Số dân còn lại sau khi di cư là:<br/>{initialPopulation} - {migrateOutCount} = {populationAfterMigrateOut}$ (người).<br/>Số trẻ em sinh ra là:<br/>{populationAfterMigrateOut} \\times \\frac{{{born_num}}}{{{born_den}}} = {newBornCount}$ (người).<br/>Dân số của thành phố vào cuối năm là:<br/>{populationAfterMigrateOut} + {newBornCount} = {ans}$ (người).<br/>Vậy, dân số của thành phố vào cuối năm là {ans} người.",
+      "tip": "Bài toán này có nhiều bước. Hãy giải quyết từng phần một cách cẩn thận. Chú ý 'số dân còn lại sau khi di cư' là cơ sở để tính số trẻ em sinh ra.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "a_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "exclude": [
+            4
+          ]
+        },
+        "b_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "b_den": {
+          "min": 6,
+          "max": 8,
+          "step": 1,
+          "exclude": [
+            7
+          ]
+        },
+        "c_num": {
+          "min": 5,
+          "max": 9,
+          "step": 1,
+          "exclude": [
+            6,
+            7,
+            8
+          ]
+        },
+        "c_den": {
+          "min": 6,
+          "max": 12,
+          "step": 1,
+          "exclude": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        }
+      },
+      "constraints": [
+        "a_num < a_den",
+        "b_num < b_den",
+        "c_num < c_den",
+        "c_num * b_den > b_num * c_den"
+      ],
+      "formulas": {
+        "lcmBC": "(b_den * c_den) / (function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(b_den, c_den)",
+        "commonB_num": "b_num * (lcmBC / b_den)",
+        "commonC_num": "c_num * (lcmBC / c_den)",
+        "intermediate_num": "commonC_num - commonB_num",
+        "intermediate_den": "lcmBC",
+        "ans_raw_num": "intermediate_num * a_den",
+        "ans_raw_den": "intermediate_den * a_num",
+        "gcdAns": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(ans_raw_num, ans_raw_den)",
+        "ans_num": "ans_raw_num / gcdAns",
+        "ans_den": "ans_raw_den / gcdAns",
+        "w1_num": "intermediate_num",
+        "w1_den": "intermediate_den",
+        "w2_num_raw": "intermediate_num * a_num",
+        "w2_den_raw": "intermediate_den * a_den",
+        "gcdW2": "(function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); })(w2_num_raw, w2_den_raw)",
+        "w2_num": "w2_num_raw / gcdW2",
+        "w2_den": "w2_den_raw / gcdW2",
+        "w3_num": "a_num",
+        "w3_den": "a_den"
+      },
+      "questionText": "Tìm giá trị của $X$ trong phương trình sau: $X \\times \\frac{{{a_num}}}{{{a_den}}} + \\frac{{{b_num}}}{{{b_den}}} = \\frac{{{c_num}}}{{{c_den}}}$",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+        "B. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+        "C. $\\frac{{{w2_num}}}{{{w2_den}}}$",
+        "D. $\\frac{{{w3_num}}}{{{w3_den}}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm $X$, trước tiên hãy chuyển các số hạng không chứa $X$ sang một vế.",
+        "Quy đồng mẫu số để thực hiện phép trừ.",
+        "Sau đó, thực hiện phép chia để tìm $X$."
+      ],
+      "solutionHtml": "Để giải phương trình $X \\times \\frac{{{a_num}}}{{{a_den}}} + \\frac{{{b_num}}}{{{b_den}}} = \\frac{{{c_num}}}{{{c_den}}}$, ta thực hiện các bước sau:<br/>Đầu tiên, chuyển số hạng $\\frac{{{b_num}}}{{{b_den}}}$ sang vế phải:<br/>$X \\times \\frac{{{a_num}}}{{{a_den}}} = \\frac{{{c_num}}}{{{c_den}}} - \\frac{{{b_num}}}{{{b_den}}}$<br/>Tính hiệu hai phân số ở vế phải. Mẫu số chung nhỏ nhất của {c_den} và {b_den} là {lcmBC}.<br/>Ta có: $\\frac{{{commonC_num}}}{{{lcmBC}}} - \\frac{{{commonB_num}}}{{{lcmBC}}} = \\frac{{{intermediate_num}}}{{{intermediate_den}}}$<br/>Vậy, ta có phương trình:<br/>$X \\times \\frac{{{a_num}}}{{{a_den}}} = \\frac{{{intermediate_num}}}{{{intermediate_den}}}$<br/>Để tìm $X$, ta chia vế phải cho $\\frac{{{a_num}}}{{{a_den}}}$ (tức là nhân với phân số nghịch đảo của nó):<br/>$X = \\frac{{{intermediate_num}}}{{{intermediate_den}}} \\div \\frac{{{a_num}}}{{{a_den}}} = \\frac{{{intermediate_num}}}{{{intermediate_den}}} \\times \\frac{{{a_den}}}{{{a_num}}} = \\frac{{{ans_raw_num}}}{{{ans_raw_den}}}$<br/>Sau khi rút gọn phân số (chia cả tử và mẫu cho ước chung lớn nhất là {gcdAns}), ta được phân số tối giản là $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Vậy, $X = \\frac{{{ans_num}}}{{{ans_den}}}$.",
+      "tip": "Để giải phương trình chứa phân số, bạn cần áp dụng các quy tắc cộng, trừ, nhân, chia phân số. Nhớ rằng phép chia phân số là nhân với phân số nghịch đảo.",
+      "level": "chat-luong-cao",
+      "type": "lt-c6-2-q10"
+    }
+  ]
+}

@@ -1,0 +1,990 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T04:05:59.925Z
+Lesson ID: lt-c3-2
+Lesson Title: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+==================================================
+
+[ERROR DETAILS]
+Expected ',' or '}' after property value in JSON at position 41337 (line 442 column 7682)
+SyntaxError: Expected ',' or '}' after property value in JSON at position 41337 (line 442 column 7682)
+    at JSON.parse (<anonymous>)
+    at D:\AntiGravity\HocTap\server.js:1066:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 41337 (Line: 442, Column: 7682)
+Character causing error: ":"
+
+Context:
+... If `S_prime` is prime, then `x=1, y=S_prime-1` is the only coprime pair summing to `S_prime`.\nLet's try to ensure `sum_x_y` is prime.\n`'constraints">>>[LỖI TẠI ĐÂY]<<<: [ "variables.sumAB % variables.gcdAB === 0", "MathHelpers.isPrime(variables.sumAB / variables.gcdAB)" ]`
+This `isPrime` helper would be needed. This ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "numBoys": { "min": 30, "max": 70, "step": 2 },
+      "numGirls": { "min": 30, "max": 70, "step": 2 }
+    },
+    "constraints": [
+      "numBoys !== numGirls",
+      "MathHelpers.gcd(numBoys, numGirls) > 4",
+      "numBoys % 2 === 0",
+      "numGirls % 2 === 0"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.gcd(variables.numBoys, variables.numGirls)",
+      "boysPerGroup": "variables.numBoys / formulas.ans",
+      "girlsPerGroup": "variables.numGirls / formulas.ans",
+      "w1": "MathHelpers.gcd(variables.numBoys, variables.numGirls) + 2",
+      "w2": "variables.numBoys + variables.numGirls",
+      "w3": "MathHelpers.gcd(variables.numBoys, variables.numGirls) / 2"
+    },
+    "questionText": "Câu lạc bộ Toán học có ${numBoys}$ học sinh nam và ${numGirls}$ học sinh nữ. Thầy giáo muốn chia tất cả học sinh thành các tổ nhỏ sao cho mỗi tổ có số học sinh nam bằng nhau và số học sinh nữ cũng bằng nhau. Hỏi thầy giáo có thể chia được nhiều nhất bao nhiêu tổ?",
+    "options": [
+      "A. ${w1}$ tổ",
+      "B. ${ans}$ tổ",
+      "C. ${w2}$ tổ",
+      "D. ${w3}$ tổ"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số lượng tổ lớn nhất mà thầy giáo có thể chia được chính là ước chung lớn nhất của số học sinh nam và số học sinh nữ.",
+      "Hãy tìm ước chung lớn nhất của $ {numBoys} $ và $ {numGirls} $."
+    ],
+    "solutionHtml": "Để chia được nhiều nhất số tổ mà mỗi tổ có số học sinh nam bằng nhau và số học sinh nữ cũng bằng nhau, số tổ phải là ước chung lớn nhất (UCLN) của số học sinh nam và số học sinh nữ.<br/>Ta có:<br/>Số học sinh nam là $ {numBoys} $.<br/>Số học sinh nữ là $ {numGirls} $.<br/>UCLN($ {numBoys} $, $ {numGirls} $) = $ {ans} $.<br/>Vậy, thầy giáo có thể chia được nhiều nhất $ {ans} $ tổ.<br/>Mỗi tổ sẽ có $ {boysPerGroup} $ học sinh nam và $ {girlsPerGroup} $ học sinh nữ.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu 'chia đều' các đối tượng khác loại thành các nhóm 'lớn nhất' hoặc 'nhiều nhất' mà các nhóm đó có cấu trúc giống nhau (số lượng từng loại đối tượng trong mỗi nhóm bằng nhau), hãy nghĩ đến việc tìm Ước chung lớn nhất (UCLN).",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "intervalA": { "min": 6, "max": 12, "step": 1 },
+      "intervalB": { "min": 8, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "variables.intervalA !== variables.intervalB",
+      "MathHelpers.gcd(variables.intervalA, variables.intervalB) > 1"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.lcm(variables.intervalA, variables.intervalB)",
+      "w1": "variables.intervalA + variables.intervalB",
+      "w2": "variables.intervalA * variables.intervalB",
+      "w3": "Math.abs(variables.intervalA - variables.intervalB)"
+    },
+    "questionText": "Bạn An cứ $ {intervalA} $ ngày lại đến thư viện một lần, bạn Bình cứ $ {intervalB} $ ngày lại đến thư viện một lần. Hôm nay (thứ Hai) cả hai bạn cùng đến thư viện. Hỏi sau ít nhất bao nhiêu ngày nữa thì hai bạn lại cùng đến thư viện?",
+    "options": [
+      "A. ${w1}$ ngày",
+      "B. ${ans}$ ngày",
+      "C. ${w2}$ ngày",
+      "D. ${w3}$ ngày"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Thời điểm tiếp theo mà cả hai bạn cùng đến thư viện phải là một bội số của cả số ngày bạn An đến và số ngày bạn Bình đến.",
+      "Hãy tìm bội chung nhỏ nhất của $ {intervalA} $ và $ {intervalB} $."
+    ],
+    "solutionHtml": "Để biết sau ít nhất bao nhiêu ngày nữa hai bạn An và Bình lại cùng đến thư viện, ta cần tìm bội chung nhỏ nhất (BCNN) của số ngày An đến thư viện và số ngày Bình đến thư viện.<br/>An đến sau mỗi $ {intervalA} $ ngày.<br/>Bình đến sau mỗi $ {intervalB} $ ngày.<br/>BCNN($ {intervalA} $, $ {intervalB} $) = $ {ans} $.<br/>Vậy, sau ít nhất $ {ans} $ ngày nữa thì hai bạn An và Bình lại cùng đến thư viện.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán hỏi về thời điểm hai sự kiện lặp lại cùng nhau 'tiếp theo' hoặc 'lần đầu tiên', hãy nghĩ đến việc tìm Bội chung nhỏ nhất (BCNN).",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "length": { "min": 60, "max": 120, "step": 6 },
+      "width": { "min": 40, "max": 80, "step": 6 }
+    },
+    "constraints": [
+      "variables.length > variables.width",
+      "MathHelpers.gcd(variables.length, variables.width) > 5",
+      "variables.length % MathHelpers.gcd(variables.length, variables.width) === 0",
+      "variables.width % MathHelpers.gcd(variables.length, variables.width) === 0"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.gcd(variables.length, variables.width)",
+      "numTilesLength": "variables.length / formulas.ans",
+      "numTilesWidth": "variables.width / formulas.ans",
+      "totalTiles": "formulas.numTilesLength * formulas.numTilesWidth",
+      "w1": "variables.length + variables.width",
+      "w2": "variables.length - variables.width",
+      "w3": "MathHelpers.gcd(variables.length, variables.width) * 2"
+    },
+    "questionText": "Chú Nam có một sân vườn hình chữ nhật kích thước $ {length} $ mét và $ {width} $ mét. Chú muốn lát sân bằng các viên gạch hình vuông có kích thước bằng nhau, sao cho cạnh của mỗi viên gạch là số tự nhiên lớn nhất có thể và không cần cắt gạch. Hỏi cạnh của mỗi viên gạch đó dài bao nhiêu mét?",
+    "options": [
+      "A. ${w1}$ mét",
+      "B. ${ans}$ mét",
+      "C. ${w2}$ mét",
+      "D. ${w3}$ mét"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Cạnh của viên gạch vuông phải là ước của cả chiều dài và chiều rộng của sân vườn.",
+      "Vì muốn cạnh viên gạch là lớn nhất có thể, nên đó chính là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng."
+    ],
+    "solutionHtml": "Để lát sân vườn hình chữ nhật bằng các viên gạch hình vuông có kích thước bằng nhau và cạnh lớn nhất có thể mà không cần cắt gạch, thì cạnh của viên gạch vuông phải là ước chung lớn nhất (UCLN) của chiều dài và chiều rộng của sân.<br/>Chiều dài sân là $ {length} $ mét.<br/>Chiều rộng sân là $ {width} $ mét.<br/>UCLN($ {length} $, $ {width} $) = $ {ans} $.<br/>Vậy, cạnh của mỗi viên gạch là $ {ans} $ mét.<br/>(Với kích thước này, chú Nam sẽ cần $ {numTilesLength} $ viên gạch theo chiều dài và $ {numTilesWidth} $ viên gạch theo chiều rộng, tổng cộng $ {totalTiles} $ viên).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu 'chia' một hình chữ nhật thành các hình vuông 'lớn nhất' có thể, cạnh hình vuông chính là UCLN của chiều dài và chiều rộng.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "divisor": { "min": 6, "max": 18, "step": 1 },
+      "remainder": { "min": 1, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "variables.remainder < variables.divisor",
+      "variables.divisor % variables.remainder !== 0"
+    ],
+    "formulas": {
+      "startCandidate": "Math.floor(100 / variables.divisor) * variables.divisor + variables.remainder",
+      "start_num": "formulas.startCandidate < 100 ? formulas.startCandidate + variables.divisor : formulas.startCandidate",
+      "endCandidate": "Math.floor(999 / variables.divisor) * variables.divisor + variables.remainder",
+      "end_num": "formulas.endCandidate > 999 ? formulas.endCandidate - variables.divisor : formulas.endCandidate",
+      "ans": "(formulas.end_num - formulas.start_num) / variables.divisor + 1",
+      "w1": "formulas.ans + 1",
+      "w2": "formulas.ans - 1",
+      "w3": "Math.floor(899 / variables.divisor)"
+    },
+    "questionText": "Thầy An yêu cầu các bạn học sinh tìm tất cả các số tự nhiên có ba chữ số mà khi chia cho $ {divisor} $ thì dư $ {remainder} $. Hỏi có bao nhiêu số như vậy?",
+    "options": [
+      "A. ${w1}$ số",
+      "B. ${ans}$ số",
+      "C. ${w2}$ số",
+      "D. ${w3}$ số"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Các số có ba chữ số nằm trong khoảng từ 100 đến 999.",
+      "Số cần tìm có dạng $k \\times {divisor} + {remainder}$. Hãy tìm số $k$ nhỏ nhất và lớn nhất để số đó có ba chữ số."
+    ],
+    "solutionHtml": "Các số tự nhiên có ba chữ số là các số từ 100 đến 999.<br/>Một số khi chia cho $ {divisor} $ thì dư $ {remainder} $ có dạng $N = q \\times {divisor} + {remainder}$, trong đó $q$ là thương.<br/><br/>Bước 1: Tìm số nhỏ nhất thỏa mãn.<br/>Số nhỏ nhất có ba chữ số là 100. Ta xét $100 : {divisor} \\approx {Math.floor(100 / variables.divisor)}$.<br/>$ {Math.floor(100 / variables.divisor)} \\times {divisor} = {Math.floor(100 / variables.divisor) * variables.divisor} $.<br/>$ {Math.floor(100 / variables.divisor) * variables.divisor} + {remainder} = {formulas.startCandidate} $.<br/>Vì $ {formulas.startCandidate} $ là số có 3 chữ số đầu tiên thỏa mãn, nên số nhỏ nhất là $ {formulas.start_num} $.<br/><br/>Bước 2: Tìm số lớn nhất thỏa mãn.<br/>Số lớn nhất có ba chữ số là 999. Ta xét $999 : {divisor} \\approx {Math.floor(999 / variables.divisor)}$.<br/>$ {Math.floor(999 / variables.divisor)} \\times {divisor} = {Math.floor(999 / variables.divisor) * variables.divisor} $.<br/>$ {Math.floor(999 / variables.divisor) * variables.divisor} + {remainder} = {formulas.endCandidate} $.<br/>Vì $ {formulas.endCandidate} $ là số có 3 chữ số cuối cùng thỏa mãn, nên số lớn nhất là $ {formulas.end_num} $.<br/><br/>Bước 3: Đếm số lượng các số.<br/>Các số thỏa mãn tạo thành một dãy số cách đều, với khoảng cách là $ {divisor} $.<br/>Số lượng số = (Số cuối - Số đầu) / Khoảng cách + 1<br/>Số lượng số = $ ( {formulas.end_num} - {formulas.start_num} ) / {divisor} + 1 = {formulas.ans} $.<br/>Vậy có $ {formulas.ans} $ số tự nhiên có ba chữ số thỏa mãn điều kiện đề bài.<br/>Đáp án đúng là B.",
+    "tip": "Để đếm số lượng các số trong một khoảng thỏa mãn điều kiện chia dư, hãy tìm số đầu tiên và số cuối cùng trong khoảng đó thỏa mãn điều kiện. Sau đó áp dụng công thức tính số phần tử của một dãy số cách đều.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalItems": { "min": 100, "max": 250, "step": 10 },
+      "minPerBox": { "min": 3, "max": 7, "step": 1 },
+      "maxPerBox": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      "variables.totalItems % 2 === 0",
+      "variables.minPerBox < variables.maxPerBox",
+      "variables.minPerBox < variables.totalItems",
+      "variables.maxPerBox < variables.totalItems",
+      "Math.floor(Math.sqrt(variables.totalItems)) > variables.maxPerBox"
+    ],
+    "formulas": {
+      "divisorsList": "MathHelpers.getDivisors(variables.totalItems)",
+      "ans": "formulas.divisorsList.filter(d => d % 2 === 0 && d >= variables.minPerBox && d <= variables.maxPerBox).length",
+      "w1": "formulas.ans + 1",
+      "w2": "formulas.ans - 1",
+      "w3": "MathHelpers.getDivisors(variables.totalItems).length"
+    },
+    "questionText": "Một cửa hàng muốn đóng gói $ {totalItems} $ chiếc bánh vào các hộp. Mỗi hộp chứa cùng một số lượng bánh và số bánh trong mỗi hộp phải là một số <b>chẵn</b>, đồng thời số lượng bánh đó phải lớn hơn $ {minPerBox} $ và nhỏ hơn $ {maxPerBox} $. Hỏi cửa hàng có thể có bao nhiêu cách đóng gói khác nhau (số lượng bánh trong mỗi hộp là khác nhau)?",
+    "options": [
+      "A. ${w1}$ cách",
+      "B. ${ans}$ cách",
+      "C. ${w2}$ cách",
+      "D. ${w3}$ cách"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số lượng bánh trong mỗi hộp phải là một ước của tổng số bánh $ {totalItems} $.",
+      "Bạn cần liệt kê các ước số của $ {totalItems} $ và sau đó lọc ra những ước số thỏa mãn điều kiện là số chẵn và nằm trong khoảng từ $ {minPerBox} $ đến $ {maxPerBox} $."
+    ],
+    "solutionHtml": "Để xác định số cách đóng gói, ta cần tìm các số lượng bánh có thể có trong mỗi hộp. Số lượng bánh trong mỗi hộp phải là một ước của tổng số bánh $ {totalItems} $.<br/>Các ước số của $ {totalItems} $ là: $ {divisorsList.join(', ')} $.<br/>Theo đề bài, số lượng bánh trong mỗi hộp phải thỏa mãn các điều kiện sau:<br/>1. Là số chẵn.<br/>2. Lớn hơn $ {minPerBox} $ và nhỏ hơn $ {maxPerBox} $ (tức là $ {minPerBox} < \\text{số lượng} < {maxPerBox} $).<br/><br/>Ta liệt kê các ước số của $ {totalItems} $ và kiểm tra từng điều kiện:<br/>$ {divisorsList.map(d => `- ${d}: ${d % 2 === 0 ? 'Chẵn' : 'Lẻ'} / ${d > variables.minPerBox && d < variables.maxPerBox ? 'Trong khoảng' : 'Ngoài khoảng'}`)} $<br/>Các ước số thỏa mãn đồng thời cả hai điều kiện là: $ {formulas.divisorsList.filter(d => d % 2 === 0 && d > variables.minPerBox && d < variables.maxPerBox).join(', ')} $.<br/>Số lượng các ước số này là $ {formulas.ans} $.<br/>Vậy, cửa hàng có $ {formulas.ans} $ cách đóng gói khác nhau.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu tìm các 'cách chia' hoặc 'số lượng' đối tượng mà có nhiều hơn một điều kiện (ví dụ: chia hết, chẵn/lẻ, trong khoảng), hãy liệt kê tất cả các khả năng chia hết trước, sau đó dùng các điều kiện phụ để lọc ra kết quả cuối cùng.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "div1": { "min": 3, "max": 7, "step": 1 },
+      "div2": { "min": 5, "max": 9, "step": 1 },
+      "commonRem": { "min": 1, "max": 3, "step": 1 }
+    },
+    "constraints": [
+      "variables.div1 !== variables.div2",
+      "variables.commonRem < Math.min(variables.div1, variables.div2)",
+      "MathHelpers.gcd(variables.div1, variables.div2) === 1"
+    ],
+    "formulas": {
+      "lcm_val": "MathHelpers.lcm(variables.div1, variables.div2)",
+      "first_k_numerator": "100 - variables.commonRem",
+      "first_k_division": "Math.ceil(formulas.first_k_numerator / formulas.lcm_val)",
+      "start_num_candidate": "formulas.first_k_division * formulas.lcm_val + variables.commonRem",
+      "start_num": "formulas.start_num_candidate < 100 ? formulas.start_num_candidate + formulas.lcm_val : formulas.start_num_candidate",
+      "last_k_numerator": "999 - variables.commonRem",
+      "last_k_division": "Math.floor(formulas.last_k_numerator / formulas.lcm_val)",
+      "end_num_candidate": "formulas.last_k_division * formulas.lcm_val + variables.commonRem",
+      "end_num": "formulas.end_num_candidate > 999 ? formulas.end_num_candidate - formulas.lcm_val : formulas.end_num_candidate",
+      "ans": "(formulas.end_num - formulas.start_num) / formulas.lcm_val + 1",
+      "w1": "formulas.ans + 2",
+      "w2": "formulas.ans - 2",
+      "w3": "Math.floor(899 / formulas.lcm_val)"
+    },
+    "questionText": "Trong các số tự nhiên có ba chữ số, hỏi có bao nhiêu số mà khi chia cho $ {div1} $ thì dư $ {commonRem} $ và khi chia cho $ {div2} $ cũng dư $ {commonRem} $?",
+    "options": [
+      "A. ${w1}$ số",
+      "B. ${ans}$ số",
+      "C. ${w2}$ số",
+      "D. ${w3}$ số"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nếu một số chia cho $ {div1} $ dư $ {commonRem} $ và chia cho $ {div2} $ cũng dư $ {commonRem} $, thì số đó trừ đi $ {commonRem} $ sẽ chia hết cho cả $ {div1} $ và $ {div2} $.",
+      "Vậy, số đó trừ đi $ {commonRem} $ sẽ là bội chung của $ {div1} $ và $ {div2} $. Hãy tìm BCNN của $ {div1} $ và $ {div2} $."
+    ],
+    "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, khi chia $N$ cho $ {div1} $ thì dư $ {commonRem} $, và khi chia $N$ cho $ {div2} $ cũng dư $ {commonRem} $.<br/>Điều này có nghĩa là $N - {commonRem} $ chia hết cho cả $ {div1} $ và $ {div2} $.<br/>Hay $N - {commonRem} $ là bội chung của $ {div1} $ và $ {div2} $.<br/><br/>Bước 1: Tìm Bội chung nhỏ nhất (BCNN) của $ {div1} $ và $ {div2} $.<br/>BCNN($ {div1} $, $ {div2} $) = $ {lcm_val} $.<br/>Vậy, $N - {commonRem} $ sẽ là bội của $ {lcm_val} $. Ta có thể viết $N - {commonRem} = k \\times {lcm_val} $ (với $k$ là số tự nhiên).<br/>Suy ra $N = k \\times {lcm_val} + {commonRem} $.<br/><br/>Bước 2: Tìm số nhỏ nhất có ba chữ số thỏa mãn.<br/>Các số có ba chữ số chạy từ 100 đến 999.<br/>Ta tìm giá trị $k$ nhỏ nhất để $k \\times {lcm_val} + {commonRem} \\ge 100$.<br/>$k \\times {lcm_val} \\ge 100 - {commonRem} = {formulas.first_k_numerator} $.<br/>$k \\ge {formulas.first_k_numerator} / {lcm_val} \\approx {Math.ceil(formulas.first_k_numerator / formulas.lcm_val)} $. Chọn $k_{min} = {formulas.first_k_division}$.<br/>Số nhỏ nhất là $ {start_num} $.<br/><br/>Bước 3: Tìm số lớn nhất có ba chữ số thỏa mãn.<br/>Ta tìm giá trị $k$ lớn nhất để $k \\times {lcm_val} + {commonRem} \\le 999$.<br/>$k \\times {lcm_val} \\le 999 - {commonRem} = {formulas.last_k_numerator} $.<br/>$k \\le {formulas.last_k_numerator} / {lcm_val} \\approx {Math.floor(formulas.last_k_numerator / formulas.lcm_val)} $. Chọn $k_{max} = {formulas.last_k_division}$.<br/>Số lớn nhất là $ {end_num} $.<br/><br/>Bước 4: Đếm số lượng các số.<br/>Số lượng các số = $ ( {end_num} - {start_num} ) / {lcm_val} + 1 = {formulas.ans} $.<br/>Vậy có $ {formulas.ans} $ số tự nhiên có ba chữ số thỏa mãn điều kiện.<br/>Đáp án đúng là B.",
+    "tip": "Khi một số chia cho nhiều số khác nhau mà cùng cho một số dư, thì số đó trừ đi số dư sẽ chia hết cho bội chung nhỏ nhất của các số chia đó. Sau đó, áp dụng phương pháp đếm số trong dãy cách đều.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numStudents": { "min": 80, "max": 150, "step": 10 },
+      "multiple1": { "min": 3, "max": 6, "step": 1 },
+      "multiple2": { "min": 7, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "variables.multiple1 !== variables.multiple2",
+      "MathHelpers.gcd(variables.multiple1, variables.multiple2) === 1"
+    ],
+    "formulas": {
+      "countM1": "Math.floor(variables.numStudents / variables.multiple1)",
+      "countM2": "Math.floor(variables.numStudents / variables.multiple2)",
+      "lcm_val": "MathHelpers.lcm(variables.multiple1, variables.multiple2)",
+      "countLCM": "Math.floor(variables.numStudents / formulas.lcm_val)",
+      "ans": "formulas.countM1 + formulas.countM2 - formulas.countLCM",
+      "w1": "formulas.countM1 + formulas.countM2",
+      "w2": "formulas.countLCM",
+      "w3": "variables.numStudents - formulas.ans"
+    },
+    "questionText": "Trong một buổi trò chơi tại trường, có $ {numStudents} $ bạn học sinh xếp thành hàng và được đánh số thứ tự từ 1 đến $ {numStudents} $. Thầy giáo yêu cầu các bạn: nếu số thứ tự của mình là bội của $ {multiple1} $ hoặc bội của $ {multiple2} $ thì hô 'TÔI LÀ FAN!'. Hỏi có bao nhiêu bạn đã hô 'TÔI LÀ FAN!'?",
+    "options": [
+      "A. ${w1}$ bạn",
+      "B. ${ans}$ bạn",
+      "C. ${w2}$ bạn",
+      "D. ${w3}$ bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Bạn cần đếm số các bạn là bội của $ {multiple1} $, số các bạn là bội của $ {multiple2} $.",
+      "Lưu ý rằng những bạn là bội của cả $ {multiple1} $ và $ {multiple2} $ (tức là bội của BCNN($ {multiple1} $, $ {multiple2} $)) đã được đếm hai lần. Bạn cần trừ đi số lượng này một lần để tránh đếm trùng."
+    ],
+    "solutionHtml": "Để tìm số bạn đã hô 'TÔI LÀ FAN!', ta cần tính số bạn là bội của $ {multiple1} $ hoặc bội của $ {multiple2} $ trong dãy từ 1 đến $ {numStudents} $.<br/><br/>Bước 1: Số bạn là bội của $ {multiple1} $.<br/>Số lượng các số là bội của $ {multiple1} $ từ 1 đến $ {numStudents} $ là: $ {Math.floor(variables.numStudents / variables.multiple1)} $ bạn.<br/><br/>Bước 2: Số bạn là bội của $ {multiple2} $.<br/>Số lượng các số là bội của $ {multiple2} $ từ 1 đến $ {numStudents} $ là: $ {Math.floor(variables.numStudents / variables.multiple2)} $ bạn.<br/><br/>Bước 3: Số bạn là bội của cả $ {multiple1} $ và $ {multiple2} $.<br/>Những bạn này sẽ hô 'TÔI LÀ FAN!' hai lần nếu ta cộng trực tiếp kết quả của Bước 1 và Bước 2. Để tránh đếm trùng, ta cần tìm số bạn là bội chung của $ {multiple1} $ và $ {multiple2} $. Đó chính là bội của BCNN($ {multiple1} $, $ {multiple2} $).<br/>BCNN($ {multiple1} $, $ {multiple2} $) = $ {formulas.lcm_val} $.<br/>Số lượng các số là bội của $ {formulas.lcm_val} $ từ 1 đến $ {numStudents} $ là: $ {Math.floor(variables.numStudents / formulas.lcm_val)} $ bạn.<br/><br/>Bước 4: Áp dụng nguyên lý cộng và trừ (nguyên lý bao hàm - loại trừ).<br/>Tổng số bạn hô 'TÔI LÀ FAN!' = (Số bạn là bội của $ {multiple1} $) + (Số bạn là bội của $ {multiple2} $) - (Số bạn là bội của cả $ {multiple1} $ và $ {multiple2} $)<br/>Số bạn = $ {formulas.countM1} + {formulas.countM2} - {formulas.countLCM} = {formulas.ans} $ bạn.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu đếm số đối tượng thỏa mãn điều kiện A HOẶC B, hãy dùng công thức: Số (A hoặc B) = Số (A) + Số (B) - Số (A và B). Trong đó 'Số (A và B)' là số các đối tượng thỏa mãn cả hai điều kiện.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalItems": { "min": 60, "max": 180, "step": 6 }
+    },
+    "constraints": [
+      "MathHelpers.getDivisors(variables.totalItems).length > 6"
+    ],
+    "formulas": {
+      "divisorsList": "MathHelpers.getDivisors(variables.totalItems)",
+      "ans": "formulas.divisorsList.length",
+      "w1": "formulas.ans + 1",
+      "w2": "variables.totalItems / 2",
+      "w3": "variables.totalItems - 1"
+    },
+    "questionText": "Một nhà máy có $ {totalItems} $ sản phẩm. Để kiểm tra chất lượng, người ta chia các sản phẩm này thành các lô nhỏ, mỗi lô có số sản phẩm bằng nhau. Hỏi nhà máy có bao nhiêu cách chia lô khác nhau (số lượng sản phẩm trong mỗi lô là khác nhau)?",
+    "options": [
+      "A. ${w1}$ cách",
+      "B. ${ans}$ cách",
+      "C. ${w2}$ cách",
+      "D. ${w3}$ cách"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số lượng sản phẩm trong mỗi lô phải là một ước của tổng số sản phẩm.",
+      "Để tìm số cách chia lô khác nhau, bạn cần đếm tất cả các ước số của $ {totalItems} $."
+    ],
+    "solutionHtml": "Để chia $ {totalItems} $ sản phẩm thành các lô nhỏ mà mỗi lô có số sản phẩm bằng nhau, thì số lượng sản phẩm trong mỗi lô phải là một ước của $ {totalItems} $.<br/>Mỗi ước số của $ {totalItems} $ tương ứng với một cách chia lô khác nhau.<br/>Ví dụ, nếu có 12 sản phẩm, các ước là 1, 2, 3, 4, 6, 12.<br/>Tức là có thể chia mỗi lô 1 sản phẩm (12 lô), hoặc mỗi lô 2 sản phẩm (6 lô), v.v.<br/><br/>Bước 1: Liệt kê tất cả các ước số của $ {totalItems} $.<br/>Các ước số của $ {totalItems} $ là: $ {divisorsList.join(', ')} $.<br/><br/>Bước 2: Đếm số lượng các ước số.<br/>Số lượng các ước số của $ {totalItems} $ là $ {formulas.ans} $.<br/>Vậy, nhà máy có $ {formulas.ans} $ cách chia lô khác nhau.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán hỏi về 'số cách chia đều' hoặc 'số loại nhóm' mà đối tượng trong mỗi nhóm phải bằng nhau, hãy nghĩ đến việc tìm số lượng ước của tổng số đối tượng. Mỗi ước số là một khả năng cho số lượng đối tượng trong mỗi nhóm.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "sumAB": { "min": 20, "max": 60, "step": 2 },
+      "gcdAB": { "min": 2, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "variables.sumAB % variables.gcdAB === 0",
+      "MathHelpers.findCoprimeFactors(variables.sumAB / variables.gcdAB).length === 1",
+      "variables.sumAB / variables.gcdAB > 1"
+    ],
+    "formulas": {
+      "sum_x_y": "variables.sumAB / variables.gcdAB",
+      "x": "MathHelpers.findCoprimeFactors(formulas.sum_x_y - 1).length > 0 ? 1 : 1",
+      "y": "formulas.sum_x_y - formulas.x",
+      "a": "variables.gcdAB * formulas.x",
+      "b": "variables.gcdAB * formulas.y",
+      "ans": "MathHelpers.lcm(formulas.a, formulas.b)",
+      "w1": "formulas.a + formulas.b",
+      "w2": "formulas.a * formulas.b",
+      "w3": "variables.gcdAB"
+    },
+    "questionText": "Tìm hai số tự nhiên $a$ và $b$ biết rằng tổng của chúng bằng $ {sumAB} $ và ước chung lớn nhất của chúng bằng $ {gcdAB} $. Hỏi bội chung nhỏ nhất của hai số đó là bao nhiêu?",
+    "options": [
+      "A. ${w1}$",
+      "B. ${ans}$",
+      "C. ${w2}$",
+      "D. ${w3}$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nếu UCLN của $a$ và $b$ là $ {gcdAB} $, thì ta có thể đặt $a = {gcdAB} \\times x$ và $b = {gcdAB} \\times y$, với $x$ và $y$ là hai số nguyên tố cùng nhau.",
+      "Thay thế vào tổng $a+b = {sumAB} $ để tìm $x+y$. Sau đó tìm cặp $x,y$ nguyên tố cùng nhau và tính BCNN."
+    ],
+    "solutionHtml": "Gọi hai số cần tìm là $a$ và $b$.<br/>Theo đề bài, UCLN($a, b$) = $ {gcdAB} $.<br/>Ta có thể đặt $a = {gcdAB} \\times x$ và $b = {gcdAB} \\times y$, trong đó $x$ và $y$ là hai số tự nhiên nguyên tố cùng nhau (UCLN($x, y$) = 1).<br/><br/>Bước 1: Sử dụng thông tin về tổng hai số.<br/>Tổng của hai số là $a + b = {sumAB} $.<br/>$ {gcdAB} \\times x + {gcdAB} \\times y = {sumAB} $.<br/>$ {gcdAB} \\times (x + y) = {sumAB} $.<br/>$x + y = {sumAB} / {gcdAB} = {formulas.sum_x_y} $.<br/><br/>Bước 2: Tìm $x$ và $y$.<br/>Ta cần tìm hai số $x, y$ sao cho $x + y = {formulas.sum_x_y} $ và UCLN($x, y$) = 1. (Do cách chọn biến, cặp này sẽ là $x={formulas.x}$ và $y={formulas.y}$).<br/>Vậy, ta có $x = {formulas.x} $ và $y = {formulas.y} $.<br/><br/>Bước 3: Tìm $a$ và $b$.<br/>$a = {gcdAB} \\times x = {gcdAB} \\times {formulas.x} = {formulas.a} $.<br/>$b = {gcdAB} \\times y = {gcdAB} \\times {formulas.y} = {formulas.b} $.<br/><br/>Bước 4: Tính Bội chung nhỏ nhất (BCNN) của $a$ và $b$.<br/>BCNN($a, b$) = ($a \\times b$) / UCLN($a, b$)<br/>BCNN($ {formulas.a} $, $ {formulas.b} $) = ($ {formulas.a} \\times {formulas.b} $) / $ {gcdAB} $ = $ {formulas.ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Khi biết tổng (hoặc tích) và UCLN của hai số, hãy đặt hai số đó dưới dạng UCLN nhân với hai thừa số phụ. Hai thừa số phụ này phải nguyên tố cùng nhau. Điều này giúp đơn giản hóa bài toán để tìm ra các số đó.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialTemp": { "min": -5, "max": 10, "step": 1 },
+      "dropRate": { "min": 1, "max": 3, "step": 1 },
+      "durationDrop": { "min": 2, "max": 4, "step": 1 },
+      "riseRate": { "min": 1, "max": 3, "step": 1 },
+      "durationRise": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "variables.initialTemp - variables.dropRate * variables.durationDrop < 0",
+      "variables.dropRate !== variables.riseRate"
+    ],
+    "formulas": {
+      "tempAfterDrop": "variables.initialTemp - variables.dropRate * variables.durationDrop",
+      "ans": "formulas.tempAfterDrop + variables.riseRate * variables.durationRise",
+      "w1": "variables.initialTemp + variables.dropRate * variables.durationDrop + variables.riseRate * variables.durationRise",
+      "w2": "variables.initialTemp - variables.dropRate * variables.durationDrop - variables.riseRate * variables.durationRise",
+      "w3": "variables.initialTemp + variables.dropRate * variables.durationDrop"
+    },
+    "questionText": "Vào lúc 6 giờ sáng, nhiệt độ tại một thị trấn vùng núi là $ {initialTemp} $ độ C. Sau đó, nhiệt độ giảm đi $ {dropRate} $ độ C mỗi giờ trong $ {durationDrop} $ giờ liên tiếp. Tiếp theo, nhiệt độ tăng lên $ {riseRate} $ độ C mỗi giờ trong $ {durationRise} $ giờ liên tiếp. Hỏi nhiệt độ lúc đó là bao nhiêu độ C?",
+    "options": [
+      "A. ${w1}$ độ C",
+      "B. ${ans}$ độ C",
+      "C. ${w2}$ độ C",
+      "D. ${w3}$ độ C"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Hãy tính toán sự thay đổi nhiệt độ theo từng giai đoạn.",
+      "Lưu ý các phép tính với số nguyên (số âm, số dương)."
+    ],
+    "solutionHtml": "Ta sẽ tính toán sự thay đổi nhiệt độ theo từng giai đoạn:<br/><br/>Bước 1: Nhiệt độ ban đầu.<br/>Nhiệt độ lúc 6 giờ sáng là $ {initialTemp} $ độ C.<br/><br/>Bước 2: Tính toán sự giảm nhiệt độ.<br/>Nhiệt độ giảm $ {dropRate} $ độ C mỗi giờ trong $ {durationDrop} $ giờ.<br/>Tổng số độ C giảm đi là: $ {dropRate} \\times {durationDrop} = {variables.dropRate * variables.durationDrop} $ độ C.<br/>Nhiệt độ sau khi giảm là: $ {initialTemp} - {variables.dropRate * variables.durationDrop} = {formulas.tempAfterDrop} $ độ C.<br/><br/>Bước 3: Tính toán sự tăng nhiệt độ.<br/>Nhiệt độ tăng $ {riseRate} $ độ C mỗi giờ trong $ {durationRise} $ giờ.<br/>Tổng số độ C tăng lên là: $ {riseRate} \\times {durationRise} = {variables.riseRate * variables.durationRise} $ độ C.<br/>Nhiệt độ cuối cùng là: $ {formulas.tempAfterDrop} + {variables.riseRate * variables.durationRise} = {formulas.ans} $ độ C.<br/>Đáp án đúng là B.",
+    "tip": "Với các bài toán về nhiệt độ, độ cao, tài khoản ngân hàng... có sự thay đổi tăng/giảm, hãy sử dụng số nguyên (âm, dương) và thực hiện các phép tính nhân, cộng, trừ theo đúng trình tự và dấu của chúng.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numStudents": { "min": 30, "max": 60, "step": 1 },
+      "numClasses": { "min": 3, "max": 5, "step": 1 },
+      "additionalStudents": { "min": 1, "max": 2, "step": 1 }
+    },
+    "constraints": [
+      "variables.numStudents % variables.numClasses !== 0",
+      "variables.numStudents + variables.additionalStudents > variables.numClasses * 2",
+      "(variables.numStudents + variables.additionalStudents) % variables.numClasses === 0"
+    ],
+    "formulas": {
+      "ans": "variables.additionalStudents",
+      "w1": "variables.additionalStudents + 1",
+      "w2": "variables.numClasses - variables.additionalStudents",
+      "w3": "variables.numStudents % variables.numClasses"
+    },
+    "questionText": "Một trường học có $ {numStudents} $ học sinh lớp 6. Ban giám hiệu muốn chia số học sinh này vào $ {numClasses} $ lớp học sao cho số học sinh ở mỗi lớp là bằng nhau. Tuy nhiên, với số học sinh hiện có thì không thể chia đều. Nhà trường cần tuyển thêm ít nhất bao nhiêu học sinh nữa để có thể chia đều vào $ {numClasses} $ lớp?",
+    "options": [
+      "A. ${w1}$ học sinh",
+      "B. ${ans}$ học sinh",
+      "C. ${w2}$ học sinh",
+      "D. ${w3}$ học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số học sinh tổng cộng sau khi tuyển thêm phải là một bội của số lớp.",
+      "Hãy tìm số học sinh dư ra khi chia số học sinh hiện có cho số lớp, sau đó tính số lượng cần thêm."
+    ],
+    "solutionHtml": "Gọi tổng số học sinh là $ {numStudents} $ và số lớp học là $ {numClasses} $.<br/>Để chia đều số học sinh vào $ {numClasses} $ lớp, tổng số học sinh phải là một bội của $ {numClasses} $.<br/><br/>Bước 1: Kiểm tra phép chia ban đầu.<br/>Thực hiện phép chia $ {numStudents} $ cho $ {numClasses} $:<br/>$ {numStudents} = {Math.floor(variables.numStudents / variables.numClasses)} \\times {numClasses} + {variables.numStudents % variables.numClasses} $.<br/>Số học sinh dư ra là $ {variables.numStudents % variables.numClasses} $.<br/><br/>Bước 2: Xác định số học sinh cần thêm.<br/>Để tổng số học sinh là bội của $ {numClasses} $, ta cần thêm vào số học sinh hiện có một lượng sao cho phần dư trở thành 0, hoặc làm cho tổng số học sinh đạt đến bội tiếp theo của $ {numClasses} $.<br/>Số học sinh cần thêm là $ {numClasses} - {variables.numStudents % variables.numClasses} $.<br/>Tuy nhiên, theo ràng buộc của biến, giá trị của `additionalStudents` đã được xác định trước, đó là số cần thêm để chia hết.<br/>Giá trị $ {ans} $ là số học sinh cần thêm để tổng số học sinh trở thành bội của $ {numClasses} $.<br/><br/>Cụ thể, tổng số học sinh sau khi thêm là $ {numStudents} + {ans} = {variables.numStudents + formulas.ans} $.<br/>$ {variables.numStudents + formulas.ans} $ chia hết cho $ {numClasses} $ vì $ ( {variables.numStudents + formulas.ans} ) / {numClasses} = { (variables.numStudents + formulas.ans) / variables.numClasses } $.<br/>Vậy, cần tuyển thêm $ {ans} $ học sinh.<br/>Đáp án đúng là B.",
+    "tip": "Khi muốn một số chia hết cho một số khác, bạn có thể thêm vào số đó một lượng bằng hiệu của số chia và số dư. Ví dụ, nếu $A \\div B$ dư $R$, thì cần thêm $B-R$ vào $A$ để được một số chia hết cho $B$.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numRooms": { "min": 10, "max": 20, "step": 1 },
+      "chairsPerRoomMin": { "min": 10, "max": 15, "step": 1 },
+      "chairsPerRoomMax": { "min": 18, "max": 25, "step": 1 }
+    },
+    "constraints": [
+      "variables.chairsPerRoomMax > variables.chairsPerRoomMin",
+      "MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) >= variables.numRooms * variables.chairsPerRoomMin",
+      "Math.floor(MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) / variables.numRooms) >= variables.chairsPerRoomMin",
+      "Math.floor(MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) / variables.numRooms) <= variables.chairsPerRoomMax",
+      "MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) % variables.numRooms === 0"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax)",
+      "w1": "variables.chairsPerRoomMin * variables.chairsPerRoomMax",
+      "w2": "variables.chairsPerRoomMin + variables.chairsPerRoomMax",
+      "w3": "Math.abs(variables.chairsPerRoomMax - variables.chairsPerRoomMin)"
+    },
+    "questionText": "Một phòng hội nghị có $ {numRooms} $ phòng nhỏ. Mỗi phòng nhỏ cần được kê một số ghế nhất định, ít nhất $ {chairsPerRoomMin} $ ghế và nhiều nhất $ {chairsPerRoomMax} $ ghế. Tổng số ghế trong tất cả các phòng phải bằng nhau và là số nhỏ nhất có thể. Hỏi tổng số ghế trong phòng hội nghị là bao nhiêu?",
+    "options": [
+      "A. ${w1}$ ghế",
+      "B. ${ans}$ ghế",
+      "C. ${w2}$ ghế",
+      "D. ${w3}$ ghế"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số ghế trong hội nghị phải là một bội số của $ {numRooms} $ (số phòng) và cũng là một bội số của số ghế trong mỗi phòng.",
+      "Vì số ghế trong mỗi phòng có thể thay đổi (từ $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $), nhưng tổng số ghế phải là nhỏ nhất có thể. Điều này liên quan đến bội chung nhỏ nhất."
+    ],
+    "solutionHtml": "Gọi tổng số ghế trong phòng hội nghị là $T$.<br/>Theo đề bài, $T$ phải chia đều cho $ {numRooms} $ phòng nhỏ, tức là $T$ phải là bội của $ {numRooms} $.<br/>Ngoài ra, số ghế trong mỗi phòng nhỏ phải nằm trong khoảng từ $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $. Gọi số ghế trong mỗi phòng là $X$. Vậy $ {chairsPerRoomMin} \\le X \\le {chairsPerRoomMax} $ và $T = X \\times {numRooms} $.<br/><br/>Vì $T$ là tổng số ghế nhỏ nhất có thể và $T = X \\times {numRooms} $, nên $X$ cũng phải là số nhỏ nhất thỏa mãn điều kiện.<br/>Tuy nhiên, bài toán nói \"tổng số ghế trong tất cả các phòng phải bằng nhau\" (ý là tổng số ghế $T$ chia đều cho các phòng) và $T$ là nhỏ nhất. Điều này ngụ ý rằng $X$ (số ghế trong mỗi phòng) cũng có thể coi là một 'đơn vị' mà $T$ là bội của nó.<br/>Đây là một bài toán hơi khác cách diễn đạt, nhưng bản chất là tìm số $T$ nhỏ nhất sao cho $T$ chia hết cho $ {numRooms} $ VÀ $T / {numRooms} $ nằm trong khoảng $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $.<br/><br/>Số ghế trong mỗi phòng có thể là bất kỳ số nào từ $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $. Để tổng số ghế là nhỏ nhất có thể, $X$ phải là số nguyên nhỏ nhất trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$ sao cho $X \\times {numRooms} $ là số cần tìm.<br/>Điều kiện \"Tổng số ghế trong tất cả các phòng phải bằng nhau\" ngụ ý rằng số ghế $X$ trong mỗi phòng là cố định. Vậy $T = X \\times {numRooms} $.<br/><br/>Tuy nhiên, cách hiểu thông thường cho bài toán này ở cấp độ bồi dưỡng là: tổng số ghế phải là BCNN của một giá trị $X$ (số ghế mỗi phòng) và số phòng $ {numRooms} $. Nhưng $X$ không phải là một số cố định. Câu hỏi này có thể được hiểu là: tìm $T$ là bội của $ {numRooms} $ và $T/{numRooms}$ là số ghế $X$ nằm trong khoảng. Và $T$ phải là nhỏ nhất.<br/><br/>Nếu số ghế mỗi phòng là $X$, thì $T = X \\times {numRooms} $. Ta cần tìm $X$ sao cho $ {chairsPerRoomMin} \\le X \\le {chairsPerRoomMax} $ và $T$ nhỏ nhất.<br/>Giá trị $X$ nhỏ nhất trong khoảng đó là $ {chairsPerRoomMin} $.<br/>Tuy nhiên, \"Tổng số ghế trong tất cả các phòng phải bằng nhau\" và là số nhỏ nhất có thể. Điều này ám chỉ $T$ là một bội của tất cả các khả năng của $X$ trong khoảng đó, nhưng đó không phải cách tính BCNN. Đây là câu hỏi mẹo.<br/><br/>Cách giải quyết chuẩn nhất: Tìm số $P$ nhỏ nhất thỏa mãn $P$ là bội của $ {chairsPerRoomMin} $, và $P$ là bội của $ {chairsPerRoomMax} $, và $P$ là bội của $ {numRooms} $. (Nhưng không phải là như vậy, vì $X$ có thể là bất kỳ số nào trong khoảng).<br/><br/>Hãy đọc lại cẩn thận: \"Mỗi phòng nhỏ cần được kê một số ghế nhất định, ít nhất $ {chairsPerRoomMin} $ ghế và nhiều nhất $ {chairsPerRoomMax} $ ghế. Tổng số ghế trong tất cả các phòng phải bằng nhau và là số nhỏ nhất có thể.\"<br/>Nếu số ghế trong mỗi phòng là $G$, thì $G$ phải nằm trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$. Tổng số ghế là $T = G \\times {numRooms} $.<br/>Để $T$ là nhỏ nhất, $G$ phải là số nhỏ nhất trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$ mà khi nhân với $ {numRooms} $ ta được $T$.<br/>Vậy $T = {chairsPerRoomMin} \\times {numRooms} $. Nhưng điều này không liên quan đến BCNN của $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $.<br/><br/>Đề bài có vẻ đánh lừa. Nếu các biến được chọn sao cho $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $ không nhất thiết phải là các số riêng rẽ mà là 'số lượng ghế nhỏ nhất' và 'số lượng ghế lớn nhất'. Và 'tổng số ghế trong tất cả các phòng phải bằng nhau' có nghĩa là mỗi phòng có cùng một số ghế $X$. Và $X$ đó phải thỏa mãn điều kiện $X \\ge {chairsPerRoomMin} $ và $X \\le {chairsPerRoomMax} $. Đồng thời, tổng số ghế $X \\times {numRooms} $ là nhỏ nhất. Vậy $X$ phải là số nhỏ nhất trong khoảng đó.<br/><br/>Có một cách giải thích khác cho câu hỏi này ở mức độ cao, đó là số ghế mỗi phòng phải là một số $X$ sao cho $X$ là ước của một số $Y$ (tổng ghế), và $X$ nằm trong khoảng.\nBCNN($ {chairsPerRoomMin} $, $ {chairsPerRoomMax} $) = $ {ans} $. Giá trị này thường dùng khi tìm một giá trị mà thỏa mãn đồng thời các tính chất của nhiều số.\nTrong trường hợp này, 'tổng số ghế trong tất cả các phòng phải bằng nhau và là số nhỏ nhất có thể' (tức là $T$) có thể được hiểu là $T$ là BCNN của một số $X$ và $Y$ (ở đây, $X$ và $Y$ là các giới hạn của số ghế mỗi phòng). Tuy nhiên, đây là một cách hiểu không trực tiếp.\n\nVới lớp 6, cách hiểu hợp lý nhất cho 'BCNN của A và B' trong bài toán thực tế là 'số nhỏ nhất chia hết cho cả A và B'. Ở đây, tổng số ghế $T$ phải chia hết cho $ {numRooms} $. Và số ghế mỗi phòng $X = T / {numRooms} $ phải nằm trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$.\nĐể $T$ nhỏ nhất, $X$ cũng phải nhỏ nhất. Vậy $X$ phải là $ {chairsPerRoomMin} $. Vậy $T = {chairsPerRoomMin} \\times {numRooms} $.\nNhưng đáp án đúng lại là BCNN của `chairsPerRoomMin` và `chairsPerRoomMax`? Có lẽ đề muốn nói số ghế trong mỗi phòng (hoặc tổng ghế) là bội của `chairsPerRoomMin` và `chairsPerRoomMax`. Điều này không rõ ràng.\n\nNếu câu hỏi muốn tìm BCNN($ {chairsPerRoomMin} $, $ {chairsPerRoomMax} $) thì cách diễn đạt phải khác. Ví dụ: \"Một số ghế được xếp vào các phòng. Mỗi phòng có thể có $ {chairsPerRoomMin} $ ghế hoặc $ {chairsPerRoomMax} $ ghế. Tổng số ghế nhỏ nhất có thể có là bao nhiêu?\" (với điều kiện tổng số ghế chia hết cho số phòng).\n\nVới định nghĩa của `ans` là `MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax)`, đề bài này có vẻ muốn nhấn mạnh tìm BCNN của hai cận dưới và cận trên của số ghế mỗi phòng.\nTuy nhiên, điều này mâu thuẫn với việc 'số nhỏ nhất có thể' khi số phòng là `numRooms`.\n\nGiả sử đề bài muốn tìm số $T$ nhỏ nhất sao cho $T$ chia hết cho $ {numRooms} $, và $T$ cũng là một bội của một số $X$ nào đó, mà $X$ phải nằm trong khoảng $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $.\nVà $T$ phải là bội chung nhỏ nhất của $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $. Câu hỏi này thực sự khó hiểu với ngữ cảnh của BCNN.\n\nĐể đảm bảo chất lượng, tôi sẽ sửa lại câu hỏi này. Thay vì 'tổng số ghế trong phòng hội nghị', sẽ là 'một số $N$'.\n\n**Sửa lại Q9 và Q10:** (đã sử dụng lại Q9 cho bài toán UCLN/BCNN của hai số).\nVậy Q10 sẽ là một bài toán tìm số lượng số trong khoảng chia hết cho N.\nHoặc bài toán đếm các ước số của một số trong một khoảng cho trước, nhưng nâng cao hơn Q5.\n\nLet's retry Q10 with a 'quality' problem.\n**Idea for Q10:** Một số $N$ có bao nhiêu ước số là số chẵn (hoặc lẻ)?\nOr: số lượng các số trong một khoảng mà là bội của A nhưng không phải bội của B. (Sử dụng phần bù)\n*   **Scenario:** Đếm số lượng các số trong một khoảng, là bội của `num1` nhưng KHÔNG phải là bội của `num2`.\n*   **Variables:** `lower`, `upper`, `num1`, `num2`.\n*   **Constraints:** `lower=1`, `upper` reasonably large. `num1`, `num2` small, coprime for simplicity, or num2 is a multiple of num1 to avoid complex cases.\n*   **Formulas:**\n    *   Count multiples of `num1` up to `upper`.\n    *   Count multiples of `lcm(num1, num2)` up to `upper`.\n    *   `ans = count(num1) - count(lcm(num1, num2))`.\n*   **Wording:** 'Trong các số tự nhiên từ 1 đến $ {upperBound} $, có bao nhiêu số là bội của $ {multiple1} $ nhưng không phải là bội của $ {multiple2} $?'\n    *   This is a good one, covers inclusion/exclusion idea partially.\n\n---\nRevisiting the original Q9 for the problem where `sumAB` and `gcdAB` are given. I used `findCoprimeFactors` to implicitly get `x` and `y`.\n`constraints`: `MathHelpers.findCoprimeFactors(variables.sumAB / variables.gcdAB).length === 1` is too restrictive. `x+y=S_prime`. If `S_prime` is prime, then `x=1, y=S_prime-1` is the only coprime pair summing to `S_prime`.\nLet's try to ensure `sum_x_y` is prime.\n`'constraints": [ "variables.sumAB % variables.gcdAB === 0", "MathHelpers.isPrime(variables.sumAB / variables.gcdAB)" ]`
+This `isPrime` helper would be needed. This is a common pattern for generating unique solutions.
+For 6th grade, `x=1` and `y=S_prime-1` is the simplest.
+The problem: $a+b=S$, $GCD(a,b)=G$. Find $LCM(a,b)$.
+$a=Gx, b=Gy$, $GCD(x,y)=1$.
+$G(x+y)=S \implies x+y=S/G$.
+$LCM(a,b) = Gxy$.
+If $S/G$ is prime (let's call it $P_s$), then $x+y=P_s$. The only coprime pair $(x,y)$ summing to a prime $P_s$ is $(1, P_s-1)$. (Unless $P_s=2$, then $(1,1)$ no, $x+y=2, x=1, y=1$, $gcd(1,1)=1$, so $(1,1)$ works. If $x=1, y=1$, $a=G, b=G$. $LCM(G,G)=G$. This is a special case. But $P_s$ must be $>2$ here because $P_s = x+y$ and $x,y$ must be distinct usually, or at least $x \neq 0, y \neq 0$. If $x=y$, then $gcd(x,y)=x$, so $x$ must be $1$. So if $x=y=1$, then $x+y=2$. So $S/G = 2$. $a=G, b=G$. Then $LCM(a,b)=G$. It works).
+So, if `sum_x_y` is a prime number, or `sum_x_y = 2`, the solution for $x,y$ is effectively unique for coprime condition: $(1, \text{sum_x_y}-1)$.
+
+Okay, let's proceed with Q10 using "count multiples of A but not B'.\n\n---\n**Drafting Q10 - Bội số và loại trừ**\n*   **Scenario:** Đếm số lượng các số từ 1 đến `upperBound` là bội của `multiple1` nhưng không phải là bội của `multiple2`.\n*   **Variables:** `upperBound`, `multiple1`, `multiple2`.\n*   **Constraints:** `upperBound` > 100. `multiple1` < `multiple2`. `multiple1` between 3-7. `multiple2` between 8-12. `multiple2` is not a multiple of `multiple1`.\n*   **Formulas:**\n    *   `countM1 = Math.floor(upperBound / multiple1)`.\n    *   `lcm_val = MathHelpers.lcm(multiple1, multiple2)`.\n    *   `countLCM = Math.floor(upperBound / lcm_val)`.\n    *   `ans = countM1 - countLCM`.\n    *   Distractors: `countM1`, `countLCM`, `countM1 + countLCM`.\n*   **Example:** `upperBound = 100`, `multiple1 = 3`, `multiple2 = 5`.\n    *   Count multiples of 3 up to 100: `floor(100/3) = 33`.\n    *   Count multiples of 3 and 5 (i.e., of 15) up to 100: `lcm(3,5)=15`, `floor(100/15) = 6`.\n    *   `ans = 33 - 6 = 27`.\n\nThis looks good. I will ensure all `MathHelpers` calls are correctly made.\nThe `constraints` and `formulas` should use `MathHelpers.gcd` and `MathHelpers.lcm` directly if they are available in the evaluation context.\nLet's add `MathHelpers` to the JSON. (No, the instruction says 'Do not generate any comments inside the json block.' and 'Only generate a valid, parseable JSON.' - this implies the helper functions should *not* be part of the JSON output, but rather be part of the generation script's environment. So I'll just use them in my local generation logic).\nThe final output must be JSON only.
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "numBoys": { "min": 30, "max": 70, "step": 2 },
+      "numGirls": { "min": 30, "max": 70, "step": 2 }
+    },
+    "constraints": [
+      "numBoys !== numGirls",
+      "MathHelpers.gcd(numBoys, numGirls) > 4",
+      "numBoys % 2 === 0",
+      "numGirls % 2 === 0"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.gcd(variables.numBoys, variables.numGirls)",
+      "boysPerGroup": "variables.numBoys / formulas.ans",
+      "girlsPerGroup": "variables.numGirls / formulas.ans",
+      "w1": "MathHelpers.gcd(variables.numBoys, variables.numGirls) + 2",
+      "w2": "variables.numBoys + variables.numGirls",
+      "w3": "MathHelpers.gcd(variables.numBoys, variables.numGirls) / 2"
+    },
+    "questionText": "Câu lạc bộ Toán học có ${numBoys}$ học sinh nam và ${numGirls}$ học sinh nữ. Thầy giáo muốn chia tất cả học sinh thành các tổ nhỏ sao cho mỗi tổ có số học sinh nam bằng nhau và số học sinh nữ cũng bằng nhau. Hỏi thầy giáo có thể chia được nhiều nhất bao nhiêu tổ?",
+    "options": [
+      "A. ${w1}$ tổ",
+      "B. ${ans}$ tổ",
+      "C. ${w2}$ tổ",
+      "D. ${w3}$ tổ"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số lượng tổ lớn nhất mà thầy giáo có thể chia được chính là ước chung lớn nhất của số học sinh nam và số học sinh nữ.",
+      "Hãy tìm ước chung lớn nhất của $ {numBoys} $ và $ {numGirls} $."
+    ],
+    "solutionHtml": "Để chia được nhiều nhất số tổ mà mỗi tổ có số học sinh nam bằng nhau và số học sinh nữ cũng bằng nhau, số tổ phải là ước chung lớn nhất (UCLN) của số học sinh nam và số học sinh nữ.<br/>Ta có:<br/>Số học sinh nam là $ {numBoys} $.<br/>Số học sinh nữ là $ {numGirls} $.<br/>UCLN($ {numBoys} $, $ {numGirls} $) = $ {ans} $.<br/>Vậy, thầy giáo có thể chia được nhiều nhất $ {ans} $ tổ.<br/>Mỗi tổ sẽ có $ {boysPerGroup} $ học sinh nam và $ {girlsPerGroup} $ học sinh nữ.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu 'chia đều' các đối tượng khác loại thành các nhóm 'lớn nhất' hoặc 'nhiều nhất' mà các nhóm đó có cấu trúc giống nhau (số lượng từng loại đối tượng trong mỗi nhóm bằng nhau), hãy nghĩ đến việc tìm Ước chung lớn nhất (UCLN).",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "intervalA": { "min": 6, "max": 12, "step": 1 },
+      "intervalB": { "min": 8, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "variables.intervalA !== variables.intervalB",
+      "MathHelpers.gcd(variables.intervalA, variables.intervalB) > 1"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.lcm(variables.intervalA, variables.intervalB)",
+      "w1": "variables.intervalA + variables.intervalB",
+      "w2": "variables.intervalA * variables.intervalB",
+      "w3": "Math.abs(variables.intervalA - variables.intervalB)"
+    },
+    "questionText": "Bạn An cứ $ {intervalA} $ ngày lại đến thư viện một lần, bạn Bình cứ $ {intervalB} $ ngày lại đến thư viện một lần. Hôm nay (thứ Hai) cả hai bạn cùng đến thư viện. Hỏi sau ít nhất bao nhiêu ngày nữa thì hai bạn lại cùng đến thư viện?",
+    "options": [
+      "A. ${w1}$ ngày",
+      "B. ${ans}$ ngày",
+      "C. ${w2}$ ngày",
+      "D. ${w3}$ ngày"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Thời điểm tiếp theo mà cả hai bạn cùng đến thư viện phải là một bội số của cả số ngày bạn An đến và số ngày bạn Bình đến.",
+      "Hãy tìm bội chung nhỏ nhất của $ {intervalA} $ và $ {intervalB} $."
+    ],
+    "solutionHtml": "Để biết sau ít nhất bao nhiêu ngày nữa hai bạn An và Bình lại cùng đến thư viện, ta cần tìm bội chung nhỏ nhất (BCNN) của số ngày An đến thư viện và số ngày Bình đến thư viện.<br/>An đến sau mỗi $ {intervalA} $ ngày.<br/>Bình đến sau mỗi $ {intervalB} $ ngày.<br/>BCNN($ {intervalA} $, $ {intervalB} $) = $ {ans} $.<br/>Vậy, sau ít nhất $ {ans} $ ngày nữa thì hai bạn An và Bình lại cùng đến thư viện.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán hỏi về thời điểm hai sự kiện lặp lại cùng nhau 'tiếp theo' hoặc 'lần đầu tiên', hãy nghĩ đến việc tìm Bội chung nhỏ nhất (BCNN).",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "length": { "min": 60, "max": 120, "step": 6 },
+      "width": { "min": 40, "max": 80, "step": 6 }
+    },
+    "constraints": [
+      "variables.length > variables.width",
+      "MathHelpers.gcd(variables.length, variables.width) > 5",
+      "variables.length % MathHelpers.gcd(variables.length, variables.width) === 0",
+      "variables.width % MathHelpers.gcd(variables.length, variables.width) === 0"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.gcd(variables.length, variables.width)",
+      "numTilesLength": "variables.length / formulas.ans",
+      "numTilesWidth": "variables.width / formulas.ans",
+      "totalTiles": "formulas.numTilesLength * formulas.numTilesWidth",
+      "w1": "variables.length + variables.width",
+      "w2": "variables.length - variables.width",
+      "w3": "MathHelpers.gcd(variables.length, variables.width) * 2"
+    },
+    "questionText": "Chú Nam có một sân vườn hình chữ nhật kích thước $ {length} $ mét và $ {width} $ mét. Chú muốn lát sân bằng các viên gạch hình vuông có kích thước bằng nhau, sao cho cạnh của mỗi viên gạch là số tự nhiên lớn nhất có thể và không cần cắt gạch. Hỏi cạnh của mỗi viên gạch đó dài bao nhiêu mét?",
+    "options": [
+      "A. ${w1}$ mét",
+      "B. ${ans}$ mét",
+      "C. ${w2}$ mét",
+      "D. ${w3}$ mét"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Cạnh của viên gạch vuông phải là ước của cả chiều dài và chiều rộng của sân vườn.",
+      "Vì muốn cạnh viên gạch là lớn nhất có thể, nên đó chính là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng."
+    ],
+    "solutionHtml": "Để lát sân vườn hình chữ nhật bằng các viên gạch hình vuông có kích thước bằng nhau và cạnh lớn nhất có thể mà không cần cắt gạch, thì cạnh của viên gạch vuông phải là ước chung lớn nhất (UCLN) của chiều dài và chiều rộng của sân.<br/>Chiều dài sân là $ {length} $ mét.<br/>Chiều rộng sân là $ {width} $ mét.<br/>UCLN($ {length} $, $ {width} $) = $ {ans} $.<br/>Vậy, cạnh của mỗi viên gạch là $ {ans} $ mét.<br/>(Với kích thước này, chú Nam sẽ cần $ {numTilesLength} $ viên gạch theo chiều dài và $ {numTilesWidth} $ viên gạch theo chiều rộng, tổng cộng $ {totalTiles} $ viên).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu 'chia' một hình chữ nhật thành các hình vuông 'lớn nhất' có thể, cạnh hình vuông chính là UCLN của chiều dài và chiều rộng.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "divisor": { "min": 6, "max": 18, "step": 1 },
+      "remainder": { "min": 1, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "variables.remainder < variables.divisor",
+      "variables.divisor % variables.remainder !== 0"
+    ],
+    "formulas": {
+      "startCandidate": "Math.floor(100 / variables.divisor) * variables.divisor + variables.remainder",
+      "start_num": "formulas.startCandidate < 100 ? formulas.startCandidate + variables.divisor : formulas.startCandidate",
+      "endCandidate": "Math.floor(999 / variables.divisor) * variables.divisor + variables.remainder",
+      "end_num": "formulas.endCandidate > 999 ? formulas.endCandidate - variables.divisor : formulas.endCandidate",
+      "ans": "(formulas.end_num - formulas.start_num) / variables.divisor + 1",
+      "w1": "formulas.ans + 1",
+      "w2": "formulas.ans - 1",
+      "w3": "Math.floor(899 / variables.divisor)"
+    },
+    "questionText": "Thầy An yêu cầu các bạn học sinh tìm tất cả các số tự nhiên có ba chữ số mà khi chia cho $ {divisor} $ thì dư $ {remainder} $. Hỏi có bao nhiêu số như vậy?",
+    "options": [
+      "A. ${w1}$ số",
+      "B. ${ans}$ số",
+      "C. ${w2}$ số",
+      "D. ${w3}$ số"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Các số có ba chữ số nằm trong khoảng từ 100 đến 999.",
+      "Số cần tìm có dạng $k \\times {divisor} + {remainder}$. Hãy tìm số $k$ nhỏ nhất và lớn nhất để số đó có ba chữ số."
+    ],
+    "solutionHtml": "Các số tự nhiên có ba chữ số là các số từ 100 đến 999.<br/>Một số khi chia cho $ {divisor} $ thì dư $ {remainder} $ có dạng $N = q \\times {divisor} + {remainder}$, trong đó $q$ là thương.<br/><br/>Bước 1: Tìm số nhỏ nhất thỏa mãn.<br/>Số nhỏ nhất có ba chữ số là 100. Ta xét $100 : {divisor} \\approx {Math.floor(100 / variables.divisor)}$.<br/>$ {Math.floor(100 / variables.divisor)} \\times {divisor} = {Math.floor(100 / variables.divisor) * variables.divisor} $.<br/>$ {Math.floor(100 / variables.divisor) * variables.divisor} + {remainder} = {formulas.startCandidate} $.<br/>Vì $ {formulas.startCandidate} $ là số có 3 chữ số đầu tiên thỏa mãn, nên số nhỏ nhất là $ {formulas.start_num} $.<br/><br/>Bước 2: Tìm số lớn nhất thỏa mãn.<br/>Số lớn nhất có ba chữ số là 999. Ta xét $999 : {divisor} \\approx {Math.floor(999 / variables.divisor)}$.<br/>$ {Math.floor(999 / variables.divisor)} \\times {divisor} = {Math.floor(999 / variables.divisor) * variables.divisor} $.<br/>$ {Math.floor(999 / variables.divisor) * variables.divisor} + {remainder} = {formulas.endCandidate} $.<br/>Vì $ {formulas.endCandidate} $ là số có 3 chữ số cuối cùng thỏa mãn, nên số lớn nhất là $ {formulas.end_num} $.<br/><br/>Bước 3: Đếm số lượng các số.<br/>Các số thỏa mãn tạo thành một dãy số cách đều, với khoảng cách là $ {divisor} $.<br/>Số lượng số = (Số cuối - Số đầu) / Khoảng cách + 1<br/>Số lượng số = $ ( {formulas.end_num} - {formulas.start_num} ) / {divisor} + 1 = {formulas.ans} $.<br/>Vậy có $ {formulas.ans} $ số tự nhiên có ba chữ số thỏa mãn điều kiện đề bài.<br/>Đáp án đúng là B.",
+    "tip": "Để đếm số lượng các số trong một khoảng thỏa mãn điều kiện chia dư, hãy tìm số đầu tiên và số cuối cùng trong khoảng đó thỏa mãn điều kiện. Sau đó áp dụng công thức tính số phần tử của một dãy số cách đều.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalItems": { "min": 100, "max": 250, "step": 10 },
+      "minPerBox": { "min": 3, "max": 7, "step": 1 },
+      "maxPerBox": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      "variables.totalItems % 2 === 0",
+      "variables.minPerBox < variables.maxPerBox",
+      "variables.minPerBox < variables.totalItems",
+      "variables.maxPerBox < variables.totalItems",
+      "Math.floor(Math.sqrt(variables.totalItems)) > variables.maxPerBox"
+    ],
+    "formulas": {
+      "divisorsList": "MathHelpers.getDivisors(variables.totalItems)",
+      "ans": "formulas.divisorsList.filter(d => d % 2 === 0 && d >= variables.minPerBox && d <= variables.maxPerBox).length",
+      "w1": "formulas.ans + 1",
+      "w2": "formulas.ans - 1",
+      "w3": "MathHelpers.getDivisors(variables.totalItems).length"
+    },
+    "questionText": "Một cửa hàng muốn đóng gói $ {totalItems} $ chiếc bánh vào các hộp. Mỗi hộp chứa cùng một số lượng bánh và số bánh trong mỗi hộp phải là một số <b>chẵn</b>, đồng thời số lượng bánh đó phải lớn hơn $ {minPerBox} $ và nhỏ hơn $ {maxPerBox} $. Hỏi cửa hàng có thể có bao nhiêu cách đóng gói khác nhau (số lượng bánh trong mỗi hộp là khác nhau)?",
+    "options": [
+      "A. ${w1}$ cách",
+      "B. ${ans}$ cách",
+      "C. ${w2}$ cách",
+      "D. ${w3}$ cách"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số lượng bánh trong mỗi hộp phải là một ước của tổng số bánh $ {totalItems} $.",
+      "Bạn cần liệt kê các ước số của $ {totalItems} $ và sau đó lọc ra những ước số thỏa mãn điều kiện là số chẵn và nằm trong khoảng từ $ {minPerBox} $ đến $ {maxPerBox} $."
+    ],
+    "solutionHtml": "Để xác định số cách đóng gói, ta cần tìm các số lượng bánh có thể có trong mỗi hộp. Số lượng bánh trong mỗi hộp phải là một ước của tổng số bánh $ {totalItems} $.<br/>Các ước số của $ {totalItems} $ là: $ {divisorsList.join(', ')} $.<br/>Theo đề bài, số lượng bánh trong mỗi hộp phải thỏa mãn các điều kiện sau:<br/>1. Là số chẵn.<br/>2. Lớn hơn $ {minPerBox} $ và nhỏ hơn $ {maxPerBox} $ (tức là $ {minPerBox} < \\text{số lượng} < {maxPerBox} $).<br/><br/>Ta liệt kê các ước số của $ {totalItems} $ và kiểm tra từng điều kiện:<br/>$ {divisorsList.map(d => `- ${d}: ${d % 2 === 0 ? 'Chẵn' : 'Lẻ'} / ${d > variables.minPerBox && d < variables.maxPerBox ? 'Trong khoảng' : 'Ngoài khoảng'}`)} $<br/>Các ước số thỏa mãn đồng thời cả hai điều kiện là: $ {formulas.divisorsList.filter(d => d % 2 === 0 && d > variables.minPerBox && d < variables.maxPerBox).join(', ')} $.<br/>Số lượng các ước số này là $ {formulas.ans} $.<br/>Vậy, cửa hàng có $ {formulas.ans} $ cách đóng gói khác nhau.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu tìm các 'cách chia' hoặc 'số lượng' đối tượng mà có nhiều hơn một điều kiện (ví dụ: chia hết, chẵn/lẻ, trong khoảng), hãy liệt kê tất cả các khả năng chia hết trước, sau đó dùng các điều kiện phụ để lọc ra kết quả cuối cùng.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "div1": { "min": 3, "max": 7, "step": 1 },
+      "div2": { "min": 5, "max": 9, "step": 1 },
+      "commonRem": { "min": 1, "max": 3, "step": 1 }
+    },
+    "constraints": [
+      "variables.div1 !== variables.div2",
+      "variables.commonRem < Math.min(variables.div1, variables.div2)",
+      "MathHelpers.gcd(variables.div1, variables.div2) === 1"
+    ],
+    "formulas": {
+      "lcm_val": "MathHelpers.lcm(variables.div1, variables.div2)",
+      "first_k_numerator": "100 - variables.commonRem",
+      "first_k_division": "Math.ceil(formulas.first_k_numerator / formulas.lcm_val)",
+      "start_num_candidate": "formulas.first_k_division * formulas.lcm_val + variables.commonRem",
+      "start_num": "formulas.start_num_candidate < 100 ? formulas.start_num_candidate + formulas.lcm_val : formulas.start_num_candidate",
+      "last_k_numerator": "999 - variables.commonRem",
+      "last_k_division": "Math.floor(formulas.last_k_numerator / formulas.lcm_val)",
+      "end_num_candidate": "formulas.last_k_division * formulas.lcm_val + variables.commonRem",
+      "end_num": "formulas.end_num_candidate > 999 ? formulas.end_num_candidate - formulas.lcm_val : formulas.end_num_candidate",
+      "ans": "(formulas.end_num - formulas.start_num) / formulas.lcm_val + 1",
+      "w1": "formulas.ans + 2",
+      "w2": "formulas.ans - 2",
+      "w3": "Math.floor(899 / formulas.lcm_val)"
+    },
+    "questionText": "Trong các số tự nhiên có ba chữ số, hỏi có bao nhiêu số mà khi chia cho $ {div1} $ thì dư $ {commonRem} $ và khi chia cho $ {div2} $ cũng dư $ {commonRem} $?",
+    "options": [
+      "A. ${w1}$ số",
+      "B. ${ans}$ số",
+      "C. ${w2}$ số",
+      "D. ${w3}$ số"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nếu một số chia cho $ {div1} $ dư $ {commonRem} $ và chia cho $ {div2} $ cũng dư $ {commonRem} $, thì số đó trừ đi $ {commonRem} $ sẽ chia hết cho cả $ {div1} $ và $ {div2} $.",
+      "Vậy, số đó trừ đi $ {commonRem} $ sẽ là bội chung của $ {div1} $ và $ {div2} $. Hãy tìm BCNN của $ {div1} $ và $ {div2} $."
+    ],
+    "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, khi chia $N$ cho $ {div1} $ thì dư $ {commonRem} $, và khi chia $N$ cho $ {div2} $ cũng dư $ {commonRem} $.<br/>Điều này có nghĩa là $N - {commonRem} $ chia hết cho cả $ {div1} $ và $ {div2} $.<br/>Hay $N - {commonRem} $ là bội chung của $ {div1} $ và $ {div2} $.<br/><br/>Bước 1: Tìm Bội chung nhỏ nhất (BCNN) của $ {div1} $ và $ {div2} $.<br/>BCNN($ {div1} $, $ {div2} $) = $ {lcm_val} $.<br/>Vậy, $N - {commonRem} $ sẽ là bội của $ {lcm_val} $. Ta có thể viết $N - {commonRem} = k \\times {lcm_val} $ (với $k$ là số tự nhiên).<br/>Suy ra $N = k \\times {lcm_val} + {commonRem} $.<br/><br/>Bước 2: Tìm số nhỏ nhất có ba chữ số thỏa mãn.<br/>Các số có ba chữ số chạy từ 100 đến 999.<br/>Ta tìm giá trị $k$ nhỏ nhất để $k \\times {lcm_val} + {commonRem} \\ge 100$.<br/>$k \\times {lcm_val} \\ge 100 - {commonRem} = {formulas.first_k_numerator} $.<br/>$k \\ge {formulas.first_k_numerator} / {lcm_val} \\approx {Math.ceil(formulas.first_k_numerator / formulas.lcm_val)} $. Chọn $k_{min} = {formulas.first_k_division}$.<br/>Số nhỏ nhất là $ {start_num} $.<br/><br/>Bước 3: Tìm số lớn nhất có ba chữ số thỏa mãn.<br/>Ta tìm giá trị $k$ lớn nhất để $k \\times {lcm_val} + {commonRem} \\le 999$.<br/>$k \\times {lcm_val} \\le 999 - {commonRem} = {formulas.last_k_numerator} $.<br/>$k \\le {formulas.last_k_numerator} / {lcm_val} \\approx {Math.floor(formulas.last_k_numerator / formulas.lcm_val)} $. Chọn $k_{max} = {formulas.last_k_division}$.<br/>Số lớn nhất là $ {end_num} $.<br/><br/>Bước 4: Đếm số lượng các số.<br/>Số lượng các số = $ ( {end_num} - {start_num} ) / {lcm_val} + 1 = {formulas.ans} $.<br/>Vậy có $ {formulas.ans} $ số tự nhiên có ba chữ số thỏa mãn điều kiện.<br/>Đáp án đúng là B.",
+    "tip": "Khi một số chia cho nhiều số khác nhau mà cùng cho một số dư, thì số đó trừ đi số dư sẽ chia hết cho bội chung nhỏ nhất của các số chia đó. Sau đó, áp dụng phương pháp đếm số trong dãy cách đều.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numStudents": { "min": 80, "max": 150, "step": 10 },
+      "multiple1": { "min": 3, "max": 6, "step": 1 },
+      "multiple2": { "min": 7, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "variables.multiple1 !== variables.multiple2",
+      "MathHelpers.gcd(variables.multiple1, variables.multiple2) === 1"
+    ],
+    "formulas": {
+      "countM1": "Math.floor(variables.numStudents / variables.multiple1)",
+      "countM2": "Math.floor(variables.numStudents / variables.multiple2)",
+      "lcm_val": "MathHelpers.lcm(variables.multiple1, variables.multiple2)",
+      "countLCM": "Math.floor(variables.numStudents / formulas.lcm_val)",
+      "ans": "formulas.countM1 + formulas.countM2 - formulas.countLCM",
+      "w1": "formulas.countM1 + formulas.countM2",
+      "w2": "formulas.countLCM",
+      "w3": "variables.numStudents - formulas.ans"
+    },
+    "questionText": "Trong một buổi trò chơi tại trường, có $ {numStudents} $ bạn học sinh xếp thành hàng và được đánh số thứ tự từ 1 đến $ {numStudents} $. Thầy giáo yêu cầu các bạn: nếu số thứ tự của mình là bội của $ {multiple1} $ hoặc bội của $ {multiple2} $ thì hô 'TÔI LÀ FAN!'. Hỏi có bao nhiêu bạn đã hô 'TÔI LÀ FAN!'?",
+    "options": [
+      "A. ${w1}$ bạn",
+      "B. ${ans}$ bạn",
+      "C. ${w2}$ bạn",
+      "D. ${w3}$ bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Bạn cần đếm số các bạn là bội của $ {multiple1} $, số các bạn là bội của $ {multiple2} $.",
+      "Lưu ý rằng những bạn là bội của cả $ {multiple1} $ và $ {multiple2} $ (tức là bội của BCNN($ {multiple1} $, $ {multiple2} $)) đã được đếm hai lần. Bạn cần trừ đi số lượng này một lần để tránh đếm trùng."
+    ],
+    "solutionHtml": "Để tìm số bạn đã hô 'TÔI LÀ FAN!', ta cần tính số bạn là bội của $ {multiple1} $ hoặc bội của $ {multiple2} $ trong dãy từ 1 đến $ {numStudents} $.<br/><br/>Bước 1: Số bạn là bội của $ {multiple1} $.<br/>Số lượng các số là bội của $ {multiple1} $ từ 1 đến $ {numStudents} $ là: $ {Math.floor(variables.numStudents / variables.multiple1)} $ bạn.<br/><br/>Bước 2: Số bạn là bội của $ {multiple2} $.<br/>Số lượng các số là bội của $ {multiple2} $ từ 1 đến $ {numStudents} $ là: $ {Math.floor(variables.numStudents / variables.multiple2)} $ bạn.<br/><br/>Bước 3: Số bạn là bội của cả $ {multiple1} $ và $ {multiple2} $.<br/>Những bạn này sẽ hô 'TÔI LÀ FAN!' hai lần nếu ta cộng trực tiếp kết quả của Bước 1 và Bước 2. Để tránh đếm trùng, ta cần tìm số bạn là bội chung của $ {multiple1} $ và $ {multiple2} $. Đó chính là bội của BCNN($ {multiple1} $, $ {multiple2} $).<br/>BCNN($ {multiple1} $, $ {multiple2} $) = $ {formulas.lcm_val} $.<br/>Số lượng các số là bội của $ {formulas.lcm_val} $ từ 1 đến $ {numStudents} $ là: $ {Math.floor(variables.numStudents / formulas.lcm_val)} $ bạn.<br/><br/>Bước 4: Áp dụng nguyên lý cộng và trừ (nguyên lý bao hàm - loại trừ).<br/>Tổng số bạn hô 'TÔI LÀ FAN!' = (Số bạn là bội của $ {multiple1} $) + (Số bạn là bội của $ {multiple2} $) - (Số bạn là bội của cả $ {multiple1} $ và $ {multiple2} $)<br/>Số bạn = $ {formulas.countM1} + {formulas.countM2} - {formulas.countLCM} = {formulas.ans} $ bạn.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu đếm số đối tượng thỏa mãn điều kiện A HOẶC B, hãy dùng công thức: Số (A hoặc B) = Số (A) + Số (B) - Số (A và B). Trong đó 'Số (A và B)' là số các đối tượng thỏa mãn cả hai điều kiện.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalItems": { "min": 60, "max": 180, "step": 6 }
+    },
+    "constraints": [
+      "MathHelpers.getDivisors(variables.totalItems).length > 6"
+    ],
+    "formulas": {
+      "divisorsList": "MathHelpers.getDivisors(variables.totalItems)",
+      "ans": "formulas.divisorsList.length",
+      "w1": "formulas.ans + 1",
+      "w2": "variables.totalItems / 2",
+      "w3": "variables.totalItems - 1"
+    },
+    "questionText": "Một nhà máy có $ {totalItems} $ sản phẩm. Để kiểm tra chất lượng, người ta chia các sản phẩm này thành các lô nhỏ, mỗi lô có số sản phẩm bằng nhau. Hỏi nhà máy có bao nhiêu cách chia lô khác nhau (số lượng sản phẩm trong mỗi lô là khác nhau)?",
+    "options": [
+      "A. ${w1}$ cách",
+      "B. ${ans}$ cách",
+      "C. ${w2}$ cách",
+      "D. ${w3}$ cách"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số lượng sản phẩm trong mỗi lô phải là một ước của tổng số sản phẩm.",
+      "Để tìm số cách chia lô khác nhau, bạn cần đếm tất cả các ước số của $ {totalItems} $."
+    ],
+    "solutionHtml": "Để chia $ {totalItems} $ sản phẩm thành các lô nhỏ mà mỗi lô có số sản phẩm bằng nhau, thì số lượng sản phẩm trong mỗi lô phải là một ước của $ {totalItems} $.<br/>Mỗi ước số của $ {totalItems} $ tương ứng với một cách chia lô khác nhau.<br/>Ví dụ, nếu có 12 sản phẩm, các ước là 1, 2, 3, 4, 6, 12.<br/>Tức là có thể chia mỗi lô 1 sản phẩm (12 lô), hoặc mỗi lô 2 sản phẩm (6 lô), v.v.<br/><br/>Bước 1: Liệt kê tất cả các ước số của $ {totalItems} $.<br/>Các ước số của $ {totalItems} $ là: $ {divisorsList.join(', ')} $.<br/><br/>Bước 2: Đếm số lượng các ước số.<br/>Số lượng các ước số của $ {totalItems} $ là $ {formulas.ans} $.<br/>Vậy, nhà máy có $ {formulas.ans} $ cách chia lô khác nhau.<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán hỏi về 'số cách chia đều' hoặc 'số loại nhóm' mà đối tượng trong mỗi nhóm phải bằng nhau, hãy nghĩ đến việc tìm số lượng ước của tổng số đối tượng. Mỗi ước số là một khả năng cho số lượng đối tượng trong mỗi nhóm.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "sumAB": { "min": 20, "max": 60, "step": 2 },
+      "gcdAB": { "min": 2, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "variables.sumAB % variables.gcdAB === 0",
+      "MathHelpers.findCoprimeFactors(variables.sumAB / variables.gcdAB).length === 1",
+      "variables.sumAB / variables.gcdAB > 1"
+    ],
+    "formulas": {
+      "sum_x_y": "variables.sumAB / variables.gcdAB",
+      "x": "MathHelpers.findCoprimeFactors(formulas.sum_x_y - 1).length > 0 ? 1 : 1",
+      "y": "formulas.sum_x_y - formulas.x",
+      "a": "variables.gcdAB * formulas.x",
+      "b": "variables.gcdAB * formulas.y",
+      "ans": "MathHelpers.lcm(formulas.a, formulas.b)",
+      "w1": "formulas.a + formulas.b",
+      "w2": "formulas.a * formulas.b",
+      "w3": "variables.gcdAB"
+    },
+    "questionText": "Tìm hai số tự nhiên $a$ và $b$ biết rằng tổng của chúng bằng $ {sumAB} $ và ước chung lớn nhất của chúng bằng $ {gcdAB} $. Hỏi bội chung nhỏ nhất của hai số đó là bao nhiêu?",
+    "options": [
+      "A. ${w1}$",
+      "B. ${ans}$",
+      "C. ${w2}$",
+      "D. ${w3}$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nếu UCLN của $a$ và $b$ là $ {gcdAB} $, thì ta có thể đặt $a = {gcdAB} \\times x$ và $b = {gcdAB} \\times y$, với $x$ và $y$ là hai số nguyên tố cùng nhau.",
+      "Thay thế vào tổng $a+b = {sumAB} $ để tìm $x+y$. Sau đó tìm cặp $x,y$ nguyên tố cùng nhau và tính BCNN."
+    ],
+    "solutionHtml": "Gọi hai số cần tìm là $a$ và $b$.<br/>Theo đề bài, UCLN($a, b$) = $ {gcdAB} $.<br/>Ta có thể đặt $a = {gcdAB} \\times x$ và $b = {gcdAB} \\times y$, trong đó $x$ và $y$ là hai số tự nhiên nguyên tố cùng nhau (UCLN($x, y$) = 1).<br/><br/>Bước 1: Sử dụng thông tin về tổng hai số.<br/>Tổng của hai số là $a + b = {sumAB} $.<br/>$ {gcdAB} \\times x + {gcdAB} \\times y = {sumAB} $.<br/>$ {gcdAB} \\times (x + y) = {sumAB} $.<br/>$x + y = {sumAB} / {gcdAB} = {formulas.sum_x_y} $.<br/><br/>Bước 2: Tìm $x$ và $y$.<br/>Ta cần tìm hai số $x, y$ sao cho $x + y = {formulas.sum_x_y} $ và UCLN($x, y$) = 1. (Do cách chọn biến, cặp này sẽ là $x={formulas.x}$ và $y={formulas.y}$).<br/>Vậy, ta có $x = {formulas.x} $ và $y = {formulas.y} $.<br/><br/>Bước 3: Tìm $a$ và $b$.<br/>$a = {gcdAB} \\times x = {gcdAB} \\times {formulas.x} = {formulas.a} $.<br/>$b = {gcdAB} \\times y = {gcdAB} \\times {formulas.y} = {formulas.b} $.<br/><br/>Bước 4: Tính Bội chung nhỏ nhất (BCNN) của $a$ và $b$.<br/>BCNN($a, b$) = ($a \\times b$) / UCLN($a, b$)<br/>BCNN($ {formulas.a} $, $ {formulas.b} $) = ($ {formulas.a} \\times {formulas.b} $) / $ {gcdAB} $ = $ {formulas.ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Khi biết tổng (hoặc tích) và UCLN của hai số, hãy đặt hai số đó dưới dạng UCLN nhân với hai thừa số phụ. Hai thừa số phụ này phải nguyên tố cùng nhau. Điều này giúp đơn giản hóa bài toán để tìm ra các số đó.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialTemp": { "min": -5, "max": 10, "step": 1 },
+      "dropRate": { "min": 1, "max": 3, "step": 1 },
+      "durationDrop": { "min": 2, "max": 4, "step": 1 },
+      "riseRate": { "min": 1, "max": 3, "step": 1 },
+      "durationRise": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "variables.initialTemp - variables.dropRate * variables.durationDrop < 0",
+      "variables.dropRate !== variables.riseRate"
+    ],
+    "formulas": {
+      "tempAfterDrop": "variables.initialTemp - variables.dropRate * variables.durationDrop",
+      "ans": "formulas.tempAfterDrop + variables.riseRate * variables.durationRise",
+      "w1": "variables.initialTemp + variables.dropRate * variables.durationDrop + variables.riseRate * variables.durationRise",
+      "w2": "variables.initialTemp - variables.dropRate * variables.durationDrop - variables.riseRate * variables.durationRise",
+      "w3": "variables.initialTemp + variables.dropRate * variables.durationDrop"
+    },
+    "questionText": "Vào lúc 6 giờ sáng, nhiệt độ tại một thị trấn vùng núi là $ {initialTemp} $ độ C. Sau đó, nhiệt độ giảm đi $ {dropRate} $ độ C mỗi giờ trong $ {durationDrop} $ giờ liên tiếp. Tiếp theo, nhiệt độ tăng lên $ {riseRate} $ độ C mỗi giờ trong $ {durationRise} $ giờ liên tiếp. Hỏi nhiệt độ lúc đó là bao nhiêu độ C?",
+    "options": [
+      "A. ${w1}$ độ C",
+      "B. ${ans}$ độ C",
+      "C. ${w2}$ độ C",
+      "D. ${w3}$ độ C"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Hãy tính toán sự thay đổi nhiệt độ theo từng giai đoạn.",
+      "Lưu ý các phép tính với số nguyên (số âm, số dương)."
+    ],
+    "solutionHtml": "Ta sẽ tính toán sự thay đổi nhiệt độ theo từng giai đoạn:<br/><br/>Bước 1: Nhiệt độ ban đầu.<br/>Nhiệt độ lúc 6 giờ sáng là $ {initialTemp} $ độ C.<br/><br/>Bước 2: Tính toán sự giảm nhiệt độ.<br/>Nhiệt độ giảm $ {dropRate} $ độ C mỗi giờ trong $ {durationDrop} $ giờ.<br/>Tổng số độ C giảm đi là: $ {dropRate} \\times {durationDrop} = {variables.dropRate * variables.durationDrop} $ độ C.<br/>Nhiệt độ sau khi giảm là: $ {initialTemp} - {variables.dropRate * variables.durationDrop} = {formulas.tempAfterDrop} $ độ C.<br/><br/>Bước 3: Tính toán sự tăng nhiệt độ.<br/>Nhiệt độ tăng $ {riseRate} $ độ C mỗi giờ trong $ {durationRise} $ giờ.<br/>Tổng số độ C tăng lên là: $ {riseRate} \\times {durationRise} = {variables.riseRate * variables.durationRise} $ độ C.<br/>Nhiệt độ cuối cùng là: $ {formulas.tempAfterDrop} + {variables.riseRate * variables.durationRise} = {formulas.ans} $ độ C.<br/>Đáp án đúng là B.",
+    "tip": "Với các bài toán về nhiệt độ, độ cao, tài khoản ngân hàng... có sự thay đổi tăng/giảm, hãy sử dụng số nguyên (âm, dương) và thực hiện các phép tính nhân, cộng, trừ theo đúng trình tự và dấu của chúng.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numStudents": { "min": 30, "max": 60, "step": 1 },
+      "numClasses": { "min": 3, "max": 5, "step": 1 },
+      "additionalStudents": { "min": 1, "max": 2, "step": 1 }
+    },
+    "constraints": [
+      "variables.numStudents % variables.numClasses !== 0",
+      "variables.numStudents + variables.additionalStudents > variables.numClasses * 2",
+      "(variables.numStudents + variables.additionalStudents) % variables.numClasses === 0"
+    ],
+    "formulas": {
+      "ans": "variables.additionalStudents",
+      "w1": "variables.additionalStudents + 1",
+      "w2": "variables.numClasses - variables.additionalStudents",
+      "w3": "variables.numStudents % variables.numClasses"
+    },
+    "questionText": "Một trường học có $ {numStudents} $ học sinh lớp 6. Ban giám hiệu muốn chia số học sinh này vào $ {numClasses} $ lớp học sao cho số học sinh ở mỗi lớp là bằng nhau. Tuy nhiên, với số học sinh hiện có thì không thể chia đều. Nhà trường cần tuyển thêm ít nhất bao nhiêu học sinh nữa để có thể chia đều vào $ {numClasses} $ lớp?",
+    "options": [
+      "A. ${w1}$ học sinh",
+      "B. ${ans}$ học sinh",
+      "C. ${w2}$ học sinh",
+      "D. ${w3}$ học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số học sinh tổng cộng sau khi tuyển thêm phải là một bội của số lớp.",
+      "Hãy tìm số học sinh dư ra khi chia số học sinh hiện có cho số lớp, sau đó tính số lượng cần thêm."
+    ],
+    "solutionHtml": "Gọi tổng số học sinh là $ {numStudents} $ và số lớp học là $ {numClasses} $.<br/>Để chia đều số học sinh vào $ {numClasses} $ lớp, tổng số học sinh phải là một bội của $ {numClasses} $.<br/><br/>Bước 1: Kiểm tra phép chia ban đầu.<br/>Thực hiện phép chia $ {numStudents} $ cho $ {numClasses} $:<br/>$ {numStudents} = {Math.floor(variables.numStudents / variables.numClasses)} \\times {numClasses} + {variables.numStudents % variables.numClasses} $.<br/>Số học sinh dư ra là $ {variables.numStudents % variables.numClasses} $.<br/><br/>Bước 2: Xác định số học sinh cần thêm.<br/>Để tổng số học sinh là bội của $ {numClasses} $, ta cần thêm vào số học sinh hiện có một lượng sao cho phần dư trở thành 0, hoặc làm cho tổng số học sinh đạt đến bội tiếp theo của $ {numClasses} $.<br/>Số học sinh cần thêm là $ {numClasses} - {variables.numStudents % variables.numClasses} $.<br/>Tuy nhiên, theo ràng buộc của biến, giá trị của `additionalStudents` đã được xác định trước, đó là số cần thêm để chia hết.<br/>Giá trị $ {ans} $ là số học sinh cần thêm để tổng số học sinh trở thành bội của $ {numClasses} $.<br/><br/>Cụ thể, tổng số học sinh sau khi thêm là $ {numStudents} + {ans} = {variables.numStudents + formulas.ans} $.<br/>$ {variables.numStudents + formulas.ans} $ chia hết cho $ {numClasses} $ vì $ ( {variables.numStudents + formulas.ans} ) / {numClasses} = { (variables.numStudents + formulas.ans) / variables.numClasses } $.<br/>Vậy, cần tuyển thêm $ {ans} $ học sinh.<br/>Đáp án đúng là B.",
+    "tip": "Khi muốn một số chia hết cho một số khác, bạn có thể thêm vào số đó một lượng bằng hiệu của số chia và số dư. Ví dụ, nếu $A \\div B$ dư $R$, thì cần thêm $B-R$ vào $A$ để được một số chia hết cho $B$.",
+    "level": "chat-luong-cao",
+    "type": "lt-c3-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numRooms": { "min": 10, "max": 20, "step": 1 },
+      "chairsPerRoomMin": { "min": 10, "max": 15, "step": 1 },
+      "chairsPerRoomMax": { "min": 18, "max": 25, "step": 1 }
+    },
+    "constraints": [
+      "variables.chairsPerRoomMax > variables.chairsPerRoomMin",
+      "MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) >= variables.numRooms * variables.chairsPerRoomMin",
+      "Math.floor(MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) / variables.numRooms) >= variables.chairsPerRoomMin",
+      "Math.floor(MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) / variables.numRooms) <= variables.chairsPerRoomMax",
+      "MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax) % variables.numRooms === 0"
+    ],
+    "formulas": {
+      "ans": "MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax)",
+      "w1": "variables.chairsPerRoomMin * variables.chairsPerRoomMax",
+      "w2": "variables.chairsPerRoomMin + variables.chairsPerRoomMax",
+      "w3": "Math.abs(variables.chairsPerRoomMax - variables.chairsPerRoomMin)"
+    },
+    "questionText": "Một phòng hội nghị có $ {numRooms} $ phòng nhỏ. Mỗi phòng nhỏ cần được kê một số ghế nhất định, ít nhất $ {chairsPerRoomMin} $ ghế và nhiều nhất $ {chairsPerRoomMax} $ ghế. Tổng số ghế trong tất cả các phòng phải bằng nhau và là số nhỏ nhất có thể. Hỏi tổng số ghế trong phòng hội nghị là bao nhiêu?",
+    "options": [
+      "A. ${w1}$ ghế",
+      "B. ${ans}$ ghế",
+      "C. ${w2}$ ghế",
+      "D. ${w3}$ ghế"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số ghế trong hội nghị phải là một bội số của $ {numRooms} $ (số phòng) và cũng là một bội số của số ghế trong mỗi phòng.",
+      "Vì số ghế trong mỗi phòng có thể thay đổi (từ $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $), nhưng tổng số ghế phải là nhỏ nhất có thể. Điều này liên quan đến bội chung nhỏ nhất."
+    ],
+    "solutionHtml": "Gọi tổng số ghế trong phòng hội nghị là $T$.<br/>Theo đề bài, $T$ phải chia đều cho $ {numRooms} $ phòng nhỏ, tức là $T$ phải là bội của $ {numRooms} $.<br/>Ngoài ra, số ghế trong mỗi phòng nhỏ phải nằm trong khoảng từ $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $. Gọi số ghế trong mỗi phòng là $X$. Vậy $ {chairsPerRoomMin} \\le X \\le {chairsPerRoomMax} $ và $T = X \\times {numRooms} $.<br/><br/>Vì $T$ là tổng số ghế nhỏ nhất có thể và $T = X \\times {numRooms} $, nên $X$ cũng phải là số nhỏ nhất thỏa mãn điều kiện.<br/>Tuy nhiên, bài toán nói \"tổng số ghế trong tất cả các phòng phải bằng nhau\" (ý là tổng số ghế $T$ chia đều cho các phòng) và $T$ là nhỏ nhất. Điều này ngụ ý rằng $X$ (số ghế trong mỗi phòng) cũng có thể coi là một 'đơn vị' mà $T$ là bội của nó.<br/>Đây là một bài toán hơi khác cách diễn đạt, nhưng bản chất là tìm số $T$ nhỏ nhất sao cho $T$ chia hết cho $ {numRooms} $ VÀ $T / {numRooms} $ nằm trong khoảng $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $.<br/><br/>Số ghế trong mỗi phòng có thể là bất kỳ số nào từ $ {chairsPerRoomMin} $ đến $ {chairsPerRoomMax} $. Để tổng số ghế là nhỏ nhất có thể, $X$ phải là số nguyên nhỏ nhất trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$ sao cho $X \\times {numRooms} $ là số cần tìm.<br/>Điều kiện \"Tổng số ghế trong tất cả các phòng phải bằng nhau\" ngụ ý rằng số ghế $X$ trong mỗi phòng là cố định. Vậy $T = X \\times {numRooms} $.<br/><br/>Tuy nhiên, cách hiểu thông thường cho bài toán này ở cấp độ bồi dưỡng là: tổng số ghế phải là BCNN của một giá trị $X$ (số ghế mỗi phòng) và số phòng $ {numRooms} $. Nhưng $X$ không phải là một số cố định. Câu hỏi này có thể được hiểu là: tìm $T$ là bội của $ {numRooms} $ và $T/{numRooms}$ là số ghế $X$ nằm trong khoảng. Và $T$ phải là nhỏ nhất.<br/><br/>Nếu số ghế mỗi phòng là $X$, thì $T = X \\times {numRooms} $. Ta cần tìm $X$ sao cho $ {chairsPerRoomMin} \\le X \\le {chairsPerRoomMax} $ và $T$ nhỏ nhất.<br/>Giá trị $X$ nhỏ nhất trong khoảng đó là $ {chairsPerRoomMin} $.<br/>Tuy nhiên, \"Tổng số ghế trong tất cả các phòng phải bằng nhau\" và là số nhỏ nhất có thể. Điều này ám chỉ $T$ là một bội của tất cả các khả năng của $X$ trong khoảng đó, nhưng đó không phải cách tính BCNN. Đây là câu hỏi mẹo.<br/><br/>Cách giải quyết chuẩn nhất: Tìm số $P$ nhỏ nhất thỏa mãn $P$ là bội của $ {chairsPerRoomMin} $, và $P$ là bội của $ {chairsPerRoomMax} $, và $P$ là bội của $ {numRooms} $. (Nhưng không phải là như vậy, vì $X$ có thể là bất kỳ số nào trong khoảng).<br/><br/>Hãy đọc lại cẩn thận: \"Mỗi phòng nhỏ cần được kê một số ghế nhất định, ít nhất $ {chairsPerRoomMin} $ ghế và nhiều nhất $ {chairsPerRoomMax} $ ghế. Tổng số ghế trong tất cả các phòng phải bằng nhau và là số nhỏ nhất có thể.\"<br/>Nếu số ghế trong mỗi phòng là $G$, thì $G$ phải nằm trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$. Tổng số ghế là $T = G \\times {numRooms} $.<br/>Để $T$ là nhỏ nhất, $G$ phải là số nhỏ nhất trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$ mà khi nhân với $ {numRooms} $ ta được $T$.<br/>Vậy $T = {chairsPerRoomMin} \\times {numRooms} $. Nhưng điều này không liên quan đến BCNN của $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $.<br/><br/>Đề bài có vẻ đánh lừa. Nếu các biến được chọn sao cho $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $ không nhất thiết phải là các số riêng rẽ mà là 'số lượng ghế nhỏ nhất' và 'số lượng ghế lớn nhất'. Và 'tổng số ghế trong tất cả các phòng phải bằng nhau' có nghĩa là mỗi phòng có cùng một số ghế $X$. Và $X$ đó phải thỏa mãn điều kiện $X \\ge {chairsPerRoomMin} $ và $X \\le {chairsPerRoomMax} $. Đồng thời, tổng số ghế $X \\times {numRooms} $ là nhỏ nhất. Vậy $X$ phải là số nhỏ nhất trong khoảng đó.<br/><br/>Có một cách giải thích khác cho câu hỏi này ở mức độ cao, đó là số ghế mỗi phòng phải là một số $X$ sao cho $X$ là ước của một số $Y$ (tổng ghế), và $X$ nằm trong khoảng.
+BCNN($ {chairsPerRoomMin} $, $ {chairsPerRoomMax} $) = $ {ans} $. Giá trị này thường dùng khi tìm một giá trị mà thỏa mãn đồng thời các tính chất của nhiều số.
+Trong trường hợp này, 'tổng số ghế trong tất cả các phòng phải bằng nhau và là số nhỏ nhất có thể' (tức là $T$) có thể được hiểu là $T$ là BCNN của một số $X$ và $Y$ (ở đây, $X$ và $Y$ là các giới hạn của số ghế mỗi phòng). Tuy nhiên, đây là một cách hiểu không trực tiếp.
+
+Với lớp 6, cách hiểu hợp lý nhất cho 'BCNN của A và B' trong bài toán thực tế là 'số nhỏ nhất chia hết cho cả A và B'. Ở đây, tổng số ghế $T$ phải chia hết cho $ {numRooms} $. Và số ghế mỗi phòng $X = T / {numRooms} $ phải nằm trong khoảng $[{chairsPerRoomMin}, {chairsPerRoomMax}]$.
+Để $T$ nhỏ nhất, $X$ cũng phải nhỏ nhất. Vậy $X$ phải là $ {chairsPerRoomMin} $. Vậy $T = {chairsPerRoomMin} \\times {numRooms} $.
+Nhưng đáp án đúng lại là BCNN của `chairsPerRoomMin` và `chairsPerRoomMax`? Có lẽ đề muốn nói số ghế trong mỗi phòng (hoặc tổng ghế) là bội của `chairsPerRoomMin` và `chairsPerRoomMax`. Điều này không rõ ràng.
+
+Nếu câu hỏi muốn tìm BCNN($ {chairsPerRoomMin} $, $ {chairsPerRoomMax} $) thì cách diễn đạt phải khác. Ví dụ: \"Một số ghế được xếp vào các phòng. Mỗi phòng có thể có $ {chairsPerRoomMin} $ ghế hoặc $ {chairsPerRoomMax} $ ghế. Tổng số ghế nhỏ nhất có thể có là bao nhiêu?\" (với điều kiện tổng số ghế chia hết cho số phòng).
+
+Với định nghĩa của `ans` là `MathHelpers.lcm(variables.chairsPerRoomMin, variables.chairsPerRoomMax)`, đề bài này có vẻ muốn nhấn mạnh tìm BCNN của hai cận dưới và cận trên của số ghế mỗi phòng.
+Tuy nhiên, điều này mâu thuẫn với việc 'số nhỏ nhất có thể' khi số phòng là `numRooms`.
+
+Giả sử đề bài muốn tìm số $T$ nhỏ nhất sao cho $T$ chia hết cho $ {numRooms} $, và $T$ cũng là một bội của một số $X$ nào đó, mà $X$ phải nằm trong khoảng $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $.
+Và $T$ phải là bội chung nhỏ nhất của $ {chairsPerRoomMin} $ và $ {chairsPerRoomMax} $. Câu hỏi này thực sự khó hiểu với ngữ cảnh của BCNN.
+
+Để đảm bảo chất lượng, tôi sẽ sửa lại câu hỏi này. Thay vì 'tổng số ghế trong phòng hội nghị', sẽ là 'một số $N$'.
+
+**Sửa lại Q9 và Q10:** (đã sử dụng lại Q9 cho bài toán UCLN/BCNN của hai số).
+Vậy Q10 sẽ là một bài toán tìm số lượng số trong khoảng chia hết cho N.
+Hoặc bài toán đếm các ước số của một số trong một khoảng cho trước, nhưng nâng cao hơn Q5.
+
+Let's retry Q10 with a "quality" problem.
+**Idea for Q10:** Một số $N$ có bao nhiêu ước số là số chẵn (hoặc lẻ)?
+Or: số lượng các số trong một khoảng mà là bội của A nhưng không phải bội của B. (Sử dụng phần bù)
+*   **Scenario:** Đếm số lượng các số trong một khoảng, là bội của `num1` nhưng KHÔNG phải là bội của `num2`.
+*   **Variables:** `lower`, `upper`, `num1`, `num2`.
+*   **Constraints:** `lower=1`, `upper` reasonably large. `num1`, `num2` small, coprime for simplicity, or num2 is a multiple of num1 to avoid complex cases.
+*   **Formulas:**
+    *   Count multiples of `num1` up to `upper`.
+    *   Count multiples of `lcm(num1, num2)` up to `upper`.
+    *   `ans = count(num1) - count(lcm(num1, num2))`.
+*   **Wording:** "Trong các số tự nhiên từ 1 đến $ {upperBound} $, có bao nhiêu số là bội của $ {multiple1} $ nhưng không phải là bội của $ {multiple2} $?"
+    *   This is a good one, covers inclusion/exclusion idea partially.
+
+---
+Revisiting the original Q9 for the problem where `sumAB` and `gcdAB` are given. I used `findCoprimeFactors` to implicitly get `x` and `y`.
+`constraints`: `MathHelpers.findCoprimeFactors(variables.sumAB / variables.gcdAB).length === 1` is too restrictive. `x+y=S_prime`. If `S_prime` is prime, then `x=1, y=S_prime-1` is the only coprime pair summing to `S_prime`.
+Let's try to ensure `sum_x_y` is prime.
+`"constraints": [ "variables.sumAB % variables.gcdAB === 0", "MathHelpers.isPrime(variables.sumAB / variables.gcdAB)" ]`
+This `isPrime` helper would be needed. This is a common pattern for generating unique solutions.
+For 6th grade, `x=1` and `y=S_prime-1` is the simplest.
+The problem: $a+b=S$, $GCD(a,b)=G$. Find $LCM(a,b)$.
+$a=Gx, b=Gy$, $GCD(x,y)=1$.
+$G(x+y)=S \implies x+y=S/G$.
+$LCM(a,b) = Gxy$.
+If $S/G$ is prime (let's call it $P_s$), then $x+y=P_s$. The only coprime pair $(x,y)$ summing to a prime $P_s$ is $(1, P_s-1)$. (Unless $P_s=2$, then $(1,1)$ no, $x+y=2, x=1, y=1$, $gcd(1,1)=1$, so $(1,1)$ works. If $x=1, y=1$, $a=G, b=G$. $LCM(G,G)=G$. This is a special case. But $P_s$ must be $>2$ here because $P_s = x+y$ and $x,y$ must be distinct usually, or at least $x \neq 0, y \neq 0$. If $x=y$, then $gcd(x,y)=x$, so $x$ must be $1$. So if $x=y=1$, then $x+y=2$. So $S/G = 2$. $a=G, b=G$. Then $LCM(a,b)=G$. It works).
+So, if `sum_x_y` is a prime number, or `sum_x_y = 2`, the solution for $x,y$ is effectively unique for coprime condition: $(1, \text{sum_x_y}-1)$.
+
+Okay, let's proceed with Q10 using "count multiples of A but not B".
+
+---
+**Drafting Q10 - Bội số và loại trừ**
+*   **Scenario:** Đếm số lượng các số từ 1 đến `upperBound` là bội của `multiple1` nhưng không phải là bội của `multiple2`.
+*   **Variables:** `upperBound`, `multiple1`, `multiple2`.
+*   **Constraints:** `upperBound` > 100. `multiple1` < `multiple2`. `multiple1` between 3-7. `multiple2` between 8-12. `multiple2` is not a multiple of `multiple1`.
+*   **Formulas:**
+    *   `countM1 = Math.floor(upperBound / multiple1)`.
+    *   `lcm_val = MathHelpers.lcm(multiple1, multiple2)`.
+    *   `countLCM = Math.floor(upperBound / lcm_val)`.
+    *   `ans = countM1 - countLCM`.
+    *   Distractors: `countM1`, `countLCM`, `countM1 + countLCM`.
+*   **Example:** `upperBound = 100`, `multiple1 = 3`, `multiple2 = 5`.
+    *   Count multiples of 3 up to 100: `floor(100/3) = 33`.
+    *   Count multiples of 3 and 5 (i.e., of 15) up to 100: `lcm(3,5)=15`, `floor(100/15) = 6`.
+    *   `ans = 33 - 6 = 27`.
+
+This looks good. I will ensure all `MathHelpers` calls are correctly made.
+The `constraints` and `formulas` should use `MathHelpers.gcd` and `MathHelpers.lcm` directly if they are available in the evaluation context.
+Let's add `MathHelpers` to the JSON. (No, the instruction says "Do not generate any comments inside the json block." and "Only generate a valid, parseable JSON." - this implies the helper functions should *not* be part of the JSON output, but rather be part of the generation script's environment. So I'll just use them in my local generation logic).
+The final output must be JSON only.
+

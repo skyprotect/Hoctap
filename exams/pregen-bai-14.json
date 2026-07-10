@@ -1,0 +1,568 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialTemp": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "tempDrop": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "tempRise": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialTemp < tempDrop",
+        "tempRise < tempDrop"
+      ],
+      "formulas": {
+        "step1Val": "initialTemp - tempDrop",
+        "ans": "initialTemp - tempDrop + tempRise",
+        "w1": "initialTemp + tempDrop + tempRise",
+        "w2": "initialTemp - tempDrop - tempRise",
+        "w3": "initialTemp + tempDrop - tempRise"
+      },
+      "questionText": "Vào buổi sáng, nhiệt độ tại một thị trấn là {initialTemp}°C. Đến trưa, nhiệt độ giảm {tempDrop}°C. Buổi chiều, nhiệt độ tăng trở lại {tempRise}°C. Hỏi nhiệt độ cuối cùng vào buổi chiều là bao nhiêu?",
+      "options": [
+        "A. {w1}°C",
+        "B. {ans}°C",
+        "C. {w2}°C",
+        "D. {w3}°C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định phép tính phù hợp cho từng lần thay đổi nhiệt độ.",
+        "Nhiệt độ giảm ứng với phép trừ số nguyên, nhiệt độ tăng ứng với phép cộng số nguyên."
+      ],
+      "solutionHtml": "Để tìm nhiệt độ cuối cùng, chúng ta sẽ thực hiện các phép tính theo thứ tự thời gian:<br/>1. Nhiệt độ ban đầu là {initialTemp}°C.<br/>2. Đến trưa, nhiệt độ giảm {tempDrop}°C. Nhiệt độ lúc trưa là: ${initialTemp} - {tempDrop} = {step1Val}°C$$<br/>3. Buổi chiều, nhiệt độ tăng trở lại {tempRise}°C. Nhiệt độ cuối cùng vào buổi chiều là: ${step1Val} + {tempRise} = {ans}°C$$<br/>Vậy, nhiệt độ cuối cùng là {ans}°C.<br/>Đáp án đúng là B.",
+      "tip": "Cần đọc kỹ đề bài và chuyển các thông tin 'giảm' thành phép trừ, 'tăng' thành phép cộng số nguyên một cách chính xác.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialBalance": {
+          "min": 1500000,
+          "max": 5000000,
+          "step": 100000
+        },
+        "withdraw1": {
+          "min": 500000,
+          "max": 1000000,
+          "step": 50000
+        },
+        "deposit": {
+          "min": 800000,
+          "max": 1500000,
+          "step": 50000
+        },
+        "withdraw2": {
+          "min": 300000,
+          "max": 700000,
+          "step": 50000
+        }
+      },
+      "constraints": [
+        "initialBalance - withdraw1 > 0",
+        "initialBalance - withdraw1 + deposit > withdraw2",
+        "initialBalance - withdraw1 + deposit - withdraw2 > 0"
+      ],
+      "formulas": {
+        "balanceAfterW1": "initialBalance - withdraw1",
+        "balanceAfterD": "initialBalance - withdraw1 + deposit",
+        "ans": "initialBalance - withdraw1 + deposit - withdraw2",
+        "w1": "initialBalance + withdraw1 + deposit + withdraw2",
+        "w2": "initialBalance - withdraw1 - deposit - withdraw2",
+        "w3": "((initialBalance + withdraw1 - deposit + withdraw2) === (initialBalance - withdraw1 + deposit - withdraw2)) ? (initialBalance - withdraw1 + deposit - withdraw2) - 500000 : (initialBalance + withdraw1 - deposit + withdraw2)"
+      },
+      "questionText": "Tài khoản ngân hàng của chị Lan có {initialBalance} đồng. Chị rút tiền lần thứ nhất {withdraw1} đồng, sau đó nạp thêm {deposit} đồng. Cuối cùng, chị rút thêm {withdraw2} đồng. Hỏi số dư cuối cùng trong tài khoản của chị Lan là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số tiền rút ra ứng với phép trừ, số tiền nạp vào ứng với phép cộng.",
+        "Thực hiện các phép tính theo thứ tự các giao dịch diễn ra."
+      ],
+      "solutionHtml": "Chúng ta sẽ theo dõi số dư tài khoản của chị Lan qua từng giao dịch:<br/>1. Số dư ban đầu: {initialBalance} đồng.<br/>2. Rút tiền lần thứ nhất {withdraw1} đồng. Số dư còn lại là: ${initialBalance} - {withdraw1} = {balanceAfterW1}$$ đồng.<br/>3. Nạp thêm {deposit} đồng. Số dư lúc này là: ${balanceAfterW1} + {deposit} = {balanceAfterD}$$ đồng.<br/>4. Rút thêm {withdraw2} đồng. Số dư cuối cùng là: ${balanceAfterD} - {withdraw2} = {ans}$$ đồng.<br/>Vậy, số dư cuối cùng trong tài khoản của chị Lan là {ans} đồng.<br/>Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn giữa nạp tiền (cộng) và rút tiền (trừ). Luôn giữ dấu của số tiền trong tài khoản.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialDepth": {
+          "min": -20,
+          "max": 10,
+          "step": 1
+        },
+        "diveDeeper": {
+          "min": 25,
+          "max": 40,
+          "step": 5
+        },
+        "ascendUp": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "initialDepth - diveDeeper < -15",
+        "initialDepth - diveDeeper + ascendUp < 0"
+      ],
+      "formulas": {
+        "depthAfterDive": "initialDepth - diveDeeper",
+        "ans": "initialDepth - diveDeeper + ascendUp",
+        "w1": "((Math.abs(initialDepth) + diveDeeper - ascendUp) === (initialDepth + diveDeeper + ascendUp)) ? (initialDepth + diveDeeper + ascendUp) + 10 : (Math.abs(initialDepth) + diveDeeper - ascendUp)",
+        "w2": "initialDepth + diveDeeper + ascendUp",
+        "w3": "initialDepth - diveDeeper - ascendUp"
+      },
+      "questionText": "Một tàu ngầm đang ở độ cao (so với mực nước biển) là {initialDepth} mét. Sau đó, nó lặn sâu thêm {diveDeeper} mét. Một lúc sau, tàu nổi lên {ascendUp} mét. Hỏi vị trí cuối cùng của tàu ngầm so với mực nước biển là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Độ cao dưới mực nước biển được biểu thị bằng số nguyên âm, trên mực nước biển là số nguyên dương.",
+        "Lặn sâu thêm là phép trừ, nổi lên là phép cộng."
+      ],
+      "solutionHtml": "Chúng ta biểu diễn vị trí của tàu ngầm so với mực nước biển:<br/>1. Vị trí ban đầu: {initialDepth} mét.<br/>2. Tàu lặn sâu thêm {diveDeeper} mét (tức là vị trí giảm). Vị trí sau khi lặn sâu là: ${initialDepth} - {diveDeeper} = {depthAfterDive}$$ mét.<br/>3. Tàu nổi lên {ascendUp} mét (tức là vị trí tăng). Vị trí cuối cùng của tàu là: ${depthAfterDive} + {ascendUp} = {ans}$$ mét.<br/>Vậy, vị trí cuối cùng của tàu ngầm là {ans} mét so với mực nước biển.<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến ý nghĩa của số âm (dưới mực nước biển) và số dương (trên mực nước biển) trong bài toán độ cao.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialScore": {
+          "min": 80,
+          "max": 150,
+          "step": 10
+        },
+        "losePoints1": {
+          "min": 40,
+          "max": 70,
+          "step": 5
+        },
+        "gainPoints": {
+          "min": 50,
+          "max": 80,
+          "step": 5
+        },
+        "losePoints2": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "initialScore - losePoints1 > -20",
+        "initialScore - losePoints1 + gainPoints - losePoints2 > -50"
+      ],
+      "formulas": {
+        "scoreAfterLoss1": "initialScore - losePoints1",
+        "scoreAfterGain": "initialScore - losePoints1 + gainPoints",
+        "ans": "initialScore - losePoints1 + gainPoints - losePoints2",
+        "w1": "initialScore + losePoints1 + gainPoints + losePoints2",
+        "w2": "((initialScore - losePoints1 - gainPoints + losePoints2) === (initialScore - losePoints1 + gainPoints - losePoints2)) ? (initialScore - losePoints1 + gainPoints - losePoints2) - 15 : (initialScore - losePoints1 - gainPoints + losePoints2)",
+        "w3": "initialScore + losePoints1 + gainPoints - losePoints2"
+      },
+      "questionText": "Trong một trò chơi điện tử, An có {initialScore} điểm. An bị trừ {losePoints1} điểm do mắc lỗi, sau đó được cộng thêm {gainPoints} điểm nhờ hoàn thành nhiệm vụ. Cuối cùng, An lại bị trừ {losePoints2} điểm vì thua một vòng. Hỏi tổng số điểm của An sau tất cả các sự kiện là bao nhiêu?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {ans} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Điểm bị trừ ứng với phép trừ, điểm được cộng ứng với phép cộng.",
+        "Thực hiện các phép tính theo đúng trình tự các sự kiện."
+      ],
+      "solutionHtml": "Để tính tổng số điểm của An, ta thực hiện các phép tính theo thứ tự:<br/>1. Điểm ban đầu của An: {initialScore} điểm.<br/>2. An bị trừ {losePoints1} điểm. Số điểm còn lại là: ${initialScore} - {losePoints1} = {scoreAfterLoss1}$$ điểm.<br/>3. An được cộng thêm {gainPoints} điểm. Số điểm lúc này là: ${scoreAfterLoss1} + {gainPoints} = {scoreAfterGain}$$ điểm.<br/>4. An bị trừ {losePoints2} điểm. Số điểm cuối cùng là: ${scoreAfterGain} - {losePoints2} = {ans}$$ điểm.<br/>Vậy, tổng số điểm của An sau tất cả các sự kiện là {ans} điểm.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên rằng điểm số cũng có thể là số âm trong một số trường hợp, hãy thực hiện đúng các phép toán cộng và trừ số nguyên.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "posA": {
+          "min": -10,
+          "max": -5,
+          "step": 1
+        },
+        "posB": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "moveA": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        },
+        "moveB": {
+          "min": 7,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "posA < posB",
+        "posA + moveA !== posB - moveB",
+        "Math.abs((posA + moveA) - (posB - moveB)) > 1"
+      ],
+      "formulas": {
+        "newPosA": "posA + moveA",
+        "newPosB": "posB - moveB",
+        "ans": "Math.abs((posA + moveA) - (posB - moveB))",
+        "w1": "((posB - posA) === Math.abs((posA + moveA) - (posB - moveB))) ? (posB - posA) + 6 : (posB - posA)",
+        "w2": "(Math.abs(posA + moveA + posB - moveB) === Math.abs((posA + moveA) - (posB - moveB))) ? ( ((Math.abs((posA + moveA) - (posB - moveB)) + 5) === (posB - posA)) ? Math.abs((posA + moveA) - (posB - moveB)) + 9 : Math.abs((posA + moveA) - (posB - moveB)) + 5 ) : Math.abs(posA + moveA + posB - moveB)",
+        "w3": "(Math.abs(posA + posB + moveA + moveB) === (posB - posA) || Math.abs(posA + posB + moveA + moveB) === Math.abs((posA + moveA) - (posB - moveB)) || Math.abs(posA + posB + moveA + moveB) === ((Math.abs(posA + moveA + posB - moveB) === Math.abs((posA + moveA) - (posB - moveB))) ? ( ((Math.abs((posA + moveA) - (posB - moveB)) + 5) === (posB - posA)) ? Math.abs((posA + moveA) - (posB - moveB)) + 9 : Math.abs((posA + moveA) - (posB - moveB)) + 5 ) : Math.abs(posA + moveA + posB - moveB))) ? Math.abs(posA + posB + moveA + moveB) + 10 : Math.abs(posA + posB + moveA + moveB)"
+      },
+      "questionText": "Trên một trục số, điểm A có tọa độ {posA}, điểm B có tọa độ {posB}. Điểm A di chuyển {moveA} đơn vị về phía bên phải, và điểm B di chuyển {moveB} đơn vị về phía bên trái. Hỏi khoảng cách giữa hai điểm A và B sau khi di chuyển là bao nhiêu đơn vị?",
+      "options": [
+        "A. {w1} đơn vị",
+        "B. {ans} đơn vị",
+        "C. {w2} đơn vị",
+        "D. {w3} đơn vị"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Di chuyển về bên phải là cộng, di chuyển về bên trái là trừ.",
+        "Khoảng cách giữa hai điểm trên trục số là giá trị tuyệt đối của hiệu hai tọa độ."
+      ],
+      "solutionHtml": "Để tìm khoảng cách giữa hai điểm sau khi di chuyển, ta cần xác định vị trí mới của mỗi điểm:<br/>1. Vị trí ban đầu của điểm A là {posA}. Điểm A di chuyển {moveA} đơn vị về phía bên phải, vậy vị trí mới của A là: ${posA} + {moveA} = {newPosA}$$<br/>2. Vị trí ban đầu của điểm B là {posB}. Điểm B di chuyển {moveB} đơn vị về phía bên trái, vậy vị trí mới của B là: ${posB} - {moveB} = {newPosB}$$<br/>3. Khoảng cách giữa hai điểm A và B sau khi di chuyển là giá trị tuyệt đối của hiệu hai tọa độ mới: $$|{newPosA} - {newPosB}| = |({newPosA}) - ({newPosB})| = {ans}$$ đơn vị.<br/>Vậy, khoảng cách giữa hai điểm A và B sau khi di chuyển là {ans} đơn vị.<br/>Đáp án đúng là B.",
+      "tip": "Luôn nhớ rằng khoảng cách là một đại lượng không âm, do đó cần lấy giá trị tuyệt đối của hiệu các tọa độ.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialCapital": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "profit1": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "loss1": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "profit2": {
+          "min": 15,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "initialCapital + profit1 - loss1 > 0",
+        "initialCapital + profit1 - loss1 + profit2 > initialCapital"
+      ],
+      "formulas": {
+        "capitalAfterP1": "initialCapital + profit1",
+        "capitalAfterL1": "initialCapital + profit1 - loss1",
+        "ans": "initialCapital + profit1 - loss1 + profit2",
+        "w1": "initialCapital - profit1 - loss1 - profit2",
+        "w2": "initialCapital + profit1 + loss1 + profit2",
+        "w3": "initialCapital - profit1 + loss1 - profit2"
+      },
+      "questionText": "Một cửa hàng nhỏ có số vốn ban đầu là {initialCapital} triệu đồng. Trong quý 1, cửa hàng lãi {profit1} triệu đồng. Đến quý 2, do khó khăn, cửa hàng bị lỗ {loss1} triệu đồng. Sang quý 3, cửa hàng lại lãi {profit2} triệu đồng. Hỏi sau 3 quý, số vốn hiện tại của cửa hàng là bao nhiêu triệu đồng?",
+      "options": [
+        "A. {w1} triệu đồng",
+        "B. {ans} triệu đồng",
+        "C. {w2} triệu đồng",
+        "D. {w3} triệu đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lãi là phép cộng, lỗ là phép trừ.",
+        "Thực hiện tuần tự các phép tính tương ứng với từng quý."
+      ],
+      "solutionHtml": "Để xác định số vốn hiện tại của cửa hàng, ta thực hiện các phép tính sau:<br/>1. Vốn ban đầu: {initialCapital} triệu đồng.<br/>2. Quý 1 lãi {profit1} triệu đồng. Số vốn lúc này là: ${initialCapital} + {profit1} = {capitalAfterP1}$$ triệu đồng.<br/>3. Quý 2 lỗ {loss1} triệu đồng. Số vốn lúc này là: ${capitalAfterP1} - {loss1} = {capitalAfterL1}$$ triệu đồng.<br/>4. Quý 3 lãi {profit2} triệu đồng. Số vốn cuối cùng là: ${capitalAfterL1} + {profit2} = {ans}$$ triệu đồng.<br/>Vậy, sau 3 quý, số vốn hiện tại của cửa hàng là {ans} triệu đồng.<br/>Đáp án đúng là B.",
+      "tip": "Trong kinh doanh, lãi là số dương (cộng vào vốn), lỗ là số âm (trừ đi khỏi vốn).",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startFloor": {
+          "min": -3,
+          "max": 5,
+          "step": 1
+        },
+        "goUp1": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "goDown": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "goUp2": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "startFloor + goUp1 >= -3",
+        "startFloor + goUp1 - goDown >= -3",
+        "startFloor + goUp1 - goDown + goUp2 <= 10"
+      ],
+      "formulas": {
+        "floorAfterUp1": "startFloor + goUp1",
+        "floorAfterDown": "startFloor + goUp1 - goDown",
+        "ans": "startFloor + goUp1 - goDown + goUp2",
+        "w1": "((startFloor - goUp1 + goDown - goUp2) === (startFloor + goUp1 - goDown + goUp2)) ? (startFloor - goUp1 + goDown - goUp2) - 4 : (startFloor - goUp1 + goDown - goUp2)",
+        "w2": "startFloor + goUp1 + goDown + goUp2",
+        "w3": "((startFloor - goUp1 - goDown + goUp2) === (startFloor - goUp1 + goDown - goUp2) || (startFloor - goUp1 - goDown + goUp2) === (startFloor + goUp1 - goDown + goUp2)) ? (startFloor - goUp1 - goDown + goUp2) - 4 : (startFloor - goUp1 - goDown + goUp2)"
+      },
+      "questionText": "Một thang máy đang ở tầng {startFloor} (tầng hầm được kí hiệu bằng số âm). Nó đi lên {goUp1} tầng, sau đó đi xuống {goDown} tầng. Cuối cùng, nó lại đi lên thêm {goUp2} tầng. Hỏi thang máy đang ở tầng bao nhiêu?",
+      "options": [
+        "A. Tầng {w1}",
+        "B. Tầng {ans}",
+        "C. Tầng {w2}",
+        "D. Tầng {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đi lên là cộng, đi xuống là trừ.",
+        "Tầng hầm được biểu thị bằng số âm, tầng trên mặt đất là số dương."
+      ],
+      "solutionHtml": "Chúng ta sẽ tính vị trí của thang máy qua từng bước di chuyển:<br/>1. Thang máy đang ở tầng {startFloor}.<br/>2. Đi lên {goUp1} tầng. Vị trí lúc này là: ${startFloor} + {goUp1} = {floorAfterUp1}$$<br/>3. Đi xuống {goDown} tầng. Vị trí lúc này là: ${floorAfterUp1} - {goDown} = {floorAfterDown}$$<br/>4. Đi lên thêm {goUp2} tầng. Vị trí cuối cùng là: ${floorAfterDown} + {goUp2} = {ans}$$<br/>Vậy, thang máy đang ở tầng {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Hãy hình dung các tầng hầm là các số âm và các tầng trên mặt đất là các số dương để dễ dàng thực hiện phép cộng và trừ số nguyên.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialLevel": {
+          "min": -10,
+          "max": 5,
+          "step": 1
+        },
+        "drop1": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "rise": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "drop2": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialLevel - drop1 < -5",
+        "initialLevel - drop1 + rise - drop2 < 0"
+      ],
+      "formulas": {
+        "levelAfterDrop1": "initialLevel - drop1",
+        "levelAfterRise": "initialLevel - drop1 + rise",
+        "ans": "initialLevel - drop1 + rise - drop2",
+        "w1": "initialLevel + drop1 + rise + drop2",
+        "w2": "initialLevel - drop1 - rise - drop2",
+        "w3": "((initialLevel + drop1 - rise + drop2) === (initialLevel - drop1 + rise - drop2)) ? (initialLevel - drop1 + rise - drop2) - 5 : (initialLevel + drop1 - rise + drop2)"
+      },
+      "questionText": "Mực nước của một hồ chứa đang ở mức {initialLevel} mét so với mốc quy định 0 mét. Trong đợt hạn hán, mực nước giảm {drop1} mét. Sau đó, có mưa lớn nên mực nước tăng {rise} mét. Tuy nhiên, một thời gian sau, mực nước lại giảm thêm {drop2} mét. Hỏi mực nước cuối cùng của hồ chứa là bao nhiêu mét so với mốc quy định?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mực nước giảm ứng với phép trừ, mực nước tăng ứng với phép cộng.",
+        "Vị trí dưới mốc 0 là số âm, trên mốc 0 là số dương."
+      ],
+      "solutionHtml": "Chúng ta tính toán mực nước của hồ qua từng giai đoạn:<br/>1. Mực nước ban đầu: {initialLevel} mét.<br/>2. Trong đợt hạn hán, mực nước giảm {drop1} mét. Mực nước lúc này là: ${initialLevel} - {drop1} = {levelAfterDrop1}$$ mét.<br/>3. Sau đó, mực nước tăng {rise} mét. Mực nước lúc này là: ${levelAfterDrop1} + {rise} = {levelAfterRise}$$ mét.<br/>4. Mực nước lại giảm thêm {drop2} mét. Mực nước cuối cùng là: ${levelAfterRise} - {drop2} = {ans}$$ mét.<br/>Vậy, mực nước cuối cùng của hồ chứa là {ans} mét so với mốc quy định.<br/>Đáp án đúng là B.",
+      "tip": "Các bài toán về mực nước, độ cao thường sử dụng mốc 0 và các số nguyên âm, dương để biểu diễn. Cẩn thận với dấu của phép tính.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "yearBC": {
+          "min": 100,
+          "max": 500,
+          "step": 10
+        },
+        "yearAD": {
+          "min": 1500,
+          "max": 2000,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "yearBC > 0",
+        "yearAD > 0"
+      ],
+      "formulas": {
+        "ans": "yearBC + yearAD - 1",
+        "w1": "yearBC + yearAD",
+        "w2": "Math.abs(yearAD - yearBC)",
+        "w3": "Math.abs(yearAD - yearBC - 1)"
+      },
+      "questionText": "Một sự kiện lịch sử quan trọng xảy ra vào năm {yearBC} trước Công nguyên. Một sự kiện khác diễn ra vào năm {yearAD} sau Công nguyên. Hỏi khoảng thời gian giữa hai sự kiện này là bao nhiêu năm?",
+      "options": [
+        "A. {w1} năm",
+        "B. {ans} năm",
+        "C. {w2} năm",
+        "D. {w3} năm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Năm trước Công nguyên được coi là số âm và năm sau Công nguyên là số dương. Tuy nhiên, khi tính khoảng thời gian, chúng ta cần cẩn thận với năm 0.",
+        "Khoảng thời gian từ năm X TCN đến năm Y SCN là X + Y - 1 năm (vì không có năm 0)."
+      ],
+      "solutionHtml": "Để tính khoảng thời gian giữa hai sự kiện, ta hình dung trục thời gian:<br/>- Năm {yearBC} TCN có thể coi là $-\\text{{yearBC}}$.<br/>- Năm {yearAD} SCN có thể coi là $+\\text{{yearAD}}$.<br/>Để tính khoảng thời gian từ $-\\text{{yearBC}}$ đến $+\\text{{yearAD}}$ trên trục số, ta lấy {yearAD} trừ đi $(-\\text{{yearBC}})$. Tuy nhiên, cần lưu ý rằng không có năm 0. Do đó, khoảng thời gian thực tế sẽ là tổng của số năm trước Công nguyên và số năm sau Công nguyên, trừ đi 1.<br/>Khoảng thời gian giữa hai sự kiện là: ${yearBC} + {yearAD} - 1 = {ans}$$ năm.<br/>Đáp án đúng là B.",
+      "tip": "Khi tính khoảng thời gian giữa năm trước Công nguyên và sau Công nguyên, hãy nhớ rằng không có năm 0. Do đó, cần trừ 1 từ tổng số năm.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialDepthSub": {
+          "min": -50,
+          "max": -20,
+          "step": 5
+        },
+        "diveSub": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        },
+        "ascendSub": {
+          "min": 10,
+          "max": 40,
+          "step": 5
+        },
+        "diverAscendFromSub": {
+          "min": 5,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialDepthSub - diveSub < -70",
+        "initialDepthSub - diveSub + ascendSub < -30",
+        "initialDepthSub - diveSub + ascendSub + diverAscendFromSub < 0"
+      ],
+      "formulas": {
+        "subDepthAfterDive": "initialDepthSub - diveSub",
+        "subFinalDepth": "initialDepthSub - diveSub + ascendSub",
+        "ans": "initialDepthSub - diveSub + ascendSub + diverAscendFromSub",
+        "w1": "initialDepthSub - diveSub - ascendSub + diverAscendFromSub",
+        "w2": "initialDepthSub + diveSub + ascendSub + diverAscendFromSub",
+        "w3": "((initialDepthSub - diveSub + ascendSub - diverAscendFromSub) === (initialDepthSub - diveSub - ascendSub + diverAscendFromSub) || (initialDepthSub - diveSub + ascendSub - diverAscendFromSub) === (initialDepthSub - diveSub + ascendSub + diverAscendFromSub)) ? (initialDepthSub - diveSub + ascendSub - diverAscendFromSub) - 7 : (initialDepthSub - diveSub + ascendSub - diverAscendFromSub)"
+      },
+      "questionText": "Một tàu ngầm đang ở độ sâu {Math.abs(initialDepthSub)} mét so với mặt nước biển (tức là ở vị trí {initialDepthSub} mét). Nó lặn thêm {diveSub} mét. Sau đó, tàu nổi lên {ascendSub} mét. Tại vị trí đó, một thợ lặn rời tàu và bơi lên {diverAscendFromSub} mét. Hỏi vị trí cuối cùng của thợ lặn so với mặt nước biển là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lặn sâu là trừ, nổi lên là cộng.",
+        "Vị trí dưới mặt nước biển là số âm.",
+        "Vị trí của thợ lặn sẽ thay đổi từ vị trí cuối cùng của tàu ngầm."
+      ],
+      "solutionHtml": "Chúng ta tính toán vị trí cuối cùng của thợ lặn qua từng bước:<br/>1. Vị trí ban đầu của tàu ngầm: {initialDepthSub} mét.<br/>2. Tàu lặn thêm {diveSub} mét. Vị trí lúc này là: ${initialDepthSub} - {diveSub} = {subDepthAfterDive}$$ mét.<br/>3. Tàu nổi lên {ascendSub} mét. Vị trí của tàu lúc này là: ${subDepthAfterDive} + {ascendSub} = {subFinalDepth}$$ mét.<br/>4. Thợ lặn rời tàu và bơi lên {diverAscendFromSub} mét từ vị trí của tàu. Vị trí cuối cùng của thợ lặn là: ${subFinalDepth} + {diverAscendFromSub} = {ans}$$ mét.<br/>Vậy, vị trí cuối cùng của thợ lặn so với mặt nước biển là {ans} mét.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từng câu trong đề bài để xác định đối tượng đang di chuyển (tàu ngầm hay thợ lặn) và hướng di chuyển của họ. Vị trí dưới mặt nước biển luôn được biểu diễn bằng số âm.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialCount": {
+          "min": 1000,
+          "max": 5000,
+          "step": 100
+        },
+        "increase1": {
+          "min": 200,
+          "max": 500,
+          "step": 50
+        },
+        "decrease1": {
+          "min": 100,
+          "max": 300,
+          "step": 50
+        },
+        "increase2": {
+          "min": 150,
+          "max": 400,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "initialCount + increase1 - decrease1 > 0",
+        "initialCount + increase1 - decrease1 + increase2 > 0"
+      ],
+      "formulas": {
+        "countAfterI1": "initialCount + increase1",
+        "countAfterD1": "initialCount + increase1 - decrease1",
+        "ans": "initialCount + increase1 - decrease1 + increase2",
+        "w1": "initialCount - increase1 - decrease1 - increase2",
+        "w2": "initialCount + increase1 + decrease1 + increase2",
+        "w3": "initialCount - increase1 + decrease1 - increase2"
+      },
+      "questionText": "Số lượng chim di trú ở một khu bảo tồn ban đầu là {initialCount} con. Mùa xuân có {increase1} con chim mới đến. Mùa hè, {decrease1} con chim bay đi. Đến mùa thu, lại có {increase2} con chim khác di trú đến. Hỏi tổng số lượng chim hiện tại trong khu bảo tồn là bao nhiêu con?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số lượng chim đến ứng với phép cộng, số lượng chim bay đi ứng với phép trừ.",
+        "Thực hiện các phép tính theo thứ tự thời gian của các mùa."
+      ],
+      "solutionHtml": "Chúng ta sẽ theo dõi số lượng chim trong khu bảo tồn qua các mùa:<br/>1. Số lượng chim ban đầu: {initialCount} con.<br/>2. Mùa xuân có {increase1} con chim mới đến. Số lượng chim lúc này là: ${initialCount} + {increase1} = {countAfterI1}$$ con.<br/>3. Mùa hè, {decrease1} con chim bay đi. Số lượng chim lúc này là: ${countAfterI1} - {decrease1} = {countAfterD1}$$ con.<br/>4. Mùa thu, có {increase2} con chim di trú đến. Tổng số lượng chim cuối cùng là: ${countAfterD1} + {increase2} = {ans}$$ con.<br/>Vậy, tổng số lượng chim hiện tại trong khu bảo tồn là {ans} con.<br/>Đáp án đúng là B.",
+      "tip": "Đối với các bài toán về số lượng, dân số hoặc tài nguyên, sự tăng lên được biểu thị bằng phép cộng, sự giảm đi được biểu thị bằng phép trừ. Kết quả thường là số tự nhiên.",
+      "level": "chat-luong-cao",
+      "type": "bai-14-d4"
+    }
+  ]
+}

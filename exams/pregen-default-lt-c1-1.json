@@ -1,0 +1,559 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "L": {
+          "min": 60,
+          "max": 100,
+          "step": 4
+        },
+        "W": {
+          "min": 48,
+          "max": 80,
+          "step": 4
+        },
+        "minD": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "maxD": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "L > W",
+        "gcd(L, W) > minD",
+        "maxD > minD + 2",
+        "Math.max(...getDivisors(gcd(L,W)).filter(d => d > minD && d < maxD)) > 0"
+      ],
+      "formulas": {
+        "g": "gcd(L, W)",
+        "possible_distances_raw": "getDivisors(g)",
+        "valid_distances_temp": "possible_distances_raw.filter(d => d > minD && d < maxD)",
+        "max_chosen_dist": "Math.max(...valid_distances_temp)",
+        "min_chosen_dist": "Math.min(...valid_distances_temp)",
+        "perimeter": "2 * (L + W)",
+        "ans": "perimeter / max_chosen_dist",
+        "w1": "perimeter / min_chosen_dist",
+        "w2": "perimeter / g",
+        "w3": "L * W / max_chosen_dist"
+      },
+      "questionText": "Một khu vườn hình chữ nhật có chiều dài $ {L} $ mét và chiều rộng $ {W} $ mét. Người ta muốn trồng cây xung quanh khu vườn, sao cho khoảng cách giữa các cây liên tiếp là như nhau và là một số tự nhiên (đơn vị mét). Đồng thời, mỗi góc vườn phải có một cây và khoảng cách giữa các cây phải lớn hơn $ {minD} $ mét và nhỏ hơn $ {maxD} $ mét. Hỏi cần trồng ít nhất bao nhiêu cây?",
+      "options": [
+        "A. $ {ans} $ cây",
+        "B. $ {w1} $ cây",
+        "C. $ {w2} $ cây",
+        "D. $ {w3} $ cây"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số cây ít nhất tương ứng với khoảng cách lớn nhất giữa các cây.",
+        "Khoảng cách giữa các cây phải là ước chung của chiều dài và chiều rộng của khu vườn."
+      ],
+      "solutionHtml": "Để số cây là ít nhất, khoảng cách giữa các cây phải là lớn nhất có thể.<br/>Khoảng cách giữa các cây phải là một ước chung của chiều dài $ {L} $ mét và chiều rộng $ {W} $ mét, vì cây được trồng ở các góc vườn.<br/>Bước 1: Tìm ước chung lớn nhất (UCLN) của $ {L} $ và $ {W} $.<br/>UCLN$({L}, {W}) = {g} $<br/>Bước 2: Tìm các ước của UCLN$({g}) $. Đây là các ước chung của $ {L} $ và $ {W} $.<br/>Các ước của $ {g} $ là: $ {possible_distances_raw.join(', ')} $<br/>Bước 3: Lọc các khoảng cách thỏa mãn điều kiện 'lớn hơn $ {minD} $ mét và nhỏ hơn $ {maxD} $ mét'.<br/>Các khoảng cách hợp lệ là: $ {valid_distances_temp.join(', ')} $<br/>Khoảng cách lớn nhất trong số các khoảng cách hợp lệ là $ {max_chosen_dist} $ mét.<br/>Bước 4: Tính chu vi khu vườn.<br/>Chu vi khu vườn là: $ 2 \\times ({L} + {W}) = {perimeter} $ (mét).<br/>Bước 5: Tính số cây cần trồng.<br/>Số cây cần trồng là: $ {perimeter} : {max_chosen_dist} = {ans} $ (cây).<br/>Đáp án đúng là A.",
+      "tip": "Khi tìm số cây ít nhất trong bài toán trồng cây xung quanh hình chữ nhật có cây ở góc, ta cần tìm khoảng cách lớn nhất có thể giữa các cây. Khoảng cách này phải là ước chung của chiều dài và chiều rộng, đồng thời phải thỏa mãn các điều kiện về giới hạn khoảng cách cho trước.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lower": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "upper": {
+          "min": 500,
+          "max": 700,
+          "step": 10
+        },
+        "divX": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "notDivY_factor": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "upper - lower >= 200",
+        "divX > 1",
+        "notDivY_factor * divX <= 15"
+      ],
+      "formulas": {
+        "notDivY": "divX * notDivY_factor",
+        "count_div_func": "(N, K) => Math.floor(N / K)",
+        "total_divX": "count_div_func(upper, divX) - count_div_func(lower - 1, divX)",
+        "total_divY": "count_div_func(upper, notDivY) - count_div_func(lower - 1, notDivY)",
+        "ans": "total_divX - total_divY",
+        "w1": "total_divX",
+        "w2": "total_divX + total_divY",
+        "w3": "total_divY"
+      },
+      "questionText": "Cho các số tự nhiên từ $ {lower} $ đến $ {upper} $ (bao gồm cả $ {lower} $ và $ {upper} $). Hỏi có bao nhiêu số trong khoảng này chia hết cho $ {divX} $ nhưng không chia hết cho $ {notDivY} $?",
+      "options": [
+        "A. $ {ans} $ số",
+        "B. $ {w1} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để tìm số lượng các số chia hết cho $ {divX} $ trong một khoảng, ta lấy số lượng các số chia hết cho $ {divX} $ đến cận trên trừ đi số lượng các số chia hết cho $ {divX} $ đến cận dưới (trừ 1).",
+        "Nếu một số chia hết cho $ {notDivY} $ và $ {notDivY} $ là bội của $ {divX} $, thì số đó cũng chia hết cho $ {divX} $."
+      ],
+      "solutionHtml": "Bước 1: Tính số lượng các số chia hết cho $ {divX} $ trong khoảng từ $ {lower} $ đến $ {upper} $.<br/>Số lượng các số chia hết cho $ {divX} $ trong khoảng này là: $ \\lfloor {upper} / {divX} \\rfloor - \\lfloor ({lower} - 1) / {divX} \\rfloor = {total_divX} $ số.<br/>Bước 2: Tính số lượng các số chia hết cho $ {notDivY} $ trong khoảng từ $ {lower} $ đến $ {upper} $.<br/>Số lượng các số chia hết cho $ {notDivY} $ là: $ \\lfloor {upper} / {notDivY} \\rfloor - \\lfloor ({lower} - 1) / {notDivY} \\rfloor = {total_divY} $ số.<br/>Bước 3: Vì $ {notDivY} $ là bội của $ {divX} $, nên bất kỳ số nào chia hết cho $ {notDivY} $ cũng chia hết cho $ {divX} $. Do đó, để tìm các số chia hết cho $ {divX} $ nhưng không chia hết cho $ {notDivY} $, ta lấy tổng số các số chia hết cho $ {divX} $ trừ đi số các số chia hết cho $ {notDivY} $.<br/>Số lượng các số cần tìm là: $ {total_divX} - {total_divY} = {ans} $ (số).<br/>Đáp án đúng là A.",
+      "tip": "Để giải quyết bài toán đếm số với điều kiện 'chia hết cho A nhưng không chia hết cho B', ta tìm tổng số các số chia hết cho A, sau đó trừ đi tổng số các số chia hết cho B (với điều kiện B là bội của A). Nếu B không là bội của A, bài toán sẽ phức tạp hơn, cần dùng nguyên lý bù trừ.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalEmployees": {
+          "min": 20,
+          "max": 100,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalEmployees >= 20",
+        "totalEmployees <= 100",
+        "totalEmployees !== 23 && totalEmployees !== 29 && totalEmployees !== 31 && totalEmployees !== 37 && totalEmployees !== 41 && totalEmployees !== 43 && totalEmployees !== 47 && totalEmployees !== 53 && totalEmployees !== 59 && totalEmployees !== 61 && totalEmployees !== 67 && totalEmployees !== 71 && totalEmployees !== 73 && totalEmployees !== 79 && totalEmployees !== 83 && totalEmployees !== 89 && totalEmployees !== 97"
+      ],
+      "formulas": {
+        "all_divisors": "getDivisors(totalEmployees)",
+        "num_all_divs": "all_divisors.length",
+        "ans": "Math.max(0, num_all_divs - 2)",
+        "w1": "num_all_divs",
+        "w2": "num_all_divs - 1",
+        "w3": "num_all_divs + 1"
+      },
+      "questionText": "Một công ty có $ {totalEmployees} $ nhân viên. Để thực hiện một dự án, công ty muốn chia tất cả nhân viên thành các đội. Mỗi đội có số lượng nhân viên như nhau và mỗi nhân viên chỉ thuộc về một đội. Số lượng nhân viên trong mỗi đội phải lớn hơn 1 và nhỏ hơn tổng số nhân viên của công ty. Hỏi công ty có thể chia đội theo bao nhiêu cách khác nhau?",
+      "options": [
+        "A. $ {ans} $ cách",
+        "B. $ {w1} $ cách",
+        "C. $ {w2} $ cách",
+        "D. $ {w3} $ cách"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số cách chia đội chính là số các ước của tổng số nhân viên, loại trừ 1 và chính nó.",
+        "Cần phân biệt số nguyên tố và hợp số."
+      ],
+      "solutionHtml": "Để chia nhân viên thành các đội có số lượng nhân viên như nhau, số lượng nhân viên trong mỗi đội phải là một ước của tổng số nhân viên $ {totalEmployees} $.<br/>Mỗi nhân viên chỉ thuộc về một đội, nên tổng số nhân viên trong các đội phải bằng tổng số nhân viên của công ty.<br/>Điều kiện 'số lượng nhân viên trong mỗi đội phải lớn hơn 1 và nhỏ hơn tổng số nhân viên của công ty' có nghĩa là chúng ta cần tìm các ước của $ {totalEmployees} $, loại bỏ ước số 1 (vì số đội phải là $ {totalEmployees} $ đội) và ước số $ {totalEmployees} $ (vì số đội phải là 1 đội).<br/>Bước 1: Tìm tất cả các ước của $ {totalEmployees} $.<br/>Các ước của $ {totalEmployees} $ là: $ {all_divisors.join(', ')} $.<br/>Bước 2: Đếm số lượng các ước thỏa mãn điều kiện.<br/>Chúng ta loại bỏ ước 1 và ước $ {totalEmployees} $.<br/>Số cách chia đội khác nhau là số lượng ước còn lại: $ {num_all_divs} - 2 = {ans} $ (cách).<br/>Nếu $ {totalEmployees} $ là số nguyên tố, nó chỉ có 2 ước là 1 và chính nó, vậy số cách chia là $ 2 - 2 = 0 $.<br/>Đáp án đúng là A.",
+      "tip": "Khi bài toán yêu cầu tìm số cách chia nhóm với các điều kiện giới hạn (ví dụ 'lớn hơn 1 và nhỏ hơn tổng'), hãy liệt kê tất cả các ước của số đó rồi loại bỏ những ước không thỏa mãn điều kiện.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialAmount": {
+          "min": 1200000,
+          "max": 4800000,
+          "step": 120000
+        },
+        "frac1Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac1Den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "frac2Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac2Den": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "frac1Num < frac1Den",
+        "frac2Num < frac2Den",
+        "frac1Den !== frac2Den",
+        "initialAmount % (frac1Den * frac2Den) === 0"
+      ],
+      "formulas": {
+        "spent1": "initialAmount * frac1Num / frac1Den",
+        "remaining1": "initialAmount - spent1",
+        "spent2": "remaining1 * frac2Num / frac2Den",
+        "ans": "remaining1 - spent2",
+        "w1": "initialAmount * (frac1Num / frac1Den + frac2Num / frac2Den)",
+        "w2": "initialAmount - spent1",
+        "w3": "initialAmount * (1 - frac1Num / frac1Den * frac2Num / frac2Den)"
+      },
+      "questionText": "Một người bán hàng có một số tiền vốn là $ {initialAmount} $ đồng. Lần đầu, người đó tiêu $ \\frac{{{frac1Num}}}{{{frac1Den}}} $ số tiền vốn. Lần hai, người đó tiêu $ \\frac{{{frac2Num}}}{{{frac2Den}}} $ số tiền còn lại sau lần tiêu thứ nhất. Hỏi sau hai lần tiêu, người đó còn lại bao nhiêu tiền?",
+      "options": [
+        "A. $ {ans} $ đồng",
+        "B. $ {w1} $ đồng",
+        "C. $ {w2} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính số tiền còn lại sau lần tiêu thứ nhất trước.",
+        "Số tiền tiêu lần hai được tính dựa trên số tiền còn lại, không phải số tiền vốn ban đầu."
+      ],
+      "solutionHtml": "Bước 1: Tính số tiền người đó đã tiêu lần thứ nhất.<br/>Số tiền tiêu lần 1 là: $ {initialAmount} \\times \\frac{{{frac1Num}}}{{{frac1Den}}} = {spent1} $ (đồng).<br/>Bước 2: Tính số tiền còn lại sau lần tiêu thứ nhất.<br/>Số tiền còn lại sau lần 1 là: $ {initialAmount} - {spent1} = {remaining1} $ (đồng).<br/>Bước 3: Tính số tiền người đó đã tiêu lần thứ hai.<br/>Số tiền tiêu lần 2 là: $ {remaining1} \\times \\frac{{{frac2Num}}}{{{frac2Den}}} = {spent2} $ (đồng).<br/>Bước 4: Tính số tiền còn lại sau hai lần tiêu.<br/>Số tiền còn lại là: $ {remaining1} - {spent2} = {ans} $ (đồng).<br/>Đáp án đúng là A.",
+      "tip": "Trong các bài toán về phân số, cần đọc kỹ đề bài để xác định phân số đó là của tổng số ban đầu hay của phần còn lại. Sự nhầm lẫn này dễ dẫn đến sai sót.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "divisorA": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "divisorB": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "commonRem": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "divisorA !== divisorB",
+        "commonRem < divisorA",
+        "commonRem < divisorB",
+        "commonRem > 0",
+        "lcm(divisorA, divisorB) < 90"
+      ],
+      "formulas": {
+        "lcm_val": "lcm(divisorA, divisorB)",
+        "initial_N_val": "commonRem",
+        "ans": "let currentN = commonRem; while (currentN < 100) { currentN += lcm_val; } currentN",
+        "N_k0": "commonRem",
+        "N_k1": "lcm_val + commonRem",
+        "N_k2": "lcm_val * 2 + commonRem",
+        "N_k3": "lcm_val * 3 + commonRem",
+        "w1": "N_k1",
+        "w2": "N_k2",
+        "w3": "N_k3"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất có ba chữ số, biết rằng số đó khi chia cho $ {divisorA} $ thì dư $ {commonRem} $ và khi chia cho $ {divisorB} $ cũng dư $ {commonRem} $.",
+      "options": [
+        "A. $ {ans} $",
+        "B. $ {w1} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Nếu một số chia cho $ {divisorA} $ dư $ {commonRem} $ và chia cho $ {divisorB} $ cũng dư $ {commonRem} $, thì số đó trừ đi $ {commonRem} $ sẽ chia hết cho cả $ {divisorA} $ và $ {divisorB} $.",
+        "Tìm bội chung nhỏ nhất (BCNN) của $ {divisorA} $ và $ {divisorB} $."
+      ],
+      "solutionHtml": "Bước 1: Phân tích đề bài.<br/>Gọi số cần tìm là $ N $. Theo đề bài, ta có $ N $ chia cho $ {divisorA} $ dư $ {commonRem} $ và $ N $ chia cho $ {divisorB} $ cũng dư $ {commonRem} $.<br/>Điều này có nghĩa là $ N - {commonRem} $ sẽ chia hết cho cả $ {divisorA} $ và $ {divisorB} $.<br/>Vậy $ N - {commonRem} $ là một bội chung của $ {divisorA} $ và $ {divisorB} $.<br/>Bước 2: Tìm bội chung nhỏ nhất (BCNN) của $ {divisorA} $ và $ {divisorB} $.<br/>BCNN$({divisorA}, {divisorB}) = {lcm_val} $.<br/>Các bội chung của $ {divisorA} $ và $ {divisorB} $ là các bội của $ {lcm_val} $: $ 0, {lcm_val}, 2 \\times {lcm_val}, 3 \\times {lcm_val}, ... $<br/>Bước 3: Tìm số $ N $.<br/>Vì $ N - {commonRem} $ là một bội của $ {lcm_val} $, nên $ N $ sẽ có dạng $ k \\times {lcm_val} + {commonRem} $ (với $ k $ là số tự nhiên).<br/>Chúng ta cần tìm số $ N $ nhỏ nhất có ba chữ số, tức là $ N \\ge 100 $.<br/>Ta tiếp tục tăng $ k $ cho đến khi $ k \\times {lcm_val} + {commonRem} \\ge 100 $.<br/>Giá trị nhỏ nhất của $ k \\times {lcm_val} + {commonRem} $ mà lớn hơn hoặc bằng 100 là $ {ans} $.<br/>Vậy, số tự nhiên nhỏ nhất có ba chữ số thỏa mãn điều kiện là $ {ans} $.<br/>Đáp án đúng là A.",
+      "tip": "Khi một số chia cho nhiều số khác nhau mà cùng dư một số, thì hiệu của số đó và số dư sẽ là bội chung của các số chia. Từ đó, ta tìm BCNN để xác định dạng chung của số cần tìm.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "cost": {
+          "min": 100000,
+          "max": 500000,
+          "step": 50000
+        },
+        "markupPct": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "discountPct": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "cost % 10000 === 0",
+        "markupPct > discountPct + 5",
+        "markupPct % 5 === 0",
+        "discountPct % 5 === 0"
+      ],
+      "formulas": {
+        "markedPrice": "cost * (1 + markupPct / 100)",
+        "sellingPrice": "markedPrice * (1 - discountPct / 100)",
+        "profitLoss": "sellingPrice - cost",
+        "ans_percent_raw": "(profitLoss / cost * 100)",
+        "ans": "parseFloat(ans_percent_raw.toFixed(2))",
+        "w1_raw": "markupPct - discountPct",
+        "w1": "parseFloat(w1_raw.toFixed(2))",
+        "w2_raw": "(markupPct + discountPct)",
+        "w2": "parseFloat(w2_raw.toFixed(2))",
+        "w3_raw": "(markupPct - discountPct * 0.5)",
+        "w3": "parseFloat(w3_raw.toFixed(2))"
+      },
+      "questionText": "Một cửa hàng nhập một chiếc áo với giá $ {cost} $ đồng. Cửa hàng định giá bán chiếc áo đó tăng $ {markupPct} $ phần trăm so với giá nhập. Tuy nhiên, để kích cầu, cửa hàng quyết định giảm giá $ {discountPct} $ phần trăm trên giá đã định. Hỏi sau khi bán chiếc áo, cửa hàng lãi hay lỗ bao nhiêu phần trăm so với giá nhập ban đầu?",
+      "options": [
+        "A. Lãi $ {ans} \\% $",
+        "B. Lãi $ {w1} \\% $",
+        "C. Lãi $ {w2} \\% $",
+        "D. Lãi $ {w3} \\% $"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính giá định bán (giá niêm yết) trước.",
+        "Sau đó tính giá bán thực tế sau khi đã giảm giá.",
+        "So sánh giá bán thực tế với giá nhập ban đầu để xác định lãi/lỗ và tính phần trăm."
+      ],
+      "solutionHtml": "Bước 1: Tính giá định bán (giá niêm yết) của chiếc áo.<br/>Giá định bán = Giá nhập + Giá nhập $ \\times \\frac{{{markupPct}}}{{100}} = {cost} + {cost} \\times \\frac{{{markupPct}}}{{100}} = {markedPrice} $ (đồng).<br/>Bước 2: Tính giá bán thực tế sau khi giảm giá.<br/>Giá bán thực tế = Giá định bán - Giá định bán $ \\times \\frac{{{discountPct}}}{{100}} = {markedPrice} - {markedPrice} \\times \\frac{{{discountPct}}}{{100}} = {sellingPrice} $ (đồng).<br/>Bước 3: Tính số tiền lãi (hoặc lỗ).<br/>Tiền lãi/lỗ = Giá bán thực tế - Giá nhập = $ {sellingPrice} - {cost} = {profitLoss} $ (đồng).<br/>Vì $ {profitLoss} > 0 $, cửa hàng lãi $ {profitLoss} $ đồng.<br/>Bước 4: Tính phần trăm lãi so với giá nhập ban đầu.<br/>Phần trăm lãi = $ \\frac{{\\text{Tiền lãi}}}{{\\text{Giá nhập}}} \\times 100 \\% = \\frac{{{profitLoss}}}{{{cost}}} \\times 100 \\% = {ans} \\% $.<br/>Đáp án đúng là A.",
+      "tip": "Khi tính toán lãi/lỗ qua nhiều bước phần trăm, cần xác định rõ phần trăm đó được tính trên giá trị nào (giá gốc, giá đã định, hay giá còn lại...). Tránh cộng trừ trực tiếp các phần trăm nếu chúng không dựa trên cùng một gốc.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "dayA": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "dayB": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "dayC": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "dayA !== dayB",
+        "dayB !== dayC",
+        "dayA > 1",
+        "dayB > dayA",
+        "dayC > dayB",
+        "lcm3(dayA, dayB, dayC) <= 100"
+      ],
+      "formulas": {
+        "lcm_AB": "lcm(dayA, dayB)",
+        "ans": "lcm3(dayA, dayB, dayC)",
+        "w1": "dayA + dayB + dayC",
+        "w2": "dayA * dayB * dayC",
+        "w3": "lcm(dayA, dayB)"
+      },
+      "questionText": "Ba bạn An, Bình và Cường thường đến thư viện để đọc sách. An đến thư viện sau mỗi $ {dayA} $ ngày, Bình sau mỗi $ {dayB} $ ngày và Cường sau mỗi $ {dayC} $ ngày. Biết rằng cả ba bạn cùng đến thư viện vào một ngày chủ nhật. Hỏi sau bao nhiêu ngày nữa thì cả ba bạn lại cùng đến thư viện vào một ngày?",
+      "options": [
+        "A. $ {ans} $ ngày",
+        "B. $ {w1} $ ngày",
+        "C. $ {w2} $ ngày",
+        "D. $ {w3} $ ngày"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Ngày mà cả ba bạn cùng đến thư viện sẽ là một bội của số ngày mà mỗi bạn đến.",
+        "Cần tìm Bội chung nhỏ nhất (BCNN) của các số ngày."
+      ],
+      "solutionHtml": "Để cả ba bạn An, Bình và Cường cùng đến thư viện, số ngày trôi qua phải là một bội chung của số ngày mà mỗi bạn đến thư viện.<br/>An đến sau mỗi $ {dayA} $ ngày.<br/>Bình đến sau mỗi $ {dayB} $ ngày.<br/>Cường đến sau mỗi $ {dayC} $ ngày.<br/>Vậy số ngày cần tìm là Bội chung nhỏ nhất (BCNN) của $ {dayA} $, $ {dayB} $ và $ {dayC} $.<br/>Bước 1: Tìm BCNN$({dayA}, {dayB})$<br/>BCNN$({dayA}, {dayB}) = {lcm_AB} $.<br/>Bước 2: Tìm BCNN$({lcm_AB}, {dayC})$<br/>BCNN$({lcm_AB}, {dayC}) = {ans} $.<br/>Vậy, sau $ {ans} $ ngày nữa thì cả ba bạn lại cùng đến thư viện.<br/>Đáp án đúng là A.",
+      "tip": "Khi bài toán yêu cầu tìm thời điểm mà nhiều sự kiện lặp lại cùng xảy ra đồng thời, chúng ta cần tìm Bội chung nhỏ nhất (BCNN) của các chu kỳ lặp lại của từng sự kiện.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numInitialStudents": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "initialAvgScore": {
+          "min": 7,
+          "max": 9,
+          "step": 0.5
+        },
+        "newStudentScore": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numInitialStudents >= 5",
+        "numInitialStudents <= 15",
+        "initialAvgScore >= 7",
+        "initialAvgScore <= 9.5",
+        "(numInitialStudents * initialAvgScore) % 1 === 0",
+        "newStudentScore >= 6",
+        "newStudentScore <= 10"
+      ],
+      "formulas": {
+        "initialTotalScore": "numInitialStudents * initialAvgScore",
+        "newTotalScore": "initialTotalScore + newStudentScore",
+        "newNumStudents": "numInitialStudents + 1",
+        "ans_raw": "newTotalScore / newNumStudents",
+        "ans": "parseFloat(ans_raw.toFixed(2))",
+        "w1_raw": "(initialAvgScore + newStudentScore) / 2",
+        "w1": "parseFloat(w1_raw.toFixed(2))",
+        "w2_raw": "initialTotalScore / newNumStudents",
+        "w2": "parseFloat(w2_raw.toFixed(2))",
+        "w3_raw": "initialAvgScore",
+        "w3": "parseFloat(w3_raw.toFixed(2))"
+      },
+      "questionText": "Trong một lớp học, điểm trung bình môn Toán của $ {numInitialStudents} $ học sinh là $ {initialAvgScore} $ điểm. Sau đó, có thêm một học sinh mới chuyển đến với số điểm Toán là $ {newStudentScore} $ điểm. Hỏi điểm trung bình môn Toán của cả lớp lúc này là bao nhiêu?",
+      "options": [
+        "A. $ {ans} $ điểm",
+        "B. $ {w1} $ điểm",
+        "C. $ {w2} $ điểm",
+        "D. $ {w3} $ điểm"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tổng điểm của $ {numInitialStudents} $ học sinh ban đầu là bao nhiêu?",
+        "Tổng điểm của tất cả học sinh sau khi học sinh mới chuyển đến là bao nhiêu?",
+        "Số lượng học sinh sau khi học sinh mới chuyển đến là bao nhiêu?"
+      ],
+      "solutionHtml": "Bước 1: Tính tổng điểm của $ {numInitialStudents} $ học sinh ban đầu.<br/>Tổng điểm ban đầu = Số học sinh ban đầu $ \\times $ Điểm trung bình ban đầu<br/>Tổng điểm ban đầu = $ {numInitialStudents} \\times {initialAvgScore} = {initialTotalScore} $ (điểm).<br/>Bước 2: Tính tổng điểm của tất cả học sinh sau khi học sinh mới chuyển đến.<br/>Tổng điểm mới = Tổng điểm ban đầu + Điểm của học sinh mới<br/>Tổng điểm mới = $ {initialTotalScore} + {newStudentScore} = {newTotalScore} $ (điểm).<br/>Bước 3: Tính tổng số học sinh của lớp sau khi học sinh mới chuyển đến.<br/>Số học sinh mới = Số học sinh ban đầu + 1 = $ {numInitialStudents} + 1 = {newNumStudents} $ (học sinh).<br/>Bước 4: Tính điểm trung bình môn Toán của cả lớp lúc này.<br/>Điểm trung bình mới = Tổng điểm mới $ \\div $ Số học sinh mới<br/>Điểm trung bình mới = $ {newTotalScore} \\div {newNumStudents} = {ans} $ (điểm).<br/>Đáp án đúng là A.",
+      "tip": "Điểm trung bình là tổng điểm chia cho số lượng thành phần. Khi có sự thay đổi về số lượng thành phần và/hoặc điểm số, hãy luôn tính lại tổng điểm và tổng số thành phần trước khi tính trung bình mới.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "digit1": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "count1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "digit2": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "count2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "checkDivisor": {
+          "min": 2,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "digit1 !== digit2",
+        "count1 + count2 <= 8",
+        "(checkDivisor === 2 && (digit2 % 2 === 0)) || (checkDivisor === 5 && (digit2 === 0 || digit2 === 5)) || (checkDivisor === 3 && ((digit1 * count1 + digit2 * count2) % 3 === 0)) || (checkDivisor === 9 && ((digit1 * count1 + digit2 * count2) % 9 === 0))",
+        "checkDivisor !== 4 && checkDivisor !== 6 && checkDivisor !== 7 && checkDivisor !== 8"
+      ],
+      "formulas": {
+        "s1": "digit1.toString().repeat(count1)",
+        "s2": "digit2.toString().repeat(count2)",
+        "full_num_str": "s1 + s2",
+        "full_num": "parseInt(full_num_str)",
+        "ans_boolean": "(full_num % checkDivisor === 0)",
+        "ans_text": "ans_boolean ? 'Có' : 'Không'",
+        "w1_text": "ans_boolean ? 'Không' : 'Có'",
+        "sum_of_digits": "sumDigits(full_num)",
+        "w2_text": "'Chỉ khi tổng các chữ số là ' + sum_of_digits",
+        "w3_text": "'Chỉ khi chữ số cuối là ' + digit2",
+        "quotient_sum_digits": "sum_of_digits / checkDivisor"
+      },
+      "questionText": "Một số tự nhiên được tạo thành bằng cách viết chữ số $ {digit1} $ lặp lại $ {count1} $ lần, sau đó viết chữ số $ {digit2} $ lặp lại $ {count2} $ lần. Ví dụ, nếu $ {digit1}=1, {count1}=3, {digit2}=2, {count2}=2 $ thì số đó là $ 11122 $. Hỏi số được tạo thành này có chia hết cho $ {checkDivisor} $ không?",
+      "options": [
+        "A. $ {ans_text} $",
+        "B. $ {w1_text} $",
+        "C. $ {w2_text} $",
+        "D. $ {w3_text} $"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Hãy viết số đó ra và áp dụng dấu hiệu chia hết cho $ {checkDivisor} $.",
+        "Đối với dấu hiệu chia hết cho 2 và 5, chỉ cần xem xét chữ số tận cùng. Đối với 3 và 9, cần tính tổng các chữ số."
+      ],
+      "solutionHtml": "Bước 1: Xác định số được tạo thành.<br/>Số được tạo thành là $ {full_num} $.<br/>Bước 2: Áp dụng dấu hiệu chia hết cho $ {checkDivisor} $.<br/>- Nếu $ {checkDivisor} = 2 $: Số chia hết cho 2 khi chữ số tận cùng là chữ số chẵn. Chữ số tận cùng của $ {full_num} $ là $ {digit2} $. Vì $ {digit2} $ là một chữ số chẵn, nên số $ {full_num} $ có chia hết cho 2.<br/>- Nếu $ {checkDivisor} = 5 $: Số chia hết cho 5 khi chữ số tận cùng là 0 hoặc 5. Chữ số tận cùng của $ {full_num} $ là $ {digit2} $. Vì $ {digit2} $ là 0 hoặc 5, nên số $ {full_num} $ có chia hết cho 5.<br/>- Nếu $ {checkDivisor} = 3 $ hoặc $ {checkDivisor} = 9 $: Số chia hết cho 3 (hoặc 9) khi tổng các chữ số của nó chia hết cho 3 (hoặc 9).<br/>Tổng các chữ số của $ {full_num} $ là $ {sum_of_digits} $.<br/>Ta có $ {sum_of_digits} \\div {checkDivisor} = {quotient_sum_digits} $.<br/>Vì $ {sum_of_digits} $ chia hết cho $ {checkDivisor} $, nên số $ {full_num} $ có chia hết cho $ {checkDivisor} $.<br/>Kết luận: Số $ {full_num} $ có chia hết cho $ {checkDivisor} $.<br/>Đáp án đúng là A.",
+      "tip": "Để kiểm tra tính chia hết của một số, hãy nhớ các dấu hiệu chia hết quan trọng: cho 2 (chữ số cuối chẵn), cho 5 (chữ số cuối là 0 hoặc 5), cho 3 (tổng các chữ số chia hết cho 3), cho 9 (tổng các chữ số chia hết cho 9).",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "perimeter_val": {
+          "min": 80,
+          "max": 200,
+          "step": 4
+        },
+        "ratioNum": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "ratioDen": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "ratioNum < ratioDen",
+        "ratioNum >= 2",
+        "ratioDen >= 3",
+        "perimeter_val % (2 * (ratioNum + ratioDen)) === 0"
+      ],
+      "formulas": {
+        "semiPerimeter": "perimeter_val / 2",
+        "sumParts": "ratioNum + ratioDen",
+        "unit": "semiPerimeter / sumParts",
+        "width": "unit * ratioNum",
+        "length": "unit * ratioDen",
+        "ans": "length * width",
+        "w1": "length * length",
+        "w2": "width * width",
+        "w3": "perimeter_val * semiPerimeter"
+      },
+      "questionText": "Một thửa ruộng hình chữ nhật có chu vi là $ {perimeter_val} $ mét. Biết rằng chiều rộng bằng $ \\frac{{{ratioNum}}}{{{ratioDen}}} $ chiều dài. Tính diện tích của thửa ruộng đó.",
+      "options": [
+        "A. $ {ans} $ mét vuông",
+        "B. $ {w1} $ mét vuông",
+        "C. $ {w2} $ mét vuông",
+        "D. $ {w3} $ mét vuông"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính nửa chu vi của thửa ruộng trước.",
+        "Dựa vào tỉ số giữa chiều rộng và chiều dài để tìm chiều dài và chiều rộng.",
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng."
+      ],
+      "solutionHtml": "Bước 1: Tính nửa chu vi của thửa ruộng.<br/>Nửa chu vi = Chu vi $ \\div 2 = {perimeter_val} \\div 2 = {semiPerimeter} $ (mét).<br/>Bước 2: Tìm chiều dài và chiều rộng của thửa ruộng.<br/>Vì chiều rộng bằng $ \\frac{{{ratioNum}}}{{{ratioDen}}} $ chiều dài, ta có thể coi chiều rộng gồm $ {ratioNum} $ phần bằng nhau và chiều dài gồm $ {ratioDen} $ phần bằng nhau.<br/>Tổng số phần bằng nhau là: $ {ratioNum} + {ratioDen} = {sumParts} $ (phần).<br/>Giá trị của một phần là: $ {semiPerimeter} \\div {sumParts} = {unit} $ (mét).<br/>Chiều rộng của thửa ruộng là: $ {unit} \\times {ratioNum} = {width} $ (mét).<br/>Chiều dài của thửa ruộng là: $ {unit} \\times {ratioDen} = {length} $ (mét).<br/>Bước 3: Tính diện tích của thửa ruộng.<br/>Diện tích = Chiều dài $ \\times $ Chiều rộng<br/>Diện tích = $ {length} \\times {width} = {ans} $ (mét vuông).<br/>Đáp án đúng là A.",
+      "tip": "Trong các bài toán hình học có chu vi và tỉ lệ giữa các cạnh, hãy luôn bắt đầu bằng việc tính nửa chu vi. Sau đó, dùng tổng số phần để tìm giá trị của một phần, từ đó suy ra độ dài các cạnh.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-q10"
+    }
+  ]
+}

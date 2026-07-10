@@ -1,0 +1,962 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T07:52:29.343Z
+Lesson ID: bai-24
+Lesson Title: Bài 24: So sánh phân số. Hỗn số dương
+==================================================
+
+[ERROR DETAILS]
+Expected ',' or '}' after property value in JSON at position 1895 (line 37 column 715)
+SyntaxError: Expected ',' or '}' after property value in JSON at position 1895 (line 37 column 715)
+    at JSON.parse (<anonymous>)
+    at D:\AntiGravity\HocTap\server.js:1066:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 1895 (Line: 37, Column: 715)
+Character causing error: ":"
+
+Context:
+...  = \\frac{{{num2_new}}}{{{lcm_val}}} $<br/>Bước 3: So sánh hai phân số đã quy đồng.<br/>Vì ${num1_new}$ {`formulas.num1_new > formulas.num2_new ? '>" >>>[LỖI TẠI ĐÂY]<<<: "<'`} ${num2_new}$ nên $\\frac{{{num1_new}}}{{{lcm_val}}}$ {`formulas.num1_new > formulas.num2_new ? '>" : "<'`} $\\frac{{{num2_new}}}{{{lcm_val}}}$ ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a1": { "min": 1, "max": 7, "step": 1 },
+      "b1": { "min": 8, "max": 15, "step": 1 },
+      "a2": { "min": 1, "max": 7, "step": 1 },
+      "b2": { "min": 8, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "b1 > a1",
+      "b2 > a2",
+      "gcd(a1, b1) === 1",
+      "gcd(a2, b2) === 1",
+      "a1/b1 !== a2/b2"
+    ],
+    "formulas": {
+      "val1": "a1 / b1",
+      "val2": "a2 / b2",
+      "lcm_val": "lcm(b1, b2)",
+      "num1_new": "a1 * (lcm(b1, b2) / b1)",
+      "num2_new": "a2 * (lcm(b1, b2) / b2)",
+      "ansIndex": "val1 > val2 ? 0 : 1"
+    },
+    "questionText": "Trong một cuộc thi làm bánh, chị An dùng $\\frac{{{a1}}}{{{b1}}}$ kg bột mì, còn chị Bình dùng $\\frac{{{a2}}}{{{b2}}}$ kg bột mì. Hỏi ai đã dùng nhiều bột mì hơn?",
+    "options": [
+      "A. Chị An",
+      "B. Chị Bình",
+      "C. Cả hai dùng lượng bằng nhau",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Để so sánh hai phân số, ta có thể quy đồng mẫu số rồi so sánh tử số.",
+      "Tìm mẫu số chung nhỏ nhất của hai phân số $\\frac{{{a1}}}{{{b1}}}$ và $\\frac{{{a2}}}{{{b2}}}$."
+    ],
+    "solutionHtml": "Để so sánh lượng bột mì mà chị An và chị Bình đã dùng, ta cần so sánh hai phân số $\\frac{{{a1}}}{{{b1}}}$ và $\\frac{{{a2}}}{{{b2}}}$.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ${b1}$ và ${b2}$.<br/>MSCNN của ${b1}$ và ${b2}$ là ${lcm_val}$.<br/>Bước 2: Quy đồng mẫu số hai phân số:<br/>$\\frac{{{a1}}}{{{b1}}} = \\frac{{{a1} \\times ({lcm_val} / {b1})}}{{{b1} \\times ({lcm_val} / {b1})}} = \\frac{{{num1_new}}}{{{lcm_val}}} $<br/>$\\frac{{{a2}}}{{{b2}}} = \\frac{{{a2} \\times ({lcm_val} / {b2})}}{{{b2} \\times ({lcm_val} / {b2})}} = \\frac{{{num2_new}}}{{{lcm_val}}} $<br/>Bước 3: So sánh hai phân số đã quy đồng.<br/>Vì ${num1_new}$ {`formulas.num1_new > formulas.num2_new ? '>" : "<'`} ${num2_new}$ nên $\\frac{{{num1_new}}}{{{lcm_val}}}$ {`formulas.num1_new > formulas.num2_new ? '>" : "<'`} $\\frac{{{num2_new}}}{{{lcm_val}}}$.<br/>Do đó, {`formulas.val1 > formulas.val2 ? 'Chị An" : "Chị Bình'`} đã dùng nhiều bột mì hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : "B'`}.",
+    "tip": "Để so sánh hai phân số khác mẫu số, cách hiệu quả nhất là quy đồng mẫu số (hoặc tử số nếu tiện) rồi so sánh các tử số (hoặc mẫu số tương ứng)."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a1": { "min": 1, "max": 5, "step": 1 },
+      "b1": { "min": 6, "max": 10, "step": 1 },
+      "a2": { "min": 1, "max": 5, "step": 1 },
+      "b2": { "min": 6, "max": 10, "step": 1 },
+      "a3": { "min": 1, "max": 5, "step": 1 },
+      "b3": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "b1 > a1", "b2 > a2", "b3 > a3",
+      "gcd(a1, b1) === 1", "gcd(a2, b2) === 1", "gcd(a3, b3) === 1",
+      "a1/b1 !== a2/b2", "a1/b1 !== a3/b3", "a2/b2 !== a3/b3"
+    ],
+    "formulas": {
+      "val1": "a1 / b1",
+      "val2": "a2 / b2",
+      "val3": "a3 / b3",
+      "minValue": "Math.min(a1/b1, a2/b2, a3/b3)",
+      "ansIndex": "(Math.min(a1/b1, a2/b2, a3/b3) === (a1/b1)) ? 0 : ((Math.min(a1/b1, a2/b2, a3/b3) === (a2/b2)) ? 1 : 2)",
+      "lcm_all": "lcm(lcm(b1, b2), b3)",
+      "num1_lcm": "a1 * (lcm(lcm(b1, b2), b3) / b1)",
+      "num2_lcm": "a2 * (lcm(lcm(b1, b2), b3) / b2)",
+      "num3_lcm": "a3 * (lcm(lcm(b1, b2), b3) / b3)"
+    },
+    "questionText": "Trong một thử nghiệm khoa học, ba mẫu vật A, B, C có khối lượng tương ứng là $\\frac{{{a1}}}{{{b1}}}$ gam, $\\frac{{{a2}}}{{{b2}}}$ gam và $\\frac{{{a3}}}{{{b3}}}$ gam. Hỏi mẫu vật nào có khối lượng NHỎ NHẤT?",
+    "options": [
+      "A. Mẫu vật A",
+      "B. Mẫu vật B",
+      "C. Mẫu vật C",
+      "D. Cả ba có khối lượng bằng nhau"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Để tìm mẫu vật có khối lượng nhỏ nhất, em cần so sánh ba phân số $\\frac{{{a1}}}{{{b1}}}$, $\\frac{{{a2}}}{{{b2}}}$ và $\\frac{{{a3}}}{{{b3}}}$.",
+      "Cách tốt nhất là quy đồng mẫu số của cả ba phân số."
+    ],
+    "solutionHtml": "Để tìm mẫu vật có khối lượng nhỏ nhất, ta cần so sánh ba phân số $\\frac{{{a1}}}{{{b1}}}$, $\\frac{{{a2}}}{{{b2}}}$ và $\\frac{{{a3}}}{{{b3}}}$.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ${b1}$, ${b2}$ và ${b3}$.<br/>MSCNN của ${b1}$, ${b2}$ và ${b3}$ là ${lcm_all}$.<br/>Bước 2: Quy đồng mẫu số các phân số:<br/>$\\frac{{{a1}}}{{{b1}}} = \\frac{{{a1} \\times ({lcm_all} / {b1})}}{{{b1} \\times ({lcm_all} / {b1})}} = \\frac{{{num1_lcm}}}{{{lcm_all}}}$<br/>$\\frac{{{a2}}}{{{b2}}} = \\frac{{{a2} \\times ({lcm_all} / {b2})}}{{{b2} \\times ({lcm_all} / {b2})}} = \\frac{{{num2_lcm}}}{{{lcm_all}}}$<br/>$\\frac{{{a3}}}{{{b3}}} = \\frac{{{a3} \\times ({lcm_all} / {b3})}}{{{b3} \\times ({lcm_all} / {b3})}} = \\frac{{{num3_lcm}}}{{{lcm_all}}}$<br/>Bước 3: So sánh các tử số đã quy đồng.<br/>Ta có ${num1_lcm}$, ${num2_lcm}$, ${num3_lcm}$.<br/>Số nhỏ nhất trong ba tử số này là {`Math.min(formulas.num1_lcm, formulas.num2_lcm, formulas.num3_lcm)`}.<br/>Phân số tương ứng với tử số nhỏ nhất là {`\n        if (formulas.minValue === formulas.val1) return 'A';\n        if (formulas.minValue === formulas.val2) return 'B';\n        if (formulas.minValue === formulas.val3) return 'C';\n        return '';\n      `}.<br/>Vậy mẫu vật {`\n        if (formulas.minValue === formulas.val1) return 'A';\n        if (formulas.minValue === formulas.val2) return 'B';\n        if (formulas.minValue === formulas.val3) return 'C';\n        return '';\n      `} có khối lượng nhỏ nhất.<br/>Đáp án đúng là {`\n        if (formulas.minValue === formulas.val1) return 'A';\n        if (formulas.minValue === formulas.val2) return 'B';\n        if (formulas.minValue === formulas.val3) return 'C';\n        return '';\n      `}.",
+    "tip": "Khi so sánh nhiều phân số, quy đồng mẫu số chung nhỏ nhất giúp việc so sánh các tử số trở nên đơn giản và chính xác nhất."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "l_w": { "min": 5, "max": 15, "step": 1 },
+      "l_n": { "min": 1, "max": 4, "step": 1 },
+      "l_d": { "min": 5, "max": 10, "step": 1 },
+      "w_w": { "min": 3, "max": 10, "step": 1 },
+      "w_n": { "min": 1, "max": 4, "step": 1 },
+      "w_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "l_d > l_n", "w_d > w_n",
+      "gcd(l_n, l_d) === 1", "gcd(w_n, w_d) === 1",
+      "l_w > w_w"
+    ],
+    "formulas": {
+      "chieu_dai_phanso_tu": "l_w * l_d + l_n",
+      "chieu_rong_phanso_tu": "w_w * w_d + w_n",
+      "chieu_dai_decimal": "(l_w * l_d + l_n) / l_d",
+      "chieu_rong_decimal": "(w_w * w_d + w_n) / w_d",
+      "chu_vi_decimal": "2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d)",
+      "so_sanh_target": "Math.floor(2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d) + 0.5)",
+      "ansIndex": "(2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d) > formulas.so_sanh_target) ? 0 : ((2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d) < formulas.so_sanh_target) ? 1 : 2)"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là ${l_w}\\frac{{{l_n}}}{{{l_d}}}$ mét và chiều rộng là ${w_w}\\frac{{{w_n}}}{{{w_d}}}$ mét. Hãy so sánh chu vi của mảnh vườn này với ${so_sanh_target}$ mét.",
+    "options": [
+      "A. Chu vi lớn hơn ${so_sanh_target}$ mét",
+      "B. Chu vi nhỏ hơn ${so_sanh_target}$ mét",
+      "C. Chu vi bằng ${so_sanh_target}$ mét",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Trước hết, hãy tính chu vi của mảnh vườn. Chu vi hình chữ nhật bằng hai lần tổng chiều dài và chiều rộng.",
+      "Sau khi tính được chu vi, so sánh kết quả với ${so_sanh_target}$ mét."
+    ],
+    "solutionHtml": "Bước 1: Chuyển các hỗn số sang phân số hoặc số thập phân để tiện tính toán.<br/>Chiều dài: ${l_w}\\frac{{{l_n}}}{{{l_d}}} = \\frac{{{l_w} \\times {l_d} + {l_n}}}{{{l_d}}} = \\frac{{{chieu_dai_phanso_tu}}}{{{l_d}}}$ mét.<br/>Chiều rộng: ${w_w}\\frac{{{w_n}}}{{{w_d}}} = \\frac{{{w_w} \\times {w_d} + {w_n}}}{{{w_d}}} = \\frac{{{chieu_rong_phanso_tu}}}{{{w_d}}}$ mét.<br/>Hoặc có thể tính bằng số thập phân: Chiều dài là ${chieu_dai_decimal}$ mét, Chiều rộng là ${chieu_rong_decimal}$ mét.<br/>Bước 2: Tính chu vi của mảnh vườn.<br/>Chu vi = $2 \\times (\\text{chiều dài} + \\text{chiều rộng}) = 2 \\times ({chieu_dai_decimal} + {chieu_rong_decimal}) = 2 \\times ({chieu_dai_decimal + chieu_rong_decimal}) = {chu_vi_decimal}$ mét.<br/>Bước 3: So sánh chu vi vừa tìm được với ${so_sanh_target}$ mét.<br/>Ta có ${chu_vi_decimal}$ {`formulas.chu_vi_decimal > formulas.so_sanh_target ? '>" : (formulas.chu_vi_decimal < formulas.so_sanh_target ? "<" : "=')`} ${so_sanh_target}$.<br/>Vậy chu vi của mảnh vườn {`formulas.chu_vi_decimal > formulas.so_sanh_target ? 'lớn hơn" : (formulas.chu_vi_decimal < formulas.so_sanh_target ? "nhỏ hơn" : "bằng')`} ${so_sanh_target}$ mét.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : (formulas.ansIndex === 1 ? "B" : "C')`}.",
+    "tip": "Khi làm việc với hỗn số và phép tính, nên chuyển hỗn số về dạng phân số (hoặc số thập phân) để thực hiện phép tính dễ dàng và chính xác hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total_items": { "min": 60, "max": 120, "step": 12 },
+      "f1_n": { "min": 1, "max": 3, "step": 1 },
+      "f1_d": { "min": 4, "max": 6, "step": 1 },
+      "f2_n": { "min": 1, "max": 2, "step": 1 },
+      "f2_d": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "f1_d > f1_n", "f2_d > f2_n",
+      "gcd(f1_n, f1_d) === 1", "gcd(f2_n, f2_d) === 1",
+      "total_items % f1_d === 0",
+      "total_items % f2_d === 0 || (total_items * (1 - f1_n/f1_d)) % f2_d === 0"
+    ],
+    "formulas": {
+      "giao_lan1": "total_items * f1_n / f1_d",
+      "con_lai_sau_lan1": "total_items - formulas.giao_lan1",
+      "giao_lan2": "formulas.con_lai_sau_lan1 * f2_n / f2_d",
+      "ans": "total_items - formulas.giao_lan1 - formulas.giao_lan2",
+      "w1": "total_items - total_items * f1_n / f1_d - total_items * f2_n / f2_d",
+      "w2": "total_items - total_items * (f1_n / f1_d + f2_n / f2_d)",
+      "w3": "total_items + formulas.giao_lan1 - formulas.giao_lan2"
+    },
+    "questionText": "Một kho chứa ${total_items}$ tấn gạo. Lần thứ nhất, người ta xuất đi $\\frac{{{f1_n}}}{{{f1_d}}}$ tổng số gạo. Lần thứ hai, xuất đi $\\frac{{{f2_n}}}{{{f2_d}}}$ số gạo CÒN LẠI. Hỏi số gạo còn lại trong kho là bao nhiêu tấn?",
+    "options": [
+      "A. ${ans}$ tấn",
+      "B. ${w1}$ tấn",
+      "C. ${w2}$ tấn",
+      "D. ${w3}$ tấn"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Đầu tiên, hãy tính lượng gạo xuất đi lần thứ nhất.",
+      "Sau đó, tính số gạo còn lại sau lần xuất thứ nhất, rồi tính lượng gạo xuất đi lần thứ hai dựa trên số gạo còn lại đó."
+    ],
+    "solutionHtml": "Bước 1: Tính số gạo xuất đi lần thứ nhất.<br/>Số gạo xuất đi lần 1 là: ${total_items} \\times \\frac{{{f1_n}}}{{{f1_d}}} = {giao_lan1}$ (tấn).<br/>Bước 2: Tính số gạo còn lại sau lần xuất thứ nhất.<br/>Số gạo còn lại sau lần 1 là: ${total_items} - {giao_lan1} = {con_lai_sau_lan1}$ (tấn).<br/>Bước 3: Tính số gạo xuất đi lần thứ hai.<br/>Số gạo xuất đi lần 2 là: ${con_lai_sau_lan1} \\times \\frac{{{f2_n}}}{{{f2_d}}} = {giao_lan2}$ (tấn).<br/>Bước 4: Tính số gạo còn lại trong kho.<br/>Số gạo còn lại trong kho là: ${con_lai_sau_lan1} - {giao_lan2} = {ans}$ (tấn).<br/>Đáp án đúng là A.",
+    "tip": "Cần chú ý đọc kỹ đề bài để xác định 'phần còn lại' được tính từ tổng ban đầu hay từ số lượng sau khi đã trừ đi các phần trước đó."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "l_n": { "min": 2, "max": 7, "step": 1 },
+      "l_d": { "min": 8, "max": 12, "step": 1 },
+      "m_n": { "min": 2, "max": 7, "step": 1 },
+      "m_d": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "l_d > l_n", "m_d > m_n",
+      "gcd(l_n, l_d) === 1", "gcd(m_n, m_d) === 1",
+      "l_n/l_d !== m_n/m_d"
+    ],
+    "formulas": {
+      "val_lan_doc": "l_n / l_d",
+      "val_mai_doc": "m_n / m_d",
+      "val_lan_chua_doc": "1 - (l_n / l_d)",
+      "val_mai_chua_doc": "1 - (m_n / m_d)",
+      "ansIndex": "(1 - (l_n / l_d)) < (1 - (m_n / m_d)) ? 0 : 1"
+    },
+    "questionText": "Lan và Mai cùng đọc một cuốn sách giống nhau. Lan đã đọc được $\\frac{{{l_n}}}{{{l_d}}}$ số trang sách. Mai đã đọc được $\\frac{{{m_n}}}{{{m_d}}}$ số trang sách. Hỏi ai còn ít trang sách CHƯA ĐỌC hơn?",
+    "options": [
+      "A. Lan",
+      "B. Mai",
+      "C. Cả hai còn số trang chưa đọc bằng nhau",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Số trang sách chưa đọc của mỗi người được tính bằng 1 trừ đi phân số số trang đã đọc.",
+      "Sau khi tìm được phân số trang sách chưa đọc của mỗi người, hãy so sánh chúng."
+    ],
+    "solutionHtml": "Để biết ai còn ít trang sách chưa đọc hơn, ta cần tính phân số số trang sách chưa đọc của mỗi người rồi so sánh chúng.<br/>Bước 1: Tính phân số số trang sách Lan chưa đọc.<br/>Lan đã đọc $\\frac{{{l_n}}}{{{l_d}}}$ số trang, vậy số trang Lan chưa đọc là $1 - \\frac{{{l_n}}}{{{l_d}}} = \\frac{{{l_d} - {l_n}}}{{{l_d}}} = \\frac{{{l_d - l_n}}}{{{l_d}}}$.<br/>Bước 2: Tính phân số số trang sách Mai chưa đọc.<br/>Mai đã đọc $\\frac{{{m_n}}}{{{m_d}}}$ số trang, vậy số trang Mai chưa đọc là $1 - \\frac{{{m_n}}}{{{m_d}}} = \\frac{{{m_d} - {m_n}}}{{{m_d}}} = \\frac{{{m_d - m_n}}}{{{m_d}}}$.<br/>Bước 3: So sánh hai phân số số trang sách chưa đọc.<br/>Ta so sánh $\\frac{{{l_d - l_n}}}{{{l_d}}}$ và $\\frac{{{m_d - m_n}}}{{{m_d}}}$.<br/>Quy đồng mẫu số hoặc so sánh bằng cách khác.<br/>(Tùy thuộc vào giá trị cụ thể, ở đây ta sẽ dùng giá trị thập phân để giải thích).<br/>Lan chưa đọc: ${val_lan_chua_doc}$<br/>Mai chưa đọc: ${val_mai_chua_doc}$<br/>Vì ${val_lan_chua_doc}$ {`formulas.val_lan_chua_doc < formulas.val_mai_chua_doc ? '<" : ">'`} ${val_mai_chua_doc}$ nên {`formulas.val_lan_chua_doc < formulas.val_mai_chua_doc ? 'Lan" : "Mai'`} còn ít trang sách chưa đọc hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : "B'`}.",
+    "tip": "Khi so sánh các phần 'còn lại', ta thường lấy tổng thể (thường là 1) trừ đi phần đã cho. Điều này giúp tránh nhầm lẫn khi so sánh trực tiếp các phần đã sử dụng."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n1": { "min": 1, "max": 5, "step": 1 },
+      "d1": { "min": 6, "max": 10, "step": 1 },
+      "n2": { "min": 1, "max": 5, "step": 1 },
+      "d2": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "d1 > n1", "d2 > n2",
+      "gcd(n1, d1) === 1", "gcd(n2, d2) === 1",
+      "(n1/d1) < (n2/d2)"
+    ],
+    "formulas": {
+      "lcm_val": "lcm(d1, d2)",
+      "num1_new_base": "n1 * (lcm(d1, d2) / d1)",
+      "num2_new_base": "n2 * (lcm(d1, d2) / d2)",
+      "check_factor": "1",
+      "found_num": "0",
+      "found_den": "0",
+      "generateFraction": "(() => { for (let factor = 2; factor <= 5; factor++) { let c_den = lcm(variables.d1, variables.d2) * factor; let c_num1 = variables.n1 * (c_den / variables.d1); let c_num2 = variables.n2 * (c_den / variables.d2); for (let i = c_num1 + 1; i < c_num2; i++) { if (gcd(i, c_den) === 1) return { num: i, den: c_den }; } } return {num: '?', den: '?'}; })()",
+      "ans_num": "formulas.generateFraction.num",
+      "ans_den": "formulas.generateFraction.den",
+      "w1_num": "n1", "w1_den": "d1",
+      "w2_num": "n2", "w2_den": "d2",
+      "w3_num": "n1*2", "w3_den": "d1*2 + 1"
+    },
+    "questionText": "Hãy tìm một phân số tối giản nằm giữa $\\frac{{{n1}}}{{{d1}}}$ và $\\frac{{{n2}}}{{{d2}}}$. (Chọn một trong các đáp án sau)",
+    "options": [
+      "A. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+      "B. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+      "C. $\\frac{{{w2_num}}}{{{w2_den}}}$",
+      "D. $\\frac{{{w3_num}}}{{{w3_den}}}$"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để tìm phân số nằm giữa hai phân số cho trước, ta có thể quy đồng mẫu số của cả hai phân số đó.",
+      "Nếu giữa hai tử số sau khi quy đồng chưa có số nguyên nào, hãy nhân cả tử và mẫu của hai phân số đã quy đồng với một số tự nhiên (2, 3,...) để mở rộng khoảng cách giữa chúng."
+    ],
+    "solutionHtml": "Bước 1: Quy đồng mẫu số của hai phân số $\\frac{{{n1}}}{{{d1}}}$ và $\\frac{{{n2}}}{{{d2}}}$.<br/>MSCNN của ${d1}$ và ${d2}$ là ${lcm_val}$.<br/>$\\frac{{{n1}}}{{{d1}}} = \\frac{{{n1} \\times ({lcm_val} / {d1})}}{{{lcm_val}}} = \\frac{{{num1_new_base}}}{{{lcm_val}}}$<br/>$\\frac{{{n2}}}{{{d2}}} = \\frac{{{n2} \\times ({lcm_val} / {d2})}}{{{lcm_val}}} = \\frac{{{num2_new_base}}}{{{lcm_val}}}$<br/>Bước 2: Tìm phân số nằm giữa. Nếu giữa hai tử số ${num1_new_base}$ và ${num2_new_base}$ chưa có số nguyên nào, ta nhân cả tử và mẫu của hai phân số đã quy đồng với một số tự nhiên (ví dụ 2, 3,...) để tìm một phân số ở giữa.<br/>Với các giá trị của đề bài, ta có thể nhân lên để tìm được một phân số thỏa mãn. Ví dụ, sau khi quy đồng và nhân lên một số lần, ta tìm được phân số $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Phân số này tối giản và thỏa mãn ${n1}/{d1} < {ans_num}/{ans_den} < {n2}/{d2}$.<br/>Đáp án đúng là A.",
+    "tip": "Khi tìm phân số nằm giữa hai phân số, việc mở rộng phân số bằng cách nhân tử và mẫu với cùng một số giúp tạo ra 'không gian' để tìm được phân số mong muốn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "d1_w": { "min": 2, "max": 5, "step": 1 },
+      "d1_n": { "min": 1, "max": 3, "step": 1 },
+      "d1_d": { "min": 4, "max": 8, "step": 1 },
+      "d2_w": { "min": 1, "max": 4, "step": 1 },
+      "d2_n": { "min": 1, "max": 3, "step": 1 },
+      "d2_d": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "d1_d > d1_n", "d2_d > d2_n",
+      "gcd(d1_n, d1_d) === 1", "gcd(d2_n, d2_d) === 1"
+    ],
+    "formulas": {
+      "dist1_dec": "d1_w + d1_n / d1_d",
+      "dist2_dec": "d2_w + d2_n / d2_d",
+      "total_dist_dec": "(d1_w + d1_n / d1_d) + (d2_w + d2_n / d2_d)",
+      "so_sanh_val": "Math.floor((d1_w + d1_n / d1_d) + (d2_w + d2_n / d2_d)) + 1 + (Math.random() < 0.5 ? 0 : 0.5)",
+      "ansIndex": "(formulas.total_dist_dec > formulas.so_sanh_val) ? 0 : ((formulas.total_dist_dec < formulas.so_sanh_val) ? 1 : 2)"
+    },
+    "questionText": "Một vận động viên chạy bộ trong hai ngày. Ngày thứ nhất chạy được ${d1_w}\\frac{{{d1_n}}}{{{d1_d}}}$ km. Ngày thứ hai chạy được ${d2_w}\\frac{{{d2_n}}}{{{d2_d}}}$ km. So sánh tổng quãng đường vận động viên đã chạy với ${so_sanh_val}$ km.",
+    "options": [
+      "A. Tổng quãng đường lớn hơn ${so_sanh_val}$ km",
+      "B. Tổng quãng đường nhỏ hơn ${so_sanh_val}$ km",
+      "C. Tổng quãng đường bằng ${so_sanh_val}$ km",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Tính tổng quãng đường vận động viên đã chạy trong hai ngày.",
+      "Chuyển đổi các hỗn số về dạng phân số hoặc số thập phân để cộng dễ dàng hơn."
+    ],
+    "solutionHtml": "Bước 1: Chuyển đổi các hỗn số sang phân số hoặc số thập phân.<br/>Ngày thứ nhất chạy: ${d1_w}\\frac{{{d1_n}}}{{{d1_d}}} = {d1_w} + \\frac{{{d1_n}}}{{{d1_d}}} = {dist1_dec}$ km.<br/>Ngày thứ hai chạy: ${d2_w}\\frac{{{d2_n}}}{{{d2_d}}} = {d2_w} + \\frac{{{d2_n}}}{{{d2_d}}} = {dist2_dec}$ km.<br/>Bước 2: Tính tổng quãng đường đã chạy.<br/>Tổng quãng đường là: ${dist1_dec} + {dist2_dec} = {total_dist_dec}$ km.<br/>Bước 3: So sánh tổng quãng đường với ${so_sanh_val}$ km.<br/>Ta thấy ${total_dist_dec}$ {`formulas.total_dist_dec > formulas.so_sanh_val ? '>" : (formulas.total_dist_dec < formulas.so_sanh_val ? "<" : "=')`} ${so_sanh_val}$.<br/>Vậy tổng quãng đường vận động viên đã chạy {`formulas.total_dist_dec > formulas.so_sanh_val ? 'lớn hơn" : (formulas.total_dist_dec < formulas.so_sanh_val ? "nhỏ hơn" : "bằng')`} ${so_sanh_val}$ km.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : (formulas.ansIndex === 1 ? "B" : "C')`}.",
+    "tip": "Khi cộng các hỗn số, em có thể cộng phần nguyên riêng và phần phân số riêng, hoặc chuyển tất cả về dạng phân số (hoặc số thập phân) rồi cộng."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numerator_val": { "min": 3, "max": 7, "step": 1 },
+      "lower_n": { "min": 1, "max": 4, "step": 1 },
+      "lower_d": { "min": 8, "max": 12, "step": 1 },
+      "upper_n": { "min": 5, "max": 9, "step": 1 },
+      "upper_d": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "lower_d > lower_n", "upper_d > upper_n",
+      "gcd(lower_n, lower_d) === 1", "gcd(upper_n, upper_d) === 1",
+      "(lower_n / lower_d) < (upper_n / upper_d)",
+      "formulas.possible_denominators.length > 0"
+    ],
+    "formulas": {
+      "lower_bound_dec": "lower_n / lower_d",
+      "upper_bound_dec": "upper_n / upper_d",
+      "min_x_exclusive": "numerator_val / (upper_n / upper_d)",
+      "max_x_exclusive": "numerator_val / (lower_n / lower_d)",
+      "possible_denominators": "(() => { const lower = variables.numerator_val / (variables.upper_n / variables.upper_d); const upper = variables.numerator_val / (variables.lower_n / variables.lower_d); const dens = []; for (let x = Math.floor(lower) + 1; x < Math.ceil(upper); x++) { if (x > 0 && gcd(variables.numerator_val, x) === 1 && (variables.numerator_val/x > variables.lower_n/variables.lower_d) && (variables.numerator_val/x < variables.upper_n/variables.upper_d)) { dens.push(x); } } return dens; })()",
+      "ans_den": "formulas.possible_denominators.length > 0 ? Math.min(...formulas.possible_denominators) : '?'",
+      "w1_den": "formulas.ans_den + 1",
+      "w2_den": "formulas.ans_den - 1",
+      "w3_den": "formulas.ans_den + 2"
+    },
+    "questionText": "Tìm phân số có tử số là ${numerator_val}$ và lớn hơn $\\frac{{{lower_n}}}{{{lower_d}}}$ nhưng nhỏ hơn $\\frac{{{upper_n}}}{{{upper_d}}}$. Phân số đó phải là tối giản và có mẫu số nhỏ nhất có thể.",
+    "options": [
+      "A. $\\frac{{{numerator_val}}}{{{ans_den}}}$",
+      "B. $\\frac{{{numerator_val}}}{{{w1_den}}}$",
+      "C. $\\frac{{{numerator_val}}}{{{w2_den}}}$",
+      "D. $\\frac{{{numerator_val}}}{{{w3_den}}}$"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Gọi phân số cần tìm là $\\frac{{{numerator_val}}}{x}$. Ta cần tìm $x$ sao cho $\\frac{{{lower_n}}}{{{lower_d}}} < \\frac{{{numerator_val}}}{x} < \\frac{{{upper_n}}}{{{upper_d}}}$.",
+      "Từ đó, hãy đảo ngược các phân số để tìm khoảng giá trị của $x$.",
+      "Đảm bảo phân số $\\frac{{{numerator_val}}}{x}$ là tối giản và $x$ là số tự nhiên nhỏ nhất."
+    ],
+    "solutionHtml": "Gọi phân số cần tìm là $\\frac{{{numerator_val}}}{x}$.<br/>Theo đề bài, ta có: $\\frac{{{lower_n}}}{{{lower_d}}} < \\frac{{{numerator_val}}}{x} < \\frac{{{upper_n}}}{{{upper_d}}}$.<br/>Bước 1: Tìm khoảng giá trị của $x$.<br/>Từ $\\frac{{{numerator_val}}}{x} < \\frac{{{upper_n}}}{{{upper_d}}}$, ta suy ra $x > \\frac{{{numerator_val} \\times {upper_d}}}{{{upper_n}}} = {min_x_exclusive}$ (vì tử số cố định, mẫu số lớn hơn thì giá trị phân số nhỏ hơn).<br/>Từ $\\frac{{{numerator_val}}}{x} > \\frac{{{lower_n}}}{{{lower_d}}}$, ta suy ra $x < \\frac{{{numerator_val} \\times {lower_d}}}{{{lower_n}}} = {max_x_exclusive}$.<br/>Vậy, ta cần tìm số tự nhiên $x$ sao cho ${min_x_exclusive} < x < {max_x_exclusive}$.<br/>Bước 2: Liệt kê các số nguyên $x$ trong khoảng tìm được.<br/>Các giá trị nguyên của $x$ có thể là: {`formulas.possible_denominators.join(', ')`}.<br/>Bước 3: Chọn giá trị $x$ nhỏ nhất mà phân số $\\frac{{{numerator_val}}}{x}$ là tối giản.<br/>Trong các giá trị trên, giá trị nhỏ nhất thỏa mãn $\\text{gcd}({numerator_val}, x) = 1$ là ${ans_den}$.<br/>Vậy phân số cần tìm là $\\frac{{{numerator_val}}}{{{ans_den}}}$.<br/>Đáp án đúng là A.",
+    "tip": "Khi tìm mẫu số $x$ trong một khoảng, hãy thử các giá trị nguyên từ nhỏ đến lớn. Đồng thời, kiểm tra điều kiện phân số tối giản bằng cách tính ước chung lớn nhất của tử số và mẫu số."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a1": { "min": 1, "max": 4, "step": 1 },
+      "b1": { "min": 5, "max": 10, "step": 1 },
+      "c1": { "min": 1, "max": 4, "step": 1 },
+      "d1": { "min": 5, "max": 10, "step": 1 },
+      "a2": { "min": 1, "max": 4, "step": 1 },
+      "b2": { "min": 5, "max": 10, "step": 1 },
+      "c2": { "min": 1, "max": 4, "step": 1 },
+      "d2": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "b1 > a1", "d1 > c1", "b2 > a2", "d2 > c2",
+      "gcd(a1,b1)===1", "gcd(c1,d1)===1", "gcd(a2,b2)===1", "gcd(c2,d2)===1",
+      "(a1/b1 + c1/d1) !== (a2/b2 + c2/d2)"
+    ],
+    "formulas": {
+      "valP": "(a1/b1) + (c1/d1)",
+      "valQ": "(a2/b2) + (c2/d2)",
+      "ansIndex": "valP > valQ ? 0 : (valP < valQ ? 1 : 2)",
+      "lcm_P": "lcm(b1, d1)",
+      "sum_P_num": "(a1 * (lcm(b1, d1) / b1) + c1 * (lcm(b1, d1) / d1))",
+      "lcm_Q": "lcm(b2, d2)",
+      "sum_Q_num": "(a2 * (lcm(b2, d2) / b2) + c2 * (lcm(b2, d2) / d2))"
+    },
+    "questionText": "Cho hai biểu thức $P = \\frac{{{a1}}}{{{b1}}} + \\frac{{{c1}}}{{{d1}}}$ và $Q = \\frac{{{a2}}}{{{b2}}} + \\frac{{{c2}}}{{{d2}}}$. Hãy so sánh giá trị của $P$ và $Q$.",
+    "options": [
+      "A. $P > Q$",
+      "B. $P < Q$",
+      "C. $P = Q$",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Tính giá trị của biểu thức $P$ và biểu thức $Q$ bằng cách quy đồng mẫu số rồi cộng các phân số.",
+      "Sau khi có giá trị của $P$ và $Q$, hãy so sánh chúng."
+    ],
+    "solutionHtml": "Bước 1: Tính giá trị của biểu thức $P$.<br/>$P = \\frac{{{a1}}}{{{b1}}} + \\frac{{{c1}}}{{{d1}}}$<br/>Quy đồng mẫu số chung ${lcm_P}$:<br/>$P = \\frac{{{a1} \\times ({lcm_P} / {b1})}}{{{lcm_P}}} + \\frac{{{c1} \\times ({lcm_P} / {d1})}}{{{lcm_P}}} = \\frac{{{a1 * (lcm_P / b1) + c1 * (lcm_P / d1)}}}{{{lcm_P}}} = \\frac{{{sum_P_num}}}{{{lcm_P}}} = {valP}$<br/>Bước 2: Tính giá trị của biểu thức $Q$.<br/>$Q = \\frac{{{a2}}}{{{b2}}} + \\frac{{{c2}}}{{{d2}}}$<br/>Quy đồng mẫu số chung ${lcm_Q}$:<br/>$Q = \\frac{{{a2} \\times ({lcm_Q} / {b2})}}{{{lcm_Q}}} + \\frac{{{c2} \\times ({lcm_Q} / {d2})}}{{{lcm_Q}}} = \\frac{{{a2 * (lcm_Q / b2) + c2 * (lcm_Q / d2)}}}{{{lcm_Q}}} = \\frac{{{sum_Q_num}}}{{{lcm_Q}}} = {valQ}$<br/>Bước 3: So sánh giá trị của $P$ và $Q$.<br/>Ta có $P = {valP}$ và $Q = {valQ}$.<br/>Vì ${valP}$ {`formulas.valP > formulas.valQ ? '>" : (formulas.valP < formulas.valQ ? "<" : "=')`} ${valQ}$.<br/>Do đó, {`formulas.valP > formulas.valQ ? 'P > Q" : (formulas.valP < formulas.valQ ? "P < Q" : "P = Q')`}.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : (formulas.ansIndex === 1 ? "B" : "C')`}.",
+    "tip": "Để so sánh các biểu thức có chứa phép cộng (hoặc trừ) phân số, hãy tính giá trị của từng biểu thức một cách chính xác trước khi so sánh."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "bn": { "min": 1, "max": 4, "step": 1 },
+      "bd": { "min": 5, "max": 10, "step": 1 },
+      "gn": { "min": 1, "max": 4, "step": 1 },
+      "gd": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "bd > bn", "gd > gn",
+      "gcd(bn, bd) === 1", "gcd(gn, gd) === 1",
+      "(bn/bd) !== (gn/gd)"
+    ],
+    "formulas": {
+      "val_boys_like": "bn / bd",
+      "val_girls_like": "gn / gd",
+      "ansIndex": "val_boys_like > val_girls_like ? 0 : 1",
+      "lcm_bdgd": "lcm(bd, gd)",
+      "boys_num_new": "bn * (lcm(bd, gd) / bd)",
+      "girls_num_new": "gn * (lcm(bd, gd) / gd)"
+    },
+    "questionText": "Trong một lớp học, $\\frac{{{bn}}}{{{bd}}}$ số học sinh nam thích môn Toán, và $\\frac{{{gn}}}{{{gd}}}$ số học sinh nữ thích môn Toán. Biết số học sinh nam và nữ trong lớp bằng nhau. Hỏi tỉ lệ học sinh nào (nam hay nữ) thích Toán nhiều hơn?",
+    "options": [
+      "A. Tỉ lệ học sinh nam thích Toán nhiều hơn",
+      "B. Tỉ lệ học sinh nữ thích Toán nhiều hơn",
+      "C. Tỉ lệ học sinh nam và nữ thích Toán bằng nhau",
+      "D. Không đủ thông tin để so sánh"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Vì số học sinh nam và nữ bằng nhau, việc so sánh tỉ lệ thích Toán tương đương với việc so sánh trực tiếp hai phân số $\\frac{{{bn}}}{{{bd}}}$ và $\\frac{{{gn}}}{{{gd}}}$",
+      "Hãy quy đồng mẫu số hai phân số để so sánh."
+    ],
+    "solutionHtml": "Để so sánh tỉ lệ học sinh nam hay nữ thích Toán nhiều hơn, ta cần so sánh hai phân số $\\frac{{{bn}}}{{{bd}}}$ (tỉ lệ học sinh nam thích Toán) và $\\frac{{{gn}}}{{{gd}}}$ (tỉ lệ học sinh nữ thích Toán).<br/>Vì số học sinh nam và nữ trong lớp bằng nhau, ta chỉ cần so sánh trực tiếp hai phân số.<br/>Bước 1: Quy đồng mẫu số của hai phân số.<br/>MSCNN của ${bd}$ và ${gd}$ là ${lcm_bdgd}$.<br/>Tỉ lệ học sinh nam thích Toán: $\\frac{{{bn}}}{{{bd}}} = \\frac{{{bn} \\times ({lcm_bdgd} / {bd})}}{{{lcm_bdgd}}} = \\frac{{{boys_num_new}}}{{{lcm_bdgd}}}$<br/>Tỉ lệ học sinh nữ thích Toán: $\\frac{{{gn}}}{{{gd}}} = \\frac{{{gn} \\times ({lcm_bdgd} / {gd})}}{{{lcm_bdgd}}} = \\frac{{{girls_num_new}}}{{{lcm_bdgd}}}$<br/>Bước 2: So sánh hai phân số đã quy đồng.<br/>Vì ${boys_num_new}$ {`formulas.val_boys_like > formulas.val_girls_like ? '>" : "<'`} ${girls_num_new}$ nên $\\frac{{{boys_num_new}}}{{{lcm_bdgd}}}$ {`formulas.val_boys_like > formulas.val_girls_like ? '>" : "<'`} $\\frac{{{girls_num_new}}}{{{lcm_bdgd}}}$.<br/>Vậy {`formulas.val_boys_like > formulas.val_girls_like ? 'tỉ lệ học sinh nam" : "tỉ lệ học sinh nữ'`} thích Toán nhiều hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : "B'`}.",
+    "tip": "Khi so sánh tỉ lệ (phân số) của hai nhóm có cùng tổng số lượng, chỉ cần so sánh trực tiếp các phân số đó."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total_students": { "min": 30, "max": 45, "step": 5 },
+      "math_n": { "min": 1, "max": 3, "step": 1 },
+      "math_d": { "min": 5, "max": 10, "step": 1 },
+      "lit_n": { "min": 1, "max": 3, "step": 1 },
+      "lit_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "math_d > math_n", "lit_d > lit_n",
+      "gcd(math_n, math_d) === 1", "gcd(lit_n, lit_d) === 1",
+      "total_students % math_d === 0", "total_students % lit_d === 0",
+      "(math_n/math_d) !== (lit_n/lit_d)"
+    ],
+    "formulas": {
+      "num_math": "total_students * math_n / math_d",
+      "num_lit": "total_students * lit_n / lit_d",
+      "ansIndex": "num_math > num_lit ? 0 : 1"
+    },
+    "questionText": "Trong một lớp học có ${total_students}$ học sinh. $\\frac{{{math_n}}}{{{math_d}}}$ số học sinh thích môn Toán, và $\\frac{{{lit_n}}}{{{lit_d}}}$ số học sinh thích môn Văn. Hỏi môn học nào có số lượng học sinh yêu thích NHIỀU HƠN?",
+    "options": [
+      "A. Môn Toán",
+      "B. Môn Văn",
+      "C. Cả hai môn có số lượng học sinh yêu thích bằng nhau",
+      "D. Không đủ thông tin"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Tính số học sinh thích môn Toán và số học sinh thích môn Văn.",
+      "So sánh hai số lượng học sinh đó để tìm ra môn được yêu thích nhiều hơn."
+    ],
+    "solutionHtml": "Bước 1: Tính số học sinh thích môn Toán.<br/>Số học sinh thích môn Toán là: ${total_students} \\times \\frac{{{math_n}}}{{{math_d}}} = {num_math}$ (học sinh).<br/>Bước 2: Tính số học sinh thích môn Văn.<br/>Số học sinh thích môn Văn là: ${total_students} \\times \\frac{{{lit_n}}}{{{lit_d}}} = {num_lit}$ (học sinh).<br/>Bước 3: So sánh số học sinh thích hai môn học.<br/>Vì ${num_math}$ {`formulas.num_math > formulas.num_lit ? '>" : "<'`} ${num_lit}$ nên môn {`formulas.num_math > formulas.num_lit ? 'Toán" : "Văn'`} có số lượng học sinh yêu thích nhiều hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : "B'`}.",
+    "tip": "Khi so sánh phần của một tổng, em có thể so sánh trực tiếp các phân số nếu tổng là như nhau, hoặc tính ra giá trị cụ thể rồi so sánh."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "milk_w": { "min": 1, "max": 3, "step": 1 },
+      "milk_n": { "min": 1, "max": 3, "step": 1 },
+      "milk_d": { "min": 4, "max": 8, "step": 1 },
+      "juice_w": { "min": 1, "max": 3, "step": 1 },
+      "juice_n": { "min": 1, "max": 3, "step": 1 },
+      "juice_d": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "milk_d > milk_n", "juice_d > juice_n",
+      "gcd(milk_n, milk_d) === 1", "gcd(juice_n, juice_d) === 1",
+      "(milk_w + milk_n/milk_d) !== (juice_w + juice_n/juice_d)"
+    ],
+    "formulas": {
+      "milk_dec": "milk_w + milk_n / milk_d",
+      "juice_dec": "juice_w + juice_n / juice_d",
+      "ansIndex": "milk_dec > juice_dec ? 0 : 1"
+    },
+    "questionText": "Trong tủ lạnh có ${milk_w}\\frac{{{milk_n}}}{{{milk_d}}}$ lít sữa và ${juice_w}\\frac{{{juice_n}}}{{{juice_d}}}$ lít nước ép. Hỏi loại đồ uống nào có số lượng NHIỀU HƠN?",
+    "options": [
+      "A. Sữa",
+      "B. Nước ép",
+      "C. Số lượng bằng nhau",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Để so sánh hai hỗn số, em có thể chuyển chúng thành phân số hoặc số thập phân, hoặc so sánh phần nguyên trước, sau đó là phần phân số.",
+      "Cần chú ý so sánh phần nguyên trước, nếu phần nguyên bằng nhau thì mới so sánh phần phân số."
+    ],
+    "solutionHtml": "Để so sánh số lượng sữa và nước ép, ta cần so sánh hai hỗn số ${milk_w}\\frac{{{milk_n}}}{{{milk_d}}}$ và ${juice_w}\\frac{{{juice_n}}}{{{juice_d}}}$.<br/>Cách 1: Chuyển đổi sang số thập phân.<br/>Lượng sữa: ${milk_w}\\frac{{{milk_n}}}{{{milk_d}}} = {milk_w} + \\frac{{{milk_n}}}{{{milk_d}}} = {milk_dec}$ lít.<br/>Lượng nước ép: ${juice_w}\\frac{{{juice_n}}}{{{juice_d}}} = {juice_w} + \\frac{{{juice_n}}}{{{juice_d}}} = {juice_dec}$ lít.<br/>So sánh ${milk_dec}$ và ${juice_dec}$.<br/>Vì ${milk_dec}$ {`formulas.milk_dec > formulas.juice_dec ? '>" : "<'`} ${juice_dec}$ nên {`formulas.milk_dec > formulas.juice_dec ? 'sữa" : "nước ép'`} có số lượng nhiều hơn.<br/>Cách 2: So sánh phần nguyên và phần phân số.<br/>Phần nguyên của sữa là ${milk_w}$, phần nguyên của nước ép là ${juice_w}$.<br/>(Thực hiện so sánh phần nguyên, nếu bằng nhau thì so sánh phần phân số bằng cách quy đồng).<br/>Kết quả: {`formulas.milk_dec > formulas.juice_dec ? 'Sữa" : "Nước ép'`} có số lượng nhiều hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? 'A" : "B'`}.",
+    "tip": "Khi so sánh hỗn số, ưu tiên so sánh phần nguyên trước. Nếu phần nguyên bằng nhau, tiếp tục so sánh phần phân số bằng cách quy đồng mẫu số."
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a1": { "min": 1, "max": 7, "step": 1 },
+      "b1": { "min": 8, "max": 15, "step": 1 },
+      "a2": { "min": 1, "max": 7, "step": 1 },
+      "b2": { "min": 8, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "b1 > a1",
+      "b2 > a2",
+      "gcd(a1, b1) === 1",
+      "gcd(a2, b2) === 1",
+      "a1/b1 !== a2/b2"
+    ],
+    "formulas": {
+      "val1": "a1 / b1",
+      "val2": "a2 / b2",
+      "lcm_val": "lcm(b1, b2)",
+      "num1_new": "a1 * (lcm(b1, b2) / b1)",
+      "num2_new": "a2 * (lcm(b1, b2) / b2)",
+      "ansIndex": "val1 > val2 ? 0 : 1"
+    },
+    "questionText": "Trong một cuộc thi làm bánh, chị An dùng $\\frac{{{a1}}}{{{b1}}}$ kg bột mì, còn chị Bình dùng $\\frac{{{a2}}}{{{b2}}}$ kg bột mì. Hỏi ai đã dùng nhiều bột mì hơn?",
+    "options": [
+      "A. Chị An",
+      "B. Chị Bình",
+      "C. Cả hai dùng lượng bằng nhau",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Để so sánh hai phân số, ta có thể quy đồng mẫu số rồi so sánh tử số.",
+      "Tìm mẫu số chung nhỏ nhất của hai phân số $\\frac{{{a1}}}{{{b1}}}$ và $\\frac{{{a2}}}{{{b2}}}$."
+    ],
+    "solutionHtml": "Để so sánh lượng bột mì mà chị An và chị Bình đã dùng, ta cần so sánh hai phân số $\\frac{{{a1}}}{{{b1}}}$ và $\\frac{{{a2}}}{{{b2}}}$.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ${b1}$ và ${b2}$.<br/>MSCNN của ${b1}$ và ${b2}$ là ${lcm_val}$.<br/>Bước 2: Quy đồng mẫu số hai phân số:<br/>$\\frac{{{a1}}}{{{b1}}} = \\frac{{{a1} \\times ({lcm_val} / {b1})}}{{{b1} \\times ({lcm_val} / {b1})}} = \\frac{{{num1_new}}}{{{lcm_val}}} $<br/>$\\frac{{{a2}}}{{{b2}}} = \\frac{{{a2} \\times ({lcm_val} / {b2})}}{{{b2} \\times ({lcm_val} / {b2})}} = \\frac{{{num2_new}}}{{{lcm_val}}} $<br/>Bước 3: So sánh hai phân số đã quy đồng.<br/>Vì ${num1_new}$ {`formulas.num1_new > formulas.num2_new ? ">" : "<"`} ${num2_new}$ nên $\\frac{{{num1_new}}}{{{lcm_val}}}$ {`formulas.num1_new > formulas.num2_new ? ">" : "<"`} $\\frac{{{num2_new}}}{{{lcm_val}}}$.<br/>Do đó, {`formulas.val1 > formulas.val2 ? "Chị An" : "Chị Bình"`} đã dùng nhiều bột mì hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : "B"`}.",
+    "tip": "Để so sánh hai phân số khác mẫu số, cách hiệu quả nhất là quy đồng mẫu số (hoặc tử số nếu tiện) rồi so sánh các tử số (hoặc mẫu số tương ứng)."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a1": { "min": 1, "max": 5, "step": 1 },
+      "b1": { "min": 6, "max": 10, "step": 1 },
+      "a2": { "min": 1, "max": 5, "step": 1 },
+      "b2": { "min": 6, "max": 10, "step": 1 },
+      "a3": { "min": 1, "max": 5, "step": 1 },
+      "b3": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "b1 > a1", "b2 > a2", "b3 > a3",
+      "gcd(a1, b1) === 1", "gcd(a2, b2) === 1", "gcd(a3, b3) === 1",
+      "a1/b1 !== a2/b2", "a1/b1 !== a3/b3", "a2/b2 !== a3/b3"
+    ],
+    "formulas": {
+      "val1": "a1 / b1",
+      "val2": "a2 / b2",
+      "val3": "a3 / b3",
+      "minValue": "Math.min(a1/b1, a2/b2, a3/b3)",
+      "ansIndex": "(Math.min(a1/b1, a2/b2, a3/b3) === (a1/b1)) ? 0 : ((Math.min(a1/b1, a2/b2, a3/b3) === (a2/b2)) ? 1 : 2)",
+      "lcm_all": "lcm(lcm(b1, b2), b3)",
+      "num1_lcm": "a1 * (lcm(lcm(b1, b2), b3) / b1)",
+      "num2_lcm": "a2 * (lcm(lcm(b1, b2), b3) / b2)",
+      "num3_lcm": "a3 * (lcm(lcm(b1, b2), b3) / b3)"
+    },
+    "questionText": "Trong một thử nghiệm khoa học, ba mẫu vật A, B, C có khối lượng tương ứng là $\\frac{{{a1}}}{{{b1}}}$ gam, $\\frac{{{a2}}}{{{b2}}}$ gam và $\\frac{{{a3}}}{{{b3}}}$ gam. Hỏi mẫu vật nào có khối lượng NHỎ NHẤT?",
+    "options": [
+      "A. Mẫu vật A",
+      "B. Mẫu vật B",
+      "C. Mẫu vật C",
+      "D. Cả ba có khối lượng bằng nhau"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Để tìm mẫu vật có khối lượng nhỏ nhất, em cần so sánh ba phân số $\\frac{{{a1}}}{{{b1}}}$, $\\frac{{{a2}}}{{{b2}}}$ và $\\frac{{{a3}}}{{{b3}}}$.",
+      "Cách tốt nhất là quy đồng mẫu số của cả ba phân số."
+    ],
+    "solutionHtml": "Để tìm mẫu vật có khối lượng nhỏ nhất, ta cần so sánh ba phân số $\\frac{{{a1}}}{{{b1}}}$, $\\frac{{{a2}}}{{{b2}}}$ và $\\frac{{{a3}}}{{{b3}}}$.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ${b1}$, ${b2}$ và ${b3}$.<br/>MSCNN của ${b1}$, ${b2}$ và ${b3}$ là ${lcm_all}$.<br/>Bước 2: Quy đồng mẫu số các phân số:<br/>$\\frac{{{a1}}}{{{b1}}} = \\frac{{{a1} \\times ({lcm_all} / {b1})}}{{{b1} \\times ({lcm_all} / {b1})}} = \\frac{{{num1_lcm}}}{{{lcm_all}}}$<br/>$\\frac{{{a2}}}{{{b2}}} = \\frac{{{a2} \\times ({lcm_all} / {b2})}}{{{b2} \\times ({lcm_all} / {b2})}} = \\frac{{{num2_lcm}}}{{{lcm_all}}}$<br/>$\\frac{{{a3}}}{{{b3}}} = \\frac{{{a3} \\times ({lcm_all} / {b3})}}{{{b3} \\times ({lcm_all} / {b3})}} = \\frac{{{num3_lcm}}}{{{lcm_all}}}$<br/>Bước 3: So sánh các tử số đã quy đồng.<br/>Ta có ${num1_lcm}$, ${num2_lcm}$, ${num3_lcm}$.<br/>Số nhỏ nhất trong ba tử số này là {`Math.min(formulas.num1_lcm, formulas.num2_lcm, formulas.num3_lcm)`}.<br/>Phân số tương ứng với tử số nhỏ nhất là {`
+        if (formulas.minValue === formulas.val1) return "A";
+        if (formulas.minValue === formulas.val2) return "B";
+        if (formulas.minValue === formulas.val3) return "C";
+        return "";
+      `}.<br/>Vậy mẫu vật {`
+        if (formulas.minValue === formulas.val1) return "A";
+        if (formulas.minValue === formulas.val2) return "B";
+        if (formulas.minValue === formulas.val3) return "C";
+        return "";
+      `} có khối lượng nhỏ nhất.<br/>Đáp án đúng là {`
+        if (formulas.minValue === formulas.val1) return "A";
+        if (formulas.minValue === formulas.val2) return "B";
+        if (formulas.minValue === formulas.val3) return "C";
+        return "";
+      `}.",
+    "tip": "Khi so sánh nhiều phân số, quy đồng mẫu số chung nhỏ nhất giúp việc so sánh các tử số trở nên đơn giản và chính xác nhất."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "l_w": { "min": 5, "max": 15, "step": 1 },
+      "l_n": { "min": 1, "max": 4, "step": 1 },
+      "l_d": { "min": 5, "max": 10, "step": 1 },
+      "w_w": { "min": 3, "max": 10, "step": 1 },
+      "w_n": { "min": 1, "max": 4, "step": 1 },
+      "w_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "l_d > l_n", "w_d > w_n",
+      "gcd(l_n, l_d) === 1", "gcd(w_n, w_d) === 1",
+      "l_w > w_w"
+    ],
+    "formulas": {
+      "chieu_dai_phanso_tu": "l_w * l_d + l_n",
+      "chieu_rong_phanso_tu": "w_w * w_d + w_n",
+      "chieu_dai_decimal": "(l_w * l_d + l_n) / l_d",
+      "chieu_rong_decimal": "(w_w * w_d + w_n) / w_d",
+      "chu_vi_decimal": "2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d)",
+      "so_sanh_target": "Math.floor(2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d) + 0.5)",
+      "ansIndex": "(2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d) > formulas.so_sanh_target) ? 0 : ((2 * ((l_w * l_d + l_n) / l_d + (w_w * w_d + w_n) / w_d) < formulas.so_sanh_target) ? 1 : 2)"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là ${l_w}\\frac{{{l_n}}}{{{l_d}}}$ mét và chiều rộng là ${w_w}\\frac{{{w_n}}}{{{w_d}}}$ mét. Hãy so sánh chu vi của mảnh vườn này với ${so_sanh_target}$ mét.",
+    "options": [
+      "A. Chu vi lớn hơn ${so_sanh_target}$ mét",
+      "B. Chu vi nhỏ hơn ${so_sanh_target}$ mét",
+      "C. Chu vi bằng ${so_sanh_target}$ mét",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Trước hết, hãy tính chu vi của mảnh vườn. Chu vi hình chữ nhật bằng hai lần tổng chiều dài và chiều rộng.",
+      "Sau khi tính được chu vi, so sánh kết quả với ${so_sanh_target}$ mét."
+    ],
+    "solutionHtml": "Bước 1: Chuyển các hỗn số sang phân số hoặc số thập phân để tiện tính toán.<br/>Chiều dài: ${l_w}\\frac{{{l_n}}}{{{l_d}}} = \\frac{{{l_w} \\times {l_d} + {l_n}}}{{{l_d}}} = \\frac{{{chieu_dai_phanso_tu}}}{{{l_d}}}$ mét.<br/>Chiều rộng: ${w_w}\\frac{{{w_n}}}{{{w_d}}} = \\frac{{{w_w} \\times {w_d} + {w_n}}}{{{w_d}}} = \\frac{{{chieu_rong_phanso_tu}}}{{{w_d}}}$ mét.<br/>Hoặc có thể tính bằng số thập phân: Chiều dài là ${chieu_dai_decimal}$ mét, Chiều rộng là ${chieu_rong_decimal}$ mét.<br/>Bước 2: Tính chu vi của mảnh vườn.<br/>Chu vi = $2 \\times (\\text{chiều dài} + \\text{chiều rộng}) = 2 \\times ({chieu_dai_decimal} + {chieu_rong_decimal}) = 2 \\times ({chieu_dai_decimal + chieu_rong_decimal}) = {chu_vi_decimal}$ mét.<br/>Bước 3: So sánh chu vi vừa tìm được với ${so_sanh_target}$ mét.<br/>Ta có ${chu_vi_decimal}$ {`formulas.chu_vi_decimal > formulas.so_sanh_target ? ">" : (formulas.chu_vi_decimal < formulas.so_sanh_target ? "<" : "=")`} ${so_sanh_target}$.<br/>Vậy chu vi của mảnh vườn {`formulas.chu_vi_decimal > formulas.so_sanh_target ? "lớn hơn" : (formulas.chu_vi_decimal < formulas.so_sanh_target ? "nhỏ hơn" : "bằng")`} ${so_sanh_target}$ mét.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : (formulas.ansIndex === 1 ? "B" : "C")`}.",
+    "tip": "Khi làm việc với hỗn số và phép tính, nên chuyển hỗn số về dạng phân số (hoặc số thập phân) để thực hiện phép tính dễ dàng và chính xác hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total_items": { "min": 60, "max": 120, "step": 12 },
+      "f1_n": { "min": 1, "max": 3, "step": 1 },
+      "f1_d": { "min": 4, "max": 6, "step": 1 },
+      "f2_n": { "min": 1, "max": 2, "step": 1 },
+      "f2_d": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "f1_d > f1_n", "f2_d > f2_n",
+      "gcd(f1_n, f1_d) === 1", "gcd(f2_n, f2_d) === 1",
+      "total_items % f1_d === 0",
+      "total_items % f2_d === 0 || (total_items * (1 - f1_n/f1_d)) % f2_d === 0"
+    ],
+    "formulas": {
+      "giao_lan1": "total_items * f1_n / f1_d",
+      "con_lai_sau_lan1": "total_items - formulas.giao_lan1",
+      "giao_lan2": "formulas.con_lai_sau_lan1 * f2_n / f2_d",
+      "ans": "total_items - formulas.giao_lan1 - formulas.giao_lan2",
+      "w1": "total_items - total_items * f1_n / f1_d - total_items * f2_n / f2_d",
+      "w2": "total_items - total_items * (f1_n / f1_d + f2_n / f2_d)",
+      "w3": "total_items + formulas.giao_lan1 - formulas.giao_lan2"
+    },
+    "questionText": "Một kho chứa ${total_items}$ tấn gạo. Lần thứ nhất, người ta xuất đi $\\frac{{{f1_n}}}{{{f1_d}}}$ tổng số gạo. Lần thứ hai, xuất đi $\\frac{{{f2_n}}}{{{f2_d}}}$ số gạo CÒN LẠI. Hỏi số gạo còn lại trong kho là bao nhiêu tấn?",
+    "options": [
+      "A. ${ans}$ tấn",
+      "B. ${w1}$ tấn",
+      "C. ${w2}$ tấn",
+      "D. ${w3}$ tấn"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Đầu tiên, hãy tính lượng gạo xuất đi lần thứ nhất.",
+      "Sau đó, tính số gạo còn lại sau lần xuất thứ nhất, rồi tính lượng gạo xuất đi lần thứ hai dựa trên số gạo còn lại đó."
+    ],
+    "solutionHtml": "Bước 1: Tính số gạo xuất đi lần thứ nhất.<br/>Số gạo xuất đi lần 1 là: ${total_items} \\times \\frac{{{f1_n}}}{{{f1_d}}} = {giao_lan1}$ (tấn).<br/>Bước 2: Tính số gạo còn lại sau lần xuất thứ nhất.<br/>Số gạo còn lại sau lần 1 là: ${total_items} - {giao_lan1} = {con_lai_sau_lan1}$ (tấn).<br/>Bước 3: Tính số gạo xuất đi lần thứ hai.<br/>Số gạo xuất đi lần 2 là: ${con_lai_sau_lan1} \\times \\frac{{{f2_n}}}{{{f2_d}}} = {giao_lan2}$ (tấn).<br/>Bước 4: Tính số gạo còn lại trong kho.<br/>Số gạo còn lại trong kho là: ${con_lai_sau_lan1} - {giao_lan2} = {ans}$ (tấn).<br/>Đáp án đúng là A.",
+    "tip": "Cần chú ý đọc kỹ đề bài để xác định 'phần còn lại' được tính từ tổng ban đầu hay từ số lượng sau khi đã trừ đi các phần trước đó."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "l_n": { "min": 2, "max": 7, "step": 1 },
+      "l_d": { "min": 8, "max": 12, "step": 1 },
+      "m_n": { "min": 2, "max": 7, "step": 1 },
+      "m_d": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "l_d > l_n", "m_d > m_n",
+      "gcd(l_n, l_d) === 1", "gcd(m_n, m_d) === 1",
+      "l_n/l_d !== m_n/m_d"
+    ],
+    "formulas": {
+      "val_lan_doc": "l_n / l_d",
+      "val_mai_doc": "m_n / m_d",
+      "val_lan_chua_doc": "1 - (l_n / l_d)",
+      "val_mai_chua_doc": "1 - (m_n / m_d)",
+      "ansIndex": "(1 - (l_n / l_d)) < (1 - (m_n / m_d)) ? 0 : 1"
+    },
+    "questionText": "Lan và Mai cùng đọc một cuốn sách giống nhau. Lan đã đọc được $\\frac{{{l_n}}}{{{l_d}}}$ số trang sách. Mai đã đọc được $\\frac{{{m_n}}}{{{m_d}}}$ số trang sách. Hỏi ai còn ít trang sách CHƯA ĐỌC hơn?",
+    "options": [
+      "A. Lan",
+      "B. Mai",
+      "C. Cả hai còn số trang chưa đọc bằng nhau",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Số trang sách chưa đọc của mỗi người được tính bằng 1 trừ đi phân số số trang đã đọc.",
+      "Sau khi tìm được phân số trang sách chưa đọc của mỗi người, hãy so sánh chúng."
+    ],
+    "solutionHtml": "Để biết ai còn ít trang sách chưa đọc hơn, ta cần tính phân số số trang sách chưa đọc của mỗi người rồi so sánh chúng.<br/>Bước 1: Tính phân số số trang sách Lan chưa đọc.<br/>Lan đã đọc $\\frac{{{l_n}}}{{{l_d}}}$ số trang, vậy số trang Lan chưa đọc là $1 - \\frac{{{l_n}}}{{{l_d}}} = \\frac{{{l_d} - {l_n}}}{{{l_d}}} = \\frac{{{l_d - l_n}}}{{{l_d}}}$.<br/>Bước 2: Tính phân số số trang sách Mai chưa đọc.<br/>Mai đã đọc $\\frac{{{m_n}}}{{{m_d}}}$ số trang, vậy số trang Mai chưa đọc là $1 - \\frac{{{m_n}}}{{{m_d}}} = \\frac{{{m_d} - {m_n}}}{{{m_d}}} = \\frac{{{m_d - m_n}}}{{{m_d}}}$.<br/>Bước 3: So sánh hai phân số số trang sách chưa đọc.<br/>Ta so sánh $\\frac{{{l_d - l_n}}}{{{l_d}}}$ và $\\frac{{{m_d - m_n}}}{{{m_d}}}$.<br/>Quy đồng mẫu số hoặc so sánh bằng cách khác.<br/>(Tùy thuộc vào giá trị cụ thể, ở đây ta sẽ dùng giá trị thập phân để giải thích).<br/>Lan chưa đọc: ${val_lan_chua_doc}$<br/>Mai chưa đọc: ${val_mai_chua_doc}$<br/>Vì ${val_lan_chua_doc}$ {`formulas.val_lan_chua_doc < formulas.val_mai_chua_doc ? "<" : ">"`} ${val_mai_chua_doc}$ nên {`formulas.val_lan_chua_doc < formulas.val_mai_chua_doc ? "Lan" : "Mai"`} còn ít trang sách chưa đọc hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : "B"`}.",
+    "tip": "Khi so sánh các phần 'còn lại', ta thường lấy tổng thể (thường là 1) trừ đi phần đã cho. Điều này giúp tránh nhầm lẫn khi so sánh trực tiếp các phần đã sử dụng."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n1": { "min": 1, "max": 5, "step": 1 },
+      "d1": { "min": 6, "max": 10, "step": 1 },
+      "n2": { "min": 1, "max": 5, "step": 1 },
+      "d2": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "d1 > n1", "d2 > n2",
+      "gcd(n1, d1) === 1", "gcd(n2, d2) === 1",
+      "(n1/d1) < (n2/d2)"
+    ],
+    "formulas": {
+      "lcm_val": "lcm(d1, d2)",
+      "num1_new_base": "n1 * (lcm(d1, d2) / d1)",
+      "num2_new_base": "n2 * (lcm(d1, d2) / d2)",
+      "check_factor": "1",
+      "found_num": "0",
+      "found_den": "0",
+      "generateFraction": "(() => { for (let factor = 2; factor <= 5; factor++) { let c_den = lcm(variables.d1, variables.d2) * factor; let c_num1 = variables.n1 * (c_den / variables.d1); let c_num2 = variables.n2 * (c_den / variables.d2); for (let i = c_num1 + 1; i < c_num2; i++) { if (gcd(i, c_den) === 1) return { num: i, den: c_den }; } } return {num: '?', den: '?'}; })()",
+      "ans_num": "formulas.generateFraction.num",
+      "ans_den": "formulas.generateFraction.den",
+      "w1_num": "n1", "w1_den": "d1",
+      "w2_num": "n2", "w2_den": "d2",
+      "w3_num": "n1*2", "w3_den": "d1*2 + 1"
+    },
+    "questionText": "Hãy tìm một phân số tối giản nằm giữa $\\frac{{{n1}}}{{{d1}}}$ và $\\frac{{{n2}}}{{{d2}}}$. (Chọn một trong các đáp án sau)",
+    "options": [
+      "A. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+      "B. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+      "C. $\\frac{{{w2_num}}}{{{w2_den}}}$",
+      "D. $\\frac{{{w3_num}}}{{{w3_den}}}$"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để tìm phân số nằm giữa hai phân số cho trước, ta có thể quy đồng mẫu số của cả hai phân số đó.",
+      "Nếu giữa hai tử số sau khi quy đồng chưa có số nguyên nào, hãy nhân cả tử và mẫu của hai phân số đã quy đồng với một số tự nhiên (2, 3,...) để mở rộng khoảng cách giữa chúng."
+    ],
+    "solutionHtml": "Bước 1: Quy đồng mẫu số của hai phân số $\\frac{{{n1}}}{{{d1}}}$ và $\\frac{{{n2}}}{{{d2}}}$.<br/>MSCNN của ${d1}$ và ${d2}$ là ${lcm_val}$.<br/>$\\frac{{{n1}}}{{{d1}}} = \\frac{{{n1} \\times ({lcm_val} / {d1})}}{{{lcm_val}}} = \\frac{{{num1_new_base}}}{{{lcm_val}}}$<br/>$\\frac{{{n2}}}{{{d2}}} = \\frac{{{n2} \\times ({lcm_val} / {d2})}}{{{lcm_val}}} = \\frac{{{num2_new_base}}}{{{lcm_val}}}$<br/>Bước 2: Tìm phân số nằm giữa. Nếu giữa hai tử số ${num1_new_base}$ và ${num2_new_base}$ chưa có số nguyên nào, ta nhân cả tử và mẫu của hai phân số đã quy đồng với một số tự nhiên (ví dụ 2, 3,...) để tìm một phân số ở giữa.<br/>Với các giá trị của đề bài, ta có thể nhân lên để tìm được một phân số thỏa mãn. Ví dụ, sau khi quy đồng và nhân lên một số lần, ta tìm được phân số $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Phân số này tối giản và thỏa mãn ${n1}/{d1} < {ans_num}/{ans_den} < {n2}/{d2}$.<br/>Đáp án đúng là A.",
+    "tip": "Khi tìm phân số nằm giữa hai phân số, việc mở rộng phân số bằng cách nhân tử và mẫu với cùng một số giúp tạo ra 'không gian' để tìm được phân số mong muốn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "d1_w": { "min": 2, "max": 5, "step": 1 },
+      "d1_n": { "min": 1, "max": 3, "step": 1 },
+      "d1_d": { "min": 4, "max": 8, "step": 1 },
+      "d2_w": { "min": 1, "max": 4, "step": 1 },
+      "d2_n": { "min": 1, "max": 3, "step": 1 },
+      "d2_d": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "d1_d > d1_n", "d2_d > d2_n",
+      "gcd(d1_n, d1_d) === 1", "gcd(d2_n, d2_d) === 1"
+    ],
+    "formulas": {
+      "dist1_dec": "d1_w + d1_n / d1_d",
+      "dist2_dec": "d2_w + d2_n / d2_d",
+      "total_dist_dec": "(d1_w + d1_n / d1_d) + (d2_w + d2_n / d2_d)",
+      "so_sanh_val": "Math.floor((d1_w + d1_n / d1_d) + (d2_w + d2_n / d2_d)) + 1 + (Math.random() < 0.5 ? 0 : 0.5)",
+      "ansIndex": "(formulas.total_dist_dec > formulas.so_sanh_val) ? 0 : ((formulas.total_dist_dec < formulas.so_sanh_val) ? 1 : 2)"
+    },
+    "questionText": "Một vận động viên chạy bộ trong hai ngày. Ngày thứ nhất chạy được ${d1_w}\\frac{{{d1_n}}}{{{d1_d}}}$ km. Ngày thứ hai chạy được ${d2_w}\\frac{{{d2_n}}}{{{d2_d}}}$ km. So sánh tổng quãng đường vận động viên đã chạy với ${so_sanh_val}$ km.",
+    "options": [
+      "A. Tổng quãng đường lớn hơn ${so_sanh_val}$ km",
+      "B. Tổng quãng đường nhỏ hơn ${so_sanh_val}$ km",
+      "C. Tổng quãng đường bằng ${so_sanh_val}$ km",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Tính tổng quãng đường vận động viên đã chạy trong hai ngày.",
+      "Chuyển đổi các hỗn số về dạng phân số hoặc số thập phân để cộng dễ dàng hơn."
+    ],
+    "solutionHtml": "Bước 1: Chuyển đổi các hỗn số sang phân số hoặc số thập phân.<br/>Ngày thứ nhất chạy: ${d1_w}\\frac{{{d1_n}}}{{{d1_d}}} = {d1_w} + \\frac{{{d1_n}}}{{{d1_d}}} = {dist1_dec}$ km.<br/>Ngày thứ hai chạy: ${d2_w}\\frac{{{d2_n}}}{{{d2_d}}} = {d2_w} + \\frac{{{d2_n}}}{{{d2_d}}} = {dist2_dec}$ km.<br/>Bước 2: Tính tổng quãng đường đã chạy.<br/>Tổng quãng đường là: ${dist1_dec} + {dist2_dec} = {total_dist_dec}$ km.<br/>Bước 3: So sánh tổng quãng đường với ${so_sanh_val}$ km.<br/>Ta thấy ${total_dist_dec}$ {`formulas.total_dist_dec > formulas.so_sanh_val ? ">" : (formulas.total_dist_dec < formulas.so_sanh_val ? "<" : "=")`} ${so_sanh_val}$.<br/>Vậy tổng quãng đường vận động viên đã chạy {`formulas.total_dist_dec > formulas.so_sanh_val ? "lớn hơn" : (formulas.total_dist_dec < formulas.so_sanh_val ? "nhỏ hơn" : "bằng")`} ${so_sanh_val}$ km.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : (formulas.ansIndex === 1 ? "B" : "C")`}.",
+    "tip": "Khi cộng các hỗn số, em có thể cộng phần nguyên riêng và phần phân số riêng, hoặc chuyển tất cả về dạng phân số (hoặc số thập phân) rồi cộng."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numerator_val": { "min": 3, "max": 7, "step": 1 },
+      "lower_n": { "min": 1, "max": 4, "step": 1 },
+      "lower_d": { "min": 8, "max": 12, "step": 1 },
+      "upper_n": { "min": 5, "max": 9, "step": 1 },
+      "upper_d": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "lower_d > lower_n", "upper_d > upper_n",
+      "gcd(lower_n, lower_d) === 1", "gcd(upper_n, upper_d) === 1",
+      "(lower_n / lower_d) < (upper_n / upper_d)",
+      "formulas.possible_denominators.length > 0"
+    ],
+    "formulas": {
+      "lower_bound_dec": "lower_n / lower_d",
+      "upper_bound_dec": "upper_n / upper_d",
+      "min_x_exclusive": "numerator_val / (upper_n / upper_d)",
+      "max_x_exclusive": "numerator_val / (lower_n / lower_d)",
+      "possible_denominators": "(() => { const lower = variables.numerator_val / (variables.upper_n / variables.upper_d); const upper = variables.numerator_val / (variables.lower_n / variables.lower_d); const dens = []; for (let x = Math.floor(lower) + 1; x < Math.ceil(upper); x++) { if (x > 0 && gcd(variables.numerator_val, x) === 1 && (variables.numerator_val/x > variables.lower_n/variables.lower_d) && (variables.numerator_val/x < variables.upper_n/variables.upper_d)) { dens.push(x); } } return dens; })()",
+      "ans_den": "formulas.possible_denominators.length > 0 ? Math.min(...formulas.possible_denominators) : '?'",
+      "w1_den": "formulas.ans_den + 1",
+      "w2_den": "formulas.ans_den - 1",
+      "w3_den": "formulas.ans_den + 2"
+    },
+    "questionText": "Tìm phân số có tử số là ${numerator_val}$ và lớn hơn $\\frac{{{lower_n}}}{{{lower_d}}}$ nhưng nhỏ hơn $\\frac{{{upper_n}}}{{{upper_d}}}$. Phân số đó phải là tối giản và có mẫu số nhỏ nhất có thể.",
+    "options": [
+      "A. $\\frac{{{numerator_val}}}{{{ans_den}}}$",
+      "B. $\\frac{{{numerator_val}}}{{{w1_den}}}$",
+      "C. $\\frac{{{numerator_val}}}{{{w2_den}}}$",
+      "D. $\\frac{{{numerator_val}}}{{{w3_den}}}$"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Gọi phân số cần tìm là $\\frac{{{numerator_val}}}{x}$. Ta cần tìm $x$ sao cho $\\frac{{{lower_n}}}{{{lower_d}}} < \\frac{{{numerator_val}}}{x} < \\frac{{{upper_n}}}{{{upper_d}}}$.",
+      "Từ đó, hãy đảo ngược các phân số để tìm khoảng giá trị của $x$.",
+      "Đảm bảo phân số $\\frac{{{numerator_val}}}{x}$ là tối giản và $x$ là số tự nhiên nhỏ nhất."
+    ],
+    "solutionHtml": "Gọi phân số cần tìm là $\\frac{{{numerator_val}}}{x}$.<br/>Theo đề bài, ta có: $\\frac{{{lower_n}}}{{{lower_d}}} < \\frac{{{numerator_val}}}{x} < \\frac{{{upper_n}}}{{{upper_d}}}$.<br/>Bước 1: Tìm khoảng giá trị của $x$.<br/>Từ $\\frac{{{numerator_val}}}{x} < \\frac{{{upper_n}}}{{{upper_d}}}$, ta suy ra $x > \\frac{{{numerator_val} \\times {upper_d}}}{{{upper_n}}} = {min_x_exclusive}$ (vì tử số cố định, mẫu số lớn hơn thì giá trị phân số nhỏ hơn).<br/>Từ $\\frac{{{numerator_val}}}{x} > \\frac{{{lower_n}}}{{{lower_d}}}$, ta suy ra $x < \\frac{{{numerator_val} \\times {lower_d}}}{{{lower_n}}} = {max_x_exclusive}$.<br/>Vậy, ta cần tìm số tự nhiên $x$ sao cho ${min_x_exclusive} < x < {max_x_exclusive}$.<br/>Bước 2: Liệt kê các số nguyên $x$ trong khoảng tìm được.<br/>Các giá trị nguyên của $x$ có thể là: {`formulas.possible_denominators.join(', ')`}.<br/>Bước 3: Chọn giá trị $x$ nhỏ nhất mà phân số $\\frac{{{numerator_val}}}{x}$ là tối giản.<br/>Trong các giá trị trên, giá trị nhỏ nhất thỏa mãn $\\text{gcd}({numerator_val}, x) = 1$ là ${ans_den}$.<br/>Vậy phân số cần tìm là $\\frac{{{numerator_val}}}{{{ans_den}}}$.<br/>Đáp án đúng là A.",
+    "tip": "Khi tìm mẫu số $x$ trong một khoảng, hãy thử các giá trị nguyên từ nhỏ đến lớn. Đồng thời, kiểm tra điều kiện phân số tối giản bằng cách tính ước chung lớn nhất của tử số và mẫu số."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a1": { "min": 1, "max": 4, "step": 1 },
+      "b1": { "min": 5, "max": 10, "step": 1 },
+      "c1": { "min": 1, "max": 4, "step": 1 },
+      "d1": { "min": 5, "max": 10, "step": 1 },
+      "a2": { "min": 1, "max": 4, "step": 1 },
+      "b2": { "min": 5, "max": 10, "step": 1 },
+      "c2": { "min": 1, "max": 4, "step": 1 },
+      "d2": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "b1 > a1", "d1 > c1", "b2 > a2", "d2 > c2",
+      "gcd(a1,b1)===1", "gcd(c1,d1)===1", "gcd(a2,b2)===1", "gcd(c2,d2)===1",
+      "(a1/b1 + c1/d1) !== (a2/b2 + c2/d2)"
+    ],
+    "formulas": {
+      "valP": "(a1/b1) + (c1/d1)",
+      "valQ": "(a2/b2) + (c2/d2)",
+      "ansIndex": "valP > valQ ? 0 : (valP < valQ ? 1 : 2)",
+      "lcm_P": "lcm(b1, d1)",
+      "sum_P_num": "(a1 * (lcm(b1, d1) / b1) + c1 * (lcm(b1, d1) / d1))",
+      "lcm_Q": "lcm(b2, d2)",
+      "sum_Q_num": "(a2 * (lcm(b2, d2) / b2) + c2 * (lcm(b2, d2) / d2))"
+    },
+    "questionText": "Cho hai biểu thức $P = \\frac{{{a1}}}{{{b1}}} + \\frac{{{c1}}}{{{d1}}}$ và $Q = \\frac{{{a2}}}{{{b2}}} + \\frac{{{c2}}}{{{d2}}}$. Hãy so sánh giá trị của $P$ và $Q$.",
+    "options": [
+      "A. $P > Q$",
+      "B. $P < Q$",
+      "C. $P = Q$",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Tính giá trị của biểu thức $P$ và biểu thức $Q$ bằng cách quy đồng mẫu số rồi cộng các phân số.",
+      "Sau khi có giá trị của $P$ và $Q$, hãy so sánh chúng."
+    ],
+    "solutionHtml": "Bước 1: Tính giá trị của biểu thức $P$.<br/>$P = \\frac{{{a1}}}{{{b1}}} + \\frac{{{c1}}}{{{d1}}}$<br/>Quy đồng mẫu số chung ${lcm_P}$:<br/>$P = \\frac{{{a1} \\times ({lcm_P} / {b1})}}{{{lcm_P}}} + \\frac{{{c1} \\times ({lcm_P} / {d1})}}{{{lcm_P}}} = \\frac{{{a1 * (lcm_P / b1) + c1 * (lcm_P / d1)}}}{{{lcm_P}}} = \\frac{{{sum_P_num}}}{{{lcm_P}}} = {valP}$<br/>Bước 2: Tính giá trị của biểu thức $Q$.<br/>$Q = \\frac{{{a2}}}{{{b2}}} + \\frac{{{c2}}}{{{d2}}}$<br/>Quy đồng mẫu số chung ${lcm_Q}$:<br/>$Q = \\frac{{{a2} \\times ({lcm_Q} / {b2})}}{{{lcm_Q}}} + \\frac{{{c2} \\times ({lcm_Q} / {d2})}}{{{lcm_Q}}} = \\frac{{{a2 * (lcm_Q / b2) + c2 * (lcm_Q / d2)}}}{{{lcm_Q}}} = \\frac{{{sum_Q_num}}}{{{lcm_Q}}} = {valQ}$<br/>Bước 3: So sánh giá trị của $P$ và $Q$.<br/>Ta có $P = {valP}$ và $Q = {valQ}$.<br/>Vì ${valP}$ {`formulas.valP > formulas.valQ ? ">" : (formulas.valP < formulas.valQ ? "<" : "=")`} ${valQ}$.<br/>Do đó, {`formulas.valP > formulas.valQ ? "P > Q" : (formulas.valP < formulas.valQ ? "P < Q" : "P = Q")`}.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : (formulas.ansIndex === 1 ? "B" : "C")`}.",
+    "tip": "Để so sánh các biểu thức có chứa phép cộng (hoặc trừ) phân số, hãy tính giá trị của từng biểu thức một cách chính xác trước khi so sánh."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "bn": { "min": 1, "max": 4, "step": 1 },
+      "bd": { "min": 5, "max": 10, "step": 1 },
+      "gn": { "min": 1, "max": 4, "step": 1 },
+      "gd": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "bd > bn", "gd > gn",
+      "gcd(bn, bd) === 1", "gcd(gn, gd) === 1",
+      "(bn/bd) !== (gn/gd)"
+    ],
+    "formulas": {
+      "val_boys_like": "bn / bd",
+      "val_girls_like": "gn / gd",
+      "ansIndex": "val_boys_like > val_girls_like ? 0 : 1",
+      "lcm_bdgd": "lcm(bd, gd)",
+      "boys_num_new": "bn * (lcm(bd, gd) / bd)",
+      "girls_num_new": "gn * (lcm(bd, gd) / gd)"
+    },
+    "questionText": "Trong một lớp học, $\\frac{{{bn}}}{{{bd}}}$ số học sinh nam thích môn Toán, và $\\frac{{{gn}}}{{{gd}}}$ số học sinh nữ thích môn Toán. Biết số học sinh nam và nữ trong lớp bằng nhau. Hỏi tỉ lệ học sinh nào (nam hay nữ) thích Toán nhiều hơn?",
+    "options": [
+      "A. Tỉ lệ học sinh nam thích Toán nhiều hơn",
+      "B. Tỉ lệ học sinh nữ thích Toán nhiều hơn",
+      "C. Tỉ lệ học sinh nam và nữ thích Toán bằng nhau",
+      "D. Không đủ thông tin để so sánh"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Vì số học sinh nam và nữ bằng nhau, việc so sánh tỉ lệ thích Toán tương đương với việc so sánh trực tiếp hai phân số $\\frac{{{bn}}}{{{bd}}}$ và $\\frac{{{gn}}}{{{gd}}}$",
+      "Hãy quy đồng mẫu số hai phân số để so sánh."
+    ],
+    "solutionHtml": "Để so sánh tỉ lệ học sinh nam hay nữ thích Toán nhiều hơn, ta cần so sánh hai phân số $\\frac{{{bn}}}{{{bd}}}$ (tỉ lệ học sinh nam thích Toán) và $\\frac{{{gn}}}{{{gd}}}$ (tỉ lệ học sinh nữ thích Toán).<br/>Vì số học sinh nam và nữ trong lớp bằng nhau, ta chỉ cần so sánh trực tiếp hai phân số.<br/>Bước 1: Quy đồng mẫu số của hai phân số.<br/>MSCNN của ${bd}$ và ${gd}$ là ${lcm_bdgd}$.<br/>Tỉ lệ học sinh nam thích Toán: $\\frac{{{bn}}}{{{bd}}} = \\frac{{{bn} \\times ({lcm_bdgd} / {bd})}}{{{lcm_bdgd}}} = \\frac{{{boys_num_new}}}{{{lcm_bdgd}}}$<br/>Tỉ lệ học sinh nữ thích Toán: $\\frac{{{gn}}}{{{gd}}} = \\frac{{{gn} \\times ({lcm_bdgd} / {gd})}}{{{lcm_bdgd}}} = \\frac{{{girls_num_new}}}{{{lcm_bdgd}}}$<br/>Bước 2: So sánh hai phân số đã quy đồng.<br/>Vì ${boys_num_new}$ {`formulas.val_boys_like > formulas.val_girls_like ? ">" : "<"`} ${girls_num_new}$ nên $\\frac{{{boys_num_new}}}{{{lcm_bdgd}}}$ {`formulas.val_boys_like > formulas.val_girls_like ? ">" : "<"`} $\\frac{{{girls_num_new}}}{{{lcm_bdgd}}}$.<br/>Vậy {`formulas.val_boys_like > formulas.val_girls_like ? "tỉ lệ học sinh nam" : "tỉ lệ học sinh nữ"`} thích Toán nhiều hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : "B"`}.",
+    "tip": "Khi so sánh tỉ lệ (phân số) của hai nhóm có cùng tổng số lượng, chỉ cần so sánh trực tiếp các phân số đó."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total_students": { "min": 30, "max": 45, "step": 5 },
+      "math_n": { "min": 1, "max": 3, "step": 1 },
+      "math_d": { "min": 5, "max": 10, "step": 1 },
+      "lit_n": { "min": 1, "max": 3, "step": 1 },
+      "lit_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "math_d > math_n", "lit_d > lit_n",
+      "gcd(math_n, math_d) === 1", "gcd(lit_n, lit_d) === 1",
+      "total_students % math_d === 0", "total_students % lit_d === 0",
+      "(math_n/math_d) !== (lit_n/lit_d)"
+    ],
+    "formulas": {
+      "num_math": "total_students * math_n / math_d",
+      "num_lit": "total_students * lit_n / lit_d",
+      "ansIndex": "num_math > num_lit ? 0 : 1"
+    },
+    "questionText": "Trong một lớp học có ${total_students}$ học sinh. $\\frac{{{math_n}}}{{{math_d}}}$ số học sinh thích môn Toán, và $\\frac{{{lit_n}}}{{{lit_d}}}$ số học sinh thích môn Văn. Hỏi môn học nào có số lượng học sinh yêu thích NHIỀU HƠN?",
+    "options": [
+      "A. Môn Toán",
+      "B. Môn Văn",
+      "C. Cả hai môn có số lượng học sinh yêu thích bằng nhau",
+      "D. Không đủ thông tin"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Tính số học sinh thích môn Toán và số học sinh thích môn Văn.",
+      "So sánh hai số lượng học sinh đó để tìm ra môn được yêu thích nhiều hơn."
+    ],
+    "solutionHtml": "Bước 1: Tính số học sinh thích môn Toán.<br/>Số học sinh thích môn Toán là: ${total_students} \\times \\frac{{{math_n}}}{{{math_d}}} = {num_math}$ (học sinh).<br/>Bước 2: Tính số học sinh thích môn Văn.<br/>Số học sinh thích môn Văn là: ${total_students} \\times \\frac{{{lit_n}}}{{{lit_d}}} = {num_lit}$ (học sinh).<br/>Bước 3: So sánh số học sinh thích hai môn học.<br/>Vì ${num_math}$ {`formulas.num_math > formulas.num_lit ? ">" : "<"`} ${num_lit}$ nên môn {`formulas.num_math > formulas.num_lit ? "Toán" : "Văn"`} có số lượng học sinh yêu thích nhiều hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : "B"`}.",
+    "tip": "Khi so sánh phần của một tổng, em có thể so sánh trực tiếp các phân số nếu tổng là như nhau, hoặc tính ra giá trị cụ thể rồi so sánh."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "milk_w": { "min": 1, "max": 3, "step": 1 },
+      "milk_n": { "min": 1, "max": 3, "step": 1 },
+      "milk_d": { "min": 4, "max": 8, "step": 1 },
+      "juice_w": { "min": 1, "max": 3, "step": 1 },
+      "juice_n": { "min": 1, "max": 3, "step": 1 },
+      "juice_d": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "milk_d > milk_n", "juice_d > juice_n",
+      "gcd(milk_n, milk_d) === 1", "gcd(juice_n, juice_d) === 1",
+      "(milk_w + milk_n/milk_d) !== (juice_w + juice_n/juice_d)"
+    ],
+    "formulas": {
+      "milk_dec": "milk_w + milk_n / milk_d",
+      "juice_dec": "juice_w + juice_n / juice_d",
+      "ansIndex": "milk_dec > juice_dec ? 0 : 1"
+    },
+    "questionText": "Trong tủ lạnh có ${milk_w}\\frac{{{milk_n}}}{{{milk_d}}}$ lít sữa và ${juice_w}\\frac{{{juice_n}}}{{{juice_d}}}$ lít nước ép. Hỏi loại đồ uống nào có số lượng NHIỀU HƠN?",
+    "options": [
+      "A. Sữa",
+      "B. Nước ép",
+      "C. Số lượng bằng nhau",
+      "D. Không thể xác định"
+    ],
+    "correctIndex": "{ansIndex}",
+    "hints": [
+      "Để so sánh hai hỗn số, em có thể chuyển chúng thành phân số hoặc số thập phân, hoặc so sánh phần nguyên trước, sau đó là phần phân số.",
+      "Cần chú ý so sánh phần nguyên trước, nếu phần nguyên bằng nhau thì mới so sánh phần phân số."
+    ],
+    "solutionHtml": "Để so sánh số lượng sữa và nước ép, ta cần so sánh hai hỗn số ${milk_w}\\frac{{{milk_n}}}{{{milk_d}}}$ và ${juice_w}\\frac{{{juice_n}}}{{{juice_d}}}$.<br/>Cách 1: Chuyển đổi sang số thập phân.<br/>Lượng sữa: ${milk_w}\\frac{{{milk_n}}}{{{milk_d}}} = {milk_w} + \\frac{{{milk_n}}}{{{milk_d}}} = {milk_dec}$ lít.<br/>Lượng nước ép: ${juice_w}\\frac{{{juice_n}}}{{{juice_d}}} = {juice_w} + \\frac{{{juice_n}}}{{{juice_d}}} = {juice_dec}$ lít.<br/>So sánh ${milk_dec}$ và ${juice_dec}$.<br/>Vì ${milk_dec}$ {`formulas.milk_dec > formulas.juice_dec ? ">" : "<"`} ${juice_dec}$ nên {`formulas.milk_dec > formulas.juice_dec ? "sữa" : "nước ép"`} có số lượng nhiều hơn.<br/>Cách 2: So sánh phần nguyên và phần phân số.<br/>Phần nguyên của sữa là ${milk_w}$, phần nguyên của nước ép là ${juice_w}$.<br/>(Thực hiện so sánh phần nguyên, nếu bằng nhau thì so sánh phần phân số bằng cách quy đồng).<br/>Kết quả: {`formulas.milk_dec > formulas.juice_dec ? "Sữa" : "Nước ép"`} có số lượng nhiều hơn.<br/>Đáp án đúng là {`formulas.ansIndex === 0 ? "A" : "B"`}.",
+    "tip": "Khi so sánh hỗn số, ưu tiên so sánh phần nguyên trước. Nếu phần nguyên bằng nhau, tiếp tục so sánh phần phân số bằng cách quy đồng mẫu số."
+  }
+]
+

@@ -1,0 +1,534 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "apples": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "orangesMore": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "mandarinsFactor": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "capacityPerBox": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "apples % capacityPerBox !== 0",
+        "(apples + apples + orangesMore) % capacityPerBox !== 0",
+        "(apples + apples + orangesMore + (apples + orangesMore) * mandarinsFactor) % capacityPerBox === 0"
+      ],
+      "formulas": {
+        "oranges": "apples + orangesMore",
+        "mandarins": "(apples + orangesMore) * mandarinsFactor",
+        "totalFruits": "apples + (apples + orangesMore) + (apples + orangesMore) * mandarinsFactor",
+        "ans": "totalFruits / capacityPerBox",
+        "w1": "(apples + (apples + orangesMore)) / capacityPerBox",
+        "w2": "totalFruits - capacityPerBox",
+        "w3": "apples + oranges + mandarins + capacityPerBox"
+      },
+      "questionText": "Bác nông dân thu hoạch được {apples} quả táo. Số cam nhiều hơn số táo {orangesMore} quả. Số quýt gấp {mandarinsFactor} lần số cam. Bác đóng tất cả số trái cây đã thu hoạch vào các hộp, mỗi hộp đựng {capacityPerBox} quả. Hỏi bác nông dân đóng được tất cả bao nhiêu hộp trái cây?",
+      "options": [
+        "A. {w1} hộp",
+        "B. {ans} hộp",
+        "C. {w2} hộp",
+        "D. {w3} hộp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số quả cam bác nông dân thu hoạch được.",
+        "Tiếp theo, tính số quả quýt bác nông dân thu hoạch được.",
+        "Sau đó, tính tổng số trái cây đã thu hoạch.",
+        "Cuối cùng, chia tổng số trái cây cho số lượng trái cây trong mỗi hộp để tìm số hộp."
+      ],
+      "solutionHtml": "Số quả cam bác nông dân thu hoạch được là:<br/>$ {apples} + {orangesMore} = {oranges} $ (quả)<br/><br/>Số quả quýt bác nông dân thu hoạch được là:<br/>$ {oranges} \\times {mandarinsFactor} = {mandarins} $ (quả)<br/><br/>Tổng số trái cây bác nông dân thu hoạch được là:<br/>$ {apples} + {oranges} + {mandarins} = {totalFruits} $ (quả)<br/><br/>Số hộp trái cây bác nông dân đóng được tất cả là:<br/>$ {totalFruits} : {capacityPerBox} = {ans} $ (hộp)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán có nhiều bước, hãy đọc kỹ đề để xác định thứ tự các phép tính và ghi nhớ các giá trị trung gian. Cẩn thận với các từ khóa 'nhiều hơn', 'ít hơn', 'gấp mấy lần' để chọn phép tính đúng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1Pages": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "day2More": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "day3Factor": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "day2Pages": "day1Pages + day2More",
+        "day3Pages": "(day1Pages + day2More) * day3Factor",
+        "ans": "day1Pages + (day1Pages + day2More) + (day1Pages + day2More) * day3Factor",
+        "w1": "day1Pages + day2Pages",
+        "w2": "day1Pages + day2Pages + day3Factor",
+        "w3": "day1Pages * day2More * day3Factor"
+      },
+      "questionText": "Bạn Minh đọc một cuốn sách. Ngày thứ nhất đọc được {day1Pages} trang. Ngày thứ hai đọc nhiều hơn ngày thứ nhất {day2More} trang. Ngày thứ ba đọc số trang gấp {day3Factor} lần số trang ngày thứ hai. Hỏi cả ba ngày Minh đọc được tất cả bao nhiêu trang sách?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số trang sách Minh đọc được trong ngày thứ hai.",
+        "Bước 2: Tính số trang sách Minh đọc được trong ngày thứ ba.",
+        "Bước 3: Tính tổng số trang sách Minh đọc được trong cả ba ngày."
+      ],
+      "solutionHtml": "Số trang sách Minh đọc được trong ngày thứ hai là:<br/>$ {day1Pages} + {day2More} = {day2Pages} $ (trang)<br/><br/>Số trang sách Minh đọc được trong ngày thứ ba là:<br/>$ {day2Pages} \\times {day3Factor} = {day3Pages} $ (trang)<br/><br/>Cả ba ngày Minh đọc được tất cả số trang sách là:<br/>$ {day1Pages} + {day2Pages} + {day3Pages} = {ans} $ (trang)<br/><br/>Đáp án đúng là B.",
+      "tip": "Để tránh nhầm lẫn, hãy đọc kỹ mỗi câu văn trong đề bài và xác định phép tính tương ứng. Khi có các phép tính 'hơn', 'kém', 'gấp', 'chia', hãy thực hiện đúng thứ tự."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialMoney": {
+          "min": 100000,
+          "max": 200000,
+          "step": 10000
+        },
+        "riceCost": {
+          "min": 25000,
+          "max": 45000,
+          "step": 5000
+        },
+        "meatMoreThanRice": {
+          "min": 15000,
+          "max": 30000,
+          "step": 5000
+        }
+      },
+      "constraints": [
+        "initialMoney > riceCost + (riceCost + meatMoreThanRice)"
+      ],
+      "formulas": {
+        "meatCost": "riceCost + meatMoreThanRice",
+        "totalSpent": "riceCost + (riceCost + meatMoreThanRice)",
+        "ans": "initialMoney - (riceCost + (riceCost + meatMoreThanRice))",
+        "w1": "initialMoney - riceCost",
+        "w2": "initialMoney - meatCost",
+        "w3": "initialMoney + totalSpent"
+      },
+      "questionText": "Mẹ đi chợ mang theo {initialMoney} đồng. Mẹ mua gạo hết {riceCost} đồng. Số tiền mua thịt nhiều hơn số tiền mua gạo là {meatMoreThanRice} đồng. Hỏi sau khi mua gạo và thịt, mẹ còn lại bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số tiền mẹ dùng để mua thịt.",
+        "Tiếp theo, tính tổng số tiền mẹ đã chi tiêu để mua gạo và thịt.",
+        "Cuối cùng, lấy số tiền ban đầu trừ đi tổng số tiền đã chi tiêu để tìm số tiền còn lại."
+      ],
+      "solutionHtml": "Số tiền mẹ dùng để mua thịt là:<br/>$ {riceCost} + {meatMoreThanRice} = {meatCost} $ (đồng)<br/><br/>Tổng số tiền mẹ đã chi tiêu là:<br/>$ {riceCost} + {meatCost} = {totalSpent} $ (đồng)<br/><br/>Số tiền mẹ còn lại sau khi mua gạo và thịt là:<br/>$ {initialMoney} - {totalSpent} = {ans} $ (đồng)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán về tiền bạc, hãy cẩn thận với phép cộng và phép trừ. Đảm bảo rằng số tiền chi tiêu không vượt quá số tiền ban đầu."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chickens": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "ducksMoreThanChickens": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "cowsLessThanDucks": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(chickens + ducksMoreThanChickens) > cowsLessThanDucks"
+      ],
+      "formulas": {
+        "ducks": "chickens + ducksMoreThanChickens",
+        "cows": "ducks - cowsLessThanDucks",
+        "totalChickenDuckLegs": "(chickens + ducks) * 2",
+        "totalCowLegs": "cows * 4",
+        "ans": "totalChickenDuckLegs + totalCowLegs",
+        "w1": "chickens * 2 + ducks * 2",
+        "w2": "chickens * 2 + cows * 4",
+        "w3": "chickens + ducks + cows"
+      },
+      "questionText": "Trong một trang trại có {chickens} con gà. Số vịt nhiều hơn số gà {ducksMoreThanChickens} con. Số bò ít hơn số vịt {cowsLessThanDucks} con. Hỏi tổng số chân của tất cả gà, vịt và bò trong trang trại là bao nhiêu?",
+      "options": [
+        "A. {w1} chân",
+        "B. {ans} chân",
+        "C. {w2} chân",
+        "D. {w3} chân"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số con vịt có trong trang trại.",
+        "Bước 2: Tính số con bò có trong trang trại.",
+        "Bước 3: Gà và vịt có 2 chân, bò có 4 chân. Tính tổng số chân."
+      ],
+      "solutionHtml": "Số con vịt có trong trang trại là:<br/>$ {chickens} + {ducksMoreThanChickens} = {ducks} $ (con)<br/><br/>Số con bò có trong trang trại là:<br/>$ {ducks} - {cowsLessThanDucks} = {cows} $ (con)<br/><br/>Tổng số chân của gà, vịt và bò là:<br/>Số chân gà và vịt: $ ({chickens} + {ducks}) \\times 2 = {totalChickenDuckLegs} $ (chân)<br/>Số chân bò: $ {cows} \\times 4 = {totalCowLegs} $ (chân)<br/>Tổng cộng: $ {totalChickenDuckLegs} + {totalCowLegs} = {ans} $ (chân)<br/><br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các chi tiết nhỏ trong đề bài. Nhớ rằng mỗi loài vật có số chân khác nhau. Cần tính đúng số lượng từng loài rồi mới tính tổng số chân."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "boys": {
+          "min": 18,
+          "max": 25,
+          "step": 1
+        },
+        "girlsLessThanBoys": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "studentsPerGroup": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "boys > girlsLessThanBoys",
+        "(boys + (boys - girlsLessThanBoys)) % studentsPerGroup === 0"
+      ],
+      "formulas": {
+        "girls": "boys - girlsLessThanBoys",
+        "totalStudents": "boys + (boys - girlsLessThanBoys)",
+        "ans": "(boys + (boys - girlsLessThanBoys)) / studentsPerGroup",
+        "w1": "boys / studentsPerGroup",
+        "w2": "totalStudents - studentsPerGroup",
+        "w3": "boys + girls + studentsPerGroup"
+      },
+      "questionText": "Lớp 4A có {boys} học sinh nam. Số học sinh nữ ít hơn số học sinh nam {girlsLessThanBoys} bạn. Thầy giáo chia đều tất cả học sinh của lớp thành các nhóm, mỗi nhóm có {studentsPerGroup} học sinh. Hỏi lớp 4A có tất cả bao nhiêu nhóm?",
+      "options": [
+        "A. {w1} nhóm",
+        "B. {ans} nhóm",
+        "C. {w2} nhóm",
+        "D. {w3} nhóm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số học sinh nữ của lớp.",
+        "Bước 2: Tính tổng số học sinh của lớp.",
+        "Bước 3: Tính số nhóm có thể chia được."
+      ],
+      "solutionHtml": "Số học sinh nữ của lớp 4A là:<br/>$ {boys} - {girlsLessThanBoys} = {girls} $ (học sinh)<br/><br/>Tổng số học sinh của lớp 4A là:<br/>$ {boys} + {girls} = {totalStudents} $ (học sinh)<br/><br/>Số nhóm có thể chia được là:<br/>$ {totalStudents} : {studentsPerGroup} = {ans} $ (nhóm)<br/><br/>Đáp án đúng là B.",
+      "tip": "Đừng quên tính tổng số học sinh trước khi chia nhóm. Nếu chia nhầm chỉ số nam hoặc nữ thì sẽ sai kết quả."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "morningShirts": {
+          "min": 60,
+          "max": 100,
+          "step": 5
+        },
+        "afternoonLess": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "soldShirts": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "morningShirts > afternoonLess",
+        "morningShirts + (morningShirts - afternoonLess) > soldShirts"
+      ],
+      "formulas": {
+        "afternoonShirts": "morningShirts - afternoonLess",
+        "totalShirts": "morningShirts + (morningShirts - afternoonLess)",
+        "ans": "morningShirts + (morningShirts - afternoonLess) - soldShirts",
+        "w1": "morningShirts - soldShirts",
+        "w2": "totalShirts + soldShirts",
+        "w3": "afternoonShirts - soldShirts"
+      },
+      "questionText": "Một xưởng may áo sơ mi. Ca sáng may được {morningShirts} chiếc áo. Ca chiều may ít hơn ca sáng {afternoonLess} chiếc áo. Sau đó, xưởng đã bán đi {soldShirts} chiếc áo. Hỏi xưởng còn lại bao nhiêu chiếc áo sơ mi?",
+      "options": [
+        "A. {w1} chiếc áo",
+        "B. {ans} chiếc áo",
+        "C. {w2} chiếc áo",
+        "D. {w3} chiếc áo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số áo may được trong ca chiều.",
+        "Bước 2: Tính tổng số áo may được trong cả hai ca.",
+        "Bước 3: Tính số áo còn lại sau khi đã bán."
+      ],
+      "solutionHtml": "Số áo may được trong ca chiều là:<br/>$ {morningShirts} - {afternoonLess} = {afternoonShirts} $ (chiếc)<br/><br/>Tổng số áo may được trong cả hai ca là:<br/>$ {morningShirts} + {afternoonShirts} = {totalShirts} $ (chiếc)<br/><br/>Số áo còn lại sau khi đã bán là:<br/>$ {totalShirts} - {soldShirts} = {ans} $ (chiếc)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều thông tin về 'thêm', 'bớt', 'bán', hãy sắp xếp các phép tính theo đúng trình tự thời gian xảy ra sự việc để không bị nhầm lẫn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "length": {
+          "min": 20,
+          "max": 40,
+          "step": 2
+        },
+        "width": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "costPerMeter": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "length > width"
+      ],
+      "formulas": {
+        "sumLW": "length + width",
+        "perimeter": "(length + width) * 2",
+        "ans": "(length + width) * 2 * costPerMeter",
+        "w1": "length * width",
+        "w2": "perimeter + costPerMeter",
+        "w3": "length * costPerMeter + width * costPerMeter"
+      },
+      "questionText": "Một khu vườn hình chữ nhật có chiều dài là {length} mét và chiều rộng là {width} mét. Người ta muốn làm hàng rào xung quanh khu vườn đó. Biết rằng mỗi mét hàng rào có giá {costPerMeter} đồng. Hỏi chi phí làm hàng rào xung quanh khu vườn là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng chiều dài và chiều rộng của khu vườn.",
+        "Bước 2: Tính chu vi của khu vườn (tức là tổng chiều dài hàng rào cần làm).",
+        "Bước 3: Tính tổng chi phí làm hàng rào."
+      ],
+      "solutionHtml": "Tổng chiều dài và chiều rộng của khu vườn là:<br/>$ {length} + {width} = {sumLW} $ (mét)<br/><br/>Chu vi của khu vườn là:<br/>$ {sumLW} \\times 2 = {perimeter} $ (mét)<br/><br/>Chi phí làm hàng rào xung quanh khu vườn là:<br/>$ {perimeter} \\times {costPerMeter} = {ans} $ (đồng)<br/><br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức tính chu vi hình chữ nhật: $ (chiều dài + chiều rộng) \\times 2 $. Sau đó nhân với đơn giá để tìm tổng chi phí."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "penPrice": {
+          "min": 5000,
+          "max": 8000,
+          "step": 500
+        },
+        "notebookPrice": {
+          "min": 8000,
+          "max": 12000,
+          "step": 1000
+        },
+        "numPens": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "numNotebooks": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "totalPenCost": "numPens * penPrice",
+        "totalNotebookCost": "numNotebooks * notebookPrice",
+        "ans": "(numPens * penPrice) + (numNotebooks * notebookPrice)",
+        "w1": "penPrice + notebookPrice",
+        "w2": "totalPenCost - totalNotebookCost",
+        "w3": "numPens + numNotebooks"
+      },
+      "questionText": "Trong cửa hàng văn phòng phẩm, một cây bút bi giá {penPrice} đồng và một quyển vở giá {notebookPrice} đồng. An mua {numPens} cây bút bi và {numNotebooks} quyển vở. Hỏi An phải trả tất cả bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số tiền mua bút bi.",
+        "Bước 2: Tính tổng số tiền mua vở.",
+        "Bước 3: Tính tổng số tiền An phải trả cho cả bút bi và vở."
+      ],
+      "solutionHtml": "Số tiền An phải trả để mua bút bi là:<br/>$ {numPens} \\times {penPrice} = {totalPenCost} $ (đồng)<br/><br/>Số tiền An phải trả để mua vở là:<br/>$ {numNotebooks} \\times {notebookPrice} = {totalNotebookCost} $ (đồng)<br/><br/>Tổng số tiền An phải trả là:<br/>$ {totalPenCost} + {totalNotebookCost} = {ans} $ (đồng)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi mua nhiều loại hàng, hãy tính riêng tổng tiền cho từng loại trước, sau đó mới cộng tất cả lại."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "maiStamps": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "lanFactor": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "targetStamps": {
+          "min": 80,
+          "max": 120,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "targetStamps > maiStamps + (maiStamps * lanFactor)"
+      ],
+      "formulas": {
+        "lanStamps": "maiStamps * lanFactor",
+        "totalCollected": "maiStamps + (maiStamps * lanFactor)",
+        "ans": "targetStamps - (maiStamps + (maiStamps * lanFactor))",
+        "w1": "targetStamps - maiStamps",
+        "w2": "targetStamps + totalCollected",
+        "w3": "totalCollected - targetStamps"
+      },
+      "questionText": "Bạn Mai và bạn Lan cùng nhau sưu tầm tem. Mai có {maiStamps} con tem. Lan có số con tem gấp {lanFactor} lần số tem của Mai. Hỏi cả hai bạn cần sưu tầm thêm bao nhiêu con tem nữa để đạt mục tiêu là {targetStamps} con tem?",
+      "options": [
+        "A. {w1} con tem",
+        "B. {ans} con tem",
+        "C. {w2} con tem",
+        "D. {w3} con tem"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số con tem bạn Lan có.",
+        "Bước 2: Tính tổng số con tem cả hai bạn đã sưu tầm được.",
+        "Bước 3: Tính số tem còn thiếu để đạt mục tiêu."
+      ],
+      "solutionHtml": "Số con tem bạn Lan có là:<br/>$ {maiStamps} \\times {lanFactor} = {lanStamps} $ (con tem)<br/><br/>Tổng số con tem cả hai bạn đã sưu tầm được là:<br/>$ {maiStamps} + {lanStamps} = {totalCollected} $ (con tem)<br/><br/>Số con tem cả hai bạn cần sưu tầm thêm để đạt mục tiêu là:<br/>$ {targetStamps} - {totalCollected} = {ans} $ (con tem)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi có mục tiêu cần đạt, hãy luôn tính tổng số đã có trước, sau đó dùng phép trừ để tìm phần còn thiếu."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialCandies": {
+          "min": 70,
+          "max": 100,
+          "step": 5
+        },
+        "candiesForA": {
+          "min": 25,
+          "max": 40,
+          "step": 5
+        },
+        "candiesForBLessThanA": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "candiesForA > candiesForBLessThanA",
+        "initialCandies > candiesForA + (candiesForA - candiesForBLessThanA)"
+      ],
+      "formulas": {
+        "candiesForB": "candiesForA - candiesForBLessThanA",
+        "totalGiven": "candiesForA + (candiesForA - candiesForBLessThanA)",
+        "ans": "initialCandies - (candiesForA + (candiesForA - candiesForBLessThanA))",
+        "w1": "initialCandies - candiesForA",
+        "w2": "initialCandies + totalGiven",
+        "w3": "candiesForA - candiesForBLessThanA"
+      },
+      "questionText": "Cô giáo có {initialCandies} chiếc kẹo. Cô chia cho bạn An {candiesForA} chiếc kẹo. Chia cho bạn Bình ít hơn bạn An {candiesForBLessThanA} chiếc kẹo. Hỏi sau khi chia cho An và Bình, cô giáo còn lại bao nhiêu chiếc kẹo?",
+      "options": [
+        "A. {w1} chiếc kẹo",
+        "B. {ans} chiếc kẹo",
+        "C. {w2} chiếc kẹo",
+        "D. {w3} chiếc kẹo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số chiếc kẹo bạn Bình nhận được.",
+        "Bước 2: Tính tổng số chiếc kẹo cô giáo đã chia cho An và Bình.",
+        "Bước 3: Tính số chiếc kẹo cô giáo còn lại."
+      ],
+      "solutionHtml": "Số chiếc kẹo bạn Bình nhận được là:<br/>$ {candiesForA} - {candiesForBLessThanA} = {candiesForB} $ (chiếc kẹo)<br/><br/>Tổng số chiếc kẹo cô giáo đã chia cho An và Bình là:<br/>$ {candiesForA} + {candiesForB} = {totalGiven} $ (chiếc kẹo)<br/><br/>Số chiếc kẹo cô giáo còn lại là:<br/>$ {initialCandies} - {totalGiven} = {ans} $ (chiếc kẹo)<br/><br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến các phép tính 'ít hơn' để tránh nhầm lẫn. Luôn tính tổng số đã dùng rồi mới tính số còn lại."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 80,
+          "max": 120,
+          "step": 5
+        },
+        "grade3Boys": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "grade3GirlsMoreThanBoys": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "grade4BoysFactor": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalStudents > (grade3Boys + (grade3Boys + grade3GirlsMoreThanBoys)) + (grade3Boys * grade4BoysFactor)",
+        "grade3Boys + grade3GirlsMoreThanBoys > 0"
+      ],
+      "formulas": {
+        "grade3Girls": "grade3Boys + grade3GirlsMoreThanBoys",
+        "grade3Total": "grade3Boys + (grade3Boys + grade3GirlsMoreThanBoys)",
+        "grade4Boys": "grade3Boys * grade4BoysFactor",
+        "totalKnownStudents": "grade3Total + grade4Boys",
+        "ans": "totalStudents - totalKnownStudents",
+        "w1": "totalStudents - grade3Total",
+        "w2": "totalStudents - grade4Boys",
+        "w3": "totalStudents + grade3Total"
+      },
+      "questionText": "Một trường học có tổng cộng {totalStudents} học sinh. Khối 3 có {grade3Boys} học sinh nam, số học sinh nữ khối 3 nhiều hơn số học sinh nam khối 3 là {grade3GirlsMoreThanBoys} bạn. Số học sinh nam khối 4 gấp {grade4BoysFactor} lần số học sinh nam khối 3. Hỏi trường còn lại bao nhiêu học sinh nữ khối 4?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số học sinh nữ khối 3.",
+        "Bước 2: Tính tổng số học sinh khối 3 và số học sinh nam khối 4.",
+        "Bước 3: Tính tổng số học sinh đã biết của khối 3 và nam khối 4.",
+        "Bước 4: Lấy tổng số học sinh toàn trường trừ đi số học sinh đã biết để tìm số học sinh nữ khối 4."
+      ],
+      "solutionHtml": "Số học sinh nữ khối 3 là:<br/>$ {grade3Boys} + {grade3GirlsMoreThanBoys} = {grade3Girls} $ (học sinh)<br/><br/>Tổng số học sinh khối 3 là:<br/>$ {grade3Boys} + {grade3Girls} = {grade3Total} $ (học sinh)<br/><br/>Số học sinh nam khối 4 là:<br/>$ {grade3Boys} \\times {grade4BoysFactor} = {grade4Boys} $ (học sinh)<br/><br/>Tổng số học sinh đã biết (khối 3 và nam khối 4) là:<br/>$ {grade3Total} + {grade4Boys} = {totalKnownStudents} $ (học sinh)<br/><br/>Số học sinh nữ khối 4 là:<br/>$ {totalStudents} - {totalKnownStudents} = {ans} $ (học sinh)<br/><br/>Đáp án đúng là B.",
+      "tip": "Đây là một bài toán phức tạp, đòi hỏi nhiều bước tính toán và tổng hợp thông tin. Hãy chia nhỏ bài toán thành từng phần, tính toán cẩn thận từng giá trị trung gian. Sau đó tổng hợp lại và thực hiện phép tính cuối cùng."
+    }
+  ]
+}

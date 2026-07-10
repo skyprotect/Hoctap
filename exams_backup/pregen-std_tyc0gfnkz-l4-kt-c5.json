@@ -1,0 +1,588 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "avgMoney": {
+          "min": 25000,
+          "max": 60000,
+          "step": 1000
+        },
+        "hungMoney": {
+          "min": 20000,
+          "max": 40000,
+          "step": 1000
+        },
+        "lanMoney": {
+          "min": 22000,
+          "max": 42000,
+          "step": 1000
+        },
+        "maiMoney": {
+          "min": 23000,
+          "max": 43000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "hungMoney + lanMoney + maiMoney < avgMoney * 4",
+        "(avgMoney * 4) - (hungMoney + lanMoney + maiMoney) > 10000",
+        "hungMoney !== lanMoney",
+        "hungMoney !== maiMoney",
+        "lanMoney !== maiMoney"
+      ],
+      "formulas": {
+        "totalMoneyFourFriends": "avgMoney * 4",
+        "sumOfThreeFriends": "hungMoney + lanMoney + maiMoney",
+        "vietMoney": "totalMoneyFourFriends - sumOfThreeFriends",
+        "wrongSum": "hungMoney + lanMoney + maiMoney",
+        "wrongAvgPlus": "avgMoney + 5000",
+        "wrongDiff": "totalMoneyFourFriends - hungMoney"
+      },
+      "questionText": "Có 4 bạn Hùng, Lan, Mai và Việt cùng tham gia quỹ tiết kiệm của lớp. Trung bình cộng số tiền tiết kiệm của 4 bạn là $ {avgMoney} $ đồng. Biết rằng Hùng có $ {hungMoney} $ đồng, Lan có $ {lanMoney} $ đồng và Mai có $ {maiMoney} $ đồng. Hỏi Việt có bao nhiêu tiền tiết kiệm?",
+      "options": [
+        "A. $ {wrongSum} $ đồng",
+        "B. $ {vietMoney} $ đồng",
+        "C. $ {wrongAvgPlus} $ đồng",
+        "D. $ {wrongDiff} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số tiền tiết kiệm của cả 4 bạn.",
+        "Sau khi có tổng số tiền, hãy tính số tiền của Việt bằng cách lấy tổng số tiền trừ đi số tiền của 3 bạn Hùng, Lan và Mai."
+      ],
+      "solutionHtml": "Tổng số tiền tiết kiệm của 4 bạn là:<br/>$ {avgMoney} \\times 4 = {totalMoneyFourFriends} $ (đồng)<br/><br/>Tổng số tiền của Hùng, Lan và Mai là:<br/>$ {hungMoney} + {lanMoney} + {maiMoney} = {sumOfThreeFriends} $ (đồng)<br/><br/>Số tiền tiết kiệm của Việt là:<br/>$ {totalMoneyFourFriends} - {sumOfThreeFriends} = {vietMoney} $ (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán cho trung bình cộng của nhiều số, ta có thể tìm tổng của các số đó bằng cách lấy trung bình cộng nhân với số lượng các số.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalRoadWeek1": {
+          "min": 800,
+          "max": 1500,
+          "step": 2
+        },
+        "diffRoadWeek1": {
+          "min": 100,
+          "max": 300,
+          "step": 2
+        },
+        "addA": {
+          "min": 50,
+          "max": 120,
+          "step": 5
+        },
+        "addB": {
+          "min": 40,
+          "max": 100,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "totalRoadWeek1 > diffRoadWeek1",
+        "(totalRoadWeek1 - diffRoadWeek1) % 2 === 0"
+      ],
+      "formulas": {
+        "roadB_W1": "(totalRoadWeek1 - diffRoadWeek1) / 2",
+        "roadA_W1": "(totalRoadWeek1 + diffRoadWeek1) / 2",
+        "roadA_Total": "roadA_W1 + addA",
+        "roadB_Total": "roadB_W1 + addB",
+        "totalRoadTwoWeeks": "roadA_W1 + addA + roadB_W1 + addB",
+        "wrongGuess1": "totalRoadWeek1 + addA",
+        "wrongGuess2": "totalRoadWeek1 + addB",
+        "wrongGuess3": "totalRoadWeek1 + diffRoadWeek1"
+      },
+      "questionText": "Hai đội công nhân A và B cùng tham gia sửa đường. Trong tuần đầu tiên, tổng số mét đường cả hai đội sửa được là $ {totalRoadWeek1} $ m. Biết đội A sửa được nhiều hơn đội B là $ {diffRoadWeek1} $ m. Sang tuần thứ hai, đội A sửa thêm $ {addA} $ m đường và đội B sửa thêm $ {addB} $ m đường. Hỏi sau hai tuần, tổng số mét đường cả hai đội đã sửa được là bao nhiêu?",
+      "options": [
+        "A. $ {wrongGuess1} $ m",
+        "B. $ {totalRoadTwoWeeks} $ m",
+        "C. $ {wrongGuess2} $ m",
+        "D. $ {wrongGuess3} $ m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số mét đường mỗi đội sửa được trong tuần đầu tiên.",
+        "Sau đó, tính tổng số mét đường mỗi đội sửa được sau hai tuần.",
+        "Cuối cùng, cộng tổng số mét đường của cả hai đội sau hai tuần."
+      ],
+      "solutionHtml": "Trong tuần đầu tiên:<br/>Số mét đường đội B sửa được là: $ ( {totalRoadWeek1} - {diffRoadWeek1} ) \\div 2 = {roadB_W1} $ (m)<br/>Số mét đường đội A sửa được là: $ {roadB_W1} + {diffRoadWeek1} = {roadA_W1} $ (m)<br/><br/>Sau hai tuần:<br/>Tổng số mét đường đội A sửa được là: $ {roadA_W1} + {addA} = {roadA_Total} $ (m)<br/>Tổng số mét đường đội B sửa được là: $ {roadB_W1} + {addB} = {roadB_Total} $ (m)<br/><br/>Tổng số mét đường cả hai đội đã sửa được sau hai tuần là:<br/>$ {roadA_Total} + {roadB_Total} = {totalRoadTwoWeeks} $ (m)<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này có thể giải theo cách khác nhanh hơn. Đó là lấy tổng số mét đường của tuần đầu cộng với số mét đường sửa thêm của cả hai đội trong tuần thứ hai. Tổng số mét đường sửa được sau hai tuần là $ {totalRoadWeek1} + {addA} + {addB} = {totalRoadTwoWeeks} $ (m).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ratioSweet": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "totalSweetSalty": {
+          "min": 60,
+          "max": 180,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalSweetSalty % (ratioSweet + 1) === 0",
+        "ratioSweet > 1"
+      ],
+      "formulas": {
+        "totalParts": "ratioSweet + 1",
+        "valuePerPart": "totalSweetSalty / totalParts",
+        "saltyCakes": "valuePerPart",
+        "sweetCakes": "valuePerPart * ratioSweet",
+        "wrongSumDivRatio": "totalSweetSalty / ratioSweet",
+        "wrongDiff": "totalSweetSalty - ratioSweet",
+        "wrongSalty": "saltyCakes"
+      },
+      "questionText": "Trong một buổi liên hoan, số lượng bánh ngọt nhiều gấp $ {ratioSweet} $ lần số lượng bánh mặn. Biết tổng số bánh ngọt và bánh mặn là $ {totalSweetSalty} $ chiếc. Hỏi có bao nhiêu chiếc bánh ngọt?",
+      "options": [
+        "A. $ {sweetCakes} $ chiếc",
+        "B. $ {wrongSumDivRatio} $ chiếc",
+        "C. $ {wrongDiff} $ chiếc",
+        "D. $ {wrongSalty} $ chiếc"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Hãy vẽ sơ đồ đoạn thẳng để biểu diễn mối quan hệ giữa số bánh ngọt và bánh mặn.",
+        "Tìm tổng số phần bằng nhau.",
+        "Tìm giá trị của một phần, sau đó tìm số bánh ngọt."
+      ],
+      "solutionHtml": "Ta có sơ đồ:<br/>Bánh mặn: |-----|<br/>Bánh ngọt: |-----|-----|...| ({ratioSweet} phần)<br/>Tổng số phần bằng nhau là: $ 1 + {ratioSweet} = {totalParts} $ (phần)<br/><br/>Giá trị của một phần là:<br/>$ {totalSweetSalty} \\div {totalParts} = {valuePerPart} $ (chiếc)<br/><br/>Số chiếc bánh ngọt là:<br/>$ {valuePerPart} \\times {ratioSweet} = {sweetCakes} $ (chiếc)<br/>Đáp án đúng là A.",
+      "tip": "Khi gặp bài toán 'Tổng và Tỉ số', hãy luôn tìm tổng số phần bằng nhau trước, sau đó tìm giá trị của một phần.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalToys": {
+          "min": 250,
+          "max": 500,
+          "step": 5
+        },
+        "toysPerBox": {
+          "min": 12,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalToys > toysPerBox",
+        "totalToys % toysPerBox !== 0"
+      ],
+      "formulas": {
+        "fullBoxes": "Math.floor(totalToys / toysPerBox)",
+        "remainderToys": "totalToys % toysPerBox",
+        "actualRequiredBoxes": "Math.floor(totalToys / toysPerBox) + (totalToys % toysPerBox > 0 ? 1 : 0)",
+        "wrongFullBoxes": "Math.floor(totalToys / toysPerBox)",
+        "wrongRemainder": "totalToys % toysPerBox",
+        "wrongMultiply": "totalToys * toysPerBox"
+      },
+      "questionText": "Một công ty sản xuất đồ chơi cần đóng gói $ {totalToys} $ chiếc ô tô đồ chơi vào các hộp. Mỗi hộp chứa được $ {toysPerBox} $ chiếc ô tô. Hỏi công ty cần <b>ít nhất</b> bao nhiêu hộp để đóng gói hết số ô tô đó?",
+      "options": [
+        "A. $ {wrongFullBoxes} $ hộp",
+        "B. $ {actualRequiredBoxes} $ hộp",
+        "C. $ {wrongRemainder} $ hộp",
+        "D. $ {wrongMultiply} $ hộp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy thực hiện phép chia $ {totalToys} \\div {toysPerBox} $.",
+        "Nếu phép chia có số dư, có nghĩa là cần thêm một hộp nữa cho số đồ chơi còn lại."
+      ],
+      "solutionHtml": "Số hộp đầy cần để đóng gói là:<br/>$ {totalToys} \\div {toysPerBox} = {fullBoxes} $ (hộp) dư $ {remainderToys} $ chiếc ô tô.<br/><br/>Vì còn dư $ {remainderToys} $ chiếc ô tô chưa được đóng gói, công ty cần thêm 1 hộp nữa để chứa số ô tô này.<br/><br/>Vậy, tổng số hộp cần ít nhất là:<br/>$ {fullBoxes} + 1 = {actualRequiredBoxes} $ (hộp)<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán chia có dư trong thực tế, nếu số dư vẫn cần được chứa hoặc xử lý, ta thường làm tròn lên số nguyên gần nhất (cộng thêm 1 vào phần nguyên nếu có dư).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalPages": {
+          "min": 105,
+          "max": 250,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalPages > 99"
+      ],
+      "formulas": {
+        "count1DigitPages": "9",
+        "digitsFrom1DigitPages": "9 * 1",
+        "count2DigitPages": "90",
+        "digitsFrom2DigitPages": "90 * 2",
+        "count3DigitPages": "totalPages - 99",
+        "digitsFrom3DigitPages": "(totalPages - 99) * 3",
+        "totalDigitsNeeded": "digitsFrom1DigitPages + digitsFrom2DigitPages + digitsFrom3DigitPages",
+        "wrongTotalPages": "totalPages",
+        "wrongMultiplyBy2": "totalPages * 2",
+        "wrongMultiplyBy3": "totalPages * 3"
+      },
+      "questionText": "Để đánh số trang một quyển sách dày $ {totalPages} $ trang (bắt đầu từ trang 1), người ta cần dùng tất cả bao nhiêu chữ số?",
+      "options": [
+        "A. $ {totalDigitsNeeded} $ chữ số",
+        "B. $ {wrongTotalPages} $ chữ số",
+        "C. $ {wrongMultiplyBy2} $ chữ số",
+        "D. $ {wrongMultiplyBy3} $ chữ số"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Phân loại các trang sách theo số lượng chữ số để đánh số.",
+        "Có bao nhiêu trang có 1 chữ số? Bao nhiêu trang có 2 chữ số? Bao nhiêu trang có 3 chữ số?",
+        "Nhân số lượng trang với số chữ số tương ứng, sau đó cộng tổng lại."
+      ],
+      "solutionHtml": "Để đánh số trang sách từ 1 đến $ {totalPages} $, ta chia thành các nhóm trang sau:<br/>- Các trang có 1 chữ số (từ trang 1 đến trang 9): có $ {count1DigitPages} $ trang. Số chữ số cần dùng là: $ {count1DigitPages} \\times 1 = {digitsFrom1DigitPages} $ (chữ số)<br/>- Các trang có 2 chữ số (từ trang 10 đến trang 99): có $ {count2DigitPages} $ trang. Số chữ số cần dùng là: $ {count2DigitPages} \\times 2 = {digitsFrom2DigitPages} $ (chữ số)<br/>- Các trang có 3 chữ số (từ trang 100 đến trang $ {totalPages} $): có $ {totalPages} - 99 = {count3DigitPages} $ trang. Số chữ số cần dùng là: $ {count3DigitPages} \\times 3 = {digitsFrom3DigitPages} $ (chữ số)<br/><br/>Tổng số chữ số cần dùng để đánh số trang là:<br/>$ {digitsFrom1DigitPages} + {digitsFrom2DigitPages} + {digitsFrom3DigitPages} = {totalDigitsNeeded} $ (chữ số)<br/>Đáp án đúng là A.",
+      "tip": "Khi đếm số chữ số để đánh số trang, hãy nhớ chia thành các nhóm trang có 1 chữ số, 2 chữ số, 3 chữ số (và hơn nữa nếu số trang lớn), sau đó tính tổng riêng từng nhóm rồi cộng lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "quantityRice": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "priceRice": {
+          "min": 18000,
+          "max": 25000,
+          "step": 1000
+        },
+        "quantityMeat": {
+          "min": 2,
+          "max": 4,
+          "step": 0.5
+        },
+        "priceMeat": {
+          "min": 120000,
+          "max": 160000,
+          "step": 5000
+        },
+        "totalPayment": {
+          "min": 500000,
+          "max": 800000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "totalPayment > (quantityRice * priceRice + quantityMeat * priceMeat)"
+      ],
+      "formulas": {
+        "costRice": "quantityRice * priceRice",
+        "costMeat": "quantityMeat * priceMeat",
+        "totalCost": "costRice + costMeat",
+        "changeMoney": "totalPayment - totalCost",
+        "wrongTotalCost": "totalCost",
+        "wrongAddPrices": "priceRice + priceMeat",
+        "wrongChangeHigh": "totalPayment - costRice"
+      },
+      "questionText": "Cô Lan đi chợ mua $ {quantityRice} $ kg gạo với giá $ {priceRice} $ đồng/kg, và $ {quantityMeat} $ kg thịt với giá $ {priceMeat} $ đồng/kg. Cô đưa cho người bán $ {totalPayment} $ đồng. Hỏi cô Lan được trả lại bao nhiêu tiền?",
+      "options": [
+        "A. $ {wrongTotalCost} $ đồng",
+        "B. $ {changeMoney} $ đồng",
+        "C. $ {wrongAddPrices} $ đồng",
+        "D. $ {wrongChangeHigh} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số tiền mua gạo.",
+        "Tính số tiền mua thịt.",
+        "Tính tổng số tiền cô Lan phải trả.",
+        "Tính số tiền cô Lan được trả lại."
+      ],
+      "solutionHtml": "Số tiền cô Lan mua gạo là:<br/>$ {quantityRice} \\times {priceRice} = {costRice} $ (đồng)<br/><br/>Số tiền cô Lan mua thịt là:<br/>$ {quantityMeat} \\times {priceMeat} = {costMeat} $ (đồng)<br/><br/>Tổng số tiền cô Lan phải trả là:<br/>$ {costRice} + {costMeat} = {totalCost} $ (đồng)<br/><br/>Số tiền cô Lan được trả lại là:<br/>$ {totalPayment} - {totalCost} = {changeMoney} $ (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán mua sắm, hãy tính toán cẩn thận chi phí cho từng mặt hàng trước, sau đó cộng tổng và thực hiện phép trừ để tìm số tiền còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "perimeter": {
+          "min": 60,
+          "max": 120,
+          "step": 2
+        },
+        "ratioLengthWidth": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "perimeter % (2 * (ratioLengthWidth + 1)) === 0",
+        "ratioLengthWidth > 1"
+      ],
+      "formulas": {
+        "halfPerimeter": "perimeter / 2",
+        "totalParts": "ratioLengthWidth + 1",
+        "width": "halfPerimeter / totalParts",
+        "length": "width * ratioLengthWidth",
+        "area": "length * width",
+        "wrongHalfPerimeter": "halfPerimeter",
+        "wrongLengthOnly": "length",
+        "wrongWidthOnly": "width",
+        "wrongSumLenWidth": "length + width"
+      },
+      "questionText": "Một hình chữ nhật có chu vi là $ {perimeter} $ cm. Chiều dài gấp $ {ratioLengthWidth} $ lần chiều rộng. Tính diện tích của hình chữ nhật đó.",
+      "options": [
+        "A. $ {wrongHalfPerimeter} $ cm²",
+        "B. $ {area} $ cm²",
+        "C. $ {wrongLengthOnly} $ cm²",
+        "D. $ {wrongWidthOnly} $ cm²"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm nửa chu vi của hình chữ nhật.",
+        "Vẽ sơ đồ đoạn thẳng để biểu diễn chiều dài và chiều rộng.",
+        "Tìm chiều rộng, sau đó tìm chiều dài.",
+        "Tính diện tích hình chữ nhật."
+      ],
+      "solutionHtml": "Nửa chu vi của hình chữ nhật là:<br/>$ {perimeter} \\div 2 = {halfPerimeter} $ (cm)<br/><br/>Ta có sơ đồ:<br/>Chiều rộng: |-----|<br/>Chiều dài:  |-----|-----|...| ({ratioLengthWidth} phần)<br/>Tổng số phần bằng nhau của chiều dài và chiều rộng là:<br/>$ 1 + {ratioLengthWidth} = {totalParts} $ (phần)<br/><br/>Chiều rộng của hình chữ nhật là:<br/>$ {halfPerimeter} \\div {totalParts} = {width} $ (cm)<br/><br/>Chiều dài của hình chữ nhật là:<br/>$ {width} \\times {ratioLengthWidth} = {length} $ (cm)<br/><br/>Diện tích của hình chữ nhật là:<br/>$ {length} \\times {width} = {area} $ (cm²)<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán về chu vi và diện tích hình chữ nhật có tỉ số, hãy luôn bắt đầu bằng việc tìm nửa chu vi, sau đó dùng sơ đồ đoạn thẳng để tìm các kích thước.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startNum": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "diff": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "positionN": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "startNum > 0",
+        "diff > 0",
+        "positionN > 1"
+      ],
+      "formulas": {
+        "diffMultiplier": "positionN - 1",
+        "diffProduct": "diffMultiplier * diff",
+        "resultNum": "startNum + diffProduct",
+        "wrongNum1": "startNum + positionN * diff",
+        "wrongNum2": "startNum + diff",
+        "wrongNum3": "startNum * positionN"
+      },
+      "questionText": "Một dãy số được tạo theo quy luật: số hạng đầu tiên là $ {startNum} $, các số hạng tiếp theo được tạo bằng cách cộng thêm $ {diff} $ vào số hạng liền trước. Hỏi số hạng thứ $ {positionN} $ của dãy là số nào?",
+      "options": [
+        "A. $ {wrongNum1} $",
+        "B. $ {resultNum} $",
+        "C. $ {wrongNum2} $",
+        "D. $ {wrongNum3} $ "
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định số lần 'cộng thêm {diff}' để đạt đến vị trí thứ {positionN}.",
+        "Số lần cộng thêm sẽ là số vị trí trừ đi 1.",
+        "Công thức tổng quát để tìm số hạng thứ $ N $ là: Số hạng đầu tiên $ + (N-1) \\times $ Khoảng cách."
+      ],
+      "solutionHtml": "Để tìm số hạng thứ $ {positionN} $ của dãy, ta cần biết số lần khoảng cách $ {diff} $ được cộng vào số hạng đầu tiên.<br/>Số lần cộng thêm là: $ {positionN} - 1 = {diffMultiplier} $ lần.<br/><br/>Giá trị của số hạng thứ $ {positionN} $ là:<br/>$ {startNum} + {diffMultiplier} \\times {diff} = {startNum} + {diffProduct} = {resultNum} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi tìm số hạng thứ $ N $ của một dãy số cách đều, hãy nhớ rằng có $ N-1 $ khoảng cách giữa số hạng đầu tiên và số hạng thứ $ N $.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numDigits": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numDigits >= 3"
+      ],
+      "formulas": {
+        "firstDigitOptions": "4",
+        "otherDigitOptions": "5",
+        "powerOfOtherDigits": "Math.pow(5, numDigits - 1)",
+        "countNumbers": "firstDigitOptions * powerOfOtherDigits",
+        "wrongCountAllDigits": "Math.pow(5, numDigits)",
+        "wrongCountFirstOnly": "firstDigitOptions",
+        "wrongCountMultiplyByDigits": "firstDigitOptions * otherDigitOptions * numDigits"
+      },
+      "questionText": "Có bao nhiêu số tự nhiên có $ {numDigits} $ chữ số mà tất cả các chữ số của nó đều là chữ số chẵn?",
+      "options": [
+        "A. $ {wrongCountAllDigits} $ số",
+        "B. $ {countNumbers} $ số",
+        "C. $ {wrongCountFirstOnly} $ số",
+        "D. $ {wrongCountMultiplyByDigits} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Các chữ số chẵn bao gồm: 0, 2, 4, 6, 8.",
+        "Chữ số hàng cao nhất (hàng trăm, hàng nghìn...) không thể là 0.",
+        "Xác định số lựa chọn cho từng vị trí chữ số."
+      ],
+      "solutionHtml": "Các chữ số chẵn là: $ 0, 2, 4, 6, 8 $. Có 5 chữ số chẵn.<br/><br/>Với số có $ {numDigits} $ chữ số:<br/>- Chữ số hàng cao nhất (hàng trăm, hàng nghìn, v.v.) không thể là 0. Do đó, có $ {firstDigitOptions} $ lựa chọn (2, 4, 6, 8) cho vị trí này.<br/>- Các chữ số ở các vị trí còn lại (từ hàng chục, hàng đơn vị trở đi) có thể là bất kỳ chữ số chẵn nào (0, 2, 4, 6, 8). Do đó, có $ {otherDigitOptions} $ lựa chọn cho mỗi vị trí này.<br/><br/>Số lượng chữ số còn lại là: $ {numDigits} - 1 $ chữ số.<br/>Số lượng số có $ {numDigits} $ chữ số mà tất cả các chữ số đều chẵn là:<br/>$ {firstDigitOptions} \\times {otherDigitOptions}^{ ({numDigits} - 1)} = {firstDigitOptions} \\times {powerOfOtherDigits} = {countNumbers} $ (số)<br/>Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng số thỏa mãn điều kiện, hãy xét từng vị trí chữ số và các ràng buộc của nó (ví dụ: chữ số đầu không thể là 0).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "roadLength": {
+          "min": 200,
+          "max": 500,
+          "step": 10
+        },
+        "interval": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "roadLength % interval === 0",
+        "roadLength > interval"
+      ],
+      "formulas": {
+        "numIntervals": "roadLength / interval",
+        "numTreesBothEnds": "numIntervals + 1",
+        "wrongNumIntervals": "numIntervals",
+        "wrongNumTreesOneEnd": "numIntervals - 1",
+        "wrongMultiply": "roadLength * interval"
+      },
+      "questionText": "Người ta trồng cây trên một đoạn đường thẳng dài $ {roadLength} $ m. Cứ $ {interval} $ m thì trồng một cây. Hỏi có bao nhiêu cây được trồng nếu trồng cả ở hai đầu đường?",
+      "options": [
+        "A. $ {wrongNumIntervals} $ cây",
+        "B. $ {numTreesBothEnds} $ cây",
+        "C. $ {wrongNumTreesOneEnd} $ cây",
+        "D. $ {wrongMultiply} $ cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định có bao nhiêu khoảng cách giữa các cây.",
+        "Nhớ rằng nếu trồng cây ở cả hai đầu đường, số cây sẽ nhiều hơn số khoảng cách một đơn vị."
+      ],
+      "solutionHtml": "Số khoảng cách giữa các cây trên đoạn đường là:<br/>$ {roadLength} \\div {interval} = {numIntervals} $ (khoảng cách)<br/><br/>Vì trồng cây ở cả hai đầu đường, số cây sẽ bằng số khoảng cách cộng thêm 1.<br/>Số cây được trồng là:<br/>$ {numIntervals} + 1 = {numTreesBothEnds} $ (cây)<br/>Đáp án đúng là B.",
+      "tip": "Trong bài toán trồng cây trên đoạn đường thẳng, nếu trồng cây ở cả hai đầu, số cây sẽ bằng số khoảng cách cộng 1. Nếu chỉ trồng ở một đầu, số cây bằng số khoảng cách. Nếu không trồng ở hai đầu, số cây bằng số khoảng cách trừ 1 (tức là số cây bằng số khoảng cách).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numTeachers": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "numStudents": {
+          "min": 200,
+          "max": 350,
+          "step": 5
+        },
+        "ratioGirlsBoys": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numStudents % (ratioGirlsBoys + 1) === 0",
+        "numStudents > (ratioGirlsBoys + 1)",
+        "numTeachers * 10 < numStudents"
+      ],
+      "formulas": {
+        "totalParts": "ratioGirlsBoys + 1",
+        "valuePerPart": "numStudents / totalParts",
+        "numBoys": "valuePerPart",
+        "numGirls": "valuePerPart * ratioGirlsBoys",
+        "totalMembers": "numTeachers + numStudents",
+        "wrongTotalStudents": "numStudents",
+        "wrongTotalTeachers": "numTeachers",
+        "wrongGirlsOnly": "numGirls"
+      },
+      "questionText": "Một trường tiểu học có $ {numTeachers} $ giáo viên và $ {numStudents} $ học sinh. Biết rằng số học sinh nữ gấp $ {ratioGirlsBoys} $ lần số học sinh nam. Hỏi tổng số thành viên (bao gồm giáo viên và học sinh) của trường là bao nhiêu người?",
+      "options": [
+        "A. $ {wrongTotalStudents} $ người",
+        "B. $ {totalMembers} $ người",
+        "C. $ {wrongTotalTeachers} $ người",
+        "D. $ {wrongGirlsOnly} $ người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số thành viên, ta cần biết tổng số giáo viên và tổng số học sinh.",
+        "Tổng số học sinh đã cho sẵn.",
+        "Chỉ cần cộng số giáo viên và số học sinh lại."
+      ],
+      "solutionHtml": "Tổng số giáo viên của trường là $ {numTeachers} $ người.<br/>Tổng số học sinh của trường là $ {numStudents} $ người.<br/><br/>Tổng số thành viên (bao gồm giáo viên và học sinh) của trường là:<br/>$ {numTeachers} + {numStudents} = {totalMembers} $ (người)<br/>(Lưu ý: Thông tin về tỉ lệ học sinh nữ và nam là dữ liệu nhiễu, không cần thiết để giải câu hỏi này.)<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định thông tin nào là cần thiết và thông tin nào là nhiễu (không liên quan trực tiếp đến câu hỏi).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalProducts": {
+          "min": 1200,
+          "max": 2000,
+          "step": 50
+        },
+        "pricePerProduct": {
+          "min": 8000,
+          "max": 12000,
+          "step": 500
+        },
+        "defectRate": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalProducts > 100",
+        "defectRate > 0",
+        "pricePerProduct > 1000",
+        "totalProducts * defectRate / 100 < totalProducts"
+      ],
+      "formulas": {
+        "defectiveProducts": "totalProducts * defectRate / 100",
+        "goodProducts": "totalProducts - defectiveProducts",
+        "revenueFromGoodProducts": "goodProducts * pricePerProduct",
+        "wrongTotalProductsValue": "totalProducts * pricePerProduct",
+        "wrongDefectiveProductsValue": "defectiveProducts * pricePerProduct",
+        "wrongSubtractDefectRate": "totalProducts * (pricePerProduct - defectRate)"
+      },
+      "questionText": "Một nhà máy sản xuất $ {totalProducts} $ sản phẩm. Trong quá trình kiểm tra, người ta phát hiện có $ {defectRate} $ % sản phẩm bị lỗi và không thể bán được. Các sản phẩm còn lại đều đạt chất lượng tốt và được bán với giá $ {pricePerProduct} $ đồng mỗi sản phẩm. Hỏi nhà máy thu được bao nhiêu tiền từ việc bán các sản phẩm đạt chất lượng tốt?",
+      "options": [
+        "A. $ {wrongTotalProductsValue} $ đồng",
+        "B. $ {revenueFromGoodProducts} $ đồng",
+        "C. $ {wrongDefectiveProductsValue} $ đồng",
+        "D. $ {wrongSubtractDefectRate} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính số sản phẩm bị lỗi.",
+        "Sau đó, tính số sản phẩm đạt chất lượng tốt.",
+        "Cuối cùng, tính số tiền thu được từ việc bán các sản phẩm chất lượng tốt."
+      ],
+      "solutionHtml": "Số sản phẩm bị lỗi là:<br/>$ {totalProducts} \\times {defectRate} \\div 100 = {defectiveProducts} $ (sản phẩm)<br/><br/>Số sản phẩm đạt chất lượng tốt là:<br/>$ {totalProducts} - {defectiveProducts} = {goodProducts} $ (sản phẩm)<br/><br/>Số tiền nhà máy thu được từ việc bán các sản phẩm đạt chất lượng tốt là:<br/>$ {goodProducts} \\times {pricePerProduct} = {revenueFromGoodProducts} $ (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán có tỷ lệ phần trăm, hãy nhớ rằng 'X % của một số' có nghĩa là 'lấy số đó nhân với X rồi chia cho 100'.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c5-d12"
+    }
+  ]
+}

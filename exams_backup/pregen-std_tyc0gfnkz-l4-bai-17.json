@@ -1,0 +1,505 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "khoiLuongCam_ta": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "khoiLuongNhan_yen": {
+          "min": 15,
+          "max": 40,
+          "step": 1
+        },
+        "khoiLuongVai_kg": {
+          "min": 200,
+          "max": 500,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "cam_kg": "khoiLuongCam_ta * 100",
+        "nhan_kg": "khoiLuongNhan_yen * 10",
+        "tong_kg": "cam_kg + nhan_kg + khoiLuongVai_kg",
+        "ans": "tong_kg",
+        "w1": "khoiLuongCam_ta + khoiLuongNhan_yen + khoiLuongVai_kg",
+        "w2": "cam_kg + khoiLuongNhan_yen + khoiLuongVai_kg",
+        "w3": "cam_kg + nhan_kg + khoiLuongVai_kg / 10"
+      },
+      "questionText": "Một bác nông dân thu hoạch được {khoiLuongCam_ta} tạ cam, {khoiLuongNhan_yen} yến nhãn và {khoiLuongVai_kg} kg vải. Hỏi tổng khối lượng nông sản bác nông dân đã thu hoạch được là bao nhiêu kilôgam?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bạn cần chuyển đổi tất cả các đơn vị khối lượng về kilôgam trước khi tính tổng.",
+        "Nhớ rằng $1$ tạ = $100$ kg và $1$ yến = $10$ kg."
+      ],
+      "solutionHtml": "Để tính tổng khối lượng nông sản bằng kilôgam, chúng ta cần chuyển đổi tất cả các đơn vị về kilôgam:<br/><br/>Bước 1: Chuyển đổi khối lượng cam từ tạ sang kilôgam.<br/>$ {khoiLuongCam_ta} \\text{ ta} = {khoiLuongCam_ta} \\times 100 = {cam_kg} \\text{ kg} $<br/><br/>Bước 2: Chuyển đổi khối lượng nhãn từ yến sang kilôgam.<br/>$ {khoiLuongNhan_yen} \\text{ yen} = {khoiLuongNhan_yen} \\times 10 = {nhan_kg} \\text{ kg} $<br/><br/>Bước 3: Tính tổng khối lượng của cả ba loại nông sản.<br/>$ {cam_kg} \\text{ kg} + {nhan_kg} \\text{ kg} + {khoiLuongVai_kg} \\text{ kg} = {ans} \\text{ kg} $<br/><br/>Vậy, tổng khối lượng nông sản bác nông dân đã thu hoạch được là $ {ans} $ kg.<br/>Đáp án đúng là C.",
+      "tip": "Khi cộng hoặc trừ các khối lượng với đơn vị khác nhau, hãy luôn chuyển đổi chúng về cùng một đơn vị nhỏ nhất (thường là kilôgam) để tránh sai sót.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "khoiLuongLon_ta": {
+          "min": 8,
+          "max": 18,
+          "step": 1
+        },
+        "khoiLuongBo_yen": {
+          "min": 25,
+          "max": 60,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "lon_kg": "khoiLuongLon_ta * 100",
+        "bo_kg": "khoiLuongBo_yen * 10",
+        "chenhLech_kg": "Math.abs(lon_kg - bo_kg)",
+        "ans": "chenhLech_kg",
+        "w1": "lon_kg + bo_kg",
+        "w2": "Math.abs(khoiLuongLon_ta - khoiLuongBo_yen)",
+        "w3": "Math.abs(khoiLuongLon_ta * 10 - khoiLuongBo_yen)",
+        "comparisonText": "lon_kg > bo_kg ? 'nặng hơn' : 'nhẹ hơn'"
+      },
+      "questionText": "Bác An có một con lợn nặng {khoiLuongLon_ta} tạ và một con bò nặng {khoiLuongBo_yen} yến. Hỏi con lợn nặng hơn hay nhẹ hơn con bò bao nhiêu kilôgam?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {w3} kg",
+        "D. {ans} kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Để so sánh hai khối lượng khác đơn vị, hãy đổi chúng về cùng một đơn vị là kilôgam.",
+        "Con lợn nặng hơn con bò nếu khối lượng lợn (sau khi đổi ra kg) lớn hơn khối lượng bò (sau khi đổi ra kg), và ngược lại. Sau đó, tính hiệu hai khối lượng."
+      ],
+      "solutionHtml": "Để so sánh khối lượng của con lợn và con bò, chúng ta cần chuyển đổi cả hai về cùng một đơn vị, là kilôgam (kg):<br/><br/>Bước 1: Chuyển đổi khối lượng con lợn từ tạ sang kilôgam.<br/>$ {khoiLuongLon_ta} \\text{ ta} = {khoiLuongLon_ta} \\times 100 = {lon_kg} \\text{ kg} $<br/><br/>Bước 2: Chuyển đổi khối lượng con bò từ yến sang kilôgam.<br/>$ {khoiLuongBo_yen} \\text{ yen} = {khoiLuongBo_yen} \\times 10 = {bo_kg} \\text{ kg} $<br/><br/>Bước 3: So sánh khối lượng của hai con vật và tìm sự chênh lệch.<br/>Vì $ {lon_kg} \\text{ kg} $ và $ {bo_kg} \\text{ kg} $ nên con lợn {comparisonText} con bò.<br/>Sự chênh lệch khối lượng là: $ {ans} \\text{ kg} $<br/><br/>Vậy, con lợn {comparisonText} con bò $ {ans} $ kg.<br/>Đáp án đúng là D.",
+      "tip": "Khi so sánh hai đại lượng, điều quan trọng nhất là phải đưa chúng về cùng một 'mặt bằng' đơn vị để phép so sánh có ý nghĩa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongLua_tan": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        "moiBao_kg": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "tongLua_tan * 1000 % moiBao_kg === 0"
+      ],
+      "formulas": {
+        "tongLua_kg": "tongLua_tan * 1000",
+        "soBao": "tongLua_kg / moiBao_kg",
+        "ans": "soBao",
+        "w1": "tongLua_tan * 100 / moiBao_kg",
+        "w2": "tongLua_tan * 1000 + moiBao_kg",
+        "w3": "tongLua_tan / moiBao_kg"
+      },
+      "questionText": "Một nhà máy xay xát thu mua được {tongLua_tan} tấn lúa. Sau đó, số lúa này được đóng thành từng bao, mỗi bao nặng {moiBao_kg} kg. Hỏi nhà máy đã đóng được tất cả bao nhiêu bao lúa?",
+      "options": [
+        "A. {w1} bao",
+        "B. {ans} bao",
+        "C. {w2} bao",
+        "D. {w3} bao"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, bạn cần đổi tổng số lúa từ tấn sang kilôgam.",
+        "Sau khi có tổng số lúa bằng kilôgam, bạn sẽ chia cho khối lượng của mỗi bao để tìm ra số bao."
+      ],
+      "solutionHtml": "Để biết nhà máy đóng được bao nhiêu bao lúa, chúng ta cần thực hiện các bước sau:<br/><br/>Bước 1: Chuyển đổi tổng khối lượng lúa từ tấn sang kilôgam.<br/>$ {tongLua_tan} \\text{ tan} = {tongLua_tan} \\times 1000 = {tongLua_kg} \\text{ kg} $<br/><br/>Bước 2: Tính số bao lúa bằng cách lấy tổng khối lượng lúa chia cho khối lượng của mỗi bao.<br/>$ {tongLua_kg} \\text{ kg} : {moiBao_kg} \\text{ kg} = {ans} \\text{ bao} $<br/><br/>Vậy, nhà máy đã đóng được tất cả $ {ans} $ bao lúa.<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một khối lượng lớn thành nhiều phần nhỏ, hãy đảm bảo rằng cả khối lượng lớn và khối lượng của từng phần nhỏ đều cùng một đơn vị trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soThung": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "khoiLuongMoiThung_yen": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "khoiLuongMoiThung_kg": "khoiLuongMoiThung_yen * 10",
+        "tongKhoiLuong_kg": "khoiLuongMoiThung_kg * soThung",
+        "ans_ta": "tongKhoiLuong_kg / 100",
+        "w1_ta": "tongKhoiLuong_kg / 10",
+        "w2_ta": "tongKhoiLuong_kg / 1000",
+        "w3_ta": "khoiLuongMoiThung_yen * soThung / 10"
+      },
+      "questionText": "Một kho hàng có {soThung} thùng hàng giống hệt nhau, mỗi thùng nặng {khoiLuongMoiThung_yen} yến. Hỏi tổng khối lượng của tất cả các thùng hàng đó là bao nhiêu tạ?",
+      "options": [
+        "A. {w1_ta} tạ",
+        "B. {w2_ta} tạ",
+        "C. {ans_ta} tạ",
+        "D. {w3_ta} tạ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, bạn cần tính tổng khối lượng của tất cả thùng hàng bằng kilôgam.",
+        "Sau đó, chuyển đổi tổng khối lượng từ kilôgam sang tạ."
+      ],
+      "solutionHtml": "Để tính tổng khối lượng của các thùng hàng bằng tạ, chúng ta làm như sau:<br/><br/>Bước 1: Chuyển đổi khối lượng của mỗi thùng từ yến sang kilôgam.<br/>$ {khoiLuongMoiThung_yen} \\text{ yen} = {khoiLuongMoiThung_yen} \\times 10 = {khoiLuongMoiThung_kg} \\text{ kg} $<br/><br/>Bước 2: Tính tổng khối lượng của {soThung} thùng hàng bằng kilôgam.<br/>$ {khoiLuongMoiThung_kg} \\text{ kg/thung} \\times {soThung} \\text{ thung} = {tongKhoiLuong_kg} \\text{ kg} $<br/><br/>Bước 3: Chuyển đổi tổng khối lượng từ kilôgam sang tạ.<br/>$ {tongKhoiLuong_kg} \\text{ kg} : 100 = {ans_ta} \\text{ ta} $<br/><br/>Vậy, tổng khối lượng của tất cả các thùng hàng đó là $ {ans_ta} $ tạ.<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán yêu cầu kết quả ở một đơn vị khác với các đơn vị ban đầu, hãy thực hiện chuyển đổi đơn vị cuối cùng sau khi đã hoàn tất các phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "luaKho_tan": {
+          "min": 3,
+          "max": 9,
+          "step": 1
+        },
+        "banLan1_ta": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "banLan2_yen": {
+          "min": 20,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "luaKho_tan * 1000 > banLan1_ta * 100 + banLan2_yen * 10"
+      ],
+      "formulas": {
+        "luaKho_kg": "luaKho_tan * 1000",
+        "banLan1_kg": "banLan1_ta * 100",
+        "banLan2_kg": "banLan2_yen * 10",
+        "tongBan_kg": "banLan1_kg + banLan2_kg",
+        "conLai_kg": "luaKho_kg - tongBan_kg",
+        "ans": "conLai_kg",
+        "w1": "luaKho_tan - banLan1_ta - banLan2_yen",
+        "w2": "luaKho_kg - banLan1_kg",
+        "w3": "luaKho_kg - banLan1_kg + banLan2_kg"
+      },
+      "questionText": "Một kho chứa {luaKho_tan} tấn thóc. Lần đầu người ta xuất đi {banLan1_ta} tạ thóc. Lần hai xuất đi {banLan2_yen} yến thóc. Hỏi trong kho còn lại bao nhiêu kilôgam thóc?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w3} kg",
+        "C. {ans} kg",
+        "D. {w2} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi tất cả các khối lượng về kilôgam.",
+        "Lấy tổng số thóc ban đầu trừ đi số thóc đã xuất hai lần."
+      ],
+      "solutionHtml": "Để tìm số thóc còn lại trong kho, chúng ta cần chuyển đổi tất cả các khối lượng về kilôgam và thực hiện phép trừ:<br/><br/>Bước 1: Chuyển đổi khối lượng thóc ban đầu từ tấn sang kilôgam.<br/>$ {luaKho_tan} \\text{ tan} = {luaKho_tan} \\times 1000 = {luaKho_kg} \\text{ kg} $<br/><br/>Bước 2: Chuyển đổi khối lượng thóc xuất lần 1 từ tạ sang kilôgam.<br/>$ {banLan1_ta} \\text{ ta} = {banLan1_ta} \\times 100 = {banLan1_kg} \\text{ kg} $<br/><br/>Bước 3: Chuyển đổi khối lượng thóc xuất lần 2 từ yến sang kilôgam.<br/>$ {banLan2_yen} \\text{ yen} = {banLan2_yen} \\times 10 = {banLan2_kg} \\text{ kg} $<br/><br/>Bước 4: Tính tổng số thóc đã xuất đi.<br/>$ {banLan1_kg} \\text{ kg} + {banLan2_kg} \\text{ kg} = {tongBan_kg} \\text{ kg} $<br/><br/>Bước 5: Tính số thóc còn lại trong kho.<br/>$ {luaKho_kg} \\text{ kg} - {tongBan_kg} \\text{ kg} = {ans} \\text{ kg} $<br/><br/>Vậy, trong kho còn lại $ {ans} $ kilôgam thóc.<br/>Đáp án đúng là C.",
+      "tip": "Khi thực hiện các phép tính 'còn lại' hoặc 'đã dùng hết', hãy luôn đảm bảo rằng lượng ban đầu lớn hơn tổng lượng đã sử dụng để kết quả là một số dương có nghĩa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sucChuaXe_tan": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "daCho_ta": {
+          "min": 10,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "sucChuaXe_tan * 1000 > daCho_ta * 100"
+      ],
+      "formulas": {
+        "sucChuaXe_kg": "sucChuaXe_tan * 1000",
+        "daCho_kg": "daCho_ta * 100",
+        "choThem_kg": "sucChuaXe_kg - daCho_kg",
+        "ans_yen": "choThem_kg / 10",
+        "w1_yen": "(sucChuaXe_tan - daCho_ta) * 10",
+        "w2_yen": "sucChuaXe_kg + daCho_kg / 10",
+        "w3_yen": "choThem_kg"
+      },
+      "questionText": "Một chiếc xe tải có sức chứa tối đa là {sucChuaXe_tan} tấn hàng. Xe đã chở {daCho_ta} tạ hàng. Hỏi chiếc xe đó có thể chở thêm được bao nhiêu yến hàng nữa?",
+      "options": [
+        "A. {w1_yen} yến",
+        "B. {ans_yen} yến",
+        "C. {w2_yen} yến",
+        "D. {w3_yen} yến"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chuyển đổi sức chứa tối đa và khối lượng đã chở sang kilôgam.",
+        "Tính số kilôgam hàng còn có thể chở thêm, sau đó đổi sang yến."
+      ],
+      "solutionHtml": "Để biết chiếc xe có thể chở thêm bao nhiêu yến hàng, chúng ta cần làm các bước sau:<br/><br/>Bước 1: Chuyển đổi sức chứa tối đa của xe từ tấn sang kilôgam.<br/>$ {sucChuaXe_tan} \\text{ tan} = {sucChuaXe_tan} \\times 1000 = {sucChuaXe_kg} \\text{ kg} $<br/><br/>Bước 2: Chuyển đổi khối lượng hàng đã chở từ tạ sang kilôgam.<br/>$ {daCho_ta} \\text{ ta} = {daCho_ta} \\times 100 = {daCho_kg} \\text{ kg} $<br/><br/>Bước 3: Tính số kilôgam hàng còn có thể chở thêm.<br/>$ {sucChuaXe_kg} \\text{ kg} - {daCho_kg} \\text{ kg} = {choThem_kg} \\text{ kg} $<br/><br/>Bước 4: Chuyển đổi số kilôgam hàng có thể chở thêm sang yến.<br/>$ {choThem_kg} \\text{ kg} : 10 = {ans_yen} \\text{ yen} $<br/><br/>Vậy, chiếc xe đó có thể chở thêm được $ {ans_yen} $ yến hàng nữa.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán về sức chứa hoặc giới hạn, hãy cẩn thận với phép trừ: luôn đảm bảo rằng lượng ban đầu lớn hơn lượng đã sử dụng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "khoiLuongKhoA_ta": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "khoiLuongKhoB_yen": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "chuyenGao_kg": {
+          "min": 200,
+          "max": 500,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "khoiLuongKhoA_ta * 100 - chuyenGao_kg === khoiLuongKhoB_yen * 10 + chuyenGao_kg"
+      ],
+      "formulas": {
+        "khoA_kg_initial": "khoiLuongKhoA_ta * 100",
+        "khoB_kg_initial": "khoiLuongKhoB_yen * 10",
+        "ans": "khoA_kg_initial - khoB_kg_initial",
+        "w1": "khoA_kg_initial + khoB_kg_initial",
+        "w2": "khoiLuongKhoA_ta - khoiLuongKhoB_yen",
+        "w3": "chuyenGao_kg * 2",
+        "chuyenGao_kg_doubled": "chuyenGao_kg * 2"
+      },
+      "questionText": "Kho A có {khoiLuongKhoA_ta} tạ gạo, kho B có {khoiLuongKhoB_yen} yến gạo. Nếu chuyển {chuyenGao_kg} kg gạo từ kho A sang kho B thì số gạo ở hai kho bằng nhau. Hỏi ban đầu kho A nhiều hơn kho B bao nhiêu kilôgam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chuyển đổi khối lượng gạo ở cả hai kho về kilôgam.",
+        "Khi chuyển gạo từ kho A sang kho B, nếu số gạo hai kho bằng nhau thì tổng lượng gạo mà kho A nhiều hơn kho B ban đầu chính là $2$ lần số gạo đã chuyển."
+      ],
+      "solutionHtml": "Bài toán này đòi hỏi tư duy ngược một chút:<br/><br/>Bước 1: Chuyển đổi khối lượng gạo của hai kho về kilôgam.<br/>Khối lượng gạo ban đầu ở kho A: $ {khoiLuongKhoA_ta} \\text{ ta} = {khoiLuongKhoA_ta} \\times 100 = {khoA_kg_initial} \\text{ kg} $<br/>Khối lượng gạo ban đầu ở kho B: $ {khoiLuongKhoB_yen} \\text{ yen} = {khoiLuongKhoB_yen} \\times 10 = {khoB_kg_initial} \\text{ kg} $<br/><br/>Bước 2: Phân tích điều kiện 'chuyển {chuyenGao_kg} kg gạo từ kho A sang kho B thì số gạo ở hai kho bằng nhau'.<br/>Gọi $ A_{sau} $ và $ B_{sau} $ là số gạo ở kho A và B sau khi chuyển. Ta có:<br/>$ A_{sau} = {khoA_kg_initial} - {chuyenGao_kg} $<br/>$ B_{sau} = {khoB_kg_initial} + {chuyenGao_kg} $<br/>Theo đề bài: $ A_{sau} = B_{sau} $<br/>$ {khoA_kg_initial} - {chuyenGao_kg} = {khoB_kg_initial} + {chuyenGao_kg} $<br/>Từ đó suy ra: $ {khoA_kg_initial} - {khoB_kg_initial} = {chuyenGao_kg} + {chuyenGao_kg} $<br/>$ {khoA_kg_initial} - {khoB_kg_initial} = {chuyenGao_kg} \\times 2 $<br/><br/>Bước 3: Tính số gạo kho A nhiều hơn kho B ban đầu.<br/>$ {khoA_kg_initial} - {khoB_kg_initial} = {ans} \\text{ kg} $<br/> (Kiểm tra lại bằng cách dùng công thức $ {chuyenGao_kg} \\times 2 = {chuyenGao_kg_doubled} \\text{ kg} $. Hai kết quả khớp nhau.)<br/><br/>Vậy, ban đầu kho A nhiều hơn kho B $ {ans} $ kilôgam gạo.<br/>Đáp án đúng là C.",
+      "tip": "Với các bài toán về 'chuyển đổi để bằng nhau', sự chênh lệch ban đầu giữa hai đối tượng thường gấp đôi lượng đã chuyển.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongHang_tan": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        },
+        "soKhuVuc": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tongHang_tan * 1000 % (soKhuVuc * 10) === 0"
+      ],
+      "formulas": {
+        "tongHang_kg": "tongHang_tan * 1000",
+        "kgMoiKhuVuc": "tongHang_kg / soKhuVuc",
+        "ans_yenMoiKhuVuc": "kgMoiKhuVuc / 10",
+        "w1_yenMoiKhuVuc": "tongHang_kg / soKhuVuc",
+        "w2_yenMoiKhuVuc": "tongHang_tan * 100 / soKhuVuc",
+        "w3_yenMoiKhuVuc": "kgMoiKhuVuc * 10"
+      },
+      "questionText": "Một kho hàng lớn chứa {tongHang_tan} tấn vật liệu. Người quản lý muốn chia đều số vật liệu này vào {soKhuVuc} khu vực chứa hàng. Hỏi mỗi khu vực sẽ chứa bao nhiêu yến vật liệu?",
+      "options": [
+        "A. {w1_yenMoiKhuVuc} yến",
+        "B. {ans_yenMoiKhuVuc} yến",
+        "C. {w2_yenMoiKhuVuc} yến",
+        "D. {w3_yenMoiKhuVuc} yến"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi tổng khối lượng vật liệu từ tấn sang kilôgam.",
+        "Chia tổng số kilôgam cho số khu vực để tìm khối lượng mỗi khu vực, sau đó đổi sang yến."
+      ],
+      "solutionHtml": "Để biết mỗi khu vực chứa bao nhiêu yến vật liệu, chúng ta thực hiện các bước sau:<br/><br/>Bước 1: Chuyển đổi tổng khối lượng vật liệu từ tấn sang kilôgam.<br/>$ {tongHang_tan} \\text{ tan} = {tongHang_tan} \\times 1000 = {tongHang_kg} \\text{ kg} $<br/><br/>Bước 2: Chia đều tổng khối lượng vật liệu cho {soKhuVuc} khu vực để tìm khối lượng vật liệu ở mỗi khu vực (bằng kilôgam).<br/>$ {tongHang_kg} \\text{ kg} : {soKhuVuc} = {kgMoiKhuVuc} \\text{ kg/khu vuc} $<br/><br/>Bước 3: Chuyển đổi khối lượng vật liệu ở mỗi khu vực từ kilôgam sang yến.<br/>$ {kgMoiKhuVuc} \\text{ kg} : 10 = {ans_yenMoiKhuVuc} \\text{ yen} $<br/><br/>Vậy, mỗi khu vực sẽ chứa $ {ans_yenMoiKhuVuc} $ yến vật liệu.<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một lượng lớn thành các phần bằng nhau, hãy chắc chắn rằng bạn đã thực hiện đúng cả phép chia và các phép đổi đơn vị theo yêu cầu của bài toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thang1_tan": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "thang2_itHon_ta": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "thang3_nhieuHon_yen": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "thang1_tan * 1000 > thang2_itHon_ta * 100"
+      ],
+      "formulas": {
+        "thang1_kg": "thang1_tan * 1000",
+        "thang2_itHon_kg": "thang2_itHon_ta * 100",
+        "thang2_kg": "thang1_kg - thang2_itHon_kg",
+        "thang3_nhieuHon_kg": "thang3_nhieuHon_yen * 10",
+        "thang3_kg": "thang2_kg + thang3_nhieuHon_kg",
+        "tong3thang_kg": "thang1_kg + thang2_kg + thang3_kg",
+        "ans": "tong3thang_kg",
+        "w1": "thang1_kg + thang2_itHon_kg + thang3_nhieuHon_kg",
+        "w2": "thang1_tan + thang2_itHon_ta + thang3_nhieuHon_yen",
+        "w3": "thang1_kg + (thang1_kg - thang2_itHon_ta) + (thang1_kg - thang2_itHon_ta + thang3_nhieuHon_yen)"
+      },
+      "questionText": "Một nhà máy sản xuất trong tháng 1 được {thang1_tan} tấn sản phẩm. Tháng 2 sản xuất ít hơn tháng 1 là {thang2_itHon_ta} tạ. Tháng 3 sản xuất nhiều hơn tháng 2 là {thang3_nhieuHon_yen} yến. Hỏi cả ba tháng nhà máy đó sản xuất được tất cả bao nhiêu kilôgam sản phẩm?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {w3} kg",
+        "D. {ans} kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chuyển đổi tất cả các khối lượng về kilôgam.",
+        "Tính số sản phẩm từng tháng rồi cộng tổng lại."
+      ],
+      "solutionHtml": "Để tính tổng số sản phẩm cả ba tháng bằng kilôgam, chúng ta làm theo các bước sau:<br/><br/>Bước 1: Tính số sản phẩm tháng 1 bằng kilôgam.<br/>$ {thang1_tan} \\text{ tan} = {thang1_tan} \\times 1000 = {thang1_kg} \\text{ kg} $<br/><br/>Bước 2: Tính số sản phẩm tháng 2.<br/>Số sản phẩm tháng 2 ít hơn tháng 1 là $ {thang2_itHon_ta} \\text{ ta} = {thang2_itHon_ta} \\times 100 = {thang2_itHon_kg} \\text{ kg} $<br/>Vậy, số sản phẩm tháng 2 là: $ {thang1_kg} - {thang2_itHon_kg} = {thang2_kg} \\text{ kg} $<br/><br/>Bước 3: Tính số sản phẩm tháng 3.<br/>Số sản phẩm tháng 3 nhiều hơn tháng 2 là $ {thang3_nhieuHon_yen} \\text{ yen} = {thang3_nhieuHon_yen} \\times 10 = {thang3_nhieuHon_kg} \\text{ kg} $<br/>Vậy, số sản phẩm tháng 3 là: $ {thang2_kg} + {thang3_nhieuHon_kg} = {thang3_kg} \\text{ kg} $<br/><br/>Bước 4: Tính tổng số sản phẩm của cả ba tháng.<br/>$ {thang1_kg} + {thang2_kg} + {thang3_kg} = {ans} \\text{ kg} $<br/><br/>Vậy, cả ba tháng nhà máy đó sản xuất được tất cả $ {ans} $ kilôgam sản phẩm.<br/>Đáp án đúng là D.",
+      "tip": "Khi bài toán có nhiều bước tính toán và chuyển đổi đơn vị, hãy thực hiện từng bước một cách cẩn thận và ghi rõ đơn vị sau mỗi phép tính để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "banhQui_tan": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "sua_ta": {
+          "min": 10,
+          "max": 30,
+          "step": 1
+        },
+        "keo_yen": {
+          "min": 40,
+          "max": 90,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "banhQui_kg": "banhQui_tan * 1000",
+        "sua_kg": "sua_ta * 100",
+        "keo_kg": "keo_yen * 10",
+        "tong_kg": "banhQui_kg + sua_kg + keo_kg",
+        "ans": "tong_kg",
+        "w1": "banhQui_tan + sua_ta + keo_yen",
+        "w2": "banhQui_kg + sua_kg + keo_yen",
+        "w3": "banhQui_kg - sua_kg + keo_kg"
+      },
+      "questionText": "Một siêu thị nhập về {banhQui_tan} tấn bánh quy, {sua_ta} tạ sữa bột và {keo_yen} yến kẹo. Hỏi tổng khối lượng các mặt hàng siêu thị đã nhập về là bao nhiêu kilôgam?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chuyển đổi tất cả khối lượng sang đơn vị kilôgam.",
+        "Sau đó, cộng các khối lượng đã chuyển đổi để có tổng khối lượng."
+      ],
+      "solutionHtml": "Để tính tổng khối lượng các mặt hàng nhập về bằng kilôgam, chúng ta làm theo các bước sau:<br/><br/>Bước 1: Chuyển đổi khối lượng bánh quy từ tấn sang kilôgam.<br/>$ {banhQui_tan} \\text{ tan} = {banhQui_tan} \\times 1000 = {banhQui_kg} \\text{ kg} $<br/><br/>Bước 2: Chuyển đổi khối lượng sữa bột từ tạ sang kilôgam.<br/>$ {sua_ta} \\text{ ta} = {sua_ta} \\times 100 = {sua_kg} \\text{ kg} $<br/><br/>Bước 3: Chuyển đổi khối lượng kẹo từ yến sang kilôgam.<br/>$ {keo_yen} \\text{ yen} = {keo_yen} \\times 10 = {keo_kg} \\text{ kg} $<br/><br/>Bước 4: Tính tổng khối lượng của các mặt hàng.<br/>$ {banhQui_kg} \\text{ kg} + {sua_kg} \\text{ kg} + {keo_kg} \\text{ kg} = {ans} \\text{ kg} $<br/><br/>Vậy, tổng khối lượng các mặt hàng siêu thị đã nhập về là $ {ans} $ kilôgam.<br/>Đáp án đúng là C.",
+      "tip": "Để tránh sai sót khi cộng các số có đơn vị khác nhau, hãy luôn thực hiện chuyển đổi về cùng một đơn vị trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hangHoaBanDau_tan": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "taiCang1_ta": {
+          "min": 20,
+          "max": 60,
+          "step": 5
+        },
+        "napThemCang2_yen": {
+          "min": 50,
+          "max": 120,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "hangHoaBanDau_tan * 1000 > taiCang1_ta * 100"
+      ],
+      "formulas": {
+        "hangHoaBanDau_kg": "hangHoaBanDau_tan * 1000",
+        "taiCang1_kg": "taiCang1_ta * 100",
+        "napThemCang2_kg": "napThemCang2_yen * 10",
+        "hangHoaSauCang1_kg": "hangHoaBanDau_kg - taiCang1_kg",
+        "hangHoaCuoiCung_kg": "hangHoaBanDau_kg - taiCang1_kg + napThemCang2_kg",
+        "ans": "hangHoaCuoiCung_kg",
+        "w1": "hangHoaBanDau_tan - taiCang1_ta + napThemCang2_yen",
+        "w2": "hangHoaBanDau_kg + taiCang1_kg - napThemCang2_kg",
+        "w3": "hangHoaBanDau_kg - taiCang1_kg / 10 + napThemCang2_kg"
+      },
+      "questionText": "Một tàu chở hàng khởi hành với {hangHoaBanDau_tan} tấn hàng. Đến cảng thứ nhất, tàu dỡ {taiCang1_ta} tạ hàng. Sau đó, tàu tiếp tục di chuyển và đến cảng thứ hai, tàu chất thêm {napThemCang2_yen} yến hàng. Hỏi sau khi rời cảng thứ hai, trên tàu còn lại bao nhiêu kilôgam hàng?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chuyển đổi tất cả các khối lượng sang kilôgam.",
+        "Tính khối lượng hàng còn lại sau khi dỡ ở cảng thứ nhất, sau đó cộng thêm khối lượng hàng chất thêm ở cảng thứ hai."
+      ],
+      "solutionHtml": "Để tìm khối lượng hàng còn lại trên tàu sau khi rời cảng thứ hai, chúng ta làm theo các bước sau:<br/><br/>Bước 1: Chuyển đổi khối lượng hàng ban đầu từ tấn sang kilôgam.<br/>$ {hangHoaBanDau_tan} \\text{ tan} = {hangHoaBanDau_tan} \\times 1000 = {hangHoaBanDau_kg} \\text{ kg} $<br/><br/>Bước 2: Chuyển đổi khối lượng hàng đã dỡ ở cảng thứ nhất từ tạ sang kilôgam.<br/>$ {taiCang1_ta} \\text{ ta} = {taiCang1_ta} \\times 100 = {taiCang1_kg} \\text{ kg} $<br/><br/>Bước 3: Chuyển đổi khối lượng hàng chất thêm ở cảng thứ hai từ yến sang kilôgam.<br/>$ {napThemCang2_yen} \\text{ yen} = {napThemCang2_yen} \\times 10 = {napThemCang2_kg} \\text{ kg} $<br/><br/>Bước 4: Tính khối lượng hàng còn lại trên tàu sau khi dỡ hàng ở cảng 1.<br/>$ {hangHoaBanDau_kg} - {taiCang1_kg} = {hangHoaSauCang1_kg} \\text{ kg} $<br/><br/>Bước 5: Tính khối lượng hàng cuối cùng trên tàu sau khi chất thêm ở cảng 2.<br/>$ {hangHoaSauCang1_kg} + {napThemCang2_kg} = {ans} \\text{ kg} $<br/><br/>Vậy, sau khi rời cảng thứ hai, trên tàu còn lại $ {ans} $ kilôgam hàng.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải các bài toán về 'dỡ hàng' và 'chất thêm', hãy hình dung như việc cộng và trừ số tiền: dỡ là trừ, chất thêm là cộng. Luôn đảm bảo các con số có cùng đơn vị trước khi tính toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-17-d4"
+    }
+  ]
+}

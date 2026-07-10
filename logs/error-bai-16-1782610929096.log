@@ -1,0 +1,19 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T01:42:09.096Z
+Lesson ID: bai-16
+Lesson Title: Bài 16: Phép nhân số nguyên
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+Error: Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+    at callGeminiAPI (D:\AntiGravity\HocTap\server.js:388:9)
+    at async D:\AntiGravity\HocTap\server.js:1061:22
+

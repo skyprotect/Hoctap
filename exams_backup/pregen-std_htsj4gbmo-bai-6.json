@@ -1,0 +1,552 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_bacteria": {
+          "min": 20,
+          "max": 80,
+          "step": 1
+        },
+        "growth_factor": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "hours": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "initial_bacteria * Math.pow(growth_factor, hours)",
+        "w1": "initial_bacteria * growth_factor * hours",
+        "w2": "initial_bacteria + Math.pow(growth_factor, hours)",
+        "w3": "initial_bacteria * (growth_factor + hours)"
+      },
+      "questionText": "Một loại vi khuẩn có số lượng ban đầu là {initial_bacteria} con. Cứ sau mỗi giờ, số lượng vi khuẩn tăng lên gấp {growth_factor} lần. Hỏi sau {hours} giờ, tổng số lượng vi khuẩn là bao nhiêu con?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sau mỗi giờ, số lượng vi khuẩn được nhân với hệ số tăng trưởng.",
+        "Số lượng vi khuẩn sau {hours} giờ được tính bằng số ban đầu nhân với lũy thừa của hệ số tăng trưởng: ${initial_bacteria} \\times {growth_factor}^{hours}$$."
+      ],
+      "solutionHtml": "Số lượng vi khuẩn ban đầu là {initial_bacteria} con.<br/>Sau mỗi giờ, số lượng vi khuẩn tăng gấp {growth_factor} lần.<br/>Sau 1 giờ: {initial_bacteria} \\times {growth_factor}$ con.<br/>Sau 2 giờ: $({initial_bacteria} \\times {growth_factor}) \\times {growth_factor} = {initial_bacteria} \\times {growth_factor}^2$ con.<br/>Theo quy luật đó, sau {hours} giờ, số lượng vi khuẩn sẽ là:<br/>${initial_bacteria} \\times {growth_factor}^{hours} = {initial_bacteria} \\times {Math.pow(growth_factor, hours)} = {ans}$$ (con).<br/>Vậy, sau {hours} giờ, tổng số lượng vi khuẩn là {ans} con.<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến cách 'gấp lên nhiều lần' trong toán học, đó là phép nhân lặp lại, hay chính là phép tính lũy thừa.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "side_base_big": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "side_exp_big": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "side_base_small": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "side_exp_small": {
+          "min": 1,
+          "max": 1,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "side_base_big % side_base_small === 0",
+        "Math.pow(side_base_big, side_exp_big) > Math.pow(side_base_small, side_exp_small)"
+      ],
+      "formulas": {
+        "side_big_val": "Math.pow(side_base_big, side_exp_big)",
+        "side_small_val": "Math.pow(side_base_small, side_exp_small)",
+        "ans": "Math.pow(Math.floor(Math.pow(side_base_big, side_exp_big) / Math.pow(side_base_small, side_exp_small)), 3)",
+        "w1": "Math.floor(Math.pow(side_base_big, side_exp_big) / Math.pow(side_base_small, side_exp_small))",
+        "w2": "Math.pow(Math.pow(side_base_big, side_exp_big), 3) / Math.pow(Math.pow(side_base_small, side_exp_small), 2)",
+        "w3": "Math.pow(Math.floor(Math.pow(side_base_big, side_exp_big) / Math.pow(side_base_small, side_exp_small)), 2)"
+      },
+      "questionText": "Một khối rubik lớn có cạnh dài {side_base_big}^{side_exp_big}$ cm. Khối rubik này được ghép từ những khối rubik nhỏ hơn có cạnh dài {side_base_small}^{side_exp_small}$ cm. Hỏi cần bao nhiêu khối rubik nhỏ như vậy để tạo thành khối rubik lớn?",
+      "options": [
+        "A. {w1} khối",
+        "B. {w2} khối",
+        "C. {ans} khối",
+        "D. {w3} khối"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Trước hết, hãy tính độ dài cạnh của khối rubik lớn và khối rubik nhỏ.",
+        "Số khối rubik nhỏ cần thiết là tỷ lệ thể tích của khối lớn so với khối nhỏ. Thể tích của một khối lập phương được tính bằng cạnh mũ 3."
+      ],
+      "solutionHtml": "Độ dài cạnh của khối rubik lớn là ${side_base_big}^{side_exp_big} = {side_big_val}$$ cm.<br/>Độ dài cạnh của khối rubik nhỏ là ${side_base_small}^{side_exp_small} = {side_small_val}$$ cm.<br/>Số khối rubik nhỏ xếp được trên một cạnh của khối rubik lớn là: ${side_big_val} \\div {side_small_val} = {Math.floor(side_big_val / side_small_val)}$$ khối.<br/>Vì đây là khối lập phương (3 chiều), nên tổng số khối rubik nhỏ cần dùng sẽ là số khối trên một cạnh mũ 3:<br/>$$({Math.floor(side_big_val / side_small_val)})^3 = {ans}$$ khối.<br/>Vậy, cần {ans} khối rubik nhỏ để tạo thành khối rubik lớn.<br/>Đáp án đúng là C.",
+      "tip": "Khi nói về 'khối lập phương' hoặc các vật thể 3 chiều, hãy nhớ đến thể tích và phép tính mũ 3. Đừng nhầm lẫn với diện tích (mũ 2) hoặc độ dài (mũ 1).",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base_a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "exp_a": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "base_b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "exp_b": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "Math.pow(base_a, exp_a) !== Math.pow(base_b, exp_b)",
+        "Math.abs(Math.pow(base_a, exp_a) - Math.pow(base_b, exp_b)) > 10"
+      ],
+      "formulas": {
+        "val_a": "Math.pow(base_a, exp_a)",
+        "val_b": "Math.pow(base_b, exp_b)",
+        "comparison_result": "Math.pow(base_a, exp_a) > Math.pow(base_b, exp_b) ? '>': '<'",
+        "ans_text": "Math.pow(base_a, exp_a) > Math.pow(base_b, exp_b) ? `${base_a}^{exp_a} > ${base_b}^{exp_b}` : `${base_a}^{exp_a} < ${base_b}^{exp_b}`",
+        "option_a": "`${base_a}^{exp_a} = ${base_b}^{exp_b}`",
+        "option_b": "`${base_a}^{exp_a} > ${base_b}^{exp_b}`",
+        "option_c": "`${base_a}^{exp_a} < ${base_b}^{exp_b}`"
+      },
+      "questionText": "So sánh hai số sau: {base_a}^{exp_a}$ và {base_b}^{exp_b}$.",
+      "options": [
+        "A. {option_a}",
+        "B. {option_b}",
+        "C. {option_c}",
+        "D. Không thể so sánh"
+      ],
+      "correctIndex": "Math.pow(base_a, exp_a) === Math.pow(base_b, exp_b) ? 0 : (Math.pow(base_a, exp_a) > Math.pow(base_b, exp_b) ? 1 : 2)",
+      "hints": [
+        "Hãy tính giá trị cụ thể của từng lũy thừa.",
+        "Sau khi tính toán, hãy so sánh hai kết quả số học.",
+        "Ví dụ: $2^3 = 8$, $3^2 = 9$. Vậy $2^3 < 3^2$."
+      ],
+      "solutionHtml": "Để so sánh {base_a}^{exp_a}$ và {base_b}^{exp_b}$, ta cần tính giá trị của từng lũy thừa:<br/>${base_a}^{exp_a} = {val_a}$$<br/>${base_b}^{exp_b} = {val_b}$$<br/>So sánh {val_a} và {val_b}, ta thấy {val_a} {comparison_result} {val_b}.<br/>Vậy, {ans_text}.<br/>Đáp án đúng là ${ (Math.pow(base_a, exp_a) === Math.pow(base_b, exp_b) ? 'A' : (Math.pow(base_a, exp_a) > Math.pow(base_b, exp_b) ? 'B' : 'C')) }.",
+      "tip": "Để so sánh các lũy thừa, cách đơn giản nhất (đặc biệt với số mũ không quá lớn) là tính trực tiếp giá trị của chúng. Cẩn thận với các trường hợp đặc biệt như $1^n$, $0^n$ hoặc khi cơ số âm (nhưng lớp 6 chưa học số âm).",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base_digit": {
+          "min": 2,
+          "max": 9,
+          "step": 1
+        },
+        "exponent_val": {
+          "min": 15,
+          "max": 35,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "base_digit !== 0",
+        "base_digit !== 1"
+      ],
+      "formulas": {
+        "last_digit_base": "base_digit % 10",
+        "cycle_length": "({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10])",
+        "effective_exponent": "exponent_val % cycle_length === 0 ? cycle_length : exponent_val % cycle_length",
+        "ans": "(Math.pow(last_digit_base, effective_exponent)) % 10",
+        "w1": "(((Math.pow(base_digit % 10, exponent_val % ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]) === 0 ? ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]) : exponent_val % ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]))) % 10) + 3) % 10",
+        "w2": "(((Math.pow(base_digit % 10, exponent_val % ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]) === 0 ? ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]) : exponent_val % ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]))) % 10) + 7) % 10",
+        "w3": "(((Math.pow(base_digit % 10, exponent_val % ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]) === 0 ? ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]) : exponent_val % ({ 0:1, 1:1, 2:4, 3:4, 4:2, 5:1, 6:1, 7:4, 8:4, 9:2 }[base_digit % 10]))) % 10) + 5) % 10"
+      },
+      "questionText": "Chữ số tận cùng của số {base_digit}^{exponent_val}$ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chữ số tận cùng của một lũy thừa chỉ phụ thuộc vào chữ số tận cùng của cơ số.",
+        "Tìm chu kì của chữ số tận cùng của các lũy thừa với cơ số có chữ số tận cùng là {last_digit_base}. Ví dụ: $2^1=2, 2^2=4, 2^3=8, 2^4=16 \\to 6, 2^5=32 \\to 2$. Chu kì là 4.",
+        "Lấy số mũ chia cho chu kì, số dư sẽ cho biết chữ số tận cùng."
+      ],
+      "solutionHtml": "Chữ số tận cùng của {base_digit}^{exponent_val}$ chỉ phụ thuộc vào chữ số tận cùng của cơ số {base_digit}, đó là {last_digit_base}.<br/>Ta xét chu kì của chữ số tận cùng của các lũy thừa có cơ số tận cùng là {last_digit_base}:<br/>${last_digit_base}^1 \\to {last_digit_base}$$<br/>${last_digit_base}^2 \\to {Math.pow(last_digit_base, 2) % 10}$$<br/>${last_digit_base}^3 \\to {Math.pow(last_digit_base, 3) % 10}$$<br/>${last_digit_base}^4 \\to {Math.pow(last_digit_base, 4) % 10}$$<br/>(Nếu {last_digit_base}=2$, chu kì là $2,4,8,6$. Nếu {last_digit_base}=3$, chu kì là $3,9,7,1$. Nếu {last_digit_base}=4$, chu kì là $4,6$. Nếu {last_digit_base}=5$, chu kì là $5$. Nếu {last_digit_base}=6$, chu kì là $6$. Nếu {last_digit_base}=7$, chu kì là $7,9,3,1$. Nếu {last_digit_base}=8$, chu kì là $8,4,2,6$. Nếu {last_digit_base}=9$, chu kì là $9,1$.)<br/>Chu kì chữ số tận cùng của {last_digit_base} là {cycle_length}.<br/>Ta lấy số mũ {exponent_val} chia cho chu kì {cycle_length}:<br/>${exponent_val} \\div {cycle_length} = {Math.floor(exponent_val / cycle_length)}$$ dư $${exponent_val % cycle_length}$$<br/>Nếu số dư là 0, ta lấy chữ số tận cùng ứng với số mũ bằng chu kì (tức là vị trí thứ {cycle_length} trong chu kì). Nếu số dư khác 0, ta lấy chữ số tận cùng ứng với số mũ bằng số dư (tức là vị trí thứ ${exponent_val % cycle_length}$ trong chu kì).<br/>Số mũ hiệu dụng (để xác định vị trí trong chu kì) là {effective_exponent}.<br/>Vậy, chữ số tận cùng của {base_digit}^{exponent_val}$ là chữ số tận cùng của {last_digit_base}^{effective_exponent}$, tức là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Hãy ghi nhớ chu kì chữ số tận cùng của các số tự nhiên từ 0 đến 9. Ví dụ, với cơ số tận cùng là 2, chu kì là 4 số ($2,4,8,6$). Với cơ số tận cùng là 3, chu kì cũng là 4 số ($3,9,7,1$).",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base_val": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "correct_exp": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "target_value": "Math.pow(base_val, correct_exp)",
+        "ans": "correct_exp",
+        "w1": "correct_exp + 1",
+        "w2": "correct_exp - 1",
+        "w3": "correct_exp * 2"
+      },
+      "questionText": "Tìm số tự nhiên $x$ thỏa mãn ${base_val}^x = {target_value}$$",
+      "options": [
+        "A. $x = {w1}$",
+        "B. $x = {ans}$",
+        "C. $x = {w2}$",
+        "D. $x = {w3}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy thử các giá trị của $x$ bắt đầu từ số nhỏ và tính lũy thừa.",
+        "Cần tìm số mũ mà khi lũy thừa {base_val} lên số mũ đó sẽ bằng {target_value}."
+      ],
+      "solutionHtml": "Để tìm số tự nhiên $x$ thỏa mãn ${base_val}^x = {target_value}$$ ta có thể thử các giá trị của $x$ hoặc phân tích {target_value} thành lũy thừa của {base_val}.<br/>Ta có:<br/>${base_val}^1 = {base_val}$$<br/>${base_val}^2 = {Math.pow(base_val, 2)}$$<br/>${base_val}^3 = {Math.pow(base_val, 3)}$$<br/>...<br/>Ta tiếp tục tính cho đến khi nhận được {target_value}.<br/>${base_val}^{correct_exp} = {target_value}$$<br/>Vậy, $x = {ans}$.<br/>Đáp án đúng là B.",
+      "tip": "Đối với các bài toán tìm số mũ, hãy nhớ rằng lũy thừa là phép nhân lặp lại. Bạn có thể thử nhân cơ số nhiều lần cho đến khi đạt được kết quả mong muốn.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "max_exp": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "base_sum": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "(Math.pow(base_sum, max_exp + 1) - 1) / (base_sum - 1)",
+        "w1": "Math.pow(base_sum, max_exp)",
+        "w2": "Math.pow(base_sum, max_exp + 1) + 1",
+        "w3": "Math.pow(base_sum, max_exp) - 1"
+      },
+      "questionText": "Tính tổng của dãy số sau: $$S = 1 + {base_sum} + {base_sum}^2 + ... + {base_sum}^{max_exp}$$",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là tổng của một dãy cấp số nhân. Với dãy $1 + a + a^2 + ... + a^n$, ta có công thức $$\\frac{a^{n+1}-1}{a-1}$$",
+        "Hoặc bạn có thể tính từng số hạng rồi cộng lại, nhưng sẽ tốn thời gian hơn. Hãy thử nhân $S$ với {base_sum} và trừ đi $S$."
+      ],
+      "solutionHtml": "Để tính tổng $S = 1 + {base_sum} + {base_sum}^2 + ... + {base_sum}^{max_exp}$, ta có thể sử dụng phương pháp sau:<br/>Nhân cả hai vế của biểu thức $S$ với {base_sum}:<br/>${base_sum} \\times S = {base_sum} + {base_sum}^2 + {base_sum}^3 + ... + {base_sum}^{max_exp+1}$$<br/>Trừ $S$ khỏi {base_sum} \\times S$:<br/>${base_sum} \\times S - S = ({base_sum} + {base_sum}^2 + ... + {base_sum}^{max_exp+1}) - (1 + {base_sum} + {base_sum}^2 + ... + {base_sum}^{max_exp})$$<br/>$$(base_sum - 1) \\times S = {base_sum}^{max_exp+1} - 1$$<br/>$$S = \\frac{{base_sum}^{max_exp+1} - 1}{{base_sum} - 1}$$<br/>Thay số vào công thức:<br/>$$S = \\frac{{base_sum}^{max_exp+1} - 1}{{base_sum} - 1} = \\frac{{Math.pow(base_sum, max_exp + 1)} - 1}{{base_sum} - 1} = \\frac{{Math.pow(base_sum, max_exp + 1) - 1}}{{base_sum - 1}} = {ans}$$<br/>Vậy tổng của dãy số là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Đây là một dạng tổng đặc biệt thường gặp. Hãy nhớ công thức $1 + a + a^2 + ... + a^n = \\frac{a^{n+1}-1}{a-1}$ để giải nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_choices": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "num_positions": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "Math.pow(num_choices, num_positions)",
+        "w1": "num_choices * num_positions",
+        "w2": "num_choices + num_positions",
+        "w3": "(Math.pow(num_positions, num_choices) === Math.pow(num_choices, num_positions) || Math.pow(num_positions, num_choices) === num_choices * num_positions || Math.pow(num_positions, num_choices) === num_choices + num_positions) ? Math.pow(num_choices, num_positions) + 10 : Math.pow(num_positions, num_choices)"
+      },
+      "questionText": "Một chiếc khóa số có {num_positions} vòng quay, mỗi vòng có {num_choices} chữ số (từ 0 đến {num_choices-1}). Hỏi có thể tạo ra được bao nhiêu mã khóa khác nhau?",
+      "options": [
+        "A. {w1} mã khóa",
+        "B. {ans} mã khóa",
+        "C. {w2} mã khóa",
+        "D. {w3} mã khóa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Với mỗi vòng quay, có bao nhiêu lựa chọn chữ số?",
+        "Số lựa chọn ở mỗi vòng quay độc lập với nhau. Để tìm tổng số mã khóa, ta nhân số lựa chọn của từng vòng lại."
+      ],
+      "solutionHtml": "Chiếc khóa số có {num_positions} vòng quay.<br/>Mỗi vòng quay có {num_choices} lựa chọn chữ số.<br/>Vòng 1 có {num_choices} cách chọn.<br/>Vòng 2 có {num_choices} cách chọn.<br/>...<br/>Vòng {num_positions} có {num_choices} cách chọn.<br/>Vì các lựa chọn là độc lập, tổng số mã khóa khác nhau có thể tạo ra là tích của số lựa chọn ở mỗi vòng quay:<br/>${num_choices} \\times {num_choices} \\times ... \\times {num_choices}$$ ({num_positions} lần)<br/>Điều này chính là phép tính lũy thừa: ${num_choices}^{num_positions} = {ans}$$ mã khóa.<br/>Vậy, có thể tạo ra được {ans} mã khóa khác nhau.<br/>Đáp án đúng là B.",
+      "tip": "Khi mỗi vị trí (hoặc bước) có một số lựa chọn độc lập, tổng số cách sắp xếp (hoặc mã khóa) là tích của số lựa chọn ở mỗi vị trí. Đây là ứng dụng cơ bản của phép nhân trong tổ hợp, và nếu các lựa chọn giống nhau, nó trở thành lũy thừa.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "side_initial": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "increase_amount": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "initial_area": "Math.pow(side_initial, 2)",
+        "new_side": "side_initial + increase_amount",
+        "new_area": "Math.pow(side_initial + increase_amount, 2)",
+        "ans": "Math.pow(side_initial + increase_amount, 2) - Math.pow(side_initial, 2)",
+        "w1": "Math.pow(side_initial, 2) + increase_amount",
+        "w2": "Math.pow(side_initial + increase_amount, 2)",
+        "w3": "2 * side_initial * increase_amount"
+      },
+      "questionText": "Một mảnh vườn hình vuông có cạnh dài {side_initial} mét. Sau đó, người ta mở rộng mảnh vườn bằng cách tăng thêm mỗi cạnh {increase_amount} mét. Hỏi diện tích mảnh vườn tăng thêm bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} m$^2$",
+        "B. {w2} m$^2$",
+        "C. {ans} m$^2$",
+        "D. {w3} m$^2$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình vuông được tính bằng cạnh nhân cạnh (cạnh mũ 2).",
+        "Đầu tiên, hãy tính diện tích ban đầu của mảnh vườn.",
+        "Tiếp theo, tính độ dài cạnh mới và diện tích mới của mảnh vườn.",
+        "Diện tích tăng thêm là hiệu của diện tích mới và diện tích ban đầu."
+      ],
+      "solutionHtml": "Diện tích ban đầu của mảnh vườn hình vuông là:<br/>${side_initial}^2 = {initial_area}$$ (m$^2$).<br/>Sau khi tăng thêm mỗi cạnh {increase_amount} mét, độ dài cạnh mới của mảnh vườn là:<br/>${side_initial} + {increase_amount} = {new_side}$$ (mét).<br/>Diện tích mới của mảnh vườn là:<br/>${new_side}^2 = {new_area}$$ (m$^2$).<br/>Diện tích mảnh vườn tăng thêm là hiệu của diện tích mới và diện tích ban đầu:<br/>${new_area} - {initial_area} = {ans}$$ (m$^2$).<br/>Vậy, diện tích mảnh vườn tăng thêm {ans} m$^2$.<br/>Đáp án đúng là C.",
+      "tip": "Khi đọc bài toán liên quan đến 'tăng thêm mỗi cạnh', hãy nhớ rằng cả chiều dài và chiều rộng đều tăng, và diện tích được tính bằng cạnh mới bình phương. Đừng quên rằng đề bài hỏi 'diện tích tăng thêm', không phải 'diện tích mới'.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base_val": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "exp_inner": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "exp_outer": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "!(exp_inner === 2 && exp_outer === 2)"
+      ],
+      "formulas": {
+        "ans_exp": "exp_inner * exp_outer",
+        "ans_text": "`${base_val}^{exp_inner * exp_outer}`",
+        "w1_exp": "exp_inner + exp_outer",
+        "w2_val": "base_val * exp_inner",
+        "w3_exp": "exp_inner / exp_outer"
+      },
+      "questionText": "Biểu thức $$(({base_val}^{exp_inner})^{exp_outer})$$ tương đương với biểu thức nào sau đây?",
+      "options": [
+        "A. ${base_val}^{exp_inner + exp_outer}$$",
+        "B. $${Math.pow(base_val * exp_inner, exp_outer)}$$",
+        "C. ${base_val}^{exp_inner * exp_outer}$$",
+        "D. ${base_val}^{exp_inner - exp_outer}$$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhớ lại quy tắc lũy thừa của lũy thừa: $(a^m)^n = a^{m \\times n}$",
+        "Số mũ bên trong được nhân với số mũ bên ngoài."
+      ],
+      "solutionHtml": "Theo quy tắc lũy thừa của lũy thừa, khi ta có một lũy thừa được nâng lên một số mũ khác, ta sẽ giữ nguyên cơ số và nhân các số mũ với nhau.<br/>Công thức tổng quát là: $$(a^m)^n = a^{m \\times n}$$<br/>Áp dụng công thức này vào biểu thức đã cho:<br/>$$(({base_val}^{exp_inner})^{exp_outer}) = {base_val}^{exp_inner \\times exp_outer} = {base_val}^{ans_exp}$$<br/>Vậy, biểu thức $$(({base_val}^{exp_inner})^{exp_outer})$$ tương đương với ${base_val}^{ans_exp}$$<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa quy tắc lũy thừa của lũy thừa $(a^m)^n = a^{m \\times n}$ và quy tắc nhân hai lũy thừa cùng cơ số $a^m \\times a^n = a^{m+n}$. Đây là hai quy tắc khác nhau dẫn đến kết quả khác nhau.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base1": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "exp1": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "coef_x": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "base2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "exp2": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "Math.pow(base1, exp1) > Math.pow(base2, exp2)",
+        "(Math.pow(base1, exp1) - Math.pow(base2, exp2)) % coef_x === 0"
+      ],
+      "formulas": {
+        "val1": "Math.pow(base1, exp1)",
+        "val2": "Math.pow(base2, exp2)",
+        "ans": "(Math.pow(base1, exp1) - Math.pow(base2, exp2)) / coef_x",
+        "w1": "Math.pow(base1, exp1) - Math.pow(base2, exp2)",
+        "w2": "Math.pow(base1, exp1) + Math.pow(base2, exp2)",
+        "w3": "(((Math.pow(base1, exp1) - Math.pow(base2, exp2)) * coef_x) === (Math.pow(base1, exp1) + Math.pow(base2, exp2)) || ((Math.pow(base1, exp1) - Math.pow(base2, exp2)) * coef_x) === ((Math.pow(base1, exp1) - Math.pow(base2, exp2)) / coef_x) || ((Math.pow(base1, exp1) - Math.pow(base2, exp2)) * coef_x) === (Math.pow(base1, exp1) - Math.pow(base2, exp2))) ? (Math.pow(base1, exp1) - Math.pow(base2, exp2)) * coef_x + 5 : (Math.pow(base1, exp1) - Math.pow(base2, exp2)) * coef_x"
+      },
+      "questionText": "Tìm số tự nhiên $x$ thỏa mãn ${base1}^{exp1} - {coef_x} \\times x = {base2}^{exp2}$$",
+      "options": [
+        "A. $x = {w1}$",
+        "B. $x = {ans}$",
+        "C. $x = {w2}$",
+        "D. $x = {w3}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính giá trị của các lũy thừa {base1}^{exp1}$ và {base2}^{exp2}$.",
+        "Đưa phương trình về dạng $A - Bx = C$, từ đó tìm $x$.",
+        "Nhớ thực hiện đúng thứ tự các phép tính: lũy thừa trước, rồi mới đến nhân chia và cộng trừ."
+      ],
+      "solutionHtml": "Để tìm số tự nhiên $x$ thỏa mãn phương trình ${base1}^{exp1} - {coef_x} \\times x = {base2}^{exp2}$$ trước hết, ta tính giá trị của các lũy thừa:<br/>${base1}^{exp1} = {val1}$$<br/>${base2}^{exp2} = {val2}$$<br/>Thay các giá trị này vào phương trình, ta được:<br/>${val1} - {coef_x} \\times x = {val2}$$<br/>Để tìm {coef_x} \\times x$, ta chuyển {val2} sang vế trái và {coef_x} \\times x$ sang vế phải:<br/>${val1} - {val2} = {coef_x} \\times x$$<br/>${val1 - val2} = {coef_x} \\times x$$<br/>Cuối cùng, để tìm $x$, ta chia kết quả cho {coef_x}:<br/>$$x = \\frac{{val1 - val2}}{{coef_x}} = \\frac{{{val1 - val2}}}{{{coef_x}}} = {ans}$$<br/>Vậy, số tự nhiên $x$ cần tìm là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải phương trình có chứa lũy thừa, hãy ưu tiên tính giá trị của lũy thừa trước. Sau đó, coi lũy thừa là các số thông thường và giải phương trình bằng các phép biến đổi cơ bản (chuyển vế đổi dấu, nhân chia hai vế).",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base_val": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "exp_max": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        },
+        "exp_min": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "exp_max > exp_min"
+      ],
+      "formulas": {
+        "ans": "Math.pow(base_val, exp_min) * (Math.pow(base_val, exp_max - exp_min) - 1)",
+        "w1": "Math.pow(base_val, exp_max - exp_min + 1)",
+        "w2": "Math.pow(base_val, exp_max + exp_min)",
+        "w3": "Math.pow(base_val, exp_max - exp_min)"
+      },
+      "questionText": "Giá trị của biểu thức ${base_val}^{exp_max} - {base_val}^{exp_min}$$ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy thử đặt thừa số chung là lũy thừa có số mũ nhỏ nhất.",
+        "Sử dụng tính chất phân phối của phép nhân đối với phép trừ: $a \\times b - a \\times c = a \\times (b - c)$"
+      ],
+      "solutionHtml": "Để tính giá trị của biểu thức ${base_val}^{exp_max} - {base_val}^{exp_min}$$ ta có thể đặt thừa số chung là lũy thừa có số mũ nhỏ nhất, ở đây là {base_val}^{exp_min}$.<br/>Ta có:<br/>${base_val}^{exp_max} - {base_val}^{exp_min} = {base_val}^{exp_min} \\times {base_val}^{exp_max - exp_min} - {base_val}^{exp_min} \\times 1$$<br/>(Vì $a^m \\times a^n = a^{m+n}$ nên $a^{m+n} \\div a^m = a^n$)<br/>Đặt {base_val}^{exp_min}$ làm thừa số chung:<br/>${base_val}^{exp_min} \\times ({base_val}^{exp_max - exp_min} - 1)$$<br/>Bây giờ, ta tính giá trị cụ thể:<br/>${base_val}^{exp_min} = {Math.pow(base_val, exp_min)}$$<br/>${base_val}^{exp_max - exp_min} = {Math.pow(base_val, exp_max - exp_min)}$$<br/>$${Math.pow(base_val, exp_min)} \\times ({Math.pow(base_val, exp_max - exp_min)} - 1) = {ans}$$<br/>Vậy, giá trị của biểu thức là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi gặp các phép cộng trừ giữa các lũy thừa cùng cơ số, hãy xem xét việc đặt lũy thừa có số mũ nhỏ nhất làm thừa số chung. Điều này giúp đơn giản hóa biểu thức và dễ tính toán hơn.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base_k": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "exp_k": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "num_elements": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "Math.pow(base_k, exp_k * num_elements)",
+        "w1": "Math.pow(base_k, exp_k + num_elements)",
+        "w2": "Math.pow(base_k * exp_k, num_elements)",
+        "w3": "Math.pow(base_k, exp_k / num_elements)"
+      },
+      "questionText": "Nếu $A = {base_k}^{exp_k}$, và ta có một dãy số gồm {num_elements} số $A$ nhân với nhau: $A \\times A \\times ... \\times A$ ({num_elements} lần). Biểu thức này có thể viết gọn lại là gì?",
+      "options": [
+        "A. `$A^{num_elements}$`",
+        "B. `${base_k}^{exp_k + num_elements}$$`",
+        "C. ${base_k}^{exp_k \\times num_elements}$$",
+        "D. `$A + {num_elements}$`"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Một số được nhân với chính nó {num_elements} lần thì sẽ bằng số đó lũy thừa {num_elements}.",
+        "Ở đây, số đó là $A$. Vậy $A \\times A \\times ... \\times A$ ({num_elements} lần) chính là $A^{num_elements}$.",
+        "Sau đó, thay $A = {base_k}^{exp_k}$ vào biểu thức vừa tìm được và sử dụng quy tắc lũy thừa của lũy thừa."
+      ],
+      "solutionHtml": "Ta có $A = {base_k}^{exp_k}$.<br/>Dãy số gồm {num_elements} số $A$ nhân với nhau là:<br/>$$A \\times A \\times ... \\times A$$ ({num_elements} lần)<br/>Đây chính là định nghĩa của phép lũy thừa, tức là $A$ lũy thừa {num_elements}:<br/>$$A^{num_elements}$$<br/>Bây giờ, ta thay $A = {base_k}^{exp_k}$ vào biểu thức này:<br/>$$(({base_k}^{exp_k})^{num_elements})$$<br/>Áp dụng quy tắc lũy thừa của lũy thừa $(a^m)^n = a^{m \\times n}$, ta được:<br/>${base_k}^{exp_k \\times num_elements} = {base_k}^{ans_exp}$$<br/>Vậy, biểu thức có thể viết gọn lại là ${base_k}^{ans_exp}$$<br/>Đáp án đúng là C.",
+      "tip": "Phép lũy thừa là cách viết gọn của phép nhân nhiều thừa số giống nhau. Khi một lũy thừa lại được nâng lên một số mũ khác, hãy nhớ nhân các số mũ với nhau. Luôn thực hiện từng bước, từ trong ngoài ra, để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "bai-6-d4"
+    }
+  ]
+}

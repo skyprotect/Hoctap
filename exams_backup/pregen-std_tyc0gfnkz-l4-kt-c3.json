@@ -1,0 +1,684 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "ngay1": {
+          "min": 250,
+          "max": 400,
+          "step": 10
+        },
+        "factorNgay2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "lessNgay3": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "variables.ngay1 * variables.factorNgay2 > variables.lessNgay3 + 100"
+      ],
+      "formulas": {
+        "ngay2": "variables.ngay1 * variables.factorNgay2",
+        "ngay3": "variables.ngay1 * variables.factorNgay2 - variables.lessNgay3",
+        "ans": "variables.ngay1 + (variables.ngay1 * variables.factorNgay2) + (variables.ngay1 * variables.factorNgay2 - variables.lessNgay3)",
+        "w1": "variables.ngay1 + (variables.ngay1 * variables.factorNgay2)",
+        "w2": "variables.ngay1 + (variables.ngay1 * variables.factorNgay2 - variables.lessNgay3)",
+        "w3": "(variables.ngay1 * variables.factorNgay2) + (variables.ngay1 * variables.factorNgay2 - variables.lessNgay3)"
+      },
+      "questionText": "Một vườn cam thu hoạch trong ba ngày. Ngày thứ nhất thu hoạch được $ {ngay1} $ kg. Ngày thứ hai thu hoạch được số cam gấp $ {factorNgay2} $ lần ngày thứ nhất. Ngày thứ ba thu hoạch được số cam ít hơn ngày thứ hai $ {lessNgay3} $ kg. Hỏi cả ba ngày vườn cam đó thu hoạch được tất cả bao nhiêu ki-lô-gam cam?",
+      "options": [
+        "A. $ {w1} $ kg",
+        "B. $ {ans} $ kg",
+        "C. $ {w2} $ kg",
+        "D. $ {w3} $ kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số cam thu hoạch được trong ngày thứ hai.",
+        "Tiếp theo, hãy tính số cam thu hoạch được trong ngày thứ ba.",
+        "Cuối cùng, tính tổng số cam thu hoạch được trong cả ba ngày."
+      ],
+      "solutionHtml": "Số cam thu hoạch được trong ngày thứ hai là:<br/>$ {ngay1} \\times {factorNgay2} = {ngay2} $ (kg)<br/><br/>Số cam thu hoạch được trong ngày thứ ba là:<br/>$ {ngay2} - {lessNgay3} = {ngay3} $ (kg)<br/><br/>Tổng số cam thu hoạch được trong cả ba ngày là:<br/>$ {ngay1} + {ngay2} + {ngay3} = {ans} $ (kg)<br/><br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đúng thứ tự các phép tính và tránh nhầm lẫn giữa 'gấp mấy lần' và 'ít hơn' hoặc 'nhiều hơn'.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongBanh": {
+          "min": 1250,
+          "max": 1800,
+          "step": 50
+        },
+        "banhMoiHop": {
+          "min": 12,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.tongBanh > variables.banhMoiHop",
+        "variables.banhMoiHop > 1"
+      ],
+      "formulas": {
+        "soHopDu": "Math.floor(variables.tongBanh / variables.banhMoiHop)",
+        "soBanhThua": "variables.tongBanh % variables.banhMoiHop",
+        "tongSoHopCan": "variables.tongBanh % variables.banhMoiHop === 0 ? Math.floor(variables.tongBanh / variables.banhMoiHop) : Math.floor(variables.tongBanh / variables.banhMoiHop) + 1",
+        "ans": "variables.tongBanh % variables.banhMoiHop === 0 ? `Cần ${Math.floor(variables.tongBanh / variables.banhMoiHop)} hộp, không thừa bánh nào.` : `Cần ${Math.floor(variables.tongBanh / variables.banhMoiHop) + 1} hộp, còn thừa ${variables.tongBanh % variables.banhMoiHop} cái bánh.`",
+        "w1": "variables.tongBanh % variables.banhMoiHop === 0 ? `Cần ${Math.floor(variables.tongBanh / variables.banhMoiHop)} hộp, không thừa bánh nào.` : `Cần ${Math.floor(variables.tongBanh / variables.banhMoiHop)} hộp, còn thừa ${variables.tongBanh % variables.banhMoiHop} cái bánh.`",
+        "w2": "`Thừa ${variables.tongBanh % variables.banhMoiHop} cái bánh.`",
+        "w3": "`Cần ${Math.floor(variables.tongBanh / variables.banhMoiHop) + 2} hộp.`"
+      },
+      "questionText": "Bác An có $ {tongBanh} $ cái bánh ngọt. Bác muốn xếp số bánh này vào các hộp, mỗi hộp đựng được $ {banhMoiHop} $ cái bánh. Hỏi bác An cần ít nhất bao nhiêu hộp để xếp hết số bánh đó và còn thừa bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy thực hiện phép chia $ {tongBanh} : {banhMoiHop} $ để tìm số hộp đầy và số bánh còn lại.",
+        "Nếu có bánh còn lại sau khi xếp đầy các hộp, bác An sẽ cần thêm một hộp nữa để đựng số bánh đó."
+      ],
+      "solutionHtml": "Thực hiện phép chia số bánh ngọt cho số bánh mỗi hộp:<br/>$ {tongBanh} : {banhMoiHop} = {soHopDu} $ (hộp) và dư $ {soBanhThua} $ (cái bánh).<br/><br/>Số hộp đầy là $ {soHopDu} $ hộp.<br/>Số bánh còn thừa là $ {soBanhThua} $ cái.<br/><br/>Nếu số bánh còn thừa ($ {soBanhThua} $) lớn hơn 0, ta cần thêm 1 hộp nữa để đựng số bánh thừa đó.<br/>Vậy tổng số hộp cần ít nhất là $ {tongSoHopCan} $ hộp.<br/>(Nếu số bánh thừa bằng 0 thì chỉ cần $ {soHopDu} $ hộp).<br/><br/>Vậy, {ans}<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu 'cần ít nhất bao nhiêu hộp để xếp hết', bạn phải tính cả hộp chứa số dư (nếu có dư).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "diemToan": {
+          "min": 7,
+          "max": 10,
+          "step": 1
+        },
+        "diemTV": {
+          "min": 7,
+          "max": 10,
+          "step": 1
+        },
+        "chenhLech": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "((variables.diemToan + variables.diemTV - 3 * variables.chenhLech) > 0)",
+        "((variables.diemToan + variables.diemTV - 3 * variables.chenhLech) % 2 === 0)",
+        "variables.diemToan >= variables.chenhLech",
+        "variables.diemTV >= variables.chenhLech"
+      ],
+      "formulas": {
+        "tongHaiMon": "variables.diemToan + variables.diemTV",
+        "baLanChenhLech": "3 * variables.chenhLech",
+        "tuSo": "variables.diemToan + variables.diemTV - 3 * variables.chenhLech",
+        "ans": "(variables.diemToan + variables.diemTV - 3 * variables.chenhLech) / 2",
+        "w1": "variables.diemToan",
+        "w2": "variables.diemTV",
+        "w3": "(variables.diemToan + variables.diemTV) / 2"
+      },
+      "questionText": "An kiểm tra ba môn học. Môn Toán được $ {diemToan} $ điểm, môn Tiếng Việt được $ {diemTV} $ điểm. Điểm môn Khoa học kém trung bình cộng điểm ba môn là $ {chenhLech} $ điểm. Hỏi điểm môn Khoa học của An là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $ điểm",
+        "B. $ {ans} $ điểm",
+        "C. $ {w2} $ điểm",
+        "D. $ {w3} $ điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi điểm môn Khoa học là X. Trung bình cộng ba môn là $ ( {diemToan} + {diemTV} + X ) : 3 $.",
+        "Theo đề bài, $ X = ( {diemToan} + {diemTV} + X ) : 3 - {chenhLech} $.",
+        "Hãy biến đổi biểu thức để tìm X."
+      ],
+      "solutionHtml": "Gọi điểm môn Khoa học là X. <br/>Trung bình cộng điểm ba môn là: $ ( {diemToan} + {diemTV} + X ) : 3 $.<br/>Theo đề bài, điểm môn Khoa học kém trung bình cộng điểm ba môn là $ {chenhLech} $ điểm, ta có:<br/>$ X = ( {diemToan} + {diemTV} + X ) : 3 - {chenhLech} $<br/>Nhân cả hai vế với 3:<br/>$ 3 \\times X = ( {diemToan} + {diemTV} + X ) - {baLanChenhLech} $<br/>$ 3 \\times X = {diemToan} + {diemTV} + X - {baLanChenhLech} $<br/>Chuyển X sang vế trái:<br/>$ 3 \\times X - X = {diemToan} + {diemTV} - {baLanChenhLech} $<br/>$ 2 \\times X = {tongHaiMon} - {baLanChenhLech} $<br/>$ 2 \\times X = {tuSo} $<br/>$ X = {tuSo} : 2 $<br/>$ X = {ans} $ điểm.<br/><br/>Vậy, điểm môn Khoa học của An là $ {ans} $ điểm.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu chúng ta phải thiết lập một phương trình đơn giản và giải nó. Luôn nhớ rằng trung bình cộng của N số là tổng của N số đó chia cho N.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "factor": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        },
+        "tru": {
+          "min": 150,
+          "max": 300,
+          "step": 10
+        },
+        "chia": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "ketQua": {
+          "min": 100,
+          "max": 250,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "variables.ketQua * variables.chia > variables.tru + 50",
+        "(variables.ketQua * variables.chia + variables.tru) % variables.factor === 0",
+        "variables.factor > 1",
+        "variables.chia > 1"
+      ],
+      "formulas": {
+        "buoc1": "variables.ketQua * variables.chia",
+        "buoc2": "(variables.ketQua * variables.chia) + variables.tru",
+        "ans": "((variables.ketQua * variables.chia) + variables.tru) / variables.factor",
+        "w1": "variables.ketQua * variables.chia + variables.tru",
+        "w2": "variables.ketQua * variables.chia - variables.tru",
+        "w3": "variables.ketQua / variables.chia + variables.tru"
+      },
+      "questionText": "Một số, sau khi nhân với $ {factor} $, rồi trừ đi $ {tru} $, rồi chia cho $ {chia} $ thì được kết quả là $ {ketQua} $. Tìm số ban đầu.",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số ban đầu, ta phải thực hiện các phép tính ngược lại và theo thứ tự ngược lại.",
+        "Bước cuối cùng là 'chia cho $ {chia} $' ra $ {ketQua} $. Vậy trước đó là phép tính gì để ra số bị chia?",
+        "Bước trước nữa là 'trừ đi $ {tru} $'. Vậy trước đó là phép tính gì để ra số bị trừ?",
+        "Bước đầu tiên là 'nhân với $ {factor} $'. Vậy làm thế nào để tìm số ban đầu?"
+      ],
+      "solutionHtml": "Để tìm số ban đầu, ta thực hiện các phép tính ngược lại và theo thứ tự ngược lại:<br/>1. Kết quả cuối cùng là $ {ketQua} $ sau khi 'chia cho $ {chia} $'. Vậy số trước khi chia là:<br/>$ {ketQua} \\times {chia} = {buoc1} $<br/><br/>2. Số $ {buoc1} $ có được sau khi 'trừ đi $ {tru} $'. Vậy số trước khi trừ là:<br/>$ {buoc1} + {tru} = {buoc2} $<br/><br/>3. Số $ {buoc2} $ có được sau khi 'nhân với $ {factor} $'. Vậy số ban đầu là:<br/>$ {buoc2} : {factor} = {ans} $<br/><br/>Vậy số ban đầu là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán 'tìm số ban đầu' với các phép tính liên tiếp, hãy làm ngược lại từ kết quả cuối cùng, đảo ngược mỗi phép tính. Phép cộng thành trừ, phép trừ thành cộng, phép nhân thành chia, phép chia thành nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soLuongSP": {
+          "min": 500,
+          "max": 800,
+          "step": 50
+        },
+        "giaNhap": {
+          "min": 20000,
+          "max": 35000,
+          "step": 1000
+        },
+        "soLuongBanCao": {
+          "min": 300,
+          "max": 450,
+          "step": 20
+        },
+        "giaBanCao": {
+          "min": 40000,
+          "max": 60000,
+          "step": 2000
+        },
+        "giaBanThap": {
+          "min": 25000,
+          "max": 38000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "variables.soLuongSP > variables.soLuongBanCao",
+        "variables.giaBanCao > variables.giaNhap + 5000",
+        "variables.giaBanThap > variables.giaNhap - 5000",
+        "variables.giaBanThap < variables.giaBanCao",
+        "(variables.soLuongBanCao * variables.giaBanCao + (variables.soLuongSP - variables.soLuongBanCao) * variables.giaBanThap) > variables.soLuongSP * variables.giaNhap"
+      ],
+      "formulas": {
+        "tienNhap": "variables.soLuongSP * variables.giaNhap",
+        "soLuongConLai": "variables.soLuongSP - variables.soLuongBanCao",
+        "tienBanCao": "variables.soLuongBanCao * variables.giaBanCao",
+        "tienBanThap": "(variables.soLuongSP - variables.soLuongBanCao) * variables.giaBanThap",
+        "tongTienBan": "(variables.soLuongBanCao * variables.giaBanCao) + ((variables.soLuongSP - variables.soLuongBanCao) * variables.giaBanThap)",
+        "ans": "(variables.soLuongBanCao * variables.giaBanCao) + ((variables.soLuongSP - variables.soLuongBanCao) * variables.giaBanThap) - (variables.soLuongSP * variables.giaNhap)",
+        "w1": "(variables.soLuongBanCao * variables.giaBanCao) - (variables.soLuongSP * variables.giaNhap)",
+        "w2": "(variables.soLuongSP * variables.giaNhap) - ((variables.soLuongBanCao * variables.giaBanCao) + ((variables.soLuongSP - variables.soLuongBanCao) * variables.giaBanThap))",
+        "w3": "(variables.soLuongSP * variables.giaBanCao) - (variables.soLuongSP * variables.giaNhap)"
+      },
+      "questionText": "Một cửa hàng nhập về $ {soLuongSP} $ chiếc áo với giá $ {giaNhap} $ đồng/chiếc. Họ bán được $ {soLuongBanCao} $ chiếc áo với giá $ {giaBanCao} $ đồng/chiếc. Số áo còn lại được bán với giá $ {giaBanThap} $ đồng/chiếc. Hỏi sau khi bán hết số áo, cửa hàng đó lãi bao nhiêu tiền?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {ans} $ đồng",
+        "C. $ {w2} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số tiền vốn đã bỏ ra để nhập áo.",
+        "Sau đó, tính số lượng áo còn lại sau khi bán đợt đầu.",
+        "Tính tổng số tiền thu được từ việc bán áo, chia thành hai đợt giá khác nhau.",
+        "Cuối cùng, tính số tiền lãi bằng cách lấy tổng tiền bán trừ đi tổng tiền vốn."
+      ],
+      "solutionHtml": "Tổng số tiền vốn cửa hàng đã bỏ ra là:<br/>$ {soLuongSP} \\times {giaNhap} = {tienNhap} $ (đồng)<br/><br/>Số áo còn lại sau khi bán đợt đầu là:<br/>$ {soLuongSP} - {soLuongBanCao} = {soLuongConLai} $ (chiếc)<br/><br/>Số tiền thu được từ việc bán $ {soLuongBanCao} $ chiếc áo đầu tiên là:<br/>$ {soLuongBanCao} \\times {giaBanCao} = {tienBanCao} $ (đồng)<br/><br/>Số tiền thu được từ việc bán $ {soLuongConLai} $ chiếc áo còn lại là:<br/>$ {soLuongConLai} \\times {giaBanThap} = {tienBanThap} $ (đồng)<br/><br/>Tổng số tiền cửa hàng thu được khi bán hết áo là:<br/>$ {tienBanCao} + {tienBanThap} = {tongTienBan} $ (đồng)<br/><br/>Số tiền lãi của cửa hàng là:<br/>$ {tongTienBan} - {tienNhap} = {ans} $ (đồng)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước tính toán và các mức giá khác nhau, hãy chia nhỏ bài toán thành từng phần rõ ràng: tính vốn, tính tiền thu được từ mỗi loại hàng bán, rồi tính tổng doanh thu và so sánh với tổng vốn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": {
+          "min": 800,
+          "max": 1500,
+          "step": 50
+        },
+        "lan": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.tong % (variables.lan + 1) === 0",
+        "variables.lan > 1"
+      ],
+      "formulas": {
+        "tongSoPhan": "variables.lan + 1",
+        "soBe": "variables.tong / (variables.lan + 1)",
+        "soLon": "variables.tong / (variables.lan + 1) * variables.lan",
+        "ans": "variables.tong / (variables.lan + 1)",
+        "w1": "variables.tong / variables.lan",
+        "w2": "variables.tong - (variables.tong / (variables.lan + 1))",
+        "w3": "variables.tong * variables.lan"
+      },
+      "questionText": "Hai số có tổng là $ {tong} $. Biết số lớn gấp $ {lan} $ lần số bé. Tìm số bé.",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy vẽ sơ đồ đoạn thẳng biểu thị số lớn và số bé.",
+        "Xác định tổng số phần bằng nhau.",
+        "Tìm giá trị của một phần, đó chính là số bé."
+      ],
+      "solutionHtml": "Vì số lớn gấp $ {lan} $ lần số bé, ta có thể biểu diễn số bé là 1 phần, số lớn là $ {lan} $ phần.<br/>Tổng số phần bằng nhau là:<br/>$ 1 + {lan} = {tongSoPhan} $ (phần)<br/><br/>Giá trị của một phần (chính là số bé) là:<br/>$ {tong} : {tongSoPhan} = {ans} $<br/><br/>Vậy số bé là $ {ans} $.<br/>(Số lớn là $ {ans} \\times {lan} = {soLon} $)<br/>Đáp án đúng là B.",
+      "tip": "Đối với dạng toán 'tìm hai số khi biết tổng và tỉ số', hãy tìm tổng số phần bằng nhau, sau đó lấy tổng của hai số chia cho tổng số phần để tìm giá trị của một phần (số bé hoặc số lớn tùy cách đặt tỉ số).",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongTuoiHienTai": {
+          "min": 70,
+          "max": 90,
+          "step": 2
+        },
+        "chenhLechTuoi": {
+          "min": 50,
+          "max": 65,
+          "step": 2
+        },
+        "lan": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.tongTuoiHienTai > variables.chenhLechTuoi",
+        "(variables.tongTuoiHienTai - variables.chenhLechTuoi) % 2 === 0",
+        "variables.lan > 1",
+        "( ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 ) + variables.chenhLechTuoi - variables.lan * ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 ) ) > 0",
+        "( ( ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 ) + variables.chenhLechTuoi - variables.lan * ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 ) ) % (variables.lan - 1) === 0)"
+      ],
+      "formulas": {
+        "tuoiChauHienTai": "(variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2",
+        "tuoiOngHienTai": "(variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 + variables.chenhLechTuoi",
+        "tuSo": "( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 + variables.chenhLechTuoi ) - variables.lan * ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 )",
+        "mauSo": "variables.lan - 1",
+        "ans": "( ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 ) + variables.chenhLechTuoi - variables.lan * ( (variables.tongTuoiHienTai - variables.chenhLechTuoi) / 2 ) ) / (variables.lan - 1)",
+        "w1": "variables.tuoiChauHienTai",
+        "w2": "variables.tuoiOngHienTai",
+        "w3": "variables.ans + 2"
+      },
+      "questionText": "Hiện nay, tổng số tuổi của ông và cháu là $ {tongTuoiHienTai} $ tuổi. Ông hơn cháu $ {chenhLechTuoi} $ tuổi. Hỏi bao nhiêu năm nữa thì tuổi ông sẽ gấp $ {lan} $ lần tuổi cháu?",
+      "options": [
+        "A. $ {w1} $ năm",
+        "B. $ {ans} $ năm",
+        "C. $ {w2} $ năm",
+        "D. $ {w3} $ năm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tuổi hiện tại của ông và cháu. Lưu ý rằng hiệu số tuổi không thay đổi theo thời gian.",
+        "Gọi số năm nữa là Y. Thiết lập phương trình theo tuổi ông và cháu sau Y năm, khi đó tuổi ông gấp $ {lan} $ lần tuổi cháu."
+      ],
+      "solutionHtml": "Hiện nay, tuổi của cháu là:<br/>$ ( {tongTuoiHienTai} - {chenhLechTuoi} ) : 2 = {tuoiChauHienTai} $ (tuổi)<br/><br/>Tuổi của ông hiện nay là:<br/>$ {tuoiChauHienTai} + {chenhLechTuoi} = {tuoiOngHienTai} $ (tuổi)<br/><br/>Gọi số năm nữa là $ Y $. Khi đó:<br/>Tuổi ông là: $ {tuoiOngHienTai} + Y $ tuổi<br/>Tuổi cháu là: $ {tuoiChauHienTai} + Y $ tuổi<br/><br/>Theo đề bài, tuổi ông gấp $ {lan} $ lần tuổi cháu, ta có phương trình:<br/>$ {tuoiOngHienTai} + Y = {lan} \\times ( {tuoiChauHienTai} + Y ) $<br/>$ {tuoiOngHienTai} + Y = {lan} \\times {tuoiChauHienTai} + {lan} \\times Y $<br/>Chuyển các số hạng có Y sang một vế, các số hạng không có Y sang vế còn lại:<br/>$ {tuoiOngHienTai} - {lan} \\times {tuoiChauHienTai} = {lan} \\times Y - Y $<br/>$ {tuoiOngHienTai} - {lan} \\times {tuoiChauHienTai} = ( {lan} - 1 ) \\times Y $<br/>$ {tuSo} = {mauSo} \\times Y $<br/>$ Y = {tuSo} : {mauSo} $<br/>$ Y = {ans} $ (năm)<br/><br/>Vậy, $ {ans} $ năm nữa thì tuổi ông sẽ gấp $ {lan} $ lần tuổi cháu.<br/>Đáp án đúng là B.",
+      "tip": "Dạng toán tuổi thường có một đại lượng không đổi là 'hiệu số tuổi'. Hãy tận dụng điều này để tìm tuổi hiện tại, sau đó thiết lập mối quan hệ tuổi trong tương lai để giải quyết.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "spThangTruoc": {
+          "min": 1200,
+          "max": 1800,
+          "step": 100
+        },
+        "tangThem": {
+          "min": 300,
+          "max": 600,
+          "step": 50
+        },
+        "giaBan": {
+          "min": 50000,
+          "max": 80000,
+          "step": 5000
+        },
+        "tongChiPhi": {
+          "min": 80000000,
+          "max": 120000000,
+          "step": 5000000
+        }
+      },
+      "constraints": [
+        "( (variables.spThangTruoc + (variables.spThangTruoc + variables.tangThem)) * variables.giaBan ) > variables.tongChiPhi + 5000000"
+      ],
+      "formulas": {
+        "spThangNay": "variables.spThangTruoc + variables.tangThem",
+        "tongSPHaiThang": "variables.spThangTruoc + (variables.spThangTruoc + variables.tangThem)",
+        "tongTienBan": "(variables.spThangTruoc + (variables.spThangTruoc + variables.tangThem)) * variables.giaBan",
+        "ans": "( (variables.spThangTruoc + (variables.spThangTruoc + variables.tangThem)) * variables.giaBan ) - variables.tongChiPhi",
+        "w1": "( (variables.spThangTruoc + variables.tangThem) * variables.giaBan ) - variables.tongChiPhi",
+        "w2": "variables.tongChiPhi - ( (variables.spThangTruoc + (variables.spThangTruoc + variables.tangThem)) * variables.giaBan )",
+        "w3": "(variables.soLuongSP * variables.giaBan) - variables.tongChiPhi"
+      },
+      "questionText": "Một xưởng sản xuất đồ chơi. Tháng trước xưởng sản xuất được $ {spThangTruoc} $ sản phẩm. Tháng này xưởng sản xuất nhiều hơn tháng trước $ {tangThem} $ sản phẩm. Biết mỗi sản phẩm bán với giá $ {giaBan} $ đồng và tổng chi phí sản xuất của cả hai tháng là $ {tongChiPhi} $ đồng. Hỏi trong hai tháng đó, xưởng lãi bao nhiêu tiền?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {ans} $ đồng",
+        "C. $ {w2} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số sản phẩm xưởng sản xuất được trong tháng này.",
+        "Sau đó, tính tổng số sản phẩm mà xưởng sản xuất được trong cả hai tháng.",
+        "Tính tổng số tiền thu được từ việc bán tất cả sản phẩm trong hai tháng.",
+        "Cuối cùng, tính số tiền lãi bằng cách lấy tổng tiền bán trừ đi tổng chi phí sản xuất."
+      ],
+      "solutionHtml": "Số sản phẩm xưởng sản xuất được trong tháng này là:<br/>$ {spThangTruoc} + {tangThem} = {spThangNay} $ (sản phẩm)<br/><br/>Tổng số sản phẩm xưởng sản xuất được trong cả hai tháng là:<br/>$ {spThangTruoc} + {spThangNay} = {tongSPHaiThang} $ (sản phẩm)<br/><br/>Tổng số tiền thu được từ việc bán tất cả sản phẩm trong hai tháng là:<br/>$ {tongSPHaiThang} \\times {giaBan} = {tongTienBan} $ (đồng)<br/><br/>Số tiền lãi của xưởng trong hai tháng là:<br/>$ {tongTienBan} - {tongChiPhi} = {ans} $ (đồng)<br/><br/>Đáp án đúng là B.",
+      "tip": "Để tính lãi, ta luôn lấy 'tổng tiền thu được' trừ đi 'tổng chi phí'. Hãy chắc chắn rằng bạn đã tính toán đầy đủ số lượng sản phẩm và doanh thu cho toàn bộ thời gian được hỏi.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soHocSinh": {
+          "min": 800,
+          "max": 1200,
+          "step": 50
+        },
+        "phanSoMau": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "phanSoMauCB": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.soHocSinh % variables.phanSoMau === 0",
+        "(variables.soHocSinh / variables.phanSoMau) % variables.phanSoMauCB === 0",
+        "variables.phanSoMau > 1",
+        "variables.phanSoMauCB > 1"
+      ],
+      "formulas": {
+        "soGiaoVien": "variables.soHocSinh / variables.phanSoMau",
+        "soCanBo": "(variables.soHocSinh / variables.phanSoMau) / variables.phanSoMauCB",
+        "ans": "variables.soHocSinh + (variables.soHocSinh / variables.phanSoMau) + ((variables.soHocSinh / variables.phanSoMau) / variables.phanSoMauCB)",
+        "w1": "variables.soHocSinh + (variables.soHocSinh / variables.phanSoMau)",
+        "w2": "variables.soHocSinh + ((variables.soHocSinh / variables.phanSoMau) / variables.phanSoMauCB)",
+        "w3": "(variables.soHocSinh / variables.phanSoMau) + ((variables.soHocSinh / variables.phanSoMau) / variables.phanSoMauCB)"
+      },
+      "questionText": "Một trường học có $ {soHocSinh} $ học sinh. Số giáo viên bằng $ \\frac{1}{{phanSoMau}} $ số học sinh. Số cán bộ quản lý bằng $ \\frac{1}{{phanSoMauCB}} $ số giáo viên. Hỏi tổng số người (gồm học sinh, giáo viên và cán bộ quản lý) của trường đó là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $ người",
+        "B. $ {ans} $ người",
+        "C. $ {w2} $ người",
+        "D. $ {w3} $ người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số lượng giáo viên dựa vào số học sinh.",
+        "Tính số lượng cán bộ quản lý dựa vào số giáo viên.",
+        "Cuối cùng, cộng tất cả các đối tượng (học sinh, giáo viên, cán bộ quản lý) lại để tìm tổng số người."
+      ],
+      "solutionHtml": "Số lượng giáo viên của trường là:<br/>$ {soHocSinh} : {phanSoMau} = {soGiaoVien} $ (người)<br/><br/>Số lượng cán bộ quản lý của trường là:<br/>$ {soGiaoVien} : {phanSoMauCB} = {soCanBo} $ (người)<br/><br/>Tổng số người của trường (gồm học sinh, giáo viên và cán bộ quản lý) là:<br/>$ {soHocSinh} + {soGiaoVien} + {soCanBo} = {ans} $ (người)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán cho các đại lượng liên quan theo dạng phân số hoặc 'bằng một phần mấy', hãy nhớ đó là phép chia. Thực hiện từng bước tính toán một cách cẩn thận theo thứ tự liên quan.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongSoKhach": {
+          "min": 250,
+          "max": 400,
+          "step": 10
+        },
+        "sucChuaXe": {
+          "min": 30,
+          "max": 50,
+          "step": 5
+        },
+        "chiPhiMoiXe": {
+          "min": 1500000,
+          "max": 2500000,
+          "step": 100000
+        }
+      },
+      "constraints": [
+        "variables.tongSoKhach > variables.sucChuaXe"
+      ],
+      "formulas": {
+        "soChuyenXeFull": "Math.floor(variables.tongSoKhach / variables.sucChuaXe)",
+        "soKhachLe": "variables.tongSoKhach % variables.sucChuaXe",
+        "tongSoChuyenXe": "variables.tongSoKhach % variables.sucChuaXe === 0 ? Math.floor(variables.tongSoKhach / variables.sucChuaXe) : Math.floor(variables.tongSoKhach / variables.sucChuaXe) + 1",
+        "ans": "(variables.tongSoKhach % variables.sucChuaXe === 0 ? Math.floor(variables.tongSoKhach / variables.sucChuaXe) : Math.floor(variables.tongSoKhach / variables.sucChuaXe) + 1) * variables.chiPhiMoiXe",
+        "w1": "Math.floor(variables.tongSoKhach / variables.sucChuaXe) * variables.chiPhiMoiXe",
+        "w2": "(variables.tongSoKhach + variables.sucChuaXe) * variables.chiPhiMoiXe",
+        "w3": "variables.tongSoKhach * variables.chiPhiMoiXe"
+      },
+      "questionText": "Một công ty du lịch tổ chức chuyến đi tham quan cho $ {tongSoKhach} $ khách. Mỗi xe buýt có sức chứa $ {sucChuaXe} $ người. Chi phí xăng xe cho mỗi chuyến xe buýt (không phụ thuộc số khách) là $ {chiPhiMoiXe} $ đồng. Hỏi tổng số tiền công ty phải chi trả cho chi phí xăng xe của chuyến đi là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {ans} $ đồng",
+        "C. $ {w2} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số xe buýt cần dùng để chở hết $ {tongSoKhach} $ khách. Lưu ý rằng nếu có số khách lẻ, vẫn cần thêm một chuyến xe buýt.",
+        "Sau đó, nhân số chuyến xe buýt cần dùng với chi phí xăng xe mỗi chuyến để tìm tổng chi phí."
+      ],
+      "solutionHtml": "Số chuyến xe buýt cần dùng để chở hết $ {tongSoKhach} $ khách là:<br/>$ {tongSoKhach} : {sucChuaXe} = {soChuyenXeFull} $ (chuyến) và dư $ {soKhachLe} $ (người)<br/><br/>Vì số khách còn lại ($ {soKhachLe} $ người) vẫn cần được chở đi, nên nếu có số dư, ta cần thêm 1 chuyến xe nữa.<br/>Vậy tổng số chuyến xe buýt cần là: $ {tongSoChuyenXe} $ (chuyến)<br/><br/>Tổng số tiền công ty phải chi trả cho chi phí xăng xe là:<br/>$ {tongSoChuyenXe} \\times {chiPhiMoiXe} = {ans} $ (đồng)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi tính số lượng xe, hộp, nhóm,... mà có phần dư, luôn nhớ phải làm tròn lên (thêm một đơn vị) nếu có bất kỳ phần dư nào, để đảm bảo tất cả đều được chứa hoặc vận chuyển.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thung1": {
+          "min": 1500,
+          "max": 2000,
+          "step": 100
+        },
+        "themThung2": {
+          "min": 300,
+          "max": 600,
+          "step": 50
+        },
+        "gapThung3": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "giamThung4": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "variables.thung1 + variables.themThung2 > variables.giamThung4 + 100",
+        "variables.thung1 + variables.themThung2 > variables.giamThung4",
+        "(variables.thung1 + variables.themThung2) * variables.gapThung3 - variables.giamThung4 > 0"
+      ],
+      "formulas": {
+        "thung2": "variables.thung1 + variables.themThung2",
+        "thung3": "(variables.thung1 + variables.themThung2) * variables.gapThung3",
+        "thung4": "(variables.thung1 + variables.themThung2) * variables.gapThung3 - variables.giamThung4",
+        "ans": "variables.thung1 + (variables.thung1 + variables.themThung2) + ((variables.thung1 + variables.themThung2) * variables.gapThung3) + ((variables.thung1 + variables.themThung2) * variables.gapThung3 - variables.giamThung4)",
+        "w1": "variables.thung1 + (variables.thung1 + variables.themThung2)",
+        "w2": "variables.thung1 + (variables.thung1 + variables.themThung2) + ((variables.thung1 + variables.themThung2) * variables.gapThung3)",
+        "w3": "(variables.thung1 + variables.themThung2) * variables.gapThung3 - variables.giamThung4"
+      },
+      "questionText": "Một nhà máy có 4 thùng hàng. Thùng thứ nhất chứa $ {thung1} $ sản phẩm. Thùng thứ hai chứa nhiều hơn thùng thứ nhất $ {themThung2} $ sản phẩm. Thùng thứ ba chứa số sản phẩm gấp $ {gapThung3} $ lần thùng thứ hai. Thùng thứ tư chứa ít hơn thùng thứ ba $ {giamThung4} $ sản phẩm. Hỏi cả bốn thùng hàng đó chứa tổng cộng bao nhiêu sản phẩm?",
+      "options": [
+        "A. $ {w1} $ sản phẩm",
+        "B. $ {ans} $ sản phẩm",
+        "C. $ {w2} $ sản phẩm",
+        "D. $ {w3} $ sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số sản phẩm ở thùng thứ hai.",
+        "Tính số sản phẩm ở thùng thứ ba.",
+        "Tính số sản phẩm ở thùng thứ tư.",
+        "Tính tổng số sản phẩm của cả bốn thùng."
+      ],
+      "solutionHtml": "Số sản phẩm ở thùng thứ hai là:<br/>$ {thung1} + {themThung2} = {thung2} $ (sản phẩm)<br/><br/>Số sản phẩm ở thùng thứ ba là:<br/>$ {thung2} \\times {gapThung3} = {thung3} $ (sản phẩm)<br/><br/>Số sản phẩm ở thùng thứ tư là:<br/>$ {thung3} - {giamThung4} = {thung4} $ (sản phẩm)<br/><br/>Tổng số sản phẩm cả bốn thùng hàng chứa là:<br/>$ {thung1} + {thung2} + {thung3} + {thung4} = {ans} $ (sản phẩm)<br/><br/>Đáp án đúng là B.",
+      "tip": "Khi giải các bài toán có nhiều đối tượng và mối quan hệ phức tạp, hãy xác định rõ ràng từng bước tính toán. Bắt đầu từ đại lượng đã biết và lần lượt tính các đại lượng liên quan.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thanhPhoA": {
+          "min": 3000000,
+          "max": 5000000,
+          "step": 100000
+        },
+        "honThanhPhoB": {
+          "min": 800000,
+          "max": 1500000,
+          "step": 100000
+        },
+        "gapThanhPhoC": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.thanhPhoA > variables.honThanhPhoB",
+        "variables.thanhPhoA % variables.gapThanhPhoC === 0"
+      ],
+      "formulas": {
+        "thanhPhoB": "variables.thanhPhoA - variables.honThanhPhoB",
+        "thanhPhoC": "variables.thanhPhoA / variables.gapThanhPhoC",
+        "ans": "variables.thanhPhoA + (variables.thanhPhoA - variables.honThanhPhoB) + (variables.thanhPhoA / variables.gapThanhPhoC)",
+        "w1": "variables.thanhPhoA + (variables.thanhPhoA - variables.honThanhPhoB)",
+        "w2": "variables.thanhPhoA + (variables.thanhPhoA / variables.gapThanhPhoC)",
+        "w3": "(variables.thanhPhoA - variables.honThanhPhoB) + (variables.thanhPhoA / variables.gapThanhPhoC)"
+      },
+      "questionText": "Dân số của thành phố A là $ {thanhPhoA} $ người. Dân số thành phố B ít hơn thành phố A là $ {honThanhPhoB} $ người. Dân số thành phố A gấp $ {gapThanhPhoC} $ lần dân số thành phố C. Hỏi tổng dân số của cả ba thành phố A, B và C là bao nhiêu người?",
+      "options": [
+        "A. $ {w1} $ người",
+        "B. $ {ans} $ người",
+        "C. $ {w2} $ người",
+        "D. $ {w3} $ người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính dân số thành phố B.",
+        "Tính dân số thành phố C.",
+        "Cộng dân số của cả ba thành phố lại."
+      ],
+      "solutionHtml": "Dân số của thành phố B là:<br/>$ {thanhPhoA} - {honThanhPhoB} = {thanhPhoB} $ (người)<br/><br/>Dân số của thành phố C là:<br/>$ {thanhPhoA} : {gapThanhPhoC} = {thanhPhoC} $ (người)<br/><br/>Tổng dân số của cả ba thành phố A, B và C là:<br/>$ {thanhPhoA} + {thanhPhoB} + {thanhPhoC} = {ans} $ (người)<br/><br/>Đáp án đúng là B.",
+      "tip": "Phân tích kỹ mối quan hệ giữa các đại lượng. 'Ít hơn' là phép trừ, 'gấp N lần' là phép nhân, 'gấp N lần' đối với số đã biết để tìm số còn lại sẽ là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d12"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lan1": {
+          "min": 800,
+          "max": 1200,
+          "step": 50
+        },
+        "kemLan2": {
+          "min": 100,
+          "max": 300,
+          "step": 20
+        },
+        "gapLan3": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "moiLan": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.lan1 > variables.kemLan2 + 100",
+        "(variables.lan1 - variables.kemLan2) * variables.gapLan3 % variables.moiLan === 0",
+        "variables.moiLan > 1"
+      ],
+      "formulas": {
+        "lan2": "variables.lan1 - variables.kemLan2",
+        "lan3": "(variables.lan1 - variables.kemLan2) * variables.gapLan3",
+        "ans": "((variables.lan1 - variables.kemLan2) * variables.gapLan3) / variables.moiLan",
+        "w1": "(variables.lan1 - variables.kemLan2) * variables.gapLan3",
+        "w2": "variables.lan1 / variables.moiLan",
+        "w3": "variables.lan3 + variables.moiLan"
+      },
+      "questionText": "Một nhà xuất bản in sách trong ba đợt. Đợt 1 in được $ {lan1} $ quyển sách. Đợt 2 in ít hơn đợt 1 là $ {kemLan2} $ quyển. Đợt 3 in số quyển sách gấp $ {gapLan3} $ lần số sách của đợt 2. Hỏi nếu số sách của đợt 3 được chia đều thành $ {moiLan} $ phần bằng nhau thì mỗi phần có bao nhiêu quyển sách?",
+      "options": [
+        "A. $ {w1} $ quyển",
+        "B. $ {ans} $ quyển",
+        "C. $ {w2} $ quyển",
+        "D. $ {w3} $ quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số sách in được ở đợt 2.",
+        "Tính số sách in được ở đợt 3.",
+        "Lấy số sách của đợt 3 chia đều cho $ {moiLan} $ phần."
+      ],
+      "solutionHtml": "Số sách in được ở đợt 2 là:<br/>$ {lan1} - {kemLan2} = {lan2} $ (quyển)<br/><br/>Số sách in được ở đợt 3 là:<br/>$ {lan2} \\times {gapLan3} = {lan3} $ (quyển)<br/><br/>Nếu số sách của đợt 3 được chia đều thành $ {moiLan} $ phần bằng nhau thì mỗi phần có số quyển sách là:<br/>$ {lan3} : {moiLan} = {ans} $ (quyển)<br/><br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi cuối cùng để biết cần tìm đại lượng nào. Đừng dừng lại ở các bước trung gian nếu đó chưa phải là câu trả lời cuối cùng mà đề bài yêu cầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d13"
+    }
+  ]
+}

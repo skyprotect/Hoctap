@@ -1,0 +1,476 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialBoxes": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "itemsPerBox": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "soldItems": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        },
+        "addedBoxes": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialBoxes * itemsPerBox > soldItems"
+      ],
+      "formulas": {
+        "initialTotal": "initialBoxes * itemsPerBox",
+        "remainingItems": "initialTotal - soldItems",
+        "addedTotal": "addedBoxes * itemsPerBox",
+        "ans": "remainingItems + addedTotal",
+        "w1": "initialTotal + addedTotal",
+        "w2": "remainingItems - addedTotal",
+        "w3": "initialBoxes * itemsPerBox + addedBoxes"
+      },
+      "questionText": "Một cửa hàng ban đầu có {initialBoxes} thùng nước ngọt, mỗi thùng chứa {itemsPerBox} chai. Cửa hàng đã bán được {soldItems} chai. Sau đó, cửa hàng nhập thêm {addedBoxes} thùng nước ngọt tương tự. Hỏi hiện tại cửa hàng có tất cả bao nhiêu chai nước ngọt?",
+      "options": [
+        "A. {w1} chai",
+        "B. {ans} chai",
+        "C. {w2} chai",
+        "D. {w3} chai"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số chai nước ngọt ban đầu.",
+        "Tiếp theo, tính số chai nước ngọt còn lại sau khi bán.",
+        "Sau đó, tính số chai nước ngọt được nhập thêm.",
+        "Cuối cùng, cộng số chai còn lại và số chai nhập thêm để có tổng số chai hiện tại."
+      ],
+      "solutionHtml": "Số chai nước ngọt cửa hàng có ban đầu là:<br/>$ {initialBoxes} \\times {itemsPerBox} = {initialTotal} $ (chai).<br/><br/>Số chai nước ngọt còn lại sau khi bán là:<br/>$ {initialTotal} - {soldItems} = {remainingItems} $ (chai).<br/><br/>Số chai nước ngọt cửa hàng nhập thêm là:<br/>$ {addedBoxes} \\times {itemsPerBox} = {addedTotal} $ (chai).<br/><br/>Tổng số chai nước ngọt hiện tại cửa hàng có là:<br/>$ {remainingItems} + {addedTotal} = {ans} $ (chai).<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán có nhiều bước, hãy đọc kỹ đề bài để xác định thứ tự các phép tính cần thực hiện và không bỏ sót thông tin nào.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalItems": {
+          "min": 250,
+          "max": 800,
+          "step": 10
+        },
+        "capacityPerBox": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalItems > capacityPerBox"
+      ],
+      "formulas": {
+        "quotient": "Math.floor(totalItems / capacityPerBox)",
+        "remainder": "totalItems % capacityPerBox",
+        "ans": "remainder === 0 ? quotient : quotient + 1",
+        "w1": "quotient",
+        "w2": "totalItems - capacityPerBox",
+        "w3": "quotient + remainder"
+      },
+      "questionText": "Một nhà máy sản xuất {totalItems} chiếc bánh. Người ta đóng gói số bánh này vào các hộp, mỗi hộp chứa được tối đa {capacityPerBox} chiếc bánh. Hỏi cần ít nhất bao nhiêu hộp để đóng gói hết số bánh đó?",
+      "options": [
+        "A. {w1} hộp",
+        "B. {ans} hộp",
+        "C. {w2} hộp",
+        "D. {w3} hộp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy thực hiện phép chia tổng số bánh cho số bánh trong mỗi hộp.",
+        "Nếu có bánh còn dư, thì cần thêm một hộp nữa để chứa chúng."
+      ],
+      "solutionHtml": "Ta thực hiện phép chia số bánh tổng cộng cho số bánh trong mỗi hộp:<br/>$ {totalItems} : {capacityPerBox} $<br/>Kết quả phép chia là $ {quotient} $ và số dư là $ {remainder} $.<br/><br/>Nếu số dư là $ 0 $, tức là $ {totalItems} $ chia hết cho $ {capacityPerBox} $, thì số hộp cần là $ {quotient} $.<br/>Nếu số dư lớn hơn $ 0 $ (như trong trường hợp này, $ {remainder} $ chiếc bánh), thì cần thêm 1 hộp nữa để đóng gói số bánh còn lại đó.<br/>Vậy số hộp cần ít nhất là $ {quotient} + 1 = {ans} $ (hộp).<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán đóng gói hoặc vận chuyển, nếu có phần dư, luôn phải làm tròn lên để đảm bảo tất cả sản phẩm được chứa hết.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "heightA": {
+          "min": 120,
+          "max": 140,
+          "step": 1
+        },
+        "heightB": {
+          "min": 120,
+          "max": 140,
+          "step": 1
+        },
+        "heightC": {
+          "min": 120,
+          "max": 140,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(heightA + heightB + heightC) % 3 === 0"
+      ],
+      "formulas": {
+        "sumHeights": "heightA + heightB + heightC",
+        "ans": "sumHeights / 3",
+        "w1": "heightA + heightB + heightC",
+        "w2": "(heightA + heightB + heightC) / 2",
+        "w3": "(heightA + heightB + heightC) / 4"
+      },
+      "questionText": "Bạn An cao {heightA} cm, bạn Bình cao {heightB} cm và bạn Cường cao {heightC} cm. Hỏi chiều cao trung bình của ba bạn là bao nhiêu?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm chiều cao trung bình của ba bạn, ta cần tính tổng chiều cao của ba bạn rồi chia cho số lượng bạn.",
+        "Tổng chiều cao của ba bạn là $ {heightA} + {heightB} + {heightC} $."
+      ],
+      "solutionHtml": "Tổng chiều cao của ba bạn là:<br/>$ {heightA} + {heightB} + {heightC} = {sumHeights} $ (cm).<br/><br/>Chiều cao trung bình của ba bạn là:<br/>$ {sumHeights} : 3 = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Số trung bình cộng được tính bằng cách lấy tổng của các số rồi chia cho số lượng các số đó. Nhớ đọc kỹ có bao nhiêu đối tượng để chia cho đúng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "width": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "timesLonger": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "width * timesLonger > width"
+      ],
+      "formulas": {
+        "length": "width * timesLonger",
+        "ans": "(width + length) * 2",
+        "w1": "width * length",
+        "w2": "width + length",
+        "w3": "length * 2"
+      },
+      "questionText": "Một sân trường hình chữ nhật có chiều rộng là {width} mét. Chiều dài gấp {timesLonger} lần chiều rộng. Hỏi chu vi của sân trường đó là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính chiều dài của sân trường.",
+        "Sau đó, áp dụng công thức tính chu vi hình chữ nhật: (chiều dài + chiều rộng) $ \\times $ 2."
+      ],
+      "solutionHtml": "Chiều dài của sân trường là:<br/>$ {width} \\times {timesLonger} = {length} $ (mét).<br/><br/>Chu vi của sân trường là:<br/>$ ( {width} + {length} ) \\times 2 = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Cần đọc kỹ đề bài để xác định cần tính chu vi hay diện tích, và đừng quên các bước tính toán trung gian như tìm chiều dài hoặc chiều rộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ans": {
+          "min": 20,
+          "max": 100,
+          "step": 1
+        },
+        "factor": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "addedValue": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "factor > 0",
+        "ans > 0"
+      ],
+      "formulas": {
+        "result": "ans * factor + addedValue",
+        "intermediate1": "result - addedValue",
+        "w1": "result + addedValue",
+        "w2": "intermediate1",
+        "w3": "intermediate1 * factor"
+      },
+      "questionText": "Nếu lấy một số rồi nhân với {factor}, sau đó cộng thêm {addedValue} thì được kết quả là {result}. Hỏi số ban đầu đó là số mấy?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số ban đầu, ta cần thực hiện các phép tính ngược lại với thứ tự đã cho.",
+        "Đầu tiên, hãy trừ đi số đã cộng thêm.",
+        "Sau đó, chia kết quả cho số đã nhân."
+      ],
+      "solutionHtml": "Để tìm số ban đầu, chúng ta sẽ thực hiện các phép tính ngược lại:<br/>Bước 1: Trừ đi số đã cộng thêm.<br/>$ {result} - {addedValue} = {intermediate1} $<br/><br/>Bước 2: Lấy kết quả vừa tìm được chia cho số đã nhân.<br/>$ {intermediate1} : {factor} = {ans} $<br/>Vậy số ban đầu là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán ngược, hãy nhớ thực hiện các phép tính ngược lại và theo thứ tự ngược lại so với đề bài.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "membersA": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        },
+        "workA": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "membersB": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        },
+        "workB": {
+          "min": 12,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(membersA * workA) !== (membersB * workB)"
+      ],
+      "formulas": {
+        "totalA": "membersA * workA",
+        "totalB": "membersB * workB",
+        "difference": "Math.abs(totalA - totalB)",
+        "teamMore": "totalA > totalB ? 'A' : 'B'",
+        "teamLess": "totalA > totalB ? 'B' : 'A'",
+        "productsMore": "totalA > totalB ? totalA : totalB",
+        "productsLess": "totalA > totalB ? totalB : totalA",
+        "ans": "teamMore === 'A' ? 'Đội A làm nhiều hơn đội B ' + difference + ' sản phẩm' : 'Đội B làm nhiều hơn đội A ' + difference + ' sản phẩm'",
+        "w1": "teamMore === 'A' ? 'Đội A làm nhiều hơn đội B ' + (totalA + totalB) + ' sản phẩm' : 'Đội B làm nhiều hơn đội A ' + (totalA + totalB) + ' sản phẩm'",
+        "w2": "teamMore === 'A' ? 'Đội B làm nhiều hơn đội A ' + difference + ' sản phẩm' : 'Đội A làm nhiều hơn đội B ' + difference + ' sản phẩm'",
+        "w3": "teamMore === 'A' ? 'Đội A làm ít hơn đội B ' + difference + ' sản phẩm' : 'Đội B làm ít hơn đội A ' + difference + ' sản phẩm'",
+        "compareProductAtoB": "totalA > totalB ? 'lớn hơn' : (totalA < totalB ? 'bé hơn' : 'bằng')"
+      },
+      "questionText": "Một nhà máy có hai đội sản xuất. Đội A có {membersA} công nhân, mỗi công nhân làm được {workA} sản phẩm trong một ngày. Đội B có {membersB} công nhân, mỗi công nhân làm được {workB} sản phẩm trong một ngày. Hỏi đội nào làm được nhiều sản phẩm hơn và nhiều hơn bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số sản phẩm mà mỗi đội làm được trong một ngày.",
+        "So sánh kết quả của hai đội để tìm ra đội làm nhiều hơn và chênh lệch là bao nhiêu."
+      ],
+      "solutionHtml": "Số sản phẩm đội A làm được trong một ngày là:<br/>$ {membersA} \\times {workA} = {totalA} $ (sản phẩm).<br/><br/>Số sản phẩm đội B làm được trong một ngày là:<br/>$ {membersB} \\times {workB} = {totalB} $ (sản phẩm).<br/><br/>So sánh hai kết quả, ta thấy {totalA} {compareProductAtoB} {totalB}.<br/>Đội {teamMore} làm nhiều hơn đội {teamLess} số sản phẩm là:<br/>$ {productsMore} - {productsLess} = {difference} $ (sản phẩm).<br/>Vậy, {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh hai đại lượng, hãy tính toán cẩn thận từng đại lượng rồi mới thực hiện phép so sánh và tìm hiệu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startHour": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "startMinute": {
+          "min": 0,
+          "max": 55,
+          "step": 5
+        },
+        "durationHours": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "durationMinutes": {
+          "min": 0,
+          "max": 55,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "(startHour + durationHours + Math.floor((startMinute + durationMinutes) / 60)) < 18"
+      ],
+      "formulas": {
+        "totalStartMinutes": "startHour * 60 + startMinute",
+        "totalDurationMinutes": "durationHours * 60 + durationMinutes",
+        "totalEndMinutes": "totalStartMinutes + totalDurationMinutes",
+        "endHourRaw": "Math.floor(totalEndMinutes / 60)",
+        "endMinuteRaw": "totalEndMinutes % 60",
+        "ans": "endHourRaw + ' giờ ' + endMinuteRaw + ' phút'",
+        "w1": "(startHour + durationHours) + ' giờ ' + (startMinute + durationMinutes) + ' phút'",
+        "w2": "(startHour - durationHours) + ' giờ ' + (startMinute - durationMinutes) + ' phút'",
+        "w3": "(startHour + durationHours + 1) + ' giờ ' + (startMinute + durationMinutes) % 60 + ' phút'"
+      },
+      "questionText": "Một buổi biểu diễn ca nhạc bắt đầu lúc {startHour} giờ {startMinute} phút và kéo dài {durationHours} giờ {durationMinutes} phút. Hỏi buổi biểu diễn kết thúc vào lúc mấy giờ mấy phút?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính tổng số phút của thời điểm bắt đầu và thời lượng buổi biểu diễn.",
+        "Sau đó, chuyển tổng số phút đó về dạng giờ và phút."
+      ],
+      "solutionHtml": "Đổi tất cả về đơn vị phút để dễ tính toán:<br/>Thời điểm bắt đầu: $ {startHour} $ giờ $ {startMinute} $ phút = $ {startHour} \\times 60 + {startMinute} = {totalStartMinutes} $ phút.<br/>Thời lượng buổi biểu diễn: $ {durationHours} $ giờ $ {durationMinutes} $ phút = $ {durationHours} \\times 60 + {durationMinutes} = {totalDurationMinutes} $ phút.<br/><br/>Tổng số phút từ đầu ngày đến khi buổi biểu diễn kết thúc là:<br/>$ {totalStartMinutes} + {totalDurationMinutes} = {totalEndMinutes} $ phút.<br/><br/>Chuyển $ {totalEndMinutes} $ phút thành giờ và phút:<br/>$ {totalEndMinutes} : 60 = {endHourRaw} $ (dư $ {endMinuteRaw} $).<br/>Vậy buổi biểu diễn kết thúc lúc $ {endHourRaw} $ giờ $ {endMinuteRaw} $ phút.<br/>Đáp án đúng là B.",
+      "tip": "Khi tính toán thời gian, hãy đổi tất cả về cùng một đơn vị nhỏ nhất (phút) để tránh nhầm lẫn khi cộng, rồi sau đó đổi lại thành giờ và phút.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "quantityA": {
+          "min": 100,
+          "max": 250,
+          "step": 10
+        },
+        "timesMore": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "quantityB": "quantityA * timesMore",
+        "ans": "quantityA + quantityB",
+        "w1": "quantityA * timesMore - quantityA",
+        "w2": "quantityA + timesMore",
+        "w3": "quantityB"
+      },
+      "questionText": "Trong vườn nhà bác Ba có {quantityA} cây bưởi. Số cây cam gấp {timesMore} lần số cây bưởi. Hỏi trong vườn nhà bác Ba có tất cả bao nhiêu cây bưởi và cây cam?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số cây cam có trong vườn.",
+        "Sau đó, cộng số cây bưởi và số cây cam để tìm tổng số cây."
+      ],
+      "solutionHtml": "Số cây cam trong vườn nhà bác Ba là:<br/>$ {quantityA} \\times {timesMore} = {quantityB} $ (cây).<br/><br/>Tổng số cây bưởi và cây cam trong vườn là:<br/>$ {quantityA} + {quantityB} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi gặp từ 'gấp... lần', chúng ta thường thực hiện phép nhân. Sau đó, đọc kỹ đề bài xem yêu cầu tìm tổng hay hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalBooks": {
+          "min": 300,
+          "max": 700,
+          "step": 2
+        },
+        "differenceBooks": {
+          "min": 50,
+          "max": 150,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "totalBooks > differenceBooks"
+      ],
+      "formulas": {
+        "smallBooks": "(totalBooks - differenceBooks) / 2",
+        "largeBooks": "(totalBooks + differenceBooks) / 2",
+        "ans": "'Kệ thứ nhất có ' + largeBooks + ' quyển, kệ thứ hai có ' + smallBooks + ' quyển'",
+        "w1": "'Kệ thứ nhất có ' + smallBooks + ' quyển, kệ thứ hai có ' + largeBooks + ' quyển'",
+        "w2": "'Kệ thứ nhất có ' + totalBooks + ' quyển, kệ thứ hai có ' + differenceBooks + ' quyển'",
+        "w3": "'Kệ thứ nhất có ' + (largeBooks + 10) + ' quyển, kệ thứ hai có ' + (smallBooks - 10) + ' quyển'"
+      },
+      "questionText": "Hai kệ sách có tổng cộng {totalBooks} quyển sách. Kệ thứ nhất có nhiều hơn kệ thứ hai {differenceBooks} quyển sách. Hỏi mỗi kệ có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm số sách ở kệ có ít hơn bằng cách lấy tổng trừ đi hiệu rồi chia cho 2.",
+        "Tìm số sách ở kệ có nhiều hơn bằng cách lấy số sách ở kệ ít hơn cộng với hiệu."
+      ],
+      "solutionHtml": "Đây là dạng toán tìm hai số khi biết tổng và hiệu.<br/>Số sách ở kệ thứ hai (kệ ít hơn) là:<br/>$ ( {totalBooks} - {differenceBooks} ) : 2 = {smallBooks} $ (quyển).<br/><br/>Số sách ở kệ thứ nhất (kệ nhiều hơn) là:<br/>$ {smallBooks} + {differenceBooks} = {largeBooks} $ (quyển).<br/>Hoặc $ ( {totalBooks} + {differenceBooks} ) : 2 = {largeBooks} $ (quyển).<br/>Vậy, kệ thứ nhất có $ {largeBooks} $ quyển, kệ thứ hai có $ {smallBooks} $ quyển.<br/>Đáp án đúng là B.",
+      "tip": "Để tìm số bé, ta lấy (Tổng - Hiệu) : 2. Để tìm số lớn, ta lấy (Tổng + Hiệu) : 2, hoặc lấy Số bé + Hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startNum": {
+          "min": 10,
+          "max": 50,
+          "step": 1
+        },
+        "step": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        },
+        "termPosition": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "adjustedTermPosition": "termPosition - 1",
+        "intermediateProduct": "(termPosition - 1) * step",
+        "ans": "startNum + (termPosition - 1) * step",
+        "w1": "startNum + termPosition * step",
+        "w2": "startNum + step",
+        "w3": "startNum + (termPosition + 1) * step"
+      },
+      "questionText": "Một dãy số được viết theo quy luật: số hạng đầu tiên là {startNum}, mỗi số hạng sau lớn hơn số hạng đứng ngay trước nó {step} đơn vị. Hỏi số hạng thứ {termPosition} của dãy số đó là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số hạng thứ nhất là {startNum}.",
+        "Số hạng thứ hai là {startNum} + {step}.",
+        "Hãy tìm công thức tổng quát để tính số hạng thứ n."
+      ],
+      "solutionHtml": "Đây là một dãy số cách đều.<br/>Công thức để tìm số hạng thứ 'n' trong dãy số cách đều là:<br/>Số hạng thứ 'n' = Số hạng đầu + (n - 1) $ \\times $ Khoảng cách.<br/><br/>Áp dụng công thức vào bài toán này:<br/>Số hạng thứ {termPosition} = $ {startNum} + ( {adjustedTermPosition} ) \\times {step} $<br/>Số hạng thứ {termPosition} = $ {startNum} + {intermediateProduct} $<br/>Số hạng thứ {termPosition} = $ {ans} $.<br/>Vậy, số hạng thứ {termPosition} của dãy số là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ công thức tìm số hạng thứ 'n' trong dãy số cách đều để giải nhanh các bài toán tương tự.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-q10"
+    }
+  ]
+}

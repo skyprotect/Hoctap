@@ -1,0 +1,692 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalLength": {
+          "min": 20,
+          "max": 60,
+          "step": 4
+        },
+        "segmentLengthNum": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "segmentLengthDen": {
+          "min": 4,
+          "max": 8,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "segmentLengthNum < segmentLengthDen",
+        "let calculatedAns = (totalLength * segmentLengthDen) / segmentLengthNum; (totalLength * segmentLengthDen) % segmentLengthNum === 0 && calculatedAns >= 5 && calculatedAns <= 30"
+      ],
+      "formulas": {
+        "ans": "(totalLength * segmentLengthDen) / segmentLengthNum",
+        "w1": "totalLength + segmentLengthNum / segmentLengthDen",
+        "w2": "(totalLength * segmentLengthNum) / segmentLengthDen",
+        "w3": "Math.abs(totalLength - segmentLengthNum / segmentLengthDen)"
+      },
+      "questionText": "Một sợi dây thép dài {totalLength} mét. Người ta cắt sợi dây đó thành các đoạn nhỏ, mỗi đoạn dài $\\frac{{segmentLengthNum}}{{segmentLengthDen}}$ mét để làm khung đèn lồng. Hỏi có thể cắt được tất cả bao nhiêu đoạn dây như vậy?",
+      "options": [
+        "A. $ {w1} $ đoạn",
+        "B. $ {ans} $ đoạn",
+        "C. $ {w2} $ đoạn",
+        "D. $ {w3} $ đoạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số đoạn dây, ta cần lấy tổng chiều dài sợi dây chia cho chiều dài của mỗi đoạn.",
+        "Phép chia phân số được thực hiện bằng cách nhân với phân số nghịch đảo."
+      ],
+      "solutionHtml": "Số đoạn dây có thể cắt được là:<br/>$ {totalLength} : \\frac{{segmentLengthNum}}{{segmentLengthDen}} = {totalLength} \\times \\frac{{segmentLengthDen}}{{segmentLengthNum}} = \\frac{{{totalLength} \\times {segmentLengthDen}}}{{{segmentLengthNum}}} = {ans} $ (đoạn).<br/>Vậy có thể cắt được $ {ans} $ đoạn dây.<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tự nhiên cho một phân số, ta giữ nguyên số tự nhiên đó và nhân với phân số nghịch đảo của số chia.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalCapacity": {
+          "min": 100,
+          "max": 300,
+          "step": 20
+        },
+        "filledFractionNum": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "filledFractionDen": {
+          "min": 6,
+          "max": 10,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "filledFractionNum < filledFractionDen",
+        "totalCapacity % filledFractionDen === 0",
+        "Math.gcd(filledFractionNum, filledFractionDen) === 1"
+      ],
+      "formulas": {
+        "ans": "totalCapacity * (filledFractionNum / filledFractionDen)",
+        "w1": "totalCapacity / (filledFractionNum / filledFractionDen)",
+        "w2": "totalCapacity - (totalCapacity * filledFractionNum / filledFractionDen)",
+        "w3": "totalCapacity + (totalCapacity * filledFractionNum / filledFractionDen)"
+      },
+      "questionText": "Một bể nước có dung tích $ {totalCapacity} $ lít. Hiện tại, lượng nước trong bể chiếm $ \\frac{{filledFractionNum}}{{filledFractionDen}} $ dung tích bể. Hỏi trong bể đang có bao nhiêu lít nước?",
+      "options": [
+        "A. $ {w1} $ lít",
+        "B. $ {w2} $ lít",
+        "C. $ {ans} $ lít",
+        "D. $ {w3} $ lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm lượng nước trong bể, ta cần tính giá trị của $ \\frac{{filledFractionNum}}{{filledFractionDen}} $ của $ {totalCapacity} $ lít.",
+        "Đây là dạng toán tìm phân số của một số."
+      ],
+      "solutionHtml": "Lượng nước hiện có trong bể là:<br/>$ {totalCapacity} \\times \\frac{{filledFractionNum}}{{filledFractionDen}} = \\frac{{{totalCapacity} \\times {filledFractionNum}}}{{{filledFractionDen}}} = {ans} $ (lít).<br/>Vậy trong bể đang có $ {ans} $ lít nước.<br/>Đáp án đúng là C.",
+      "tip": "Để tìm giá trị của một phân số của một số, ta lấy số đó nhân với phân số đã cho.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "partValue": {
+          "min": 30,
+          "max": 80,
+          "step": 10
+        },
+        "fractionNum": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "fractionDen": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionNum < fractionDen",
+        "partValue % fractionNum === 0",
+        "Math.gcd(fractionNum, fractionDen) === 1",
+        "(partValue * fractionDen) / fractionNum > partValue"
+      ],
+      "formulas": {
+        "ans": "(partValue * fractionDen) / fractionNum",
+        "w1": "(partValue * fractionNum) / fractionDen",
+        "w2": "partValue + fractionNum / fractionDen",
+        "w3": "partValue - fractionNum / fractionDen"
+      },
+      "questionText": "Biết rằng $ \\frac{{fractionNum}}{{fractionDen}} $ số học sinh của một trường tiểu học là $ {partValue} $ em. Hỏi trường đó có tất cả bao nhiêu học sinh?",
+      "options": [
+        "A. $ {w1} $ em",
+        "B. $ {w2} $ em",
+        "C. $ {ans} $ em",
+        "D. $ {w3} $ em"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đây là dạng toán tìm một số khi biết giá trị của một phân số của nó.",
+        "Muốn tìm số đó, ta lấy giá trị đã biết chia cho phân số tương ứng."
+      ],
+      "solutionHtml": "Số học sinh của trường đó là:<br/>$ {partValue} :$ \\frac{{fractionNum}}{{fractionDen}} = {partValue} \\times \\frac{{fractionDen}}{{fractionNum}} = \\frac{{{partValue} \\times {fractionDen}}}{{{fractionNum}}} = {ans} $ (em).<br/>Vậy trường đó có tất cả $ {ans} học sinh.<br/>Đáp án đúng là C.",
+      "tip": "Khi tìm một số khi biết giá trị của một phân số của nó, ta lấy giá trị đó chia cho phân số.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalPages": {
+          "min": 120,
+          "max": 240,
+          "step": 24
+        },
+        "firstFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "firstFractionDen": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "dailyRateNum": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "dailyRateDen": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "firstFractionNum < firstFractionDen",
+        "dailyRateNum < dailyRateDen",
+        "totalPages % firstFractionDen === 0",
+        "let remainingAfterDay1 = totalPages * (1 - firstFractionNum / firstFractionDen); (remainingAfterDay1 * dailyRateDen) % dailyRateNum === 0",
+        "Math.gcd(firstFractionNum, firstFractionDen) === 1",
+        "Math.gcd(dailyRateNum, dailyRateDen) === 1"
+      ],
+      "formulas": {
+        "readFirstDay": "totalPages * (firstFractionNum / firstFractionDen)",
+        "remainingPages": "totalPages - (totalPages * firstFractionNum / firstFractionDen)",
+        "ans": "(totalPages - (totalPages * firstFractionNum / firstFractionDen)) / (dailyRateNum / dailyRateDen)",
+        "w1": "totalPages / (dailyRateNum / dailyRateDen)",
+        "w2": "(totalPages * (1 - firstFractionNum / firstFractionDen)) + (dailyRateNum / dailyRateDen)",
+        "w3": "(totalPages * (firstFractionNum / firstFractionDen)) / (dailyRateNum / dailyRateDen)"
+      },
+      "questionText": "An đọc một quyển sách có tất cả $ {totalPages} $ trang. Ngày đầu tiên, An đọc được $ \\frac{{firstFractionNum}}{{firstFractionDen}} $ số trang sách. Kể từ ngày thứ hai, mỗi ngày An đọc được $ \\frac{{dailyRateNum}}{{dailyRateDen}} $ số trang sách còn lại. Hỏi An cần bao nhiêu ngày nữa để đọc hết quyển sách?",
+      "options": [
+        "A. $ {w1} $ ngày",
+        "B. $ {ans} $ ngày",
+        "C. $ {w2} $ ngày",
+        "D. $ {w3} $ ngày"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số trang sách An đã đọc ngày đầu tiên.",
+        "Sau đó, tìm số trang sách còn lại.",
+        "Cuối cùng, lấy số trang còn lại chia cho số trang An đọc mỗi ngày để tìm số ngày cần thiết."
+      ],
+      "solutionHtml": "Số trang sách An đọc ngày đầu tiên là:<br/>$$ {totalPages} \\times \\frac{{firstFractionNum}}{{firstFractionDen}} = {readFirstDay} $ (trang).<br/>Số trang sách còn lại sau ngày đầu tiên là:<br/>$$ {totalPages} - {readFirstDay} = {remainingPages} $ (trang).<br/>Số ngày An cần để đọc hết số trang còn lại là:<br/>$ {remainingPages} : \\frac{{dailyRateNum}}{{dailyRateDen}} = {remainingPages} \\times \\frac{{dailyRateDen}}{{dailyRateNum}} = {ans} $ (ngày).<br/>Vậy An cần $ {ans} $ ngày nữa để đọc hết quyển sách.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước, hãy giải quyết từng bước một cách cẩn thận, đặc biệt với các phần còn lại.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lengthNum": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "lengthDen": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "widthNum": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "widthDen": {
+          "min": 4,
+          "max": 8,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "lengthNum / lengthDen > widthNum / widthDen",
+        "Math.gcd(lengthNum, lengthDen) === 1",
+        "Math.gcd(widthNum, widthDen) === 1"
+      ],
+      "formulas": {
+        "ansNum": "lengthNum * widthNum",
+        "ansDen": "lengthDen * widthDen",
+        "commonDivisor": "Math.gcd(lengthNum * widthNum, lengthDen * widthDen)",
+        "simplifiedAnsNum": "(lengthNum * widthNum) / Math.gcd(lengthNum * widthNum, lengthDen * widthDen)",
+        "simplifiedAnsDen": "(lengthDen * widthDen) / Math.gcd(lengthNum * widthNum, lengthDen * widthDen)",
+        "w1Num": "lengthNum + widthNum",
+        "w1Den": "lengthDen + widthDen",
+        "w2Num": "lengthNum * widthDen",
+        "w2Den": "lengthDen * widthNum",
+        "w4": "lengthNum/lengthDen + widthNum/widthDen"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là $ \\frac{{lengthNum}}{{lengthDen}} $ mét và chiều rộng là $ \\frac{{widthNum}}{{widthDen}} $ mét. Tính diện tích của mảnh vườn đó.",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ mét vuông",
+        "B. $ \\frac{{{simplifiedAnsNum}}}{{{simplifiedAnsDen}}} $ mét vuông",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ mét vuông",
+        "D. $ {w4} $ mét vuông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Diện tích hình chữ nhật được tính bằng công thức: Chiều dài nhân Chiều rộng.",
+        "Để nhân hai phân số, ta nhân các tử số với nhau và nhân các mẫu số với nhau."
+      ],
+      "solutionHtml": "Diện tích của mảnh vườn hình chữ nhật là:<br/>$ \\frac{{lengthNum}}{{lengthDen}} \\times \\frac{{widthNum}}{{widthDen}} = \\frac{{{lengthNum} \\times {widthNum}}}{{{lengthDen} \\times {widthDen}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ mét vuông.<br/>Ta rút gọn phân số $ \\frac{{{ansNum}}}{{{ansDen}}} $ bằng cách chia cả tử và mẫu cho ước chung lớn nhất của chúng ($ {commonDivisor} $):<br/>$ \\frac{{{ansNum} \\div {commonDivisor}}}{{{ansDen} \\div {commonDivisor}}} = \\frac{{{simplifiedAnsNum}}}{{{simplifiedAnsDen}}} $ mét vuông.<br/>Vậy diện tích mảnh vườn là $ \\frac{{{simplifiedAnsNum}}}{{{simplifiedAnsDen}}} $ mét vuông.<br/>Đáp án đúng là B.",
+      "tip": "Luôn rút gọn phân số về dạng tối giản sau khi thực hiện phép tính để có kết quả chính xác và gọn gàng nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialAmount": {
+          "min": 100,
+          "max": 200,
+          "step": 20
+        },
+        "firstSoldNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "firstSoldDen": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "secondSoldOfRemainingNum": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "secondSoldOfRemainingDen": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "firstSoldNum < firstSoldDen",
+        "secondSoldOfRemainingNum < secondSoldOfRemainingDen",
+        "initialAmount % firstSoldDen === 0",
+        "let remainingAfterFirstSale = initialAmount * (1 - firstSoldNum / firstSoldDen); remainingAfterFirstSale % secondSoldOfRemainingDen === 0",
+        "Math.gcd(firstSoldNum, firstSoldDen) === 1",
+        "Math.gcd(secondSoldOfRemainingNum, secondSoldOfRemainingDen) === 1"
+      ],
+      "formulas": {
+        "soldFirstDay": "initialAmount * (firstSoldNum / firstSoldDen)",
+        "remainingAfterFirstDay": "initialAmount - (initialAmount * firstSoldNum / firstSoldDen)",
+        "ans": "(initialAmount - (initialAmount * firstSoldNum / firstSoldDen)) * (secondSoldOfRemainingNum / secondSoldOfRemainingDen)",
+        "w1": "initialAmount * (firstSoldNum / firstSoldDen) + (initialAmount * (1 - firstSoldNum / firstSoldDen)) * (secondSoldOfRemainingNum / secondSoldOfRemainingDen)",
+        "w2": "initialAmount * (secondSoldOfRemainingNum / secondSoldOfRemainingDen)",
+        "w3": "(initialAmount * (1 - firstSoldNum / firstSoldDen)) / (secondSoldOfRemainingNum / secondSoldOfRemainingDen)"
+      },
+      "questionText": "Một cửa hàng có $ {initialAmount} $ kg gạo. Ngày thứ nhất bán được $ \\frac{{firstSoldNum}}{{firstSoldDen}} $ số gạo. Ngày thứ hai bán được $ \\frac{{secondSoldOfRemainingNum}}{{secondSoldOfRemainingDen}} $ số gạo còn lại. Hỏi ngày thứ hai cửa hàng đã bán được bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. $ {w1} $ kg",
+        "B. $ {w2} $ kg",
+        "C. $ {ans} $ kg",
+        "D. $ {w3} $ kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, tính số gạo đã bán trong ngày thứ nhất.",
+        "Sau đó, tìm số gạo còn lại sau ngày thứ nhất.",
+        "Cuối cùng, tính số gạo bán được trong ngày thứ hai dựa trên số gạo còn lại."
+      ],
+      "solutionHtml": "Số gạo cửa hàng đã bán trong ngày thứ nhất là:<br/>$$ {initialAmount} \\times \\frac{{firstSoldNum}}{{firstSoldDen}} = {soldFirstDay} $ (kg).<br/>Số gạo còn lại sau ngày thứ nhất là:<br/>$$ {initialAmount} - {soldFirstDay} = {remainingAfterFirstDay} $ (kg).<br/>Số gạo cửa hàng bán được trong ngày thứ hai là:<br/>$$ {remainingAfterFirstDay} \\times \\frac{{secondSoldOfRemainingNum}}{{secondSoldOfRemainingDen}} = {ans} $ (kg).<br/>Vậy ngày thứ hai cửa hàng đã bán được $ {ans} $ kg gạo.<br/>Đáp án đúng là C.",
+      "tip": "Chú ý đọc kỹ đề bài để xác định xem phân số được tính dựa trên 'tổng số ban đầu' hay 'phần còn lại'.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "grandpaAge": {
+          "min": 60,
+          "max": 80,
+          "step": 4
+        },
+        "dadFractionNum": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "dadFractionDen": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "sonFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "sonFractionDen": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "dadFractionNum < dadFractionDen",
+        "sonFractionNum < sonFractionDen",
+        "grandpaAge % dadFractionDen === 0",
+        "let dadAgeVal = grandpaAge * (dadFractionNum / dadFractionDen); dadAgeVal % sonFractionDen === 0",
+        "Math.gcd(dadFractionNum, dadFractionDen) === 1",
+        "Math.gcd(sonFractionNum, sonFractionDen) === 1"
+      ],
+      "formulas": {
+        "dadAge": "grandpaAge * (dadFractionNum / dadFractionDen)",
+        "ans": "(grandpaAge * (dadFractionNum / dadFractionDen)) * (sonFractionNum / sonFractionDen)",
+        "w1": "grandpaAge * (sonFractionNum / sonFractionDen)",
+        "w2": "grandpaAge / (dadFractionNum / dadFractionDen) * (sonFractionNum / sonFractionDen)",
+        "w3": "grandpaAge - (grandpaAge * (dadFractionNum / dadFractionDen)) - ((grandpaAge * (dadFractionNum / dadFractionDen)) * (sonFractionNum / sonFractionDen))"
+      },
+      "questionText": "Năm nay, ông của Bình $ {grandpaAge} $ tuổi. Tuổi bố Bình bằng $ \\frac{{dadFractionNum}}{{dadFractionDen}} $ tuổi của ông. Tuổi Bình bằng $ \\frac{{sonFractionNum}}{{sonFractionDen}} $ tuổi của bố. Hỏi năm nay Bình bao nhiêu tuổi?",
+      "options": [
+        "A. $ {w1} $ tuổi",
+        "B. $ {w2} $ tuổi",
+        "C. $ {w3} $ tuổi",
+        "D. $ {ans} $ tuổi"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Đầu tiên, hãy tính tuổi của bố Bình.",
+        "Sau đó, dùng tuổi của bố để tính tuổi của Bình."
+      ],
+      "solutionHtml": "Tuổi của bố Bình là:<br/>$$ {grandpaAge} \\times \\frac{{dadFractionNum}}{{dadFractionDen}} = {dadAge} $ (tuổi).<br/>Tuổi của Bình là:<br/>$$ {dadAge} \\times \\frac{{sonFractionNum}}{{sonFractionDen}} = {ans} $ (tuổi).<br/>Vậy năm nay Bình $ {ans} tuổi.<br/>Đáp án đúng là D.",
+      "tip": "Trong các bài toán liên quan đến tuổi, hãy cẩn thận xác định đối tượng mà phân số đang tham chiếu đến (ví dụ: tuổi con so với tuổi bố hay tuổi ông).",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalDistance": {
+          "min": 60,
+          "max": 120,
+          "step": 12
+        },
+        "firstFractionDistanceNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "firstFractionDistanceDen": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "firstTime": {
+          "min": 2,
+          "max": 3,
+          "step": 0.5
+        },
+        "remainingTime": {
+          "min": 1.5,
+          "max": 2.5,
+          "step": 0.5
+        }
+      },
+      "constraints": [
+        "firstFractionDistanceNum < firstFractionDistanceDen",
+        "totalDistance % firstFractionDistanceDen === 0",
+        "firstTime !== 0",
+        "remainingTime !== 0",
+        "Math.gcd(firstFractionDistanceNum, firstFractionDistanceDen) === 1",
+        "totalDistance * (1 - firstFractionDistanceNum / firstFractionDen) / remainingTime > 0"
+      ],
+      "formulas": {
+        "firstDistance": "totalDistance * (firstFractionDistanceNum / firstFractionDistanceDen)",
+        "speed1": "totalDistance * (firstFractionDistanceNum / firstFractionDistanceDen) / firstTime",
+        "remainingDistance": "totalDistance - (totalDistance * (firstFractionDistanceNum / firstFractionDistanceDen))",
+        "ans": "(totalDistance - (totalDistance * (firstFractionDistanceNum / firstFractionDistanceDen))) / remainingTime",
+        "w1": "totalDistance / (firstTime + remainingTime)",
+        "w2": "(totalDistance * (firstFractionDistanceNum / firstFractionDistanceDen)) / remainingTime",
+        "w3": "(totalDistance - (totalDistance * (firstFractionDistanceNum / firstFractionDistanceDen))) * remainingTime"
+      },
+      "questionText": "Một người đi xe máy trên quãng đường dài $ {totalDistance} $ km. Người đó đi $ \\frac{{firstFractionDistanceNum}}{{firstFractionDistanceDen}} $ quãng đường đầu tiên hết $ {firstTime} $ giờ. Quãng đường còn lại, người đó đi hết $ {remainingTime} $ giờ. Hỏi trên quãng đường còn lại, vận tốc của người đó là bao nhiêu ki-lô-mét mỗi giờ?",
+      "options": [
+        "A. $ {w1} $ km/giờ",
+        "B. $ {ans} $ km/giờ",
+        "C. $ {w2} $ km/giờ",
+        "D. $ {w3} $ km/giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính độ dài quãng đường đầu tiên và quãng đường còn lại.",
+        "Sau đó, sử dụng công thức tính vận tốc: Vận tốc = Quãng đường : Thời gian."
+      ],
+      "solutionHtml": "Quãng đường đầu tiên người đó đi được là:<br/>$ {totalDistance} \\times \\frac{{firstFractionDistanceNum}}{{firstFractionDistanceDen}} = {firstDistance} $ (km).<br/>Quãng đường còn lại là:<br/>$ {totalDistance} - {firstDistance} = {remainingDistance} $ (km).<br/>Vận tốc của người đó trên quãng đường còn lại là:<br/>$ {remainingDistance} : {remainingTime} = {ans} $ (km/giờ).<br/>Vậy trên quãng đường còn lại, vận tốc của người đó là $ {ans} $ km/giờ.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán chuyển động, hãy xác định rõ quãng đường, thời gian và vận tốc cho từng đoạn đường cụ thể.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "waterFractionNum": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "waterFractionDen": {
+          "min": 6,
+          "max": 8,
+          "step": 1
+        },
+        "totalWater": {
+          "min": 15,
+          "max": 25,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "waterFractionNum < waterFractionDen",
+        "Math.gcd(waterFractionNum, waterFractionDen) === 1",
+        "totalWater % waterFractionNum === 0"
+      ],
+      "formulas": {
+        "syrupFractionNum": "waterFractionDen - waterFractionNum",
+        "syrupFractionDen": "waterFractionDen",
+        "totalMixVolume": "totalWater / (waterFractionNum / waterFractionDen)",
+        "ans": "(totalWater / (waterFractionNum / waterFractionDen)) * ((waterFractionDen - waterFractionNum) / waterFractionDen)",
+        "w1": "totalWater / (waterFractionDen / (waterFractionDen - waterFractionNum))",
+        "w2": "totalWater * (waterFractionNum / waterFractionDen)",
+        "w3": "totalWater + (totalWater / (waterFractionNum / waterFractionDen)) * ((waterFractionDen - waterFractionNum) / waterFractionDen)"
+      },
+      "questionText": "Để pha chế một loại nước giải khát, người ta cần pha siro và nước theo một tỉ lệ nhất định. Biết rằng lượng nước chiếm $ \\frac{{waterFractionNum}}{{waterFractionDen}} $ tổng thể tích của dung dịch. Nếu có $ {totalWater} $ lít nước, hỏi cần bao nhiêu lít siro để pha được dung dịch đó?",
+      "options": [
+        "A. $ {w1} $ lít",
+        "B. $ {w2} $ lít",
+        "C. $ {ans} $ lít",
+        "D. $ {w3} $ lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Trước tiên, hãy xác định tỉ lệ siro trong dung dịch.",
+        "Sau đó, dựa vào lượng nước đã cho và tỉ lệ của nước để tìm tổng thể tích dung dịch.",
+        "Cuối cùng, tính lượng siro cần dùng."
+      ],
+      "solutionHtml": "Tỉ lệ siro trong dung dịch là:<br/>$ 1 - \\frac{{waterFractionNum}}{{waterFractionDen}} = \\frac{{{waterFractionDen} - {waterFractionNum}}}{{{waterFractionDen}}} = \\frac{{{syrupFractionNum}}}{{{syrupFractionDen}}} $ (tổng thể tích).<br/>Vì $ {totalWater} $ lít nước chiếm $ \\frac{{waterFractionNum}}{{waterFractionDen}} $ tổng thể tích, nên tổng thể tích dung dịch là:<br/>$ {totalWater} : \\frac{{waterFractionNum}}{{waterFractionDen}} = {totalWater} \\times \\frac{{waterFractionDen}}{{waterFractionNum}} = {totalMixVolume} $ (lít).<br/>Lượng siro cần dùng là:<br/>$ {totalMixVolume} \\times \\frac{{syrupFractionNum}}{{syrupFractionDen}} = {ans} $ (lít).<br/>Vậy cần $ {ans} $ lít siro.<br/>Đáp án đúng là C.",
+      "tip": "Khi làm bài toán về tỉ lệ pha chế, cần xác định rõ tỉ lệ của từng thành phần so với tổng thể tích hoặc so với một thành phần khác.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialMoney": {
+          "min": 200000,
+          "max": 500000,
+          "step": 50000
+        },
+        "spentFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "spentFractionDen": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "savedFractionNum": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "savedFractionDen": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "spentFractionNum < spentFractionDen",
+        "savedFractionNum < savedFractionDen",
+        "initialMoney % spentFractionDen === 0",
+        "let remainingAfterSpent = initialMoney * (1 - spentFractionNum / spentFractionDen); remainingAfterSpent % savedFractionDen === 0",
+        "Math.gcd(spentFractionNum, spentFractionDen) === 1",
+        "Math.gcd(savedFractionNum, savedFractionDen) === 1"
+      ],
+      "formulas": {
+        "moneySpent": "initialMoney * (spentFractionNum / spentFractionDen)",
+        "remainingMoney": "initialMoney - (initialMoney * (spentFractionNum / spentFractionDen))",
+        "ans": "(initialMoney - (initialMoney * (spentFractionNum / spentFractionDen))) * (savedFractionNum / savedFractionDen)",
+        "w1": "initialMoney * (savedFractionNum / savedFractionDen)",
+        "w2": "initialMoney - (initialMoney * (spentFractionNum / spentFractionDen))",
+        "w3": "(initialMoney * (spentFractionNum / spentFractionDen)) * (savedFractionNum / savedFractionDen)"
+      },
+      "questionText": "Anh Nam có $ {initialMoney} $ đồng. Anh dùng $ \\frac{{spentFractionNum}}{{spentFractionDen}} $ số tiền đó để mua sách. Số tiền còn lại anh Nam tiết kiệm $ \\frac{{savedFractionNum}}{{savedFractionDen}} $ để đóng quỹ lớp. Hỏi anh Nam đã đóng góp bao nhiêu tiền vào quỹ lớp?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {w2} $ đồng",
+        "C. $ {ans} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số tiền anh Nam đã mua sách.",
+        "Xác định số tiền còn lại sau khi mua sách.",
+        "Tính số tiền anh Nam tiết kiệm để đóng quỹ lớp từ số tiền còn lại."
+      ],
+      "solutionHtml": "Số tiền anh Nam dùng để mua sách là:<br/>$$ {initialMoney} \\times \\frac{{spentFractionNum}}{{spentFractionDen}} = {moneySpent} $ (đồng).<br/>Số tiền còn lại của anh Nam là:<br/>$$ {initialMoney} - {moneySpent} = {remainingMoney} $ (đồng).<br/>Số tiền anh Nam đã đóng góp vào quỹ lớp là:<br/>$$ {remainingMoney} \\times \\frac{{savedFractionNum}}{{savedFractionDen}} = {ans} $ (đồng).<br/>Vậy anh Nam đã đóng góp $ {ans} đồng vào quỹ lớp.<br/>Đáp án đúng là C.",
+      "tip": "Hãy chia bài toán thành các bước nhỏ và thực hiện phép tính cẩn thận theo thứ tự, đặc biệt khi có các khái niệm 'phần còn lại' hoặc 'phần của phần còn lại'.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 80,
+          "max": 120,
+          "step": 10
+        },
+        "mathClubFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "mathClubFractionDen": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "artClubFractionNum": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "artClubFractionDen": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "mathClubFractionNum < mathClubFractionDen",
+        "artClubFractionNum < artClubFractionDen",
+        "totalStudents % mathClubFractionDen === 0",
+        "let remainingStudents = totalStudents - (totalStudents * mathClubFractionNum / mathClubFractionDen); remainingStudents % artClubFractionDen === 0",
+        "Math.gcd(mathClubFractionNum, mathClubFractionDen) === 1",
+        "Math.gcd(artClubFractionNum, artClubFractionDen) === 1"
+      ],
+      "formulas": {
+        "mathClubStudents": "totalStudents * (mathClubFractionNum / mathClubFractionDen)",
+        "remainingStudents": "totalStudents - (totalStudents * (mathClubFractionNum / mathClubFractionDen))",
+        "artClubStudents": "(totalStudents - (totalStudents * (mathClubFractionNum / mathClubFractionDen))) * (artClubFractionNum / artClubFractionDen)",
+        "ans": "totalStudents - (totalStudents * (mathClubFractionNum / mathClubFractionDen)) - ((totalStudents - (totalStudents * (mathClubFractionNum / mathClubFractionDen))) * (artClubFractionNum / artClubFractionDen))",
+        "w1": "totalStudents * (mathClubFractionNum / mathClubFractionDen) + (totalStudents - (totalStudents * (mathClubFractionNum / mathClubFractionDen))) * (artClubFractionNum / artClubFractionDen)",
+        "w2": "totalStudents - (totalStudents * (mathClubFractionNum / mathClubFractionDen))",
+        "w3": "totalStudents * (1 - (mathClubFractionNum / mathClubFractionDen) - (artClubFractionNum / artClubFractionDen))"
+      },
+      "questionText": "Một trường học có $ {totalStudents} $ học sinh đăng ký tham gia các câu lạc bộ. Trong đó, $ \\frac{{mathClubFractionNum}}{{mathClubFractionDen}} $ số học sinh tham gia câu lạc bộ Toán học. $ \\frac{{artClubFractionNum}}{{artClubFractionDen}} $ số học sinh còn lại tham gia câu lạc bộ Mỹ thuật. Hỏi còn lại bao nhiêu học sinh chưa đăng ký tham gia câu lạc bộ nào?",
+      "options": [
+        "A. $ {w1} $ học sinh",
+        "B. $ {w2} $ học sinh",
+        "C. $ {ans} $ học sinh",
+        "D. $ {w3} $ học sinh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số học sinh tham gia câu lạc bộ Toán học.",
+        "Xác định số học sinh còn lại sau khi trừ đi số học sinh tham gia câu lạc bộ Toán học.",
+        "Tính số học sinh tham gia câu lạc bộ Mỹ thuật từ số học sinh còn lại.",
+        "Cuối cùng, tìm số học sinh chưa đăng ký."
+      ],
+      "solutionHtml": "Số học sinh tham gia câu lạc bộ Toán học là:<br/>$$ {totalStudents} \\times \\frac{{mathClubFractionNum}}{{mathClubFractionDen}} = {mathClubStudents} $ (học sinh).<br/>Số học sinh còn lại sau khi đăng ký câu lạc bộ Toán học là:<br/>$$ {totalStudents} - {mathClubStudents} = {remainingStudents} $ (học sinh).<br/>Số học sinh tham gia câu lạc bộ Mỹ thuật là:<br/>$$ {remainingStudents} \\times \\frac{{artClubFractionNum}}{{artClubFractionDen}} = {artClubStudents} $ (học sinh).<br/>Số học sinh chưa đăng ký tham gia câu lạc bộ nào là:<br/>$$ {remainingStudents} - {artClubStudents} = {ans} $ (học sinh).<br/>Vậy có $ {ans} học sinh chưa đăng ký tham gia câu lạc bộ nào.<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên rằng 'số học sinh còn lại' là cơ sở để tính toán cho bước tiếp theo, không phải tổng số học sinh ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distanceAB": {
+          "min": 100,
+          "max": 200,
+          "step": 20
+        },
+        "distanceBC": {
+          "min": 80,
+          "max": 150,
+          "step": 10
+        },
+        "speedFractionNum": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "speedFractionDen": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "timeAB": {
+          "min": 2,
+          "max": 4,
+          "step": 0.5
+        }
+      },
+      "constraints": [
+        "speedFractionNum < speedFractionDen",
+        "Math.gcd(speedFractionNum, speedFractionDen) === 1",
+        "let speedAB_val = distanceAB / timeAB; speedAB_val * (speedFractionNum / speedFractionDen) > 0"
+      ],
+      "formulas": {
+        "speedAB": "distanceAB / timeAB",
+        "speedBC": "(distanceAB / timeAB) * (speedFractionNum / speedFractionDen)",
+        "ans": "distanceBC / ((distanceAB / timeAB) * (speedFractionNum / speedFractionDen))",
+        "w1": "distanceBC / (distanceAB / timeAB)",
+        "w2": "distanceBC * ((distanceAB / timeAB) * (speedFractionNum / speedFractionDen))",
+        "w3": "(distanceAB / timeAB) + (distanceBC / ((distanceAB / timeAB) * (speedFractionNum / speedFractionDen)))"
+      },
+      "questionText": "Một ô tô đi từ A đến B hết $ {timeAB} $ giờ với quãng đường $ {distanceAB} $ km. Sau đó, ô tô tiếp tục đi từ B đến C với quãng đường $ {distanceBC} $ km. Vận tốc đi từ B đến C bằng $ \\frac{{speedFractionNum}}{{speedFractionDen}} $ vận tốc đi từ A đến B. Hỏi ô tô đi từ B đến C mất bao nhiêu giờ?",
+      "options": [
+        "A. $ {w1} $ giờ",
+        "B. $ {w2} $ giờ",
+        "C. $ {ans} $ giờ",
+        "D. $ {w3} $ giờ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính vận tốc của ô tô khi đi từ A đến B.",
+        "Tính vận tốc của ô tô khi đi từ B đến C.",
+        "Sử dụng công thức tính thời gian: Thời gian = Quãng đường : Vận tốc."
+      ],
+      "solutionHtml": "Vận tốc của ô tô khi đi từ A đến B là:<br/>$ {distanceAB} : {timeAB} = {speedAB} $ (km/giờ).<br/>Vận tốc của ô tô khi đi từ B đến C là:<br/>$ {speedAB} \\times \\frac{{speedFractionNum}}{{speedFractionDen}} = {speedBC} $ (km/giờ).<br/>Thời gian ô tô đi từ B đến C là:<br/>$ {distanceBC} : {speedBC} = {ans} $ (giờ).<br/>Vậy ô tô đi từ B đến C mất $ {ans} $ giờ.<br/>Đáp án đúng là C.",
+      "tip": "Khi giải các bài toán liên quan đến vận tốc, quãng đường, thời gian, hãy cẩn thận xác định các đại lượng đã cho và đại lượng cần tìm cho từng chặng đường.",
+      "level": "chat-luong-cao",
+      "type": "bai-26-d4"
+    }
+  ]
+}

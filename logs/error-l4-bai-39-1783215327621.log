@@ -1,0 +1,19 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-05T01:35:27.621Z
+Lesson ID: l4-bai-39
+Lesson Title: Bài 39: Chia cho số có một chữ số
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+Error: Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+    at callGeminiAPI (F:\KHQS\AntiGravity\HocTap\server.js:517:9)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:1667:22
+

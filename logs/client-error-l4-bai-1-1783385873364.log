@@ -1,0 +1,71 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-07T00:57:53.364Z
+Student ID: std_tyc0gfnkz
+Lesson ID: l4-bai-1
+Lesson Title: Bài 1: Ôn tập các số đến 100 000
+==================================================
+
+[ERROR DETAILS]
+Lỗi tại câu số 1: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+Error: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+    at Object.generateQuestionFromTemplate (http://localhost:3000/js/question-generator-worker.js:1046:19)
+    at self.onmessage (http://localhost:3000/js/question-generator-worker.js:1118:40)
+
+[FAILED TEMPLATE QUESTION (INDEX: 0)]
+{
+  "isTemplate": true,
+  "variables": {
+    "d5_val": {
+      "min": 1,
+      "max": 4,
+      "step": 1
+    },
+    "d4_val": {
+      "min": 0,
+      "max": 8,
+      "step": 1
+    },
+    "d3_val": {
+      "min": 0,
+      "max": 8,
+      "step": 1
+    },
+    "factor_tens_units": {
+      "min": 2,
+      "max": 3,
+      "step": 1
+    }
+  },
+  "constraints": [
+    "(sum_of_d1_d2_from_total % factor_plus_1) === 0",
+    "(sum_of_d1_d2_from_total / factor_plus_1) >= 1",
+    "(sum_of_d1_d2_from_total / factor_plus_1) * factor_tens_units <= 9"
+  ],
+  "formulas": {
+    "sum_of_known_digits": "d5_val + d4_val + d3_val",
+    "factor_plus_1": "1 + factor_tens_units",
+    "d1": "(ans_sum_all_digits - sum_of_known_digits) / factor_plus_1",
+    "d2": "d1 * factor_tens_units",
+    "ans_sum_all_digits": "d5_val + d4_val + d3_val + d2 + d1",
+    "sum_of_d1_d2_from_total": "ans_sum_all_digits - sum_of_known_digits",
+    "ans_number": "d5_val * 10000 + d4_val * 1000 + d3_val * 100 + d2 * 10 + d1",
+    "w1": "ans_number + 1",
+    "w2": "ans_number - 10",
+    "w3": "d5_val * 10000 + d4_val * 1000 + d2 * 100 + d3_val * 10 + d1"
+  },
+  "questionText": "Một số có 5 chữ số thỏa mãn các điều kiện sau:<br/>*   Chữ số hàng chục nghìn là $ {d5_val} $.<br/>*   Chữ số hàng nghìn là $ {d4_val} $.<br/>*   Chữ số hàng trăm là $ {d3_val} $.<br/>*   Chữ số hàng chục gấp $ {factor_tens_units} $ lần chữ số hàng đơn vị.<br/>*   Tổng các chữ số của nó là $ {ans_sum_all_digits} $.<br/>Số đó là số nào?",
+  "options": [
+    "A. $ {w1} $",
+    "B. $ {ans_number} $",
+    "C. $ {w2} $",
+    "D. $ {w3} $"
+  ],
+  "correctIndex": 1,
+  "hints": [
+    "Gọi chữ số hàng đơn vị là $x$, chữ số hàng chục là $y$. Theo đề bài ta có $y = {factor_tens_units} \\times x$.",
+    "Tổng các chữ số hàng chục nghìn, hàng nghìn, hàng trăm là $ {d5_val} + {d4_val} + {d3_val} = {sum_of_known_digits} $.<br/>Vì tổng tất cả các chữ số là $ {ans_sum_all_digits} $, nên $x + y = {ans_sum_all_digits} - {sum_of_known_digits} = {sum_of_d1_d2_from_total} $."
+  ],
+  "solutionHtml": "Gọi chữ số hàng đơn vị là $x$, chữ số hàng chục là $y$.<br/>Theo đề bài:<br/>1. Chữ số hàng chục gấp $ {factor_tens_units} $ lần chữ số hàng đơn vị, tức là $y = {factor_tens_units} \\times x$.<br/>2. Tổng các chữ số hàng chục nghìn, hàng nghìn, hàng trăm đã biết là $ {d5_val} + {d4_val} + {d3_val} = {sum_of_known_digits} $.<br/>3. Tổng tất cả các chữ số của số đó là $ {ans_sum_all_digits} $.<br/><br/>Vậy, tổng của chữ số hàng đơn vị và chữ số hàng chục là: <br/>$x + y = {ans_sum_all_digits} - {sum_of_known_digits} = {sum_of_d1_d2_from_total} $<br/>Thay $y = {factor_tens_units} \\times x$ vào biểu thức trên, ta có:<br/>$x + {factor_tens_units} \\times x = {sum_of_d1_d2_from_total} $<br/>$({factor_tens_units} + 1) \\times x = {sum_of_d1_d2_from_total} $<br/>$ {factor_plus_1} \\times x = {sum_of_d1_d2_from_total} $<br/>$x = {sum_of_d1_d2_from_total} \\div {factor_plus_1} = {d1} $<br/><br/>Chữ số hàng đơn vị là $ {d1} $.<br/>Chữ số hàng chục là $ {d2} = {factor_tens_units} \\times {d1} = {d2} $.<br/><br/>Vậy số cần tìm là: $ {d5_val}{d4_val}{d3_val}{d2}{d1} = {ans_number} $.<br/>Đáp án đúng là B.",
+  "tip": "Khi giải các bài toán về số có điều kiện, hãy gọi các chữ số chưa biết là biến (ví dụ: $x$) và lập hệ thức theo đề bài. Sau đó, giải hệ thức để tìm giá trị của các chữ số."
+}

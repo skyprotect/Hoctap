@@ -1,0 +1,21 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T05:11:43.014Z
+Lesson ID: lt-c3-2
+Lesson Title: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+Error: Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+    at callGeminiAPI (D:\AntiGravity\HocTap\server.js:388:9)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at process.processTimers (node:internal/timers:538:9)
+    at async D:\AntiGravity\HocTap\server.js:1058:22
+

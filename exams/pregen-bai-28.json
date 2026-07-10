@@ -1,0 +1,491 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "priceApple": {
+          "min": 25.5,
+          "max": 35,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "weightApple": {
+          "min": 1.5,
+          "max": 3,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "priceCookies": {
+          "min": 18,
+          "max": 25,
+          "step": 1
+        },
+        "numCookies": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "priceApple !== priceCookies",
+        "weightApple !== numCookies",
+        "priceApple > 0",
+        "weightApple > 0",
+        "priceCookies > 0",
+        "numCookies > 0"
+      ],
+      "formulas": {
+        "costApple": "priceApple * weightApple",
+        "costCookies": "priceCookies * numCookies",
+        "ans": "costApple + costCookies",
+        "w1": "priceApple + priceCookies",
+        "w2": "costApple + priceCookies",
+        "w3": "costCookies + priceApple"
+      },
+      "questionText": "Bác An đi siêu thị mua {weightApple} kg táo với giá {priceApple} nghìn đồng mỗi kg và {numCookies} gói bánh quy với giá {priceCookies} nghìn đồng mỗi gói. Hỏi bác An phải trả tổng cộng bao nhiêu tiền?",
+      "options": [
+        "A. $ {w1} $ nghìn đồng",
+        "B. $ {ans} $ nghìn đồng",
+        "C. $ {w2} $ nghìn đồng",
+        "D. $ {w3} $ nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số tiền mua táo trước, sau đó tính số tiền mua bánh quy.",
+        "Cuối cùng, cộng tổng số tiền của hai món hàng lại."
+      ],
+      "solutionHtml": "Bước 1: Tính số tiền bác An phải trả để mua táo.<br/>Số tiền mua táo là: $ {weightApple} \\times {priceApple} = {costApple} $ (nghìn đồng).<br/><br/>Bước 2: Tính số tiền bác An phải trả để mua bánh quy.<br/>Số tiền mua bánh quy là: $ {numCookies} \\times {priceCookies} = {costCookies} $ (nghìn đồng).<br/><br/>Bước 3: Tính tổng số tiền bác An phải trả.<br/>Tổng số tiền bác An phải trả là: $ {costApple} + {costCookies} = {ans} $ (nghìn đồng).<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi giải bài toán có nhiều loại hàng hóa với số lượng và giá tiền khác nhau, hãy tính toán chi phí cho từng loại trước, sau đó mới tổng hợp lại.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalVolume": {
+          "min": 18.5,
+          "max": 25.5,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "numContainers": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalVolume > 0",
+        "numContainers > 0",
+        "totalVolume % numContainers !== 0"
+      ],
+      "formulas": {
+        "ans": "totalVolume / numContainers",
+        "w1": "totalVolume + numContainers",
+        "w2": "totalVolume * numContainers",
+        "w3": "totalVolume - numContainers"
+      },
+      "questionText": "Một thùng nước lớn chứa {totalVolume} lít nước. Người ta rót đều toàn bộ số nước này vào {numContainers} chiếc bình nhỏ giống hệt nhau. Hỏi mỗi bình nhỏ chứa bao nhiêu lít nước?",
+      "options": [
+        "A. $ {w1} $ lít",
+        "B. $ {w2} $ lít",
+        "C. $ {ans} $ lít",
+        "D. $ {w3} $ lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đây là bài toán chia đều, vậy bạn cần thực hiện phép chia.",
+        "Hãy lấy tổng thể tích nước chia cho số bình."
+      ],
+      "solutionHtml": "Để tìm thể tích nước trong mỗi bình nhỏ khi rót đều toàn bộ số nước, ta thực hiện phép chia:<br/>Thể tích nước trong mỗi bình nhỏ là: $ {totalVolume} : {numContainers} = {ans} $ (lít).<br/><br/>Vậy, đáp án đúng là C.",
+      "tip": "Khi chia một số thập phân cho một số tự nhiên, hãy thực hiện phép chia như số tự nhiên, sau đó đặt dấu phẩy ở thương khi đã chia xong phần nguyên.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "speedCar": {
+          "min": 50.5,
+          "max": 65,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "timeTravel": {
+          "min": 2.5,
+          "max": 4,
+          "step": 0.5,
+          "decimalPlaces": 1
+        }
+      },
+      "constraints": [
+        "speedCar > 0",
+        "timeTravel > 0"
+      ],
+      "formulas": {
+        "ans": "speedCar * timeTravel",
+        "w1": "speedCar + timeTravel",
+        "w2": "speedCar / timeTravel",
+        "w3": "Math.abs(speedCar - timeTravel)"
+      },
+      "questionText": "Một chiếc ô tô di chuyển với vận tốc trung bình {speedCar} km/giờ trong {timeTravel} giờ. Hỏi quãng đường ô tô đã đi được là bao nhiêu ki-lô-mét?",
+      "options": [
+        "A. $ {w1} $ km",
+        "B. $ {ans} $ km",
+        "C. $ {w2} $ km",
+        "D. $ {w3} $ km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhớ công thức tính quãng đường: Quãng đường = Vận tốc × Thời gian.",
+        "Hãy nhân vận tốc {speedCar} km/giờ với thời gian {timeTravel} giờ."
+      ],
+      "solutionHtml": "Để tính quãng đường ô tô đã đi được, ta áp dụng công thức:<br/>Quãng đường = Vận tốc $ \\times $ Thời gian.<br/>Quãng đường ô tô đã đi là: $ {speedCar} \\times {timeTravel} = {ans} $ (km).<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Hãy chú ý đến đơn vị của vận tốc và thời gian để đảm bảo kết quả quãng đường có đơn vị phù hợp (ví dụ: km/giờ và giờ thì ra km).",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "heightAn": {
+          "min": 1.35,
+          "max": 1.45,
+          "step": 0.01,
+          "decimalPlaces": 2
+        },
+        "heightBinh": {
+          "min": 1.4,
+          "max": 1.5,
+          "step": 0.01,
+          "decimalPlaces": 2
+        },
+        "heightCuc": {
+          "min": 1.38,
+          "max": 1.48,
+          "step": 0.01,
+          "decimalPlaces": 2
+        }
+      },
+      "constraints": [
+        "heightAn !== heightBinh",
+        "heightAn !== heightCuc",
+        "heightBinh !== heightCuc",
+        "heightAn > 0",
+        "heightBinh > 0",
+        "heightCuc > 0"
+      ],
+      "formulas": {
+        "ans": "Math.max(heightAn, heightBinh, heightCuc)",
+        "val1": "heightAn",
+        "val2": "heightBinh",
+        "val3": "heightCuc",
+        "tallestName": "(Math.max(heightAn, heightBinh, heightCuc) === heightAn) ? 'An' : ((Math.max(heightAn, heightBinh, heightCuc) === heightBinh) ? 'Bình' : 'Cúc')",
+        "tallestOptionLetter": "(Math.max(heightAn, heightBinh, heightCuc) === heightAn) ? 'A' : ((Math.max(heightAn, heightBinh, heightCuc) === heightBinh) ? 'B' : 'C')"
+      },
+      "questionText": "Ba bạn An, Bình và Cúc có chiều cao lần lượt là {heightAn} mét, {heightBinh} mét và {heightCuc} mét. Hỏi bạn nào cao nhất?",
+      "options": [
+        "A. An ($ {val1} $ mét)",
+        "B. Bình ($ {val2} $ mét)",
+        "C. Cúc ($ {val3} $ mét)",
+        "D. Cả ba bạn cao bằng nhau"
+      ],
+      "correctIndex": "((formulas.ans === variables.heightAn) ? 0 : ((formulas.ans === variables.heightBinh) ? 1 : 2))",
+      "hints": [
+        "Để tìm bạn cao nhất, ta cần so sánh các số thập phân chiều cao của ba bạn.",
+        "Hãy so sánh từ phần nguyên đến từng chữ số sau dấu phẩy."
+      ],
+      "solutionHtml": "Để tìm bạn cao nhất, ta so sánh chiều cao của ba bạn:<br/>Chiều cao của An là $ {heightAn} $ mét.<br/>Chiều cao của Bình là $ {heightBinh} $ mét.<br/>Chiều cao của Cúc là $ {heightCuc} $ mét.<br/><br/>So sánh các số thập phân $ {heightAn} $, $ {heightBinh} $ và $ {heightCuc} $.<br/>Ta thấy, số lớn nhất trong ba số này là $ {ans} $ mét.<br/><br/>Vậy, bạn cao nhất là {tallestName}.<br/>Đáp án đúng là {tallestOptionLetter}.",
+      "tip": "Khi so sánh các số thập phân, hãy so sánh phần nguyên trước. Nếu phần nguyên bằng nhau, hãy so sánh từng chữ số ở hàng thập phân theo thứ tự từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialWater": {
+          "min": 100,
+          "max": 150,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "addedWater": {
+          "min": 25.5,
+          "max": 40,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "removedWater": {
+          "min": 10,
+          "max": 20,
+          "step": 0.5,
+          "decimalPlaces": 1
+        }
+      },
+      "constraints": [
+        "initialWater > 0",
+        "addedWater > 0",
+        "removedWater > 0",
+        "initialWater + addedWater > removedWater"
+      ],
+      "formulas": {
+        "ans": "initialWater + addedWater - removedWater",
+        "w1": "initialWater + addedWater + removedWater",
+        "w2": "initialWater - addedWater + removedWater",
+        "w3": "initialWater - removedWater"
+      },
+      "questionText": "Một bể nước ban đầu chứa {initialWater} lít nước. Sau đó, người ta đổ thêm vào bể {addedWater} lít nước và tiếp tục lấy ra {removedWater} lít nước để tưới cây. Hỏi trong bể còn lại bao nhiêu lít nước?",
+      "options": [
+        "A. $ {w1} $ lít",
+        "B. $ {w2} $ lít",
+        "C. $ {ans} $ lít",
+        "D. $ {w3} $ lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Phép 'đổ thêm' là cộng, phép 'lấy ra' là trừ.",
+        "Thực hiện các phép tính theo đúng thứ tự."
+      ],
+      "solutionHtml": "Để tính lượng nước còn lại trong bể, ta thực hiện các phép tính theo thứ tự:<br/>Bước 1: Lượng nước sau khi đổ thêm là: $ {initialWater} + {addedWater} $ lít.<br/>Bước 2: Lượng nước còn lại sau khi lấy ra là: $ ({initialWater} + {addedWater}) - {removedWater} = {ans} $ (lít).<br/><br/>Vậy, đáp án đúng là C.",
+      "tip": "Đối với các bài toán liên quan đến lượng tăng và giảm, hãy xác định rõ các phép tính cộng, trừ và thực hiện chúng tuần tự hoặc theo đúng logic của bài toán.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 40,
+          "max": 60,
+          "step": 5
+        },
+        "girlsPercentage": {
+          "min": 40,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "totalStudents > 0",
+        "girlsPercentage > 0",
+        "girlsPercentage < 100"
+      ],
+      "formulas": {
+        "decimalGirlsRatio": "girlsPercentage / 100",
+        "ans": "totalStudents * decimalGirlsRatio",
+        "w1": "totalStudents + girlsPercentage",
+        "w2": "totalStudents * girlsPercentage",
+        "w3": "totalStudents - (totalStudents * decimalGirlsRatio)"
+      },
+      "questionText": "Một lớp học có tổng cộng {totalStudents} học sinh. Trong đó, số học sinh nữ chiếm {girlsPercentage}% tổng số học sinh của lớp. Hỏi lớp đó có bao nhiêu học sinh nữ?",
+      "options": [
+        "A. $ {w1} $ học sinh",
+        "B. $ {ans} $ học sinh",
+        "C. $ {w2} $ học sinh",
+        "D. $ {w3} $ học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm giá trị phần trăm của một số, ta chuyển phần trăm đó về dạng số thập phân.",
+        "Sau đó, nhân số thập phân vừa tìm được với tổng số học sinh."
+      ],
+      "solutionHtml": "Bước 1: Đổi phần trăm số học sinh nữ sang số thập phân.<br/>$ {girlsPercentage} \\% = {girlsPercentage} : 100 = {decimalGirlsRatio} $.<br/><br/>Bước 2: Tính số học sinh nữ của lớp.<br/>Số học sinh nữ là: $$ {totalStudents} \\times {decimalGirlsRatio} = {ans} $ (học sinh).<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi tính phần trăm của một số, luôn nhớ chuyển phần trăm sang dạng số thập phân hoặc phân số trước khi thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distanceMeters": {
+          "min": 1250,
+          "max": 2500,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "distanceMeters > 0"
+      ],
+      "formulas": {
+        "ans": "distanceMeters / 1000",
+        "w1": "distanceMeters * 1000",
+        "w2": "distanceMeters / 100",
+        "w3": "distanceMeters + 1000"
+      },
+      "questionText": "Bạn Hoa đi bộ từ nhà đến trường hết quãng đường dài {distanceMeters} mét. Hỏi quãng đường đó dài bao nhiêu ki-lô-mét?",
+      "options": [
+        "A. $ {w1} $ km",
+        "B. $ {ans} $ km",
+        "C. $ {w2} $ km",
+        "D. $ {w3} $ km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhớ quy đổi đơn vị: 1 km = 1000 mét.",
+        "Để đổi từ mét sang ki-lô-mét, ta lấy số mét chia cho 1000."
+      ],
+      "solutionHtml": "Để đổi quãng đường từ mét sang ki-lô-mét, ta chia số mét cho 1000, vì $1 \\text{ km} = 1000 \\text{ m}$.<br/>Quãng đường đó dài là: $ {distanceMeters} : 1000 = {ans} $ (km).<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Hãy ghi nhớ các mối quan hệ giữa các đơn vị đo độ dài, khối lượng, thể tích để chuyển đổi chính xác, đặc biệt là khi liên quan đến số thập phân.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "productResult": {
+          "min": 35,
+          "max": 50,
+          "step": 0.5,
+          "decimalPlaces": 1
+        },
+        "factorKnown": {
+          "min": 2,
+          "max": 5,
+          "step": 0.5,
+          "decimalPlaces": 1
+        }
+      },
+      "constraints": [
+        "factorKnown !== 0",
+        "productResult > 0",
+        "factorKnown > 0",
+        "productResult % factorKnown !== 0"
+      ],
+      "formulas": {
+        "ans": "productResult / factorKnown",
+        "w1": "productResult * factorKnown",
+        "w2": "productResult + factorKnown",
+        "w3": "productResult - factorKnown"
+      },
+      "questionText": "Khi nhân một số thập phân với {factorKnown}, bạn An đã được kết quả là {productResult}. Hỏi số thập phân ban đầu là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {w2} $",
+        "C. $ {ans} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đây là bài toán tìm thừa số chưa biết.",
+        "Muốn tìm thừa số chưa biết, ta lấy tích chia cho thừa số đã biết."
+      ],
+      "solutionHtml": "Gọi số thập phân ban đầu là $x$.<br/>Theo đề bài, ta có phép tính: $ x \\times {factorKnown} = {productResult} $.<br/>Để tìm $x$, ta thực hiện phép chia:<br/>$ x = {productResult} : {factorKnown} = {ans} $.<br/><br/>Vậy, số thập phân ban đầu là $ {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Hãy xác định rõ vai trò của các số đã cho trong bài toán (số bị chia, số chia, số hạng, thừa số...) để chọn phép tính ngược phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalArea": {
+          "min": 200,
+          "max": 300,
+          "step": 10,
+          "decimalPlaces": 1
+        },
+        "fractionRice": {
+          "min": 0.25,
+          "max": 0.4,
+          "step": 0.05,
+          "decimalPlaces": 2
+        },
+        "fixedVegetableArea": {
+          "min": 40,
+          "max": 60,
+          "step": 5,
+          "decimalPlaces": 1
+        }
+      },
+      "constraints": [
+        "totalArea > 0",
+        "fractionRice > 0",
+        "fixedVegetableArea > 0",
+        "totalArea * fractionRice + fixedVegetableArea < totalArea"
+      ],
+      "formulas": {
+        "areaRice": "totalArea * fractionRice",
+        "ans": "totalArea - areaRice - fixedVegetableArea",
+        "w1": "totalArea - areaRice + fixedVegetableArea",
+        "w2": "areaRice + fixedVegetableArea",
+        "w3": "totalArea - fixedVegetableArea"
+      },
+      "questionText": "Một thửa ruộng hình chữ nhật có tổng diện tích là {totalArea} mét vuông. Người nông dân dùng {fractionRice} diện tích để trồng lúa, và {fixedVegetableArea} mét vuông để trồng rau. Hỏi phần diện tích còn lại để trồng hoa là bao nhiêu mét vuông?",
+      "options": [
+        "A. $ {w1} $ mét vuông",
+        "B. $ {ans} $ mét vuông",
+        "C. $ {w2} $ mét vuông",
+        "D. $ {w3} $ mét vuông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính diện tích trồng lúa.",
+        "Sau đó, lấy tổng diện tích trừ đi diện tích trồng lúa và diện tích trồng rau để tìm diện tích còn lại."
+      ],
+      "solutionHtml": "Bước 1: Tính diện tích dùng để trồng lúa.<br/>Diện tích trồng lúa là: $ {totalArea} \\times {fractionRice} = {areaRice} $ (mét vuông).<br/><br/>Bước 2: Tính tổng diện tích đã sử dụng để trồng lúa và rau.<br/>Tổng diện tích đã sử dụng là: $ {areaRice} + {fixedVegetableArea} $ (mét vuông).<br/><br/>Bước 3: Tính phần diện tích còn lại để trồng hoa.<br/>Diện tích trồng hoa là: $ {totalArea} - ({areaRice} + {fixedVegetableArea}) = {ans} $ (mét vuông).<br/>Hoặc có thể viết: $ {totalArea} - {areaRice} - {fixedVegetableArea} = {ans} $ (mét vuông).<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi giải bài toán có nhiều phần diện tích hoặc số lượng, hãy tính từng phần một cách rõ ràng và sau đó thực hiện các phép cộng, trừ để tìm giá trị cuối cùng. Đảm bảo đọc kỹ đề để biết cần tính phần còn lại hay tổng cộng.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 8.1,
+          "max": 9,
+          "step": 0.1,
+          "decimalPlaces": 1
+        },
+        "num2": {
+          "min": 9.1,
+          "max": 10,
+          "step": 0.1,
+          "decimalPlaces": 1
+        },
+        "num3": {
+          "min": 10.1,
+          "max": 11,
+          "step": 0.1,
+          "decimalPlaces": 1
+        },
+        "num4": {
+          "min": 7,
+          "max": 8,
+          "step": 0.1,
+          "decimalPlaces": 1
+        }
+      },
+      "constraints": [
+        "num1 !== num2",
+        "num1 !== num3",
+        "num1 !== num4",
+        "num2 !== num3",
+        "num2 !== num4",
+        "num3 !== num4"
+      ],
+      "formulas": {
+        "ans": "Math.max(num1, num2, num3, num4)",
+        "val1": "num1",
+        "val2": "num2",
+        "val3": "num3",
+        "val4": "num4",
+        "worstTimeOptionLetter": "(Math.max(num1, num2, num3, num4) === num1) ? 'A' : ((Math.max(num1, num2, num3, num4) === num2) ? 'B' : ((Math.max(num1, num2, num3, num4) === num3) ? 'C' : 'D'))"
+      },
+      "questionText": "Trong một cuộc thi bơi, bốn vận động viên có thành tích lần lượt là {num1} giây, {num2} giây, {num3} giây và {num4} giây. Hỏi vận động viên có thành tích kém nhất (thời gian lớn nhất) là bao nhiêu giây?",
+      "options": [
+        "A. $ {val1} $ giây",
+        "B. $ {val2} $ giây",
+        "C. $ {val3} $ giây",
+        "D. $ {val4} $ giây"
+      ],
+      "correctIndex": "((formulas.ans === variables.num1) ? 0 : ((formulas.ans === variables.num2) ? 1 : ((formulas.ans === variables.num3) ? 2 : 3)))",
+      "hints": [
+        "Để tìm thành tích kém nhất (thời gian lớn nhất), ta cần so sánh các số thập phân đã cho.",
+        "Bạn hãy tìm số thập phân lớn nhất trong các số đã cho."
+      ],
+      "solutionHtml": "Để tìm vận động viên có thành tích kém nhất (tức là thời gian lớn nhất), ta cần so sánh bốn số thập phân:<br/> $ {num1} $, $ {num2} $, $ {num3} $, $ {num4} $.<br/>So sánh các số này, ta thấy số lớn nhất là $ {ans} $ giây.<br/><br/>Vậy, vận động viên có thành tích kém nhất (thời gian lớn nhất) là $ {ans} $ giây.<br/>Đáp án đúng là {worstTimeOptionLetter}.",
+      "tip": "Trong các bài toán về thời gian, tốc độ, điểm số... hãy đọc kỹ đề để xác định 'tốt nhất' hay 'kém nhất' tương ứng với giá trị lớn hay nhỏ. Ví dụ, thời gian càng lớn thì thành tích càng kém.",
+      "level": "chat-luong-cao",
+      "type": "bai-28-d10"
+    }
+  ]
+}

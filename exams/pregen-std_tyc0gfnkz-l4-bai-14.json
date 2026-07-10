@@ -1,0 +1,675 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "tienA": {
+          "min": 120000,
+          "max": 250000,
+          "step": 10000
+        },
+        "themA": {
+          "min": 20000,
+          "max": 70000,
+          "step": 5000
+        },
+        "tienB": {
+          "min": 150000,
+          "max": 280000,
+          "step": 10000
+        },
+        "botoB": {
+          "min": 10000,
+          "max": 40000,
+          "step": 5000
+        },
+        "tienC": {
+          "min": 100000,
+          "max": 300000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "tienB > botoB",
+        "tienA !== tienB",
+        "tienA !== tienC",
+        "tienB !== tienC",
+        "Math.abs((tienA + themA) - (tienB - botoB)) >= 5000",
+        "Math.abs((tienA + themA) - tienC) >= 5000",
+        "Math.abs((tienB - botoB) - tienC) >= 5000"
+      ],
+      "formulas": {
+        "tongA": "tienA + themA",
+        "tongB": "tienB - botoB",
+        "tongC": "tienC",
+        "ans_val": "(tienA + themA === Math.max(tienA + themA, tienB - botoB, tienC)) ? 'An' : ((tienB - botoB === Math.max(tienA + themA, tienB - botoB, tienC)) ? 'Bình' : 'Chi')",
+        "max_val": "Math.max(tienA + themA, tienB - botoB, tienC)",
+        "min_val": "Math.min(tienA + themA, tienB - botoB, tienC)",
+        "w1_val": "(tienA + themA === Math.min(tienA + themA, tienB - botoB, tienC)) ? 'An' : ((tienB - botoB === Math.min(tienA + themA, tienB - botoB, tienC)) ? 'Bình' : 'Chi')",
+        "w2_val": "(tongA !== max_val && tongA !== min_val) ? 'An' : ((tongB !== max_val && tongB !== min_val) ? 'Bình' : 'Chi')",
+        "w3_val": "((ans_val === 'An' && w1_val === 'Bình') ? 'Chi' : ((ans_val === 'An' && w1_val === 'Chi') ? 'Bình' : ((ans_val === 'Bình' && w1_val === 'An') ? 'Chi' : ((ans_val === 'Bình' && w1_val === 'Chi') ? 'An' : ((ans_val === 'Chi' && w1_val === 'An') ? 'Bình' : 'An')))))"
+      },
+      "questionText": "Ba bạn An, Bình và Chi cùng tiết kiệm tiền. <br/>An ban đầu có $ {tienA} $ đồng, sau đó được ông nội cho thêm $ {themA} $ đồng. <br/>Bình ban đầu có $ {tienB} $ đồng, nhưng đã tiêu mất $ {botoB} $ đồng để mua sách vở. <br/>Chi có $ {tienC} $ đồng. <br/>Hỏi bạn nào có số tiền tiết kiệm NHIỀU NHẤT?",
+      "options": [
+        "A. {ans_val}",
+        "B. {w1_val}",
+        "C. {w2_val}",
+        "D. Cả ba bạn có số tiền bằng nhau"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Hãy tính tổng số tiền của mỗi bạn sau khi thay đổi.",
+        "So sánh số tiền cuối cùng của An, Bình và Chi để tìm ra bạn có số tiền nhiều nhất."
+      ],
+      "solutionHtml": "Số tiền An có sau khi được thêm là:<br/>$ {tienA} + {themA} = {tongA} $ (đồng)<br/><br/>Số tiền Bình có sau khi tiêu mất là:<br/>$ {tienB} - {botoB} = {tongB} $ (đồng)<br/><br/>Số tiền Chi có là: $ {tongC} $ (đồng)<br/><br/>So sánh ba số tiền: $ {tongA} $, $ {tongB} $, $ {tongC} $.<br/>Ta thấy, số tiền nhiều nhất là $ {max_val} $ đồng, thuộc về bạn {ans_val}.<br/>Vậy bạn {ans_val} có số tiền tiết kiệm nhiều nhất.<br/>Đáp án đúng là A.",
+      "tip": "Khi so sánh các số có nhiều chữ số, ta cần so sánh từ hàng cao nhất (bên trái nhất). Nếu các chữ số ở hàng cao nhất bằng nhau, ta tiếp tục so sánh các chữ số ở hàng tiếp theo cho đến khi tìm được chữ số khác nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "digitHngChucNghin": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "digitHngNghin": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "digitHngTram": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "tensBase": {
+          "min": 1,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "num1": "digitHngChucNghin * 10000 + digitHngNghin * 1000 + digitHngTram * 100 + tensBase * 10",
+        "num2": "digitHngChucNghin * 10000 + digitHngNghin * 1000 + digitHngTram * 100 + (tensBase + 2) * 10",
+        "ans_val": "tensBase + 1",
+        "w1_goc": "(tensBase + 1 === 1) ? 2 : 1",
+        "w2_goc": "(tensBase + 1 === 3) ? 4 : 3",
+        "w3_goc": "(tensBase + 1 === 5) ? 6 : 5",
+        "w1": "(w1_goc === ans_val) ? 8 : w1_goc",
+        "w2": "(w2_goc === ans_val || w2_goc === w1) ? ((ans_val === 9) ? 7 : 9) : w2_goc",
+        "w3": "(w3_goc === ans_val || w3_goc === w1 || w3_goc === w2) ? ((ans_val === 4) ? 0 : 4) : w3_goc",
+        "num_str": "String(digitHngChucNghin) + String(digitHngNghin) + String(digitHngTram) + '*0'",
+        "lower_str": "String(num1)",
+        "upper_str": "String(num2)",
+        "tens_lower": "tensBase",
+        "tens_upper": "tensBase + 2"
+      },
+      "questionText": "Hãy tìm chữ số thích hợp thay thế cho dấu * trong số {num_str} để số đó lớn hơn {lower_str} và nhỏ hơn {upper_str}.",
+      "options": [
+        "{ans_val}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "So sánh số đã cho với {lower_str} và {upper_str} từ hàng chục nghìn đến hàng chục.",
+        "Chữ số thay thế dấu * phải đảm bảo số mới lớn hơn {lower_str} và nhỏ hơn {upper_str}."
+      ],
+      "solutionHtml": "Số cần tìm có dạng {num_str}. Ta cần số này lớn hơn {lower_str} và nhỏ hơn {upper_str}. Vì các hàng chục nghìn, hàng nghìn và hàng trăm của các số đều giống nhau, ta chỉ cần so sánh hàng chục. Số {lower_str} có chữ số hàng chục là {tens_lower}. Số {upper_str} có chữ số hàng chục là {tens_upper}. Để số {num_str} thỏa mãn điều kiện, chữ số hàng chục phải lớn hơn {tens_lower} và nhỏ hơn {tens_upper}. Vậy chữ số thích hợp thay thế cho dấu * là {ans_val}.",
+      "tip": "Hãy bắt đầu so sánh từ chữ số hàng cao nhất. Khi các chữ số ở cùng một hàng bằng nhau, hãy chuyển sang so sánh các chữ số ở hàng tiếp theo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "popX": {
+          "min": 350000,
+          "max": 750000,
+          "step": 10000
+        },
+        "popY": {
+          "min": 300000,
+          "max": 800000,
+          "step": 10000
+        },
+        "popZ": {
+          "min": 400000,
+          "max": 700000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "popX !== popY",
+        "popX !== popZ",
+        "popY !== popZ",
+        "Math.abs(popX - popY) >= 5000",
+        "Math.abs(popX - popZ) >= 5000",
+        "Math.abs(popY - popZ) >= 5000"
+      ],
+      "formulas": {
+        "sortedPops": "[popX, popY, popZ].sort((a, b) => b - a)",
+        "ans_pop": "sortedPops[0]",
+        "ans_city": "(popX === sortedPops[0]) ? 'thành phố A' : ((popY === sortedPops[0]) ? 'thành phố B' : 'thành phố C')",
+        "w1_pop": "sortedPops[2]",
+        "w1_city": "(popX === sortedPops[2]) ? 'thành phố A' : ((popY === sortedPops[2]) ? 'thành phố B' : 'thành phố C')",
+        "w2_pop": "sortedPops[1]",
+        "w2_city": "(popX === sortedPops[1]) ? 'thành phố A' : ((popY === sortedPops[1]) ? 'thành phố B' : 'thành phố C')"
+      },
+      "questionText": "Dưới đây là số dân của ba thành phố vào cuối năm 2023: <br/>- Thành phố A: $ {popX} $ người <br/>- Thành phố B: $ {popY} $ người <br/>- Thành phố C: $ {popZ} $ người <br/>Hãy cho biết thành phố nào có số dân ĐÔNG THỨ HAI?",
+      "options": [
+        "A. {ans_city}",
+        "B. {w1_city}",
+        "C. {w2_city}",
+        "D. Không thể xác định"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Xác định số dân của mỗi thành phố.",
+        "So sánh ba số dân để sắp xếp chúng theo thứ tự từ lớn đến bé hoặc từ bé đến lớn.",
+        "Tìm thành phố có số dân đứng ở vị trí thứ hai trong danh sách đã sắp xếp."
+      ],
+      "solutionHtml": "Số dân của các thành phố là:<br/>- Thành phố A: $ {popX} $ người<br/>- Thành phố B: $ {popY} $ người<br/>- Thành phố C: $ {popZ} $ người<br/><br/>Để tìm thành phố có số dân đông thứ hai, ta cần sắp xếp các số dân này theo thứ tự từ lớn đến bé:<br/>$ {sortedPops[0]} > {sortedPops[1]} > {sortedPops[2]} $<br/><br/>Số dân đông nhất là $ {sortedPops[0]} $ người (thành phố {ans_city}).<br/>Số dân đông thứ hai là $ {sortedPops[1]} $ người (thành phố {w2_city}).<br/>Số dân ít nhất là $ {sortedPops[2]} $ người (thành phố {w1_city}).<br/><br/>Vậy thành phố {w2_city} có số dân đông thứ hai.<br/>Đáp án đúng là C.",
+      "tip": "Khi so sánh ba số có nhiều chữ số, ta nên liệt kê và sắp xếp chúng theo một thứ tự nhất định (ví dụ: từ lớn đến bé). Sau đó, dễ dàng xác định được số đứng ở vị trí thứ hai.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "d2": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d3": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d4": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d5": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2",
+        "d1 !== d3",
+        "d1 !== d4",
+        "d1 !== d5",
+        "d2 !== d3",
+        "d2 !== d4",
+        "d2 !== d5",
+        "d3 !== d4",
+        "d3 !== d5",
+        "d4 !== d5"
+      ],
+      "formulas": {
+        "digits_array": "[d1, d2, d3, d4, d5]",
+        "sorted_desc": "[...digits_array].sort((a, b) => b - a)",
+        "sorted_asc": "[...digits_array].sort((a, b) => a - b)",
+        "largest_num": "parseInt(sorted_desc.join(''))",
+        "smallest_num": "sorted_asc[0] === 0 ? parseInt(sorted_asc[1] + String(sorted_asc[0]) + sorted_asc.slice(2).join('')) : parseInt(sorted_asc.join(''))",
+        "ans": "largest_num",
+        "w1_raw": "smallest_num",
+        "w2_raw": "largest_num - 1",
+        "w3_raw": "largest_num + 1",
+        "w1": "w1_raw === ans ? w1_raw + 2 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? w2_raw + 5 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? w3_raw + 10 : w3_raw"
+      },
+      "questionText": "Cho các chữ số {d1}, {d2}, {d3}, {d4}, {d5}. Hãy lập số tự nhiên lớn nhất có 5 chữ số khác nhau từ các chữ số trên. Số đó là số nào?",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để lập số lớn nhất, ta xếp các chữ số theo thứ tự từ lớn đến bé.",
+        "Chữ số hàng chục nghìn phải là chữ số lớn nhất trong các chữ số đã cho."
+      ],
+      "solutionHtml": "Để lập số tự nhiên lớn nhất có 5 chữ số khác nhau từ các chữ số đã cho là {d1}, {d2}, {d3}, {d4}, {d5}, ta cần xếp các chữ số này theo thứ tự từ lớn đến bé, đặt vào các hàng từ chục nghìn đến đơn vị.<br/>Các chữ số theo thứ tự giảm dần là: {sorted_desc[0]}, {sorted_desc[1]}, {sorted_desc[2]}, {sorted_desc[3]}, {sorted_desc[4]}.<br/>Vậy số lớn nhất được lập là: {ans}.<br/><br/>Đáp án đúng là A.",
+      "tip": "Khi lập số lớn nhất từ các chữ số cho trước, hãy đặt chữ số lớn nhất vào hàng cao nhất (bên trái nhất), sau đó giảm dần các chữ số cho các hàng tiếp theo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "itemA_count": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "itemA_price": {
+          "min": 25000,
+          "max": 50000,
+          "step": 1000
+        },
+        "itemB_count": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "itemB_price": {
+          "min": 20000,
+          "max": 45000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "itemA_count * itemA_price !== itemB_count * itemB_price",
+        "Math.abs((itemA_count * itemA_price) - (itemB_count * itemB_price)) > 10000",
+        "(itemA_count * itemA_price) % 1000 === 0",
+        "(itemB_count * itemB_price) % 1000 === 0"
+      ],
+      "formulas": {
+        "total_valueA": "itemA_count * itemA_price",
+        "total_valueB": "itemB_count * itemB_price",
+        "ans_shop": "total_valueA > total_valueB ? 'Cửa hàng A' : 'Cửa hàng B'",
+        "other_shop": "total_valueA > total_valueB ? 'Cửa hàng B' : 'Cửa hàng A'",
+        "ans": "Math.max(total_valueA, total_valueB)",
+        "w1_goc": "Math.min(total_valueA, total_valueB)",
+        "w1": "(w1_goc === ans) ? w1_goc + 5000 : w1_goc",
+        "w2_goc": "total_valueA + total_valueB",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15000 : w2_goc",
+        "w3_goc": "Math.abs(total_valueA - total_valueB)",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 25000 : w3_goc"
+      },
+      "questionText": "Một cửa hàng A có {itemA_count} chiếc áo với giá mỗi chiếc là {itemA_price} đồng. <br/>Một cửa hàng B có {itemB_count} chiếc áo với giá mỗi chiếc là {itemB_price} đồng. <br/>Hỏi tổng giá trị toàn bộ số áo của cửa hàng nào LỚN HƠN?",
+      "options": [
+        "A. {ans_shop}",
+        "B. {other_shop}",
+        "C. Cả hai cửa hàng có tổng giá trị bằng nhau",
+        "D. Tổng giá trị của cả hai cửa hàng là {w2} đồng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng giá trị số áo của cửa hàng A bằng cách lấy số lượng áo nhân với giá mỗi chiếc.",
+        "Làm tương tự với cửa hàng B.",
+        "So sánh hai tổng giá trị để tìm ra cửa hàng có giá trị lớn hơn."
+      ],
+      "solutionHtml": "Tổng giá trị số áo của cửa hàng A là:<br/>{itemA_count} nhân {itemA_price} bằng {total_valueA} đồng.<br/><br/>Tổng giá trị số áo của cửa hàng B là:<br/>{itemB_count} nhân {itemB_price} bằng {total_valueB} đồng.<br/><br/>So sánh {total_valueA} và {total_valueB}:<br/>Ta thấy {ans} lớn hơn {w1_goc}.<br/>Vì {ans} là tổng giá trị của {ans_shop} nên {ans_shop} có tổng giá trị số áo lớn hơn.<br/>Đáp án đúng là A.",
+      "tip": "Để so sánh tổng giá trị của hai nhóm đồ vật, trước tiên ta cần tính tổng giá trị của từng nhóm. Sau đó, áp dụng quy tắc so sánh các số có nhiều chữ số để đưa ra kết luận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lowerBound": {
+          "min": 100000,
+          "max": 900000,
+          "step": 10000
+        },
+        "rangeLength": {
+          "min": 200,
+          "max": 500,
+          "step": 10
+        },
+        "upperBound_offset": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "lowerBound + rangeLength < 999999"
+      ],
+      "formulas": {
+        "upperBound": "lowerBound + rangeLength",
+        "num_even_start": "lowerBound % 2 === 0 ? lowerBound + 2 : lowerBound + 1",
+        "num_even_end": "upperBound % 2 === 0 ? upperBound - 2 : upperBound - 1",
+        "ans": "Math.floor((num_even_end - num_even_start) / 2) + 1",
+        "diff_even_nums": "num_even_end - num_even_start",
+        "w1_base": "Math.floor(upperBound - lowerBound - 1)",
+        "w2_base": "Math.floor((upperBound - lowerBound) / 2)",
+        "w3_base": "Math.floor(rangeLength / 2) + 5",
+        "w1_adjusted_step1": "(w1_base === ans) ? ans + 1 : w1_base",
+        "w1": "(w1_adjusted_step1 === ans) ? ans + 2 : w1_adjusted_step1",
+        "w2_adjusted_step1": "(w2_base === ans) ? ans + 3 : w2_base",
+        "w2_adjusted_step2": "(w2_adjusted_step1 === w1) ? w1 + 3 : w2_adjusted_step1",
+        "w2": "(w2_adjusted_step2 === ans) ? ans + 4 : w2_adjusted_step2",
+        "w3_adjusted_step1": "(w3_base === ans) ? ans + 5 : w3_base",
+        "w3_adjusted_step2": "(w3_adjusted_step1 === w1) ? w1 + 5 : w3_adjusted_step1",
+        "w3_adjusted_step3": "(w3_adjusted_step2 === w2) ? w2 + 5 : w3_adjusted_step2",
+        "w3": "(w3_adjusted_step3 === ans) ? ans + 6 : w3_adjusted_step3"
+      },
+      "questionText": "Có bao nhiêu số chẵn có 6 chữ số mà lớn hơn {lowerBound} và nhỏ hơn {upperBound}?",
+      "options": [
+        "A. {ans} số",
+        "B. {w1} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Xác định số chẵn đầu tiên lớn hơn {lowerBound}.",
+        "Xác định số chẵn cuối cùng nhỏ hơn {upperBound}.",
+        "Sử dụng công thức tính số lượng số trong một dãy số cách đều: (số cuối - số đầu) / khoảng cách + 1."
+      ],
+      "solutionHtml": "Để tìm số lượng các số chẵn có 6 chữ số mà lớn hơn {lowerBound} và nhỏ hơn {upperBound}, ta cần tìm:<br/>1. Số chẵn nhỏ nhất lớn hơn {lowerBound}: Gọi là $\\text{so\\_dau}$.<br/>   Nếu {lowerBound} là số chẵn, thì $\\text{so\\_dau} = $ {lowerBound} $ + 2$. Nếu {lowerBound} là số lẻ, thì $\\text{so\\_dau} = $ {lowerBound} $ + 1$. <br/>   Trong trường hợp này, số chẵn nhỏ nhất lớn hơn {lowerBound} là {num_even_start}.<br/><br/>2. Số chẵn lớn nhất nhỏ hơn {upperBound}: Gọi là $\\text{so\\_cuoi}$.<br/>   Nếu {upperBound} là số chẵn, thì $\\text{so\\_cuoi} = $ {upperBound} $ - 2$. Nếu {upperBound} là số lẻ, thì $\\text{so\\_cuoi} = $ {upperBound} $ - 1$. <br/>   Trong trường hợp này, số chẵn lớn nhất nhỏ hơn {upperBound} là {num_even_end}.<br/><br/>Số lượng các số chẵn trong khoảng từ {num_even_start} đến {num_even_end} là:<br/>({num_even_end} - {num_even_start}) $\\div$ 2 + 1 = ({diff_even_nums}) $\\div$ 2 + 1 = {ans} (số)<br/>Đáp án đúng là A.",
+      "tip": "Khi đếm số lượng số trong một khoảng thỏa mãn điều kiện (chẵn/lẻ), hãy cẩn thận xác định số đầu tiên và số cuối cùng của dãy số đó. Sau đó, áp dụng công thức: (Số cuối - Số đầu) : khoảng cách + 1. Đối với số chẵn/lẻ, khoảng cách là 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distA": {
+          "min": 25000,
+          "max": 50000,
+          "step": 1000
+        },
+        "distB": {
+          "min": 20000,
+          "max": 55000,
+          "step": 1000
+        },
+        "distC": {
+          "min": 30000,
+          "max": 48000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "distA !== distB",
+        "distA !== distC",
+        "distB !== distC",
+        "Math.abs(distA - distB) >= 1000",
+        "Math.abs(distA - distC) >= 1000",
+        "Math.abs(distB - distC) >= 1000"
+      ],
+      "formulas": {
+        "sortedDists": "[distA, distB, distC].sort((a, b) => b - a)",
+        "ans_dist": "sortedDists[0]",
+        "ans_vehicle": "(distA === sortedDists[0]) ? 'Xe buýt' : ((distB === sortedDists[0]) ? 'Xe khách' : 'Xe tải')",
+        "w1_dist": "sortedDists[2]",
+        "w1_vehicle": "(distA === sortedDists[2]) ? 'Xe buýt' : ((distB === sortedDists[2]) ? 'Xe khách' : 'Xe tải')",
+        "w2_dist": "sortedDists[1]",
+        "w2_vehicle": "(distA === sortedDists[1]) ? 'Xe buýt' : ((distB === sortedDists[1]) ? 'Xe khách' : 'Xe tải')"
+      },
+      "questionText": "Trong một ngày, ba loại phương tiện di chuyển các quãng đường như sau: <br/>- Xe buýt: $ {distA} $ km <br/>- Xe khách: $ {distB} $ km <br/>- Xe tải: $ {distC} $ km <br/>Hỏi loại xe nào di chuyển quãng đường NGẮN NHẤT?",
+      "options": [
+        "A. {ans_vehicle}",
+        "B. {w1_vehicle}",
+        "C. {w2_vehicle}",
+        "D. Cả ba xe di chuyển quãng đường bằng nhau"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê quãng đường di chuyển của từng loại xe.",
+        "So sánh các quãng đường để tìm ra quãng đường ngắn nhất."
+      ],
+      "solutionHtml": "Quãng đường di chuyển của các loại xe là:<br/>- Xe buýt: $ {distA} $ km<br/>- Xe khách: $ {distB} $ km<br/>- Xe tải: $ {distC} $ km<br/><br/>Để tìm loại xe di chuyển quãng đường ngắn nhất, ta cần so sánh ba số $ {distA} $, $ {distB} $, $ {distC} $.<br/>Sắp xếp các quãng đường theo thứ tự từ bé đến lớn: $ {sortedDists[2]} < {sortedDists[1]} < {sortedDists[0]} $<br/><br/>Quãng đường ngắn nhất là $ {sortedDists[2]} $ km, đó là của {w1_vehicle}.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh các quãng đường hay bất kỳ đại lượng nào khác, ta cần đảm bảo các đơn vị đo phải giống nhau. Sau đó, tiến hành so sánh các giá trị số từ hàng lớn nhất đến hàng bé nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "scoreMai": {
+          "min": 850,
+          "max": 950,
+          "step": 10
+        },
+        "bonusMai": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "scoreLan": {
+          "min": 800,
+          "max": 900,
+          "step": 10
+        },
+        "penaltyLan": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "scoreHue": {
+          "min": 830,
+          "max": 930,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "(scoreMai + bonusMai) !== (scoreLan - penaltyLan)",
+        "(scoreMai + bonusMai) !== scoreHue",
+        "(scoreLan - penaltyLan) !== scoreHue"
+      ],
+      "formulas": {
+        "finalMai": "scoreMai + bonusMai",
+        "finalLan": "scoreLan - penaltyLan",
+        "finalHue": "scoreHue",
+        "list": "[{n: 'Mai', s: finalMai}, {n: 'Lan', s: finalLan}, {n: 'Huệ', s: finalHue}].sort((a,b) => b.s - a.s)",
+        "ans": "list[0].n",
+        "w1": "list[1].n",
+        "w2": "list[2].n"
+      },
+      "questionText": "Trong một cuộc thi tài năng, ba bạn Mai, Lan, Huệ có điểm số ban đầu như sau: <br/>- Mai đạt {scoreMai} điểm và được cộng thêm {bonusMai} điểm thưởng. <br/>- Lan đạt {scoreLan} điểm nhưng bị trừ {penaltyLan} điểm vì lỗi kỹ thuật. <br/>- Huệ đạt {scoreHue} điểm. <br/>Bạn nào có tổng điểm cao nhất sau khi đã điều chỉnh?",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. Cả ba bạn có tổng điểm bằng nhau"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng điểm cuối cùng của Mai bằng cách lấy {scoreMai} cộng với {bonusMai}.",
+        "Tính tổng điểm cuối cùng của Lan bằng cách lấy {scoreLan} trừ đi {penaltyLan}.",
+        "Điểm của Huệ là {scoreHue}. So sánh ba kết quả {finalMai}, {finalLan}, và {finalHue} để tìm người cao điểm nhất."
+      ],
+      "solutionHtml": "Điểm cuối cùng của Mai là: {scoreMai} + {bonusMai} = {finalMai} điểm.<br/><br/>Điểm cuối cùng của Lan là: {scoreLan} - {penaltyLan} = {finalLan} điểm.<br/><br/>Điểm của Huệ là: {finalHue} điểm.<br/><br/>So sánh ba kết quả: {finalMai}, {finalLan}, và {finalHue}.<br/>Ta thấy điểm cao nhất là {ans} với số điểm lớn nhất. Vậy đáp án đúng là A.",
+      "tip": "Để so sánh các giá trị sau khi thay đổi, ta cần tính kết quả cuối cùng của mỗi người. Sau đó, so sánh các số tự nhiên nhận được để xác định giá trị lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1_q9": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "d2_q9": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d3_q9": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d4_q9": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d5_q9": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1_q9 !== d2_q9",
+        "d1_q9 !== d3_q9",
+        "d1_q9 !== d4_q9",
+        "d1_q9 !== d5_q9",
+        "d2_q9 !== d3_q9",
+        "d2_q9 !== d4_q9",
+        "d2_q9 !== d5_q9",
+        "d3_q9 !== d4_q9",
+        "d3_q9 !== d5_q9",
+        "d4_q9 !== d5_q9"
+      ],
+      "formulas": {
+        "digits_arr_q9": "[d1_q9, d2_q9, d3_q9, d4_q9, d5_q9]",
+        "sorted_desc_q9": "[...digits_arr_q9].sort((a, b) => b - a)",
+        "sorted_asc_q9": "[...digits_arr_q9].sort((a, b) => a - b)",
+        "largest_num_q9": "parseInt(sorted_desc_q9.join(''))",
+        "smallest_num_q9": "sorted_asc_q9[0] === 0 ? parseInt(sorted_asc_q9[1] + String(sorted_asc_q9[0]) + sorted_asc_q9.slice(2).join('')) : parseInt(sorted_asc_q9.join(''))",
+        "ans": "'Số lớn nhất'",
+        "w1": "'Số bé nhất'",
+        "w2": "Math.abs(largest_num_q9 - smallest_num_q9)",
+        "w3": "largest_num_q9 + smallest_num_q9",
+        "list_str": "d1_q9 + ', ' + d2_q9 + ', ' + d3_q9 + ', ' + d4_q9 + ', ' + d5_q9"
+      },
+      "questionText": "Cho 5 chữ số khác nhau: {list_str}. Nếu ta lập được số lớn nhất có 5 chữ số khác nhau và số bé nhất có 5 chữ số khác nhau từ các chữ số đã cho, thì số nào trong hai số đó sẽ lớn hơn?",
+      "options": [
+        "A. Số lớn nhất ({largest_num_q9})",
+        "B. Số bé nhất ({smallest_num_q9})",
+        "C. Cả hai số bằng nhau",
+        "D. Hiệu của hai số là {w2}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Lập số lớn nhất bằng cách sắp xếp các chữ số theo thứ tự giảm dần.",
+        "Lập số bé nhất bằng cách sắp xếp các chữ số theo thứ tự tăng dần (lưu ý chữ số 0 nếu có).",
+        "So sánh hai số vừa lập."
+      ],
+      "solutionHtml": "Các chữ số đã cho là {list_str}.<br/><br/>Để lập số lớn nhất có 5 chữ số khác nhau, ta sắp xếp các chữ số theo thứ tự từ lớn đến bé. Số lớn nhất là: {largest_num_q9}.<br/><br/>Để lập số bé nhất có 5 chữ số khác nhau, ta sắp xếp các chữ số theo thứ tự từ bé đến lớn. Nếu có chữ số 0, ta đặt chữ số bé nhất (khác 0) vào hàng chục nghìn. Số bé nhất là: {smallest_num_q9}.<br/><br/>So sánh số lớn nhất {largest_num_q9} và số bé nhất {smallest_num_q9}. Ta thấy {largest_num_q9} > {smallest_num_q9}. Vậy số lớn nhất sẽ lớn hơn số bé nhất.",
+      "tip": "Số được tạo thành bằng cách sắp xếp các chữ số theo thứ tự giảm dần sẽ luôn lớn hơn số được tạo thành bằng cách sắp xếp các chữ số theo thứ tự tăng dần.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "popCountryA_2020": {
+          "min": 80000000,
+          "max": 90000000,
+          "step": 100000
+        },
+        "growthA_yearly": {
+          "min": 500000,
+          "max": 1000000,
+          "step": 50000
+        },
+        "popCountryB_2020": {
+          "min": 75000000,
+          "max": 85000000,
+          "step": 100000
+        },
+        "growthB_yearly": {
+          "min": 600000,
+          "max": 1200000,
+          "step": 50000
+        },
+        "years": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "popCountryA_2020 !== popCountryB_2020",
+        "Math.abs((popCountryA_2020 + growthA_yearly * years) - (popCountryB_2020 + growthB_yearly * years)) > 1000000"
+      ],
+      "formulas": {
+        "popA": "popCountryA_2020 + growthA_yearly * years",
+        "popB": "popCountryB_2020 + growthB_yearly * years",
+        "growthA_total": "growthA_yearly * years",
+        "growthB_total": "growthB_yearly * years",
+        "ans": "popA > popB ? popA : popB",
+        "ans_label": "popA > popB ? 'Quốc gia A' : 'Quốc gia B'",
+        "other_label": "popA > popB ? 'Quốc gia B' : 'Quốc gia A'",
+        "w1": "popA > popB ? popB + 100000 : popA + 100000",
+        "w2": "popA > popB ? popB - 100000 : popA - 100000",
+        "w3": "popA + popB"
+      },
+      "questionText": "Vào năm 2020, quốc gia A có dân số là {popCountryA_2020} người và tăng đều {growthA_yearly} người mỗi năm. <br/>Quốc gia B có dân số là {popCountryB_2020} người và tăng đều {growthB_yearly} người mỗi năm. <br/>Nếu xu hướng này tiếp tục trong {years} năm, quốc gia nào sẽ có dân số lớn hơn?",
+      "options": [
+        "{ans_label}",
+        "{other_label}",
+        "Cả hai quốc gia có dân số bằng nhau",
+        "Tổng dân số của hai quốc gia là {w3} người"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính dân số quốc gia A sau {years} năm bằng cách lấy dân số năm 2020 cộng với (tăng trưởng hàng năm nhân {years}).",
+        "Làm tương tự với quốc gia B.",
+        "So sánh hai kết quả vừa tìm được để chọn đáp án đúng."
+      ],
+      "solutionHtml": "Số dân tăng thêm của quốc gia A sau {years} năm là: {growthA_yearly} nhân {years} bằng {growthA_total} người.<br/>Dân số quốc gia A sau {years} năm là: {popCountryA_2020} cộng {growthA_total} bằng {popA} người.<br/><br/>Số dân tăng thêm của quốc gia B sau {years} năm là: {growthB_yearly} nhân {years} bằng {growthB_total} người.<br/>Dân số quốc gia B sau {years} năm là: {popCountryB_2020} cộng {growthB_total} bằng {popB} người.<br/><br/>So sánh {popA} và {popB}, ta thấy {ans_label} có dân số lớn hơn.",
+      "tip": "Khi so sánh các đại lượng thay đổi theo thời gian, hãy tính toán giá trị cuối cùng của mỗi đối tượng sau khi đã hoàn thành quá trình tăng trưởng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "mountain1_height": {
+          "min": 2500,
+          "max": 3100,
+          "step": 10
+        },
+        "mountain2_height": {
+          "min": 2400,
+          "max": 3200,
+          "step": 10
+        },
+        "mountain3_height": {
+          "min": 2600,
+          "max": 3000,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "mountain1_height !== mountain2_height",
+        "mountain1_height !== mountain3_height",
+        "mountain2_height !== mountain3_height",
+        "Math.abs(mountain1_height - mountain2_height) >= 20",
+        "Math.abs(mountain1_height - mountain3_height) >= 20",
+        "Math.abs(mountain2_height - mountain3_height) >= 20"
+      ],
+      "formulas": {
+        "sortedHeights": "[mountain1_height, mountain2_height, mountain3_height].sort((a, b) => a - b)",
+        "ans_height": "sortedHeights[0]",
+        "ans_mountain": "(mountain1_height === sortedHeights[0]) ? 'đỉnh Fansipan' : ((mountain2_height === sortedHeights[0]) ? 'đỉnh Pu Si Lung' : 'đỉnh Bạch Mộc Lương Tử')",
+        "w1_height": "sortedHeights[2]",
+        "w1_mountain": "(mountain1_height === sortedHeights[2]) ? 'đỉnh Fansipan' : ((mountain2_height === sortedHeights[2]) ? 'đỉnh Pu Si Lung' : 'đỉnh Bạch Mộc Lương Tử')",
+        "w2_height": "sortedHeights[1]",
+        "w2_mountain": "(mountain1_height === sortedHeights[1]) ? 'đỉnh Fansipan' : ((mountain2_height === sortedHeights[1]) ? 'đỉnh Pu Si Lung' : 'đỉnh Bạch Mộc Lương Tử')"
+      },
+      "questionText": "Ba đỉnh núi cao nhất Việt Nam có độ cao tương ứng là: <br/>- Đỉnh Fansipan: $ {mountain1_height} $ mét <br/>- Đỉnh Pu Si Lung: $ {mountain2_height} $ mét <br/>- Đỉnh Bạch Mộc Lương Tử: $ {mountain3_height} $ mét <br/>Hãy sắp xếp độ cao của các đỉnh núi theo thứ tự từ THẤP đến CAO.",
+      "options": [
+        "A. {ans_mountain}, {w2_mountain}, {w1_mountain}",
+        "B. {w1_mountain}, {w2_mountain}, {ans_mountain}",
+        "C. {w2_mountain}, {ans_mountain}, {w1_mountain}",
+        "D. {ans_mountain}, {w1_mountain}, {w2_mountain}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Liệt kê độ cao của từng đỉnh núi.",
+        "So sánh các con số để tìm đỉnh núi thấp nhất, rồi đến đỉnh cao hơn một chút, và cuối cùng là đỉnh cao nhất."
+      ],
+      "solutionHtml": "Độ cao của các đỉnh núi là:<br/>- Đỉnh Fansipan: $ {mountain1_height} $ mét<br/>- Đỉnh Pu Si Lung: $ {mountain2_height} $ mét<br/>- Đỉnh Bạch Mộc Lương Tử: $ {mountain3_height} $ mét<br/><br/>Để sắp xếp độ cao từ thấp đến cao, ta so sánh ba số $ {mountain1_height} $, $ {mountain2_height} $, $ {mountain3_height} $.<br/>Thứ tự từ thấp đến cao là: $ {sortedHeights[0]} < {sortedHeights[1]} < {sortedHeights[2]} $<br/><br/>Vậy, thứ tự các đỉnh núi từ thấp đến cao là: {ans_mountain} ($ {sortedHeights[0]} $ mét), {w2_mountain} ($ {sortedHeights[1]} $ mét), {w1_mountain} ($ {sortedHeights[2]} $ mét).<br/>Đáp án đúng là A.",
+      "tip": "Khi so sánh và sắp xếp các số có nhiều chữ số, ta cần chú ý đến từng hàng chữ số, bắt đầu từ hàng cao nhất (bên trái). Nếu các chữ số ở hàng đó bằng nhau, ta tiếp tục so sánh sang hàng kế tiếp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d11"
+    }
+  ]
+}

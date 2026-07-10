@@ -1,0 +1,90 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-06T11:31:44.155Z
+Student ID: std_htsj4gbmo
+Lesson ID: bai-1
+Lesson Title: Bài 1: Tập hợp
+==================================================
+
+[ERROR DETAILS]
+Lỗi tại câu số 10: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+Error: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+    at Object.generateQuestionFromTemplate (http://localhost:3000/js/question-generator-worker.js:954:19)
+    at self.onmessage (http://localhost:3000/js/question-generator-worker.js:1026:40)
+
+[FAILED TEMPLATE QUESTION (INDEX: 9)]
+{
+  "isTemplate": true,
+  "variables": {
+    "a1": {
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    "a2": {
+      "min": 4,
+      "max": 6,
+      "step": 1
+    },
+    "a3": {
+      "min": 7,
+      "max": 9,
+      "step": 1
+    },
+    "b1": {
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    "b2": {
+      "min": 4,
+      "max": 6,
+      "step": 1
+    }
+  },
+  "constraints": [
+    "a1 < a2",
+    "a2 < a3",
+    "b1 < b2",
+    "a1 != b1",
+    "a1 != b2",
+    "a2 != b1",
+    "a2 != b2",
+    "a3 != b1",
+    "a3 != b2",
+    "a1 + b1 < a2 + b2",
+    "a1 + b2 != a2 + b1",
+    "a1 + b2 != a3 + b1",
+    "a2 + b1 != a3 + b2",
+    "a1 + b1 + a2 + b2 > 10"
+  ],
+  "formulas": {
+    "sum1": "a1 + b1",
+    "sum2": "a1 + b2",
+    "sum3": "a2 + b1",
+    "sum4": "a2 + b2",
+    "sum5": "a3 + b1",
+    "sum6": "a3 + b2",
+    "allSums": "new Set([this.sum1, this.sum2, this.sum3, this.sum4, this.sum5, this.sum6])",
+    "ans": "this.allSums.size",
+    "w1": "this.ans + 2",
+    "w2": "this.ans + 1",
+    "w3": "this.ans - 1"
+  },
+  "questionText": "Cho hai tập hợp $A = \\\\{{a1}, {a2}, {a3}\\\\}$ và $B = \\\\{{b1}, {b2}\\\\}$. Gọi $C$ là tập hợp các số có dạng $x+y$, trong đó $x \\in A$ và $y \\in B$. Hỏi tập hợp $C$ có bao nhiêu phần tử?",
+  "options": [
+    "A. {w1} phần tử",
+    "B. {ans} phần tử",
+    "C. {w2} phần tử",
+    "D. {w3} phần tử"
+  ],
+  "correctIndex": 1,
+  "hints": [
+    "Hãy liệt kê tất cả các tổng $x+y$ có thể có bằng cách lấy mỗi phần tử của $A$ cộng với mỗi phần tử của $B$.",
+    "Sau khi liệt kê, hãy chú ý loại bỏ các tổng bị trùng lặp để tìm số phần tử riêng biệt của tập hợp $C$."
+  ],
+  "solutionHtml": "Tập hợp $A = \\\\{{a1}, {a2}, {a3}\\\\}$ và tập hợp $B = \\\\{{b1}, {b2}\\\\}$.<br/>Tập hợp $C$ gồm các số có dạng $x+y$ với $x \\in A$ và $y \\in B$.<br/>Ta liệt kê tất cả các tổng có thể có:<br/>- Nếu $x = {a1}$:<br/>  {a1} + {b1} = {sum1}$<br/>  {a1} + {b2} = {sum2}$<br/>- Nếu $x = {a2}$:<br/>  {a2} + {b1} = {sum3}$<br/>  {a2} + {b2} = {sum4}$<br/>- Nếu $x = {a3}$:<br/>  {a3} + {b1} = {sum5}$<br/>  {a3} + {b2} = {sum6}$<br/>Vậy, tập hợp các tổng là $\\{{sum1}, {sum2}, {sum3}, {sum4}, {sum5}, {sum6}\\}$.<br/>Để tìm số phần tử của tập hợp $C$, ta loại bỏ các phần tử trùng lặp (nếu có):<br/>$C = \\{{allSums.values().join(', ')}\\}$.<br/>Số phần tử của tập hợp $C$ là {ans}.<br/>Đáp án đúng là B.",
+  "tip": "Luôn nhớ rằng các phần tử của một tập hợp là duy nhất. Nếu có các tổng giống nhau, chúng chỉ được tính một lần trong tập hợp C.",
+  "level": "chat-luong-cao",
+  "type": "bai-1-d4"
+}

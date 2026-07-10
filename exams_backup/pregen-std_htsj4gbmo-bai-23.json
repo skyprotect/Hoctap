@@ -1,0 +1,637 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "baseNum": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "baseDen": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "scaleFactor": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "baseNum < baseDen",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(baseNum, baseDen) === 1"
+      ],
+      "formulas": {
+        "rawNum": "baseNum * scaleFactor",
+        "rawDen": "baseDen",
+        "common_divisor": "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(rawNum, rawDen)",
+        "ansNum": "rawNum / common_divisor",
+        "ansDen": "rawDen / common_divisor",
+        "w1Num": "(rawNum + 1) / common_divisor",
+        "w1Den": "rawDen / common_divisor",
+        "w2Num": "rawNum / common_divisor",
+        "w2Den": "(rawDen + 1) / common_divisor",
+        "w3Num": "baseNum",
+        "w3Den": "baseDen"
+      },
+      "questionText": "Một công thức làm bánh cần $\\frac{{baseNum}}{{baseDen}}$ cốc sữa tươi cho một mẻ bánh. Nếu muốn làm lượng bánh gấp {scaleFactor} lần, hỏi cần bao nhiêu cốc sữa tươi? Viết kết quả dưới dạng phân số tối giản.",
+      "options": [
+        "A. $\\frac{{w1Num}}{{w1Den}}$ cốc",
+        "B. $\\frac{{ansNum}}{{ansDen}}$ cốc",
+        "C. $\\frac{{w2Num}}{{w2Den}}$ cốc",
+        "D. $\\frac{{w3Num}}{{w3Den}}$ cốc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng lượng sữa tươi cần dùng bằng cách nhân phân số gốc với số lần làm lớn hơn.",
+        "Sau khi có phân số biểu thị tổng lượng sữa, hãy rút gọn phân số đó về dạng tối giản."
+      ],
+      "solutionHtml": "Lượng sữa tươi cần dùng cho {scaleFactor} lần làm bánh là:<br/>$\\frac{{baseNum}}{{baseDen}} \\times {scaleFactor} = \\frac{{{baseNum} \\times {scaleFactor}}}{{{baseDen}}} = \\frac{{rawNum}}{{rawDen}}$ (cốc).<br/>Để rút gọn phân số này, ta tìm ước chung lớn nhất của tử số và mẫu số.<br/>ƯCLN($ {rawNum}, {rawDen} $) = $ {common_divisor} $<br/>Phân số tối giản là: $\\frac{{{rawNum} \\div {common_divisor}}}{{{rawDen} \\div {common_divisor}}} = \\frac{{ansNum}}{{ansDen}}$ (cốc).<br/>Vậy, cần $\\frac{{ansNum}}{{ansDen}}$ cốc sữa tươi.<br/>Đáp án đúng là B.",
+      "tip": "Khi nhân một phân số với một số tự nhiên, ta chỉ nhân số đó với tử số. Sau đó, luôn nhớ rút gọn phân số về dạng tối giản.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "workA": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "timeA": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "workB": {
+          "min": 6,
+          "max": 18,
+          "step": 1
+        },
+        "timeB": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "workA / timeA !== workB / timeB",
+        "workA > timeA",
+        "workB > timeB"
+      ],
+      "formulas": {
+        "rateA": "workA / timeA",
+        "rateB": "workB / timeB",
+        "lcmDen": "(timeA * timeB) / (function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(timeA, timeB)",
+        "equivalentNumA": "workA * (lcmDen / timeA)",
+        "equivalentNumB": "workB * (lcmDen / timeB)",
+        "ansComparison": "rateA > rateB ? 'Đội A' : 'Đội B'",
+        "w1Comparison": "rateA > rateB ? 'Đội B' : 'Đội A'",
+        "w2Comparison": "'Không thể xác định'",
+        "w3Comparison": "'Cả hai đội như nhau'",
+        "comparisonSign": "rateA > rateB ? '>' : '<'"
+      },
+      "questionText": "Trong một cuộc thi làm sản phẩm, Đội A làm được {workA} sản phẩm trong {timeA} giờ. Đội B làm được {workB} sản phẩm trong {timeB} giờ. Hỏi đội nào làm việc hiệu quả hơn (tức là làm được nhiều sản phẩm hơn trong cùng một khoảng thời gian)?",
+      "options": [
+        "A. {w1Comparison}",
+        "B. {ansComparison}",
+        "C. {w2Comparison}",
+        "D. {w3Comparison}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để so sánh hiệu suất, ta cần tính tốc độ làm việc của mỗi đội (số sản phẩm làm được trong một giờ).",
+        "Tốc độ làm việc có thể được biểu diễn dưới dạng phân số: $\\frac{{\\text{so san pham}}}{{\\text{so gio}}}$. Sau đó, hãy so sánh hai phân số này."
+      ],
+      "solutionHtml": "Để xác định đội nào làm việc hiệu quả hơn, ta tính tốc độ làm việc của mỗi đội:<br/>Tốc độ của Đội A: $\\frac{{workA}}{{{timeA}}}$ (sản phẩm/giờ) = {rateA} sản phẩm/giờ.<br/>Tốc độ của Đội B: $\\frac{{workB}}{{{timeB}}}$ (sản phẩm/giờ) = {rateB} sản phẩm/giờ.<br/>Để so sánh hai phân số $\\frac{{workA}}{{{timeA}}}$ và $\\frac{{workB}}{{{timeB}}}$, ta có thể quy đồng mẫu số (mẫu số chung nhỏ nhất là {lcmDen}):<br/>$\\frac{{workA}}{{{timeA}}} = \\frac{{equivalentNumA}}{{{lcmDen}}}$<br/>$\\frac{{workB}}{{{timeB}}} = \\frac{{equivalentNumB}}{{{lcmDen}}}$<br/>Vì $ {equivalentNumA} {comparisonSign} {equivalentNumB} $, nên {ansComparison} làm việc hiệu quả hơn.<br/>Đáp án đúng là B.",
+      "tip": "Hiệu suất làm việc thường được tính bằng 'lượng công việc hoàn thành trên một đơn vị thời gian'. Hãy đưa các phân số về cùng một mẫu số rồi so sánh tử số.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialTotal": {
+          "min": 30,
+          "max": 50,
+          "step": 2
+        },
+        "initialBoys": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "numBoysTransferOut": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "numGirlsTransferOut": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "numNewStudents": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialBoys < initialTotal",
+        "numBoysTransferOut < initialBoys",
+        "numGirlsTransferOut < initialTotal - initialBoys",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(initialBoys, initialTotal) === 1",
+        "((initialTotal - numBoysTransferOut - numGirlsTransferOut + numNewStudents) * initialBoys) % initialTotal === 0",
+        "(((initialTotal - numBoysTransferOut - numGirlsTransferOut + numNewStudents) * initialBoys) / initialTotal - (initialBoys - numBoysTransferOut)) >= 0",
+        "(((initialTotal - numBoysTransferOut - numGirlsTransferOut + numNewStudents) * initialBoys) / initialTotal - (initialBoys - numBoysTransferOut)) <= numNewStudents"
+      ],
+      "formulas": {
+        "initialGirls": "initialTotal - initialBoys",
+        "newTotalStudents": "initialTotal - numBoysTransferOut - numGirlsTransferOut + numNewStudents",
+        "boysNeededInNewTotal": "(newTotalStudents * initialBoys) / initialTotal",
+        "ans": "boysNeededInNewTotal - (initialBoys - numBoysTransferOut)",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Một lớp học có {initialTotal} học sinh, trong đó có {initialBoys} học sinh nam. Sau một học kì, {numBoysTransferOut} học sinh nam và {numGirlsTransferOut} học sinh nữ chuyển đi. Đồng thời, {numNewStudents} học sinh mới chuyển đến lớp. Để tỉ lệ học sinh nam so với tổng số học sinh của lớp không thay đổi so với ban đầu, hỏi trong số {numNewStudents} học sinh mới chuyển đến phải có bao nhiêu học sinh nam?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy xác định tỉ lệ học sinh nam so với tổng số học sinh ban đầu dưới dạng phân số tối giản.",
+        "Sau đó, tính tổng số học sinh mới của lớp và số học sinh nam còn lại sau khi các bạn chuyển đi.",
+        "Sử dụng tỉ lệ ban đầu để tìm tổng số học sinh nam cần có trong lớp mới, từ đó tìm số học sinh nam cần có trong số học sinh mới chuyển đến."
+      ],
+      "solutionHtml": "Tỉ lệ học sinh nam so với tổng số học sinh ban đầu là $\\frac{{initialBoys}}{{initialTotal}}$.<br/>Số học sinh nam còn lại sau khi các bạn chuyển đi là: $ {initialBoys} - {numBoysTransferOut} học sinh.<br/>Số học sinh nữ còn lại sau khi các bạn chuyển đi là: $ ({initialTotal} - {initialBoys}) - {numGirlsTransferOut} học sinh.<br/>Tổng số học sinh mới của lớp là: $ {initialTotal} - {numBoysTransferOut} - {numGirlsTransferOut} + {numNewStudents} = {newTotalStudents} học sinh.<br/>Để tỉ lệ học sinh nam không đổi, số học sinh nam trong lớp mới phải chiếm tỉ lệ $\\frac{{initialBoys}}{{initialTotal}}$ trong tổng số $ {newTotalStudents} học sinh.<br/>Số học sinh nam cần có trong lớp mới là: $ \\frac{{initialBoys}}{{initialTotal}} \\times {newTotalStudents} = {boysNeededInNewTotal} học sinh.<br/>Số học sinh nam cần có trong số $ {numNewStudents} học sinh mới chuyển đến là: $ {boysNeededInNewTotal} - ({initialBoys} - {numBoysTransferOut}) = {ans} học sinh.<br/>Đáp án đúng là B.",
+      "tip": "Khi tỉ lệ không đổi, ta có thể lập phương trình với hai phân số bằng nhau. Chú ý tính toán cẩn thận số lượng học sinh thực tế ở mỗi thời điểm.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalItems": {
+          "min": 60,
+          "max": 120,
+          "step": 12
+        },
+        "day1FractionNum": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "day1FractionDen": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "day2FractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "day2FractionDen": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "day1FractionNum < day1FractionDen",
+        "day2FractionNum < day2FractionDen",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(day1FractionNum, day1FractionDen) === 1",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(day2FractionNum, day2FractionDen) === 1"
+      ],
+      "formulas": {
+        "fractionSoldDay1": "day1FractionNum / day1FractionDen",
+        "fractionRemainingAfterDay1": "1 - fractionSoldDay1",
+        "fractionSoldDay2OfTotal": "day2FractionNum / day2FractionDen * fractionRemainingAfterDay1",
+        "fractionRemainingAfterDay2": "fractionRemainingAfterDay1 - fractionSoldDay2OfTotal",
+        "ansRawNum": "fractionRemainingAfterDay2 * day1FractionDen * day2FractionDen",
+        "ansRawDen": "day1FractionDen * day2FractionDen",
+        "common_divisor": "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(ansRawNum, ansRawDen)",
+        "ansNum": "ansRawNum / common_divisor",
+        "ansDen": "ansRawDen / common_divisor",
+        "w1Num": "(day1FractionNum * day2FractionDen) / common_divisor",
+        "w1Den": "(day1FractionDen * day2FractionDen) / common_divisor",
+        "w2Num": "(day2FractionNum * (day1FractionDen - day1FractionNum)) / common_divisor",
+        "w2Den": "(day2FractionDen * day1FractionDen) / common_divisor",
+        "w3Num": "((day1FractionDen * day2FractionDen) - ((day1FractionDen - day1FractionNum) * (day2FractionDen - day2FractionNum))) / common_divisor",
+        "w3Den": "(day1FractionDen * day2FractionDen) / common_divisor"
+      },
+      "questionText": "Một cửa hàng nhập về một lô hàng. Ngày thứ nhất bán được $\\frac{{day1FractionNum}}{{day1FractionDen}}$ tổng số lô hàng. Ngày thứ hai bán được $\\frac{{day2FractionNum}}{{day2FractionDen}}$ số hàng còn lại. Hỏi phân số nào biểu thị số hàng còn lại sau hai ngày bán so với tổng số ban đầu (dưới dạng tối giản)?",
+      "options": [
+        "A. $\\frac{{w1Num}}{{w1Den}}$",
+        "B. $\\frac{{ansNum}}{{ansDen}}$",
+        "C. $\\frac{{w2Num}}{{w2Den}}$",
+        "D. $\\frac{{w3Num}}{{w3Den}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính phân số của lô hàng còn lại sau ngày thứ nhất.",
+        "Tính phân số của lô hàng đã bán trong ngày thứ hai (là một phần của số hàng còn lại).",
+        "Cuối cùng, tính phân số của lô hàng còn lại sau cả hai ngày bán."
+      ],
+      "solutionHtml": "Coi tổng số lô hàng là 1 đơn vị.<br/>Phân số lô hàng đã bán trong ngày thứ nhất là $\\frac{{day1FractionNum}}{{day1FractionDen}}$.<br/>Phân số lô hàng còn lại sau ngày thứ nhất là: $ 1 - \\frac{{day1FractionNum}}{{day1FractionDen}} = \\frac{{{day1FractionDen} - {day1FractionNum}}}{{{day1FractionDen}}} = {fractionRemainingAfterDay1} $.<br/>Phân số lô hàng đã bán trong ngày thứ hai (so với tổng số ban đầu) là: $ \\frac{{day2FractionNum}}{{day2FractionDen}} \\times {fractionRemainingAfterDay1} = {fractionSoldDay2OfTotal} $.<br/>Phân số lô hàng còn lại sau cả hai ngày bán là:<br/>$ {fractionRemainingAfterDay1} - {fractionSoldDay2OfTotal} = {fractionRemainingAfterDay2} $.<br/>Để tính giá trị phân số này, ta có thể viết lại là:<br/>$ \\frac{{{day1FractionDen} - {day1FractionNum}}}{{{day1FractionDen}}} \\times \\left(1 - \\frac{{day2FractionNum}}{{day2FractionDen}}\\right) $<br/>$ = \\frac{{{day1FractionDen} - {day1FractionNum}}}{{{day1FractionDen}}} \\times \\frac{{{day2FractionDen} - {day2FractionNum}}}{{{day2FractionDen}}} $<br/>$ = \\frac{{ansRawNum}}{{ansRawDen}} $<br/>Rút gọn phân số này ta được $\\frac{{ansNum}}{{ansDen}}$.<br/>Đáp án đúng là B.",
+      "tip": "Khi tính 'phân số của phần còn lại', hãy nhớ rằng phần trăm hoặc phân số thứ hai được tính dựa trên số lượng còn lại, không phải tổng số ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialRatioNum": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "initialRatioDen": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "addedBlue": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "addedRed": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        "minInitialTotal": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "maxInitialTotal": {
+          "min": 60,
+          "max": 100,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "initialRatioNum < initialRatioDen",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(initialRatioNum, initialRatioDen) === 1",
+        "addedBlue * (initialRatioDen - initialRatioNum) === addedRed * initialRatioNum",
+        "Math.floor(minInitialTotal / initialRatioDen) > 0",
+        "Math.floor(minInitialTotal / initialRatioDen) < Math.floor(maxInitialTotal / initialRatioDen)",
+        "(Math.floor(minInitialTotal / initialRatioDen) + 1) * initialRatioDen < maxInitialTotal"
+      ],
+      "formulas": {
+        "kFactor": "Math.floor(minInitialTotal / initialRatioDen) + 1",
+        "ansInitialTotal": "kFactor * initialRatioDen",
+        "ansInitialBlue": "kFactor * initialRatioNum",
+        "ansInitialRed": "ansInitialTotal - ansInitialBlue",
+        "w1InitialRed": "ansInitialRed + initialRatioDen - initialRatioNum",
+        "w2InitialRed": "ansInitialRed - (initialRatioDen - initialRatioNum)",
+        "w3InitialRed": "ansInitialRed + 1"
+      },
+      "questionText": "Một hộp có bi xanh và bi đỏ. Tỉ lệ bi xanh so với tổng số bi là $\\frac{{initialRatioNum}}{{initialRatioDen}}$. Nếu thêm {addedBlue} bi xanh và {addedRed} bi đỏ vào hộp, thì tỉ lệ bi xanh so với tổng số bi vẫn không đổi. Biết tổng số bi ban đầu nằm trong khoảng từ {minInitialTotal} đến {maxInitialTotal} viên. Hỏi ban đầu trong hộp có bao nhiêu bi đỏ?",
+      "options": [
+        "A. {w1InitialRed} viên",
+        "B. {ansInitialRed} viên",
+        "C. {w2InitialRed} viên",
+        "D. {w3InitialRed} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số bi xanh ban đầu là $b$, tổng số bi ban đầu là $t$. Ta có $\\frac{b}{t} = \\frac{{initialRatioNum}}{{initialRatioDen}}$ ở dạng tối giản.",
+        "Khi thêm bi, tỉ lệ mới vẫn bằng tỉ lệ cũ: $\\frac{{b + {addedBlue}}}{{t + {addedBlue} + {addedRed}}} = \\frac{{initialRatioNum}}{{initialRatioDen}}$ .",
+        "Từ hai phương trình trên, bạn có thể tìm mối quan hệ giữa $b$, $t$ và các số bi thêm vào. Sau đó dùng điều kiện về khoảng của tổng số bi ban đầu để tìm ra giá trị cụ thể của $t$ và $b$, rồi tính số bi đỏ."
+      ],
+      "solutionHtml": "Gọi số bi xanh ban đầu là $b$, số bi đỏ ban đầu là $r$, tổng số bi ban đầu là $t = b+r$.<br/>Theo đề bài, ta có tỉ lệ ban đầu: $\\frac{b}{t} = \\frac{{initialRatioNum}}{{initialRatioDen}}$.<br/>Sau khi thêm {addedBlue} bi xanh và {addedRed} bi đỏ, số bi xanh mới là $b + {addedBlue}$, tổng số bi mới là $t + {addedBlue} + {addedRed}$.<br/>Tỉ lệ mới vẫn không đổi: $\\frac{{b + {addedBlue}}}{{t + {addedBlue} + {addedRed}}} = \\frac{{initialRatioNum}}{{initialRatioDen}}$.<br/>Từ đây, ta có thể suy ra mối quan hệ: {addedBlue} \\times ({initialRatioDen} - {initialRatioNum}) = {addedRed} \\times {initialRatioNum}$. Điều này được đảm bảo trong các số liệu của bài toán.<br/>Vì $\\frac{b}{t} = \\frac{{initialRatioNum}}{{initialRatioDen}}$, ta có $b = k \\times {initialRatioNum}$ và $t = k \\times {initialRatioDen}$ với $k$ là một số tự nhiên.<br/>Số bi đỏ ban đầu là $r = t - b = k \\times ({initialRatioDen} - {initialRatioNum})$.<br/>Theo điều kiện, tổng số bi ban đầu $t$ nằm trong khoảng từ {minInitialTotal} đến {maxInitialTotal} viên.<br/>Tức là $ {minInitialTotal} < k \\times {initialRatioDen} < {maxInitialTotal} $.<br/>Ta tìm $k$ thỏa mãn điều kiện này. $k = {kFactor}$.<br/>Vậy, tổng số bi ban đầu là $ {kFactor} \\times {initialRatioDen} = {ansInitialTotal} $ viên.<br/>Số bi xanh ban đầu là $ {kFactor} \\times {initialRatioNum} = {ansInitialBlue} $ viên.<br/>Số bi đỏ ban đầu là $ {ansInitialTotal} - {ansInitialBlue} = {ansInitialRed} $ viên.<br/>Đáp án đúng là B.",
+      "tip": "Khi tỉ lệ không đổi sau khi thêm các thành phần, có một mối quan hệ đặc biệt giữa số lượng được thêm vào và các tỉ lệ ban đầu. Hãy thiết lập phương trình và sử dụng dữ kiện về khoảng giá trị để tìm lời giải duy nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "baseNum": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "baseDen": {
+          "min": 7,
+          "max": 12,
+          "step": 1
+        },
+        "targetSumFactor": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "baseNum < baseDen",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(baseNum, baseDen) === 1"
+      ],
+      "formulas": {
+        "sumOfBaseParts": "baseNum + baseDen",
+        "targetSum": "sumOfBaseParts * targetSumFactor",
+        "ansNum": "baseNum * targetSumFactor",
+        "ansDen": "baseDen * targetSumFactor",
+        "w1Num": "ansNum + 1",
+        "w1Den": "ansDen",
+        "w2Num": "baseNum",
+        "w2Den": "baseDen",
+        "w3Num": "ansNum",
+        "w3Den": "ansDen + 1"
+      },
+      "questionText": "Tìm một phân số bằng với phân số $\\frac{{baseNum}}{{baseDen}}$ và có tổng của tử số và mẫu số bằng {targetSum}.",
+      "options": [
+        "A. $\\frac{{w1Num}}{{w1Den}}$",
+        "B. $\\frac{{ansNum}}{{ansDen}}$",
+        "C. $\\frac{{w2Num}}{{w2Den}}$",
+        "D. $\\frac{{w3Num}}{{w3Den}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi phân số cần tìm là $\\frac{a}{b}$. Vì nó bằng với $\\frac{{baseNum}}{{baseDen}}$, ta có thể viết $a = k \\times {baseNum}$ và $b = k \\times {baseDen}$ với $k$ là một số tự nhiên.",
+        "Sử dụng điều kiện $a+b = {targetSum}$ để tìm giá trị của $k$."
+      ],
+      "solutionHtml": "Gọi phân số cần tìm là $\\frac{a}{b}$.<br/>Vì phân số này bằng với $\\frac{{baseNum}}{{baseDen}}$, nên ta có thể viết $a = k \\times {baseNum}$ và $b = k \\times {baseDen}$, với $k$ là một số tự nhiên khác 0.<br/>Theo đề bài, tổng của tử số và mẫu số bằng {targetSum}, nghĩa là $a + b = {targetSum}$.<br/>Thay $a$ và $b$ bằng biểu thức có $k$:<br/>$k \\times {baseNum} + k \\times {baseDen} = {targetSum}$<br/>$k \\times ({baseNum} + {baseDen}) = {targetSum}$<br/>$k \\times {sumOfBaseParts} = {targetSum}$<br/>$k = \\frac{{{targetSum}}}{{{sumOfBaseParts}}} = {targetSumFactor}$<br/>Vậy, $k = {targetSumFactor}$.<br/>Tử số $a = {baseNum} \\times {targetSumFactor} = {ansNum}$.<br/>Mẫu số $b = {baseDen} \\times {targetSumFactor} = {ansDen}$.<br/>Phân số cần tìm là $\\frac{{ansNum}}{{ansDen}}$.<br/>Đáp án đúng là B.",
+      "tip": "Khi tìm một phân số bằng với phân số cho trước và có tổng/hiệu tử mẫu, hãy biểu diễn tử và mẫu của phân số mới dưới dạng bội số của tử và mẫu phân số gốc, sau đó dùng điều kiện tổng/hiệu để tìm hệ số bội.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "deptAFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "deptAFractionDen": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "deptBFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "deptBFractionDen": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "deptAFractionNum < deptAFractionDen",
+        "deptBFractionNum < deptBFractionDen",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(deptAFractionNum, deptAFractionDen) === 1",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(deptBFractionNum, deptBFractionDen) === 1"
+      ],
+      "formulas": {
+        "remainingAfterA": "1 - (deptAFractionNum / deptAFractionDen)",
+        "fractionB": "(deptBFractionNum / deptBFractionDen) * remainingAfterA",
+        "fractionC": "remainingAfterA - fractionB",
+        "ratioCtoB": "fractionC / fractionB",
+        "rawRatioCtoBNum": "fractionC * deptAFractionDen * deptBFractionDen",
+        "rawRatioCtoBDen": "fractionB * deptAFractionDen * deptBFractionDen",
+        "common_divisor": "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(rawRatioCtoBNum, rawRatioCtoBDen)",
+        "ansNum": "rawRatioCtoBNum / common_divisor",
+        "ansDen": "rawRatioCtoBDen / common_divisor",
+        "w1Num": "(ansNum + 1)",
+        "w1Den": "ansDen",
+        "w2Num": "ansNum",
+        "w2Den": "(ansDen + 1)",
+        "w3Num": "(ansNum - 1)",
+        "w3Den": "ansDen"
+      },
+      "questionText": "Một công ty phân bổ ngân sách cho ba phòng ban A, B và C. Phòng A nhận được $\\frac{{deptAFractionNum}}{{deptAFractionDen}}$ tổng ngân sách. Phòng B nhận được $\\frac{{deptBFractionNum}}{{deptBFractionDen}}$ phần còn lại sau khi phòng A đã nhận. Phần ngân sách còn lại được dành cho phòng C. Hỏi phòng C nhận được bao nhiêu phần ngân sách so với phòng B? (Viết kết quả dưới dạng phân số tối giản).",
+      "options": [
+        "A. $\\frac{{w1Num}}{{w1Den}}$",
+        "B. $\\frac{{ansNum}}{{ansDen}}$",
+        "C. $\\frac{{w2Num}}{{w2Den}}$",
+        "D. $\\frac{{w3Num}}{{w3Den}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính phần ngân sách còn lại sau khi phòng A đã nhận.",
+        "Tính phần ngân sách phòng B nhận được (là một phần của phần còn lại).",
+        "Tính phần ngân sách phòng C nhận được (phần còn lại sau A và B).",
+        "Lập tỉ số giữa phần ngân sách của phòng C và phòng B rồi rút gọn."
+      ],
+      "solutionHtml": "Coi tổng ngân sách là 1 đơn vị.<br/>Phòng A nhận được $\\frac{{deptAFractionNum}}{{deptAFractionDen}}$ tổng ngân sách.<br/>Phần ngân sách còn lại sau khi phòng A nhận là: $ 1 - \\frac{{deptAFractionNum}}{{deptAFractionDen}} = \\frac{{{deptAFractionDen} - {deptAFractionNum}}}{{{deptAFractionDen}}} = {remainingAfterA} $.<br/>Phòng B nhận được $\\frac{{deptBFractionNum}}{{deptBFractionDen}}$ của phần còn lại:<br/>Phần ngân sách của phòng B là: $ \\frac{{deptBFractionNum}}{{deptBFractionDen}} \\times {remainingAfterA} = {fractionB} $.<br/>Phần ngân sách của phòng C (phần còn lại sau A và B) là:<br/>$ {remainingAfterA} - {fractionB} = {fractionC} $.<br/>Bây giờ, ta cần tìm tỉ số giữa phần ngân sách của phòng C và phòng B:<br/>$ \\frac{{\\text{Phong C}}}{{\\text{Phong B}}} = \\frac{{fractionC}}{{fractionB}} = \\frac{{ansRawNum}}{{ansRawDen}} $.<br/>Rút gọn phân số này ta được $\\frac{{ansNum}}{{ansDen}}$.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước tính toán với 'phần còn lại', hãy cẩn thận xác định 'cái toàn bộ' mà phân số đang tính là một phần của nó.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "popA": {
+          "min": 100,
+          "max": 300,
+          "step": 10
+        },
+        "areaA": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "popB": {
+          "min": 150,
+          "max": 400,
+          "step": 10
+        },
+        "areaB": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "popA / areaA !== popB / areaB",
+        "popA / areaA > 1",
+        "popB / areaB > 1"
+      ],
+      "formulas": {
+        "densityA": "popA / areaA",
+        "densityB": "popB / areaB",
+        "lcmDen": "(areaA * areaB) / (function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(areaA, areaB)",
+        "equivalentNumA": "popA * (lcmDen / areaA)",
+        "equivalentNumB": "popB * (lcmDen / areaB)",
+        "ansComparison": "densityA > densityB ? 'Thành phố A' : 'Thành phố B'",
+        "w1Comparison": "densityA > densityB ? 'Thành phố B' : 'Thành phố A'",
+        "w2Comparison": "'Không thể xác định'",
+        "w3Comparison": "'Mật độ như nhau'"
+      },
+      "questionText": "Thành phố A có dân số {popA} nghìn người trên diện tích {areaA} km². Thành phố B có dân số {popB} nghìn người trên diện tích {areaB} km². Hỏi thành phố nào có mật độ dân số cao hơn?",
+      "options": [
+        "A. {w1Comparison}",
+        "B. {ansComparison}",
+        "C. {w2Comparison}",
+        "D. {w3Comparison}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mật độ dân số được tính bằng số dân trên một đơn vị diện tích. Hãy biểu diễn mật độ dân số của mỗi thành phố dưới dạng phân số.",
+        "Để so sánh hai phân số, bạn có thể quy đồng mẫu số của chúng hoặc so sánh giá trị thập phân."
+      ],
+      "solutionHtml": "Mật độ dân số của mỗi thành phố được tính bằng cách lấy dân số chia cho diện tích.<br/>Mật độ dân số của Thành phố A: $\\frac{{popA}}{{{areaA}}}$ (nghìn người/km²) = {densityA} nghìn người/km².<br/>Mật độ dân số của Thành phố B: $\\frac{{popB}}{{{areaB}}}$ (nghìn người/km²) = {densityB} nghìn người/km².<br/>Để so sánh hai phân số $\\frac{{popA}}{{{areaA}}}$ và $\\frac{{popB}}{{{areaB}}}$, ta quy đồng mẫu số (mẫu số chung nhỏ nhất là {lcmDen}):<br/>$\\frac{{popA}}{{{areaA}}} = \\frac{{equivalentNumA}}{{{lcmDen}}}$<br/>$\\frac{{popB}}{{{areaB}}} = \\frac{{equivalentNumB}}{{{lcmDen}}}$<br/>Vì $ {equivalentNumA} {densityA > densityB ? '>' : '<'} {equivalentNumB} $, nên {ansComparison} có mật độ dân số cao hơn.<br/>Đáp án đúng là B.",
+      "tip": "Mật độ dân số là một ví dụ điển hình về việc sử dụng phân số để biểu thị tỉ lệ trong thực tế. So sánh mật độ tương đương với việc so sánh các phân số bằng cách quy đồng mẫu số hoặc đổi ra số thập phân.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "blueNum": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "blueDen": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "addBlueSqM": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "addRedSqM": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "minTotalArea": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "maxTotalArea": {
+          "min": 60,
+          "max": 100,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "blueNum < blueDen",
+        "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(blueNum, blueDen) === 1",
+        "addBlueSqM * (blueDen - blueNum) === addRedSqM * blueNum",
+        "Math.floor(minTotalArea / blueDen) > 0",
+        "Math.floor(minTotalArea / blueDen) < Math.floor(maxTotalArea / blueDen)",
+        "(Math.floor(minTotalArea / blueDen) + 1) * blueDen < maxTotalArea"
+      ],
+      "formulas": {
+        "kFactor": "Math.floor(minTotalArea / blueDen) + 1",
+        "ansTotalArea": "kFactor * blueDen",
+        "w1TotalArea": "ansTotalArea + blueDen",
+        "w2TotalArea": "ansTotalArea - blueDen",
+        "w3TotalArea": "ansTotalArea + 1"
+      },
+      "questionText": "Một bức tường được sơn màu xanh và đỏ. Tỉ lệ diện tích màu xanh so với tổng diện tích là $\\frac{{blueNum}}{{blueDen}}$. Nếu người thợ sơn thêm {addBlueSqM} mét vuông màu xanh và {addRedSqM} mét vuông màu đỏ, thì tỉ lệ diện tích màu xanh so với tổng diện tích vẫn không đổi. Ban đầu, tổng diện tích bức tường là bao nhiêu mét vuông? Biết rằng tổng diện tích ban đầu nằm trong khoảng từ {minTotalArea} đến {maxTotalArea} mét vuông.",
+      "options": [
+        "A. {w1TotalArea} m²",
+        "B. {ansTotalArea} m²",
+        "C. {w2TotalArea} m²",
+        "D. {w3TotalArea} m²"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi diện tích màu xanh ban đầu là $S_X$, tổng diện tích bức tường ban đầu là $S_T$. Tỉ lệ $S_X / S_T = \\frac{{blueNum}}{{blueDen}}$.",
+        "Sau khi sơn thêm, tỉ lệ mới vẫn bằng tỉ lệ cũ: $\\frac{{S_X + {addBlueSqM}}}{{S_T + {addBlueSqM} + {addRedSqM}}} = \\frac{{blueNum}}{{blueDen}}$ .",
+        "Từ hai tỉ lệ bằng nhau này, bạn sẽ tìm được một mối quan hệ giữa $S_X$ và $S_T$, sau đó sử dụng thông tin về khoảng tổng diện tích ban đầu để xác định giá trị cụ thể của $S_T$."
+      ],
+      "solutionHtml": "Gọi diện tích màu xanh ban đầu là $S_X$, diện tích màu đỏ ban đầu là $S_Đ$, tổng diện tích bức tường ban đầu là $S_T = S_X + S_Đ$.<br/>Theo đề bài, tỉ lệ diện tích màu xanh so với tổng diện tích ban đầu là $\\frac{{blueNum}}{{blueDen}}$. Vậy $ \\frac{{S_X}}{{S_T}} = \\frac{{blueNum}}{{blueDen}} $.<br/>Khi sơn thêm {addBlueSqM} m² màu xanh và {addRedSqM} m² màu đỏ, diện tích xanh mới là $S_X + {addBlueSqM}$, tổng diện tích mới là $S_T + {addBlueSqM} + {addRedSqM}$.<br/>Tỉ lệ mới vẫn không đổi: $ \\frac{{S_X + {addBlueSqM}}}{{S_T + {addBlueSqM} + {addRedSqM}}} = \\frac{{blueNum}}{{blueDen}} $.<br/>Từ hai phương trình tỉ lệ này, ta có thể suy ra mối quan hệ: {addBlueSqM} \\times ({blueDen} - {blueNum}) = {addRedSqM} \\times {blueNum}$. (Điều này được đảm bảo trong các số liệu của bài toán).<br/>Vì $ \\frac{{S_X}}{{S_T}} = \\frac{{blueNum}}{{blueDen}} $, ta có thể đặt $S_X = k \\times {blueNum}$ và $S_T = k \\times {blueDen}$ với $k$ là một số tự nhiên.<br/>Tổng diện tích ban đầu $S_T$ nằm trong khoảng từ {minTotalArea} đến {maxTotalArea} m².<br/>Tức là $ {minTotalArea} < k \\times {blueDen} < {maxTotalArea} $.<br/>Ta tìm được giá trị của $k$ là $ {kFactor} $.<br/>Vậy, tổng diện tích bức tường ban đầu là $ {kFactor} \\times {blueDen} = {ansTotalArea} $ m².<br/>Đáp án đúng là B.",
+      "tip": "Khi tỉ lệ của một thành phần trong tổng thể không thay đổi sau khi có sự bổ sung hoặc loại bỏ, hãy thiết lập phương trình với các phân số bằng nhau và giải để tìm giá trị ban đầu, thường là bội số của mẫu số phân số tỉ lệ gốc.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distA": {
+          "min": 200,
+          "max": 400,
+          "step": 20
+        },
+        "timeA": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "distB": {
+          "min": 250,
+          "max": 450,
+          "step": 20
+        },
+        "timeB": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        },
+        "distC": {
+          "min": 220,
+          "max": 420,
+          "step": 20
+        },
+        "timeC": {
+          "min": 5,
+          "max": 11,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "distA / timeA !== distB / timeB",
+        "distA / timeA !== distC / timeC",
+        "distB / timeB !== distC / timeC",
+        "distA / timeA > 1",
+        "distB / timeB > 1",
+        "distC / timeC > 1"
+      ],
+      "formulas": {
+        "speedA": "distA / timeA",
+        "speedB": "distB / timeB",
+        "speedC": "distC / timeC",
+        "gcd_tA_tB": "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(timeA, timeB)",
+        "lcm_tA_tB": "(timeA * timeB) / gcd_tA_tB",
+        "gcd_lcmAB_tC": "(function gcd(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(lcm_tA_tB, timeC)",
+        "allDen": "(lcm_tA_tB * timeC) / gcd_lcmAB_tC",
+        "eqSpeedA": "distA * (allDen / timeA)",
+        "eqSpeedB": "distB * (allDen / timeB)",
+        "eqSpeedC": "distC * (allDen / timeC)",
+        "maxSpeed": "Math.max(eqSpeedA, eqSpeedB, eqSpeedC)",
+        "ansRunner": "maxSpeed === eqSpeedA ? 'An' : (maxSpeed === eqSpeedB ? 'Bình' : 'Cường')",
+        "w1Runner": "maxSpeed === eqSpeedA ? 'Bình' : (maxSpeed === eqSpeedB ? 'Cường' : 'An')",
+        "w2Runner": "maxSpeed === eqSpeedA ? 'Cường' : (maxSpeed === eqSpeedB ? 'An' : 'Bình')"
+      },
+      "questionText": "Ba bạn An, Bình, Cường tham gia chạy bộ. An chạy được {distA} mét trong {timeA} phút. Bình chạy được {distB} mét trong {timeB} phút. Cường chạy được {distC} mét trong {timeC} phút. Hỏi ai là người chạy nhanh nhất (có vận tốc lớn nhất)?",
+      "options": [
+        "A. {w1Runner}",
+        "B. {ansRunner}",
+        "C. {w2Runner}",
+        "D. Cả ba bạn có vận tốc như nhau"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vận tốc được tính bằng quãng đường chia cho thời gian. Hãy tính vận tốc của mỗi bạn dưới dạng phân số (mét/phút).",
+        "Để tìm người chạy nhanh nhất, hãy so sánh ba phân số vận tốc này.",
+        "Bạn có thể quy đồng mẫu số của các phân số vận tốc để so sánh chúng dễ dàng hơn."
+      ],
+      "solutionHtml": "Để xác định ai chạy nhanh nhất, ta cần tính vận tốc của mỗi bạn:<br/>Vận tốc của An: $ \\frac{{distA}}{{{timeA}}} $ mét/phút = $ {speedA} $ mét/phút.<br/>Vận tốc của Bình: $ \\frac{{distB}}{{{timeB}}} $ mét/phút = $ {speedB} $ mét/phút.<br/>Vận tốc của Cường: $ \\frac{{distC}}{{{timeC}}} $ mét/phút = $ {speedC} $ mét/phút.<br/>Để so sánh các vận tốc này, ta quy đồng mẫu số chung nhỏ nhất của $ {timeA}, {timeB}, {timeC} $ là $ {allDen} $.<br/>Vận tốc của An: $ \\frac{{distA}}{{{timeA}}} = \\frac{{eqSpeedA}}{{{allDen}}} $ mét/phút.<br/>Vận tốc của Bình: $ \\frac{{distB}}{{{timeB}}} = \\frac{{eqSpeedB}}{{{allDen}}} $ mét/phút.<br/>Vận tốc của Cường: $ \\frac{{distC}}{{{timeC}}} = \\frac{{eqSpeedC}}{{{allDen}}} $ mét/phút.<br/>So sánh các tử số: $ {eqSpeedA}, {eqSpeedB}, {eqSpeedC} $.<br/>Ta thấy, $ {maxSpeed} $ là giá trị lớn nhất.<br/>Vậy, {ansRunner} là người chạy nhanh nhất.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh tốc độ, hiệu suất hoặc các tỉ lệ khác nhau, việc đưa các phân số về cùng một mẫu số chung (quy đồng mẫu số) sẽ giúp việc so sánh các tử số trở nên đơn giản và chính xác.",
+      "level": "chat-luong-cao",
+      "type": "bai-23-q10"
+    }
+  ]
+}

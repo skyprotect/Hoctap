@@ -1,0 +1,758 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "p1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "p1_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "p2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "p2_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "unitValue": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "p1_num < p1_den",
+        "p2_num < p2_den",
+        "(unitValue * (p1_den - p1_num) * (p2_den - p2_num)) % (p1_den * p2_den) === 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "remain_frac1_num": "p1_den - p1_num",
+        "remain_frac1_den": "p1_den",
+        "remain_frac2_num": "p2_den - p2_num",
+        "remain_frac2_den": "p2_den",
+        "final_remain_num_unsimplified": "this.remain_frac1_num * this.remain_frac2_num",
+        "final_remain_den_unsimplified": "this.remain_frac1_den * this.remain_frac2_den",
+        "common_divisor": "this.gcd(this.final_remain_num_unsimplified, this.final_remain_den_unsimplified)",
+        "final_remain_num": "this.final_remain_num_unsimplified / this.common_divisor",
+        "final_remain_den": "this.final_remain_den_unsimplified / this.common_divisor",
+        "remainingMeters": "unitValue * this.final_remain_num",
+        "ans": "unitValue * this.final_remain_den",
+        "w1_goc": "this.ans + 5",
+        "w2_goc": "this.ans + 10",
+        "w3_goc": "this.ans - 5",
+        "w1": "this.w1_goc",
+        "w2": "this.w2_goc",
+        "w3": "(this.w3_goc <= 0) ? this.ans + 15 : this.w3_goc"
+      },
+      "questionText": "Một cửa hàng có một số mét vải. Ngày thứ nhất bán số vải bằng {p1_num}/{p1_den} tổng số vải. Ngày thứ hai bán số vải bằng {p2_num}/{p2_den} số vải còn lại thì thấy còn {remainingMeters} mét vải. Hỏi ban đầu cửa hàng có bao nhiêu mét vải?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ số vải còn lại sau ngày thứ nhất là 1 trừ đi {p1_num}/{p1_den}.",
+        "Ngày thứ hai bán {p2_num}/{p2_den} số vải CÒN LẠI.",
+        "Phân số chỉ số vải còn lại sau hai ngày là tích của các phân số vải còn lại sau từng ngày.",
+        "Lấy {remainingMeters} chia cho phân số còn lại để tìm tổng số vải."
+      ],
+      "solutionHtml": "Phân số chỉ số vải còn lại sau ngày thứ nhất là: 1 - {p1_num}/{p1_den} = {remain_frac1_num}/{remain_frac1_den} (tổng số vải).<br/>Phân số chỉ số vải còn lại sau ngày thứ hai là: 1 - {p2_num}/{p2_den} = {remain_frac2_num}/{remain_frac2_den} (số vải còn lại sau ngày thứ nhất).<br/>Phân số chỉ số vải còn lại sau hai ngày so với ban đầu là: ({remain_frac1_num}/{remain_frac1_den}) nhân ({remain_frac2_num}/{remain_frac2_den}) = {final_remain_num}/{final_remain_den}.<br/>Tổng số vải ban đầu là: {remainingMeters} chia ({final_remain_num}/{final_remain_den}) = {ans} mét.",
+      "tip": "Khi bài toán có nhiều bước còn lại, hãy xác định phân số đó là của tổng ban đầu hay của phần còn lại sau mỗi bước."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "fractionAn_num": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "fractionAn_den": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        },
+        "unit_value": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionAn_num < fractionAn_den"
+      ],
+      "formulas": {
+        "total_parts": "fractionAn_num + fractionAn_den",
+        "totalBooks": "unit_value * this.total_parts",
+        "anBooks": "unit_value * fractionAn_num",
+        "binhBooks": "unit_value * fractionAn_den",
+        "ans_A": "this.anBooks",
+        "ans_B": "this.binhBooks",
+        "w1_A": "Math.floor(this.totalBooks / 2)",
+        "w1_B": "this.totalBooks - this.w1_A",
+        "w2_A": "this.anBooks + 5",
+        "w2_B": "this.binhBooks - 5",
+        "w3_A": "this.anBooks - Math.floor(this.anBooks / 4)",
+        "w3_B": "this.binhBooks + Math.floor(this.binhBooks / 4)"
+      },
+      "questionText": "Tổng số sách của hai bạn An và Bình là $ {totalBooks} $ quyển. Số sách của An bằng $ \\frac{{{fractionAn_num}}}{{{fractionAn_den}}} $ số sách của Bình. Hỏi mỗi bạn có bao nhiêu quyển sách?",
+      "options": [
+        "A. An có $ {w1_A} $ quyển, Bình có $ {w1_B} $ quyển.",
+        "B. An có $ {ans_A} $ quyển, Bình có $ {ans_B} $ quyển.",
+        "C. An có $ {w2_A} $ quyển, Bình có $ {w2_B} $ quyển.",
+        "D. An có $ {w3_A} $ quyển, Bình có $ {w3_B} $ quyển."
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số sách của An bằng $ \\frac{{{fractionAn_num}}}{{{fractionAn_den}}} $ số sách của Bình có nghĩa là nếu số sách của An là $ {fractionAn_num} $ phần thì số sách của Bình là $ {fractionAn_den} $ phần như thế.",
+        "Tổng số phần bằng nhau là bao nhiêu?",
+        "Tìm giá trị của một phần bằng cách lấy tổng số sách chia cho tổng số phần.",
+        "Từ giá trị một phần, tìm số sách của An và Bình."
+      ],
+      "solutionHtml": "Vì số sách của An bằng $ \\frac{{{fractionAn_num}}}{{{fractionAn_den}}} $ số sách của Bình, ta có thể biểu diễn số sách của An là $ {fractionAn_num} $ phần và số sách của Bình là $ {fractionAn_den} $ phần bằng nhau.<br/><br/>Tổng số phần bằng nhau là:<br/>$ {fractionAn_num} + {fractionAn_den} = {total_parts} $ (phần)<br/><br/>Tổng số sách là $ {totalBooks} $ quyển, vậy giá trị của một phần là:<br/>$ {totalBooks} : {total_parts} = {unit_value} $ (quyển)<br/><br/>Số sách của An là:<br/>$ {unit_value} \\times {fractionAn_num} = {ans_A} $ (quyển)<br/><br/>Số sách của Bình là:<br/>$ {unit_value} \\times {fractionAn_den} = {ans_B} $ (quyển)<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán 'Tổng - Tỉ' hoặc 'Hiệu - Tỉ' với phân số, hãy vẽ sơ đồ đoạn thẳng để dễ hình dung các phần bằng nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "fractionCuong_num": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "fractionCuong_den": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        },
+        "unit_value": {
+          "min": 4,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionCuong_num < fractionCuong_den"
+      ],
+      "formulas": {
+        "diff_parts": "fractionCuong_den - fractionCuong_num",
+        "diffMarbles": "unit_value * this.diff_parts",
+        "cuongMarbles": "unit_value * fractionCuong_num",
+        "dungMarbles": "unit_value * fractionCuong_den",
+        "ans_C": "this.cuongMarbles",
+        "ans_D": "this.dungMarbles",
+        "w1_C": "this.cuongMarbles + 3",
+        "w1_D": "this.dungMarbles - 3",
+        "w2_C": "this.cuongMarbles - this.diffMarbles / 2",
+        "w2_D": "this.dungMarbles + this.diffMarbles / 2",
+        "w3_C": "this.diffMarbles * fractionCuong_num",
+        "w3_D": "this.diffMarbles * fractionCuong_den"
+      },
+      "questionText": "Hiệu số bi của hai bạn Cường và Dũng là $ {diffMarbles} $ viên. Số bi của Cường bằng $ \\frac{{{fractionCuong_num}}}{{{fractionCuong_den}}} $ số bi của Dũng. Hỏi mỗi bạn có bao nhiêu viên bi?",
+      "options": [
+        "A. Cường có $ {w1_C} $ viên, Dũng có $ {w1_D} $ viên.",
+        "B. Cường có $ {ans_C} $ viên, Dũng có $ {ans_D} $ viên.",
+        "C. Cường có $ {w2_C} $ viên, Dũng có $ {w2_D} $ viên.",
+        "D. Cường có $ {w3_C} $ viên, Dũng có $ {w3_D} $ viên."
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi của Cường bằng $ \\frac{{{fractionCuong_num}}}{{{fractionCuong_den}}} $ số bi của Dũng có nghĩa là nếu số bi của Cường là $ {fractionCuong_num} $ phần thì số bi của Dũng là $ {fractionCuong_den} $ phần như thế.",
+        "Hiệu số phần bằng nhau là bao nhiêu?",
+        "Tìm giá trị của một phần bằng cách lấy hiệu số bi chia cho hiệu số phần.",
+        "Từ giá trị một phần, tìm số bi của Cường và Dũng."
+      ],
+      "solutionHtml": "Vì số bi của Cường bằng $ \\frac{{{fractionCuong_num}}}{{{fractionCuong_den}}} $ số bi của Dũng, ta có thể biểu diễn số bi của Cường là $ {fractionCuong_num} $ phần và số bi của Dũng là $ {fractionCuong_den} $ phần bằng nhau.<br/><br/>Hiệu số phần bằng nhau là:<br/>$ {fractionCuong_den} - {fractionCuong_num} = {diff_parts} $ (phần)<br/><br/>Hiệu số bi là $ {diffMarbles} $ viên, vậy giá trị của một phần là:<br/>$ {diffMarbles} : {diff_parts} = {unit_value} $ (viên)<br/><br/>Số bi của Cường là:<br/>$ {unit_value} \\times {fractionCuong_num} = {ans_C} $ (viên)<br/><br/>Số bi của Dũng là:<br/>$ {unit_value} \\times {fractionCuong_den} = {ans_D} $ (viên)<br/>Đáp án đúng là B.",
+      "tip": "Hãy luôn xác định rõ 'tổng số phần' hay 'hiệu số phần' trước khi tìm giá trị của một phần."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalArea": {
+          "min": 120,
+          "max": 240,
+          "step": 12
+        },
+        "fractionRose_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionRose_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "fractionLily_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionLily_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionRose_num < fractionRose_den",
+        "fractionLily_num < fractionLily_den",
+        "totalArea % fractionRose_den === 0",
+        "(totalArea - (totalArea * fractionRose_num / fractionRose_den)) % fractionLily_den === 0",
+        "(totalArea * fractionRose_num / fractionRose_den) % 1 === 0",
+        "((totalArea - (totalArea * fractionRose_num / fractionRose_den)) * fractionLily_num / fractionLily_den) % 1 === 0"
+      ],
+      "formulas": {
+        "areaRose": "totalArea * fractionRose_num / fractionRose_den",
+        "remainingArea1": "totalArea - this.areaRose",
+        "areaLily": "this.remainingArea1 * fractionLily_num / fractionLily_den",
+        "ans": "this.remainingArea1 - this.areaLily",
+        "w1_goc": "this.areaRose + this.areaLily",
+        "w2_goc": "this.remainingArea1",
+        "w3_goc": "totalArea - this.areaLily",
+        "w1": "(this.w1_goc === this.ans) ? this.ans + 5 : this.w1_goc",
+        "w2": "(this.w2_goc === this.ans || this.w2_goc === this.w1) ? ((this.ans + 7 === this.w1) ? this.ans + 13 : this.ans + 7) : this.w2_goc",
+        "w3": "(this.w3_goc === this.ans || this.w3_goc === this.w1 || this.w3_goc === this.w2) ? this.ans + 17 : this.w3_goc"
+      },
+      "questionText": "Một khu vườn có diện tích {totalArea} mét vuông. Người ta dùng {fractionRose_num}/{fractionRose_den} diện tích để trồng hoa hồng. Phần diện tích còn lại được chia thành hai phần, trong đó {fractionLily_num}/{fractionLily_den} diện tích còn lại đó dùng để trồng hoa huệ, phần còn lại trồng rau. Hỏi diện tích trồng rau là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} mét vuông",
+        "B. {ans} mét vuông",
+        "C. {w2} mét vuông",
+        "D. {w3} mét vuông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính diện tích trồng hoa hồng bằng cách lấy {totalArea} nhân {fractionRose_num} rồi chia cho {fractionRose_den}.",
+        "Sau đó, tìm diện tích còn lại bằng cách lấy {totalArea} trừ đi diện tích hoa hồng.",
+        "Tiếp theo, tính diện tích trồng hoa huệ bằng {fractionLily_num}/{fractionLily_den} của diện tích còn lại.",
+        "Cuối cùng, lấy diện tích còn lại trừ đi diện tích hoa huệ để ra diện tích trồng rau."
+      ],
+      "solutionHtml": "Diện tích trồng hoa hồng là: {totalArea} x {fractionRose_num} / {fractionRose_den} = {areaRose} (mét vuông).<br/>Diện tích còn lại sau khi trồng hoa hồng là: {totalArea} - {areaRose} = {remainingArea1} (mét vuông).<br/>Diện tích trồng hoa huệ là: {remainingArea1} x {fractionLily_num} / {fractionLily_den} = {areaLily} (mét vuông).<br/>Diện tích trồng rau là: {remainingArea1} - {areaLily} = {ans} (mét vuông). Đáp án đúng là B.",
+      "tip": "Luôn xác định rõ phân số đó là của tổng diện tích hay của phần diện tích còn lại để tính toán chính xác."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalDistance": {
+          "min": 120,
+          "max": 240,
+          "step": 20
+        },
+        "fractionDay1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionDay1_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "fractionDay2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionDay2_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionDay1_num < fractionDay1_den",
+        "fractionDay2_num < fractionDay2_den",
+        "totalDistance % fractionDay1_den === 0",
+        "(totalDistance - (totalDistance * fractionDay1_num / fractionDay1_den)) % fractionDay2_den === 0",
+        "(totalDistance * (fractionDay1_den - fractionDay1_num) / fractionDay1_den * (fractionDay2_den - fractionDay2_num) / fractionDay2_den) > 0"
+      ],
+      "formulas": {
+        "distanceDay1": "totalDistance * fractionDay1_num / fractionDay1_den",
+        "rem1": "totalDistance - this.distanceDay1",
+        "distanceDay2": "this.rem1 * fractionDay2_num / fractionDay2_den",
+        "ans": "this.rem1 - this.distanceDay2",
+        "w1_goc": "this.ans + 10",
+        "w2_goc": "this.ans + 20",
+        "w3_goc": "this.ans + 30",
+        "w1": "this.w1_goc",
+        "w2": "(this.w2_goc === this.w1) ? this.w2_goc + 5 : this.w2_goc",
+        "w3": "(this.w3_goc === this.w1 || this.w3_goc === this.w2) ? this.w3_goc + 7 : this.w3_goc"
+      },
+      "questionText": "Một ô tô đi quãng đường AB trong 3 ngày. Ngày thứ nhất đi được {fractionDay1_num} phần {fractionDay1_den} tổng quãng đường. Ngày thứ hai đi được {fractionDay2_num} phần {fractionDay2_den} quãng đường còn lại. Hỏi ngày thứ ba ô tô phải đi bao nhiêu ki-lô-mét, biết tổng quãng đường AB dài {totalDistance} km?",
+      "options": [
+        "A. {w1} km",
+        "B. {ans} km",
+        "C. {w2} km",
+        "D. {w3} km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính quãng đường ngày thứ nhất: {totalDistance} nhân {fractionDay1_num} chia {fractionDay1_den}.",
+        "Tính quãng đường còn lại sau ngày thứ nhất bằng cách lấy tổng trừ đi quãng đường ngày thứ nhất.",
+        "Tính quãng đường ngày thứ hai: lấy quãng đường còn lại nhân {fractionDay2_num} chia {fractionDay2_den}.",
+        "Ngày thứ ba đi phần quãng đường còn lại sau khi đã đi ngày thứ hai."
+      ],
+      "solutionHtml": "Quãng đường ngày thứ nhất: {totalDistance} nhân {fractionDay1_num} chia {fractionDay1_den} bằng {distanceDay1} km.<br/>Quãng đường còn lại: {totalDistance} trừ {distanceDay1} bằng {rem1} km.<br/>Quãng đường ngày thứ hai: {rem1} nhân {fractionDay2_num} chia {fractionDay2_den} bằng {distanceDay2} km.<br/>Quãng đường ngày thứ ba: {rem1} trừ {distanceDay2} bằng {ans} km.",
+      "tip": "Hãy thực hiện từng bước tính quãng đường còn lại sau mỗi ngày để không bị nhầm lẫn giữa tổng quãng đường và quãng đường còn lại."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "p1_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "p2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "p2_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "unitValue": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "p1_num < p1_den",
+        "p2_num < p2_den",
+        "(unitValue * (p1_den - p1_num) * (p2_den - p2_num)) % (p1_den * p2_den) === 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "remain_frac1_num": "p1_den - p1_num",
+        "remain_frac1_den": "p1_den",
+        "remain_frac2_num": "p2_den - p2_num",
+        "remain_frac2_den": "p2_den",
+        "final_remain_num_unsimplified": "this.remain_frac1_num * this.remain_frac2_num",
+        "final_remain_den_unsimplified": "this.remain_frac1_den * this.remain_frac2_den",
+        "common_divisor": "this.gcd(this.final_remain_num_unsimplified, this.final_remain_den_unsimplified)",
+        "final_remain_num": "this.final_remain_num_unsimplified / this.common_divisor",
+        "final_remain_den": "this.final_remain_den_unsimplified / this.common_divisor",
+        "pagesLastDay": "unitValue * this.final_remain_num",
+        "ans": "unitValue * this.final_remain_den",
+        "w1_raw": "this.ans + 5",
+        "w2_raw": "this.ans + 10",
+        "w3_raw": "this.ans + 15",
+        "w1": "this.w1_raw",
+        "w2": "this.w2_raw",
+        "w3": "this.w3_raw"
+      },
+      "questionText": "Một người đọc một cuốn sách trong 3 ngày. Ngày thứ nhất đọc p1_num / p1_den tổng số trang. Ngày thứ hai đọc p2_num / p2_den số trang còn lại. Ngày thứ ba đọc nốt {pagesLastDay} trang thì hết cuốn sách. Hỏi cuốn sách đó có tất cả bao nhiêu trang?",
+      "options": [
+        "{w1} trang",
+        "{ans} trang",
+        "{w2} trang",
+        "{w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ số trang còn lại sau ngày thứ nhất là 1 - (p1_num / p1_den).",
+        "Phân số chỉ số trang còn lại sau ngày thứ hai là 1 - (p2_num / p2_den) số trang còn lại của ngày thứ nhất.",
+        "Tìm phân số chỉ số trang của ngày thứ ba bằng cách nhân hai phân số còn lại.",
+        "Lấy số trang ngày thứ ba chia cho phân số tìm được để ra tổng số trang."
+      ],
+      "solutionHtml": "Phân số chỉ số trang sách còn lại sau ngày thứ nhất là: 1 - {p1_num}/{p1_den} = {remain_frac1_num}/{remain_frac1_den} (tổng số trang).<br/>Phân số chỉ số trang sách còn lại sau ngày thứ hai là: 1 - {p2_num}/{p2_den} = {remain_frac2_num}/{remain_frac2_den} (số trang còn lại sau ngày thứ nhất).<br/>Phân số chỉ số trang ngày thứ ba so với tổng số trang là: {remain_frac1_num}/{remain_frac1_den} x {remain_frac2_num}/{remain_frac2_den} = {final_remain_num_unsimplified}/{final_remain_den_unsimplified}, rút gọn bằng {final_remain_num}/{final_remain_den}.<br/>Tổng số trang là: {pagesLastDay} : {final_remain_num}/{final_remain_den} = {ans} trang.",
+      "tip": "Hãy tìm phân số chỉ số trang ngày thứ ba bằng cách nhân phân số còn lại của hai ngày, sau đó thực hiện phép chia để tìm tổng số trang."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "perimeter": {
+          "min": 140,
+          "max": 220,
+          "step": 20
+        },
+        "fractionWidthLength_num": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "fractionWidthLength_den": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionWidthLength_num < fractionWidthLength_den",
+        "perimeter % (2 * (fractionWidthLength_num + fractionWidthLength_den)) === 0"
+      ],
+      "formulas": {
+        "halfPerimeter": "perimeter / 2",
+        "totalParts": "fractionWidthLength_num + fractionWidthLength_den",
+        "valuePerPart": "this.halfPerimeter / this.totalParts",
+        "width": "this.valuePerPart * fractionWidthLength_num",
+        "length": "this.valuePerPart * fractionWidthLength_den",
+        "ans": "this.width * this.length",
+        "w1_goc": "this.halfPerimeter",
+        "w2_goc": "this.perimeter",
+        "w3_goc": "this.width + this.length",
+        "w1": "(this.w1_goc === this.ans) ? this.w1_goc + 5 : this.w1_goc",
+        "w2": "(this.w2_goc === this.ans || this.w2_goc === this.w1) ? ((this.ans + 10 === this.w1) ? this.ans + 15 : this.ans + 10) : this.w2_goc",
+        "w3": "(this.w3_goc === this.ans || this.w3_goc === this.w1 || this.w3_goc === this.w2) ? this.ans + 20 : this.w3_goc"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chu vi là {perimeter} mét. Chiều rộng bằng {fractionWidthLength_num} / {fractionWidthLength_den} chiều dài. Hỏi diện tích của mảnh vườn đó là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} mét vuông",
+        "B. {ans} mét vuông",
+        "C. {w2} mét vuông",
+        "D. {w3} mét vuông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nửa chu vi của hình chữ nhật là tổng của chiều dài và chiều rộng.",
+        "Biểu diễn chiều rộng và chiều dài theo số phần bằng nhau.",
+        "Tìm giá trị của một phần, sau đó tìm chiều dài và chiều rộng.",
+        "Cuối cùng, tính diện tích bằng cách nhân chiều dài với chiều rộng."
+      ],
+      "solutionHtml": "Nửa chu vi của mảnh vườn hình chữ nhật là: {perimeter} : 2 = {halfPerimeter} (mét).<br/><br/>Vì chiều rộng bằng {fractionWidthLength_num} / {fractionWidthLength_den} chiều dài, ta có thể biểu diễn chiều rộng là {fractionWidthLength_num} phần và chiều dài là {fractionWidthLength_den} phần bằng nhau.<br/><br/>Tổng số phần bằng nhau là: {fractionWidthLength_num} + {fractionWidthLength_den} = {totalParts} (phần).<br/><br/>Giá trị của một phần là: {halfPerimeter} : {totalParts} = {valuePerPart} (mét).<br/><br/>Chiều rộng của mảnh vườn là: {valuePerPart} x {fractionWidthLength_num} = {width} (mét).<br/><br/>Chiều dài của mảnh vườn là: {valuePerPart} x {fractionWidthLength_den} = {length} (mét).<br/><br/>Diện tích của mảnh vườn là: {width} x {length} = {ans} (mét vuông). Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn giữa chu vi, nửa chu vi và diện tích. Luôn đọc kỹ yêu cầu cuối cùng của đề bài."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "anMarbles": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "fractionBinh_num": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "fractionBinh_den": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "fractionCuong_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionCuong_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionBinh_num < fractionBinh_den",
+        "fractionCuong_num < fractionCuong_den",
+        "anMarbles % fractionBinh_den === 0",
+        "(anMarbles * fractionBinh_num / fractionBinh_den) % 1 === 0",
+        "((anMarbles + (anMarbles * fractionBinh_num / fractionBinh_den)) * fractionCuong_num) % fractionCuong_den === 0",
+        "((anMarbles + (anMarbles * fractionBinh_num / fractionBinh_den)) + ((anMarbles + (anMarbles * fractionBinh_num / fractionBinh_den)) * fractionCuong_num / fractionCuong_den)) % 3 === 0"
+      ],
+      "formulas": {
+        "binhMarbles": "(anMarbles * fractionBinh_num) / fractionBinh_den",
+        "anBinhTotal": "anMarbles + this.binhMarbles",
+        "cuongMarbles": "(this.anBinhTotal * fractionCuong_num) / fractionCuong_den",
+        "totalMarbles": "this.anBinhTotal + this.cuongMarbles",
+        "ans": "this.totalMarbles / 3",
+        "w1_goc": "this.totalMarbles",
+        "w2_goc": "this.anBinhTotal",
+        "w3_goc": "this.ans + 2",
+        "w1": "(this.w1_goc === this.ans) ? this.ans + 3 : this.w1_goc",
+        "w2": "(this.w2_goc === this.ans || this.w2_goc === this.w1) ? this.ans + 6 : this.w2_goc",
+        "w3": "(this.w3_goc === this.ans || this.w3_goc === this.w1 || this.w3_goc === this.w2) ? this.ans + 9 : this.w3_goc"
+      },
+      "questionText": "Ba bạn An, Bình, Cường có tất cả một số viên bi. Số bi của An là {anMarbles} viên. Số bi của Bình bằng {fractionBinh_num} phần {fractionBinh_den} số bi của An. Số bi của Cường bằng {fractionCuong_num} phần {fractionCuong_den} tổng số bi của An và Bình. Hỏi trung bình mỗi bạn có bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {ans} viên",
+        "C. {w2} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số bi của Bình bằng cách lấy {anMarbles} chia {fractionBinh_den} rồi nhân với {fractionBinh_num}.",
+        "Tính tổng số bi của An và Bình bằng cách cộng số bi của An và Bình lại.",
+        "Tính số bi của Cường bằng cách lấy tổng số bi của An và Bình chia {fractionCuong_den} rồi nhân với {fractionCuong_num}.",
+        "Tính tổng số bi của cả ba bạn rồi chia cho 3 để tìm trung bình cộng."
+      ],
+      "solutionHtml": "Số bi của Bình là: {anMarbles} : {fractionBinh_den} * {fractionBinh_num} = {binhMarbles} (viên).<br/>Tổng số bi của An và Bình là: {anMarbles} + {binhMarbles} = {anBinhTotal} (viên).<br/>Số bi của Cường là: {anBinhTotal} : {fractionCuong_den} * {fractionCuong_num} = {cuongMarbles} (viên).<br/>Tổng số bi của cả ba bạn là: {anBinhTotal} + {cuongMarbles} = {totalMarbles} (viên).<br/>Trung bình mỗi bạn có số viên bi là: {totalMarbles} : 3 = {ans} (viên).<br/>Đáp án đúng là B.",
+      "tip": "Để tính trung bình cộng, ta lấy tổng số bi chia cho số lượng bạn (3 bạn). Lưu ý tính toán từng bước để không nhầm lẫn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalKm": {
+          "min": 120,
+          "max": 240,
+          "step": 60
+        },
+        "fractionDay1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionDay1_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "fractionDay2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionDay2_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionDay1_num < fractionDay1_den",
+        "fractionDay2_num < fractionDay2_den"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "remain_frac1_num": "fractionDay1_den - fractionDay1_num",
+        "remain_frac1_den": "fractionDay1_den",
+        "remain_frac2_num": "fractionDay2_den - fractionDay2_num",
+        "remain_frac2_den": "fractionDay2_den",
+        "final_remain_num_unsimplified": "this.remain_frac1_num * this.remain_frac2_num",
+        "final_remain_den_unsimplified": "this.remain_frac1_den * this.remain_frac2_den",
+        "common_divisor": "this.gcd(this.final_remain_num_unsimplified, this.final_remain_den_unsimplified)",
+        "ans_num": "this.final_remain_num_unsimplified / this.common_divisor",
+        "ans_den": "this.final_remain_den_unsimplified / this.common_divisor",
+        "ans_string": "`$ \\frac{${this.ans_num}}{${this.ans_den}} $`",
+        "w1_string": "`$ \\frac{${this.remain_frac1_num}}{${this.remain_frac1_den}} $`",
+        "w2_num_unsimplified": "fractionDay1_num * fractionDay2_den + fractionDay2_num * fractionDay1_den",
+        "w2_den_unsimplified": "fractionDay1_den * fractionDay2_den",
+        "w2_common_divisor": "this.gcd(this.w2_num_unsimplified, this.w2_den_unsimplified)",
+        "w2_num": "this.w2_num_unsimplified / this.w2_common_divisor",
+        "w2_den": "this.w2_den_unsimplified / this.w2_common_divisor",
+        "w2_string": "`$ \\frac{${this.w2_num}}{${this.w2_den}} $`",
+        "w3_string": "`$ \\frac{${fractionDay2_num}}{${fractionDay2_den}} $`"
+      },
+      "questionText": "Một đội công nhân sửa một đoạn đường dài $ {totalKm} $ km. Ngày thứ nhất sửa được $ \\frac{{{fractionDay1_num}}}{{{fractionDay1_den}}} $ tổng quãng đường. Ngày thứ hai sửa được $ \\frac{{{fractionDay2_num}}}{{{fractionDay2_den}}} $ quãng đường còn lại. Hỏi quãng đường còn lại chưa sửa bằng bao nhiêu phần của tổng quãng đường ban đầu? (Viết dưới dạng phân số tối giản)",
+      "options": [
+        "A. $ {w1_string} $",
+        "B. $ {ans_string} $",
+        "C. $ {w2_string} $",
+        "D. $ {w3_string} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ quãng đường còn lại sau ngày thứ nhất là $ 1 - \\frac{{{fractionDay1_num}}}{{{fractionDay1_den}}} $.",
+        "Ngày thứ hai sửa $ \\frac{{{fractionDay2_num}}}{{{fractionDay2_den}}} $ quãng đường CÒN LẠI, vậy phân số quãng đường còn lại sau ngày thứ hai (so với quãng đường còn lại sau ngày thứ nhất) là $ 1 - \\frac{{{fractionDay2_num}}}{{{fractionDay2_den}}} $.",
+        "Nhân hai phân số 'còn lại' với nhau để tìm phân số tổng quãng đường còn lại so với ban đầu. Đừng quên rút gọn phân số cuối cùng!"
+      ],
+      "solutionHtml": "Phân số chỉ quãng đường còn lại sau ngày thứ nhất là:<br/>$ 1 - \\frac{{{fractionDay1_num}}}{{{fractionDay1_den}}} = \\frac{{{fractionDay1_den} - {fractionDay1_num}}}{{{fractionDay1_den}}} = \\frac{{{remain_frac1_num}}}{{{remain_frac1_den}}} $ (tổng quãng đường)<br/><br/>Phân số chỉ quãng đường còn lại sau khi sửa ngày thứ hai (so với quãng đường còn lại sau ngày thứ nhất) là:<br/>$ 1 - \\frac{{{fractionDay2_num}}}{{{fractionDay2_den}}} = \\frac{{{fractionDay2_den} - {fractionDay2_num}}}{{{fractionDay2_den}}} = \\frac{{{remain_frac2_num}}}{{{remain_frac2_den}}} $ (quãng đường còn lại sau ngày thứ nhất)<br/><br/>Phân số chỉ quãng đường còn lại chưa sửa sau cả hai ngày (so với tổng quãng đường ban đầu) là:<br/>$ \\frac{{{remain_frac1_num}}}{{{remain_frac1_den}}} \\times \\frac{{{remain_frac2_num}}}{{{remain_frac2_den}}} = \\frac{{{remain_frac1_num} \\times {remain_frac2_num}}}{{{remain_frac1_den} \\times {remain_frac2_den}}} = \\frac{{{final_remain_num_unsimplified}}}{{{final_remain_den_unsimplified}}} $<br/>Rút gọn phân số này ta được $ \\frac{{{ans_num}}}{{{ans_den}}} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu tỉ số/phân số, giá trị tổng (ví dụ: {totalKm} km) có thể chỉ dùng để làm sinh động đề bài chứ không trực tiếp dùng trong phép tính."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialToys": {
+          "min": 120,
+          "max": 240,
+          "step": 12
+        },
+        "fractionSold_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionSold_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "fractionAdded_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionAdded_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionSold_num < fractionSold_den",
+        "fractionAdded_num < fractionAdded_den",
+        "initialToys % fractionSold_den === 0",
+        "(initialToys - (initialToys * fractionSold_num / fractionSold_den)) % fractionAdded_den === 0",
+        "((initialToys * (1 - fractionSold_num / fractionSold_den)) * (1 + fractionAdded_num / fractionAdded_den)) !== initialToys",
+        "((initialToys * (1 - fractionSold_num / fractionSold_den))) !== initialToys",
+        "((initialToys * (1 - fractionSold_num / fractionSold_den)) * (1 + fractionAdded_num / fractionAdded_den)) !== (initialToys * (1 - fractionSold_num / fractionSold_den))",
+        "((initialToys * (1 - fractionSold_num / fractionSold_den)) * (1 + fractionAdded_num / fractionAdded_den)) !== (initialToys + (initialToys * fractionSold_num / fractionSold_den))"
+      ],
+      "formulas": {
+        "toysSold": "initialToys * fractionSold_num / fractionSold_den",
+        "toysRemainingAfterSale": "initialToys - this.toysSold",
+        "toysAdded": "this.toysRemainingAfterSale * fractionAdded_num / fractionAdded_den",
+        "ans": "this.toysRemainingAfterSale + this.toysAdded",
+        "w1_raw": "initialToys + toysAdded",
+        "w2_raw": "toysRemainingAfterSale",
+        "w3_raw": "initialToys + toysSold",
+        "w1": "(this.w1_raw === this.ans) ? this.ans + 7 : this.w1_raw",
+        "w2": "(this.w2_raw === this.ans || this.w2_raw === this.w1) ? this.ans + 13 : this.w2_raw",
+        "w3": "(this.w3_raw === this.ans || this.w3_raw === this.w1 || this.w3_raw === this.w2) ? this.ans + 17 : this.w3_raw"
+      },
+      "questionText": "Một cửa hàng có {initialToys} món đồ chơi. Trong đợt khuyến mãi, cửa hàng đã bán đi {fractionSold_num}/{fractionSold_den} số đồ chơi đó. Sau đó, cửa hàng nhập thêm một số đồ chơi mới bằng {fractionAdded_num}/{fractionAdded_den} số đồ chơi CÒN LẠI sau khi bán. Hỏi sau tất cả các hoạt động, cửa hàng có bao nhiêu món đồ chơi?",
+      "options": [
+        "A. {w1} món",
+        "B. {ans} món",
+        "C. {w2} món",
+        "D. {w3} món"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính số đồ chơi cửa hàng đã bán đi bằng cách lấy {initialToys} nhân {fractionSold_num} chia {fractionSold_den}.",
+        "Tìm số đồ chơi còn lại sau khi bán.",
+        "Tính số đồ chơi được nhập thêm bằng cách lấy số đồ chơi còn lại nhân {fractionAdded_num} chia {fractionAdded_den}.",
+        "Cuối cùng, cộng số đồ chơi còn lại với số đồ chơi nhập thêm để ra tổng số đồ chơi hiện có."
+      ],
+      "solutionHtml": "Số đồ chơi cửa hàng đã bán đi là:<br/>{initialToys} x {fractionSold_num} / {fractionSold_den} = {toysSold} (món)<br/><br/>Số đồ chơi còn lại sau khi bán là:<br/>{initialToys} - {toysSold} = {toysRemainingAfterSale} (món)<br/><br/>Số đồ chơi cửa hàng nhập thêm là {fractionAdded_num}/{fractionAdded_den} số đồ chơi còn lại:<br/>{toysRemainingAfterSale} x {fractionAdded_num} / {fractionAdded_den} = {toysAdded} (món)<br/><br/>Sau tất cả các hoạt động, cửa hàng có số món đồ chơi là:<br/>{toysRemainingAfterSale} + {toysAdded} = {ans} (món).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các bước tăng/giảm và 'của tổng' hay 'của phần còn lại'. Lập sơ đồ hoặc ghi chú rõ ràng các bước sẽ giúp tránh nhầm lẫn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 40,
+          "max": 60,
+          "step": 4
+        },
+        "fractionGirls_num": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "fractionGirls_den": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "fractionGoodMath_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fractionGoodMath_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionGirls_num < fractionGirls_den",
+        "fractionGoodMath_num < fractionGoodMath_den",
+        "totalStudents % fractionGirls_den === 0",
+        "(totalStudents * fractionGirls_num / fractionGirls_den) % fractionGoodMath_den === 0"
+      ],
+      "formulas": {
+        "numGirls": "totalStudents * fractionGirls_num / fractionGirls_den",
+        "numBoys": "totalStudents - this.numGirls",
+        "goodMathGirls": "this.numGirls * fractionGoodMath_num / fractionGoodMath_den",
+        "ans": "this.numGirls - this.goodMathGirls",
+        "w1": "(this.numGirls === this.ans) ? this.ans + 1 : this.numGirls",
+        "w2": "(this.numBoys === this.ans || this.numBoys === this.w1) ? this.ans + 2 : this.numBoys",
+        "w3": "(this.goodMathGirls === this.ans || this.goodMathGirls === this.w1 || this.goodMathGirls === this.w2) ? this.ans + 3 : this.goodMathGirls"
+      },
+      "questionText": "Một lớp học có {totalStudents} học sinh. Số học sinh nữ bằng {fractionGirls_num} phần {fractionGirls_den} tổng số học sinh của lớp. Trong số học sinh nữ, có {fractionGoodMath_num} phần {fractionGoodMath_den} số bạn nữ học giỏi môn Toán. Hỏi có bao nhiêu bạn nữ KHÔNG học giỏi môn Toán?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, tính số học sinh nữ bằng cách lấy tổng số học sinh nhân với {fractionGirls_num} rồi chia cho {fractionGirls_den}.",
+        "Tiếp theo, tính số học sinh nữ giỏi Toán bằng cách lấy số học sinh nữ nhân với {fractionGoodMath_num} rồi chia cho {fractionGoodMath_den}.",
+        "Cuối cùng, lấy số học sinh nữ trừ đi số học sinh nữ giỏi Toán để ra đáp án."
+      ],
+      "solutionHtml": "Số học sinh nữ là: {totalStudents} × {fractionGirls_num} : {fractionGirls_den} = {numGirls} (học sinh).<br/>Số học sinh nữ giỏi Toán là: {numGirls} × {fractionGoodMath_num} : {fractionGoodMath_den} = {goodMathGirls} (học sinh).<br/>Số bạn nữ không học giỏi Toán là: {numGirls} - {goodMathGirls} = {ans} (học sinh).",
+      "tip": "Đọc kỹ yêu cầu bài toán, cần tính số nữ không giỏi Toán bằng cách lấy tổng số nữ trừ số nữ giỏi Toán."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "costPerKg": {
+          "min": 20000,
+          "max": 30000,
+          "step": 1000
+        },
+        "totalMoney": {
+          "min": 200000,
+          "max": 600000,
+          "step": 1000
+        },
+        "fractionSpend_num": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "fractionSpend_den": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fractionSpend_num < fractionSpend_den",
+        "totalMoney % fractionSpend_den === 0",
+        "(totalMoney * fractionSpend_num) % fractionSpend_den === 0",
+        "((totalMoney * fractionSpend_num) / fractionSpend_den) % costPerKg === 0",
+        "(totalMoney % costPerKg) === 0"
+      ],
+      "formulas": {
+        "moneySpend": "(totalMoney * fractionSpend_num) / fractionSpend_den",
+        "ans": "this.moneySpend / costPerKg",
+        "w1_raw": "totalMoney / costPerKg",
+        "w2_raw": "(totalMoney - this.moneySpend) / costPerKg",
+        "w3_raw": "this.ans + 2",
+        "w1": "(this.w1_raw === this.ans) ? this.ans + 3 : this.w1_raw",
+        "w2": "(this.w2_raw === this.ans || this.w2_raw === this.w1) ? this.ans + 5 : this.w2_raw",
+        "w3": "(this.w3_raw === this.ans || this.w3_raw === this.w1 || this.w3_raw === this.w2) ? this.ans + 7 : this.w3_raw"
+      },
+      "questionText": "Mẹ có {totalMoney} đồng. Mẹ dùng {fractionSpend_num}/{fractionSpend_den} số tiền đó để mua gạo. Biết mỗi ki-lô-gam gạo giá {costPerKg} đồng. Hỏi mẹ đã mua bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số tiền mà mẹ đã dùng để mua gạo bằng cách lấy tổng số tiền chia cho {fractionSpend_den} rồi nhân với {fractionSpend_num}.",
+        "Sau đó, lấy số tiền đã dùng chia cho giá tiền của mỗi ki-lô-gam gạo là {costPerKg} đồng để tìm số gạo đã mua."
+      ],
+      "solutionHtml": "Số tiền mẹ đã dùng để mua gạo là: {totalMoney} : {fractionSpend_den} x {fractionSpend_num} = {moneySpend} đồng. Mẹ đã mua số ki-lô-gam gạo là: {moneySpend} : {costPerKg} = {ans} kg. Đáp án đúng là {ans} kg.",
+      "tip": "Khi giải bài toán có nhiều bước, hãy tách từng bước tính toán một cách rõ ràng và xác định mục tiêu của mỗi bước để tránh nhầm lẫn."
+    }
+  ]
+}

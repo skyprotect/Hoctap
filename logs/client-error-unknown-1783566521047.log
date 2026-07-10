@@ -1,0 +1,13 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-09T03:08:41.047Z
+Student ID: std_tyc0gfnkz
+Lesson ID: unknown
+Lesson Title: unknown
+==================================================
+
+[ERROR DETAILS]
+Uncaught ReferenceError: questions is not defined
+ReferenceError: questions is not defined
+    at HTMLButtonElement.onclick (http://localhost:3000/student.html:1:1)
+

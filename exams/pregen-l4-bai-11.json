@@ -1,0 +1,480 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "num": {
+          "min": 100000,
+          "max": 999999,
+          "step": 1
+        },
+        "pos1Idx": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "pos2Idx": {
+          "min": 0,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "Math.floor(num / Math.pow(10, pos1Idx)) % 10 > 0",
+        "Math.floor(num / Math.pow(10, pos2Idx)) % 10 > 0",
+        "(Math.floor(num / Math.pow(10, pos1Idx)) % 10) >= (Math.floor(num / Math.pow(10, pos2Idx)) % 10)",
+        "((Math.floor(num / Math.pow(10, pos1Idx)) % 10) * Math.pow(10, pos1Idx)) % ((Math.floor(num / Math.pow(10, pos2Idx)) % 10) * Math.pow(10, pos2Idx)) === 0"
+      ],
+      "formulas": {
+        "digit1": "Math.floor(num / Math.pow(10, pos1Idx)) % 10",
+        "digit2": "Math.floor(num / Math.pow(10, pos2Idx)) % 10",
+        "placeValue1": "Math.pow(10, pos1Idx)",
+        "placeValue2": "Math.pow(10, pos2Idx)",
+        "val1": "digit1 * placeValue1",
+        "val2": "digit2 * placeValue2",
+        "ans": "val1 / val2",
+        "w1_raw": "digit1 * 10",
+        "w2_raw": "digit2 * 10",
+        "w3_raw": "val1 / digit2",
+        "w1": "(w1_raw === ans) ? ans + 2 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 3 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 4 : w3_raw",
+        "placeName1": "(pos1Idx === 5) ? 'trăm nghìn' : ((pos1Idx === 4) ? 'chục nghìn' : 'nghìn')",
+        "placeName2": "(pos2Idx === 2) ? 'trăm' : ((pos2Idx === 1) ? 'chục' : 'đơn vị')"
+      },
+      "questionText": "Trong số {num}, chữ số {digit1} ở hàng {placeName1} có giá trị gấp bao nhiêu lần chữ số {digit2} ở hàng {placeName2}?",
+      "options": [
+        "{w1} lần",
+        "{ans} lần",
+        "{w2} lần",
+        "{w3} lần"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định giá trị của mỗi chữ số dựa vào vị trí hàng của nó.",
+        "Giá trị của chữ số bằng chữ số đó nhân với giá trị của hàng mà nó đứng."
+      ],
+      "solutionHtml": "Giá trị của chữ số {digit1} ở hàng {placeName1} là {digit1} x {placeValue1} = {val1}. <br> Giá trị của chữ số {digit2} ở hàng {placeName2} là {digit2} x {placeValue2} = {val2}. <br> Để tìm xem giá trị này gấp bao nhiêu lần giá trị kia, ta thực hiện phép chia: {val1} : {val2} = {ans} (lần). <br> Đáp án đúng là {ans} lần.",
+      "tip": "Cần phân biệt rõ giá trị của chữ số với bản thân chữ số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numDigits": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "targetDigit": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "targetPlaceOffset": {
+          "min": 0,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "targetPlaceIdx": "numDigits - 1 - targetPlaceOffset",
+        "ans": "targetPlaceIdx === (numDigits - 1) ? Math.pow(10, numDigits - 1) : 9 * Math.pow(10, numDigits - 2)",
+        "w1_raw": "Math.pow(10, numDigits)",
+        "w2_raw": "Math.pow(10, numDigits - 1) + 1",
+        "w3_raw": "9 * Math.pow(10, numDigits - 2) + 7",
+        "w1": "(w1_raw === ans) ? ans + 1 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 2 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 3 : w3_raw",
+        "placeName": "targetPlaceOffset === 0 ? (numDigits === 6 ? 'trăm nghìn' : (numDigits === 5 ? 'chục nghìn' : 'nghìn')) : (targetPlaceOffset === 1 ? (numDigits === 6 ? 'chục nghìn' : (numDigits === 5 ? 'nghìn' : 'trăm')) : (numDigits === 6 ? 'nghìn' : (numDigits === 5 ? 'trăm' : 'chục')))",
+        "posFromRight": "targetPlaceIdx + 1",
+        "posFromLeft": "numDigits - targetPlaceIdx",
+        "numRemainingDigits1": "numDigits - 1",
+        "numRemainingDigits2": "numDigits - 2",
+        "calcOption": "targetPlaceIdx === (numDigits - 1) ? Math.pow(10, numDigits - 1) : 9 * Math.pow(10, numDigits - 2)",
+        "isFirstDigitPlace": "numDigits - targetPlaceIdx === 1 ? 'đây là chữ số đầu tiên' : 'đây không phải là chữ số đầu tiên'"
+      },
+      "questionText": "Có bao nhiêu số có {numDigits} chữ số mà chữ số hàng {placeName} của nó là {targetDigit}?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định vị trí hàng {placeName} trong số có {numDigits} chữ số.",
+        "Chú ý chữ số đầu tiên không được bằng 0."
+      ],
+      "solutionHtml": "Chúng ta cần tìm số lượng số có {numDigits} chữ số với chữ số hàng {placeName} là {targetDigit}.<br/> Vị trí này tương ứng vị trí thứ {posFromRight} từ phải sang.<br/>- Nếu là chữ số đầu tiên: Chữ số hàng {placeName} cố định là {targetDigit}, các vị trí còn lại mỗi vị trí có 10 lựa chọn. Tổng là 1 x 10 mũ {numRemainingDigits1}.<br/>- Nếu không phải là chữ số đầu tiên: Chữ số hàng đầu có 9 lựa chọn, vị trí {placeName} cố định là {targetDigit}, các vị trí còn lại có 10 lựa chọn. Tổng là 9 x 1 x 10 mũ {numRemainingDigits2}.<br/> Kết quả là {ans} số.",
+      "tip": "Khi đếm số có N chữ số, chữ số đầu tiên của số đó phải khác 0."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "firstDigit": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "lastDigit": {
+          "min": 0,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "firstDigit !== lastDigit"
+      ],
+      "formulas": {
+        "digitsSet": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",
+        "remainingDigitsUnsorted": "digitsSet.filter(d => d !== firstDigit && d !== lastDigit)",
+        "remainingDigits": "remainingDigitsUnsorted.sort((a,b) => b-a)",
+        "ans": "firstDigit * 100000 + remainingDigits[0] * 10000 + remainingDigits[1] * 1000 + remainingDigits[2] * 100 + remainingDigits[3] * 10 + lastDigit",
+        "w1_orig": "firstDigit * 100000 + remainingDigits[3] * 10000 + remainingDigits[2] * 1000 + remainingDigits[1] * 100 + remainingDigits[0] * 10 + lastDigit",
+        "w2_orig": "firstDigit * 100000 + remainingDigits[0] * 10000 + remainingDigits[1] * 1000 + remainingDigits[2] * 100 + lastDigit * 10 + remainingDigits[3]",
+        "w3_orig": "firstDigit * 100000 + remainingDigits[0] * 10000 + remainingDigits[1] * 1000 + remainingDigits[2] * 100 + remainingDigits[3] * 10 + (lastDigit === 0 ? 1 : (lastDigit - 1))",
+        "w1": "(w1_orig === ans) ? ans + 5 : w1_orig",
+        "w2": "(w2_orig === ans || w2_orig === w1) ? (((ans + 5) === w1) ? ans + 9 : ans + 5) : w2_orig",
+        "w3": "(w3_orig === ans || w3_orig === w1 || w3_orig === w2) ? ans + 12 : w3_orig"
+      },
+      "questionText": "Tìm số lớn nhất có 6 chữ số khác nhau, biết rằng chữ số hàng trăm nghìn là {firstDigit} và chữ số hàng đơn vị là {lastDigit}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tạo ra số lớn nhất, các chữ số lớn nhất nên được đặt ở các hàng có giá trị cao nhất.",
+        "Liệt kê các chữ số còn lại sau khi đã chọn chữ số hàng trăm nghìn và hàng đơn vị."
+      ],
+      "solutionHtml": "Số cần tìm có dạng {firstDigit}XYZT{lastDigit}. <br/> Các chữ số đã cho là: hàng trăm nghìn là {firstDigit}, hàng đơn vị là {lastDigit}. <br/> Các chữ số còn lại cần điền vào các vị trí $X, Y, Z, T$ là các chữ số trong tập $ \\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\\} $ mà không phải {firstDigit} hoặc {lastDigit}. <br/> Các chữ số còn lại là {JSON.stringify(remainingDigitsUnsorted)}. <br/> Để số tạo thành là lớn nhất, ta sẽ xếp các chữ số còn lại theo thứ tự giảm dần vào các hàng từ trái sang phải (từ hàng chục nghìn đến hàng chục). <br/> Sắp xếp các chữ số còn lại {JSON.stringify(remainingDigits)}. <br/> Chữ số hàng chục nghìn: {remainingDigits[0]}. <br/> Chữ số hàng nghìn: {remainingDigits[1]}. <br/> Chữ số hàng trăm: {remainingDigits[2]}. <br/> Chữ số hàng chục: {remainingDigits[3]}. <br/> Vậy số lớn nhất có 6 chữ số khác nhau thỏa mãn điều kiện là: {ans}. <br/> Đáp án đúng là B.",
+      "tip": "Luôn ưu tiên các chữ số lớn ở các hàng có giá trị cao nhất (bên trái) khi muốn tìm số lớn nhất."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "originalNum": {
+          "min": 100000,
+          "max": 900000,
+          "step": 1
+        },
+        "placeIdx": {
+          "min": 0,
+          "max": 5,
+          "step": 1
+        },
+        "increaseVal": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "formulas": {
+        "digitAtPlace": "Math.floor(originalNum / Math.pow(10, placeIdx)) % 10",
+        "powerOf10": "Math.pow(10, placeIdx)",
+        "ans": "increaseVal * Math.pow(10, placeIdx)",
+        "placeName": "placeIdx === 5 ? 'trăm nghìn' : (placeIdx === 4 ? 'chục nghìn' : (placeIdx === 3 ? 'nghìn' : (placeIdx === 2 ? 'trăm' : (placeIdx === 1 ? 'chục' : 'đơn vị'))))",
+        "w1_raw": "increaseVal",
+        "w2_raw": "powerOf10",
+        "w3_raw": "increaseVal * 10",
+        "w1": "(w1_raw === ans) ? ((ans === 1) ? ans + 1 : ans - 1) : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (((ans + 5) === w1) ? ans + 9 : ans + 5) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (((ans + 12) === w1 || (ans + 12) === w2) ? ans + 15 : ans + 12) : w3_raw"
+      },
+      "constraints": [
+        "digitAtPlace < 9",
+        "digitAtPlace + increaseVal <= 9"
+      ],
+      "questionText": "Số A là {originalNum}. Nếu tăng chữ số hàng {placeName} của số A lên {increaseVal} đơn vị (mà không thay đổi các chữ số khác), số A sẽ tăng thêm bao nhiêu đơn vị?",
+      "options": [
+        "A. {w1} đơn vị",
+        "B. {ans} đơn vị",
+        "C. {w2} đơn vị",
+        "D. {w3} đơn vị"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sự thay đổi về giá trị của một chữ số ảnh hưởng đến tổng giá trị của số đó như thế nào?",
+        "Chữ số hàng {placeName} có giá trị là {powerOf10}."
+      ],
+      "solutionHtml": "Khi chữ số hàng {placeName} của số A tăng lên {increaseVal} đơn vị, giá trị của chữ số đó sẽ tăng lên {increaseVal} nhân với giá trị của hàng {placeName}. <br/> Giá trị của hàng {placeName} là {powerOf10}. <br/> Vậy số A sẽ tăng thêm {increaseVal} x {powerOf10} = {ans} đơn vị. <br/> Đáp án đúng là B.",
+      "tip": "Sự thay đổi ở một hàng sẽ làm thay đổi giá trị tổng của số đó một lượng bằng 'độ thay đổi của chữ số' nhân với 'giá trị của hàng đó'."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "maxHouseNum": {
+          "min": 150,
+          "max": 999,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans_val": "Math.max(0, maxHouseNum - 99)",
+        "optA_val_pre": "maxHouseNum",
+        "optC_val_pre": "maxHouseNum - 9",
+        "optD_val_pre": "900",
+        "w1": "(optA_val_pre === ans_val) ? (ans_val + 7) : optA_val_pre",
+        "optC_val_tmp1": "(optC_val_pre === ans_val) ? (ans_val + 11) : optC_val_pre",
+        "w2": "(optC_val_tmp1 === w1) ? (ans_val + 13) : optC_val_tmp1",
+        "optD_val_tmp1": "(optD_val_pre === ans_val) ? (ans_val - 5) : optD_val_pre",
+        "optD_val_tmp2": "(optD_val_tmp1 === w1) ? (ans_val - 3) : optD_val_tmp1",
+        "w3": "(optD_val_tmp2 === w2) ? (ans_val + 17) : optD_val_tmp2"
+      },
+      "questionText": "Trong một dự án khảo sát dân số, các hộ gia đình được đánh số từ 1 đến {maxHouseNum}. Hỏi có bao nhiêu số có 3 chữ số được dùng để đánh số các hộ gia đình đó?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans_val} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Các số có 3 chữ số bắt đầu từ đâu?",
+        "Cần loại bỏ các số có ít hơn 3 chữ số."
+      ],
+      "solutionHtml": "Các số có 3 chữ số bắt đầu từ số 100. <br/> Các số từ 1 đến 9 là số có 1 chữ số. <br/> Các số từ 10 đến 99 là các số có 2 chữ số. <br/> Số lượng các số có 1 hoặc 2 chữ số là 99 số (từ 1 đến 99). <br/> Tổng số hộ gia đình được đánh số là {maxHouseNum}. <br/> Vậy số lượng số có 3 chữ số được dùng để đánh số là: <br/> {maxHouseNum} - 99 = {ans_val} (số). <br/> Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng các số có N chữ số trong một khoảng, hãy xác định cận dưới và cận trên của các số có N chữ số."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "originalNum": {
+          "min": 100000,
+          "max": 989999,
+          "step": 1
+        },
+        "increaseThousandsVal": {
+          "min": 1,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "thousandsClassOld + increaseThousandsVal <= 999"
+      ],
+      "formulas": {
+        "unitsClass": "originalNum % 1000",
+        "thousandsClassOld": "Math.floor(originalNum / 1000)",
+        "thousandsClassNew": "thousandsClassOld + increaseThousandsVal",
+        "ans": "thousandsClassNew * 1000 + unitsClass",
+        "w1_goc": "originalNum + increaseThousandsVal",
+        "w2_goc": "originalNum + increaseThousandsVal * 100000",
+        "w3_goc": "(thousandsClassOld * 1000 + increaseThousandsVal) + unitsClass",
+        "w1": "(w1_goc === ans) ? ans + 1000 : w1_goc",
+        "w2_calc": "(w2_goc === ans || w2_goc === w1) ? ans + 2000 : w2_goc",
+        "w2": "(w2_calc === w1) ? ans + 3000 : w2_calc",
+        "w3_calc": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans - 1000 : w3_goc",
+        "w3": "(w3_calc === w1 || w3_calc === w2) ? ans - 2000 : w3_calc"
+      },
+      "questionText": "Số A là {originalNum}. Nếu ta giữ nguyên 'lớp đơn vị' và tăng 'lớp nghìn' lên {increaseThousandsVal} đơn vị, số mới là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân tách số A thành 'lớp nghìn' và 'lớp đơn vị'.",
+        "Lớp nghìn bao gồm các chữ số từ hàng nghìn trở lên.",
+        "Lớp đơn vị bao gồm các chữ số hàng trăm, hàng chục và hàng đơn vị."
+      ],
+      "solutionHtml": "Số A là {originalNum}. <br/> 'Lớp đơn vị' của số A là ba chữ số cuối cùng: {unitsClass}. <br/> 'Lớp nghìn' của số A là phần còn lại khi bỏ đi 'lớp đơn vị': {thousandsClassOld}. <br/> Tăng 'lớp nghìn' lên {increaseThousandsVal} đơn vị, vậy 'lớp nghìn' mới là: <br/> {thousandsClassOld} + {increaseThousandsVal} = {thousandsClassNew}. <br/> Giữ nguyên 'lớp đơn vị' là {unitsClass}. <br/> Vậy số mới sẽ là sự kết hợp của 'lớp nghìn' mới và 'lớp đơn vị': <br/> {thousandsClassNew} x 1000 + {unitsClass} = {ans}. <br/> Đáp án đúng là B.",
+      "tip": "Hiểu rõ cấu tạo 'lớp nghìn' (hàng nghìn, chục nghìn, trăm nghìn) và 'lớp đơn vị' (hàng trăm, chục, đơn vị) là chìa khóa để giải quyết bài toán này."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "unitDigit": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        },
+        "tensThousandsDigit": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "hundredThousandsDigit": "unitDigit * 2",
+        "thousandsDigit": "9",
+        "ans": "hundredThousandsDigit * 100000 + tensThousandsDigit * 10000 + thousandsDigit * 1000 + 0 * 100 + 0 * 10 + unitDigit",
+        "w1_raw": "hundredThousandsDigit * 100000 + tensThousandsDigit * 1000 + thousandsDigit * 100 + unitDigit",
+        "w2_raw": "unitDigit * 100000 + tensThousandsDigit * 10000 + thousandsDigit * 1000 + unitDigit",
+        "w3_raw": "hundredThousandsDigit * 100000 + thousandsDigit * 10000 + tensThousandsDigit * 1000 + unitDigit",
+        "w1": "(w1_raw === ans) ? ans + 1000 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 2000 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 3000 : w3_raw"
+      },
+      "questionText": "An nói: 'Tớ đang nghĩ đến một số có 6 chữ số. Chữ số hàng trăm nghìn gấp đôi chữ số hàng đơn vị. Chữ số hàng chục nghìn là {tensThousandsDigit}. Chữ số hàng nghìn là số lẻ lớn nhất có 1 chữ số. Các chữ số còn lại (hàng trăm và hàng chục) đều là 0.' Hỏi số An đang nghĩ đến là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định giá trị của từng chữ số dựa trên các gợi ý.",
+        "Số lẻ lớn nhất có 1 chữ số là 9.",
+        "Số có 6 chữ số có các hàng: trăm nghìn, chục nghìn, nghìn, trăm, chục, đơn vị."
+      ],
+      "solutionHtml": "Chúng ta hãy xác định từng chữ số của số có 6 chữ số: <br/> - Chữ số hàng đơn vị là {unitDigit}. <br/> - Chữ số hàng trăm nghìn gấp đôi chữ số hàng đơn vị: {unitDigit} x 2 = {hundredThousandsDigit}. <br/> - Chữ số hàng chục nghìn là {tensThousandsDigit}. <br/> - Chữ số hàng nghìn là số lẻ lớn nhất có 1 chữ số, đó là số 9. <br/> - Các chữ số còn lại (hàng trăm và hàng chục) đều là 0. <br/> Vậy số An đang nghĩ đến được ghép từ các chữ số theo thứ tự các hàng là: {hundredThousandsDigit}{tensThousandsDigit}900{unitDigit}. <br/> Tức là số {ans}. <br/> Đáp án đúng là B.",
+      "tip": "Khi giải các bài toán đố về số, hãy phân tích từng gợi ý một để tìm giá trị của các chữ số ở từng hàng. Sau đó ghép chúng lại theo đúng thứ tự hàng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "multiplier": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "unitsDigit": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "tensDigit": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tensDigit * multiplier <= 9"
+      ],
+      "formulas": {
+        "hundredsDigit": "tensDigit * multiplier",
+        "ans": "tensDigit * multiplier + tensDigit + unitsDigit",
+        "w1_goc": "tensDigit * multiplier + tensDigit + unitsDigit + 1",
+        "w2_goc": "tensDigit * multiplier + tensDigit + unitsDigit + 2",
+        "w3_goc": "tensDigit * multiplier + tensDigit + unitsDigit + 3",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Một số có 6 chữ số. Chữ số hàng trăm gấp {multiplier} lần chữ số hàng chục. Chữ số hàng đơn vị là {unitsDigit}. Nếu chữ số hàng chục là {tensDigit}, hỏi tổng các chữ số ở lớp đơn vị là bao nhiêu?",
+      "options": [
+        "{w1}",
+        "{ans}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp đơn vị của một số bao gồm các chữ số hàng trăm, hàng chục và hàng đơn vị.",
+        "Tìm giá trị của chữ số hàng trăm bằng cách lấy chữ số hàng chục nhân với {multiplier}."
+      ],
+      "solutionHtml": "Lớp đơn vị của một số gồm ba chữ số: hàng trăm, hàng chục và hàng đơn vị. <br/> Theo đề bài: <br/> - Chữ số hàng đơn vị là {unitsDigit}. <br/> - Chữ số hàng chục là {tensDigit}. <br/> - Chữ số hàng trăm gấp {multiplier} lần chữ số hàng chục: {tensDigit} x {multiplier} = {hundredsDigit}. <br/> Tổng các chữ số ở lớp đơn vị là: <br/> {hundredsDigit} + {tensDigit} + {unitsDigit} = {ans}. <br/> Đáp án đúng là {ans}.",
+      "tip": "Lớp đơn vị là ba chữ số cuối cùng của một số. Tổng các chữ số ở lớp đơn vị là phép cộng giá trị của từng chữ số trong lớp đó."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numPages": {
+          "min": 100,
+          "max": 400,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "num1DigitPages": "9",
+        "num2DigitPages": "90",
+        "num3DigitPages": "numPages - 99",
+        "ans": "9 * 1 + 90 * 2 + (numPages - 99) * 3",
+        "w1_goc": "numPages * 3",
+        "w2_goc": "numPages * 2",
+        "w3_goc": "(numPages - 99) * 3",
+        "w1": "(w1_goc === ans) ? (ans + 5) : w1_goc",
+        "w2_temp1": "(w2_goc === ans) ? (ans + 10) : w2_goc",
+        "w2": "(w2_temp1 === w1) ? (w1 + 10) : w2_temp1",
+        "w3_temp1": "(w3_goc === ans) ? (ans + 15) : w3_goc",
+        "w3_temp2": "(w3_temp1 === w1) ? (w1 + 15) : w3_temp1",
+        "w3": "(w3_temp2 === w2) ? (w2 + 15) : w3_temp2",
+        "count3DigitChars": "num3DigitPages * 3"
+      },
+      "questionText": "Để đánh số trang của một cuốn sách từ trang 1 đến trang {numPages}, người ta cần dùng bao nhiêu chữ số?",
+      "options": [
+        "A. {w1} chữ số",
+        "B. {ans} chữ số",
+        "C. {w2} chữ số",
+        "D. {w3} chữ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đếm số lượng chữ số cho các trang có 1 chữ số, 2 chữ số, 3 chữ số riêng biệt.",
+        "Các trang có 1 chữ số là từ 1 đến 9.",
+        "Các trang có 2 chữ số là từ 10 đến 99.",
+        "Các trang có 3 chữ số là từ 100 đến {numPages}."
+      ],
+      "solutionHtml": "Để đánh số trang từ 1 đến {numPages}, ta cần tính tổng số chữ số đã dùng: <br/> - Từ trang 1 đến trang 9: có 9 trang, mỗi trang có 1 chữ số. Số chữ số là 9 x 1 = 9 (chữ số). <br/> - Từ trang 10 đến trang 99: có 99 - 10 + 1 = 90 trang, mỗi trang có 2 chữ số. Số chữ số là 90 x 2 = 180 (chữ số). <br/> - Từ trang 100 đến trang {numPages}: có {numPages} - 100 + 1 = {num3DigitPages} trang, mỗi trang có 3 chữ số. Số chữ số là {num3DigitPages} x 3 = {count3DigitChars} (chữ số). <br/> Tổng số chữ số cần dùng là: <br/> 9 + 180 + {count3DigitChars} = {ans} (chữ số). <br/> Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng chữ số để đánh số trang hoặc số nhà, hãy chia thành các nhóm số có cùng số lượng chữ số (ví dụ: nhóm 1 chữ số, nhóm 2 chữ số, nhóm 3 chữ số) rồi tính tổng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "unitClassVal": {
+          "min": 100,
+          "max": 999,
+          "step": 1
+        },
+        "digitHTN": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "digitCTN": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "multiplier": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "digitCTN * multiplier <= 9"
+      ],
+      "formulas": {
+        "digitThousands": "digitCTN * multiplier",
+        "thousandsClassVal": "digitHTN * 100 + digitCTN * 10 + digitThousands",
+        "ans": "thousandsClassVal * 1000 + unitClassVal",
+        "thousandsClassValueMultiplied": "thousandsClassVal * 1000",
+        "w1_goc": "digitHTN * 100000 + digitCTN * 1000 + digitThousands * 100 + unitClassVal",
+        "w2_goc": "unitClassVal * 1000 + thousandsClassVal",
+        "w3_goc": "digitHTN * 100000 + digitCTN * 10000 + (digitCTN + multiplier) * 1000 + unitClassVal",
+        "w1": "(w1_goc === ans) ? (w1_goc + 5) : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (((ans + 5) === w1) ? (ans + 9) : (ans + 5)) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 12) : w3_goc"
+      },
+      "questionText": "Một số tự nhiên có 6 chữ số. Biết rằng 'lớp đơn vị' của số đó là số {unitClassVal}. 'Lớp nghìn' của số đó có chữ số hàng trăm nghìn là {digitHTN}, chữ số hàng chục nghìn là {digitCTN}. Chữ số hàng nghìn (của lớp nghìn) gấp {multiplier} lần chữ số hàng chục nghìn. Hỏi số đó là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định các chữ số của 'lớp nghìn' trước.",
+        "'Lớp nghìn' gồm các hàng trăm nghìn, chục nghìn, nghìn.",
+        "'Lớp đơn vị' gồm các hàng trăm, chục, đơn vị."
+      ],
+      "solutionHtml": "Số có 6 chữ số có dạng $ABCDEF$, trong đó $ABC$ là 'lớp nghìn' và $DEF$ là 'lớp đơn vị'. <br/> Theo đề bài: <br/> - 'Lớp đơn vị' của số đó là {unitClassVal}. Vậy $DEF$ là {unitClassVal}. <br/> - 'Lớp nghìn' có chữ số hàng trăm nghìn (A) là {digitHTN}. <br/> - Chữ số hàng chục nghìn (B) là {digitCTN}. <br/> - Chữ số hàng nghìn (C) gấp {multiplier} lần chữ số hàng chục nghìn: {digitCTN} x {multiplier} = {digitThousands}. <br/> Vậy 'lớp nghìn' là số được tạo bởi các chữ số {digitHTN}{digitCTN}{digitThousands}, tức là {thousandsClassVal}. <br/> Kết hợp 'lớp nghìn' và 'lớp đơn vị', ta được số: <br/> {thousandsClassValueMultiplied} + {unitClassVal} = {ans}. <br/> Đáp án đúng là B.",
+      "tip": "Hãy tách số thành từng 'lớp' (lớp nghìn, lớp đơn vị) để xác định các chữ số một cách dễ dàng. Sau đó, ghép chúng lại theo đúng thứ tự vị trí để tạo thành số hoàn chỉnh."
+    }
+  ]
+}

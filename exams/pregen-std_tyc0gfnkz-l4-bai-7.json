@@ -1,0 +1,467 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "start_min": {
+          "min": 5,
+          "max": 25,
+          "step": 5
+        },
+        "end_min": {
+          "min": 30,
+          "max": 55,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "end_min > start_min",
+        "(end_min - start_min) % 5 === 0"
+      ],
+      "formulas": {
+        "diff_minutes": "end_min - start_min",
+        "ans": "diff_minutes * 6",
+        "w1_goc": "(diff_minutes + 5) * 6",
+        "w2_goc": "(diff_minutes - 5) * 6",
+        "w3_goc": "diff_minutes * 5",
+        "w1": "(w1_goc === ans) ? (ans + 30) : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 12) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 18) : w3_goc"
+      },
+      "questionText": "Kim phút của một chiếc đồng hồ quay từ vị trí chỉ {start_min} phút đến vị trí chỉ {end_min} phút. Hỏi kim phút đã quay được bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Kim phút quay được $360$ độ trong $60$ phút. Vậy mỗi phút kim phút quay được $360 : 60 = 6$ độ.",
+        "Số phút kim phút đã quay là {end_min} - {start_min} = {diff_minutes} phút. Mỗi phút kim phút quay $6$ độ."
+      ],
+      "solutionHtml": "Kim phút quay được $360$ độ trong $60$ phút. <br/>Vậy, mỗi phút kim phút quay được số độ là: $360 : 60 = 6$ độ.<br/>Số phút kim phút đã quay là: {end_min} - {start_min} = {diff_minutes} phút.<br/>Số độ kim phút đã quay là: {diff_minutes} nhân $6$ bằng {ans} độ.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ rằng kim phút quay $6$ độ mỗi phút. Đọc kỹ đề để xác định đúng khoảng thời gian quay.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hour_val": {
+          "min": 1,
+          "max": 11,
+          "step": 1
+        },
+        "minute_val": {
+          "min": 0,
+          "max": 55,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "(hour_val * 30 + minute_val * 0.5) % 1 === 0"
+      ],
+      "formulas": {
+        "min_angle_pos": "minute_val * 6",
+        "hour_angle_pos_raw": "hour_val * 30 + minute_val * 0.5",
+        "hour_angle_pos": "hour_angle_pos_raw % 360",
+        "diff_abs": "Math.abs(min_angle_pos - hour_angle_pos)",
+        "ans": "Math.min(diff_abs, 360 - diff_abs)",
+        "w1_raw": "(ans + 30) % 360",
+        "w2_raw": "(ans + 60) % 360",
+        "w3_raw": "(ans + 90) % 360",
+        "w1": "(w1_raw === 0) ? 15 : w1_raw",
+        "w2": "(w2_raw === 0 || w2_raw === w1) ? 45 : w2_raw",
+        "w3": "(w3_raw === 0 || w3_raw === w1 || w3_raw === w2) ? 75 : w3_raw"
+      },
+      "questionText": "Lúc {hour_val} giờ {minute_val} phút, góc nhỏ hơn giữa kim giờ và kim phút của đồng hồ là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Kim phút quay 6 độ mỗi phút. Kim giờ quay 0.5 độ mỗi phút.",
+        "Tính vị trí của từng kim so với số 12 (theo chiều kim đồng hồ) rồi tìm hiệu số đo góc, sau đó chọn giá trị nhỏ hơn."
+      ],
+      "solutionHtml": "Bước 1: Tính số đo góc của kim phút so với số 12: {minute_val} $\\times 6 =$ {min_angle_pos} độ.<br/>Bước 2: Tính số đo góc của kim giờ so với số 12: ({hour_val} $\\times 30) + ($ {minute_val} $\\times 0.5) =$ {hour_angle_pos_raw} độ. Vị trí thực tế là {hour_angle_pos} độ.<br/>Bước 3: Hiệu số đo góc giữa hai kim là: |{min_angle_pos} $-$ {hour_angle_pos}| $=$ {diff_abs} độ.<br/>Bước 4: Góc nhỏ hơn giữa hai kim là {ans} độ.",
+      "tip": "Khi tính góc đồng hồ, nhớ rằng kim giờ di chuyển chậm hơn kim phút và mỗi phút kim giờ dịch chuyển 0.5 độ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "angle_aob": {
+          "min": 100,
+          "max": 160,
+          "step": 10
+        },
+        "angle_aoc": {
+          "min": 30,
+          "max": 70,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "angle_aob > angle_aoc"
+      ],
+      "formulas": {
+        "ans": "angle_aob - angle_aoc",
+        "w1": "angle_aob + angle_aoc",
+        "w2": "angle_aoc * 2",
+        "w3": "angle_aob / 2"
+      },
+      "questionText": "Cho góc $ AOB $ có số đo là $ {angle_aob} $ độ. Tia $ OC $ nằm giữa hai tia $ OA $ và $ OB $ sao cho góc $ AOC $ có số đo là $ {angle_aoc} $ độ. Hỏi góc $ COB $ có số đo là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $ độ",
+        "B. $ {ans} $ độ",
+        "C. $ {w2} $ độ",
+        "D. $ {w3} $ độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu tia $ OC $ nằm giữa hai tia $ OA $ và $ OB $, thì tổng số đo của hai góc $ AOC $ và $ COB $ sẽ bằng số đo của góc $ AOB $.",
+        "Thực hiện phép trừ để tìm góc còn lại: $ {angle_aob} - {angle_aoc} $."
+      ],
+      "solutionHtml": "Vì tia $ OC $ nằm giữa hai tia $ OA $ và $ OB $, nên ta có: <br/>$ \\widehat{AOC} + \\widehat{COB} = \\widehat{AOB} $<br/>Thay số đo các góc đã biết vào, ta được:<br/>$ {angle_aoc} $ độ $ + \\widehat{COB} = {angle_aob} $ độ<br/>Vậy, số đo góc $ COB $ là: <br/>$ \\widehat{COB} = {angle_aob} - {angle_aoc} = {ans} $ độ.<br/>Đáp án đúng là B.",
+      "tip": "Khi một tia nằm giữa hai tia khác, nó chia góc lớn thành hai góc nhỏ hơn có tổng số đo bằng góc lớn. Hãy cẩn thận trong việc xác định các góc và mối quan hệ của chúng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_angle": {
+          "min": 80,
+          "max": 160,
+          "step": 40
+        }
+      },
+      "constraints": [
+        "total_angle % 8 === 0"
+      ],
+      "formulas": {
+        "angle_XOM": "total_angle / 2",
+        "angle_MOY": "total_angle / 2",
+        "angle_MON": "total_angle / 4",
+        "ans": "angle_XOM + angle_MON",
+        "w1_raw": "total_angle / 2",
+        "w2_raw": "total_angle * 3 / 8",
+        "w3_raw": "total_angle * 5 / 8",
+        "w1": "(w1_raw === ans) ? ans + 10 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (w1_raw + 20) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 30) : w3_raw"
+      },
+      "questionText": "Một góc XOY có số đo là {total_angle} độ. Tia OM chia góc XOY thành hai góc bằng nhau. Sau đó, tia ON lại chia góc MOY thành hai góc bằng nhau. Hỏi góc XON có số đo bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tia OM chia góc XOY thành hai góc bằng nhau, nghĩa là góc XOM và góc MOY có số đo bằng một nửa góc XOY.",
+        "Tia ON chia góc MOY thành hai góc bằng nhau, nghĩa là góc MON có số đo bằng một nửa góc MOY.",
+        "Góc XON là tổng của góc XOM và góc MON."
+      ],
+      "solutionHtml": "Bước 1: Tính số đo góc XOM và MOY. Vì tia OM chia góc XOY thành hai góc bằng nhau, nên: góc XOM = góc MOY = {total_angle} : 2 = {angle_XOM} độ.<br/><br/>Bước 2: Tính số đo góc MON. Vì tia ON chia góc MOY thành hai góc bằng nhau, nên: góc MON = góc MOY : 2 = {angle_MOY} : 2 = {angle_MON} độ.<br/><br/>Bước 3: Tính số đo góc XON. Vì tia ON nằm giữa hai tia OX và OM, nên: góc XON = góc XOM + góc MON = {angle_XOM} + {angle_MON} = {ans} độ.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này đòi hỏi sự hiểu biết về cách tia phân giác chia góc. Hãy vẽ hình ra nháp để dễ hình dung thứ tự các tia và các góc được tạo thành.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "times_A": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "diff_B": {
+          "min": 10,
+          "max": 40,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "times_A >= 1",
+        "diff_B > 0",
+        "180 - diff_B > 0"
+      ],
+      "formulas": {
+        "right_angle": 90,
+        "straight_angle": 180,
+        "angle_A_val": "times_A * 90",
+        "angle_B_val": "180 - diff_B",
+        "ans": "angle_A_val + angle_B_val",
+        "w1_raw": "angle_A_val",
+        "w2_raw": "angle_B_val",
+        "w3_raw": "Math.abs(angle_A_val - angle_B_val)",
+        "w1": "(w1_raw === ans) ? ans + 10 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 20 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 30 : w3_raw"
+      },
+      "questionText": "Góc A có số đo gấp {times_A} lần góc vuông. Góc B có số đo ít hơn góc bẹt {diff_B} độ. Hỏi tổng số đo của hai góc A và B là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Góc vuông có số đo là 90 độ.",
+        "Góc bẹt có số đo là 180 độ.",
+        "Tính số đo từng góc rồi cộng lại."
+      ],
+      "solutionHtml": "Bước 1: Tính số đo góc A. Góc vuông có số đo là 90 độ. Góc A gấp {times_A} lần góc vuông, vậy số đo góc A là: {times_A} x 90 = {angle_A_val} độ.<br/><br/>Bước 2: Tính số đo góc B. Góc bẹt có số đo là 180 độ. Góc B ít hơn góc bẹt {diff_B} độ, vậy số đo góc B là: 180 - {diff_B} = {angle_B_val} độ.<br/><br/>Bước 3: Tính tổng số đo của hai góc A và B. Tổng số đo là: {angle_A_val} + {angle_B_val} = {ans} độ. Đáp án đúng là B.",
+      "tip": "Hãy nhớ rõ số đo của góc vuông (90 độ) và góc bẹt (180 độ) để áp dụng vào bài toán một cách chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "full_rotations": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "partial_rotation": {
+          "min": 30,
+          "max": 180,
+          "step": 30
+        }
+      },
+      "constraints": [
+        "partial_rotation < 360",
+        "partial_rotation > 0"
+      ],
+      "formulas": {
+        "full_rotations_degrees": "full_rotations * 360",
+        "ans": "full_rotations * 360 + partial_rotation",
+        "w1_raw": "full_rotations * 360",
+        "w2_raw": "partial_rotation",
+        "w3_raw": "(full_rotations + 1) * 360 + partial_rotation",
+        "w1": "(w1_raw === ans) ? w1_raw + 90 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (ans + 30) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 60) : w3_raw"
+      },
+      "questionText": "Một người tập thể dục xoay người {full_rotations} vòng hoàn chỉnh theo một chiều, sau đó xoay thêm {partial_rotation} độ nữa theo cùng chiều. Hỏi tổng cộng người đó đã xoay bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một vòng quay hoàn chỉnh tương ứng với 360 độ.",
+        "Tính tổng số độ đã quay từ các vòng hoàn chỉnh, sau đó cộng thêm phần quay thêm."
+      ],
+      "solutionHtml": "Một vòng quay hoàn chỉnh tương ứng với 360 độ.<br/>Số độ người đó xoay được từ các vòng hoàn chỉnh là: <br/>{full_rotations} x 360 = {full_rotations_degrees} độ.<br/>Tổng cộng người đó đã xoay được số độ là:<br/>{full_rotations_degrees} + {partial_rotation} = {ans} độ.<br/>Đáp án đúng là B.",
+      "tip": "Mỗi vòng quay hoàn chỉnh là 360 độ. Khi có nhiều vòng quay và một phần quay thêm, hãy cộng tất cả lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "angle_P_val": {
+          "min": 20,
+          "max": 40,
+          "step": 10
+        },
+        "diff_RQ_factor": {
+          "min": 0,
+          "max": 1,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "2 * angle_P_val - diff_RQ_factor * angle_P_val > 0",
+        "(2 * angle_P_val - diff_RQ_factor * angle_P_val) % angle_P_val === 0"
+      ],
+      "formulas": {
+        "angle_Q_val": "2 * angle_P_val",
+        "diff_RQ": "diff_RQ_factor * angle_P_val",
+        "angle_R_val": "formulas.angle_Q_val - formulas.diff_RQ",
+        "ans": "formulas.angle_R_val / angle_P_val",
+        "w1_raw": "formulas.ans + 1",
+        "w2_raw": "formulas.ans + 2",
+        "w3_raw": "formulas.ans + 3",
+        "w1": "formulas.w1_raw",
+        "w2": "formulas.w2_raw",
+        "w3": "formulas.w3_raw"
+      },
+      "questionText": "Góc P có số đo là {angle_P_val} độ. Góc Q có số đo gấp đôi góc P. Góc R có số đo ít hơn góc Q {diff_RQ} độ. Hỏi góc R có số đo gấp mấy lần góc P?",
+      "options": [
+        "A. {w1} lần",
+        "B. {ans} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số đo của góc Q bằng cách lấy góc P nhân 2.",
+        "Tiếp theo, tính số đo của góc R bằng cách lấy số đo góc Q trừ đi {diff_RQ}.",
+        "Cuối cùng, lấy số đo góc R chia cho số đo góc P để tìm số lần gấp."
+      ],
+      "solutionHtml": "Bước 1: Tính số đo góc Q. Góc Q có số đo gấp đôi góc P, vậy: {angle_P_val} x 2 = {angle_Q_val} độ.<br/>Bước 2: Tính số đo góc R. Góc R ít hơn góc Q {diff_RQ} độ, vậy: {angle_Q_val} - {diff_RQ} = {angle_R_val} độ.<br/>Bước 3: Tính xem góc R gấp mấy lần góc P: {angle_R_val} : {angle_P_val} = {ans} lần. Đáp án đúng là B.",
+      "tip": "Đây là bài toán nhiều bước. Hãy giải quyết từng bước một: tính góc Q, rồi tính góc R, sau đó mới so sánh góc R với góc P.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "xoz_deg": {
+          "min": 120,
+          "max": 160,
+          "step": 20
+        },
+        "xoy_deg": {
+          "min": 70,
+          "max": 90,
+          "step": 10
+        },
+        "xot_deg": {
+          "min": 20,
+          "max": 40,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "xoz_deg > xoy_deg",
+        "xoy_deg > xot_deg"
+      ],
+      "formulas": {
+        "zOy": "xoz_deg - xoy_deg",
+        "yOt": "xoy_deg - xot_deg",
+        "ans": "formulas.zOy + formulas.yOt",
+        "w1": "xoz_deg + xoy_deg",
+        "w2": "xoy_deg - xot_deg",
+        "w3": "xoz_deg - xoy_deg"
+      },
+      "questionText": "Có ba tia $ Ox, Oy, Oz $ chung gốc O. Tia $ Oy $ nằm giữa $ Ox $ và $ Oz $. Tia $ Ot $ nằm giữa $ Ox $ và $ Oy $. Biết góc $ xOz $ là $ {xoz_deg} $ độ và góc $ xOy $ là $ {xoy_deg} $ độ. Góc $ xOt $ là $ {xot_deg} $ độ. Hỏi góc $ zOt $ có số đo bao nhiêu độ?",
+      "options": [
+        "A. $ {w1} $ độ",
+        "B. $ {ans} $ độ",
+        "C. $ {w2} $ độ",
+        "D. $ {w3} $ độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng tính chất 'tia nằm giữa hai tia' để tìm số đo các góc thành phần.",
+        "Đầu tiên, tính góc $ zOy $ (góc $ xOz $ trừ đi góc $ xOy $).",
+        "Tiếp theo, tính góc $ tOy $ (góc $ xOy $ trừ đi góc $ xOt $).",
+        "Cuối cùng, cộng góc $ zOy $ và góc $ tOy $ để được góc $ zOt $."
+      ],
+      "solutionHtml": "Bước 1: Tính số đo góc $ zOy $.<br/>Vì tia $ Oy $ nằm giữa hai tia $ Ox $ và $ Oz $, ta có:<br/>$ \\widehat{xOy} + \\widehat{zOy} = \\widehat{xOz} $<br/>$ {xoy_deg} $ độ $ + \\widehat{zOy} = {xoz_deg} $ độ<br/>$ \\widehat{zOy} = {xoz_deg} - {xoy_deg} = {zOy} $ độ.<br/><br/>Bước 2: Tính số đo góc $ tOy $.<br/>Vì tia $ Ot $ nằm giữa hai tia $ Ox $ và $ Oy $, ta có:<br/>$ \\widehat{xOt} + \\widehat{tOy} = \\widehat{xOy} $<br/>$ {xot_deg} $ độ $ + \\widehat{tOy} = {xoy_deg} $ độ<br/>$ \\widehat{tOy} = {xoy_deg} - {xot_deg} = {yOt} $ độ.<br/><br/>Bước 3: Tính số đo góc $ zOt $.<br/>Vì tia $ Oy $ nằm giữa tia $ Ot $ và $ Oz $ (vì $ Ot $ nằm giữa $ Ox, Oy $ và $ Oy $ nằm giữa $ Ox, Oz $), ta có:<br/>$ \\widehat{zOt} = \\widehat{zOy} + \\widehat{yOt} = {zOy} + {yOt} = {ans} $ độ.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu xác định vị trí tương đối của các tia để thực hiện các phép cộng, trừ góc chính xác. Hãy hình dung hoặc vẽ các tia trên giấy để không bị nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "turn1_left": {
+          "min": 30,
+          "max": 90,
+          "step": 30
+        },
+        "turn2_right": {
+          "min": 60,
+          "max": 120,
+          "step": 30
+        },
+        "turn3_left": {
+          "min": 30,
+          "max": 90,
+          "step": 30
+        }
+      },
+      "constraints": [
+        "turn1_left > 0",
+        "turn2_right > 0",
+        "turn3_left > 0"
+      ],
+      "formulas": {
+        "ans": "-turn1_left + turn2_right - turn3_left",
+        "w1_raw": "turn1_left + turn2_right + turn3_left",
+        "w2_raw": "turn1_left - turn2_right + turn3_left",
+        "w3_raw": "turn2_right - turn1_left + turn3_left",
+        "w1": "(w1_raw === ans) ? (ans + 10) : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (ans + 20) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 30) : w3_raw"
+      },
+      "questionText": "Một người máy đang hướng về phía Đông. Nó quay sang trái {turn1_left} độ, sau đó quay sang phải {turn2_right} độ, và cuối cùng quay sang trái thêm {turn3_left} độ. Hỏi tổng cộng người máy đã quay bao nhiêu độ so với hướng ban đầu, nếu quy ước quay sang phải là chiều dương và quay sang trái là chiều âm?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quy ước quay sang phải là dương, quay sang trái là âm.",
+        "Viết các số đo góc dưới dạng số nguyên có dấu rồi cộng chúng lại."
+      ],
+      "solutionHtml": "Theo quy ước: quay sang phải là chiều dương, quay sang trái là chiều âm.<br/>Số độ quay lần 1 (sang trái): -{turn1_left} độ.<br/>Số độ quay lần 2 (sang phải): +{turn2_right} độ.<br/>Số độ quay lần 3 (sang trái): -{turn3_left} độ.<br/>Tổng cộng người máy đã quay so với hướng ban đầu là:<br/>(-{turn1_left}) + {turn2_right} + (-{turn3_left}) = {ans} độ.<br/>Đáp án đúng là B.",
+      "tip": "Khi xử lý các chuyển động quay theo nhiều hướng khác nhau, việc quy ước chiều dương/âm cho mỗi hướng quay sẽ giúp tính toán tổng độ quay dễ dàng và chính xác hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_parts": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "num_pieces_taken": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num_pieces_taken < num_parts",
+        "90 % num_parts === 0"
+      ],
+      "formulas": {
+        "each_part": "90 / num_parts",
+        "ans": "each_part * num_pieces_taken",
+        "w1_raw": "each_part * (num_pieces_taken + 1)",
+        "w2_raw": "each_part * (num_pieces_taken + 2)",
+        "w3_raw": "each_part * (num_pieces_taken + 3)",
+        "w1": "(w1_raw === ans) ? ans + 10 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (w1_raw === ans + 10 ? ans + 15 : ans + 10) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 20) : w3_raw"
+      },
+      "questionText": "Một miếng ghép hình vuông có các góc vuông. Nếu ta chia mỗi góc vuông đó thành {num_parts} phần bằng nhau, thì mỗi phần sẽ có số đo bao nhiêu độ? Sau đó, nếu ta lấy {num_pieces_taken} phần đó để tạo thành một góc mới, hỏi góc mới đó có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Góc vuông có số đo là 90 độ.",
+        "Tính số đo của mỗi phần nhỏ bằng cách lấy 90 chia cho {num_parts}.",
+        "Nhân số đo mỗi phần với {num_pieces_taken} để tạo thành góc mới."
+      ],
+      "solutionHtml": "Bước 1: Xác định số đo góc vuông. Một miếng ghép hình vuông có các góc là góc vuông, tức là mỗi góc có số đo là 90 độ.<br/><br/>Bước 2: Tính số đo của mỗi phần nhỏ. Nếu chia mỗi góc vuông thành {num_parts} phần bằng nhau, thì mỗi phần sẽ có số đo là: 90 chia cho {num_parts} bằng {each_part} độ.<br/><br/>Bước 3: Tính số đo của góc mới. Nếu lấy {num_pieces_taken} phần đó để tạo thành một góc mới, thì góc mới đó có số đo là: {each_part} nhân với {num_pieces_taken} bằng {ans} độ.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ rằng góc vuông là 90 độ. Khi chia một góc thành các phần bằng nhau, ta dùng phép chia. Khi gộp các phần lại để tạo góc mới, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-7-q10"
+    }
+  ]
+}

@@ -1,0 +1,498 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "lowerBound": {
+          "min": 20,
+          "max": 50,
+          "step": 1
+        },
+        "upperBound": {
+          "min": 100,
+          "max": 200,
+          "step": 1
+        },
+        "factor": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "upperBound > lowerBound + factor * 5"
+      ],
+      "formulas": {
+        "ans": "Math.floor(upperBound / factor) - Math.floor((lowerBound - 1) / factor)",
+        "w1": "Math.floor(upperBound / factor) - Math.floor(lowerBound / factor)",
+        "w2": "Math.floor(upperBound / factor) - Math.floor((lowerBound - 1) / factor) + 1",
+        "w3": "Math.floor(upperBound / factor) - Math.floor(lowerBound / factor) - 1",
+        "maxMultipleInBound": "Math.floor(upperBound / factor) * factor",
+        "minMultipleInBound": "Math.ceil(lowerBound / factor) * factor"
+      },
+      "questionText": "Cho tập hợp $A = \\{x \\in \\mathbb{N} \\mid {lowerBound} \\le x \\le {upperBound} \\text{ và } x \\text{ chia het cho } {factor}\\}$. Hỏi tập hợp $A$ có bao nhiêu phần tử?",
+      "options": [
+        "A. {w1} phần tử",
+        "B. {ans} phần tử",
+        "C. {w2} phần tử",
+        "D. {w3} phần tử"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để đếm số phần tử chia hết cho một số trong một khoảng, ta có thể dùng công thức $ \\lfloor \\frac{\\text{giới hạn trên}}{\\text{số chia}} \\rfloor - \\lfloor \\frac{\\text{giới hạn dưới} - 1}{\\text{số chia}} \\rfloor $.",
+        "Xác định phần tử nhỏ nhất và lớn nhất trong tập hợp $A$."
+      ],
+      "solutionHtml": "Để tìm số phần tử của tập hợp $A$, ta cần đếm các số tự nhiên $x$ từ $ {lowerBound} $ đến $ {upperBound} $ (bao gồm cả hai số này) mà $x$ chia hết cho $ {factor} $.<br/>Số lớn nhất chia hết cho $ {factor} $ và nhỏ hơn hoặc bằng $ {upperBound} $ là $ {maxMultipleInBound} $.<br/>Số nhỏ nhất chia hết cho $ {factor} $ và lớn hơn hoặc bằng $ {lowerBound} $ là $ {minMultipleInBound} $.<br/>Áp dụng công thức đếm số phần tử trong dãy số cách đều:<br/>Số phần tử $ = \\frac{\\text{số cuối} - \\text{số đầu}}{\\text{khoảng cách}} + 1 $<br/>Hoặc áp dụng công thức cho số chia hết:<br/>Số phần tử $ = \\lfloor \\frac{{upperBound}}{{factor}} \\rfloor - \\lfloor \\frac{({lowerBound} - 1)}{{factor}} \\rfloor = {ans} $.<br/>Vậy tập hợp $A$ có $ {ans} $ phần tử.<br/>Đáp án đúng là B.",
+      "tip": "Cần cẩn thận với cận dưới và cận trên khi áp dụng công thức đếm số phần tử chia hết trong một khoảng. Hãy nhớ công thức đếm các số chia hết cho $k$ trong khoảng $ [a, b] $ (bao gồm $a, b$) là $ \\lfloor b/k \\rfloor - \\lfloor (a-1)/k \\rfloor $.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "limit": {
+          "min": 50,
+          "max": 100,
+          "step": 1
+        },
+        "factor1": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "factor2": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "limit > factor1 * 10",
+        "limit > factor2 * 10",
+        "factor1 !== factor2",
+        "factor1 > 1",
+        "factor2 > 1",
+        "let gcd = (a, b) => { while (b) { let t = b; b = a % b; a = t; } return a; }; gcd(factor1, factor2) === 1"
+      ],
+      "formulas": {
+        "count1": "Math.floor(limit / factor1)",
+        "count2": "Math.floor(limit / factor2)",
+        "lcmVal": "factor1 * factor2",
+        "countBoth": "Math.floor(limit / (variables.factor1 * variables.factor2))",
+        "ans": "formulas.count1 + formulas.count2 - formulas.countBoth",
+        "w1": "formulas.count1 + formulas.count2",
+        "w2": "Math.abs(formulas.count1 - formulas.count2)",
+        "w3": "formulas.count1 + formulas.count2 + formulas.countBoth"
+      },
+      "questionText": "Trong các số tự nhiên từ $1$ đến $ {limit} $, có bao nhiêu số chia hết cho $ {factor1} $ hoặc chia hết cho $ {factor2} $?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng nguyên lý bù trừ để tính số phần tử của hợp hai tập hợp: $ |A \\cup B| = |A| + |B| - |A \\cap B| $.",
+        "Tập hợp các số chia hết cho $ {factor1} $ và $ {factor2} $ là tập hợp các số chia hết cho bội chung nhỏ nhất của $ {factor1} $ và $ {factor2} $."
+      ],
+      "solutionHtml": "Gọi $A$ là tập hợp các số tự nhiên từ $1$ đến $ {limit} $ chia hết cho $ {factor1} $.<br/>Số phần tử của $A$ là: $ |A| = \\lfloor \\frac{{{limit}}}{{{factor1}}} \\rfloor = {count1} $.<br/>Gọi $B$ là tập hợp các số tự nhiên từ $1$ đến $ {limit} $ chia hết cho $ {factor2} $.<br/>Số phần tử của $B$ là: $ |B| = \\lfloor \\frac{{{limit}}}{{{factor2}}} \\rfloor = {count2} $.<br/>Tập hợp các số chia hết cho cả $ {factor1} $ và $ {factor2} $ là tập hợp các số chia hết cho bội chung nhỏ nhất của $ {factor1} $ và $ {factor2} $.<br/>Vì $ {factor1} $ và $ {factor2} $ là các số nguyên tố cùng nhau (do constraints), nên BCNN($ {factor1} $, $ {factor2} $) $ = {factor1} \\times {factor2} = {lcmVal} $.<br/>Số phần tử của $A \\cap B$ là: $ |A \\cap B| = \\lfloor \\frac{{{limit}}}{{{lcmVal}}} \\rfloor = {countBoth} $.<br/>Số các số chia hết cho $ {factor1} $ hoặc chia hết cho $ {factor2} $ là $ |A \\cup B| = |A| + |B| - |A \\cap B| $<br/>$ = {count1} + {count2} - {countBoth} = {ans} $.<br/>Vậy có $ {ans} $ số tự nhiên thỏa mãn yêu cầu.<br/>Đáp án đúng là B.",
+      "tip": "Khi đếm số phần tử trong hợp của hai tập hợp có các phần tử chung, cần nhớ trừ đi số phần tử chung để tránh bị đếm lặp. Cụ thể là: Số phần tử (A hoặc B) = Số phần tử (A) + Số phần tử (B) - Số phần tử (A và B).",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "limit": {
+          "min": 100,
+          "max": 250,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "limit > Math.pow(base, 4)"
+      ],
+      "formulas": {
+        "val0": "1",
+        "val1": "variables.base",
+        "val2": "Math.pow(variables.base, 2)",
+        "val3": "Math.pow(variables.base, 3)",
+        "val4": "Math.pow(variables.base, 4)",
+        "val5": "Math.pow(variables.base, 5)",
+        "ansElements": "let elements = [1]; let k = 1; while (Math.pow(variables.base, k) < variables.limit) { elements.push(Math.pow(variables.base, k)); k++; } return elements.join(', ')",
+        "ansCount": "let elements = [1]; let k = 1; while (Math.pow(variables.base, k) < variables.limit) { elements.push(Math.pow(variables.base, k)); k++; } return elements.length;",
+        "w1Elements": "let elements = [1]; let k = 1; while (Math.pow(variables.base, k) <= variables.limit) { elements.push(Math.pow(variables.base, k)); k++; } return elements.join(', ')",
+        "w2Elements": "let elements = []; let k = 1; while (Math.pow(variables.base, k) < variables.limit) { elements.push(Math.pow(variables.base, k)); k++; } return elements.join(', ')",
+        "w3Elements": "let elements = [1]; let k = 1; while (Math.pow(variables.base, k) < variables.limit / variables.base) { elements.push(Math.pow(variables.base, k)); k++; } return elements.join(', ')",
+        "powerAtAnsCount": "Math.pow(variables.base, formulas.ansCount)"
+      },
+      "questionText": "Cho tập hợp $M = \\{x \\in \\mathbb{N} \\mid x = {base}^k \\text{ voi } k \\in \\mathbb{N} \\text{ va } x < {limit}\\}$. Viết tập hợp $M$ bằng cách liệt kê các phần tử của nó.",
+      "options": [
+        "A. $M = \\{ {w1Elements} \\}$",
+        "B. $M = \\{ {ansElements} \\}$",
+        "C. $M = \\{ {w2Elements} \\}$",
+        "D. $M = \\{ {w3Elements} \\}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tập hợp $ \\mathbb{N} $ bao gồm số $0, 1, 2, ... $. Do đó, $k \\in \\mathbb{N}$ có nghĩa là $k$ có thể là $0$.",
+        "Khi $k=0$, $ {base}^0 = 1 $.",
+        "Liệt kê các lũy thừa của $ {base} $ bắt đầu từ $ {base}^0 $, sau đó $ {base}^1 $, $ {base}^2 $, ... cho đến khi kết quả vượt quá $ {limit} $."
+      ],
+      "solutionHtml": "Tập hợp $M$ gồm các số tự nhiên $x$ có dạng $ {base}^k $ với $k \\in \\mathbb{N}$ và $x < {limit}$.<br/>Ta xét các giá trị của $k$ bắt đầu từ $0$:<br/>Khi $k=0$, $x = {base}^0 = {val0} $.<br/>Khi $k=1$, $x = {base}^1 = {val1} $.<br/>Khi $k=2$, $x = {base}^2 = {val2} $.<br/>Khi $k=3$, $x = {base}^3 = {val3} $.<br/>Khi $k=4$, $x = {base}^4 = {val4} $.<br/>Giá trị $ {base}^{ansCount} = {powerAtAnsCount} $ lớn hơn hoặc bằng $ {limit} $ nên không thuộc tập hợp.<br/>Vậy tập hợp $M$ gồm các phần tử $ \\{ {ansElements} \\} $.<br/>Đáp án đúng là B.",
+      "tip": "Đặc biệt chú ý đến điều kiện $k \\in \\mathbb{N}$, có nghĩa là $k$ có thể bằng $0$. Do đó, $ {base}^0 = 1 $ là một phần tử của tập hợp nếu $1 < {limit} $.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 50,
+          "max": 100,
+          "step": 1
+        },
+        "mathClub": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        },
+        "scienceClub": {
+          "min": 20,
+          "max": 35,
+          "step": 1
+        },
+        "bothClubs": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "mathClub < totalStudents",
+        "scienceClub < totalStudents",
+        "bothClubs < mathClub",
+        "bothClubs < scienceClub",
+        "mathClub + scienceClub - bothClubs <= totalStudents"
+      ],
+      "formulas": {
+        "onlyMath": "mathClub - bothClubs",
+        "onlyScience": "scienceClub - bothClubs",
+        "atLeastOne": "mathClub + scienceClub - bothClubs",
+        "ans": "totalStudents - (variables.mathClub + variables.scienceClub - variables.bothClubs)",
+        "w1": "totalStudents - variables.mathClub",
+        "w2": "totalStudents - variables.scienceClub",
+        "w3": "variables.mathClub + variables.scienceClub"
+      },
+      "questionText": "Một trường học có $ {totalStudents} $ học sinh. Có $ {mathClub} $ học sinh tham gia câu lạc bộ Toán, $ {scienceClub} $ học sinh tham gia câu lạc bộ Khoa học, và $ {bothClubs} $ học sinh tham gia cả hai câu lạc bộ. Hỏi có bao nhiêu học sinh <b>không</b> tham gia câu lạc bộ nào?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số học sinh tham gia ít nhất một câu lạc bộ là: (Số học sinh tham gia Toán) + (Số học sinh tham gia Khoa học) - (Số học sinh tham gia cả hai).",
+        "Số học sinh không tham gia câu lạc bộ nào = Tổng số học sinh - (Số học sinh tham gia ít nhất một câu lạc bộ)."
+      ],
+      "solutionHtml": "Gọi $A$ là tập hợp học sinh tham gia câu lạc bộ Toán, $B$ là tập hợp học sinh tham gia câu lạc bộ Khoa học.<br/>Theo đề bài, ta có:<br/>$|A| = {mathClub} $<br/>$|B| = {scienceClub} $<br/>$|A \\cap B| = {bothClubs} $ (học sinh tham gia cả hai câu lạc bộ)<br/>Số học sinh tham gia ít nhất một câu lạc bộ (tức là $ |A \\cup B| $) là:<br/>$|A \\cup B| = |A| + |B| - |A \\cap B| $<br/>$ = {mathClub} + {scienceClub} - {bothClubs} = {atLeastOne} $ (học sinh)<br/>Số học sinh không tham gia câu lạc bộ nào là:<br/>Tổng số học sinh $ - $ Số học sinh tham gia ít nhất một câu lạc bộ<br/>$ = {totalStudents} - {atLeastOne} = {ans} $ (học sinh)<br/>Vậy có $ {ans} $ học sinh không tham gia câu lạc bộ nào.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán về tập hợp có sự chồng chéo, hãy hình dung bằng sơ đồ Venn để dễ dàng tính toán. Luôn nhớ công thức $ |A \\cup B| = |A| + |B| - |A \\cap B| $ để tránh đếm lặp hoặc thiếu sót.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startNum": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "endNum": {
+          "min": 21,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "endNum - startNum >= 2",
+        "endNum - startNum < 5"
+      ],
+      "formulas": {
+        "numElements": "endNum - startNum + 1",
+        "ans": "Math.pow(2, formulas.numElements)",
+        "w1": "Math.pow(2, formulas.numElements) - 1",
+        "w2": "formulas.numElements * 2",
+        "w3": "formulas.numElements + 2"
+      },
+      "questionText": "Cho tập hợp $T = \\{x \\in \\mathbb{N} \\mid {startNum} \\le x \\le {endNum}\\}$. Hỏi tập hợp $T$ có tất cả bao nhiêu tập con?",
+      "options": [
+        "A. {w1} tập con",
+        "B. {ans} tập con",
+        "C. {w2} tập con",
+        "D. {w3} tập con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy xác định số phần tử của tập hợp $T$.",
+        "Nếu một tập hợp có $n$ phần tử thì nó có tất cả $2^n$ tập con."
+      ],
+      "solutionHtml": "Tập hợp $T = \\{x \\in \\mathbb{N} \\mid {startNum} \\le x \\le {endNum}\\}$ gồm các số tự nhiên từ $ {startNum} $ đến $ {endNum} $.<br/>Số phần tử của tập hợp $T$ là:<br/>$ {endNum} - {startNum} + 1 = {numElements} $ (phần tử).<br/>Nếu một tập hợp có $n$ phần tử thì số tập con của nó là $2^n$.<br/>Ở đây, tập hợp $T$ có $ {numElements} $ phần tử, nên số tập con của $T$ là:<br/>$ 2^{numElements} = {ans} $ (tập con).<br/>Đáp án đúng là B.",
+      "tip": "Tập con là một khái niệm quan trọng trong tập hợp. Một tập hợp luôn có ít nhất một tập con là chính nó và tập hợp rỗng. Cần nhớ công thức $2^n$ để tính số tập con.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 30,
+          "max": 60,
+          "step": 2
+        },
+        "num2": {
+          "min": 70,
+          "max": 100,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "num1 < num2",
+        "let gcd_val = (a, b) => { while (b) { let t = b; b = a % b; a = t; } return a; }; gcd_val(num1, num2) > 2"
+      ],
+      "formulas": {
+        "gcdVal": "let gcd = (a, b) => { while (b) { let t = b; b = a % b; a = t; } return a; }; return gcd(variables.num1, variables.num2);",
+        "commonDivisorCount": "let result = formulas.gcdVal; let count = 0; for (let i = 1; i * i <= result; i++) { if (result % i === 0) { count++; if (i * i !== result) { count++; } } } return count;",
+        "ans": "formulas.commonDivisorCount",
+        "w1": "formulas.commonDivisorCount - 1",
+        "w2": "formulas.commonDivisorCount + 1",
+        "w3": "Math.min(variables.num1, variables.num2)"
+      },
+      "questionText": "Cho hai số tự nhiên $ {num1} $ và $ {num2} $. Gọi $C$ là tập hợp các ước chung của $ {num1} $ và $ {num2} $. Hỏi tập hợp $C$ có bao nhiêu phần tử?",
+      "options": [
+        "A. {w1} phần tử",
+        "B. {ans} phần tử",
+        "C. {w2} phần tử",
+        "D. {w3} phần tử"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Các ước chung của hai số chính là các ước của ước chung lớn nhất (ƯCLN) của hai số đó.",
+        "Đầu tiên, hãy tìm ƯCLN của $ {num1} $ và $ {num2} $."
+      ],
+      "solutionHtml": "Để tìm số phần tử của tập hợp $C$ (tập hợp các ước chung của $ {num1} $ và $ {num2} $), ta cần tìm ước chung lớn nhất (ƯCLN) của $ {num1} $ và $ {num2} $, sau đó đếm số ước của ƯCLN đó.<br/>Sử dụng thuật toán Euclid để tìm ƯCLN($ {num1} $, $ {num2} $):<br/>ƯCLN($ {num1} $, $ {num2} $) $ = {gcdVal} $.<br/>Bây giờ, ta cần tìm số ước của $ {gcdVal} $.<br/>Ví dụ, để tìm ước của một số $N$: ta thử chia $N$ cho các số từ $1$ đến $ \\sqrt{N} $. Nếu $N$ chia hết cho $i$, thì $i$ và $N/i$ đều là ước của $N$.<br/>Số ước của $ {gcdVal} $ là $ {ans} $.<br/>Vậy tập hợp $C$ có $ {ans} $ phần tử.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán ước chung liên quan chặt chẽ đến khái niệm ƯCLN. Việc tìm số ước của một số tự nhiên là một kỹ năng quan trọng. Để đếm số ước, có thể liệt kê hoặc sử dụng phương pháp phân tích thừa số nguyên tố.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalDays": {
+          "min": 28,
+          "max": 31,
+          "step": 1
+        },
+        "factor1": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "factor2": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalDays >= factor1 * 5",
+        "totalDays >= factor2 * 5",
+        "factor1 !== factor2",
+        "let gcd = (a, b) => { while (b) { let t = b; b = a % b; a = t; } return a; }; gcd(factor1, factor2) === 1"
+      ],
+      "formulas": {
+        "countF1": "Math.floor(totalDays / factor1)",
+        "countF2": "Math.floor(totalDays / factor2)",
+        "lcmVal": "factor1 * factor2",
+        "countLcm": "Math.floor(totalDays / formulas.lcmVal)",
+        "ans": "formulas.countF1 + formulas.countF2 - formulas.countLcm",
+        "w1": "formulas.countF1 + formulas.countF2",
+        "w2": "formulas.countF1 - formulas.countLcm",
+        "w3": "formulas.countF2 + formulas.countLcm"
+      },
+      "questionText": "Trong một tháng có $ {totalDays} $ ngày (từ ngày $1$ đến ngày $ {totalDays} $), có bao nhiêu ngày mà số của chúng chia hết cho $ {factor1} $ hoặc chia hết cho $ {factor2} $?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {ans} ngày",
+        "C. {w2} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán tìm số phần tử trong hợp của hai tập hợp.",
+        "Áp dụng nguyên lý bù trừ: $|A \\cup B| = |A| + |B| - |A \\cap B|$."
+      ],
+      "solutionHtml": "Gọi $A$ là tập hợp các ngày trong tháng chia hết cho $ {factor1} $.<br/>Số phần tử của $A$ là: $ |A| = \\lfloor \\frac{{{totalDays}}}{{{factor1}}} \\rfloor = {countF1} $ (ngày).<br/>Gọi $B$ là tập hợp các ngày trong tháng chia hết cho $ {factor2} $.<br/>Số phần tử của $B$ là: $ |B| = \\lfloor \\frac{{{totalDays}}}{{{factor2}}} \\rfloor = {countF2} $ (ngày).<br/>Tập hợp các ngày chia hết cho cả $ {factor1} $ và $ {factor2} $ là tập hợp các ngày chia hết cho bội chung nhỏ nhất của $ {factor1} $ và $ {factor2} $.<br/>Vì $ {factor1} $ và $ {factor2} $ là các số nguyên tố cùng nhau (do constraints), nên BCNN($ {factor1} $, $ {factor2} $) $ = {factor1} \\times {factor2} = {lcmVal} $.<br/>Số phần tử của $A \\cap B$ là: $ |A \\cap B| = \\lfloor \\frac{{{totalDays}}}{{{lcmVal}}} \\rfloor = {countLcm} $ (ngày).<br/>Số các ngày trong tháng chia hết cho $ {factor1} $ hoặc chia hết cho $ {factor2} $ là $ |A \\cup B| = |A| + |B| - |A \\cap B| $<br/>$ = {countF1} + {countF2} - {countLcm} = {ans} $ (ngày).<br/>Vậy có $ {ans} $ ngày thỏa mãn yêu cầu.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này tương tự bài toán đếm số chia hết cho 2 số. Điểm khác biệt là ngữ cảnh thực tế (ngày trong tháng). Luôn kiểm tra kỹ xem phạm vi tính toán là bao nhiêu (ví dụ từ $1$ đến $ {totalDays} $).",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lowerBound": {
+          "min": 10,
+          "max": 30,
+          "step": 1
+        },
+        "upperBound": {
+          "min": 80,
+          "max": 120,
+          "step": 1
+        },
+        "multiple": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "upperBound > lowerBound + multiple * 5",
+        "lowerBound % multiple !== 0",
+        "(lowerBound + 1) % multiple !== 0"
+      ],
+      "formulas": {
+        "actualLowerBound": "lowerBound + 1",
+        "actualUpperBound": "upperBound - 1",
+        "ans": "Math.floor(formulas.actualUpperBound / multiple) - Math.floor((formulas.actualLowerBound - 1) / multiple)",
+        "w1": "Math.floor(upperBound / multiple) - Math.floor(lowerBound / multiple)",
+        "w2": "Math.floor((upperBound - 1) / multiple) - Math.floor((lowerBound - 1) / multiple)",
+        "w3": "Math.floor((upperBound - 1) / multiple) - Math.floor(lowerBound / multiple) + 1"
+      },
+      "questionText": "Cho tập hợp $X = \\{n \\in \\mathbb{N} \\mid {lowerBound} < n < {upperBound} \\text{ va } n \\text{ la boi cua } {multiple}\\}$. Hỏi tập hợp $X$ có bao nhiêu phần tử?",
+      "options": [
+        "A. {w1} phần tử",
+        "B. {ans} phần tử",
+        "C. {w2} phần tử",
+        "D. {w3} phần tử"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Điều kiện $ {lowerBound} < n < {upperBound} $ có nghĩa là $n$ phải lớn hơn $ {lowerBound} $ và nhỏ hơn $ {upperBound} $, không bao gồm $ {lowerBound} $ và $ {upperBound} $.",
+        "Xác định khoảng giá trị của $n$ là từ $ {actualLowerBound} $ đến $ {actualUpperBound} $."
+      ],
+      "solutionHtml": "Tập hợp $X$ gồm các số tự nhiên $n$ thỏa mãn $ {lowerBound} < n < {upperBound} $ và $n$ là bội của $ {multiple} $.<br/>Điều kiện $ {lowerBound} < n < {upperBound} $ có nghĩa là $n$ nằm trong khoảng từ $ {actualLowerBound} $ đến $ {actualUpperBound} $.<br/>Vậy ta cần đếm số bội của $ {multiple} $ trong khoảng từ $ {actualLowerBound} $ đến $ {actualUpperBound} $.<br/>Số bội của $ {multiple} $ trong khoảng $ [a, b] $ (bao gồm $a, b$) là $ \\lfloor b/k \\rfloor - \\lfloor (a-1)/k \\rfloor $.<br/>Áp dụng công thức với $a = {actualLowerBound} $ và $b = {actualUpperBound} $:<br/>Số phần tử $ = \\lfloor \\frac{{{actualUpperBound}}}{{{multiple}}} \\rfloor - \\lfloor \\frac{{{actualLowerBound}} - 1}{{{multiple}}} \\rfloor $<br/>$ = \\lfloor \\frac{{{actualUpperBound}}}{{{multiple}}} \\rfloor - \\lfloor \\frac{{{actualLowerBound} - 1}}{{{multiple}}} \\rfloor = {ans} $.<br/>Vậy tập hợp $X$ có $ {ans} $ phần tử.<br/>Đáp án đúng là B.",
+      "tip": "Rất nhiều học sinh nhầm lẫn giữa $ < $ (nhỏ hơn) và $ \\le $ (nhỏ hơn hoặc bằng). Luôn đọc kỹ đề bài để xác định chính xác các cận của tập hợp.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startEven": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "startEven % 2 === 0"
+      ],
+      "formulas": {
+        "val1": "variables.startEven",
+        "val2": "variables.startEven + 2",
+        "val3": "variables.startEven + 4",
+        "val4": "variables.startEven + 6",
+        "ansOptionText": "A. $A = \\{x \\in \\mathbb{N} \\mid {startEven} \\le x \\le {val3}, x \\text{ la so chan}\\}$",
+        "w1OptionText": "B. $A = \\{x \\in \\mathbb{N} \\mid {startEven} < x < {val3}, x \\text{ la so chan}\\}$",
+        "w2OptionText": "C. $A = \\{x \\in \\mathbb{N} \\mid {startEven} \\le x \\le {val4}, x \\text{ la so chan}\\}$",
+        "w3OptionText": "D. $A = \\{x \\in \\mathbb{N} \\mid {startEven} \\le x \\le {val3}, x \\text{ la so le}\\}$"
+      },
+      "questionText": "Tập hợp $A = \\{ {val1}, {val2}, {val3} \\}$ có thể được viết bằng cách chỉ ra tính chất đặc trưng cho các phần tử của nó là gì?",
+      "options": [
+        "{ansOptionText}",
+        "{w1OptionText}",
+        "{w2OptionText}",
+        "{w3OptionText}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Quan sát các phần tử của tập hợp $A$ để tìm ra quy luật chung.",
+        "Tất cả các phần tử đều là số chẵn và nằm trong một khoảng nhất định."
+      ],
+      "solutionHtml": "Tập hợp $A$ gồm các phần tử $ \\{ {val1}, {val2}, {val3} \\} $.<br/>Ta nhận thấy các phần tử này đều là số chẵn.<br/>Giá trị nhỏ nhất là $ {val1} $. Giá trị lớn nhất là $ {val3} $.<br/>Các phần tử này đều là số tự nhiên.<br/>Do đó, tập hợp $A$ có thể được mô tả là các số tự nhiên $x$ sao cho $ {val1} \\le x \\le {val3} $ và $x$ là số chẵn.<br/>Cách viết đúng là: $A = \\{x \\in \\mathbb{N} \\mid {val1} \\le x \\le {val3}, x \\text{ la so chan}\\}$<br/>Đáp án đúng là A.",
+      "tip": "Khi viết tập hợp bằng cách chỉ ra tính chất đặc trưng, cần đảm bảo rằng tính chất đó vừa đủ để xác định chính xác các phần tử của tập hợp, không thừa cũng không thiếu.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "limit": {
+          "min": 60,
+          "max": 120,
+          "step": 1
+        },
+        "factorA": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "factorB": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        },
+        "factorC": {
+          "min": 8,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "limit > factorA * 10",
+        "limit > factorB * 10",
+        "limit > factorC * 10",
+        "factorA !== factorB",
+        "factorA !== factorC",
+        "factorB !== factorC"
+      ],
+      "formulas": {
+        "countA": "Math.floor(limit / factorA)",
+        "countB": "Math.floor(limit / factorB)",
+        "countC": "Math.floor(limit / factorC)",
+        "maxCount": "Math.max(formulas.countA, formulas.countB, formulas.countC)",
+        "ansIndex": "formulas.countA === formulas.maxCount ? 0 : (formulas.countB === formulas.maxCount ? 1 : 2)",
+        "ansText": "formulas.ansIndex === 0 ? 'A' : (formulas.ansIndex === 1 ? 'B' : 'C')",
+        "optionA": "A. Tập hợp A",
+        "optionB": "B. Tập hợp B",
+        "optionC": "C. Tập hợp C",
+        "optionD": "D. Cả ba tập hợp đều có số phần tử bằng nhau",
+        "correctLetter": "String.fromCharCode(65 + formulas.ansIndex)"
+      },
+      "questionText": "Cho ba tập hợp:<br/>$A = \\{x \\in \\mathbb{N}^* \\mid x \\le {limit}, x \\text{ chia het cho } {factorA}\\}$<br/>$B = \\{x \\in \\mathbb{N}^* \\mid x \\le {limit}, x \\text{ chia het cho } {factorB}\\}$<br/>$C = \\{x \\in \\mathbb{N}^* \\mid x \\le {limit}, x \\text{ chia het cho } {factorC}\\}$<br/>Hỏi tập hợp nào có số phần tử lớn nhất?",
+      "options": [
+        "{optionA}",
+        "{optionB}",
+        "{optionC}",
+        "{optionD}"
+      ],
+      "correctIndex": "formulas.ansIndex",
+      "hints": [
+        "Hãy đếm số phần tử của từng tập hợp A, B, C một cách riêng biệt.",
+        "Số phần tử của một tập hợp các số tự nhiên khác 0 chia hết cho $k$ và nhỏ hơn hoặc bằng $N$ là $ \\lfloor N/k \\rfloor $."
+      ],
+      "solutionHtml": "Để xác định tập hợp có số phần tử lớn nhất, ta cần tính số phần tử của mỗi tập hợp.<br/>Tập hợp $A$: Gồm các số tự nhiên khác $0$ nhỏ hơn hoặc bằng $ {limit} $ và chia hết cho $ {factorA} $.<br/>Số phần tử của $A$ là: $ |A| = \\lfloor \\frac{{{limit}}}{{{factorA}}} \\rfloor = {countA} $.<br/>Tập hợp $B$: Gồm các số tự nhiên khác $0$ nhỏ hơn hoặc bằng $ {limit} $ và chia hết cho $ {factorB} $.<br/>Số phần tử của $B$ là: $ |B| = \\lfloor \\frac{{{limit}}}{{{factorB}}} \\rfloor = {countB} $.<br/>Tập hợp $C$: Gồm các số tự nhiên khác $0$ nhỏ hơn hoặc bằng $ {limit} $ và chia hết cho $ {factorC} $.<br/>Số phần tử của $C$ là: $ |C| = \\lfloor \\frac{{{limit}}}{{{factorC}}} \\rfloor = {countC} $.<br/>So sánh số phần tử của ba tập hợp:<br/>$ |A| = {countA} $ <br/>$ |B| = {countB} $ <br/>$ |C| = {countC} $ <br/>Giá trị lớn nhất là $ {maxCount} $.<br/>Vậy tập hợp $ {ansText} $ có số phần tử lớn nhất.<br/>Đáp án đúng là $ {correctLetter} $.",
+      "tip": "Đọc kỹ định nghĩa của từng tập hợp để xác định chính xác điều kiện của các phần tử. Sau đó, tính toán số phần tử của mỗi tập hợp và so sánh chúng.",
+      "level": "chat-luong-cao",
+      "type": "bai-1-d4"
+    }
+  ]
+}

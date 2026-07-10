@@ -1,0 +1,540 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "sumTotal": {
+          "min": 100,
+          "max": 500,
+          "step": 2
+        },
+        "difference": {
+          "min": 10,
+          "max": 100,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "sumTotal > difference",
+        "(sumTotal + difference) % 2 === 0",
+        "(sumTotal - difference) % 2 === 0"
+      ],
+      "formulas": {
+        "soLon": "(sumTotal + difference) / 2",
+        "soBe": "(sumTotal - difference) / 2",
+        "ans": "soLon",
+        "w1_raw": "soBe",
+        "w1": "(soBe === soLon) ? soBe + 2 : soBe",
+        "w2_raw": "difference",
+        "w2": "(difference === soLon || difference === w1) ? soLon + 2 : difference",
+        "w3_raw": "sumTotal",
+        "w3": "(sumTotal === soLon || sumTotal === w1 || sumTotal === w2) ? soLon + 4 : sumTotal"
+      },
+      "questionText": "Bạn An và bạn Bình có tổng cộng {sumTotal} viên bi. Biết rằng An có nhiều hơn Bình {difference} viên bi. Hỏi bạn An có bao nhiêu viên bi?",
+      "options": [
+        "A. {ans} viên bi",
+        "B. {w1} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Bài toán cho biết tổng và hiệu của hai số. Để tìm số lớn (số bi của An), ta lấy tổng cộng hiệu rồi chia cho 2.",
+        "Số lớn = (Tổng + Hiệu) : 2.",
+        "Số bé = (Tổng - Hiệu) : 2."
+      ],
+      "solutionHtml": "Đây là bài toán tìm hai số khi biết tổng và hiệu của chúng.<br/>Số bi của bạn An là số lớn, số bi của bạn Bình là số bé.<br/>Số bi của bạn An là:<br/>( {sumTotal} + {difference} ) : 2 = {ans} (viên bi)<br/>Số bi của bạn Bình là:<br/>( {sumTotal} - {difference} ) : 2 = {w1} (viên bi)<br/>Vậy bạn An có {ans} viên bi.<br/>Đáp án đúng là A.",
+      "tip": "Để tìm số lớn khi biết tổng và hiệu, ta lấy tổng cộng với hiệu rồi chia cho 2. Để tìm số bé, ta lấy tổng trừ đi hiệu rồi chia cho 2. Hãy cẩn thận xác định số nào là số lớn, số nào là số bé theo yêu cầu đề bài.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalFabric": {
+          "min": 600,
+          "max": 1200,
+          "step": 30
+        },
+        "diff1_2": {
+          "min": 30,
+          "max": 100,
+          "step": 10
+        },
+        "diff1_3": {
+          "min": 20,
+          "max": 80,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "totalFabric > diff1_2 + diff1_3",
+        "(totalFabric + diff1_2 + diff1_3) % 3 === 0",
+        "(totalFabric + diff1_2 + diff1_3) / 3 > diff1_2",
+        "(totalFabric + diff1_2 + diff1_3) / 3 > diff1_3",
+        "(totalFabric + diff1_2 + diff1_3) / 3 - diff1_2 !== (totalFabric + diff1_2 + diff1_3) / 3",
+        "(totalFabric + diff1_2 + diff1_3) / 3 - diff1_2 !== (totalFabric + diff1_2 + diff1_3) / 3 - diff1_3",
+        "(totalFabric + diff1_2 + diff1_3) / 3 - diff1_2 !== totalFabric - (totalFabric + diff1_2 + diff1_3) / 3"
+      ],
+      "formulas": {
+        "sumForDay1Tripple": "totalFabric + diff1_2 + diff1_3",
+        "ngay1": "sumForDay1Tripple / 3",
+        "ans": "ngay1 - diff1_2",
+        "w1": "ngay1",
+        "w2": "ngay1 - diff1_3",
+        "w4": "totalFabric - ngay1",
+        "w1_final": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 5 : w2",
+        "w4_final": "(w4 === ans || w4 === w1_final || w4 === w2_final) ? ans + 15 : w4"
+      },
+      "questionText": "Một cửa hàng bán vải trong ba ngày. Tổng số mét vải bán được là {totalFabric} m. Ngày thứ nhất bán hơn ngày thứ hai {diff1_2} m. Ngày thứ ba bán ít hơn ngày thứ nhất {diff1_3} m. Hỏi ngày thứ hai cửa hàng đó bán được bao nhiêu mét vải?",
+      "options": [
+        "A. {w1_final} m",
+        "B. {ans} m",
+        "C. {w2_final} m",
+        "D. {w4_final} m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số vải ngày thứ nhất là $x$. Biểu diễn ngày thứ hai là $x - $ {diff1_2} và ngày thứ ba là $x - $ {diff1_3}.",
+        "Tổng số vải là $x + (x - $ {diff1_2}) + (x - $ {diff1_3}) = $ {totalFabric}.",
+        "Giải phương trình để tìm $x$, sau đó lấy $x - $ {diff1_2} để ra đáp án ngày thứ hai."
+      ],
+      "solutionHtml": "Gọi số mét vải ngày thứ nhất là $x$ (m).<br/>Ngày thứ hai bán được: $x - $ {diff1_2} (m).<br/>Ngày thứ ba bán được: $x - $ {diff1_3} (m).<br/>Tổng ba ngày: $x + x - $ {diff1_2} $+ x - $ {diff1_3} $= $ {totalFabric}.<br/>$3 \\times x - $ {diff1_2} $- $ {diff1_3} $= $ {totalFabric}.<br/>$3 \\times x = $ {sumForDay1Tripple}.<br/>$x = $ {sumForDay1Tripple} $: 3 = $ {ngay1} (m).<br/>Số vải ngày thứ hai: {ngay1} $- $ {diff1_2} $= $ {ans} (m).",
+      "tip": "Hãy chọn đại lượng ngày thứ nhất làm ẩn $x$, sau đó biểu diễn các đại lượng khác theo $x$ và lập phương trình tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "doan1": {
+          "min": 100,
+          "max": 250,
+          "step": 10
+        },
+        "gapLan": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "botDi": {
+          "min": 20,
+          "max": 100,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "botDi < doan1 + (doan1 * gapLan)",
+        "doan1 * gapLan >= doan1 + 100"
+      ],
+      "formulas": {
+        "doan2": "doan1 * gapLan",
+        "doan1PlusDoan2": "doan1 + (doan1 * gapLan)",
+        "doan3": "doan1 + (doan1 * gapLan) - botDi",
+        "ans": "doan1 + (doan1 * gapLan) + (doan1 + (doan1 * gapLan) - botDi)",
+        "w1_goc": "doan1 + (doan1 * gapLan)",
+        "w2_goc": "doan1 + (doan1 * gapLan) - botDi + doan1",
+        "w3_goc": "doan1 * gapLan * 2",
+        "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một đội công nhân làm đường trong 3 đoạn. Đoạn đường thứ nhất dài {doan1} m. Đoạn đường thứ hai dài gấp {gapLan} lần đoạn đường thứ nhất. Đoạn đường thứ ba dài bằng tổng chiều dài của đoạn đường thứ nhất và thứ hai, nhưng bớt đi {botDi} m. Hỏi tổng chiều dài của cả con đường là bao nhiêu mét?",
+      "options": [
+        "A. {ans} m",
+        "B. {w1} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, hãy tính chiều dài đoạn đường thứ hai bằng phép nhân {doan1} nhân {gapLan}.",
+        "Tiếp theo, tính chiều dài đoạn đường thứ ba bằng cách lấy tổng hai đoạn đầu trừ đi {botDi}.",
+        "Cuối cùng, cộng chiều dài cả ba đoạn lại."
+      ],
+      "solutionHtml": "Chiều dài đoạn đường thứ hai là:<br/>{doan1} × {gapLan} = {doan2} (m)<br/>Tổng chiều dài của đoạn đường thứ nhất và thứ hai là:<br/>{doan1} + {doan2} = {doan1PlusDoan2} (m)<br/>Chiều dài đoạn đường thứ ba là:<br/>{doan1PlusDoan2} - {botDi} = {doan3} (m)<br/>Tổng chiều dài của cả con đường là:<br/>{doan1} + {doan2} + {doan3} = {ans} (m)<br/>Đáp án đúng là {ans} m.",
+      "tip": "Đọc kỹ từng câu trong đề bài để xác định phép tính cần thực hiện. Bài toán này yêu cầu thực hiện phép nhân, phép cộng và phép trừ theo đúng thứ tự để tìm ra kết quả cuối cùng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialAmount": {
+          "min": 500,
+          "max": 1000,
+          "step": 50
+        },
+        "soldDay1": {
+          "min": 80,
+          "max": 200,
+          "step": 10
+        },
+        "soldDay2": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        },
+        "boughtDay3": {
+          "min": 100,
+          "max": 300,
+          "step": 20
+        }
+      },
+      "constraints": [
+        "initialAmount > soldDay1 + soldDay2",
+        "initialAmount - soldDay1 - soldDay2 + boughtDay3 > 0"
+      ],
+      "formulas": {
+        "rem1": "initialAmount - soldDay1",
+        "rem2": "initialAmount - soldDay1 - soldDay2",
+        "ans": "initialAmount - soldDay1 - soldDay2 + boughtDay3",
+        "w1_raw": "initialAmount - soldDay1",
+        "w2_raw": "initialAmount - soldDay2",
+        "w3_raw": "initialAmount + boughtDay3",
+        "w1": "(w1_raw === ans) ? ans + 10 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 20 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 30 : w3_raw"
+      },
+      "questionText": "Một kho hàng ban đầu có {initialAmount} kg gạo. Ngày thứ nhất, kho xuất đi {soldDay1} kg gạo. Ngày thứ hai, kho tiếp tục xuất đi {soldDay2} kg gạo. Ngày thứ ba, kho nhập thêm {boughtDay3} kg gạo. Hỏi sau ba ngày, trong kho còn lại tất cả bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {ans} kg",
+        "B. {w1} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, hãy tính số gạo còn lại sau khi xuất đi trong ngày thứ nhất bằng cách lấy {initialAmount} trừ {soldDay1}.",
+        "Tiếp theo, tính số gạo còn lại sau khi xuất đi trong ngày thứ hai bằng cách lấy kết quả vừa tìm được trừ {soldDay2}.",
+        "Cuối cùng, tính tổng số gạo sau khi nhập thêm {boughtDay3} kg vào ngày thứ ba."
+      ],
+      "solutionHtml": "Số gạo còn lại sau ngày thứ nhất là:<br/> {initialAmount} - {soldDay1} = {rem1} (kg)<br/>Số gạo còn lại sau ngày thứ hai là:<br/> {rem1} - {soldDay2} = {rem2} (kg)<br/>Số gạo sau khi nhập thêm vào ngày thứ ba là:<br/> {rem2} + {boughtDay3} = {ans} (kg)<br/>Vậy, sau ba ngày, trong kho còn lại {ans} kg gạo.<br/>Đáp án đúng là A.",
+      "tip": "Đọc kỹ đề bài để thực hiện các phép tính cộng, trừ theo đúng trình tự thời gian diễn ra sự kiện. Cần chú ý 'xuất đi' là làm phép tính trừ, 'nhập thêm' là làm phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "originalNum": {
+          "min": 123,
+          "max": 987,
+          "step": 1
+        },
+        "digitToAdd": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "newNum": "originalNum * 10 + digitToAdd",
+        "ans": "newNum - originalNum",
+        "w1_raw": "originalNum * 9",
+        "w2_raw": "originalNum + digitToAdd",
+        "w3_raw": "digitToAdd * 100",
+        "w1": "(w1_raw === ans) ? ans + 1 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 2 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 3 : w3_raw"
+      },
+      "questionText": "Khi viết thêm chữ số {digitToAdd} vào bên phải một số có ba chữ số {originalNum} thì số đó tăng thêm bao nhiêu đơn vị?",
+      "options": [
+        "A. {ans} đơn vị",
+        "B. {w1} đơn vị",
+        "C. {w2} đơn vị",
+        "D. {w3} đơn vị"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số mới được tạo thành bằng cách lấy số cũ nhân với 10 rồi cộng thêm chữ số viết thêm.",
+        "Ví dụ: Nếu số ban đầu là 12, thêm chữ số 3 sẽ thành 123. Số mới là 12 x 10 + 3 = 123.",
+        "Số mới là {originalNum} x 10 + {digitToAdd} = {newNum}."
+      ],
+      "solutionHtml": "Gọi số ban đầu là {originalNum}. Khi viết thêm chữ số {digitToAdd} vào bên phải, ta được số mới là: {originalNum} x 10 + {digitToAdd} = {newNum}.<br/>Số đó tăng thêm số đơn vị là: {newNum} - {originalNum} = {ans} đơn vị.",
+      "tip": "Khi thêm một chữ số vào bên phải một số tự nhiên, số mới sẽ bằng số cũ nhân với 10 rồi cộng thêm chữ số được thêm vào.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numVo": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        },
+        "giaVo": {
+          "min": 6000,
+          "max": 10000,
+          "step": 1000
+        },
+        "numBut": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "giaBut": {
+          "min": 12000,
+          "max": 25000,
+          "step": 1000
+        },
+        "tienMangDi": {
+          "min": 300000,
+          "max": 500000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "tienMangDi > (numVo * giaVo) + (numBut * giaBut)"
+      ],
+      "formulas": {
+        "tongTienVo": "numVo * giaVo",
+        "tongTienBut": "numBut * giaBut",
+        "tongChiPhi": "(numVo * giaVo) + (numBut * giaBut)",
+        "ans": "tienMangDi - ((numVo * giaVo) + (numBut * giaBut))",
+        "w1_goc": "tongChiPhi",
+        "w2_goc": "tienMangDi - tongTienVo",
+        "w3_goc": "tienMangDi - tongTienBut",
+        "w1": "(w1_goc === ans) ? ans + 1000 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2000 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3000 : w3_goc"
+      },
+      "questionText": "Mẹ đi chợ mua {numVo} quyển vở với giá {giaVo} đồng/quyển và {numBut} chiếc bút với giá {giaBut} đồng/chiếc. Mẹ mang theo {tienMangDi} đồng. Hỏi mẹ còn lại bao nhiêu tiền sau khi mua sắm?",
+      "options": [
+        "A. {ans} đồng",
+        "B. {w1} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số tiền mua vở bằng cách lấy số quyển vở nhân với giá một quyển.",
+        "Tiếp theo, tính tổng số tiền mua bút bằng cách lấy số chiếc bút nhân với giá một chiếc.",
+        "Sau đó, tính tổng số tiền mẹ đã chi tiêu bằng cách cộng tiền vở và tiền bút.",
+        "Cuối cùng, lấy số tiền mẹ mang đi trừ đi tổng số tiền đã chi tiêu để tìm số tiền còn lại."
+      ],
+      "solutionHtml": "Số tiền mẹ mua vở là:<br/>{numVo} $\\times$ {giaVo} = {tongTienVo} (đồng)<br/>Số tiền mẹ mua bút là:<br/>{numBut} $\\times$ {giaBut} = {tongTienBut} (đồng)<br/>Tổng số tiền mẹ đã chi tiêu là:<br/>{tongTienVo} $+$ {tongTienBut} = {tongChiPhi} (đồng)<br/>Số tiền mẹ còn lại sau khi mua sắm là:<br/>{tienMangDi} $-$ {tongChiPhi} = {ans} (đồng)<br/>Đáp án đúng là A.",
+      "tip": "Khi giải bài toán mua sắm, cần tính tổng chi phí cho từng loại mặt hàng, sau đó cộng tổng chi phí lại. Cuối cùng, lấy số tiền ban đầu trừ đi tổng chi phí để tìm số tiền còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thungA": {
+          "min": 60,
+          "max": 150,
+          "step": 10
+        },
+        "gapLan": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "thungB": "thungA * gapLan",
+        "ans": "thungA + (thungA * gapLan)",
+        "w1_raw": "thungA * gapLan",
+        "w2_raw": "thungA + gapLan",
+        "w3_raw": "(thungA * gapLan) - thungA",
+        "w1": "(w1_raw === ans) ? (ans + 10) : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (ans + 20) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 30) : w3_raw"
+      },
+      "questionText": "Thùng thứ nhất chứa {thungA} lít dầu. Thùng thứ hai chứa số dầu gấp {gapLan} lần số dầu ở thùng thứ nhất. Hỏi cả hai thùng chứa tất cả bao nhiêu lít dầu?",
+      "options": [
+        "A. {ans} lít",
+        "B. {w1} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, hãy tính số lít dầu ở thùng thứ hai bằng cách nhân số dầu thùng thứ nhất với {gapLan}.",
+        "Sau đó, cộng số dầu ở hai thùng lại để tìm tổng số dầu."
+      ],
+      "solutionHtml": "Số lít dầu ở thùng thứ hai là:<br/>{thungA} x {gapLan} = {thungB} (lít)<br/>Tổng số lít dầu ở cả hai thùng là:<br/>{thungA} + {thungB} = {ans} (lít)<br/>Đáp án đúng là A.",
+      "tip": "Khi gặp từ 'gấp... lần', ta sử dụng phép nhân. Sau khi tính được lượng dầu của thùng thứ hai, đừng quên cộng với lượng dầu của thùng thứ nhất để tìm tổng số dầu của cả hai thùng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "factor": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "subtractVal": {
+          "min": 20,
+          "max": 100,
+          "step": 5
+        },
+        "result": {
+          "min": 150,
+          "max": 600,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "(result + subtractVal) % factor === 0",
+        "(result + subtractVal) / factor > 10",
+        "(result - subtractVal) !== (result + subtractVal) / factor",
+        "(result * factor) !== (result + subtractVal) / factor",
+        "(result * factor) !== (result - subtractVal)",
+        "(result - subtractVal) !== (result * factor)",
+        "(result - subtractVal) !== (result + subtractVal) / factor + 7",
+        "(result - subtractVal) !== (result + subtractVal) / factor + 19"
+      ],
+      "formulas": {
+        "intermediateSum": "result + subtractVal",
+        "ans": "(result + subtractVal) / factor",
+        "w1_raw": "result - subtractVal",
+        "w2_raw": "result + factor",
+        "w3_raw": "ans + 15",
+        "w1": "(w1_raw === ans) ? ans + 7 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 13 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 19 : w3_raw"
+      },
+      "questionText": "Tìm một số, biết rằng nếu lấy số đó nhân với {factor} rồi trừ đi {subtractVal} thì được kết quả là {result}.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đây là bài toán tìm thành phần chưa biết của phép tính. Hãy làm ngược lại các phép tính đã cho.",
+        "Phép tính cuối cùng là trừ {subtractVal}. Vậy trước đó là phép cộng {subtractVal}.",
+        "Phép tính trước đó là nhân {factor}. Vậy trước đó nữa là phép chia {factor}."
+      ],
+      "solutionHtml": "Để tìm số cần tìm, chúng ta sẽ thực hiện các phép tính ngược lại với thứ tự đã cho:<br/>Số đó sau khi nhân với {factor} là:<br/>{result} + {subtractVal} = {intermediateSum} <br/>Số cần tìm là:<br/>{intermediateSum} : {factor} = {ans} <br/>Đáp án đúng là {ans}.",
+      "tip": "Khi tìm một số chưa biết trong một chuỗi phép tính, ta hãy làm ngược lại từ kết quả cuối cùng. Phép trừ trở thành phép cộng, phép nhân trở thành phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sachLS_initial": {
+          "min": 60,
+          "max": 120,
+          "step": 10
+        },
+        "gapLanKH": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "nhapThemKH": {
+          "min": 30,
+          "max": 80,
+          "step": 10
+        },
+        "choMuonLS": {
+          "min": 15,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "sachLS_initial > choMuonLS"
+      ],
+      "formulas": {
+        "sachKH_initial": "sachLS_initial * gapLanKH",
+        "sachKH_final": "sachKH_initial + nhapThemKH",
+        "sachLS_final": "sachLS_initial - choMuonLS",
+        "ans": "sachKH_final + sachLS_final",
+        "w1_raw": "sachKH_initial + nhapThemKH + sachLS_initial",
+        "w2_raw": "sachKH_initial + sachLS_final",
+        "w3_raw": "sachKH_final",
+        "w1": "(w1_raw === ans) ? ans + 10 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (((ans + 5) === w1) ? ans + 15 : ans + 5) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (((ans + 20) === w1 || (ans + 20) === w2) ? ans + 25 : ans + 20) : w3_raw"
+      },
+      "questionText": "Một thư viện ban đầu có {sachLS_initial} quyển sách Lịch sử. Số sách Khoa học gấp {gapLanKH} lần số sách Lịch sử. Sau đó, thư viện nhập thêm {nhapThemKH} quyển sách Khoa học và cho mượn {choMuonLS} quyển sách Lịch sử. Hỏi thư viện còn lại tổng cộng bao nhiêu quyển sách?",
+      "options": [
+        "A. {ans} quyển",
+        "B. {w1} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, tính số sách Khoa học ban đầu bằng cách lấy số sách Lịch sử nhân với {gapLanKH}.",
+        "Sau đó, tính số sách Khoa học sau khi nhập thêm {nhapThemKH} quyển.",
+        "Tiếp theo, tính số sách Lịch sử còn lại sau khi cho mượn {choMuonLS} quyển.",
+        "Cuối cùng, cộng số sách Khoa học và số sách Lịch sử còn lại để tìm tổng."
+      ],
+      "solutionHtml": "Số sách Khoa học ban đầu là:<br/>{sachLS_initial} x {gapLanKH} = {sachKH_initial} (quyển)<br/>Số sách Khoa học sau khi nhập thêm là:<br/>{sachKH_initial} + {nhapThemKH} = {sachKH_final} (quyển)<br/>Số sách Lịch sử sau khi cho mượn là:<br/>{sachLS_initial} - {choMuonLS} = {sachLS_final} (quyển)<br/>Tổng số sách còn lại trong thư viện là:<br/>{sachKH_final} + {sachLS_final} = {ans} (quyển)<br/>Đáp án đúng là A.",
+      "tip": "Hãy chia bài toán thành các bước nhỏ và thực hiện từng bước một. Đảm bảo tính toán đúng số lượng của từng loại sách sau mỗi sự kiện trước khi tính tổng cuối cùng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c2-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "anTien": {
+          "min": 25000,
+          "max": 75000,
+          "step": 5000
+        },
+        "binhTien": {
+          "min": 30000,
+          "max": 80000,
+          "step": 5000
+        },
+        "tbcTien": {
+          "min": 40000,
+          "max": 100000,
+          "step": 5000
+        }
+      },
+      "constraints": [
+        "tbcTien * 3 > anTien + binhTien",
+        "Math.abs(tbcTien - anTien) > 5000",
+        "Math.abs(tbcTien - binhTien) > 5000",
+        "(tbcTien * 3 - anTien - binhTien) > 0",
+        "(tbcTien * 3 - anTien - binhTien) !== anTien",
+        "(tbcTien * 3 - anTien - binhTien) !== binhTien",
+        "(tbcTien * 3 - anTien - binhTien) !== (tbcTien)",
+        "(tbcTien * 3 - anTien - binhTien) !== (tbcTien * 2)"
+      ],
+      "formulas": {
+        "tongTien3Ban": "tbcTien * 3",
+        "tongTienAnBinh": "anTien + binhTien",
+        "ans": "tongTien3Ban - tongTienAnBinh",
+        "w1_goc": "ans + 5000",
+        "w2_goc": "ans - 5000 > 0 ? ans - 5000 : ans + 10000",
+        "w3_goc": "ans + 15000",
+        "w1": "w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10000 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 20000 : w3_goc"
+      },
+      "questionText": "Bạn An có {anTien} đồng, bạn Bình có {binhTien} đồng. Biết số tiền trung bình của ba bạn An, Bình và Chi là {tbcTien} đồng. Hỏi bạn Chi có bao nhiêu tiền?",
+      "options": [
+        "A. {ans} đồng",
+        "B. {w1} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Từ trung bình cộng số tiền của ba bạn, ta có thể tính được tổng số tiền của ba bạn.",
+        "Tổng số tiền của ba bạn bằng trung bình cộng nhân với 3.",
+        "Sau khi có tổng số tiền của ba bạn, ta lấy tổng đó trừ đi số tiền của An và Bình để tìm số tiền của Chi."
+      ],
+      "solutionHtml": "Tổng số tiền của ba bạn An, Bình và Chi là:<br/>{tbcTien} $\\times$ 3 = {tongTien3Ban} (đồng)<br/>Tổng số tiền của bạn An và bạn Bình là:<br/>{anTien} $+$ {binhTien} = {tongTienAnBinh} (đồng)<br/>Số tiền bạn Chi có là:<br/>{tongTien3Ban} $-$ {tongTienAnBinh} = {ans} (đồng)<br/>Đáp án đúng là A.",
+      "tip": "Trung bình cộng của nhiều số được tính bằng cách lấy tổng các số đó chia cho số lượng các số hạng. Ngược lại, để tìm tổng các số hạng, ta lấy trung bình cộng nhân với số lượng các số hạng.",
+      "level": "chat-luongcao",
+      "type": "l4-kt-c2-q10"
+    }
+  ]
+}

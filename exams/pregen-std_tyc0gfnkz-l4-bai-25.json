@@ -1,0 +1,532 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalBooks": {
+          "min": 100,
+          "max": 250,
+          "step": 2
+        },
+        "diffBooks": {
+          "min": 20,
+          "max": 60,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "totalBooks > diffBooks",
+        "(totalBooks + diffBooks) % 2 === 0",
+        "(totalBooks - diffBooks) % 2 === 0",
+        "((totalBooks - diffBooks) / 2) > 0"
+      ],
+      "formulas": {
+        "smallNum": "(totalBooks - diffBooks) / 2",
+        "largeNum": "(totalBooks + diffBooks) / 2",
+        "ans": "smallNum",
+        "w1_raw": "largeNum",
+        "w2_raw": "totalBooks",
+        "w3_raw": "diffBooks",
+        "w1": "(largeNum === smallNum) ? smallNum + 2 : largeNum",
+        "w2": "(totalBooks === smallNum || totalBooks === w1) ? smallNum + 4 : totalBooks",
+        "w3": "(diffBooks === smallNum || diffBooks === w1 || diffBooks === w2) ? smallNum + 6 : diffBooks"
+      },
+      "questionText": "Hai kệ sách có tổng cộng {totalBooks} cuốn sách. Kệ thứ nhất có nhiều hơn kệ thứ hai {diffBooks} cuốn. Hỏi kệ thứ hai có bao nhiêu cuốn sách?",
+      "options": [
+        "A. {ans} cuốn",
+        "B. {w1} cuốn",
+        "C. {w2} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để tìm số sách ở kệ ít hơn, ta lấy tổng số sách trừ đi phần chênh lệch, rồi chia cho 2.",
+        "Thực hiện phép tính: (Tổng - Hiệu) : 2"
+      ],
+      "solutionHtml": "Gọi số sách ở kệ thứ nhất là số lớn, số sách ở kệ thứ hai là số bé.<br/>Ta có tổng số sách là {totalBooks} và hiệu số sách là {diffBooks}.<br/>Số sách ở kệ thứ hai (số bé) là:<br/>({totalBooks} - {diffBooks}) : 2 = {ans} (cuốn sách)<br/>Đáp án đúng là A.",
+      "tip": "Khi biết tổng và hiệu của hai số, số bé được tính bằng cách lấy (Tổng - Hiệu) : 2. Số lớn được tính bằng cách lấy (Tổng + Hiệu) : 2."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sumAges": {
+          "min": 40,
+          "max": 70,
+          "step": 2
+        },
+        "diffAges": {
+          "min": 20,
+          "max": 30,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "sumAges > diffAges",
+        "(sumAges + diffAges) % 2 === 0",
+        "(sumAges - diffAges) > 0"
+      ],
+      "formulas": {
+        "motherAge": "(sumAges + diffAges) / 2",
+        "childAge": "(sumAges - diffAges) / 2",
+        "ans": "motherAge",
+        "w1_goc": "childAge",
+        "w2_goc": "sumAges - diffAges",
+        "w3_goc": "sumAges",
+        "w1": "(w1_goc === ans) ? childAge + 3 : childAge",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (childAge + 5) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (childAge + 7) : w3_goc"
+      },
+      "questionText": "Tổng số tuổi của mẹ và con là {sumAges} tuổi. Mẹ hơn con {diffAges} tuổi. Hỏi mẹ bao nhiêu tuổi?",
+      "options": [
+        "A. {w1} tuổi",
+        "B. {ans} tuổi",
+        "C. {w2} tuổi",
+        "D. {w3} tuổi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số tuổi của mẹ (số lớn), ta cần biết tổng số tuổi và hiệu số tuổi.",
+        "Thực hiện phép tính: (Tổng + Hiệu) chia cho 2"
+      ],
+      "solutionHtml": "Ta có tổng số tuổi của mẹ và con là {sumAges} tuổi. Hiệu số tuổi của mẹ và con là {diffAges} tuổi.<br/>Số tuổi của mẹ (số lớn) là:<br/>({sumAges} + {diffAges}) : 2 = {ans} (tuổi)<br/>Đáp án đúng là B.",
+      "tip": "Luôn xác định rõ đâu là 'số lớn', đâu là 'số bé', 'tổng' và 'hiệu' trước khi áp dụng công thức."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "perimeter": {
+          "min": 120,
+          "max": 200,
+          "step": 4
+        },
+        "diffLengthWidth": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "perimeter / 2 > diffLengthWidth",
+        "( (perimeter / 2) + diffLengthWidth) % 2 === 0",
+        "( (perimeter / 2) - diffLengthWidth) % 2 === 0"
+      ],
+      "formulas": {
+        "halfPerimeter": "perimeter / 2",
+        "length": "( (perimeter / 2) + diffLengthWidth) / 2",
+        "width": "( (perimeter / 2) - diffLengthWidth) / 2",
+        "ans": "length * width",
+        "w1_raw": "length + width",
+        "w2_raw": "length * 2",
+        "w3_raw": "width * 2",
+        "w1": "(w1_raw === ans) ? ans + 10 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 20 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 30 : w3_raw"
+      },
+      "questionText": "Một hình chữ nhật có chu vi là {perimeter} cm. Chiều dài hơn chiều rộng {diffLengthWidth} cm. Tính diện tích hình chữ nhật đó.",
+      "options": [
+        "A. {ans} cm²",
+        "B. {w1} cm²",
+        "C. {w2} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Nửa chu vi hình chữ nhật chính là tổng của chiều dài và chiều rộng.",
+        "Sau khi tìm được chiều dài và chiều rộng, hãy tính diện tích bằng cách lấy chiều dài nhân chiều rộng."
+      ],
+      "solutionHtml": "Nửa chu vi hình chữ nhật là tổng của chiều dài và chiều rộng:<br/>{perimeter} : 2 = {halfPerimeter} (cm)<br/>Ta có tổng của chiều dài và chiều rộng là {halfPerimeter} cm, hiệu của chiều dài và chiều rộng là {diffLengthWidth} cm.<br/>Chiều dài hình chữ nhật là:<br/>({halfPerimeter} + {diffLengthWidth}) : 2 = {length} (cm)<br/>Chiều rộng hình chữ nhật là:<br/>({halfPerimeter} - {diffLengthWidth}) : 2 = {width} (cm)<br/>Diện tích hình chữ nhật là:<br/>{length} x {width} = {ans} (cm²)<br/>Đáp án đúng là A.",
+      "tip": "Với bài toán hình học, hãy chuyển đổi các đại lượng đã cho (như chu vi, nửa chu vi) thành tổng hoặc hiệu của các cạnh để áp dụng phương pháp giải."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalMoney": {
+          "min": 200000,
+          "max": 500000,
+          "step": 20000
+        },
+        "transferMoney": {
+          "min": 20000,
+          "max": 80000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "totalMoney > 4 * transferMoney",
+        "(totalMoney % 20000) === 0",
+        "(totalMoney + 2 * transferMoney) % 2 === 0"
+      ],
+      "formulas": {
+        "moneyDiff": "2 * transferMoney",
+        "anOriginalMoney": "(totalMoney + 2 * transferMoney) / 2",
+        "binhOriginalMoney": "(totalMoney - 2 * transferMoney) / 2",
+        "ans": "anOriginalMoney",
+        "w1_goc": "binhOriginalMoney",
+        "w2_goc": "totalMoney / 2",
+        "w3_goc": "totalMoney / 2 + transferMoney",
+        "w1": "(w1_goc === ans) ? w1_goc + 20000 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 40000) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 60000) : w3_goc"
+      },
+      "questionText": "An và Bình có tổng cộng {totalMoney} đồng. Nếu An đưa cho Bình {transferMoney} đồng thì số tiền của hai bạn sẽ bằng nhau. Hỏi lúc đầu An có bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi An đưa tiền cho Bình để hai bạn bằng nhau, có nghĩa là ban đầu An có nhiều hơn Bình một số tiền nhất định.",
+        "Số tiền An nhiều hơn Bình ban đầu là gấp đôi số tiền An đã chuyển cho Bình."
+      ],
+      "solutionHtml": "Khi An đưa cho Bình {transferMoney} đồng thì số tiền của hai bạn bằng nhau. Điều này có nghĩa là ban đầu An có nhiều hơn Bình số tiền là: {transferMoney} $ \\times 2 = $ {moneyDiff} (đồng). Ta có tổng số tiền là {totalMoney} đồng và hiệu số tiền là {moneyDiff} đồng. Số tiền lúc đầu của An (số lớn) là: ( {totalMoney} $+$ {moneyDiff} ) : 2 = {ans} (đồng). Đáp án đúng là B.",
+      "tip": "Các bài toán về chuyển đổi để 'bằng nhau' thường ẩn chứa một hiệu số gấp đôi hoặc một nửa của lượng chuyển đổi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalFlowers": {
+          "min": 150,
+          "max": 300,
+          "step": 2
+        },
+        "addRose": {
+          "min": 10,
+          "max": 30,
+          "step": 1
+        },
+        "subtractDaisy": {
+          "min": 5,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalFlowers > (addRose + subtractDaisy)",
+        "(totalFlowers + addRose + subtractDaisy) % 2 === 0"
+      ],
+      "formulas": {
+        "flowerDiff": "addRose + subtractDaisy",
+        "numRose": "(totalFlowers + (addRose + subtractDaisy)) / 2",
+        "numDaisy": "(totalFlowers - (addRose + subtractDaisy)) / 2",
+        "ans": "numDaisy",
+        "w1_raw": "numRose",
+        "w2_raw": "totalFlowers + addRose",
+        "w3_raw": "totalFlowers - subtractDaisy",
+        "w1": "(w1_raw === ans) ? ans + 2 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (ans + 4) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 6) : w3_raw"
+      },
+      "questionText": "Trong vườn có tổng cộng {totalFlowers} bông hoa gồm hoa hồng và hoa cúc. Nếu thêm {addRose} bông hoa hồng và bớt {subtractDaisy} bông hoa cúc thì số lượng hoa hồng và hoa cúc bằng nhau. Hỏi ban đầu có bao nhiêu bông hoa cúc?",
+      "options": [
+        "A. {ans} bông",
+        "B. {w1} bông",
+        "C. {w2} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để số lượng hoa hồng và hoa cúc bằng nhau sau khi thay đổi, hãy suy nghĩ về sự chênh lệch ban đầu giữa chúng.",
+        "Tổng số hoa hồng và hoa cúc không thay đổi. Tìm hiệu số lượng hoa hồng và hoa cúc ban đầu."
+      ],
+      "solutionHtml": "Gọi số lượng hoa hồng ban đầu là R, số lượng hoa cúc ban đầu là C.<br/>Ta có: R + C = {totalFlowers}<br/>Sau khi thêm {addRose} hoa hồng và bớt {subtractDaisy} hoa cúc, số lượng hai loại hoa bằng nhau, tức là: R + {addRose} = C - {subtractDaisy}.<br/>Từ đó, ta có: C - R = {addRose} + {subtractDaisy} = {flowerDiff} (bông).<br/>Vậy, tổng số hoa là {totalFlowers} và hiệu số hoa cúc với hoa hồng là {flowerDiff}.<br/>Số hoa cúc là: (Tổng + Hiệu) : 2 = ({totalFlowers} + {flowerDiff}) : 2 = {ans} (bông).",
+      "tip": "Đọc kỹ các điều kiện 'nếu... thì...' để suy ra mối quan hệ tổng hoặc hiệu của các đại lượng ban đầu."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalScore": {
+          "min": 1000,
+          "max": 2000,
+          "step": 10
+        },
+        "scoreDiff": {
+          "min": 100,
+          "max": 300,
+          "step": 10
+        },
+        "targetScoreA": {
+          "min": 1200,
+          "max": 2500,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "totalScore > scoreDiff",
+        "(totalScore + scoreDiff) % 2 === 0",
+        "(totalScore - scoreDiff) / 2 > 0",
+        "targetScoreA !== (totalScore + scoreDiff) / 2"
+      ],
+      "formulas": {
+        "scoreA": "(totalScore + scoreDiff) / 2",
+        "scoreB": "(totalScore - scoreDiff) / 2",
+        "ans": "scoreB",
+        "w1_goc": "scoreA",
+        "w2_goc": "totalScore / 2",
+        "w3_goc": "targetScoreA - scoreDiff",
+        "w1": "(w1_goc === ans) ? w1_goc + 20 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 40) : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 60) : w3_goc"
+      },
+      "questionText": "Trong một cuộc thi đấu, tổng số điểm của đội A và đội B là {totalScore} điểm. Đội A đạt điểm cao hơn đội B là {scoreDiff} điểm. Ban tổ chức muốn đội A đạt được {targetScoreA} điểm. Vậy đội B đã đạt được bao nhiêu điểm?",
+      "options": [
+        "A. {ans} điểm",
+        "B. {w1} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thông tin về 'Ban tổ chức muốn đội A đạt được {targetScoreA} điểm' là một thông tin nhiễu, không cần thiết để giải bài toán.",
+        "Chỉ cần sử dụng tổng số điểm và hiệu số điểm của hai đội."
+      ],
+      "solutionHtml": "Bài toán cho biết tổng số điểm của đội A và đội B là {totalScore} điểm, và đội A hơn đội B {scoreDiff} điểm.<br/>Thông tin về 'Ban tổ chức muốn đội A đạt được {targetScoreA} điểm' không liên quan đến việc tìm số điểm hiện tại của đội B.<br/>Số điểm của đội B (số bé) là:<br/>({totalScore} - {scoreDiff}) : 2 = {ans} (điểm)<br/>Đáp án đúng là A.",
+      "tip": "Hãy cẩn thận với các thông tin nhiễu trong đề bài. Chỉ sử dụng những dữ kiện cần thiết để giải quyết câu hỏi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 60,
+          "max": 90,
+          "step": 2
+        },
+        "transferStudents": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "newDiff": {
+          "min": 2,
+          "max": 8,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "2 * transferStudents > newDiff",
+        "totalStudents > (2 * transferStudents - newDiff)",
+        "(totalStudents + (2 * transferStudents - newDiff)) % 2 === 0"
+      ],
+      "formulas": {
+        "originalDiff": "2 * transferStudents - newDiff",
+        "ans": "(totalStudents - originalDiff) / 2",
+        "classA": "(totalStudents + originalDiff) / 2",
+        "w1_goc": "classA",
+        "w2_goc": "totalStudents / 2",
+        "w3_goc": "originalDiff",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Tổng số học sinh của hai lớp 4A và 4B là {totalStudents} em. Nếu chuyển {transferStudents} em từ lớp 4A sang lớp 4B thì số học sinh lớp 4A ít hơn lớp 4B là {newDiff} em. Hỏi lúc đầu lớp 4B có bao nhiêu học sinh?",
+      "options": [
+        "A. {ans} em",
+        "B. {w1} em",
+        "C. {w2} em",
+        "D. {w3} em"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Hãy xác định hiệu số học sinh ban đầu giữa lớp 4A và 4B dựa trên thông tin về việc chuyển học sinh và hiệu số mới.",
+        "Sau khi chuyển {transferStudents} học sinh, hiệu số mới bằng hiệu số ban đầu trừ đi hai lần số học sinh được chuyển."
+      ],
+      "solutionHtml": "Gọi số học sinh ban đầu của lớp 4A là A, lớp 4B là B. Ta có: A + B = {totalStudents}. Khi chuyển {transferStudents} em từ lớp 4A sang lớp 4B, số học sinh lớp 4A là A - {transferStudents}, số học sinh lớp 4B là B + {transferStudents}. Theo đề bài: (B + {transferStudents}) - (A - {transferStudents}) = {newDiff}. Suy ra: B - A + {2 * transferStudents} = {newDiff}, hay B - A = {newDiff} - {2 * transferStudents}. Vậy A - B = {originalDiff}. Số học sinh lớp 4B là: ({totalStudents} - {originalDiff}) : 2 = {ans} em.",
+      "tip": "Khi chuyển học sinh từ lớp này sang lớp kia, tổng số học sinh không đổi, nhưng hiệu số giữa hai lớp sẽ thay đổi một lượng bằng hai lần số học sinh được chuyển."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalProducts": {
+          "min": 10000,
+          "max": 20000,
+          "step": 200
+        },
+        "diffProducts": {
+          "min": 1000,
+          "max": 3000,
+          "step": 200
+        }
+      },
+      "constraints": [
+        "totalProducts > diffProducts",
+        "(totalProducts + diffProducts) % 2 === 0",
+        "(totalProducts - diffProducts) % 2 === 0",
+        "((totalProducts + diffProducts) / 2) % 2 === 0"
+      ],
+      "formulas": {
+        "q1": "(totalProducts + diffProducts) / 2",
+        "q2": "(totalProducts - diffProducts) / 2",
+        "q1_sum": "totalProducts + diffProducts",
+        "q2_diff": "totalProducts - diffProducts",
+        "ans": "q1 / 2",
+        "w1_raw": "q1",
+        "w2_raw": "q2",
+        "w3_raw": "totalProducts / 4",
+        "w1": "(w1_raw === ans) ? ans + 100 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (((ans + 200) === w1) ? ans + 400 : ans + 200) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 300 : w3_raw"
+      },
+      "questionText": "Một nhà máy sản xuất được {totalProducts} sản phẩm trong 2 quý. Quý I sản xuất nhiều hơn quý II là {diffProducts} sản phẩm. Trong quý III, nhà máy dự kiến sản xuất số sản phẩm bằng một nửa số sản phẩm của quý I. Hỏi quý III nhà máy dự kiến sản xuất bao nhiêu sản phẩm?",
+      "options": [
+        "A. {ans} sản phẩm",
+        "B. {w1} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, tìm số sản phẩm của quý I bằng cách lấy tổng cộng hiệu rồi chia cho 2.",
+        "Sau đó, lấy số sản phẩm quý I vừa tìm được chia cho 2 để ra số sản phẩm quý III."
+      ],
+      "solutionHtml": "Tổng số sản phẩm là {totalProducts}, hiệu là {diffProducts}.<br/>Số sản phẩm quý I là: {q1_sum} : 2 = {q1} (sản phẩm).<br/>Số sản phẩm quý II là: {q2_diff} : 2 = {q2} (sản phẩm).<br/>Số sản phẩm quý III là: {q1} : 2 = {ans} (sản phẩm).<br/>Đáp án đúng là A.",
+      "tip": "Khi bài toán cho biết tổng và hiệu của hai đại lượng, ta tính số lớn bằng (tổng + hiệu) chia 2, số bé bằng (tổng - hiệu) chia 2."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "perimeter": {
+          "min": 100,
+          "max": 200,
+          "step": 2
+        },
+        "addWidth": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "subtractLength": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "perimeter % 2 === 0",
+        "(perimeter / 2 + addWidth + subtractLength) % 2 === 0",
+        "(perimeter / 2 - addWidth - subtractLength) > 0"
+      ],
+      "formulas": {
+        "halfP": "perimeter / 2",
+        "diff": "addWidth + subtractLength",
+        "ans": "(perimeter / 2 + addWidth + subtractLength) / 2",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chu vi là {perimeter} m. Nếu tăng chiều rộng thêm {addWidth} m và giảm chiều dài đi {subtractLength} m thì nó trở thành hình vuông. Hỏi chiều dài ban đầu của mảnh vườn là bao nhiêu mét?",
+      "options": [
+        "A. {ans} m",
+        "B. {w1} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Khi mảnh vườn trở thành hình vuông, chiều dài mới và chiều rộng mới của nó bằng nhau.",
+        "Sử dụng thông tin trở thành hình vuông để tìm hiệu giữa chiều dài và chiều rộng ban đầu."
+      ],
+      "solutionHtml": "Nửa chu vi của mảnh vườn hình chữ nhật là: {perimeter} : 2 = {halfP} (m).<br/>Khi tăng chiều rộng thêm {addWidth} m và giảm chiều dài đi {subtractLength} m, mảnh vườn trở thành hình vuông. Hiệu giữa chiều dài và chiều rộng ban đầu là: {addWidth} + {subtractLength} = {diff} (m).<br/>Chiều dài ban đầu là số lớn trong bài toán tổng - hiệu: ({halfP} + {diff}) : 2 = {ans} (m).",
+      "tip": "Khi bài toán cho biết thay đổi kích thước để trở thành hình vuông, hiệu giữa chiều dài và chiều rộng ban đầu chính là tổng của độ dài được thêm vào và độ dài được bớt đi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalNuts": {
+          "min": 100,
+          "max": 300,
+          "step": 2
+        },
+        "transferNuts": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "newDiffNuts": {
+          "min": 2,
+          "max": 30,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "((totalNuts - newDiffNuts) % 2 === 0)",
+        "((2 * transferNuts) > newDiffNuts)",
+        "((totalNuts - (2 * transferNuts - newDiffNuts)) > 0)",
+        "(((totalNuts + (2 * transferNuts - newDiffNuts)) % 2) === 0)"
+      ],
+      "formulas": {
+        "origDiff": "2 * transferNuts - newDiffNuts",
+        "ans": "(totalNuts + (2 * transferNuts - newDiffNuts)) / 2",
+        "w1_raw": "(totalNuts - (2 * transferNuts - newDiffNuts)) / 2",
+        "w2_raw": "totalNuts / 2",
+        "w3_raw": "ans + 10",
+        "w1": "(w1_raw === ans) ? ans + 2 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? ans + 4 : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 6 : w3_raw"
+      },
+      "questionText": "Tổng số hạt dẻ trong hai túi là {totalNuts} hạt. Nếu chuyển {transferNuts} hạt từ túi thứ nhất sang túi thứ hai, thì túi thứ hai sẽ nhiều hơn túi thứ nhất {newDiffNuts} hạt. Hỏi ban đầu túi thứ nhất có bao nhiêu hạt dẻ?",
+      "options": [
+        "A. {ans} hạt",
+        "B. {w1} hạt",
+        "C. {w2} hạt",
+        "D. {w3} hạt"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Hãy tính toán sự thay đổi trong hiệu số lượng hạt giữa hai túi khi có sự chuyển hạt.",
+        "Khi chuyển hạt, túi thứ nhất bớt đi {transferNuts} và túi thứ hai thêm {transferNuts}."
+      ],
+      "solutionHtml": "Gọi T1 là số hạt túi 1, T2 là số hạt túi 2. Ta có T1 + T2 = {totalNuts}. Khi chuyển {transferNuts} hạt, túi 1 còn T1 - {transferNuts}, túi 2 có T2 + {transferNuts}. Theo đề: (T2 + {transferNuts}) - (T1 - {transferNuts}) = {newDiffNuts}. Suy ra T2 - T1 = {newDiffNuts} - {transferNuts} * 2. Vậy T1 - T2 = {transferNuts} * 2 - {newDiffNuts} = {origDiff}. Hiệu là {origDiff}, tổng là {totalNuts}. Số hạt túi 1 là ({totalNuts} + {origDiff}) : 2 = {ans} hạt.",
+      "tip": "Khi chuyển hạt giữa hai túi, hiệu số giữa chúng sẽ thay đổi bằng hai lần số hạt được chuyển."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalCandies": {
+          "min": 100,
+          "max": 250,
+          "step": 2
+        },
+        "transferCandies": {
+          "min": 10,
+          "max": 30,
+          "step": 1
+        },
+        "newDiff": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "((totalCandies + (2 * transferCandies - newDiff)) % 2 === 0)",
+        "(totalCandies - (2 * transferCandies - newDiff)) > 0",
+        "(totalCandies + (2 * transferCandies - newDiff)) > 0",
+        "(2 * transferCandies - newDiff) > 0"
+      ],
+      "formulas": {
+        "diff": "2 * transferCandies - newDiff",
+        "ans": "(totalCandies + diff) / 2",
+        "w1": "(totalCandies - diff) / 2",
+        "w2": "totalCandies / 2 + 2",
+        "w3": "ans + newDiff",
+        "w2_final": "(w2 === ans || w2 === w1) ? ans + 7 : w2",
+        "w3_final": "(w3 === ans || w3 === w1 || w3 === w2_final) ? ans + 11 : w3"
+      },
+      "questionText": "Hai bạn An và Bình có tổng cộng {totalCandies} chiếc kẹo. Nếu An cho Bình {transferCandies} chiếc thì lúc đó số kẹo của Bình nhiều hơn số kẹo của An là {newDiff} chiếc. Hỏi số kẹo ban đầu của An là bao nhiêu chiếc?",
+      "options": [
+        "{ans} chiếc",
+        "{w1} chiếc",
+        "{w2_final} chiếc",
+        "{w3_final} chiếc"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Gọi A là số kẹo của An, B là số kẹo của Bình. Tính hiệu số kẹo ban đầu giữa hai bạn dựa vào số kẹo thay đổi.",
+        "Sau khi An cho Bình kẹo, hiệu số kẹo giữa hai bạn thay đổi một lượng là 2 lần số kẹo cho."
+      ],
+      "solutionHtml": "Gọi số kẹo ban đầu của An là A, số kẹo ban đầu của Bình là B. Tổng số kẹo là A + B = {totalCandies}. Khi An cho Bình {transferCandies} chiếc, số kẹo của An là A - {transferCandies}, số kẹo của Bình là B + {transferCandies}. Hiệu số kẹo lúc sau là: (B + {transferCandies}) - (A - {transferCandies}) = {newDiff}. Suy ra: B - A = {newDiff} - 2 * {transferCandies}. Hiệu số kẹo ban đầu: A - B = 2 * {transferCandies} - {newDiff} = {diff}. Số kẹo ban đầu của An là: ({totalCandies} + {diff}) : 2 = {ans} (chiếc).",
+      "tip": "Khi một người chuyển kẹo cho người khác, tổng số kẹo không đổi, nhưng hiệu số giữa hai người thay đổi bằng 2 lần số kẹo chuyển đi."
+    }
+  ]
+}

@@ -1,0 +1,556 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "cycle1": {
+          "min": 6,
+          "max": 10,
+          "step": 2
+        },
+        "cycle2": {
+          "min": 9,
+          "max": 15,
+          "step": 3
+        }
+      },
+      "constraints": [
+        "cycle1 !== cycle2"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(cycle1, cycle2)",
+        "ans": "(cycle1 * cycle2) / gcd_val",
+        "w1": "(cycle1 * cycle2 === ans) ? ans + cycle1 : (cycle1 * cycle2)",
+        "w2": "cycle1 + cycle2",
+        "w3": "(Math.max(cycle1, cycle2) === ans || Math.max(cycle1, cycle2) === (cycle1 + cycle2)) ? ans + cycle1 + cycle2 : Math.max(cycle1, cycle2)"
+      },
+      "questionText": "Tại một giao lộ, có hai tín hiệu đèn giao thông. Đèn thứ nhất nháy xanh sau mỗi {cycle1} giây, đèn thứ hai nháy xanh sau mỗi {cycle2} giây. Nếu cả hai đèn vừa cùng nháy xanh lúc 7 giờ sáng, hỏi sau ít nhất bao nhiêu giây nữa thì chúng lại cùng nháy xanh?",
+      "options": [
+        "A. {w1} giây",
+        "B. {ans} giây",
+        "C. {w2} giây",
+        "D. {w3} giây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm thời điểm hai đèn cùng nháy xanh, ta cần tìm một số là bội chung của cả hai chu kỳ nháy.",
+        "Số giây ít nhất để chúng cùng nháy xanh chính là Bội chung nhỏ nhất của {cycle1} và {cycle2}."
+      ],
+      "solutionHtml": "Để tìm thời điểm ít nhất hai đèn cùng nháy xanh, ta cần tìm Bội chung nhỏ nhất (BCNN) của hai chu kỳ nháy, tức là của {cycle1} và {cycle2}.<br/>Ta có:<br/>{cycle1} = $ {cycle1}<br/>{cycle2} = $ {cycle2}<br/>Tìm BCNN({cycle1}, {cycle2}):<br/>ƯCLN({cycle1}, {cycle2}) là {gcd_val}.<br/>BCNN({cycle1}, {cycle2}) $= $ $\\frac{{\\text{{{cycle1}}} \\times \\text{{{cycle2}}}}}{{\\text{{ƯCLN($\\text{{{cycle1}}}$, $\\text{{{cycle2}}}$)}}}} = \\frac{{\\text{{{cycle1}}} \\times \\text{{{cycle2}}}}}{{\\text{{{gcd_val}}}}} = \\frac{{\\text{{{w1}}}}}{{\\text{{{gcd_val}}}}} = {ans}$<br/>Vậy, sau ít nhất {ans} giây thì hai đèn lại cùng nháy xanh.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đây là bài toán tìm Bội chung nhỏ nhất, không phải Ước chung lớn nhất hay các phép toán khác.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "group1": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "group2": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "group3": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "group1 !== group2",
+        "group1 !== group3",
+        "group2 !== group3",
+        "(function(a, b, c) { var gcd = (x, y) => { while (y) { [x, y] = [y, x % y]; } return x; }; var lcm2 = (x, y) => (x * y) / gcd(x, y); return lcm2(lcm2(a, b), c); })(group1, group2, group3) <= 150"
+      ],
+      "formulas": {
+        "gcd_ab": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(group1, group2)",
+        "lcm_ab": "(group1 * group2) / gcd_ab",
+        "gcd_abc": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(lcm_ab, group3)",
+        "ans": "(lcm_ab * group3) / gcd_abc",
+        "w1": "(group1 * group2 * group3 === ans) ? ans + group1 : (group1 * group2 * group3)",
+        "w2": "(group1 + group2 + group3 === ans) ? ans + group1 + group2 : group1 + group2 + group3",
+        "w3": "(Math.max(group1, group2, group3) === ans) ? ans - 1 : Math.max(group1, group2, group3)"
+      },
+      "questionText": "Một liên đội thiếu niên khi xếp hàng {group1}, hàng {group2}, hàng {group3} đều vừa đủ hàng. Hỏi số đội viên ít nhất của liên đội đó là bao nhiêu (biết số đội viên có từ 2 chữ số trở lên)?",
+      "options": [
+        "A. {w1} đội viên",
+        "B. {w2} đội viên",
+        "C. {ans} đội viên",
+        "D. {w3} đội viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số đội viên phải là một số chia hết cho {group1}, {group2} và {group3}.",
+        "Để tìm số đội viên ít nhất, ta cần tìm Bội chung nhỏ nhất của {group1}, {group2} và {group3}."
+      ],
+      "solutionHtml": "Vì liên đội xếp hàng {group1}, hàng {group2}, hàng {group3} đều vừa đủ hàng, nên số đội viên phải là bội chung của {group1}, {group2} và {group3}.<br/>Để tìm số đội viên ít nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của {group1}, {group2} và {group3}.<br/>Ta có:<br/>BCNN({group1}, {group2}) = {lcm_ab}<br/>BCNN({lcm_ab}, {group3}) = {ans}<br/>Vậy, số đội viên ít nhất của liên đội đó là {ans} đội viên.<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán yêu cầu tìm số lượng 'ít nhất' và có các điều kiện 'chia hết', 'vừa đủ' cho nhiều số, đó là dấu hiệu của việc tìm BCNN.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distA": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "distB": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "distA !== distB"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(distA, distB)",
+        "ans": "(distA * distB) / gcd_val",
+        "w1": "(distA * distB === ans) ? ans + distA : (distA * distB)",
+        "w2": "distA + distB",
+        "w3": "(Math.max(distA, distB) === ans || Math.max(distA, distB) === (distA + distB)) ? ans + distA + distB : Math.max(distA, distB)"
+      },
+      "questionText": "Dọc theo một con đường thẳng, người ta lắp đặt các cột điện cách nhau {distA} mét và trồng các cây xanh cách nhau {distB} mét. Cột điện đầu tiên và cây xanh đầu tiên được đặt trùng nhau tại điểm xuất phát. Hỏi sau ít nhất bao nhiêu mét kể từ điểm xuất phát thì có một cột điện và một cây xanh lại trùng vị trí?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vị trí trùng nhau phải là một khoảng cách là bội của cả {distA} và {distB}.",
+        "Khoảng cách ít nhất để chúng trùng nhau chính là Bội chung nhỏ nhất của {distA} và {distB}."
+      ],
+      "solutionHtml": "Để xác định khoảng cách ít nhất mà cột điện và cây xanh lại trùng vị trí, ta cần tìm Bội chung nhỏ nhất (BCNN) của khoảng cách giữa các cột điện ({distA} mét) và khoảng cách giữa các cây xanh ({distB} mét).<br/>Ta có:<br/>{distA} = $ {distA}<br/>{distB} = $ {distB}<br/>Tìm BCNN({distA}, {distB}):<br/>ƯCLN({distA}, {distB}) là {gcd_val}.<br/>BCNN({distA}, {distB}) $= $ $\\frac{{\\text{{{distA}}} \\times \\text{{{distB}}}}}{{\\text{{ƯCLN($\\text{{{distA}}}$, $\\text{{{distB}}}$)}}}} = \\frac{{\\text{{{distA}}} \\times \\text{{{distB}}}}}{{\\text{{{gcd_val}}}}} = \\frac{{\\text{{{w1}}}}}{{\\text{{{gcd_val}}}}} = {ans}$<br/>Vậy, sau ít nhất {ans} mét thì có một cột điện và một cây xanh lại trùng vị trí.<br/>Đáp án đúng là B.",
+      "tip": "Các bài toán về sự lặp lại theo chu kỳ, sự trùng hợp của các sự kiện thường liên quan đến Bội chung nhỏ nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "divisor1": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "divisor2": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        },
+        "divisor3": {
+          "min": 10,
+          "max": 12,
+          "step": 1
+        },
+        "remainder": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "lowerBound": {
+          "min": 200,
+          "max": 300,
+          "step": 10
+        },
+        "upperBound": {
+          "min": 400,
+          "max": 500,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "remainder < divisor1",
+        "remainder < divisor2",
+        "remainder < divisor3",
+        "divisor1 !== divisor2",
+        "divisor1 !== divisor3",
+        "divisor2 !== divisor3",
+        "lcm_val_full + remainder <= upperBound"
+      ],
+      "formulas": {
+        "gcd_d1d2": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(divisor1, divisor2)",
+        "lcm_d1d2": "(divisor1 * divisor2) / gcd_d1d2",
+        "gcd_lcm_d3": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(lcm_d1d2, divisor3)",
+        "lcm_val_full": "(lcm_d1d2 * divisor3) / gcd_lcm_d3",
+        "start_k": "Math.ceil((lowerBound - remainder) / lcm_val_full)",
+        "ans_temp": "start_k * lcm_val_full + remainder",
+        "ans": "ans_temp < lowerBound ? (start_k + 1) * lcm_val_full + remainder : ans_temp",
+        "w1": "(lcm_val_full + remainder === ans) ? ans + lcm_val_full * 3 : lcm_val_full + remainder",
+        "w2": "(lcm_val_full * 2 + remainder === ans) ? ans + lcm_val_full * 3 : lcm_val_full * 2 + remainder",
+        "w3": "(lowerBound === ans || lowerBound === (lcm_val_full + remainder) || lowerBound === (lcm_val_full * 2 + remainder)) ? lowerBound - 15 : lowerBound"
+      },
+      "questionText": "Số học sinh khối 6 của một trường nằm trong khoảng từ {lowerBound} đến {upperBound} học sinh. Khi xếp hàng {divisor1}, hàng {divisor2} hoặc hàng {divisor3} đều thừa {remainder} học sinh. Hỏi số học sinh khối 6 của trường đó là bao nhiêu?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số học sinh là $N$. Theo đề bài, $N$ chia cho {divisor1}, {divisor2}, {divisor3} đều có số dư là {remainder}.",
+        "Vậy $N - {remainder}$ phải là một số chia hết cho {divisor1}, {divisor2}, {divisor3}. Tức là $N - {remainder}$ là bội chung của {divisor1}, {divisor2}, {divisor3}."
+      ],
+      "solutionHtml": "Gọi số học sinh khối 6 của trường là $N$.<br/>Theo đề bài, khi xếp hàng {divisor1}, hàng {divisor2} hoặc hàng {divisor3} đều thừa {remainder} học sinh. Điều này có nghĩa là $N$ chia cho {divisor1}, {divisor2}, {divisor3} đều có số dư là {remainder}.<br/>Suy ra, $N - {remainder} là một số chia hết cho {divisor1}, {divisor2}, {divisor3}. Hay $N - {remainder} là bội chung của {divisor1}, {divisor2}, {divisor3}.<br/>Ta tìm Bội chung nhỏ nhất (BCNN) của {divisor1}, {divisor2}, {divisor3}.<br/>BCNN({divisor1}, {divisor2}) = {lcm_d1d2}<br/>BCNN({lcm_d1d2}, {divisor3}) = {lcm_val_full}<br/>Các bội chung của {divisor1}, {divisor2}, {divisor3} sẽ là {lcm_val_full}$, $${2 * lcm_val_full}$$`, $${3 * lcm_val_full}$$`, ...<br/>Vậy, $N - {remainder} có thể là {lcm_val_full}$`, $${2 * lcm_val_full}$$`, $${3 * lcm_val_full}$$`, ...<br/>Do đó, $N$ có thể là: $${lcm_val_full + remainder}$$`, $${2 * lcm_val_full + remainder}$$`, $${3 * lcm_val_full + remainder}$$`, ...<br/>Vì số học sinh nằm trong khoảng từ {lowerBound} đến {upperBound} học sinh, ta tìm giá trị $N$ trong khoảng này.<br/>Giá trị $N$ cần tìm là {ans} (đã được tính toán để nằm trong khoảng và là duy nhất).<br/>Vậy, số học sinh khối 6 của trường đó là {ans} học sinh.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán tìm số có dư, hãy luôn nghĩ đến việc đưa về dạng $N - \\text{so du}$ là bội chung của các số chia. Sau đó, tìm bội chung nhỏ nhất và các bội của nó để kiểm tra điều kiện khoảng.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "width": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "height": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "width !== height"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(width, height)",
+        "square_side": "(width * height) / gcd_val",
+        "ans": "(square_side / width) * (square_side / height)",
+        "w1": "(square_side === ((square_side / width) * (square_side / height))) ? ((square_side / width) * (square_side / height)) + 10 : square_side",
+        "w2": "(width * height === ((square_side / width) * (square_side / height)) || width * height === ((square_side === ((square_side / width) * (square_side / height))) ? ((square_side / width) * (square_side / height)) + 10 : square_side)) ? ((square_side / width) * (square_side / height)) + 20 : width * height",
+        "w3": "(Math.max(width, height) === ((square_side / width) * (square_side / height)) || Math.max(width, height) === ((square_side === ((square_side / width) * (square_side / height))) ? ((square_side / width) * (square_side / height)) + 10 : square_side) || Math.max(width, height) === ((width * height === ((square_side / width) * (square_side / height)) || width * height === ((square_side === ((square_side / width) * (square_side / height))) ? ((square_side / width) * (square_side / height)) + 10 : square_side)) ? ((square_side / width) * (square_side / height)) + 20 : width * height)) ? ((square_side / width) * (square_side / height)) + 30 : Math.max(width, height)"
+      },
+      "questionText": "Một mảnh giấy hình chữ nhật có kích thước {width} cm và {height} cm. Người ta muốn ghép các mảnh giấy này thành một hình vuông nhỏ nhất. Hỏi cần ít nhất bao nhiêu mảnh giấy hình chữ nhật như vậy?",
+      "options": [
+        "A. {w1} mảnh",
+        "B. {ans} mảnh",
+        "C. {w2} mảnh",
+        "D. {w3} mảnh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cạnh của hình vuông nhỏ nhất phải là bội chung của cả chiều rộng ({width} cm) và chiều dài ({height} cm) của mảnh giấy hình chữ nhật.",
+        "Cạnh của hình vuông nhỏ nhất chính là Bội chung nhỏ nhất của {width} và {height}."
+      ],
+      "solutionHtml": "Để ghép các mảnh giấy hình chữ nhật kích thước {width} cm và {height} cm thành một hình vuông nhỏ nhất, cạnh của hình vuông đó phải là Bội chung nhỏ nhất (BCNN) của {width} và {height}.<br/>Ta có:<br/>{width} = $ {width}<br/>{height} = $ {height}<br/>Tìm BCNN({width}, {height}):<br/>ƯCLN({width}, {height}) là {gcd_val}.<br/>BCNN({width}, {height}) $= $ $\\frac{{\\text{{{width}}} \\times \\text{{{height}}}}}{{\\text{{ƯCLN($\\text{{{width}}}$, $\\text{{{height}}}$)}}}} = \\frac{{\\text{{{width}}} \\times \\text{{{height}}}}}{{\\text{{{gcd_val}}}}} = {square_side}$<br/>Vậy, cạnh của hình vuông nhỏ nhất là {square_side} cm.<br/>Số mảnh giấy hình chữ nhật cần dùng để tạo thành hình vuông đó là:<br/>Số mảnh theo chiều rộng: $$\\frac{{\\text{{{square_side}}}}}{{\\text{{{width}}} }} = \\frac{{\\text{{{square_side}}}}}{{\\text{{{width}}}}} = {square_side / width}$$ (mảnh)<br/>Số mảnh theo chiều dài: $$\\frac{{\\text{{{square_side}}}}}{{\\text{{{height}}} }} = \\frac{{\\text{{{square_side}}}}}{{\\text{{{height}}}}} = {square_side / height}$$ (mảnh)<br/>Tổng số mảnh giấy cần dùng là: $${({square_side / width}) \\times ({square_side / height}) = {ans}}$$ (mảnh).<br/>Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn giữa cạnh hình vuông và số mảnh ghép. Sau khi tìm được cạnh hình vuông, phải tính toán số mảnh giấy cần thiết dựa trên kích thước của hình vuông và kích thước của mảnh giấy nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "interval1": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "interval2": {
+          "min": 15,
+          "max": 25,
+          "step": 5
+        },
+        "interval3": {
+          "min": 20,
+          "max": 30,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "interval1 !== interval2",
+        "interval1 !== interval3",
+        "interval2 !== interval3"
+      ],
+      "formulas": {
+        "gcd_i1i2": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(interval1, interval2)",
+        "lcm_i1i2": "(interval1 * interval2) / gcd_i1i2",
+        "gcd_lcm_i3": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(lcm_i1i2, interval3)",
+        "ans_min": "(lcm_i1i2 * interval3) / gcd_lcm_i3",
+        "ans_hours": "Math.floor(ans_min / 60)",
+        "ans_remaining_min": "ans_min % 60",
+        "start_hour": "8",
+        "end_hour_calc": "(8 + Math.floor(ans_min / 60)) % 24",
+        "end_minute_calc": "ans_min % 60",
+        "end_hour_display": "end_hour_calc < 10 ? '0' + end_hour_calc : end_hour_calc",
+        "end_minute_display": "end_minute_calc < 10 ? '0' + end_minute_calc : end_minute_calc",
+        "w1_min": "interval1 * interval2 * interval3",
+        "w2_min": "interval1 + interval2 + interval3",
+        "w3_min": "Math.max(interval1, interval2, interval3)"
+      },
+      "questionText": "Ba chiếc chuông đồng hồ lần lượt reo sau mỗi {interval1} phút, {interval2} phút và {interval3} phút. Nếu chúng cùng reo một lần vào lúc 8 giờ sáng, thì lần tiếp theo chúng cùng reo vào lúc mấy giờ?",
+      "options": [
+        "A. {end_hour_display}:{end_minute_display}",
+        "B. {w1_min} phút sau",
+        "C. {w2_min} phút sau",
+        "D. {w3_min} phút sau"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thời gian để ba chuông cùng reo lại là bội chung của cả ba chu kỳ reo.",
+        "Thời gian ít nhất để chúng cùng reo lại chính là Bội chung nhỏ nhất của {interval1}, {interval2} và {interval3}.",
+        "Sau khi tìm được số phút, bạn cần cộng thêm vào thời gian bắt đầu (8 giờ sáng) và chuyển đổi sang định dạng giờ:phút."
+      ],
+      "solutionHtml": "Để tìm thời điểm tiếp theo ba chuông cùng reo, ta cần tìm Bội chung nhỏ nhất (BCNN) của ba chu kỳ reo: {interval1} phút, {interval2} phút và {interval3} phút.<br/>Ta có:<br/>BCNN({interval1}, {interval2}) = {lcm_i1i2}<br/>BCNN({lcm_i1i2}, {interval3}) = {ans_min}<br/>Vậy, sau {ans_min} phút thì ba chuông sẽ cùng reo trở lại.<br/>Bây giờ, ta cần chuyển đổi {ans_min} phút thành giờ và phút:<br/>{ans_min} phút = {ans_hours} giờ và {ans_remaining_min} phút.<br/>Nếu chúng cùng reo lúc 8 giờ sáng, thì lần tiếp theo chúng cùng reo vào lúc:<br/>8 giờ + {ans_hours} giờ {ans_remaining_min} phút = {end_hour_display}:{end_minute_display}.<br/>Đáp án đúng là A.",
+      "tip": "Khi giải bài toán về thời gian, sau khi tìm được BCNN, hãy chắc chắn rằng bạn đã chuyển đổi đúng đơn vị thời gian (phút sang giờ và phút) và cộng vào thời gian gốc để có đáp án chính xác.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "cakePack": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "candyPack": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "cakePack !== candyPack"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(cakePack, candyPack)",
+        "ans_total_items": "(cakePack * candyPack) / gcd_val",
+        "ans_packs_cake": "ans_total_items / cakePack",
+        "ans_packs_candy": "ans_total_items / candyPack",
+        "w1": "((cakePack * candyPack) === ((cakePack * candyPack) / gcd_val)) ? ((cakePack * candyPack) / gcd_val) + 12 : (cakePack * candyPack)",
+        "w2": "((cakePack + candyPack) === ((cakePack * candyPack) / gcd_val) || (cakePack + candyPack) === (((cakePack * candyPack) === ((cakePack * candyPack) / gcd_val)) ? ((cakePack * candyPack) / gcd_val) + 12 : (cakePack * candyPack))) ? ((cakePack * candyPack) / gcd_val) + 24 : (cakePack + candyPack)",
+        "w3": "(Math.max(cakePack, candyPack) === ((cakePack * candyPack) / gcd_val) || Math.max(cakePack, candyPack) === (((cakePack * candyPack) === ((cakePack * candyPack) / gcd_val)) ? ((cakePack * candyPack) / gcd_val) + 12 : (cakePack * candyPack))) ? 10 : Math.max(cakePack, candyPack)"
+      },
+      "questionText": "Cô giáo muốn mua một số gói bánh và một số gói kẹo để chia cho học sinh sao cho số lượng bánh và kẹo là bằng nhau và là ít nhất. Biết mỗi gói bánh có {cakePack} chiếc, mỗi gói kẹo có {candyPack} chiếc. Hỏi cô giáo cần mua bao nhiêu chiếc bánh và kẹo tất cả?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans_total_items} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số lượng bánh và kẹo bằng nhau và là ít nhất, nghĩa là số đó phải là bội chung nhỏ nhất của số lượng bánh trong một gói và số lượng kẹo trong một gói.",
+        "Hãy tìm Bội chung nhỏ nhất của {cakePack} và {candyPack}."
+      ],
+      "solutionHtml": "Để số lượng bánh và kẹo là bằng nhau và là ít nhất, số đó phải là Bội chung nhỏ nhất (BCNN) của số chiếc bánh trong một gói ({cakePack}) và số chiếc kẹo trong một gói ({candyPack}).<br/>Ta có:<br/>{cakePack} = $ {cakePack}<br/>{candyPack} = $ {candyPack}<br/>Tìm BCNN({cakePack}, {candyPack}):<br/>ƯCLN({cakePack}, {candyPack}) là {gcd_val}.<br/>BCNN({cakePack}, {candyPack}) $= $ $\\frac{{\\text{{{cakePack}}} \\times \\text{{{candyPack}}}}}{{\\text{{ƯCLN($\\text{{{cakePack}}}$, $\\text{{{candyPack}}}$)}}}} = \\frac{{\\text{{{cakePack}}} \\times \\text{{{candyPack}}}}}{{\\text{{{gcd_val}}}}} = {ans_total_items}$<br/>Vậy, cô giáo cần mua {ans_total_items} chiếc bánh và kẹo tất cả.<br/>Số gói bánh cần mua là: $$\\frac{{\\text{{{ans_total_items}}}}}{{\\text{{{cakePack}}}}} = {ans_packs_cake}$$ (gói)<br/>Số gói kẹo cần mua là: $$\\frac{{\\text{{{ans_total_items}}}}}{{\\text{{{candyPack}}}}} = {ans_packs_candy}$$ (gói)<br/>Đáp án đúng là B.",
+      "tip": "Hãy phân biệt rõ giữa tổng số lượng vật phẩm (bánh/kẹo) và số gói cần mua. Đề bài hỏi tổng số lượng bánh và kẹo.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "shipA_days": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "shipB_days": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "shipA_days !== shipB_days"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(shipA_days, shipB_days)",
+        "ans": "(shipA_days * shipB_days) / gcd_val",
+        "w1": "( (((shipA_days * shipB_days) / gcd_val) === (shipA_days * shipB_days)) ? (shipA_days * shipB_days) + 5 : (shipA_days * shipB_days) )",
+        "w2": "shipA_days + shipB_days",
+        "w3": "( Math.max(shipA_days, shipB_days) === ((shipA_days * shipB_days) / gcd_val) ) ? Math.max(shipA_days, shipB_days) + 1 : Math.max(shipA_days, shipB_days)"
+      },
+      "questionText": "Có hai con tàu, tàu thứ nhất cứ {shipA_days} ngày thì cập bến một lần, tàu thứ hai cứ {shipB_days} ngày thì cập bến một lần. Hôm nay cả hai tàu cùng cập bến. Hỏi sau ít nhất bao nhiêu ngày nữa thì cả hai tàu lại cùng cập bến?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {ans} ngày",
+        "C. {w2} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số ngày để hai tàu lại cùng cập bến phải là một số là bội chung của số ngày cập bến của mỗi tàu.",
+        "Số ngày ít nhất chính là Bội chung nhỏ nhất của {shipA_days} và {shipB_days}."
+      ],
+      "solutionHtml": "Để tìm số ngày ít nhất mà cả hai tàu lại cùng cập bến, ta cần tìm Bội chung nhỏ nhất (BCNN) của số ngày cập bến của mỗi tàu: {shipA_days} ngày và {shipB_days} ngày.<br/>Ta có:<br/>{shipA_days} = $ {shipA_days}<br/>{shipB_days} = $ {shipB_days}<br/>Tìm BCNN({shipA_days}, {shipB_days}):<br/>ƯCLN({shipA_days}, {shipB_days}) là {gcd_val}.<br/>BCNN({shipA_days}, {shipB_days}) $= $ $\\frac{{\\text{{{shipA_days}}} \\times \\text{{{shipB_days}}}}}{{\\text{{ƯCLN($\\text{{{shipA_days}}}$, $\\text{{{shipB_days}}}$)}}}} = \\frac{{\\text{{{shipA_days}}} \\times \\text{{{shipB_days}}}}}{{\\text{{{gcd_val}}}}} = {ans}$<br/>Vậy, sau ít nhất {ans} ngày nữa thì cả hai tàu lại cùng cập bến.<br/>Đáp án đúng là B.",
+      "tip": "Các sự kiện lặp lại theo chu kỳ (như tàu cập bến, đèn nháy) thường có điểm gặp lại đầu tiên chính là BCNN của các chu kỳ đó.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "shelfCapacity1": {
+          "min": 7,
+          "max": 11,
+          "step": 1
+        },
+        "shelfCapacity2": {
+          "min": 13,
+          "max": 17,
+          "step": 1
+        },
+        "lowerBound": {
+          "min": 200,
+          "max": 250,
+          "step": 10
+        },
+        "upperBound": {
+          "min": 300,
+          "max": 350,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "shelfCapacity1 !== shelfCapacity2",
+        "lcm_val_full <= upperBound"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(shelfCapacity1, shelfCapacity2)",
+        "lcm_val_full": "(shelfCapacity1 * shelfCapacity2) / gcd_val",
+        "start_k": "Math.ceil(lowerBound / lcm_val_full)",
+        "ans_temp": "start_k * lcm_val_full",
+        "ans": "ans_temp < lowerBound ? (start_k + 1) * lcm_val_full : ans_temp",
+        "w1": "lcm_val_full",
+        "w2": "((lcm_val_full * 2) === ans) ? lcm_val_full * 3 : lcm_val_full * 2",
+        "w3": "lowerBound"
+      },
+      "questionText": "Một thủ thư muốn xếp một số lượng sách vào các ngăn tủ. Nếu xếp mỗi ngăn {shelfCapacity1} quyển thì vừa đủ, nếu xếp mỗi ngăn {shelfCapacity2} quyển cũng vừa đủ. Biết số sách có trong khoảng từ {lowerBound} đến {upperBound} quyển. Hỏi có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số sách phải là một số chia hết cho cả {shelfCapacity1} và {shelfCapacity2} (tức là bội chung của chúng).",
+        "Vì số sách là một bội chung, hãy liệt kê các bội chung của {shelfCapacity1} và {shelfCapacity2} và tìm số phù hợp với điều kiện số sách nằm trong khoảng từ {lowerBound} đến {upperBound}."
+      ],
+      "solutionHtml": "Gọi số sách cần tìm là $N$.<br/>Theo đề bài, nếu xếp mỗi ngăn {shelfCapacity1} quyển thì vừa đủ, nếu xếp mỗi ngăn {shelfCapacity2} quyển cũng vừa đủ. Điều này có nghĩa là $N$ là bội chung của {shelfCapacity1} và {shelfCapacity2}.<br/>Ta tìm Bội chung nhỏ nhất (BCNN) của {shelfCapacity1} và {shelfCapacity2}.<br/>Ta có:<br/>{shelfCapacity1} = $ {shelfCapacity1}<br/>{shelfCapacity2} = $ {shelfCapacity2}<br/>Tìm BCNN({shelfCapacity1}, {shelfCapacity2}):<br/>ƯCLN({shelfCapacity1}, {shelfCapacity2}) là {gcd_val}.<br/>BCNN({shelfCapacity1}, {shelfCapacity2}) $= $ $\\frac{{\\text{{{shelfCapacity1}}} \\times \\text{{{shelfCapacity2}}}}}{{\\text{{ƯCLN($\\text{{{shelfCapacity1}}}$, $\\text{{{shelfCapacity2}}}$)}}}} = \\frac{{\\text{{{shelfCapacity1}}} \\times \\text{{{shelfCapacity2}}}}}{{\\text{{{gcd_val}}}}} = {lcm_val_full}$<br/>Các bội chung của {shelfCapacity1} và {shelfCapacity2} sẽ là {lcm_val_full}$, $${2 * lcm_val_full}$$`, $${3 * lcm_val_full}$$`, ...<br/>Vì số sách có trong khoảng từ {lowerBound} đến {upperBound} quyển, ta tìm giá trị $N$ trong khoảng này.<br/>Giá trị $N$ cần tìm là {ans}.<br/>Vậy, có {ans} quyển sách.<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra tất cả các điều kiện trong đề bài (như khoảng giá trị) sau khi tìm được BCNN hoặc các bội của nó để đảm bảo chọn được đáp án chính xác và duy nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "runner1_min": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "runner2_min": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "runner1_min !== runner2_min"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(runner1_min, runner2_min)",
+        "ans": "(runner1_min * runner2_min) / gcd_val",
+        "w1": "( (((runner1_min * runner2_min) / gcd_val) === (runner1_min * runner2_min)) ? (runner1_min * runner2_min) + 5 : (runner1_min * runner2_min) )",
+        "w2": "runner1_min + runner2_min",
+        "w3": "( Math.max(runner1_min, runner2_min) === ((runner1_min * runner2_min) / gcd_val) ) ? Math.max(runner1_min, runner2_min) + 1 : Math.max(runner1_min, runner2_min)"
+      },
+      "questionText": "Hai vận động viên chạy bộ quanh một sân vận động hình tròn. Người thứ nhất chạy hết một vòng trong {runner1_min} phút, người thứ hai chạy hết một vòng trong {runner2_min} phút. Nếu cả hai cùng xuất phát tại một điểm, hỏi sau ít nhất bao nhiêu phút thì họ lại gặp nhau tại đúng điểm xuất phát?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian để cả hai vận động viên gặp lại nhau tại điểm xuất phát phải là một số là bội chung của thời gian chạy hết một vòng của mỗi người.",
+        "Thời gian ít nhất để họ gặp nhau tại điểm xuất phát chính là Bội chung nhỏ nhất của {runner1_min} và {runner2_min}."
+      ],
+      "solutionHtml": "Để tìm thời gian ít nhất mà hai vận động viên gặp lại nhau tại đúng điểm xuất phát, ta cần tìm Bội chung nhỏ nhất (BCNN) của thời gian chạy hết một vòng của mỗi người: {runner1_min} phút và {runner2_min} phút.<br/>Ta có:<br/>{runner1_min} = $ {runner1_min}<br/>{runner2_min} = $ {runner2_min}<br/>Tìm BCNN({runner1_min}, {runner2_min}):<br/>ƯCLN({runner1_min}, {runner2_min}) là {gcd_val}.<br/>BCNN({runner1_min}, {runner2_min}) $= $ $\\frac{{\\text{{{runner1_min}}} \\times \\text{{{runner2_min}}}}}{{\\text{{ƯCLN($\\text{{{runner1_min}}}$, $\\text{{{runner2_min}}}$)}}}} = \\frac{{\\text{{{runner1_min}}} \\times \\text{{{runner2_min}}}}}{{\\text{{{gcd_val}}}}} = {ans}$<br/>Vậy, sau ít nhất {ans} phút thì cả hai vận động viên lại gặp nhau tại đúng điểm xuất phát.<br/>Đáp án đúng là B.",
+      "tip": "Đảm bảo rằng bạn hiểu rõ yêu cầu của bài toán là 'gặp lại nhau TẠI ĐIỂM XUẤT PHÁT'. Nếu chỉ là 'gặp lại nhau' ở bất kỳ đâu trên đường đua, bài toán sẽ phức tạp hơn và không còn là BCNN đơn thuần.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "busA_interval": {
+          "min": 15,
+          "max": 25,
+          "step": 5
+        },
+        "busB_interval": {
+          "min": 20,
+          "max": 30,
+          "step": 10
+        },
+        "first_busA": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "first_busB": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "busA_interval !== busB_interval",
+        "first_busA !== first_busB",
+        "Math.abs(first_busA - first_busB) % gcd(busA_interval, busB_interval) === 0"
+      ],
+      "formulas": {
+        "gcd_val": "(function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var temp = b; b = a % b; a = temp; } return a; })(busA_interval, busB_interval)",
+        "lcm_interval": "(busA_interval * busB_interval) / gcd_val",
+        "initial_lcm": "lcm_interval",
+        "diff_start_times": "Math.abs(first_busA - first_busB)",
+        "ans_base": "initial_lcm",
+        "ans_total_minutes": "first_busA + initial_lcm",
+        "ans_hours": "Math.floor(ans_total_minutes / 60)",
+        "ans_remaining_min": "ans_total_minutes % 60",
+        "start_time_minutes": "first_busA",
+        "current_minute": "first_busA",
+        "ans_exact_time": "(function(a, b, L, sA, sB) { /* L = LCM(a,b) */ /* sA, sB = start_offsets */ var time = L; var maxLimit = L * 2 + Math.max(sA, sB); while (time <= maxLimit) { if ((time - sA) % a === 0 && (time - sB) % b === 0 && time >= Math.max(sA, sB) ) { return time; } time += L; } return Math.max(sA, sB) + L; })(busA_interval, busB_interval, lcm_interval, first_busA, first_busB)",
+        "final_hour": "(6 + Math.floor(ans_exact_time / 60)) % 24",
+        "final_minute": "ans_exact_time % 60",
+        "final_hour_display": "final_hour < 10 ? '0' + final_hour : final_hour",
+        "final_minute_display": "final_minute < 10 ? '0' + final_minute : final_minute",
+        "w1": "first_busA + first_busB",
+        "w2": "lcm_interval",
+        "w3": "Math.max(first_busA, first_busB)"
+      },
+      "questionText": "Tại một bến xe, chuyến xe buýt tuyến A khởi hành cứ {busA_interval} phút một chuyến, chuyến đầu tiên lúc 6 giờ {first_busA} phút sáng. Chuyến xe buýt tuyến B khởi hành cứ {busB_interval} phút một chuyến, chuyến đầu tiên lúc 6 giờ {first_busB} phút sáng. Hỏi lần tiếp theo cả hai tuyến xe buýt này cùng khởi hành một lúc là mấy giờ?",
+      "options": [
+        "A. {final_hour_display}:{final_minute_display}",
+        "B. 6 giờ {w1} phút",
+        "C. 6 giờ {w2} phút",
+        "D. 6 giờ {w3} phút"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thời điểm các chuyến xe buýt khởi hành có thể biểu diễn dưới dạng $\\text{6h00} + k \\times \\text{chu ky} + \\text{thoi gian chuyen dau tien}$ phút.",
+        "Cần tìm một thời điểm $T$ sao cho $$(T - (\\text{6h00} + {first_busA})) \\text{ chia het cho } {busA_interval}$$ và $$(T - (\\text{6h00} + {first_busB})) \\text{ chia het cho } {busB_interval}$$.",
+        "Đây là bài toán nâng cao về Bội chung, cần tìm bội chung của hai chu kỳ nhưng có xét đến thời điểm khởi hành ban đầu khác nhau."
+      ],
+      "solutionHtml": "Gọi thời điểm hai chuyến xe cùng khởi hành là $T$ (tính bằng phút kể từ 6 giờ sáng).<br/>Tuyến A: Các chuyến xe khởi hành vào các thời điểm {first_busA}, {first_busA} + {busA_interval}$, {first_busA} + 2 \\times {busA_interval}$, ... (phút sau 6 giờ sáng).<br/>Tuyến B: Các chuyến xe khởi hành vào các thời điểm {first_busB}, {first_busB} + {busB_interval}$, {first_busB} + 2 \\times {busB_interval}$, ... (phút sau 6 giờ sáng).<br/>Để hai chuyến xe cùng khởi hành, thời điểm $T$ phải là chung của cả hai dãy số trên.<br/>Điều này có nghĩa là $T - {first_busA} là bội của {busA_interval} và $T - {first_busB} là bội của {busB_interval}.<br/>Để tìm thời điểm sớm nhất $T$ mà hai xe cùng khởi hành, ta có thể liệt kê các thời điểm khởi hành của mỗi xe và tìm điểm chung đầu tiên.<br/>Tuy nhiên, cách hiệu quả hơn là tìm Bội chung nhỏ nhất của hai chu kỳ {busA_interval} và {busB_interval}.<br/>BCNN({busA_interval}, {busB_interval}) = {lcm_interval} phút.<br/>Thời gian này cho biết cứ sau mỗi {lcm_interval} phút thì các chuyến xe lại xuất hiện theo một 'mẫu' lặp lại.<br/>Bây giờ, ta cần tìm giá trị $T$ nhỏ nhất (kể từ 6h00) thỏa mãn:<br/>$T \\equiv {first_busA} \\pmod{{busA_interval}}$<br/>$T \\equiv {first_busB} \\pmod{{busB_interval}}$<br/>Và $T \\ge \\text{max}({first_busA}, {first_busB})$.<br/>Bằng cách thử các bội của BCNN({busA_interval}, {busB_interval}) hoặc bằng cách sử dụng phương pháp tìm kiếm, ta thấy rằng thời điểm {ans_exact_time} phút sau 6 giờ sáng là thời điểm sớm nhất mà cả hai xe cùng khởi hành.<br/>$({ans_exact_time} - {first_busA}) = {ans_exact_time - first_busA}$ chia hết cho {busA_interval}. ($$\\frac{{ans_exact_time - first_busA}}{{busA_interval}}} = ${ (ans_exact_time - first_busA) / busA_interval }$$`, là số nguyên)<br/>$({ans_exact_time} - {first_busB}) = {ans_exact_time - first_busB}$ chia hết cho {busB_interval}. ($$\\frac{{ans_exact_time - first_busB}}{{busB_interval}}} = ${ (ans_exact_time - first_busB) / busB_interval }$$`, là số nguyên)<br/>Chuyển đổi {ans_exact_time} phút thành giờ và phút:<br/>{ans_exact_time} phút = {final_hour} giờ {final_minute} phút.<br/>Vậy, lần tiếp theo cả hai tuyến xe buýt này cùng khởi hành một lúc là {final_hour_display}:{final_minute_display}.<br/>Đáp án đúng là A.",
+      "tip": "Khi các sự kiện lặp lại có thời điểm bắt đầu khác nhau, bài toán không đơn thuần là tìm BCNN. Bạn phải tìm bội chung của các chu kỳ sao cho thời điểm đó thỏa mãn cả hai điều kiện khởi hành ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "bai-12-d4"
+    }
+  ]
+}

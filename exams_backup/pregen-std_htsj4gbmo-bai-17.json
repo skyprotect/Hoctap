@@ -1,0 +1,684 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "groupSize1": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "groupSize2": {
+          "min": 7,
+          "max": 10,
+          "step": 1
+        },
+        "groupSize3": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "groupSize1 !== groupSize2",
+        "groupSize1 !== groupSize3",
+        "groupSize2 !== groupSize3"
+      ],
+      "formulas": {
+        "gcd2": "(() => { let a = variables.groupSize1; let b = variables.groupSize2; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm2": "(variables.groupSize1 * variables.groupSize2) / formulas.gcd2",
+        "gcd3": "(() => { let a = formulas.lcm2; let b = variables.groupSize3; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "ans": "(formulas.lcm2 * variables.groupSize3) / formulas.gcd3",
+        "w1": "variables.groupSize1 * variables.groupSize2 + variables.groupSize3",
+        "w2": "variables.groupSize1 + variables.groupSize2 + variables.groupSize3",
+        "w3": "variables.groupSize1 * variables.groupSize2 * variables.groupSize3 - 1"
+      },
+      "questionText": "Một câu lạc bộ thể thao muốn chia các thành viên thành các nhóm $ {groupSize1} $ người, các nhóm $ {groupSize2} $ người hoặc các nhóm $ {groupSize3} $ người thì đều vừa đủ. Hỏi câu lạc bộ đó có ít nhất bao nhiêu thành viên?",
+      "options": [
+        "A. $ {w1} $ thành viên",
+        "B. $ {ans} $ thành viên",
+        "C. $ {w2} $ thành viên",
+        "D. $ {w3} $ thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số thành viên của câu lạc bộ phải là bội chung của $ {groupSize1} $, $ {groupSize2} $ và $ {groupSize3} $.",
+        "Để tìm số thành viên ít nhất, ta cần tìm bội chung nhỏ nhất (BCNN) của các số đó."
+      ],
+      "solutionHtml": "Để số thành viên có thể chia thành các nhóm $ {groupSize1} $ người, $ {groupSize2} $ người hoặc $ {groupSize3} $ người một cách vừa đủ, thì số thành viên phải là bội chung của $ {groupSize1} $, $ {groupSize2} $ và $ {groupSize3} $.<br/>Để tìm số thành viên ít nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của ba số này.<br/>Ta có:<br/>BCNN($ {groupSize1} $, $ {groupSize2} $) = $ {lcm2} $<br/>BCNN($ {lcm2} $, $ {groupSize3} $) = $ {ans} $<br/>Vậy, câu lạc bộ đó có ít nhất <b>$ {ans} $</b> thành viên.<br/>Đáp án đúng là B.",
+      "tip": "Để tìm BCNN của nhiều số, ta có thể tìm BCNN của hai số trước, sau đó tìm BCNN của kết quả đó với số tiếp theo.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "divisorA": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "remainderA": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "divisorB": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "remainderB": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "checkDivisor": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "divisorA !== divisorB",
+        "remainderA < divisorA",
+        "remainderB < divisorB",
+        "remainderA + 1 === divisorA",
+        "remainderB + 1 === divisorB",
+        "ans !== null"
+      ],
+      "formulas": {
+        "gcd_val": "(() => { let a = variables.divisorA; let b = variables.divisorB; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm_val": "(variables.divisorA * variables.divisorB) / formulas.gcd_val",
+        "candidateBase": "formulas.lcm_val - 1",
+        "ans": "(() => { let k = 1; while (k <= 1000) { let num = formulas.lcm_val * k - 1; if (num > 0 && num % variables.checkDivisor === 0) return num; k++; } return null; })()",
+        "w1": "formulas.lcm_val + variables.checkDivisor",
+        "w2": "formulas.lcm_val - variables.checkDivisor + 1",
+        "w3": "formulas.lcm_val * 2 - 1"
+      },
+      "questionText": "Có một số lượng sách giáo khoa. Khi xếp số sách này vào các chồng $ {divisorA} $ cuốn thì thừa $ {remainderA} $ cuốn, khi xếp vào các chồng $ {divisorB} $ cuốn thì thừa $ {remainderB} $ cuốn. Hỏi số sách đó ít nhất là bao nhiêu, biết rằng số sách này chia hết cho $ {checkDivisor} $?",
+      "options": [
+        "A. $ {w1} $ cuốn",
+        "B. $ {ans} $ cuốn",
+        "C. $ {w2} $ cuốn",
+        "D. $ {w3} $ cuốn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số sách khi cộng thêm 1 thì sẽ chia hết cho $ {divisorA} $ và $ {divisorB} $.",
+        "Tìm Bội chung nhỏ nhất (BCNN) của $ {divisorA} $ và $ {divisorB} $.",
+        "Từ đó, tìm ra số sách thỏa mãn điều kiện chia hết cho $ {checkDivisor} $."
+      ],
+      "solutionHtml": "Gọi số sách là $N$.<br/>Theo đề bài, khi xếp số sách vào các chồng $ {divisorA} $ cuốn thì thừa $ {remainderA} $ cuốn, tức là $N$ chia $ {divisorA} $ dư $ {remainderA} $.<br/>Khi xếp vào các chồng $ {divisorB} $ cuốn thì thừa $ {remainderB} $ cuốn, tức là $N$ chia $ {divisorB} $ dư $ {remainderB} $.<br/>Ta nhận thấy rằng, nếu số sách tăng thêm 1 cuốn ($N+1$), thì số sách đó sẽ chia hết cho cả $ {divisorA} $ và $ {divisorB} $ (vì $ {remainderA} + 1 = {divisorA} $ và $ {remainderB} + 1 = {divisorB} $).<br/>Vậy, $N+1$ là một bội chung của $ {divisorA} $ và $ {divisorB} $.<br/>Để tìm số $N$ nhỏ nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của $ {divisorA} $ và $ {divisorB} $.<br/>BCNN($ {divisorA} $, $ {divisorB} $) = $ {lcm_val} $<br/>Vậy $N+1$ là bội của $ {lcm_val} $. Các giá trị có thể của $N+1$ là $ {lcm_val} $, $2 \\times {lcm_val} $, $3 \\times {lcm_val} $, ...<br/>Suy ra $N$ có thể là: $ {lcm_val} - 1 $, $2 \\times {lcm_val} - 1 $, $3 \\times {lcm_val} - 1 $, ...<br/>Hay $N$ có thể là: $ {candidateBase} $, $2 \\times {lcm_val} - 1 $, $3 \\times {lcm_val} - 1 $, ...<br/>Đồng thời, đề bài cho biết số sách này chia hết cho $ {checkDivisor} $.<br/>Ta lần lượt thử các giá trị của $N$: $ {candidateBase} $, $2 \\times {lcm_val} - 1 $, $3 \\times {lcm_val} - 1 $, ... cho đến khi tìm được số $N$ nhỏ nhất chia hết cho $ {checkDivisor} $.<br/>Số $N$ nhỏ nhất thỏa mãn là <b>$ {ans} $</b>.<br/>Đáp án đúng là B.",
+      "tip": "Khi gặp bài toán số dư dạng $N$ chia cho $a$ dư $a-1$, $N$ chia cho $b$ dư $b-1$, ta suy ra $N+1$ sẽ chia hết cho cả $a$ và $b$.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "length": {
+          "min": 60,
+          "max": 120,
+          "step": 5
+        },
+        "width": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "length > width",
+        "length % 10 === 0",
+        "width % 10 === 0"
+      ],
+      "formulas": {
+        "gcd_val": "(() => { let a = variables.length; let b = variables.width; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "ans": "formulas.gcd_val",
+        "w1": "variables.length + variables.width",
+        "w2": "Math.min(variables.length, variables.width) / 2",
+        "w3": "Math.max(variables.length, variables.width)"
+      },
+      "questionText": "Một người nông dân muốn chia một mảnh đất hình chữ nhật có chiều dài $ {length} $ mét và chiều rộng $ {width} $ mét thành những ô vuông nhỏ bằng nhau để trồng các loại rau khác nhau. Hỏi cạnh của ô vuông lớn nhất có thể là bao nhiêu mét?",
+      "options": [
+        "A. $ {w1} $ mét",
+        "B. $ {ans} $ mét",
+        "C. $ {w2} $ mét",
+        "D. $ {w3} $ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cạnh của ô vuông phải là ước của cả chiều dài và chiều rộng của mảnh đất.",
+        "Để tìm cạnh của ô vuông lớn nhất, ta cần tìm ước chung lớn nhất (ƯCLN) của chiều dài và chiều rộng."
+      ],
+      "solutionHtml": "Để chia mảnh đất hình chữ nhật thành những ô vuông nhỏ bằng nhau, thì cạnh của mỗi ô vuông phải là ước của cả chiều dài và chiều rộng của mảnh đất.<br/>Để cạnh của ô vuông là lớn nhất, ta cần tìm Ước chung lớn nhất (ƯCLN) của chiều dài và chiều rộng.<br/>Chiều dài là $ {length} $ mét, chiều rộng là $ {width} $ mét.<br/>Ta tìm ƯCLN($ {length} $, $ {width} $):<br/>Áp dụng thuật toán Euclid, ta tìm được:<br/>ƯCLN($ {length} $, $ {width} $) = $ {ans} $<br/>Vậy, cạnh của ô vuông lớn nhất có thể là <b>$ {ans} $</b> mét.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán chia đều một vật thể thành các phần bằng nhau với kích thước lớn nhất thường liên quan đến Ước chung lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lowerBound": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "upperBound": {
+          "min": 300,
+          "max": 400,
+          "step": 10
+        },
+        "divisorA": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "divisorB": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "lowerBound < upperBound",
+        "divisorA !== divisorB"
+      ],
+      "formulas": {
+        "gcd_val_q4": "(() => { let a = variables.divisorA; let b = variables.divisorB; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm_val_q4": "(variables.divisorA * variables.divisorB) / formulas.gcd_val_q4",
+        "firstMultiple": "Math.ceil(variables.lowerBound / formulas.lcm_val_q4) * formulas.lcm_val_q4",
+        "lastMultiple": "Math.floor(variables.upperBound / formulas.lcm_val_q4) * formulas.lcm_val_q4",
+        "ans": "Math.floor(variables.upperBound / formulas.lcm_val_q4) - Math.floor((variables.lowerBound - 1) / formulas.lcm_val_q4)",
+        "w1": "Math.floor(variables.upperBound / variables.divisorA) - Math.ceil(variables.lowerBound / variables.divisorA) + 1",
+        "w2": "Math.floor(variables.upperBound / variables.divisorB) - Math.ceil(variables.lowerBound / variables.divisorB) + 1",
+        "w3": "formulas.lcm_val_q4 * 2"
+      },
+      "questionText": "Trong các số tự nhiên từ $ {lowerBound} $ đến $ {upperBound} $ (bao gồm cả $ {lowerBound} $ và $ {upperBound} $), có bao nhiêu số vừa chia hết cho $ {divisorA} $ vừa chia hết cho $ {divisorB} $?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một số vừa chia hết cho $ {divisorA} $ vừa chia hết cho $ {divisorB} $ thì số đó phải chia hết cho Bội chung nhỏ nhất của $ {divisorA} $ và $ {divisorB} $.",
+        "Tìm BCNN của $ {divisorA} $ và $ {divisorB} $.",
+        "Sau đó, đếm số bội của BCNN đó trong khoảng đã cho."
+      ],
+      "solutionHtml": "Một số vừa chia hết cho $ {divisorA} $ vừa chia hết cho $ {divisorB} $ thì số đó phải chia hết cho Bội chung nhỏ nhất (BCNN) của $ {divisorA} $ và $ {divisorB} $.<br/>Bước 1: Tìm BCNN($ {divisorA} $, $ {divisorB} $)<br/>ƯCLN($ {divisorA} $, $ {divisorB} $) = $ {gcd_val_q4} $<br/>BCNN($ {divisorA} $, $ {divisorB} $) = $({divisorA} \\times {divisorB}) : {gcd_val_q4} = {lcm_val_q4} $.<br/>Bước 2: Đếm số lượng bội của $ {lcm_val_q4} $ trong khoảng từ $ {lowerBound} $ đến $ {upperBound} $.<br/>Số bội nhỏ nhất của $ {lcm_val_q4} $ lớn hơn hoặc bằng $ {lowerBound} $ là: $ {firstMultiple} $.<br/>Số bội lớn nhất của $ {lcm_val_q4} $ nhỏ hơn hoặc bằng $ {upperBound} $ là: $ {lastMultiple} $.<br/>Số lượng các số cần tìm là: $ ( {lastMultiple} - {firstMultiple} ) : {lcm_val_q4} + 1 = {ans} $.<br/>(Công thức tổng quát để đếm số bội của $k$ trong khoảng $ [A, B] $ là $ \\lfloor B/k \\rfloor - \\lceil A/k \\rceil + 1 $ hoặc $ \\lfloor B/k \\rfloor - \\lfloor (A-1)/k \\rfloor $).<br/>Số lượng các số là: $ {ans} $<br/>Vậy, có <b>$ {ans} $</b> số thỏa mãn yêu cầu đề bài.<br/>Đáp án đúng là B.",
+      "tip": "Để đếm số lượng bội của một số trong một khoảng, ta thường sử dụng phép chia lấy phần nguyên và phép làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "fixedPart1": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        },
+        "fixedPart2": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "divisibleBy": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "multipleOf": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fixedPart1 !== fixedPart2",
+        "multipleOf % divisibleBy !== 0"
+      ],
+      "formulas": {
+        "baseNum": "variables.fixedPart1 * 1000 + variables.fixedPart2",
+        "productLCM": "variables.divisibleBy * variables.multipleOf",
+        "ans": "(() => { let count = 0; for (let a = 0; a <= 9; a++) { for (let b = 0; b <= 9; b++) { let num = variables.fixedPart1 * 1000 + a * 100 + b * 10 + variables.fixedPart2; if (num % formulas.productLCM === 0) { count++; } } } return count; })()",
+        "sum_digits_base": "variables.fixedPart1 + variables.fixedPart2",
+        "w1": "formulas.ans + 1",
+        "w2": "formulas.ans - 1",
+        "w3": "formulas.ans * 2"
+      },
+      "questionText": "Tìm số lượng các số tự nhiên có dạng $ {fixedPart1}ab{fixedPart2} $ (trong đó $a$, $b$ là các chữ số) sao cho số đó vừa chia hết cho $ {divisibleBy} $ vừa chia hết cho $ {multipleOf} $?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số $ {fixedPart1}ab{fixedPart2} $ chia hết cho $ {divisibleBy} $ và $ {multipleOf} $ có nghĩa là nó chia hết cho BCNN của $ {divisibleBy} $ và $ {multipleOf} $.",
+        "Hãy xét các điều kiện chia hết cho $ {divisibleBy} $ và $ {multipleOf} $.",
+        "Thử các cặp giá trị của $a$ và $b$ từ 0 đến 9."
+      ],
+      "solutionHtml": "Số tự nhiên có dạng $ {fixedPart1}ab{fixedPart2} $. Để số này vừa chia hết cho $ {divisibleBy} $ vừa chia hết cho $ {multipleOf} $, nó phải chia hết cho Bội chung nhỏ nhất (BCNN) của $ {divisibleBy} $ và $ {multipleOf} $.<br/>Bước 1: Tìm BCNN($ {divisibleBy} $, $ {multipleOf} $)<br/>Ta có Ước chung lớn nhất (ƯCLN) của $ {divisibleBy} $ và $ {multipleOf} $ là $1$ (vì chúng là các số nguyên tố cùng nhau hoặc không có ước chung khác 1 trong phạm vi nhỏ).<br/>Vậy BCNN($ {divisibleBy} $, $ {multipleOf} $) = $ {divisibleBy} \\times {multipleOf} = {formulas.productLCM} $.<br/>Số cần tìm phải là bội của $ {formulas.productLCM} $.<br/>Bước 2: Lập số và kiểm tra điều kiện.<br/>Số có dạng $ {fixedPart1}ab{fixedPart2} $. Đây là số có 4 chữ số, với chữ số hàng nghìn là $ {fixedPart1} $, chữ số hàng đơn vị là $ {fixedPart2} $.<br/>Chữ số $a$ và $b$ có thể nhận các giá trị từ 0 đến 9.<br/>Chúng ta có thể kiểm tra từng trường hợp hoặc sử dụng điều kiện chia hết.<br/>Ví dụ, nếu $ {formulas.productLCM} $ là 15 (chia hết cho 3 và 5):<br/>- Điều kiện chia hết cho 5: Chữ số cuối cùng là 0 hoặc 5. Ở đây, chữ số cuối cùng là $ {fixedPart2} $, nếu $ {fixedPart2} $ không phải 0 hoặc 5 thì không có số nào thỏa mãn. (Trong các biến, fixedPart2 từ 5 đến 9, nên chỉ xét khi fixedPart2 là 5).<br/>- Điều kiện chia hết cho 3: Tổng các chữ số chia hết cho 3. ($ {fixedPart1} + a + b + {fixedPart2} $) chia hết cho 3.<br/>Chúng ta sẽ dùng vòng lặp để đếm chính xác số lượng.<br/>Số có dạng $ {fixedPart1}ab{fixedPart2} $ có giá trị là $ {fixedPart1}000 + a \\times 100 + b \\times 10 + {fixedPart2} $.<br/>Ta kiểm tra từng cặp giá trị của $a$ và $b$ từ 0 đến 9:<br/>- Với $a=0, b=0$: Số là $ {fixedPart1}00{fixedPart2} $. Kiểm tra chia hết cho $ {formulas.productLCM} $.<br/>- ...<br/>- Với $a=9, b=9$: Số là $ {fixedPart1}99{fixedPart2} $. Kiểm tra chia hết cho $ {formulas.productLCM} $.<br/>Tổng số các số thỏa mãn điều kiện là <b>$ {ans} $</b> số.<br/>Đáp án đúng là B.",
+      "tip": "Khi một số phải thỏa mãn nhiều điều kiện chia hết, hãy tìm Bội chung nhỏ nhất của các số chia. Sau đó, kết hợp với các dấu hiệu chia hết cơ bản và điều kiện về các chữ số.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "period1": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "period2": {
+          "min": 4,
+          "max": 9,
+          "step": 1
+        },
+        "startDay": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "period1 !== period2"
+      ],
+      "formulas": {
+        "gcd_val_q6": "(() => { let a = variables.period1; let b = variables.period2; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm_val_q6": "(variables.period1 * variables.period2) / formulas.gcd_val_q6",
+        "ans": "formulas.lcm_val_q6",
+        "w1": "variables.period1 + variables.period2",
+        "w2": "variables.period1 * variables.period2",
+        "w3": "formulas.lcm_val_q6 + 1"
+      },
+      "questionText": "Hai vận động viên chạy bộ trên một đường đua vòng tròn. Vận động viên A hoàn thành một vòng trong $ {period1} $ phút, vận động viên B hoàn thành một vòng trong $ {period2} $ phút. Cả hai cùng xuất phát tại vạch đích vào ngày đầu tiên, lúc $ {startDay} $ giờ sáng. Hỏi sau ít nhất bao nhiêu phút kể từ khi xuất phát thì cả hai lại gặp nhau tại vạch đích lần đầu tiên? (Không tính thời điểm xuất phát)",
+      "options": [
+        "A. $ {w1} $ phút",
+        "B. $ {ans} $ phút",
+        "C. $ {w2} $ phút",
+        "D. $ {w3} $ phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian để cả hai vận động viên gặp nhau tại vạch đích phải là một số chia hết cho cả $ {period1} $ và $ {period2} $.",
+        "Để tìm thời gian ít nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của $ {period1} $ và $ {period2} $."
+      ],
+      "solutionHtml": "Để hai vận động viên gặp nhau tại vạch đích lần đầu tiên sau khi xuất phát, thời gian chạy của họ phải là một số chia hết cho cả thời gian hoàn thành một vòng của vận động viên A ($ {period1} $ phút) và vận động viên B ($ {period2} $ phút).<br/>Để tìm thời gian ít nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của $ {period1} $ và $ {period2} $.<br/>Bước 1: Tìm BCNN($ {period1} $, $ {period2} $)<br/>ƯCLN($ {period1} $, $ {period2} $) = $ {gcd_val_q6} $<br/>BCNN($ {period1} $, $ {period2} $) = $({period1} \\times {period2}) : {gcd_val_q6} = {lcm_val_q6} $.<br/>Vậy, sau ít nhất $ {lcm_val_q6} $ phút thì cả hai vận động viên lại gặp nhau tại vạch đích.<br/>Thời gian này là số phút kể từ khi xuất phát. Đề bài hỏi sau ít nhất bao nhiêu phút. Vậy đáp án là <b>$ {lcm_val_q6} $</b> phút.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán về chu kỳ hoặc sự kiện lặp lại (ví dụ: gặp nhau, cùng bật sáng), thời điểm các sự kiện xảy ra đồng thời lần tiếp theo thường là Bội chung nhỏ nhất của các chu kỳ.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "targetDivisorCount": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "multipleOf": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "upperLimit": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "multipleOf > 1",
+        "targetDivisorCount > 1"
+      ],
+      "formulas": {
+        "getAllDivisors": "n => { let divisors = []; for (let i = 1; i <= n; i++) { if (n % i === 0) { divisors.push(i); } } return divisors; }",
+        "ans": "(() => { for (let i = variables.multipleOf; i < variables.upperLimit; i += variables.multipleOf) { let numDivisors = formulas.getAllDivisors(i).length; if (numDivisors === variables.targetDivisorCount) { return i; } } return -1; })()",
+        "w1": "variables.multipleOf * 2",
+        "w2": "variables.multipleOf * 3",
+        "w3": "variables.multipleOf * 4"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất có $ {targetDivisorCount} $ ước, biết rằng số đó là bội của $ {multipleOf} $ và nhỏ hơn $ {upperLimit} $.",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số cần tìm là bội của $ {multipleOf} $, vậy ta chỉ cần xét các số là bội của $ {multipleOf} $ trong khoảng từ $ {multipleOf} $ đến $ {upperLimit}-1 $.",
+        "Với mỗi bội đó, hãy đếm số lượng ước của nó.",
+        "Số nào có đúng $ {targetDivisorCount} $ ước và nhỏ nhất sẽ là đáp án."
+      ],
+      "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, $N$ là bội của $ {multipleOf} $ và $N < {upperLimit} $. Đồng thời, $N$ có đúng $ {targetDivisorCount} $ ước.<br/>Bước 1: Liệt kê các bội của $ {multipleOf} $ nhỏ hơn $ {upperLimit} $:<br/>Các bội của $ {multipleOf} $ là: $ {multipleOf} $, $ {variables.multipleOf * 2} $, $ {variables.multipleOf * 3} $, ... (cho đến khi nhỏ hơn $ {upperLimit} $).<br/>Bước 2: Với mỗi số tìm được ở Bước 1, ta đếm số lượng ước của nó, cho đến khi tìm được số $N$ đầu tiên có đúng $ {targetDivisorCount} $ ước.<br/>Số tự nhiên nhỏ nhất thỏa mãn tất cả các điều kiện là <b>$ {ans} $</b>.<br/>Đáp án đúng là B.",
+      "tip": "Để tìm số lượng ước của một số $N$, ta có thể liệt kê tất cả các số từ 1 đến $N$ và kiểm tra xem số nào chia hết cho $N$. Hoặc dùng phương pháp phân tích thừa số nguyên tố (phức tạp hơn cho lớp 6).",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "groupSizeA": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "groupSizeB": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "groupSizeC": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        },
+        "exactDivisor": {
+          "min": 7,
+          "max": 11,
+          "step": 1
+        },
+        "maxCandies": {
+          "min": 150,
+          "max": 250,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "groupSizeA !== groupSizeB",
+        "groupSizeB !== groupSizeC",
+        "groupSizeA !== groupSizeC",
+        "exactDivisor > groupSizeC",
+        "(groupSizeA * groupSizeB * groupSizeC) % exactDivisor !== 0",
+        "ans !== null"
+      ],
+      "formulas": {
+        "gcdAB": "(() => { let a = variables.groupSizeA; let b = variables.groupSizeB; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcmAB": "(variables.groupSizeA * variables.groupSizeB) / formulas.gcdAB",
+        "gcdABC": "(() => { let a = formulas.lcmAB; let b = variables.groupSizeC; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcmABC": "(formulas.lcmAB * variables.groupSizeC) / formulas.gcdABC",
+        "ans": "(() => { let k = 1; while (formulas.lcmABC * k - 1 <= variables.maxCandies) { let num = formulas.lcmABC * k - 1; if (num > 0 && num % variables.exactDivisor === 0) return num; k++; } return null; })()",
+        "w1": "formulas.lcmABC - 1",
+        "w2": "formulas.lcmABC * 2 - 1",
+        "w3": "formulas.lcmABC * 3 - 1"
+      },
+      "questionText": "Một cô giáo có một số lượng kẹo không quá $ {maxCandies} $ chiếc. Nếu cô chia đều cho mỗi bạn $ {groupSizeA} $ chiếc kẹo thì thiếu 1 chiếc, nếu chia đều cho mỗi bạn $ {groupSizeB} $ chiếc thì cũng thiếu 1 chiếc, và nếu chia đều cho mỗi bạn $ {groupSizeC} $ chiếc thì vẫn thiếu 1 chiếc. Hỏi cô giáo có bao nhiêu chiếc kẹo, biết rằng số kẹo đó chia hết cho $ {exactDivisor} $?",
+      "options": [
+        "A. $ {w1} $ chiếc",
+        "B. $ {ans} $ chiếc",
+        "C. $ {w2} $ chiếc",
+        "D. $ {w3} $ chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu số kẹo tăng thêm 1 chiếc, nó sẽ chia hết cho $ {groupSizeA} $, $ {groupSizeB} $ và $ {groupSizeC} $.",
+        "Tìm Bội chung nhỏ nhất (BCNN) của $ {groupSizeA} $, $ {groupSizeB} $, $ {groupSizeC} $.",
+        "Sử dụng điều kiện số kẹo không quá $ {maxCandies} $ và chia hết cho $ {exactDivisor} $ để tìm đáp án chính xác."
+      ],
+      "solutionHtml": "Gọi số kẹo của cô giáo là $N$.<br/>Theo đề bài:<br/>- Chia cho $ {groupSizeA} $ thiếu 1 chiếc $ \\Rightarrow N $ chia $ {groupSizeA} $ dư $ {groupSizeA}-1 $.<br/>- Chia cho $ {groupSizeB} $ thiếu 1 chiếc $ \\Rightarrow N $ chia $ {groupSizeB} $ dư $ {groupSizeB}-1 $.<br/>- Chia cho $ {groupSizeC} $ thiếu 1 chiếc $ \\Rightarrow N $ chia $ {groupSizeC} $ dư $ {groupSizeC}-1 $.<br/>Từ đó, suy ra $N+1$ sẽ chia hết cho $ {groupSizeA} $, $ {groupSizeB} $ và $ {groupSizeC} $.<br/>Vậy $N+1$ là một bội chung của $ {groupSizeA} $, $ {groupSizeB} $, $ {groupSizeC} $.<br/>Để tìm $N$, ta cần tìm Bội chung nhỏ nhất (BCNN) của $ {groupSizeA} $, $ {groupSizeB} $, $ {groupSizeC} $.<br/>Bước 1: Tìm BCNN($ {groupSizeA} $, $ {groupSizeB} $, $ {groupSizeC} $)<br/>BCNN($ {groupSizeA} $, $ {groupSizeB} $) = $ {lcmAB} $<br/>BCNN($ {lcmAB} $, $ {groupSizeC} $) = $ {lcmABC} $<br/>Vậy $N+1$ là bội của $ {lcmABC} $. Hay $N+1 = k \\times {lcmABC} $ với $k$ là số nguyên dương.<br/>Suy ra $N = k \\times {lcmABC} - 1 $.<br/>Bước 2: Sử dụng các điều kiện còn lại.<br/>- Số kẹo không quá $ {maxCandies} chiếc: $N \\le {maxCandies} $.<br/>- Số kẹo chia hết cho $ {exactDivisor} $: $N \\vdots {exactDivisor} $.<br/>Ta lần lượt thử các giá trị của $k$:<br/>- Với $k=1$: $N = 1 \\times {lcmABC} - 1 = {w1}$. Kiểm tra xem $ {w1} $ có nhỏ hơn hoặc bằng $ {maxCandies} $ và $ {w1} $ có chia hết cho $ {exactDivisor} $ không.<br/>- Với $k=2$: $N = 2 \\times {lcmABC} - 1 = {w2}$. Kiểm tra xem $ {w2} $ có nhỏ hơn hoặc bằng $ {maxCandies} $ và $ {w2} $ có chia hết cho $ {exactDivisor} $ không.<br/>- Với $k=3$: $N = 3 \\times {lcmABC} - 1 = {w3}$. Kiểm tra xem $ {w3} $ có nhỏ hơn hoặc bằng $ {maxCandies} $ và $ {w3} $ có chia hết cho $ {exactDivisor} $ không.<br/>... (tiếp tục cho đến khi tìm được $N$ thỏa mãn).<br/>Số kẹo mà cô giáo có là <b>$ {ans} $</b> chiếc.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều điều kiện số dư 'thiếu 1' (hoặc 'dư cùng một số $r$'), hãy cộng thêm 1 (hoặc trừ đi $r$) vào số cần tìm để nó trở thành bội chung của các số chia. Sau đó, kết hợp với các điều kiện khác để tìm đáp án duy nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "d2": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "d3": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2",
+        "d2 !== d3",
+        "d1 !== d3"
+      ],
+      "formulas": {
+        "gcd12": "(() => { let a = variables.d1; let b = variables.d2; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm12": "(variables.d1 * variables.d2) / formulas.gcd12",
+        "gcd123": "(() => { let a = formulas.lcm12; let b = variables.d3; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm123": "(formulas.lcm12 * variables.d3) / formulas.gcd123",
+        "ans": "formulas.lcm123 - 1",
+        "w1": "formulas.lcm123 + 1",
+        "w2": "formulas.lcm123 * 2 - 1",
+        "w3": "variables.d1 * variables.d2 * variables.d3"
+      },
+      "questionText": "Một đội bóng đá có một số cầu thủ. Khi chia thành các nhóm $ {d1} $ người thì thừa $ {d1-1} $ người, chia nhóm $ {d2} $ người thì thừa $ {d2-1} $ người, và chia nhóm $ {d3} $ người thì thừa $ {d3-1} $ người. Hỏi đội bóng đó có ít nhất bao nhiêu cầu thủ?",
+      "options": [
+        "A. $ {w1} $ cầu thủ",
+        "B. $ {ans} $ cầu thủ",
+        "C. $ {w2} $ cầu thủ",
+        "D. $ {w3} $ cầu thủ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu số cầu thủ tăng thêm 1 người, nó sẽ chia hết cho $ {d1} $, $ {d2} $ và $ {d3} $.",
+        "Tìm Bội chung nhỏ nhất (BCNN) của $ {d1} $, $ {d2} $, $ {d3} $."
+      ],
+      "solutionHtml": "Gọi số cầu thủ của đội bóng là $N$.<br/>Theo đề bài, ta có:<br/>- Khi chia thành các nhóm $ {d1} $ người thì thừa $ {d1-1} $ người, nghĩa là $N$ chia $ {d1} $ dư $ {d1-1} $.<br/>- Khi chia thành các nhóm $ {d2} $ người thì thừa $ {d2-1} $ người, nghĩa là $N$ chia $ {d2} $ dư $ {d2-1} $.<br/>- Khi chia thành các nhóm $ {d3} $ người thì thừa $ {d3-1} $ người, nghĩa là $N$ chia $ {d3} $ dư $ {d3-1} $.<br/>Từ các điều kiện trên, ta thấy rằng nếu số cầu thủ tăng thêm 1 người ($N+1$), thì $N+1$ sẽ chia hết cho cả $ {d1} $, $ {d2} $ và $ {d3} $.<br/>Vậy $N+1$ là một bội chung của $ {d1} $, $ {d2} $ và $ {d3} $.<br/>Để tìm số cầu thủ ít nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của $ {d1} $, $ {d2} $, $ {d3} $.<br/>Bước 1: Tìm BCNN($ {d1} $, $ {d2} $, $ {d3} $)<br/>BCNN($ {d1} $, $ {d2} $) = $ {lcm12} $<br/>BCNN($ {lcm12} $, $ {d3} $) = $ {lcm123} $<br/>Bước 2: Từ BCNN, tìm $N$.<br/>Ta có $N+1 = {lcm123} $.<br/>Vậy $N = {lcm123} - 1 $.<br/>Số cầu thủ ít nhất của đội bóng là <b>$ {ans} $</b> người.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều điều kiện số dư 'dư $a-1$' (hoặc 'thiếu 1'), ta có thể thêm 1 vào số cần tìm để nó trở thành bội chung của các số chia. Sau đó, tìm BCNN và trừ đi 1.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "targetNumber": {
+          "min": 24,
+          "max": 60,
+          "step": 12
+        }
+      },
+      "constraints": [
+        "targetNumber % 2 === 0",
+        "targetNumber > 10"
+      ],
+      "formulas": {
+        "getAllDivisors": "n => { let divisors = []; for (let i = 1; i <= n; i++) { if (n % i === 0) { divisors.push(i); } } return divisors; }",
+        "allDivisorsString": "formulas.getAllDivisors(variables.targetNumber).join(', ')",
+        "evenDivisorsArray": "formulas.getAllDivisors(variables.targetNumber).filter(d => d % 2 === 0)",
+        "evenDivisorsString": "formulas.evenDivisorsArray.join(', ')",
+        "evenDivisors": "formulas.evenDivisorsArray.length",
+        "oddDivisors": "formulas.getAllDivisors(variables.targetNumber).filter(d => d % 2 !== 0).length",
+        "ans": "formulas.evenDivisors",
+        "w1": "formulas.oddDivisors",
+        "w2": "formulas.evenDivisors + 1",
+        "w3": "formulas.oddDivisors + 1"
+      },
+      "questionText": "Cho số tự nhiên $N = {targetNumber} $. Hỏi số $N$ có bao nhiêu ước là số chẵn?",
+      "options": [
+        "A. $ {w1} $ ước",
+        "B. $ {ans} $ ước",
+        "C. $ {w2} $ ước",
+        "D. $ {w3} $ ước"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê tất cả các ước của số $N = {targetNumber} $.",
+        "Trong danh sách các ước đó, hãy chọn ra các số chẵn và đếm chúng."
+      ],
+      "solutionHtml": "Để tìm số lượng ước là số chẵn của $N = {targetNumber} $, ta làm như sau:<br/>Bước 1: Liệt kê tất cả các ước của $ {targetNumber} $.<br/>Các ước của $ {targetNumber} $ là: $ {allDivisorsString} $.<br/>Bước 2: Trong danh sách các ước trên, ta chọn ra những số là số chẵn.<br/>Các ước chẵn của $ {targetNumber} $ là: $ {evenDivisorsString} $.<br/>Số lượng ước là số chẵn của $ {targetNumber} $ là <b>$ {ans} $</b>.<br/>Đáp án đúng là B.",
+      "tip": "Để liệt kê các ước của một số, ta có thể thử lần lượt các số từ 1 đến căn bậc hai của số đó. Nếu $a$ là ước thì $N/a$ cũng là ước.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numStudents": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "numDays": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "activityA_interval": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "activityB_interval": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "activityA_interval !== activityB_interval"
+      ],
+      "formulas": {
+        "gcd_val_activities": "(() => { let a = variables.activityA_interval; let b = variables.activityB_interval; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm_val_activities": "(variables.activityA_interval * variables.activityB_interval) / formulas.gcd_val_activities",
+        "ans": "Math.floor(variables.numDays / formulas.lcm_val_activities)",
+        "w1": "Math.floor(variables.numDays / variables.activityA_interval)",
+        "w2": "Math.floor(variables.numDays / variables.activityB_interval)",
+        "w3": "Math.floor(variables.numDays / formulas.lcm_val_activities) + 1"
+      },
+      "questionText": "Trong một tháng có $ {numDays} $ ngày, một trường học tổ chức hai hoạt động ngoại khóa. Hoạt động A diễn ra định kỳ $ {activityA_interval} $ ngày một lần, hoạt động B diễn ra định kỳ $ {activityB_interval} $ ngày một lần. Cả hai hoạt động đều bắt đầu vào ngày đầu tiên của tháng. Hỏi có bao nhiêu ngày trong tháng đó mà cả hai hoạt động A và B đều diễn ra?",
+      "options": [
+        "A. $ {w1} $ ngày",
+        "B. $ {ans} $ ngày",
+        "C. $ {w2} $ ngày",
+        "D. $ {w3} $ ngày"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ngày mà cả hai hoạt động A và B đều diễn ra phải là ngày là bội chung của số ngày định kỳ của hoạt động A và hoạt động B.",
+        "Tìm Bội chung nhỏ nhất (BCNN) của $ {activityA_interval} $ và $ {activityB_interval} $.",
+        "Đếm số bội của BCNN đó trong số $ {numDays} $ ngày."
+      ],
+      "solutionHtml": "Để cả hai hoạt động A và B đều diễn ra trong cùng một ngày, ngày đó phải là bội chung của số ngày định kỳ của hoạt động A ($ {activityA_interval} $ ngày) và hoạt động B ($ {activityB_interval} $ ngày).<br/>Để tìm số ngày mà cả hai hoạt động đều diễn ra, ta cần tìm Bội chung nhỏ nhất (BCNN) của $ {activityA_interval} $ và $ {activityB_interval} $.<br/>Bước 1: Tìm BCNN($ {activityA_interval} $, $ {activityB_interval} $)<br/>ƯCLN($ {activityA_interval} $, $ {activityB_interval} $) = $ {gcd_val_activities} $<br/>BCNN($ {activityA_interval} $, $ {activityB_interval} $) = $({activityA_interval} \\times {activityB_interval}) : {gcd_val_activities} = {lcm_val_activities} $.<br/>Bước 2: Đếm số lượng bội của $ {lcm_val_activities} $ trong $ {numDays} $ ngày.<br/>Các ngày mà cả hai hoạt động diễn ra là các ngày là bội của $ {lcm_val_activities} $ (ví dụ: ngày $ {lcm_val_activities} $, ngày $2 \\times {lcm_val_activities} $, ...).<br/>Số lượng ngày như vậy trong $ {numDays} $ ngày là $ {ans} $.<br/>Vậy, có <b>$ {ans} $</b> ngày trong tháng đó mà cả hai hoạt động A và B đều diễn ra.<br/>Đáp án đúng là B.",
+      "tip": "Các bài toán về sự trùng lặp của các chu kỳ thường sử dụng khái niệm Bội chung nhỏ nhất (BCNN). Số lượng sự kiện trùng lặp được tìm bằng cách chia tổng số khoảng thời gian cho BCNN.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numApples": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "numOranges": {
+          "min": 30,
+          "max": 70,
+          "step": 5
+        },
+        "minFruitsPerBag": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numApples > numOranges",
+        "numApples % 5 === 0",
+        "numOranges % 5 === 0"
+      ],
+      "formulas": {
+        "gcd_fruits": "(() => { let a = variables.numApples; let b = variables.numOranges; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "commonDivisors": "(() => { let divisors = []; for (let i = 1; i <= formulas.gcd_fruits; i++) { if (formulas.gcd_fruits % i === 0) { divisors.push(i); } } return divisors; })()",
+        "commonDivisorsString": "formulas.commonDivisors.join(', ')",
+        "ans": "(() => { let count = 0; for (let i = 0; i < formulas.commonDivisors.length; i++) { if (((variables.numApples + variables.numOranges) / formulas.commonDivisors[i]) >= variables.minFruitsPerBag) { count++; } } return count; })()",
+        "w1": "formulas.commonDivisors.length",
+        "w2": "formulas.ans - 1",
+        "w3": "formulas.ans + 1"
+      },
+      "questionText": "Một người bán trái cây có $ {numApples} $ quả táo và $ {numOranges} $ quả cam. Người đó muốn đóng gói tất cả số trái cây này vào các túi sao cho mỗi túi có số lượng táo như nhau và số lượng cam như nhau. Ngoài ra, mỗi túi phải chứa ít nhất $ {minFruitsPerBag} $ quả trái cây (tính tổng táo và cam trong mỗi túi). Hỏi có bao nhiêu cách đóng gói thỏa mãn các điều kiện trên?",
+      "options": [
+        "A. $ {w1} $ cách",
+        "B. $ {ans} $ cách",
+        "C. $ {w2} $ cách",
+        "D. $ {w3} $ cách"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số túi phải là ước chung của số quả táo và số quả cam.",
+        "Mỗi túi phải có tổng số trái cây (táo + cam) là bao nhiêu, và điều kiện đó liên quan đến số túi."
+      ],
+      "solutionHtml": "Gọi số túi trái cây là $x$.<br/>Theo đề bài, số quả táo và số quả cam được chia đều vào các túi, nên số túi $x$ phải là ước chung của số quả táo ($ {numApples} $) và số quả cam ($ {numOranges} $).<br/>Bước 1: Tìm Ước chung lớn nhất (ƯCLN) của $ {numApples} $ và $ {numOranges} $.<br/>ƯCLN($ {numApples} $, $ {numOranges} $) = $ {gcd_fruits} $.<br/>Bước 2: Tìm các ước chung của $ {numApples} $ và $ {numOranges} $. Các ước chung chính là các ước của ƯCLN($ {numApples} $, $ {numOranges} $) = $ {gcd_fruits} $.<br/>Các ước chung của $ {numApples} $ và $ {numOranges} $ là: $ {commonDivisorsString} $.<br/>Đây là số lượng túi có thể có.<br/>Bước 3: Áp dụng điều kiện mỗi túi phải chứa ít nhất $ {minFruitsPerBag} $ quả trái cây.<br/>Nếu có $x$ túi, thì số táo trong mỗi túi là $ {numApples} / x $ và số cam trong mỗi túi là $ {numOranges} / x $.<br/>Tổng số trái cây trong mỗi túi là $ ( {numApples} / x ) + ( {numOranges} / x ) = ( {numApples} + {numOranges} ) / x $.<br/>Ta cần $ ( {numApples} + {numOranges} ) / x \\ge {minFruitsPerBag} $.<br/>Tức là $ x \\le ( {numApples} + {numOranges} ) / {minFruitsPerBag} $.<br/>Ta kiểm tra các ước chung tìm được. Với mỗi số $x$ là số túi, tổng số trái cây trong mỗi túi là $ ( {numApples} + {numOranges} ) / x $. Ta cần kiểm tra xem giá trị này có lớn hơn hoặc bằng $ {minFruitsPerBag} $ hay không.<br/>Số lượng cách đóng gói thỏa mãn điều kiện là <b>$ {ans} $</b> cách.<br/>Đáp án đúng là B.",
+      "tip": "Các bài toán chia đều vật thể thành các nhóm mà mỗi nhóm lại có các thành phần khác nhau cần tìm Ước chung của tổng số các thành phần. Sau đó, áp dụng các điều kiện phụ để loại bỏ các trường hợp không hợp lệ.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d12"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalMarbles": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "boxCapacity1": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "boxCapacity2": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "divisorCondition": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "boxCapacity1 !== boxCapacity2",
+        "totalMarbles % boxCapacity1 !== 0",
+        "totalMarbles % boxCapacity2 !== 0",
+        "totalMarbles % divisorCondition !== 0"
+      ],
+      "formulas": {
+        "gcd_cap": "(() => { let a = variables.boxCapacity1; let b = variables.boxCapacity2; while (b) { let temp = b; b = a % b; a = temp; } return a; })()",
+        "lcm_cap": "(variables.boxCapacity1 * variables.boxCapacity2) / formulas.gcd_cap",
+        "ans": "(() => { let count = 0; for (let i = 1; i <= variables.totalMarbles; i++) { if (i % formulas.lcm_cap === 0 && variables.totalMarbles % i === 0 && i > variables.divisorCondition) { count++; } } return count; })()",
+        "w1": "formulas.ans + 1",
+        "w2": "formulas.ans - 1",
+        "w3": "formulas.ans * 2"
+      },
+      "questionText": "Có $ {totalMarbles} $ viên bi. Minh muốn xếp số bi này vào các túi sao cho mỗi túi có số bi bằng nhau và không còn viên bi nào thừa. Biết rằng số bi trong mỗi túi phải là bội chung của $ {boxCapacity1} $ và $ {boxCapacity2} $ viên bi, đồng thời số bi trong mỗi túi phải lớn hơn $ {divisorCondition} $ viên. Hỏi Minh có bao nhiêu cách xếp bi?",
+      "options": [
+        "A. $ {w1} $ cách",
+        "B. $ {ans} $ cách",
+        "C. $ {w2} $ cách",
+        "D. $ {w3} $ cách"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi trong mỗi túi phải là ước của tổng số bi.",
+        "Số bi trong mỗi túi cũng phải là bội chung của $ {boxCapacity1} $ và $ {boxCapacity2} $.",
+        "Kết hợp hai điều kiện trên và điều kiện về số bi trong mỗi túi phải lớn hơn $ {divisorCondition} $."
+      ],
+      "solutionHtml": "Gọi số bi trong mỗi túi là $x$.<br/>Theo đề bài:<br/>1. Minh muốn xếp $ {totalMarbles} $ viên bi vào các túi sao cho mỗi túi có số bi bằng nhau và không còn viên bi nào thừa $ \\Rightarrow x $ phải là ước của $ {totalMarbles} $.<br/>2. Số bi trong mỗi túi phải là bội chung của $ {boxCapacity1} $ và $ {boxCapacity2} $ viên bi $ \\Rightarrow x $ phải là bội chung của $ {boxCapacity1} $ và $ {boxCapacity2} $.<br/>3. Số bi trong mỗi túi phải lớn hơn $ {divisorCondition} $ viên $ \\Rightarrow x > {divisorCondition} $.<br/>Bước 1: Tìm Bội chung nhỏ nhất (BCNN) của $ {boxCapacity1} $ và $ {boxCapacity2} $.<br/>BCNN($ {boxCapacity1} $, $ {boxCapacity2} $) = $ {lcm_cap} $.<br/>Vậy, $x$ phải là bội của $ {lcm_cap} $. Các giá trị có thể của $x$ là $ {lcm_cap} $, $2 \\times {lcm_cap} $, $3 \\times {lcm_cap} $, ...<br/>Bước 2: Kết hợp với điều kiện 1: $x$ phải là ước của $ {totalMarbles} $.<br/>Ta sẽ tìm các bội của $ {lcm_cap} $ mà cũng là ước của $ {totalMarbles} $.<br/>Các bội của $ {lcm_cap} $ là $k \\times {lcm_cap} $ (với $k = 1, 2, 3, ...$).<br/>Ta kiểm tra xem $k \\times {lcm_cap} $ có phải là ước của $ {totalMarbles} $ không, tức là $ {totalMarbles} $ chia hết cho $k \\times {lcm_cap} $.<br/>Bước 3: Kết hợp với điều kiện 3: $x > {divisorCondition} $.<br/>Ta liệt kê các giá trị $x$ thỏa mãn bước 1 và bước 2, sau đó lọc ra các giá trị lớn hơn $ {divisorCondition} $.<br/>Số lượng cách xếp bi của Minh là <b>$ {ans} $</b> cách.<br/>Đáp án đúng là B.",
+      "tip": "Khi một số phải thỏa mãn cả điều kiện ước và bội, hãy tìm BCNN của các số liên quan đến bội, sau đó kiểm tra các bội đó xem có phải là ước của số lớn hơn hay không. Cuối cùng, áp dụng các điều kiện về khoảng giá trị.",
+      "level": "chat-luong-cao",
+      "type": "bai-17-d13"
+    }
+  ]
+}

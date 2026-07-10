@@ -1,0 +1,797 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-05T01:46:22.358Z
+Lesson ID: l4-bai-40
+Lesson Title: Bài 40: Tính chất giao hoán và kết hợp của phép nhân
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+Error: Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on t
+    at callGeminiAPI (F:\KHQS\AntiGravity\HocTap\server.js:517:9)
+    at async auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:539:18)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:1679:20
+
+[JSON DIAGNOSTICS]
+No specific JSON position found in error message.
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "rows": { "min": 4, "max": 10, "step": 1 },
+      "plantsPerRow": { "min": 5, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "rows !== plantsPerRow"
+    ],
+    "formulas": {
+      "ans": "rows * plantsPerRow",
+      "w1": "rows + plantsPerRow",
+      "w2": "Math.abs(rows - plantsPerRow)",
+      "w3": "rows * plantsPerRow + 1"
+    },
+    "questionText": "Một vườn rau có {rows} hàng, mỗi hàng có {plantsPerRow} cây bắp cải. Nếu bác nông dân sắp xếp lại thành {plantsPerRow} hàng, mỗi hàng có {rows} cây bắp cải, thì tổng số cây bắp cải trong vườn có thay đổi không? Tổng cộng có bao nhiêu cây bắp cải?",
+    "options": [
+      "A. Thay đổi, có $ {w1} $ cây",
+      "B. Không thay đổi, có $ {ans} $ cây",
+      "C. Thay đổi, có $ {w2} $ cây",
+      "D. Không thay đổi, có $ {w3} $ cây"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính chất giao hoán của phép nhân nói rằng khi đổi chỗ các thừa số trong một tích thì tích không thay đổi. Ví dụ: $ {rows} \\times {plantsPerRow} $ cũng bằng $ {plantsPerRow} \\times {rows} $.",
+      "Hãy tính $ {rows} \\times {plantsPerRow} $."
+    ],
+    "solutionHtml": "Theo tính chất giao hoán của phép nhân, khi đổi chỗ các thừa số trong một tích thì tích không thay đổi.<br/>Vì vậy, $ {rows} \\times {plantsPerRow} = {plantsPerRow} \\times {rows} $.<br/>Tổng số cây bắp cải trong vườn không thay đổi.<br/>Số cây bắp cải là: $ {rows} \\times {plantsPerRow} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Tính chất giao hoán giúp chúng ta linh hoạt hơn trong việc sắp xếp các phép tính, đặc biệt khi giải quyết các bài toán thực tế.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numBooks": { "min": 6, "max": 15, "step": 1 },
+      "pricePerBook": { "min": 10000, "max": 25000, "step": 1000 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "numBooks * pricePerBook",
+      "w1": "numBooks + pricePerBook",
+      "w2": "pricePerBook - numBooks",
+      "w3": "numBooks * pricePerBook + 1000"
+    },
+    "questionText": "Cô Mai mua {numBooks} cuốn vở, mỗi cuốn giá {pricePerBook} đồng. Để tính tổng số tiền phải trả, cô Mai có thể thực hiện phép nhân $ {numBooks} \\times {pricePerBook} $ hoặc $ {pricePerBook} \\times {numBooks} $. Hỏi tổng số tiền cô Mai phải trả là bao nhiêu đồng?",
+    "options": [
+      "A. $ {w1} $ đồng",
+      "B. $ {ans} $ đồng",
+      "C. $ {w2} $ đồng",
+      "D. $ {w3} $ đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số tiền phải trả là tích của số cuốn vở và giá mỗi cuốn.",
+      "Bạn có thể dùng tính chất giao hoán để tính $ {pricePerBook} \\times {numBooks} $ nếu cảm thấy dễ hơn."
+    ],
+    "solutionHtml": "Để tính tổng số tiền cô Mai phải trả, ta thực hiện phép nhân số lượng cuốn vở với giá tiền mỗi cuốn:<br/>$ {numBooks} \\times {pricePerBook} = {ans} $ (đồng).<br/>Theo tính chất giao hoán của phép nhân, $ {numBooks} \\times {pricePerBook} = {pricePerBook} \\times {numBooks} $. Dù đổi chỗ các thừa số, kết quả vẫn không thay đổi.<br/>Vậy, tổng số tiền cô Mai phải trả là $ {ans} $ đồng.<br/>Đáp án đúng là B.",
+    "tip": "Khi tính tổng giá tiền, thứ tự nhân số lượng với đơn giá hay ngược lại đều cho cùng một kết quả, hãy chọn cách nào bạn thấy dễ tính nhẩm hơn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "blocksLong": { "min": 3, "max": 7, "step": 1 },
+      "blocksWide": { "min": 2, "max": 6, "step": 1 },
+      "blocksHigh": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "blocksLong > blocksWide",
+      "blocksWide > blocksHigh",
+      "blocksHigh > 1"
+    ],
+    "formulas": {
+      "ans": "blocksLong * blocksWide * blocksHigh",
+      "w1": "blocksLong + blocksWide + blocksHigh",
+      "w2": "blocksLong * blocksWide + blocksHigh",
+      "w3": "blocksLong * blocksWide * blocksHigh + 10"
+    },
+    "questionText": "Bạn An xếp một khối hình hộp chữ nhật bằng các khối lập phương nhỏ. Chiều dài khối hộp gồm {blocksLong} khối, chiều rộng gồm {blocksWide} khối và chiều cao gồm {blocksHigh} khối. Bạn An có thể tính tổng số khối lập phương nhỏ bằng cách nhân chiều dài với chiều rộng rồi nhân với chiều cao, hoặc nhân chiều rộng với chiều cao rồi nhân với chiều dài. Hỏi tổng cộng có bao nhiêu khối lập phương nhỏ?",
+    "options": [
+      "A. $ {w1} $ khối",
+      "B. $ {ans} $ khối",
+      "C. $ {w2} $ khối",
+      "D. $ {w3} $ khối"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm tổng số khối lập phương, ta nhân ba kích thước (dài, rộng, cao) lại với nhau.",
+      "Bạn có thể nhóm các thừa số lại theo cách bạn thấy dễ tính nhất. Ví dụ: $ ({blocksLong} \\times {blocksWide}) \\times {blocksHigh} $ hoặc $ {blocksLong} \\times ({blocksWide} \\times {blocksHigh}) $."
+    ],
+    "solutionHtml": "Để tìm tổng số khối lập phương nhỏ, ta nhân các kích thước chiều dài, chiều rộng và chiều cao lại với nhau.<br/>Áp dụng tính chất kết hợp của phép nhân, ta có thể nhóm các thừa số theo nhiều cách mà kết quả không thay đổi.<br/>Tổng số khối lập phương nhỏ là: $ {blocksLong} \\times {blocksWide} \\times {blocksHigh} = {ans} $ (khối).<br/>Ví dụ, ta có thể tính $ ({blocksLong} \\times {blocksWide}) \\times {blocksHigh} = ({blocksLong * blocksWide}) \\times {blocksHigh} = {ans} $ hoặc $ {blocksLong} \\times ({blocksWide} \\times {blocksHigh}) = {blocksLong} \\times ({blocksWide * blocksHigh}) = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Tính chất kết hợp của phép nhân giúp chúng ta tính toán linh hoạt hơn khi có từ ba thừa số trở lên, bằng cách nhóm các thừa số lại để việc tính nhẩm trở nên dễ dàng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "multiplesOfTenTarget": { "min": 1, "max": 2, "step": 1 },
+      "factor1": { "min": 2, "max": 5, "step": 1 },
+      "factor2_other": { "min": 11, "max": 29, "step": 1 },
+      "factor3": { "min": 2, "max": 25, "step": 1 }
+    },
+    "constraints": [
+      "let product_of_pair = factor1 * factor3;",
+      "if (multiplesOfTenTarget === 1) { return product_of_pair === 10; }",
+      "if (multiplesOfTenTarget === 2) { return product_of_pair === 100; }",
+      "return false"
+    ],
+    "formulas": {
+      "ans": "factor1 * factor2_other * factor3",
+      "w1": "factor1 + factor2_other + factor3",
+      "w2": "factor1 * factor2_other + factor3",
+      "w3": "(factor1 * factor2_other * factor3) + 10"
+    },
+    "questionText": "Để tính giá trị của biểu thức $ {factor1} \\times {factor2_other} \\times {factor3} $, bạn Lan đã dùng tính chất kết hợp của phép nhân để tính nhanh. Bạn Lan nên nhóm các thừa số nào lại với nhau để tính toán thuận tiện nhất? Tính giá trị của biểu thức đó.",
+    "options": [
+      "A. $ {w1} $",
+      "B. $ {ans} $",
+      "C. $ {w2} $",
+      "D. $ {w3} $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Hãy tìm hai thừa số mà khi nhân với nhau sẽ cho kết quả là một số tròn chục hoặc tròn trăm (ví dụ: 10, 20, 100).",
+      "Sau khi nhóm và tính tích của hai thừa số đó, hãy nhân kết quả với thừa số còn lại."
+    ],
+    "solutionHtml": "Để tính nhanh biểu thức $ {factor1} \\times {factor2_other} \\times {factor3} $, bạn Lan nên sử dụng tính chất kết hợp để nhóm hai thừa số $ {factor1} $ và $ {factor3} $ lại với nhau vì tích của chúng là một số tròn ($ {factor1} \\times {factor3} = {factor1 * factor3} $).<br/>Sau đó, nhân kết quả này với thừa số còn lại là $ {factor2_other} $.<br/>Cách tính nhanh như sau:<br/>$ ({factor1} \\times {factor3}) \\times {factor2_other} = ({factor1 * factor3}) \\times {factor2_other} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Luôn tìm cách nhóm các thừa số sao cho tích của chúng là số tròn chục hoặc tròn trăm để việc nhân với số còn lại trở nên đơn giản hơn rất nhiều.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "multiplesOfTenTarget": { "min": 1, "max": 2, "step": 1 },
+      "f1": { "min": 2, "max": 5, "step": 1 },
+      "f2_medium": { "min": 11, "max": 20, "step": 1 },
+      "f3": { "min": 2, "max": 25, "step": 1 },
+      "f4_medium": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "let pair_product = f1 * f3;",
+      "if (multiplesOfTenTarget === 1) { return pair_product === 10; }",
+      "if (multiplesOfTenTarget === 2) { return pair_product === 100; }",
+      "return false"
+    ],
+    "formulas": {
+      "easy_pair_product": "f1 * f3",
+      "remaining_pair_product": "f2_medium * f4_medium",
+      "ans": "f1 * f2_medium * f3 * f4_medium",
+      "w1": "f1 + f2_medium + f3 + f4_medium",
+      "w2": "f1 * f2_medium + f3 * f4_medium",
+      "w3": "f1 * f2_medium * f3 + f4_medium"
+    },
+    "questionText": "Bạn Hùng muốn tính nhanh giá trị của biểu thức $ {f1} \\times {f2_medium} \\times {f3} \\times {f4_medium} $. Sử dụng tính chất giao hoán và kết hợp của phép nhân, bạn Hùng nên nhóm các thừa số nào lại với nhau để tính toán thuận tiện nhất? Tính giá trị của biểu thức đó.",
+    "options": [
+      "A. $ {w1} $",
+      "B. $ {ans} $",
+      "C. $ {w2} $",
+      "D. $ {w3} $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tìm hai thừa số mà khi nhân với nhau sẽ tạo ra số tròn (ví dụ: $ {f1} \\times {f3} $).",
+      "Sau đó, nhóm hai thừa số còn lại và nhân các kết quả của hai nhóm với nhau."
+    ],
+    "solutionHtml": "Để tính nhanh biểu thức $ {f1} \\times {f2_medium} \\times {f3} \\times {f4_medium} $, ta sử dụng tính chất giao hoán để đổi chỗ các thừa số và tính chất kết hợp để nhóm các thừa số lại.<br/>Ta nhóm $ {f1} $ với $ {f3} $ vì $ {f1} \\times {f3} = {easy_pair_product} $ là một số tròn.<br/>Sau đó, ta nhóm $ {f2_medium} $ với $ {f4_medium} $.<br/>Thực hiện phép tính như sau:<br/>$ ({f1} \\times {f3}) \\times ({f2_medium} \\times {f4_medium}) = {easy_pair_product} \\times {remaining_pair_product} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Với nhiều thừa số, hãy tìm các cặp số có thể nhân với nhau ra số tròn chục, tròn trăm. Điều này giúp đơn giản hóa phép tính rất nhiều.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numBoxes": { "min": 3, "max": 7, "step": 1 },
+      "itemsPerBox": { "min": 8, "max": 15, "step": 1 },
+      "weightPerItem": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "numBoxes * itemsPerBox * weightPerItem",
+      "w1": "numBoxes + itemsPerBox + weightPerItem",
+      "w2": "numBoxes * itemsPerBox + weightPerItem",
+      "w3": "numBoxes * itemsPerBox * weightPerItem + 5"
+    },
+    "questionText": "Một cửa hàng nhập về {numBoxes} thùng hàng. Mỗi thùng chứa {itemsPerBox} hộp sữa. Mỗi hộp sữa nặng {weightPerItem} kg. Hỏi tổng khối lượng sữa cửa hàng đã nhập về là bao nhiêu ki-lô-gam?",
+    "options": [
+      "A. $ {w1} $ kg",
+      "B. $ {ans} $ kg",
+      "C. $ {w2} $ kg",
+      "D. $ {w3} $ kg"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đầu tiên, hãy tính tổng số hộp sữa trong tất cả các thùng.",
+      "Sau đó, nhân tổng số hộp sữa với khối lượng của mỗi hộp sữa để tìm tổng khối lượng."
+    ],
+    "solutionHtml": "Để tìm tổng khối lượng sữa, ta thực hiện các bước sau:<br/>1. Tính tổng số hộp sữa: $ {numBoxes} \\times {itemsPerBox} $ hộp.<br/>2. Tính tổng khối lượng sữa: $ ({numBoxes} \\times {itemsPerBox}) \\times {weightPerItem} $ kg.<br/>Hoặc, ta có thể áp dụng tính chất kết hợp của phép nhân:<br/>$ {numBoxes} \\times {itemsPerBox} \\times {weightPerItem} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi giải toán đố có nhiều bước nhân, bạn có thể nhóm các số lại để tính theo thứ tự hợp lý nhất. Ví dụ, tính tổng số hộp sữa trước, rồi mới tính tổng khối lượng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "val1": { "min": 12, "max": 25, "step": 1 },
+      "val2": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "val1 !== val2"
+    ],
+    "formulas": {
+      "product": "val1 * val2",
+      "ans": "val1 * val2",
+      "w1": "val1 + val2",
+      "w2": "val1 * 2",
+      "w3": "val2 * 2"
+    },
+    "questionText": "Biết rằng $ {val1} \\times {val2} = {product} $. Dựa vào tính chất giao hoán của phép nhân, tích của $ {val2} \\times {val1} $ bằng bao nhiêu?",
+    "options": [
+      "A. $ {w1} $",
+      "B. $ {ans} $",
+      "C. $ {w2} $",
+      "D. $ {w3} $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhớ lại tính chất giao hoán của phép nhân: khi đổi chỗ các thừa số thì tích không thay đổi."
+    ],
+    "solutionHtml": "Theo tính chất giao hoán của phép nhân, khi ta đổi chỗ các thừa số trong một tích thì tích không thay đổi.<br/>Vì $ {val1} \\times {val2} = {product} $, nên $ {val2} \\times {val1} $ cũng sẽ bằng $ {product} $.<br/>Đáp án đúng là B.",
+    "tip": "Tính chất giao hoán là một công cụ mạnh mẽ giúp đơn giản hóa việc tính toán và kiểm tra kết quả.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numA": { "min": 3, "max": 6, "step": 1 },
+      "numB": { "min": 4, "max": 8, "step": 1 },
+      "numC": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "numA !== numB",
+      "numB !== numC",
+      "numA !== numC"
+    ],
+    "formulas": {
+      "val_expr1": "(numA * numB) * numC",
+      "val_expr2": "numA * (numB * numC)",
+      "ans": "val_expr1"
+    },
+    "questionText": "Giá trị của biểu thức $ ({numA} \\times {numB}) \\times {numC} $ so với giá trị của biểu thức $ {numA} \\times ({numB} \\times {numC}) $ như thế nào?",
+    "options": [
+      "A. Lớn hơn",
+      "B. Nhỏ hơn",
+      "C. Bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Nhớ lại tính chất kết hợp của phép nhân: khi nhân một tích hai thừa số với thừa số thứ ba, ta có thể nhân thừa số thứ nhất với tích của hai thừa số còn lại."
+    ],
+    "solutionHtml": "Theo tính chất kết hợp của phép nhân, khi nhân ba số, ta có thể thay đổi cách nhóm các thừa số mà tích không thay đổi.<br/>Cụ thể: $ ({numA} \\times {numB}) \\times {numC} = {numA} \\times ({numB} \\times {numC}) $.<br/>Ví dụ:<br/>$ ({numA} \\times {numB}) \\times {numC} = ({numA * numB}) \\times {numC} = {val_expr1} $<br/>$ {numA} \\times ({numB} \\times {numC}) = {numA} \\times ({numB * numC}) = {val_expr2} $<br/>Hai giá trị này là bằng nhau.<br/>Đáp án đúng là C.",
+    "tip": "Tính chất kết hợp không làm thay đổi kết quả của phép nhân khi chỉ thay đổi cách nhóm các thừa số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "boxes": { "min": 4, "max": 8, "step": 1 },
+      "rowsPerBox": { "min": 3, "max": 7, "step": 1 },
+      "itemsPerRow": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "boxes * rowsPerBox * itemsPerRow",
+      "w1": "boxes + rowsPerBox + itemsPerRow",
+      "w2": "boxes * rowsPerBox + itemsPerRow",
+      "w3": "boxes * rowsPerBox * itemsPerRow + 10"
+    },
+    "questionText": "Một kho hàng có {boxes} kệ hàng. Mỗi kệ có {rowsPerBox} hộp lớn. Mỗi hộp lớn chứa {itemsPerRow} sản phẩm. Để tìm tổng số sản phẩm trong kho, người ta có thể thực hiện phép tính $ ({boxes} \\times {rowsPerBox}) \\times {itemsPerRow} $ hoặc $ {boxes} \\times ({rowsPerBox} \\times {itemsPerRow}) $. Hỏi tổng số sản phẩm trong kho là bao nhiêu?",
+    "options": [
+      "A. $ {w1} $ sản phẩm",
+      "B. $ {ans} $ sản phẩm",
+      "C. $ {w2} $ sản phẩm",
+      "D. $ {w3} $ sản phẩm"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đây là bài toán tìm tổng số lượng trong một cấu trúc nhiều lớp (kệ - hộp - sản phẩm).",
+      "Bạn cần nhân tất cả các số lượng lại với nhau. Tính chất kết hợp cho phép bạn nhóm chúng theo cách thuận tiện."
+    ],
+    "solutionHtml": "Để tìm tổng số sản phẩm trong kho, ta cần nhân số lượng kệ hàng, số hộp lớn trên mỗi kệ và số sản phẩm trong mỗi hộp lớn lại với nhau.<br/>Áp dụng tính chất kết hợp của phép nhân, ta có thể nhóm các thừa số theo hai cách khác nhau nhưng kết quả vẫn không đổi.<br/>Tổng số sản phẩm là: $ {boxes} \\times {rowsPerBox} \\times {itemsPerRow} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+    "tip": "Hãy hình dung bài toán như việc xếp đồ vào các lớp khác nhau. Số lượng tổng cộng sẽ là tích của số lượng ở mỗi lớp.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "p1": { "min": 2, "max": 5, "step": 1 },
+      "p2": { "min": 6, "max": 10, "step": 1 },
+      "p3": { "min": 3, "max": 7, "step": 1 },
+      "p4": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "p1 !== p2",
+      "p1 !== p3",
+      "p1 !== p4",
+      "p2 !== p3",
+      "p2 !== p4",
+      "p3 !== p4"
+    ],
+    "formulas": {
+      "expr_base_val": "p1 * p2 * p3 * p4",
+      "ans": "expr_base_val",
+      "w1": "p1 * p2 + p3 * p4",
+      "w2": "p1 * p3 + p2 * p4",
+      "w3": "p1 * p4 * p2 * p3 + 1"
+    },
+    "questionText": "Cho biểu thức $ A = {p1} \\times {p2} \\times {p3} \\times {p4} $. Biểu thức nào dưới đây có giá trị BẰNG biểu thức A, nhờ áp dụng tính chất giao hoán và kết hợp của phép nhân?",
+    "options": [
+      "A. $ {p1} \\times {p2} + {p3} \\times {p4} $",
+      "B. $ ({p4} \\times {p3}) \\times ({p2} \\times {p1}) $",
+      "C. $ {p1} \\times {p3} + {p2} \\times {p4} $",
+      "D. $ ({p1} + {p2}) \\times ({p3} + {p4}) $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính chất giao hoán cho phép đổi chỗ các thừa số. Tính chất kết hợp cho phép thay đổi cách nhóm các thừa số.",
+      "Cả hai tính chất này chỉ áp dụng cho phép nhân và không làm thay đổi kết quả của phép nhân."
+    ],
+    "solutionHtml": "Biểu thức A là một tích của bốn thừa số: $ {p1} \\times {p2} \\times {p3} \\times {p4} $.<br/>Theo tính chất giao hoán và kết hợp của phép nhân, ta có thể đổi chỗ và nhóm các thừa số theo bất kỳ cách nào mà tích không thay đổi.<br/>A. $ {p1} \\times {p2} + {p3} \\times {p4} $ là tổng của hai tích, không phải là tích của bốn thừa số ban đầu.<br/>B. $ ({p4} \\times {p3}) \\times ({p2} \\times {p1}) $. Biểu thức này đã đổi chỗ các thừa số (ví dụ: $ {p1} $ và $ {p4} $ đã đổi chỗ) và nhóm lại nhưng vẫn là tích của bốn thừa số $ {p1}, {p2}, {p3}, {p4} $. Do đó, giá trị của nó bằng A.<br/>C. $ {p1} \\times {p3} + {p2} \\times {p4} $ cũng là tổng của hai tích.<br/>D. $ ({p1} + {p2}) \\times ({p3} + {p4}) $ là tích của hai tổng, không phải là tích của bốn thừa số ban đầu.<br/>Đáp án đúng là B.",
+    "tip": "Để tìm biểu thức tương đương, hãy kiểm tra xem nó có sử dụng các phép toán khác ngoài phép nhân hay không. Nếu chỉ là phép nhân, việc đổi chỗ hoặc nhóm lại các thừa số sẽ không làm thay đổi giá trị.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "factor_A": { "min": 2, "max": 8, "step": 1 },
+      "factor_B": { "min": 10, "max": 20, "step": 1 },
+      "factor_C": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "factor_A !== factor_B",
+      "factor_B !== factor_C",
+      "factor_A !== factor_C",
+      "factor_A * factor_B > factor_C",
+      "factor_A * factor_C % 10 !== 0",
+      "factor_B * factor_C % 10 !== 0"
+    ],
+    "formulas": {
+      "product_ABC": "factor_A * factor_B * factor_C",
+      "option1_val": "(factor_A * factor_B) * factor_C",
+      "option2_val": "factor_A * (factor_B * factor_C)",
+      "option3_val": "factor_A * factor_C * factor_B",
+      "w1": "factor_A + factor_B + factor_C",
+      "w2": "(factor_A * factor_B) + factor_C",
+      "w3": "(factor_A + factor_B) * factor_C"
+    },
+    "questionText": "Cho ba số tự nhiên $ {factor_A}, {factor_B}, {factor_C} $. Bạn Minh muốn tính tích của ba số này. Bạn Minh đã tính $ ({factor_A} \\times {factor_B}) \\times {factor_C} = {option1_val} $. Bạn Hoa lại tính $ {factor_A} \\times ({factor_B} \\times {factor_C}) = {option2_val} $. Còn bạn Lan tính $ {factor_A} \\times {factor_C} \\times {factor_B} = {option3_val} $. Điều nào sau đây là đúng khi so sánh các kết quả của Minh, Hoa và Lan?",
+    "options": [
+      "A. Kết quả của Minh lớn nhất.",
+      "B. Kết quả của Hoa và Lan bằng nhau, nhưng khác Minh.",
+      "C. Kết quả của cả ba bạn Minh, Hoa, Lan đều bằng nhau.",
+      "D. Kết quả của Lan là nhỏ nhất."
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Hãy nhớ lại tính chất giao hoán và tính chất kết hợp của phép nhân.",
+      "Tính chất giao hoán cho phép đổi chỗ các thừa số. Tính chất kết hợp cho phép thay đổi cách nhóm các thừa số.",
+      "Cả hai tính chất này đều không làm thay đổi giá trị của tích."
+    ],
+    "solutionHtml": "Chúng ta hãy xem xét các phép tính của Minh, Hoa và Lan:<br/>- Minh tính: $ ({factor_A} \\times {factor_B}) \\times {factor_C} $. Đây là cách nhóm đầu tiên.<br/>- Hoa tính: $ {factor_A} \\times ({factor_B} \\times {factor_C}) $. Đây là cách nhóm thứ hai.<br/>Theo tính chất kết hợp của phép nhân, $ ({factor_A} \\times {factor_B}) \\times {factor_C} = {factor_A} \\times ({factor_B} \\times {factor_C}) $. Vậy, kết quả của Minh và Hoa bằng nhau.<br/>- Lan tính: $ {factor_A} \\times {factor_C} \\times {factor_B} $. Bạn Lan đã đổi chỗ thừa số $ {factor_B} $ và $ {factor_C} $ so với cách tính ban đầu của Minh và Hoa.<br/>Theo tính chất giao hoán của phép nhân, khi đổi chỗ các thừa số thì tích không thay đổi. Vì vậy, $ {factor_A} \\times {factor_B} \\times {factor_C} = {factor_A} \\times {factor_C} \\times {factor_B} $.<br/>Kết quả của cả ba bạn Minh, Hoa và Lan đều là tích của $ {factor_A}, {factor_B}, {factor_C} $, chỉ khác nhau về cách nhóm và thứ tự các thừa số.<br/>Do đó, kết quả của cả ba bạn đều bằng nhau và là $ {product_ABC} $.<br/>Đáp án đúng là C.",
+    "tip": "Tính chất giao hoán và kết hợp là hai tính chất cơ bản giúp chúng ta linh hoạt trong việc tính toán phép nhân mà không làm thay đổi kết quả cuối cùng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "rows": { "min": 4, "max": 10, "step": 1 },
+      "plantsPerRow": { "min": 5, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "rows !== plantsPerRow"
+    ],
+    "formulas": {
+      "ans": "rows * plantsPerRow",
+      "w1": "rows + plantsPerRow",
+      "w2": "Math.abs(rows - plantsPerRow)",
+      "w3": "rows * plantsPerRow + 1"
+    },
+    "questionText": "Một vườn rau có {rows} hàng, mỗi hàng có {plantsPerRow} cây bắp cải. Nếu bác nông dân sắp xếp lại thành {plantsPerRow} hàng, mỗi hàng có {rows} cây bắp cải, thì tổng số cây bắp cải trong vườn có thay đổi không? Tổng cộng có bao nhiêu cây bắp cải?",
+    "options": [
+      "A. Thay đổi, có $ {w1} $ cây",
+      "B. Không thay đổi, có $ {ans} $ cây",
+      "C. Thay đổi, có $ {w2} $ cây",
+      "D. Không thay đổi, có $ {w3} $ cây"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính chất giao hoán của phép nhân nói rằng khi đổi chỗ các thừa số trong một tích thì tích không thay đổi. Ví dụ: $ {rows} \\times {plantsPerRow} $ cũng bằng $ {plantsPerRow} \\times {rows} $.",
+      "Hãy tính $ {rows} \\times {plantsPerRow} $."
+    ],
+    "solutionHtml": "Theo tính chất giao hoán của phép nhân, khi đổi chỗ các thừa số trong một tích thì tích không thay đổi.<br/>Vì vậy, $ {rows} \\times {plantsPerRow} = {plantsPerRow} \\times {rows} $.<br/>Tổng số cây bắp cải trong vườn không thay đổi.<br/>Số cây bắp cải là: $ {rows} \\times {plantsPerRow} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Tính chất giao hoán giúp chúng ta linh hoạt hơn trong việc sắp xếp các phép tính, đặc biệt khi giải quyết các bài toán thực tế.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numBooks": { "min": 6, "max": 15, "step": 1 },
+      "pricePerBook": { "min": 10000, "max": 25000, "step": 1000 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "numBooks * pricePerBook",
+      "w1": "numBooks + pricePerBook",
+      "w2": "pricePerBook - numBooks",
+      "w3": "numBooks * pricePerBook + 1000"
+    },
+    "questionText": "Cô Mai mua {numBooks} cuốn vở, mỗi cuốn giá {pricePerBook} đồng. Để tính tổng số tiền phải trả, cô Mai có thể thực hiện phép nhân $ {numBooks} \\times {pricePerBook} $ hoặc $ {pricePerBook} \\times {numBooks} $. Hỏi tổng số tiền cô Mai phải trả là bao nhiêu đồng?",
+    "options": [
+      "A. $ {w1} $ đồng",
+      "B. $ {ans} $ đồng",
+      "C. $ {w2} $ đồng",
+      "D. $ {w3} $ đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số tiền phải trả là tích của số cuốn vở và giá mỗi cuốn.",
+      "Bạn có thể dùng tính chất giao hoán để tính $ {pricePerBook} \\times {numBooks} $ nếu cảm thấy dễ hơn."
+    ],
+    "solutionHtml": "Để tính tổng số tiền cô Mai phải trả, ta thực hiện phép nhân số lượng cuốn vở với giá tiền mỗi cuốn:<br/>$ {numBooks} \\times {pricePerBook} = {ans} $ (đồng).<br/>Theo tính chất giao hoán của phép nhân, $ {numBooks} \\times {pricePerBook} = {pricePerBook} \\times {numBooks} $. Dù đổi chỗ các thừa số, kết quả vẫn không thay đổi.<br/>Vậy, tổng số tiền cô Mai phải trả là $ {ans} $ đồng.<br/>Đáp án đúng là B.",
+    "tip": "Khi tính tổng giá tiền, thứ tự nhân số lượng với đơn giá hay ngược lại đều cho cùng một kết quả, hãy chọn cách nào bạn thấy dễ tính nhẩm hơn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "blocksLong": { "min": 3, "max": 7, "step": 1 },
+      "blocksWide": { "min": 2, "max": 6, "step": 1 },
+      "blocksHigh": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "blocksLong > blocksWide",
+      "blocksWide > blocksHigh",
+      "blocksHigh > 1"
+    ],
+    "formulas": {
+      "ans": "blocksLong * blocksWide * blocksHigh",
+      "w1": "blocksLong + blocksWide + blocksHigh",
+      "w2": "blocksLong * blocksWide + blocksHigh",
+      "w3": "blocksLong * blocksWide * blocksHigh + 10"
+    },
+    "questionText": "Bạn An xếp một khối hình hộp chữ nhật bằng các khối lập phương nhỏ. Chiều dài khối hộp gồm {blocksLong} khối, chiều rộng gồm {blocksWide} khối và chiều cao gồm {blocksHigh} khối. Bạn An có thể tính tổng số khối lập phương nhỏ bằng cách nhân chiều dài với chiều rộng rồi nhân với chiều cao, hoặc nhân chiều rộng với chiều cao rồi nhân với chiều dài. Hỏi tổng cộng có bao nhiêu khối lập phương nhỏ?",
+    "options": [
+      "A. $ {w1} $ khối",
+      "B. $ {ans} $ khối",
+      "C. $ {w2} $ khối",
+      "D. $ {w3} $ khối"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm tổng số khối lập phương, ta nhân ba kích thước (dài, rộng, cao) lại với nhau.",
+      "Bạn có thể nhóm các thừa số lại theo cách bạn thấy dễ tính nhất. Ví dụ: $ ({blocksLong} \\times {blocksWide}) \\times {blocksHigh} $ hoặc $ {blocksLong} \\times ({blocksWide} \\times {blocksHigh}) $."
+    ],
+    "solutionHtml": "Để tìm tổng số khối lập phương nhỏ, ta nhân các kích thước chiều dài, chiều rộng và chiều cao lại với nhau.<br/>Áp dụng tính chất kết hợp của phép nhân, ta có thể nhóm các thừa số theo nhiều cách mà kết quả không thay đổi.<br/>Tổng số khối lập phương nhỏ là: $ {blocksLong} \\times {blocksWide} \\times {blocksHigh} = {ans} $ (khối).<br/>Ví dụ, ta có thể tính $ ({blocksLong} \\times {blocksWide}) \\times {blocksHigh} = ({blocksLong * blocksWide}) \\times {blocksHigh} = {ans} $ hoặc $ {blocksLong} \\times ({blocksWide} \\times {blocksHigh}) = {blocksLong} \\times ({blocksWide * blocksHigh}) = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Tính chất kết hợp của phép nhân giúp chúng ta tính toán linh hoạt hơn khi có từ ba thừa số trở lên, bằng cách nhóm các thừa số lại để việc tính nhẩm trở nên dễ dàng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "multiplesOfTenTarget": { "min": 1, "max": 2, "step": 1 },
+      "factor1": { "min": 2, "max": 5, "step": 1 },
+      "factor2_other": { "min": 11, "max": 29, "step": 1 },
+      "factor3": { "min": 2, "max": 25, "step": 1 }
+    },
+    "constraints": [
+      "let product_of_pair = factor1 * factor3;",
+      "if (multiplesOfTenTarget === 1) { return product_of_pair === 10; }",
+      "if (multiplesOfTenTarget === 2) { return product_of_pair === 100; }",
+      "return false"
+    ],
+    "formulas": {
+      "ans": "factor1 * factor2_other * factor3",
+      "w1": "factor1 + factor2_other + factor3",
+      "w2": "factor1 * factor2_other + factor3",
+      "w3": "(factor1 * factor2_other * factor3) + 10"
+    },
+    "questionText": "Để tính giá trị của biểu thức $ {factor1} \\times {factor2_other} \\times {factor3} $, bạn Lan đã dùng tính chất kết hợp của phép nhân để tính nhanh. Bạn Lan nên nhóm các thừa số nào lại với nhau để tính toán thuận tiện nhất? Tính giá trị của biểu thức đó.",
+    "options": [
+      "A. $ {w1} $",
+      "B. $ {ans} $",
+      "C. $ {w2} $",
+      "D. $ {w3} $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Hãy tìm hai thừa số mà khi nhân với nhau sẽ cho kết quả là một số tròn chục hoặc tròn trăm (ví dụ: 10, 20, 100).",
+      "Sau khi nhóm và tính tích của hai thừa số đó, hãy nhân kết quả với thừa số còn lại."
+    ],
+    "solutionHtml": "Để tính nhanh biểu thức $ {factor1} \\times {factor2_other} \\times {factor3} $, bạn Lan nên sử dụng tính chất kết hợp để nhóm hai thừa số $ {factor1} $ và $ {factor3} $ lại với nhau vì tích của chúng là một số tròn ($ {factor1} \\times {factor3} = {factor1 * factor3} $).<br/>Sau đó, nhân kết quả này với thừa số còn lại là $ {factor2_other} $.<br/>Cách tính nhanh như sau:<br/>$ ({factor1} \\times {factor3}) \\times {factor2_other} = ({factor1 * factor3}) \\times {factor2_other} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Luôn tìm cách nhóm các thừa số sao cho tích của chúng là số tròn chục hoặc tròn trăm để việc nhân với số còn lại trở nên đơn giản hơn rất nhiều.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "multiplesOfTenTarget": { "min": 1, "max": 2, "step": 1 },
+      "f1": { "min": 2, "max": 5, "step": 1 },
+      "f2_medium": { "min": 11, "max": 20, "step": 1 },
+      "f3": { "min": 2, "max": 25, "step": 1 },
+      "f4_medium": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "let pair_product = f1 * f3;",
+      "if (multiplesOfTenTarget === 1) { return pair_product === 10; }",
+      "if (multiplesOfTenTarget === 2) { return pair_product === 100; }",
+      "return false"
+    ],
+    "formulas": {
+      "easy_pair_product": "f1 * f3",
+      "remaining_pair_product": "f2_medium * f4_medium",
+      "ans": "f1 * f2_medium * f3 * f4_medium",
+      "w1": "f1 + f2_medium + f3 + f4_medium",
+      "w2": "f1 * f2_medium + f3 * f4_medium",
+      "w3": "f1 * f2_medium * f3 + f4_medium"
+    },
+    "questionText": "Bạn Hùng muốn tính nhanh giá trị của biểu thức $ {f1} \\times {f2_medium} \\times {f3} \\times {f4_medium} $. Sử dụng tính chất giao hoán và kết hợp của phép nhân, bạn Hùng nên nhóm các thừa số nào lại với nhau để tính toán thuận tiện nhất? Tính giá trị của biểu thức đó.",
+    "options": [
+      "A. $ {w1} $",
+      "B. $ {ans} $",
+      "C. $ {w2} $",
+      "D. $ {w3} $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tìm hai thừa số mà khi nhân với nhau sẽ tạo ra số tròn (ví dụ: $ {f1} \\times {f3} $).",
+      "Sau đó, nhóm hai thừa số còn lại và nhân các kết quả của hai nhóm với nhau."
+    ],
+    "solutionHtml": "Để tính nhanh biểu thức $ {f1} \\times {f2_medium} \\times {f3} \\times {f4_medium} $, ta sử dụng tính chất giao hoán để đổi chỗ các thừa số và tính chất kết hợp để nhóm các thừa số lại.<br/>Ta nhóm $ {f1} $ với $ {f3} $ vì $ {f1} \\times {f3} = {easy_pair_product} $ là một số tròn.<br/>Sau đó, ta nhóm $ {f2_medium} $ với $ {f4_medium} $.<br/>Thực hiện phép tính như sau:<br/>$ ({f1} \\times {f3}) \\times ({f2_medium} \\times {f4_medium}) = {easy_pair_product} \\times {remaining_pair_product} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Với nhiều thừa số, hãy tìm các cặp số có thể nhân với nhau ra số tròn chục, tròn trăm. Điều này giúp đơn giản hóa phép tính rất nhiều.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numBoxes": { "min": 3, "max": 7, "step": 1 },
+      "itemsPerBox": { "min": 8, "max": 15, "step": 1 },
+      "weightPerItem": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "numBoxes * itemsPerBox * weightPerItem",
+      "w1": "numBoxes + itemsPerBox + weightPerItem",
+      "w2": "numBoxes * itemsPerBox + weightPerItem",
+      "w3": "numBoxes * itemsPerBox * weightPerItem + 5"
+    },
+    "questionText": "Một cửa hàng nhập về {numBoxes} thùng hàng. Mỗi thùng chứa {itemsPerBox} hộp sữa. Mỗi hộp sữa nặng {weightPerItem} kg. Hỏi tổng khối lượng sữa cửa hàng đã nhập về là bao nhiêu ki-lô-gam?",
+    "options": [
+      "A. $ {w1} $ kg",
+      "B. $ {ans} $ kg",
+      "C. $ {w2} $ kg",
+      "D. $ {w3} $ kg"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đầu tiên, hãy tính tổng số hộp sữa trong tất cả các thùng.",
+      "Sau đó, nhân tổng số hộp sữa với khối lượng của mỗi hộp sữa để tìm tổng khối lượng."
+    ],
+    "solutionHtml": "Để tìm tổng khối lượng sữa, ta thực hiện các bước sau:<br/>1. Tính tổng số hộp sữa: $ {numBoxes} \\times {itemsPerBox} $ hộp.<br/>2. Tính tổng khối lượng sữa: $ ({numBoxes} \\times {itemsPerBox}) \\times {weightPerItem} $ kg.<br/>Hoặc, ta có thể áp dụng tính chất kết hợp của phép nhân:<br/>$ {numBoxes} \\times {itemsPerBox} \\times {weightPerItem} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi giải toán đố có nhiều bước nhân, bạn có thể nhóm các số lại để tính theo thứ tự hợp lý nhất. Ví dụ, tính tổng số hộp sữa trước, rồi mới tính tổng khối lượng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "val1": { "min": 12, "max": 25, "step": 1 },
+      "val2": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "val1 !== val2"
+    ],
+    "formulas": {
+      "product": "val1 * val2",
+      "ans": "val1 * val2",
+      "w1": "val1 + val2",
+      "w2": "val1 * 2",
+      "w3": "val2 * 2"
+    },
+    "questionText": "Biết rằng $ {val1} \\times {val2} = {product} $. Dựa vào tính chất giao hoán của phép nhân, tích của $ {val2} \\times {val1} $ bằng bao nhiêu?",
+    "options": [
+      "A. $ {w1} $",
+      "B. $ {ans} $",
+      "C. $ {w2} $",
+      "D. $ {w3} $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhớ lại tính chất giao hoán của phép nhân: khi đổi chỗ các thừa số thì tích không thay đổi."
+    ],
+    "solutionHtml": "Theo tính chất giao hoán của phép nhân, khi ta đổi chỗ các thừa số trong một tích thì tích không thay đổi.<br/>Vì $ {val1} \\times {val2} = {product} $, nên $ {val2} \\times {val1} $ cũng sẽ bằng $ {product} $.<br/>Đáp án đúng là B.",
+    "tip": "Tính chất giao hoán là một công cụ mạnh mẽ giúp đơn giản hóa việc tính toán và kiểm tra kết quả.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "numA": { "min": 3, "max": 6, "step": 1 },
+      "numB": { "min": 4, "max": 8, "step": 1 },
+      "numC": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "numA !== numB",
+      "numB !== numC",
+      "numA !== numC"
+    ],
+    "formulas": {
+      "val_expr1": "(numA * numB) * numC",
+      "val_expr2": "numA * (numB * numC)",
+      "ans": "val_expr1"
+    },
+    "questionText": "Giá trị của biểu thức $ ({numA} \\times {numB}) \\times {numC} $ so với giá trị của biểu thức $ {numA} \\times ({numB} \\times {numC}) $ như thế nào?",
+    "options": [
+      "A. Lớn hơn",
+      "B. Nhỏ hơn",
+      "C. Bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Nhớ lại tính chất kết hợp của phép nhân: khi nhân một tích hai thừa số với thừa số thứ ba, ta có thể nhân thừa số thứ nhất với tích của hai thừa số còn lại."
+    ],
+    "solutionHtml": "Theo tính chất kết hợp của phép nhân, khi nhân ba số, ta có thể thay đổi cách nhóm các thừa số mà tích không thay đổi.<br/>Cụ thể: $ ({numA} \\times {numB}) \\times {numC} = {numA} \\times ({numB} \\times {numC}) $.<br/>Ví dụ:<br/>$ ({numA} \\times {numB}) \\times {numC} = ({numA * numB}) \\times {numC} = {val_expr1} $<br/>$ {numA} \\times ({numB} \\times {numC}) = {numA} \\times ({numB * numC}) = {val_expr2} $<br/>Hai giá trị này là bằng nhau.<br/>Đáp án đúng là C.",
+    "tip": "Tính chất kết hợp không làm thay đổi kết quả của phép nhân khi chỉ thay đổi cách nhóm các thừa số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "boxes": { "min": 4, "max": 8, "step": 1 },
+      "rowsPerBox": { "min": 3, "max": 7, "step": 1 },
+      "itemsPerRow": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "boxes * rowsPerBox * itemsPerRow",
+      "w1": "boxes + rowsPerBox + itemsPerRow",
+      "w2": "boxes * rowsPerBox + itemsPerRow",
+      "w3": "boxes * rowsPerBox * itemsPerRow + 10"
+    },
+    "questionText": "Một kho hàng có {boxes} kệ hàng. Mỗi kệ có {rowsPerBox} hộp lớn. Mỗi hộp lớn chứa {itemsPerRow} sản phẩm. Để tìm tổng số sản phẩm trong kho, người ta có thể thực hiện phép tính $ ({boxes} \\times {rowsPerBox}) \\times {itemsPerRow} $ hoặc $ {boxes} \\times ({rowsPerBox} \\times {itemsPerRow}) $. Hỏi tổng số sản phẩm trong kho là bao nhiêu?",
+    "options": [
+      "A. $ {w1} $ sản phẩm",
+      "B. $ {ans} $ sản phẩm",
+      "C. $ {w2} $ sản phẩm",
+      "D. $ {w3} $ sản phẩm"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đây là bài toán tìm tổng số lượng trong một cấu trúc nhiều lớp (kệ - hộp - sản phẩm).",
+      "Bạn cần nhân tất cả các số lượng lại với nhau. Tính chất kết hợp cho phép bạn nhóm chúng theo cách thuận tiện."
+    ],
+    "solutionHtml": "Để tìm tổng số sản phẩm trong kho, ta cần nhân số lượng kệ hàng, số hộp lớn trên mỗi kệ và số sản phẩm trong mỗi hộp lớn lại với nhau.<br/>Áp dụng tính chất kết hợp của phép nhân, ta có thể nhóm các thừa số theo hai cách khác nhau nhưng kết quả vẫn không đổi.<br/>Tổng số sản phẩm là: $ {boxes} \\times {rowsPerBox} \\times {itemsPerRow} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+    "tip": "Hãy hình dung bài toán như việc xếp đồ vào các lớp khác nhau. Số lượng tổng cộng sẽ là tích của số lượng ở mỗi lớp.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "p1": { "min": 2, "max": 5, "step": 1 },
+      "p2": { "min": 6, "max": 10, "step": 1 },
+      "p3": { "min": 3, "max": 7, "step": 1 },
+      "p4": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "p1 !== p2",
+      "p1 !== p3",
+      "p1 !== p4",
+      "p2 !== p3",
+      "p2 !== p4",
+      "p3 !== p4"
+    ],
+    "formulas": {
+      "expr_base_val": "p1 * p2 * p3 * p4",
+      "ans": "expr_base_val",
+      "w1": "p1 * p2 + p3 * p4",
+      "w2": "p1 * p3 + p2 * p4",
+      "w3": "p1 * p4 * p2 * p3 + 1"
+    },
+    "questionText": "Cho biểu thức $ A = {p1} \\times {p2} \\times {p3} \\times {p4} $. Biểu thức nào dưới đây có giá trị BẰNG biểu thức A, nhờ áp dụng tính chất giao hoán và kết hợp của phép nhân?",
+    "options": [
+      "A. $ {p1} \\times {p2} + {p3} \\times {p4} $",
+      "B. $ ({p4} \\times {p3}) \\times ({p2} \\times {p1}) $",
+      "C. $ {p1} \\times {p3} + {p2} \\times {p4} $",
+      "D. $ ({p1} + {p2}) \\times ({p3} + {p4}) $"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính chất giao hoán cho phép đổi chỗ các thừa số. Tính chất kết hợp cho phép thay đổi cách nhóm các thừa số.",
+      "Cả hai tính chất này chỉ áp dụng cho phép nhân và không làm thay đổi kết quả của phép nhân."
+    ],
+    "solutionHtml": "Biểu thức A là một tích của bốn thừa số: $ {p1} \\times {p2} \\times {p3} \\times {p4} $.<br/>Theo tính chất giao hoán và kết hợp của phép nhân, ta có thể đổi chỗ và nhóm các thừa số theo bất kỳ cách nào mà tích không thay đổi.<br/>A. $ {p1} \\times {p2} + {p3} \\times {p4} $ là tổng của hai tích, không phải là tích của bốn thừa số ban đầu.<br/>B. $ ({p4} \\times {p3}) \\times ({p2} \\times {p1}) $. Biểu thức này đã đổi chỗ các thừa số (ví dụ: $ {p1} $ và $ {p4} $ đã đổi chỗ) và nhóm lại nhưng vẫn là tích của bốn thừa số $ {p1}, {p2}, {p3}, {p4} $. Do đó, giá trị của nó bằng A.<br/>C. $ {p1} \\times {p3} + {p2} \\times {p4} $ cũng là tổng của hai tích.<br/>D. $ ({p1} + {p2}) \\times ({p3} + {p4}) $ là tích của hai tổng, không phải là tích của bốn thừa số ban đầu.<br/>Đáp án đúng là B.",
+    "tip": "Để tìm biểu thức tương đương, hãy kiểm tra xem nó có sử dụng các phép toán khác ngoài phép nhân hay không. Nếu chỉ là phép nhân, việc đổi chỗ hoặc nhóm lại các thừa số sẽ không làm thay đổi giá trị.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "factor_A": { "min": 2, "max": 8, "step": 1 },
+      "factor_B": { "min": 10, "max": 20, "step": 1 },
+      "factor_C": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "factor_A !== factor_B",
+      "factor_B !== factor_C",
+      "factor_A !== factor_C",
+      "factor_A * factor_B > factor_C",
+      "factor_A * factor_C % 10 !== 0",
+      "factor_B * factor_C % 10 !== 0"
+    ],
+    "formulas": {
+      "product_ABC": "factor_A * factor_B * factor_C",
+      "option1_val": "(factor_A * factor_B) * factor_C",
+      "option2_val": "factor_A * (factor_B * factor_C)",
+      "option3_val": "factor_A * factor_C * factor_B",
+      "w1": "factor_A + factor_B + factor_C",
+      "w2": "(factor_A * factor_B) + factor_C",
+      "w3": "(factor_A + factor_B) * factor_C"
+    },
+    "questionText": "Cho ba số tự nhiên $ {factor_A}, {factor_B}, {factor_C} $. Bạn Minh muốn tính tích của ba số này. Bạn Minh đã tính $ ({factor_A} \\times {factor_B}) \\times {factor_C} = {option1_val} $. Bạn Hoa lại tính $ {factor_A} \\times ({factor_B} \\times {factor_C}) = {option2_val} $. Còn bạn Lan tính $ {factor_A} \\times {factor_C} \\times {factor_B} = {option3_val} $. Điều nào sau đây là đúng khi so sánh các kết quả của Minh, Hoa và Lan?",
+    "options": [
+      "A. Kết quả của Minh lớn nhất.",
+      "B. Kết quả của Hoa và Lan bằng nhau, nhưng khác Minh.",
+      "C. Kết quả của cả ba bạn Minh, Hoa, Lan đều bằng nhau.",
+      "D. Kết quả của Lan là nhỏ nhất."
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Hãy nhớ lại tính chất giao hoán và tính chất kết hợp của phép nhân.",
+      "Tính chất giao hoán cho phép đổi chỗ các thừa số. Tính chất kết hợp cho phép thay đổi cách nhóm các thừa số.",
+      "Cả hai tính chất này đều không làm thay đổi giá trị của tích."
+    ],
+    "solutionHtml": "Chúng ta hãy xem xét các phép tính của Minh, Hoa và Lan:<br/>- Minh tính: $ ({factor_A} \\times {factor_B}) \\times {factor_C} $. Đây là cách nhóm đầu tiên.<br/>- Hoa tính: $ {factor_A} \\times ({factor_B} \\times {factor_C}) $. Đây là cách nhóm thứ hai.<br/>Theo tính chất kết hợp của phép nhân, $ ({factor_A} \\times {factor_B}) \\times {factor_C} = {factor_A} \\times ({factor_B} \\times {factor_C}) $. Vậy, kết quả của Minh và Hoa bằng nhau.<br/>- Lan tính: $ {factor_A} \\times {factor_C} \\times {factor_B} $. Bạn Lan đã đổi chỗ thừa số $ {factor_B} $ và $ {factor_C} $ so với cách tính ban đầu của Minh và Hoa.<br/>Theo tính chất giao hoán của phép nhân, khi đổi chỗ các thừa số thì tích không thay đổi. Vì vậy, $ {factor_A} \\times {factor_B} \\times {factor_C} = {factor_A} \\times {factor_C} \\times {factor_B} $.<br/>Kết quả của cả ba bạn Minh, Hoa và Lan đều là tích của $ {factor_A}, {factor_B}, {factor_C} $, chỉ khác nhau về cách nhóm và thứ tự các thừa số.<br/>Do đó, kết quả của cả ba bạn đều bằng nhau và là $ {product_ABC} $.<br/>Đáp án đúng là C.",
+    "tip": "Tính chất giao hoán và kết hợp là hai tính chất cơ bản giúp chúng ta linh hoạt trong việc tính toán phép nhân mà không làm thay đổi kết quả cuối cùng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-40-d4"
+  }
+]
+

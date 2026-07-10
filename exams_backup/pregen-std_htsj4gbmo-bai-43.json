@@ -1,0 +1,532 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalServes": {
+          "min": 80,
+          "max": 150,
+          "step": 10
+        },
+        "successfulServes": {
+          "min": 50,
+          "max": 120,
+          "step": 5
+        },
+        "newServes": {
+          "min": 30,
+          "max": 80,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "successfulServes < totalServes - 10",
+        "successfulServes > totalServes / 2"
+      ],
+      "formulas": {
+        "probSuccess": "successfulServes / totalServes",
+        "ans": "Math.round(successfulServes / totalServes * newServes)",
+        "w1": "Math.round((totalServes - successfulServes) / totalServes * newServes)",
+        "w2": "Math.round(successfulServes / totalServes * (newServes + 10))",
+        "w3": "Math.round((successfulServes + 5) / totalServes * newServes)"
+      },
+      "questionText": "Trong một buổi tập bóng bàn, vận động viên A đã thực hiện {totalServes} lần giao bóng, trong đó có {successfulServes} lần giao bóng thành công. Dựa trên xác suất thực nghiệm, hãy dự đoán số lần giao bóng thành công nếu vận động viên A tiếp tục giao bóng thêm {newServes} lần nữa. (Làm tròn kết quả đến số nguyên gần nhất)",
+      "options": [
+        "A. {w1} lần",
+        "B. {w2} lần",
+        "C. {ans} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính xác suất thực nghiệm của sự kiện giao bóng thành công bằng cách lấy số lần giao bóng thành công chia cho tổng số lần giao bóng.",
+        "Sử dụng xác suất thực nghiệm vừa tìm được để dự đoán số lần thành công trong {newServes} lần giao bóng tiếp theo."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện giao bóng thành công là:<br/>$P(\\text{thanh cong}) = \\frac{{\\text{So lan thanh cong}}}{{\\text{Tong so lan giao}}} = \\frac{{{successfulServes}}}{{{totalServes}}} \\approx {probSuccess}$.<br/>Số lần giao bóng thành công dự đoán trong {newServes} lần giao bóng tiếp theo là:<br/>$ {ans} = {probSuccess} \\times {newServes} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} lần giao bóng thành công.<br/>Đáp án đúng là C.",
+      "tip": "Xác suất thực nghiệm giúp chúng ta dự đoán tần suất của một sự kiện trong tương lai dựa trên dữ liệu đã quan sát được trong quá khứ.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "surveyedStudents": {
+          "min": 60,
+          "max": 150,
+          "step": 10
+        },
+        "bikeStudents": {
+          "min": 20,
+          "max": 100,
+          "step": 5
+        },
+        "totalSchoolStudents": {
+          "min": 450,
+          "max": 800,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "bikeStudents < surveyedStudents - 10",
+        "bikeStudents > surveyedStudents / 3"
+      ],
+      "formulas": {
+        "probBike": "bikeStudents / surveyedStudents",
+        "ans": "Math.round(bikeStudents / surveyedStudents * totalSchoolStudents)",
+        "w1": "Math.round((surveyedStudents - bikeStudents) / surveyedStudents * totalSchoolStudents)",
+        "w2": "Math.round(bikeStudents / (surveyedStudents + 10) * totalSchoolStudents)",
+        "w3": "Math.round(bikeStudents / surveyedStudents * (totalSchoolStudents - 50))"
+      },
+      "questionText": "Một trường học tiến hành khảo sát {surveyedStudents} học sinh ngẫu nhiên về phương tiện đi học chính của các em. Kết quả cho thấy có {bikeStudents} học sinh thường xuyên đi học bằng xe đạp. Dựa vào kết quả này, nếu toàn trường có {totalSchoolStudents} học sinh, hãy ước tính số học sinh đi học bằng xe đạp của cả trường. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {w3} học sinh",
+        "C. {ans} học sinh",
+        "D. {w2} học sinh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, hãy tính xác suất thực nghiệm của sự kiện 'học sinh đi xe đạp' từ mẫu khảo sát.",
+        "Sau đó, nhân xác suất này với tổng số học sinh của toàn trường để ước tính số lượng học sinh đi xe đạp."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'học sinh đi xe đạp' từ mẫu khảo sát là:<br/>$P(\\text{di xe dap}) = \\frac{{\\text{So hoc sinh di xe dap trong mau}}}{{\\text{Tong so hoc sinh duoc khao sat}}} = \\frac{{{bikeStudents}}}{{{surveyedStudents}}} \\approx {probBike}$.<br/>Số học sinh đi học bằng xe đạp ước tính của cả trường là:<br/>$ {ans} = {probBike} \\times {totalSchoolStudents} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, ước tính có khoảng {ans} học sinh đi học bằng xe đạp.<br/>Đáp án đúng là C.",
+      "tip": "Khi khảo sát một mẫu đại diện, xác suất thực nghiệm từ mẫu có thể được sử dụng để ước tính tần suất của một sự kiện trong toàn bộ quần thể.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "checkedBulbs": {
+          "min": 120,
+          "max": 280,
+          "step": 20
+        },
+        "defectiveBulbs": {
+          "min": 3,
+          "max": 12,
+          "step": 1
+        },
+        "totalProduction": {
+          "min": 1200,
+          "max": 4800,
+          "step": 400
+        }
+      },
+      "constraints": [
+        "defectiveBulbs < checkedBulbs / 8",
+        "defectiveBulbs > 0"
+      ],
+      "formulas": {
+        "probDefective": "defectiveBulbs / checkedBulbs",
+        "ans": "Math.round(defectiveBulbs / checkedBulbs * totalProduction)",
+        "w1": "Math.round((checkedBulbs - defectiveBulbs) / checkedBulbs * totalProduction)",
+        "w2": "Math.round(defectiveBulbs / (checkedBulbs + 20) * totalProduction)",
+        "w3": "Math.round(defectiveBulbs / checkedBulbs * (totalProduction + 200))"
+      },
+      "questionText": "Một công ty sản xuất bóng đèn thực hiện kiểm tra chất lượng ngẫu nhiên trên {checkedBulbs} bóng đèn và phát hiện có {defectiveBulbs} bóng bị lỗi. Nếu công ty dự định sản xuất một lô hàng lớn gồm {totalProduction} bóng đèn, hãy sử dụng xác suất thực nghiệm để ước tính số lượng bóng đèn bị lỗi trong lô hàng đó. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {w1} bóng",
+        "B. {w2} bóng",
+        "C. {w3} bóng",
+        "D. {ans} bóng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính xác suất thực nghiệm để một bóng đèn bị lỗi từ mẫu đã kiểm tra.",
+        "Nhân xác suất này với tổng số bóng đèn trong lô hàng để ước tính số bóng bị lỗi."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'bóng đèn bị lỗi' là:<br/>$P(\\text{bi loi}) = \\frac{{\\text{So bong bi loi trong mau}}}{{\\text{Tong so bong kiem tra}}} = \\frac{{{defectiveBulbs}}}{{{checkedBulbs}}} \\approx {probDefective}$.<br/>Số bóng đèn bị lỗi ước tính trong lô hàng {totalProduction} bóng là:<br/>$ {ans} = {probDefective} \\times {totalProduction} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, ước tính có khoảng {ans} bóng đèn bị lỗi.<br/>Đáp án đúng là D.",
+      "tip": "Kiểm soát chất lượng trong sản xuất thường dựa vào xác suất thực nghiệm để dự báo tỷ lệ sản phẩm lỗi trong các lô hàng lớn.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numRolls": {
+          "min": 72,
+          "max": 144,
+          "step": 12
+        },
+        "count3": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "count5": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "extraRolls": {
+          "min": 48,
+          "max": 96,
+          "step": 12
+        }
+      },
+      "constraints": [
+        "count3 + count5 < numRolls / 2",
+        "count3 + count5 > numRolls / 4",
+        "count3 !== count5"
+      ],
+      "formulas": {
+        "favorableCount": "count3 + count5",
+        "probFavorable": "(count3 + count5) / numRolls",
+        "ans": "Math.round((count3 + count5) / numRolls * extraRolls)",
+        "w1": "Math.round((numRolls - (count3 + count5)) / numRolls * extraRolls)",
+        "w2": "Math.round(count3 / numRolls * extraRolls)",
+        "w3": "Math.round(count5 / numRolls * extraRolls)"
+      },
+      "questionText": "An gieo một con xúc xắc {numRolls} lần và ghi lại số lần xuất hiện của các mặt. Kết quả cho thấy mặt 3 chấm xuất hiện {count3} lần và mặt 5 chấm xuất hiện {count5} lần. Dựa trên xác suất thực nghiệm, hãy dự đoán số lần mặt 3 chấm hoặc mặt 5 chấm sẽ xuất hiện nếu An tiếp tục gieo xúc xắc thêm {extraRolls} lần nữa. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {ans} lần",
+        "B. {w1} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Xác định tổng số lần mà sự kiện 'mặt 3 chấm hoặc mặt 5 chấm xuất hiện' đã xảy ra trong {numRolls} lần gieo đầu tiên.",
+        "Tính xác suất thực nghiệm cho sự kiện đó, sau đó dùng nó để dự đoán số lần xuất hiện trong {extraRolls} lần gieo tiếp theo."
+      ],
+      "solutionHtml": "Số lần mặt 3 chấm hoặc mặt 5 chấm xuất hiện trong {numRolls} lần gieo đầu tiên là:<br/>$ {favorableCount} = {count3} + {count5} $ lần.<br/>Xác suất thực nghiệm của sự kiện 'mặt 3 chấm hoặc mặt 5 chấm xuất hiện' là:<br/>$P(\\text{3 hoac 5}) = \\frac{{\\text{So lan xuat hien 3 hoac 5}}}{{\\text{Tong so lan gieo}}} = \\frac{{{favorableCount}}}{{{numRolls}}} \\approx {probFavorable}$.<br/>Số lần dự đoán mặt 3 chấm hoặc mặt 5 chấm xuất hiện trong {extraRolls} lần gieo tiếp theo là:<br/>$ {ans} = {probFavorable} \\times {extraRolls} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} lần mặt 3 chấm hoặc mặt 5 chấm sẽ xuất hiện.<br/>Đáp án đúng là A.",
+      "tip": "Khi tính xác suất cho nhiều kết quả (ví dụ: 'mặt 3 chấm hoặc mặt 5 chấm'), ta cộng số lần xuất hiện của từng kết quả đó lại để được tổng số lần thuận lợi.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "participantsObserved": {
+          "min": 250,
+          "max": 450,
+          "step": 50
+        },
+        "winnersObserved": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "newParticipants": {
+          "min": 600,
+          "max": 1200,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "winnersObserved < participantsObserved / 5",
+        "winnersObserved > participantsObserved / 20"
+      ],
+      "formulas": {
+        "probWin": "winnersObserved / participantsObserved",
+        "ans": "Math.round(winnersObserved / participantsObserved * newParticipants)",
+        "w1": "Math.round((participantsObserved - winnersObserved) / participantsObserved * newParticipants)",
+        "w2": "Math.round(winnersObserved / (participantsObserved + 20) * newParticipants)",
+        "w3": "Math.round(winnersObserved / participantsObserved * (newParticipants + 50))"
+      },
+      "questionText": "Một cửa hàng tổ chức chương trình rút thăm trúng thưởng. Trong {participantsObserved} lượt rút thăm đầu tiên, có {winnersObserved} lượt trúng giải. Nếu dự kiến sẽ có thêm {newParticipants} lượt rút thăm nữa, dựa trên xác suất thực nghiệm, hãy dự đoán số lượt trúng giải trong số lượt rút thăm bổ sung đó. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {w1} lượt",
+        "B. {ans} lượt",
+        "C. {w2} lượt",
+        "D. {w3} lượt"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính xác suất thực nghiệm của việc 'trúng giải' dựa trên dữ liệu đã quan sát được.",
+        "Sử dụng xác suất này để ước tính số lượt trúng giải trong {newParticipants} lượt rút thăm tiếp theo."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'trúng giải' là:<br/>$P(\\text{trung giai}) = \\frac{{\\text{So luot trung giai}}}{{\\text{Tong so luot rut tham}}} = \\frac{{{winnersObserved}}}{{{participantsObserved}}} \\approx {probWin}$.<br/>Số lượt trúng giải dự đoán trong {newParticipants} lượt rút thăm tiếp theo là:<br/>$ {ans} = {probWin} \\times {newParticipants} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} lượt người sẽ trúng giải.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất thực nghiệm thường được dùng trong các trò chơi may rủi hoặc chương trình khuyến mãi để ước tính khả năng xảy ra một sự kiện.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "observedDays": {
+          "min": 28,
+          "max": 31,
+          "step": 1
+        },
+        "rainyDays": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "predictionMonths": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "rainyDays < observedDays / 2",
+        "observedDays === 30 || observedDays === 31 || observedDays === 28"
+      ],
+      "formulas": {
+        "probRain": "rainyDays / observedDays",
+        "totalPredictionDays": "predictionMonths * 30",
+        "ans": "Math.round(rainyDays / observedDays * (predictionMonths * 30))",
+        "w1": "Math.round((observedDays - rainyDays) / observedDays * (predictionMonths * 30))",
+        "w2": "Math.round(rainyDays / (observedDays + 2) * (predictionMonths * 30))",
+        "w3": "Math.round(rainyDays / observedDays * (predictionMonths * 30 + 10))"
+      },
+      "questionText": "Trong một thành phố, người ta ghi nhận trong tháng {observedDays} ngày trước đây có {rainyDays} ngày mưa. Dựa trên xác suất thực nghiệm này, hãy dự đoán tổng số ngày mưa trong {predictionMonths} tháng tiếp theo, với giả định mỗi tháng có 30 ngày và điều kiện thời tiết không thay đổi đáng kể. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {ans} ngày",
+        "B. {w1} ngày",
+        "C. {w2} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính xác suất thực nghiệm của sự kiện 'có mưa' dựa trên dữ liệu đã quan sát.",
+        "Xác định tổng số ngày trong {predictionMonths} tháng để dự đoán (giả sử mỗi tháng 30 ngày).",
+        "Nhân xác suất thực nghiệm với tổng số ngày dự đoán để tìm số ngày mưa."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'có mưa' là:<br/>$P(\\text{co mua}) = \\frac{{\\text{So ngay mua}}}{{\\text{Tong so ngay quan sat}}} = \\frac{{{rainyDays}}}{{{observedDays}}} \\approx {probRain}$.<br/>Tổng số ngày trong {predictionMonths} tháng tiếp theo là:<br/>$ {totalPredictionDays} = {predictionMonths} \\times 30 $ ngày.<br/>Số ngày mưa dự đoán trong {predictionMonths} tháng tiếp theo là:<br/>$ {ans} = {probRain} \\times {totalPredictionDays} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} ngày mưa.<br/>Đáp án đúng là A.",
+      "tip": "Dự báo thời tiết đôi khi cũng sử dụng các dữ liệu lịch sử để tính xác suất thực nghiệm cho các sự kiện như mưa, nắng, bão.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalSaplings": {
+          "min": 250,
+          "max": 550,
+          "step": 50
+        },
+        "roseSaplings": {
+          "min": 40,
+          "max": 120,
+          "step": 5
+        },
+        "newBatchSize": {
+          "min": 1200,
+          "max": 2500,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "roseSaplings < totalSaplings / 3",
+        "roseSaplings > totalSaplings / 8"
+      ],
+      "formulas": {
+        "probRose": "roseSaplings / totalSaplings",
+        "ans": "Math.round(roseSaplings / totalSaplings * newBatchSize)",
+        "w1": "Math.round((totalSaplings - roseSaplings) / totalSaplings * newBatchSize)",
+        "w2": "Math.round(roseSaplings / (totalSaplings - 50) * newBatchSize)",
+        "w3": "Math.round(roseSaplings / totalSaplings * (newBatchSize + 200))"
+      },
+      "questionText": "Trong một vườn ươm, người ta kiểm đếm {totalSaplings} cây con và thấy có {roseSaplings} cây là hoa hồng. Nếu vườn ươm đó chuẩn bị vận chuyển một lô hàng lớn gồm {newBatchSize} cây con, hãy sử dụng xác suất thực nghiệm để ước tính số lượng cây hoa hồng có trong lô hàng đó. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính xác suất thực nghiệm của việc một cây con là cây hoa hồng dựa trên mẫu đã kiểm đếm.",
+        "Sau đó, nhân xác suất này với tổng số cây con trong lô hàng mới để ước tính số cây hoa hồng."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'là cây hoa hồng' là:<br/>$P(\\text{hoa hong}) = \\frac{{\\text{So cay hoa hong trong mau}}}{{\\text{Tong so cay con kiem dem}}} = \\frac{{{roseSaplings}}}{{{totalSaplings}}} \\approx {probRose}$.<br/>Số cây hoa hồng ước tính trong lô hàng {newBatchSize} cây con là:<br/>$ {ans} = {probRose} \\times {newBatchSize} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, ước tính có khoảng {ans} cây hoa hồng.<br/>Đáp án đúng là C.",
+      "tip": "Xác suất thực nghiệm giúp các nhà quản lý vườn ươm dự báo số lượng các loại cây cụ thể trong các lô hàng lớn, hỗ trợ việc lập kế hoạch và phân phối.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalSpins": {
+          "min": 100,
+          "max": 200,
+          "step": 20
+        },
+        "scoreXCount": {
+          "min": 15,
+          "max": 40,
+          "step": 5
+        },
+        "futureSpins": {
+          "min": 60,
+          "max": 120,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "scoreXCount < totalSpins / 4",
+        "scoreXCount > totalSpins / 10"
+      ],
+      "formulas": {
+        "probScoreX": "scoreXCount / totalSpins",
+        "ans": "Math.round(scoreXCount / totalSpins * futureSpins)",
+        "w1": "Math.round((totalSpins - scoreXCount) / totalSpins * futureSpins)",
+        "w2": "Math.round(scoreXCount / (totalSpins + 20) * futureSpins)",
+        "w3": "Math.round(scoreXCount / totalSpins * (futureSpins - 10))"
+      },
+      "questionText": "Trong một trò chơi 'Vòng quay may mắn', sau {totalSpins} lượt quay thử, người chơi ghi nhận có {scoreXCount} lượt quay trúng ô '100 điểm'. Nếu có thêm {futureSpins} lượt quay nữa, hãy sử dụng xác suất thực nghiệm để dự đoán số lượt quay sẽ trúng ô '100 điểm'. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {ans} lượt",
+        "B. {w1} lượt",
+        "C. {w2} lượt",
+        "D. {w3} lượt"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính xác suất thực nghiệm của sự kiện 'trúng ô 100 điểm' từ dữ liệu đã có.",
+        "Nhân xác suất này với số lượt quay tương lai để dự đoán số lần trúng."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'trúng ô 100 điểm' là:<br/>$P(\\text{trung 100 diem}) = \\frac{{\\text{So luot trung 100 diem}}}{{\\text{Tong so luot quay}}} = \\frac{{{scoreXCount}}}{{{totalSpins}}} \\approx {probScoreX}$.<br/>Số lượt quay trúng ô '100 điểm' dự đoán trong {futureSpins} lượt quay tiếp theo là:<br/>$ {ans} = {probScoreX} \\times {futureSpins} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} lượt quay sẽ trúng ô '100 điểm'.<br/>Đáp án đúng là A.",
+      "tip": "Vòng quay may mắn là một ví dụ phổ biến về việc áp dụng xác suất thực nghiệm để dự đoán các kết quả tương lai của trò chơi.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "observedVehicles": {
+          "min": 150,
+          "max": 300,
+          "step": 50
+        },
+        "trucksObserved": {
+          "min": 25,
+          "max": 70,
+          "step": 5
+        },
+        "predictionHours": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "trucksObserved < observedVehicles / 3",
+        "trucksObserved > observedVehicles / 8"
+      ],
+      "formulas": {
+        "probTruck": "trucksObserved / observedVehicles",
+        "totalPredictionVehicles": "observedVehicles * predictionHours",
+        "ans": "Math.round(trucksObserved / observedVehicles * (observedVehicles * predictionHours))",
+        "w1": "Math.round((observedVehicles - trucksObserved) / observedVehicles * (observedVehicles * predictionHours))",
+        "w2": "Math.round(trucksObserved / (observedVehicles - 25) * (observedVehicles * predictionHours))",
+        "w3": "Math.round(trucksObserved / observedVehicles * (observedVehicles * (predictionHours + 1)))"
+      },
+      "questionText": "Trong một giờ quan sát tại một điểm giao thông, người ta đếm được {observedVehicles} lượt xe đi qua, trong đó có {trucksObserved} lượt là xe tải. Nếu lưu lượng giao thông trong khoảng thời gian này không thay đổi, hãy sử dụng xác suất thực nghiệm để dự đoán số lượt xe tải sẽ đi qua điểm giao thông đó trong {predictionHours} giờ tiếp theo. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {w1} lượt xe",
+        "B. {w2} lượt xe",
+        "C. {w3} lượt xe",
+        "D. {ans} lượt xe"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính xác suất thực nghiệm của sự kiện 'xe tải đi qua' trong một giờ quan sát.",
+        "Tính tổng số lượt xe dự kiến đi qua trong {predictionHours} giờ.",
+        "Nhân xác suất thực nghiệm với tổng số lượt xe dự kiến để tìm số lượt xe tải."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'xe tải đi qua' là:<br/>$P(\\text{xe tai}) = \\frac{{\\text{So luot xe tai}}}{{\\text{Tong so luot xe quan sat}}} = \\frac{{{trucksObserved}}}{{{observedVehicles}}} \\approx {probTruck}$.<br/>Tổng số lượt xe dự kiến đi qua trong {predictionHours} giờ tiếp theo là:<br/>$ {totalPredictionVehicles} = {observedVehicles} \\times {predictionHours} $ lượt xe.<br/>Số lượt xe tải dự đoán sẽ đi qua trong {predictionHours} giờ tiếp theo là:<br/>$ {ans} = {probTruck} \\times {totalPredictionVehicles} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} lượt xe tải.<br/>Đáp án đúng là D.",
+      "tip": "Các nhà quy hoạch giao thông thường sử dụng xác suất thực nghiệm để dự đoán lưu lượng xe, giúp họ đưa ra quyết định về mở rộng đường hoặc điều tiết giao thông.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalSeedsPlanted": {
+          "min": 100,
+          "max": 250,
+          "step": 25
+        },
+        "germinatedSeeds": {
+          "min": 60,
+          "max": 200,
+          "step": 5
+        },
+        "newBatchSeeds": {
+          "min": 600,
+          "max": 1500,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "germinatedSeeds < totalSeedsPlanted * 0.9",
+        "germinatedSeeds > totalSeedsPlanted * 0.5"
+      ],
+      "formulas": {
+        "probGerminate": "germinatedSeeds / totalSeedsPlanted",
+        "ans": "Math.round(germinatedSeeds / totalSeedsPlanted * newBatchSeeds)",
+        "w1": "Math.round((totalSeedsPlanted - germinatedSeeds) / totalSeedsPlanted * newBatchSeeds)",
+        "w2": "Math.round(germinatedSeeds / (totalSeedsPlanted + 20) * newBatchSeeds)",
+        "w3": "Math.round(germinatedSeeds / totalSeedsPlanted * (newBatchSeeds - 100))"
+      },
+      "questionText": "Một nông dân thử nghiệm gieo {totalSeedsPlanted} hạt giống và ghi nhận có {germinatedSeeds} hạt nảy mầm thành công. Dựa trên kết quả này, nếu nông dân gieo một lô lớn gồm {newBatchSeeds} hạt giống cùng loại, hãy dự đoán số hạt sẽ nảy mầm thành công. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {ans} hạt",
+        "B. {w1} hạt",
+        "C. {w2} hạt",
+        "D. {w3} hạt"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính xác suất thực nghiệm để một hạt giống nảy mầm từ số liệu đã quan sát.",
+        "Sử dụng xác suất này để ước tính số hạt nảy mầm trong lô hạt giống mới."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'hạt nảy mầm thành công' là:<br/>$P(\\text{nay mam}) = \\frac{{\\text{So hat nay mam}}}{{\\text{Tong so hat da gieo}}} = \\frac{{{germinatedSeeds}}}{{{totalSeedsPlanted}}} \\approx {probGerminate}$.<br/>Số hạt sẽ nảy mầm thành công dự đoán trong lô {newBatchSeeds} hạt giống là:<br/>$ {ans} = {probGerminate} \\times {newBatchSeeds} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} hạt nảy mầm thành công.<br/>Đáp án đúng là A.",
+      "tip": "Nông dân và nhà khoa học thường sử dụng xác suất thực nghiệm để đánh giá hiệu quả của hạt giống và đưa ra quyết định canh tác tối ưu.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numTosses": {
+          "min": 60,
+          "max": 140,
+          "step": 20
+        },
+        "headsCount": {
+          "min": 25,
+          "max": 75,
+          "step": 5
+        },
+        "futureTosses": {
+          "min": 40,
+          "max": 90,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "headsCount > numTosses / 3",
+        "headsCount < numTosses * 2 / 3"
+      ],
+      "formulas": {
+        "probHeads": "headsCount / numTosses",
+        "ans": "Math.round(headsCount / numTosses * futureTosses)",
+        "w1": "Math.round((numTosses - headsCount) / numTosses * futureTosses)",
+        "w2": "Math.round(0.5 * futureTosses)",
+        "w3": "Math.round((headsCount + 5) / numTosses * futureTosses)"
+      },
+      "questionText": "Lan gieo một đồng xu {numTosses} lần. Cô ấy ghi lại có {headsCount} lần xuất hiện mặt ngửa. Nếu Lan tiếp tục gieo đồng xu thêm {futureTosses} lần nữa, hãy dự đoán số lần mặt ngửa sẽ xuất hiện. (Làm tròn đến số nguyên gần nhất)",
+      "options": [
+        "A. {ans} lần",
+        "B. {w1} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính xác suất thực nghiệm của sự kiện 'xuất hiện mặt ngửa' từ các lần gieo trước.",
+        "Sử dụng xác suất đó để ước tính số lần mặt ngửa sẽ xuất hiện trong {futureTosses} lần gieo tiếp theo."
+      ],
+      "solutionHtml": "Xác suất thực nghiệm của sự kiện 'xuất hiện mặt ngửa' là:<br/>$P(\\text{mat ngua}) = \\frac{{\\text{So lan mat ngua}}}{{\\text{Tong so lan gieo}}} = \\frac{{{headsCount}}}{{{numTosses}}} \\approx {probHeads}$.<br/>Số lần mặt ngửa dự đoán trong {futureTosses} lần gieo tiếp theo là:<br/>$ {ans} = {probHeads} \\times {futureTosses} $ (làm tròn đến số nguyên gần nhất).<br/>Vậy, dự đoán có khoảng {ans} lần mặt ngửa sẽ xuất hiện.<br/>Đáp án đúng là A.",
+      "tip": "Khi số lần thực hiện thử nghiệm ít, xác suất thực nghiệm có thể khác xa xác suất lí thuyết (0.5 cho đồng xu cân đối), nhưng khi số lần thử nghiệm tăng lên, xác suất thực nghiệm sẽ càng gần với xác suất lí thuyết.",
+      "level": "chat-luong-cao",
+      "type": "bai-43-d4"
+    }
+  ]
+}

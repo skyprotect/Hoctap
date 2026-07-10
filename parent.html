@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc Phụ Huynh - Quản trị Học tập & AI</title>
+    
+    <!-- Tailwind CSS Cục bộ -->
+    <script src="js/lib/tailwind.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8b5cf6',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        info: '#3b82f6',
+                        bgDark: '#0f172a',
+                        cardDark: '#1e293b',
+                        borderDark: '#334155'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="css/lib/font-awesome/css/all.min.css">
+    
+    <!-- SweetAlert2 (gộp CSS & JS) -->
+    <script src="js/lib/sweetalert2.all.min.js"></script>
+    
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="css/lib/katex.min.css">
+    <script defer src="js/lib/katex.min.js"></script>
+    <script defer src="js/lib/auto-render.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="js/lib/chart.min.js"></script>
+    
+    <!-- Mermaid.js & Marked.js -->
+    <script src="js/lib/mermaid.min.js"></script>
+    <script src="js/lib/marked.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-app: #080c14;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+            background: radial-gradient(circle at top right, #0d1527 0%, #05080f 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Quả cầu mờ ảo trang trí phía sau (Blobs) */
+        .splash-bg-blobs {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.18;
+            animation: moveBlob 25s infinite alternate ease-in-out;
+        }
+        body.light-mode .blob {
+            opacity: 0.07;
+        }
+        .blob-1 {
+            top: -10%; left: 10%;
+            width: 450px; height: 450px;
+            background: #8b5cf6;
+        }
+        .blob-2 {
+            bottom: -15%; right: 10%;
+            width: 550px; height: 550px;
+            background: #3b82f6;
+            animation-delay: -5s;
+        }
+        .blob-3 {
+            top: 40%; left: 45%;
+            width: 380px; height: 380px;
+            background: #10b981;
+            animation-delay: -10s;
+        }
+        @keyframes moveBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(70px, -50px) scale(1.15); }
+            100% { transform: translate(-50px, 60px) scale(0.9); }
+        }
+
+        .math-render {
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        /* Nâng cấp các Card thành Glassmorphism cao cấp */
+        .card,
+        #parent-auth-box {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover {
+            border-color: rgba(139, 92, 246, 0.25);
+            box-shadow: 0 16px 45px 0 rgba(139, 92, 246, 0.06);
+            transform: translateY(-2px);
+        }
+
+        /* Input & Select cao cấp */
+        input[type="text"],
+        input[type="password"],
+        select {
+            background: rgba(15, 23, 42, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
+            border-radius: 12px !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #8b5cf6 !important;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
+            outline: none !important;
+        }
+
+        /* Tinh chỉnh Badge Card */
+        .badge-card-item {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .badge-card-item.locked {
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+        .badge-card-item .badge-icon {
+            font-size: 2.2rem;
+        }
+        .badge-card-item .badge-title {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 0.95rem;
+        }
+        .badge-card-item .badge-desc {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+        }
+        .badge-card-item .badge-date {
+            font-size: 0.72rem;
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+
+        /* --- CSS THEME SÁNG HOÀNG GIA CHO PHỤ HUYNH --- */
+        body.light-mode {
+            background: radial-gradient(circle at top right, #f8fafc 0%, #e2e8f0 100%) !important;
+            color: #0f172a !important;
+        }
+        body.light-mode .card,
+        body.light-mode #parent-auth-box {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(15, 23, 42, 0.07) !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 5px 15px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+        body.light-mode .card:hover {
+            border-color: rgba(139, 92, 246, 0.4) !important;
+            box-shadow: 0 16px 40px 0 rgba(139, 92, 246, 0.08) !important;
+        }
+        body.light-mode .parent-header h2,
+        body.light-mode h3,
+        body.light-mode h4,
+        body.light-mode strong,
+        body.light-mode td,
+        body.light-mode th,
+        body.light-mode .text-slate-100,
+        body.light-mode .text-slate-200 {
+            color: #0f172a !important;
+        }
+        body.light-mode p,
+        body.light-mode span,
+        body.light-mode label,
+        body.light-mode .text-slate-300 {
+            color: #334155 !important;
+        }
+        body.light-mode .text-slate-400,
+        body.light-mode .section-desc {
+            color: #64748b !important;
+        }
+        body.light-mode input,
+        body.light-mode select {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            color: #0f172a !important;
+            border-color: rgba(15, 23, 42, 0.12) !important;
+        }
+        body.light-mode input:focus,
+        body.light-mode select:focus {
+            border-color: #8b5cf6 !important;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
+        }
+        body.light-mode .bg-slate-900,
+        body.light-mode .bg-slate-900\/50,
+        body.light-mode .bg-slate-900\/30,
+        body.light-mode #ai-advisor-result {
+            background-color: rgba(255, 255, 255, 0.65) !important;
+            border-color: rgba(15, 23, 42, 0.1) !important;
+        }
+        body.light-mode .border-slate-700 {
+            border-color: rgba(15, 23, 42, 0.1) !important;
+        }
+        body.light-mode table {
+            border-color: rgba(15, 23, 42, 0.1) !important;
+        }
+        body.light-mode th {
+            background-color: rgba(15, 23, 42, 0.03) !important;
+            color: #334155 !important;
+            border-bottom: 2px solid rgba(15, 23, 42, 0.08) !important;
+        }
+        body.light-mode tr {
+            border-bottom-color: rgba(15, 23, 42, 0.06) !important;
+        }
+        body.light-mode tr:hover {
+            background-color: rgba(139, 92, 246, 0.03) !important;
+        }
+        body.light-mode .btn-sess-review {
+            background-color: rgba(15, 23, 42, 0.03) !important;
+            border-color: rgba(15, 23, 42, 0.1) !important;
+            color: #0f172a !important;
+        }
+        body.light-mode .btn-sess-review:hover {
+            background-color: rgba(15, 23, 42, 0.08) !important;
+        }
+        body.light-mode .swal2-popup {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+        body.light-mode .swal2-title {
+            color: #0f172a !important;
+        }
+        body.light-mode .swal2-html-container label {
+            color: #64748b !important;
+        }
+        body.light-mode .swal2-input,
+        body.light-mode .swal2-select {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: rgba(15, 23, 42, 0.12) !important;
+        }
+        body.light-mode #btn-refresh-ai-advice,
+        body.light-mode #btn-test-api-keys,
+        body.light-mode #btn-save-api-keys,
+        body.light-mode #btn-exit-kiosk-mode {
+            color: #ffffff !important;
+        }
+        
+        /* CSS cho Preview Đề thi và In ấn PDF */
+        #pdf-exam-paper {
+            font-family: "Times New Roman", Times, Georgia, serif;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #cbd5e1;
+            padding: 2.5rem;
+            line-height: 1.6;
+        }
+        
+        #pdf-exam-paper * {
+            color: #000000 !important;
+        }
+
+        #pdf-exam-paper .math-render,
+        #pdf-exam-paper .katex {
+            color: #000000 !important;
+            font-size: 1.05em;
+        }
+
+        /* Định nghĩa ngắt trang */
+        .print-page-break {
+            page-break-before: always;
+            break-before: page;
+            height: 0;
+            overflow: hidden;
+        }
+
+        /* CSS khi in ấn thực tế */
+        @media print {
+            @page {
+                size: A4;
+                margin: 20mm 15mm 20mm 15mm;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            /* Ẩn tất cả ngoại trừ container đề thi */
+            body > *:not(#main-wrapper) {
+                display: none !important;
+            }
+            #main-wrapper {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            #parent-auth-box {
+                display: none !important;
+            }
+            #parent-dashboard-content {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            /* Ẩn tất cả card khác */
+            #parent-dashboard-content > div:not(.parent-pdf-exporter) {
+                display: none !important;
+            }
+            /* Trong card PDF exporter, ẩn header, form và preview-container header, chỉ hiện #pdf-exam-paper */
+            .parent-pdf-exporter {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .parent-pdf-exporter > div:not(:last-child) {
+                display: none !important;
+            }
+            #pdf-exam-preview-container {
+                display: block !important;
+                border: none !important;
+                background: transparent !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            #pdf-exam-preview-container > div:first-child {
+                display: none !important; /* ẩn thanh công cụ preview */
+            }
+            #pdf-exam-paper {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .print-page-break {
+                display: block !important;
+                page-break-before: always !important;
+                break-before: page !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col">
+    <!-- Quả cầu màu sắc chuyển động mờ ảo phía sau -->
+    <div class="splash-bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Container chính -->
+    <div class="flex-1 flex flex-col justify-center items-center p-4" id="main-wrapper">
+        
+        <!-- MÀN HÌNH ĐĂNG NHẬP -->
+        <div id="parent-auth-box" class="max-w-md w-full bg-slate-800 border border-slate-700 p-8 rounded-2xl shadow-2xl text-center transition-all duration-300">
+            <div class="w-16 h-16 bg-violet-600/20 text-violet-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-violet-500/30">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-100 mb-2">Xác nhận Phụ huynh</h3>
+            <p class="text-slate-400 text-sm mb-6">Vui lòng nhập mật mã phụ huynh để truy cập Bảng điều khiển học tập và Cấu hình AI.</p>
+            
+            <div class="flex flex-col gap-4">
+                <div class="pin-input-group flex flex-col gap-1">
+                    <input type="password" id="parent-pin" maxlength="15" placeholder="Mật mã (Mặc định: 123456)" class="w-full p-3 rounded-xl border border-slate-600 bg-slate-900 text-white text-center text-lg tracking-widest focus:outline-none focus:border-violet-500 transition duration-200">
+                </div>
+                <button class="bg-violet-600 hover:bg-violet-700 text-white font-bold p-3 rounded-xl transition duration-200 shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2" onclick="parentDashboard.verifyPin()">
+                    <i class="fa-solid fa-unlock-keyhole"></i> Xác nhận
+                </button>
+            </div>
+            <p id="pin-error" class="text-red-400 text-sm mt-3 hidden">Mật mã không đúng, vui lòng thử lại!</p>
+        </div>
+
+        <!-- MÀN HÌNH DASHBOARD PHỤ HUYNH -->
+        <div id="parent-dashboard-content" class="w-full max-w-6xl hidden flex flex-col gap-6 my-6">
+            
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <div class="parent-header">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-violet-400"></i> Góc học tập của học sinh & phụ huynh
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">Quản lý lộ trình học tập, cấu hình khóa AI và theo dõi hiệu suất của con.</p>
+                </div>
+                <div class="flex gap-3 w-full sm:w-auto flex-wrap" id="parent-header-buttons">
+                    <button id="btn-back-to-learning" class="flex-1 sm:flex-initial bg-emerald-700 hover:bg-emerald-600 text-emerald-100 px-4 py-2.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-1.5 text-sm" onclick="window.location.href='/'">
+                        <i class="fa-solid fa-graduation-cap"></i> Quay lại học
+                    </button>
+                    <button id="btn-exit-kiosk-mode" class="flex-1 sm:flex-initial bg-violet-700 hover:bg-violet-600 text-violet-100 px-4 py-2.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-1.5 text-sm hidden" onclick="parentDashboard.exitKioskGracefully()">
+                        <i class="fa-solid fa-power-off"></i> Tắt bảo vệ (Thoát Kiosk)
+                    </button>
+                    <button class="flex-1 sm:flex-initial bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/50 px-4 py-2.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-1.5 text-sm" onclick="parentDashboard.resetAllData()">
+                        <i class="fa-solid fa-trash-can text-xs"></i> Reset tiến trình
+                    </button>
+                    <button id="btn-parent-theme" class="flex-1 sm:flex-initial bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-1.5 text-sm" onclick="parentDashboard.toggleTheme()" title="Đổi giao diện sáng/tối">
+                        <i class="fa-solid fa-sun text-amber-400" id="parent-theme-icon"></i> <span id="parent-theme-text">Giao diện Sáng</span>
+                    </button>
+                    <button class="flex-1 sm:flex-initial bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-1.5 text-sm" onclick="logoutAdmin()">
+                        Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tổng quan số liệu (Stats Grid) -->
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="stat-card card bg-slate-800 border border-slate-700 p-5 rounded-2xl flex flex-col gap-1 shadow-md">
+                    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider stat-card-title">Thời gian học</span>
+                    <span class="text-2xl font-black text-slate-100 mt-1" id="p-stat-time">0 phút</span>
+                </div>
+                <div class="stat-card card bg-slate-800 border border-slate-700 p-5 rounded-2xl flex flex-col gap-1 shadow-md">
+                    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider stat-card-title">Bài đã hoàn thành</span>
+                    <span class="text-2xl font-black text-slate-100 mt-1" id="p-stat-completed">0 bài</span>
+                </div>
+                <div class="stat-card card bg-slate-800 border border-slate-700 p-5 rounded-2xl flex flex-col gap-1 shadow-md">
+                    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider stat-card-title">Tỉ lệ đúng</span>
+                    <span class="text-2xl font-black text-emerald-400 mt-1" id="p-stat-accuracy">Chưa có</span>
+                </div>
+                <div class="stat-card card bg-slate-800 border border-slate-700 p-5 rounded-2xl flex flex-col gap-1 shadow-md">
+                    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider stat-card-title">Chuỗi Streak</span>
+                    <span class="text-2xl font-black text-amber-400 mt-1" id="p-stat-streak">0 ngày</span>
+                </div>
+                <div class="stat-card card bg-slate-800 border border-slate-700 p-5 rounded-2xl flex flex-col gap-1 shadow-md col-span-2 lg:col-span-1 border-red-500/20 bg-gradient-to-br from-slate-800 to-red-950/20">
+                    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider stat-card-title">Số lần xao nhãng</span>
+                    <span class="text-2xl font-black text-red-400 mt-1" id="p-stat-distractions">0 lần</span>
+                </div>
+            </div>
+
+            <!-- Biểu đồ (Charts) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="chart-box card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-column text-violet-400"></i> Thời lượng học trong tuần (Phút)</h3>
+                    <div class="h-64 relative">
+                        <canvas id="chart-learning-time"></canvas>
+                    </div>
+                </div>
+                <div class="chart-box card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-pie text-emerald-400"></i> Tỷ lệ câu trả lời Đúng / Sai</h3>
+                    <div class="h-64 relative">
+                        <canvas id="chart-correct-rate"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kỹ năng yếu & Huy hiệu -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="analysis-box card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg flex flex-col">
+                    <h3 class="text-base font-bold text-slate-200 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Kỹ năng Toán học con cần cải thiện
+                    </h3>
+                    <p class="text-slate-400 text-xs mb-4 section-desc">Nên hỗ trợ thêm cho con ở các phần có tỷ lệ làm đúng dưới 70%.</p>
+                    <div class="flex-1 flex flex-col gap-3 overflow-y-auto max-h-72 pr-1" id="weak-skills-list">
+                        <!-- Render động bằng JS -->
+                    </div>
+                </div>
+
+                <div class="analysis-box card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg flex flex-col">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-award text-amber-400"></i> Bộ sưu tập Huy hiệu của con
+                    </h3>
+                    <div class="flex-1 grid grid-cols-3 gap-3 overflow-y-auto max-h-72 pr-1" id="parent-badges-list">
+                        <!-- Danh sách huy hiệu -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cố vấn Học tập AI (Gemini Advisor) -->
+            <div class="parent-ai-advisor card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-brain text-violet-400 animate-pulse"></i> Cố vấn học tập AI (Gemini Advisor)
+                        </h3>
+                        <p class="text-slate-400 text-xs mt-1 section-desc">Cố vấn AI sẽ tổng hợp toàn bộ lịch sử học tập của con để đưa ra báo cáo và hướng dẫn thiết thực.</p>
+                    </div>
+                    <button class="bg-violet-600 hover:bg-violet-700 text-white font-bold px-4 py-2.5 rounded-xl transition duration-200 flex items-center gap-1.5 text-sm" onclick="parentDashboard.loadAiAnalysis()" id="btn-refresh-ai-advice">
+                        <i class="fa-solid fa-arrows-rotate"></i> Phân tích học lực bằng AI
+                    </button>
+                </div>
+                
+                <div id="ai-advisor-loading" class="hidden text-center py-12">
+                    <i class="fa-solid fa-spinner fa-spin text-4xl text-violet-500 mb-3 block"></i>
+                    <p class="text-slate-400 text-sm">Đang phân tích dữ liệu học lực của con bằng AI, vui lòng đợi trong giây lát...</p>
+                </div>
+
+                <div id="ai-advisor-result" class="bg-slate-900 border border-slate-700 p-5 rounded-xl min-h-[100px] flex flex-col gap-3 text-slate-200">
+                    <div class="text-slate-400 text-center py-8" id="ai-advisor-placeholder">
+                        Nhấn nút <b>"Phân tích học lực bằng AI"</b> ở trên để xem phân tích chi tiết.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cấu hình Tài khoản & Lớp học -->
+            <div class="parent-profile-config card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg flex flex-col gap-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-200 mb-1 flex items-center gap-2"><i class="fa-solid fa-user-gear text-violet-400"></i> Thiết lập tài khoản phụ huynh & danh sách học sinh</h3>
+                    <p class="text-slate-400 text-xs">Cấu hình mã PIN bảo mật và quản lý tài khoản độc lập của các con cùng tên phụ huynh đi kèm.</p>
+                </div>
+
+                <!-- Thiết lập Phụ huynh chung -->
+                <div class="border border-slate-700 bg-slate-900/30 p-4 rounded-xl flex flex-col sm:flex-row gap-4 items-center justify-between">
+                    <span class="text-xs text-slate-300">🔒 Mã PIN phụ huynh dùng để bảo mật quyền truy cập Dashboard và cấu hình học tập cho các con.</span>
+                    <div class="w-full sm:w-64">
+                        <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Mã PIN bảo mật Phụ huynh:</label>
+                        <input type="password" id="parent-pin-value" placeholder="Mã PIN 6 số" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-center tracking-widest focus:outline-none focus:border-violet-500">
+                    </div>
+                </div>
+
+                <!-- Danh sách học sinh -->
+                <div class="border border-slate-700 bg-slate-900/30 p-4 rounded-xl flex flex-col gap-4">
+                    <div class="flex justify-between items-center flex-wrap gap-2">
+                        <strong class="text-sm text-slate-300">Danh sách tài khoản học sinh:</strong>
+                        <div class="flex gap-2">
+                            <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg transition duration-200 flex items-center gap-1.5 text-xs" onclick="parentDashboard.addNewStudentRow()">
+                                <i class="fa-solid fa-plus"></i> Thêm học sinh
+                            </button>
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg transition duration-200 flex items-center gap-1.5 text-xs" onclick="parentDashboard.resetDefaultStudentDevice()" title="Đưa thiết bị về màn hình lựa chọn học sinh ban đầu">
+                                <i class="fa-solid fa-desktop"></i> Reset màn hình chọn con
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-slate-700">
+                            <thead>
+                                <tr class="bg-slate-900 border-b border-slate-700">
+                                    <th class="p-3 text-xs font-semibold text-slate-300 uppercase tracking-wider">Tên học sinh</th>
+                                    <th class="p-3 text-xs font-semibold text-slate-300 uppercase tracking-wider">Tên phụ huynh</th>
+                                    <th class="p-3 text-xs font-semibold text-slate-300 uppercase tracking-wider">Lớp học</th>
+                                    <th class="p-3 text-xs font-semibold text-slate-300 uppercase tracking-wider text-center">Đăng nhập tự động</th>
+                                    <th class="p-3 text-xs font-semibold text-slate-300 uppercase tracking-wider text-right">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="parent-students-table-body">
+                                <!-- Danh sách học sinh được chèn động từ parent.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 flex-wrap">
+                    <span class="text-xs text-slate-400 self-center">
+                        💡 Mỗi học sinh có một cơ sở dữ liệu và lịch sử học tập hoàn toàn độc lập, không chồng chéo.
+                    </span>
+                    <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl transition duration-200 flex items-center gap-1.5 text-sm" onclick="parentDashboard.saveParentProfileSettings()">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i> Lưu thiết lập phụ huynh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cấu hình Gemini API Keys -->
+            <div class="parent-api-config card bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-lg">
+                <h3 class="text-lg font-bold text-slate-200 mb-1 flex items-center gap-2"><i class="fa-solid fa-key text-amber-500"></i> Cấu hình Gemini API Keys (AI Sinh Đề)</h3>
+                <p class="text-slate-400 text-xs mb-6">Quản lý và thêm khóa API của Google Gemini. Hệ thống hỗ trợ xoay vòng (load balance) nhiều key để tránh giới hạn lượt gọi.</p>
+                
+                <div class="border border-slate-700 bg-slate-900/50 p-4 rounded-xl mb-4">
+                    <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+                        <strong class="text-sm text-slate-300">Danh sách tài khoản & API Keys:</strong>
+                        <div class="flex gap-2">
+                            <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg transition duration-200 flex items-center gap-1 text-xs" onclick="parentDashboard.addNewKeyRow()">
+                                <i class="fa-solid fa-plus"></i> Thêm dòng
+                            </button>
+                            <button class="bg-violet-600 hover:bg-violet-700 text-white font-bold px-3 py-1.5 rounded-lg transition duration-200 flex items-center gap-1 text-xs" onclick="parentDashboard.testApiKeys()" id="btn-test-api-keys">
+                                <i class="fa-solid fa-arrows-spin"></i> Test Keys
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="parent-api-keys-container" class="flex flex-col gap-3">
+                        <p class="text-slate-400 text-sm italic">Đang tải cấu hình API Keys...</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-700 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <span class="text-xs text-slate-400 leading-relaxed">
+                        💡 Lấy API Key miễn phí tại <a href="#" onclick="parentDashboard.openAiStudio(event)" class="text-violet-400 font-semibold hover:underline">Google AI Studio</a>.
+                        <span class="block text-[10px] text-amber-400 mt-1">(Đường link mở ở Tab mới. Vui lòng quay lại Tab này để nhập sau khi lấy).</span>
+                    </span>
+                    <button class="w-full sm:w-auto bg-violet-600 hover:bg-violet-700 text-white font-bold px-5 py-2.5 rounded-xl transition duration-200 flex items-center justify-center gap-1.5 text-sm" onclick="parentDashboard.saveApiKeys()" id="btn-save-api-keys">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i> Lưu cấu hình API
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quản lý Video bài giảng -->
+            <div class="parent-video-manager card bg-slate-800 border border-slate-700 rounded-2xl shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2"><i class="fa-solid fa-video text-violet-400"></i> Quản lý video bài giảng gán cho con</h3>
+                    <p class="text-slate-400 text-xs mt-1">Đổi link video bài giảng YouTube cho từng bài học. ID là phần sau kí tự <b>v=</b> (Ví dụ: với link <i>https://www.youtube.com/watch?v=<b>J2JvH3tE-wU</b></i> thì ID là <b>J2JvH3tE-wU</b>).</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-700 text-xs font-semibold uppercase tracking-wider text-slate-300 bg-slate-900/40">
+                                <th class="p-4">Tên bài học</th>
+                                <th class="p-4 w-72">YouTube Video ID</th>
+                                <th class="p-4 w-32 text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="parent-video-list-tbody" class="divide-y divide-slate-700/50 text-sm">
+                            <!-- Sinh động bằng JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Xuất bản đề thi giấy & In ấn PDF -->
+            <div class="parent-pdf-exporter card bg-slate-800 border border-slate-700 rounded-2xl shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2"><i class="fa-solid fa-print text-emerald-400"></i> Xuất bản & In đề thi trắc nghiệm (PDF)</h3>
+                    <p class="text-slate-400 text-xs mt-1">Hệ thống tự động biên dịch và tạo đề thi 10 câu hỏi ngẫu nhiên từ template chất lượng cao, không trùng lặp đáp án và có cấu trúc trang in A4 chuẩn sư phạm.</p>
+                </div>
+                <div class="p-6 flex flex-col gap-6">
+                    <!-- Form cấu hình đề thi -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Chọn lớp học:</label>
+                            <select id="pdf-class-select" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500" onchange="parentDashboard.onPdfClassChange()">
+                                <option value="4">Lớp 4</option>
+                                <option value="6" selected>Lớp 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Chọn Chương học:</label>
+                            <select id="pdf-chapter-select" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500" onchange="parentDashboard.onPdfChapterChange()">
+                                <!-- Load bằng JS -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Chọn Bài học / Chuyên đề:</label>
+                            <select id="pdf-lesson-select" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500">
+                                <!-- Load bằng JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Thiết lập hiển thị trên giấy thi -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-700/50 pt-4">
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Tên trường học / Cơ sở đào tạo:</label>
+                            <input type="text" id="pdf-school-name" placeholder="Ví dụ: Trường Tiểu học Nguyễn Du (hoặc để trống)" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Họ và tên học sinh (In sẵn trên đề):</label>
+                            <input type="text" id="pdf-student-name-input" placeholder="Ví dụ: Nguyễn Văn A (Để trống để tự viết tay)" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between border-t border-slate-700/50 pt-4 flex-wrap gap-4">
+                        <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                            <input type="checkbox" id="pdf-include-solution" checked class="rounded border-slate-600 bg-slate-900 text-violet-600 focus:ring-violet-500">
+                            <span>Kèm hướng dẫn giải & đáp án ở trang cuối</span>
+                        </label>
+                        <div class="flex gap-3 w-full sm:w-auto">
+                            <button class="flex-1 sm:flex-initial bg-violet-600 hover:bg-violet-700 text-white font-bold px-5 py-2.5 rounded-xl transition duration-200 flex items-center justify-center gap-1.5 text-sm" onclick="parentDashboard.generatePdfExamPreview()">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Tạo & Xem trước Đề thi
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Khung Preview Đề thi trên màn hình -->
+                    <div id="pdf-exam-preview-container" class="hidden mt-4 border border-slate-700 rounded-xl overflow-hidden bg-slate-900/30">
+                        <div class="bg-slate-800/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center flex-wrap gap-2">
+                            <strong class="text-sm text-slate-300"><i class="fa-solid fa-eye text-violet-400"></i> Bản xem trước đề thi (A4 Layout)</strong>
+                            <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg transition duration-200 flex items-center gap-1.5 text-xs shadow-md" onclick="parentDashboard.printPdfExam()">
+                                <i class="fa-solid fa-print"></i> Tiến hành In đề thi (PDF)
+                            </button>
+                        </div>
+                        <div class="p-6 overflow-x-auto bg-slate-950/20 max-h-[600px] overflow-y-auto">
+                            <div id="pdf-exam-paper">
+                                <!-- Đề thi được render bằng JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lịch sử làm bài chi tiết -->
+            <div class="parent-history-manager card bg-slate-800 border border-slate-700 rounded-2xl shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-violet-400"></i> Lịch sử làm bài chi tiết của con</h3>
+                    <p class="text-slate-400 text-xs mt-1">Xem lại toàn bộ các lượt luyện tập & bài kiểm tra của con để phân tích lỗi sai và hướng dẫn con học.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-700 text-xs font-semibold uppercase tracking-wider text-slate-300 bg-slate-900/40">
+                                <th class="p-4">Thời gian</th>
+                                <th class="p-4">Bài học</th>
+                                <th class="p-4">Phân loại</th>
+                                <th class="p-4">Kết quả</th>
+                                <th class="p-4">Thời gian làm</th>
+                                <th class="p-4 text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="parent-history-tbody" class="divide-y divide-slate-700/50 text-sm">
+                            <!-- Sinh động bằng JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Xem lại chi tiết Lượt làm bài -->
+    <div id="review-session-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 border border-slate-700 w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden animate-zoom-in">
+            <div class="p-4 border-b border-slate-700 flex justify-between items-center">
+                <h3 id="review-session-title" class="font-bold text-slate-100 text-lg flex items-center gap-2">📝 Xem lại chi tiết bài làm</h3>
+                <button class="text-slate-400 hover:text-slate-100 text-2xl" onclick="app.closeReviewSessionModal()">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1 flex flex-col gap-4 text-slate-200" id="review-session-body">
+                <!-- Chi tiết các câu hỏi sẽ được render động -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sanitizeHtml(html) {
+            if (typeof html !== 'string') return html;
+            return html
+                .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '')
+                .replace(/\son[a-z]+\s*=\s*(['"][^'"]*['"]|[^\s>]+)/gi, '')
+                .replace(/href\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, '');
+        }
+        window.sanitizeHtml = sanitizeHtml;
+
+        function getApiUrl(path) {
+            if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
+                return `http://localhost:3000${path.startsWith('/') ? '' : '/'}${path}`;
+            }
+            return path;
+        }
+        window.getApiUrl = getApiUrl;
+
+        window.app = {
+            config: {},
+            state: {},
+            isDarkMode: true,
+            systemBadges: [
+                { id: "nhap-mon", name: "Nhập Môn Toán 6", desc: "Hoàn thành bài học đầu tiên đạt từ 80%", icon: "🚀" },
+                { id: "khoi-dau-vung-vang", name: "Khởi Đầu Vững Vàng", desc: "Đạt điểm tối đa (100%) một bài học bất kỳ", icon: "🌟" },
+                { id: "streak-3", name: "Bền Bỉ 3 Ngày", desc: "Đạt chuỗi học tập liên tục 3 ngày", icon: "🔥" },
+                { id: "streak-7", name: "Siêu Sao Chuyên Cần", desc: "Đạt chuỗi học tập liên tục 7 ngày", icon: "⚡" },
+                { id: "streak-15", name: "Kỷ Lục Gia Học Tập", desc: "Đạt chuỗi học tập liên tục 15 ngày", icon: "👑" },
+                
+                { id: "bac-thay-so-tu-nhien", name: "Bậc Thầy Số Tự Nhiên", desc: "Vượt qua bài kiểm tra cuối Chương I (>= 80%)", icon: "🔢" },
+                { id: "chien-binh-chia-het", name: "Chiến Binh Chia Hết", desc: "Vượt qua bài kiểm tra cuối Chương II (>= 80%)", icon: "🛡️" },
+                { id: "ky-si-so-nguyen", name: "Kỵ Sĩ Số Nguyên", desc: "Vượt qua bài kiểm tra cuối Chương III (>= 80%)", icon: "❄️" },
+                { id: "phu-thuy-hinh-hoc", name: "Phù Thủy Hình Học", desc: "Vượt qua bài kiểm tra cuối Chương IV (>= 80%)", icon: "📐" },
+                { id: "bac-thay-doi-xung", name: "Bậc Thầy Đối Xứng", desc: "Vượt qua bài kiểm tra cuối Chương V (>= 80%)", icon: "🌀" },
+                
+                { id: "bac-thay-phan-so", name: "Bậc Thầy Phân Số", desc: "Vượt qua bài kiểm tra cuối Chương VI (>= 80%)", icon: "🍰" },
+                { id: "chien-binh-thap-phan", name: "Chiến Binh Thập Phân", desc: "Vượt qua bài kiểm tra cuối Chương VII (>= 80%)", icon: "🎯" },
+                { id: "phu-thuy-hinh-co-ban", name: "Phù Thủy Hình Học Cơ Bản", desc: "Vượt qua bài kiểm tra cuối Chương VIII (>= 80%)", icon: "📐" },
+                { id: "bac-thay-xac-suat", name: "Bậc Thầy Xác Suất", desc: "Vượt qua bài kiểm tra cuối Chương IX (>= 80%)", icon: "🎲" },
+                
+                { id: "tia-chop", name: "Thần Tốc", desc: "Đạt điểm 100% bài luyện tập dưới 45 giây", icon: "⚡" },
+                { id: "kien-tri", name: "Kiên Trì Bứt Phá", desc: "Cải thiện bài tập đạt dưới 70% lên giỏi (>= 80%)", icon: "🌱" },
+                { id: "ky-luat-thep", name: "Kỷ Luật Thép", desc: "Hoàn thành bài kiểm tra chương mà không rời tab lần nào", icon: "🎯" },
+                { id: "sieu-tri-tue", name: "Siêu Trí Tuệ", desc: "Tích lũy đạt mốc 200 XP", icon: "🧠" },
+                { id: "huyen-thoai-toan-hoc", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 500 XP", icon: "🏆" }
+            ],
+            getCompletedLessons: function() {
+                if (!this.state || !this.state.completedSubtopics) return [];
+                return Array.from(new Set(this.state.completedSubtopics));
+            },
+            getLessonVideoId: function(lessonId) {
+                if (this.state.customVideos && this.state.customVideos[lessonId]) {
+                    return this.extractYoutubeId(this.state.customVideos[lessonId]);
+                }
+                const lesson = typeof getLessonById !== 'undefined' ? getLessonById(lessonId) : null;
+                return lesson ? this.extractYoutubeId(lesson.youtubeId) : "";
+            },
+            extractYoutubeId: function(input) {
+                if (!input) return "";
+                input = input.trim();
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                const match = input.match(regExp);
+                if (match && match[2].length === 11) {
+                    return match[2];
+                }
+                return input;
+            },
+            getSubtopicVideoId: function(subtopicId, lessonId) {
+                if (this.state.customVideos && this.state.customVideos[subtopicId]) {
+                    return this.extractYoutubeId(this.state.customVideos[subtopicId]);
+                }
+                const lesson = typeof getLessonById !== 'undefined' ? getLessonById(lessonId) : null;
+                if (lesson && lesson.subtopics) {
+                    const sub = lesson.subtopics.find(s => s.id === subtopicId);
+                    if (sub && sub.youtubeId) {
+                        return this.extractYoutubeId(sub.youtubeId);
+                    }
+                }
+                return "";
+            },
+            saveProgress: async function() {
+                try {
+                    const classLevel = this.config.currentClass || '6';
+                    const token = sessionStorage.getItem('adminToken');
+                    const res = await fetch(getApiUrl('/api/save-progress'), {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ classLevel, state: this.state })
+                    });
+                    if (!res.ok) {
+                        const err = await res.json();
+                        if (res.status === 401 || res.status === 403) {
+                            Swal.fire('Hết hạn phiên đăng nhập', 'Vui lòng đăng nhập lại.', 'warning').then(() => logoutAdmin());
+                        }
+                    }
+                } catch (e) {
+                    console.error("Lỗi khi saveProgress từ parent:", e);
+                }
+            },
+            saveConfig: async function() {
+                try {
+                    const token = sessionStorage.getItem('adminToken');
+                    const res = await fetch(getApiUrl('/api/save-config'), {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(this.config)
+                    });
+                    if (!res.ok) {
+                        const err = await res.json();
+                        if (res.status === 401 || res.status === 403) {
+                            Swal.fire('Hết hạn phiên đăng nhập', 'Vui lòng đăng nhập lại.', 'warning').then(() => logoutAdmin());
+                        }
+                    }
+                } catch (e) {
+                    console.error("Lỗi khi saveConfig từ parent:", e);
+                }
+            },
+            openReviewSession: function(sessionId) {
+                // Tái tạo logic hiển thị modal xem chi tiết lượt làm bài
+                const sessions = this.state.examSessions || [];
+                const sess = sessions.find(s => s.id === sessionId);
+                if (!sess) return;
+
+                const modalTitle = document.getElementById("review-session-title");
+                const modalBody = document.getElementById("review-session-body");
+
+                const dateObj = new Date(sess.date);
+                const dateStr = dateObj.toLocaleDateString("vi-VN") + " " + dateObj.toLocaleTimeString("vi-VN", {hour: '2-digit', minute:'2-digit'});
+
+                modalTitle.innerText = `📝 Lịch sử bài làm: ${sess.lessonTitle}`;
+                
+                let sessionTypeForModal = "";
+                if (sess.isExam) {
+                    sessionTypeForModal = "Thi cuối chương 📋";
+                } else if (sess.isLessonExam) {
+                    sessionTypeForModal = "⚡ Kiểm tra tổng thể bài học";
+                } else if (sess.isSubtopicPractice) {
+                    const dTitle = sess.subtopicTitle || "Dạng bài";
+                    sessionTypeForModal = sess.isWeaknessPractice ? `🎯 Luyện điểm yếu AI: ${dTitle}` : `📚 Dạng bài: ${dTitle}`;
+                } else if (sess.isWeaknessPractice) {
+                    sessionTypeForModal = "🎯 Luyện điểm yếu AI";
+                } else {
+                    const lvlMap = { 'co-ban': 'Cơ bản (Nhận biết)', 'nang-cao': 'Nâng cao (Thông hiểu)', 'kho': 'Khó (Vận dụng cao)', 'chat-luong-cao': 'Chất lượng cao 💎 (Tư duy & Logic AI)' };
+                    sessionTypeForModal = lvlMap[sess.level] || sess.level || "Luyện tập";
+                }
+
+                let headerHtml = `
+                    <div class="bg-slate-900 border border-slate-700 p-4 rounded-xl mb-4 text-sm leading-relaxed">
+                        <p><b>Thời gian làm bài:</b> ${dateStr}</p>
+                        <p><b>Loại bài:</b> ${sessionTypeForModal}</p>
+                        <p><b>Kết quả:</b> <span class="font-extrabold ${sess.scorePercent >= 80 ? 'text-emerald-400' : 'text-red-400'}">${sess.correctCount}/${sess.totalQuestions} câu đúng (${sess.scorePercent}%)</span></p>
+                        <p><b>Thời lượng:</b> ${sess.timeSpent} giây | <b>Số lần chuyển tab:</b> ${sess.distractions || 0} lần</p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                `;
+
+                let questionsHtml = sess.questions.map((q, idx) => {
+                    const isCorrect = q.userSelectedIndex === q.correctIndex;
+                    
+                    let optionsHtml = q.options.map((opt, oIdx) => {
+                        let colorStyle = "text-slate-300";
+                        let icon = "";
+                        if (oIdx === q.correctIndex) {
+                            colorStyle = "text-emerald-400 font-bold";
+                            icon = "✔️ ";
+                        } else if (oIdx === q.userSelectedIndex) {
+                            colorStyle = "text-red-400 font-bold";
+                            icon = "❌ ";
+                        }
+                        return `<div class="mb-1.5 ${colorStyle}">${icon}<b>${["A", "B", "C", "D"][oIdx]}.</b> ${sanitizeHtml(opt)}</div>`;
+                    }).join("");
+
+                    const cleanQuestionText = sanitizeHtml(q.questionText);
+                    const cleanSolutionHtml = sanitizeHtml(q.solutionHtml || "Đang cập nhật...");
+                    const cleanTip = sanitizeHtml(q.tip || "Hãy đọc kỹ đề bài và loại trừ các phương án bẫy.");
+
+                    return `
+                        <div class="review-item border-l-4 ${isCorrect ? 'border-emerald-500' : 'border-red-500'} p-4 bg-slate-900/60 border border-slate-700 rounded-r-xl">
+                            <div class="font-bold mb-3 flex justify-between text-xs sm:text-sm">
+                                <span>Câu hỏi ${idx + 1} <span class="font-normal text-xs text-slate-400 ml-2">(${q.level === 'co-ban' ? 'Cơ bản' : (q.level === 'nang-cao' ? 'Nâng cao' : 'Khó')})</span></span>
+                                <span class="${isCorrect ? 'text-emerald-400' : 'text-red-400'} font-bold">
+                                    ${isCorrect ? 'Đúng' : 'Sai'}
+                                </span>
+                            </div>
+                            <div class="math-render text-base mb-3 font-semibold leading-relaxed text-slate-100">${cleanQuestionText}</div>
+                            <div class="math-render mb-4 pl-3 border-l-2 border-slate-700">${optionsHtml}</div>
+                            
+                            <div class="bg-slate-900 border border-slate-700/60 p-3 rounded-lg mb-2 text-sm leading-relaxed">
+                                <strong class="text-violet-400 flex items-center gap-1"><i class="fa-solid fa-graduation-cap"></i> Lời giải chi tiết:</strong>
+                                <div class="math-render mt-1.5 text-slate-300">${cleanSolutionHtml}</div>
+                            </div>
+                            
+                            <div class="bg-amber-950/20 border border-amber-900/30 p-3 rounded-lg text-sm leading-relaxed">
+                                <strong class="text-amber-400 flex items-center gap-1"><i class="fa-solid fa-lightbulb"></i> Mẹo thi (Exam Tips):</strong>
+                                <div class="math-render mt-1.5 text-slate-300"><i>${cleanTip}</i></div>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+
+                modalBody.innerHTML = headerHtml + questionsHtml + `</div>`;
+
+                if (window.renderMathInElement) {
+                    const mathElements = modalBody.querySelectorAll(".math-render");
+                    mathElements.forEach(el => {
+                        window.renderMathInElement(el, {
+                            delimiters: [
+                                {left: "$$", right: "$$", display: true},
+                                {left: "$", right: "$", display: false}
+                            ]
+                        });
+                    });
+                }
+
+                document.getElementById("review-session-modal").classList.remove("hidden");
+            },
+            closeReviewSessionModal: function() {
+                document.getElementById("review-session-modal").classList.add("hidden");
+            }
+        };
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('adminToken');
+            window.location.reload();
+        }
+
+        async function loadAdminDataAndUnlock() {
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) return;
+
+            try {
+                let isKiosk = false;
+                try {
+                    const kioskRes = await fetch(getApiUrl('/api/is-kiosk-mode'));
+                    if (kioskRes.ok) {
+                        const kioskData = await kioskRes.json();
+                        isKiosk = !!kioskData.isKiosk;
+                    }
+                } catch (_) { /* không thể kiểm tra, coi như không kiosk */ }
+
+                const exitKioskBtn = document.getElementById("btn-exit-kiosk-mode");
+                const parentTitle = document.querySelector(".parent-header h2");
+                if (exitKioskBtn) {
+                    if (isKiosk) {
+                        exitKioskBtn.classList.remove("hidden");
+                        if (parentTitle && !parentTitle.innerHTML.includes("🔐")) {
+                            parentTitle.innerHTML = `🔐 ` + parentTitle.innerHTML + ` <span class="text-xs bg-violet-500/20 text-violet-300 border border-violet-500/30 px-2 py-0.5 rounded-full font-bold ml-2">Chế độ bảo vệ đang bật</span>`;
+                        }
+                    } else {
+                        exitKioskBtn.classList.add("hidden");
+                    }
+                }
+
+
+                // 1. Tải cấu hình config
+                const configRes = await fetch(getApiUrl('/api/load-config'), {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!configRes.ok) {
+                    if (configRes.status === 401 || configRes.status === 403) {
+                        logoutAdmin();
+                        return;
+                    }
+                }
+                app.config = await configRes.json();
+
+                // 2. Xác định học sinh cần xem dữ liệu
+                if (!app.config.students) {
+                    app.config.students = [];
+                }
+                
+                // Tự động di chuyển dữ liệu học sinh cũ (nếu có) sang danh sách mới để tránh mất mát dữ liệu
+                if (app.config.students.length === 0 && app.config.studentName) {
+                    const defaultId = 'std_' + Math.random().toString(36).substr(2, 9);
+                    app.config.students.push({
+                        id: defaultId,
+                        name: app.config.studentName,
+                        parentName: app.config.parentName || 'Bố Đăng',
+                        classLevel: app.config.currentClass || '6'
+                    });
+                    app.config.defaultStudentId = defaultId;
+                    await app.saveConfig();
+
+                    // Đồng bộ tiến trình cũ từ bảng progress sang bảng student_progress
+                    const classLevel = app.config.currentClass || '6';
+                    const oldProgressRes = await fetch(getApiUrl(`/api/load-progress?classLevel=${classLevel}`), {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (oldProgressRes.ok) {
+                        const oldState = await oldProgressRes.json();
+                        if (oldState && Object.keys(oldState).length > 0) {
+                            await fetch(getApiUrl('/api/save-progress'), {
+                                method: 'POST',
+                                headers: { 
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}` 
+                                },
+                                body: JSON.stringify({ studentId: defaultId, state: oldState })
+                            });
+                        }
+                    }
+                }
+
+                const viewingStudentId = parentDashboard.viewingStudentId || app.config.defaultStudentId || (app.config.students[0] ? app.config.students[0].id : null);
+                parentDashboard.viewingStudentId = viewingStudentId;
+
+                // Tải tiến trình của học sinh đang xem
+                let progressRes = null;
+                if (viewingStudentId) {
+                    progressRes = await fetch(getApiUrl(`/api/load-progress?studentId=${viewingStudentId}`), {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                } else {
+                    const classLevel = app.config.currentClass || '6';
+                    progressRes = await fetch(getApiUrl(`/api/load-progress?classLevel=${classLevel}`), {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                }
+                app.state = progressRes && progressRes.ok ? await progressRes.json() : {};
+
+                // 3. Thoát fullscreen nếu có
+                if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                    const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+                    if (exitFS) exitFS.call(document).catch(() => {});
+                }
+
+                // 4. Hiển thị Dashboard
+                document.getElementById("parent-auth-box").classList.add("hidden");
+                document.getElementById("parent-dashboard-content").classList.remove("hidden");
+
+                // 5. Gọi parent.js khởi tạo dữ liệu
+                parentDashboard.onDashboardUnlocked();
+            } catch (e) {
+                console.error("Lỗi khi tải dữ liệu phụ huynh:", e);
+                Swal.fire({
+                    title: 'Lỗi kết nối',
+                    html: `Không thể tải dữ liệu cấu hình. Vui lòng tải lại trang.<br/><span class="text-xs text-red-400 font-mono block mt-2">Chi tiết: ${e.message}</span>`,
+                    icon: 'error',
+                    confirmButtonText: 'Tôi đã hiểu',
+                    confirmButtonColor: '#8b5cf6'
+                });
+            }
+        }
+
+        // Tự động kiểm tra Token khi load trang
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Phòng thủ thông minh: Nếu mở bằng file://, thử chuyển hướng sang http://localhost:3000/admin
+            if (window.location.protocol === 'file:') {
+                try {
+                    const checkRes = await fetch('http://localhost:3000/api/health', { mode: 'cors' });
+                    if (checkRes.ok) {
+                        const token = sessionStorage.getItem('adminToken');
+                        let targetUrl = 'http://localhost:3000/admin';
+                        if (token) {
+                            targetUrl += '?token=' + token;
+                        }
+                        window.location.href = targetUrl;
+                        return;
+                    }
+                } catch (e) {
+                    // Máy chủ chưa chạy, hiển thị thông báo hướng dẫn rõ ràng
+                    Swal.fire({
+                        title: 'Chưa bật Máy chủ học tập!',
+                        text: 'Vui lòng kích đúp vào file "🚀 Bắt đầu học.vbs" ở thư mục chính để khởi động máy chủ trước khi truy cập chế độ phụ huynh.',
+                        icon: 'warning',
+                        confirmButtonText: 'Tôi đã hiểu',
+                        confirmButtonColor: '#8b5cf6',
+                        allowOutsideClick: false
+                    });
+                    return;
+                }
+            }
+
+            // Đọc token từ URL query parameter nếu có (khi thoát Kiosk chuyển sang trình duyệt thường)
+            const urlParams = new URLSearchParams(window.location.search);
+            const tokenFromUrl = urlParams.get('token');
+            if (tokenFromUrl) {
+                sessionStorage.setItem('adminToken', tokenFromUrl);
+                // Xóa token khỏi URL hiển thị để bảo mật và sạch sẽ
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Ghi đè hàm verifyPin của parent.js để xác thực với API
+            if (typeof parentDashboard !== 'undefined') {
+                parentDashboard.verifyPin = async function() {
+                    const pinVal = document.getElementById("parent-pin").value;
+                    const errorText = document.getElementById("pin-error");
+                    
+                    try {
+                        const response = await fetch(getApiUrl('/api/admin/login'), {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ password: pinVal })
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            sessionStorage.setItem('adminToken', data.token);
+                            errorText.classList.add("hidden");
+                            
+                            // Tiến hành tải dữ liệu và hiển thị Dashboard
+                            await loadAdminDataAndUnlock();
+                        } else {
+                            const errData = await response.json();
+                            errorText.textContent = errData.error || "Mật mã phụ huynh không chính xác!";
+                            errorText.classList.remove("hidden");
+                            
+                            const pinGroup = document.querySelector(".pin-input-group");
+                            if (pinGroup) {
+                                pinGroup.classList.add("animate-shake");
+                                setTimeout(() => pinGroup.classList.remove("animate-shake"), 500);
+                            }
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        errorText.textContent = "Không thể kết nối tới máy chủ!";
+                        errorText.classList.remove("hidden");
+                    }
+                };
+            }
+
+            const token = sessionStorage.getItem('adminToken');
+            if (token) {
+                loadAdminDataAndUnlock();
+            }
+            
+            // Thiết lập KaTeX tự động render
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ]
+                });
+            }
+        });
+    </script>
+
+    <!-- Scripts nạp động -->
+    <script src="js/lessons.js?v=5.4"></script>
+    <script src="js/parent.js?v=5.4"></script>
+</body>
+</html>

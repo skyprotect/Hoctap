@@ -1,0 +1,67 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-10T01:48:46.639Z
+Student ID: std_tyc0gfnkz
+Lesson ID: l4-bai-3
+Lesson Title: Bài 3: Số chẵn, số lẻ
+==================================================
+
+[ERROR DETAILS]
+Lỗi tại câu số 2: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+Error: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+    at Object.generateQuestionFromTemplate (http://localhost:3000/js/question-generator-worker.js:1166:19)
+    at self.onmessage (http://localhost:3000/js/question-generator-worker.js:1274:40)
+
+[FAILED TEMPLATE QUESTION (INDEX: 1)]
+{
+  "isTemplate": true,
+  "variables": {
+    "startNum": {
+      "min": 20,
+      "max": 30,
+      "step": 1
+    },
+    "endNum": {
+      "min": 120,
+      "max": 150,
+      "step": 1
+    },
+    "targetDigit": {
+      "min": 0,
+      "max": 8,
+      "step": 2
+    }
+  },
+  "constraints": [
+    "startNum < endNum",
+    "startNum % 10 !== targetDigit || startNum % 2 !== 0",
+    "endNum % 10 !== targetDigit || endNum % 2 !== 0"
+  ],
+  "formulas": {
+    "listNums": "let nums = []; for (let i = startNum; i <= endNum; i++) { if (i % 2 === 0 && i % 10 === targetDigit) { nums.push(i); } } return nums.join(', ');",
+    "count": "let c = 0; for (let i = startNum; i <= endNum; i++) { if (i % 2 === 0 && i % 10 === targetDigit) { c++; } } return c;",
+    "ans": "count",
+    "w1_goc": "count + 1",
+    "w2_goc": "count > 1 ? count - 1 : count + 3",
+    "w3_goc": "count + 2",
+    "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+    "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 7) : w2_goc",
+    "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 9) : w3_goc"
+  },
+  "questionText": "Trong một giải chạy, các vận động viên được đánh số thứ tự từ {startNum} đến {endNum}. Hỏi có bao nhiêu vận động viên mang số chẵn mà chữ số hàng đơn vị của số đó là {targetDigit}?",
+  "options": [
+    "A. {w1} vận động viên",
+    "B. {ans} vận động viên",
+    "C. {w2} vận động viên",
+    "D. {w3} vận động viên"
+  ],
+  "correctIndex": 1,
+  "hints": [
+    "Hãy nhớ số chẵn là số có chữ số tận cùng là 0, 2, 4, 6, 8.",
+    "Bạn cần tìm những số vừa là số chẵn, vừa có chữ số hàng đơn vị là {targetDigit} trong khoảng đã cho."
+  ],
+  "solutionHtml": "Các số chẵn có chữ số hàng đơn vị là {targetDigit} trong khoảng từ {startNum} đến {endNum} là: {listNums}.<br/><br/>Bằng cách đếm trực tiếp, ta thấy có {ans} số thỏa mãn điều kiện.<br/>Vậy có {ans} vận động viên thỏa mãn.",
+  "tip": "Chữ số hàng đơn vị của một số chẵn phải là 0, 2, 4, 6 hoặc 8. Để đếm các số thỏa mãn đồng thời hai điều kiện, bạn hãy liệt kê và kiểm tra từng số trong khoảng đã cho.",
+  "level": "chat-luong-cao",
+  "type": "l4-bai-3-d4-q2"
+}

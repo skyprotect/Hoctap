@@ -1,0 +1,596 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "divisor1": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "divisor2": {
+          "min": 8,
+          "max": 10,
+          "step": 1
+        },
+        "divisor3": {
+          "min": 11,
+          "max": 13,
+          "step": 1
+        },
+        "remainder": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "minStudents": {
+          "min": 300,
+          "max": 400,
+          "step": 1
+        },
+        "maxStudents": {
+          "min": 500,
+          "max": 600,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "divisor1 < divisor2 && divisor2 < divisor3",
+        "remainder < variables.divisor1 && remainder < variables.divisor2 && remainder < variables.divisor3",
+        "maxStudents - minStudents >= 150"
+      ],
+      "formulas": {
+        "g12": "Math.abs(variables.divisor1 * variables.divisor2) / ((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.divisor1, variables.divisor2)",
+        "lcm_val": "Math.abs(this.g12 * variables.divisor3) / ((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(this.g12, variables.divisor3)",
+        "k_min_raw": "(variables.minStudents - variables.remainder) / this.lcm_val",
+        "k_min": "Math.ceil(this.k_min_raw)",
+        "k_max_raw": "(variables.maxStudents - variables.remainder) / this.lcm_val",
+        "k_max": "Math.floor(this.k_max_raw)",
+        "ans": "this.k_min * this.lcm_val + variables.remainder",
+        "w1": "this.lcm_val + variables.remainder",
+        "w2": "this.k_min * this.lcm_val - variables.remainder",
+        "w3": "this.lcm_val"
+      },
+      "questionText": "Một đoàn học sinh khi xếp hàng {divisor1}, hàng {divisor2}, hoặc hàng {divisor3} đều thừa ra {remainder} học sinh. Hỏi số học sinh của đoàn đó là bao nhiêu, biết rằng số học sinh trong khoảng từ {minStudents} đến {maxStudents}?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số học sinh là $x$. Theo đề bài, $x$ chia cho {divisor1}, {divisor2}, {divisor3} đều dư {remainder}. Điều này có nghĩa là $x - {remainder}$ là bội chung của {divisor1}, {divisor2}, {divisor3}.",
+        "Hãy tìm bội chung nhỏ nhất (BCNN) của {divisor1}, {divisor2}, {divisor3}. Sau đó tìm bội của BCNN sao cho $x$ nằm trong khoảng {minStudents} đến {maxStudents}."
+      ],
+      "solutionHtml": "Gọi số học sinh của đoàn là $x$.<br/>Theo đề bài, khi xếp hàng {divisor1}, hàng {divisor2}, hoặc hàng {divisor3} thì đều thừa {remainder} học sinh. Điều này có nghĩa là $x$ chia cho {divisor1}, {divisor2}, {divisor3} đều có số dư là {remainder}.<br/>Do đó, $x - {remainder}$ là bội chung của {divisor1}, {divisor2}, {divisor3}.<br/>Ta tìm bội chung nhỏ nhất (BCNN) của {divisor1}, {divisor2}, {divisor3}:<br/>BCNN({divisor1}, {divisor2}) = $\\frac{{{divisor1} \\times {divisor2}}}{UCLN({divisor1}, {divisor2})} = {formulas.g12}$.<br/>BCNN({formulas.g12}, {divisor3}) = $\\frac{{{formulas.g12} \\times {divisor3}}}{UCLN({formulas.g12}, {divisor3})} = {formulas.lcm_val}$.<br/>Vậy $x - {remainder}$ là bội của {formulas.lcm_val}. Tức là $x - {remainder} \\in \\{ {formulas.lcm_val}, 2 \\times {formulas.lcm_val}, 3 \\times {formulas.lcm_val}, ... \\}$.<br/>Do đó, $x \\in \\{ {formulas.lcm_val} + {remainder}, 2 \\times {formulas.lcm_val} + {remainder}, ... \\}$.<br/>Ta có $x = k \\times {formulas.lcm_val} + {remainder}$ với $k$ là số tự nhiên khác 0.<br/>Theo đề bài, số học sinh nằm trong khoảng từ {minStudents} đến {maxStudents}, tức là {minStudents} \\le x \\le {maxStudents}$.<br/>Thay $x = k \\times {formulas.lcm_val} + {remainder}$ vào, ta được:<br/>{minStudents} \\le k \\times {formulas.lcm_val} + {remainder} \\le {maxStudents}$<br/>{minStudents} - {remainder} \\le k \\times {formulas.lcm_val} \\le {maxStudents} - {remainder}$<br/>$\\frac{{{minStudents} - {remainder}}}{{formulas.lcm_val}} \\le k \\le \\frac{{{maxStudents} - {remainder}}}{{formulas.lcm_val}}$<br/>$\\frac{{{minStudents} - {remainder}}}{{formulas.lcm_val}} \\approx {formulas.k_min_raw}$ và $\\frac{{{maxStudents} - {remainder}}}{{formulas.lcm_val}} \\approx {formulas.k_max_raw}$.<br/>Giá trị $k$ nguyên nhỏ nhất thỏa mãn là $k = {formulas.k_min}$.<br/>Vậy số học sinh là $$ x = {formulas.k_min} \\times {formulas.lcm_val} + {remainder} = {formulas.ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán cho 'chia đều dư một số', hãy xét số 'thiếu' hoặc 'thừa' đó để đưa về bài toán tìm Bội chung của các số. Sau đó, kết hợp với điều kiện khoảng giá trị để tìm ra số cụ thể."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "candies": {
+          "min": 60,
+          "max": 100,
+          "step": 2
+        },
+        "cookies": {
+          "min": 75,
+          "max": 120,
+          "step": 3
+        }
+      },
+      "constraints": [
+        "candies % 2 === 0",
+        "cookies % 3 === 0",
+        "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.candies, variables.cookies) > 5"
+      ],
+      "formulas": {
+        "ans": "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.candies, variables.cookies)",
+        "candies_per_bag": "variables.candies / this.ans",
+        "w1": "variables.candies + variables.cookies",
+        "w2": "variables.candies - variables.cookies > 0 ? variables.candies - variables.cookies : variables.cookies - variables.candies",
+        "w3": "this.ans * 2"
+      },
+      "questionText": "Cô Lan có {candies} chiếc kẹo và {cookies} chiếc bánh quy. Cô muốn chia đều số kẹo và bánh quy vào các túi quà sao cho mỗi túi có số kẹo như nhau và số bánh quy như nhau, đồng thời số túi quà là nhiều nhất có thể. Hỏi mỗi túi quà sẽ có bao nhiêu chiếc kẹo?",
+      "options": [
+        "A. {w1} chiếc kẹo",
+        "B. {ans} chiếc kẹo",
+        "C. {w2} chiếc kẹo",
+        "D. {w3} chiếc kẹo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để số túi quà là nhiều nhất và mỗi túi có số kẹo, số bánh quy như nhau, số túi quà phải là ước chung lớn nhất (ƯCLN) của số kẹo và số bánh quy.",
+        "Khi đã tìm được số túi quà (là ƯCLN), để tìm số kẹo trong mỗi túi, bạn cần lấy tổng số kẹo chia cho số túi quà đó."
+      ],
+      "solutionHtml": "Để chia đều số kẹo và bánh quy vào các túi quà sao cho mỗi túi có số kẹo như nhau và số bánh quy như nhau, đồng thời số túi quà là nhiều nhất có thể, thì số túi quà chính là ước chung lớn nhất (ƯCLN) của tổng số kẹo và tổng số bánh quy.<br/>Số kẹo: {candies} chiếc.<br/>Số bánh quy: {cookies} chiếc.<br/>Ta có: ƯCLN({candies}, {cookies}) = {formulas.ans}.<br/>Vậy có {formulas.ans} túi quà.<br/>Mỗi túi quà sẽ có số kẹo là: $$ {candies} \\div {formulas.ans} = {formulas.candies_per_bag} $ (chiếc kẹo).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán chia đều vào các nhóm với số nhóm là lớn nhất thường liên quan đến tìm ƯCLN. Sau khi tìm được ƯCLN (là số nhóm), cần đọc kỹ câu hỏi để biết đang hỏi số lượng của thành phần nào trong mỗi nhóm."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialTemp": {
+          "min": -10,
+          "max": 10,
+          "step": 1
+        },
+        "firstDrop": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "secondRise": {
+          "min": 12,
+          "max": 18,
+          "step": 1
+        },
+        "thirdDrop": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialTemp !== 0",
+        "initialTemp - firstDrop + secondRise - thirdDrop >= -20",
+        "initialTemp - firstDrop + secondRise - thirdDrop <= 30"
+      ],
+      "formulas": {
+        "ans": "variables.initialTemp - variables.firstDrop + variables.secondRise - variables.thirdDrop",
+        "w1": "variables.initialTemp + variables.firstDrop + variables.secondRise + variables.thirdDrop",
+        "w2": "variables.initialTemp - variables.firstDrop - variables.secondRise - variables.thirdDrop",
+        "w3": "variables.initialTemp + variables.firstDrop - variables.secondRise + variables.thirdDrop"
+      },
+      "questionText": "Vào một buổi sáng, nhiệt độ ở đỉnh núi Fansipan là $ {initialTemp} $ độ C. Đến trưa, nhiệt độ giảm $ {firstDrop} $ độ C. Chiều đến, nhiệt độ tăng trở lại $ {secondRise} $ độ C. Vào buổi tối, nhiệt độ lại giảm thêm $ {thirdDrop} $ độ C. Hỏi nhiệt độ ở đỉnh núi Fansipan vào buổi tối là bao nhiêu độ C?",
+      "options": [
+        "A. {w1} độ C",
+        "B. {ans} độ C",
+        "C. {w2} độ C",
+        "D. {w3} độ C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhiệt độ giảm là phép trừ, nhiệt độ tăng là phép cộng.",
+        "Thực hiện các phép tính theo đúng thứ tự các sự kiện xảy ra trong ngày."
+      ],
+      "solutionHtml": "Nhiệt độ ban đầu: $ {initialTemp} $ độ C.<br/>Đến trưa, nhiệt độ giảm $ {firstDrop} $ độ C, vậy nhiệt độ lúc trưa là: $ {initialTemp} - {firstDrop} $ độ C.<br/>Chiều đến, nhiệt độ tăng $ {secondRise} $ độ C, vậy nhiệt độ lúc chiều là: $ {initialTemp} - {firstDrop} + {secondRise} $ độ C.<br/>Tối đến, nhiệt độ giảm thêm $ {thirdDrop} $ độ C, vậy nhiệt độ cuối cùng vào buổi tối là: $ {initialTemp} - {firstDrop} + {secondRise} - {thirdDrop} = {ans} $ độ C.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các từ khóa 'tăng', 'giảm' để xác định đúng phép cộng hoặc phép trừ trong bài toán về số nguyên. Luôn theo dõi nhiệt độ hoặc độ cao hiện tại sau mỗi sự thay đổi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lower": {
+          "min": 100,
+          "max": 200,
+          "step": 1
+        },
+        "upper": {
+          "min": 500,
+          "max": 700,
+          "step": 1
+        },
+        "divA": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "divB": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "lower < upper",
+        "divA !== divB",
+        "divA % divB !== 0",
+        "divB % divA !== 0",
+        "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.divA, variables.divB) !== variables.divA && ((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.divA, variables.divB) !== variables.divB"
+      ],
+      "formulas": {
+        "countA": "Math.floor(variables.upper / variables.divA) - Math.floor((variables.lower - 1) / variables.divA)",
+        "gAB": "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.divA, variables.divB)",
+        "lcmAB": "Math.abs(variables.divA * variables.divB) / this.gAB",
+        "countAB": "Math.floor(variables.upper / this.lcmAB) - Math.floor((variables.lower - 1) / this.lcmAB)",
+        "ans": "this.countA - this.countAB",
+        "w1": "this.countA",
+        "w2": "this.countAB",
+        "w3": "this.countA + this.countAB"
+      },
+      "questionText": "Có bao nhiêu số tự nhiên trong khoảng từ {lower} đến {upper} (bao gồm cả {lower} và {upper}) chia hết cho {divA} nhưng không chia hết cho {divB}?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số lượng các số trong khoảng đã cho mà chia hết cho {divA}.",
+        "Tiếp theo, tính số lượng các số trong khoảng đã cho mà chia hết cho cả {divA} và {divB} (tức là chia hết cho BCNN của {divA} và {divB}).",
+        "Để tìm các số chia hết cho {divA} nhưng không chia hết cho {divB}, ta lấy số lượng các số chia hết cho {divA} trừ đi số lượng các số chia hết cho cả {divA} và {divB}."
+      ],
+      "solutionHtml": "Để tìm số lượng các số tự nhiên trong khoảng từ {lower} đến {upper} chia hết cho {divA} nhưng không chia hết cho {divB}, ta thực hiện các bước sau:<br/>Bước 1: Tính số lượng các số chia hết cho {divA} trong khoảng từ {lower} đến {upper}.<br/>Số lượng = $ \\lfloor \\frac{{{upper}}}{{{divA}}} \\rfloor - \\lfloor \\frac{{{lower} - 1}}{{{divA}}} \\rfloor = {formulas.countA} $ số.<br/>Bước 2: Tính số lượng các số chia hết cho cả {divA} và {divB} (tức là chia hết cho BCNN của {divA} và {divB}) trong khoảng từ {lower} đến {upper}.<br/>Ta tìm BCNN của {divA} và {divB}:<br/>ƯCLN({divA}, {divB}) = UCLN({divA}, {divB}) = {formulas.gAB}.<br/>BCNN({divA}, {divB}) = $\\frac{{{divA} \\times {divB}}}{UCLN({divA}, {divB})} = {formulas.lcmAB}$.<br/>Số lượng các số chia hết cho BCNN({divA}, {divB}) là:<br/>$ \\lfloor \\frac{{{upper}}}{{formulas.lcmAB}} \\rfloor - \\lfloor \\frac{{{lower} - 1}}{{{formulas.lcmAB}}} \\rfloor = {formulas.countAB} $ số.<br/>Bước 3: Lấy tổng số các số chia hết cho {divA} trừ đi số các số chia hết cho cả {divA} và {divB}.<br/>Số các số cần tìm là: $ {formulas.countA} - {formulas.countAB} = {formulas.ans} $ số.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu 'chia hết cho A nhưng KHÔNG chia hết cho B', hãy nhớ công thức: (Số lượng chia hết cho A) - (Số lượng chia hết cho cả A và B). Đừng quên sử dụng BCNN để tìm các số chia hết cho cả hai."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "primeBase1": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        "exponent1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "primeBase2": {
+          "min": 11,
+          "max": 17,
+          "step": 1
+        },
+        "exponent2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "((num) => {if(num<=1)return false; for(let i=2; i*i<=num; i++){if(num%i===0)return false;} return true;})(variables.primeBase1)",
+        "((num) => {if(num<=1)return false; for(let i=2; i*i<=num; i++){if(num%i===0)return false;} return true;})(variables.primeBase2)",
+        "primeBase1 !== primeBase2"
+      ],
+      "formulas": {
+        "num": "Math.pow(variables.primeBase1, variables.exponent1) * Math.pow(variables.primeBase2, variables.exponent2)",
+        "ans": "(variables.exponent1 + 1) * (variables.exponent2 + 1)",
+        "w1": "variables.exponent1 + variables.exponent2",
+        "w2": "variables.exponent1 * variables.exponent2",
+        "w3": "(variables.exponent1 + 1) + (variables.exponent2 + 1)"
+      },
+      "questionText": "Số tự nhiên $N$ có dạng phân tích thừa số nguyên tố là $N = {primeBase1}^{exponent1} \\times {primeBase2}^{exponent2}$. Hỏi số $N$ có tất cả bao nhiêu ước số?",
+      "options": [
+        "A. {w1} ước số",
+        "B. {ans} ước số",
+        "C. {w2} ước số",
+        "D. {w3} ước số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu một số tự nhiên được phân tích thành thừa số nguyên tố là $P_1^{a_1} \\times P_2^{a_2} \\times ... \\times P_k^{a_k}$, thì số ước của nó là $(a_1+1)(a_2+1)...(a_k+1)$.",
+        "Trong trường hợp này, bạn có hai thừa số nguyên tố là {primeBase1} và {primeBase2} với các số mũ tương ứng."
+      ],
+      "solutionHtml": "Cho số tự nhiên $N$ có dạng phân tích thừa số nguyên tố là $N = {primeBase1}^{exponent1} \\times {primeBase2}^{exponent2}$.<br/>Để tìm số ước của $N$, ta áp dụng công thức: nếu $N = P_1^{a_1} \\times P_2^{a_2} \\times ... \\times P_k^{a_k}$ thì số ước của $N$ là $(a_1+1)(a_2+1)...(a_k+1)$.<br/>Trong trường hợp này, $P_1 = {primeBase1}$, $a_1 = {exponent1}$, $P_2 = {primeBase2}$, $a_2 = {exponent2}$.<br/>Số ước của $N$ là: $({exponent1} + 1) \\times ({exponent2} + 1) = {formulas.ans}$ (ước số).<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ công thức tính số ước của một số dựa trên phân tích thừa số nguyên tố của nó. Mỗi số mũ của thừa số nguyên tố cộng thêm 1, sau đó nhân các kết quả lại với nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "capacity1": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "capacity2": {
+          "min": 12,
+          "max": 15,
+          "step": 1
+        },
+        "minGuests": {
+          "min": 150,
+          "max": 250,
+          "step": 1
+        },
+        "maxGuests": {
+          "min": 300,
+          "max": 400,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "capacity1 !== capacity2",
+        "capacity2 % capacity1 !== 0",
+        "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.capacity1, variables.capacity2) !== variables.capacity1",
+        "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.capacity1, variables.capacity2) !== variables.capacity2"
+      ],
+      "formulas": {
+        "g12": "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.capacity1, variables.capacity2)",
+        "lcm_val": "Math.abs(variables.capacity1 * variables.capacity2) / this.g12",
+        "k_min_raw": "variables.minGuests / this.lcm_val",
+        "k_min": "Math.ceil(this.k_min_raw)",
+        "ans": "this.k_min * this.lcm_val",
+        "w1": "this.lcm_val",
+        "w2": "this.ans + this.lcm_val",
+        "w3": "this.ans - this.lcm_val"
+      },
+      "questionText": "Một đoàn khách du lịch khi xếp vào các phòng mỗi phòng {capacity1} người hoặc mỗi phòng {capacity2} người thì đều vừa đủ, không thừa hay thiếu ai. Biết tổng số khách trong đoàn nằm trong khoảng từ {minGuests} đến {maxGuests}. Hỏi đoàn khách đó có bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vì số khách có thể xếp vào các phòng {capacity1} người hoặc {capacity2} người đều vừa đủ, nên số khách phải là bội chung của {capacity1} và {capacity2}.",
+        "Hãy tìm bội chung nhỏ nhất (BCNN) của {capacity1} và {capacity2}. Sau đó tìm bội của BCNN sao cho số khách nằm trong khoảng từ {minGuests} đến {maxGuests}."
+      ],
+      "solutionHtml": "Gọi số khách du lịch là $x$.<br/>Theo đề bài, khi xếp vào các phòng mỗi phòng {capacity1} người hoặc mỗi phòng {capacity2} người thì đều vừa đủ. Điều này có nghĩa là $x$ là bội chung của {capacity1} và {capacity2}.<br/>Ta tìm bội chung nhỏ nhất (BCNN) của {capacity1} và {capacity2}:<br/>ƯCLN({capacity1}, {capacity2}) = UCLN({capacity1}, {capacity2}) = {formulas.g12}.<br/>BCNN({capacity1}, {capacity2}) = $\\frac{{{capacity1} \\times {capacity2}}}{UCLN({capacity1}, {capacity2})} = {formulas.lcm_val}$.<br/>Vậy $x$ là bội của {formulas.lcm_val}. Tức là $x = k \\times {formulas.lcm_val}$ với $k$ là số tự nhiên khác 0.<br/>Theo đề bài, số khách nằm trong khoảng từ {minGuests} đến {maxGuests}, tức là {minGuests} \\le x \\le {maxGuests}$.<br/>Thay $x = k \\times {formulas.lcm_val}$ vào, ta được:<br/>{minGuests} \\le k \\times {formulas.lcm_val} \\le {maxGuests}$<br/>$\\frac{{{minGuests}}}{{formulas.lcm_val}} \\le k \\le \\frac{{{maxGuests}}}{{formulas.lcm_val}}$<br/>$\\frac{{{minGuests}}}{{formulas.lcm_val}} \\approx {formulas.k_min_raw}$ và $\\frac{{{maxGuests}}}{{formulas.lcm_val}} \\approx {Math.floor(variables.maxGuests / formulas.lcm_val)}$.<br/>Giá trị $k$ nguyên nhỏ nhất thỏa mãn là $k = {formulas.k_min}$.<br/>Vậy số khách du lịch là $x = {formulas.k_min} \\times {formulas.lcm_val} = {formulas.ans}$ (người).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán cho 'chia đều vừa đủ' bởi nhiều số khác nhau, hãy nghĩ ngay đến việc tìm Bội chung nhỏ nhất của các số đó. Sau đó, dựa vào điều kiện khoảng để xác định giá trị cụ thể."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialDepth": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "riseAmount": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "diveAmount": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        },
+        "finalRise": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "initialDepth - riseAmount > 0",
+        "initialDepth - riseAmount + diveAmount > 0",
+        "initialDepth - riseAmount + diveAmount - finalRise > 0"
+      ],
+      "formulas": {
+        "ans": "variables.initialDepth - variables.riseAmount + variables.diveAmount - variables.finalRise",
+        "w1": "variables.initialDepth + variables.riseAmount + variables.diveAmount + variables.finalRise",
+        "w2": "variables.initialDepth - variables.riseAmount - variables.diveAmount - variables.finalRise",
+        "w3": "variables.initialDepth + variables.riseAmount - variables.diveAmount + variables.finalRise"
+      },
+      "questionText": "Một tàu ngầm đang ở độ sâu {initialDepth} mét dưới mực nước biển. Sau đó, tàu nổi lên {riseAmount} mét, rồi lại lặn xuống thêm {diveAmount} mét. Cuối cùng, tàu nổi thêm {finalRise} mét. Hỏi lúc này tàu đang ở độ sâu bao nhiêu mét dưới mực nước biển?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Coi mực nước biển là 0. Độ sâu dưới mực nước biển có thể biểu diễn bằng số nguyên âm nếu coi chiều đi xuống là âm, hoặc dùng số dương và diễn giải là 'độ sâu'.",
+        "Nổi lên là giảm độ sâu (trừ đi), lặn xuống là tăng độ sâu (cộng vào). Hãy cẩn thận với cách diễn đạt 'độ sâu bao nhiêu mét dưới mực nước biển'."
+      ],
+      "solutionHtml": "Coi mực nước biển là 0 mét. Độ sâu dưới mực nước biển được tính bằng giá trị dương.<br/>Độ sâu ban đầu của tàu là: {initialDepth} mét.<br/>Khi tàu nổi lên {riseAmount} mét, độ sâu của tàu là: $ {initialDepth} - {riseAmount} $ mét.<br/>Sau đó, tàu lại lặn xuống thêm {diveAmount} mét, độ sâu của tàu là: $ ({initialDepth} - {riseAmount}) + {diveAmount} $ mét.<br/>Cuối cùng, tàu nổi thêm {finalRise} mét, độ sâu cuối cùng của tàu là: $ ({initialDepth} - {riseAmount} + {diveAmount}) - {finalRise} = {ans} $ mét.<br/>Vậy lúc này tàu đang ở độ sâu {ans} mét dưới mực nước biển.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán về độ cao/độ sâu, cần quy ước rõ ràng chiều dương và âm, hoặc cách hiểu về 'độ sâu'. 'Nổi lên' nghĩa là giảm độ sâu (trừ), 'lặn xuống' nghĩa là tăng độ sâu (cộng)."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "intervalA": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "intervalB": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "intervalA !== intervalB",
+        "intervalB % intervalA !== 0",
+        "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.intervalA, variables.intervalB) !== 1"
+      ],
+      "formulas": {
+        "gAB": "((a,b) => {a = Math.abs(a); b = Math.abs(b); while(b) {[a,b] = [b, a%b];} return a;})(variables.intervalA, variables.intervalB)",
+        "ans": "Math.abs(variables.intervalA * variables.intervalB) / this.gAB",
+        "w1": "variables.intervalA + variables.intervalB",
+        "w2": "variables.intervalA * variables.intervalB",
+        "w3": "this.ans / 2"
+      },
+      "questionText": "Hai chuyến xe buýt cùng xuất phát tại bến lúc 6 giờ sáng. Chuyến thứ nhất cứ {intervalA} phút lại xuất phát một chuyến, chuyến thứ hai cứ {intervalB} phút lại xuất phát một chuyến. Hỏi sau bao lâu kể từ lúc 6 giờ sáng, hai chuyến xe buýt lại cùng xuất phát lần tiếp theo?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian mà hai chuyến xe buýt cùng xuất phát lại sẽ là một bội chung của khoảng thời gian xuất phát của từng chuyến.",
+        "Để tìm thời gian tiếp theo mà cả hai cùng xuất phát, bạn cần tìm bội chung nhỏ nhất (BCNN) của hai khoảng thời gian đã cho."
+      ],
+      "solutionHtml": "Thời gian mà hai chuyến xe buýt cùng xuất phát lại là bội chung của khoảng thời gian xuất phát của từng chuyến.<br/>Chuyến thứ nhất cứ {intervalA} phút xuất phát một chuyến.<br/>Chuyến thứ hai cứ {intervalB} phút xuất phát một chuyến.<br/>Để tìm thời điểm tiếp theo cả hai chuyến cùng xuất phát, ta cần tìm bội chung nhỏ nhất (BCNN) của {intervalA} và {intervalB}.<br/>Tìm ƯCLN({intervalA}, {intervalB}):<br/>ƯCLN({intervalA}, {intervalB}) = UCLN({intervalA}, {intervalB}) = {formulas.gAB}.<br/>Tìm BCNN({intervalA}, {intervalB}):<br/>BCNN({intervalA}, {intervalB}) = $\\frac{{{intervalA} \\times {intervalB}}}{UCLN({intervalA}, {intervalB})} = {formulas.ans}$.<br/>Vậy sau {ans} phút kể từ lúc 6 giờ sáng, hai chuyến xe buýt lại cùng xuất phát lần tiếp theo.<br/>Đáp án đúng là B.",
+      "tip": "Các bài toán về lịch trình lặp lại, sự kiện đồng thời thường sử dụng Bội chung nhỏ nhất để tìm thời điểm tiếp theo mà các sự kiện đó cùng xảy ra."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "divisor": {
+          "min": 12,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "divisor > 1"
+      ],
+      "formulas": {
+        "first_approx": "100 / variables.divisor",
+        "first_ceil": "Math.ceil(100 / variables.divisor)",
+        "first3DigitMultiple": "Math.ceil(100 / variables.divisor) * variables.divisor",
+        "last_approx": "999 / variables.divisor",
+        "last_floor": "Math.floor(999 / variables.divisor)",
+        "last3DigitMultiple": "Math.floor(999 / variables.divisor) * variables.divisor",
+        "count": "(this.last3DigitMultiple - this.first3DigitMultiple) / variables.divisor + 1",
+        "ans": "(this.count * (this.first3DigitMultiple + this.last3DigitMultiple)) / 2",
+        "w1": "this.count * this.first3DigitMultiple",
+        "w2": "this.count * this.last3DigitMultiple",
+        "w3": "this.ans + variables.divisor"
+      },
+      "questionText": "Tính tổng tất cả các số tự nhiên có ba chữ số mà chia hết cho {divisor}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Các số tự nhiên có ba chữ số bắt đầu từ 100 và kết thúc ở 999.",
+        "Đầu tiên, hãy tìm số có ba chữ số nhỏ nhất chia hết cho {divisor} và số có ba chữ số lớn nhất chia hết cho {divisor}.",
+        "Sau đó, xác định số lượng các số đó. Cuối cùng, áp dụng công thức tính tổng của dãy số cách đều."
+      ],
+      "solutionHtml": "Các số tự nhiên có ba chữ số là các số từ 100 đến 999.<br/>Bước 1: Tìm số có ba chữ số nhỏ nhất chia hết cho {divisor}.<br/>Ta có $100 \\div {divisor} \\approx {formulas.first_approx}$. Số nguyên nhỏ nhất lớn hơn hoặc bằng {formulas.first_approx} là {formulas.first_ceil}.<br/>Vậy số nhỏ nhất là: $ {formulas.first_ceil} \\times {divisor} = {formulas.first3DigitMultiple} $.<br/>Bước 2: Tìm số có ba chữ số lớn nhất chia hết cho {divisor}.<br/>Ta có $999 \\div {divisor} \\approx {formulas.last_approx}$. Số nguyên lớn nhất nhỏ hơn hoặc bằng {formulas.last_approx} là {formulas.last_floor}.<br/>Vậy số lớn nhất là: $ {formulas.last_floor} \\times {divisor} = {formulas.last3DigitMultiple} $.<br/>Bước 3: Tính số lượng các số đó.<br/>Số lượng các số chia hết cho {divisor} trong khoảng từ {formulas.first3DigitMultiple} đến {formulas.last3DigitMultiple} là:<br/>$$ ( {formulas.last3DigitMultiple} - {formulas.first3DigitMultiple} ) \\div {divisor} + 1 = {formulas.count} $ (số).<br/>Bước 4: Tính tổng của dãy số cách đều.<br/>Tổng của dãy số cách đều là: $ \\frac{{\\text{(So dau + So cuoi)} \\times \\text{So luong}}}{2} $<br/>Tổng = $ \\frac{{({formulas.first3DigitMultiple} + {formulas.last3DigitMultiple}) \\times {formulas.count}}}{2} = {formulas.ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng các số chia hết cho một số trong một khoảng, cần tìm số hạng đầu, số hạng cuối và số lượng số hạng của dãy số đó. Sau đó, áp dụng công thức tính tổng dãy số cách đều."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "primeNum": {
+          "min": 2,
+          "max": 19,
+          "step": 1
+        },
+        "compositeNum": {
+          "min": 4,
+          "max": 25,
+          "step": 1
+        },
+        "perfectSquareBase": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "((num) => {if(num<=1)return false; for(let i=2; i*i<=num; i++){if(num%i===0)return false;} return true;})(variables.primeNum)",
+        "!((num) => {if(num<=1)return false; for(let i=2; i*i<=num; i++){if(num%i===0)return false;} return true;})(variables.compositeNum) && variables.compositeNum > 1",
+        "variables.primeNum !== variables.compositeNum",
+        "variables.primeNum + variables.compositeNum - variables.perfectSquareBase > 0"
+      ],
+      "formulas": {
+        "perfectSquare": "variables.perfectSquareBase * variables.perfectSquareBase",
+        "ans": "variables.primeNum + variables.compositeNum - variables.perfectSquareBase",
+        "w1": "variables.primeNum + variables.compositeNum + variables.perfectSquareBase",
+        "w2": "variables.primeNum - variables.compositeNum + variables.perfectSquareBase",
+        "w3": "variables.primeNum + variables.compositeNum - this.perfectSquare"
+      },
+      "questionText": "Cho ba số tự nhiên: {primeNum}, {compositeNum}, và {perfectSquare}. Biết rằng {primeNum} là một số nguyên tố, {compositeNum} là một hợp số, và {perfectSquare} là một số chính phương. Tính giá trị của biểu thức $P = {primeNum} + {compositeNum} - \\sqrt{{perfectSquare}}$.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số chính phương là bình phương của một số tự nhiên. Căn bậc hai của một số chính phương là số tự nhiên đó.",
+        "Thay giá trị căn bậc hai của số chính phương vào biểu thức và thực hiện các phép tính."
+      ],
+      "solutionHtml": "Theo đề bài, ta có các giá trị sau:<br/>- Số nguyên tố là: {primeNum}.<br/>- Hợp số là: {compositeNum}.<br/>- Số chính phương là: {perfectSquare}.<br/>Để tính giá trị của biểu thức $P = {primeNum} + {compositeNum} - \\sqrt{{perfectSquare}}$, trước hết ta cần tìm giá trị của $\\sqrt{{perfectSquare}}$.<br/>Ta biết rằng {perfectSquare} là bình phương của {perfectSquareBase}, nên $\\sqrt{{perfectSquare}} = {perfectSquareBase}$.<br/>Thay các giá trị vào biểu thức $P$:<br/>$P = {primeNum} + {compositeNum} - {perfectSquareBase}$<br/>$P = {ans}$.<br/>Đáp án đúng là B.",
+      "tip": "Nắm vững định nghĩa và tính chất của số nguyên tố, hợp số, và số chính phương. Đặc biệt chú ý đến cách tính căn bậc hai của số chính phương để tránh nhầm lẫn với chính số chính phương đó."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numStudents": {
+          "min": 20,
+          "max": 30,
+          "step": 1
+        },
+        "numGroups": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "groupLimit": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numStudents > numGroups * groupLimit",
+        "numStudents % numGroups !== 0"
+      ],
+      "formulas": {
+        "minLeft": "variables.numStudents % variables.numGroups",
+        "ans": "variables.numGroups - (variables.numStudents % variables.numGroups)",
+        "quotient": "Math.floor(variables.numStudents / variables.numGroups)",
+        "remainder_val": "variables.numStudents % variables.numGroups",
+        "total_students_after_add": "variables.numStudents + (variables.numGroups - (variables.numStudents % variables.numGroups))",
+        "students_per_group_after_add": "(variables.numStudents + (variables.numGroups - (variables.numStudents % variables.numGroups))) / variables.numGroups"
+      },
+      "questionText": "Một lớp học có {numStudents} học sinh. Cô giáo muốn chia lớp thành {numGroups} nhóm để làm bài tập, sao cho số học sinh trong mỗi nhóm không quá {groupLimit} em và các nhóm có số học sinh càng đều càng tốt. Nếu có một nhóm ít học sinh nhất, thì cần thêm ít nhất bao nhiêu học sinh nữa để tất cả các nhóm đều có số học sinh bằng nhau?",
+      "options": [
+        "A. {ans} học sinh",
+        "B. {minLeft} học sinh",
+        "C. {numGroups} học sinh",
+        "D. ${variables.numGroups + variables.minLeft}$ học sinh"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để chia các nhóm 'càng đều càng tốt', hãy thực hiện phép chia tổng số học sinh cho số nhóm.",
+        "Số dư của phép chia sẽ cho biết số học sinh còn lại sau khi chia đều nhất có thể.",
+        "Số học sinh cần thêm để các nhóm đều nhau chính là 'số bù' để tổng số học sinh là bội của số nhóm."
+      ],
+      "solutionHtml": "Tổng số học sinh là: {numStudents} em.<br/>Số nhóm cần chia là: {numGroups} nhóm.<br/>Để các nhóm có số học sinh càng đều càng tốt, ta thực hiện phép chia {numStudents} \\div {numGroups}$:<br/>{numStudents} = {formulas.quotient} \\times {numGroups} + {formulas.remainder_val}$.<br/>Điều này có nghĩa là, nếu chia {numStudents} học sinh thành {numGroups} nhóm, sẽ có {formulas.remainder_val} nhóm có $({formulas.quotient} + 1)$ học sinh, và $({numGroups} - {formulas.remainder_val})$ nhóm có {formulas.quotient} học sinh (nếu có dư).<br/>Hoặc, đơn giản hơn, sau khi chia đều nhất có thể, sẽ còn lại {formulas.remainder_val} học sinh chưa được chia đều vào các nhóm nhỏ hơn (các nhóm có số thành viên là $({formulas.quotient} + 1)$).<br/>Số học sinh 'dư' là {formulas.remainder_val}. Để các nhóm đều có số học sinh bằng nhau (tức là tổng số học sinh chia hết cho {numGroups}), ta cần thêm số học sinh vào để biến số dư này thành {numGroups}.<br/>Số học sinh cần thêm là: $$ {numGroups} - {formulas.remainder_val} = {formulas.ans} $ (học sinh).<br/>Lưu ý: Yêu cầu 'số học sinh trong mỗi nhóm không quá {groupLimit} em' là để đảm bảo tính thực tế của bài toán. Ta kiểm tra: Nếu thêm {formulas.ans} học sinh, tổng số học sinh sẽ là {formulas.total_students_after_add}. Khi đó, mỗi nhóm có $ {formulas.total_students_after_add} \\div {numGroups} = {formulas.students_per_group_after_add} học sinh, giá trị này nhỏ hơn hoặc bằng {groupLimit}.<br/>Đáp án đúng là A.",
+      "tip": "Bài toán 'thêm bao nhiêu để chia hết' thường liên quan đến số dư. Nếu một số $N$ chia cho $M$ dư $R$, thì để $N$ mới chia hết cho $M$, ta có thể thêm $M-R$ vào $N$ (hoặc bớt $R$ từ $N$). Ở đây là cần thêm để tất cả các nhóm đều nhau, tức là số học sinh chia hết cho số nhóm."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialMoney": {
+          "min": 50000,
+          "max": 100000,
+          "step": 5000
+        },
+        "firstSpentPercent": {
+          "min": 20,
+          "max": 30,
+          "step": 5
+        },
+        "secondSpentAmount": {
+          "min": 15000,
+          "max": 25000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "initialMoney * (100 - firstSpentPercent) / 100 - secondSpentAmount > 5000"
+      ],
+      "formulas": {
+        "spent_on_books": "variables.initialMoney * variables.firstSpentPercent / 100",
+        "moneyAfterFirstSpent": "variables.initialMoney - (variables.initialMoney * variables.firstSpentPercent / 100)",
+        "ans": "this.moneyAfterFirstSpent - variables.secondSpentAmount",
+        "w1": "variables.initialMoney - variables.secondSpentAmount",
+        "w2": "variables.initialMoney * variables.firstSpentPercent / 100 + variables.secondSpentAmount",
+        "w3": "variables.initialMoney - (variables.initialMoney * variables.firstSpentPercent / 100) - variables.secondSpentAmount / 2"
+      },
+      "questionText": "Bạn An có {initialMoney} đồng. An dùng {firstSpentPercent}\\%$ số tiền của mình để mua sách. Sau đó, An dùng thêm {secondSpentAmount} đồng để mua bút. Hỏi An còn lại bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số tiền An đã dùng để mua sách. {firstSpentPercent}\\%$ của tổng số tiền.",
+        "Sau khi mua sách, số tiền còn lại là bao nhiêu?",
+        "Tiếp theo, trừ đi số tiền mua bút để tìm số tiền cuối cùng còn lại."
+      ],
+      "solutionHtml": "Số tiền An có ban đầu là: {initialMoney} đồng.<br/>An dùng {firstSpentPercent}\\%$ số tiền của mình để mua sách. Số tiền mua sách là:<br/>$$ {initialMoney} \\times \\frac{{{firstSpentPercent}}}{100} = {formulas.spent_on_books} $ (đồng).<br/>Số tiền An còn lại sau khi mua sách là:<br/>$$ {initialMoney} - {formulas.spent_on_books} = {formulas.moneyAfterFirstSpent} $ (đồng).<br/>Sau đó, An dùng thêm {secondSpentAmount} đồng để mua bút. Số tiền An còn lại cuối cùng là:<br/>$$ {formulas.moneyAfterFirstSpent} - {secondSpentAmount} = {formulas.ans} $ (đồng).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước chi tiêu, hãy tính toán từng bước một cách cẩn thận. Chú ý phân biệt 'phần trăm của tổng số tiền ban đầu' và 'phần trăm của số tiền còn lại' (nếu có)."
+    }
+  ]
+}

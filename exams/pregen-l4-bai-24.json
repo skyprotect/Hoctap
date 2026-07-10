@@ -1,0 +1,569 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1": {
+          "min": 121,
+          "max": 299,
+          "step": 1
+        },
+        "day2": {
+          "min": 50,
+          "max": 199,
+          "step": 1
+        },
+        "day3": {
+          "min": 101,
+          "max": 299,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(day1 + day3) % 10 === 0",
+        "day1 !== day2",
+        "day2 !== day3",
+        "day1 !== day3"
+      ],
+      "formulas": {
+        "day1LastDigit": "day1 % 10",
+        "day3LastDigit": "day3 % 10",
+        "groupedSum": "day1 + day3",
+        "ans": "day1 + day2 + day3",
+        "w1_goc": "day1 + day2 - day3",
+        "w2_goc": "day1 * 2 + day3",
+        "w3_goc": "day1 + day2 + day3 + 10",
+        "w1": "(w1_goc === ans) ? ans + 7 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 14 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 21 : w3_goc"
+      },
+      "questionText": "Bạn An thu gom chai nhựa trong 3 ngày. Ngày thứ nhất thu được {day1} chai, ngày thứ hai thu được {day2} chai, và ngày thứ ba thu được {day3} chai. Hỏi bạn An đã thu gom được tất cả bao nhiêu chai nhựa? Sử dụng tính chất giao hoán và kết hợp của phép cộng để tính nhanh nhất.",
+      "options": [
+        "{w1} chai",
+        "{w2} chai",
+        "{ans} chai",
+        "{w3} chai"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tính nhanh tổng ba số, ta nên nhóm các số có tổng là số tròn chục hoặc tròn trăm.",
+        "Hãy nhóm {day1} và {day3} lại với nhau trước."
+      ],
+      "solutionHtml": "Để tính tổng số chai nhựa một cách nhanh nhất, ta nên nhóm các số có tổng là số tròn chục (hoặc tròn trăm) theo tính chất giao hoán và kết hợp của phép cộng.<br/>Ta có thể nhóm {day1} và {day3} vì {day1} có tận cùng là {day1LastDigit} và {day3} có tận cùng là {day3LastDigit}. Hai chữ số này cộng lại bằng $10$.<br/>Tổng số chai nhựa bạn An thu được là:<br/>' + '{day1} + {day2} + {day3} = (' + '{day1} + {day3}' + ') + ' + '{day2} + ' (Áp dụng tính chất giao hoán và kết hợp)<br/>' + '= {groupedSum} + {day2} = {ans} (chai).<br/>Đáp án đúng là ' + '{ans} chai.",
+      "tip": "Khi cộng nhiều số, hãy tìm các cặp số có tổng là số tròn chục, tròn trăm hoặc tròn nghìn để tính toán dễ dàng hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 100,
+          "max": 900,
+          "step": 1
+        },
+        "num2": {
+          "min": 10,
+          "max": 90,
+          "step": 1
+        },
+        "num3": {
+          "min": 1000,
+          "max": 9000,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num1 !== num2",
+        "num2 !== num3",
+        "num1 !== num3"
+      ],
+      "formulas": {
+        "ans": "num2",
+        "w1": "(num1 === ans) ? num1 + 7 : num1",
+        "w2": "(num3 === ans || num3 === w1) ? num3 + 13 : num3",
+        "w3": "(num1 + num2 === ans || num1 + num2 === w1 || num1 + num2 === w2) ? num1 + num2 + 1 : num1 + num2"
+      },
+      "questionText": "Điền số thích hợp vào chỗ trống để được đẳng thức đúng: ($num1$ + $num2$) + $num3$ = $num1$ + (_ + $num3$)",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là dạng bài tập về tính chất kết hợp của phép cộng.",
+        "Tính chất kết hợp của phép cộng phát biểu rằng: khi cộng một tổng hai số với số thứ ba, ta có thể cộng số thứ nhất với tổng của số thứ hai và số thứ ba."
+      ],
+      "solutionHtml": "Dựa vào tính chất kết hợp của phép cộng, công thức tổng quát là: ($a$ + $b$) + $c$ = $a$ + ($b$ + $c$).<br/>Áp dụng vào đẳng thức đã cho:<br/>($num1$ + $num2$) + $num3$ = $num1$ + (_ + $num3$)<br/>So sánh với công thức, ta thấy số cần điền vào chỗ trống chính là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Tính chất kết hợp giúp chúng ta thay đổi cách nhóm các số hạng khi cộng mà không làm thay đổi kết quả của tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s1": {
+          "min": 123,
+          "max": 199,
+          "step": 1
+        },
+        "s2": {
+          "min": 51,
+          "max": 149,
+          "step": 1
+        },
+        "s3": {
+          "min": 101,
+          "max": 199,
+          "step": 1
+        },
+        "s4": {
+          "min": 51,
+          "max": 149,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(s1 % 10) + (s3 % 10) === 10",
+        "(s2 % 10) + (s4 % 10) === 10",
+        "s1 !== s2",
+        "s1 !== s3",
+        "s1 !== s4",
+        "s2 !== s3",
+        "s2 !== s4",
+        "s3 !== s4"
+      ],
+      "formulas": {
+        "group1": "s1 + s3",
+        "group2": "s2 + s4",
+        "ans": "s1 + s2 + s3 + s4",
+        "w1_raw": "s1 + s2 + s3",
+        "w2_raw": "s1 + s3 + s4",
+        "w3_raw": "s2 + s3 + s4",
+        "w1": "(w1_raw === ans) ? ans + 7 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (((ans + 13) === w1) ? ans + 17 : ans + 13) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 19 : w3_raw"
+      },
+      "questionText": "Một cửa hàng buổi sáng bán được {s1} kg gạo, buổi chiều bán được {s2} kg gạo. Ngày hôm sau, buổi sáng bán được {s3} kg gạo và buổi chiều bán được {s4} kg gạo. Hỏi cả hai ngày cửa hàng đó bán được tất cả bao nhiêu kg gạo? Em hãy áp dụng tính chất giao hoán và kết hợp để tính toán hiệu quả nhất.",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số gạo bán được là tổng của 4 số: {s1}, {s2}, {s3}, {s4}.",
+        "Hãy tìm các cặp số có tổng là số tròn chục để nhóm lại với nhau."
+      ],
+      "solutionHtml": "Để tính tổng số gạo bán được một cách nhanh nhất, ta áp dụng tính chất giao hoán và kết hợp của phép cộng để nhóm các số có tổng là số tròn chục.<br/>Tổng số gạo bán được là: {s1} + {s2} + {s3} + {s4} <br/>= ({s1} + {s3}) + ({s2} + {s4}) <br/>= {group1} + {group2} <br/>= {ans} (kg).<br/>Đáp án đúng là B.",
+      "tip": "Khi có nhiều hơn hai số hạng trong phép cộng, ta có thể dùng cả tính chất giao hoán (đổi chỗ) và tính chất kết hợp (nhóm lại) để tìm cách tính nhanh nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": {
+          "min": 50,
+          "max": 150,
+          "step": 1
+        },
+        "n2": {
+          "min": 20,
+          "max": 80,
+          "step": 1
+        },
+        "n3": {
+          "min": 60,
+          "max": 160,
+          "step": 1
+        },
+        "n4": {
+          "min": 30,
+          "max": 90,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n1 !== n2",
+        "n1 !== n3",
+        "n1 !== n4",
+        "n2 !== n3",
+        "n2 !== n4",
+        "n3 !== n4"
+      ],
+      "formulas": {
+        "sumTotal": "n1 + n2 + n3 + n4"
+      },
+      "questionText": "Để tính tổng $ {n1} + {n2} + {n3} + {n4} $, bạn Mai đã thực hiện như sau: $ ({n1} + {n4}) + ({n2} + {n3}) $. Hỏi bạn Mai đã áp dụng những tính chất nào của phép cộng để tính toán?",
+      "options": [
+        "A. Chỉ tính chất giao hoán.",
+        "B. Chỉ tính chất kết hợp.",
+        "C. Cả tính chất giao hoán và kết hợp.",
+        "D. Không áp dụng tính chất nào."
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Quan sát cách bạn Mai thay đổi vị trí của các số hạng và cách bạn ấy nhóm các số hạng lại.",
+        "Việc thay đổi vị trí là tính chất nào? Việc nhóm lại là tính chất nào?"
+      ],
+      "solutionHtml": "Bạn Mai đã thực hiện từ biểu thức $ {n1} + {n2} + {n3} + {n4} $ thành $ ({n1} + {n4}) + ({n2} + {n3}) $.<br/>Đầu tiên, bạn Mai đã đổi chỗ các số hạng (ví dụ $ {n2} $ và $ {n4} $) để có thể nhóm $ {n1} $ với $ {n4} $ và $ {n2} $ với $ {n3} $. Việc đổi chỗ các số hạng là áp dụng tính chất giao hoán của phép cộng.<br/>Sau đó, bạn Mai nhóm các số hạng thành $ ({n1} + {n4}) $ và $ ({n2} + {n3}) $. Việc nhóm lại các số hạng là áp dụng tính chất kết hợp của phép cộng.<br/>Vì vậy, bạn Mai đã áp dụng cả hai tính chất giao hoán và kết hợp của phép cộng.<br/>Đáp án đúng là C.",
+      "tip": "Khi bạn đổi chỗ các số hạng (ví dụ từ $ a+b $ sang $ b+a $) là dùng giao hoán. Khi bạn đổi cách nhóm các số hạng (ví dụ từ $ (a+b)+c $ sang $ a+(b+c) $) là dùng kết hợp. Trong nhiều trường hợp tính nhanh, chúng ta thường sử dụng cả hai tính chất này.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1000,
+          "max": 5000,
+          "step": 1
+        },
+        "b": {
+          "min": 100,
+          "max": 500,
+          "step": 1
+        },
+        "c": {
+          "min": 10,
+          "max": 90,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a !== b",
+        "b !== c",
+        "a !== c"
+      ],
+      "formulas": {
+        "sumM": "a + b + c",
+        "w1": "a + b - c",
+        "w2": "a + c + b + 10",
+        "w3": "a + b + c + 5"
+      },
+      "questionText": "So sánh giá trị của hai biểu thức M = (",
+      "options": [
+        "A. M > N",
+        "B. M < N",
+        "C. M = N",
+        "D. Không thể so sánh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy nhớ lại tính chất kết hợp của phép cộng: (a + b) + c = a + (b + c).",
+        "Và tính chất giao hoán của phép cộng: b + c = c + b."
+      ],
+      "solutionHtml": "Xét biểu thức M = (",
+      "tip": "Khi so sánh hai tổng mà các số hạng giống nhau và chỉ khác nhau về thứ tự hoặc cách nhóm, thì giá trị của hai tổng đó luôn bằng nhau do tính chất giao hoán và kết hợp của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "meatPrice": {
+          "min": 51000,
+          "max": 99000,
+          "step": 1000
+        },
+        "vegPrice": {
+          "min": 11000,
+          "max": 29000,
+          "step": 1000
+        },
+        "fishPrice": {
+          "min": 41000,
+          "max": 89000,
+          "step": 1000
+        },
+        "totalMoney": {
+          "min": 160000,
+          "max": 250000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "(meatPrice + fishPrice + vegPrice) % 1000 === 0",
+        "totalMoney > (meatPrice + vegPrice + fishPrice)",
+        "totalMoney % 1000 === 0"
+      ],
+      "formulas": {
+        "groupedPrice": "meatPrice + fishPrice",
+        "totalExpense": "meatPrice + vegPrice + fishPrice",
+        "ans": "totalMoney - (meatPrice + vegPrice + fishPrice)",
+        "w1_goc": "totalMoney + meatPrice",
+        "w2_goc": "totalMoney - meatPrice",
+        "w3_goc": "meatPrice + vegPrice + fishPrice",
+        "w1": "(w1_goc === ans) ? ans + 10000 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 5000 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15000 : w3_goc"
+      },
+      "questionText": "Mẹ đi chợ mua thịt hết {meatPrice} đồng, mua rau hết {vegPrice} đồng và mua cá hết {fishPrice} đồng. Mẹ đưa người bán hàng {totalMoney} đồng. Hỏi mẹ nhận lại bao nhiêu tiền thừa? Em hãy tính tổng số tiền mẹ đã chi tiêu một cách nhanh nhất.",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w2} đồng",
+        "C. {ans} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bước 1: Tính tổng số tiền mẹ đã chi tiêu. Hãy nhóm các món đồ có giá tiền dễ cộng lại với nhau.",
+        "Bước 2: Lấy số tiền mẹ đưa trừ đi tổng số tiền đã chi tiêu để tìm số tiền thừa."
+      ],
+      "solutionHtml": "Bước 1: Tính tổng số tiền mẹ đã chi tiêu.<br/>Để tính nhanh, ta có thể nhóm các số có phần nghìn hoặc chục nghìn cộng lại tạo thành số tròn chục nghìn, tròn trăm nghìn.<br/>Tổng số tiền mẹ đã chi tiêu là:<br/>{meatPrice} + {vegPrice} + {fishPrice} <br/>= ({meatPrice} + {fishPrice}) + {vegPrice} (Áp dụng tính chất giao hoán và kết hợp)<br/>= {groupedPrice} + {vegPrice} <br/>= {totalExpense} đồng.<br/>Bước 2: Tính số tiền mẹ nhận lại.<br/>Số tiền mẹ nhận lại là: {totalMoney} - {totalExpense} = {ans} đồng.<br/>Đáp án đúng là C.",
+      "tip": "Trong các bài toán thực tế có nhiều phép cộng, hãy sắp xếp và nhóm các số hạng sao cho tổng của chúng là số tròn (chục, trăm, nghìn...) để việc tính toán trở nên dễ dàng và nhanh chóng hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": {
+          "min": 200,
+          "max": 500,
+          "step": 1
+        },
+        "n2": {
+          "min": 10,
+          "max": 90,
+          "step": 1
+        },
+        "n3": {
+          "min": 600,
+          "max": 900,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n1 !== n2",
+        "n2 !== n3",
+        "n1 !== n3"
+      ],
+      "formulas": {
+        "ans": "n3",
+        "w1_goc": "n1",
+        "w2_goc": "n2",
+        "w3_goc": "n1 + n2",
+        "w1": "(w1_goc === ans) ? ans + 7 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 13 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 19 : w3_goc"
+      },
+      "questionText": "Tìm số x biết: {n1} + ({n2} + x) = ({n1} + {n3}) + {n2}",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng tính chất giao hoán và kết hợp của phép cộng để biến đổi vế phải của đẳng thức.",
+        "Nếu a + (b + c) = a + (d + b), thì có thể suy ra c = d."
+      ],
+      "solutionHtml": "Ta có đẳng thức: {n1} + ({n2} + x) = ({n1} + {n3}) + {n2}. Áp dụng tính chất giao hoán và kết hợp của phép cộng, ta có ({n1} + {n3}) + {n2} = {n1} + {n2} + {n3}. Vậy đẳng thức trở thành: {n1} + ({n2} + x) = {n1} + ({n2} + {n3}). So sánh hai vế, ta thấy $x =$ {ans}. Đáp án đúng là B.",
+      "tip": "Để tìm x trong đẳng thức, hãy biến đổi các vế về dạng giống nhau bằng cách thay đổi thứ tự và nhóm các số hạng. Sau đó so sánh các thành phần tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "k1": {
+          "min": 201,
+          "max": 299,
+          "step": 1
+        },
+        "k2": {
+          "min": 201,
+          "max": 299,
+          "step": 1
+        },
+        "k3": {
+          "min": 201,
+          "max": 299,
+          "step": 1
+        },
+        "k4": {
+          "min": 201,
+          "max": 299,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(k1 % 10) + (k3 % 10) === 10",
+        "(k2 % 10) + (k4 % 10) === 10",
+        "k1 !== k2",
+        "k1 !== k3",
+        "k1 !== k4",
+        "k2 !== k3",
+        "k2 !== k4",
+        "k3 !== k4"
+      ],
+      "formulas": {
+        "group1": "k1 + k3",
+        "group2": "k2 + k4",
+        "ans": "k1 + k2 + k3 + k4",
+        "w1_raw": "k1 + k2 + k3",
+        "w2_raw": "k1 + k2 + k4",
+        "w3_raw": "k1 + k3 + k4",
+        "w1": "(w1_raw === ans) ? ans + 7 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (ans + 13) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? (ans + 17) : w3_raw"
+      },
+      "questionText": "Một trường học có 4 khối lớp: Khối 1 có {k1} học sinh, Khối 2 có {k2} học sinh, Khối 3 có {k3} học sinh, Khối 4 có {k4} học sinh. Để tính tổng số học sinh toàn trường một cách nhanh nhất, bạn Lan đã tính như sau: ({k1} + {k3}) + ({k2} + {k4}). Hỏi tổng số học sinh toàn trường là bao nhiêu?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {w2} học sinh",
+        "C. {ans} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bạn Lan đã nhóm các số hạng có tổng là số tròn chục (hoặc tròn trăm). Hãy thực hiện phép tính theo cách nhóm đó.",
+        "Tính tổng của từng nhóm trước, sau đó cộng các kết quả lại."
+      ],
+      "solutionHtml": "Bạn Lan đã áp dụng tính chất giao hoán và kết hợp của phép cộng để nhóm các số hạng có tổng là số tròn chục nhằm tính nhanh hơn.<br/>Tổng số học sinh toàn trường là:<br/>( {k1} + {k3} ) + ( {k2} + {k4} )<br/>= {group1} + {group2}<br/>= {ans} (học sinh).<br/>Đáp án đúng là C.",
+      "tip": "Trong một tổng có nhiều số hạng, việc sắp xếp và nhóm các số sao cho tạo thành các số tròn (chục, trăm, nghìn) sẽ giúp bạn tính toán chính xác và nhanh chóng hơn rất nhiều.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a1": {
+          "min": 1100,
+          "max": 1200,
+          "step": 50
+        },
+        "c2": {
+          "min": 800,
+          "max": 900,
+          "step": 50
+        },
+        "b1": {
+          "min": 1150,
+          "max": 1250,
+          "step": 50
+        },
+        "a2": {
+          "min": 850,
+          "max": 950,
+          "step": 50
+        },
+        "c1": {
+          "min": 1050,
+          "max": 1150,
+          "step": 50
+        },
+        "b2": {
+          "min": 750,
+          "max": 850,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "(a1 + c2) % 100 === 0",
+        "(b1 + a2) % 100 === 0",
+        "(c1 + b2) % 100 === 0",
+        "a1 !== b1",
+        "a1 !== c1",
+        "b1 !== c1",
+        "a2 !== b2",
+        "a2 !== c2",
+        "b2 !== c2"
+      ],
+      "formulas": {
+        "sum1": "a1 + c2",
+        "sum2": "b1 + a2",
+        "sum3": "c1 + b2",
+        "ans": "sum1 + sum2 + sum3",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Có ba nhà máy sản xuất xe đạp. Trong quý 1, nhà máy A sản xuất được {a1} xe, nhà máy B sản xuất được {b1} xe, nhà máy C sản xuất được {c1} xe. Trong quý 2, nhà máy A sản xuất được {a2} xe, nhà máy B sản xuất được {b2} xe, nhà máy C sản xuất được {c2} xe. Hỏi tổng số xe cả ba nhà máy sản xuất được trong cả hai quý là bao nhiêu?",
+      "options": [
+        "A. {w1} xe",
+        "B. {ans} xe",
+        "C. {w2} xe",
+        "D. {w3} xe"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số xe là tổng của 6 số hạng: {a1}, {b1}, {c1}, {a2}, {b2}, và {c2}.",
+        "Hãy tìm các cặp số có tổng là số tròn trăm để tính nhanh: nhóm nhà máy A với C, B với A, C với B dựa trên dữ liệu quý 1 và quý 2."
+      ],
+      "solutionHtml": "Để tính tổng số xe cả ba nhà máy sản xuất được trong cả hai quý, ta cộng các số hạng: {a1} + {b1} + {c1} + {a2} + {b2} + {c2}.<br/>Áp dụng tính chất giao hoán và kết hợp để nhóm các số hạng có tổng tròn trăm:<br/>( {a1} + {c2} ) + ( {b1} + {a2} ) + ( {c1} + {b2} )<br/>= {sum1} + {sum2} + {sum3}<br/>= {ans} xe.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng nhiều số hạng, việc nhóm các cặp số có tổng là số tròn trăm sẽ giúp việc tính toán trở nên dễ dàng và chính xác hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": {
+          "min": 101,
+          "max": 299,
+          "step": 1
+        },
+        "v2": {
+          "min": 51,
+          "max": 149,
+          "step": 1
+        },
+        "v3": {
+          "min": 101,
+          "max": 299,
+          "step": 1
+        },
+        "v4": {
+          "min": 51,
+          "max": 149,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(v1 % 10) + (v4 % 10) === 10",
+        "(v2 % 10) + (v3 % 10) === 10",
+        "v1 !== v2",
+        "v1 !== v3",
+        "v1 !== v4",
+        "v2 !== v3",
+        "v2 !== v4",
+        "v3 !== v4"
+      ],
+      "formulas": {
+        "v1LastDigit": "v1 % 10",
+        "v2LastDigit": "v2 % 10",
+        "v3LastDigit": "v3 % 10",
+        "v4LastDigit": "v4 % 10",
+        "ansGroup1": "v1 + v4",
+        "ansGroup2": "v2 + v3",
+        "ans": "(v1 + v4) + (v2 + v3)",
+        "w1": "v1 + v2 + v3 + v4 + 10",
+        "w2": "v1 + v4 + v2 + v3 + 20",
+        "w3": "v1 + v3 + v2 + v4 + 30"
+      },
+      "questionText": "Để tính tổng {v1} + {v2} + {v3} + {v4} một cách nhanh nhất, bạn nên áp dụng tính chất giao hoán và kết hợp của phép cộng để nhóm các số hạng như thế nào?",
+      "options": [
+        "A. ({v1} + {v2}) + ({v3} + {v4})",
+        "B. ({v1} + {v3}) + ({v2} + {v4})",
+        "C. ({v1} + {v4}) + ({v2} + {v3})",
+        "D. {v1} + ({v2} + {v3}) + {v4}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy tìm các cặp số có tổng là số tròn chục để việc cộng được thuận tiện.",
+        "Kiểm tra chữ số tận cùng của từng số hạng để tìm ra cách nhóm hợp lý."
+      ],
+      "solutionHtml": "Để tính tổng {v1} + {v2} + {v3} + {v4} một cách nhanh nhất, ta cần nhóm các số hạng có tổng là số tròn chục. Ta thấy: {v1} có tận cùng là {v1LastDigit}, {v2} có tận cùng là {v2LastDigit}, {v3} có tận cùng là {v3LastDigit}, {v4} có tận cùng là {v4LastDigit}. Vì {v1LastDigit} + {v4LastDigit} = 10 và {v2LastDigit} + {v3LastDigit} = 10, nên ta nhóm ({v1} + {v4}) + ({v2} + {v3}). Tổng bằng {ansGroup1} + {ansGroup2} = {ans}. Đáp án đúng là C.",
+      "tip": "Khi đứng trước một dãy phép cộng nhiều số, hãy quét qua các chữ số tận cùng của từng số hạng. Nếu bạn tìm thấy các cặp số mà chữ số tận cùng cộng lại bằng 10 hoặc 20, hãy ưu tiên nhóm chúng lại để tính nhẩm nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-q10"
+    }
+  ]
+}

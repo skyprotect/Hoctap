@@ -1,0 +1,13 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-06T14:59:18.491Z
+Lesson ID: l4-bai-72
+Lesson Title: Bài 72: Ôn tập một số yếu tố thống kê và xác suất
+==================================================
+
+[ERROR DETAILS]
+first is not defined
+ReferenceError: first is not defined
+    at getMathPrompt (F:\KHQS\AntiGravity\HocTap\server.js:644:28)
+    at F:\KHQS\AntiGravity\HocTap\server.js:2019:24
+

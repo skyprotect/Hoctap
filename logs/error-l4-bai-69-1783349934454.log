@@ -1,0 +1,13 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-06T14:58:54.454Z
+Lesson ID: l4-bai-69
+Lesson Title: Bài 69: Ôn tập phân số
+==================================================
+
+[ERROR DETAILS]
+first is not defined
+ReferenceError: first is not defined
+    at getMathPrompt (F:\KHQS\AntiGravity\HocTap\server.js:644:28)
+    at F:\KHQS\AntiGravity\HocTap\server.js:2019:24
+

@@ -1,0 +1,488 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_temp": {
+          "min": -10,
+          "max": 15,
+          "step": 1
+        },
+        "change_temp": {
+          "min": 5,
+          "max": 20,
+          "step": 1
+        },
+        "is_rise": {
+          "options": [
+            0,
+            1
+          ]
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "final_temp": "is_rise === 1 ? initial_temp + change_temp : initial_temp - change_temp",
+        "change_desc": "is_rise === 1 ? 'tăng' : 'giảm'",
+        "op_symbol": "is_rise === 1 ? '+' : '-'",
+        "w1": "is_rise === 1 ? initial_temp - change_temp : initial_temp + change_temp",
+        "w2": "Math.abs(initial_temp) + change_temp",
+        "w3": "initial_temp + change_temp + 2"
+      },
+      "questionText": "Vào buổi sáng, nhiệt độ tại một thành phố là {initial_temp}°C. Đến trưa, nhiệt độ {change_desc} {change_temp}°C. Hỏi nhiệt độ tại thành phố đó vào buổi trưa là bao nhiêu?",
+      "options": [
+        "A. {w1}°C",
+        "B. {final_temp}°C",
+        "C. {w2}°C",
+        "D. {w3}°C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi nhiệt độ tăng, ta thực hiện phép cộng. Khi nhiệt độ giảm, ta thực hiện phép trừ.",
+        "Chú ý đến dấu của số nguyên ban đầu và phép toán."
+      ],
+      "solutionHtml": "Nhiệt độ ban đầu của thành phố là {initial_temp}°C.<br/>Vào buổi trưa, nhiệt độ {change_desc} {change_temp}°C.<br/>Nếu nhiệt độ {change_desc} là 'tăng', ta cộng {change_temp} vào nhiệt độ ban đầu.<br/>Nếu nhiệt độ {change_desc} là 'giảm', ta trừ {change_temp} khỏi nhiệt độ ban đầu.<br/>Vậy, nhiệt độ tại thành phố đó vào buổi trưa là:<br/>{initial_temp} {op_symbol} {change_temp} = {final_temp}°C.<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận với phép cộng và trừ số nguyên khi có số âm. Nhớ quy tắc cộng trừ số nguyên cùng dấu, khác dấu.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_depth": {
+          "min": 100,
+          "max": 300,
+          "step": 10
+        },
+        "descend1": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        },
+        "ascend1": {
+          "min": 30,
+          "max": 100,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "initial_depth > ascend1"
+      ],
+      "formulas": {
+        "initial_val": "-initial_depth",
+        "first_change": "-descend1",
+        "second_change": "ascend1",
+        "val_after_d1": "initial_val - descend1",
+        "final_depth_val": "initial_val - descend1 + ascend1",
+        "final_abs_depth": "Math.abs(initial_val - descend1 + ascend1)",
+        "w1": "Math.abs(-initial_depth + descend1 - ascend1)",
+        "w2": "initial_depth + descend1 + ascend1",
+        "w3": "Math.abs(-initial_depth - descend1)"
+      },
+      "questionText": "Một tàu ngầm đang ở độ sâu {initial_depth} mét so với mực nước biển (có thể biểu diễn là {initial_val} mét). Sau đó, tàu lặn xuống thêm {descend1} mét rồi lại nổi lên {ascend1} mét. Hỏi lúc này tàu ngầm đang ở độ sâu bao nhiêu mét so với mực nước biển?",
+      "options": [
+        "A. {w1} mét",
+        "B. {final_abs_depth} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Độ sâu so với mực nước biển thường được biểu diễn bằng số nguyên âm. Ví dụ, độ sâu {initial_depth} mét là {initial_val} mét.",
+        "Lặn xuống là trừ đi, nổi lên là cộng vào."
+      ],
+      "solutionHtml": "Độ sâu ban đầu của tàu ngầm là {initial_depth} mét so với mực nước biển, biểu diễn bằng số nguyên là {initial_val} mét.<br/>Khi tàu lặn xuống thêm {descend1} mét, vị trí mới của tàu là: <br/>{initial_val} - {descend1} = {val_after_d1}$ mét.<br/>Sau đó, tàu lại nổi lên {ascend1} mét, vị trí cuối cùng của tàu là:<br/>{val_after_d1} + {ascend1} = {final_depth_val}$ mét.<br/>Vậy, lúc này tàu ngầm đang ở độ sâu {final_abs_depth} mét so với mực nước biển.<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ quy ước: dưới mực nước biển là số âm, trên mực nước biển là số dương. Phép lặn xuống tương đương phép trừ, nổi lên tương đương phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_balance": {
+          "min": 500000,
+          "max": 1000000,
+          "step": 50000
+        },
+        "deposit1": {
+          "min": 100000,
+          "max": 300000,
+          "step": 10000
+        },
+        "withdrawal1": {
+          "min": 50000,
+          "max": 200000,
+          "step": 10000
+        },
+        "deposit2": {
+          "min": 80000,
+          "max": 250000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "initial_balance + deposit1 - withdrawal1 >= 0"
+      ],
+      "formulas": {
+        "balance_after_d1": "initial_balance + deposit1",
+        "balance_after_w1": "initial_balance + deposit1 - withdrawal1",
+        "final_balance": "initial_balance + deposit1 - withdrawal1 + deposit2",
+        "w1": "initial_balance + deposit1 + withdrawal1 + deposit2",
+        "w2": "initial_balance - deposit1 + withdrawal1 - deposit2",
+        "w3": "initial_balance + deposit1 + deposit2"
+      },
+      "questionText": "Anh Minh có {initial_balance} đồng trong tài khoản ngân hàng. Ngày hôm sau, anh nạp thêm {deposit1} đồng vào tài khoản. Sau đó, anh rút {withdrawal1} đồng để chi tiêu. Cuối cùng, anh nhận được tiền thưởng và nạp thêm {deposit2} đồng vào tài khoản. Hỏi số tiền cuối cùng trong tài khoản của anh Minh là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {final_balance} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nạp tiền là cộng, rút tiền là trừ.",
+        "Thực hiện các phép tính theo thứ tự từ trái sang phải."
+      ],
+      "solutionHtml": "Số tiền ban đầu trong tài khoản của anh Minh là {initial_balance} đồng.<br/>Anh nạp thêm {deposit1} đồng, số tiền lúc này là: <br/>{initial_balance} + {deposit1} = {balance_after_d1}$ đồng.<br/>Sau đó, anh rút {withdrawal1} đồng, số tiền còn lại là: <br/>{balance_after_d1} - {withdrawal1} = {balance_after_w1}$ đồng.<br/>Cuối cùng, anh nạp thêm {deposit2} đồng, số tiền cuối cùng trong tài khoản là:<br/>{balance_after_w1} + {deposit2} = {final_balance}$ đồng.<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các thao tác nạp tiền (cộng) và rút tiền (trừ). Luôn đọc kỹ đề bài để xác định đúng phép toán.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_score": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        },
+        "r1_val": {
+          "min": 20,
+          "max": 60,
+          "step": 5
+        },
+        "r2_val": {
+          "min": 15,
+          "max": 70,
+          "step": 5
+        },
+        "is_r1_gain": {
+          "options": [
+            0,
+            1
+          ]
+        },
+        "is_r2_gain": {
+          "options": [
+            0,
+            1
+          ]
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "r1_change": "is_r1_gain === 1 ? r1_val : -r1_val",
+        "r2_change": "is_r2_gain === 1 ? r2_val : -r2_val",
+        "r1_desc": "is_r1_gain === 1 ? 'tăng' : 'giảm'",
+        "r2_desc": "is_r2_gain === 1 ? 'tăng' : 'giảm'",
+        "op_r1": "is_r1_gain === 1 ? '+' : '-'",
+        "op_r2": "is_r2_gain === 1 ? '+' : '-'",
+        "score_after_r1": "initial_score + r1_change",
+        "final_score": "initial_score + r1_change + r2_change",
+        "w1": "initial_score - r1_change - r2_change",
+        "w2": "initial_score + Math.abs(r1_change) + Math.abs(r2_change)",
+        "w3": "initial_score + r1_change + r2_change + 5"
+      },
+      "questionText": "Trong một trò chơi điện tử, An có {initial_score} điểm. Sau vòng 1, điểm của An {r1_desc} {r1_val} điểm. Sau vòng 2, điểm của An {r2_desc} {r2_val} điểm. Hỏi điểm của An sau hai vòng chơi là bao nhiêu?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {final_score} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Điểm tăng là cộng, điểm giảm là trừ.",
+        "Thực hiện lần lượt các phép tính để tìm điểm cuối cùng."
+      ],
+      "solutionHtml": "Điểm ban đầu của An là {initial_score} điểm.<br/>Sau vòng 1, điểm của An {r1_desc} {r1_val} điểm. <br/>Nếu {r1_desc} là 'tăng', ta cộng {r1_val}. Nếu là 'giảm', ta trừ {r1_val}.<br/>Điểm sau vòng 1 là: {initial_score} {op_r1} {r1_val} = {score_after_r1}$ điểm.<br/>Sau vòng 2, điểm của An {r2_desc} {r2_val} điểm.<br/>Nếu {r2_desc} là 'tăng', ta cộng {r2_val}. Nếu là 'giảm', ta trừ {r2_val}.<br/>Điểm cuối cùng của An sau hai vòng chơi là: <br/>{score_after_r1} {op_r2} {r2_val} = {final_score}$ điểm.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ mỗi sự kiện để xác định đó là cộng hay trừ điểm. Điểm có thể là số âm trong một số trò chơi.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_elevation": {
+          "min": -200,
+          "max": 300,
+          "step": 50
+        },
+        "climb_val": {
+          "min": 100,
+          "max": 400,
+          "step": 50
+        },
+        "descent_val": {
+          "min": 50,
+          "max": 250,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "initial_elevation + climb_val - descent_val !== 0"
+      ],
+      "formulas": {
+        "after_climb": "initial_elevation + climb_val",
+        "final_elevation": "initial_elevation + climb_val - descent_val",
+        "w1": "initial_elevation - climb_val + descent_val",
+        "w2": "Math.abs(initial_elevation) + climb_val + descent_val",
+        "w3": "initial_elevation + climb_val - descent_val + 10"
+      },
+      "questionText": "Một nhà thám hiểm đang ở độ cao {initial_elevation} mét so với mực nước biển. Sau đó, anh ta leo lên {climb_val} mét, rồi lại đi xuống {descent_val} mét để khám phá một hang động. Hỏi vị trí cuối cùng của nhà thám hiểm đó ở độ cao bao nhiêu mét so với mực nước biển?",
+      "options": [
+        "A. {w1} mét",
+        "B. {final_elevation} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Độ cao trên mực nước biển là số dương, dưới mực nước biển là số âm.",
+        "Leo lên là cộng, đi xuống là trừ."
+      ],
+      "solutionHtml": "Độ cao ban đầu của nhà thám hiểm là {initial_elevation} mét so với mực nước biển.<br/>Anh ta leo lên {climb_val} mét, độ cao lúc này là: <br/>{initial_elevation} + {climb_val} = {after_climb}$ mét.<br/>Sau đó, anh ta đi xuống {descent_val} mét, độ cao cuối cùng là:<br/>{after_climb} - {descent_val} = {final_elevation}$ mét.<br/>Đáp án đúng là B.",
+      "tip": "Số âm biểu thị độ cao dưới mực nước biển. Phép cộng dùng cho di chuyển lên, phép trừ dùng cho di chuyển xuống.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "year_bc": {
+          "min": 200,
+          "max": 1000,
+          "step": 50
+        },
+        "year_ad": {
+          "min": 1000,
+          "max": 2000,
+          "step": 50
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "total_years": "year_bc + year_ad - 1",
+        "w1": "year_bc + year_ad",
+        "w2": "Math.abs(year_ad - year_bc)",
+        "w3": "year_ad - year_bc + 1"
+      },
+      "questionText": "Một sự kiện lịch sử trọng đại diễn ra vào năm {year_bc} trước Công nguyên. Một sự kiện quan trọng khác xảy ra vào năm {year_ad} sau Công nguyên. Hỏi khoảng thời gian giữa hai sự kiện này là bao nhiêu năm?",
+      "options": [
+        "A. {w1} năm",
+        "B. {total_years} năm",
+        "C. {w2} năm",
+        "D. {w3} năm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi tính khoảng thời gian từ năm TCN đến năm SCN, ta cộng số năm TCN và số năm SCN rồi trừ đi 1 (vì không có năm 0).",
+        "Ví dụ: Từ 1 TCN đến 1 SCN là ${1+1-1=1}$ năm (chính là năm 1 SCN)."
+      ],
+      "solutionHtml": "Để tính khoảng thời gian giữa một năm trước Công nguyên (TCN) và một năm sau Công nguyên (SCN), ta thực hiện phép tính cộng số năm TCN và số năm SCN, sau đó trừ đi 1 (vì không có năm 0 trong hệ thống lịch sử).<br/>Thời gian từ năm {year_bc} TCN đến cuối năm 1 TCN là {year_bc} năm.<br/>Thời gian từ đầu năm 1 SCN đến năm {year_ad} SCN là {year_ad} năm.<br/>Khoảng thời gian giữa hai sự kiện là: <br/>{year_bc} + {year_ad} - 1 = {total_years}$ năm.<br/>Đáp án đúng là B.",
+      "tip": "Lịch sử không có năm 0. Khi chuyển từ TCN sang SCN, chúng ta phải loại bỏ 'năm 0' giả định này bằng cách trừ đi 1.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_floor": {
+          "min": -3,
+          "max": 5,
+          "step": 1
+        },
+        "move_up1": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        "move_down1": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        },
+        "move_up2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initial_floor + move_up1 - move_down1 + move_up2 >= -5",
+        "initial_floor + move_up1 - move_down1 + move_up2 <= 15"
+      ],
+      "formulas": {
+        "after_up1": "initial_floor + move_up1",
+        "after_down1": "initial_floor + move_up1 - move_down1",
+        "final_floor": "initial_floor + move_up1 - move_down1 + move_up2",
+        "initial_desc": "initial_floor === 0 ? 'tầng trệt' : (initial_floor < 0 ? 'tầng hầm ' + Math.abs(initial_floor) : 'tầng ' + initial_floor)",
+        "up1_desc": "move_up1",
+        "down1_desc": "move_down1",
+        "up2_desc": "move_up2",
+        "final_desc": "final_floor === 0 ? 'tầng trệt' : (final_floor < 0 ? 'tầng hầm ' + Math.abs(final_floor) : 'tầng ' + final_floor)",
+        "w1": "initial_floor - move_up1 + move_down1 - move_up2",
+        "w2": "initial_floor + move_up1 + move_down1 + move_up2",
+        "w3": "initial_floor + move_up1 - move_down1"
+      },
+      "questionText": "Một thang máy đang ở {initial_desc}. Nó đi lên {up1_desc} tầng, sau đó lại đi xuống {down1_desc} tầng, và cuối cùng đi lên thêm {up2_desc} tầng nữa. Hỏi lúc này thang máy đang ở tầng nào?",
+      "options": [
+        "A. {w1}",
+        "B. {final_desc}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tầng trệt là tầng 0. Tầng hầm được biểu diễn bằng số nguyên âm (ví dụ: tầng hầm 1 là -1).",
+        "Đi lên là cộng, đi xuống là trừ."
+      ],
+      "solutionHtml": "Vị trí ban đầu của thang máy là {initial_desc} (tức là tầng {initial_floor}).<br/>Thang máy đi lên {up1_desc} tầng, vị trí mới là: <br/>{initial_floor} + {move_up1} = {after_up1}$ tầng.<br/>Sau đó, thang máy đi xuống {down1_desc} tầng, vị trí lúc này là:<br/>{after_up1} - {move_down1} = {after_down1}$ tầng.<br/>Cuối cùng, thang máy đi lên thêm {up2_desc} tầng, vị trí cuối cùng là:<br/>{after_down1} + {move_up2} = {final_floor}$ tầng.<br/>Vậy, lúc này thang máy đang ở {final_desc}.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định 'tầng trệt', 'tầng hầm' và 'tầng trên' tương ứng với những giá trị số nguyên nào (0, âm, dương).",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_amount": {
+          "min": -500000,
+          "max": 500000,
+          "step": 50000
+        },
+        "debt1": {
+          "min": 100000,
+          "max": 400000,
+          "step": 50000
+        },
+        "payment1": {
+          "min": 50000,
+          "max": 300000,
+          "step": 50000
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "initial_desc": "initial_amount < 0 ? 'nợ ' + Math.abs(initial_amount) : (initial_amount === 0 ? 'không nợ không có tiền' : 'có ' + initial_amount)",
+        "state_after_debt1": "initial_amount - debt1",
+        "final_state": "initial_amount - debt1 + payment1",
+        "final_desc": "final_state < 0 ? 'nợ ' + Math.abs(final_state) : (final_state === 0 ? 'không nợ không có tiền' : 'có ' + final_state)",
+        "w1": "initial_amount + debt1 - payment1",
+        "w2": "Math.abs(initial_amount) + debt1 + payment1",
+        "w3": "initial_amount - debt1 - payment1"
+      },
+      "questionText": "Bác An hiện tại {initial_desc} đồng. Sau đó, bác mua chịu một món hàng trị giá {debt1} đồng. Vài ngày sau, bác trả nợ được {payment1} đồng. Hỏi hiện tại bác An {final_desc} đồng?",
+      "options": [
+        "A. {w1}",
+        "B. {final_desc}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số tiền có được biểu diễn bằng số dương. Số tiền nợ được biểu diễn bằng số âm.",
+        "Mua chịu là làm tăng số tiền nợ (giảm tài sản). Trả nợ là giảm số tiền nợ (tăng tài sản)."
+      ],
+      "solutionHtml": "Số tiền của bác An ban đầu là {initial_amount} đồng.<br/>Bác mua chịu {debt1} đồng, tức là số tiền của bác giảm đi {debt1} đồng. Số tiền lúc này là: <br/>{initial_amount} - {debt1} = {state_after_debt1}$ đồng.<br/>Bác trả nợ được {payment1} đồng, tức là số tiền của bác tăng lên {payment1} đồng (vì nợ giảm đi thì tài sản thực tế tăng lên). Số tiền cuối cùng là:<br/>{state_after_debt1} + {payment1} = {final_state}$ đồng.<br/>Vậy, hiện tại bác An {final_desc} đồng.<br/>Đáp án đúng là B.",
+      "tip": "Hãy hình dung số tiền nợ là 'tiền âm' và số tiền có là 'tiền dương'. Mua chịu làm tăng 'tiền âm' (tức là trừ đi), trả nợ làm giảm 'tiền âm' (tức là cộng vào).",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "temp_city_a": {
+          "min": -10,
+          "max": 15,
+          "step": 1
+        },
+        "temp_city_b": {
+          "min": -5,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "temp_city_a !== temp_city_b"
+      ],
+      "formulas": {
+        "diff_temp": "Math.abs(temp_city_a - temp_city_b)",
+        "w1": "temp_city_a + temp_city_b",
+        "w2": "Math.abs(temp_city_a) + Math.abs(temp_city_b)",
+        "w3": "temp_city_a - temp_city_b"
+      },
+      "questionText": "Nhiệt độ vào buổi sáng ở thành phố A là {temp_city_a}°C và ở thành phố B là {temp_city_b}°C. Hỏi độ chênh lệch nhiệt độ giữa hai thành phố này là bao nhiêu?",
+      "options": [
+        "A. {w1}°C",
+        "B. {diff_temp}°C",
+        "C. {w2}°C",
+        "D. {w3}°C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Độ chênh lệch giữa hai giá trị được tính bằng giá trị tuyệt đối của hiệu hai giá trị đó.",
+        "Ví dụ: Chênh lệch giữa 5°C và -2°C là $|5 - (-2)| = |5+2| = 7$°C."
+      ],
+      "solutionHtml": "Để tìm độ chênh lệch nhiệt độ giữa hai thành phố, ta lấy giá trị tuyệt đối của hiệu nhiệt độ hai thành phố đó.<br/>Nhiệt độ ở thành phố A là {temp_city_a}°C.<br/>Nhiệt độ ở thành phố B là {temp_city_b}°C.<br/>Độ chênh lệch nhiệt độ là: <br/>$|{temp_city_a} - {temp_city_b}| = {diff_temp}$°C.<br/>Đáp án đúng là B.",
+      "tip": "Độ chênh lệch luôn là một giá trị không âm. Hãy nhớ sử dụng giá trị tuyệt đối khi tính độ chênh lệch giữa hai số nguyên.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "add_val": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "subtract_val": {
+          "min": 15,
+          "max": 40,
+          "step": 5
+        },
+        "final_result": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "final_result + subtract_val - add_val > 0"
+      ],
+      "formulas": {
+        "intermediate_sum": "final_result + subtract_val",
+        "initial_number": "final_result + subtract_val - add_val",
+        "w1": "final_result - subtract_val + add_val",
+        "w2": "final_result + subtract_val + add_val",
+        "w3": "final_result - add_val"
+      },
+      "questionText": "Một số nguyên nào đó, sau khi cộng với {add_val}, rồi trừ đi {subtract_val}, thì được kết quả là {final_result}. Hỏi số nguyên ban đầu là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {initial_number}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số ban đầu, ta thực hiện các phép toán ngược lại với thứ tự ngược lại.",
+        "Nếu đã cộng một số, ta sẽ trừ đi số đó. Nếu đã trừ một số, ta sẽ cộng số đó."
+      ],
+      "solutionHtml": "Gọi số nguyên ban đầu là $x$.<br/>Theo đề bài, ta có phương trình: <br/>$x + {add_val} - {subtract_val} = {final_result}$<br/>Để tìm $x$, ta thực hiện các phép toán ngược theo thứ tự ngược lại:<br/>Đầu tiên, ta thực hiện phép toán ngược của 'trừ {subtract_val}', tức là 'cộng {subtract_val}':<br/>$x + {add_val} = {final_result} + {subtract_val} = {intermediate_sum}$<br/>Tiếp theo, ta thực hiện phép toán ngược của 'cộng {add_val}', tức là 'trừ {add_val}':<br/>$x = {intermediate_sum} - {add_val} = {initial_number}$<br/>Vậy, số nguyên ban đầu là {initial_number}.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải các bài toán tìm số ban đầu, hãy nhớ 'làm ngược' lại các phép tính. Phép cộng trở thành phép trừ, phép trừ trở thành phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d10"
+    }
+  ]
+}

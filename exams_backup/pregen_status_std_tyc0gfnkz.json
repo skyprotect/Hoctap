@@ -1,0 +1,237 @@
+{
+  "completed": [
+    "l4-bai-1",
+    "l4-bai-2",
+    "l4-bai-3",
+    "l4-bai-4",
+    "l4-bai-5",
+    "l4-lt-c1",
+    "l4-kt-c1",
+    "l4-bai-7",
+    "l4-bai-8",
+    "l4-kt-c2",
+    "l4-bai-10",
+    "l4-bai-11",
+    "l4-bai-12",
+    "l4-bai-13",
+    "l4-bai-14",
+    "l4-bai-15",
+    "l4-lt-c3",
+    "l4-kt-c3",
+    "l4-bai-17",
+    "l4-bai-18",
+    "l4-bai-19",
+    "l4-lt-c4",
+    "l4-kt-c4",
+    "l4-bai-22",
+    "l4-bai-23",
+    "l4-bai-24",
+    "l4-bai-25",
+    "l4-kt-c5",
+    "l4-bai-27",
+    "l4-bai-29",
+    "l4-bai-31",
+    "l4-kt-c6",
+    "l4-bai-33",
+    "l4-bai-34",
+    "l4-bai-35",
+    "l4-bai-36",
+    "l4-bai-37",
+    "l4-bai-38",
+    "l4-bai-39",
+    "l4-bai-40",
+    "l4-bai-41",
+    "l4-bai-42",
+    "l4-bai-43",
+    "l4-bai-44",
+    "l4-bai-46",
+    "l4-bai-47",
+    "l4-lt-c8",
+    "l4-kt-c8",
+    "l4-bai-49",
+    "l4-bai-50",
+    "l4-bai-51",
+    "l4-kt-c9",
+    "l4-bai-53",
+    "l4-bai-54",
+    "l4-bai-55",
+    "l4-bai-56",
+    "l4-bai-57",
+    "l4-bai-58",
+    "l4-lt-c10",
+    "l4-kt-c10",
+    "l4-bai-60",
+    "l4-bai-61",
+    "l4-kt-c11",
+    "l4-bai-63",
+    "l4-bai-64",
+    "l4-bai-65",
+    "l4-lt-c12",
+    "l4-kt-c12",
+    "l4-bai-67",
+    "l4-bai-68",
+    "l4-bai-69",
+    "l4-bai-70",
+    "l4-bai-71",
+    "l4-bai-72",
+    "l4-bai-73"
+  ],
+  "failed": {
+    "l4-bai-27": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783176795876
+    },
+    "l4-bai-31": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783214213787
+    },
+    "l4-bai-33": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783214588583
+    },
+    "l4-bai-35": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783214921160
+    },
+    "l4-bai-36": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783215044965
+    },
+    "l4-bai-37": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783215219896
+    },
+    "l4-bai-38": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783215277023
+    },
+    "l4-bai-39": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783215327622
+    },
+    "l4-bai-40": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783215982359
+    },
+    "l4-bai-41": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783216066520
+    },
+    "l4-bai-43": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783226038688
+    },
+    "l4-bai-44": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783227554220
+    },
+    "l4-bai-46": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783227845906
+    },
+    "l4-bai-47": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783228238561
+    },
+    "l4-lt-c8": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783228253562
+    },
+    "l4-kt-c8": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783228790356
+    },
+    "l4-bai-49": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783228934715
+    },
+    "l4-bai-50": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783229009316
+    },
+    "l4-bai-51": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783229732393
+    },
+    "l4-kt-c9": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783229766401
+    },
+    "l4-bai-53": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783230096802
+    },
+    "l4-bai-54": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783230291998
+    },
+    "l4-bai-55": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783230457850
+    },
+    "l4-bai-56": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783230566552
+    },
+    "l4-bai-57": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783231512772
+    },
+    "l4-bai-58": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: This operation was aborted",
+      "timestamp": 1783234130198
+    },
+    "l4-lt-c10": {
+      "error": "Toàn bộ API Keys đều gặp sự cố: Tài khoản API hết hạn ngạch ngày (Quota Exceeded - 429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on t",
+      "timestamp": 1783234148560
+    },
+    "l4-bai-63": {
+      "error": "first is not defined",
+      "timestamp": 1783349878390
+    },
+    "l4-bai-64": {
+      "error": "first is not defined",
+      "timestamp": 1783349886407
+    },
+    "l4-bai-65": {
+      "error": "first is not defined",
+      "timestamp": 1783349894415
+    },
+    "l4-lt-c12": {
+      "error": "first is not defined",
+      "timestamp": 1783349902419
+    },
+    "l4-kt-c12": {
+      "error": "first is not defined",
+      "timestamp": 1783349910423
+    },
+    "l4-bai-67": {
+      "error": "first is not defined",
+      "timestamp": 1783349918429
+    },
+    "l4-bai-68": {
+      "error": "first is not defined",
+      "timestamp": 1783349926441
+    },
+    "l4-bai-69": {
+      "error": "first is not defined",
+      "timestamp": 1783349934455
+    },
+    "l4-bai-70": {
+      "error": "first is not defined",
+      "timestamp": 1783349942468
+    },
+    "l4-bai-71": {
+      "error": "first is not defined",
+      "timestamp": 1783349950480
+    },
+    "l4-bai-72": {
+      "error": "first is not defined",
+      "timestamp": 1783349958492
+    },
+    "l4-bai-73": {
+      "error": "first is not defined",
+      "timestamp": 1783349966507
+    }
+  }
+}

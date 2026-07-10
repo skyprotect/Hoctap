@@ -1,0 +1,900 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        "num2": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        },
+        "den": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num1 < den",
+        "num2 < den",
+        "num1 !== num2",
+        "(num1 + num2) > den",
+        "((num1 + num2) % den === 0) || (den % (num1 + num2) === 0) || (den % 2 === 0 && (num1+num2) % 2 === 0) || (den % 3 === 0 && (num1+num2) % 3 === 0) || (den % 4 === 0 && (num1+num2) % 4 === 0) || (den % 5 === 0 && (num1+num2) % 5 === 0) || (den % 6 === 0 && (num1+num2) % 6 === 0) || (den % 7 === 0 && (num1+num2) % 7 === 0) || (den % 8 === 0 && (num1+num2) % 8 === 0) || (den % 9 === 0 && (num1+num2) % 9 === 0) || (den % 10 === 0 && (num1+num2) % 10 === 0) || (den % 11 === 0 && (num1+num2) % 11 === 0) || (den % 12 === 0 && (num1+num2) % 12 === 0)"
+      ],
+      "formulas": {
+        "sumNum": "num1 + num2",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumNum, den)",
+        "ansNum": "sumNum / commonDivisor",
+        "ansDen": "den / commonDivisor",
+        "w1Num": "num1",
+        "w1Den": "den",
+        "w2Num": "num2",
+        "w2Den": "den",
+        "w3Num": "(num1 + num2 + 1)",
+        "w3Den": "den"
+      },
+      "questionText": "Bạn An hoàn thành $ \\frac{{{num1}}}{{{den}}} $ phần công việc dọn dẹp sân trường trong buổi sáng. Buổi chiều, bạn Bình hoàn thành $ \\frac{{{num2}}}{{{den}}} $ phần công việc dọn dẹp khác. Hỏi cả hai bạn đã hoàn thành tổng cộng bao nhiêu phần công việc dọn dẹp?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ phần",
+        "B. $ \\frac{{{w2Num}}}{{{w2Den}}} $ phần",
+        "C. $ \\frac{{{ansNum}}}{{{ansDen}}} $ phần",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ phần"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đây là bài toán cộng hai phân số có cùng mẫu số.",
+        "Hãy cộng các tử số và giữ nguyên mẫu số. Sau đó, rút gọn phân số nếu có thể."
+      ],
+      "solutionHtml": "Tổng số phần công việc dọn dẹp mà cả hai bạn đã hoàn thành là:<br/>$ \\frac{{{num1}}}{{{den}}} + \\frac{{{num2}}}{{{den}}} = \\frac{{{num1} + {num2}}}{{{den}}} = \\frac{{{sumNum}}}{{{den}}} $<br/>Để phân số ở dạng tối giản, ta chia cả tử và mẫu cho ước chung lớn nhất của chúng (là $ {commonDivisor} $):<br/>$ \\frac{{{sumNum} \\div {commonDivisor}}}{{{den} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ phần.<br/>Đáp án đúng là C.",
+      "tip": "Khi cộng các phân số có cùng mẫu số, ta chỉ cần cộng các tử số với nhau và giữ nguyên mẫu số. Sau đó, đừng quên rút gọn phân số kết quả về dạng tối giản nhé!",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "den1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "num2": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "den2": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "den2 % den1 === 0",
+        "num1 < den1",
+        "num2 < den2",
+        "den1 !== den2",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(num1, den1) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(num2, den2) === 1"
+      ],
+      "formulas": {
+        "multiplier": "den2 / den1",
+        "newNum1": "num1 * multiplier",
+        "sumNum": "newNum1 + num2",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumNum, den2)",
+        "ansNum": "sumNum / commonDivisor",
+        "ansDen": "den2 / commonDivisor",
+        "w1Num": "(num1 + num2)",
+        "w1Den": "(den1 + den2)",
+        "w2Num": "(newNum1 - num2)",
+        "w2Den": "den2",
+        "w3Num": "(num1 * num2)",
+        "w3Den": "(den1 * den2)"
+      },
+      "questionText": "Một đoạn đường được chia làm hai chặng. Chặng đầu dài $ \\frac{{{num1}}}{{{den1}}} $ km. Chặng thứ hai dài $ \\frac{{{num2}}}{{{den2}}} $ km. Hỏi cả hai chặng đường dài tổng cộng bao nhiêu ki-lô-mét?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ km",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ km",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ km",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để cộng hai phân số khác mẫu số, ta cần quy đồng mẫu số của chúng.",
+        "Ở đây, mẫu số lớn là bội của mẫu số bé, nên ta chỉ cần quy đồng phân số có mẫu số bé về mẫu số lớn."
+      ],
+      "solutionHtml": "Để tính tổng chiều dài hai chặng đường, ta thực hiện phép cộng phân số:<br/>$ \\frac{{{num1}}}{{{den1}}} + \\frac{{{num2}}}{{{den2}}} $<br/>Quy đồng mẫu số hai phân số. Vì $ {den2} $ chia hết cho $ {den1} $, ta chọn $ {den2} $ làm mẫu số chung.<br/>Ta có: $ \\frac{{{num1}}}{{{den1}}} = \\frac{{{num1} \\times ({den2} \\div {den1})}}{{{den1} \\times ({den2} \\div {den1})}} = \\frac{{{newNum1}}}{{{den2}}} $<br/>Vậy tổng chiều dài là: $ \\frac{{{newNum1}}}{{{den2}}} + \\frac{{{num2}}}{{{den2}}} = \\frac{{{newNum1} + {num2}}}{{{den2}}} = \\frac{{{sumNum}}}{{{den2}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{sumNum} \\div {commonDivisor}}}{{{den2} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ km.<br/>Đáp án đúng là B.",
+      "tip": "Khi quy đồng mẫu số, hãy tìm mẫu số chung nhỏ nhất để các phép tính đơn giản hơn. Nếu một mẫu số là bội của mẫu số kia, hãy chọn mẫu số lớn hơn làm mẫu số chung.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "den1": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "num2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "den2": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num1 < den1",
+        "num2 < den2",
+        "den1 !== den2",
+        "den2 % den1 !== 0",
+        "den1 % den2 !== 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(den1, den2) === 1"
+      ],
+      "formulas": {
+        "lcmDen": "den1 * den2",
+        "newNum1": "num1 * den2",
+        "newNum2": "num2 * den1",
+        "sumNum": "newNum1 + newNum2",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumNum, lcmDen)",
+        "ansNum": "sumNum / commonDivisor",
+        "ansDen": "lcmDen / commonDivisor",
+        "w1Num": "(num1 + num2)",
+        "w1Den": "(den1 + den2)",
+        "w2Num": "(num1 + num2)",
+        "w2Den": "(lcmDen)",
+        "w3Num": "(newNum1 - newNum2)",
+        "w3Den": "(lcmDen)"
+      },
+      "questionText": "Trong một cửa hàng, buổi sáng bán được $ \\frac{{{num1}}}{{{den1}}} $ tấn gạo. Buổi chiều bán thêm $ \\frac{{{num2}}}{{{den2}}} $ tấn gạo. Hỏi trong cả ngày, cửa hàng đã bán được tất cả bao nhiêu tấn gạo?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ tấn",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ tấn",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ tấn",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ tấn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để cộng hai phân số có mẫu số khác nhau và không phải bội của nhau, ta cần tìm bội chung nhỏ nhất của hai mẫu số đó để quy đồng.",
+        "Sau khi quy đồng, hãy thực hiện phép cộng tử số và giữ nguyên mẫu số, rồi rút gọn nếu có thể."
+      ],
+      "solutionHtml": "Để tính tổng số tấn gạo đã bán, ta thực hiện phép cộng phân số:<br/>$ \\frac{{{num1}}}{{{den1}}} + \\frac{{{num2}}}{{{den2}}} $<br/>Quy đồng mẫu số hai phân số. Mẫu số chung nhỏ nhất của $ {den1} $ và $ {den2} $ là $ {lcmDen} $.<br/>Ta có: <br/>$ \\frac{{{num1}}}{{{den1}}} = \\frac{{{num1} \\times {den2}}}{{{den1} \\times {den2}}} = \\frac{{{newNum1}}}{{{lcmDen}}} $<br/>$ \\frac{{{num2}}}{{{den2}}} = \\frac{{{num2} \\times {den1}}}{{{den2} \\times {den1}}} = \\frac{{{newNum2}}}{{{lcmDen}}} $<br/>Vậy tổng số tấn gạo đã bán là: $ \\frac{{{newNum1}}}{{{lcmDen}}} + \\frac{{{newNum2}}}{{{lcmDen}}} = \\frac{{{newNum1} + {newNum2}}}{{{lcmDen}}} = \\frac{{{sumNum}}}{{{lcmDen}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{sumNum} \\div {commonDivisor}}}{{{lcmDen} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ tấn.<br/>Đáp án đúng là B.",
+      "tip": "Hãy luôn tìm mẫu số chung nhỏ nhất (BCNN) khi quy đồng mẫu số của các phân số có mẫu số khác nhau. Điều này giúp phép tính trở nên đơn giản hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "wholeNum": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "partNum": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        },
+        "partDen": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "partNum < partDen",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(partNum, partDen) === 1"
+      ],
+      "formulas": {
+        "sumNum": "(wholeNum * partDen) + partNum",
+        "ansNum": "sumNum",
+        "ansDen": "partDen",
+        "w1Num": "(wholeNum + partNum)",
+        "w1Den": "partDen",
+        "w2Num": "(wholeNum * partNum)",
+        "w2Den": "partDen",
+        "w3Num": "(partDen - partNum)",
+        "w3Den": "partDen"
+      },
+      "questionText": "Một người thợ xây dùng hết {wholeNum} bao xi măng nguyên vẹn và thêm $ \\frac{{{partNum}}}{{{partDen}}} $ bao xi măng nữa để trộn vữa. Hỏi tổng cộng người thợ đã dùng hết bao nhiêu bao xi măng?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ bao",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ bao",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ bao",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ bao"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để cộng một số tự nhiên với một phân số, ta có thể viết số tự nhiên dưới dạng phân số có cùng mẫu số với phân số kia.",
+        "Ví dụ: $ 2 = \\frac{2 \\times 5}{5} = \\frac{10}{5} $."
+      ],
+      "solutionHtml": "Tổng số bao xi măng người thợ đã dùng là phép cộng một số tự nhiên với một phân số:<br/>$ {wholeNum} + \\frac{{{partNum}}}{{{partDen}}} $<br/>Để cộng, ta viết số tự nhiên $ {wholeNum} $ dưới dạng phân số có mẫu số là $ {partDen} $:<br/>$ {wholeNum} = \\frac{{{wholeNum} \\times {partDen}}}{{{partDen}}} = \\frac{{{wholeNum * partDen}}}{{{partDen}}} $<br/>Vậy tổng cộng là: $ \\frac{{{wholeNum * partDen}}}{{{partDen}}} + \\frac{{{partNum}}}{{{partDen}}} = \\frac{{{wholeNum * partDen} + {partNum}}}{{{partDen}}} = \\frac{{{sumNum}}}{{{partDen}}} $ bao.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng một số tự nhiên với một phân số, hãy biến số tự nhiên đó thành một phân số có cùng mẫu số với phân số còn lại để dễ dàng cộng tử số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "num2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "num3": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "den": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num1 < den",
+        "num2 < den",
+        "num3 < den",
+        "num1 + num2 + num3 >= den",
+        "((num1 + num2 + num3) % den === 0) || (den % (num1 + num2 + num3) === 0) || (den % 2 === 0 && (num1+num2+num3) % 2 === 0) || (den % 3 === 0 && (num1+num2+num3) % 3 === 0) || (den % 4 === 0 && (num1+num2+num3) % 4 === 0) || (den % 5 === 0 && (num1+num2+num3) % 5 === 0) || (den % 6 === 0 && (num1+num2+num3) % 6 === 0) || (den % 7 === 0 && (num1+num2+num3) % 7 === 0) || (den % 8 === 0 && (num1+num2+num3) % 8 === 0) || (den % 9 === 0 && (num1+num2+num3) % 9 === 0) || (den % 10 === 0 && (num1+num2+num3) % 10 === 0) || (den % 11 === 0 && (num1+num2+num3) % 11 === 0) || (den % 12 === 0 && (num1+num2+num3) % 12 === 0)"
+      ],
+      "formulas": {
+        "sumAllNum": "num1 + num2 + num3",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumAllNum, den)",
+        "ansNum": "sumAllNum / commonDivisor",
+        "ansDen": "den / commonDivisor",
+        "w1Num": "(num1 + num2)",
+        "w1Den": "den",
+        "w2Num": "(num1 + num3)",
+        "w2Den": "den",
+        "w3Num": "(num1 + num2 + num3 + 1)",
+        "w3Den": "den"
+      },
+      "questionText": "Một chiếc hồ bơi được bơm nước theo 3 giai đoạn. Giai đoạn 1 bơm được $ \\frac{{{num1}}}{{{den}}} $ thể tích hồ. Giai đoạn 2 bơm thêm $ \\frac{{{num2}}}{{{den}}} $ thể tích hồ. Giai đoạn 3 bơm thêm $ \\frac{{{num3}}}{{{den}}} $ thể tích hồ. Hỏi sau cả 3 giai đoạn, hồ bơi đã có tổng cộng bao nhiêu phần thể tích nước?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ thể tích",
+        "B. $ \\frac{{{w2Num}}}{{{w2Den}}} $ thể tích",
+        "C. $ \\frac{{{ansNum}}}{{{ansDen}}} $ thể tích",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ thể tích"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đây là bài toán cộng ba phân số có cùng mẫu số.",
+        "Hãy cộng tất cả các tử số lại với nhau và giữ nguyên mẫu số. Sau đó, rút gọn phân số nếu có thể."
+      ],
+      "solutionHtml": "Tổng số phần thể tích nước trong hồ bơi sau 3 giai đoạn là:<br/>$ \\frac{{{num1}}}{{{den}}} + \\frac{{{num2}}}{{{den}}} + \\frac{{{num3}}}{{{den}}} = \\frac{{{num1} + {num2} + {num3}}}{{{den}}} = \\frac{{{sumAllNum}}}{{{den}}} $<br/>Để phân số ở dạng tối giản, ta chia cả tử và mẫu cho ước chung lớn nhất của chúng (là $ {commonDivisor} $):<br/>$ \\frac{{{sumAllNum} \\div {commonDivisor}}}{{{den} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ thể tích.<br/>Đáp án đúng là C.",
+      "tip": "Khi cộng nhiều phân số có cùng mẫu số, hãy cộng tất cả các tử số lại và giữ nguyên mẫu số. Đừng quên rút gọn kết quả về dạng phân số tối giản!",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "den1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "num2": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "den2": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "den2 % den1 === 0",
+        "num1 < den1",
+        "num2 < den2",
+        "den1 !== den2",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(num1, den1) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(num2, den2) === 1",
+        "((num1 * (den2 / den1)) + num2) < den2"
+      ],
+      "formulas": {
+        "multiplier": "den2 / den1",
+        "newNum1": "num1 * multiplier",
+        "sumNum": "newNum1 + num2",
+        "remainingNum": "den2 - sumNum",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(remainingNum, den2)",
+        "ansNum": "remainingNum / commonDivisor",
+        "ansDen": "den2 / commonDivisor",
+        "w1Num": "sumNum",
+        "w1Den": "den2",
+        "w2Num": "(den2 - newNum1)",
+        "w2Den": "den2",
+        "w3Num": "(den2 - num2)",
+        "w3Den": "den2"
+      },
+      "questionText": "Một đoạn đường cần sửa chữa. Tuần thứ nhất, đội công nhân sửa được $ \\frac{{{num1}}}{{{den1}}} $ quãng đường. Tuần thứ hai, đội sửa được $ \\frac{{{num2}}}{{{den2}}} $ quãng đường. Hỏi đội công nhân còn phải sửa bao nhiêu phần quãng đường nữa thì hoàn thành công việc?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ quãng đường",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ quãng đường",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ quãng đường",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ quãng đường"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số phần quãng đường mà đội công nhân đã sửa được trong cả hai tuần.",
+        "Sau đó, lấy 1 (tức là toàn bộ quãng đường) trừ đi tổng số phần đã sửa để tìm phần còn lại."
+      ],
+      "solutionHtml": "Bước 1: Tính tổng số phần quãng đường đội công nhân đã sửa trong hai tuần.<br/>Ta có phép cộng phân số: $ \\frac{{{num1}}}{{{den1}}} + \\frac{{{num2}}}{{{den2}}} $<br/>Quy đồng mẫu số. Mẫu số chung là $ {den2} $.<br/>$ \\frac{{{num1}}}{{{den1}}} = \\frac{{{num1} \\times ({den2} \\div {den1})}}{{{den1} \\times ({den2} \\div {den1})}} = \\frac{{{newNum1}}}{{{den2}}} $<br/>Tổng số phần đã sửa là: $ \\frac{{{newNum1}}}{{{den2}}} + \\frac{{{num2}}}{{{den2}}} = \\frac{{{newNum1} + {num2}}}{{{den2}}} = \\frac{{{sumNum}}}{{{den2}}} $ quãng đường.<br/><br/>Bước 2: Tính số phần quãng đường còn phải sửa.<br/>Toàn bộ quãng đường là 1, hay $ \\frac{{{den2}}}{{{den2}}} $.<br/>Số phần còn phải sửa là: $ 1 - \\frac{{{sumNum}}}{{{den2}}} = \\frac{{{den2}}}{{{den2}}} - \\frac{{{sumNum}}}{{{den2}}} = \\frac{{{den2} - {sumNum}}}{{{den2}}} = \\frac{{{remainingNum}}}{{{den2}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{remainingNum} \\div {commonDivisor}}}{{{den2} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ quãng đường.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu tìm phần còn lại để hoàn thành một công việc, hãy nhớ rằng toàn bộ công việc luôn được coi là 1 (hoặc $ \\frac{\\text{mẫu số}}{\\text{mẫu số}} $).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "den1": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "num2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "den2": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num1 < den1",
+        "num2 < den2",
+        "den1 !== den2",
+        "den2 % den1 !== 0",
+        "den1 % den2 !== 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(num1, den1) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(num2, den2) === 1",
+        "((num1 * den2) + (num2 * den1)) < (den1 * den2)"
+      ],
+      "formulas": {
+        "lcmDen": "den1 * den2",
+        "newNum1": "num1 * den2",
+        "newNum2": "num2 * den1",
+        "sumNum": "newNum1 + newNum2",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumNum, lcmDen)",
+        "ansNum": "sumNum / commonDivisor",
+        "ansDen": "lcmDen / commonDivisor",
+        "w1Num": "(num1 + num2)",
+        "w1Den": "(lcmDen)",
+        "w2Num": "(newNum1)",
+        "w2Den": "(lcmDen)",
+        "w3Num": "(newNum2)",
+        "w3Den": "(lcmDen)"
+      },
+      "questionText": "Một vườn hoa có $ \\frac{{{num1}}}{{{den1}}} $ diện tích trồng hoa hồng, $ \\frac{{{num2}}}{{{den2}}} $ diện tích trồng hoa cúc. Hỏi diện tích trồng hoa hồng và hoa cúc chiếm bao nhiêu phần tổng diện tích vườn hoa?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ diện tích",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ diện tích",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ diện tích",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ diện tích"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng diện tích trồng hoa, ta cần cộng hai phân số.",
+        "Mẫu số chung của $ {den1} $ và $ {den2} $ là $ {lcmDen} $."
+      ],
+      "solutionHtml": "Để tìm tổng diện tích trồng hoa hồng và hoa cúc, ta thực hiện phép cộng phân số:<br/>$ \\frac{{{num1}}}{{{den1}}} + \\frac{{{num2}}}{{{den2}}} $<br/>Quy đồng mẫu số hai phân số. Mẫu số chung nhỏ nhất của $ {den1} $ và $ {den2} $ là $ {lcmDen} $.<br/>Ta có: <br/>$ \\frac{{{num1}}}{{{den1}}} = \\frac{{{num1} \\times {den2}}}{{{den1} \\times {den2}}} = \\frac{{{newNum1}}}{{{lcmDen}}} $<br/>$ \\frac{{{num2}}}{{{den2}}} = \\frac{{{num2} \\times {den1}}}{{{den2} \\times {den1}}} = \\frac{{{newNum2}}}{{{lcmDen}}} $<br/>Vậy tổng diện tích là: $ \\frac{{{newNum1}}}{{{lcmDen}}} + \\frac{{{newNum2}}}{{{lcmDen}}} = \\frac{{{newNum1} + {newNum2}}}{{{lcmDen}}} = \\frac{{{sumNum}}}{{{lcmDen}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{sumNum} \\div {commonDivisor}}}{{{lcmDen} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ diện tích.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán thực tế, việc quy đồng mẫu số và rút gọn phân số là rất quan trọng để có kết quả chính xác và dễ hiểu nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "day1Den": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "day2Num": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "day2Den": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "day3Num": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "day3Den": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "day1Num < day1Den",
+        "day2Num < day2Den",
+        "day3Num < day3Den",
+        "day2Den % day1Den === 0",
+        "day3Den % day1Den === 0",
+        "day3Den % day2Den === 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(day1Num, day1Den) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(day2Num, day2Den) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(day3Num, day3Den) === 1",
+        "((day1Num * (day3Den / day1Den)) + (day2Num * (day3Den / day2Den)) + day3Num) < day3Den * 1.5"
+      ],
+      "formulas": {
+        "lcmDen": "day3Den",
+        "newDay1Num": "day1Num * (lcmDen / day1Den)",
+        "newDay2Num": "day2Num * (lcmDen / day2Den)",
+        "sumAllNum": "newDay1Num + newDay2Num + day3Num",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumAllNum, lcmDen)",
+        "ansNum": "sumAllNum / commonDivisor",
+        "ansDen": "lcmDen / commonDivisor",
+        "w1Num": "(day1Num + day2Num + day3Num)",
+        "w1Den": "lcmDen",
+        "w2Num": "(newDay1Num + newDay2Num)",
+        "w2Den": "lcmDen",
+        "w3Num": "(sumAllNum + 1)",
+        "w3Den": "lcmDen"
+      },
+      "questionText": "Một công trường xây dựng một cây cầu. Ngày thứ nhất hoàn thành $ \\frac{{{day1Num}}}{{{day1Den}}} $ phần cây cầu. Ngày thứ hai hoàn thành $ \\frac{{{day2Num}}}{{{day2Den}}} $ phần cây cầu. Ngày thứ ba hoàn thành $ \\frac{{{day3Num}}}{{{day3Den}}} $ phần cây cầu. Hỏi sau ba ngày, công trường đã hoàn thành tổng cộng bao nhiêu phần của cây cầu?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ phần",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ phần",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ phần",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ phần"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số phần đã hoàn thành, ta cần cộng ba phân số này lại.",
+        "Hãy tìm mẫu số chung nhỏ nhất của các mẫu số $ {day1Den} $, $ {day2Den} $ và $ {day3Den} $. Ở đây mẫu số chung chính là $ {day3Den} $."
+      ],
+      "solutionHtml": "Tổng số phần cây cầu đã hoàn thành sau ba ngày là:<br/>$ \\frac{{{day1Num}}}{{{day1Den}}} + \\frac{{{day2Num}}}{{{day2Den}}} + \\frac{{{day3Num}}}{{{day3Den}}} $<br/>Quy đồng mẫu số ba phân số. Mẫu số chung nhỏ nhất của $ {day1Den} $, $ {day2Den} $ và $ {day3Den} $ là $ {lcmDen} $.<br/>Ta có:<br/>$ \\frac{{{day1Num}}}{{{day1Den}}} = \\frac{{{day1Num} \\times ({lcmDen} \\div {day1Den})}}{{{day1Den} \\times ({lcmDen} \\div {day1Den})}} = \\frac{{{newDay1Num}}}{{{lcmDen}}} $<br/>$ \\frac{{{day2Num}}}{{{day2Den}}} = \\frac{{{day2Num} \\times ({lcmDen} \\div {day2Den})}}{{{day2Den} \\times ({lcmDen} \\div {day2Den})}} = \\frac{{{newDay2Num}}}{{{lcmDen}}} $<br/>Vậy tổng số phần hoàn thành là: $ \\frac{{{newDay1Num}}}{{{lcmDen}}} + \\frac{{{newDay2Num}}}{{{lcmDen}}} + \\frac{{{day3Num}}}{{{lcmDen}}} = \\frac{{{newDay1Num} + {newDay2Num} + {day3Num}}}{{{lcmDen}}} = \\frac{{{sumAllNum}}}{{{lcmDen}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{sumAllNum} \\div {commonDivisor}}}{{{lcmDen} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ phần.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng nhiều phân số, hãy tìm mẫu số chung nhỏ nhất của tất cả các phân số để quy đồng cùng lúc. Điều này giúp tránh sai sót và làm bài nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "wholeLiters": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "addNum1": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "addDen1": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "addNum2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "addDen2": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "addNum1 < addDen1",
+        "addNum2 < addDen2",
+        "addDen1 !== addDen2",
+        "addDen2 % addDen1 !== 0",
+        "addDen1 % addDen2 !== 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(addNum1, addDen1) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(addNum2, addDen2) === 1"
+      ],
+      "formulas": {
+        "lcmDen": "addDen1 * addDen2",
+        "newAddNum1": "addNum1 * addDen2",
+        "newAddNum2": "addNum2 * addDen1",
+        "sumFracNum": "newAddNum1 + newAddNum2",
+        "wholeNumAsFrac": "wholeLiters * lcmDen",
+        "totalNum": "wholeNumAsFrac + sumFracNum",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(totalNum, lcmDen)",
+        "ansNum": "totalNum / commonDivisor",
+        "ansDen": "lcmDen / commonDivisor",
+        "w1Num": "(addNum1 + addNum2)",
+        "w1Den": "(lcmDen)",
+        "w2Num": "(wholeLiters + addNum1)",
+        "w2Den": "addDen1",
+        "w3Num": "(wholeNumAsFrac + newAddNum1)",
+        "w3Den": "(lcmDen)"
+      },
+      "questionText": "Một thùng sữa ban đầu có {wholeLiters} lít. Lần 1 rót thêm $ \\frac{{{addNum1}}}{{{addDen1}}} $ lít. Lần 2 rót thêm $ \\frac{{{addNum2}}}{{{addDen2}}} $ lít. Hỏi sau hai lần rót, thùng sữa có tổng cộng bao nhiêu lít?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ lít",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ lít",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ lít",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán cộng số tự nhiên với hai phân số.",
+        "Bạn cần quy đồng mẫu số của hai phân số, sau đó biến số tự nhiên thành phân số có cùng mẫu số chung để thực hiện phép cộng."
+      ],
+      "solutionHtml": "Để tính tổng lượng sữa trong thùng, ta thực hiện phép cộng:<br/>$ {wholeLiters} + \\frac{{{addNum1}}}{{{addDen1}}} + \\frac{{{addNum2}}}{{{addDen2}}} $<br/>Bước 1: Quy đồng mẫu số của hai phân số $ \\frac{{{addNum1}}}{{{addDen1}}} $ và $ \\frac{{{addNum2}}}{{{addDen2}}} $. Mẫu số chung nhỏ nhất của $ {addDen1} $ và $ {addDen2} $ là $ {lcmDen} $.<br/>$ \\frac{{{addNum1}}}{{{addDen1}}} = \\frac{{{addNum1} \\times {addDen2}}}{{{addDen1} \\times {addDen2}}} = \\frac{{{newAddNum1}}}{{{lcmDen}}} $<br/>$ \\frac{{{addNum2}}}{{{addDen2}}} = \\frac{{{addNum2} \\times {addDen1}}}{{{addDen2} \\times {addDen1}}} = \\frac{{{newAddNum2}}}{{{lcmDen}}} $<br/>Bước 2: Cộng hai phân số đã quy đồng:<br/>$ \\frac{{{newAddNum1}}}{{{lcmDen}}} + \\frac{{{newAddNum2}}}{{{lcmDen}}} = \\frac{{{newAddNum1} + {newAddNum2}}}{{{lcmDen}}} = \\frac{{{sumFracNum}}}{{{lcmDen}}} $<br/>Bước 3: Cộng số tự nhiên với tổng hai phân số:<br/>$ {wholeLiters} + \\frac{{{sumFracNum}}}{{{lcmDen}}} = \\frac{{{wholeLiters} \\times {lcmDen}}}{{{lcmDen}}} + \\frac{{{sumFracNum}}}{{{lcmDen}}} = \\frac{{{wholeNumAsFrac} + {sumFracNum}}}{{{lcmDen}}} = \\frac{{{totalNum}}}{{{lcmDen}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{totalNum} \\div {commonDivisor}}}{{{lcmDen} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ lít.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng hỗn hợp số tự nhiên và nhiều phân số, bạn nên quy đồng tất cả các phân số về cùng một mẫu số chung, sau đó biến số tự nhiên thành phân số có mẫu số đó để thực hiện phép cộng một lần.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial1Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "initial1Den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "add1Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "add1Den": {
+          "min": 6,
+          "max": 8,
+          "step": 1
+        },
+        "initial2Num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "initial2Den": {
+          "min": 5,
+          "max": 6,
+          "step": 1
+        },
+        "add2Num": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "add2Den": {
+          "min": 10,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initial1Num < initial1Den",
+        "add1Num < add1Den",
+        "initial2Num < initial2Den",
+        "add2Num < add2Den",
+        "add1Den % initial1Den === 0",
+        "add2Den % initial2Den === 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(initial1Num, initial1Den) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(add1Num, add1Den) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(initial2Num, initial2Den) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(add2Num, add2Den) === 1"
+      ],
+      "formulas": {
+        "lcm1": "add1Den",
+        "newInitial1Num": "initial1Num * (lcm1 / initial1Den)",
+        "total1Num": "newInitial1Num + add1Num",
+        "total1Den": "lcm1",
+        "lcm2": "add2Den",
+        "newInitial2Num": "initial2Num * (lcm2 / initial2Den)",
+        "total2Num": "newInitial2Num + add2Num",
+        "total2Den": "lcm2",
+        "finalLcm": "function lcm(a, b) { return (a * b) / (function gcd(x, y) { while (y) { let temp = y; y = x % y; x = temp; } return x; }(a, b)); }(total1Den, total2Den)",
+        "finalNewNum1": "total1Num * (finalLcm / total1Den)",
+        "finalNewNum2": "total2Num * (finalLcm / total2Den)",
+        "finalSumNum": "finalNewNum1 + finalNewNum2",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(finalSumNum, finalLcm)",
+        "ansNum": "finalSumNum / commonDivisor",
+        "ansDen": "finalLcm / commonDivisor",
+        "w1Num": "(total1Num + total2Num)",
+        "w1Den": "finalLcm",
+        "w2Num": "(total1Num)",
+        "w2Den": "(total1Den)",
+        "w3Num": "(total2Num)",
+        "w3Den": "(total2Den)"
+      },
+      "questionText": "Trong phòng thí nghiệm, có hai bình dung dịch. Bình thứ nhất ban đầu có $ \\frac{{{initial1Num}}}{{{initial1Den}}} $ lít dung dịch, sau đó đổ thêm $ \\frac{{{add1Num}}}{{{add1Den}}} $ lít. Bình thứ hai ban đầu có $ \\frac{{{initial2Num}}}{{{initial2Den}}} $ lít dung dịch, sau đó đổ thêm $ \\frac{{{add2Num}}}{{{add2Den}}} $ lít. Hỏi tổng lượng dung dịch có trong cả hai bình sau khi đổ thêm là bao nhiêu lít?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ lít",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ lít",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ lít",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bài toán này có nhiều bước. Đầu tiên, hãy tính tổng lượng dung dịch trong mỗi bình riêng biệt.",
+        "Sau khi có tổng lượng dung dịch của mỗi bình, hãy cộng hai kết quả đó lại để tìm tổng lượng dung dịch trong cả hai bình."
+      ],
+      "solutionHtml": "Bước 1: Tính tổng lượng dung dịch trong bình thứ nhất.<br/>Bình thứ nhất có: $ \\frac{{{initial1Num}}}{{{initial1Den}}} + \\frac{{{add1Num}}}{{{add1Den}}} $<br/>Quy đồng mẫu số chung là $ {lcm1} $:<br/>$ \\frac{{{newInitial1Num}}}{{{lcm1}}} + \\frac{{{add1Num}}}{{{lcm1}}} = \\frac{{{total1Num}}}{{{total1Den}}} $ lít.<br/><br/>Bước 2: Tính tổng lượng dung dịch trong bình thứ hai.<br/>Bình thứ hai có: $ \\frac{{{initial2Num}}}{{{initial2Den}}} + \\frac{{{add2Num}}}{{{add2Den}}} $<br/>Quy đồng mẫu số chung là $ {lcm2} $:<br/>$ \\frac{{{newInitial2Num}}}{{{lcm2}}} + \\frac{{{add2Num}}}{{{lcm2}}} = \\frac{{{total2Num}}}{{{total2Den}}} $ lít.<br/><br/>Bước 3: Tính tổng lượng dung dịch có trong cả hai bình.<br/>Tổng cộng là: $ \\frac{{{total1Num}}}{{{total1Den}}} + \\frac{{{total2Num}}}{{{total2Den}}} $<br/>Quy đồng mẫu số của hai phân số $ \\frac{{{total1Num}}}{{{total1Den}}} $ và $ \\frac{{{total2Num}}}{{{total2Den}}} $. Mẫu số chung nhỏ nhất là $ {finalLcm} $.<br/>$ \\frac{{{total1Num}}}{{{total1Den}}} = \\frac{{{total1Num} \\times ({finalLcm} \\div {total1Den})}}{{{total1Den} \\times ({finalLcm} \\div {total1Den})}} = \\frac{{{finalNewNum1}}}{{{finalLcm}}} $<br/>$ \\frac{{{total2Num}}}{{{total2Den}}} = \\frac{{{total2Num} \\times ({finalLcm} \\div {total2Den})}}{{{total2Den} \\times ({finalLcm} \\div {total2Den})}} = \\frac{{{finalNewNum2}}}{{{finalLcm}}} $<br/>Tổng cuối cùng là: $ \\frac{{{finalNewNum1}}}{{{finalLcm}}} + \\frac{{{finalNewNum2}}}{{{finalLcm}}} = \\frac{{{finalSumNum}}}{{{finalLcm}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{finalSumNum} \\div {commonDivisor}}}{{{finalLcm} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ lít.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước và nhiều phép cộng phân số, hãy chia nhỏ bài toán thành từng phần nhỏ để giải quyết. Tính toán từng bước một cách cẩn thận và kiểm tra lại các phép quy đồng mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numA": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "denA": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "numB": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "denB": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "numC": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "denC": {
+          "min": 9,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numA < denA",
+        "numB < denB",
+        "numC < denC",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(numA, denA) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(numB, denB) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(numC, denC) === 1"
+      ],
+      "formulas": {
+        "lcmAB": "function lcm(a, b) { return (a * b) / (function gcd(x, y) { while (y) { let temp = y; y = x % y; x = temp; } return x; }(a, b)); }(denA, denB)",
+        "lcmABC": "function lcm(a, b) { return (a * b) / (function gcd(x, y) { while (y) { let temp = y; y = x % y; x = temp; } return x; }(a, b)); }(lcmAB, denC)",
+        "newNumA": "numA * (lcmABC / denA)",
+        "newNumB": "numB * (lcmABC / denB)",
+        "newNumC": "numC * (lcmABC / denC)",
+        "sumNum": "newNumA + newNumB + newNumC",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(sumNum, lcmABC)",
+        "ansNum": "sumNum / commonDivisor",
+        "ansDen": "lcmABC / commonDivisor",
+        "w1Num": "(newNumA + newNumB)",
+        "w1Den": "lcmABC",
+        "w2Num": "(numA + numB + numC)",
+        "w2Den": "lcmABC",
+        "w3Num": "(sumNum + 1)",
+        "w3Den": "lcmABC"
+      },
+      "questionText": "Một nhóm bạn cùng nhau làm bánh. An dùng $ \\frac{{{numA}}}{{{denA}}} $ cốc bột mì, Bình dùng $ \\frac{{{numB}}}{{{denB}}} $ cốc bột mì và Chi dùng $ \\frac{{{numC}}}{{{denC}}} $ cốc bột mì. Hỏi tổng cộng cả ba bạn đã dùng bao nhiêu cốc bột mì?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ cốc",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ cốc",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ cốc",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ cốc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số cốc bột mì, ta cần cộng ba phân số có mẫu số khác nhau.",
+        "Hãy tìm bội chung nhỏ nhất của ba mẫu số $ {denA} $, $ {denB} $, và $ {denC} $ để quy đồng."
+      ],
+      "solutionHtml": "Để tìm tổng số cốc bột mì cả ba bạn đã dùng, ta thực hiện phép cộng ba phân số:<br/>$ \\frac{{{numA}}}{{{denA}}} + \\frac{{{numB}}}{{{denB}}} + \\frac{{{numC}}}{{{denC}}} $<br/>Bước 1: Tìm mẫu số chung nhỏ nhất của $ {denA} $, $ {denB} $ và $ {denC} $. Mẫu số chung là $ {lcmABC} $.<br/>Bước 2: Quy đồng mẫu số của từng phân số:<br/>$ \\frac{{{numA}}}{{{denA}}} = \\frac{{{numA} \\times ({lcmABC} \\div {denA})}}{{{denA} \\times ({lcmABC} \\div {denA})}} = \\frac{{{newNumA}}}{{{lcmABC}}} $<br/>$ \\frac{{{numB}}}{{{denB}}} = \\frac{{{numB} \\times ({lcmABC} \\div {denB})}}{{{denB} \\times ({lcmABC} \\div {denB})}} = \\frac{{{newNumB}}}{{{lcmABC}}} $<br/>$ \\frac{{{numC}}}{{{denC}}} = \\frac{{{numC} \\times ({lcmABC} \\div {denC})}}{{{denC} \\times ({lcmABC} \\div {denC})}} = \\frac{{{newNumC}}}{{{lcmABC}}} $<br/>Bước 3: Cộng các phân số đã quy đồng:<br/>$ \\frac{{{newNumA}}}{{{lcmABC}}} + \\frac{{{newNumB}}}{{{lcmABC}}} + \\frac{{{newNumC}}}{{{lcmABC}}} = \\frac{{{newNumA} + {newNumB} + {newNumC}}}{{{lcmABC}}} = \\frac{{{sumNum}}}{{{lcmABC}}} $<br/>Bước 4: Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{sumNum} \\div {commonDivisor}}}{{{lcmABC} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ cốc.<br/>Đáp án đúng là B.",
+      "tip": "Để cộng ba hoặc nhiều phân số có mẫu số khác nhau, hãy tìm bội chung nhỏ nhất của tất cả các mẫu số, sau đó quy đồng và cộng các tử số. Cuối cùng, đừng quên rút gọn kết quả.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialFractionNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "initialFractionDen": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "addedFractionNum": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "addedFractionDen": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "differenceNum": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "differenceDen": {
+          "min": 15,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialFractionNum < initialFractionDen",
+        "addedFractionNum < addedFractionDen",
+        "differenceNum < differenceDen",
+        "addedFractionDen % initialFractionDen === 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(initialFractionNum, initialFractionDen) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(addedFractionNum, addedFractionDen) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(differenceNum, differenceDen) === 1"
+      ],
+      "formulas": {
+        "commonDen": "addedFractionDen",
+        "newInitialNum": "initialFractionNum * (commonDen / initialFractionDen)",
+        "totalAddedNum": "newInitialNum + addedFractionNum",
+        "totalAddedDen": "commonDen",
+        "finalLcm": "function lcm(a, b) { return (a * b) / (function gcd(x, y) { while (y) { let temp = y; y = x % y; x = temp; } return x; }(a, b)); }(totalAddedDen, differenceDen)",
+        "finalNewTotalNum": "totalAddedNum * (finalLcm / totalAddedDen)",
+        "finalNewDiffNum": "differenceNum * (finalLcm / differenceDen)",
+        "ansNum": "finalNewTotalNum + finalNewDiffNum",
+        "ansDen": "finalLcm",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(ansNum, ansDen)",
+        "finalAnsNum": "ansNum / commonDivisor",
+        "finalAnsDen": "ansDen / commonDivisor",
+        "w1Num": "(totalAddedNum)",
+        "w1Den": "(totalAddedDen)",
+        "w2Num": "(differenceNum)",
+        "w2Den": "(differenceDen)",
+        "w3Num": "(finalNewTotalNum - finalNewDiffNum)",
+        "w3Den": "finalLcm"
+      },
+      "questionText": "Một thùng hàng ban đầu chứa $ \\frac{{{initialFractionNum}}}{{{initialFractionDen}}} $ khối lượng sản phẩm. Sau đó, người ta cho thêm $ \\frac{{{addedFractionNum}}}{{{addedFractionDen}}} $ khối lượng sản phẩm. Nếu muốn thùng hàng nặng thêm $ \\frac{{{differenceNum}}}{{{differenceDen}}} $ khối lượng nữa thì đầy. Hỏi tổng khối lượng sản phẩm khi thùng đầy là bao nhiêu phần?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ phần",
+        "B. $ \\frac{{{finalAnsNum}}}{{{finalAnsDen}}} $ phần",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ phần",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ phần"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trước hết, hãy tính tổng khối lượng sản phẩm đã có trong thùng.",
+        "Sau đó, cộng tổng khối lượng đã có với phần khối lượng cần thêm để thùng đầy."
+      ],
+      "solutionHtml": "Bước 1: Tính tổng khối lượng sản phẩm đã có trong thùng.<br/>Khối lượng đã có là: $ \\frac{{{initialFractionNum}}}{{{initialFractionDen}}} + \\frac{{{addedFractionNum}}}{{{addedFractionDen}}} $<br/>Quy đồng mẫu số chung là $ {commonDen} $:<br/>$ \\frac{{{initialFractionNum} \\times ({commonDen} \\div {initialFractionDen})}}{{{initialFractionDen} \\times ({commonDen} \\div {initialFractionDen})}} + \\frac{{{addedFractionNum}}}{{{addedFractionDen}}} = \\frac{{{newInitialNum}}}{{{commonDen}}} + \\frac{{{addedFractionNum}}}{{{commonDen}}} = \\frac{{{totalAddedNum}}}{{{totalAddedDen}}} $ phần.<br/><br/>Bước 2: Tính tổng khối lượng sản phẩm khi thùng đầy.<br/>Khối lượng khi thùng đầy bằng khối lượng đã có cộng thêm phần khối lượng cần thêm:<br/>$ \\frac{{{totalAddedNum}}}{{{totalAddedDen}}} + \\frac{{{differenceNum}}}{{{differenceDen}}} $<br/>Quy đồng mẫu số chung nhỏ nhất của $ {totalAddedDen} $ và $ {differenceDen} $ là $ {finalLcm} $.<br/>$ \\frac{{{totalAddedNum}}}{{{totalAddedDen}}} = \\frac{{{totalAddedNum} \\times ({finalLcm} \\div {totalAddedDen})}}{{{totalAddedDen} \\times ({finalLcm} \\div {totalAddedDen})}} = \\frac{{{finalNewTotalNum}}}{{{finalLcm}}} $<br/>$ \\frac{{{differenceNum}}}{{{differenceDen}}} = \\frac{{{differenceNum} \\times ({finalLcm} \\div {differenceDen})}}{{{differenceDen} \\times ({finalLcm} \\div {differenceDen})}} = \\frac{{{finalNewDiffNum}}}{{{finalLcm}}} $<br/>Tổng khối lượng khi thùng đầy là: $ \\frac{{{finalNewTotalNum}}}{{{finalLcm}}} + \\frac{{{finalNewDiffNum}}}{{{finalLcm}}} = \\frac{{{ansNum}}}{{{ansDen}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{ansNum} \\div {commonDivisor}}}{{{ansDen} \\div {commonDivisor}}} = \\frac{{{finalAnsNum}}}{{{finalAnsDen}}} $ phần.<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán nhiều bước, hãy chắc chắn bạn đã thực hiện đúng phép cộng phân số ở mỗi bước và đã quy đồng mẫu số một cách chính xác trước khi cộng. Cuối cùng, rút gọn phân số để có đáp án đơn giản nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q12"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distanceA_num": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "distanceA_den": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "distanceB_num": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "distanceB_den": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "totalDistance": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "distanceA_num < distanceA_den",
+        "distanceB_num < distanceB_den",
+        "distanceB_den % distanceA_den === 0",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(distanceA_num, distanceA_den) === 1",
+        "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(distanceB_num, distanceB_den) === 1"
+      ],
+      "formulas": {
+        "commonDen": "distanceB_den",
+        "newDistanceANum": "distanceA_num * (commonDen / distanceA_den)",
+        "sumDistanceNum": "newDistanceANum + distanceB_num",
+        "sumDistanceDen": "commonDen",
+        "totalDistanceAsFracNum": "totalDistance * sumDistanceDen",
+        "remainingNum": "totalDistanceAsFracNum - sumDistanceNum",
+        "commonDivisor": "function gcd(a, b) { while (b) { let temp = b; b = a % b; a = temp; } return a; }(remainingNum, sumDistanceDen)",
+        "ansNum": "remainingNum / commonDivisor",
+        "ansDen": "sumDistanceDen / commonDivisor",
+        "w1Num": "sumDistanceNum",
+        "w1Den": "sumDistanceDen",
+        "w2Num": "(sumDistanceNum + totalDistanceAsFracNum)",
+        "w2Den": "sumDistanceDen",
+        "w3Num": "(totalDistanceAsFracNum)",
+        "w3Den": "sumDistanceDen"
+      },
+      "questionText": "Một vận động viên phải chạy tổng cộng {totalDistance} km. Vận động viên đó đã chạy chặng thứ nhất $ \\frac{{{distanceA_num}}}{{{distanceA_den}}} $ km và chặng thứ hai $ \\frac{{{distanceB_num}}}{{{distanceB_den}}} $ km. Hỏi vận động viên còn phải chạy bao nhiêu ki-lô-mét nữa để hoàn thành quãng đường?",
+      "options": [
+        "A. $ \\frac{{{w1Num}}}{{{w1Den}}} $ km",
+        "B. $ \\frac{{{ansNum}}}{{{ansDen}}} $ km",
+        "C. $ \\frac{{{w2Num}}}{{{w2Den}}} $ km",
+        "D. $ \\frac{{{w3Num}}}{{{w3Den}}} $ km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng quãng đường mà vận động viên đã chạy trong hai chặng.",
+        "Sau đó, lấy tổng quãng đường phải chạy trừ đi quãng đường đã chạy để tìm quãng đường còn lại."
+      ],
+      "solutionHtml": "Bước 1: Tính tổng quãng đường vận động viên đã chạy trong hai chặng.<br/>Quãng đường đã chạy là: $ \\frac{{{distanceA_num}}}{{{distanceA_den}}} + \\frac{{{distanceB_num}}}{{{distanceB_den}}} $<br/>Quy đồng mẫu số chung là $ {commonDen} $:<br/>$ \\frac{{{distanceA_num} \\times ({commonDen} \\div {distanceA_den})}}{{{distanceA_den} \\times ({commonDen} \\div {distanceA_den})}} + \\frac{{{distanceB_num}}}{{{distanceB_den}}} = \\frac{{{newDistanceANum}}}{{{commonDen}}} + \\frac{{{distanceB_num}}}{{{commonDen}}} = \\frac{{{sumDistanceNum}}}{{{sumDistanceDen}}} $ km.<br/><br/>Bước 2: Tính quãng đường còn phải chạy.<br/>Tổng quãng đường phải chạy là $ {totalDistance} $ km, ta viết thành phân số là $ \\frac{{{totalDistance} \\times {sumDistanceDen}}}{{{sumDistanceDen}}} = \\frac{{{totalDistanceAsFracNum}}}{{{sumDistanceDen}}} $ km.<br/>Quãng đường còn phải chạy là: $ \\frac{{{totalDistanceAsFracNum}}}{{{sumDistanceDen}}} - \\frac{{{sumDistanceNum}}}{{{sumDistanceDen}}} = \\frac{{{remainingNum}}}{{{sumDistanceDen}}} $<br/>Rút gọn phân số (nếu có thể) bằng cách chia tử và mẫu cho ước chung lớn nhất $ {commonDivisor} $:<br/>$ \\frac{{{remainingNum} \\div {commonDivisor}}}{{{sumDistanceDen} \\div {commonDivisor}}} = \\frac{{{ansNum}}}{{{ansDen}}} $ km.<br/>Đáp án đúng là B.",
+      "tip": "Khi làm bài toán về quãng đường hay công việc, hãy chuyển đổi tất cả các số liệu về cùng một dạng (phân số có cùng mẫu số) để dễ dàng thực hiện phép tính cộng trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-60-q13"
+    }
+  ]
+}

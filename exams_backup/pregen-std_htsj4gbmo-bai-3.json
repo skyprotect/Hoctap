@@ -1,0 +1,718 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "itemSize": {
+          "min": 150,
+          "max": 250,
+          "step": 5
+        },
+        "boxA": {
+          "min": 160,
+          "max": 260,
+          "step": 5
+        },
+        "boxB": {
+          "min": 170,
+          "max": 270,
+          "step": 5
+        },
+        "boxC": {
+          "min": 180,
+          "max": 280,
+          "step": 5
+        },
+        "boxD": {
+          "min": 190,
+          "max": 290,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "boxA !== boxB && boxA !== boxC && boxA !== boxD && boxB !== boxC && boxB !== boxD && boxC !== boxD",
+        "boxA !== itemSize && boxB !== itemSize && boxC !== itemSize && boxD !== itemSize",
+        "[boxA, boxB, boxC, boxD].filter(b => b > itemSize).length >= 2",
+        "[boxA, boxB, boxC, boxD].filter(b => b < itemSize).length >= 1"
+      ],
+      "formulas": {
+        "allBoxes": "[boxA, boxB, boxC, boxD]",
+        "sortedAvailableBoxes": "[boxA, boxB, boxC, boxD].filter(b => b > itemSize).sort((a, b) => a - b)",
+        "boxChoicesText": "sortedAvailableBoxes.map(b => b + ' cm³').join(', ')",
+        "ans": "sortedAvailableBoxes[0]",
+        "w1": "sortedAvailableBoxes[1]",
+        "w2": "Math.min(...[boxA, boxB, boxC, boxD].filter(b => b < itemSize))",
+        "w3": "Math.max(...[boxA, boxB, boxC, boxD])"
+      },
+      "questionText": "Một kỹ sư cần vận chuyển một vật phẩm có thể tích là {itemSize} cm³. Anh ấy có sẵn bốn loại hộp với các thể tích sau: {boxA} cm³, {boxB} cm³, {boxC} cm³, {boxD} cm³. Để vật phẩm vừa vặn và tiết kiệm không gian nhất, anh ấy phải chọn loại hộp nào có thể tích **nhỏ nhất nhưng vẫn lớn hơn** thể tích vật phẩm?",
+      "options": [
+        "A. {ans} cm³",
+        "B. {w1} cm³",
+        "C. {w2} cm³",
+        "D. {w3} cm³"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đầu tiên, hãy lọc ra các hộp có thể tích lớn hơn thể tích vật phẩm.",
+        "Trong số các hộp đã lọc, hãy tìm hộp có thể tích nhỏ nhất."
+      ],
+      "solutionHtml": "Để vật phẩm có thể tích {itemSize} cm³ vừa vặn vào hộp, thể tích của hộp phải lớn hơn {itemSize} cm³.<br/>Các loại hộp có thể tích lớn hơn {itemSize} cm³ là: <br/> {boxChoicesText}.<br/>Trong số các hộp này, thể tích nhỏ nhất là {ans} cm³.<br/>Vậy, kỹ sư nên chọn hộp có thể tích {ans} cm³.<br/>Đáp án đúng là A.",
+      "tip": "Khi chọn kích thước tối ưu, luôn tìm giá trị nhỏ nhất thỏa mãn điều kiện 'lớn hơn', không phải giá trị lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "targetNum": {
+          "min": 60,
+          "max": 140,
+          "step": 1
+        },
+        "lowerBoundOffset": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "upperBoundOffset": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "parityType": {
+          "min": 0,
+          "max": 1,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "targetNum % 2 === parityType",
+        "targetNum - lowerBoundOffset >= 50",
+        "targetNum + upperBoundOffset <= 150"
+      ],
+      "formulas": {
+        "lowerActual": "targetNum - lowerBoundOffset",
+        "upperActual": "targetNum + upperBoundOffset",
+        "parityText": "parityType === 0 ? 'chẵn' : 'lẻ'",
+        "ans": "targetNum",
+        "w1": "parityType === 0 ? ans + 2 : ans + 2",
+        "w2": "parityType === 0 ? ans - 2 : ans - 2",
+        "w3": "parityType === 0 ? ans + 1 : ans + 1"
+      },
+      "questionText": "Có một số tự nhiên bí ẩn $X$ thỏa mãn đồng thời các điều kiện sau:<br/>1. $X$ lớn hơn {lowerActual} và nhỏ hơn {upperActual}.<br/>2. $X$ là một số {parityText}.<br/>Tìm số $X$ đó, biết rằng chỉ có DUY NHẤT một số thỏa mãn các điều kiện trên.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê các số tự nhiên lớn hơn {lowerActual} và nhỏ hơn {upperActual}.",
+        "Kiểm tra trong danh sách đó, số nào là số {parityText}."
+      ],
+      "solutionHtml": "Các số tự nhiên lớn hơn {lowerActual} và nhỏ hơn {upperActual} là: ${lowerActual + 1}, ${lowerActual + 2}, ..., {upperActual - 1}.<br/>Ta cần tìm một số {parityText} trong dãy này.<br/>Nếu {parityText} là 'chẵn', ta tìm số chẵn duy nhất. Nếu {parityText} là 'lẻ', ta tìm số lẻ duy nhất.<br/>Dựa vào các điều kiện đã cho, số duy nhất thỏa mãn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định cả khoảng giá trị và tính chất của số cần tìm (chẵn/lẻ).",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "r1_name": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "r2_name": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "r3_name": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "r4_name": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "t1": {
+          "min": 120,
+          "max": 180,
+          "step": 1
+        },
+        "t2": {
+          "min": 120,
+          "max": 180,
+          "step": 1
+        },
+        "t3": {
+          "min": 120,
+          "max": 180,
+          "step": 1
+        },
+        "t4": {
+          "min": 120,
+          "max": 180,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "t1 !== t2 && t1 !== t3 && t1 !== t4 && t2 !== t3 && t2 !== t4 && t3 !== t4"
+      ],
+      "formulas": {
+        "r1_name": "['An', 'Bình', 'Cường', 'Dũng'][0]",
+        "r2_name": "['An', 'Bình', 'Cường', 'Dũng'][1]",
+        "r3_name": "['An', 'Bình', 'Cường', 'Dũng'][2]",
+        "r4_name": "['An', 'Bình', 'Cường', 'Dũng'][3]",
+        "runnersData": "[{name: r1_name, time: t1}, {name: r2_name, time: t2}, {name: r3_name, time: t3}, {name: r4_name, time: t4}]",
+        "sortedRunners": "runnersData.sort((a, b) => a.time - b.time)",
+        "ans": "sortedRunners[1].name",
+        "w1": "sortedRunners[0].name",
+        "w2": "sortedRunners[2].name",
+        "w3": "sortedRunners[3].name"
+      },
+      "questionText": "Trong một cuộc thi chạy marathon, {r1_name}, {r2_name}, {r3_name} và {r4_name} đã hoàn thành với các thành tích sau:<br/>- {r1_name}: {t1} phút<br/>- {r2_name}: {t2} phút<br/>- {r3_name}: {t3} phút<br/>- {r4_name}: {t4} phút<br/>Hỏi vận động viên nào về đích ở vị trí thứ hai?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian càng ít thì vị trí càng cao.",
+        "Hãy sắp xếp các thời gian từ nhỏ nhất đến lớn nhất để xác định thứ hạng."
+      ],
+      "solutionHtml": "Để xác định thứ hạng, ta cần sắp xếp thời gian hoàn thành của các vận động viên theo thứ tự tăng dần (thời gian ít nhất là hạng nhất).<br/>Danh sách thời gian của các vận động viên là: {t1} ( {r1_name}), {t2} ( {r2_name}), {t3} ( {r3_name}), {t4} ( {r4_name})<br/>Sắp xếp các thời gian theo thứ tự tăng dần ta được:<br/>{sortedRunners[0].time} phút ({sortedRunners[0].name}) - Hạng Nhất<br/>{sortedRunners[1].time} phút ({sortedRunners[1].name}) - Hạng Nhì<br/>{sortedRunners[2].time} phút ({sortedRunners[2].name}) - Hạng Ba<br/>{sortedRunners[3].time} phút ({sortedRunners[3].name}) - Hạng Tư<br/>Vậy, vận động viên về đích ở vị trí thứ hai là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi xếp hạng dựa trên thời gian, hãy nhớ rằng thời gian nhỏ hơn có nghĩa là thứ hạng cao hơn (tốt hơn).",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "firstPage": {
+          "min": 100,
+          "max": 150,
+          "step": 1
+        },
+        "lastPage": {
+          "min": 250,
+          "max": 300,
+          "step": 1
+        },
+        "minThreshold": {
+          "min": 160,
+          "max": 200,
+          "step": 1
+        },
+        "maxThreshold": {
+          "min": 210,
+          "max": 240,
+          "step": 1
+        },
+        "isOddReq": {
+          "min": 0,
+          "max": 1,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "firstPage < minThreshold",
+        "minThreshold < maxThreshold",
+        "maxThreshold < lastPage"
+      ],
+      "formulas": {
+        "startCount": "minThreshold",
+        "endCount": "maxThreshold",
+        "isOddReqText": "isOddReq === 1 ? 'lẻ' : 'chẵn'",
+        "countFromStartToStop": "(endCount - startCount + 1)",
+        "numOdds": "(() => { let s = startCount; let e = endCount; if (s % 2 === 0) s++; if (e % 2 === 0) e--; if (s > e) return 0; return Math.floor((e - s) / 2) + 1; })()",
+        "numEvens": "(() => { let s = startCount; let e = endCount; if (s % 2 === 1) s++; if (e % 2 === 1) e--; if (s > e) return 0; return Math.floor((e - s) / 2) + 1; })()",
+        "ans": "isOddReq === 1 ? numOdds : numEvens",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "countFromStartToStop"
+      },
+      "questionText": "Một cuốn sách có các trang được đánh số liên tiếp từ {firstPage} đến {lastPage}. Bạn An được giao nhiệm vụ chỉ đọc các trang có số thứ tự từ {minThreshold} đến {maxThreshold} và là số {isOddReqText}. Hỏi có bao nhiêu trang bạn An phải đọc?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy xác định dãy số trang mà bạn An cần xem xét: từ {minThreshold} đến {maxThreshold}.",
+        "Sau đó, trong dãy đó, hãy đếm số lượng các trang là số {isOddReqText}."
+      ],
+      "solutionHtml": "Bạn An cần đọc các trang có số thứ tự từ {minThreshold} đến {maxThreshold}. Dãy các số này là: {minThreshold}, ${minThreshold + 1}, ..., {maxThreshold}.<br/>Tổng số trang trong khoảng này là: {maxThreshold} - {minThreshold} + 1 = {countFromStartToStop} trang.<br/>Bây giờ ta cần tìm số lượng các trang là số {isOddReqText} trong dãy này.<br/>Nếu {isOddReqText} là 'lẻ':<br/>Số trang lẻ từ {minThreshold} đến {maxThreshold} là {numOdds} trang.<br/>Nếu {isOddReqText} là 'chẵn':<br/>Số trang chẵn từ {minThreshold} đến {maxThreshold} là {numEvens} trang.<br/>Vậy, bạn An phải đọc {ans} trang.<br/>Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng số chẵn/lẻ trong một dãy, hãy cẩn thận với số đầu tiên và số cuối cùng của dãy.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hA": {
+          "min": 100,
+          "max": 150,
+          "step": 1
+        },
+        "hB": {
+          "min": 80,
+          "max": 99,
+          "step": 1
+        },
+        "hC": {
+          "min": 100,
+          "max": 150,
+          "step": 1
+        },
+        "hD": {
+          "min": 80,
+          "max": 99,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "hA !== hB && hA !== hC && hA !== hD && hB !== hC && hB !== hD && hC !== hD",
+        "hA > hC",
+        "hC > hD",
+        "hD > hB"
+      ],
+      "formulas": {
+        "names": "['Tòa nhà An', 'Tháp Bình', 'Khách sạn Cát Tường', 'Trung tâm Đại Lộc']",
+        "shuffledNames": "(() => { let arr = ['Tòa nhà An', 'Tháp Bình', 'Khách sạn Cát Tường', 'Trung tâm Đại Lộc']; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; })()",
+        "data": "[{name: shuffledNames[0], h: hA}, {name: shuffledNames[1], h: hB}, {name: shuffledNames[2], h: hC}, {name: shuffledNames[3], h: hD}]",
+        "buildingA": "data.find(b => b.h === hA).name",
+        "buildingB": "data.find(b => b.h === hB).name",
+        "buildingC": "data.find(b => b.h === hC).name",
+        "buildingD": "data.find(b => b.h === hD).name",
+        "ans": "buildingC",
+        "w1": "buildingA",
+        "w2": "buildingB",
+        "w3": "buildingD"
+      },
+      "questionText": "Bốn tòa nhà {buildingA}, {buildingB}, {buildingC} và {buildingD} có chiều cao khác nhau. Chúng ta biết các thông tin sau:<br/>- {buildingA} cao hơn {buildingC}.<br/>- {buildingC} cao hơn {buildingD}.<br/>- {buildingD} cao hơn {buildingB}.<br/>Hãy sắp xếp các tòa nhà này theo thứ tự chiều cao giảm dần và cho biết tòa nhà nào cao thứ hai?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng các mối quan hệ 'cao hơn' để xâu chuỗi thứ tự các tòa nhà.",
+        "Vẽ sơ đồ hoặc viết ra các mối quan hệ để dễ hình dung."
+      ],
+      "solutionHtml": "Từ các thông tin đã cho, ta có thể suy luận thứ tự chiều cao của các tòa nhà:<br/>1. {buildingA} cao hơn {buildingC} ($A > C$).<br/>2. {buildingC} cao hơn {buildingD} ($C > D$).<br/>3. {buildingD} cao hơn {buildingB} ($D > B$).<br/>Kết hợp các mối quan hệ này, ta có chuỗi thứ tự chiều cao giảm dần là: {buildingA} > {buildingC} > {buildingD} > {buildingB}.<br/>Vậy, tòa nhà cao nhất là {buildingA}, tòa nhà cao thứ hai là {buildingC}, tòa nhà cao thứ ba là {buildingD} và tòa nhà thấp nhất là {buildingB}.<br/>Tòa nhà cao thứ hai là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh nhiều đối tượng, hãy cố gắng tìm ra một chuỗi mối quan hệ để sắp xếp chúng một cách logic.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "d2": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d3": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "isEven": {
+          "min": 0,
+          "max": 1,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2 && d1 !== d3 && d2 !== d3",
+        "allPermutations.filter(num => num % 2 === 0).length > 0 && allPermutations.filter(num => num % 2 === 1).length > 0"
+      ],
+      "formulas": {
+        "digits": "[d1, d2, d3]",
+        "parityText": "isEven === 0 ? 'lẻ' : 'chẵn'",
+        "allPermutations": "(() => { const [d1, d2, d3] = [digits[0], digits[1], digits[2]]; const perms = []; if (d1 !== 0) perms.push(d1 * 100 + d2 * 10 + d3, d1 * 100 + d3 * 10 + d2); if (d2 !== 0) perms.push(d2 * 100 + d1 * 10 + d3, d2 * 100 + d3 * 10 + d1); if (d3 !== 0) perms.push(d3 * 100 + d1 * 10 + d2, d3 * 100 + d2 * 10 + d1); return perms; })()",
+        "filteredPerms": "allPermutations.filter(num => (num % 2 === (1 - isEven)))",
+        "ans": "Math.min(...filteredPerms)",
+        "w1": "Math.max(...filteredPerms) === Math.min(...filteredPerms) ? Math.min(...filteredPerms) + 10 : Math.max(...filteredPerms)",
+        "w2": "Math.min(...allPermutations.filter(num => (num % 2 === isEven)))",
+        "w3": "(() => { const other = filteredPerms.filter(num => num !== Math.min(...filteredPerms)); if (other.length === 0) return Math.min(...filteredPerms) + 20; const minOther = Math.min(...other); if (minOther === Math.min(...filteredPerms) || minOther === (Math.max(...filteredPerms) === Math.min(...filteredPerms) ? Math.min(...filteredPerms) + 10 : Math.max(...filteredPerms)) || minOther === Math.min(...allPermutations.filter(num => (num % 2 === isEven)))) return Math.min(...filteredPerms) + 30; return minOther; })()",
+        "allPermutationsText": "allPermutations.map(num => '$' + num + '$').join(', ')",
+        "filteredPermsText": "filteredPerms.map(num => '$' + num + '$').join(', ')"
+      },
+      "questionText": "Sử dụng các chữ số {d1}, {d2}, {d3} mỗi chữ số một lần để tạo thành một số tự nhiên có 3 chữ số. Tìm số tự nhiên nhỏ nhất có 3 chữ số được tạo thành mà là số {parityText}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê tất cả các số có 3 chữ số có thể tạo thành từ {d1}, {d2}, {d3} (chữ số hàng trăm không thể là 0).",
+        "Lọc ra các số {parityText} từ danh sách đó.",
+        "Tìm số nhỏ nhất trong các số đã lọc."
+      ],
+      "solutionHtml": "Các chữ số đã cho là {d1}, {d2}, {d3}. Ta cần tạo số có 3 chữ số, trong đó chữ số hàng trăm không thể là 0.<br/>Các số có 3 chữ số có thể tạo thành là:<br/>{allPermutationsText}<br/>Bây giờ, ta lọc các số {parityText} từ danh sách trên:<br/>Các số {parityText} là: {filteredPermsText}<br/>Số nhỏ nhất trong các số {parityText} này là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi tìm số nhỏ nhất, hãy ưu tiên các chữ số nhỏ ở hàng giá trị cao (trăm, chục, đơn vị) và đảm bảo chữ số hàng trăm khác 0.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "e1_year": {
+          "min": 1900,
+          "max": 1950,
+          "step": 1
+        },
+        "e2_year": {
+          "min": 1951,
+          "max": 2000,
+          "step": 1
+        },
+        "e3_year": {
+          "min": 2001,
+          "max": 2050,
+          "step": 1
+        },
+        "e4_year": {
+          "min": 2051,
+          "max": 2100,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "e1_year < e2_year && e2_year < e3_year && e3_year < e4_year"
+      ],
+      "formulas": {
+        "events": "[{name: 'Thành lập trường Đại học X', year: e1_year}, {name: 'Khánh thành cầu Y', year: e2_year}, {name: 'Mở cửa công viên Z', year: e3_year}, {name: 'Phát minh robot A', year: e4_year}]",
+        "shuffledEvents": "(() => { let arr = JSON.parse(JSON.stringify(events)); for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; })()",
+        "sortedEvents": "events.sort((a,b) => a.year - b.year)",
+        "ans": "sortedEvents[1].name",
+        "w1": "sortedEvents[0].name",
+        "w2": "sortedEvents[2].name",
+        "w3": "sortedEvents[3].name",
+        "eventList": "shuffledEvents.map(e => `${e.name} (${e.year})`).join(', ')"
+      },
+      "questionText": "Dưới đây là một số sự kiện lịch sử và năm diễn ra của chúng: {eventList}.<br/>Nếu sắp xếp các sự kiện này theo thứ tự thời gian tăng dần (từ năm sớm nhất đến năm muộn nhất), sự kiện nào diễn ra thứ hai?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sắp xếp các năm diễn ra sự kiện từ nhỏ nhất đến lớn nhất.",
+        "Sự kiện có năm diễn ra nhỏ thứ hai sẽ là sự kiện diễn ra thứ hai."
+      ],
+      "solutionHtml": "Để sắp xếp các sự kiện theo thứ tự thời gian tăng dần, ta cần so sánh các năm diễn ra của chúng:<br/>- {shuffledEvents[0].name}: năm {shuffledEvents[0].year}<br/>- {shuffledEvents[1].name}: năm {shuffledEvents[1].year}<br/>- {shuffledEvents[2].name}: năm {shuffledEvents[2].year}<br/>- {shuffledEvents[3].name}: năm {shuffledEvents[3].year}<br/>Sắp xếp các năm theo thứ tự tăng dần:<br/>{sortedEvents[0].year} ({sortedEvents[0].name})<br/>{sortedEvents[1].year} ({sortedEvents[1].name})<br/>{sortedEvents[2].year} ({sortedEvents[2].name})<br/>{sortedEvents[3].year} ({sortedEvents[3].name})<br/>Sự kiện diễn ra thứ hai là {ans}, vào năm {sortedEvents[1].year}.<br/>Đáp án đúng là B.",
+      "tip": "Thứ tự thời gian tăng dần có nghĩa là từ năm nhỏ nhất đến năm lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startRange": {
+          "min": 50,
+          "max": 100,
+          "step": 1
+        },
+        "endRange": {
+          "min": 150,
+          "max": 200,
+          "step": 1
+        },
+        "multipleOf": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "startRange < endRange",
+        "multipleOf > 1",
+        "Math.floor(endRange / multipleOf) * multipleOf >= Math.ceil(startRange / multipleOf) * multipleOf"
+      ],
+      "formulas": {
+        "firstMultipleInRange": "Math.ceil(startRange / multipleOf) * multipleOf",
+        "lastMultipleInRange": "Math.floor(endRange / multipleOf) * multipleOf",
+        "ans": "(lastMultipleInRange - firstMultipleInRange) / multipleOf + 1",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "(Math.floor((endRange - startRange + 1) / multipleOf) === ans || Math.floor((endRange - startRange + 1) / multipleOf) === (ans + 1) || Math.floor((endRange - startRange + 1) / multipleOf) === (ans - 1)) ? ans + 3 : Math.floor((endRange - startRange + 1) / multipleOf)"
+      },
+      "questionText": "Có bao nhiêu số tự nhiên $x$ thỏa mãn đồng thời các điều kiện sau:<br/>1. $x$ lớn hơn hoặc bằng {startRange} và nhỏ hơn hoặc bằng {endRange}.<br/>2. $x$ là bội của {multipleOf}.",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm bội số đầu tiên của {multipleOf} mà lớn hơn hoặc bằng {startRange}.",
+        "Tìm bội số cuối cùng của {multipleOf} mà nhỏ hơn hoặc bằng {endRange}.",
+        "Sử dụng công thức tính số lượng số hạng trong một dãy số cách đều."
+      ],
+      "solutionHtml": "Ta cần tìm các số tự nhiên $x$ sao cho ${startRange} \\\\le x \\\\le {endRange}$ và $x$ là bội của {multipleOf}.<br/>1. Tìm bội số đầu tiên của {multipleOf} trong khoảng: <br/>Bội số đầu tiên của {multipleOf} mà lớn hơn hoặc bằng {startRange} là $x_\\\\text{min} = {firstMultipleInRange}$.<br/>2. Tìm bội số cuối cùng của {multipleOf} trong khoảng: <br/>Bội số cuối cùng của {multipleOf} mà nhỏ hơn hoặc bằng {endRange} là $x_\\\\text{max} = {lastMultipleInRange}$.<br/>3. Tính số lượng các số: <br/>Các số này tạo thành một dãy số cách đều với khoảng cách là {multipleOf}.<br/>Số lượng các số là: $(\\\\text{so cuoi} - \\\\text{so dau}) / \\\\text{khoang cach} + 1$<br/>$({lastMultipleInRange} - {firstMultipleInRange}) / {multipleOf} + 1 = {ans}$ số.<br/>Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng bội trong một khoảng, hãy cẩn thận xác định đúng bội đầu tiên và bội cuối cùng trong khoảng đó.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ansA": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        },
+        "ansB": {
+          "min": 0,
+          "max": 3,
+          "step": 1
+        },
+        "ansC": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "diffCD": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "ansA !== ansB && ansA !== ansC && ansB !== ansC",
+        "ansC - diffCD >= 0",
+        "ansA !== (ansC - diffCD) && ansB !== (ansC - diffCD) && ansC !== (ansC - diffCD)",
+        "ansA + ansB + ansC + (ansC - diffCD) >= 10 && ansA + ansB + ansC + (ansC - diffCD) <= 30"
+      ],
+      "formulas": {
+        "ansD": "ansC - diffCD",
+        "sumTotal": "ansA + ansB + ansC + ansD",
+        "ansNum": "ansA * 1000 + ansB * 100 + ansC * 10 + ansD",
+        "clueD3CompareText": "ansC > ansD ? 'lớn hơn' : 'nhỏ hơn'",
+        "w1": "ansNum + 10",
+        "w2": "ansNum - 10",
+        "w3": "ansA * 1000 + ansC * 100 + ansB * 10 + ansD"
+      },
+      "questionText": "Một mật mã gồm 4 chữ số khác nhau, được tạo thành theo các quy tắc sau:<br/>- Chữ số hàng nghìn là {ansA}.<br/>- Chữ số hàng trăm là {ansB}.<br/>- Chữ số hàng chục {clueD3CompareText} chữ số hàng đơn vị.<br/>- Tổng của bốn chữ số là {sumTotal}.<br/>Tìm mật mã đó.",
+      "options": [
+        "A. {w1}",
+        "B. {ansNum}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định chữ số hàng nghìn và hàng trăm.",
+        "Sử dụng tổng các chữ số để tìm tổng của chữ số hàng chục và hàng đơn vị.",
+        "Dựa vào điều kiện so sánh giữa chữ số hàng chục và hàng đơn vị để tìm chúng."
+      ],
+      "solutionHtml": "Gọi mật mã là $ABCD$, trong đó $A, B, C, D$ là các chữ số.<br/>Theo đề bài, ta có:<br/>- Chữ số hàng nghìn là {ansA}, vậy $A = {ansA}.<br/>- Chữ số hàng trăm là {ansB}, vậy $B = {ansB}.<br/>- Tổng của bốn chữ số là {sumTotal}, vậy $A + B + C + D = {sumTotal}.<br/>Thay giá trị của $A$ và $B$ vào, ta có: {ansA} + {ansB} + C + D = {sumTotal}.<br/>Suy ra $C + D = {sumTotal} - {ansA} - {ansB} = {sumTotal - ansA - ansB}.<br/>Ngoài ra, chữ số hàng chục {clueD3CompareText} chữ số hàng đơn vị, tức là $C ${clueD3CompareText === 'lớn hơn' ? '>' : '<'} D$.<br/>Ta cần tìm hai chữ số $C, D$ sao cho $C + D = {sumTotal - ansA - ansB} và $C ${clueD3CompareText === 'lớn hơn' ? '>' : '<'} D$.<br/>Thử các cặp số $C, D$ có tổng là {sumTotal - ansA - ansB} và thỏa mãn điều kiện $C ${clueD3CompareText === 'lớn hơn' ? '>' : '<'} D$:<br/>(Lưu ý: Các chữ số phải khác nhau và khác {ansA}, {ansB} nếu có ràng buộc đó, nhưng đề bài đã đảm bảo là 'khác nhau' trong biến và công thức).<br/>Chỉ có cặp $C = {ansC} và $D = {ansD} thỏa mãn cả hai điều kiện.<br/>Vậy, mật mã là {ansNum}.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải các bài toán về mật mã, hãy phân tích từng gợi ý một cách cẩn thận và kết hợp chúng lại để tìm ra các chữ số.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x_low": {
+          "min": 20,
+          "max": 50,
+          "step": 1
+        },
+        "x_high": {
+          "min": 60,
+          "max": 90,
+          "step": 1
+        },
+        "y_low_offset": {
+          "min": -10,
+          "max": 10,
+          "step": 1
+        },
+        "y_high_offset": {
+          "min": -10,
+          "max": 10,
+          "step": 1
+        },
+        "parityType": {
+          "min": 0,
+          "max": 1,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x_low < x_high",
+        "x_low + y_low_offset < x_high + y_high_offset",
+        "Math.max(x_low + 1, x_low + y_low_offset + 1) < Math.min(x_high - 1, x_high + y_high_offset - 1)",
+        "Math.max(x_low + 1, x_low + y_low_offset + 1) >= 1"
+      ],
+      "formulas": {
+        "y_low": "x_low + y_low_offset",
+        "y_high": "x_high + y_high_offset",
+        "effectiveLowerBound": "Math.max(x_low + 1, y_low + 1)",
+        "effectiveUpperBound": "Math.min(x_high - 1, y_high - 1)",
+        "parityText": "parityType === 0 ? 'chẵn' : 'lẻ'",
+        "ans": "((effectiveUpperBound - effectiveLowerBound + 1) % 2 === 0) ? (effectiveUpperBound - effectiveLowerBound + 1) / 2 : (((effectiveLowerBound % 2 === 0 && parityType === 0) || (effectiveLowerBound % 2 !== 0 && parityType === 1)) ? Math.ceil((effectiveUpperBound - effectiveLowerBound + 1) / 2) : Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2))",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "(Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2) === (((effectiveUpperBound - effectiveLowerBound + 1) % 2 === 0) ? (effectiveUpperBound - effectiveLowerBound + 1) / 2 : (((effectiveLowerBound % 2 === 0 && parityType === 0) || (effectiveLowerBound % 2 !== 0 && parityType === 1)) ? Math.ceil((effectiveUpperBound - effectiveLowerBound + 1) / 2) : Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2))) || Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2) === (((effectiveUpperBound - effectiveLowerBound + 1) % 2 === 0) ? (effectiveUpperBound - effectiveLowerBound + 1) / 2 : (((effectiveLowerBound % 2 === 0 && parityType === 0) || (effectiveLowerBound % 2 !== 0 && parityType === 1)) ? Math.ceil((effectiveUpperBound - effectiveLowerBound + 1) / 2) : Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2))) - 1) ? (((effectiveUpperBound - effectiveLowerBound + 1) % 2 === 0) ? (effectiveUpperBound - effectiveLowerBound + 1) / 2 : (((effectiveLowerBound % 2 === 0 && parityType === 0) || (effectiveLowerBound % 2 !== 0 && parityType === 1)) ? Math.ceil((effectiveUpperBound - effectiveLowerBound + 1) / 2) : Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2))) + 3 : Math.floor((effectiveUpperBound - effectiveLowerBound + 1) / 2)"
+      },
+      "questionText": "Có bao nhiêu số tự nhiên $X$ thỏa mãn đồng thời các điều kiện sau:<br/>1. $X$ lớn hơn {x_low} và nhỏ hơn {x_high}.<br/>2. $X$ nằm giữa {y_low} và {y_high}.<br/>3. $X$ là số {parityText}.",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định khoảng giá trị chung mà $X$ phải nằm trong từ điều kiện 1 và 2. (Gợi ý: Lớn hơn số lớn nhất của hai cận dưới, nhỏ hơn số nhỏ nhất của hai cận trên).",
+        "Trong khoảng giá trị chung đó, đếm các số {parityText}."
+      ],
+      "solutionHtml": "Ta cần tìm số tự nhiên $X$ thỏa mãn 3 điều kiện:<br/>1. $X > {x_low}$ và $X < {x_high}$ $\\Rightarrow$ $X$ thuộc khoảng $({x_low}, {x_high})$, tức là $X \\in \\{{x_low + 1}, ..., {x_high - 1}\\}$.<br/>2. $X$ nằm giữa {y_low} và {y_high} $\\Rightarrow$ $X$ thuộc khoảng $({y_low}, {y_high})$, tức là $X \\in \\{{y_low + 1}, ..., {y_high - 1}\\}$.<br/>Để thỏa mãn cả hai điều kiện trên, $X$ phải lớn hơn số lớn nhất của hai cận dưới và nhỏ hơn số nhỏ nhất của hai cận trên.<br/>- Cận dưới chung: $\\text{max}({x_low + 1}, {y_low + 1}) = {effectiveLowerBound}$.<br/>- Cận trên chung: $\\text{min}({x_high - 1}, {y_high - 1}) = {effectiveUpperBound}$.<br/>Vậy, $X$ phải thỏa mãn ${effectiveLowerBound} \\le X \\le {effectiveUpperBound}$.<br/>3. $X$ là số {parityText}.<br/>Ta đếm các số {parityText} trong khoảng từ {effectiveLowerBound} đến {effectiveUpperBound} (bao gồm cả hai cận).<br/>Liệt kê và kiểm tra: ${effectiveLowerBound}, {effectiveLowerBound + 1}, ..., {effectiveUpperBound}$.<br/>Số lượng các số {parityText} trong khoảng này là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi kết hợp nhiều điều kiện về khoảng giá trị (ví dụ: 'lớn hơn A và nhỏ hơn B' cùng với 'nằm giữa C và D'), hãy tìm ra khoảng chung bằng cách lấy cận dưới lớn nhất và cận trên nhỏ nhất.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startDay": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "numDays1": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "numDaysBetween": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "numDays2": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "startDay + numDays1 + numDaysBetween + numDays2 <= 30"
+      ],
+      "formulas": {
+        "event1_end": "startDay + numDays1 - 1",
+        "event2_start": "event1_end + 1 + numDaysBetween",
+        "event2_end": "event2_start + numDays2 - 1",
+        "ans": "event2_start",
+        "w1": "event1_end",
+        "w2": "startDay",
+        "w3": "event2_end"
+      },
+      "questionText": "Trong tháng này, bạn Mai có kế hoạch học tập như sau:<br/>- Bắt đầu ôn tập môn Toán từ ngày {startDay} và kéo dài trong {numDays1} ngày.<br/>- Sau khi kết thúc ôn tập Toán, bạn ấy nghỉ {numDaysBetween} ngày.<br/>- Sau đó, bạn ấy bắt đầu ôn tập môn Tiếng Việt trong {numDays2} ngày.<br/>Hỏi bạn Mai bắt đầu ôn tập môn Tiếng Việt vào ngày nào của tháng?",
+      "options": [
+        "A. Ngày {w1}",
+        "B. Ngày {ans}",
+        "C. Ngày {w2}",
+        "D. Ngày {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính ngày kết thúc ôn tập môn Toán.",
+        "Tính ngày bắt đầu ôn tập Tiếng Việt sau khi nghỉ số ngày đã cho."
+      ],
+      "solutionHtml": "Để tìm ngày bắt đầu ôn tập môn Tiếng Việt, ta thực hiện các bước sau:<br/>1. Tính ngày kết thúc ôn tập môn Toán:<br/>Bạn Mai bắt đầu từ ngày {startDay} và ôn tập {numDays1} ngày. Vậy ngày kết thúc ôn tập Toán là ngày {startDay} + {numDays1} - 1 = {event1_end} của tháng.<br/>2. Tính ngày bắt đầu ôn tập môn Tiếng Việt:<br/>Sau khi kết thúc ôn tập Toán vào ngày {event1_end}, bạn Mai nghỉ {numDaysBetween} ngày.<br/>Vậy, ngày sau khi nghỉ là {event1_end} + {numDaysBetween} = ${event1_end + numDaysBetween}$.<br/>Ngày bắt đầu ôn tập Tiếng Việt là ngày tiếp theo sau thời gian nghỉ: {event1_end} + {numDaysBetween} + 1 = {ans} của tháng.<br/>Đáp án đúng là B.",
+      "tip": "Khi tính toán thời gian (ngày, giờ), hãy cẩn thận với cách đếm 'trong X ngày' (bao gồm cả ngày bắt đầu) và 'sau khi nghỉ X ngày' (ngày bắt đầu sự kiện tiếp theo là X+1 sau ngày cuối cùng của sự kiện trước).",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p1Score": {
+          "min": 80,
+          "max": 95,
+          "step": 1
+        },
+        "p2Diff": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "p3Diff": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "p4Diff": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "p1Score - p2Diff > 70",
+        "p1Score - p2Diff - p3Diff > 65",
+        "p1Score - p2Diff - p3Diff - p4Diff > 60",
+        "p1Score !== (p1Score - p2Diff) && p1Score !== (p1Score - p2Diff - p3Diff) && p1Score !== (p1Score - p2Diff - p3Diff - p4Diff)",
+        "(p1Score - p2Diff) !== (p1Score - p2Diff - p3Diff) && (p1Score - p2Diff) !== (p1Score - p2Diff - p3Diff - p4Diff)",
+        "(p1Score - p2Diff - p3Diff) !== (p1Score - p2Diff - p3Diff - p4Diff)"
+      ],
+      "formulas": {
+        "p1Name": "'Hồng'",
+        "p2Name": "'Lan'",
+        "p3Name": "'Mai'",
+        "p4Name": "'Nga'",
+        "p2Score": "p1Score - p2Diff",
+        "p3Score": "p2Score - p3Diff",
+        "p4Score": "p3Score - p4Diff",
+        "scoresData": "[{name: p1Name, score: p1Score}, {name: p2Name, score: p2Score}, {name: p3Name, score: p3Score}, {name: p4Name, score: p4Score}]",
+        "sortedScores": "scoresData.sort((a,b) => b.score - a.score)",
+        "ans": "sortedScores[1].name",
+        "w1": "sortedScores[0].name",
+        "w2": "sortedScores[2].name",
+        "w3": "sortedScores[3].name"
+      },
+      "questionText": "Trong một trò chơi, bốn bạn {p1Name}, {p2Name}, {p3Name} và {p4Name} đạt được các điểm số như sau:<br/>- {p1Name} đạt {p1Score} điểm.<br/>- {p2Name} ít hơn {p1Name} {p2Diff} điểm.<br/>- {p3Name} ít hơn {p2Name} {p3Diff} điểm.<br/>- {p4Name} ít hơn {p3Name} {p4Diff} điểm.<br/>Nếu xếp hạng các bạn từ người có điểm cao nhất đến người có điểm thấp nhất, bạn nào đứng ở vị trí thứ hai?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính điểm số cụ thể của từng bạn.",
+        "Sắp xếp điểm số theo thứ tự giảm dần để xác định thứ hạng."
+      ],
+      "solutionHtml": "Đầu tiên, ta cần tính điểm số cụ thể của từng bạn:<br/>- {p1Name}: {p1Score} điểm.<br/>- {p2Name}: {p1Name} ít hơn {p2Diff} điểm $\\Rightarrow$ {p2Name} có {p1Score} - {p2Diff} = {p2Score} điểm.<br/>- {p3Name}: {p2Name} ít hơn {p3Diff} điểm $\\Rightarrow$ {p3Name} có {p2Score} - {p3Diff} = {p3Score} điểm.<br/>- {p4Name}: {p3Name} ít hơn {p4Diff} điểm $\\Rightarrow$ {p4Name} có {p3Score} - {p4Diff} = {p4Score} điểm.<br/>Bây giờ, ta sắp xếp các điểm số này theo thứ tự giảm dần (từ cao nhất đến thấp nhất):<br/>1. {sortedScores[0].score} điểm ({sortedScores[0].name})<br/>2. {sortedScores[1].score} điểm ({sortedScores[1].name})<br/>3. {sortedScores[2].score} điểm ({sortedScores[2].name})<br/>4. {sortedScores[3].score} điểm ({sortedScores[3].name})<br/>Vậy, bạn đứng ở vị trí thứ hai là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận khi tính toán điểm số từ các mối quan hệ 'ít hơn X điểm' để tránh sai sót. Luôn kiểm tra lại các phép tính.",
+      "level": "chat-luong-cao",
+      "type": "bai-3-d4"
+    }
+  ]
+}

@@ -1,0 +1,519 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        },
+        "t2": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        },
+        "t3": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "t1 !== t2",
+        "t1 !== t3",
+        "t2 !== t3",
+        "t1 > 0",
+        "t2 > 0",
+        "t3 > 0",
+        "lcm_val_q1 > Math.max(t1, t2, t3)"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm3": "(a, b, c) => lcm(lcm(a, b), c)",
+        "lcm_val_q1": "lcm3(t1, t2, t3)",
+        "ans": "lcm_val_q1",
+        "w1": "(t1 + t2 + t3 === lcm_val_q1) ? lcm_val_q1 + 5 : t1 + t2 + t3",
+        "w2": "Math.max(t1, t2, t3)",
+        "w3": "((t1 * t2 * t3 / (gcd(t1, t2) * gcd(t2, t3))) === lcm_val_q1) ? lcm_val_q1 + 10 : (t1 * t2 * t3 / (gcd(t1, t2) * gcd(t2, t3)))"
+      },
+      "questionText": "Ba bạn An, Bình và Chi cùng chạy bộ quanh một sân vận động hình tròn. An chạy hết {t1} phút một vòng, Bình chạy hết {t2} phút một vòng và Chi chạy hết {t3} phút một vòng. Nếu ba bạn cùng xuất phát tại một điểm và cùng lúc, hỏi sau ít nhất bao nhiêu phút thì ba bạn sẽ lại gặp nhau tại điểm xuất phát đó?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian để ba bạn gặp lại nhau tại điểm xuất phát phải là một bội chung của thời gian chạy của mỗi bạn.",
+        "Bạn cần tìm Bội chung nhỏ nhất (BCNN) của ba số {t1}, {t2} và {t3}."
+      ],
+      "solutionHtml": "Để ba bạn An, Bình và Chi cùng gặp nhau tại điểm xuất phát sau ít nhất một khoảng thời gian, khoảng thời gian đó phải là Bội chung nhỏ nhất của thời gian chạy một vòng của mỗi bạn.<br/>Ta cần tìm BCNN({t1}, {t2}, {t3}).<br/>Bước 1: Tìm BCNN của {t1} và {t2}.<br/>BCNN({t1}, {t2}) = $\\frac{{{t1} \\times {t2}}}{{ƯCLN({t1}, {t2})}}$.<br/>Ví dụ, nếu {t1} = 6, {t2} = 8$, thì ƯCLN(6, 8) = 2. BCNN(6, 8) = $\\frac{{6 \\times 8}}{2} = 24$.<br/>Bước 2: Tìm BCNN của kết quả vừa tìm được và {t3}.<br/>BCNN(BCNN({t1}, {t2}), {t3}) = BCNN(${lcm(t1,t2)}$, {t3}).<br/>Áp dụng công thức, ta có BCNN({t1}, {t2}, {t3}) = {ans}.<br/>Vậy, sau ít nhất {ans} phút thì ba bạn sẽ lại gặp nhau tại điểm xuất phát.<br/>Đáp án đúng là B.",
+      "tip": "Khi các sự kiện diễn ra định kỳ và bạn muốn tìm thời điểm chúng cùng xảy ra trở lại, hãy nghĩ đến Bội chung nhỏ nhất (BCNN).",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "L": {
+          "min": 60,
+          "max": 120,
+          "step": 1
+        },
+        "W": {
+          "min": 40,
+          "max": 80,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "L > W",
+        "L % gcd_val_q2 === 0",
+        "W % gcd_val_q2 === 0",
+        "L > 0",
+        "W > 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "gcd_val_q2": "gcd(L, W)",
+        "ans_side": "gcd_val_q2",
+        "ans": "(L / gcd_val_q2) * (W / gcd_val_q2)",
+        "w1": "((L * W) === ((L / gcd_val_q2) * (W / gcd_val_q2))) ? ((L / gcd_val_q2) * (W / gcd_val_q2)) + 150 : L * W",
+        "w2": "((L + W) === ((L / gcd_val_q2) * (W / gcd_val_q2)) || (L + W) === (((L * W) === ((L / gcd_val_q2) * (W / gcd_val_q2))) ? ((L / gcd_val_q2) * (W / gcd_val_q2)) + 150 : L * W)) ? ((L / gcd_val_q2) * (W / gcd_val_q2)) + 300 : L + W",
+        "w3": "(Math.max(L, W) / gcd_val_q2 === ((L / gcd_val_q2) * (W / gcd_val_q2)) || Math.max(L, W) / gcd_val_q2 === (((L * W) === ((L / gcd_val_q2) * (W / gcd_val_q2))) ? ((L / gcd_val_q2) * (W / gcd_val_q2)) + 150 : L * W)) ? 10 : Math.max(L, W) / gcd_val_q2"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {L} mét và chiều rộng {W} mét. Người ta muốn chia mảnh vườn này thành những ô đất hình vuông nhỏ bằng nhau với cạnh là số tự nhiên và lớn nhất có thể. Hỏi có thể chia được bao nhiêu ô đất hình vuông như vậy?",
+      "options": [
+        "A. {w1} ô",
+        "B. {ans} ô",
+        "C. {w2} ô",
+        "D. {w3} ô"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cạnh của mỗi ô đất hình vuông phải là ước chung của chiều dài và chiều rộng của mảnh vườn.",
+        "Để cạnh hình vuông là lớn nhất, bạn cần tìm Ước chung lớn nhất (ƯCLN) của chiều dài và chiều rộng."
+      ],
+      "solutionHtml": "Để chia mảnh vườn hình chữ nhật thành những ô đất hình vuông bằng nhau với cạnh là số tự nhiên và lớn nhất có thể, cạnh của hình vuông phải là Ước chung lớn nhất (ƯCLN) của chiều dài và chiều rộng mảnh vườn.<br/>Bước 1: Tìm ƯCLN của chiều dài {L} và chiều rộng {W}.<br/>ƯCLN({L}, {W}) = {ans_side} (mét).<br/>Đây chính là độ dài cạnh của mỗi ô đất hình vuông.<br/>Bước 2: Tính số ô đất hình vuông có thể chia được.<br/>Số ô đất hình vuông theo chiều dài là: {L} \\div {ans_side} = ${L/ans_side}$ (ô).<br/>Số ô đất hình vuông theo chiều rộng là: {W} \\div {ans_side} = ${W/ans_side}$ (ô).<br/>Tổng số ô đất hình vuông là: ${L/ans_side} \\times ${W/ans_side}$ = {ans} (ô).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu 'chia đều', 'nhiều nhất', 'lớn nhất' các phần bằng nhau, hãy nghĩ đến Ước chung lớn nhất (ƯCLN).",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "d2": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "d3": {
+          "min": 13,
+          "max": 18,
+          "step": 1
+        },
+        "r": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2",
+        "d1 !== d3",
+        "d2 !== d3",
+        "r < d1",
+        "r < d2",
+        "r < d3",
+        "ans_q3 > Math.max(d1, d2, d3)"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm3": "(a, b, c) => lcm(lcm(a, b), c)",
+        "lcm_val_q3": "lcm3(d1, d2, d3)",
+        "ans_q3": "lcm_val_q3 + r",
+        "w1": "lcm_val_q3 - r",
+        "w2": "(d1 * d2 * d3 + r === lcm_val_q3 * 2 + r || d1 * d2 * d3 + r === lcm_val_q3 + r) ? d1 * d2 * d3 + r + 15 : d1 * d2 * d3 + r",
+        "w3": "lcm_val_q3 * 2 + r"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất khác 0 mà khi chia số đó cho {d1}, {d2} và {d3} đều dư {r}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans_q3}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu một số khi chia cho {d1}, {d2} và {d3} đều dư {r}, thì số đó trừ đi {r} sẽ chia hết cho {d1}, {d2} và {d3}.",
+        "Bạn cần tìm Bội chung nhỏ nhất (BCNN) của {d1}, {d2}, {d3} rồi cộng thêm {r}."
+      ],
+      "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, khi chia $N$ cho {d1}, {d2} và {d3} đều dư {r}.<br/>Điều này có nghĩa là $(N - r)$ chia hết cho {d1}, $(N - r)$ chia hết cho {d2} và $(N - r)$ chia hết cho {d3}.<br/>Vậy $(N - r)$ là một bội chung của {d1}, {d2} và {d3}.<br/>Để tìm số $N$ nhỏ nhất, ta cần tìm Bội chung nhỏ nhất (BCNN) của {d1}, {d2} và {d3}.<br/>Bước 1: Tìm BCNN({d1}, {d2}, {d3}).<br/>BCNN({d1}, {d2}, {d3}) = {lcm_val_q3}.<br/>Bước 2: Vì $(N - r)$ là BCNN({d1}, {d2}, {d3}), nên $N - r = {lcm_val_q3}.<br/>Vậy $N = {lcm_val_q3} + r = {ans_q3}.<br/>Số tự nhiên nhỏ nhất cần tìm là {ans_q3}.<br/>Đáp án đúng là B.",
+      "tip": "Đối với các bài toán tìm số khi biết số dư, hãy xét số đó trừ đi số dư (hoặc cộng thêm một lượng thích hợp) để nó trở thành bội chung.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sweets": {
+          "min": 40,
+          "max": 80,
+          "step": 2
+        },
+        "chocolates": {
+          "min": 60,
+          "max": 100,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "sweets !== chocolates",
+        "sweets > 0",
+        "chocolates > 0",
+        "gcd_val_q4 > 1"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "gcd_val_q4": "gcd(sweets, chocolates)",
+        "ans": "gcd_val_q4",
+        "sweets_per_bundle": "sweets / gcd_val_q4",
+        "chocolates_per_bundle": "chocolates / gcd_val_q4",
+        "w1": "sweets + chocolates",
+        "w2": "(sweets / 2 === gcd_val_q4 || sweets / 2 === (sweets + chocolates)) ? gcd_val_q4 + 5 : sweets / 2",
+        "w3": "(Math.min(sweets, chocolates) === gcd_val_q4) ? gcd_val_q4 - 5 : Math.min(sweets, chocolates)"
+      },
+      "questionText": "Cô giáo có {sweets} chiếc kẹo và {chocolates} chiếc sô-cô-la. Cô muốn chia đều số kẹo và sô-cô-la này vào các gói quà sao cho mỗi gói quà đều có số lượng kẹo và sô-cô-la như nhau và số gói quà là nhiều nhất. Hỏi cô có thể làm được nhiều nhất bao nhiêu gói quà?",
+      "options": [
+        "A. {w1} gói",
+        "B. {ans} gói",
+        "C. {w2} gói",
+        "D. {w3} gói"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số lượng gói quà phải là ước chung của số kẹo và số sô-cô-la.",
+        "Để số gói quà là nhiều nhất, bạn cần tìm Ước chung lớn nhất (ƯCLN) của số kẹo và số sô-cô-la."
+      ],
+      "solutionHtml": "Để chia số kẹo và sô-cô-la vào các gói quà sao cho mỗi gói đều có số lượng kẹo và sô-cô-la như nhau và số gói quà là nhiều nhất, số gói quà phải là Ước chung lớn nhất (ƯCLN) của tổng số kẹo và tổng số sô-cô-la.<br/>Bước 1: Tìm ƯCLN({sweets}, {chocolates}).<br/>ƯCLN({sweets}, {chocolates}) = {ans} (gói).<br/>Đây chính là số gói quà nhiều nhất cô giáo có thể làm được.<br/>Khi đó, mỗi gói quà sẽ có: <br/>- Số kẹo là:$ {sweets} \\div {ans} = {sweets_per_bundle} $ (chiếc).<br/>- Số sô-cô-la là:$ {chocolates} \\div {ans} = {chocolates_per_bundle} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán yêu cầu 'chia đều', 'nhiều nhất', 'lớn nhất' các phần bằng nhau thường liên quan đến Ước chung lớn nhất (ƯCLN).",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 9,
+          "max": 15,
+          "step": 1
+        },
+        "min_val": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "max_val": {
+          "min": 300,
+          "max": 400,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "a !== b",
+        "a > 0",
+        "b > 0",
+        "min_val < max_val",
+        "min_val > 0",
+        "lcm_val_q5 >= a && lcm_val_q5 >= b",
+        "ans_q5 > 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm_val_q5": "lcm(a, b)",
+        "count_up_to_max": "Math.floor((max_val - 1) / lcm_val_q5)",
+        "count_up_to_min": "Math.floor(min_val / lcm_val_q5)",
+        "ans_q5": "count_up_to_max - count_up_to_min",
+        "w1": "(Math.floor(max_val / a) - Math.floor(min_val / a) === (count_up_to_max - count_up_to_min)) ? (count_up_to_max - count_up_to_min) + 10 : (Math.floor(max_val / a) - Math.floor(min_val / a))",
+        "w2": "(Math.floor(max_val / b) - Math.floor(min_val / b) === (count_up_to_max - count_up_to_min) || (Math.floor(max_val / b) - Math.floor(min_val / b)) === ((Math.floor(max_val / a) - Math.floor(min_val / a) === (count_up_to_max - count_up_to_min)) ? (count_up_to_max - count_up_to_min) + 10 : (Math.floor(max_val / a) - Math.floor(min_val / a)))) ? (count_up_to_max - count_up_to_min) + 5 : (Math.floor(max_val / b) - Math.floor(min_val / b))",
+        "w3": "(Math.abs(ans_q5 + 1) === ans_q5 || Math.abs(ans_q5 + 1) === ((Math.floor(max_val / a) - Math.floor(min_val / a) === (count_up_to_max - count_up_to_min)) ? (count_up_to_max - count_up_to_min) + 10 : (Math.floor(max_val / a) - Math.floor(min_val / a))) || Math.abs(ans_q5 + 1) === ((Math.floor(max_val / b) - Math.floor(min_val / b) === (count_up_to_max - count_up_to_min) || (Math.floor(max_val / b) - Math.floor(min_val / b)) === ((Math.floor(max_val / a) - Math.floor(min_val / a) === (count_up_to_max - count_up_to_min)) ? (count_up_to_max - count_up_to_min) + 10 : (Math.floor(max_val / a) - Math.floor(min_val / a)))) ? (count_up_to_max - count_up_to_min) + 5 : (Math.floor(max_val / b) - Math.floor(min_val / b)))) ? ans_q5 + 3 : Math.abs(ans_q5 + 1)"
+      },
+      "questionText": "Có bao nhiêu số tự nhiên nhỏ hơn {max_val} và lớn hơn {min_val} (không bao gồm {min_val} và {max_val}) mà các số đó vừa chia hết cho {a} vừa chia hết cho {b}?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans_q5} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một số vừa chia hết cho {a} vừa chia hết cho {b} thì số đó phải là bội chung của {a} và {b}.",
+        "Bạn cần tìm Bội chung nhỏ nhất (BCNN) của {a} và {b}, sau đó đếm các bội của BCNN trong khoảng ({min_val}, {max_val}).",
+        "Lưu ý 'nhỏ hơn {max_val} và lớn hơn {min_val}' tức là không bao gồm {min_val} và {max_val}."
+      ],
+      "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, $N$ vừa chia hết cho {a} vừa chia hết cho {b}, nên $N$ là bội chung của {a} và {b}.<br/>Để tìm các bội chung của {a} và {b}, ta cần tìm Bội chung nhỏ nhất (BCNN) của {a} và {b}.<br/>Bước 1: Tìm BCNN({a}, {b}).<br/>BCNN({a}, {b}) = $\\frac{{{a} \\times {b}}}{{ƯCLN({a}, {b})}} = {lcm_val_q5}$.<br/>Các số cần tìm là bội của {lcm_val_q5}.<br/>Bước 2: Tìm các bội của {lcm_val_q5} nằm trong khoảng ({min_val}, {max_val}).<br/>Tức là, chúng ta cần tìm các số $k \\cdot {lcm_val_q5}$ sao cho {min_val} < k \\cdot {lcm_val_q5} < {max_val}$.<br/>Để đếm số lượng các số $N$ thỏa mãn điều kiện {min_val} < N < {max_val}$ và $N$ là bội của {lcm_val_q5}, ta sử dụng công thức:<br/>Số lượng = $\\lfloor \\frac{{\\text{So lon nhat trong khoang (khong bao gom)}}}{{\\text{BCNN}}} \\rfloor - \\lfloor \\frac{{\\text{So nho nhat trong khoang (khong bao gom)}}}{{\\text{BCNN}}} \\rfloor$<br/>Số lớn nhất có thể là {max_val} - 1$. Số nhỏ nhất có thể là {min_val} + 1$.<br/>Số lượng các bội của {lcm_val_q5} nhỏ hơn {max_val} là $\\lfloor \\frac{{{max_val} - 1}}{{{lcm_val_q5}}} \\rfloor = {count_up_to_max}$.<br/>Số lượng các bội của {lcm_val_q5} nhỏ hơn hoặc bằng {min_val} là $\\lfloor \\frac{{{min_val}}}{{{lcm_val_q5}}} \\rfloor = {count_up_to_min}$.<br/>Số lượng các bội của {lcm_val_q5} nằm trong khoảng {min_val} < N < {max_val}$ là:<br/>{count_up_to_max} - {count_up_to_min} = {ans_q5}$.<br/>Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng bội chung trong một khoảng, hãy cẩn thận với cận trên và cận dưới (có bao gồm hay không). Sử dụng công thức $\\lfloor \\frac{{\\text{can tren}}}{{BCNN}} \\rfloor - \\lfloor \\frac{{\\text{can duoi} - 1}}{{BCNN}} \\rfloor$ cho khoảng đóng $[\\text{can duoi}, \\text{can tren}]$. Với khoảng mở $(A, B)$, ta đếm trong $[A+1, B-1]$.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numerator": {
+          "min": 12,
+          "max": 24,
+          "step": 1
+        },
+        "denominator": {
+          "min": 30,
+          "max": 48,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "denominator > numerator",
+        "numerator > 0",
+        "denominator > 0",
+        "gcd(numerator, denominator) > 1"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "common_divisor": "gcd(numerator, denominator)",
+        "ans_num": "numerator / common_divisor",
+        "ans_den": "denominator / common_divisor",
+        "w1_num": "numerator + 1",
+        "w1_den": "denominator + 1",
+        "w2_num": "(common_divisor === 2) ? (numerator / common_divisor) + 2 : (numerator - common_divisor <= 0 ? numerator + 3 : numerator - common_divisor)",
+        "w2_den": "(common_divisor === 2) ? (denominator / common_divisor) + 3 : (denominator - common_divisor <= 0 ? denominator + 5 : denominator - common_divisor)",
+        "w3_num": "(common_divisor === 2) ? (numerator / common_divisor) + 1 : numerator / 2",
+        "w3_den": "(common_divisor === 2) ? (denominator / common_divisor) + 2 : denominator / 2"
+      },
+      "questionText": "Phân số $\\frac{{{numerator}}}{{{denominator}}}$ sau khi được rút gọn đến phân số tối giản sẽ bằng bao nhiêu?",
+      "options": [
+        "A. $\\frac{{{w1_num}}}{{{w1_den}}}$",
+        "B. $\\frac{{{ans_num}}}{{{ans_den}}}$",
+        "C. $\\frac{{{w2_num}}}{{{w2_den}}}$",
+        "D. $\\frac{{{w3_num}}}{{{w3_den}}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để rút gọn một phân số đến tối giản, ta chia cả tử và mẫu cho Ước chung lớn nhất (ƯCLN) của chúng.",
+        "Hãy tìm ƯCLN của tử số {numerator} và mẫu số {denominator}."
+      ],
+      "solutionHtml": "Để rút gọn phân số $\\frac{{{numerator}}}{{{denominator}}}$ về dạng tối giản, ta cần chia cả tử số và mẫu số cho Ước chung lớn nhất (ƯCLN) của chúng.<br/>Bước 1: Tìm ƯCLN của tử số {numerator} và mẫu số {denominator}.<br/>ƯCLN({numerator}, {denominator}) = {common_divisor}.<br/>Bước 2: Chia tử số và mẫu số cho ƯCLN vừa tìm được.<br/>Tử số mới là: {numerator} \\div {common_divisor} = {ans_num}$.<br/>Mẫu số mới là: {denominator} \\div {common_divisor} = {ans_den}$.<br/>Vậy, phân số tối giản là $\\frac{{{ans_num}}}{{{ans_den}}}$.<br/>Đáp án đúng là B.",
+      "tip": "Rút gọn phân số là một ứng dụng cơ bản của ƯCLN. Luôn nhớ tìm ƯCLN của tử và mẫu để đảm bảo phân số được rút gọn triệt để.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numA": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        },
+        "givenGCD": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numA % givenGCD === 0",
+        "lcm_val_q10 > numA",
+        "lcm_val_q10 % numA === 0",
+        "ansB_val > 0",
+        "ansB_val !== numA",
+        "(givenGCD * lcm_val_q10) % numA === 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm_val_q10": "lcm(numA, (givenGCD * 3 * 2))",
+        "ansB_val": "(givenGCD * lcm_val_q10) / numA",
+        "w1": "givenGCD + lcm_val_q10 - numA",
+        "w2": "numA + givenGCD + lcm_val_q10",
+        "w3": "((numA * givenGCD) / lcm_val_q10 === ansB_val) ? ansB_val + givenGCD : ((numA * givenGCD) / lcm_val_q10)"
+      },
+      "questionText": "Cho hai số tự nhiên $A$ và $B$. Biết $A = {numA}$, ƯCLN($A, B$) = {givenGCD} và BCNN($A, B$) = {lcm_val_q10}. Tìm số $B$.",
+      "options": [
+        "A. {w1}",
+        "B. {ansB_val}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có một mối liên hệ đặc biệt giữa hai số, ƯCLN của chúng và BCNN của chúng: $A \\times B = ƯCLN(A, B) \\times BCNN(A, B)$.",
+        "Bạn hãy sử dụng công thức trên để tìm $B$."
+      ],
+      "solutionHtml": "Chúng ta có công thức quan trọng sau cho hai số tự nhiên $A$ và $B$: <br/>$A \\times B = ƯCLN(A, B) \\times BCNN(A, B)$.<br/>Theo đề bài, ta có:<br/>$A = {numA}$<br/>ƯCLN($A, B$) = {givenGCD}<br/>BCNN($A, B$) = {lcm_val_q10}<br/>Thay các giá trị đã biết vào công thức:<br/>{numA} \\times B = {givenGCD} \\times {lcm_val_q10}<br/>{numA} \\times B = ${givenGCD * lcm_val_q10}$<br/>Để tìm $B$, ta thực hiện phép chia:<br/>$B = \\frac{{{givenGCD * lcm_val_q10}}}{{{numA}}} = {ansB_val}$.<br/>Vậy số $B$ cần tìm là {ansB_val}.<br/>Đáp án đúng là B.",
+      "tip": "Hãy ghi nhớ công thức $A \\times B = ƯCLN(A, B) \\times BCNN(A, B)$. Đây là một công cụ mạnh mẽ để giải các bài toán liên quan đến hai số và ƯCLN, BCNN của chúng.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tileL": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "tileW": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tileL !== tileW",
+        "tileL > tileW",
+        "tileL > 0",
+        "tileW > 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "ans_side": "lcm(tileL, tileW)",
+        "num_tiles_L": "ans_side / tileL",
+        "num_tiles_W": "ans_side / tileW",
+        "ans_total_tiles": "num_tiles_L * num_tiles_W",
+        "w1": "ans_total_tiles + 12",
+        "w2": "ans_total_tiles + 24",
+        "w3": "(ans_total_tiles - 6 <= 0) ? ans_total_tiles + 36 : ans_total_tiles - 6"
+      },
+      "questionText": "Người ta muốn dùng các viên gạch hình chữ nhật có kích thước {tileL} cm $\\times$ {tileW} cm để lát một nền nhà hình vuông có diện tích nhỏ nhất. Hỏi cần ít nhất bao nhiêu viên gạch như vậy?",
+      "options": [
+        "A. {w1} viên",
+        "B. {ans_total_tiles} viên",
+        "C. {w2} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cạnh của nền nhà hình vuông phải là bội chung của cả chiều dài và chiều rộng của viên gạch.",
+        "Để diện tích hình vuông là nhỏ nhất, cạnh hình vuông phải là Bội chung nhỏ nhất (BCNN) của chiều dài và chiều rộng viên gạch."
+      ],
+      "solutionHtml": "Để lát một nền nhà hình vuông bằng các viên gạch hình chữ nhật có kích thước {tileL} cm $\\times$ {tileW} cm, cạnh của hình vuông phải là bội chung của cả chiều dài ({tileL} cm) và chiều rộng ({tileW} cm) của viên gạch.<br/>Để nền nhà hình vuông có diện tích nhỏ nhất, cạnh của hình vuông phải là Bội chung nhỏ nhất (BCNN) của {tileL} và {tileW}.<br/>Bước 1: Tìm BCNN({tileL}, {tileW}).<br/>BCNN({tileL}, {tileW}) = $$ \\frac{{{tileL} \\times {tileW}}}{{ƯCLN({tileL}, {tileW})}} = {ans_side} $ (cm).<br/>Đây chính là độ dài cạnh của nền nhà hình vuông.<br/>Bước 2: Tính số viên gạch cần dùng.<br/>Số viên gạch theo chiều dài của cạnh hình vuông là: {ans_side} \\div {tileL} = {num_tiles_L}$ (viên).<br/>Số viên gạch theo chiều rộng của cạnh hình vuông là: {ans_side} \\div {tileW} = {num_tiles_W}$ (viên).<br/>Tổng số viên gạch cần dùng là: {num_tiles_L} \\times {num_tiles_W} = {ans_total_tiles}$ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi ghép các hình chữ nhật để tạo thành hình vuông nhỏ nhất, cạnh của hình vuông sẽ là BCNN của các kích thước của hình chữ nhật. Sau đó tính số lượng vật liệu cần thiết.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numStudents": {
+          "min": 60,
+          "max": 100,
+          "step": 4
+        },
+        "numBooks": {
+          "min": 80,
+          "max": 120,
+          "step": 4
+        },
+        "numPens": {
+          "min": 100,
+          "max": 140,
+          "step": 4
+        }
+      },
+      "constraints": [
+        "numStudents !== numBooks",
+        "numBooks !== numPens",
+        "numStudents !== numPens",
+        "numStudents > 0",
+        "numBooks > 0",
+        "numPens > 0",
+        "gcd3_val_q9 > 1"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "gcd3": "(a, b, c) => gcd(gcd(a, b), c)",
+        "gcd3_val_q9": "gcd3(numStudents, numBooks, numPens)",
+        "ans": "gcd3_val_q9",
+        "w1": "ans + 2",
+        "w2": "ans === 2 ? 3 : ans - 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Trong một buổi hoạt động ngoại khóa, một trường có {numStudents} học sinh, {numBooks} quyển sách và {numPens} cây bút. Ban tổ chức muốn chia học sinh, sách và bút vào các nhóm sao cho số lượng học sinh, số sách và số bút trong mỗi nhóm là như nhau, đồng thời số nhóm là lớn nhất có thể. Hỏi có thể chia được nhiều nhất bao nhiêu nhóm?",
+      "options": [
+        "A. {w1} nhóm",
+        "B. {ans} nhóm",
+        "C. {w2} nhóm",
+        "D. {w3} nhóm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số nhóm phải là ước chung của số học sinh, số sách và số bút.",
+        "Để số nhóm là lớn nhất, bạn cần tìm Ước chung lớn nhất (ƯCLN) của cả ba số này."
+      ],
+      "solutionHtml": "Để chia học sinh, sách và bút vào các nhóm sao cho số lượng học sinh, số sách và số bút trong mỗi nhóm là như nhau, và số nhóm là lớn nhất có thể, thì số nhóm phải là Ước chung lớn nhất (ƯCLN) của số học sinh, số sách và số bút.<br/>Bước 1: Tìm ƯCLN({numStudents}, {numBooks}, {numPens}).<br/>ƯCLN({numStudents}, {numBooks}, {numPens}) = {gcd3_val_q9}.<br/>Đây chính là số nhóm nhiều nhất có thể chia được.<br/>Khi đó, mỗi nhóm sẽ có:<br/>- Số học sinh: {numStudents} \\div {gcd3_val_q9}$ em.<br/>- Số sách: {numBooks} \\div {gcd3_val_q9}$ quyển.<br/>- Số bút: {numPens} \\div {gcd3_val_q9}$ cây.<br/>Đáp án đúng là B.",
+      "tip": "Khi có nhiều hơn hai đại lượng cần chia đều thành các phần bằng nhau và tìm số phần lớn nhất, hãy mở rộng khái niệm ƯCLN cho nhiều số.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "product_val": {
+          "min": 240,
+          "max": 600,
+          "step": 20
+        },
+        "lcm_factor": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "product_val % lcm_factor === 0",
+        "lcm_val_q10 > 0",
+        "ans_q10 > 1",
+        "product_val / lcm_val_q10 !== product_val",
+        "product_val / lcm_val_q10 !== lcm_val_q10"
+      ],
+      "formulas": {
+        "lcm_val_q10": "product_val / lcm_factor",
+        "ans_q10": "product_val / lcm_val_q10",
+        "w1": "product_val - lcm_val_q10",
+        "w2": "product_val + lcm_val_q10",
+        "w3": "lcm_val_q10 * 2 - product_val"
+      },
+      "questionText": "Cho hai số tự nhiên có tích là {product_val} và Bội chung nhỏ nhất của chúng là {lcm_val_q10}. Hỏi Ước chung lớn nhất của hai số đó là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans_q10}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhớ lại mối quan hệ giữa tích của hai số, ƯCLN của chúng và BCNN của chúng.",
+        "Công thức là: $A \\times B = ƯCLN(A, B) \\times BCNN(A, B)$."
+      ],
+      "solutionHtml": "Gọi hai số tự nhiên đó là $A$ và $B$.<br/>Theo đề bài, ta có:<br/>Tích của hai số: $A \\times B = {product_val}$<br/>Bội chung nhỏ nhất (BCNN) của hai số: BCNN($A, B$) = {lcm_val_q10}<br/>Chúng ta có công thức liên hệ giữa hai số, ƯCLN của chúng và BCNN của chúng như sau:<br/>$A \\times B = ƯCLN(A, B) \\times BCNN(A, B)$.<br/>Thay các giá trị đã biết vào công thức:<br/>{product_val} = ƯCLN(A, B) \\times {lcm_val_q10}$<br/>Để tìm Ước chung lớn nhất (ƯCLN) của $A$ và $B$, ta thực hiện phép chia:<br/>ƯCLN($A, B$) = $\\frac{{\\text{Tich hai so}}}{{\\text{BCNN hai so}}} = \\frac{{{product_val}}}{{{lcm_val_q10}}} = {ans_q10}$.<br/>Vậy, Ước chung lớn nhất của hai số đó là {ans_q10}.<br/>Đáp án đúng là B.",
+      "tip": "Mối quan hệ $A \\times B = ƯCLN(A, B) \\times BCNN(A, B)$ là một công cụ rất hiệu quả. Hãy sử dụng nó để tìm một trong bốn đại lượng khi biết ba đại lượng còn lại.",
+      "level": "chat-luong-cao",
+      "type": "lt-c2-2-d4"
+    }
+  ]
+}

@@ -1,0 +1,538 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "d_ctn": {
+          "min": 1,
+          "max": 7,
+          "step": 1
+        },
+        "d_tram": {
+          "min": 2,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.d_ctn + 1 <= 9",
+        "variables.d_tram - 1 >= 0"
+      ],
+      "formulas": {
+        "d_nghin": "variables.d_ctn + 1",
+        "d_chuc": "variables.d_tram - 1",
+        "d_dv": "1",
+        "ans": "variables.d_ctn * 10000 + formulas.d_nghin * 1000 + variables.d_tram * 100 + formulas.d_chuc * 10 + formulas.d_dv",
+        "w1_raw": "variables.d_ctn * 10000 + variables.d_tram * 1000 + formulas.d_nghin * 100 + formulas.d_chuc * 10 + formulas.d_dv",
+        "w2_raw": "variables.d_ctn * 10000 + formulas.d_nghin * 1000 + formulas.d_chuc * 100 + variables.d_tram * 10 + formulas.d_dv",
+        "w3_raw": "variables.d_ctn * 10000 + (variables.d_ctn + 2) * 1000 + variables.d_tram * 100 + formulas.d_chuc * 10 + formulas.d_dv",
+        "w1": "(formulas.w1_raw === formulas.ans) ? (formulas.ans + 5) : formulas.w1_raw",
+        "w2": "(formulas.w2_raw === formulas.ans || formulas.w2_raw === formulas.w1) ? (((formulas.ans + 5) === formulas.w1) ? (formulas.ans + 9) : (formulas.ans + 5)) : formulas.w2_raw",
+        "w3": "(formulas.w3_raw === formulas.ans || formulas.w3_raw === formulas.w1 || formulas.w3_raw === formulas.w2) ? (formulas.ans + 12) : formulas.w3_raw"
+      },
+      "questionText": "Tìm số có 5 chữ số, biết rằng chữ số hàng chục nghìn là {d_ctn}. Chữ số hàng nghìn là số liền sau chữ số hàng chục nghìn. Chữ số hàng trăm là {d_tram}. Chữ số hàng chục là số liền trước chữ số hàng trăm. Chữ số hàng đơn vị là chữ số nhỏ nhất khác 0.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định từng chữ số theo vị trí của nó.",
+        "Số liền sau của {d_ctn} là {d_nghin}. Số liền trước của {d_tram} là {d_chuc}. Chữ số nhỏ nhất khác 0 là {d_dv}."
+      ],
+      "solutionHtml": "Chữ số hàng chục nghìn là {d_ctn}.<br/>Chữ số hàng nghìn là số liền sau chữ số hàng chục nghìn, vậy chữ số hàng nghìn là {d_ctn} + 1 = {d_nghin}.<br/>Chữ số hàng trăm là {d_tram}.<br/>Chữ số hàng chục là số liền trước chữ số hàng trăm, vậy chữ số hàng chục là {d_tram} - 1 = {d_chuc}.<br/>Chữ số hàng đơn vị là chữ số nhỏ nhất khác 0, vậy chữ số hàng đơn vị là {d_dv}.<br/>Ghép các chữ số lại, ta được số: {d_ctn}{d_nghin}{d_tram}{d_chuc}{d_dv} = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Khi tìm số theo các điều kiện về chữ số và vị trí, hãy xác định từng chữ số một cách cẩn thận và ghép chúng lại đúng thứ tự từ hàng lớn đến hàng bé.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "popA_thousands": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "diff_thousands": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "diff_C_B_thousands": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "unit_people": {
+          "options": [
+            "người",
+            "cư dân",
+            "dân số"
+          ]
+        }
+      },
+      "constraints": [
+        "variables.popA_thousands + variables.diff_thousands > variables.diff_C_B_thousands"
+      ],
+      "formulas": {
+        "popA": "variables.popA_thousands * 1000",
+        "popB": "(variables.popA_thousands + variables.diff_thousands) * 1000",
+        "popC": "formulas.popB - variables.diff_C_B_thousands * 1000",
+        "ans": "formulas.popA + formulas.popB + formulas.popC",
+        "w1_raw": "formulas.popA + formulas.popB",
+        "w2_raw": "formulas.popA + formulas.popC",
+        "w3_raw": "formulas.popA + formulas.popB + formulas.popC + 1000",
+        "w1": "(formulas.w1_raw === formulas.ans) ? formulas.w1_raw + 1000 : formulas.w1_raw",
+        "w2_temp1": "(formulas.w2_raw === formulas.ans || formulas.w2_raw === formulas.w1) ? formulas.w2_raw + 2000 : formulas.w2_raw",
+        "w2": "(formulas.w2_temp1 === formulas.ans || formulas.w2_temp1 === formulas.w1) ? formulas.w2_temp1 + 1000 : formulas.w2_temp1",
+        "w3_temp1": "(formulas.w3_raw === formulas.ans || formulas.w3_raw === formulas.w1 || formulas.w3_raw === formulas.w2) ? formulas.w3_raw + 3000 : formulas.w3_raw",
+        "w3_temp2": "(formulas.w3_temp1 === formulas.ans || formulas.w3_temp1 === formulas.w1 || formulas.w3_temp1 === formulas.w2) ? formulas.w3_temp1 + 1000 : formulas.w3_temp1",
+        "w3": "(formulas.w3_temp2 === formulas.ans || formulas.w3_temp2 === formulas.w1 || formulas.w3_temp2 === formulas.w2) ? formulas.w3_temp2 + 1000 : formulas.w3_temp2"
+      },
+      "questionText": "Thành phố A có {popA_thousands} nghìn {unit_people}. Thành phố B có nhiều hơn thành phố A là {diff_thousands} nghìn {unit_people}. Thành phố C có ít hơn thành phố B là {diff_C_B_thousands} nghìn {unit_people}. Hỏi cả ba thành phố có tổng cộng bao nhiêu {unit_people}?",
+      "options": [
+        "A. {w1} {unit_people}",
+        "B. {ans} {unit_people}",
+        "C. {w2} {unit_people}",
+        "D. {w3} {unit_people}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính dân số của thành phố B.",
+        "Tiếp theo, tính dân số của thành phố C.",
+        "Cuối cùng, cộng dân số của cả ba thành phố lại."
+      ],
+      "solutionHtml": "Dân số thành phố A là {popA_thousands} nghìn {unit_people}, tức là {popA} {unit_people}.<br/>Dân số thành phố B là {popA} + {diff_thousands}000 = {popB} {unit_people}.<br/>Dân số thành phố C là {popB} - {diff_C_B_thousands}000 = {popC} {unit_people}.<br/>Tổng dân số của cả ba thành phố là:<br/>{popA} + {popB} + {popC} = {ans} {unit_people}.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từng câu trong đề bài để xác định phép tính và thứ tự thực hiện các bước. Chú ý đơn vị 'nghìn' để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start_val": {
+          "min": 1000,
+          "max": 5000,
+          "step": 100
+        },
+        "diff_val": {
+          "min": 100,
+          "max": 500,
+          "step": 50
+        },
+        "term_num": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.start_val + (variables.term_num - 1) * variables.diff_val <= 100000"
+      ],
+      "formulas": {
+        "num_terms_minus_1": "variables.term_num - 1",
+        "intermediate_product": "formulas.num_terms_minus_1 * variables.diff_val",
+        "ans": "variables.start_val + formulas.intermediate_product",
+        "w1_calc": "variables.start_val + variables.term_num * variables.diff_val",
+        "w2_calc": "variables.start_val + (variables.term_num + 1) * variables.diff_val",
+        "w3_calc": "variables.start_val + (variables.term_num - 2) * variables.diff_val",
+        "w1": "(formulas.w1_calc === formulas.ans) ? (formulas.ans + variables.diff_val) : formulas.w1_calc",
+        "w2_step1": "(formulas.w2_calc === formulas.ans) ? (formulas.ans + 3 * variables.diff_val) : formulas.w2_calc",
+        "w2": "(formulas.w2_step1 === formulas.w1) ? (formulas.ans + 4 * variables.diff_val) : formulas.w2_step1",
+        "w3_step1": "(formulas.w3_calc === formulas.ans) ? (formulas.ans - 3 * variables.diff_val) : formulas.w3_calc",
+        "w3_step2": "(formulas.w3_step1 === formulas.w1) ? (formulas.ans - 4 * variables.diff_val) : formulas.w3_step1",
+        "w3": "(formulas.w3_step2 === formulas.w2) ? (formulas.ans - 5 * variables.diff_val) : formulas.w3_step2"
+      },
+      "questionText": "Một dãy số được lập theo quy luật: số đứng sau hơn số đứng trước {diff_val} đơn vị. Nếu số đầu tiên là {start_val}, thì số thứ {term_num} trong dãy là bao nhiêu? (Biết rằng các số trong dãy không vượt quá 100 000)",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là một dãy số cách đều. Khoảng cách giữa các số liên tiếp là {diff_val}.",
+        "Số thứ {term_num} sẽ bằng số đầu tiên cộng với ({term_num} - 1) lần khoảng cách."
+      ],
+      "solutionHtml": "Để tìm số thứ {term_num} trong dãy số cách đều, ta lấy số đầu tiên cộng với ({term_num} - 1) lần khoảng cách giữa hai số liên tiếp.<br/>Số đầu tiên là {start_val}.<br/>Khoảng cách giữa hai số liên tiếp là {diff_val}.<br/>Số thứ {term_num} trong dãy là:<br/>{start_val} + ({num_terms_minus_1}) \\(\\times\\) {diff_val} = {start_val} + {intermediate_product} = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận với công thức tìm số thứ N trong dãy số cách đều. Luôn nhớ là ({term_num} - 1) lần khoảng cách, không phải {term_num} lần khoảng cách.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "item_name": {
+          "options": [
+            "chiếc quạt",
+            "bộ đồ chơi",
+            "quyển sách"
+          ]
+        },
+        "day1_items": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        },
+        "diff_day2": {
+          "min": 1000,
+          "max": 5000,
+          "step": 500
+        },
+        "diff_day3": {
+          "min": 1000,
+          "max": 5000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "variables.day1_items + variables.diff_day2 > variables.diff_day3"
+      ],
+      "formulas": {
+        "day2_items": "variables.day1_items + variables.diff_day2",
+        "day3_items": "formulas.day2_items - variables.diff_day3",
+        "true_ans": "variables.day1_items + formulas.day2_items + formulas.day3_items",
+        "w1_goc": "variables.day1_items + formulas.day2_items",
+        "w2_goc": "formulas.day2_items + formulas.day3_items",
+        "w3_goc": "formulas.true_ans + 1000",
+        "w1": "(formulas.w1_goc === formulas.true_ans) ? (formulas.w1_goc + 500) : formulas.w1_goc",
+        "w2_temp": "(formulas.w2_goc === formulas.true_ans) ? (formulas.w2_goc + 700) : formulas.w2_goc",
+        "w2": "(formulas.w2_temp === formulas.w1) ? (formulas.w2_temp + 700) : formulas.w2_temp",
+        "w3_temp1": "(formulas.w3_goc === formulas.true_ans) ? (formulas.w3_goc + 900) : formulas.w3_goc",
+        "w3_temp2": "(formulas.w3_temp1 === formulas.w1) ? (formulas.w3_temp1 + 900) : formulas.w3_temp1",
+        "w3": "(formulas.w3_temp2 === formulas.w2) ? (formulas.w3_temp2 + 900) : formulas.w3_temp2",
+        "ans": "formulas.true_ans"
+      },
+      "questionText": "Một cửa hàng bán {item_name} trong 3 ngày. Ngày thứ nhất bán được {day1_items} sản phẩm. Ngày thứ hai bán nhiều hơn ngày thứ nhất {diff_day2} sản phẩm. Ngày thứ ba bán ít hơn ngày thứ hai {diff_day3} sản phẩm. Hỏi cả 3 ngày cửa hàng bán được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính số sản phẩm bán được trong ngày thứ hai trước.",
+        "Sau đó, tính số sản phẩm bán được trong ngày thứ ba.",
+        "Cuối cùng, cộng tổng số sản phẩm của cả ba ngày."
+      ],
+      "solutionHtml": "Số sản phẩm bán được trong ngày thứ hai là:<br/>{day1_items} + {diff_day2} = {day2_items} (sản phẩm)<br/>Số sản phẩm bán được trong ngày thứ ba là:<br/>{day2_items} - {diff_day3} = {day3_items} (sản phẩm)<br/>Tổng số sản phẩm cả 3 ngày cửa hàng bán được là:<br/>{day1_items} + {day2_items} + {day3_items} = {ans} (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán có nhiều bước. Hãy giải từng bước một theo đúng trình tự thời gian của sự kiện để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_road_length": {
+          "min": 50000,
+          "max": 80000,
+          "step": 1000
+        },
+        "week1_length": {
+          "min": 20000,
+          "max": 30000,
+          "step": 1000
+        },
+        "diff_week2_week1": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "variables.week1_length - variables.diff_week2_week1 > 0",
+        "variables.total_road_length > variables.week1_length + (variables.week1_length - variables.diff_week2_week1)"
+      ],
+      "formulas": {
+        "week2_length": "variables.week1_length - variables.diff_week2_week1",
+        "total_repaired": "variables.week1_length + formulas.week2_length",
+        "ans": "variables.total_road_length - formulas.total_repaired",
+        "w1_goc": "variables.total_road_length - variables.week1_length",
+        "w2_goc": "variables.total_road_length - formulas.week2_length",
+        "w3_goc": "formulas.ans + 1000",
+        "w1": "(formulas.w1_goc === formulas.ans) ? (formulas.w1_goc + 1500) : formulas.w1_goc",
+        "w2": "(formulas.w2_goc === formulas.ans || formulas.w2_goc === formulas.w1) ? (((formulas.ans + 2500) === formulas.w1) ? (formulas.ans + 3500) : (formulas.ans + 2500)) : formulas.w2_goc",
+        "w3": "(formulas.w3_goc === formulas.ans || formulas.w3_goc === formulas.w1 || formulas.w3_goc === formulas.w2) ? (formulas.ans + 4500) : formulas.w3_goc"
+      },
+      "questionText": "Một đội công nhân phải sửa {total_road_length} mét đường. Tuần đầu họ sửa được {week1_length} mét. Tuần thứ hai họ sửa được ít hơn tuần đầu {diff_week2_week1} mét. Hỏi đội công nhân còn phải sửa bao nhiêu mét đường nữa?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tìm số mét đường mà đội công nhân sửa được trong tuần thứ hai.",
+        "Sau đó, tính tổng số mét đường đã sửa được trong cả hai tuần.",
+        "Cuối cùng, lấy tổng chiều dài đường cần sửa trừ đi số mét đường đã sửa để tìm số mét còn lại."
+      ],
+      "solutionHtml": "Số mét đường đội công nhân sửa được trong tuần thứ hai là:<br/>{week1_length} - {diff_week2_week1} = {week2_length} (mét)<br/>Tổng số mét đường đội công nhân đã sửa được trong hai tuần là:<br/>{week1_length} + {week2_length} = {total_repaired} (mét)<br/>Số mét đường đội công nhân còn phải sửa là:<br/>{total_road_length} - {total_repaired} = {ans} (mét).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định phép tính đúng cho từng bước. Luôn kiểm tra lại các phép tính của mình.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_items": {
+          "min": 50000,
+          "max": 90000,
+          "step": 2
+        },
+        "diff_items": {
+          "min": 5000,
+          "max": 15000,
+          "step": 2
+        },
+        "item_name": {
+          "options": [
+            "chiếc bút",
+            "quyển vở",
+            "quả bóng"
+          ]
+        }
+      },
+      "constraints": [
+        "(variables.total_items + variables.diff_items) % 2 === 0"
+      ],
+      "formulas": {
+        "sum_total_diff": "variables.total_items + variables.diff_items",
+        "ans": "formulas.sum_total_diff / 2",
+        "small_group_items": "(variables.total_items - variables.diff_items) / 2",
+        "w1_pre_check": "formulas.small_group_items * 2",
+        "w2_pre_check": "formulas.ans * 2",
+        "w3_pre_check": "formulas.small_group_items",
+        "w1": "(formulas.w1_pre_check === formulas.ans) ? (formulas.w1_pre_check + 2) : formulas.w1_pre_check",
+        "w2": "(formulas.w2_pre_check === formulas.ans || formulas.w2_pre_check === formulas.w1) ? ((formulas.ans + 3 === formulas.w1) ? (formulas.ans + 6) : (formulas.ans + 3)) : formulas.w2_pre_check",
+        "w3": "(formulas.w3_pre_check === formulas.ans || formulas.w3_pre_check === formulas.w1 || formulas.w3_pre_check === formulas.w2) ? (formulas.ans + 9) : formulas.w3_pre_check"
+      },
+      "questionText": "Tổng số {total_items} {item_name} được chia thành hai nhóm. Nhóm thứ nhất có ít hơn nhóm thứ hai là {diff_items} {item_name}. Hỏi nhóm thứ hai có bao nhiêu {item_name}?",
+      "options": [
+        "A. {w1} {item_name}",
+        "B. {ans} {item_name}",
+        "C. {w2} {item_name}",
+        "D. {w3} {item_name}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là dạng toán 'tìm hai số khi biết tổng và hiệu của chúng'.",
+        "Nhóm thứ hai là số lớn hơn. Để tìm số lớn hơn, ta lấy (Tổng + Hiệu) : 2."
+      ],
+      "solutionHtml": "Gọi số {item_name} của nhóm thứ nhất là $N_1$ và nhóm thứ hai là $N_2$.<br/>Theo đề bài, ta có:<br/>$N_1 + N_2 = $ {total_items} (1)<br/>$N_2 - N_1 = $ {diff_items} (2)<br/>Để tìm số {item_name} của nhóm thứ hai (là số lớn hơn), ta áp dụng công thức:<br/>$N_2 = (Tổng + Hiệu) : 2 $<br/>$N_2 = $ ({total_items} + {diff_items}) : 2 = {sum_total_diff} : 2 = {ans} ({item_name}).<br/>Số {item_name} của nhóm thứ nhất là {ans} - {diff_items} = {small_group_items} {item_name}.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức tìm hai số khi biết tổng và hiệu: Số lớn = (Tổng + Hiệu) : 2; Số bé = (Tổng - Hiệu) : 2. Hoặc Số bé = Số lớn - Hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_workers": {
+          "min": 10000,
+          "max": 15000,
+          "step": 100
+        },
+        "num_women": {
+          "min": 3000,
+          "max": 5000,
+          "step": 100
+        },
+        "diff_men_sections": {
+          "min": 1000,
+          "max": 3000,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "variables.total_workers - variables.num_women > variables.diff_men_sections",
+        "(variables.total_workers - variables.num_women - variables.diff_men_sections) % 2 === 0"
+      ],
+      "formulas": {
+        "total_men": "variables.total_workers - variables.num_women",
+        "diff_total_men_sections": "formulas.total_men - variables.diff_men_sections",
+        "men_sectionA": "formulas.diff_total_men_sections / 2",
+        "men_sectionB": "(formulas.total_men + variables.diff_men_sections) / 2",
+        "ans": "formulas.men_sectionA",
+        "w1_original": "formulas.total_men",
+        "w2_original": "formulas.men_sectionB",
+        "w3_original": "formulas.men_sectionA + 500",
+        "w1": "(formulas.w1_original === formulas.ans) ? (formulas.ans + 100) : formulas.w1_original",
+        "w2": "(formulas.w2_original === formulas.ans || formulas.w2_original === formulas.w1) ? ((formulas.ans + 200 === formulas.w1) ? (formulas.ans + 300) : (formulas.ans + 200)) : formulas.w2_original",
+        "w3": "(formulas.w3_original === formulas.ans || formulas.w3_original === formulas.w1 || formulas.w3_original === formulas.w2) ? (formulas.ans + 400) : formulas.w3_original"
+      },
+      "questionText": "Một nhà máy có {total_workers} công nhân. Trong đó có {num_women} công nhân nữ. Số công nhân nam ở phân xưởng A ít hơn số công nhân nam ở phân xưởng B là {diff_men_sections} người. Hỏi phân xưởng A có bao nhiêu công nhân nam?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trước hết, hãy tính tổng số công nhân nam của nhà máy.",
+        "Sau đó, bạn có thể coi đây là bài toán 'tìm hai số khi biết tổng và hiệu'.",
+        "Số công nhân nam ở phân xưởng A là số bé. Ta tìm số bé bằng công thức (Tổng - Hiệu) : 2."
+      ],
+      "solutionHtml": "Tổng số công nhân nam của nhà máy là:<br/>{total_workers} - {num_women} = {total_men} (người)<br/>Gọi số công nhân nam ở phân xưởng A là $A$ và phân xưởng B là $B$.<br/>Ta có: $A + B = $ {total_men} và $B - A = $ {diff_men_sections}.<br/>Số công nhân nam ở phân xưởng A (số bé) là:<br/>$($ {total_men} $-$ {diff_men_sections} $): 2 = $ {diff_total_men_sections} $: 2 = $ {ans} (người).<br/>Đáp án đúng là B.",
+      "tip": "Phân tích bài toán thành các bước nhỏ. Đầu tiên tính tổng số công nhân nam, sau đó áp dụng công thức tìm hai số khi biết tổng và hiệu. Cần đọc kỹ đề bài hỏi số công nhân nam ở phân xưởng A hay B.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "original_num": {
+          "min": 12345,
+          "max": 98765,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "formulas.d_tram_orig !== 0"
+      ],
+      "formulas": {
+        "d_ctn_orig": "Math.floor(variables.original_num / 10000)",
+        "d_nghin_orig": "Math.floor((variables.original_num % 10000) / 1000)",
+        "d_tram_orig": "Math.floor((variables.original_num % 1000) / 100)",
+        "d_chuc_orig": "Math.floor((variables.original_num % 100) / 10)",
+        "d_dv_orig": "variables.original_num % 10",
+        "new_num": "formulas.d_tram_orig * 10000 + formulas.d_nghin_orig * 1000 + formulas.d_ctn_orig * 100 + formulas.d_chuc_orig * 10 + formulas.d_dv_orig",
+        "ans": "Math.abs(formulas.new_num - variables.original_num)",
+        "_w1_goc": "formulas.new_num + variables.original_num",
+        "_w2_goc": "formulas.ans + 1000",
+        "_w3_goc": "formulas.ans - 1000",
+        "w1": "(formulas._w1_goc === formulas.ans) ? (formulas._w1_goc + 5) : formulas._w1_goc",
+        "w2": "((formulas._w2_goc === formulas.ans) || (formulas._w2_goc === formulas.w1)) ? (((formulas.ans + 5) === formulas.w1) ? (formulas.ans + 9) : (formulas.ans + 5)) : formulas._w2_goc",
+        "w3": "((formulas._w3_goc === formulas.ans) || (formulas._w3_goc === formulas.w1) || (formulas._w3_goc === formulas.w2)) ? (((formulas.ans + 12) === formulas.w1 || (formulas.ans + 12) === formulas.w2) ? (formulas.ans + 15) : (formulas.ans + 12)) : formulas._w3_goc"
+      },
+      "questionText": "Cho số tự nhiên {original_num}. Hãy tìm hiệu của số mới và số ban đầu nếu ta đổi chỗ chữ số hàng chục nghìn và chữ số hàng trăm của số đó.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định chữ số hàng chục nghìn và chữ số hàng trăm của số ban đầu.",
+        "Viết số mới sau khi đổi chỗ hai chữ số đó.",
+        "Tính hiệu của số mới và số ban đầu. Có thể là số mới lớn hơn hoặc bé hơn số ban đầu, nên ta lấy giá trị tuyệt đối của hiệu."
+      ],
+      "solutionHtml": "Số ban đầu là {original_num}.<br/>Chữ số hàng chục nghìn của số {original_num} là {d_ctn_orig}.<br/>Chữ số hàng trăm của số {original_num} là {d_tram_orig}.<br/>Khi đổi chỗ chữ số hàng chục nghìn và chữ số hàng trăm, ta được số mới là {new_num}.<br/>Hiệu của số mới và số ban đầu là:<br/>|{new_num} - {original_num}| = {ans}.<br/>(Ví dụ, nếu {new_num} lớn hơn, hiệu là {new_num} - {original_num}. Nếu {new_num} bé hơn, hiệu là {original_num} - {new_num}.)<br/>Đáp án đúng là B.",
+      "tip": "Để tìm chữ số ở một hàng cụ thể, bạn có thể chia số đó cho giá trị hàng đó rồi lấy phần nguyên, hoặc dùng các phép chia, phép nhân để 'tách' chữ số ra. Khi đổi chỗ, nhớ giữ nguyên các chữ số còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_tigers": {
+          "min": 1000,
+          "max": 5000,
+          "step": 100
+        },
+        "times_deer": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "diff_elephant": {
+          "min": 500,
+          "max": 2000,
+          "step": 100
+        }
+      },
+      "constraints": [
+        "variables.num_tigers * variables.times_deer > variables.diff_elephant"
+      ],
+      "formulas": {
+        "num_deer": "variables.num_tigers * variables.times_deer",
+        "num_elephant": "formulas.num_deer - variables.diff_elephant",
+        "ans": "variables.num_tigers + formulas.num_deer + formulas.num_elephant",
+        "w1_orig": "variables.num_tigers + formulas.num_deer",
+        "w2_orig": "formulas.num_deer + formulas.num_elephant",
+        "w3_orig": "variables.num_tigers + formulas.num_deer + formulas.num_elephant + 1000",
+        "w1": "(formulas.w1_orig === formulas.ans) ? formulas.w1_orig + 100 : formulas.w1_orig",
+        "w2": "(formulas.w2_orig === formulas.ans || formulas.w2_orig === formulas.w1) ? (((formulas.ans + 150) === formulas.w1) ? (formulas.ans + 250) : (formulas.ans + 150)) : formulas.w2_orig",
+        "w3": "(formulas.w3_orig === formulas.ans || formulas.w3_orig === formulas.w1 || formulas.w3_orig === formulas.w2) ? (formulas.ans + 300) : formulas.w3_orig"
+      },
+      "questionText": "Trong một vườn thú có {num_tigers} con hổ. Số con hươu nhiều gấp {times_deer} lần số con hổ. Số con voi ít hơn số con hươu là {diff_elephant} con. Hỏi vườn thú có tổng cộng bao nhiêu con vật?",
+      "options": [
+        "A. {w1} con vật",
+        "B. {ans} con vật",
+        "C. {w2} con vật",
+        "D. {w3} con vật"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số con hươu có trong vườn thú.",
+        "Tính số con voi có trong vườn thú.",
+        "Cộng tổng số hổ, hươu và voi lại để tìm tổng số con vật."
+      ],
+      "solutionHtml": "Số con hươu có trong vườn thú là:<br/>{num_tigers} \\u00d7 {times_deer} = {num_deer} (con)<br/>Số con voi có trong vườn thú là:<br/>{num_deer} - {diff_elephant} = {num_elephant} (con)<br/>Tổng số con vật có trong vườn thú là:<br/>{num_tigers} + {num_deer} + {num_elephant} = {ans} (con).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các mối quan hệ 'gấp ... lần' và 'ít hơn ...'. Đây là những phép tính cơ bản nhưng dễ nhầm lẫn nếu không đọc kỹ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_fruits": {
+          "min": 15000,
+          "max": 25000,
+          "step": 1
+        },
+        "fruits_per_box": {
+          "min": 50,
+          "max": 100,
+          "step": 1
+        },
+        "num_boxes_packed": {
+          "min": 100,
+          "max": 500,
+          "step": 1
+        },
+        "fruit_name": {
+          "options": [
+            "cam",
+            "táo",
+            "xoài"
+          ]
+        }
+      },
+      "constraints": [
+        "variables.total_fruits - (variables.num_boxes_packed * variables.fruits_per_box) >= 0"
+      ],
+      "formulas": {
+        "fruits_packed": "variables.num_boxes_packed * variables.fruits_per_box",
+        "ans": "variables.total_fruits - formulas.fruits_packed",
+        "w1_goc": "variables.total_fruits - variables.fruits_per_box",
+        "w2_goc": "variables.total_fruits + formulas.fruits_packed",
+        "w3_goc": "formulas.fruits_packed",
+        "w1": "(formulas.w1_goc === formulas.ans) ? formulas.w1_goc + 5 : formulas.w1_goc",
+        "w2": "(formulas.w2_goc === formulas.ans || formulas.w2_goc === formulas.w1) ? (((formulas.ans + 5) === formulas.w1) ? formulas.ans + 9 : formulas.ans + 5) : formulas.w2_goc",
+        "w3": "(formulas.w3_goc === formulas.ans || formulas.w3_goc === formulas.w1 || formulas.w3_goc === formulas.w2) ? formulas.ans + 12 : formulas.w3_goc"
+      },
+      "questionText": "Một cửa hàng có {total_fruits} quả {fruit_name}. Họ đã đóng gói {num_boxes_packed} hộp, mỗi hộp {fruits_per_box} quả {fruit_name}. Hỏi cửa hàng còn lại bao nhiêu quả {fruit_name} chưa đóng gói?",
+      "options": [
+        "A. {w1} quả {fruit_name}",
+        "B. {ans} quả {fruit_name}",
+        "C. {w2} quả {fruit_name}",
+        "D. {w3} quả {fruit_name}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trước tiên, hãy tính tổng số quả {fruit_name} đã được đóng gói.",
+        "Sau đó, lấy tổng số quả {fruit_name} ban đầu trừ đi số quả đã đóng gói để tìm số quả còn lại."
+      ],
+      "solutionHtml": "Số quả {fruit_name} đã được đóng gói là:<br/>{num_boxes_packed} $ \\times $ {fruits_per_box} $ = $ {fruits_packed} (quả)<br/>Số quả {fruit_name} còn lại chưa đóng gói là:<br/>{total_fruits} $ - $ {fruits_packed} $ = $ {ans} (quả).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để biết cần tìm 'số quả còn lại' chứ không phải 'số hộp đã đóng gói'. Tránh nhầm lẫn giữa các đại lượng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-1-q10"
+    }
+  ]
+}

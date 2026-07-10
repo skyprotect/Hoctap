@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Trình theo dõi lỗi toàn cục & Kiểm tra tương thích trình duyệt -->
+    <script>
+        // 1. Kiểm tra khả năng tương thích trình duyệt (ES6+)
+        (function() {
+            try {
+                eval("var a = { b: 1 }; var c = a?.b;"); // Optional Chaining
+                eval("const x = () => {};");             // Arrow Functions
+                if (typeof fetch === "undefined" || typeof Promise === "undefined") throw new Error();
+            } catch (e) {
+                window.onload = function() {
+                    document.body.innerHTML = 
+                        "<div style='padding:2rem; text-align:center; font-family:sans-serif; background:#0f172a; color:#f8fafc; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;'>" +
+                        "  <h2 style='color:#ef4444; font-size: 2rem; margin-bottom: 1rem;'>⚠️ Trình Duyệt Không Tương Thích</h2>" +
+                        "  <p style='max-width:550px; line-height:1.6; color:#94a3b8; font-size: 1.1rem;'>Trình duyệt Google Chrome trên máy tính của bạn đã quá cũ. Ứng dụng yêu cầu Google Chrome phiên bản mới (v80 trở lên) để chạy các tính năng học tập và thi trắc nghiệm AI.</p>" +
+                        "  <p style='color:#64748b; font-size:14px; margin-top: 1rem;'>Vui lòng cập nhật Google Chrome lên phiên bản mới nhất và khởi động lại ứng dụng.</p>" +
+                        "</div>";
+                };
+            }
+        })();
+
+        // 2. Bẫy lỗi toàn cục (Global Error Boundary)
+        window.onerror = function(message, source, lineno, colno, error) {
+            const studentId = (window.app && window.app.config && window.app.config.defaultStudentId) || 'default';
+            const errorMsg = message + "\nTại: " + source + " (Dòng " + lineno + ")";
+            
+            // Hiển thị lỗi tường minh cho người dùng
+            if (typeof Swal !== "undefined" && typeof Swal.fire === "function") {
+                Swal.fire({
+                    title: "Lỗi hệ thống bất ngờ!",
+                    text: errorMsg,
+                    icon: "error",
+                    confirmButtonColor: "#ef4444"
+                });
+            } else {
+                alert("⚠️ Lỗi Hệ Thống:\n" + errorMsg + "\n\nVui lòng chụp ảnh màn hình này và gửi cho kỹ thuật để được hỗ trợ.");
+            }
+
+            // Gửi telemetry lỗi về server
+            const payload = {
+                studentId: studentId,
+                errorMessage: message,
+                errorStack: error ? error.stack : `${source}:${lineno}:${colno}`
+            };
+            
+            const apiBase = (window.location.protocol === 'file:') ? 'http://localhost:3000' : '';
+            fetch(apiBase + '/api/report-client-error', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.warn('[Telemetry] Không thể gửi báo cáo lỗi:', err));
+            
+            return false;
+        };
+
+        // Hàm làm mới cực mạnh (Super Hard Refresh + Clear local state)
+        function forceSuperRefresh() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Làm mới cực mạnh...',
+                    text: 'Hệ thống đang dọn dẹp bộ nhớ đệm trình duyệt và tải lại mã nguồn mới nhất.',
+                    icon: 'info',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            }
+            try {
+                // Xóa cache trình duyệt và các dữ liệu cục bộ bị lỗi
+                localStorage.clear();
+                sessionStorage.clear();
+                console.log('[Super Refresh] Đã dọn dẹp LocalStorage & SessionStorage.');
+            } catch (e) {
+                console.error('Lỗi khi xóa dữ liệu cục bộ:', e);
+            }
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    for (let name of names) caches.delete(name);
+                }).catch(e => console.error(e));
+            }
+            setTimeout(() => {
+                // Buộc trình duyệt tải lại hoàn toàn từ máy chủ với tham số thời gian r=...
+                window.location.href = window.location.pathname + '?r=' + Date.now();
+            }, 1200);
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán 6 - Kết nối tri thức với cuộc sống</title>
+    
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="css/lib/font-awesome/css/all.min.css">
+    
+    <!-- SweetAlert2 (gộp CSS & JS) -->
+    <script src="js/lib/sweetalert2.all.min.js"></script>
+    
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="css/lib/katex.min.css">
+    <script defer src="js/lib/katex.min.js"></script>
+    <!-- Thư viện tự động render KaTeX cho toàn trang -->
+    <script defer src="js/lib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    
+    <!-- Chart.js -->
+    <script src="js/lib/chart.min.js"></script>
+    
+    <!-- Mermaid.js & Marked.js cho Cố vấn AI -->
+    <script src="js/lib/mermaid.min.js"></script>
+    <script src="js/lib/marked.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+            }
+        });
+    </script>
+    
+    <!-- Style tùy chỉnh -->
+    <link rel="stylesheet" href="css/style.css?v=5.4">
+
+    <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
+    <style>
+        .splash-parent-settings-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .splash-parent-settings-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            color: var(--primary);
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* Style bổ sung cho màn hình thiết lập ban đầu */
+        #setup-initial-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        #setup-initial-screen .setup-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        #setup-initial-screen label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: left;
+        }
+        #setup-initial-screen input[type="text"],
+        #setup-initial-screen input[type="password"] {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        #setup-initial-screen input[type="text"]:focus,
+        #setup-initial-screen input[type="password"]:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        #setup-initial-screen .class-selector-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        #setup-initial-screen .class-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        #setup-initial-screen .class-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        #setup-initial-screen .class-card input[type="radio"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #8b5cf6;
+            cursor: pointer;
+            margin: 0;
+        }
+        #setup-initial-screen .class-card strong {
+            display: block;
+            font-size: 0.875rem;
+            color: #fff;
+        }
+        #setup-initial-screen .class-card span {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        #setup-initial-screen .btn-setup-submit {
+            width: 100%;
+            background: #7c3aed;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        #setup-initial-screen .btn-setup-submit:hover {
+            background: #6d28d9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+        }
+        #setup-initial-screen .btn-setup-submit:active {
+            transform: translateY(1px);
+        }
+
+        /* CSS cho Preview Đề thi và In ấn PDF từ trang Học sinh */
+        #student-print-paper {
+            display: none; /* Mặc định ẩn trên UI thường */
+            font-family: "Times New Roman", Times, Georgia, serif;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+            line-height: 1.6;
+            padding: 2.5rem;
+        }
+        
+        #student-print-paper * {
+            color: #000000 !important;
+        }
+
+        #student-print-paper .math-render,
+        #student-print-paper .katex {
+            color: #000000 !important;
+            font-size: 1.05em;
+        }
+
+        /* Định nghĩa ngắt trang */
+        .print-page-break {
+            page-break-before: always;
+            break-before: page;
+            height: 0;
+            overflow: hidden;
+        }
+
+        /* CSS khi in ấn thực tế từ trang học sinh */
+        @media print {
+            @page {
+                size: A4;
+                margin: 20mm 15mm 20mm 15mm;
+            }
+            html, body {
+                height: auto !important;
+                overflow: visible !important;
+                background: white !important;
+                color: black !important;
+            }
+            /* Ẩn toàn bộ giao diện màn hình chính */
+            #student-select-screen,
+            #splash-screen,
+            #badge-popup,
+            #parent-lock-modal,
+            .app-header,
+            .app-content,
+            .swal2-container,
+            #confetti-canvas,
+            #student-print-paper,
+            .version-tag-fixed {
+                display: none !important;
+            }
+            /* Định cấu hình hiển thị cho Modal Preview khi in */
+            #print-preview-modal {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                background: white !important;
+                display: block !important;
+                visibility: visible !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #print-preview-modal .modal-content {
+                max-width: 100% !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+                border: none !important;
+                border-radius: 0 !important;
+                background: white !important;
+                box-shadow: none !important;
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            /* Ẩn header của modal và các nút bấm điều khiển */
+            #print-preview-modal .modal-header {
+                display: none !important;
+            }
+            #print-preview-modal .modal-body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+            /* Đảm bảo trang giấy preview hiển thị chiếm trọn khổ in */
+            #print-preview-paper {
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                display: block !important;
+                visibility: visible !important;
+            }
+            #print-preview-paper, #print-preview-paper * {
+                color: #000000 !important;
+                text-shadow: none !important;
+            }
+            .print-page-break {
+                display: block !important;
+                page-break-before: always !important;
+                break-before: page !important;
+            }
+        }
+    </style>
+
+</head>
+<body class="green-mode">
+    <!-- Canvas pháo hoa giấy chúc mừng -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Màn hình Thiết lập ban đầu (Chỉ hiển thị khi chạy lần đầu tiên, chưa có cấu hình) -->
+    <div id="setup-initial-screen" class="splash-screen hidden" style="z-index: 3000;">
+        <div class="splash-bg-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="splash-glass-card flex flex-col items-center justify-center p-8 max-w-xl w-full text-center" style="max-height: 90vh; overflow-y: auto; padding: 2rem 2.5rem;">
+            <div class="splash-logo mb-3">
+                <i class="fa-solid fa-gear text-violet-400 text-4xl spin-gear" style="font-size: 3rem; animation: fa-spin 8s linear infinite;"></i>
+            </div>
+            <h2 class="text-2xl font-black text-white mb-2" style="font-size: 1.8rem; font-family: 'Plus Jakarta Sans', sans-serif;">Thiết Lập Góc Học Tập 🚀</h2>
+            <p class="text-slate-200 text-sm mb-6" style="margin-bottom: 1.5rem;">Chào mừng Phụ huynh! Hãy điền các thông tin dưới đây để tạo môi trường học tập cho con.</p>
+            
+            <form id="initial-setup-form" onsubmit="event.preventDefault(); app.submitInitialSetup();" style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Tên phụ huynh -->
+                <div class="setup-field-group">
+                    <label for="setup-parent-name">Tên phụ huynh</label>
+                    <input type="text" id="setup-parent-name" required placeholder="Ví dụ: Bố Hải, Mẹ Thu..." />
+                </div>
+                
+                <!-- Mật khẩu quản lý -->
+                <div class="setup-field-group">
+                    <label for="setup-parent-pin">Mật khẩu quản lý (Mã PIN)</label>
+                    <input type="password" id="setup-parent-pin" required placeholder="Nhập mật khẩu để vào trang phụ huynh" />
+                </div>
+                
+                <!-- Tên học sinh -->
+                <div class="setup-field-group">
+                    <label for="setup-student-name">Tên học sinh (Tên con)</label>
+                    <input type="text" id="setup-student-name" required placeholder="Ví dụ: Đức Phúc, Bình Minh..." />
+                </div>
+                
+                <!-- Chọn lớp học -->
+                <div class="setup-field-group">
+                    <label>Chọn lớp học cho con</label>
+                    <div class="class-selector-container">
+                        <label class="class-card">
+                            <input type="radio" name="setup-class-level" value="4" checked />
+                            <div class="class-info-text">
+                                <strong>Toán Lớp 4</strong>
+                                <span>Chương trình Tiểu học</span>
+                            </div>
+                        </label>
+                        <label class="class-card">
+                            <input type="radio" name="setup-class-level" value="6" />
+                            <div class="class-info-text">
+                                <strong>Toán Lớp 6</strong>
+                                <span>Kết nối tri thức</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Nút Submit -->
+                <button type="submit" class="btn-setup-submit">
+                    <i class="fa-solid fa-circle-check"></i> Hoàn Tất Thiết Lập & Bắt Đầu Học
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Màn hình lựa chọn học sinh ban đầu (Chỉ hiện khi chưa đăng nhập mặc định) -->
+    <div id="student-select-screen" class="splash-screen hidden" style="z-index: 2000;">
+        <div class="splash-bg-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="splash-glass-card flex flex-col items-center justify-center p-8 max-w-lg w-full text-center">
+            <div class="splash-logo mb-4">
+                <i class="fa-solid fa-graduation-cap text-violet-400 text-4xl" style="font-size: 3rem;"></i>
+            </div>
+            <h2 class="text-2xl font-black text-white mb-2" style="font-size: 1.8rem;">Góc Học Tập Toán Học</h2>
+            <p class="text-slate-200 text-sm mb-6">Chào mừng các con! Hãy chọn tài khoản học sinh của mình để bắt đầu học tập nhé!</p>
+            
+            <!-- Danh sách học sinh -->
+            <div id="student-select-list" class="grid grid-cols-1 gap-4 w-full mb-6 max-h-[250px] overflow-y-auto pr-1">
+                <!-- Sẽ được chèn động từ app.js -->
+            </div>
+
+            <!-- Nút vào phụ huynh -->
+            <div class="w-full border-t border-white/10 pt-4 flex justify-between items-center flex-wrap gap-2">
+                <span class="text-xs text-slate-300">💡 Cần mã PIN phụ huynh để xác nhận ghi nhớ thiết bị.</span>
+                <button class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5" onclick="window.location.href='/admin'">
+                    <i class="fa-solid fa-user-gear"></i> Góc Phụ huynh
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Màn hình chào mừng (Splash Screen) chuyên nghiệp cho học sinh -->
+    <div id="splash-screen" class="splash-screen">
+        <!-- Quả cầu màu sắc chuyển động mờ ảo phía sau -->
+        <div class="splash-bg-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+
+        <div class="splash-glass-card">
+                        <!-- Nút cài đặt phụ huynh -->
+            <button id="splash-parent-settings-btn" class="splash-parent-settings-btn" onclick="window.location.href='/admin'" title="Cài đặt phụ huynh">
+                <i class="fa-solid fa-user-gear"></i>
+            </button>
+
+            <!-- Nút làm mới cưỡng bức cực mạnh -->
+            <button id="splash-refresh-btn" class="splash-refresh-btn" onclick="forceSuperRefresh()" title="Làm mới cực mạnh (Xóa cache & Tải lại)">
+                <i class="fa-solid fa-rotate"></i>
+            </button>
+
+            <!-- Nút bật tắt âm thanh nhắc nhở -->
+            <button id="splash-mute-btn" class="splash-mute-btn" title="Bật/Tắt âm thanh nhắc nhở">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+
+            <!-- Đồng hồ thời gian lớn -->
+            <div class="splash-clock">
+                <div id="splash-clock-time" class="splash-clock-time">00:00:00</div>
+                <div id="splash-clock-date" class="splash-clock-date">Đang cập nhật ngày tháng...</div>
+            </div>
+
+            <!-- Hướng dẫn nhấp chuột kích hoạt âm thanh (Autoplay Hint) -->
+            <div id="splash-autoplay-hint" class="splash-autoplay-hint hidden">
+                <i class="fa-solid fa-hand-pointer animate-bounce-horizontal"></i> Nhấp chuột bất kỳ đâu để nghe giọng đọc châm ngôn!
+            </div>
+
+            <div class="splash-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <p class="splash-welcome-user">Chào mừng học sinh! 👋</p>
+            
+            <!-- Hộp châm ngôn học tập truyền cảm hứng -->
+            <div class="splash-quote-box">
+                <i class="fa-solid fa-quote-left splash-quote-icon-left"></i>
+                <div class="splash-quote-content">
+                    <p id="splash-quote-text" class="splash-quote-text">Đang tải châm ngôn truyền cảm hứng...</p>
+                    <p id="splash-quote-author" class="splash-quote-author"></p>
+                </div>
+                <i class="fa-solid fa-quote-right splash-quote-icon-right"></i>
+            </div>
+            
+            <div class="splash-stats">
+                <div class="splash-stat-item" title="Chuỗi học tập liên tục">
+                    <span class="splash-stat-emoji">🔥</span>
+                    <div class="splash-stat-info">
+                        <span id="splash-streak-val" class="splash-stat-val">0</span>
+                        <span class="splash-stat-label">Ngày liên tiếp</span>
+                    </div>
+                </div>
+                <div class="splash-stat-item" title="Điểm kinh nghiệm tích lũy">
+                    <span class="splash-stat-emoji">⭐</span>
+                    <div class="splash-stat-info">
+                        <span id="splash-xp-val" class="splash-stat-val">0</span>
+                        <span class="splash-stat-label">Điểm XP</span>
+                    </div>
+                </div>
+                <div class="splash-stat-item" title="Số huy hiệu đã mở khóa">
+                    <span class="splash-stat-emoji">🏅</span>
+                    <div class="splash-stat-info">
+                        <span id="splash-badge-count" class="splash-stat-val">0</span>
+                        <span class="splash-stat-label">Huy hiệu</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="splash-start-btn" class="btn-splash-start">
+                BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div class="splash-version-tag">Phiên bản: v5.4 (Cập nhật: 10/07/2026 17:15)</div>
+        </div>
+    </div>
+    <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
+    <div id="badge-popup" class="badge-popup hidden">
+        <div class="badge-card-popup animate-bounce-in">
+            <button class="close-badge-popup" onclick="closeBadgePopup()">&times;</button>
+            <div class="badge-icon-lg">🏆</div>
+            <h3 class="badge-title-popup">Chúc mừng!</h3>
+            <p class="badge-desc-popup">Bạn đã mở khóa huy hiệu mới.</p>
+        </div>
+    </div>
+
+    <!-- Thanh tác vụ Tiến trình AI Sinh đề ngầm -->
+    <div id="ai-progress-banner" class="ai-progress-banner hidden">
+        <div class="ai-progress-content" onclick="app.toggleAiProgressDetail()" style="cursor: pointer;" title="Nhấp để xem tiến trình chi tiết hoặc thu gọn">
+            <span class="ai-progress-status">
+                <i class="fa-solid fa-robot ai-robot-icon"></i>
+                <span id="ai-progress-text">Đang kết nối với AI...</span>
+            </span>
+            <div class="ai-progress-bar-container">
+                <div id="ai-progress-bar" class="ai-progress-bar" style="width: 0%"></div>
+            </div>
+            <span id="ai-progress-percent" class="ai-progress-percent">0%</span>
+            <span id="ai-toggle-icon" class="ai-toggle-icon" style="margin-left: 0.5rem; transition: transform 0.3s; color: #94a3b8;"><i class="fa-solid fa-chevron-down"></i></span>
+            <button id="ai-progress-error-btn" class="btn-progress-error hidden" onclick="event.stopPropagation(); app.showAiErrors()" title="Xem danh sách lỗi phát sinh">
+                <i class="fa-solid fa-triangle-exclamation animate-bounce-horizontal"></i>
+                <span id="ai-error-count">0</span> lỗi
+            </button>
+        </div>
+        
+        <!-- Panel tiến trình chi tiết xổ xuống -->
+        <div id="ai-progress-detail" class="ai-progress-detail hidden" onclick="event.stopPropagation();">
+            <!-- Nội dung chi tiết được render động bằng JS -->
+        </div>
+    </div>
+
+    <!-- Header ứng dụng -->
+    <header class="app-header">
+        <div class="header-left">
+            <button id="header-back-btn" class="btn-back-header hidden" onclick="app.goBack()" title="Quay lại trang trước">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại
+            </button>
+            <div class="logo" onclick="app.showScreen('timeline')" title="Hệ thống kiến thức Toán 6">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Hệ thống kiến thức</span>
+            </div>
+        </div>
+        
+        <div class="header-center">
+            <!-- Chỉ số Gamification -->
+            <div class="stat-badge" title="Chuỗi ngày học liên tục">
+                <span class="stat-icon flame">🔥</span>
+                <span id="streak-val" class="stat-val">0</span>
+            </div>
+            <div class="stat-badge" title="Điểm kinh nghiệm tích lũy">
+                <span class="stat-icon xp">⭐</span>
+                <span id="xp-val" class="stat-val">0</span> XP
+            </div>
+            <div class="stat-badge cursor-pointer" onclick="app.openBadgesModal()" title="Huy hiệu đạt được">
+                <span class="stat-icon header-badge-icon">🏅</span>
+                <span id="badge-count" class="stat-val">0</span>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <!-- Nút đổi Light/Dark mode -->
+            <button id="theme-toggle" class="btn-icon" title="Chuyển chế độ Sáng/Tối">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            
+            <!-- Nút Đánh giá chất lượng (Xem nhanh) -->
+            <button class="btn-parent" onclick="app.requestEvaluation()" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6) !important; color: white !important; margin-right: 0.5rem; border: none !important;">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Đánh Giá</span>
+            </button>
+            
+            <!-- Nút Dashboard Phụ huynh -->
+            <button class="btn-parent" onclick="window.location.href='/admin'">
+                <i class="fa-solid fa-user-shield"></i>
+                <span>Phụ Huynh</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container phục vụ SPA -->
+    <main class="app-content">
+        
+        <!-- MÀN HÌNH 1: LỘ TRÌNH HỌC & HỌC TẬP (SPLIT LAYOUT) -->
+        <section id="screen-timeline" class="screen-section">
+            <div class="split-layout-container">
+                <!-- Cột bên trái: Sidebar Timeline bài học -->
+                <div class="timeline-sidebar card" id="timeline-sidebar">
+                    <div class="sidebar-toggle-container" onclick="app.expandSidebar()" title="Mở rộng lộ trình học">
+                        <i class="fa-solid fa-map-signs"></i>
+                        <span class="collapsed-tooltip">Lộ trình</span>
+                    </div>
+                    <div class="sidebar-title">
+                        <div class="sidebar-title-text">
+                            <i class="fa-solid fa-map-signs"></i> Lộ trình học Toán 6
+                        </div>
+                        <button class="btn-collapse-sidebar" onclick="app.collapseSidebar()" title="Thu nhỏ lộ trình">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    <!-- Tab chọn học kỳ -->
+                    <div class="semester-tabs">
+                        <button class="sem-tab-btn active" id="sem-tab-1" onclick="app.switchSemester(1)">
+                            Học kỳ 1
+                        </button>
+                        <button class="sem-tab-btn" id="sem-tab-2" onclick="app.switchSemester(2)">
+                            Học kỳ 2
+                        </button>
+                    </div>
+                    <!-- Danh sách timeline bài học -->
+                    <div class="skill-tree" id="skill-tree-container">
+                        <!-- Sinh động bằng JS -->
+                    </div>
+                </div>
+
+                <!-- Cột bên phải: Trình xem chi tiết bài học & học tập -->
+                <div class="lesson-viewer-panel">
+                    <!-- Panel mặc định khi chưa chọn bài nào -->
+                    <div id="welcome-viewer-panel" class="welcome-viewer-panel card">
+                        <div class="welcome-box" style="margin-bottom: 1.5rem;">
+                            <h2>Chào mừng con! 👋</h2>
+                            <p>Phần mềm học Toán đặc biệt thiết kế dành riêng cho con. Hãy cùng chinh phục kiến thức Toán lớp 6, vượt qua các bài học để nhận Huy hiệu danh giá nhé! Chúc con học thật giỏi!</p>
+                        </div>
+                        <div class="startup-guide text-center">
+                            <div class="guide-icon" style="font-size: 5rem; margin-bottom: 1.5rem;">🎯</div>
+                            <h3>Bắt đầu học tập ngay</h3>
+                            <p style="color:var(--text-muted); font-size:1.05rem; max-width:480px; margin:0.8rem auto 0;">Con hãy chọn một bài học ở danh sách <b>Học kỳ 1</b> hoặc <b>Học kỳ 2</b> bên trái để xem video bài giảng, tóm tắt lý thuyết SGK và làm bài luyện tập nhé!</p>
+                        </div>
+                    </div>
+
+                    <!-- Panel chi tiết bài học (Hiển thị khi chọn một bài) -->
+                    <div id="lesson-detail-panel" class="lesson-detail-panel hidden">
+                        <!-- Khung Đánh giá & Phân tích chi tiết của học sinh (Nổi bật, ngắn gọn) -->
+                        <div id="lesson-evaluation-box" class="evaluation-box card" style="margin-bottom:1.5rem; padding: 1.2rem; border-left: 6px solid var(--primary); transition: all 0.3s ease;">
+                            <!-- Render động bằng JS -->
+                        </div>
+
+                        <div class="lesson-container card">
+                            <div class="lesson-header" style="margin-bottom: 1.5rem;">
+                                <h2 id="current-lesson-title" style="font-size: 1.4rem;">Tên Bài Học</h2>
+                            </div>
+
+                            <!-- Tabs chọn module bài học -->
+                            <div class="lesson-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">
+                                <button class="tab-btn active" id="tab-theory-btn" onclick="app.switchLessonTab('theory')" style="padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">
+                                    <i class="fa-solid fa-book-open"></i> Lý thuyết & Video
+                                </button>
+                                <button class="tab-btn" id="tab-practice-btn" onclick="app.switchLessonTab('practice')" style="padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">
+                                    <i class="fa-solid fa-pen-to-square"></i> Luyện tập & Kiểm tra
+                                </button>
+                                <button class="tab-btn" id="tab-history-btn" onclick="app.switchLessonTab('history')" style="padding:0.6rem 1.2rem; border-radius:8px; font-weight:700;">
+                                    <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử làm bài
+                                </button>
+                            </div>
+
+                            <!-- Nội dung các Tab -->
+                            <div class="tab-contents">
+                                <!-- Tab 1: Lý Thuyết (Đã đổi thành Dạng bài học) -->
+                                <div id="tab-theory" class="tab-pane">
+                                    <div class="subtopics-split-layout" style="display:flex; gap:1.5rem; align-items: flex-start;">
+                                        <!-- Cột bên trái: Timeline các Dạng bài -->
+                                        <div class="subtopics-timeline-sidebar card" style="flex: 0 0 260px; width: 260px; padding: 1.2rem; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px;">
+                                            <h4 style="margin-bottom: 1rem; color: var(--primary); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;"><i class="fa-solid fa-list-ol"></i> Dạng bài cần học</h4>
+                                            <div id="subtopics-list-container" style="display:flex; flex-direction:column; gap:0.8rem;">
+                                                <!-- Sinh động bằng JS -->
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Cột bên phải: Trình xem chi tiết Dạng bài học -->
+                                        <div class="subtopic-viewer-panel" style="flex: 1; display:flex; flex-direction:column; gap:1.5rem;">
+                                            <!-- Video bài giảng -->
+                                            <div class="youtube-player-container card" style="padding:1.5rem;">
+                                                <h3><i class="fa-brands fa-youtube"></i> Video Bài giảng Dạng bài</h3>
+                                                <div class="video-wrapper" id="video-wrapper">
+                                                    <!-- Iframe video Youtube sẽ được load động ở đây -->
+                                                </div>
+                                                <div class="focus-mode-bar" style="margin-top:0.8rem;">
+                                                    <button class="btn-focus" onclick="app.toggleFocusMode()">
+                                                        <i class="fa-solid fa-expand"></i> Bật Focus Mode (Chống xao nhãng)
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Phương pháp giải & Ví dụ minh họa -->
+                                            <div class="pdf-viewer-container card" style="padding:1.5rem;">
+                                                <h3><i class="fa-solid fa-book-open"></i> Hướng dẫn & Phương pháp giải</h3>
+                                                <div class="pdf-mock-viewer" style="margin-top:0.8rem; height: auto; max-height: 450px;">
+                                                    <div class="pdf-page" style="padding: 1.2rem;">
+                                                        <div id="subtopic-method-html" class="theory-text" style="margin-bottom: 1.5rem;">
+                                                            <!-- Render động phương pháp giải -->
+                                                        </div>
+                                                        <div id="subtopic-example-html" class="theory-text">
+                                                            <!-- Render động ví dụ minh họa -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nút Luyện tập Dạng bài này (Được di chuyển xuống dưới từng Dạng bài ở cột trái, ẩn ở đây) -->
+                                            <div class="subtopic-action-bar text-center" style="margin-top: 0.5rem; display: none !important;">
+                                                <button id="btn-practice-subtopic" class="btn-primary" onclick="app.startPracticeCurrentSubtopic()" style="padding: 0.8rem 2rem; font-size: 1.1rem; border-radius: 12px; font-weight: bold; width: 100%; max-width: 320px;">
+                                                    <i class="fa-solid fa-pen-to-square"></i> Luyện tập Dạng này (10 câu)
+                                                </button>
+                                            </div>
+                                            <!-- Nút xác nhận học xong lý thuyết chung -->
+                                            <div id="theory-action-bar" class="text-center" style="margin-top: 0.5rem; display: none;">
+                                                <button id="btn-complete-theory" class="btn-primary" onclick="app.completeTheoryAndGoToFirstSubtopic()" style="padding: 0.8rem 2rem; font-size: 1.15rem; border-radius: 12px; font-weight: bold; width: 100%; max-width: 380px; background-color: var(--success); border-color: var(--success);">
+                                                    <i class="fa-solid fa-circle-check"></i> Con đã học xong lý thuyết chung -> Học Dạng 1 🚀
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab 2: Luyện Tập -->
+                                <div id="tab-practice" class="tab-pane hidden">
+                                    <!-- Màn hình cảnh báo chưa mở khóa kiểm tra bài học -->
+                                    <div id="practice-locked-warning-box" class="text-center hidden" style="padding: 2rem 0;">
+                                        <div style="font-size:4rem; margin-bottom:1rem;">🔒</div>
+                                        <h3>Chưa mở khóa Kiểm tra tổng thể</h3>
+                                        <p style="color:var(--text-muted); max-width:440px; margin:0.8rem auto 1.5rem; line-height:1.6; font-size: 1.05rem;">
+                                            <span id="locked-warning-student-name">${app && app.config ? app.config.studentName : 'Con'}</span> ơi, con cần hoàn thành và đạt kết quả luyện tập của <b>tất cả các Dạng bài học</b> ở tab <b>Lý thuyết &amp; Video</b> trước để mở khóa bài kiểm tra tổng thể bài học này nhé!
+                                        </p>
+                                        <button class="btn-primary" onclick="app.switchLessonTab('theory')" style="padding: 0.8rem 2rem; border-radius: 10px;">
+                                            <i class="fa-solid fa-graduation-cap"></i> Đi học các Dạng bài ngay
+                                        </button>
+                                    </div>
+
+                                    <!-- Màn hình giới thiệu bài kiểm tra tổng thể bài học -->
+                                    <div id="practice-lesson-exam-intro-box" class="text-center hidden" style="padding: 1rem 0;">
+                                        <div style="font-size:3rem; margin-bottom:0.8rem;">📝</div>
+                                        <h3>Bài kiểm tra tổng thể bài học</h3>
+                                        <p style="color:var(--text-muted); margin-bottom:1.5rem; max-width:500px; margin:0 auto; font-size:1.05rem;">
+                                            Bài thi kiểm tra tổng hợp tất cả kiến thức của các Dạng bài học vừa qua ở mức độ <b>Nâng cao</b> để đánh giá năng lực học tập của con.
+                                        </p>
+                                        <div class="exam-rules-list" style="max-width:440px; margin:1.5rem auto; text-align:left; background-color:var(--bg-app); padding:1.2rem; border-radius:12px; border:1px solid var(--border-color); font-size:0.95rem;">
+                                            <p style="margin-bottom:0.6rem;"><i class="fa-solid fa-list-check" style="color:var(--primary); margin-right:0.5rem;"></i> <b>Số lượng:</b> 10 câu hỏi tổng hợp nâng cao</p>
+                                            <p style="margin-bottom:0.6rem;"><i class="fa-solid fa-stopwatch" style="color:var(--warning); margin-right:0.5rem;"></i> <b>Thời gian làm bài:</b> 15 phút (có đồng hồ đếm ngược)</p>
+                                            <p style="margin-bottom:0.6rem;"><i class="fa-solid fa-star" style="color:var(--success); margin-right:0.5rem;"></i> <b>Yêu cầu đạt:</b> Tối thiểu 80% (Loại Giỏi trở lên) để hoàn thành bài học và mở khóa bài tiếp theo</p>
+                                        </div>
+                                        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                                            <button class="btn-primary" onclick="questions.startLessonExam()" style="padding:0.9rem 2.2rem; font-size:1.15rem; border-radius:12px; cursor:pointer;">
+                                                <i class="fa-solid fa-play"></i> Bắt đầu kiểm tra tổng thể
+                                            </button>
+                                            <button class="btn-secondary" onclick="questions.showStudentPrintPrompt()" style="padding:0.9rem 2.2rem; font-size:1.15rem; border-radius:12px; cursor:pointer; background-color:var(--success); color:white; border:none; display:flex; align-items:center; gap:0.5rem;">
+                                                <i class="fa-solid fa-print"></i> In đề thi giấy 🖨️
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Màn hình chọn cấp độ (Dùng cho các bài Luyện tập chung không chia dạng) -->
+                                    <div id="practice-level-select-box" class="text-center hidden" style="padding: 1rem 0;">
+                                        <h3><i class="fa-solid fa-layer-group"></i> Chọn Cấp Độ Luyện Tập</h3>
+                                        <p style="color:var(--text-muted); margin-bottom:1.5rem;">Chọn độ khó phù hợp để thử sức và tích lũy XP.</p>
+                                        
+                                        <div class="level-buttons-grid" style="display:grid; grid-template-columns:1fr; gap:1rem; max-width:380px; margin:0 auto;">
+                                            <div style="display:flex; gap:0.5rem; width:100%;">
+                                                <button class="btn-level-select" onclick="questions.startPracticeWithLevel('co-ban')" style="flex:1; background-color:var(--success-bg); color:var(--success); border:2px solid var(--success); padding:0.9rem; border-radius:12px; font-weight:700; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:0.6rem; cursor:pointer;">
+                                                    <span style="font-size:1.2rem;">🌱</span> Cơ bản (Nhận biết)
+                                                </button>
+                                                <button class="btn-level-print" onclick="questions.showStudentPrintPromptWithLevel('co-ban')" style="width:3.5rem; background-color:var(--success-bg); color:var(--success); border:2px solid var(--success); border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;" title="In đề thi cấp độ Cơ bản">
+                                                    <i class="fa-solid fa-print"></i>
+                                                </button>
+                                            </div>
+                                            <div style="display:flex; gap:0.5rem; width:100%;">
+                                                <button class="btn-level-select" onclick="questions.startPracticeWithLevel('nang-cao')" style="flex:1; background-color:var(--warning-bg); color:var(--warning); border:2px solid var(--warning); padding:0.9rem; border-radius:12px; font-weight:700; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:0.6rem; cursor:pointer;">
+                                                    <span style="font-size:1.2rem;">🚀</span> Nâng cao (Thông hiểu)
+                                                </button>
+                                                <button class="btn-level-print" onclick="questions.showStudentPrintPromptWithLevel('nang-cao')" style="width:3.5rem; background-color:var(--warning-bg); color:var(--warning); border:2px solid var(--warning); border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;" title="In đề thi cấp độ Nâng cao">
+                                                    <i class="fa-solid fa-print"></i>
+                                                </button>
+                                            </div>
+                                            <div style="display:flex; gap:0.5rem; width:100%;">
+                                                <button class="btn-level-select" onclick="questions.startPracticeWithLevel('kho')" style="flex:1; background-color:var(--danger-bg); color:var(--danger); border:2px solid var(--danger); padding:0.9rem; border-radius:12px; font-weight:700; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:0.6rem; cursor:pointer;">
+                                                    <span style="font-size:1.2rem;">🔥</span> Khó (Vận dụng cao)
+                                                </button>
+                                                <button class="btn-level-print" onclick="questions.showStudentPrintPromptWithLevel('kho')" style="width:3.5rem; background-color:var(--danger-bg); color:var(--danger); border:2px solid var(--danger); border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;" title="In đề thi cấp độ Khó">
+                                                    <i class="fa-solid fa-print"></i>
+                                                </button>
+                                            </div>
+                                            <div style="display:flex; gap:0.5rem; width:100%;">
+                                                <button class="btn-level-select animate-pulse-soft" onclick="questions.startPracticeWithLevel('chat-luong-cao')" style="flex:1; background-color:rgba(139, 92, 246, 0.1); color:#8b5cf6; border:2px solid #8b5cf6; padding:0.9rem; border-radius:12px; font-weight:700; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:0.6rem; cursor:pointer;">
+                                                    <span style="font-size:1.2rem;">💎</span> Chất lượng cao (Tư duy & Logic AI)
+                                                </button>
+                                                <button class="btn-level-print" onclick="questions.showStudentPrintPromptWithLevel('chat-luong-cao')" style="width:3.5rem; background-color:rgba(139, 92, 246, 0.1); color:#8b5cf6; border:2px solid #8b5cf6; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;" title="In đề thi cấp độ Chất lượng cao AI">
+                                                    <i class="fa-solid fa-print"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+ 
+                                    <!-- Màn hình giới thiệu bài thi cuối chương -->
+                                    <div id="practice-exam-intro-box" class="text-center hidden" style="padding: 1rem 0;">
+                                        <div style="font-size:3rem; margin-bottom:0.8rem;">📝</div>
+                                        <h3 id="exam-intro-title">Bài kiểm tra kết thúc chương</h3>
+                                        <p id="exam-intro-desc" style="color:var(--text-muted); margin-bottom:1.5rem; max-width:600px; margin:0 auto;">Bài thi kiểm tra tổng hợp kiến thức bao gồm các câu hỏi trắc nghiệm và điền đáp án ngắn để đánh giá năng lực của con.</p>
+                                        <div style="margin-bottom: 1.5rem;">
+                                            <button class="btn-primary" onclick="questions.showStudentPrintPrompt()" style="padding:0.6rem 1.8rem; font-size:1rem; border-radius:10px; cursor:pointer; background-color:var(--success); color:white; border:none; display:inline-flex; align-items:center; gap:0.5rem;">
+                                                <i class="fa-solid fa-print"></i> In đề thi giấy (PDF) 🖨️
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Bảng chọn mức độ bài thi 45 phút -->
+                                        <div class="exam-levels-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.2rem; margin:2rem auto; max-width:960px;">
+                                            <!-- Cơ bản -->
+                                            <div class="exam-level-card card" onclick="questions.startExamWithLevel('co-ban')" style="cursor:pointer; padding:1.2rem; text-align:center; border:2px solid var(--border-color); border-radius:16px; transition:all 0.3s ease; background-color:var(--bg-card); display:flex; flex-direction:column; justify-content:space-between;">
+                                                <div>
+                                                    <div style="font-size:2.2rem; margin-bottom:0.5rem;">🌱</div>
+                                                    <h4 style="margin-bottom:0.5rem; color:var(--success);">Mức độ Cơ bản</h4>
+                                                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem; min-height:40px;">Củng cố kiến thức gốc. Phù hợp tự tin nắm chắc lý thuyết và các dạng toán đơn giản.</p>
+                                                </div>
+                                                <div style="font-size:0.85rem; text-align:left; border-top:1px solid var(--border-color); padding-top:0.8rem; display:flex; flex-direction:column; gap:0.4rem; color:var(--text-main);">
+                                                    <span><i class="fa-solid fa-list-check" style="color:var(--success); margin-right:4px;"></i> <b>Tổng số:</b> 20 câu hỏi</span>
+                                                    <span><i class="fa-solid fa-circle-question" style="color:var(--primary); margin-right:4px;"></i> 16 Trắc nghiệm + 4 Điền số</span>
+                                                    <span><i class="fa-solid fa-stopwatch" style="color:var(--warning); margin-right:4px;"></i> <b>Thời gian:</b> 45 phút</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nâng cao -->
+                                            <div class="exam-level-card card" onclick="questions.startExamWithLevel('nang-cao')" style="cursor:pointer; padding:1.2rem; text-align:center; border:2px solid var(--border-color); border-radius:16px; transition:all 0.3s ease; background-color:var(--bg-card); display:flex; flex-direction:column; justify-content:space-between;">
+                                                <div>
+                                                    <div style="font-size:2.2rem; margin-bottom:0.5rem;">🚀</div>
+                                                    <h4 style="margin-bottom:0.5rem; color:var(--warning);">Mức độ Nâng cao</h4>
+                                                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem; min-height:40px;">Đòi hỏi tư duy suy luận lý thuyết, liên kết kiến thức sâu sắc hơn để giải toán thực tế.</p>
+                                                </div>
+                                                <div style="font-size:0.85rem; text-align:left; border-top:1px solid var(--border-color); padding-top:0.8rem; display:flex; flex-direction:column; gap:0.4rem; color:var(--text-main);">
+                                                    <span><i class="fa-solid fa-list-check" style="color:var(--warning); margin-right:4px;"></i> <b>Tổng số:</b> 18 câu hỏi</span>
+                                                    <span><i class="fa-solid fa-circle-question" style="color:var(--primary); margin-right:4px;"></i> 12 Trắc nghiệm + 6 Điền số</span>
+                                                    <span><i class="fa-solid fa-stopwatch" style="color:var(--warning); margin-right:4px;"></i> <b>Thời gian:</b> 45 phút</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Khó -->
+                                            <div class="exam-level-card card" onclick="questions.startExamWithLevel('kho')" style="cursor:pointer; padding:1.2rem; text-align:center; border:2px solid var(--border-color); border-radius:16px; transition:all 0.3s ease; background-color:var(--bg-card); display:flex; flex-direction:column; justify-content:space-between;">
+                                                <div>
+                                                    <div style="font-size:2.2rem; margin-bottom:0.5rem;">🔥</div>
+                                                    <h4 style="margin-bottom:0.5rem; color:var(--danger);">Mức độ Khó / Phân hóa</h4>
+                                                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem; min-height:40px;">Thử thách phân loại học sinh giỏi, kiểm tra tư duy logic và khoa học vượt trội.</p>
+                                                </div>
+                                                <div style="font-size:0.85rem; text-align:left; border-top:1px solid var(--border-color); padding-top:0.8rem; display:flex; flex-direction:column; gap:0.4rem; color:var(--text-main);">
+                                                    <span><i class="fa-solid fa-list-check" style="color:var(--danger); margin-right:4px;"></i> <b>Tổng số:</b> 16 câu hỏi</span>
+                                                    <span><i class="fa-solid fa-circle-question" style="color:var(--primary); margin-right:4px;"></i> 10 Trắc nghiệm + 6 Điền số</span>
+                                                    <span><i class="fa-solid fa-stopwatch" style="color:var(--warning); margin-right:4px;"></i> <b>Thời gian:</b> 45 phút</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Chất lượng cao -->
+                                            <div class="exam-level-card card" onclick="questions.startExamWithLevel('chat-luong-cao')" style="cursor:pointer; padding:1.2rem; text-align:center; border:2px solid #8b5cf6; border-radius:16px; transition:all 0.3s ease; background-color:rgba(139, 92, 246, 0.05); display:flex; flex-direction:column; justify-content:space-between;">
+                                                <div>
+                                                    <div style="font-size:2.2rem; margin-bottom:0.5rem;">💎</div>
+                                                    <h4 style="margin-bottom:0.5rem; color:#8b5cf6;">Chất lượng cao AI</h4>
+                                                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem; min-height:40px;">Sử dụng bộ đề thi được sinh và kiểm duyệt bởi Trí tuệ nhân tạo chuyên sâu.</p>
+                                                </div>
+                                                <div style="font-size:0.85rem; text-align:left; border-top:1px solid rgba(139, 92, 246, 0.2); padding-top:0.8rem; display:flex; flex-direction:column; gap:0.4rem; color:var(--text-main);">
+                                                    <span><i class="fa-solid fa-list-check" style="color:#8b5cf6; margin-right:4px;"></i> <b>Tổng số:</b> 16 câu hỏi</span>
+                                                    <span><i class="fa-solid fa-circle-question" style="color:var(--primary); margin-right:4px;"></i> 10 Trắc nghiệm + 6 Điền số</span>
+                                                    <span><i class="fa-solid fa-stopwatch" style="color:var(--warning); margin-right:4px;"></i> <b>Thời gian:</b> 45 phút</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Màn hình Dashboard 3 cấp độ luyện tập và điểm yếu -->
+                                    <div id="practice-levels-dashboard-box" class="hidden" style="padding: 1rem 0;">
+                                        <!-- Render động bằng JS -->
+                                    </div>
+
+                                    <!-- Màn hình chọn Chế Độ Thực Hành (Standard vs Tower Defense) -->
+                                    <div id="practice-mode-select-box" class="text-center hidden" style="padding: 1.5rem 0;">
+                                        <div style="font-size:3.5rem; margin-bottom:1rem; animation: floatLogo 3s ease-in-out infinite;">🏰</div>
+                                        <div id="hero-mini-status-box" class="hidden" style="margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(251, 191, 36, 0.08); border: 1.5px dashed rgba(251, 191, 36, 0.4); padding: 0.4rem 1rem; border-radius: 30px; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">
+                                            <!-- Render động bằng JS -->
+                                        </div>
+                                        <h3 id="practice-mode-title">Chào con, con muốn làm bài theo phong cách nào?</h3>
+                                        <p style="color:var(--text-muted); margin-bottom:2rem; max-width:480px; margin:0.8rem auto 2rem; font-size:1.05rem;">
+                                            Con có thể làm bài trắc nghiệm tiêu chuẩn hoặc tham gia Đấu Trường Thủ Thành để bảo vệ lâu đài bằng tri thức toán học!
+                                        </p>
+                                        
+                                        <div class="mode-buttons-grid" style="display:flex; gap:1.5rem; justify-content:center; max-width:600px; margin:0 auto; flex-wrap:wrap;">
+                                            <button class="btn-mode-select btn-mode-standard" onclick="questions.selectPracticeMode('standard')" style="flex:1; min-width:240px; background-color:var(--bg-card); border:2px solid var(--border-color); padding:2rem 1.5rem; border-radius:18px; display:flex; flex-direction:column; align-items:center; gap:0.8rem; cursor:pointer; transition:all 0.2s;">
+                                                <span style="font-size:2.5rem;">📝</span>
+                                                <strong style="font-size:1.15rem; color:var(--text-main);">Luyện Tập Trắc Nghiệm</strong>
+                                                <span style="font-size:0.85rem; color:var(--text-muted);">Giao diện trắc nghiệm tiêu chuẩn học đường tập trung</span>
+                                            </button>
+                                            
+                                            <button class="btn-mode-select btn-mode-td animate-pulse-soft" onclick="questions.selectPracticeMode('game')" style="flex:1; min-width:240px; background-color:var(--bg-card); border:2px solid var(--primary); padding:2rem 1.5rem; border-radius:18px; display:flex; flex-direction:column; align-items:center; gap:0.8rem; cursor:pointer; transition:all 0.2s;">
+                                                <span style="font-size:2.5rem; animation: bounce 2s infinite;">🏰</span>
+                                                <strong style="font-size:1.15rem; color:var(--primary);">Đấu Trường Thủ Thành (Toán TD)</strong>
+                                                <span style="font-size:0.85rem; color:var(--text-muted);">Giải hết toán trắc nghiệm để tích lũy vàng xây tháp thủ thành kịch tính!</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Trạng thái làm bài -->
+                                    <div id="practice-active-box" class="hidden">
+                                        <div class="practice-header" style="display:flex; align-items:center; flex-wrap:wrap; gap:0.6rem; border-bottom:1px solid var(--border-color); padding-bottom:0.8rem; margin-bottom:1.2rem;">
+                                            <!-- Nút thoát / quay lại lúc làm bài -->
+                                            <button class="btn-exit-practice" onclick="questions.exitPractice()" style="background-color: var(--danger-bg); color: var(--danger); border: 2px solid var(--danger); padding: 0.4rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">
+                                                <i class="fa-solid fa-arrow-left"></i> Thoát
+                                            </button>
+ 
+                                            <div class="progress-bar-container" style="flex:1; min-width:100px;">
+                                                <div class="progress-bar-fill" id="practice-progress" style="width: 0%"></div>
+                                            </div>
+                                            <span class="question-counter" id="question-index-counter" style="font-weight:700;">Câu hỏi 1/5</span>
+                                            
+                                            <!-- Khung layout chia đôi màn hình cho game thủ thành -->
+                                            <div id="practice-split-container" class="practice-split-container">
+                                                <!-- Bên trái: Câu hỏi -->
+                                                <div class="split-left-question" id="td-question-container">
+                                                    <div class="practice-layout-container" id="practice-layout-container">
+                                                        <!-- Danh sách câu hỏi bên cạnh -->
+                                                        <div id="questions-nav-panel" class="questions-nav-panel">
+                                                            <div class="questions-nav-title" id="questions-nav-title">
+                                                                <i class="fa-solid fa-list-check"></i> Đề bài
+                                                            </div>
+                                                            <div class="questions-nav-grid" id="questions-nav-grid">
+                                                                <!-- Sinh động bằng JS -->
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Khung câu hỏi chính -->
+                                                        <div class="question-card-wrapper" style="flex: 1; min-width: 0;">
+                                                            <div class="question-card" style="margin-top:0; height: 100%;">
+                                                                <!-- Đề bài -->
+                                                                <div class="question-text" id="question-text-box" style="font-size: 1.15rem; font-weight: 600; line-height: 1.6; margin-bottom: 1.2rem; color: var(--text-main);">
+                                                                    <!-- Đề bài sinh bằng KaTeX -->
+                                                                </div>
+            
+                                                                <!-- Các đáp án lựa chọn -->
+                                                                <div class="options-container" id="options-box" style="margin-bottom:1.5rem;">
+                                                                    <!-- Các button đáp án sinh bằng JS -->
+                                                                </div>
+            
+                                                                <!-- Khu vực gợi ý 3 bước -->
+                                                                <div class="hints-section" style="margin-top:1.2rem;">
+                                                                    <div class="hints-header">
+                                                                        <button class="btn-hint" id="hint-toggle-btn" onclick="questions.showNextHint()">
+                                                                            <i class="fa-solid fa-lightbulb"></i> Gợi ý (Còn <span id="hints-left">3</span> lượt)
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="hints-content-box hidden" id="hints-content-box" style="margin-top:0.8rem;">
+                                                                        <ul class="hint-list" id="hint-list-ul" style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
+                                                                            <!-- Gợi ý hiển thị ở đây -->
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <!-- Bên phải: Game Canvas (Chỉ hiển thị khi chọn chế độ game) -->
+                                                <div class="split-right-game hidden" id="td-game-container">
+                                                    <div class="game-hud-bar">
+                                                        <div class="hud-item" title="Máu lâu đài">
+                                                            <span class="hud-icon">❤️</span> HP: <span id="game-hp" class="hud-val">10</span>
+                                                        </div>
+                                                        <div class="hud-item" title="Số vàng hiện có">
+                                                            <span class="hud-icon">🪙</span> Vàng: <span id="game-gold" class="hud-val">150</span>
+                                                        </div>
+                                                        <div class="hud-item" title="Đợt quái hiện tại">
+                                                            <span class="hud-icon">👾</span> Đợt: <span id="game-wave" class="hud-val">1/5</span>
+                                                        </div>
+                                                    </div>
+    
+                                                    <!-- Layout chính 3 cột giúp tối ưu hóa không gian bao trọn màn hình -->
+                                                    <div class="game-main-layout">
+                                                        
+                                                        <!-- CỘT TRÁI: Cửa hàng xây tháp (Tower Shop) -->
+                                                        <div class="game-sidebar-left">
+                                                            <div class="sidebar-title">Xây Tháp</div>
+                                                            
+                                                            <div class="gold-shop-display">
+                                                                <span class="hud-icon">🪙</span> <span id="game-gold-shop" class="hud-val">150</span>
+                                                            </div>
+                                                            
+                                                            <div class="tower-buttons-vertical">
+                                                                <button class="btn-game-tower btn-tower-archer active" onclick="game.selectTowerType('archer')" title="Tầm bắn xa, tốc độ bắn nhanh">
+                                                                    <span style="font-size: 1.4rem;">🏹</span>
+                                                                    <span>Cung</span>
+                                                                    <span class="tower-cost">100G</span>
+                                                                </button>
+                                                                <button class="btn-game-tower btn-tower-ice" onclick="game.selectTowerType('ice')" title="Làm chậm tốc độ chạy của quái vật">
+                                                                    <span style="font-size: 1.4rem;">❄️</span>
+                                                                    <span>Băng</span>
+                                                                    <span class="tower-cost">100G</span>
+                                                                </button>
+                                                                <button class="btn-game-tower btn-tower-bomb" onclick="game.selectTowerType('bomb')" title="Sát thương lan diện rộng cực mạnh">
+                                                                    <span style="font-size: 1.4rem;">💣</span>
+                                                                    <span>Pháo</span>
+                                                                    <span class="tower-cost">150G</span>
+                                                                </button>
+                                                                <button class="btn-game-tower btn-tower-soldier" onclick="game.selectTowerType('soldier')" title="Chặn đứng quái vật trên đường đi">
+                                                                    <span style="font-size: 1.4rem;">🛡️</span>
+                                                                    <span>Lính</span>
+                                                                    <span class="tower-cost">120G</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+    
+                                                        <!-- CỘT GIỮA: Canvas chơi game -->
+                                                        <div class="game-center-area">
+                                                            <div class="canvas-wrapper">
+                                                                <canvas id="td-canvas" width="960" height="600"></canvas>
+                                                                
+                                                                <!-- Khay Siêu Kỹ Năng & Thanh Mana của Siêu Anh Hùng -->
+                                                                <div class="game-skills-container" id="game-skills-container">
+                                                                    <div class="mana-bar-wrapper">
+                                                                        <span class="mana-icon">🔮</span>
+                                                                        <div class="mana-bar-track">
+                                                                            <div class="mana-bar-fill" id="hero-mana-fill" style="width: 100%"></div>
+                                                                        </div>
+                                                                        <span class="mana-text" id="hero-mana-text">Mana: 100/100</span>
+                                                                    </div>
+                                                                    <div class="skills-buttons" id="skills-buttons-wrapper">
+                                                                        <button class="btn-skill" id="btn-skill-skill1" onclick="game.castSkill('skill1')" title="Kiếm Khí Càn Khôn (Mana: 35) - Phóng kiếm khí gây 250 sát thương lên tất cả quái vật">
+                                                                            <div class="btn-skill-inner">
+                                                                                <span class="skill-emoji">⚔️</span>
+                                                                            </div>
+                                                                            <span class="skill-cost-badge">35</span>
+                                                                        </button>
+                                                                        <button class="btn-skill" id="btn-skill-skill2" onclick="game.castSkill('skill2')" title="Chiến Thần Hộ Thể (Mana: 40) - Tăng 50% sát thương cho tất cả tháp trong 6 giây">
+                                                                            <div class="btn-skill-inner">
+                                                                                <span class="skill-emoji">🛡️</span>
+                                                                            </div>
+                                                                            <span class="skill-cost-badge">40</span>
+                                                                        </button>
+                                                                        <button class="btn-skill" id="btn-skill-skill3" onclick="game.castSkill('skill3')" title="Quang Minh Phán Quyết (Mana: 50) - Cột sáng quang năng tiêu diệt quái dưới 40% HP hoặc gây 500 sát thương">
+                                                                            <div class="btn-skill-inner">
+                                                                                <span class="skill-emoji">☀️</span>
+                                                                            </div>
+                                                                            <span class="skill-cost-badge">50</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <!-- Thanh nâng cấp nhanh tháp khi nhấp chọn tháp trên canvas -->
+                                                            <div id="tower-upgrade-panel" class="tower-upgrade-panel hidden">
+                                                                <!-- Điền động bằng JS game.js -->
+                                                            </div>
+                                                        </div>
+    
+                                                        <!-- CỘT PHẢI: Bắt đầu & Thống kê quái vượt qua -->
+                                                        <div class="game-sidebar-right">
+                                                            <div class="start-wave-container">
+                                                                <button id="btn-start-wave" class="btn-start-wave hidden" onclick="game.startWaveByPlayer()">
+                                                                    <span style="font-size: 1.2rem;">🚀</span>
+                                                                    <span style="font-weight: 800;">BẮT ĐẦU</span>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                            <div class="escaped-monsters-container">
+                                                                <div class="sidebar-title" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-size: 0.7rem;">
+                                                                    QUÁI VƯỢT QUA
+                                                                </div>
+                                                                <div id="escaped-monsters-list">
+                                                                    <!-- Điền động bằng JS game.js -->
+                                                                    <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center; font-style: italic; margin-top: 1rem;">
+                                                                        Chưa có quái nào vượt qua
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+                                                </div>
+                                            </div>
+ 
+                                            <!-- Đồng hồ đếm ngược bài kiểm tra -->
+                                            <span id="exam-timer-wrapper" class="hidden" style="font-weight:700; color:var(--danger); display:inline-flex; align-items:center; gap:0.4rem; background-color:var(--danger-bg); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.9rem;">
+                                                <i class="fa-solid fa-stopwatch"></i> <span id="exam-timer-val">15:00</span>
+                                            </span>
+ 
+                                            <button class="btn-focus" style="font-size: 0.8rem; padding: 0.3rem 0.6rem;" onclick="app.toggleFullscreen()">
+                                                <i class="fa-solid fa-maximize"></i> Toàn màn hình
+                                            </button>
+                                        </div>
+ 
+                                        <div class="practice-footer" style="margin-top:1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+                                            <!-- Nút chơi thử Đấu trường (Dành cho Developer/Giáo viên test game) -->
+                                            <!--
+                                            <button class="btn-danger hidden" id="test-game-btn" onclick="questions.skipToTestGame()" style="padding:0.6rem 1.5rem; font-size:1rem; border-radius:8px; background-color: var(--danger); border-color: var(--danger); color: white; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                                                ⚙️ Chơi Thử Game (Test)
+                                            </button>
+                                            -->
+                                            <button class="btn-primary hidden" id="next-question-btn" onclick="questions.nextQuestion()" style="padding:0.6rem 1.5rem; font-size:1rem; border-radius:8px; margin-left: auto;">
+                                                Tiếp theo <i class="fa-solid fa-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Kết quả sau khi làm xong -->
+                                    <div id="practice-result-box" class="hidden">
+                                        <div class="result-card text-center" style="padding: 1.5rem 0;">
+                                            <div class="result-icon" id="result-icon-emoji" style="font-size: 4rem; margin-bottom: 0.8rem;">🎉</div>
+                                            <h3 class="result-score" id="result-score-title" style="font-size:1.6rem; font-weight:800; color:var(--primary);">Xuất sắc (100%)</h3>
+                                            <p class="result-desc" id="result-score-desc" style="color:var(--text-muted); margin: 0.5rem auto 1.5rem; max-width: 480px;">Bạn làm rất tốt! Bài tiếp theo đã được mở khóa.</p>
+                                            
+                                            <div class="xp-earned-box" style="margin-bottom: 1.5rem;">
+                                                <span class="xp-plus" style="background-color: var(--warning-bg); color: var(--warning); border: 2px dashed var(--warning); padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 800; font-size: 1.2rem;">+<span id="xp-earned-val">50</span> XP</span>
+                                            </div>
+
+                                            <div class="result-details" style="display:flex; justify-content:center; gap:2rem; margin:1.5rem 0; background: var(--bg-app); padding: 1rem; border-radius: 12px; border: 1px solid var(--border-color); max-width: 380px; margin: 0 auto 1.5rem;">
+                                                <div class="detail-item">
+                                                    <span class="detail-label" style="color:var(--text-muted); font-size:0.9rem;">Số câu đúng:</span><br>
+                                                    <span class="detail-val" id="result-correct-count" style="font-weight:800; font-size:1.15rem; color:var(--text-main);">5/5</span>
+                                                </div>
+                                                <div class="detail-item" style="border-left: 1px solid var(--border-color); padding-left: 2rem;">
+                                                    <span class="detail-label" style="color:var(--text-muted); font-size:0.9rem;">Xếp loại:</span><br>
+                                                    <span class="detail-val badge-rank" id="result-rank-badge" style="font-weight:700;">Xuất sắc</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="result-actions" style="display:flex; justify-content:center; flex-wrap:wrap; gap:0.8rem; margin: 2rem 0;">
+                                                <button class="btn-secondary" id="retry-practice-btn" onclick="app.retryPractice()" style="padding:0.7rem 1.4rem; border-radius:8px; font-weight:700;">
+                                                    <i class="fa-solid fa-rotate-right"></i> Luyện tập lại
+                                                </button>
+                                                <button class="btn-primary" id="btn-show-practice-review" onclick="questions.showPracticeReview()" style="padding:0.7rem 1.4rem; border-radius:8px; font-weight:700;">
+                                                    <i class="fa-solid fa-square-poll-vertical"></i> Xem chi tiết bài làm
+                                                </button>
+                                                <button class="btn-primary" id="btn-back-to-practice" onclick="app.switchLessonTab('practice')" style="padding:0.7rem 1.4rem; border-radius:8px; font-weight:700; background-color: var(--primary); border-color: var(--primary);">
+                                                    <i class="fa-solid fa-house"></i> Lộ trình Luyện tập
+                                                </button>
+                                            </div>
+
+                                            <!-- Phần xem lại bài kiểm tra: Lời giải & Mẹo thi -->
+                                            <div id="exam-review-box" class="hidden" style="margin-top: 2rem; border-top: 2px solid var(--border-color); padding-top: 1.5rem; text-align: left;">
+                                                <h4 style="font-size:1.15rem; margin-bottom:1.2rem; color:var(--primary); font-weight:700;"><i class="fa-solid fa-square-poll-vertical"></i> Chi tiết bài làm & Giải thích của phụ huynh</h4>
+                                                <div id="exam-review-list" style="display:flex; flex-direction:column; gap:1.2rem;">
+                                                    <!-- Danh sách câu hỏi thi và giải thích chi tiết được render động bằng JS -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab 3: Lịch sử làm bài -->
+                                <div id="tab-history" class="tab-pane hidden">
+                                    <div class="session-history-container" style="padding:0.5rem 0;">
+                                        <h3 style="margin-bottom:0.5rem;"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử làm bài của con</h3>
+                                        <p id="lesson-history-student-desc" style="color:var(--text-muted); margin-bottom:1.2rem; font-size:0.9rem;">Danh sách các lần luyện tập và kiểm tra bài học này của học sinh.</p>
+                                        <div id="lesson-history-list" class="history-list" style="display:flex; flex-direction:column; gap:0.8rem;">
+                                            <!-- Render động bằng JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Danh sách Huy hiệu dành cho Học sinh -->
+    <div id="badges-modal" class="modal hidden">
+        <div class="modal-content animate-zoom-in">
+            <div class="modal-header">
+                <h3 id="badges-modal-title">🏅 Bộ sưu tập Huy hiệu của học sinh</h3>
+                <button class="close-modal-btn" onclick="app.closeBadgesModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="badges-grid-all" id="badges-grid-container">
+                    <!-- Danh sách đầy đủ các huy hiệu (đã khóa và đã mở) -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xem lại chi tiết Lượt làm bài -->
+    <div id="review-session-modal" class="modal hidden">
+        <div class="modal-content animate-zoom-in" style="max-width: 1000px; width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <h3 id="review-session-title">📝 Xem lại chi tiết bài làm</h3>
+                <button class="close-modal-btn" onclick="app.closeReviewSessionModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="review-session-body" style="overflow-y: auto; padding: 1.5rem; flex: 1; max-height: none;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xem trước đề thi giấy trước khi in -->
+    <div id="print-preview-modal" class="modal hidden" style="z-index: 10000; background-color: rgba(0,0,0,0.6); opacity: 1 !important;">
+        <div class="modal-content" style="max-width: 960px; width: 95%; height: 90vh; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background-color: var(--bg-card); border: 1px solid var(--border-color); animation: zoomIn 0.3s ease;">
+            <div class="modal-header" style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-app);">
+                <h3 style="margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); font-weight: 800;">
+                    <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Xem trước đề thi offline (A4)
+                </h3>
+                <div style="display: flex; gap: 0.8rem; align-items: center;">
+                    <button onclick="questions.triggerPrintFromPreview()" class="btn-primary" style="background-color: var(--success); border-color: var(--success); color: white; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);">
+                        <i class="fa-solid fa-print"></i> Tiến hành In / Xuất PDF
+                    </button>
+                    <button onclick="questions.closePrintPreview()" style="background: none; border: none; font-size: 2rem; color: var(--text-muted); cursor: pointer; line-height: 1; padding: 0 0.5rem;">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 2rem; background-color: #525659; display: flex; justify-content: center;">
+                <!-- Trang giấy A4 Preview -->
+                <div id="print-preview-paper" style="width: 210mm; min-height: 297mm; background-color: white; color: black; box-shadow: 0 8px 24px rgba(0,0,0,0.4); padding: 25mm 20mm; font-family: 'Times New Roman', Times, Georgia, serif; line-height: 1.6; box-sizing: border-box; font-size: 14px;">
+                    <!-- Nội dung đề thi sẽ render ở đây -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Scripts -->
+    <script src="js/lessons.js?v=5.4"></script>
+    <script src="js/questions-v4.js?v=5.4"></script>
+    <script src="js/questions-v3.js?v=5.4"></script>
+    <script src="js/game.js?v=5.4"></script>
+    
+    <script src="js/app.js?v=5.4"></script>
+    
+    <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
+    <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
+        <div class="modal-card evaluation-card animate-bounce-in" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; padding: 0;">
+            <div class="modal-header" style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));">
+                <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 0.6rem;">
+                    <i class="fa-solid fa-chart-pie" style="color: var(--primary);"></i> Báo Cáo & Đánh Giá Chất Lượng Học Tập
+                </h3>
+                <button class="btn-close-modal" onclick="app.closeEvaluationModal()" style="background: none; border: none; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; line-height: 1; padding: 0;">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- Grid thống kê -->
+                <div class="evaluation-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; width: 100%;">
+                    <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                        <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Thời gian học</span>
+                        <span class="eval-stat-val" id="eval-time" style="font-size: 1.2rem; font-weight: 800; color: #3b82f6;">0 phút</span>
+                    </div>
+                    <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                        <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Bài đã xong</span>
+                        <span class="eval-stat-val" id="eval-completed" style="font-size: 1.2rem; font-weight: 800; color: #10b981;">0 bài</span>
+                    </div>
+                    <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                        <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Tỉ lệ làm đúng</span>
+                        <span class="eval-stat-val" id="eval-accuracy" style="font-size: 1.2rem; font-weight: 800; color: #f59e0b;">0%</span>
+                    </div>
+                    <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                        <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Chuỗi ngày</span>
+                        <span class="eval-stat-val" id="eval-streak" style="font-size: 1.2rem; font-weight: 800; color: #ec4899;">0 ngày</span>
+                    </div>
+                </div>
+                
+                <!-- Nhận xét học thuật AI -->
+                <div class="ai-advice-section" style="border: 1px solid var(--border-color); border-radius: 16px; padding: 1.2rem; background: rgba(139, 92, 246, 0.03); display: flex; flex-direction: column; gap: 0.8rem;">
+                    <h4 style="margin: 0; font-size: 1rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-brain"></i> Nhận xét & Đề xuất sư phạm (AI Advisor)
+                    </h4>
+                    <div id="eval-ai-advice" class="ai-advice-content" style="font-size: 0.92rem; line-height: 1.6; color: var(--text-main); min-height: 100px;">
+                        Đang tải đánh giá từ trợ lý AI...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer" style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.5rem; background: rgba(0,0,0,0.08);">
+                <button class="btn-setup-submit" onclick="app.refreshEvaluationAiAnalysis()" id="btn-eval-refresh-ai" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--primary); border-radius: 8px; width: auto; margin: 0;">
+                    <i class="fa-solid fa-arrows-rotate"></i> Cập nhật nhận xét AI
+                </button>
+                <button class="btn-back-header" onclick="app.closeEvaluationModal()" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 8px; margin: 0; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color);">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container phục vụ in đề thi từ trang học sinh -->
+    <div id="student-print-paper"></div>
+
+    <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
+    <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
+        Phiên bản: v5.4 (Cập nhật: 10/07/2026 17:15)
+    </div>
+</body>
+</html>

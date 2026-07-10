@@ -1,0 +1,14 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T00:37:09.692Z
+Lesson ID: bai-22
+Lesson Title: Bài 22: Hình có tâm đối xứng
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: Server trả về mã lỗi: 401
+Error: Toàn bộ API Keys đều gặp sự cố: Server trả về mã lỗi: 401
+    at callGeminiAPI (D:\AntiGravity\HocTap\server.js:388:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async D:\AntiGravity\HocTap\server.js:1038:22
+

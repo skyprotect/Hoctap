@@ -1,0 +1,480 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "sachVanHoc": {
+          "min": 25000,
+          "max": 45000,
+          "step": 1000
+        },
+        "sachKhoaHoc": {
+          "min": 30000,
+          "max": 50000,
+          "step": 1000
+        },
+        "tongBanDau": {
+          "min": 100000,
+          "max": 150000,
+          "step": 1000
+        },
+        "sachMoiMua": {
+          "min": 15000,
+          "max": 30000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "tongBanDau > (sachVanHoc + sachKhoaHoc + 5000)"
+      ],
+      "formulas": {
+        "sachLichSu": "tongBanDau - (sachVanHoc + sachKhoaHoc)",
+        "ans": "tongBanDau + sachMoiMua",
+        "w1": "tongBanDau + sachMoiMua + 2500",
+        "w2": "tongBanDau + sachMoiMua - 2500",
+        "w3": "sachVanHoc + sachKhoaHoc + sachMoiMua"
+      },
+      "questionText": "Một thư viện trường học ban đầu có {sachVanHoc} quyển sách văn học và {sachKhoaHoc} quyển sách khoa học. Tổng số sách của thư viện lúc đó là {tongBanDau} quyển. Cuối năm học, thư viện được bổ sung thêm {sachMoiMua} quyển sách mới. Hỏi sau khi bổ sung, thư viện có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số sách ban đầu của thư viện đã được cho. Hãy sử dụng số liệu này.",
+        "Thư viện được bổ sung thêm sách có nghĩa là số sách sẽ tăng lên. Cần thực hiện phép cộng."
+      ],
+      "solutionHtml": "Tổng số sách của thư viện sau khi bổ sung là:<br/>$ {tongBanDau} + {sachMoiMua} = {ans} $ (quyển sách).<br/>Vậy, thư viện có tất cả $ {ans} $ quyển sách.<br/>Đáp án đúng là C.",
+      "tip": "Đề bài đã cho tổng số sách ban đầu, không cần tính lại số sách văn học và khoa học riêng lẻ rồi cộng lại. Hãy đọc kỹ các thông tin đã cho.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "danSoNamTruoc": {
+          "min": 100000,
+          "max": 200000,
+          "step": 5000
+        },
+        "tangNamNay": {
+          "min": 8000,
+          "max": 15000,
+          "step": 1000
+        },
+        "tangNamSau": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "danSoCuoiNamNay": "danSoNamTruoc + tangNamNay",
+        "ans": "danSoNamTruoc + tangNamNay + tangNamSau",
+        "w1": "danSoNamTruoc + tangNamNay - tangNamSau",
+        "w2": "danSoNamTruoc + tangNamSau",
+        "w3": "danSoNamTruoc + tangNamNay + tangNamSau + 1000"
+      },
+      "questionText": "Dân số của một thành phố vào cuối năm ngoái là {danSoNamTruoc} người. Năm nay, dân số của thành phố đó tăng thêm {tangNamNay} người. Đến cuối năm sau, dự kiến dân số sẽ tiếp tục tăng thêm {tangNamSau} người nữa. Hỏi đến cuối năm sau, dân số của thành phố đó sẽ là bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính dân số vào cuối năm nay.",
+        "Sau đó, cộng thêm số người dự kiến tăng vào năm sau để được tổng dân số cuối cùng."
+      ],
+      "solutionHtml": "Dân số của thành phố vào cuối năm nay là:<br/>$ {danSoNamTruoc} + {tangNamNay} = {danSoCuoiNamNay} $ (người).<br/>Dân số của thành phố vào cuối năm sau là:<br/>$ {danSoCuoiNamNay} + {tangNamSau} = {ans} $ (người).<br/>Vậy, đến cuối năm sau, dân số thành phố sẽ là $ {ans} $ người.<br/>Đáp án đúng là B.",
+      "tip": "Khi dân số 'tăng thêm' tức là chúng ta phải thực hiện phép cộng. Hãy thực hiện từng phép cộng một cách cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tienTietKiemAn": {
+          "min": 45000,
+          "max": 80000,
+          "step": 5000
+        },
+        "tienBoCho": {
+          "min": 20000,
+          "max": 40000,
+          "step": 5000
+        },
+        "tienMeCho": {
+          "min": 10000,
+          "max": 20000,
+          "step": 5000
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "tienTietKiemAn + tienBoCho + tienMeCho",
+        "w1": "tienTietKiemAn + tienBoCho",
+        "w2": "tienTietKiemAn + tienMeCho",
+        "w3": "tienTietKiemAn + tienBoCho + tienMeCho - 5000"
+      },
+      "questionText": "An có một khoản tiền tiết kiệm là {tienTietKiemAn} đồng. Nhân dịp sinh nhật, bố cho An thêm {tienBoCho} đồng và mẹ cho An thêm {tienMeCho} đồng. Hỏi sau khi nhận tiền từ bố và mẹ, An có tất cả bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w3} đồng",
+        "C. {w2} đồng",
+        "D. {ans} đồng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số tiền An có sẽ tăng lên sau khi được bố và mẹ cho thêm.",
+        "Bạn cần cộng tất cả các khoản tiền lại với nhau."
+      ],
+      "solutionHtml": "Tổng số tiền An có sau khi nhận từ bố và mẹ là:<br/>$ {tienTietKiemAn} + {tienBoCho} + {tienMeCho} = {ans} $ (đồng).<br/>Vậy, An có tất cả $ {ans} $ đồng.<br/>Đáp án đúng là D.",
+      "tip": "Đây là bài toán cộng dồn nhiều số hạng. Hãy chắc chắn rằng bạn đã cộng tất cả các số tiền mà An có.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "quangDuong1": {
+          "min": 15000,
+          "max": 25000,
+          "step": 1000
+        },
+        "hon1_2": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        },
+        "hon2_3": {
+          "min": 3000,
+          "max": 7000,
+          "step": 500
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "quangDuong2": "quangDuong1 + hon1_2",
+        "quangDuong3": "quangDuong1 + hon1_2 + hon2_3",
+        "ans": "quangDuong1 + (quangDuong1 + hon1_2) + (quangDuong1 + hon1_2 + hon2_3)",
+        "w1": "quangDuong1 + quangDuong2",
+        "w2": "quangDuong1 + quangDuong2 + quangDuong3 + 1000",
+        "w3": "quangDuong1 + quangDuong3"
+      },
+      "questionText": "Một vận động viên chạy marathon đã hoàn thành chặng đường thứ nhất dài {quangDuong1} mét. Chặng đường thứ hai dài hơn chặng đường thứ nhất {hon1_2} mét. Chặng đường thứ ba dài hơn chặng đường thứ hai {hon2_3} mét. Hỏi tổng cộng vận động viên đó đã chạy bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính độ dài của chặng đường thứ hai.",
+        "Sau đó, tính độ dài của chặng đường thứ ba.",
+        "Cuối cùng, cộng độ dài của cả ba chặng đường lại."
+      ],
+      "solutionHtml": "Độ dài chặng đường thứ hai là:<br/>$ {quangDuong1} + {hon1_2} = {quangDuong2} $ (mét).<br/>Độ dài chặng đường thứ ba là:<br/>$ {quangDuong2} + {hon2_3} = {quangDuong3} $ (mét).<br/>Tổng cộng vận động viên đó đã chạy được số mét là:<br/>$ {quangDuong1} + {quangDuong2} + {quangDuong3} = {ans} $ (mét).<br/>Vậy, vận động viên đã chạy tổng cộng $ {ans} $ mét.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán có nhiều bước tính toán trung gian. Hãy tính toán từng chặng đường một cách chính xác trước khi tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hsKhoi4": {
+          "min": 250,
+          "max": 350,
+          "step": 10
+        },
+        "hon4_5": {
+          "min": 30,
+          "max": 70,
+          "step": 5
+        },
+        "kem4_3": {
+          "min": 20,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "hsKhoi4 > kem4_3"
+      ],
+      "formulas": {
+        "hsKhoi5": "hsKhoi4 + hon4_5",
+        "hsKhoi3": "hsKhoi4 - kem4_3",
+        "ans": "hsKhoi3 + hsKhoi4 + hsKhoi5",
+        "w1": "hsKhoi4 + hsKhoi5",
+        "w2": "hsKhoi4 + hsKhoi3",
+        "w3": "hsKhoi3 + hsKhoi4 + hsKhoi5 + 10"
+      },
+      "questionText": "Trong một trường tiểu học, khối Bốn có {hsKhoi4} học sinh. Khối Năm có nhiều hơn khối Bốn {hon4_5} học sinh. Khối Ba có ít hơn khối Bốn {kem4_3} học sinh. Hỏi cả ba khối Ba, Bốn, Năm có tất cả bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số học sinh của khối Năm.",
+        "Tiếp theo, hãy tính số học sinh của khối Ba.",
+        "Cuối cùng, cộng số học sinh của cả ba khối lại với nhau."
+      ],
+      "solutionHtml": "Số học sinh khối Năm là:<br/>$ {hsKhoi4} + {hon4_5} = {hsKhoi5} $ (học sinh).<br/>Số học sinh khối Ba là:<br/>$ {hsKhoi4} - {kem4_3} = {hsKhoi3} $ (học sinh).<br/>Tổng số học sinh của cả ba khối Ba, Bốn, Năm là:<br/>$ {hsKhoi3} + {hsKhoi4} + {hsKhoi5} = {ans} $ (học sinh).<br/>Vậy, cả ba khối có tất cả $ {ans} $ học sinh.<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận với từ khóa 'nhiều hơn' (phép cộng) và 'ít hơn' (phép trừ) để tính đúng số học sinh từng khối.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "spThang1": {
+          "min": 20000,
+          "max": 40000,
+          "step": 1000
+        },
+        "hon1_2": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        },
+        "kemTong12_3": {
+          "min": 2000,
+          "max": 8000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "spThang1 + (spThang1 + hon1_2) > kemTong12_3 + 1000"
+      ],
+      "formulas": {
+        "spThang2": "spThang1 + hon1_2",
+        "tong1_2": "spThang1 + spThang1 + hon1_2",
+        "spThang3": "spThang1 + spThang1 + hon1_2 - kemTong12_3",
+        "ans": "spThang1 + (spThang1 + hon1_2) + (spThang1 + spThang1 + hon1_2 - kemTong12_3)",
+        "w1": "spThang1 + spThang2",
+        "w2": "spThang1 + spThang2 + spThang3 + 500",
+        "w3": "spThang1 + spThang2 + (spThang1 + spThang2 + kemTong12_3)"
+      },
+      "questionText": "Một xưởng sản xuất có kế hoạch làm việc trong ba tháng. Tháng thứ nhất, xưởng sản xuất được {spThang1} sản phẩm. Tháng thứ hai, xưởng sản xuất nhiều hơn tháng thứ nhất {hon1_2} sản phẩm. Tháng thứ ba, xưởng sản xuất ít hơn tổng số sản phẩm của tháng thứ nhất và tháng thứ hai là {kemTong12_3} sản phẩm. Hỏi cả ba tháng xưởng đó sản xuất được tổng cộng bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {w2} sản phẩm",
+        "C. {ans} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, tính số sản phẩm của tháng thứ hai.",
+        "Sau đó, tính tổng số sản phẩm của tháng thứ nhất và tháng thứ hai.",
+        "Tiếp theo, tính số sản phẩm của tháng thứ ba.",
+        "Cuối cùng, cộng tổng số sản phẩm của cả ba tháng."
+      ],
+      "solutionHtml": "Số sản phẩm xưởng sản xuất được trong tháng thứ hai là:<br/>$ {spThang1} + {hon1_2} = {spThang2} $ (sản phẩm).<br/>Tổng số sản phẩm của tháng thứ nhất và tháng thứ hai là:<br/>$ {spThang1} + {spThang2} = {tong1_2} $ (sản phẩm).<br/>Số sản phẩm xưởng sản xuất được trong tháng thứ ba là:<br/>$ {tong1_2} - {kemTong12_3} = {spThang3} $ (sản phẩm).<br/>Tổng số sản phẩm xưởng đó sản xuất được trong cả ba tháng là:<br/>$ {spThang1} + {spThang2} + {spThang3} = {ans} $ (sản phẩm).<br/>Vậy, cả ba tháng xưởng đó sản xuất được $ {ans} $ sản phẩm.<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này đòi hỏi nhiều phép tính trung gian và logic 'ít hơn tổng'. Hãy thực hiện từng bước thật cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lua": {
+          "min": 30000,
+          "max": 60000,
+          "step": 5000
+        },
+        "honLua_Ngo": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        },
+        "kemNgo_Khoai": {
+          "min": 5000,
+          "max": 12000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "(lua + honLua_Ngo) > kemNgo_Khoai + 1000"
+      ],
+      "formulas": {
+        "ngo": "lua + honLua_Ngo",
+        "khoai": "lua + honLua_Ngo - kemNgo_Khoai",
+        "ans": "lua + (lua + honLua_Ngo) + (lua + honLua_Ngo - kemNgo_Khoai)",
+        "w1": "lua + ngo",
+        "w2": "lua + ngo + khoai - 1000",
+        "w3": "lua + ngo + (ngo + kemNgo_Khoai)"
+      },
+      "questionText": "Một hợp tác xã nông nghiệp thu hoạch ba loại nông sản: lúa, ngô và khoai. Số lúa thu hoạch được là {lua} kg. Số ngô thu hoạch được nhiều hơn số lúa {honLua_Ngo} kg. Số khoai thu hoạch được ít hơn số ngô {kemNgo_Khoai} kg. Hỏi hợp tác xã đã thu hoạch được tất cả bao nhiêu ki-lô-gam nông sản?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {w3} kg",
+        "D. {ans} kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính số kg ngô thu hoạch được trước.",
+        "Tiếp theo, tính số kg khoai thu hoạch được.",
+        "Cuối cùng, cộng tổng số kg của ba loại nông sản."
+      ],
+      "solutionHtml": "Số ngô thu hoạch được là:<br/>$ {lua} + {honLua_Ngo} = {ngo} $ (kg).<br/>Số khoai thu hoạch được là:<br/>$ {ngo} - {kemNgo_Khoai} = {khoai} $ (kg).<br/>Tổng số ki-lô-gam nông sản hợp tác xã thu hoạch được là:<br/>$ {lua} + {ngo} + {khoai} = {ans} $ (kg).<br/>Vậy, hợp tác xã đã thu hoạch được tất cả $ {ans} $ kg nông sản.<br/>Đáp án đúng là D.",
+      "tip": "Cần tính toán theo thứ tự các loại nông sản được nhắc đến để tránh nhầm lẫn 'ít hơn số ngô' với 'ít hơn số lúa'.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "temAn": {
+          "min": 15000,
+          "max": 30000,
+          "step": 1000
+        },
+        "honAn_Binh": {
+          "min": 8000,
+          "max": 15000,
+          "step": 500
+        },
+        "kemTongAB_Cuong": {
+          "min": 5000,
+          "max": 10000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "(temAn + temAn + honAn_Binh) > kemTongAB_Cuong + 1000"
+      ],
+      "formulas": {
+        "temBinh": "temAn + honAn_Binh",
+        "tongAnBinh": "temAn + (temAn + honAn_Binh)",
+        "temCuong": "temAn + (temAn + honAn_Binh) - kemTongAB_Cuong",
+        "ans": "temAn + (temAn + honAn_Binh) + (temAn + (temAn + honAn_Binh) - kemTongAB_Cuong)",
+        "w1": "temAn + temBinh + temCuong + 1000",
+        "w2": "temAn + temBinh",
+        "w3": "temAn + temBinh + (temAn + temBinh + kemTongAB_Cuong)"
+      },
+      "questionText": "An có {temAn} con tem. Bình có nhiều hơn An {honAn_Binh} con tem. Cường có số tem ít hơn tổng số tem của An và Bình là {kemTongAB_Cuong} con tem. Hỏi cả ba bạn An, Bình, Cường có tất cả bao nhiêu con tem?",
+      "options": [
+        "A. {w1} con tem",
+        "B. {w2} con tem",
+        "C. {ans} con tem",
+        "D. {w3} con tem"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số tem của Bình trước.",
+        "Sau đó, tính tổng số tem của An và Bình.",
+        "Tiếp theo, tính số tem của Cường.",
+        "Cuối cùng, cộng số tem của cả ba bạn lại."
+      ],
+      "solutionHtml": "Số tem của Bình là:<br/>$ {temAn} + {honAn_Binh} = {temBinh} $ (con tem).<br/>Tổng số tem của An và Bình là:<br/>$ {temAn} + {temBinh} = {tongAnBinh} $ (con tem).<br/>Số tem của Cường là:<br/>$ {tongAnBinh} - {kemTongAB_Cuong} = {temCuong} $ (con tem).<br/>Tổng số tem của cả ba bạn An, Bình, Cường là:<br/>$ {temAn} + {temBinh} + {temCuong} = {ans} $ (con tem).<br/>Vậy, cả ba bạn có tất cả $ {ans} $ con tem.<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa 'ít hơn Bình' với 'ít hơn tổng An và Bình'. Hãy đọc kỹ từng câu chữ của đề bài.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "dienTichA": {
+          "min": 100000,
+          "max": 200000,
+          "step": 10000
+        },
+        "honA_B": {
+          "min": 30000,
+          "max": 60000,
+          "step": 5000
+        },
+        "themVaoTongAB_C": {
+          "min": 10000,
+          "max": 30000,
+          "step": 5000
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "dienTichB": "dienTichA + honA_B",
+        "tongAB": "dienTichA + (dienTichA + honA_B)",
+        "dienTichC": "dienTichA + (dienTichA + honA_B) + themVaoTongAB_C",
+        "ans": "dienTichA + (dienTichA + honA_B) + (dienTichA + (dienTichA + honA_B) + themVaoTongAB_C)",
+        "w1": "dienTichA + dienTichB",
+        "w2": "dienTichA + dienTichB + dienTichC - 5000",
+        "w3": "dienTichA + dienTichC"
+      },
+      "questionText": "Một nông trại có ba mảnh đất: mảnh A, mảnh B và mảnh C. Mảnh A có diện tích là {dienTichA} mét vuông. Mảnh B có diện tích lớn hơn mảnh A là {honA_B} mét vuông. Mảnh C có diện tích bằng tổng diện tích của mảnh A và mảnh B cộng thêm {themVaoTongAB_C} mét vuông. Hỏi tổng diện tích của cả ba mảnh đất là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} mét vuông",
+        "B. {ans} mét vuông",
+        "C. {w2} mét vuông",
+        "D. {w3} mét vuông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính diện tích của mảnh B trước.",
+        "Sau đó, tính tổng diện tích của mảnh A và mảnh B.",
+        "Tiếp theo, tính diện tích của mảnh C.",
+        "Cuối cùng, cộng diện tích của cả ba mảnh đất lại."
+      ],
+      "solutionHtml": "Diện tích của mảnh B là:<br/>$ {dienTichA} + {honA_B} = {dienTichB} $ (mét vuông).<br/>Tổng diện tích của mảnh A và mảnh B là:<br/>$ {dienTichA} + {dienTichB} = {tongAB} $ (mét vuông).<br/>Diện tích của mảnh C là:<br/>$ {tongAB} + {themVaoTongAB_C} = {dienTichC} $ (mét vuông).<br/>Tổng diện tích của cả ba mảnh đất là:<br/>$ {dienTichA} + {dienTichB} + {dienTichC} = {ans} $ (mét vuông).<br/>Vậy, tổng diện tích của cả ba mảnh đất là $ {ans} $ mét vuông.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ mối quan hệ giữa các mảnh đất. Mảnh C tính dựa trên tổng của A và B, không phải chỉ A hay chỉ B.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hsNhom1": {
+          "min": 120,
+          "max": 200,
+          "step": 10
+        },
+        "honNhom1_2": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        },
+        "themVaoTong12_3": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "hsNhom2": "hsNhom1 + honNhom1_2",
+        "tongNhom1_2": "hsNhom1 + (hsNhom1 + honNhom1_2)",
+        "hsNhom3": "hsNhom1 + (hsNhom1 + honNhom1_2) + themVaoTong12_3",
+        "ans": "hsNhom1 + (hsNhom1 + honNhom1_2) + (hsNhom1 + (hsNhom1 + honNhom1_2) + themVaoTong12_3)",
+        "w1": "hsNhom1 + hsNhom2",
+        "w2": "hsNhom1 + hsNhom2 + hsNhom3 + 5",
+        "w3": "hsNhom1 + hsNhom3"
+      },
+      "questionText": "Một câu lạc bộ thể thao có ba nhóm học sinh tham gia. Nhóm 1 có {hsNhom1} học sinh. Nhóm 2 có nhiều hơn Nhóm 1 là {honNhom1_2} học sinh. Nhóm 3 có số học sinh bằng tổng số học sinh của Nhóm 1 và Nhóm 2 cộng thêm {themVaoTong12_3} học sinh. Hỏi cả ba nhóm có tất cả bao nhiêu học sinh tham gia câu lạc bộ?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {w2} học sinh",
+        "C. {w3} học sinh",
+        "D. {ans} học sinh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính số học sinh của Nhóm 2 trước.",
+        "Sau đó, tính tổng số học sinh của Nhóm 1 và Nhóm 2.",
+        "Tiếp theo, tính số học sinh của Nhóm 3.",
+        "Cuối cùng, cộng số học sinh của cả ba nhóm lại."
+      ],
+      "solutionHtml": "Số học sinh của Nhóm 2 là:<br/>$ {hsNhom1} + {honNhom1_2} = {hsNhom2} $ (học sinh).<br/>Tổng số học sinh của Nhóm 1 và Nhóm 2 là:<br/>$ {hsNhom1} + {hsNhom2} = {tongNhom1_2} $ (học sinh).<br/>Số học sinh của Nhóm 3 là:<br/>$ {tongNhom1_2} + {themVaoTong12_3} = {hsNhom3} $ (học sinh).<br/>Tổng số học sinh của cả ba nhóm là:<br/>$ {hsNhom1} + {hsNhom2} + {hsNhom3} = {ans} $ (học sinh).<br/>Vậy, cả ba nhóm có tất cả $ {ans} $ học sinh.<br/>Đáp án đúng là D.",
+      "tip": "Bài toán này đòi hỏi nhiều bước tính toán liên tiếp. Hãy xác định chính xác số lượng học sinh của từng nhóm trước khi cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4-q10"
+    }
+  ]
+}

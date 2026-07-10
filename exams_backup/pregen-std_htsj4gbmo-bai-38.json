@@ -1,0 +1,497 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "numStudents": {
+          "min": 200,
+          "max": 500,
+          "step": 10
+        },
+        "numTeachers": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "activity1": {
+          "value": "Đọc sách"
+        },
+        "activity2": {
+          "value": "Thể thao"
+        },
+        "activity3": {
+          "value": "Vẽ tranh"
+        },
+        "activity4": {
+          "value": "Chơi nhạc cụ"
+        }
+      },
+      "constraints": [
+        "numStudents > numTeachers"
+      ],
+      "formulas": {
+        "ans": "3"
+      },
+      "questionText": "Một trường học muốn tìm hiểu loại hình giải trí yêu thích nhất của {numStudents} học sinh khối 6 để tổ chức các hoạt động ngoại khóa phù hợp. Để thu thập dữ liệu nhanh chóng và bao quát nhiều học sinh nhất, phương pháp nào sau đây là hiệu quả và phù hợp nhất?",
+      "options": [
+        "A. Quan sát các bạn học sinh trong giờ ra chơi xem họ thường làm gì.",
+        "B. Phỏng vấn trực tiếp từng học sinh khối 6 để hỏi về sở thích.",
+        "C. Phát phiếu khảo sát với các lựa chọn ({activity1}, {activity2}, {activity3}, {activity4}) và thu lại.",
+        "D. Yêu cầu {numTeachers} giáo viên chủ nhiệm tổng hợp sở thích của lớp mình từ trí nhớ."
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để thu thập dữ liệu từ một số lượng lớn đối tượng một cách hiệu quả, cần chọn phương pháp có thể tiếp cận nhiều người cùng lúc mà không tốn quá nhiều thời gian và công sức.",
+        "Hãy xem xét phương pháp nào giúp học sinh tự do bày tỏ ý kiến mà không bị áp đặt."
+      ],
+      "solutionHtml": "Để thu thập dữ liệu từ một số lượng lớn học sinh ({numStudents} học sinh) một cách nhanh chóng, bao quát và khách quan:<br/>- Quan sát trực tiếp có thể không đủ toàn diện và mất nhiều thời gian.<br/>- Phỏng vấn từng học sinh mất rất nhiều thời gian và nguồn lực.<br/>- Yêu cầu giáo viên tổng hợp từ trí nhớ không đảm bảo tính chính xác và khách quan của dữ liệu.<br/>- Phát phiếu khảo sát là phương pháp hiệu quả nhất vì có thể gửi đến nhiều học sinh cùng lúc, giúp thu thập thông tin trực tiếp từ các em, đảm bảo tính khách quan và dễ dàng tổng hợp.<br/>Đáp án đúng là C.",
+      "tip": "Khi cần thu thập dữ liệu từ một nhóm lớn, hãy ưu tiên các phương pháp có tính hệ thống và khả năng bao quát cao."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "maxHours": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "outlierNeg": {
+          "min": -5,
+          "max": -1,
+          "step": 1
+        },
+        "outlierPos": {
+          "min": 26,
+          "max": 30,
+          "step": 1
+        },
+        "v1": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "v2": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "v3": {
+          "min": 11,
+          "max": 15,
+          "step": 1
+        },
+        "v4": {
+          "min": 1,
+          "max": 10,
+          "step": 1
+        },
+        "v5": {
+          "min": 5,
+          "max": 14,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "v1 !== outlierNeg",
+        "v1 !== outlierPos",
+        "v2 !== outlierNeg",
+        "v2 !== outlierPos",
+        "v3 !== outlierNeg",
+        "v3 !== outlierPos",
+        "v4 !== outlierNeg",
+        "v4 !== outlierPos",
+        "v5 !== outlierNeg",
+        "v5 !== outlierPos",
+        "v1 <= maxHours",
+        "v2 <= maxHours",
+        "v3 <= maxHours",
+        "v4 <= maxHours",
+        "v5 <= maxHours",
+        "v1 >= 0",
+        "v2 >= 0",
+        "v3 >= 0",
+        "v4 >= 0",
+        "v5 >= 0",
+        "v1 !== v2",
+        "v1 !== v3",
+        "v1 !== v4",
+        "v1 !== v5",
+        "v2 !== v3",
+        "v2 !== v4",
+        "v2 !== v5",
+        "v3 !== v4",
+        "v3 !== v5",
+        "v4 !== v5"
+      ],
+      "formulas": {
+        "choice": "Math.random() < 0.5 ? 0 : 1",
+        "ans": "choice === 0 ? variables.outlierNeg : variables.outlierPos",
+        "idx": "Math.floor(Math.random() * 6)",
+        "d1": "variables.v1",
+        "d2": "variables.v2",
+        "d3": "variables.v3",
+        "d4": "variables.v4",
+        "d5": "variables.v5",
+        "d6": "formulas.ans",
+        "d7": "variables.v1",
+        "d_arr": "[formulas.d1, formulas.d2, formulas.d3, formulas.d4, formulas.d5, formulas.d6]",
+        "optionValues": "[formulas.d1, formulas.d2, formulas.d3, formulas.d4, formulas.d5, formulas.d6].sort((a,b) => Math.random() - 0.5)",
+        "w1_val": "formulas.optionValues.filter(val => val !== formulas.ans)[0]",
+        "w2_val": "formulas.optionValues.filter(val => val !== formulas.ans)[1]",
+        "w3_val": "formulas.optionValues.filter(val => val !== formulas.ans)[2]"
+      },
+      "questionText": "Một nhóm học sinh đang thống kê số giờ đọc sách trung bình mỗi tuần của các bạn trong lớp. Họ ghi lại các số liệu: {d1} giờ, {d2} giờ, {d3} giờ, {d4} giờ, {d5} giờ, {ans} giờ, {v4} giờ. Biết rằng số giờ đọc sách mỗi tuần của một học sinh không thể vượt quá {maxHours} giờ (do thời gian học và ngủ) và không thể là số âm.",
+      "options": [
+        "A. {w1_val} giờ",
+        "B. {ans} giờ",
+        "C. {w2_val} giờ",
+        "D. {w3_val} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định rõ ràng khoảng giá trị hợp lệ cho số giờ đọc sách mỗi tuần.",
+        "Kiểm tra từng số liệu xem có số nào nằm ngoài khoảng từ $0$ đến {maxHours} không."
+      ],
+      "solutionHtml": "Theo đề bài, số giờ đọc sách trung bình mỗi tuần của một học sinh phải là một số không âm và không vượt quá {maxHours} giờ. Điều này có nghĩa là số liệu phải nằm trong khoảng từ $0$ đến {maxHours}.<br/>Ta kiểm tra các số liệu đã cho:<br/>- {d1} giờ, {d2} giờ, {d3} giờ, {d4} giờ, {d5} giờ, {v4} giờ đều nằm trong khoảng từ $0$ đến {maxHours} và là các số hợp lệ.<br/>- Số liệu {ans} giờ:<br/>&nbsp; &nbsp;Nếu ${choice === 0 ? 'số âm' : 'lớn hơn'} $ {maxHours}: Số {ans} không hợp lệ.<br/>Vậy, số liệu {ans} giờ cần được xem xét lại vì không hợp lệ.<br/>Đáp án đúng là B.",
+      "tip": "Luôn xác định rõ ràng phạm vi giá trị hợp lệ của dữ liệu trước khi phân tích. Dữ liệu ngoài phạm vi này thường là lỗi hoặc không hợp lệ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numDishes": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "numOptions": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2"
+      },
+      "questionText": "Để cải thiện chất lượng bữa ăn trưa bán trú, Ban Giám hiệu muốn khảo sát ý kiến của học sinh về mức độ hài lòng với {numDishes} món ăn hiện tại. Câu hỏi nào sau đây phù hợp nhất để thu thập dữ liệu khách quan về mức độ hài lòng của học sinh?",
+      "options": [
+        "A. Bạn có thấy món ăn ở trường rất ngon và hấp dẫn không?",
+        "B. Bạn không thích món ăn nào nhất trong tuần này?",
+        "C. Vui lòng đánh giá mức độ hài lòng của bạn với bữa ăn trưa theo các mức: Rất hài lòng, Hài lòng, Bình thường, Không hài lòng, Rất không hài lòng.",
+        "D. Món ăn nào là món tủ của bạn ở trường?"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Một câu hỏi khảo sát khách quan không nên mang tính gợi ý hoặc dẫn dắt học sinh.",
+        "Cần cung cấp đủ các lựa chọn để học sinh có thể thể hiện chính xác ý kiến của mình."
+      ],
+      "solutionHtml": "Để thu thập dữ liệu khách quan về mức độ hài lòng, câu hỏi cần đảm bảo không mang tính gợi ý, dẫn dắt và cung cấp các lựa chọn đa dạng:<br/>- Phương án A: Câu hỏi gợi ý học sinh trả lời theo hướng tích cực ('rất ngon và hấp dẫn'), làm mất đi tính khách quan.<br/>- Phương án B: Câu hỏi chỉ tập trung vào khía cạnh 'không thích', bỏ qua các khía cạnh khác của sự hài lòng.<br/>- Phương án D: Câu hỏi không liên quan trực tiếp đến mức độ hài lòng chung mà chỉ hỏi về món yêu thích.<br/>- Phương án C: Câu hỏi trung lập và cung cấp một thang đánh giá rõ ràng, đầy đủ các mức độ từ 'Rất hài lòng' đến 'Rất không hài lòng', giúp thu thập ý kiến khách quan và chi tiết nhất về mức độ hài lòng.<br/>Đáp án đúng là C.",
+      "tip": "Khi thiết kế câu hỏi khảo sát, hãy tránh các câu hỏi dẫn dắt hoặc gợi ý câu trả lời. Cung cấp các lựa chọn đa dạng và cân bằng để thu thập thông tin khách quan nhất."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "countA": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "countB": {
+          "min": 30,
+          "max": 70,
+          "step": 5
+        },
+        "countC": {
+          "min": 60,
+          "max": 110,
+          "step": 5
+        },
+        "countD": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "countA !== countB",
+        "countA !== countC",
+        "countA !== countD",
+        "countB !== countC",
+        "countB !== countD",
+        "countC !== countD",
+        "countA + countC !== countA + countB",
+        "countA + countC !== countA + countD",
+        "countA + countC !== countA + countB + countC + countD"
+      ],
+      "formulas": {
+        "ans": "variables.countA + variables.countC",
+        "w1": "variables.countA + variables.countB",
+        "w2": "variables.countA + variables.countD",
+        "w3": "variables.countA + variables.countB + variables.countC + variables.countD"
+      },
+      "questionText": "Một cửa hàng sách thống kê số lượng truyện tranh bán được của 4 loại trong một tuần. Số liệu ghi nhận: Loại A: {countA} cuốn, Loại B: {countB} cuốn, Loại C: {countC} cuốn, Loại D: {countD} cuốn. Tổng số truyện tranh loại A và C bán được trong tuần là bao nhiêu cuốn?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {ans} cuốn",
+        "C. {w2} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy xác định đúng các loại truyện tranh cần tính tổng.",
+        "Thực hiện phép cộng hai số lượng đã cho."
+      ],
+      "solutionHtml": "Để tìm tổng số truyện tranh loại A và C bán được, ta cộng số lượng truyện tranh của hai loại này:<br/>Số lượng loại A: {countA} cuốn.<br/>Số lượng loại C: {countC} cuốn.<br/>Tổng số truyện tranh loại A và C là: {countA} + {countC} = {ans}$ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ yêu cầu của đề bài để chỉ tính toán với các dữ liệu được hỏi, tránh tính nhầm hoặc tính thừa các giá trị không cần thiết."
+    },
+    {
+      "isTemplate": true,
+      "variables": {},
+      "constraints": [],
+      "formulas": {},
+      "questionText": "Một bạn học sinh thu thập thông tin về các bạn trong tổ của mình để làm báo cáo. Các thông tin thu thập bao gồm: chiều cao, màu tóc, số anh chị em ruột, môn học yêu thích. Trong các thông tin trên, những dữ liệu nào là dữ liệu định tính (phi số)?",
+      "options": [
+        "A. Chiều cao và số anh chị em ruột.",
+        "B. Màu tóc và môn học yêu thích.",
+        "C. Chiều cao và màu tóc.",
+        "D. Số anh chị em ruột và môn học yêu thích."
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dữ liệu định tính là dữ liệu mô tả đặc điểm, tính chất mà không thể đo lường bằng số.",
+        "Dữ liệu định lượng là dữ liệu có thể đo lường bằng số và có thể thực hiện các phép tính toán."
+      ],
+      "solutionHtml": "Để phân biệt dữ liệu định tính và định lượng, ta xem xét khả năng đo lường bằng số:<br/>- Chiều cao: Có thể đo bằng đơn vị (ví dụ: cm), là dữ liệu định lượng.<br/>- Màu tóc: Mô tả đặc điểm (ví dụ: đen, nâu, vàng), không đo bằng số, là dữ liệu định tính.<br/>- Số anh chị em ruột: Là một con số đếm được (ví dụ: 0, 1, 2), là dữ liệu định lượng.<br/>- Môn học yêu thích: Mô tả sở thích (ví dụ: Toán, Văn, Anh), không đo bằng số, là dữ liệu định tính.<br/>Vậy, dữ liệu định tính bao gồm màu tóc và môn học yêu thích.<br/>Đáp án đúng là B.",
+      "tip": "Hãy tự hỏi 'có thể đếm hoặc đo bằng số được không?' để phân loại dữ liệu. Nếu 'Có', đó là dữ liệu định lượng. Nếu 'Không', đó là dữ liệu định tính."
+    },
+    {
+      "isTemplate": true,
+      "variables": {},
+      "constraints": [],
+      "formulas": {},
+      "questionText": "Một trường học muốn biết mức độ yêu thích môn Toán của học sinh. Giáo viên đưa ra câu hỏi: \"Bạn có đồng ý rằng Toán học là môn học thú vị và bổ ích nhất không?\" kèm theo các lựa chọn \"Có\" hoặc \"Không\". Cách đặt câu hỏi trên có phải là phương pháp thu thập dữ liệu khách quan không? Tại sao?",
+      "options": [
+        "A. Có, vì câu hỏi rõ ràng và dễ hiểu.",
+        "B. Không, vì câu hỏi mang tính gợi ý, dẫn dắt học sinh trả lời \"Có\".",
+        "C. Có, vì học sinh có hai lựa chọn để trả lời.",
+        "D. Không, vì câu hỏi quá ngắn gọn, không đủ thông tin."
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khách quan nghĩa là không thiên vị, không ảnh hưởng đến câu trả lời của người được hỏi.",
+        "Hãy xem xét từ ngữ trong câu hỏi có đang 'cài đặt' một câu trả lời mong muốn không."
+      ],
+      "solutionHtml": "Cách đặt câu hỏi \"Bạn có đồng ý rằng Toán học là môn học thú vị và bổ ích nhất không?\" không phải là phương pháp thu thập dữ liệu khách quan. Lý do là:<br/>- Câu hỏi này đã chứa sẵn một nhận định tích cực về môn Toán (\"thú vị và bổ ích nhất\"), điều này có thể ảnh hưởng tâm lý và gợi ý học sinh nên chọn câu trả lời \"Có\" dù thực tế các em có thể không cảm thấy như vậy.<br/>- Để thu thập dữ liệu khách quan, câu hỏi cần trung lập, ví dụ: \"Mức độ yêu thích môn Toán của bạn là gì? (Rất thích, Thích, Bình thường, Không thích)\" hoặc \"Bạn đánh giá môn Toán như thế nào?\".<br/>Đáp án đúng là B.",
+      "tip": "Để dữ liệu thu thập được có giá trị, câu hỏi khảo sát phải luôn trung lập, không chứa ý kiến chủ quan hoặc gợi ý câu trả lời."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "countVanilla": {
+          "min": 100,
+          "max": 150,
+          "step": 5
+        },
+        "countChocolate": {
+          "min": 60,
+          "max": 90,
+          "step": 5
+        },
+        "countStrawberry": {
+          "min": 70,
+          "max": 110,
+          "step": 5
+        },
+        "countMatcha": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "flavorVanilla": {
+          "value": "Vani"
+        },
+        "flavorChocolate": {
+          "value": "Socola"
+        },
+        "flavorStrawberry": {
+          "value": "Dâu"
+        },
+        "flavorMatcha": {
+          "value": "Matcha"
+        }
+      },
+      "constraints": [
+        "countVanilla > countChocolate",
+        "countVanilla > countStrawberry",
+        "countVanilla > countMatcha",
+        "countChocolate !== countStrawberry",
+        "countChocolate !== countMatcha",
+        "countStrawberry !== countMatcha"
+      ],
+      "formulas": {
+        "ansFlavor": "variables.flavorVanilla",
+        "ansCount": "variables.countVanilla",
+        "w1Flavor": "variables.flavorChocolate",
+        "w2Flavor": "variables.flavorStrawberry",
+        "w3Flavor": "variables.flavorMatcha"
+      },
+      "questionText": "Một cửa hàng kem thống kê số lượng kem bán được của 4 hương vị phổ biến nhất trong một ngày nóng bức. Kết quả: {flavorVanilla}: {countVanilla} ly, {flavorChocolate}: {countChocolate} ly, {flavorStrawberry}: {countStrawberry} ly, {flavorMatcha}: {countMatcha} ly. Cửa hàng muốn nhập thêm hương vị được yêu thích nhất để đáp ứng nhu cầu khách hàng. Hương vị kem nào cửa hàng nên nhập thêm nhiều nhất?",
+      "options": [
+        "A. {w1Flavor}",
+        "B. {ansFlavor}",
+        "C. {w2Flavor}",
+        "D. {w3Flavor}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hương vị kem được yêu thích nhất là hương vị có số lượng bán ra nhiều nhất.",
+        "So sánh số lượng bán ra của từng hương vị để tìm ra hương vị bán chạy nhất."
+      ],
+      "solutionHtml": "Để xác định hương vị kem nào nên nhập thêm nhiều nhất, cửa hàng cần tìm hương vị có số lượng bán ra cao nhất, vì đó là hương vị được khách hàng yêu thích nhất.<br/>Ta so sánh số lượng bán ra của các hương vị:<br/>- {flavorVanilla}: {countVanilla} ly<br/>- {flavorChocolate}: {countChocolate} ly<br/>- {flavorStrawberry}: {countStrawberry} ly<br/>- {flavorMatcha}: {countMatcha} ly<br/>Trong các số liệu trên, {countVanilla} là số lớn nhất.<br/>Vậy, hương vị {ansFlavor} là hương vị kem được yêu thích nhất và cửa hàng nên nhập thêm nhiều nhất.<br/>Đáp án đúng là B.",
+      "tip": "Khi đưa ra quyết định dựa trên dữ liệu, hãy tìm giá trị cao nhất (hoặc thấp nhất, tùy thuộc vào bài toán) để xác định xu hướng hoặc ưu tiên."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 30,
+          "max": 45,
+          "step": 1
+        },
+        "likeMath": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "likeScience": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "likeMath + likeScience < totalStudents",
+        "likeMath > 0",
+        "likeScience > 0",
+        "totalStudents - likeMath - likeScience > 0",
+        "totalStudents - likeMath - likeScience !== likeMath",
+        "totalStudents - likeMath - likeScience !== likeScience",
+        "totalStudents - likeMath - likeScience !== likeMath + likeScience"
+      ],
+      "formulas": {
+        "likeVietnamese": "variables.totalStudents - variables.likeMath - variables.likeScience",
+        "ans": "(formulas.likeVietnamese / variables.totalStudents * 100).toFixed(2)",
+        "w1": "(variables.likeMath / variables.totalStudents * 100).toFixed(2)",
+        "w2": "(variables.likeScience / variables.totalStudents * 100).toFixed(2)",
+        "w3": "((variables.likeMath + variables.likeScience) / variables.totalStudents * 100).toFixed(2)"
+      },
+      "questionText": "Trong lớp 6A có {totalStudents} học sinh. Qua khảo sát, có {likeMath} học sinh yêu thích môn Toán, {likeScience} học sinh yêu thích môn Khoa học và số còn lại yêu thích môn Tiếng Việt. Tỷ lệ phần trăm học sinh yêu thích môn Tiếng Việt là bao nhiêu (làm tròn đến hàng phần trăm)?",
+      "options": [
+        "A. {w1}%",
+        "B. {ans}%",
+        "C. {w2}%",
+        "D. {w3}%"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính số học sinh yêu thích môn Tiếng Việt.",
+        "Sau đó, lấy số học sinh yêu thích Tiếng Việt chia cho tổng số học sinh rồi nhân với 100 để có tỉ lệ phần trăm."
+      ],
+      "solutionHtml": "Để tính tỉ lệ phần trăm học sinh yêu thích môn Tiếng Việt, ta thực hiện các bước sau:<br/>1. Tính số học sinh yêu thích môn Tiếng Việt:<br/>Số học sinh yêu thích Tiếng Việt = Tổng số học sinh - Số học sinh yêu thích Toán - Số học sinh yêu thích Khoa học<br/>$ Số học sinh yêu thích Tiếng Việt = {totalStudents} - {likeMath} - {likeScience} = {formulas.likeVietnamese} $ (học sinh).<br/>2. Tính tỉ lệ phần trăm:<br/>Tỉ lệ phần trăm = (Số học sinh yêu thích Tiếng Việt $ \\div $ Tổng số học sinh) $ \\times 100\\% $<br/>Tỉ lệ phần trăm = ({formulas.likeVietnamese} \\div {totalStudents}) \\times 100\\% = {ans}\\%$ (làm tròn đến hàng phần trăm).<br/>Đáp án đúng là B.",
+      "tip": "Khi làm việc với tỉ lệ phần trăm, hãy chắc chắn rằng bạn đã xác định đúng tổng số (mẫu số) và phần cụ thể cần tính tỉ lệ (tử số)."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sportsMembers": {
+          "min": 50,
+          "max": 80,
+          "step": 5
+        },
+        "musicMembers": {
+          "min": 40,
+          "max": 70,
+          "step": 5
+        },
+        "totalMembers": {
+          "min": 150,
+          "max": 200,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "sportsMembers + musicMembers < totalMembers",
+        "totalMembers - sportsMembers - musicMembers > 0"
+      ],
+      "formulas": {
+        "artMembers": "variables.totalMembers - variables.sportsMembers - variables.musicMembers"
+      },
+      "questionText": "Một bảng thống kê số lượng học sinh tham gia các câu lạc bộ (CLB) trong trường bị thiếu một số dữ liệu:<br/>- CLB Thể thao: {sportsMembers} học sinh<br/>- CLB Âm nhạc: {musicMembers} học sinh<br/>- CLB Mỹ thuật: ? học sinh<br/>- Tổng số học sinh tham gia cả 3 CLB: {totalMembers} học sinh.<br/>Để hoàn thiện bảng thống kê này và biết số học sinh tham gia CLB Mỹ thuật, thông tin nào sau đây *trực tiếp* cần được thu thập hoặc xác định?",
+      "options": [
+        "A. Tổng số học sinh toàn trường.",
+        "B. Số học sinh tham gia CLB Mỹ thuật.",
+        "C. Số học sinh không tham gia CLB nào.",
+        "D. Số giáo viên phụ trách các CLB."
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đề bài đã cho tổng số học sinh tham gia CẢ 3 CLB. Để tìm giá trị còn thiếu, ta chỉ cần biết chính xác giá trị đó.",
+        "Các lựa chọn khác có thể là thông tin phụ trợ nhưng không phải là dữ liệu trực tiếp còn thiếu để hoàn thiện bảng."
+      ],
+      "solutionHtml": "Đề bài cung cấp số lượng học sinh tham gia CLB Thể thao ({sportsMembers}), CLB Âm nhạc ({musicMembers}), và tổng số học sinh tham gia cả 3 CLB ({totalMembers}).<br/>Chúng ta có thể tính được số học sinh tham gia CLB Mỹ thuật bằng cách lấy tổng số học sinh tham gia cả 3 CLB trừ đi số học sinh của hai CLB đã biết: {totalMembers} - {sportsMembers} - {musicMembers} = {formulas.artMembers}$ học sinh.<br/>Tuy nhiên, câu hỏi đang hỏi *thông tin nào trực tiếp cần được thu thập hoặc xác định* để hoàn thiện bảng. Thông tin trực tiếp còn thiếu trong bảng là số học sinh tham gia CLB Mỹ thuật. Dù có thể tính được, nhưng bản thân số liệu đó là phần còn thiếu.<br/>- A, C, D đều là các thông tin không trực tiếp cần thiết để điền vào vị trí '?' trong bảng thống kê này.<br/>Đáp án đúng là B.",
+      "tip": "Hãy phân biệt giữa 'dữ liệu có thể suy luận/tính toán được' và 'dữ liệu trực tiếp bị thiếu' mà cần phải thu thập hoặc xác định để hoàn thiện một bảng hoặc một thông tin cụ thể."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalSchoolStudents": {
+          "min": 800,
+          "max": 1200,
+          "step": 50
+        },
+        "bikePercent": {
+          "min": 30,
+          "max": 40,
+          "step": 5
+        },
+        "busPercent": {
+          "min": 20,
+          "max": 30,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "bikePercent + busPercent < 100",
+        "bikePercent + busPercent > 0",
+        "100 - bikePercent - busPercent > 0",
+        "totalSchoolStudents * (100 - bikePercent - busPercent) / 100 !== totalSchoolStudents * bikePercent / 100",
+        "totalSchoolStudents * (100 - bikePercent - busPercent) / 100 !== totalSchoolStudents * busPercent / 100",
+        "totalSchoolStudents * (100 - bikePercent - busPercent) / 100 !== totalSchoolStudents * (bikePercent + busPercent) / 100"
+      ],
+      "formulas": {
+        "walkPercent": "100 - variables.bikePercent - variables.busPercent",
+        "ans": "Math.round(variables.totalSchoolStudents * formulas.walkPercent / 100)",
+        "numBike": "Math.round(variables.totalSchoolStudents * variables.bikePercent / 100)",
+        "numBus": "Math.round(variables.totalSchoolStudents * variables.busPercent / 100)",
+        "numBikeBus": "formulas.numBike + formulas.numBus",
+        "w1": "formulas.numBike",
+        "w2": "formulas.numBus",
+        "w3": "formulas.numBikeBus"
+      },
+      "questionText": "Một trường học có {totalSchoolStudents} học sinh. Khi khảo sát về phương tiện đi học, có {bikePercent}\\%$ học sinh đi xe đạp, {busPercent}\\%$ học sinh đi xe buýt, và số còn lại đi bộ. Số học sinh đi bộ đến trường là bao nhiêu?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tỉ lệ phần trăm học sinh đi bộ.",
+        "Sau đó, sử dụng tỉ lệ phần trăm đó để tính số lượng học sinh thực tế."
+      ],
+      "solutionHtml": "Để tìm số học sinh đi bộ đến trường, ta làm theo các bước sau:<br/>1. Tính tỉ lệ phần trăm học sinh đi bộ:<br/>Tổng tỉ lệ phần trăm học sinh đi xe đạp và xe buýt là: {bikePercent}\\% + {busPercent}\\% = ${variables.bikePercent + variables.busPercent}\\% $<br/>Tỉ lệ phần trăm học sinh đi bộ là: $100\\% - {variables.bikePercent + variables.busPercent}\\% = {formulas.walkPercent}\\% $<br/>2. Tính số học sinh đi bộ:<br/>Số học sinh đi bộ = ({formulas.walkPercent} \\div 100) \\times {totalSchoolStudents}$<br/>$ Số học sinh đi bộ = ({formulas.walkPercent} \\div 100) \\times {totalSchoolStudents} = {ans} $ (học sinh).<br/>(Làm tròn đến số nguyên gần nhất nếu cần)<br/>Đáp án đúng là B.",
+      "tip": "Khi tính toán với tỉ lệ phần trăm, hãy nhớ rằng tổng tỉ lệ luôn là $100\\%$. Nếu biết các phần, bạn có thể dễ dàng tìm phần còn lại."
+    }
+  ]
+}

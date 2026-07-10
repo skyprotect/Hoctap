@@ -1,0 +1,474 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 15,
+          "max": 50,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > 0",
+        "b > 0"
+      ],
+      "formulas": {
+        "bi_an": "a",
+        "bi_binh": "a + b",
+        "ans": "a + (a + b)",
+        "w1": "a + b",
+        "w2": "a * 2",
+        "w3": "(a + b) * 2"
+      },
+      "questionText": "An có $ {a} $ viên bi. Bình có nhiều hơn An $ {b} $ viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. $ {w1} $ viên bi",
+        "B. $ {ans} $ viên bi",
+        "C. $ {w2} $ viên bi",
+        "D. $ {w3} $ viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trước hết, hãy tính số bi của Bình.",
+        "Sau đó, cộng số bi của An và số bi của Bình lại để tìm tổng số bi."
+      ],
+      "solutionHtml": "Số bi của Bình là:<br/>$ {bi_an} + {b} = {bi_binh} $ (viên bi)<br/>Tổng số bi của cả hai bạn là:<br/>$ {bi_an} + {bi_binh} = {ans} $ (viên bi)<br/>Vậy, cả hai bạn có tất cả $ {ans} $ viên bi.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định 'Bình nhiều hơn An' nghĩa là số bi của Bình phải tính từ số bi của An, sau đó mới tính tổng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 30,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "c": {
+          "min": 15,
+          "max": 40,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > 0",
+        "b > 0",
+        "c > 0"
+      ],
+      "formulas": {
+        "met_sua_trong_b_ngay": "a * b",
+        "ans": "a * b + c",
+        "w1": "a * b",
+        "w2": "a + b + c",
+        "w3": "a * b - c"
+      },
+      "questionText": "Một đội công nhân sửa đường, mỗi ngày sửa được $ {a} $ mét. Sau $ {b} $ ngày làm việc, họ sửa thêm được $ {c} $ mét nữa do có máy móc hỗ trợ. Hỏi tổng cộng đội công nhân đã sửa được bao nhiêu mét đường?",
+      "options": [
+        "A. $ {w1} $ mét",
+        "B. $ {ans} $ mét",
+        "C. $ {w2} $ mét",
+        "D. $ {w3} $ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số mét đường đội công nhân sửa được trong $ {b} $ ngày.",
+        "Sau đó, cộng thêm số mét đường sửa bổ sung để tìm tổng số mét đã sửa."
+      ],
+      "solutionHtml": "Số mét đường đội công nhân sửa được trong $ {b} $ ngày là:<br/>$ {a} \\times {b} = {met_sua_trong_b_ngay} $ (mét)<br/>Tổng số mét đường đội công nhân đã sửa được là:<br/>$ {met_sua_trong_b_ngay} + {c} = {ans} $ (mét)<br/>Vậy, đội công nhân đã sửa được tổng cộng $ {ans} $ mét đường.<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến thứ tự các phép tính: nhân trước, cộng sau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 80,
+          "max": 150,
+          "step": 10
+        },
+        "b": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "c": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b",
+        "(a - b) % c === 0",
+        "c > 0"
+      ],
+      "formulas": {
+        "remaining_gao": "a - b",
+        "ans": "(a - b) / c",
+        "w1": "a / c",
+        "w2": "b / c",
+        "w3": "(a + b) / c"
+      },
+      "questionText": "Một cửa hàng có $ {a} $ kg gạo. Cửa hàng đã bán đi $ {b} $ kg gạo. Số gạo còn lại được chia đều vào $ {c} $ túi. Hỏi mỗi túi có bao nhiêu kg gạo?",
+      "options": [
+        "A. $ {w1} $ kg",
+        "B. $ {ans} $ kg",
+        "C. $ {w2} $ kg",
+        "D. $ {w3} $ kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số gạo còn lại sau khi bán.",
+        "Bước 2: Chia số gạo còn lại đó cho số túi để tìm số kg gạo trong mỗi túi."
+      ],
+      "solutionHtml": "Số kg gạo còn lại sau khi cửa hàng bán là:<br/>$ {a} - {b} = {remaining_gao} $ (kg)<br/>Số kg gạo trong mỗi túi là:<br/>$ {remaining_gao} : {c} = {ans} $ (kg)<br/>Vậy, mỗi túi có $ {ans} $ kg gạo.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước, hãy giải quyết từng bước một theo đúng thứ tự logic."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "b": {
+          "min": 12,
+          "max": 24,
+          "step": 1
+        },
+        "c": {
+          "min": 30,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "a * b > c",
+        "a > 0",
+        "b > 0",
+        "c > 0"
+      ],
+      "formulas": {
+        "total_initial_sua": "a * b",
+        "ans": "a * b - c",
+        "w1": "a * b + c",
+        "w2": "a + b - c",
+        "w3": "Math.floor(a * b / c)"
+      },
+      "questionText": "Một cửa hàng có $ {a} $ thùng sữa. Mỗi thùng có $ {b} $ hộp sữa. Sau khi bán đi $ {c} $ hộp sữa, cửa hàng còn lại bao nhiêu hộp sữa?",
+      "options": [
+        "A. $ {w1} $ hộp",
+        "B. $ {ans} $ hộp",
+        "C. $ {w2} $ hộp",
+        "D. $ {w3} $ hộp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số hộp sữa cửa hàng có ban đầu.",
+        "Sau đó, lấy tổng số hộp sữa ban đầu trừ đi số hộp sữa đã bán."
+      ],
+      "solutionHtml": "Tổng số hộp sữa cửa hàng có ban đầu là:<br/>$ {a} \\times {b} = {total_initial_sua} $ (hộp)<br/>Số hộp sữa cửa hàng còn lại là:<br/>$ {total_initial_sua} - {c} = {ans} $ (hộp)<br/>Vậy, cửa hàng còn lại $ {ans} $ hộp sữa.<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân được thực hiện trước, sau đó đến phép trừ để tính số lượng còn lại."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "b": {
+          "min": 10,
+          "max": 20,
+          "step": 5
+        },
+        "c": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b",
+        "a > 0",
+        "b > 0",
+        "c > 0"
+      ],
+      "formulas": {
+        "chieu_dai_moi": "a + c",
+        "ans": "2 * (a + c + b)",
+        "w1": "2 * (a + b)",
+        "w2": "a + c + b",
+        "w3": "2 * (a + b + c * 2)"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là $ {a} $ cm, chiều rộng là $ {b} $ cm. Nếu tăng chiều dài thêm $ {c} $ cm thì chu vi mới của hình chữ nhật đó là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $ cm",
+        "B. $ {ans} $ cm",
+        "C. $ {w2} $ cm",
+        "D. $ {w3} $ cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính chiều dài mới của hình chữ nhật.",
+        "Bước 2: Áp dụng công thức tính chu vi hình chữ nhật: $ P = 2 \\times (\\text{chiều dài} + \\text{chiều rộng}) $."
+      ],
+      "solutionHtml": "Chiều dài mới của hình chữ nhật là:<br/>$ {a} + {c} = {chieu_dai_moi} $ (cm)<br/>Chu vi mới của hình chữ nhật là:<br/>$ 2 \\times ({chieu_dai_moi} + {b}) = {ans} $ (cm)<br/>Vậy, chu vi mới của hình chữ nhật là $ {ans} $ cm.<br/>Đáp án đúng là B.",
+      "tip": "Khi chiều dài tăng, chỉ có chiều dài thay đổi, chiều rộng vẫn giữ nguyên. Đừng quên công thức chu vi có nhân 2."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 150000,
+          "max": 250000,
+          "step": 10000
+        },
+        "B": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "C": {
+          "min": 5000,
+          "max": 10000,
+          "step": 1000
+        },
+        "D": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "E": {
+          "min": 8000,
+          "max": 15000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "A > (B * C) + (D * E)",
+        "B * C >= 0",
+        "D * E >= 0"
+      ],
+      "formulas": {
+        "cost_candy": "B * C",
+        "cost_water": "D * E",
+        "total_cost": "(B * C) + (D * E)",
+        "ans": "A - ((B * C) + (D * E))",
+        "w1": "A - (B * C)",
+        "w2": "A - (D * E)",
+        "w3": "A + ((B * C) + (D * E))"
+      },
+      "questionText": "Mẹ có $ {A} $ đồng. Mẹ mua $ {B} $ gói kẹo, mỗi gói giá $ {C} $ đồng. Mẹ mua thêm $ {D} $ chai nước, mỗi chai giá $ {E} $ đồng. Hỏi mẹ còn lại bao nhiêu tiền?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {ans} $ đồng",
+        "C. $ {w2} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số tiền mua kẹo.",
+        "Tính tổng số tiền mua nước.",
+        "Tính tổng số tiền mẹ đã chi tiêu.",
+        "Lấy số tiền ban đầu trừ đi tổng số tiền đã chi tiêu."
+      ],
+      "solutionHtml": "Số tiền mẹ mua kẹo là:<br/>$ {B} \\times {C} = {cost_candy} $ (đồng)<br/>Số tiền mẹ mua nước là:<br/>$ {D} \\times {E} = {cost_water} $ (đồng)<br/>Tổng số tiền mẹ đã chi tiêu là:<br/>$ {cost_candy} + {cost_water} = {total_cost} $ (đồng)<br/>Số tiền mẹ còn lại là:<br/>$ {A} - {total_cost} = {ans} $ (đồng)<br/>Vậy, mẹ còn lại $ {ans} $ đồng.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán có nhiều bước tính toán, cần thực hiện phép nhân trước các phép cộng/trừ, và tính tổng chi tiêu trước khi tính số tiền còn lại."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "c": {
+          "min": 15,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "a > 0",
+        "b > 0",
+        "c > 0"
+      ],
+      "formulas": {
+        "trang_da_doc": "a * b",
+        "ans": "a * b + c",
+        "w1": "a + b + c",
+        "w2": "a * b - c",
+        "w3": "a * c"
+      },
+      "questionText": "An đọc sách, mỗi ngày đọc được $ {a} $ trang. Sau $ {b} $ ngày, An còn $ {c} $ trang chưa đọc. Hỏi cuốn sách An đang đọc có tổng cộng bao nhiêu trang?",
+      "options": [
+        "A. $ {w1} $ trang",
+        "B. $ {ans} $ trang",
+        "C. $ {w2} $ trang",
+        "D. $ {w3} $ trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số trang sách An đã đọc trong $ {b} $ ngày.",
+        "Sau đó, cộng số trang đã đọc với số trang còn lại để tìm tổng số trang của cuốn sách."
+      ],
+      "solutionHtml": "Số trang sách An đã đọc trong $ {b} $ ngày là:<br/>$ {a} \\times {b} = {trang_da_doc} $ (trang)<br/>Tổng số trang của cuốn sách là:<br/>$ {trang_da_doc} + {c} = {ans} $ (trang)<br/>Vậy, cuốn sách An đang đọc có tổng cộng $ {ans} $ trang.<br/>Đáp án đúng là B.",
+      "tip": "Số trang của cuốn sách bao gồm cả số trang đã đọc và số trang chưa đọc. Hãy cẩn thận với phép tính."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 50,
+          "step": 2
+        },
+        "b": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0",
+        "a > 0",
+        "b > 0"
+      ],
+      "formulas": {
+        "mai_flowers": "a + b",
+        "ans": "(a + b) / 2",
+        "w1": "a / 2",
+        "w2": "b / 2",
+        "w3": "a + b"
+      },
+      "questionText": "Lan có $ {a} $ bông hoa. Mai có nhiều hơn Lan $ {b} $ bông hoa. Cúc có số hoa bằng một nửa số hoa của Mai. Hỏi Cúc có bao nhiêu bông hoa?",
+      "options": [
+        "A. $ {w1} $ bông hoa",
+        "B. $ {ans} $ bông hoa",
+        "C. $ {w2} $ bông hoa",
+        "D. $ {w3} $ bông hoa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính số hoa của Mai trước.",
+        "Sau đó, tìm một nửa số hoa của Mai để biết số hoa của Cúc."
+      ],
+      "solutionHtml": "Số bông hoa Mai có là:<br/>$ {a} + {b} = {mai_flowers} $ (bông hoa)<br/>Số bông hoa Cúc có là:<br/>$ {mai_flowers} : 2 = {ans} $ (bông hoa)<br/>Vậy, Cúc có $ {ans} $ bông hoa.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán yêu cầu tính số hoa của Cúc dựa trên số hoa của Mai, mà số hoa của Mai lại dựa trên số hoa của Lan. Hãy giải từng bước một."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 250,
+          "max": 500,
+          "step": 10
+        },
+        "B": {
+          "min": 50,
+          "max": 100,
+          "step": 10
+        },
+        "C": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "A > B + (B + C)",
+        "A > 0",
+        "B > 0",
+        "C > 0"
+      ],
+      "formulas": {
+        "day2_sold": "B + C",
+        "total_sold": "B + (B + C)",
+        "ans": "A - (B + (B + C))",
+        "w1": "A - B",
+        "w2": "A - (B + C)",
+        "w3": "A - B + (B + C)"
+      },
+      "questionText": "Một cửa hàng nhập về $ {A} $ kg gạo. Ngày thứ nhất bán được $ {B} $ kg. Ngày thứ hai bán được nhiều hơn ngày thứ nhất $ {C} $ kg. Hỏi cửa hàng còn lại bao nhiêu kg gạo?",
+      "options": [
+        "A. $ {w1} $ kg",
+        "B. $ {ans} $ kg",
+        "C. $ {w2} $ kg",
+        "D. $ {w3} $ kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số gạo bán được trong ngày thứ hai.",
+        "Tính tổng số gạo đã bán trong cả hai ngày.",
+        "Lấy số gạo nhập về ban đầu trừ đi tổng số gạo đã bán."
+      ],
+      "solutionHtml": "Số kg gạo bán được trong ngày thứ hai là:<br/>$ {B} + {C} = {day2_sold} $ (kg)<br/>Tổng số kg gạo đã bán trong cả hai ngày là:<br/>$ {B} + {day2_sold} = {total_sold} $ (kg)<br/>Số kg gạo cửa hàng còn lại là:<br/>$ {A} - {total_sold} = {ans} $ (kg)<br/>Vậy, cửa hàng còn lại $ {ans} $ kg gạo.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán có 3 bước tính toán. Hãy đọc kỹ từng câu để đặt phép tính đúng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 50,
+          "max": 120,
+          "step": 5
+        },
+        "B": {
+          "min": 60,
+          "max": 130,
+          "step": 5
+        },
+        "C": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(A + B) % C === 0",
+        "A > 0",
+        "B > 0",
+        "C > 0"
+      ],
+      "formulas": {
+        "total_students": "A + B",
+        "ans": "(A + B) / C",
+        "w1": "(A + B) - C",
+        "w2": "A / C + B",
+        "w3": "A + B + C"
+      },
+      "questionText": "Một trường học có $ {A} $ học sinh nam và $ {B} $ học sinh nữ. Nhà trường chia học sinh thành các đội để tham gia hội thao. Mỗi đội có $ {C} $ học sinh. Hỏi trường có thể thành lập được bao nhiêu đội như vậy?",
+      "options": [
+        "A. $ {w1} $ đội",
+        "B. $ {ans} $ đội",
+        "C. $ {w2} $ đội",
+        "D. $ {w3} $ đội"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số học sinh của trường.",
+        "Sau đó, chia tổng số học sinh cho số học sinh trong mỗi đội để tìm số đội có thể thành lập."
+      ],
+      "solutionHtml": "Tổng số học sinh của trường là:<br/>$ {A} + {B} = {total_students} $ (học sinh)<br/>Số đội có thể thành lập là:<br/>$ {total_students} : {C} = {ans} $ (đội)<br/>Vậy, trường có thể thành lập được $ {ans} $ đội.<br/>Đáp án đúng là B.",
+      "tip": "Để chia học sinh thành các đội, ta cần biết tổng số học sinh trước, sau đó mới thực hiện phép chia."
+    }
+  ]
+}

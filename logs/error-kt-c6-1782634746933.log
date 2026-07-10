@@ -1,0 +1,785 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-06-28T08:19:06.933Z
+Lesson ID: kt-c6
+Lesson Title: Bài tập cuối chương VI
+==================================================
+
+[ERROR DETAILS]
+Expected ',' or ']' after array element in JSON at position 7791 (line 86 column 383)
+SyntaxError: Expected ',' or ']' after array element in JSON at position 7791 (line 86 column 383)
+    at JSON.parse (<anonymous>)
+    at D:\AntiGravity\HocTap\server.js:1066:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 7791 (Line: 86, Column: 383)
+Character causing error: ":"
+
+Context:
+... nNum))) % 1 === 0 ? true : false' // This constraint is complex to ensure integer pages for remaining. Simplified check below.\n    ],\n    'formulas">>>[LỖI TẠI ĐÂY]<<<: {
+      "day1Read": "variables.totalPages * variables.day1FractionNum / variables.day1FractionDen",
+      "remainingAfterDay1": "variables.totalPage ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "upperBound": { "min": 125, "max": 250, "step": 10 },
+      "commonRemainder": { "min": 1, "max": 2, "step": 1 }
+    },
+    "constraints": [
+      "variables.upperBound > 60 + variables.commonRemainder"
+    ],
+    "formulas": {
+      "lcm345": "60",
+      "k_val": "Math.floor((variables.upperBound - 1 - variables.commonRemainder) / formulas.lcm345)",
+      "ans": "(formulas.lcm345 * formulas.k_val) + variables.commonRemainder",
+      "prev_multiple_val": "(formulas.lcm345 * (formulas.k_val - 1)) + variables.commonRemainder",
+      "next_multiple_val": "(formulas.lcm345 * (formulas.k_val + 1)) + variables.commonRemainder",
+      "distractor_no_rem": "formulas.lcm345 * formulas.k_val"
+    },
+    "questionText": "Một đội văn nghệ của trường có số thành viên chưa đến ${upperBound}$ người. Khi xếp thành 3 hàng thì thừa ${commonRemainder}$ người, khi xếp thành 4 hàng thì thừa ${commonRemainder}$ người, và khi xếp thành 5 hàng thì thừa ${commonRemainder}$ người. Hỏi đội văn nghệ đó có bao nhiêu thành viên?",
+    "options": [
+      "A. ${prev_multiple_val}$ thành viên",
+      "B. ${ans}$ thành viên",
+      "C. ${next_multiple_val}$ thành viên",
+      "D. ${distractor_no_rem}$ thành viên"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nếu số thành viên khi xếp thành 3, 4, 5 hàng đều thừa ${commonRemainder}$ người, điều này có nghĩa là số thành viên trừ đi ${commonRemainder}$ sẽ chia hết cho 3, 4 và 5.",
+      "Hãy tìm Bội chung nhỏ nhất (BCNN) của 3, 4 và 5. Sau đó, tìm bội của BCNN sao cho khi cộng với ${commonRemainder}$ sẽ nhỏ hơn ${upperBound}$.",
+      "Vì hỏi số thành viên của đội văn nghệ, và đội đó có 'số thành viên', nghĩa là phải có ít nhất 1 thành viên. Thông thường, với bài toán thực tế như này, ta cần tìm số lớn nhất thỏa mãn điều kiện."
+    ],
+    "solutionHtml": "Gọi số thành viên của đội văn nghệ là $N$.<br/>Theo đề bài, khi xếp thành 3 hàng, 4 hàng, 5 hàng đều thừa ${commonRemainder}$ người, ta có:<br/>$N \\div 3$ dư ${commonRemainder}$<br/>$N \\div 4$ dư ${commonRemainder}$<br/>$N \\div 5$ dư ${commonRemainder}$<br/>Điều này có nghĩa là $N - {commonRemainder}$ là một số chia hết cho cả 3, 4 và 5.<br/>Hay $N - {commonRemainder}$ là Bội chung của 3, 4, 5.<br/><br/>Bước 1: Tìm Bội chung nhỏ nhất (BCNN) của 3, 4, 5.<br/>Ta có: $3 = 3$<br/>$4 = 2^2$<br/>$5 = 5$<br/>BCNN(3, 4, 5) = $3 \\times 2^2 \\times 5 = 3 \\times 4 \\times 5 = {lcm345}$.<br/><br/>Bước 2: Tìm các Bội chung của 3, 4, 5.<br/>Các Bội chung của 3, 4, 5 là các bội của BCNN(3, 4, 5).<br/>Vậy các Bội chung của 3, 4, 5 là $0, {lcm345}, {lcm345*2}, {lcm345*3}, ...$<br/><br/>Bước 3: Tìm $N$.<br/>Vì $N - {commonRemainder}$ là Bội chung của 3, 4, 5, nên $N - {commonRemainder}$ có thể là ${lcm345}, {lcm345*2}, ...$<br/>Do đó, $N$ có thể là $N_1 = {lcm345} + {commonRemainder} = {lcm345 + commonRemainder}$; $N_2 = {lcm345*2} + {commonRemainder} = {lcm345*2 + commonRemainder}$; v.v.<br/>Theo đề bài, số thành viên chưa đến ${upperBound}$ người, tức là $N < {upperBound}$.<br/>Để tìm số thành viên, ta cần tìm giá trị lớn nhất của $N$ thỏa mãn điều kiện $N < {upperBound}$.<br/>Với $k = {k_val}$, ta có $N = {lcm345} \\times {k_val} + {commonRemainder} = {ans}$.<br/>Giá trị này thỏa mãn ${ans} < {upperBound}$.<br/>Nếu lấy $k = {k_val} + 1$, ta có $N = {lcm345} \\times ({k_val} + 1) + {commonRemainder} = {next_multiple_val}$.<br/>Giá trị này không thỏa mãn vì ${next_multiple_val} \\ge {upperBound}$.<br/>Vậy số thành viên lớn nhất có thể có của đội văn nghệ là ${ans}$ người.<br/>Đáp án đúng là B.",
+    "tip": "Khi một số chia cho nhiều số khác nhau mà cùng có số dư, thì số đó trừ đi số dư sẽ là bội chung của các số chia. Trong bài toán này, cần tìm giá trị lớn nhất của số thành viên thỏa mãn điều kiện 'chưa đến {upperBound} người'.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "candyA": { "min": 100, "max": 200, "step": 10 },
+      "candyB": { "min": 80, "max": 150, "step": 10 },
+      "minStudents": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      "variables.candyA % 10 === 0",
+      "variables.candyB % 10 === 0",
+      "variables.candyA !== variables.candyB"
+    ],
+    "formulas": {
+      "gcd_val": "function gcd(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }(variables.candyA, variables.candyB)",
+      "ans": "formulas.gcd_val",
+      "w1": "formulas.gcd_val / 2",
+      "w2": "formulas.gcd_val * 2",
+      "w3": "formulas.gcd_val + 5"
+    },
+    "questionText": "Bác An có ${candyA}$ chiếc kẹo chanh và ${candyB}$ chiếc kẹo dừa. Bác muốn chia đều số kẹo này vào các túi quà sao cho mỗi túi có số lượng kẹo chanh như nhau và số lượng kẹo dừa như nhau, và không còn chiếc kẹo nào thừa. Hỏi bác An có thể chia được nhiều nhất bao nhiêu túi quà?",
+    "options": [
+      "A. ${w1}$ túi",
+      "B. ${w2}$ túi",
+      "C. ${ans}$ túi",
+      "D. ${w3}$ túi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số túi quà cần phải là một ước của số kẹo chanh và cũng là một ước của số kẹo dừa.",
+      "Vì bác An muốn chia được nhiều nhất số túi quà, nên số túi quà đó phải là ước chung lớn nhất của số kẹo chanh và số kẹo dừa."
+    ],
+    "solutionHtml": "Gọi số túi quà nhiều nhất mà bác An có thể chia là $x$.<br/>Theo đề bài, $x$ phải là số mà ${candyA}$ chia hết cho $x$, và ${candyB}$ cũng chia hết cho $x$.<br/>Điều này có nghĩa là $x$ là Ước chung của ${candyA}$ và ${candyB}$.<br/>Để chia được nhiều nhất số túi quà, $x$ phải là Ước chung lớn nhất (ƯCLN) của ${candyA}$ và ${candyB}$.<br/><br/>Bước 1: Phân tích các số ${candyA}$ và ${candyB}$ ra thừa số nguyên tố.<br/>${candyA} = ${function(num) { let factors = {}; for (let i = 2; i <= num; i++) { while (num % i === 0) { factors[i] = (factors[i] || 0) + 1; num /= i; } } return Object.entries(factors).map(([p, e]) => `${p}${e > 1 ? '^' + e : ''}`).join(' \\times '); }(variables.candyA)}$<br/>${candyB} = ${function(num) { let factors = {}; for (let i = 2; i <= num; i++) { while (num % i === 0) { factors[i] = (factors[i] || 0) + 1; num /= i; } } return Object.entries(factors).map(([p, e]) => `${p}${e > 1 ? '^' + e : ''}`).join(' \\times '); }(variables.candyB)}$<br/><br/>Bước 2: Tìm ƯCLN của ${candyA}$ và ${candyB}$.<br/>ƯCLN(${candyA}$, ${candyB}$) = ${function(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }(variables.candyA, variables.candyB)}$<br/>(Lấy các thừa số nguyên tố chung với số mũ nhỏ nhất).<br/>Vậy ƯCLN(${candyA}$, ${candyB}$) = ${ans}$.<br/><br/>Vậy bác An có thể chia được nhiều nhất ${ans}$ túi quà.<br/>Đáp án đúng là C.",
+    "tip": "Khi cần chia đều nhiều loại vật phẩm thành các phần bằng nhau mà không có phần thừa, và muốn số phần là lớn nhất, ta sử dụng Ước chung lớn nhất (ƯCLN).",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalPages": { "min": 200, "max": 400, "step": 20 },
+      "day1FractionNum": { "min": 1, "max": 2, "step": 1 },
+      "day1FractionDen": { "min": 3, "max": 4, "step": 1 },
+      "day2FractionNum": { "min": 1, "max": 2, "step": 1 },
+      "day2FractionDen": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "variables.day1FractionNum < variables.day1FractionDen",
+      "variables.day2FractionNum < variables.day2FractionDen",
+      "variables.totalPages % variables.day1FractionDen === 0",
+      "variables.totalPages % (variables.day1FractionDen * variables.day2FractionDen) === 0 ? true : (variables.totalPages % variables.day1FractionDen * (variables.day2FractionDen / (variables.day2FractionDen - variables.day2FractionNum))) % 1 === 0 ? true : false' // This constraint is complex to ensure integer pages for remaining. Simplified check below.\n    ],\n    'formulas": {
+      "day1Read": "variables.totalPages * variables.day1FractionNum / variables.day1FractionDen",
+      "remainingAfterDay1": "variables.totalPages - formulas.day1Read",
+      "day2Read": "formulas.remainingAfterDay1 * variables.day2FractionNum / variables.day2FractionDen",
+      "ans": "formulas.remainingAfterDay1 - formulas.day2Read",
+      "totalFractionRead": "variables.day1FractionNum / variables.day1FractionDen + (1 - variables.day1FractionNum / variables.day1FractionDen) * variables.day2FractionNum / variables.day2FractionDen",
+      "w1": "variables.totalPages - formulas.day1Read",
+      "w2": "formulas.day1Read + formulas.day2Read",
+      "w3": "variables.totalPages - formulas.day2Read"
+    },
+    "questionText": "Một quyển sách có ${totalPages}$ trang. Ngày đầu An đọc được $\\frac{{day1FractionNum}}{{day1FractionDen}}$ tổng số trang. Ngày thứ hai, An đọc được $\\frac{{day2FractionNum}}{{day2FractionDen}}$ số trang còn lại. Hỏi An còn lại bao nhiêu trang sách chưa đọc?",
+    "options": [
+      "A. ${w1}$ trang",
+      "B. ${ans}$ trang",
+      "C. ${w2}$ trang",
+      "D. ${w3}$ trang"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đầu tiên, hãy tính số trang sách An đọc được trong ngày đầu tiên.",
+      "Tiếp theo, tính số trang sách còn lại sau ngày đầu tiên.",
+      "Cuối cùng, tính số trang An đọc trong ngày thứ hai (dựa trên số trang còn lại) và số trang chưa đọc."
+    ],
+    "solutionHtml": "Bước 1: Tính số trang An đọc được trong ngày đầu tiên.<br/>Số trang An đọc ngày đầu là: ${totalPages} \\times \\frac{{day1FractionNum}}{{day1FractionDen}} = {day1Read}$ (trang).<br/><br/>Bước 2: Tính số trang sách còn lại sau ngày đầu tiên.<br/>Số trang sách còn lại sau ngày đầu là: ${totalPages} - {day1Read} = {remainingAfterDay1}$ (trang).<br/><br/>Bước 3: Tính số trang An đọc được trong ngày thứ hai.<br/>Số trang An đọc ngày thứ hai là: ${remainingAfterDay1} \\times \\frac{{day2FractionNum}}{{day2FractionDen}} = {day2Read}$ (trang).<br/><br/>Bước 4: Tính số trang sách An còn lại chưa đọc.<br/>Số trang sách An còn lại chưa đọc là: ${remainingAfterDay1} - {day2Read} = {ans}$ (trang).<br/>Đáp án đúng là B.",
+    "tip": "Hãy cẩn thận với từ 'số trang còn lại' trong đề bài. Phép tính phân số phải dựa trên phần còn lại, không phải tổng số trang ban đầu.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialTemp": { "min": 5, "max": 10, "step": 1 },
+      "decrease1": { "min": 7, "max": 12, "step": 1 },
+      "increase1": { "min": 5, "max": 10, "step": 1 },
+      "decrease2": { "min": 3, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "variables.initialTemp - variables.decrease1 < 0",
+      "variables.initialTemp - variables.decrease1 + variables.increase1 > 0"
+    ],
+    "formulas": {
+      "tempAfter1": "variables.initialTemp - variables.decrease1",
+      "tempAfter2": "formulas.tempAfter1 + variables.increase1",
+      "ans": "formulas.tempAfter2 - variables.decrease2",
+      "w1": "variables.initialTemp + variables.decrease1 + variables.increase1 + variables.decrease2",
+      "w2": "variables.initialTemp - variables.decrease1 - variables.increase1 - variables.decrease2",
+      "w3": "variables.initialTemp + variables.increase1 - variables.decrease2"
+    },
+    "questionText": "Nhiệt độ phòng thí nghiệm lúc 7 giờ sáng là ${initialTemp}°C$. Đến 9 giờ sáng, nhiệt độ giảm ${decrease1}°C$. Sau đó, từ 9 giờ đến 11 giờ trưa, nhiệt độ tăng ${increase1}°C$. Cuối cùng, từ 11 giờ trưa đến 1 giờ chiều, nhiệt độ lại giảm ${decrease2}°C$. Hỏi nhiệt độ phòng thí nghiệm lúc 1 giờ chiều là bao nhiêu?",
+    "options": [
+      "A. ${w1}°C",
+      "B. ${ans}°C",
+      "C. ${w2}°C",
+      "D. ${w3}°C"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Ghi lại nhiệt độ ban đầu. Sau đó, thực hiện từng thay đổi nhiệt độ một cách tuần tự.",
+      "Khi nhiệt độ giảm, ta thực hiện phép trừ. Khi nhiệt độ tăng, ta thực hiện phép cộng.",
+      "Hãy chú ý đến các số nguyên âm có thể xuất hiện trong quá trình tính toán."
+    ],
+    "solutionHtml": "Để tìm nhiệt độ phòng thí nghiệm lúc 1 giờ chiều, ta thực hiện các phép tính theo trình tự thời gian:<br/><br/>1. Nhiệt độ lúc 7 giờ sáng: ${initialTemp}°C$.<br/><br/>2. Nhiệt độ lúc 9 giờ sáng (giảm ${decrease1}°C$):<br/>${initialTemp} - {decrease1} = {tempAfter1}°C$.<br/><br/>3. Nhiệt độ lúc 11 giờ trưa (tăng ${increase1}°C$):<br/>${tempAfter1} + {increase1} = {tempAfter2}°C$.<br/><br/>4. Nhiệt độ lúc 1 giờ chiều (giảm ${decrease2}°C$):<br/>${tempAfter2} - {decrease2} = {ans}°C$.<br/><br/>Vậy, nhiệt độ phòng thí nghiệm lúc 1 giờ chiều là ${ans}°C$.<br/>Đáp án đúng là B.",
+    "tip": "Bài toán này yêu cầu học sinh thực hiện các phép tính cộng, trừ số nguyên theo đúng trình tự. Cần chú ý đến dấu của số nguyên.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialLength": { "min": 15, "max": 25, "step": 1 },
+      "initialWidth": { "min": 8, "max": 12, "step": 1 },
+      "increaseLength": { "min": 2, "max": 5, "step": 1 },
+      "decreaseWidth": { "min": 1, "max": 3, "step": 1 }
+    },
+    "constraints": [
+      "variables.initialLength > variables.initialWidth",
+      "variables.initialWidth - variables.decreaseWidth > 0"
+    ],
+    "formulas": {
+      "initialArea": "variables.initialLength * variables.initialWidth",
+      "newLength": "variables.initialLength + variables.increaseLength",
+      "newWidth": "variables.initialWidth - variables.decreaseWidth",
+      "newArea": "formulas.newLength * formulas.newWidth",
+      "ans": "formulas.newArea - formulas.initialArea",
+      "w1": "formulas.newArea",
+      "w2": "formulas.initialArea",
+      "w3": "formulas.initialArea - formulas.newArea"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật ban đầu có chiều dài là ${initialLength}$ mét và chiều rộng là ${initialWidth}$ mét. Người ta mở rộng mảnh vườn bằng cách tăng chiều dài thêm ${increaseLength}$ mét và giảm chiều rộng đi ${decreaseWidth}$ mét. Hỏi diện tích mảnh vườn thay đổi bao nhiêu mét vuông so với ban đầu?",
+    "options": [
+      "A. Tăng ${w1}$ m$^2$",
+      "B. Tăng ${ans}$ m$^2$",
+      "C. Giảm ${w2}$ m$^2$",
+      "D. Giảm ${w3}$ m$^2$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính diện tích ban đầu của mảnh vườn.",
+      "Tính chiều dài mới và chiều rộng mới của mảnh vườn.",
+      "Tính diện tích mới của mảnh vườn.",
+      "So sánh diện tích mới với diện tích ban đầu để tìm sự thay đổi."
+    ],
+    "solutionHtml": "Bước 1: Tính diện tích ban đầu của mảnh vườn.<br/>Diện tích ban đầu: $S_{ban đầu} = {initialLength} \\times {initialWidth} = {initialArea}$ (m$^2$).<br/><br/>Bước 2: Tính chiều dài mới và chiều rộng mới của mảnh vườn.<br/>Chiều dài mới: ${initialLength} + {increaseLength} = {newLength}$ (m).<br/>Chiều rộng mới: ${initialWidth} - {decreaseWidth} = {newWidth}$ (m).<br/><br/>Bước 3: Tính diện tích mới của mảnh vườn.<br/>Diện tích mới: $S_{mới} = {newLength} \\times {newWidth} = {newArea}$ (m$^2$).<br/><br/>Bước 4: Tính sự thay đổi về diện tích.<br/>Sự thay đổi diện tích = $S_{mới} - S_{ban đầu} = {newArea} - {initialArea} = {ans}$ (m$^2$).<br/>Vì kết quả là một số dương (${ans} > 0$), nên diện tích mảnh vườn đã tăng lên ${ans}$ m$^2$.<br/>Đáp án đúng là B.",
+    "tip": "Cần tính toán cẩn thận từng bước: diện tích cũ, kích thước mới, diện tích mới, sau đó mới so sánh sự thay đổi. Chú ý đơn vị diện tích là mét vuông.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "firstTerm": { "min": 5, "max": 15, "step": 1 },
+      "commonDifference": { "min": 3, "max": 7, "step": 1 },
+      "nthTermPosition": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "variables.firstTerm + (variables.nthTermPosition - 1) * variables.commonDifference",
+      "w1": "variables.firstTerm + variables.nthTermPosition * variables.commonDifference",
+      "w2": "variables.firstTerm + (variables.nthTermPosition + 1) * variables.commonDifference",
+      "w3": "variables.firstTerm + variables.nthTermPosition"
+    },
+    "questionText": "Cho một dãy số có quy luật: số hạng đầu tiên là ${firstTerm}$, và mỗi số hạng tiếp theo lớn hơn số hạng đứng trước nó ${commonDifference}$ đơn vị. Hỏi số hạng thứ ${nthTermPosition}$ của dãy số là bao nhiêu?",
+    "options": [
+      "A. ${w1}$",
+      "B. ${ans}$",
+      "C. ${w2}$",
+      "D. ${w3}$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đây là một dãy số cấp số cộng. Công thức tổng quát của số hạng thứ $n$ là $a_n = a_1 + (n-1)d$, trong đó $a_1$ là số hạng đầu tiên và $d$ là công sai.",
+      "Xác định các giá trị $a_1$, $d$ và $n$ từ đề bài."
+    ],
+    "solutionHtml": "Đây là một dãy số cấp số cộng.<br/>Số hạng đầu tiên $a_1 = {firstTerm}$.<br/>Công sai (hiệu giữa hai số hạng liên tiếp) $d = {commonDifference}$.<br/>Chúng ta cần tìm số hạng thứ ${nthTermPosition}$, tức là $n = {nthTermPosition}$.<br/><br/>Công thức để tìm số hạng thứ $n$ của một cấp số cộng là:<br/>$a_n = a_1 + (n-1) \\times d$<br/><br/>Thay các giá trị vào công thức:<br/>$a_{{nthTermPosition}} = {firstTerm} + ({nthTermPosition} - 1) \\times {commonDifference}$<br/>$a_{{nthTermPosition}} = {firstTerm} + {nthTermPosition - 1} \\times {commonDifference}$<br/>$a_{{nthTermPosition}} = {firstTerm} + { (variables.nthTermPosition - 1) * variables.commonDifference }$<br/>$a_{{nthTermPosition}} = {ans}$<br/><br/>Vậy số hạng thứ ${nthTermPosition}$ của dãy số là ${ans}$.<br/>Đáp án đúng là B.",
+    "tip": "Ghi nhớ công thức số hạng thứ $n$ của cấp số cộng để giải quyết các bài toán về dãy số có quy luật đều.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "busATime": { "min": 10, "max": 15, "step": 1 },
+      "busBTime": { "min": 18, "max": 24, "step": 2 },
+      "startTimeHour": { "min": 7, "max": 9, "step": 1 },
+      "startTimeMinute": { "min": 0, "max": 0, "step": 1 }
+    },
+    "constraints": [
+      "variables.busATime !== variables.busBTime",
+      "variables.busATime % 2 === 0 ? variables.busBTime % 2 === 0 : true",
+      "variables.busATime % 3 === 0 ? variables.busBTime % 3 === 0 : true",
+      "variables.busATime * variables.busBTime > 180' // Ensure LCM is not too small\n    ],\n    'formulas": {
+      "gcd_val": "function gcd(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }(variables.busATime, variables.busBTime)",
+      "lcm_val": "(variables.busATime * variables.busBTime) / formulas.gcd_val",
+      "ansHour": "variables.startTimeHour + Math.floor(formulas.lcm_val / 60)",
+      "ansMinute": "variables.startTimeMinute + (formulas.lcm_val % 60)",
+      "w1Hour": "variables.startTimeHour + Math.floor((formulas.lcm_val + 30) / 60)",
+      "w1Minute": "variables.startTimeMinute + ((formulas.lcm_val + 30) % 60)",
+      "w2Hour": "variables.startTimeHour + Math.floor((formulas.lcm_val - 30) / 60)",
+      "w2Minute": "variables.startTimeMinute + ((formulas.lcm_val - 30) % 60)",
+      "w3Hour": "variables.startTimeHour + Math.floor((variables.busATime + variables.busBTime) / 60)",
+      "w3Minute": "variables.startTimeMinute + ((variables.busATime + variables.busBTime) % 60)"
+    },
+    "questionText": "Tại bến xe, cứ ${busATime}$ phút lại có một chuyến xe buýt tuyến A khởi hành, và cứ ${busBTime}$ phút lại có một chuyến xe buýt tuyến B khởi hành. Hai xe cùng khởi hành lúc ${startTimeHour} giờ ${startTimeMinute}$ phút sáng. Hỏi lần tiếp theo hai xe cùng khởi hành là lúc mấy giờ mấy phút?",
+    "options": [
+      "A. ${w1Hour}$ giờ ${w1Minute}$ phút",
+      "B. ${ansHour}$ giờ ${ansMinute}$ phút",
+      "C. ${w2Hour}$ giờ ${w2Minute}$ phút",
+      "D. ${w3Hour}$ giờ ${w3Minute}$ phút"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm thời điểm tiếp theo hai xe cùng khởi hành, ta cần tìm một khoảng thời gian là bội chung của cả hai chu kỳ khởi hành của xe A và xe B.",
+      "Khoảng thời gian này phải là khoảng thời gian nhỏ nhất, tức là Bội chung nhỏ nhất (BCNN)."
+    ],
+    "solutionHtml": "Để tìm lần tiếp theo hai xe cùng khởi hành, ta cần tìm khoảng thời gian ngắn nhất mà cả hai chu kỳ khởi hành của xe A và xe B đều vừa khớp. Điều này chính là tìm Bội chung nhỏ nhất (BCNN) của ${busATime}$ và ${busBTime}$.<br/><br/>Bước 1: Tìm BCNN của ${busATime}$ và ${busBTime}$.<br/>Ta có thể dùng công thức BCNN($a, b$) = $(a \\times b) \\div$ ƯCLN($a, b$).<br/>Đầu tiên tìm ƯCLN của ${busATime}$ và ${busBTime}$: ${function(a, b) { let fA = {}; let fB = {}; for (let i = 2; i <= a; i++) { while (a % i === 0) { fA[i] = (fA[i] || 0) + 1; a /= i; } } for (let i = 2; i <= b; i++) { while (b % i === 0) { fB[i] = (fB[i] || 0) + 1; b /= i; } } let commonFactors = []; for (let p in fA) { if (fB[p]) { commonFactors.push(`${p}${Math.min(fA[p], fB[p]) > 1 ? '^' + Math.min(fA[p], fB[p]) : ''}`); } } return commonFactors.join(' \\times '); }(variables.busATime, variables.busBTime)}$<br/>ƯCLN(${busATime}$, ${busBTime}$) = ${gcd_val}$.<br/>BCNN(${busATime}$, ${busBTime}$) = $({busATime} \\times {busBTime}) \\div {gcd_val} = {lcm_val}$ (phút).<br/><br/>Bước 2: Tính thời điểm hai xe cùng khởi hành.<br/>Hai xe cùng khởi hành sau ${lcm_val}$ phút kể từ ${startTimeHour}$ giờ ${startTimeMinute}$ phút.<br/>Đổi ${lcm_val}$ phút ra giờ và phút: ${lcm_val}$ phút = ${Math.floor(formulas.lcm_val / 60)}$ giờ và ${lcm_val % 60}$ phút.<br/>Thời điểm cùng khởi hành là:<br/>${startTimeHour}$ giờ ${startTimeMinute}$ phút + ${Math.floor(formulas.lcm_val / 60)}$ giờ ${lcm_val % 60}$ phút.<br/>Thời gian đó là: (${startTimeHour} + ${Math.floor(formulas.lcm_val / 60)})$ giờ ($ {startTimeMinute} + {lcm_val % 60}$ ) phút.<br/>= ${ansHour}$ giờ ${ansMinute}$ phút.<br/>Đáp án đúng là B.",
+    "tip": "Các bài toán về lịch trình lặp lại hoặc các sự kiện đồng thời thường sử dụng Bội chung nhỏ nhất (BCNN) để tìm thời điểm tiếp theo chúng xảy ra cùng lúc.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "sumVal": { "min": 50, "max": 80, "step": 5 },
+      "diffVal": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": [
+      "variables.sumVal > variables.diffVal",
+      "(variables.sumVal + variables.diffVal) % 2 === 0",
+      "(variables.sumVal - variables.diffVal) % 2 === 0",
+      "function isPrime(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }((variables.sumVal + variables.diffVal) / 2)",
+      "function isPrime(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }((variables.sumVal - variables.diffVal) / 2) === false' // One is prime, one is composite\n    ],\n    'formulas": {
+      "largeNum": "(variables.sumVal + variables.diffVal) / 2",
+      "smallNum": "(variables.sumVal - variables.diffVal) / 2",
+      "ans": "formulas.largeNum",
+      "w1": "formulas.smallNum",
+      "w2": "variables.sumVal",
+      "w3": "variables.diffVal"
+    },
+    "questionText": "Tìm số lớn hơn trong hai số tự nhiên, biết tổng của chúng là ${sumVal}$ và hiệu của chúng là ${diffVal}$. Hơn nữa, số lớn là số nguyên tố và số bé là hợp số.",
+    "options": [
+      "A. ${w1}$",
+      "B. ${ans}$",
+      "C. ${w2}$",
+      "D. ${w3}$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đây là bài toán tìm hai số khi biết tổng và hiệu của chúng.",
+      "Số lớn = (Tổng + Hiệu) / 2. Số bé = (Tổng - Hiệu) / 2.",
+      "Sau khi tìm được hai số, hãy kiểm tra điều kiện về số nguyên tố và hợp số để đảm bảo đáp án chính xác."
+    ],
+    "solutionHtml": "Gọi hai số cần tìm là $A$ (số lớn) và $B$ (số bé).<br/>Theo đề bài, ta có:<br/>$A + B = {sumVal}$ (1)<br/>$A - B = {diffVal}$ (2)<br/><br/>Bước 1: Tìm số lớn $A$.<br/>Cộng phương trình (1) và (2) vế theo vế, ta được:<br/>$(A + B) + (A - B) = {sumVal} + {diffVal}$<br/>$2A = {sumVal + diffVal}$<br/>$A = ({sumVal} + {diffVal}) \\div 2$<br/>$A = {formulas.largeNum}$<br/><br/>Bước 2: Tìm số bé $B$.<br/>Thay $A = {formulas.largeNum}$ vào phương trình (1), ta được:<br/>${formulas.largeNum} + B = {sumVal}$<br/>$B = {sumVal} - {formulas.largeNum}$<br/>$B = {formulas.smallNum}$<br/><br/>Bước 3: Kiểm tra điều kiện số nguyên tố và hợp số.<br/>Số lớn $A = {formulas.largeNum}$. Ta kiểm tra xem ${formulas.largeNum}$ có phải là số nguyên tố không: ${function isPrime(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }(formulas.largeNum) ? 'Đúng, ${formulas.largeNum} là số nguyên tố' : 'Sai, ${formulas.largeNum} không phải là số nguyên tố'}$.<br/>Số bé $B = {formulas.smallNum}$. Ta kiểm tra xem ${formulas.smallNum}$ có phải là hợp số không: ${function isComposite(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return true; } return false; }(formulas.smallNum) ? 'Đúng, ${formulas.smallNum} là hợp số' : 'Sai, ${formulas.smallNum} không phải là hợp số'}$.<br/>(Lưu ý: số nguyên tố là số tự nhiên lớn hơn 1, chỉ có 2 ước là 1 và chính nó. Hợp số là số tự nhiên lớn hơn 1, có nhiều hơn 2 ước.)<br/>Cả hai điều kiện đều thỏa mãn.<br/><br/>Vậy số lớn hơn trong hai số đó là ${ans}$.<br/>Đáp án đúng là B.",
+    "tip": "Luôn kiểm tra tất cả các điều kiện của bài toán (tổng, hiệu, tính chất số nguyên tố/hợp số) để đảm bảo đáp án là duy nhất và chính xác.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialPrice": { "min": 200000, "max": 500000, "step": 50000 },
+      "increasePercent": { "min": 10, "max": 15, "step": 1 },
+      "decreasePercent": { "min": 15, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      // Ensure the final price is not too far off from initial, for realism
+      "Math.round(variables.initialPrice * (1 + variables.increasePercent / 100) * (1 - variables.decreasePercent / 100)) > 0"
+    ],
+    "formulas": {
+      "priceAfterIncrease": "variables.initialPrice * (1 + variables.increasePercent / 100)",
+      "ans": "Math.round(formulas.priceAfterIncrease * (1 - variables.decreasePercent / 100))",
+      "w1": "Math.round(variables.initialPrice * (1 - variables.decreasePercent / 100))",
+      "w2": "Math.round(variables.initialPrice * (1 + variables.increasePercent / 100))",
+      "w3": "Math.round(variables.initialPrice * (1 + variables.increasePercent / 100 - variables.decreasePercent / 100))"
+    },
+    "questionText": "Một chiếc máy tính bảng ban đầu có giá ${initialPrice}$ đồng. Tháng trước, cửa hàng tăng giá lên ${increasePercent}$%. Tháng này, do có chương trình khuyến mãi, cửa hàng giảm giá ${decreasePercent}$% trên giá đã tăng. Hỏi giá bán hiện tại của chiếc máy tính bảng là bao nhiêu đồng?",
+    "options": [
+      "A. ${w1}$ đồng",
+      "B. ${ans}$ đồng",
+      "C. ${w2}$ đồng",
+      "D. ${w3}$ đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính giá máy tính bảng sau khi tăng ${increasePercent}$% so với giá ban đầu.",
+      "Sau đó, từ giá đã tăng, tính giá máy tính bảng sau khi giảm ${decreasePercent}$%."
+    ],
+    "solutionHtml": "Bước 1: Tính giá máy tính bảng sau khi tăng giá ${increasePercent}$%.<br/>Giá tăng thêm là: ${initialPrice} \\times \\frac{{increasePercent}}{100} = {variables.initialPrice * variables.increasePercent / 100}$ (đồng).<br/>Giá sau khi tăng: ${initialPrice} + {variables.initialPrice * variables.increasePercent / 100} = {priceAfterIncrease}$ (đồng).<br/><br/>Bước 2: Tính giá máy tính bảng sau khi giảm giá ${decreasePercent}$% trên giá đã tăng.<br/>Số tiền giảm giá là: ${priceAfterIncrease} \\times \\frac{{decreasePercent}}{100} = {Math.round(formulas.priceAfterIncrease * variables.decreasePercent / 100)}$ (đồng).<br/>Giá bán hiện tại là: ${priceAfterIncrease} - {Math.round(formulas.priceAfterIncrease * variables.decreasePercent / 100)} = {ans}$ (đồng).<br/><br/>Vậy, giá bán hiện tại của chiếc máy tính bảng là ${ans}$ đồng.<br/>Đáp án đúng là B.",
+    "tip": "Khi giá thay đổi liên tiếp (tăng rồi giảm hoặc ngược lại), mỗi lần thay đổi phải dựa trên giá trị hiện tại, không phải giá ban đầu. Tránh cộng hoặc trừ trực tiếp các phần trăm.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "studentsInClass": { "min": 30, "max": 40, "step": 1 },
+      "membersMathClub": { "min": 15, "max": 20, "step": 1 },
+      "membersEnglishClub": { "min": 18, "max": 23, "step": 1 },
+      "membersBothClubs": { "min": 5, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "variables.membersMathClub + variables.membersEnglishClub - variables.membersBothClubs <= variables.studentsInClass",
+      "variables.membersBothClubs <= variables.membersMathClub",
+      "variables.membersBothClubs <= variables.membersEnglishClub"
+    ],
+    "formulas": {
+      "studentsOnlyMath": "variables.membersMathClub - variables.membersBothClubs",
+      "studentsOnlyEnglish": "variables.membersEnglishClub - variables.membersBothClubs",
+      "studentsInAtLeastOneClub": "formulas.studentsOnlyMath + formulas.studentsOnlyEnglish + variables.membersBothClubs",
+      "ans": "variables.studentsInClass - formulas.studentsInAtLeastOneClub",
+      "w1": "variables.studentsInClass - variables.membersMathClub",
+      "w2": "variables.studentsInClass - variables.membersEnglishClub",
+      "w3": "variables.studentsInClass - variables.membersBothClubs"
+    },
+    "questionText": "Một lớp học có ${studentsInClass}$ học sinh. Có ${membersMathClub}$ học sinh tham gia câu lạc bộ Toán, ${membersEnglishClub}$ học sinh tham gia câu lạc bộ Tiếng Anh. Trong đó, có ${membersBothClubs}$ học sinh tham gia cả hai câu lạc bộ. Hỏi có bao nhiêu học sinh của lớp không tham gia bất kỳ câu lạc bộ nào?",
+    "options": [
+      "A. ${w1}$ học sinh",
+      "B. ${ans}$ học sinh",
+      "C. ${w2}$ học sinh",
+      "D. ${w3}$ học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm số học sinh không tham gia câu lạc bộ nào, trước hết cần tìm tổng số học sinh tham gia ít nhất một câu lạc bộ.",
+      "Sử dụng công thức của nguyên lý bao hàm - loại trừ: Số người tham gia A hoặc B = Số người tham gia A + Số người tham gia B - Số người tham gia cả A và B."
+    ],
+    "solutionHtml": "Bước 1: Tính số học sinh chỉ tham gia câu lạc bộ Toán.<br/>Số học sinh chỉ tham gia CLB Toán = Số học sinh tham gia CLB Toán - Số học sinh tham gia cả hai CLB<br/>$= {membersMathClub} - {membersBothClubs} = {studentsOnlyMath}$ (học sinh).<br/><br/>Bước 2: Tính số học sinh chỉ tham gia câu lạc bộ Tiếng Anh.<br/>Số học sinh chỉ tham gia CLB Tiếng Anh = Số học sinh tham gia CLB Tiếng Anh - Số học sinh tham gia cả hai CLB<br/>$= {membersEnglishClub} - {membersBothClubs} = {studentsOnlyEnglish}$ (học sinh).<br/><br/>Bước 3: Tính tổng số học sinh tham gia ít nhất một câu lạc bộ.<br/>Tổng số học sinh tham gia ít nhất một CLB = (Số học sinh chỉ tham gia Toán) + (Số học sinh chỉ tham gia Tiếng Anh) + (Số học sinh tham gia cả hai CLB)<br/>$= {studentsOnlyMath} + {studentsOnlyEnglish} + {membersBothClubs} = {studentsInAtLeastOneClub}$ (học sinh).<br/>(Hoặc có thể dùng công thức: $|A \\cup B| = |A| + |B| - |A \\cap B| = {membersMathClub} + {membersEnglishClub} - {membersBothClubs} = {studentsInAtLeastOneClub}$ học sinh.)<br/><br/>Bước 4: Tính số học sinh không tham gia bất kỳ câu lạc bộ nào.<br/>Số học sinh không tham gia CLB nào = Tổng số học sinh của lớp - Tổng số học sinh tham gia ít nhất một CLB<br/>$= {studentsInClass} - {studentsInAtLeastOneClub} = {ans}$ (học sinh).<br/><br/>Vậy có ${ans}$ học sinh của lớp không tham gia bất kỳ câu lạc bộ nào.<br/>Đáp án đúng là B.",
+    "tip": "Bài toán này áp dụng nguyên lý bao hàm - loại trừ. Khi tính tổng số người trong các nhóm có phần giao nhau, hãy nhớ trừ đi phần giao nhau để tránh đếm trùng.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "upperBound": { "min": 125, "max": 250, "step": 10 },
+      "commonRemainder": { "min": 1, "max": 2, "step": 1 }
+    },
+    "constraints": [
+      "variables.upperBound > 60 + variables.commonRemainder"
+    ],
+    "formulas": {
+      "lcm345": "60",
+      "k_val": "Math.floor((variables.upperBound - 1 - variables.commonRemainder) / formulas.lcm345)",
+      "ans": "(formulas.lcm345 * formulas.k_val) + variables.commonRemainder",
+      "prev_multiple_val": "(formulas.lcm345 * (formulas.k_val - 1)) + variables.commonRemainder",
+      "next_multiple_val": "(formulas.lcm345 * (formulas.k_val + 1)) + variables.commonRemainder",
+      "distractor_no_rem": "formulas.lcm345 * formulas.k_val"
+    },
+    "questionText": "Một đội văn nghệ của trường có số thành viên chưa đến ${upperBound}$ người. Khi xếp thành 3 hàng thì thừa ${commonRemainder}$ người, khi xếp thành 4 hàng thì thừa ${commonRemainder}$ người, và khi xếp thành 5 hàng thì thừa ${commonRemainder}$ người. Hỏi đội văn nghệ đó có bao nhiêu thành viên?",
+    "options": [
+      "A. ${prev_multiple_val}$ thành viên",
+      "B. ${ans}$ thành viên",
+      "C. ${next_multiple_val}$ thành viên",
+      "D. ${distractor_no_rem}$ thành viên"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nếu số thành viên khi xếp thành 3, 4, 5 hàng đều thừa ${commonRemainder}$ người, điều này có nghĩa là số thành viên trừ đi ${commonRemainder}$ sẽ chia hết cho 3, 4 và 5.",
+      "Hãy tìm Bội chung nhỏ nhất (BCNN) của 3, 4 và 5. Sau đó, tìm bội của BCNN sao cho khi cộng với ${commonRemainder}$ sẽ nhỏ hơn ${upperBound}$.",
+      "Vì hỏi số thành viên của đội văn nghệ, và đội đó có 'số thành viên', nghĩa là phải có ít nhất 1 thành viên. Thông thường, với bài toán thực tế như này, ta cần tìm số lớn nhất thỏa mãn điều kiện."
+    ],
+    "solutionHtml": "Gọi số thành viên của đội văn nghệ là $N$.<br/>Theo đề bài, khi xếp thành 3 hàng, 4 hàng, 5 hàng đều thừa ${commonRemainder}$ người, ta có:<br/>$N \\div 3$ dư ${commonRemainder}$<br/>$N \\div 4$ dư ${commonRemainder}$<br/>$N \\div 5$ dư ${commonRemainder}$<br/>Điều này có nghĩa là $N - {commonRemainder}$ là một số chia hết cho cả 3, 4 và 5.<br/>Hay $N - {commonRemainder}$ là Bội chung của 3, 4, 5.<br/><br/>Bước 1: Tìm Bội chung nhỏ nhất (BCNN) của 3, 4, 5.<br/>Ta có: $3 = 3$<br/>$4 = 2^2$<br/>$5 = 5$<br/>BCNN(3, 4, 5) = $3 \\times 2^2 \\times 5 = 3 \\times 4 \\times 5 = {lcm345}$.<br/><br/>Bước 2: Tìm các Bội chung của 3, 4, 5.<br/>Các Bội chung của 3, 4, 5 là các bội của BCNN(3, 4, 5).<br/>Vậy các Bội chung của 3, 4, 5 là $0, {lcm345}, {lcm345*2}, {lcm345*3}, ...$<br/><br/>Bước 3: Tìm $N$.<br/>Vì $N - {commonRemainder}$ là Bội chung của 3, 4, 5, nên $N - {commonRemainder}$ có thể là ${lcm345}, {lcm345*2}, ...$<br/>Do đó, $N$ có thể là $N_1 = {lcm345} + {commonRemainder} = {lcm345 + commonRemainder}$; $N_2 = {lcm345*2} + {commonRemainder} = {lcm345*2 + commonRemainder}$; v.v.<br/>Theo đề bài, số thành viên chưa đến ${upperBound}$ người, tức là $N < {upperBound}$.<br/>Để tìm số thành viên, ta cần tìm giá trị lớn nhất của $N$ thỏa mãn điều kiện $N < {upperBound}$.<br/>Với $k = {k_val}$, ta có $N = {lcm345} \\times {k_val} + {commonRemainder} = {ans}$.<br/>Giá trị này thỏa mãn ${ans} < {upperBound}$.<br/>Nếu lấy $k = {k_val} + 1$, ta có $N = {lcm345} \\times ({k_val} + 1) + {commonRemainder} = {next_multiple_val}$.<br/>Giá trị này không thỏa mãn vì ${next_multiple_val} \\ge {upperBound}$.<br/>Vậy số thành viên lớn nhất có thể có của đội văn nghệ là ${ans}$ người.<br/>Đáp án đúng là B.",
+    "tip": "Khi một số chia cho nhiều số khác nhau mà cùng có số dư, thì số đó trừ đi số dư sẽ là bội chung của các số chia. Trong bài toán này, cần tìm giá trị lớn nhất của số thành viên thỏa mãn điều kiện 'chưa đến {upperBound} người'.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "candyA": { "min": 100, "max": 200, "step": 10 },
+      "candyB": { "min": 80, "max": 150, "step": 10 },
+      "minStudents": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      "variables.candyA % 10 === 0",
+      "variables.candyB % 10 === 0",
+      "variables.candyA !== variables.candyB"
+    ],
+    "formulas": {
+      "gcd_val": "function gcd(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }(variables.candyA, variables.candyB)",
+      "ans": "formulas.gcd_val",
+      "w1": "formulas.gcd_val / 2",
+      "w2": "formulas.gcd_val * 2",
+      "w3": "formulas.gcd_val + 5"
+    },
+    "questionText": "Bác An có ${candyA}$ chiếc kẹo chanh và ${candyB}$ chiếc kẹo dừa. Bác muốn chia đều số kẹo này vào các túi quà sao cho mỗi túi có số lượng kẹo chanh như nhau và số lượng kẹo dừa như nhau, và không còn chiếc kẹo nào thừa. Hỏi bác An có thể chia được nhiều nhất bao nhiêu túi quà?",
+    "options": [
+      "A. ${w1}$ túi",
+      "B. ${w2}$ túi",
+      "C. ${ans}$ túi",
+      "D. ${w3}$ túi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số túi quà cần phải là một ước của số kẹo chanh và cũng là một ước của số kẹo dừa.",
+      "Vì bác An muốn chia được nhiều nhất số túi quà, nên số túi quà đó phải là ước chung lớn nhất của số kẹo chanh và số kẹo dừa."
+    ],
+    "solutionHtml": "Gọi số túi quà nhiều nhất mà bác An có thể chia là $x$.<br/>Theo đề bài, $x$ phải là số mà ${candyA}$ chia hết cho $x$, và ${candyB}$ cũng chia hết cho $x$.<br/>Điều này có nghĩa là $x$ là Ước chung của ${candyA}$ và ${candyB}$.<br/>Để chia được nhiều nhất số túi quà, $x$ phải là Ước chung lớn nhất (ƯCLN) của ${candyA}$ và ${candyB}$.<br/><br/>Bước 1: Phân tích các số ${candyA}$ và ${candyB}$ ra thừa số nguyên tố.<br/>${candyA} = ${function(num) { let factors = {}; for (let i = 2; i <= num; i++) { while (num % i === 0) { factors[i] = (factors[i] || 0) + 1; num /= i; } } return Object.entries(factors).map(([p, e]) => `${p}${e > 1 ? '^' + e : ''}`).join(' \\times '); }(variables.candyA)}$<br/>${candyB} = ${function(num) { let factors = {}; for (let i = 2; i <= num; i++) { while (num % i === 0) { factors[i] = (factors[i] || 0) + 1; num /= i; } } return Object.entries(factors).map(([p, e]) => `${p}${e > 1 ? '^' + e : ''}`).join(' \\times '); }(variables.candyB)}$<br/><br/>Bước 2: Tìm ƯCLN của ${candyA}$ và ${candyB}$.<br/>ƯCLN(${candyA}$, ${candyB}$) = ${function(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }(variables.candyA, variables.candyB)}$<br/>(Lấy các thừa số nguyên tố chung với số mũ nhỏ nhất).<br/>Vậy ƯCLN(${candyA}$, ${candyB}$) = ${ans}$.<br/><br/>Vậy bác An có thể chia được nhiều nhất ${ans}$ túi quà.<br/>Đáp án đúng là C.",
+    "tip": "Khi cần chia đều nhiều loại vật phẩm thành các phần bằng nhau mà không có phần thừa, và muốn số phần là lớn nhất, ta sử dụng Ước chung lớn nhất (ƯCLN).",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalPages": { "min": 200, "max": 400, "step": 20 },
+      "day1FractionNum": { "min": 1, "max": 2, "step": 1 },
+      "day1FractionDen": { "min": 3, "max": 4, "step": 1 },
+      "day2FractionNum": { "min": 1, "max": 2, "step": 1 },
+      "day2FractionDen": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "variables.day1FractionNum < variables.day1FractionDen",
+      "variables.day2FractionNum < variables.day2FractionDen",
+      "variables.totalPages % variables.day1FractionDen === 0",
+      "variables.totalPages % (variables.day1FractionDen * variables.day2FractionDen) === 0 ? true : (variables.totalPages % variables.day1FractionDen * (variables.day2FractionDen / (variables.day2FractionDen - variables.day2FractionNum))) % 1 === 0 ? true : false" // This constraint is complex to ensure integer pages for remaining. Simplified check below.
+    ],
+    "formulas": {
+      "day1Read": "variables.totalPages * variables.day1FractionNum / variables.day1FractionDen",
+      "remainingAfterDay1": "variables.totalPages - formulas.day1Read",
+      "day2Read": "formulas.remainingAfterDay1 * variables.day2FractionNum / variables.day2FractionDen",
+      "ans": "formulas.remainingAfterDay1 - formulas.day2Read",
+      "totalFractionRead": "variables.day1FractionNum / variables.day1FractionDen + (1 - variables.day1FractionNum / variables.day1FractionDen) * variables.day2FractionNum / variables.day2FractionDen",
+      "w1": "variables.totalPages - formulas.day1Read",
+      "w2": "formulas.day1Read + formulas.day2Read",
+      "w3": "variables.totalPages - formulas.day2Read"
+    },
+    "questionText": "Một quyển sách có ${totalPages}$ trang. Ngày đầu An đọc được $\\frac{{day1FractionNum}}{{day1FractionDen}}$ tổng số trang. Ngày thứ hai, An đọc được $\\frac{{day2FractionNum}}{{day2FractionDen}}$ số trang còn lại. Hỏi An còn lại bao nhiêu trang sách chưa đọc?",
+    "options": [
+      "A. ${w1}$ trang",
+      "B. ${ans}$ trang",
+      "C. ${w2}$ trang",
+      "D. ${w3}$ trang"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đầu tiên, hãy tính số trang sách An đọc được trong ngày đầu tiên.",
+      "Tiếp theo, tính số trang sách còn lại sau ngày đầu tiên.",
+      "Cuối cùng, tính số trang An đọc trong ngày thứ hai (dựa trên số trang còn lại) và số trang chưa đọc."
+    ],
+    "solutionHtml": "Bước 1: Tính số trang An đọc được trong ngày đầu tiên.<br/>Số trang An đọc ngày đầu là: ${totalPages} \\times \\frac{{day1FractionNum}}{{day1FractionDen}} = {day1Read}$ (trang).<br/><br/>Bước 2: Tính số trang sách còn lại sau ngày đầu tiên.<br/>Số trang sách còn lại sau ngày đầu là: ${totalPages} - {day1Read} = {remainingAfterDay1}$ (trang).<br/><br/>Bước 3: Tính số trang An đọc được trong ngày thứ hai.<br/>Số trang An đọc ngày thứ hai là: ${remainingAfterDay1} \\times \\frac{{day2FractionNum}}{{day2FractionDen}} = {day2Read}$ (trang).<br/><br/>Bước 4: Tính số trang sách An còn lại chưa đọc.<br/>Số trang sách An còn lại chưa đọc là: ${remainingAfterDay1} - {day2Read} = {ans}$ (trang).<br/>Đáp án đúng là B.",
+    "tip": "Hãy cẩn thận với từ 'số trang còn lại' trong đề bài. Phép tính phân số phải dựa trên phần còn lại, không phải tổng số trang ban đầu.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialTemp": { "min": 5, "max": 10, "step": 1 },
+      "decrease1": { "min": 7, "max": 12, "step": 1 },
+      "increase1": { "min": 5, "max": 10, "step": 1 },
+      "decrease2": { "min": 3, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "variables.initialTemp - variables.decrease1 < 0",
+      "variables.initialTemp - variables.decrease1 + variables.increase1 > 0"
+    ],
+    "formulas": {
+      "tempAfter1": "variables.initialTemp - variables.decrease1",
+      "tempAfter2": "formulas.tempAfter1 + variables.increase1",
+      "ans": "formulas.tempAfter2 - variables.decrease2",
+      "w1": "variables.initialTemp + variables.decrease1 + variables.increase1 + variables.decrease2",
+      "w2": "variables.initialTemp - variables.decrease1 - variables.increase1 - variables.decrease2",
+      "w3": "variables.initialTemp + variables.increase1 - variables.decrease2"
+    },
+    "questionText": "Nhiệt độ phòng thí nghiệm lúc 7 giờ sáng là ${initialTemp}°C$. Đến 9 giờ sáng, nhiệt độ giảm ${decrease1}°C$. Sau đó, từ 9 giờ đến 11 giờ trưa, nhiệt độ tăng ${increase1}°C$. Cuối cùng, từ 11 giờ trưa đến 1 giờ chiều, nhiệt độ lại giảm ${decrease2}°C$. Hỏi nhiệt độ phòng thí nghiệm lúc 1 giờ chiều là bao nhiêu?",
+    "options": [
+      "A. ${w1}°C",
+      "B. ${ans}°C",
+      "C. ${w2}°C",
+      "D. ${w3}°C"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Ghi lại nhiệt độ ban đầu. Sau đó, thực hiện từng thay đổi nhiệt độ một cách tuần tự.",
+      "Khi nhiệt độ giảm, ta thực hiện phép trừ. Khi nhiệt độ tăng, ta thực hiện phép cộng.",
+      "Hãy chú ý đến các số nguyên âm có thể xuất hiện trong quá trình tính toán."
+    ],
+    "solutionHtml": "Để tìm nhiệt độ phòng thí nghiệm lúc 1 giờ chiều, ta thực hiện các phép tính theo trình tự thời gian:<br/><br/>1. Nhiệt độ lúc 7 giờ sáng: ${initialTemp}°C$.<br/><br/>2. Nhiệt độ lúc 9 giờ sáng (giảm ${decrease1}°C$):<br/>${initialTemp} - {decrease1} = {tempAfter1}°C$.<br/><br/>3. Nhiệt độ lúc 11 giờ trưa (tăng ${increase1}°C$):<br/>${tempAfter1} + {increase1} = {tempAfter2}°C$.<br/><br/>4. Nhiệt độ lúc 1 giờ chiều (giảm ${decrease2}°C$):<br/>${tempAfter2} - {decrease2} = {ans}°C$.<br/><br/>Vậy, nhiệt độ phòng thí nghiệm lúc 1 giờ chiều là ${ans}°C$.<br/>Đáp án đúng là B.",
+    "tip": "Bài toán này yêu cầu học sinh thực hiện các phép tính cộng, trừ số nguyên theo đúng trình tự. Cần chú ý đến dấu của số nguyên.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialLength": { "min": 15, "max": 25, "step": 1 },
+      "initialWidth": { "min": 8, "max": 12, "step": 1 },
+      "increaseLength": { "min": 2, "max": 5, "step": 1 },
+      "decreaseWidth": { "min": 1, "max": 3, "step": 1 }
+    },
+    "constraints": [
+      "variables.initialLength > variables.initialWidth",
+      "variables.initialWidth - variables.decreaseWidth > 0"
+    ],
+    "formulas": {
+      "initialArea": "variables.initialLength * variables.initialWidth",
+      "newLength": "variables.initialLength + variables.increaseLength",
+      "newWidth": "variables.initialWidth - variables.decreaseWidth",
+      "newArea": "formulas.newLength * formulas.newWidth",
+      "ans": "formulas.newArea - formulas.initialArea",
+      "w1": "formulas.newArea",
+      "w2": "formulas.initialArea",
+      "w3": "formulas.initialArea - formulas.newArea"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật ban đầu có chiều dài là ${initialLength}$ mét và chiều rộng là ${initialWidth}$ mét. Người ta mở rộng mảnh vườn bằng cách tăng chiều dài thêm ${increaseLength}$ mét và giảm chiều rộng đi ${decreaseWidth}$ mét. Hỏi diện tích mảnh vườn thay đổi bao nhiêu mét vuông so với ban đầu?",
+    "options": [
+      "A. Tăng ${w1}$ m$^2$",
+      "B. Tăng ${ans}$ m$^2$",
+      "C. Giảm ${w2}$ m$^2$",
+      "D. Giảm ${w3}$ m$^2$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính diện tích ban đầu của mảnh vườn.",
+      "Tính chiều dài mới và chiều rộng mới của mảnh vườn.",
+      "Tính diện tích mới của mảnh vườn.",
+      "So sánh diện tích mới với diện tích ban đầu để tìm sự thay đổi."
+    ],
+    "solutionHtml": "Bước 1: Tính diện tích ban đầu của mảnh vườn.<br/>Diện tích ban đầu: $S_{ban đầu} = {initialLength} \\times {initialWidth} = {initialArea}$ (m$^2$).<br/><br/>Bước 2: Tính chiều dài mới và chiều rộng mới của mảnh vườn.<br/>Chiều dài mới: ${initialLength} + {increaseLength} = {newLength}$ (m).<br/>Chiều rộng mới: ${initialWidth} - {decreaseWidth} = {newWidth}$ (m).<br/><br/>Bước 3: Tính diện tích mới của mảnh vườn.<br/>Diện tích mới: $S_{mới} = {newLength} \\times {newWidth} = {newArea}$ (m$^2$).<br/><br/>Bước 4: Tính sự thay đổi về diện tích.<br/>Sự thay đổi diện tích = $S_{mới} - S_{ban đầu} = {newArea} - {initialArea} = {ans}$ (m$^2$).<br/>Vì kết quả là một số dương (${ans} > 0$), nên diện tích mảnh vườn đã tăng lên ${ans}$ m$^2$.<br/>Đáp án đúng là B.",
+    "tip": "Cần tính toán cẩn thận từng bước: diện tích cũ, kích thước mới, diện tích mới, sau đó mới so sánh sự thay đổi. Chú ý đơn vị diện tích là mét vuông.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "firstTerm": { "min": 5, "max": 15, "step": 1 },
+      "commonDifference": { "min": 3, "max": 7, "step": 1 },
+      "nthTermPosition": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "variables.firstTerm + (variables.nthTermPosition - 1) * variables.commonDifference",
+      "w1": "variables.firstTerm + variables.nthTermPosition * variables.commonDifference",
+      "w2": "variables.firstTerm + (variables.nthTermPosition + 1) * variables.commonDifference",
+      "w3": "variables.firstTerm + variables.nthTermPosition"
+    },
+    "questionText": "Cho một dãy số có quy luật: số hạng đầu tiên là ${firstTerm}$, và mỗi số hạng tiếp theo lớn hơn số hạng đứng trước nó ${commonDifference}$ đơn vị. Hỏi số hạng thứ ${nthTermPosition}$ của dãy số là bao nhiêu?",
+    "options": [
+      "A. ${w1}$",
+      "B. ${ans}$",
+      "C. ${w2}$",
+      "D. ${w3}$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đây là một dãy số cấp số cộng. Công thức tổng quát của số hạng thứ $n$ là $a_n = a_1 + (n-1)d$, trong đó $a_1$ là số hạng đầu tiên và $d$ là công sai.",
+      "Xác định các giá trị $a_1$, $d$ và $n$ từ đề bài."
+    ],
+    "solutionHtml": "Đây là một dãy số cấp số cộng.<br/>Số hạng đầu tiên $a_1 = {firstTerm}$.<br/>Công sai (hiệu giữa hai số hạng liên tiếp) $d = {commonDifference}$.<br/>Chúng ta cần tìm số hạng thứ ${nthTermPosition}$, tức là $n = {nthTermPosition}$.<br/><br/>Công thức để tìm số hạng thứ $n$ của một cấp số cộng là:<br/>$a_n = a_1 + (n-1) \\times d$<br/><br/>Thay các giá trị vào công thức:<br/>$a_{{nthTermPosition}} = {firstTerm} + ({nthTermPosition} - 1) \\times {commonDifference}$<br/>$a_{{nthTermPosition}} = {firstTerm} + {nthTermPosition - 1} \\times {commonDifference}$<br/>$a_{{nthTermPosition}} = {firstTerm} + { (variables.nthTermPosition - 1) * variables.commonDifference }$<br/>$a_{{nthTermPosition}} = {ans}$<br/><br/>Vậy số hạng thứ ${nthTermPosition}$ của dãy số là ${ans}$.<br/>Đáp án đúng là B.",
+    "tip": "Ghi nhớ công thức số hạng thứ $n$ của cấp số cộng để giải quyết các bài toán về dãy số có quy luật đều.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "busATime": { "min": 10, "max": 15, "step": 1 },
+      "busBTime": { "min": 18, "max": 24, "step": 2 },
+      "startTimeHour": { "min": 7, "max": 9, "step": 1 },
+      "startTimeMinute": { "min": 0, "max": 0, "step": 1 }
+    },
+    "constraints": [
+      "variables.busATime !== variables.busBTime",
+      "variables.busATime % 2 === 0 ? variables.busBTime % 2 === 0 : true",
+      "variables.busATime % 3 === 0 ? variables.busBTime % 3 === 0 : true",
+      "variables.busATime * variables.busBTime > 180" // Ensure LCM is not too small
+    ],
+    "formulas": {
+      "gcd_val": "function gcd(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }(variables.busATime, variables.busBTime)",
+      "lcm_val": "(variables.busATime * variables.busBTime) / formulas.gcd_val",
+      "ansHour": "variables.startTimeHour + Math.floor(formulas.lcm_val / 60)",
+      "ansMinute": "variables.startTimeMinute + (formulas.lcm_val % 60)",
+      "w1Hour": "variables.startTimeHour + Math.floor((formulas.lcm_val + 30) / 60)",
+      "w1Minute": "variables.startTimeMinute + ((formulas.lcm_val + 30) % 60)",
+      "w2Hour": "variables.startTimeHour + Math.floor((formulas.lcm_val - 30) / 60)",
+      "w2Minute": "variables.startTimeMinute + ((formulas.lcm_val - 30) % 60)",
+      "w3Hour": "variables.startTimeHour + Math.floor((variables.busATime + variables.busBTime) / 60)",
+      "w3Minute": "variables.startTimeMinute + ((variables.busATime + variables.busBTime) % 60)"
+    },
+    "questionText": "Tại bến xe, cứ ${busATime}$ phút lại có một chuyến xe buýt tuyến A khởi hành, và cứ ${busBTime}$ phút lại có một chuyến xe buýt tuyến B khởi hành. Hai xe cùng khởi hành lúc ${startTimeHour} giờ ${startTimeMinute}$ phút sáng. Hỏi lần tiếp theo hai xe cùng khởi hành là lúc mấy giờ mấy phút?",
+    "options": [
+      "A. ${w1Hour}$ giờ ${w1Minute}$ phút",
+      "B. ${ansHour}$ giờ ${ansMinute}$ phút",
+      "C. ${w2Hour}$ giờ ${w2Minute}$ phút",
+      "D. ${w3Hour}$ giờ ${w3Minute}$ phút"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm thời điểm tiếp theo hai xe cùng khởi hành, ta cần tìm một khoảng thời gian là bội chung của cả hai chu kỳ khởi hành của xe A và xe B.",
+      "Khoảng thời gian này phải là khoảng thời gian nhỏ nhất, tức là Bội chung nhỏ nhất (BCNN)."
+    ],
+    "solutionHtml": "Để tìm lần tiếp theo hai xe cùng khởi hành, ta cần tìm khoảng thời gian ngắn nhất mà cả hai chu kỳ khởi hành của xe A và xe B đều vừa khớp. Điều này chính là tìm Bội chung nhỏ nhất (BCNN) của ${busATime}$ và ${busBTime}$.<br/><br/>Bước 1: Tìm BCNN của ${busATime}$ và ${busBTime}$.<br/>Ta có thể dùng công thức BCNN($a, b$) = $(a \\times b) \\div$ ƯCLN($a, b$).<br/>Đầu tiên tìm ƯCLN của ${busATime}$ và ${busBTime}$: ${function(a, b) { let fA = {}; let fB = {}; for (let i = 2; i <= a; i++) { while (a % i === 0) { fA[i] = (fA[i] || 0) + 1; a /= i; } } for (let i = 2; i <= b; i++) { while (b % i === 0) { fB[i] = (fB[i] || 0) + 1; b /= i; } } let commonFactors = []; for (let p in fA) { if (fB[p]) { commonFactors.push(`${p}${Math.min(fA[p], fB[p]) > 1 ? '^' + Math.min(fA[p], fB[p]) : ''}`); } } return commonFactors.join(' \\times '); }(variables.busATime, variables.busBTime)}$<br/>ƯCLN(${busATime}$, ${busBTime}$) = ${gcd_val}$.<br/>BCNN(${busATime}$, ${busBTime}$) = $({busATime} \\times {busBTime}) \\div {gcd_val} = {lcm_val}$ (phút).<br/><br/>Bước 2: Tính thời điểm hai xe cùng khởi hành.<br/>Hai xe cùng khởi hành sau ${lcm_val}$ phút kể từ ${startTimeHour}$ giờ ${startTimeMinute}$ phút.<br/>Đổi ${lcm_val}$ phút ra giờ và phút: ${lcm_val}$ phút = ${Math.floor(formulas.lcm_val / 60)}$ giờ và ${lcm_val % 60}$ phút.<br/>Thời điểm cùng khởi hành là:<br/>${startTimeHour}$ giờ ${startTimeMinute}$ phút + ${Math.floor(formulas.lcm_val / 60)}$ giờ ${lcm_val % 60}$ phút.<br/>Thời gian đó là: (${startTimeHour} + ${Math.floor(formulas.lcm_val / 60)})$ giờ ($ {startTimeMinute} + {lcm_val % 60}$ ) phút.<br/>= ${ansHour}$ giờ ${ansMinute}$ phút.<br/>Đáp án đúng là B.",
+    "tip": "Các bài toán về lịch trình lặp lại hoặc các sự kiện đồng thời thường sử dụng Bội chung nhỏ nhất (BCNN) để tìm thời điểm tiếp theo chúng xảy ra cùng lúc.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "sumVal": { "min": 50, "max": 80, "step": 5 },
+      "diffVal": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": [
+      "variables.sumVal > variables.diffVal",
+      "(variables.sumVal + variables.diffVal) % 2 === 0",
+      "(variables.sumVal - variables.diffVal) % 2 === 0",
+      "function isPrime(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }((variables.sumVal + variables.diffVal) / 2)",
+      "function isPrime(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }((variables.sumVal - variables.diffVal) / 2) === false" // One is prime, one is composite
+    ],
+    "formulas": {
+      "largeNum": "(variables.sumVal + variables.diffVal) / 2",
+      "smallNum": "(variables.sumVal - variables.diffVal) / 2",
+      "ans": "formulas.largeNum",
+      "w1": "formulas.smallNum",
+      "w2": "variables.sumVal",
+      "w3": "variables.diffVal"
+    },
+    "questionText": "Tìm số lớn hơn trong hai số tự nhiên, biết tổng của chúng là ${sumVal}$ và hiệu của chúng là ${diffVal}$. Hơn nữa, số lớn là số nguyên tố và số bé là hợp số.",
+    "options": [
+      "A. ${w1}$",
+      "B. ${ans}$",
+      "C. ${w2}$",
+      "D. ${w3}$"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đây là bài toán tìm hai số khi biết tổng và hiệu của chúng.",
+      "Số lớn = (Tổng + Hiệu) / 2. Số bé = (Tổng - Hiệu) / 2.",
+      "Sau khi tìm được hai số, hãy kiểm tra điều kiện về số nguyên tố và hợp số để đảm bảo đáp án chính xác."
+    ],
+    "solutionHtml": "Gọi hai số cần tìm là $A$ (số lớn) và $B$ (số bé).<br/>Theo đề bài, ta có:<br/>$A + B = {sumVal}$ (1)<br/>$A - B = {diffVal}$ (2)<br/><br/>Bước 1: Tìm số lớn $A$.<br/>Cộng phương trình (1) và (2) vế theo vế, ta được:<br/>$(A + B) + (A - B) = {sumVal} + {diffVal}$<br/>$2A = {sumVal + diffVal}$<br/>$A = ({sumVal} + {diffVal}) \\div 2$<br/>$A = {formulas.largeNum}$<br/><br/>Bước 2: Tìm số bé $B$.<br/>Thay $A = {formulas.largeNum}$ vào phương trình (1), ta được:<br/>${formulas.largeNum} + B = {sumVal}$<br/>$B = {sumVal} - {formulas.largeNum}$<br/>$B = {formulas.smallNum}$<br/><br/>Bước 3: Kiểm tra điều kiện số nguyên tố và hợp số.<br/>Số lớn $A = {formulas.largeNum}$. Ta kiểm tra xem ${formulas.largeNum}$ có phải là số nguyên tố không: ${function isPrime(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }(formulas.largeNum) ? 'Đúng, ${formulas.largeNum} là số nguyên tố' : 'Sai, ${formulas.largeNum} không phải là số nguyên tố'}$.<br/>Số bé $B = {formulas.smallNum}$. Ta kiểm tra xem ${formulas.smallNum}$ có phải là hợp số không: ${function isComposite(num) { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return true; } return false; }(formulas.smallNum) ? 'Đúng, ${formulas.smallNum} là hợp số' : 'Sai, ${formulas.smallNum} không phải là hợp số'}$.<br/>(Lưu ý: số nguyên tố là số tự nhiên lớn hơn 1, chỉ có 2 ước là 1 và chính nó. Hợp số là số tự nhiên lớn hơn 1, có nhiều hơn 2 ước.)<br/>Cả hai điều kiện đều thỏa mãn.<br/><br/>Vậy số lớn hơn trong hai số đó là ${ans}$.<br/>Đáp án đúng là B.",
+    "tip": "Luôn kiểm tra tất cả các điều kiện của bài toán (tổng, hiệu, tính chất số nguyên tố/hợp số) để đảm bảo đáp án là duy nhất và chính xác.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "initialPrice": { "min": 200000, "max": 500000, "step": 50000 },
+      "increasePercent": { "min": 10, "max": 15, "step": 1 },
+      "decreasePercent": { "min": 15, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      // Ensure the final price is not too far off from initial, for realism
+      "Math.round(variables.initialPrice * (1 + variables.increasePercent / 100) * (1 - variables.decreasePercent / 100)) > 0"
+    ],
+    "formulas": {
+      "priceAfterIncrease": "variables.initialPrice * (1 + variables.increasePercent / 100)",
+      "ans": "Math.round(formulas.priceAfterIncrease * (1 - variables.decreasePercent / 100))",
+      "w1": "Math.round(variables.initialPrice * (1 - variables.decreasePercent / 100))",
+      "w2": "Math.round(variables.initialPrice * (1 + variables.increasePercent / 100))",
+      "w3": "Math.round(variables.initialPrice * (1 + variables.increasePercent / 100 - variables.decreasePercent / 100))"
+    },
+    "questionText": "Một chiếc máy tính bảng ban đầu có giá ${initialPrice}$ đồng. Tháng trước, cửa hàng tăng giá lên ${increasePercent}$%. Tháng này, do có chương trình khuyến mãi, cửa hàng giảm giá ${decreasePercent}$% trên giá đã tăng. Hỏi giá bán hiện tại của chiếc máy tính bảng là bao nhiêu đồng?",
+    "options": [
+      "A. ${w1}$ đồng",
+      "B. ${ans}$ đồng",
+      "C. ${w2}$ đồng",
+      "D. ${w3}$ đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính giá máy tính bảng sau khi tăng ${increasePercent}$% so với giá ban đầu.",
+      "Sau đó, từ giá đã tăng, tính giá máy tính bảng sau khi giảm ${decreasePercent}$%."
+    ],
+    "solutionHtml": "Bước 1: Tính giá máy tính bảng sau khi tăng giá ${increasePercent}$%.<br/>Giá tăng thêm là: ${initialPrice} \\times \\frac{{increasePercent}}{100} = {variables.initialPrice * variables.increasePercent / 100}$ (đồng).<br/>Giá sau khi tăng: ${initialPrice} + {variables.initialPrice * variables.increasePercent / 100} = {priceAfterIncrease}$ (đồng).<br/><br/>Bước 2: Tính giá máy tính bảng sau khi giảm giá ${decreasePercent}$% trên giá đã tăng.<br/>Số tiền giảm giá là: ${priceAfterIncrease} \\times \\frac{{decreasePercent}}{100} = {Math.round(formulas.priceAfterIncrease * variables.decreasePercent / 100)}$ (đồng).<br/>Giá bán hiện tại là: ${priceAfterIncrease} - {Math.round(formulas.priceAfterIncrease * variables.decreasePercent / 100)} = {ans}$ (đồng).<br/><br/>Vậy, giá bán hiện tại của chiếc máy tính bảng là ${ans}$ đồng.<br/>Đáp án đúng là B.",
+    "tip": "Khi giá thay đổi liên tiếp (tăng rồi giảm hoặc ngược lại), mỗi lần thay đổi phải dựa trên giá trị hiện tại, không phải giá ban đầu. Tránh cộng hoặc trừ trực tiếp các phần trăm.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "studentsInClass": { "min": 30, "max": 40, "step": 1 },
+      "membersMathClub": { "min": 15, "max": 20, "step": 1 },
+      "membersEnglishClub": { "min": 18, "max": 23, "step": 1 },
+      "membersBothClubs": { "min": 5, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "variables.membersMathClub + variables.membersEnglishClub - variables.membersBothClubs <= variables.studentsInClass",
+      "variables.membersBothClubs <= variables.membersMathClub",
+      "variables.membersBothClubs <= variables.membersEnglishClub"
+    ],
+    "formulas": {
+      "studentsOnlyMath": "variables.membersMathClub - variables.membersBothClubs",
+      "studentsOnlyEnglish": "variables.membersEnglishClub - variables.membersBothClubs",
+      "studentsInAtLeastOneClub": "formulas.studentsOnlyMath + formulas.studentsOnlyEnglish + variables.membersBothClubs",
+      "ans": "variables.studentsInClass - formulas.studentsInAtLeastOneClub",
+      "w1": "variables.studentsInClass - variables.membersMathClub",
+      "w2": "variables.studentsInClass - variables.membersEnglishClub",
+      "w3": "variables.studentsInClass - variables.membersBothClubs"
+    },
+    "questionText": "Một lớp học có ${studentsInClass}$ học sinh. Có ${membersMathClub}$ học sinh tham gia câu lạc bộ Toán, ${membersEnglishClub}$ học sinh tham gia câu lạc bộ Tiếng Anh. Trong đó, có ${membersBothClubs}$ học sinh tham gia cả hai câu lạc bộ. Hỏi có bao nhiêu học sinh của lớp không tham gia bất kỳ câu lạc bộ nào?",
+    "options": [
+      "A. ${w1}$ học sinh",
+      "B. ${ans}$ học sinh",
+      "C. ${w2}$ học sinh",
+      "D. ${w3}$ học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm số học sinh không tham gia câu lạc bộ nào, trước hết cần tìm tổng số học sinh tham gia ít nhất một câu lạc bộ.",
+      "Sử dụng công thức của nguyên lý bao hàm - loại trừ: Số người tham gia A hoặc B = Số người tham gia A + Số người tham gia B - Số người tham gia cả A và B."
+    ],
+    "solutionHtml": "Bước 1: Tính số học sinh chỉ tham gia câu lạc bộ Toán.<br/>Số học sinh chỉ tham gia CLB Toán = Số học sinh tham gia CLB Toán - Số học sinh tham gia cả hai CLB<br/>$= {membersMathClub} - {membersBothClubs} = {studentsOnlyMath}$ (học sinh).<br/><br/>Bước 2: Tính số học sinh chỉ tham gia câu lạc bộ Tiếng Anh.<br/>Số học sinh chỉ tham gia CLB Tiếng Anh = Số học sinh tham gia CLB Tiếng Anh - Số học sinh tham gia cả hai CLB<br/>$= {membersEnglishClub} - {membersBothClubs} = {studentsOnlyEnglish}$ (học sinh).<br/><br/>Bước 3: Tính tổng số học sinh tham gia ít nhất một câu lạc bộ.<br/>Tổng số học sinh tham gia ít nhất một CLB = (Số học sinh chỉ tham gia Toán) + (Số học sinh chỉ tham gia Tiếng Anh) + (Số học sinh tham gia cả hai CLB)<br/>$= {studentsOnlyMath} + {studentsOnlyEnglish} + {membersBothClubs} = {studentsInAtLeastOneClub}$ (học sinh).<br/>(Hoặc có thể dùng công thức: $|A \\cup B| = |A| + |B| - |A \\cap B| = {membersMathClub} + {membersEnglishClub} - {membersBothClubs} = {studentsInAtLeastOneClub}$ học sinh.)<br/><br/>Bước 4: Tính số học sinh không tham gia bất kỳ câu lạc bộ nào.<br/>Số học sinh không tham gia CLB nào = Tổng số học sinh của lớp - Tổng số học sinh tham gia ít nhất một CLB<br/>$= {studentsInClass} - {studentsInAtLeastOneClub} = {ans}$ (học sinh).<br/><br/>Vậy có ${ans}$ học sinh của lớp không tham gia bất kỳ câu lạc bộ nào.<br/>Đáp án đúng là B.",
+    "tip": "Bài toán này áp dụng nguyên lý bao hàm - loại trừ. Khi tính tổng số người trong các nhóm có phần giao nhau, hãy nhớ trừ đi phần giao nhau để tránh đếm trùng.",
+    "level": "chat-luong-cao",
+    "type": "kt-c6-q10"
+  }
+]
+

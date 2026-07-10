@@ -1,0 +1,1228 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-05T06:48:50.197Z
+Lesson ID: l4-bai-58
+Lesson Title: Bài 58: So sánh phân số
+==================================================
+
+[ERROR DETAILS]
+Toàn bộ API Keys đều gặp sự cố: This operation was aborted
+Error: Toàn bộ API Keys đều gặp sự cố: This operation was aborted
+    at callGeminiAPI (F:\KHQS\AntiGravity\HocTap\server.js:579:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:601:18)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:1948:20
+
+[JSON DIAGNOSTICS]
+No specific JSON position found in error message.
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "an": { "min": 1, "max": 5, "step": 1 },
+      "ad": { "min": 6, "max": 12, "step": 1 },
+      "bn": { "min": 1, "max": 5, "step": 1 },
+      "bd": { "min": 6, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "an < ad",
+      "bn < bd",
+      "ad !== bd",
+      "(an / ad) !== (bn / bd)"
+    ],
+    "formulas": {
+      "gcd_ad_bd": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(ad, bd)",
+      "lcm_ad_bd": "(ad * bd) / gcd_ad_bd",
+      "an_quy_dong": "an * (lcm_ad_bd / ad)",
+      "bn_quy_dong": "bn * (lcm_ad_bd / bd)",
+      "ans_person": "an_quy_dong > bn_quy_dong ? 'Bạn An' : 'Bạn Bình'",
+      "w1_person": "an_quy_dong > bn_quy_dong ? 'Bạn Bình' : 'Bạn An'",
+      "w2_person": "an_quy_dong === bn_quy_dong ? 'Cả hai bạn ăn bằng nhau' : 'Không xác định được'",
+      "compare_result_text": "an_quy_dong > bn_quy_dong ? 'nhiều hơn' : 'ít hơn'",
+      "greater_fraction_text": "an_quy_dong > bn_quy_dong ? '\\frac{' + an + '}{' + ad + '}' : '\\frac{' + bn + '}{' + bd + '}'"
+    },
+    "questionText": "Trong một cuộc thi ăn bánh, bạn An đã ăn hết $ \\frac{{{an}}}{{{ad}}} $ cái bánh, bạn Bình đã ăn hết $ \\frac{{{bn}}}{{{bd}}} $ cái bánh. Hỏi bạn nào đã ăn nhiều bánh hơn?",
+    "options": [
+      "A. {ans_person}",
+      "B. {w1_person}",
+      "C. Cả hai bạn ăn bằng nhau",
+      "D. Không thể xác định được"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh hai phân số khác mẫu số, em cần quy đồng mẫu số của chúng.",
+      "Tìm mẫu số chung nhỏ nhất của $ {ad} $ và $ {bd} $.",
+      "So sánh tử số sau khi đã quy đồng để xác định phân số nào lớn hơn."
+    ],
+    "solutionHtml": "Để biết bạn nào ăn nhiều bánh hơn, chúng ta cần so sánh hai phân số $ \\frac{{{an}}}{{{ad}}} $ và $ \\frac{{{bn}}}{{{bd}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {ad} $ và $ {bd} $.<br/>MSCNN của $ {ad} $ và $ {bd} $ là $ {lcm_ad_bd} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của bạn An: $ \\frac{{{an}}}{{{ad}}} = \\frac{{{an} \\times ({lcm_ad_bd} \\div {ad})}}{{{ad} \\times ({lcm_ad_bd} \\div {ad})}} = \\frac{{{an_quy_dong}}}{{{lcm_ad_bd}}} $<br/>Phân số của bạn Bình: $ \\frac{{{bn}}}{{{bd}}} = \\frac{{{bn} \\times ({lcm_ad_bd} \\div {bd})}}{{{bd} \\times ({lcm_ad_bd} \\div {bd})}} = \\frac{{{bn_quy_dong}}}{{{lcm_ad_bd}}} $<br/>Bước 3: So sánh hai phân số sau khi quy đồng.<br/>Ta so sánh tử số $ {an_quy_dong} $ và $ {bn_quy_dong} $.<br/>Vì $ {an_quy_dong} $ {compare_result_text} $ {bn_quy_dong} $ (cụ thể: $ {an_quy_dong} $ { (an_quy_dong > bn_quy_dong ? '>' : '<') } $ {bn_quy_dong} $), nên $ \\frac{{{an_quy_dong}}}{{{lcm_ad_bd}}} $ { (an_quy_dong > bn_quy_dong ? '>' : '<') } $ \\frac{{{bn_quy_dong}}}{{{lcm_ad_bd}}} $.<br/>Vậy, $ \\frac{{{an}}}{{{ad}}} $ { (an_quy_dong > bn_quy_dong ? '>' : '<') } $ \\frac{{{bn}}}{{{bd}}} $.<br/>Kết luận: {ans_person} đã ăn nhiều bánh hơn.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phân số, việc quy đồng mẫu số (hoặc tử số nếu tiện lợi) giúp em dễ dàng nhận biết phân số nào lớn hơn hoặc bé hơn. Luôn kiểm tra lại phép tính của mình nhé!"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tap1_current": { "min": 3, "max": 7, "step": 1 },
+      "tap1_capacity": { "min": 8, "max": 12, "step": 2 },
+      "tap2_current": { "min": 3, "max": 7, "step": 1 },
+      "tap2_capacity": { "min": 8, "max": 12, "step": 2 }
+    },
+    "constraints": [
+      "tap1_current < tap1_capacity",
+      "tap2_current < tap2_capacity",
+      "tap1_capacity % 2 === 0",
+      "tap2_capacity % 2 === 0",
+      "(tap1_current / tap1_capacity) !== (tap2_current / tap2_capacity)",
+      "(tap1_current / tap1_capacity) !== 0.5",
+      "(tap2_current / tap2_capacity) !== 0.5"
+    ],
+    "formulas": {
+      "half_tap1_capacity": "tap1_capacity / 2",
+      "half_tap2_capacity": "tap2_capacity / 2",
+      "tap1_compare_half": "tap1_current > half_tap1_capacity ? 'lớn hơn một nửa' : 'nhỏ hơn một nửa'",
+      "tap2_compare_half": "tap2_current > half_tap2_capacity ? 'lớn hơn một nửa' : 'nhỏ hơn một nửa'",
+      "ans_text": "tap1_current > half_tap1_capacity ? 'Thùng thứ nhất' : (tap2_current > half_tap2_capacity ? 'Thùng thứ hai' : 'Không có thùng nào')",
+      "w1_text": "tap1_current > half_tap1_capacity ? (tap2_current > half_tap2_capacity ? 'Cả hai thùng' : 'Thùng thứ hai') : (tap2_current > half_tap2_capacity ? 'Thùng thứ nhất' : 'Cả hai thùng')",
+      "w2_text": "tap1_current > half_tap1_capacity && tap2_current > half_tap2_capacity ? 'Cả hai thùng' : 'Không có thùng nào'",
+      "w3_text": "tap1_current < half_tap1_capacity && tap2_current < half_tap2_capacity ? 'Cả hai thùng' : 'Không có thùng nào'"
+    },
+    "questionText": "Một nông dân có hai thùng nước. Thùng thứ nhất chứa $ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $ dung tích thùng, và thùng thứ hai chứa $ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $ dung tích thùng. Hỏi thùng nào chứa lượng nước <b>lớn hơn một nửa</b> dung tích của nó?",
+    "options": [
+      "A. {ans_text}",
+      "B. Cả hai thùng",
+      "C. Thùng thứ hai",
+      "D. Không có thùng nào"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Một nửa dung tích thùng có thể biểu diễn bằng phân số $ \\frac{1}{2} $.",
+      "Để biết thùng nào chứa lượng nước lớn hơn một nửa, em cần so sánh phân số lượng nước với $ \\frac{1}{2} $.",
+      "Quy đồng mẫu số phân số lượng nước với $ \\frac{1}{2} $ để so sánh."
+    ],
+    "solutionHtml": "Để xác định thùng nào chứa lượng nước lớn hơn một nửa, ta cần so sánh lượng nước trong mỗi thùng với $ \\frac{1}{2} $.<br/><b>Với thùng thứ nhất:</b><br/>Lượng nước là $ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $. Một nửa dung tích là $ \\frac{1}{2} $.<br/>Quy đồng mẫu số chung nhỏ nhất của $ {tap1_capacity} $ và $ 2 $ là $ {tap1_capacity} $.<br/>$ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $ và $ \\frac{1}{2} = \\frac{{1 \\times ({tap1_capacity} \\div 2)}}{{2 \\times ({tap1_capacity} \\div 2)}} = \\frac{{{half_tap1_capacity}}}{{{tap1_capacity}}} $.<br/>So sánh $ {tap1_current} $ và $ {half_tap1_capacity} $:<br/>Vì $ {tap1_current} $ { (tap1_current > half_tap1_capacity ? '>' : '<') } $ {half_tap1_capacity} $, nên $ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $ { (tap1_current > half_tap1_capacity ? '>' : '<') } $ \\frac{1}{2} $.<br/>Thùng thứ nhất chứa lượng nước $ {tap1_compare_half} $ dung tích của nó.<br/><br/><b>Với thùng thứ hai:</b><br/>Lượng nước là $ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $. Một nửa dung tích là $ \\frac{1}{2} $.<br/>Quy đồng mẫu số chung nhỏ nhất của $ {tap2_capacity} $ và $ 2 $ là $ {tap2_capacity} $.<br/>$ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $ và $ \\frac{1}{2} = \\frac{{1 \\times ({tap2_capacity} \\div 2)}}{{2 \\times ({tap2_capacity} \\div 2)}} = \\frac{{{half_tap2_capacity}}}{{{tap2_capacity}}} $.<br/>So sánh $ {tap2_current} $ và $ {half_tap2_capacity} $:<br/>Vì $ {tap2_current} $ { (tap2_current > half_tap2_capacity ? '>' : '<') } $ {half_tap2_capacity} $, nên $ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $ { (tap2_current > half_tap2_capacity ? '>' : '<') } $ \\frac{1}{2} $.<br/>Thùng thứ hai chứa lượng nước $ {tap2_compare_half} $ dung tích của nó.<br/><br/>Kết luận: Thùng chứa lượng nước lớn hơn một nửa là: {ans_text}.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh một phân số với $ \\frac{1}{2} $, em có thể so sánh tử số với một nửa mẫu số. Nếu tử số lớn hơn nửa mẫu số, phân số đó lớn hơn $ \\frac{1}{2} $. Nếu tử số nhỏ hơn nửa mẫu số, phân số đó nhỏ hơn $ \\frac{1}{2} $."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n1": { "min": 1, "max": 4, "step": 1 },
+      "d1": { "min": 5, "max": 10, "step": 1 },
+      "n2": { "min": 1, "max": 4, "step": 1 },
+      "d2": { "min": 5, "max": 10, "step": 1 },
+      "n3": { "min": 1, "max": 4, "step": 1 },
+      "d3": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "n1 < d1",
+      "n2 < d2",
+      "n3 < d3",
+      "d1 !== d2 || d2 !== d3 || d1 !== d3",
+      "d1 % 2 === 0 && d2 % 3 === 0 && d3 % 5 === 0 ? true : true",
+      "(n1 / d1) !== (n2 / d2)",
+      "(n1 / d1) !== (n3 / d3)",
+      "(n2 / d2) !== (n3 / d3)"
+    ],
+    "formulas": {
+      "gcd_d1_d2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(d1, d2)",
+      "lcm_d1_d2": "(d1 * d2) / gcd_d1_d2",
+      "gcd_lcm_d1_d2_d3": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(lcm_d1_d2, d3)",
+      "lcm_all": "(lcm_d1_d2 * d3) / gcd_lcm_d1_d2_d3",
+      "n1_eq": "n1 * (lcm_all / d1)",
+      "n2_eq": "n2 * (lcm_all / d2)",
+      "n3_eq": "n3 * (lcm_all / d3)",
+      "sorted_numerators": "JSON.stringify([n1_eq, n2_eq, n3_eq].sort((a,b)=>a-b))",
+      "person1_name": "'Hoa'",
+      "person2_name": "'Mai'",
+      "person3_name": "'Lan'",
+      "f1_val": "n1_eq",
+      "f2_val": "n2_eq",
+      "f3_val": "n3_eq",
+      "order_values": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>a.val-b.val); return values.map(v=>v.name).join(' < ');",
+      "ans_order_asc": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>a.val-b.val); return 'Từ bé đến lớn: ' + values.map(v=>v.name).join(' < ');",
+      "w1_order": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>b.val-a.val); return 'Từ lớn đến bé: ' + values.map(v=>v.name).join(' > ');",
+      "w2_order": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>{ /* custom wrong sort, e.g., first and last swapped */ let order = [0,1,2]; if (a.name==='Hoa' && b.name==='Lan') return 1; if (a.name==='Lan' && b.name==='Hoa') return -1; return a.val-b.val; }); return 'Thứ tự sai 1: ' + values.map(v=>v.name).join(' , ');",
+      "w3_order": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>{ /* custom wrong sort, e.g., random order */ return Math.random()-0.5; }); return 'Thứ tự sai 2: ' + values.map(v=>v.name).join(' , ');"
+    },
+    "questionText": "Ba bạn Hoa, Mai và Lan cùng làm bài tập về nhà. Hoa làm được $ \\frac{{{n1}}}{{{d1}}} $ tổng số bài, Mai làm được $ \\frac{{{n2}}}{{{d2}}} $ tổng số bài, và Lan làm được $ \\frac{{{n3}}}{{{d3}}} $ tổng số bài. Sắp xếp thứ tự các bạn theo số lượng bài tập đã làm được từ ít nhất đến nhiều nhất.",
+    "options": [
+      "A. {ans_order_asc}",
+      "B. {w1_order}",
+      "C. {w2_order}",
+      "D. {w3_order}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để sắp xếp các phân số có mẫu số khác nhau, em cần quy đồng mẫu số tất cả các phân số đó.",
+      "Tìm mẫu số chung nhỏ nhất của $ {d1} $, $ {d2} $ và $ {d3} $.",
+      "Sau khi quy đồng, so sánh các tử số tương ứng để sắp xếp từ bé đến lớn."
+    ],
+    "solutionHtml": "Để sắp xếp số lượng bài tập các bạn đã làm được từ ít nhất đến nhiều nhất, chúng ta cần so sánh ba phân số $ \\frac{{{n1}}}{{{d1}}} $, $ \\frac{{{n2}}}{{{d2}}} $ và $ \\frac{{{n3}}}{{{d3}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ba mẫu số $ {d1} $, $ {d2} $ và $ {d3} $.<br/>MSCNN của $ {d1} $, $ {d2} $, $ {d3} $ là $ {lcm_all} $.<br/>Bước 2: Quy đồng mẫu số ba phân số.<br/>Phân số của Hoa: $ \\frac{{{n1}}}{{{d1}}} = \\frac{{{n1} \\times ({lcm_all} \\div {d1})}}{{{d1} \\times ({lcm_all} \\div {d1})}} = \\frac{{{n1_eq}}}{{{lcm_all}}} $<br/>Phân số của Mai: $ \\frac{{{n2}}}{{{d2}}} = \\frac{{{n2} \\times ({lcm_all} \\div {d2})}}{{{d2} \\times ({lcm_all} \\div {d2})}} = \\frac{{{n2_eq}}}{{{lcm_all}}} $<br/>Phân số của Lan: $ \\frac{{{n3}}}{{{d3}}} = \\frac{{{n3} \\times ({lcm_all} \\div {d3})}}{{{d3} \\times ({lcm_all} \\div {d3})}} = \\frac{{{n3_eq}}}{{{lcm_all}}} $<br/>Bước 3: So sánh các tử số sau khi quy đồng.<br/>Ta có các tử số tương ứng là: Hoa: $ {n1_eq} $, Mai: $ {n2_eq} $, Lan: $ {n3_eq} $.<br/>Sắp xếp các tử số này từ bé đến lớn: $ {f1_val} < {f2_val} < {f3_val} $ (ví dụ, đây là kết quả sau khi sắp xếp, giá trị cụ thể sẽ thay đổi).<br/>(Dựa trên các giá trị đã tính toán: {f1_val} (Hoa), {f2_val} (Mai), {f3_val} (Lan))<br/>Thứ tự sắp xếp từ ít nhất đến nhiều nhất là: {ans_order_asc}.<br/>Đáp án đúng là A.",
+    "tip": "Khi sắp xếp nhiều phân số, quy đồng mẫu số chung là cách hiệu quả nhất. Sau đó, em chỉ cần sắp xếp các tử số để có được thứ tự của các phân số."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n_lower": { "min": 1, "max": 2, "step": 1 },
+      "d_lower": { "min": 4, "max": 6, "step": 1 },
+      "n_upper": { "min": 3, "max": 5, "step": 1 },
+      "d_upper": { "min": 6, "max": 8, "step": 1 },
+      "multiplier": { "min": 2, "max": 3, "step": 1 }
+    },
+    "constraints": [
+      "n_lower < d_lower",
+      "n_upper < d_upper",
+      "(n_lower / d_lower) < (n_upper / d_upper)",
+      "d_lower !== d_upper",
+      "multiplier >= 2"
+    ],
+    "formulas": {
+      "gcd_d_lower_d_upper": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(d_lower, d_upper)",
+      "lcm_d_lower_d_upper": "(d_lower * d_upper) / gcd_d_lower_d_upper",
+      "n_lower_eq": "n_lower * (lcm_d_lower_d_upper / d_lower)",
+      "n_upper_eq": "n_upper * (lcm_d_lower_d_upper / d_upper)",
+      "lcm_expanded": "lcm_d_lower_d_upper * multiplier",
+      "n_lower_expanded": "n_lower_eq * multiplier",
+      "n_upper_expanded": "n_upper_eq * multiplier",
+      "ans_numerator": "n_lower_expanded + 1",
+      "ans_denominator": "lcm_expanded",
+      "ans_fraction": "'\\frac{' + ans_numerator + '}{' + ans_denominator + '}'",
+      "w1_n": "n_lower_expanded - 1",
+      "w1_d": "lcm_expanded",
+      "w1_fraction": "'\\frac{' + w1_n + '}{' + w1_d + '}'",
+      "w2_n": "n_upper_expanded + 1",
+      "w2_d": "lcm_expanded",
+      "w2_fraction": "'\\frac{' + w2_n + '}{' + w2_d + '}'",
+      "w3_n": "(n_lower_expanded + n_upper_expanded) / 2",
+      "w3_d": "lcm_expanded"
+    },
+    "questionText": "Bạn Tùng đang tìm một phân số lớn hơn $ \\frac{{{n_lower}}}{{{d_lower}}} $ nhưng nhỏ hơn $ \\frac{{{n_upper}}}{{{d_upper}}} $. Hỏi phân số nào dưới đây thỏa mãn điều kiện đó?",
+    "options": [
+      "A. $ {ans_fraction} $",
+      "B. $ {w1_fraction} $",
+      "C. $ {w2_fraction} $",
+      "D. $ \\frac{{{n_lower} + {n_upper}}}{{{d_lower} + {d_upper}}} $"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để tìm một phân số nằm giữa hai phân số khác, trước hết em cần quy đồng mẫu số của cả hai phân số đó.",
+      "Nếu sau khi quy đồng mà tử số của chúng liền kề nhau hoặc không có số tự nhiên nào ở giữa, em có thể nhân cả tử số và mẫu số của cả hai phân số với một số tự nhiên (ví dụ 2 hoặc 3) để tạo ra các phân số mới tương đương với mẫu số lớn hơn và tạo khoảng trống giữa các tử số."
+    ],
+    "solutionHtml": "Để tìm một phân số nằm giữa $ \\frac{{{n_lower}}}{{{d_lower}}} $ và $ \\frac{{{n_upper}}}{{{d_upper}}} $, ta thực hiện các bước sau:<br/>Bước 1: Quy đồng mẫu số hai phân số $ \\frac{{{n_lower}}}{{{d_lower}}} $ và $ \\frac{{{n_upper}}}{{{d_upper}}} $.<br/>MSCNN của $ {d_lower} $ và $ {d_upper} $ là $ {lcm_d_lower_d_upper} $.<br/>$ \\frac{{{n_lower}}}{{{d_lower}}} = \\frac{{{n_lower} \\times ({lcm_d_lower_d_upper} \\div {d_lower})}}{{{d_lower} \\times ({lcm_d_lower_d_upper} \\div {d_lower})}} = \\frac{{{n_lower_eq}}}{{{lcm_d_lower_d_upper}}} $<br/>$ \\frac{{{n_upper}}}{{{d_upper}}} = \\frac{{{n_upper} \\times ({lcm_d_lower_d_upper} \\div {d_upper})}}{{{d_upper} \\times ({lcm_d_lower_d_upper} \\div {d_upper})}} = \\frac{{{n_upper_eq}}}{{{lcm_d_lower_d_upper}}} $<br/>Lúc này, ta cần tìm một phân số có tử số lớn hơn $ {n_lower_eq} $ và nhỏ hơn $ {n_upper_eq} $, với mẫu số là $ {lcm_d_lower_d_upper} $.<br/>Nếu không tìm được tử số nào, ta nhân cả tử và mẫu của cả hai phân số đã quy đồng với một số tự nhiên (ví dụ $ {multiplier} $).<br/>Bước 2: Mở rộng phân số (nếu cần).<br/>$ \\frac{{{n_lower_eq}}}{{{lcm_d_lower_d_upper}}} = \\frac{{{n_lower_eq} \\times {multiplier}}}{{{lcm_d_lower_d_upper} \\times {multiplier}}} = \\frac{{{n_lower_expanded}}}{{{lcm_expanded}}} $<br/>$ \\frac{{{n_upper_eq}}}{{{lcm_d_lower_d_upper}}} = \\frac{{{n_upper_eq} \\times {multiplier}}}{{{lcm_d_lower_d_upper} \\times {multiplier}}} = \\frac{{{n_upper_expanded}}}{{{lcm_expanded}}} $<br/>Bây giờ ta cần tìm một phân số có tử số lớn hơn $ {n_lower_expanded} $ và nhỏ hơn $ {n_upper_expanded} $, với mẫu số là $ {lcm_expanded} $.<br/>Ta thấy tử số $ {ans_numerator} $ nằm giữa $ {n_lower_expanded} $ và $ {n_upper_expanded} $ (vì $ {n_lower_expanded} < {ans_numerator} < {n_upper_expanded} $).<br/>Vậy, phân số cần tìm là $ \\frac{{{ans_numerator}}}{{{ans_denominator}}} $.<br/>Đáp án đúng là A.",
+    "tip": "Việc mở rộng phân số (nhân cả tử và mẫu với cùng một số tự nhiên khác 0) sẽ giúp tạo ra 'khoảng trống' giữa hai phân số tương đương, giúp em dễ dàng tìm được phân số trung gian hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "rope1_cut_n": { "min": 1, "max": 4, "step": 1 },
+      "rope1_cut_d": { "min": 5, "max": 10, "step": 1 },
+      "rope2_cut_n": { "min": 1, "max": 4, "step": 1 },
+      "rope2_cut_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "rope1_cut_n < rope1_cut_d",
+      "rope2_cut_n < rope2_cut_d",
+      "(rope1_cut_n / rope1_cut_d) !== (rope2_cut_n / rope2_cut_d)",
+      "(1 - (rope1_cut_n / rope1_cut_d)) !== (1 - (rope2_cut_n / rope2_cut_d))"
+    ],
+    "formulas": {
+      "rope1_remain_n": "rope1_cut_d - rope1_cut_n",
+      "rope1_remain_d": "rope1_cut_d",
+      "rope2_remain_n": "rope2_cut_d - rope2_cut_n",
+      "rope2_remain_d": "rope2_cut_d",
+      "gcd_remain": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(rope1_remain_d, rope2_remain_d)",
+      "lcm_remain": "(rope1_remain_d * rope2_remain_d) / gcd_remain",
+      "rope1_remain_eq_n": "rope1_remain_n * (lcm_remain / rope1_remain_d)",
+      "rope2_remain_eq_n": "rope2_remain_n * (lcm_remain / rope2_remain_d)",
+      "ans_text": "rope1_remain_eq_n > rope2_remain_eq_n ? 'Sợi dây thứ nhất' : 'Sợi dây thứ hai'",
+      "w1_text": "rope1_remain_eq_n < rope2_remain_eq_n ? 'Sợi dây thứ nhất' : 'Sợi dây thứ hai'",
+      "w2_text": "rope1_remain_eq_n === rope2_remain_eq_n ? 'Hai sợi dây bằng nhau' : 'Không xác định được'"
+    },
+    "questionText": "Có hai sợi dây cùng chiều dài ban đầu. Sợi dây thứ nhất bị cắt đi $ \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} $ chiều dài. Sợi dây thứ hai bị cắt đi $ \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} $ chiều dài. Hỏi sợi dây nào còn lại đoạn dài hơn?",
+    "options": [
+      "A. {ans_text}",
+      "B. Sợi dây thứ hai",
+      "C. Cả hai sợi dây còn lại bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Nếu sợi dây bị cắt đi một phần, phần còn lại sẽ là 1 trừ đi phần đã cắt.",
+      "Phần còn lại của sợi dây thứ nhất là $ 1 - \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} $.",
+      "Phần còn lại của sợi dây thứ hai là $ 1 - \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} $.",
+      "Sau khi tìm được phần còn lại của mỗi sợi dây dưới dạng phân số, hãy so sánh chúng."
+    ],
+    "solutionHtml": "Để biết sợi dây nào còn lại đoạn dài hơn, ta cần tìm phân số chỉ phần còn lại của mỗi sợi dây, sau đó so sánh chúng.<br/><b>Sợi dây thứ nhất:</b><br/>Bị cắt đi $ \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} $. Phần còn lại là: $ 1 - \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} = \\frac{{{rope1_cut_d}}}{{{rope1_cut_d}}} - \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} = \\frac{{{rope1_remain_n}}}{{{rope1_remain_d}}} $.<br/><b>Sợi dây thứ hai:</b><br/>Bị cắt đi $ \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} $. Phần còn lại là: $ 1 - \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} = \\frac{{{rope2_cut_d}}}{{{rope2_cut_d}}} - \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} = \\frac{{{rope2_remain_n}}}{{{rope2_remain_d}}} $.<br/>Bây giờ ta so sánh hai phân số $ \\frac{{{rope1_remain_n}}}{{{rope1_remain_d}}} $ và $ \\frac{{{rope2_remain_n}}}{{{rope2_remain_d}}} $.<br/>Bước 1: Tìm MSCNN của $ {rope1_remain_d} $ và $ {rope2_remain_d} $.<br/>MSCNN là $ {lcm_remain} $.<br/>Bước 2: Quy đồng mẫu số:<br/>$ \\frac{{{rope1_remain_n}}}{{{rope1_remain_d}}} = \\frac{{{rope1_remain_n} \\times ({lcm_remain} \\div {rope1_remain_d})}}{{{rope1_remain_d} \\times ({lcm_remain} \\div {rope1_remain_d})}} = \\frac{{{rope1_remain_eq_n}}}{{{lcm_remain}}} $<br/>$ \\frac{{{rope2_remain_n}}}{{{rope2_remain_d}}} = \\frac{{{rope2_remain_n} \\times ({lcm_remain} \\div {rope2_remain_d})}}{{{rope2_remain_d} \\times ({lcm_remain} \\div {rope2_remain_d})}} = \\frac{{{rope2_remain_eq_n}}}{{{lcm_remain}}} $<br/>Bước 3: So sánh tử số.<br/>Vì $ {rope1_remain_eq_n} $ { (rope1_remain_eq_n > rope2_remain_eq_n ? '>' : '<') } $ {rope2_remain_eq_n} $, nên $ \\frac{{{rope1_remain_eq_n}}}{{{lcm_remain}}} $ { (rope1_remain_eq_n > rope2_remain_eq_n ? '>' : '<') } $ \\frac{{{rope2_remain_eq_n}}}{{{lcm_remain}}} $.<br/>Vậy, {ans_text} còn lại đoạn dài hơn.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phần còn lại sau khi cắt bỏ, em có thể dùng phương pháp 'phần bù' để tính phần còn lại. Hoặc, nếu so sánh trực tiếp phần bị cắt, phân số nào bị cắt đi càng nhỏ thì phần còn lại càng lớn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "good1": { "min": 2, "max": 6, "step": 1 },
+      "total1": { "min": 8, "max": 15, "step": 1 },
+      "good2": { "min": 2, "max": 6, "step": 1 },
+      "total2": { "min": 8, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "good1 < total1",
+      "good2 < total2",
+      "total1 !== total2",
+      "(good1 / total1) !== (good2 / total2)"
+    ],
+    "formulas": {
+      "gcd_total1_total2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(total1, total2)",
+      "lcm_total1_total2": "(total1 * total2) / gcd_total1_total2",
+      "good1_eq": "good1 * (lcm_total1_total2 / total1)",
+      "good2_eq": "good2 * (lcm_total1_total2 / total2)",
+      "ans_class": "good1_eq > good2_eq ? 'Lớp 4A' : 'Lớp 4B'",
+      "w1_class": "good1_eq < good2_eq ? 'Lớp 4A' : 'Lớp 4B'",
+      "w2_class": "good1_eq === good2_eq ? 'Cả hai lớp có tỉ lệ như nhau' : 'Không xác định được'"
+    },
+    "questionText": "Trong buổi kiểm tra Toán, lớp 4A có $ {good1} $ học sinh đạt điểm giỏi trên tổng số $ {total1} $ học sinh. Lớp 4B có $ {good2} $ học sinh đạt điểm giỏi trên tổng số $ {total2} $ học sinh. Hỏi lớp nào có tỉ lệ học sinh đạt điểm giỏi cao hơn?",
+    "options": [
+      "A. {ans_class}",
+      "B. Lớp 4B",
+      "C. Cả hai lớp có tỉ lệ như nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tỉ lệ học sinh đạt điểm giỏi của mỗi lớp có thể biểu diễn dưới dạng phân số.",
+      "Lớp 4A: $ \\frac{{{good1}}}{{{total1}}} $.",
+      "Lớp 4B: $ \\frac{{{good2}}}{{{total2}}} $.",
+      "So sánh hai phân số này để tìm lớp có tỉ lệ cao hơn."
+    ],
+    "solutionHtml": "Để xác định lớp nào có tỉ lệ học sinh đạt điểm giỏi cao hơn, ta cần so sánh hai phân số biểu thị tỉ lệ của mỗi lớp.<br/>Tỉ lệ học sinh giỏi của lớp 4A là $ \\frac{{{good1}}}{{{total1}}} $.<br/>Tỉ lệ học sinh giỏi của lớp 4B là $ \\frac{{{good2}}}{{{total2}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {total1} $ và $ {total2} $.<br/>MSCNN của $ {total1} $ và $ {total2} $ là $ {lcm_total1_total2} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của lớp 4A: $ \\frac{{{good1}}}{{{total1}}} = \\frac{{{good1} \\times ({lcm_total1_total2} \\div {total1})}}{{{total1} \\times ({lcm_total1_total2} \\div {total1})}} = \\frac{{{good1_eq}}}{{{lcm_total1_total2}}} $<br/>Phân số của lớp 4B: $ \\frac{{{good2}}}{{{total2}}} = \\frac{{{good2} \\times ({lcm_total1_total2} \\div {total2})}}{{{total2} \\times ({lcm_total1_total2} \\div {total2})}} = \\frac{{{good2_eq}}}{{{lcm_total1_total2}}} $<br/>Bước 3: So sánh tử số.<br/>Vì $ {good1_eq} $ { (good1_eq > good2_eq ? '>' : '<') } $ {good2_eq} $, nên $ \\frac{{{good1_eq}}}{{{lcm_total1_total2}}} $ { (good1_eq > good2_eq ? '>' : '<') } $ \\frac{{{good2_eq}}}{{{lcm_total1_total2}}} $.<br/>Vậy, {ans_class} có tỉ lệ học sinh đạt điểm giỏi cao hơn.<br/>Đáp án đúng là A.",
+    "tip": "Các bài toán về tỉ lệ trong thực tế thường được giải bằng cách so sánh phân số. Hãy luôn nhớ quy đồng mẫu số trước khi so sánh nếu chúng khác nhau."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "fruitCount": { "min": 2, "max": 5, "step": 1 },
+      "totalBag1": { "min": 8, "max": 12, "step": 1 },
+      "totalBag2": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "fruitCount < totalBag1",
+      "fruitCount < totalBag2",
+      "totalBag1 !== totalBag2",
+      "(fruitCount / totalBag1) !== (fruitCount / totalBag2)"
+    ],
+    "formulas": {
+      "ans_bag": "(fruitCount / totalBag1) < (fruitCount / totalBag2) ? 'Túi thứ nhất' : 'Túi thứ hai'",
+      "w1_bag": "(fruitCount / totalBag1) > (fruitCount / totalBag2) ? 'Túi thứ nhất' : 'Túi thứ hai'"
+    },
+    "questionText": "Có hai túi trái cây. Túi thứ nhất có $ {fruitCount} $ quả táo trên tổng số $ {totalBag1} $ quả. Túi thứ hai cũng có $ {fruitCount} $ quả táo trên tổng số $ {totalBag2} $ quả. Hỏi túi nào có tỉ lệ táo <b>nhỏ hơn</b> so với tổng số trái cây trong túi đó?",
+    "options": [
+      "A. {ans_bag}",
+      "B. Túi thứ hai",
+      "C. Cả hai túi có tỉ lệ táo bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tỉ lệ táo trong mỗi túi được biểu thị bằng phân số có tử số là số quả táo và mẫu số là tổng số quả.",
+      "Túi thứ nhất: $ \\frac{{{fruitCount}}}{{{totalBag1}}} $.",
+      "Túi thứ hai: $ \\frac{{{fruitCount}}}{{{totalBag2}}} $.",
+      "Khi hai phân số có cùng tử số, phân số nào có mẫu số lớn hơn thì phân số đó bé hơn."
+    ],
+    "solutionHtml": "Để xác định túi nào có tỉ lệ táo nhỏ hơn, ta cần so sánh hai phân số biểu thị tỉ lệ táo trong mỗi túi.<br/>Tỉ lệ táo trong túi thứ nhất là $ \\frac{{{fruitCount}}}{{{totalBag1}}} $.<br/>Tỉ lệ táo trong túi thứ hai là $ \\frac{{{fruitCount}}}{{{totalBag2}}} $.<br/>Hai phân số này có cùng tử số là $ {fruitCount} $.<br/>Khi so sánh hai phân số có cùng tử số, phân số nào có mẫu số lớn hơn thì phân số đó nhỏ hơn.<br/>Ta so sánh hai mẫu số $ {totalBag1} $ và $ {totalBag2} $.<br/>Vì $ {totalBag1} $ { (totalBag1 > totalBag2 ? '>' : '<') } $ {totalBag2} $.<br/>Nếu $ {totalBag1} > {totalBag2} $, thì $ \\frac{{{fruitCount}}}{{{totalBag1}}} < \\frac{{{fruitCount}}}{{{totalBag2}}} $. Vậy túi thứ nhất có tỉ lệ táo nhỏ hơn.<br/>Nếu $ {totalBag1} < {totalBag2} $, thì $ \\frac{{{fruitCount}}}{{{totalBag1}}} > \\frac{{{fruitCount}}}{{{totalBag2}}} $. Vậy túi thứ hai có tỉ lệ táo nhỏ hơn.<br/>Dựa vào biến số, {ans_bag} có tỉ lệ táo nhỏ hơn.<br/>Đáp án đúng là A.",
+    "tip": "Hãy nhớ quy tắc so sánh phân số có cùng tử số: phân số nào có mẫu số lớn hơn thì giá trị của phân số đó nhỏ hơn. Ngược lại, phân số nào có mẫu số nhỏ hơn thì giá trị của phân số đó lớn hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "target_n": { "min": 2, "max": 3, "step": 1 },
+      "target_d": { "min": 4, "max": 5, "step": 1 },
+      "comp_n1": { "min": 1, "max": 4, "step": 1 },
+      "comp_d1": { "min": 5, "max": 10, "step": 1 },
+      "comp_n2": { "min": 1, "max": 4, "step": 1 },
+      "comp_d2": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "target_n < target_d",
+      "comp_n1 < comp_d1",
+      "comp_n2 < comp_d2",
+      "(comp_n1 / comp_d1) !== (target_n / target_d)",
+      "(comp_n2 / comp_d2) !== (target_n / target_d)",
+      "(comp_n1 / comp_d1) !== (comp_n2 / comp_d2)"
+    ],
+    "formulas": {
+      "gcd_all": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(target_d, function gcd(a,b){ if(b===0) return a; return gcd(b,a%b); }(comp_d1, comp_d2))",
+      "lcm_all": "function lcm(a, b) { if (a === 0 || b === 0) return 0; return Math.abs(a * b) / function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(a,b); }(target_d, function lcm(a, b) { if (a === 0 || b === 0) return 0; return Math.abs(a * b) / function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(a,b); }(comp_d1, comp_d2))",
+      "target_eq": "target_n * (lcm_all / target_d)",
+      "comp1_eq": "comp_n1 * (lcm_all / comp_d1)",
+      "comp2_eq": "comp_n2 * (lcm_all / comp_d2)",
+      "ans_text": "comp1_eq > target_eq ? 'Phân số thứ nhất' : (comp2_eq > target_eq ? 'Phân số thứ hai' : 'Không có phân số nào')",
+      "w1_text": "comp1_eq < target_eq ? 'Phân số thứ nhất' : (comp2_eq < target_eq ? 'Phân số thứ hai' : 'Không có phân số nào')",
+      "w2_text": "comp1_eq === target_eq || comp2_eq === target_eq ? 'Một trong hai phân số' : 'Không có phân số nào'",
+      "all_less": "comp1_eq < target_eq && comp2_eq < target_eq ? 'Cả hai phân số đều nhỏ hơn' : 'Không phải cả hai'",
+      "all_greater": "comp1_eq > target_eq && comp2_eq > target_eq ? 'Cả hai phân số đều lớn hơn' : 'Không phải cả hai'",
+      "option_b_text": "comp1_eq > target_eq && comp2_eq > target_eq ? 'Cả hai phân số' : (comp1_eq > target_eq ? 'Phân số thứ nhất' : (comp2_eq > target_eq ? 'Phân số thứ hai' : 'Không có phân số nào'))"
+    },
+    "questionText": "Cho phân số $ \\frac{{{target_n}}}{{{target_d}}} $. Hãy tìm phân số nào dưới đây lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $: $ \\frac{{{comp_n1}}}{{{comp_d1}}} $ hay $ \\frac{{{comp_n2}}}{{{comp_d2}}} $?",
+    "options": [
+      "A. {ans_text}",
+      "B. Cả hai phân số",
+      "C. Không có phân số nào",
+      "D. Phân số thứ hai"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh nhiều phân số khác mẫu số, em nên quy đồng tất cả chúng về cùng một mẫu số chung.",
+      "Tìm mẫu số chung nhỏ nhất của $ {target_d} $, $ {comp_d1} $ và $ {comp_d2} $."
+    ],
+    "solutionHtml": "Để tìm phân số lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $, ta cần so sánh $ \\frac{{{comp_n1}}}{{{comp_d1}}} $ và $ \\frac{{{comp_n2}}}{{{comp_d2}}} $ với $ \\frac{{{target_n}}}{{{target_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ba mẫu số $ {target_d} $, $ {comp_d1} $ và $ {comp_d2} $.<br/>MSCNN là $ {lcm_all} $.<br/>Bước 2: Quy đồng mẫu số các phân số.<br/>Phân số cần so sánh: $ \\frac{{{target_n}}}{{{target_d}}} = \\frac{{{target_n} \\times ({lcm_all} \\div {target_d})}}{{{target_d} \\times ({lcm_all} \\div {target_d})}} = \\frac{{{target_eq}}}{{{lcm_all}}} $<br/>Phân số thứ nhất: $ \\frac{{{comp_n1}}}{{{comp_d1}}} = \\frac{{{comp_n1} \\times ({lcm_all} \\div {comp_d1})}}{{{comp_d1} \\times ({lcm_all} \\div {comp_d1})}} = \\frac{{{comp1_eq}}}{{{lcm_all}}} $<br/>Phân số thứ hai: $ \\frac{{{comp_n2}}}{{{comp_d2}}} = \\frac{{{comp_n2} \\times ({lcm_all} \\div {comp_d2})}}{{{comp_d2} \\times ({lcm_all} \\div {comp_d2})}} = \\frac{{{comp2_eq}}}{{{lcm_all}}} $<br/>Bước 3: So sánh các tử số sau khi quy đồng.<br/>Ta so sánh $ {comp1_eq} $ với $ {target_eq} $ và $ {comp2_eq} $ với $ {target_eq} $.<br/>- Với phân số thứ nhất: $ {comp1_eq} $ { (comp1_eq > target_eq ? '>' : '<') } $ {target_eq} $.<br/>- Với phân số thứ hai: $ {comp2_eq} $ { (comp2_eq > target_eq ? '>' : '<') } $ {target_eq} $.<br/>Dựa trên kết quả so sánh, phân số lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $ là {ans_text}.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh một nhóm phân số với một phân số chuẩn, việc quy đồng tất cả về cùng một mẫu số chung là phương pháp an toàn và chính xác nhất."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "target_n": { "min": 1, "max": 2, "step": 1 },
+      "target_d": { "min": 3, "max": 5, "step": 1 },
+      "test_d": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "target_n < target_d",
+      "test_d > target_d",
+      "target_d !== test_d",
+      "target_d % target_n !== 0",
+      "test_d % target_d !== 0",
+      "Math.floor((test_d - 1) * target_n / target_d) > Math.ceil(1 * target_n / target_d) + 1"
+    ],
+    "formulas": {
+      "equivalent_num_target_low": "Math.floor(test_d * target_n / target_d)",
+      "equivalent_num_target_high": "Math.ceil(test_d * target_n / target_d)",
+      "lower_bound_numerator": "Math.floor(test_d * target_n / target_d) + 1",
+      "upper_bound_numerator": "test_d - 1",
+      "count_fractions": "upper_bound_numerator - lower_bound_numerator + 1",
+      "w1_count": "count_fractions + 1",
+      "w2_count": "count_fractions - 1",
+      "w3_count": "Math.floor(test_d / 2)"
+    },
+    "questionText": "Có bao nhiêu phân số có mẫu số là $ {test_d} $ mà lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $ và nhỏ hơn $ 1 $?",
+    "options": [
+      "A. $ {count_fractions} $ phân số",
+      "B. $ {w1_count} $ phân số",
+      "C. $ {w2_count} $ phân số",
+      "D. $ {w3_count} $ phân số"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Một phân số nhỏ hơn 1 và có mẫu số là $ {test_d} $ sẽ có dạng $ \\frac{x}{{{test_d}}} $ với $ x $ là số tự nhiên từ $ 1 $ đến $ {test_d} - 1 $.",
+      "Quy đồng phân số $ \\frac{{{target_n}}}{{{target_d}}} $ về mẫu số $ {test_d} $ để dễ so sánh.",
+      "Sau khi quy đồng, em sẽ tìm các tử số $ x $ thỏa mãn điều kiện."
+    ],
+    "solutionHtml": "Để tìm số lượng phân số có mẫu số là $ {test_d} $ mà lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $ và nhỏ hơn $ 1 $, ta thực hiện các bước sau:<br/>Bước 1: Biểu diễn các điều kiện dưới dạng phân số có mẫu số là $ {test_d} $.<br/>- Phân số cần tìm có dạng $ \\frac{x}{{{test_d}}} $.<br/>- Điều kiện nhỏ hơn $ 1 $ có nghĩa là $ \\frac{x}{{{test_d}}} < \\frac{{{test_d}}}{{{test_d}}} $, suy ra $ x < {test_d} $. Vậy $ x $ có thể là các số tự nhiên từ $ 1 $ đến $ {test_d} - 1 $.<br/>- Điều kiện lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $.<br/>Quy đồng phân số $ \\frac{{{target_n}}}{{{target_d}}} $ về mẫu số $ {test_d} $:<br/>$ \\frac{{{target_n}}}{{{target_d}}} = \\frac{{{target_n} \\times ({test_d} \\div {target_d})}}{{{target_d} \\times ({test_d} \\div {target_d})}} = \\frac{{{equivalent_num_target_low}}}{{{test_d}}} $ (Lưu ý: đây là giá trị làm tròn xuống gần nhất của tử số nếu tử số không nguyên)<br/>Cụ thể hơn, $ \\frac{{{target_n}}}{{{target_d}}} = \\frac{{{target_n} \\times {test_d}}}{{{target_d} \\times {test_d}}} = \\frac{{{target_n} \\times {test_d} \\div {target_d}}}{{{test_d}}} $. Ta có $ {target_n} \\times {test_d} \\div {target_d} = {equivalent_num_target_low} $ (tử số tương ứng, có thể không nguyên, ta cần lấy phần nguyên).<br/>Để $ \\frac{x}{{{test_d}}} > \\frac{{{target_n}}}{{{target_d}}} $, ta cần $ x $ lớn hơn giá trị tương đương của tử số của $ \\frac{{{target_n}}}{{{target_d}}} $ khi mẫu số là $ {test_d} $.<br/>Giá trị tương đương của tử số $ {target_n} $ khi mẫu số là $ {test_d} $ là $ {target_n} \\times {test_d} \\div {target_d} $. Ta cần tìm $ x $ là số nguyên lớn hơn giá trị này.<br/>Vậy, $ x $ phải lớn hơn $ {equivalent_num_target_low} $ (chính xác hơn, $ x $ phải lớn hơn $ \\frac{{{target_n} \\times {test_d}}}{{{target_d}}} $ ). Do $ x $ phải là số nguyên, nên $ x $ bắt đầu từ $ {lower_bound_numerator} $.<br/>Bước 2: Tìm các giá trị của $ x $ thỏa mãn.<br/>$ x $ phải là số tự nhiên và thỏa mãn: $ {lower_bound_numerator} \\le x \\le {upper_bound_numerator} $ (vì $ x < {test_d} $).<br/>Số lượng các giá trị $ x $ thỏa mãn là: $ {upper_bound_numerator} - {lower_bound_numerator} + 1 = {count_fractions} $.<br/>Vậy có $ {count_fractions} $ phân số thỏa mãn điều kiện.<br/>Đáp án đúng là A.",
+    "tip": "Khi đếm số lượng phân số thỏa mãn điều kiện, hãy quy đổi tất cả các giới hạn về cùng một mẫu số chung. Sau đó, xác định khoảng giá trị của tử số và đếm số lượng số nguyên trong khoảng đó."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "f1_n": { "min": 1, "max": 2, "step": 1 },
+      "f1_d": { "min": 3, "max": 5, "step": 1 },
+      "f2_n": { "min": 1, "max": 2, "step": 1 },
+      "f2_d": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "f1_n < f1_d",
+      "f2_n < f2_d",
+      "(f1_n / f1_d) + (f2_n / f2_d) < 1",
+      "(f1_n / f1_d) !== (f2_n / f2_d)"
+    ],
+    "formulas": {
+      "gcd_f1_f2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(f1_d, f2_d)",
+      "lcm_f1_f2": "(f1_d * f2_d) / gcd_f1_f2",
+      "f1_n_eq": "f1_n * (lcm_f1_f2 / f1_d)",
+      "f2_n_eq": "f2_n * (lcm_f1_f2 / f2_d)",
+      "f3_n_eq": "lcm_f1_f2 - f1_n_eq - f2_n_eq",
+      "f1_val": "f1_n_eq",
+      "f2_val": "f2_n_eq",
+      "f3_val": "f3_n_eq",
+      "p1_name": "'An'",
+      "p2_name": "'Bình'",
+      "p3_name": "'Chi'",
+      "order_values": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>a.val-b.val); return values.map(v=>v.name).join(' < ');",
+      "ans_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>a.val-b.val); return 'Từ ít nhất đến nhiều nhất: ' + values.map(v=>v.name).join(' < ');",
+      "w1_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>b.val-a.val); return 'Từ nhiều nhất đến ít nhất: ' + values.map(v=>v.name).join(' > ');",
+      "w2_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>{ if (a.name=='An' && b.name=='Bình') return 1; if (a.name=='Bình' && b.name=='An') return -1; return a.val-b.val; }); return 'Thứ tự sai 1: ' + values.map(v=>v.name).join(' , ');",
+      "w3_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>{ return Math.random()-0.5; }); return 'Thứ tự sai 2: ' + values.map(v=>v.name).join(' , ');"
+    },
+    "questionText": "Một chiếc bánh pizza được chia cho ba bạn An, Bình và Chi. An ăn $ \\frac{{{f1_n}}}{{{f1_d}}} $ cái bánh, Bình ăn $ \\frac{{{f2_n}}}{{{f2_d}}} $ cái bánh. Phần còn lại là của Chi. Hỏi thứ tự các bạn ăn bánh từ ít nhất đến nhiều nhất là gì?",
+    "options": [
+      "A. {ans_order}",
+      "B. {w1_order}",
+      "C. {w2_order}",
+      "D. {w3_order}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tổng số bánh pizza là 1 cả cái bánh.",
+      "Để tìm phần bánh của Chi, em lấy 1 trừ đi phần bánh của An và Bình.",
+      "Sau khi tìm được phần bánh của Chi, hãy quy đồng mẫu số của cả ba phân số và so sánh các tử số."
+    ],
+    "solutionHtml": "Để xác định thứ tự các bạn ăn bánh từ ít nhất đến nhiều nhất, ta cần tìm phân số bánh mà mỗi bạn đã ăn, sau đó so sánh chúng.<br/>Phần bánh của An: $ \\frac{{{f1_n}}}{{{f1_d}}} $.<br/>Phần bánh của Bình: $ \\frac{{{f2_n}}}{{{f2_d}}} $.<br/>Phần bánh của Chi: $ 1 - \\left( \\frac{{{f1_n}}}{{{f1_d}}} + \\frac{{{f2_n}}}{{{f2_d}}} \\right) $.<br/>Bước 1: Quy đồng mẫu số của $ \\frac{{{f1_n}}}{{{f1_d}}} $ và $ \\frac{{{f2_n}}}{{{f2_d}}} $ để tính tổng.<br/>MSCNN của $ {f1_d} $ và $ {f2_d} $ là $ {lcm_f1_f2} $.<br/>$ \\frac{{{f1_n}}}{{{f1_d}}} = \\frac{{{f1_n_eq}}}{{{lcm_f1_f2}}} $.<br/>$ \\frac{{{f2_n}}}{{{f2_d}}} = \\frac{{{f2_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Tổng phần bánh của An và Bình: $ \\frac{{{f1_n_eq}}}{{{lcm_f1_f2}}} + \\frac{{{f2_n_eq}}}{{{lcm_f1_f2}}} = \\frac{{{f1_n_eq} + {f2_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Phần bánh của Chi: $ 1 - \\frac{{{f1_n_eq} + {f2_n_eq}}}{{{lcm_f1_f2}}} = \\frac{{{lcm_f1_f2}}}{{{lcm_f1_f2}}} - \\frac{{{f1_n_eq} + {f2_n_eq}}}{{{lcm_f1_f2}}} = \\frac{{{f3_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Bước 2: So sánh ba phân số (sau khi đã có cùng mẫu số $ {lcm_f1_f2} $).<br/>An: $ \\frac{{{f1_n_eq}}}{{{lcm_f1_f2}}} $. Bình: $ \\frac{{{f2_n_eq}}}{{{lcm_f1_f2}}} $. Chi: $ \\frac{{{f3_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Ta so sánh các tử số: An: $ {f1_val} $, Bình: $ {f2_val} $, Chi: $ {f3_val} $.<br/>Sắp xếp các tử số từ bé đến lớn: $ {f1_val} < {f2_val} < {f3_val} $ (ví dụ, đây là kết quả sau khi sắp xếp, giá trị cụ thể sẽ thay đổi).<br/>Thứ tự các bạn ăn bánh từ ít nhất đến nhiều nhất là: {ans_order}.<br/>Đáp án đúng là A.",
+    "tip": "Khi bài toán có tổng là 1 đơn vị nguyên (ví dụ: 1 cái bánh, 1 đoạn đường), em có thể sử dụng phép trừ để tìm phần còn lại. Sau đó, quy đồng tất cả các phân số để so sánh."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "area1_n": { "min": 2, "max": 5, "step": 1 },
+      "area1_d": { "min": 8, "max": 12, "step": 1 },
+      "area2_n": { "min": 2, "max": 5, "step": 1 },
+      "area2_d": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "area1_n < area1_d",
+      "area2_n < area2_d",
+      "(area1_n / area1_d) !== (area2_n / area2_d)"
+    ],
+    "formulas": {
+      "gcd_areas_d": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(area1_d, area2_d)",
+      "lcm_areas_d": "(area1_d * area2_d) / gcd_areas_d",
+      "area1_eq_n": "area1_n * (lcm_areas_d / area1_d)",
+      "area2_eq_n": "area2_n * (lcm_areas_d / area2_d)",
+      "ans_text": "area1_eq_n > area2_eq_n ? 'Mảnh vườn thứ nhất' : 'Mảnh vườn thứ hai'",
+      "w1_text": "area1_eq_n < area2_eq_n ? 'Mảnh vườn thứ nhất' : 'Mảnh vườn thứ hai'",
+      "w2_text": "area1_eq_n === area2_eq_n ? 'Hai mảnh vườn có diện tích bằng nhau' : 'Không xác định được'"
+    },
+    "questionText": "Hai mảnh vườn có diện tích bằng nhau. Mảnh vườn thứ nhất dùng $ \\frac{{{area1_n}}}{{{area1_d}}} $ tổng diện tích để trồng rau cải. Mảnh vườn thứ hai dùng $ \\frac{{{area2_n}}}{{{area2_d}}} $ tổng diện tích để trồng cà chua. Hỏi phần diện tích trồng rau cải và cà chua, phần nào lớn hơn?",
+    "options": [
+      "A. {ans_text}",
+      "B. Mảnh vườn thứ hai (trồng cà chua)",
+      "C. Hai phần diện tích bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh hai phần diện tích, ta cần so sánh hai phân số $ \\frac{{{area1_n}}}{{{area1_d}}} $ và $ \\frac{{{area2_n}}}{{{area2_d}}} $.",
+      "Quy đồng mẫu số của hai phân số để việc so sánh trở nên dễ dàng."
+    ],
+    "solutionHtml": "Để so sánh phần diện tích trồng rau cải và cà chua, ta cần so sánh hai phân số $ \\frac{{{area1_n}}}{{{area1_d}}} $ và $ \\frac{{{area2_n}}}{{{area2_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {area1_d} $ và $ {area2_d} $.<br/>MSCNN của $ {area1_d} $ và $ {area2_d} $ là $ {lcm_areas_d} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của mảnh vườn thứ nhất (rau cải): $ \\frac{{{area1_n}}}{{{area1_d}}} = \\frac{{{area1_n} \\times ({lcm_areas_d} \\div {area1_d})}}{{{area1_d} \\times ({lcm_areas_d} \\div {area1_d})}} = \\frac{{{area1_eq_n}}}{{{lcm_areas_d}}} $<br/>Phân số của mảnh vườn thứ hai (cà chua): $ \\frac{{{area2_n}}}{{{area2_d}}} = \\frac{{{area2_n} \\times ({lcm_areas_d} \\div {area2_d})}}{{{area2_d} \\times ({lcm_areas_d} \\div {area2_d})}} = \\frac{{{area2_eq_n}}}{{{lcm_areas_d}}} $<br/>Bước 3: So sánh tử số sau khi quy đồng.<br/>Ta so sánh tử số $ {area1_eq_n} $ và $ {area2_eq_n} $.<br/>Vì $ {area1_eq_n} $ { (area1_eq_n > area2_eq_n ? '>' : '<') } $ {area2_eq_n} $, nên $ \\frac{{{area1_eq_n}}}{{{lcm_areas_d}}} $ { (area1_eq_n > area2_eq_n ? '>' : '<') } $ \\frac{{{area2_eq_n}}}{{{lcm_areas_d}}} $.<br/>Vậy, phần diện tích trồng { (area1_eq_n > area2_eq_n ? 'rau cải' : 'cà chua') } lớn hơn.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phần của cùng một tổng thể (hoặc các tổng thể bằng nhau), em chỉ cần so sánh các phân số biểu thị các phần đó. Quy đồng mẫu số là bước quan trọng để so sánh chính xác."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "s1_n": { "min": 2, "max": 4, "step": 1 },
+      "s1_d": { "min": 5, "max": 10, "step": 1 },
+      "s2_n": { "min": 2, "max": 4, "step": 1 },
+      "s2_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "s1_n < s1_d",
+      "s2_n < s2_d",
+      "(s1_n / s1_d) !== (s2_n / s2_d)",
+      "s1_d !== s2_d"
+    ],
+    "formulas": {
+      "gcd_s1_s2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(s1_d, s2_d)",
+      "lcm_s1_s2": "(s1_d * s2_d) / gcd_s1_s2",
+      "s1_eq_n": "s1_n * (lcm_s1_s2 / s1_d)",
+      "s2_eq_n": "s2_n * (lcm_s1_s2 / s2_d)",
+      "ans_text": "s1_eq_n < s2_eq_n ? 'Chuyến đi thứ nhất' : 'Chuyến đi thứ hai'",
+      "w1_text": "s1_eq_n > s2_eq_n ? 'Chuyến đi thứ nhất' : 'Chuyến đi thứ hai'",
+      "w2_text": "s1_eq_n === s2_eq_n ? 'Hai chuyến đi mất thời gian như nhau' : 'Không xác định được'"
+    },
+    "questionText": "Một người đi du lịch bằng xe đạp. Trong chuyến đi thứ nhất, người đó đi được $ \\frac{{{s1_n}}}{{{s1_d}}} $ tổng quãng đường dự kiến trong một ngày. Trong chuyến đi thứ hai, người đó đi được $ \\frac{{{s2_n}}}{{{s2_d}}} $ tổng quãng đường dự kiến trong một ngày. Hỏi chuyến đi nào người đó hoàn thành <b>ít hơn</b> quãng đường trong ngày đó?",
+    "options": [
+      "A. {ans_text}",
+      "B. Chuyến đi thứ hai",
+      "C. Cả hai chuyến đi hoàn thành quãng đường bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh hai quãng đường đã đi được, ta cần so sánh hai phân số $ \\frac{{{s1_n}}}{{{s1_d}}} $ và $ \\frac{{{s2_n}}}{{{s2_d}}} $.",
+      "Quy đồng mẫu số của hai phân số để dễ dàng so sánh."
+    ],
+    "solutionHtml": "Để biết chuyến đi nào người đó hoàn thành ít hơn quãng đường, ta cần so sánh hai phân số $ \\frac{{{s1_n}}}{{{s1_d}}} $ và $ \\frac{{{s2_n}}}{{{s2_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {s1_d} $ và $ {s2_d} $.<br/>MSCNN của $ {s1_d} $ và $ {s2_d} $ là $ {lcm_s1_s2} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của chuyến đi thứ nhất: $ \\frac{{{s1_n}}}{{{s1_d}}} = \\frac{{{s1_n} \\times ({lcm_s1_s2} \\div {s1_d})}}{{{s1_d} \\times ({lcm_s1_s2} \\div {s1_d})}} = \\frac{{{s1_eq_n}}}{{{lcm_s1_s2}}} $<br/>Phân số của chuyến đi thứ hai: $ \\frac{{{s2_n}}}{{{s2_d}}} = \\frac{{{s2_n} \\times ({lcm_s1_s2} \\div {s2_d})}}{{{s2_d} \\times ({lcm_s1_s2} \\div {s2_d})}} = \\frac{{{s2_eq_n}}}{{{lcm_s1_s2}}} $<br/>Bước 3: So sánh tử số sau khi quy đồng.<br/>Ta so sánh tử số $ {s1_eq_n} $ và $ {s2_eq_n} $.<br/>Vì $ {s1_eq_n} $ { (s1_eq_n < s2_eq_n ? '<' : '>') } $ {s2_eq_n} $, nên $ \\frac{{{s1_eq_n}}}{{{lcm_s1_s2}}} $ { (s1_eq_n < s2_eq_n ? '<' : '>') } $ \\frac{{{s2_eq_n}}}{{{lcm_s1_s2}}} $.<br/>Vậy, {ans_text} người đó hoàn thành ít hơn quãng đường trong ngày đó.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh hai phân số để tìm giá trị nhỏ hơn, hãy quy đồng mẫu số (hoặc tử số nếu chúng giống nhau). Phân số có tử số nhỏ hơn (khi mẫu số bằng nhau) sẽ có giá trị nhỏ hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "grade_total": { "min": 20, "max": 30, "step": 1 },
+      "grade_a_students": { "min": 5, "max": 10, "step": 1 },
+      "grade_b_students": { "min": 5, "max": 10, "step": 1 },
+      "grade_c_students": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "grade_a_students + grade_b_students + grade_c_students === grade_total",
+      "grade_a_students > 0",
+      "grade_b_students > 0",
+      "grade_c_students > 0",
+      "(grade_a_students / grade_total) !== (grade_b_students / grade_total)",
+      "(grade_a_students / grade_total) !== (grade_c_students / grade_total)",
+      "(grade_b_students / grade_total) !== (grade_c_students / grade_total)"
+    ],
+    "formulas": {
+      "a_fraction": "grade_a_students",
+      "b_fraction": "grade_b_students",
+      "c_fraction": "grade_c_students",
+      "sorted_grades": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>a.val-b.val); return values.map(v=>v.name).join(' < ');",
+      "ans_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>a.val-b.val); return 'Từ ít nhất đến nhiều nhất: ' + values.map(v=>v.name).join(' < ');",
+      "w1_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>b.val-a.val); return 'Từ nhiều nhất đến ít nhất: ' + values.map(v=>v.name).join(' > ');",
+      "w2_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>{ if (a.name=='Giỏi' && b.name=='Khá') return 1; if (a.name=='Khá' && b.name=='Giỏi') return -1; return a.val-b.val; }); return 'Thứ tự sai 1: ' + values.map(v=>v.name).join(' , ');",
+      "w3_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>{ return Math.random()-0.5; }); return 'Thứ tự sai 2: ' + values.map(v=>v.name).join(' , ');"
+    },
+    "questionText": "Trong một lớp học có $ {grade_total} $ học sinh. Có $ {grade_a_students} $ học sinh đạt loại Giỏi, $ {grade_b_students} $ học sinh đạt loại Khá, và $ {grade_c_students} $ học sinh đạt loại Trung bình. Hãy sắp xếp các loại học lực theo tỉ lệ từ ít nhất đến nhiều nhất.",
+    "options": [
+      "A. {ans_order}",
+      "B. {w1_order}",
+      "C. {w2_order}",
+      "D. {w3_order}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tỉ lệ học sinh mỗi loại được biểu diễn bằng phân số có tử số là số học sinh loại đó và mẫu số là tổng số học sinh.",
+      "Tất cả các phân số này đều có cùng mẫu số là $ {grade_total} $.",
+      "Khi các phân số có cùng mẫu số, em chỉ cần so sánh các tử số của chúng."
+    ],
+    "solutionHtml": "Để sắp xếp các loại học lực theo tỉ lệ từ ít nhất đến nhiều nhất, ta cần so sánh các phân số biểu thị tỉ lệ của từng loại học lực.<br/>Tổng số học sinh là $ {grade_total} $.<br/>Tỉ lệ học sinh Giỏi: $ \\frac{{{grade_a_students}}}{{{grade_total}}} $.<br/>Tỉ lệ học sinh Khá: $ \\frac{{{grade_b_students}}}{{{grade_total}}} $.<br/>Tỉ lệ học sinh Trung bình: $ \\frac{{{grade_c_students}}}{{{grade_total}}} $.<br/>Vì tất cả các phân số này đều có cùng mẫu số là $ {grade_total} $, ta chỉ cần so sánh các tử số của chúng:<br/>Học sinh Giỏi: $ {a_fraction} $.<br/>Học sinh Khá: $ {b_fraction} $.<br/>Học sinh Trung bình: $ {c_fraction} $.<br/>Sắp xếp các tử số này từ bé đến lớn: (ví dụ, đây là kết quả sau khi sắp xếp, giá trị cụ thể sẽ thay đổi).<br/>$ {a_fraction} $ (Giỏi) so với $ {b_fraction} $ (Khá) so với $ {c_fraction} $ (Trung bình).<br/>Dựa trên các giá trị, thứ tự từ ít nhất đến nhiều nhất là: {ans_order}.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phân số có cùng mẫu số, phân số nào có tử số lớn hơn thì lớn hơn, phân số nào có tử số nhỏ hơn thì nhỏ hơn. Điều này giúp việc so sánh trở nên rất đơn giản."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "distance_an_n": { "min": 1, "max": 3, "step": 1 },
+      "distance_an_d": { "min": 5, "max": 10, "step": 1 },
+      "distance_binh_n": { "min": 1, "max": 3, "step": 1 },
+      "distance_binh_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "distance_an_n < distance_an_d",
+      "distance_binh_n < distance_binh_d",
+      "(distance_an_n / distance_an_d) !== (distance_binh_n / distance_binh_d)",
+      "distance_an_d !== distance_binh_d"
+    ],
+    "formulas": {
+      "gcd_distances_d": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(distance_an_d, distance_binh_d)",
+      "lcm_distances_d": "(distance_an_d * distance_binh_d) / gcd_distances_d",
+      "an_eq_n": "distance_an_n * (lcm_distances_d / distance_an_d)",
+      "binh_eq_n": "distance_binh_n * (lcm_distances_d / distance_binh_d)",
+      "ans_text": "an_eq_n > binh_eq_n ? 'Bạn An' : 'Bạn Bình'",
+      "w1_text": "an_eq_n < binh_eq_n ? 'Bạn An' : 'Bạn Bình'",
+      "w2_text": "an_eq_n === binh_eq_n ? 'Cả hai bạn đi được quãng đường bằng nhau' : 'Không xác định được'"
+    },
+    "questionText": "Trong một cuộc thi chạy, bạn An đã hoàn thành $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} $ tổng quãng đường, và bạn Bình đã hoàn thành $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} $ tổng quãng đường. Hỏi bạn nào đã chạy được quãng đường dài hơn?",
+    "options": [
+      "A. {ans_text}",
+      "B. Bạn Bình",
+      "C. Cả hai bạn chạy được quãng đường bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để biết bạn nào chạy được quãng đường dài hơn, em cần so sánh hai phân số $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} $ và $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} $.",
+      "Quy đồng mẫu số của hai phân số để việc so sánh trở nên dễ dàng."
+    ],
+    "solutionHtml": "Để biết bạn nào chạy được quãng đường dài hơn, chúng ta cần so sánh hai phân số $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} $ và $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {distance_an_d} $ và $ {distance_binh_d} $.<br/>MSCNN của $ {distance_an_d} $ và $ {distance_binh_d} $ là $ {lcm_distances_d} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số quãng đường của bạn An: $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} = \\frac{{{distance_an_n} \\times ({lcm_distances_d} \\div {distance_an_d})}}{{{distance_an_d} \\times ({lcm_distances_d} \\div {distance_an_d})}} = \\frac{{{an_eq_n}}}{{{lcm_distances_d}}} $<br/>Phân số quãng đường của bạn Bình: $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} = \\frac{{{distance_binh_n} \\times ({lcm_distances_d} \\div {distance_binh_d})}}{{{distance_binh_d} \\times ({lcm_distances_d} \\div {distance_binh_d})}} = \\frac{{{binh_eq_n}}}{{{lcm_distances_d}}} $<br/>Bước 3: So sánh tử số sau khi quy đồng.<br/>Ta so sánh tử số $ {an_eq_n} $ và $ {binh_eq_n} $.<br/>Vì $ {an_eq_n} $ { (an_eq_n > binh_eq_n ? '>' : '<') } $ {binh_eq_n} $, nên $ \\frac{{{an_eq_n}}}{{{lcm_distances_d}}} $ { (an_eq_n > binh_eq_n ? '>' : '<') } $ \\frac{{{binh_eq_n}}}{{{lcm_distances_d}}} $.<br/>Vậy, {ans_text} đã chạy được quãng đường dài hơn.<br/>Đáp án đúng là A.",
+    "tip": "Các bài toán so sánh quãng đường, diện tích, hay lượng chất lỏng... khi được biểu diễn bằng phân số đều có chung một cách giải: quy đồng mẫu số và so sánh các tử số."
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "an": { "min": 1, "max": 5, "step": 1 },
+      "ad": { "min": 6, "max": 12, "step": 1 },
+      "bn": { "min": 1, "max": 5, "step": 1 },
+      "bd": { "min": 6, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "an < ad",
+      "bn < bd",
+      "ad !== bd",
+      "(an / ad) !== (bn / bd)"
+    ],
+    "formulas": {
+      "gcd_ad_bd": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(ad, bd)",
+      "lcm_ad_bd": "(ad * bd) / gcd_ad_bd",
+      "an_quy_dong": "an * (lcm_ad_bd / ad)",
+      "bn_quy_dong": "bn * (lcm_ad_bd / bd)",
+      "ans_person": "an_quy_dong > bn_quy_dong ? 'Bạn An' : 'Bạn Bình'",
+      "w1_person": "an_quy_dong > bn_quy_dong ? 'Bạn Bình' : 'Bạn An'",
+      "w2_person": "an_quy_dong === bn_quy_dong ? 'Cả hai bạn ăn bằng nhau' : 'Không xác định được'",
+      "compare_result_text": "an_quy_dong > bn_quy_dong ? 'nhiều hơn' : 'ít hơn'",
+      "greater_fraction_text": "an_quy_dong > bn_quy_dong ? '\\frac{' + an + '}{' + ad + '}' : '\\frac{' + bn + '}{' + bd + '}'"
+    },
+    "questionText": "Trong một cuộc thi ăn bánh, bạn An đã ăn hết $ \\frac{{{an}}}{{{ad}}} $ cái bánh, bạn Bình đã ăn hết $ \\frac{{{bn}}}{{{bd}}} $ cái bánh. Hỏi bạn nào đã ăn nhiều bánh hơn?",
+    "options": [
+      "A. {ans_person}",
+      "B. {w1_person}",
+      "C. Cả hai bạn ăn bằng nhau",
+      "D. Không thể xác định được"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh hai phân số khác mẫu số, em cần quy đồng mẫu số của chúng.",
+      "Tìm mẫu số chung nhỏ nhất của $ {ad} $ và $ {bd} $.",
+      "So sánh tử số sau khi đã quy đồng để xác định phân số nào lớn hơn."
+    ],
+    "solutionHtml": "Để biết bạn nào ăn nhiều bánh hơn, chúng ta cần so sánh hai phân số $ \\frac{{{an}}}{{{ad}}} $ và $ \\frac{{{bn}}}{{{bd}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {ad} $ và $ {bd} $.<br/>MSCNN của $ {ad} $ và $ {bd} $ là $ {lcm_ad_bd} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của bạn An: $ \\frac{{{an}}}{{{ad}}} = \\frac{{{an} \\times ({lcm_ad_bd} \\div {ad})}}{{{ad} \\times ({lcm_ad_bd} \\div {ad})}} = \\frac{{{an_quy_dong}}}{{{lcm_ad_bd}}} $<br/>Phân số của bạn Bình: $ \\frac{{{bn}}}{{{bd}}} = \\frac{{{bn} \\times ({lcm_ad_bd} \\div {bd})}}{{{bd} \\times ({lcm_ad_bd} \\div {bd})}} = \\frac{{{bn_quy_dong}}}{{{lcm_ad_bd}}} $<br/>Bước 3: So sánh hai phân số sau khi quy đồng.<br/>Ta so sánh tử số $ {an_quy_dong} $ và $ {bn_quy_dong} $.<br/>Vì $ {an_quy_dong} $ {compare_result_text} $ {bn_quy_dong} $ (cụ thể: $ {an_quy_dong} $ { (an_quy_dong > bn_quy_dong ? '>' : '<') } $ {bn_quy_dong} $), nên $ \\frac{{{an_quy_dong}}}{{{lcm_ad_bd}}} $ { (an_quy_dong > bn_quy_dong ? '>' : '<') } $ \\frac{{{bn_quy_dong}}}{{{lcm_ad_bd}}} $.<br/>Vậy, $ \\frac{{{an}}}{{{ad}}} $ { (an_quy_dong > bn_quy_dong ? '>' : '<') } $ \\frac{{{bn}}}{{{bd}}} $.<br/>Kết luận: {ans_person} đã ăn nhiều bánh hơn.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phân số, việc quy đồng mẫu số (hoặc tử số nếu tiện lợi) giúp em dễ dàng nhận biết phân số nào lớn hơn hoặc bé hơn. Luôn kiểm tra lại phép tính của mình nhé!"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tap1_current": { "min": 3, "max": 7, "step": 1 },
+      "tap1_capacity": { "min": 8, "max": 12, "step": 2 },
+      "tap2_current": { "min": 3, "max": 7, "step": 1 },
+      "tap2_capacity": { "min": 8, "max": 12, "step": 2 }
+    },
+    "constraints": [
+      "tap1_current < tap1_capacity",
+      "tap2_current < tap2_capacity",
+      "tap1_capacity % 2 === 0",
+      "tap2_capacity % 2 === 0",
+      "(tap1_current / tap1_capacity) !== (tap2_current / tap2_capacity)",
+      "(tap1_current / tap1_capacity) !== 0.5",
+      "(tap2_current / tap2_capacity) !== 0.5"
+    ],
+    "formulas": {
+      "half_tap1_capacity": "tap1_capacity / 2",
+      "half_tap2_capacity": "tap2_capacity / 2",
+      "tap1_compare_half": "tap1_current > half_tap1_capacity ? 'lớn hơn một nửa' : 'nhỏ hơn một nửa'",
+      "tap2_compare_half": "tap2_current > half_tap2_capacity ? 'lớn hơn một nửa' : 'nhỏ hơn một nửa'",
+      "ans_text": "tap1_current > half_tap1_capacity ? 'Thùng thứ nhất' : (tap2_current > half_tap2_capacity ? 'Thùng thứ hai' : 'Không có thùng nào')",
+      "w1_text": "tap1_current > half_tap1_capacity ? (tap2_current > half_tap2_capacity ? 'Cả hai thùng' : 'Thùng thứ hai') : (tap2_current > half_tap2_capacity ? 'Thùng thứ nhất' : 'Cả hai thùng')",
+      "w2_text": "tap1_current > half_tap1_capacity && tap2_current > half_tap2_capacity ? 'Cả hai thùng' : 'Không có thùng nào'",
+      "w3_text": "tap1_current < half_tap1_capacity && tap2_current < half_tap2_capacity ? 'Cả hai thùng' : 'Không có thùng nào'"
+    },
+    "questionText": "Một nông dân có hai thùng nước. Thùng thứ nhất chứa $ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $ dung tích thùng, và thùng thứ hai chứa $ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $ dung tích thùng. Hỏi thùng nào chứa lượng nước <b>lớn hơn một nửa</b> dung tích của nó?",
+    "options": [
+      "A. {ans_text}",
+      "B. Cả hai thùng",
+      "C. Thùng thứ hai",
+      "D. Không có thùng nào"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Một nửa dung tích thùng có thể biểu diễn bằng phân số $ \\frac{1}{2} $.",
+      "Để biết thùng nào chứa lượng nước lớn hơn một nửa, em cần so sánh phân số lượng nước với $ \\frac{1}{2} $.",
+      "Quy đồng mẫu số phân số lượng nước với $ \\frac{1}{2} $ để so sánh."
+    ],
+    "solutionHtml": "Để xác định thùng nào chứa lượng nước lớn hơn một nửa, ta cần so sánh lượng nước trong mỗi thùng với $ \\frac{1}{2} $.<br/><b>Với thùng thứ nhất:</b><br/>Lượng nước là $ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $. Một nửa dung tích là $ \\frac{1}{2} $.<br/>Quy đồng mẫu số chung nhỏ nhất của $ {tap1_capacity} $ và $ 2 $ là $ {tap1_capacity} $.<br/>$ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $ và $ \\frac{1}{2} = \\frac{{1 \\times ({tap1_capacity} \\div 2)}}{{2 \\times ({tap1_capacity} \\div 2)}} = \\frac{{{half_tap1_capacity}}}{{{tap1_capacity}}} $.<br/>So sánh $ {tap1_current} $ và $ {half_tap1_capacity} $:<br/>Vì $ {tap1_current} $ { (tap1_current > half_tap1_capacity ? '>' : '<') } $ {half_tap1_capacity} $, nên $ \\frac{{{tap1_current}}}{{{tap1_capacity}}} $ { (tap1_current > half_tap1_capacity ? '>' : '<') } $ \\frac{1}{2} $.<br/>Thùng thứ nhất chứa lượng nước $ {tap1_compare_half} $ dung tích của nó.<br/><br/><b>Với thùng thứ hai:</b><br/>Lượng nước là $ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $. Một nửa dung tích là $ \\frac{1}{2} $.<br/>Quy đồng mẫu số chung nhỏ nhất của $ {tap2_capacity} $ và $ 2 $ là $ {tap2_capacity} $.<br/>$ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $ và $ \\frac{1}{2} = \\frac{{1 \\times ({tap2_capacity} \\div 2)}}{{2 \\times ({tap2_capacity} \\div 2)}} = \\frac{{{half_tap2_capacity}}}{{{tap2_capacity}}} $.<br/>So sánh $ {tap2_current} $ và $ {half_tap2_capacity} $:<br/>Vì $ {tap2_current} $ { (tap2_current > half_tap2_capacity ? '>' : '<') } $ {half_tap2_capacity} $, nên $ \\frac{{{tap2_current}}}{{{tap2_capacity}}} $ { (tap2_current > half_tap2_capacity ? '>' : '<') } $ \\frac{1}{2} $.<br/>Thùng thứ hai chứa lượng nước $ {tap2_compare_half} $ dung tích của nó.<br/><br/>Kết luận: Thùng chứa lượng nước lớn hơn một nửa là: {ans_text}.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh một phân số với $ \\frac{1}{2} $, em có thể so sánh tử số với một nửa mẫu số. Nếu tử số lớn hơn nửa mẫu số, phân số đó lớn hơn $ \\frac{1}{2} $. Nếu tử số nhỏ hơn nửa mẫu số, phân số đó nhỏ hơn $ \\frac{1}{2} $."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n1": { "min": 1, "max": 4, "step": 1 },
+      "d1": { "min": 5, "max": 10, "step": 1 },
+      "n2": { "min": 1, "max": 4, "step": 1 },
+      "d2": { "min": 5, "max": 10, "step": 1 },
+      "n3": { "min": 1, "max": 4, "step": 1 },
+      "d3": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "n1 < d1",
+      "n2 < d2",
+      "n3 < d3",
+      "d1 !== d2 || d2 !== d3 || d1 !== d3",
+      "d1 % 2 === 0 && d2 % 3 === 0 && d3 % 5 === 0 ? true : true",
+      "(n1 / d1) !== (n2 / d2)",
+      "(n1 / d1) !== (n3 / d3)",
+      "(n2 / d2) !== (n3 / d3)"
+    ],
+    "formulas": {
+      "gcd_d1_d2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(d1, d2)",
+      "lcm_d1_d2": "(d1 * d2) / gcd_d1_d2",
+      "gcd_lcm_d1_d2_d3": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(lcm_d1_d2, d3)",
+      "lcm_all": "(lcm_d1_d2 * d3) / gcd_lcm_d1_d2_d3",
+      "n1_eq": "n1 * (lcm_all / d1)",
+      "n2_eq": "n2 * (lcm_all / d2)",
+      "n3_eq": "n3 * (lcm_all / d3)",
+      "sorted_numerators": "JSON.stringify([n1_eq, n2_eq, n3_eq].sort((a,b)=>a-b))",
+      "person1_name": "'Hoa'",
+      "person2_name": "'Mai'",
+      "person3_name": "'Lan'",
+      "f1_val": "n1_eq",
+      "f2_val": "n2_eq",
+      "f3_val": "n3_eq",
+      "order_values": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>a.val-b.val); return values.map(v=>v.name).join(' < ');",
+      "ans_order_asc": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>a.val-b.val); return 'Từ bé đến lớn: ' + values.map(v=>v.name).join(' < ');",
+      "w1_order": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>b.val-a.val); return 'Từ lớn đến bé: ' + values.map(v=>v.name).join(' > ');",
+      "w2_order": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>{ /* custom wrong sort, e.g., first and last swapped */ let order = [0,1,2]; if (a.name==='Hoa' && b.name==='Lan') return 1; if (a.name==='Lan' && b.name==='Hoa') return -1; return a.val-b.val; }); return 'Thứ tự sai 1: ' + values.map(v=>v.name).join(' , ');",
+      "w3_order": "let values = [{val:n1_eq, name:'Hoa'}, {val:n2_eq, name:'Mai'}, {val:n3_eq, name:'Lan'}]; values.sort((a,b)=>{ /* custom wrong sort, e.g., random order */ return Math.random()-0.5; }); return 'Thứ tự sai 2: ' + values.map(v=>v.name).join(' , ');"
+    },
+    "questionText": "Ba bạn Hoa, Mai và Lan cùng làm bài tập về nhà. Hoa làm được $ \\frac{{{n1}}}{{{d1}}} $ tổng số bài, Mai làm được $ \\frac{{{n2}}}{{{d2}}} $ tổng số bài, và Lan làm được $ \\frac{{{n3}}}{{{d3}}} $ tổng số bài. Sắp xếp thứ tự các bạn theo số lượng bài tập đã làm được từ ít nhất đến nhiều nhất.",
+    "options": [
+      "A. {ans_order_asc}",
+      "B. {w1_order}",
+      "C. {w2_order}",
+      "D. {w3_order}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để sắp xếp các phân số có mẫu số khác nhau, em cần quy đồng mẫu số tất cả các phân số đó.",
+      "Tìm mẫu số chung nhỏ nhất của $ {d1} $, $ {d2} $ và $ {d3} $.",
+      "Sau khi quy đồng, so sánh các tử số tương ứng để sắp xếp từ bé đến lớn."
+    ],
+    "solutionHtml": "Để sắp xếp số lượng bài tập các bạn đã làm được từ ít nhất đến nhiều nhất, chúng ta cần so sánh ba phân số $ \\frac{{{n1}}}{{{d1}}} $, $ \\frac{{{n2}}}{{{d2}}} $ và $ \\frac{{{n3}}}{{{d3}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ba mẫu số $ {d1} $, $ {d2} $ và $ {d3} $.<br/>MSCNN của $ {d1} $, $ {d2} $, $ {d3} $ là $ {lcm_all} $.<br/>Bước 2: Quy đồng mẫu số ba phân số.<br/>Phân số của Hoa: $ \\frac{{{n1}}}{{{d1}}} = \\frac{{{n1} \\times ({lcm_all} \\div {d1})}}{{{d1} \\times ({lcm_all} \\div {d1})}} = \\frac{{{n1_eq}}}{{{lcm_all}}} $<br/>Phân số của Mai: $ \\frac{{{n2}}}{{{d2}}} = \\frac{{{n2} \\times ({lcm_all} \\div {d2})}}{{{d2} \\times ({lcm_all} \\div {d2})}} = \\frac{{{n2_eq}}}{{{lcm_all}}} $<br/>Phân số của Lan: $ \\frac{{{n3}}}{{{d3}}} = \\frac{{{n3} \\times ({lcm_all} \\div {d3})}}{{{d3} \\times ({lcm_all} \\div {d3})}} = \\frac{{{n3_eq}}}{{{lcm_all}}} $<br/>Bước 3: So sánh các tử số sau khi quy đồng.<br/>Ta có các tử số tương ứng là: Hoa: $ {n1_eq} $, Mai: $ {n2_eq} $, Lan: $ {n3_eq} $.<br/>Sắp xếp các tử số này từ bé đến lớn: $ {f1_val} < {f2_val} < {f3_val} $ (ví dụ, đây là kết quả sau khi sắp xếp, giá trị cụ thể sẽ thay đổi).<br/>(Dựa trên các giá trị đã tính toán: {f1_val} (Hoa), {f2_val} (Mai), {f3_val} (Lan))<br/>Thứ tự sắp xếp từ ít nhất đến nhiều nhất là: {ans_order_asc}.<br/>Đáp án đúng là A.",
+    "tip": "Khi sắp xếp nhiều phân số, quy đồng mẫu số chung là cách hiệu quả nhất. Sau đó, em chỉ cần sắp xếp các tử số để có được thứ tự của các phân số."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n_lower": { "min": 1, "max": 2, "step": 1 },
+      "d_lower": { "min": 4, "max": 6, "step": 1 },
+      "n_upper": { "min": 3, "max": 5, "step": 1 },
+      "d_upper": { "min": 6, "max": 8, "step": 1 },
+      "multiplier": { "min": 2, "max": 3, "step": 1 }
+    },
+    "constraints": [
+      "n_lower < d_lower",
+      "n_upper < d_upper",
+      "(n_lower / d_lower) < (n_upper / d_upper)",
+      "d_lower !== d_upper",
+      "multiplier >= 2"
+    ],
+    "formulas": {
+      "gcd_d_lower_d_upper": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(d_lower, d_upper)",
+      "lcm_d_lower_d_upper": "(d_lower * d_upper) / gcd_d_lower_d_upper",
+      "n_lower_eq": "n_lower * (lcm_d_lower_d_upper / d_lower)",
+      "n_upper_eq": "n_upper * (lcm_d_lower_d_upper / d_upper)",
+      "lcm_expanded": "lcm_d_lower_d_upper * multiplier",
+      "n_lower_expanded": "n_lower_eq * multiplier",
+      "n_upper_expanded": "n_upper_eq * multiplier",
+      "ans_numerator": "n_lower_expanded + 1",
+      "ans_denominator": "lcm_expanded",
+      "ans_fraction": "'\\frac{' + ans_numerator + '}{' + ans_denominator + '}'",
+      "w1_n": "n_lower_expanded - 1",
+      "w1_d": "lcm_expanded",
+      "w1_fraction": "'\\frac{' + w1_n + '}{' + w1_d + '}'",
+      "w2_n": "n_upper_expanded + 1",
+      "w2_d": "lcm_expanded",
+      "w2_fraction": "'\\frac{' + w2_n + '}{' + w2_d + '}'",
+      "w3_n": "(n_lower_expanded + n_upper_expanded) / 2",
+      "w3_d": "lcm_expanded"
+    },
+    "questionText": "Bạn Tùng đang tìm một phân số lớn hơn $ \\frac{{{n_lower}}}{{{d_lower}}} $ nhưng nhỏ hơn $ \\frac{{{n_upper}}}{{{d_upper}}} $. Hỏi phân số nào dưới đây thỏa mãn điều kiện đó?",
+    "options": [
+      "A. $ {ans_fraction} $",
+      "B. $ {w1_fraction} $",
+      "C. $ {w2_fraction} $",
+      "D. $ \\frac{{{n_lower} + {n_upper}}}{{{d_lower} + {d_upper}}} $"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để tìm một phân số nằm giữa hai phân số khác, trước hết em cần quy đồng mẫu số của cả hai phân số đó.",
+      "Nếu sau khi quy đồng mà tử số của chúng liền kề nhau hoặc không có số tự nhiên nào ở giữa, em có thể nhân cả tử số và mẫu số của cả hai phân số với một số tự nhiên (ví dụ 2 hoặc 3) để tạo ra các phân số mới tương đương với mẫu số lớn hơn và tạo khoảng trống giữa các tử số."
+    ],
+    "solutionHtml": "Để tìm một phân số nằm giữa $ \\frac{{{n_lower}}}{{{d_lower}}} $ và $ \\frac{{{n_upper}}}{{{d_upper}}} $, ta thực hiện các bước sau:<br/>Bước 1: Quy đồng mẫu số hai phân số $ \\frac{{{n_lower}}}{{{d_lower}}} $ và $ \\frac{{{n_upper}}}{{{d_upper}}} $.<br/>MSCNN của $ {d_lower} $ và $ {d_upper} $ là $ {lcm_d_lower_d_upper} $.<br/>$ \\frac{{{n_lower}}}{{{d_lower}}} = \\frac{{{n_lower} \\times ({lcm_d_lower_d_upper} \\div {d_lower})}}{{{d_lower} \\times ({lcm_d_lower_d_upper} \\div {d_lower})}} = \\frac{{{n_lower_eq}}}{{{lcm_d_lower_d_upper}}} $<br/>$ \\frac{{{n_upper}}}{{{d_upper}}} = \\frac{{{n_upper} \\times ({lcm_d_lower_d_upper} \\div {d_upper})}}{{{d_upper} \\times ({lcm_d_lower_d_upper} \\div {d_upper})}} = \\frac{{{n_upper_eq}}}{{{lcm_d_lower_d_upper}}} $<br/>Lúc này, ta cần tìm một phân số có tử số lớn hơn $ {n_lower_eq} $ và nhỏ hơn $ {n_upper_eq} $, với mẫu số là $ {lcm_d_lower_d_upper} $.<br/>Nếu không tìm được tử số nào, ta nhân cả tử và mẫu của cả hai phân số đã quy đồng với một số tự nhiên (ví dụ $ {multiplier} $).<br/>Bước 2: Mở rộng phân số (nếu cần).<br/>$ \\frac{{{n_lower_eq}}}{{{lcm_d_lower_d_upper}}} = \\frac{{{n_lower_eq} \\times {multiplier}}}{{{lcm_d_lower_d_upper} \\times {multiplier}}} = \\frac{{{n_lower_expanded}}}{{{lcm_expanded}}} $<br/>$ \\frac{{{n_upper_eq}}}{{{lcm_d_lower_d_upper}}} = \\frac{{{n_upper_eq} \\times {multiplier}}}{{{lcm_d_lower_d_upper} \\times {multiplier}}} = \\frac{{{n_upper_expanded}}}{{{lcm_expanded}}} $<br/>Bây giờ ta cần tìm một phân số có tử số lớn hơn $ {n_lower_expanded} $ và nhỏ hơn $ {n_upper_expanded} $, với mẫu số là $ {lcm_expanded} $.<br/>Ta thấy tử số $ {ans_numerator} $ nằm giữa $ {n_lower_expanded} $ và $ {n_upper_expanded} $ (vì $ {n_lower_expanded} < {ans_numerator} < {n_upper_expanded} $).<br/>Vậy, phân số cần tìm là $ \\frac{{{ans_numerator}}}{{{ans_denominator}}} $.<br/>Đáp án đúng là A.",
+    "tip": "Việc mở rộng phân số (nhân cả tử và mẫu với cùng một số tự nhiên khác 0) sẽ giúp tạo ra 'khoảng trống' giữa hai phân số tương đương, giúp em dễ dàng tìm được phân số trung gian hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "rope1_cut_n": { "min": 1, "max": 4, "step": 1 },
+      "rope1_cut_d": { "min": 5, "max": 10, "step": 1 },
+      "rope2_cut_n": { "min": 1, "max": 4, "step": 1 },
+      "rope2_cut_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "rope1_cut_n < rope1_cut_d",
+      "rope2_cut_n < rope2_cut_d",
+      "(rope1_cut_n / rope1_cut_d) !== (rope2_cut_n / rope2_cut_d)",
+      "(1 - (rope1_cut_n / rope1_cut_d)) !== (1 - (rope2_cut_n / rope2_cut_d))"
+    ],
+    "formulas": {
+      "rope1_remain_n": "rope1_cut_d - rope1_cut_n",
+      "rope1_remain_d": "rope1_cut_d",
+      "rope2_remain_n": "rope2_cut_d - rope2_cut_n",
+      "rope2_remain_d": "rope2_cut_d",
+      "gcd_remain": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(rope1_remain_d, rope2_remain_d)",
+      "lcm_remain": "(rope1_remain_d * rope2_remain_d) / gcd_remain",
+      "rope1_remain_eq_n": "rope1_remain_n * (lcm_remain / rope1_remain_d)",
+      "rope2_remain_eq_n": "rope2_remain_n * (lcm_remain / rope2_remain_d)",
+      "ans_text": "rope1_remain_eq_n > rope2_remain_eq_n ? 'Sợi dây thứ nhất' : 'Sợi dây thứ hai'",
+      "w1_text": "rope1_remain_eq_n < rope2_remain_eq_n ? 'Sợi dây thứ nhất' : 'Sợi dây thứ hai'",
+      "w2_text": "rope1_remain_eq_n === rope2_remain_eq_n ? 'Hai sợi dây bằng nhau' : 'Không xác định được'"
+    },
+    "questionText": "Có hai sợi dây cùng chiều dài ban đầu. Sợi dây thứ nhất bị cắt đi $ \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} $ chiều dài. Sợi dây thứ hai bị cắt đi $ \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} $ chiều dài. Hỏi sợi dây nào còn lại đoạn dài hơn?",
+    "options": [
+      "A. {ans_text}",
+      "B. Sợi dây thứ hai",
+      "C. Cả hai sợi dây còn lại bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Nếu sợi dây bị cắt đi một phần, phần còn lại sẽ là 1 trừ đi phần đã cắt.",
+      "Phần còn lại của sợi dây thứ nhất là $ 1 - \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} $.",
+      "Phần còn lại của sợi dây thứ hai là $ 1 - \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} $.",
+      "Sau khi tìm được phần còn lại của mỗi sợi dây dưới dạng phân số, hãy so sánh chúng."
+    ],
+    "solutionHtml": "Để biết sợi dây nào còn lại đoạn dài hơn, ta cần tìm phân số chỉ phần còn lại của mỗi sợi dây, sau đó so sánh chúng.<br/><b>Sợi dây thứ nhất:</b><br/>Bị cắt đi $ \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} $. Phần còn lại là: $ 1 - \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} = \\frac{{{rope1_cut_d}}}{{{rope1_cut_d}}} - \\frac{{{rope1_cut_n}}}{{{rope1_cut_d}}} = \\frac{{{rope1_remain_n}}}{{{rope1_remain_d}}} $.<br/><b>Sợi dây thứ hai:</b><br/>Bị cắt đi $ \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} $. Phần còn lại là: $ 1 - \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} = \\frac{{{rope2_cut_d}}}{{{rope2_cut_d}}} - \\frac{{{rope2_cut_n}}}{{{rope2_cut_d}}} = \\frac{{{rope2_remain_n}}}{{{rope2_remain_d}}} $.<br/>Bây giờ ta so sánh hai phân số $ \\frac{{{rope1_remain_n}}}{{{rope1_remain_d}}} $ và $ \\frac{{{rope2_remain_n}}}{{{rope2_remain_d}}} $.<br/>Bước 1: Tìm MSCNN của $ {rope1_remain_d} $ và $ {rope2_remain_d} $.<br/>MSCNN là $ {lcm_remain} $.<br/>Bước 2: Quy đồng mẫu số:<br/>$ \\frac{{{rope1_remain_n}}}{{{rope1_remain_d}}} = \\frac{{{rope1_remain_n} \\times ({lcm_remain} \\div {rope1_remain_d})}}{{{rope1_remain_d} \\times ({lcm_remain} \\div {rope1_remain_d})}} = \\frac{{{rope1_remain_eq_n}}}{{{lcm_remain}}} $<br/>$ \\frac{{{rope2_remain_n}}}{{{rope2_remain_d}}} = \\frac{{{rope2_remain_n} \\times ({lcm_remain} \\div {rope2_remain_d})}}{{{rope2_remain_d} \\times ({lcm_remain} \\div {rope2_remain_d})}} = \\frac{{{rope2_remain_eq_n}}}{{{lcm_remain}}} $<br/>Bước 3: So sánh tử số.<br/>Vì $ {rope1_remain_eq_n} $ { (rope1_remain_eq_n > rope2_remain_eq_n ? '>' : '<') } $ {rope2_remain_eq_n} $, nên $ \\frac{{{rope1_remain_eq_n}}}{{{lcm_remain}}} $ { (rope1_remain_eq_n > rope2_remain_eq_n ? '>' : '<') } $ \\frac{{{rope2_remain_eq_n}}}{{{lcm_remain}}} $.<br/>Vậy, {ans_text} còn lại đoạn dài hơn.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phần còn lại sau khi cắt bỏ, em có thể dùng phương pháp 'phần bù' để tính phần còn lại. Hoặc, nếu so sánh trực tiếp phần bị cắt, phân số nào bị cắt đi càng nhỏ thì phần còn lại càng lớn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "good1": { "min": 2, "max": 6, "step": 1 },
+      "total1": { "min": 8, "max": 15, "step": 1 },
+      "good2": { "min": 2, "max": 6, "step": 1 },
+      "total2": { "min": 8, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "good1 < total1",
+      "good2 < total2",
+      "total1 !== total2",
+      "(good1 / total1) !== (good2 / total2)"
+    ],
+    "formulas": {
+      "gcd_total1_total2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(total1, total2)",
+      "lcm_total1_total2": "(total1 * total2) / gcd_total1_total2",
+      "good1_eq": "good1 * (lcm_total1_total2 / total1)",
+      "good2_eq": "good2 * (lcm_total1_total2 / total2)",
+      "ans_class": "good1_eq > good2_eq ? 'Lớp 4A' : 'Lớp 4B'",
+      "w1_class": "good1_eq < good2_eq ? 'Lớp 4A' : 'Lớp 4B'",
+      "w2_class": "good1_eq === good2_eq ? 'Cả hai lớp có tỉ lệ như nhau' : 'Không xác định được'"
+    },
+    "questionText": "Trong buổi kiểm tra Toán, lớp 4A có $ {good1} $ học sinh đạt điểm giỏi trên tổng số $ {total1} $ học sinh. Lớp 4B có $ {good2} $ học sinh đạt điểm giỏi trên tổng số $ {total2} $ học sinh. Hỏi lớp nào có tỉ lệ học sinh đạt điểm giỏi cao hơn?",
+    "options": [
+      "A. {ans_class}",
+      "B. Lớp 4B",
+      "C. Cả hai lớp có tỉ lệ như nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tỉ lệ học sinh đạt điểm giỏi của mỗi lớp có thể biểu diễn dưới dạng phân số.",
+      "Lớp 4A: $ \\frac{{{good1}}}{{{total1}}} $.",
+      "Lớp 4B: $ \\frac{{{good2}}}{{{total2}}} $.",
+      "So sánh hai phân số này để tìm lớp có tỉ lệ cao hơn."
+    ],
+    "solutionHtml": "Để xác định lớp nào có tỉ lệ học sinh đạt điểm giỏi cao hơn, ta cần so sánh hai phân số biểu thị tỉ lệ của mỗi lớp.<br/>Tỉ lệ học sinh giỏi của lớp 4A là $ \\frac{{{good1}}}{{{total1}}} $.<br/>Tỉ lệ học sinh giỏi của lớp 4B là $ \\frac{{{good2}}}{{{total2}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {total1} $ và $ {total2} $.<br/>MSCNN của $ {total1} $ và $ {total2} $ là $ {lcm_total1_total2} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của lớp 4A: $ \\frac{{{good1}}}{{{total1}}} = \\frac{{{good1} \\times ({lcm_total1_total2} \\div {total1})}}{{{total1} \\times ({lcm_total1_total2} \\div {total1})}} = \\frac{{{good1_eq}}}{{{lcm_total1_total2}}} $<br/>Phân số của lớp 4B: $ \\frac{{{good2}}}{{{total2}}} = \\frac{{{good2} \\times ({lcm_total1_total2} \\div {total2})}}{{{total2} \\times ({lcm_total1_total2} \\div {total2})}} = \\frac{{{good2_eq}}}{{{lcm_total1_total2}}} $<br/>Bước 3: So sánh tử số.<br/>Vì $ {good1_eq} $ { (good1_eq > good2_eq ? '>' : '<') } $ {good2_eq} $, nên $ \\frac{{{good1_eq}}}{{{lcm_total1_total2}}} $ { (good1_eq > good2_eq ? '>' : '<') } $ \\frac{{{good2_eq}}}{{{lcm_total1_total2}}} $.<br/>Vậy, {ans_class} có tỉ lệ học sinh đạt điểm giỏi cao hơn.<br/>Đáp án đúng là A.",
+    "tip": "Các bài toán về tỉ lệ trong thực tế thường được giải bằng cách so sánh phân số. Hãy luôn nhớ quy đồng mẫu số trước khi so sánh nếu chúng khác nhau."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "fruitCount": { "min": 2, "max": 5, "step": 1 },
+      "totalBag1": { "min": 8, "max": 12, "step": 1 },
+      "totalBag2": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "fruitCount < totalBag1",
+      "fruitCount < totalBag2",
+      "totalBag1 !== totalBag2",
+      "(fruitCount / totalBag1) !== (fruitCount / totalBag2)"
+    ],
+    "formulas": {
+      "ans_bag": "(fruitCount / totalBag1) < (fruitCount / totalBag2) ? 'Túi thứ nhất' : 'Túi thứ hai'",
+      "w1_bag": "(fruitCount / totalBag1) > (fruitCount / totalBag2) ? 'Túi thứ nhất' : 'Túi thứ hai'"
+    },
+    "questionText": "Có hai túi trái cây. Túi thứ nhất có $ {fruitCount} $ quả táo trên tổng số $ {totalBag1} $ quả. Túi thứ hai cũng có $ {fruitCount} $ quả táo trên tổng số $ {totalBag2} $ quả. Hỏi túi nào có tỉ lệ táo <b>nhỏ hơn</b> so với tổng số trái cây trong túi đó?",
+    "options": [
+      "A. {ans_bag}",
+      "B. Túi thứ hai",
+      "C. Cả hai túi có tỉ lệ táo bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tỉ lệ táo trong mỗi túi được biểu thị bằng phân số có tử số là số quả táo và mẫu số là tổng số quả.",
+      "Túi thứ nhất: $ \\frac{{{fruitCount}}}{{{totalBag1}}} $.",
+      "Túi thứ hai: $ \\frac{{{fruitCount}}}{{{totalBag2}}} $.",
+      "Khi hai phân số có cùng tử số, phân số nào có mẫu số lớn hơn thì phân số đó bé hơn."
+    ],
+    "solutionHtml": "Để xác định túi nào có tỉ lệ táo nhỏ hơn, ta cần so sánh hai phân số biểu thị tỉ lệ táo trong mỗi túi.<br/>Tỉ lệ táo trong túi thứ nhất là $ \\frac{{{fruitCount}}}{{{totalBag1}}} $.<br/>Tỉ lệ táo trong túi thứ hai là $ \\frac{{{fruitCount}}}{{{totalBag2}}} $.<br/>Hai phân số này có cùng tử số là $ {fruitCount} $.<br/>Khi so sánh hai phân số có cùng tử số, phân số nào có mẫu số lớn hơn thì phân số đó nhỏ hơn.<br/>Ta so sánh hai mẫu số $ {totalBag1} $ và $ {totalBag2} $.<br/>Vì $ {totalBag1} $ { (totalBag1 > totalBag2 ? '>' : '<') } $ {totalBag2} $.<br/>Nếu $ {totalBag1} > {totalBag2} $, thì $ \\frac{{{fruitCount}}}{{{totalBag1}}} < \\frac{{{fruitCount}}}{{{totalBag2}}} $. Vậy túi thứ nhất có tỉ lệ táo nhỏ hơn.<br/>Nếu $ {totalBag1} < {totalBag2} $, thì $ \\frac{{{fruitCount}}}{{{totalBag1}}} > \\frac{{{fruitCount}}}{{{totalBag2}}} $. Vậy túi thứ hai có tỉ lệ táo nhỏ hơn.<br/>Dựa vào biến số, {ans_bag} có tỉ lệ táo nhỏ hơn.<br/>Đáp án đúng là A.",
+    "tip": "Hãy nhớ quy tắc so sánh phân số có cùng tử số: phân số nào có mẫu số lớn hơn thì giá trị của phân số đó nhỏ hơn. Ngược lại, phân số nào có mẫu số nhỏ hơn thì giá trị của phân số đó lớn hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "target_n": { "min": 2, "max": 3, "step": 1 },
+      "target_d": { "min": 4, "max": 5, "step": 1 },
+      "comp_n1": { "min": 1, "max": 4, "step": 1 },
+      "comp_d1": { "min": 5, "max": 10, "step": 1 },
+      "comp_n2": { "min": 1, "max": 4, "step": 1 },
+      "comp_d2": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "target_n < target_d",
+      "comp_n1 < comp_d1",
+      "comp_n2 < comp_d2",
+      "(comp_n1 / comp_d1) !== (target_n / target_d)",
+      "(comp_n2 / comp_d2) !== (target_n / target_d)",
+      "(comp_n1 / comp_d1) !== (comp_n2 / comp_d2)"
+    ],
+    "formulas": {
+      "gcd_all": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(target_d, function gcd(a,b){ if(b===0) return a; return gcd(b,a%b); }(comp_d1, comp_d2))",
+      "lcm_all": "function lcm(a, b) { if (a === 0 || b === 0) return 0; return Math.abs(a * b) / function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(a,b); }(target_d, function lcm(a, b) { if (a === 0 || b === 0) return 0; return Math.abs(a * b) / function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(a,b); }(comp_d1, comp_d2))",
+      "target_eq": "target_n * (lcm_all / target_d)",
+      "comp1_eq": "comp_n1 * (lcm_all / comp_d1)",
+      "comp2_eq": "comp_n2 * (lcm_all / comp_d2)",
+      "ans_text": "comp1_eq > target_eq ? 'Phân số thứ nhất' : (comp2_eq > target_eq ? 'Phân số thứ hai' : 'Không có phân số nào')",
+      "w1_text": "comp1_eq < target_eq ? 'Phân số thứ nhất' : (comp2_eq < target_eq ? 'Phân số thứ hai' : 'Không có phân số nào')",
+      "w2_text": "comp1_eq === target_eq || comp2_eq === target_eq ? 'Một trong hai phân số' : 'Không có phân số nào'",
+      "all_less": "comp1_eq < target_eq && comp2_eq < target_eq ? 'Cả hai phân số đều nhỏ hơn' : 'Không phải cả hai'",
+      "all_greater": "comp1_eq > target_eq && comp2_eq > target_eq ? 'Cả hai phân số đều lớn hơn' : 'Không phải cả hai'",
+      "option_b_text": "comp1_eq > target_eq && comp2_eq > target_eq ? 'Cả hai phân số' : (comp1_eq > target_eq ? 'Phân số thứ nhất' : (comp2_eq > target_eq ? 'Phân số thứ hai' : 'Không có phân số nào'))"
+    },
+    "questionText": "Cho phân số $ \\frac{{{target_n}}}{{{target_d}}} $. Hãy tìm phân số nào dưới đây lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $: $ \\frac{{{comp_n1}}}{{{comp_d1}}} $ hay $ \\frac{{{comp_n2}}}{{{comp_d2}}} $?",
+    "options": [
+      "A. {ans_text}",
+      "B. Cả hai phân số",
+      "C. Không có phân số nào",
+      "D. Phân số thứ hai"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh nhiều phân số khác mẫu số, em nên quy đồng tất cả chúng về cùng một mẫu số chung.",
+      "Tìm mẫu số chung nhỏ nhất của $ {target_d} $, $ {comp_d1} $ và $ {comp_d2} $."
+    ],
+    "solutionHtml": "Để tìm phân số lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $, ta cần so sánh $ \\frac{{{comp_n1}}}{{{comp_d1}}} $ và $ \\frac{{{comp_n2}}}{{{comp_d2}}} $ với $ \\frac{{{target_n}}}{{{target_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của ba mẫu số $ {target_d} $, $ {comp_d1} $ và $ {comp_d2} $.<br/>MSCNN là $ {lcm_all} $.<br/>Bước 2: Quy đồng mẫu số các phân số.<br/>Phân số cần so sánh: $ \\frac{{{target_n}}}{{{target_d}}} = \\frac{{{target_n} \\times ({lcm_all} \\div {target_d})}}{{{target_d} \\times ({lcm_all} \\div {target_d})}} = \\frac{{{target_eq}}}{{{lcm_all}}} $<br/>Phân số thứ nhất: $ \\frac{{{comp_n1}}}{{{comp_d1}}} = \\frac{{{comp_n1} \\times ({lcm_all} \\div {comp_d1})}}{{{comp_d1} \\times ({lcm_all} \\div {comp_d1})}} = \\frac{{{comp1_eq}}}{{{lcm_all}}} $<br/>Phân số thứ hai: $ \\frac{{{comp_n2}}}{{{comp_d2}}} = \\frac{{{comp_n2} \\times ({lcm_all} \\div {comp_d2})}}{{{comp_d2} \\times ({lcm_all} \\div {comp_d2})}} = \\frac{{{comp2_eq}}}{{{lcm_all}}} $<br/>Bước 3: So sánh các tử số sau khi quy đồng.<br/>Ta so sánh $ {comp1_eq} $ với $ {target_eq} $ và $ {comp2_eq} $ với $ {target_eq} $.<br/>- Với phân số thứ nhất: $ {comp1_eq} $ { (comp1_eq > target_eq ? '>' : '<') } $ {target_eq} $.<br/>- Với phân số thứ hai: $ {comp2_eq} $ { (comp2_eq > target_eq ? '>' : '<') } $ {target_eq} $.<br/>Dựa trên kết quả so sánh, phân số lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $ là {ans_text}.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh một nhóm phân số với một phân số chuẩn, việc quy đồng tất cả về cùng một mẫu số chung là phương pháp an toàn và chính xác nhất."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "target_n": { "min": 1, "max": 2, "step": 1 },
+      "target_d": { "min": 3, "max": 5, "step": 1 },
+      "test_d": { "min": 6, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "target_n < target_d",
+      "test_d > target_d",
+      "target_d !== test_d",
+      "target_d % target_n !== 0",
+      "test_d % target_d !== 0",
+      "Math.floor((test_d - 1) * target_n / target_d) > Math.ceil(1 * target_n / target_d) + 1"
+    ],
+    "formulas": {
+      "equivalent_num_target_low": "Math.floor(test_d * target_n / target_d)",
+      "equivalent_num_target_high": "Math.ceil(test_d * target_n / target_d)",
+      "lower_bound_numerator": "Math.floor(test_d * target_n / target_d) + 1",
+      "upper_bound_numerator": "test_d - 1",
+      "count_fractions": "upper_bound_numerator - lower_bound_numerator + 1",
+      "w1_count": "count_fractions + 1",
+      "w2_count": "count_fractions - 1",
+      "w3_count": "Math.floor(test_d / 2)"
+    },
+    "questionText": "Có bao nhiêu phân số có mẫu số là $ {test_d} $ mà lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $ và nhỏ hơn $ 1 $?",
+    "options": [
+      "A. $ {count_fractions} $ phân số",
+      "B. $ {w1_count} $ phân số",
+      "C. $ {w2_count} $ phân số",
+      "D. $ {w3_count} $ phân số"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Một phân số nhỏ hơn 1 và có mẫu số là $ {test_d} $ sẽ có dạng $ \\frac{x}{{{test_d}}} $ với $ x $ là số tự nhiên từ $ 1 $ đến $ {test_d} - 1 $.",
+      "Quy đồng phân số $ \\frac{{{target_n}}}{{{target_d}}} $ về mẫu số $ {test_d} $ để dễ so sánh.",
+      "Sau khi quy đồng, em sẽ tìm các tử số $ x $ thỏa mãn điều kiện."
+    ],
+    "solutionHtml": "Để tìm số lượng phân số có mẫu số là $ {test_d} $ mà lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $ và nhỏ hơn $ 1 $, ta thực hiện các bước sau:<br/>Bước 1: Biểu diễn các điều kiện dưới dạng phân số có mẫu số là $ {test_d} $.<br/>- Phân số cần tìm có dạng $ \\frac{x}{{{test_d}}} $.<br/>- Điều kiện nhỏ hơn $ 1 $ có nghĩa là $ \\frac{x}{{{test_d}}} < \\frac{{{test_d}}}{{{test_d}}} $, suy ra $ x < {test_d} $. Vậy $ x $ có thể là các số tự nhiên từ $ 1 $ đến $ {test_d} - 1 $.<br/>- Điều kiện lớn hơn $ \\frac{{{target_n}}}{{{target_d}}} $.<br/>Quy đồng phân số $ \\frac{{{target_n}}}{{{target_d}}} $ về mẫu số $ {test_d} $:<br/>$ \\frac{{{target_n}}}{{{target_d}}} = \\frac{{{target_n} \\times ({test_d} \\div {target_d})}}{{{target_d} \\times ({test_d} \\div {target_d})}} = \\frac{{{equivalent_num_target_low}}}{{{test_d}}} $ (Lưu ý: đây là giá trị làm tròn xuống gần nhất của tử số nếu tử số không nguyên)<br/>Cụ thể hơn, $ \\frac{{{target_n}}}{{{target_d}}} = \\frac{{{target_n} \\times {test_d}}}{{{target_d} \\times {test_d}}} = \\frac{{{target_n} \\times {test_d} \\div {target_d}}}{{{test_d}}} $. Ta có $ {target_n} \\times {test_d} \\div {target_d} = {equivalent_num_target_low} $ (tử số tương ứng, có thể không nguyên, ta cần lấy phần nguyên).<br/>Để $ \\frac{x}{{{test_d}}} > \\frac{{{target_n}}}{{{target_d}}} $, ta cần $ x $ lớn hơn giá trị tương đương của tử số của $ \\frac{{{target_n}}}{{{target_d}}} $ khi mẫu số là $ {test_d} $.<br/>Giá trị tương đương của tử số $ {target_n} $ khi mẫu số là $ {test_d} $ là $ {target_n} \\times {test_d} \\div {target_d} $. Ta cần tìm $ x $ là số nguyên lớn hơn giá trị này.<br/>Vậy, $ x $ phải lớn hơn $ {equivalent_num_target_low} $ (chính xác hơn, $ x $ phải lớn hơn $ \\frac{{{target_n} \\times {test_d}}}{{{target_d}}} $ ). Do $ x $ phải là số nguyên, nên $ x $ bắt đầu từ $ {lower_bound_numerator} $.<br/>Bước 2: Tìm các giá trị của $ x $ thỏa mãn.<br/>$ x $ phải là số tự nhiên và thỏa mãn: $ {lower_bound_numerator} \\le x \\le {upper_bound_numerator} $ (vì $ x < {test_d} $).<br/>Số lượng các giá trị $ x $ thỏa mãn là: $ {upper_bound_numerator} - {lower_bound_numerator} + 1 = {count_fractions} $.<br/>Vậy có $ {count_fractions} $ phân số thỏa mãn điều kiện.<br/>Đáp án đúng là A.",
+    "tip": "Khi đếm số lượng phân số thỏa mãn điều kiện, hãy quy đổi tất cả các giới hạn về cùng một mẫu số chung. Sau đó, xác định khoảng giá trị của tử số và đếm số lượng số nguyên trong khoảng đó."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "f1_n": { "min": 1, "max": 2, "step": 1 },
+      "f1_d": { "min": 3, "max": 5, "step": 1 },
+      "f2_n": { "min": 1, "max": 2, "step": 1 },
+      "f2_d": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "f1_n < f1_d",
+      "f2_n < f2_d",
+      "(f1_n / f1_d) + (f2_n / f2_d) < 1",
+      "(f1_n / f1_d) !== (f2_n / f2_d)"
+    ],
+    "formulas": {
+      "gcd_f1_f2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(f1_d, f2_d)",
+      "lcm_f1_f2": "(f1_d * f2_d) / gcd_f1_f2",
+      "f1_n_eq": "f1_n * (lcm_f1_f2 / f1_d)",
+      "f2_n_eq": "f2_n * (lcm_f1_f2 / f2_d)",
+      "f3_n_eq": "lcm_f1_f2 - f1_n_eq - f2_n_eq",
+      "f1_val": "f1_n_eq",
+      "f2_val": "f2_n_eq",
+      "f3_val": "f3_n_eq",
+      "p1_name": "'An'",
+      "p2_name": "'Bình'",
+      "p3_name": "'Chi'",
+      "order_values": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>a.val-b.val); return values.map(v=>v.name).join(' < ');",
+      "ans_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>a.val-b.val); return 'Từ ít nhất đến nhiều nhất: ' + values.map(v=>v.name).join(' < ');",
+      "w1_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>b.val-a.val); return 'Từ nhiều nhất đến ít nhất: ' + values.map(v=>v.name).join(' > ');",
+      "w2_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>{ if (a.name=='An' && b.name=='Bình') return 1; if (a.name=='Bình' && b.name=='An') return -1; return a.val-b.val; }); return 'Thứ tự sai 1: ' + values.map(v=>v.name).join(' , ');",
+      "w3_order": "let values = [{val:f1_n_eq, name:'An'}, {val:f2_n_eq, name:'Bình'}, {val:f3_n_eq, name:'Chi'}]; values.sort((a,b)=>{ return Math.random()-0.5; }); return 'Thứ tự sai 2: ' + values.map(v=>v.name).join(' , ');"
+    },
+    "questionText": "Một chiếc bánh pizza được chia cho ba bạn An, Bình và Chi. An ăn $ \\frac{{{f1_n}}}{{{f1_d}}} $ cái bánh, Bình ăn $ \\frac{{{f2_n}}}{{{f2_d}}} $ cái bánh. Phần còn lại là của Chi. Hỏi thứ tự các bạn ăn bánh từ ít nhất đến nhiều nhất là gì?",
+    "options": [
+      "A. {ans_order}",
+      "B. {w1_order}",
+      "C. {w2_order}",
+      "D. {w3_order}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tổng số bánh pizza là 1 cả cái bánh.",
+      "Để tìm phần bánh của Chi, em lấy 1 trừ đi phần bánh của An và Bình.",
+      "Sau khi tìm được phần bánh của Chi, hãy quy đồng mẫu số của cả ba phân số và so sánh các tử số."
+    ],
+    "solutionHtml": "Để xác định thứ tự các bạn ăn bánh từ ít nhất đến nhiều nhất, ta cần tìm phân số bánh mà mỗi bạn đã ăn, sau đó so sánh chúng.<br/>Phần bánh của An: $ \\frac{{{f1_n}}}{{{f1_d}}} $.<br/>Phần bánh của Bình: $ \\frac{{{f2_n}}}{{{f2_d}}} $.<br/>Phần bánh của Chi: $ 1 - \\left( \\frac{{{f1_n}}}{{{f1_d}}} + \\frac{{{f2_n}}}{{{f2_d}}} \\right) $.<br/>Bước 1: Quy đồng mẫu số của $ \\frac{{{f1_n}}}{{{f1_d}}} $ và $ \\frac{{{f2_n}}}{{{f2_d}}} $ để tính tổng.<br/>MSCNN của $ {f1_d} $ và $ {f2_d} $ là $ {lcm_f1_f2} $.<br/>$ \\frac{{{f1_n}}}{{{f1_d}}} = \\frac{{{f1_n_eq}}}{{{lcm_f1_f2}}} $.<br/>$ \\frac{{{f2_n}}}{{{f2_d}}} = \\frac{{{f2_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Tổng phần bánh của An và Bình: $ \\frac{{{f1_n_eq}}}{{{lcm_f1_f2}}} + \\frac{{{f2_n_eq}}}{{{lcm_f1_f2}}} = \\frac{{{f1_n_eq} + {f2_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Phần bánh của Chi: $ 1 - \\frac{{{f1_n_eq} + {f2_n_eq}}}{{{lcm_f1_f2}}} = \\frac{{{lcm_f1_f2}}}{{{lcm_f1_f2}}} - \\frac{{{f1_n_eq} + {f2_n_eq}}}{{{lcm_f1_f2}}} = \\frac{{{f3_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Bước 2: So sánh ba phân số (sau khi đã có cùng mẫu số $ {lcm_f1_f2} $).<br/>An: $ \\frac{{{f1_n_eq}}}{{{lcm_f1_f2}}} $. Bình: $ \\frac{{{f2_n_eq}}}{{{lcm_f1_f2}}} $. Chi: $ \\frac{{{f3_n_eq}}}{{{lcm_f1_f2}}} $.<br/>Ta so sánh các tử số: An: $ {f1_val} $, Bình: $ {f2_val} $, Chi: $ {f3_val} $.<br/>Sắp xếp các tử số từ bé đến lớn: $ {f1_val} < {f2_val} < {f3_val} $ (ví dụ, đây là kết quả sau khi sắp xếp, giá trị cụ thể sẽ thay đổi).<br/>Thứ tự các bạn ăn bánh từ ít nhất đến nhiều nhất là: {ans_order}.<br/>Đáp án đúng là A.",
+    "tip": "Khi bài toán có tổng là 1 đơn vị nguyên (ví dụ: 1 cái bánh, 1 đoạn đường), em có thể sử dụng phép trừ để tìm phần còn lại. Sau đó, quy đồng tất cả các phân số để so sánh."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "area1_n": { "min": 2, "max": 5, "step": 1 },
+      "area1_d": { "min": 8, "max": 12, "step": 1 },
+      "area2_n": { "min": 2, "max": 5, "step": 1 },
+      "area2_d": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": [
+      "area1_n < area1_d",
+      "area2_n < area2_d",
+      "(area1_n / area1_d) !== (area2_n / area2_d)"
+    ],
+    "formulas": {
+      "gcd_areas_d": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(area1_d, area2_d)",
+      "lcm_areas_d": "(area1_d * area2_d) / gcd_areas_d",
+      "area1_eq_n": "area1_n * (lcm_areas_d / area1_d)",
+      "area2_eq_n": "area2_n * (lcm_areas_d / area2_d)",
+      "ans_text": "area1_eq_n > area2_eq_n ? 'Mảnh vườn thứ nhất' : 'Mảnh vườn thứ hai'",
+      "w1_text": "area1_eq_n < area2_eq_n ? 'Mảnh vườn thứ nhất' : 'Mảnh vườn thứ hai'",
+      "w2_text": "area1_eq_n === area2_eq_n ? 'Hai mảnh vườn có diện tích bằng nhau' : 'Không xác định được'"
+    },
+    "questionText": "Hai mảnh vườn có diện tích bằng nhau. Mảnh vườn thứ nhất dùng $ \\frac{{{area1_n}}}{{{area1_d}}} $ tổng diện tích để trồng rau cải. Mảnh vườn thứ hai dùng $ \\frac{{{area2_n}}}{{{area2_d}}} $ tổng diện tích để trồng cà chua. Hỏi phần diện tích trồng rau cải và cà chua, phần nào lớn hơn?",
+    "options": [
+      "A. {ans_text}",
+      "B. Mảnh vườn thứ hai (trồng cà chua)",
+      "C. Hai phần diện tích bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh hai phần diện tích, ta cần so sánh hai phân số $ \\frac{{{area1_n}}}{{{area1_d}}} $ và $ \\frac{{{area2_n}}}{{{area2_d}}} $.",
+      "Quy đồng mẫu số của hai phân số để việc so sánh trở nên dễ dàng."
+    ],
+    "solutionHtml": "Để so sánh phần diện tích trồng rau cải và cà chua, ta cần so sánh hai phân số $ \\frac{{{area1_n}}}{{{area1_d}}} $ và $ \\frac{{{area2_n}}}{{{area2_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {area1_d} $ và $ {area2_d} $.<br/>MSCNN của $ {area1_d} $ và $ {area2_d} $ là $ {lcm_areas_d} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của mảnh vườn thứ nhất (rau cải): $ \\frac{{{area1_n}}}{{{area1_d}}} = \\frac{{{area1_n} \\times ({lcm_areas_d} \\div {area1_d})}}{{{area1_d} \\times ({lcm_areas_d} \\div {area1_d})}} = \\frac{{{area1_eq_n}}}{{{lcm_areas_d}}} $<br/>Phân số của mảnh vườn thứ hai (cà chua): $ \\frac{{{area2_n}}}{{{area2_d}}} = \\frac{{{area2_n} \\times ({lcm_areas_d} \\div {area2_d})}}{{{area2_d} \\times ({lcm_areas_d} \\div {area2_d})}} = \\frac{{{area2_eq_n}}}{{{lcm_areas_d}}} $<br/>Bước 3: So sánh tử số sau khi quy đồng.<br/>Ta so sánh tử số $ {area1_eq_n} $ và $ {area2_eq_n} $.<br/>Vì $ {area1_eq_n} $ { (area1_eq_n > area2_eq_n ? '>' : '<') } $ {area2_eq_n} $, nên $ \\frac{{{area1_eq_n}}}{{{lcm_areas_d}}} $ { (area1_eq_n > area2_eq_n ? '>' : '<') } $ \\frac{{{area2_eq_n}}}{{{lcm_areas_d}}} $.<br/>Vậy, phần diện tích trồng { (area1_eq_n > area2_eq_n ? 'rau cải' : 'cà chua') } lớn hơn.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phần của cùng một tổng thể (hoặc các tổng thể bằng nhau), em chỉ cần so sánh các phân số biểu thị các phần đó. Quy đồng mẫu số là bước quan trọng để so sánh chính xác."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "s1_n": { "min": 2, "max": 4, "step": 1 },
+      "s1_d": { "min": 5, "max": 10, "step": 1 },
+      "s2_n": { "min": 2, "max": 4, "step": 1 },
+      "s2_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "s1_n < s1_d",
+      "s2_n < s2_d",
+      "(s1_n / s1_d) !== (s2_n / s2_d)",
+      "s1_d !== s2_d"
+    ],
+    "formulas": {
+      "gcd_s1_s2": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(s1_d, s2_d)",
+      "lcm_s1_s2": "(s1_d * s2_d) / gcd_s1_s2",
+      "s1_eq_n": "s1_n * (lcm_s1_s2 / s1_d)",
+      "s2_eq_n": "s2_n * (lcm_s1_s2 / s2_d)",
+      "ans_text": "s1_eq_n < s2_eq_n ? 'Chuyến đi thứ nhất' : 'Chuyến đi thứ hai'",
+      "w1_text": "s1_eq_n > s2_eq_n ? 'Chuyến đi thứ nhất' : 'Chuyến đi thứ hai'",
+      "w2_text": "s1_eq_n === s2_eq_n ? 'Hai chuyến đi mất thời gian như nhau' : 'Không xác định được'"
+    },
+    "questionText": "Một người đi du lịch bằng xe đạp. Trong chuyến đi thứ nhất, người đó đi được $ \\frac{{{s1_n}}}{{{s1_d}}} $ tổng quãng đường dự kiến trong một ngày. Trong chuyến đi thứ hai, người đó đi được $ \\frac{{{s2_n}}}{{{s2_d}}} $ tổng quãng đường dự kiến trong một ngày. Hỏi chuyến đi nào người đó hoàn thành <b>ít hơn</b> quãng đường trong ngày đó?",
+    "options": [
+      "A. {ans_text}",
+      "B. Chuyến đi thứ hai",
+      "C. Cả hai chuyến đi hoàn thành quãng đường bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để so sánh hai quãng đường đã đi được, ta cần so sánh hai phân số $ \\frac{{{s1_n}}}{{{s1_d}}} $ và $ \\frac{{{s2_n}}}{{{s2_d}}} $.",
+      "Quy đồng mẫu số của hai phân số để dễ dàng so sánh."
+    ],
+    "solutionHtml": "Để biết chuyến đi nào người đó hoàn thành ít hơn quãng đường, ta cần so sánh hai phân số $ \\frac{{{s1_n}}}{{{s1_d}}} $ và $ \\frac{{{s2_n}}}{{{s2_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {s1_d} $ và $ {s2_d} $.<br/>MSCNN của $ {s1_d} $ và $ {s2_d} $ là $ {lcm_s1_s2} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số của chuyến đi thứ nhất: $ \\frac{{{s1_n}}}{{{s1_d}}} = \\frac{{{s1_n} \\times ({lcm_s1_s2} \\div {s1_d})}}{{{s1_d} \\times ({lcm_s1_s2} \\div {s1_d})}} = \\frac{{{s1_eq_n}}}{{{lcm_s1_s2}}} $<br/>Phân số của chuyến đi thứ hai: $ \\frac{{{s2_n}}}{{{s2_d}}} = \\frac{{{s2_n} \\times ({lcm_s1_s2} \\div {s2_d})}}{{{s2_d} \\times ({lcm_s1_s2} \\div {s2_d})}} = \\frac{{{s2_eq_n}}}{{{lcm_s1_s2}}} $<br/>Bước 3: So sánh tử số sau khi quy đồng.<br/>Ta so sánh tử số $ {s1_eq_n} $ và $ {s2_eq_n} $.<br/>Vì $ {s1_eq_n} $ { (s1_eq_n < s2_eq_n ? '<' : '>') } $ {s2_eq_n} $, nên $ \\frac{{{s1_eq_n}}}{{{lcm_s1_s2}}} $ { (s1_eq_n < s2_eq_n ? '<' : '>') } $ \\frac{{{s2_eq_n}}}{{{lcm_s1_s2}}} $.<br/>Vậy, {ans_text} người đó hoàn thành ít hơn quãng đường trong ngày đó.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh hai phân số để tìm giá trị nhỏ hơn, hãy quy đồng mẫu số (hoặc tử số nếu chúng giống nhau). Phân số có tử số nhỏ hơn (khi mẫu số bằng nhau) sẽ có giá trị nhỏ hơn."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "grade_total": { "min": 20, "max": 30, "step": 1 },
+      "grade_a_students": { "min": 5, "max": 10, "step": 1 },
+      "grade_b_students": { "min": 5, "max": 10, "step": 1 },
+      "grade_c_students": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "grade_a_students + grade_b_students + grade_c_students === grade_total",
+      "grade_a_students > 0",
+      "grade_b_students > 0",
+      "grade_c_students > 0",
+      "(grade_a_students / grade_total) !== (grade_b_students / grade_total)",
+      "(grade_a_students / grade_total) !== (grade_c_students / grade_total)",
+      "(grade_b_students / grade_total) !== (grade_c_students / grade_total)"
+    ],
+    "formulas": {
+      "a_fraction": "grade_a_students",
+      "b_fraction": "grade_b_students",
+      "c_fraction": "grade_c_students",
+      "sorted_grades": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>a.val-b.val); return values.map(v=>v.name).join(' < ');",
+      "ans_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>a.val-b.val); return 'Từ ít nhất đến nhiều nhất: ' + values.map(v=>v.name).join(' < ');",
+      "w1_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>b.val-a.val); return 'Từ nhiều nhất đến ít nhất: ' + values.map(v=>v.name).join(' > ');",
+      "w2_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>{ if (a.name=='Giỏi' && b.name=='Khá') return 1; if (a.name=='Khá' && b.name=='Giỏi') return -1; return a.val-b.val; }); return 'Thứ tự sai 1: ' + values.map(v=>v.name).join(' , ');",
+      "w3_order": "let values = [{val:a_fraction, name:'Giỏi'}, {val:b_fraction, name:'Khá'}, {val:c_fraction, name:'Trung bình'}]; values.sort((a,b)=>{ return Math.random()-0.5; }); return 'Thứ tự sai 2: ' + values.map(v=>v.name).join(' , ');"
+    },
+    "questionText": "Trong một lớp học có $ {grade_total} $ học sinh. Có $ {grade_a_students} $ học sinh đạt loại Giỏi, $ {grade_b_students} $ học sinh đạt loại Khá, và $ {grade_c_students} $ học sinh đạt loại Trung bình. Hãy sắp xếp các loại học lực theo tỉ lệ từ ít nhất đến nhiều nhất.",
+    "options": [
+      "A. {ans_order}",
+      "B. {w1_order}",
+      "C. {w2_order}",
+      "D. {w3_order}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Tỉ lệ học sinh mỗi loại được biểu diễn bằng phân số có tử số là số học sinh loại đó và mẫu số là tổng số học sinh.",
+      "Tất cả các phân số này đều có cùng mẫu số là $ {grade_total} $.",
+      "Khi các phân số có cùng mẫu số, em chỉ cần so sánh các tử số của chúng."
+    ],
+    "solutionHtml": "Để sắp xếp các loại học lực theo tỉ lệ từ ít nhất đến nhiều nhất, ta cần so sánh các phân số biểu thị tỉ lệ của từng loại học lực.<br/>Tổng số học sinh là $ {grade_total} $.<br/>Tỉ lệ học sinh Giỏi: $ \\frac{{{grade_a_students}}}{{{grade_total}}} $.<br/>Tỉ lệ học sinh Khá: $ \\frac{{{grade_b_students}}}{{{grade_total}}} $.<br/>Tỉ lệ học sinh Trung bình: $ \\frac{{{grade_c_students}}}{{{grade_total}}} $.<br/>Vì tất cả các phân số này đều có cùng mẫu số là $ {grade_total} $, ta chỉ cần so sánh các tử số của chúng:<br/>Học sinh Giỏi: $ {a_fraction} $.<br/>Học sinh Khá: $ {b_fraction} $.<br/>Học sinh Trung bình: $ {c_fraction} $.<br/>Sắp xếp các tử số này từ bé đến lớn: (ví dụ, đây là kết quả sau khi sắp xếp, giá trị cụ thể sẽ thay đổi).<br/>$ {a_fraction} $ (Giỏi) so với $ {b_fraction} $ (Khá) so với $ {c_fraction} $ (Trung bình).<br/>Dựa trên các giá trị, thứ tự từ ít nhất đến nhiều nhất là: {ans_order}.<br/>Đáp án đúng là A.",
+    "tip": "Khi so sánh các phân số có cùng mẫu số, phân số nào có tử số lớn hơn thì lớn hơn, phân số nào có tử số nhỏ hơn thì nhỏ hơn. Điều này giúp việc so sánh trở nên rất đơn giản."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "distance_an_n": { "min": 1, "max": 3, "step": 1 },
+      "distance_an_d": { "min": 5, "max": 10, "step": 1 },
+      "distance_binh_n": { "min": 1, "max": 3, "step": 1 },
+      "distance_binh_d": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "distance_an_n < distance_an_d",
+      "distance_binh_n < distance_binh_d",
+      "(distance_an_n / distance_an_d) !== (distance_binh_n / distance_binh_d)",
+      "distance_an_d !== distance_binh_d"
+    ],
+    "formulas": {
+      "gcd_distances_d": "function gcd(a, b) { if (b === 0) return a; return gcd(b, a % b); }(distance_an_d, distance_binh_d)",
+      "lcm_distances_d": "(distance_an_d * distance_binh_d) / gcd_distances_d",
+      "an_eq_n": "distance_an_n * (lcm_distances_d / distance_an_d)",
+      "binh_eq_n": "distance_binh_n * (lcm_distances_d / distance_binh_d)",
+      "ans_text": "an_eq_n > binh_eq_n ? 'Bạn An' : 'Bạn Bình'",
+      "w1_text": "an_eq_n < binh_eq_n ? 'Bạn An' : 'Bạn Bình'",
+      "w2_text": "an_eq_n === binh_eq_n ? 'Cả hai bạn đi được quãng đường bằng nhau' : 'Không xác định được'"
+    },
+    "questionText": "Trong một cuộc thi chạy, bạn An đã hoàn thành $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} $ tổng quãng đường, và bạn Bình đã hoàn thành $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} $ tổng quãng đường. Hỏi bạn nào đã chạy được quãng đường dài hơn?",
+    "options": [
+      "A. {ans_text}",
+      "B. Bạn Bình",
+      "C. Cả hai bạn chạy được quãng đường bằng nhau",
+      "D. Không thể so sánh"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Để biết bạn nào chạy được quãng đường dài hơn, em cần so sánh hai phân số $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} $ và $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} $.",
+      "Quy đồng mẫu số của hai phân số để việc so sánh trở nên dễ dàng."
+    ],
+    "solutionHtml": "Để biết bạn nào chạy được quãng đường dài hơn, chúng ta cần so sánh hai phân số $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} $ và $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} $.<br/>Bước 1: Tìm mẫu số chung nhỏ nhất (MSCNN) của hai mẫu số $ {distance_an_d} $ và $ {distance_binh_d} $.<br/>MSCNN của $ {distance_an_d} $ và $ {distance_binh_d} $ là $ {lcm_distances_d} $.<br/>Bước 2: Quy đồng mẫu số hai phân số.<br/>Phân số quãng đường của bạn An: $ \\frac{{{distance_an_n}}}{{{distance_an_d}}} = \\frac{{{distance_an_n} \\times ({lcm_distances_d} \\div {distance_an_d})}}{{{distance_an_d} \\times ({lcm_distances_d} \\div {distance_an_d})}} = \\frac{{{an_eq_n}}}{{{lcm_distances_d}}} $<br/>Phân số quãng đường của bạn Bình: $ \\frac{{{distance_binh_n}}}{{{distance_binh_d}}} = \\frac{{{distance_binh_n} \\times ({lcm_distances_d} \\div {distance_binh_d})}}{{{distance_binh_d} \\times ({lcm_distances_d} \\div {distance_binh_d})}} = \\frac{{{binh_eq_n}}}{{{lcm_distances_d}}} $<br/>Bước 3: So sánh tử số sau khi quy đồng.<br/>Ta so sánh tử số $ {an_eq_n} $ và $ {binh_eq_n} $.<br/>Vì $ {an_eq_n} $ { (an_eq_n > binh_eq_n ? '>' : '<') } $ {binh_eq_n} $, nên $ \\frac{{{an_eq_n}}}{{{lcm_distances_d}}} $ { (an_eq_n > binh_eq_n ? '>' : '<') } $ \\frac{{{binh_eq_n}}}{{{lcm_distances_d}}} $.<br/>Vậy, {ans_text} đã chạy được quãng đường dài hơn.<br/>Đáp án đúng là A.",
+    "tip": "Các bài toán so sánh quãng đường, diện tích, hay lượng chất lỏng... khi được biểu diễn bằng phân số đều có chung một cách giải: quy đồng mẫu số và so sánh các tử số."
+  }
+]
+

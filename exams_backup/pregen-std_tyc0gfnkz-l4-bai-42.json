@@ -1,0 +1,630 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "soNganKeo": {
+          "min": 6,
+          "max": 15,
+          "step": 1
+        },
+        "keoVaniMoiNgan": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "keoSuaMoiNgan": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "keoVaniMoiNgan !== keoSuaMoiNgan"
+      ],
+      "formulas": {
+        "tongKeoMoiNgan": "keoVaniMoiNgan + keoSuaMoiNgan",
+        "tongKeoVani": "soNganKeo * keoVaniMoiNgan",
+        "tongKeoSua": "soNganKeo * keoSuaMoiNgan",
+        "ans": "soNganKeo * (keoVaniMoiNgan + keoSuaMoiNgan)",
+        "w1": "soNganKeo + keoVaniMoiNgan + keoSuaMoiNgan",
+        "w2": "keoVaniMoiNgan + keoSuaMoiNgan",
+        "w3": "soNganKeo * keoVaniMoiNgan + keoSuaMoiNgan"
+      },
+      "questionText": "Một cửa hàng có {soNganKeo} ngăn đựng kẹo. Mỗi ngăn chứa {keoVaniMoiNgan} viên kẹo vani và {keoSuaMoiNgan} viên kẹo sữa. Hỏi tổng cộng cửa hàng có bao nhiêu viên kẹo?",
+      "options": [
+        "A. {w1} viên kẹo",
+        "B. {ans} viên kẹo",
+        "C. {w2} viên kẹo",
+        "D. {w3} viên kẹo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số viên kẹo trong mỗi ngăn trước, rồi nhân với số ngăn.",
+        "Hoặc tính riêng số kẹo vani và số kẹo sữa, rồi cộng lại."
+      ],
+      "solutionHtml": "Để tìm tổng số viên kẹo, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số viên kẹo trong mỗi ngăn, rồi nhân với tổng số ngăn.<br/>Số viên kẹo trong mỗi ngăn là: $ {keoVaniMoiNgan} + {keoSuaMoiNgan} = {tongKeoMoiNgan} $ (viên).<br/>Tổng số viên kẹo cửa hàng có là: $ {soNganKeo} \\times {tongKeoMoiNgan} = {ans} $ (viên).<br/><br/>Cách 2: Tính riêng tổng số kẹo vani và tổng số kẹo sữa, rồi cộng lại.<br/>Tổng số kẹo vani là: $ {soNganKeo} \\times {keoVaniMoiNgan} = {tongKeoVani} $ (viên).<br/>Tổng số kẹo sữa là: $ {soNganKeo} \\times {keoSuaMoiNgan} = {tongKeoSua} $ (viên).<br/>Tổng số viên kẹo cửa hàng có là: $ {tongKeoVani} + {tongKeoSua} = {ans} $ (viên).<br/>Vậy, tổng số viên kẹo cửa hàng có là $ {ans} $ viên.<br/>Đáp án đúng là B.",
+      "tip": "Khi một số nhân với một tổng, ta có thể nhân số đó với từng số hạng của tổng rồi cộng các kết quả lại. $ a \\times (b + c) = a \\times b + a \\times c $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soHocSinh": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        },
+        "giaTienSach": {
+          "min": 5000,
+          "max": 15000,
+          "step": 1000
+        },
+        "giaTienBut": {
+          "min": 2000,
+          "max": 8000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "giaTienSach > giaTienBut"
+      ],
+      "formulas": {
+        "tongGiaTienMotBo": "giaTienSach + giaTienBut",
+        "tongTienSach": "soHocSinh * giaTienSach",
+        "tongTienBut": "soHocSinh * giaTienBut",
+        "ans": "soHocSinh * (giaTienSach + giaTienBut)",
+        "w1": "soHocSinh + giaTienSach + giaTienBut",
+        "w2": "giaTienSach + giaTienBut",
+        "w3": "soHocSinh * giaTienSach + giaTienBut"
+      },
+      "questionText": "Cô giáo mua quà cho {soHocSinh} học sinh giỏi. Mỗi phần quà gồm một quyển sách trị giá {giaTienSach} đồng và một cây bút trị giá {giaTienBut} đồng. Hỏi cô giáo đã chi tổng cộng bao nhiêu tiền để mua quà?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w2} đồng",
+        "C. {ans} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng giá tiền của một phần quà trước, rồi nhân với số học sinh.",
+        "Hoặc tính riêng tổng tiền sách và tổng tiền bút, rồi cộng lại."
+      ],
+      "solutionHtml": "Để tính tổng số tiền cô giáo đã chi, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng giá tiền của một phần quà, rồi nhân với số học sinh.<br/>Giá tiền của mỗi phần quà là: $ {giaTienSach} + {giaTienBut} = {tongGiaTienMotBo} $ (đồng).<br/>Tổng số tiền cô giáo đã chi là: $ {soHocSinh} \\times {tongGiaTienMotBo} = {ans} $ (đồng).<br/><br/>Cách 2: Tính riêng tổng số tiền sách và tổng số tiền bút, rồi cộng lại.<br/>Tổng số tiền sách là: $ {soHocSinh} \\times {giaTienSach} = {tongTienSach} $ (đồng).<br/>Tổng số tiền bút là: $ {soHocSinh} \\times {giaTienBut} = {tongTienBut} $ (đồng).<br/>Tổng số tiền cô giáo đã chi là: $ {tongTienSach} + {tongTienBut} = {ans} $ (đồng).<br/>Vậy, cô giáo đã chi tổng cộng $ {ans} $ đồng.<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này có thể được giải nhanh hơn bằng cách gom các hạng tử có chung thừa số. Chẳng hạn, số tiền mua sách cho tất cả học sinh và số tiền mua bút cho tất cả học sinh đều được nhân với số học sinh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chieuDai": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "chieuRongPhan1": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "chieuRongPhan2": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "chieuRongPhan1 !== chieuRongPhan2",
+        "chieuDai > chieuRongPhan1 + chieuRongPhan2"
+      ],
+      "formulas": {
+        "tongChieuRong": "chieuRongPhan1 + chieuRongPhan2",
+        "dienTichPhan1": "chieuDai * chieuRongPhan1",
+        "dienTichPhan2": "chieuDai * chieuRongPhan2",
+        "ans": "chieuDai * (chieuRongPhan1 + chieuRongPhan2)",
+        "w1": "chieuDai + chieuRongPhan1 + chieuRongPhan2",
+        "w2": "chieuRongPhan1 + chieuRongPhan2",
+        "w3": "chieuDai * chieuRongPhan1 + chieuRongPhan2"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là {chieuDai} m. Mảnh vườn được chia thành hai phần nhỏ. Phần thứ nhất có chiều rộng {chieuRongPhan1} m, phần thứ hai có chiều rộng {chieuRongPhan2} m. Biết rằng hai phần này được ghép sát vào nhau theo chiều dài. Hỏi tổng diện tích của mảnh vườn là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} $ m^2 $",
+        "B. {ans} $ m^2 $",
+        "C. {w2} $ m^2 $",
+        "D. {w3} $ m^2 $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng chiều rộng của mảnh vườn là tổng chiều rộng của hai phần nhỏ.",
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng.",
+        "Có thể tính diện tích từng phần rồi cộng lại, hoặc tính tổng chiều rộng rồi nhân với chiều dài chung."
+      ],
+      "solutionHtml": "Mảnh vườn lớn có thể xem là một hình chữ nhật có chiều dài là {chieuDai} m và chiều rộng là tổng chiều rộng của hai phần nhỏ.<br/>Cách 1: Tính tổng chiều rộng của mảnh vườn, rồi nhân với chiều dài.<br/>Tổng chiều rộng của mảnh vườn là: $ {chieuRongPhan1} + {chieuRongPhan2} = {tongChieuRong} $ (m).<br/>Tổng diện tích của mảnh vườn là: $ {chieuDai} \\times {tongChieuRong} = {ans} $ ($ m^2 $).<br/><br/>Cách 2: Tính diện tích từng phần, rồi cộng lại.<br/>Diện tích phần thứ nhất là: $ {chieuDai} \\times {chieuRongPhan1} = {dienTichPhan1} $ ($ m^2 $).<br/>Diện tích phần thứ hai là: $ {chieuDai} \\times {chieuRongPhan2} = {dienTichPhan2} $ ($ m^2 $).<br/>Tổng diện tích của mảnh vườn là: $ {dienTichPhan1} + {dienTichPhan2} = {ans} $ ($ m^2 $).<br/>Vậy, tổng diện tích của mảnh vườn là $ {ans} $ mét vuông.<br/>Đáp án đúng là B.",
+      "tip": "Khi hai hình chữ nhật có chung một cạnh (ở đây là chiều dài), diện tích tổng cộng có thể tính bằng cách lấy cạnh chung đó nhân với tổng các cạnh còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soNgay": {
+          "min": 7,
+          "max": 15,
+          "step": 1
+        },
+        "sanPhamA_MoiNgay": {
+          "min": 20,
+          "max": 50,
+          "step": 1
+        },
+        "sanPhamB_MoiNgay": {
+          "min": 15,
+          "max": 40,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "sanPhamA_MoiNgay > sanPhamB_MoiNgay"
+      ],
+      "formulas": {
+        "tongSanPhamMoiNgay": "sanPhamA_MoiNgay + sanPhamB_MoiNgay",
+        "tongSanPhamA": "soNgay * sanPhamA_MoiNgay",
+        "tongSanPhamB": "soNgay * sanPhamB_MoiNgay",
+        "ans": "soNgay * (sanPhamA_MoiNgay + sanPhamB_MoiNgay)",
+        "w1": "soNgay + sanPhamA_MoiNgay + sanPhamB_MoiNgay",
+        "w2": "sanPhamA_MoiNgay + sanPhamB_MoiNgay",
+        "w3": "soNgay * sanPhamA_MoiNgay + sanPhamB_MoiNgay"
+      },
+      "questionText": "Một nhà máy sản xuất {sanPhamA_MoiNgay} sản phẩm loại A và {sanPhamB_MoiNgay} sản phẩm loại B mỗi ngày. Hỏi sau {soNgay} ngày làm việc, nhà máy đó đã sản xuất được tổng cộng bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {w2} sản phẩm",
+        "C. {w3} sản phẩm",
+        "D. {ans} sản phẩm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng số sản phẩm (cả loại A và B) mà nhà máy sản xuất được trong một ngày trước.",
+        "Sau đó, nhân tổng số sản phẩm một ngày với số ngày làm việc."
+      ],
+      "solutionHtml": "Để tính tổng số sản phẩm mà nhà máy đã sản xuất, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số sản phẩm sản xuất được trong một ngày, rồi nhân với số ngày làm việc.<br/>Tổng số sản phẩm sản xuất được trong một ngày là: $ {sanPhamA_MoiNgay} + {sanPhamB_MoiNgay} = {tongSanPhamMoiNgay} $ (sản phẩm).<br/>Tổng số sản phẩm sản xuất được sau {soNgay} ngày là: $ {soNgay} \\times {tongSanPhamMoiNgay} = {ans} $ (sản phẩm).<br/><br/>Cách 2: Tính riêng tổng số sản phẩm loại A và loại B sản xuất được sau {soNgay} ngày, rồi cộng lại.<br/>Tổng số sản phẩm loại A là: $ {soNgay} \\times {sanPhamA_MoiNgay} = {tongSanPhamA} $ (sản phẩm).<br/>Tổng số sản phẩm loại B là: $ {soNgay} \\times {sanPhamB_MoiNgay} = {tongSanPhamB} $ (sản phẩm).<br/>Tổng số sản phẩm sản xuất được là: $ {tongSanPhamA} + {tongSanPhamB} = {ans} $ (sản phẩm).<br/>Vậy, sau {soNgay} ngày, nhà máy đã sản xuất được tổng cộng $ {ans} $ sản phẩm.<br/>Đáp án đúng là D.",
+      "tip": "Khi một hoạt động có hai thành phần xảy ra liên tục trong một khoảng thời gian, bạn có thể tính tổng của hai thành phần đó trong một đơn vị thời gian (ví dụ: một ngày), sau đó nhân với tổng thời gian.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soToaNha": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "soPhongHocMoiToa": {
+          "min": 8,
+          "max": 18,
+          "step": 1
+        },
+        "soPhongThiNghiemMoiToa": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "soPhongHocMoiToa > soPhongThiNghiemMoiToa"
+      ],
+      "formulas": {
+        "tongPhongMoiToa": "soPhongHocMoiToa + soPhongThiNghiemMoiToa",
+        "tongPhongHoc": "soToaNha * soPhongHocMoiToa",
+        "tongPhongThiNghiem": "soToaNha * soPhongThiNghiemMoiToa",
+        "ans": "soToaNha * (soPhongHocMoiToa + soPhongThiNghiemMoiToa)",
+        "w1": "soToaNha + soPhongHocMoiToa + soPhongThiNghiemMoiToa",
+        "w2": "soPhongHocMoiToa + soPhongThiNghiemMoiToa",
+        "w3": "soToaNha * soPhongHocMoiToa + soPhongThiNghiemMoiToa"
+      },
+      "questionText": "Một trường học có {soToaNha} tòa nhà. Mỗi tòa nhà có {soPhongHocMoiToa} phòng học và {soPhongThiNghiemMoiToa} phòng thí nghiệm. Hỏi tổng cộng trường học có bao nhiêu phòng (bao gồm cả phòng học và phòng thí nghiệm)?",
+      "options": [
+        "A. {w1} phòng",
+        "B. {ans} phòng",
+        "C. {w2} phòng",
+        "D. {w3} phòng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số phòng trong một tòa nhà trước, rồi nhân với số tòa nhà.",
+        "Hoặc tính tổng số phòng học và tổng số phòng thí nghiệm riêng, rồi cộng lại."
+      ],
+      "solutionHtml": "Để tính tổng số phòng của trường học, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số phòng trong một tòa nhà, rồi nhân với số tòa nhà.<br/>Tổng số phòng trong một tòa nhà là: $ {soPhongHocMoiToa} + {soPhongThiNghiemMoiToa} = {tongPhongMoiToa} $ (phòng).<br/>Tổng số phòng của trường học là: $ {soToaNha} \\times {tongPhongMoiToa} = {ans} $ (phòng).<br/><br/>Cách 2: Tính riêng tổng số phòng học và tổng số phòng thí nghiệm của tất cả các tòa nhà, rồi cộng lại.<br/>Tổng số phòng học là: $ {soToaNha} \\times {soPhongHocMoiToa} = {tongPhongHoc} $ (phòng).<br/>Tổng số phòng thí nghiệm là: $ {soToaNha} \\times {soPhongThiNghiemMoiToa} = {tongPhongThiNghiem} $ (phòng).<br/>Tổng số phòng của trường học là: $ {tongPhongHoc} + {tongPhongThiNghiem} = {ans} $ (phòng).<br/>Vậy, tổng số phòng của trường học là $ {ans} $ phòng.<br/>Đáp án đúng là B.",
+      "tip": "Tính chất phân phối giúp chúng ta tính toán linh hoạt hơn: gộp các số hạng có chung thừa số vào trong dấu ngoặc, hoặc tách một tổng thành các phép nhân riêng biệt rồi cộng lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soLanGiaoHang": {
+          "min": 8,
+          "max": 20,
+          "step": 1
+        },
+        "soThungRau_MoiLan": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        },
+        "soThungCu_MoiLan": {
+          "min": 7,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "soThungRau_MoiLan !== soThungCu_MoiLan"
+      ],
+      "formulas": {
+        "tongThung_MoiLan": "soThungRau_MoiLan + soThungCu_MoiLan",
+        "tongThungRau": "soLanGiaoHang * soThungRau_MoiLan",
+        "tongThungCu": "soLanGiaoHang * soThungCu_MoiLan",
+        "ans": "soLanGiaoHang * (soThungRau_MoiLan + soThungCu_MoiLan)",
+        "w1": "soLanGiaoHang + soThungRau_MoiLan + soThungCu_MoiLan",
+        "w2": "soThungRau_MoiLan + soThungCu_MoiLan",
+        "w3": "soLanGiaoHang * soThungRau_MoiLan + soThungCu_MoiLan"
+      },
+      "questionText": "Một xe tải chở hàng nông sản. Mỗi lần giao hàng, xe chở {soThungRau_MoiLan} thùng rau và {soThungCu_MoiLan} thùng củ. Trong một tháng, xe đã giao hàng {soLanGiaoHang} lần. Hỏi tổng cộng xe đã chở bao nhiêu thùng nông sản (rau và củ)?",
+      "options": [
+        "A. {w1} thùng",
+        "B. {w3} thùng",
+        "C. {ans} thùng",
+        "D. {w2} thùng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số thùng rau và củ mà xe chở được trong mỗi lần giao hàng.",
+        "Sau đó, nhân tổng đó với số lần giao hàng."
+      ],
+      "solutionHtml": "Để tính tổng số thùng nông sản đã chở, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số thùng nông sản trong một lần giao hàng, rồi nhân với số lần giao hàng.<br/>Số thùng nông sản trong mỗi lần giao hàng là: $ {soThungRau_MoiLan} + {soThungCu_MoiLan} = {tongThung_MoiLan} $ (thùng).<br/>Tổng số thùng nông sản đã chở là: $ {soLanGiaoHang} \\times {tongThung_MoiLan} = {ans} $ (thùng).<br/><br/>Cách 2: Tính riêng tổng số thùng rau và tổng số thùng củ đã chở, rồi cộng lại.<br/>Tổng số thùng rau đã chở là: $ {soLanGiaoHang} \\times {soThungRau_MoiLan} = {tongThungRau} $ (thùng).<br/>Tổng số thùng củ đã chở là: $ {soLanGiaoHang} \\times {soThungCu_MoiLan} = {tongThungCu} $ (thùng).<br/>Tổng số thùng nông sản đã chở là: $ {tongThungRau} + {tongThungCu} = {ans} $ (thùng).<br/>Vậy, xe tải đã chở tổng cộng $ {ans} $ thùng nông sản.<br/>Đáp án đúng là C.",
+      "tip": "Khi cùng một hoạt động lặp lại nhiều lần với nhiều loại đối tượng, hãy tính tổng các đối tượng trong một lần hoạt động, sau đó nhân với số lần lặp lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soBan": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "soNhanVienNam": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        },
+        "soNhanVienNu": {
+          "min": 20,
+          "max": 35,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "soNhanVienNam !== soNhanVienNu"
+      ],
+      "formulas": {
+        "tongNhanVien": "soNhanVienNam + soNhanVienNu",
+        "tongBanNam": "soBan * soNhanVienNam",
+        "tongBanNu": "soBan * soNhanVienNu",
+        "ans": "soBan * (soNhanVienNam + soNhanVienNu)",
+        "w1": "soBan + soNhanVienNam + soNhanVienNu",
+        "w2": "soNhanVienNam + soNhanVienNu",
+        "w3": "soBan * soNhanVienNam + soNhanVienNu"
+      },
+      "questionText": "Một công ty có {soBan} phòng ban. Mỗi phòng ban có {soNhanVienNam} nhân viên nam và {soNhanVienNu} nhân viên nữ. Hỏi tổng số nhân viên của công ty là bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số nhân viên (cả nam và nữ) trong mỗi phòng ban trước.",
+        "Sau đó, nhân tổng số nhân viên của một phòng ban với số phòng ban."
+      ],
+      "solutionHtml": "Để tính tổng số nhân viên của công ty, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số nhân viên trong mỗi phòng ban, rồi nhân với số phòng ban.<br/>Tổng số nhân viên trong mỗi phòng ban là: $ {soNhanVienNam} + {soNhanVienNu} = {tongNhanVien} $ (người).<br/>Tổng số nhân viên của công ty là: $ {soBan} \\times {tongNhanVien} = {ans} $ (người).<br/><br/>Cách 2: Tính riêng tổng số nhân viên nam và tổng số nhân viên nữ của tất cả các phòng ban, rồi cộng lại.<br/>Tổng số nhân viên nam là: $ {soBan} \\times {soNhanVienNam} = {tongBanNam} $ (người).<br/>Tổng số nhân viên nữ là: $ {soBan} \\times {soNhanVienNu} = {tongBanNu} $ (người).<br/>Tổng số nhân viên của công ty là: $ {tongBanNam} + {tongBanNu} = {ans} $ (người).<br/>Vậy, tổng số nhân viên của công ty là $ {ans} $ người.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải các bài toán đố thực tế, hãy tìm các mối liên hệ chung để áp dụng tính chất phân phối. Nó giúp đơn giản hóa các bước tính toán và dễ dàng kiểm tra lại kết quả.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soGiaDinh": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "tienDienMoiGiaDinh": {
+          "min": 100000,
+          "max": 300000,
+          "step": 10000
+        },
+        "tienNuocMoiGiaDinh": {
+          "min": 50000,
+          "max": 150000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "tienDienMoiGiaDinh > tienNuocMoiGiaDinh"
+      ],
+      "formulas": {
+        "tongTienThanhToanMotGiaDinh": "tienDienMoiGiaDinh + tienNuocMoiGiaDinh",
+        "tongTienDien": "soGiaDinh * tienDienMoiGiaDinh",
+        "tongTienNuoc": "soGiaDinh * tienNuocMoiGiaDinh",
+        "ans": "soGiaDinh * (tienDienMoiGiaDinh + tienNuocMoiGiaDinh)",
+        "w1": "soGiaDinh + tienDienMoiGiaDinh + tienNuocMoiGiaDinh",
+        "w2": "tienDienMoiGiaDinh + tienNuocMoiGiaDinh",
+        "w3": "soGiaDinh * tienDienMoiGiaDinh + tienNuocMoiGiaDinh"
+      },
+      "questionText": "Trong một khu dân cư có {soGiaDinh} gia đình. Mỗi tháng, trung bình một gia đình phải trả {tienDienMoiGiaDinh} đồng tiền điện và {tienNuocMoiGiaDinh} đồng tiền nước. Hỏi tổng số tiền điện và tiền nước mà cả khu dân cư phải thanh toán trong một tháng là bao nhiêu?",
+      "options": [
+        "A. {ans} đồng",
+        "B. {w1} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng số tiền điện và tiền nước mà mỗi gia đình phải trả trong một tháng.",
+        "Sau đó, nhân tổng số tiền đó với số gia đình."
+      ],
+      "solutionHtml": "Để tính tổng số tiền mà cả khu dân cư phải thanh toán, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số tiền điện và tiền nước mà mỗi gia đình phải trả, rồi nhân với số gia đình.<br/>Tổng số tiền mỗi gia đình phải trả là: $ {tienDienMoiGiaDinh} + {tienNuocMoiGiaDinh} = {tongTienThanhToanMotGiaDinh} $ (đồng).<br/>Tổng số tiền cả khu dân cư phải thanh toán là: $ {soGiaDinh} \\times {tongTienThanhToanMotGiaDinh} = {ans} $ (đồng).<br/><br/>Cách 2: Tính riêng tổng số tiền điện và tổng số tiền nước của tất cả các gia đình, rồi cộng lại.<br/>Tổng số tiền điện là: $ {soGiaDinh} \\times {tienDienMoiGiaDinh} = {tongTienDien} $ (đồng).<br/>Tổng số tiền nước là: $ {soGiaDinh} \\times {tienNuocMoiGiaDinh} = {tongTienNuoc} $ (đồng).<br/>Tổng số tiền cả khu dân cư phải thanh toán là: $ {tongTienDien} + {tongTienNuoc} = {ans} $ (đồng).<br/>Vậy, tổng số tiền điện và tiền nước mà cả khu dân cư phải thanh toán trong một tháng là $ {ans} $ đồng.<br/>Đáp án đúng là A.",
+      "tip": "Tính chất phân phối thường được sử dụng để đơn giản hóa các phép tính có một thừa số chung. Nó giúp biến phép tính phức tạp thành các phép tính đơn giản hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soXa": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "cayBinhVuongMoiXa": {
+          "min": 100,
+          "max": 250,
+          "step": 10
+        },
+        "cayDoiMoiXa": {
+          "min": 80,
+          "max": 200,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "cayBinhVuongMoiXa > cayDoiMoiXa"
+      ],
+      "formulas": {
+        "tongCayMoiXa": "cayBinhVuongMoiXa + cayDoiMoiXa",
+        "tongCayBinhVuong": "soXa * cayBinhVuongMoiXa",
+        "tongCayDoi": "soXa * cayDoiMoiXa",
+        "ans": "soXa * (cayBinhVuongMoiXa + cayDoiMoiXa)",
+        "w1": "soXa + cayBinhVuongMoiXa + cayDoiMoiXa",
+        "w2": "cayBinhVuongMoiXa + cayDoiMoiXa",
+        "w3": "soXa * cayBinhVuongMoiXa + cayDoiMoiXa"
+      },
+      "questionText": "Một dự án trồng rừng được triển khai ở {soXa} xã. Mỗi xã dự kiến trồng {cayBinhVuongMoiXa} cây bình vôi và {cayDoiMoiXa} cây đồi. Hỏi tổng cộng dự án sẽ trồng bao nhiêu cây ở tất cả các xã?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {w3} cây",
+        "D. {ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng số cây dự kiến trồng ở mỗi xã trước.",
+        "Sau đó, nhân tổng số cây đó với số xã tham gia dự án."
+      ],
+      "solutionHtml": "Để tính tổng số cây dự án sẽ trồng, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số cây trồng ở mỗi xã, rồi nhân với số xã.<br/>Tổng số cây trồng ở mỗi xã là: $ {cayBinhVuongMoiXa} + {cayDoiMoiXa} = {tongCayMoiXa} $ (cây).<br/>Tổng số cây dự án sẽ trồng là: $ {soXa} \\times {tongCayMoiXa} = {ans} $ (cây).<br/><br/>Cách 2: Tính riêng tổng số cây bình vôi và tổng số cây đồi sẽ trồng ở tất cả các xã, rồi cộng lại.<br/>Tổng số cây bình vôi là: $ {soXa} \\times {cayBinhVuongMoiXa} = {tongCayBinhVuong} $ (cây).<br/>Tổng số cây đồi là: $ {soXa} \\times {cayDoiMoiXa} = {tongCayDoi} $ (cây).<br/>Tổng số cây dự án sẽ trồng là: $ {tongCayBinhVuong} + {tongCayDoi} = {ans} $ (cây).<br/>Vậy, tổng cộng dự án sẽ trồng $ {ans} $ cây.<br/>Đáp án đúng là D.",
+      "tip": "Tính chất phân phối giúp chúng ta quy về một phép nhân chung, đặc biệt hữu ích khi các đối tượng khác nhau nhưng có cùng một số lần lặp lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soHop": {
+          "min": 12,
+          "max": 25,
+          "step": 1
+        },
+        "bongDoMoiHop": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "bongXanhMoiHop": {
+          "min": 15,
+          "max": 35,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "bongDoMoiHop !== bongXanhMoiHop"
+      ],
+      "formulas": {
+        "tongBongMoiHop": "bongDoMoiHop + bongXanhMoiHop",
+        "tongBongDo": "soHop * bongDoMoiHop",
+        "tongBongXanh": "soHop * bongXanhMoiHop",
+        "ans": "soHop * (bongDoMoiHop + bongXanhMoiHop)",
+        "w1": "soHop + bongDoMoiHop + bongXanhMoiHop",
+        "w2": "bongDoMoiHop + bongXanhMoiHop",
+        "w3": "soHop * bongDoMoiHop + bongXanhMoiHop"
+      },
+      "questionText": "Trong một kho hàng có {soHop} hộp đồ chơi. Mỗi hộp chứa {bongDoMoiHop} quả bóng màu đỏ và {bongXanhMoiHop} quả bóng màu xanh. Hỏi tổng số quả bóng có trong kho hàng là bao nhiêu?",
+      "options": [
+        "A. {ans} quả bóng",
+        "B. {w1} quả bóng",
+        "C. {w2} quả bóng",
+        "D. {w3} quả bóng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng số quả bóng (cả đỏ và xanh) trong mỗi hộp trước.",
+        "Sau đó, nhân tổng đó với số hộp."
+      ],
+      "solutionHtml": "Để tính tổng số quả bóng trong kho hàng, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số quả bóng trong mỗi hộp, rồi nhân với số hộp.<br/>Tổng số quả bóng trong mỗi hộp là: $ {bongDoMoiHop} + {bongXanhMoiHop} = {tongBongMoiHop} $ (quả).<br/>Tổng số quả bóng trong kho hàng là: $ {soHop} \\times {tongBongMoiHop} = {ans} $ (quả).<br/><br/>Cách 2: Tính riêng tổng số quả bóng đỏ và tổng số quả bóng xanh của tất cả các hộp, rồi cộng lại.<br/>Tổng số quả bóng đỏ là: $ {soHop} \\times {bongDoMoiHop} = {tongBongDo} $ (quả).<br/>Tổng số quả bóng xanh là: $ {soHop} \\times {bongXanhMoiHop} = {tongBongXanh} $ (quả).<br/>Tổng số quả bóng trong kho hàng là: $ {tongBongDo} + {tongBongXanh} = {ans} $ (quả).<br/>Vậy, tổng số quả bóng có trong kho hàng là $ {ans} $ quả bóng.<br/>Đáp án đúng là A.",
+      "tip": "Tính chất phân phối giúp học sinh nhận diện và giải quyết các bài toán có cấu trúc tương tự nhau một cách hiệu quả, bằng cách tìm ra thừa số chung và nhóm các số hạng còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soHang": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "soCayHoaCucMoiHang": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "soCayHoaHongMoiHang": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "soCayHoaCucMoiHang > soCayHoaHongMoiHang"
+      ],
+      "formulas": {
+        "tongCayMoiHang": "soCayHoaCucMoiHang + soCayHoaHongMoiHang",
+        "tongCayHoaCuc": "soHang * soCayHoaCucMoiHang",
+        "tongCayHoaHong": "soHang * soCayHoaHongMoiHang",
+        "ans": "soHang * (soCayHoaCucMoiHang + soCayHoaHongMoiHang)",
+        "w1": "soHang + soCayHoaCucMoiHang + soCayHoaHongMoiHang",
+        "w2": "soCayHoaCucMoiHang + soCayHoaHongMoiHang",
+        "w3": "soHang * soCayHoaCucMoiHang + soCayHoaHongMoiHang"
+      },
+      "questionText": "Trong một vườn hoa, người ta trồng {soHang} hàng hoa. Mỗi hàng có {soCayHoaCucMoiHang} cây hoa cúc và {soCayHoaHongMoiHang} cây hoa hồng. Hỏi tổng số cây hoa có trong vườn là bao nhiêu?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số cây hoa trong mỗi hàng trước.",
+        "Sau đó, nhân tổng số cây đó với số hàng."
+      ],
+      "solutionHtml": "Để tính tổng số cây hoa trong vườn, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số cây hoa trong mỗi hàng, rồi nhân với số hàng.<br/>Tổng số cây hoa trong mỗi hàng là: $ {soCayHoaCucMoiHang} + {soCayHoaHongMoiHang} = {tongCayMoiHang} $ (cây).<br/>Tổng số cây hoa trong vườn là: $ {soHang} \\times {tongCayMoiHang} = {ans} $ (cây).<br/><br/>Cách 2: Tính riêng tổng số cây hoa cúc và tổng số cây hoa hồng của tất cả các hàng, rồi cộng lại.<br/>Tổng số cây hoa cúc là: $ {soHang} \\times {soCayHoaCucMoiHang} = {tongCayHoaCuc} $ (cây).<br/>Tổng số cây hoa hồng là: $ {soHang} \\times {soCayHoaHongMoiHang} = {tongCayHoaHong} $ (cây).<br/>Tổng số cây hoa trong vườn là: $ {tongCayHoaCuc} + {tongCayHoaHong} = {ans} $ (cây).<br/>Vậy, tổng số cây hoa có trong vườn là $ {ans} $ cây.<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến các yếu tố chung trong bài toán. Trong trường hợp này, 'số hàng' là yếu tố chung để nhân với tổng số cây trong mỗi hàng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soDia": {
+          "min": 8,
+          "max": 18,
+          "step": 1
+        },
+        "banhNgotMoiDia": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "banhManMoiDia": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "banhNgotMoiDia > banhManMoiDia"
+      ],
+      "formulas": {
+        "tongBanhMoiDia": "banhNgotMoiDia + banhManMoiDia",
+        "tongBanhNgot": "soDia * banhNgotMoiDia",
+        "tongBanhMan": "soDia * banhManMoiDia",
+        "ans": "soDia * (banhNgotMoiDia + banhManMoiDia)",
+        "w1": "soDia + banhNgotMoiDia + banhManMoiDia",
+        "w2": "banhNgotMoiDia + banhManMoiDia",
+        "w3": "soDia * banhNgotMoiDia + banhManMoiDia"
+      },
+      "questionText": "Trong một bữa tiệc, người ta bày ra {soDia} đĩa bánh. Mỗi đĩa có {banhNgotMoiDia} chiếc bánh ngọt và {banhManMoiDia} chiếc bánh mặn. Hỏi tổng số chiếc bánh có trong bữa tiệc là bao nhiêu?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số chiếc bánh (cả ngọt và mặn) trong mỗi đĩa trước.",
+        "Sau đó, nhân tổng đó với số đĩa."
+      ],
+      "solutionHtml": "Để tính tổng số chiếc bánh trong bữa tiệc, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số chiếc bánh trong mỗi đĩa, rồi nhân với số đĩa.<br/>Tổng số chiếc bánh trong mỗi đĩa là: $ {banhNgotMoiDia} + {banhManMoiDia} = {tongBanhMoiDia} $ (chiếc).<br/>Tổng số chiếc bánh trong bữa tiệc là: $ {soDia} \\times {tongBanhMoiDia} = {ans} $ (chiếc).<br/><br/>Cách 2: Tính riêng tổng số chiếc bánh ngọt và tổng số chiếc bánh mặn của tất cả các đĩa, rồi cộng lại.<br/>Tổng số chiếc bánh ngọt là: $ {soDia} \\times {banhNgotMoiDia} = {tongBanhNgot} $ (chiếc).<br/>Tổng số chiếc bánh mặn là: $ {soDia} \\times {banhManMoiDia} = {tongBanhMan} $ (chiếc).<br/>Tổng số chiếc bánh trong bữa tiệc là: $ {tongBanhNgot} + {tongBanhMan} = {ans} $ (chiếc).<br/>Vậy, tổng số chiếc bánh có trong bữa tiệc là $ {ans} $ chiếc.<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán yêu cầu tính tổng của nhiều loại đối tượng được phân bố đều trong các nhóm, việc áp dụng tính chất phân phối sẽ rất hiệu quả. Bạn có thể tính tổng các đối tượng trong một nhóm rồi nhân với số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d12"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soHopButChi": {
+          "min": 7,
+          "max": 15,
+          "step": 1
+        },
+        "soButChiMauXanhMoiHop": {
+          "min": 6,
+          "max": 12,
+          "step": 1
+        },
+        "soButChiMauDoMoiHop": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "soButChiMauXanhMoiHop !== soButChiMauDoMoiHop"
+      ],
+      "formulas": {
+        "tongButChiMoiHop": "soButChiMauXanhMoiHop + soButChiMauDoMoiHop",
+        "tongButChiXanh": "soHopButChi * soButChiMauXanhMoiHop",
+        "tongButChiDo": "soHopButChi * soButChiMauDoMoiHop",
+        "ans": "soHopButChi * (soButChiMauXanhMoiHop + soButChiMauDoMoiHop)",
+        "w1": "soHopButChi + soButChiMauXanhMoiHop + soButChiMauDoMoiHop",
+        "w2": "soButChiMauXanhMoiHop + soButChiMauDoMoiHop",
+        "w3": "soHopButChi * soButChiMauXanhMoiHop + soButChiMauDoMoiHop"
+      },
+      "questionText": "Một cửa hàng văn phòng phẩm có {soHopButChi} hộp bút chì màu. Mỗi hộp có {soButChiMauXanhMoiHop} chiếc bút chì màu xanh và {soButChiMauDoMoiHop} chiếc bút chì màu đỏ. Hỏi tổng số chiếc bút chì màu có trong cửa hàng là bao nhiêu?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {w3} chiếc",
+        "D. {ans} chiếc"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng số chiếc bút chì màu (cả xanh và đỏ) trong mỗi hộp trước.",
+        "Sau đó, nhân tổng đó với số hộp bút chì."
+      ],
+      "solutionHtml": "Để tính tổng số chiếc bút chì màu trong cửa hàng, ta có thể áp dụng tính chất phân phối của phép nhân đối với phép cộng:<br/>Cách 1: Tính tổng số chiếc bút chì màu trong mỗi hộp, rồi nhân với số hộp.<br/>Tổng số chiếc bút chì màu trong mỗi hộp là: $ {soButChiMauXanhMoiHop} + {soButChiMauDoMoiHop} = {tongButChiMoiHop} $ (chiếc).<br/>Tổng số chiếc bút chì màu trong cửa hàng là: $ {soHopButChi} \\times {tongButChiMoiHop} = {ans} $ (chiếc).<br/><br/>Cách 2: Tính riêng tổng số chiếc bút chì màu xanh và tổng số chiếc bút chì màu đỏ của tất cả các hộp, rồi cộng lại.<br/>Tổng số chiếc bút chì màu xanh là: $ {soHopButChi} \\times {soButChiMauXanhMoiHop} = {tongButChiXanh} $ (chiếc).<br/>Tổng số chiếc bút chì màu đỏ là: $ {soHopButChi} \\times {soButChiMauDoMoiHop} = {tongButChiDo} $ (chiếc).<br/>Tổng số chiếc bút chì màu trong cửa hàng là: $ {tongButChiXanh} + {tongButChiDo} = {ans} $ (chiếc).<br/>Vậy, tổng số chiếc bút chì màu có trong cửa hàng là $ {ans} $ chiếc.<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân có tính chất phân phối với phép cộng nghĩa là bạn có thể 'phân phát' phép nhân cho từng số hạng trong tổng. Điều này giúp tính toán hiệu quả hơn trong nhiều bài toán thực tế.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-42-d13"
+    }
+  ]
+}

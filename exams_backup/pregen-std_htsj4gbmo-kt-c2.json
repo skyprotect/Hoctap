@@ -1,0 +1,560 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "plane_alt": {
+          "min": 3000,
+          "max": 10000,
+          "step": 100
+        },
+        "sub_depth": {
+          "min": 100,
+          "max": 1000,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "plane_alt > 0",
+        "sub_depth > 0"
+      ],
+      "formulas": {
+        "ans": "plane_alt + sub_depth",
+        "w1": "Math.abs(plane_alt - sub_depth)",
+        "w2": "plane_alt",
+        "w3": "sub_depth"
+      },
+      "questionText": "Một máy bay đang bay ở độ cao {plane_alt} mét so với mực nước biển. Cùng lúc đó, một tàu ngầm đang lặn ở độ sâu {sub_depth} mét so với mực nước biển. Hỏi khoảng cách theo phương thẳng đứng giữa máy bay và tàu ngầm là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy hình dung mực nước biển là mốc 0. Máy bay ở trên mực nước biển, tàu ngầm ở dưới mực nước biển.",
+        "Để tính khoảng cách tổng cộng, bạn cần cộng độ cao của máy bay và độ sâu của tàu ngầm."
+      ],
+      "solutionHtml": "Để tìm khoảng cách theo phương thẳng đứng giữa máy bay và tàu ngầm, ta cần tính tổng độ cao của máy bay so với mực nước biển và độ sâu của tàu ngầm so với mực nước biển.<br/>Độ cao của máy bay là {plane_alt} mét.<br/>Độ sâu của tàu ngầm là {sub_depth} mét.<br/>Khoảng cách theo phương thẳng đứng = \\${plane_alt} + {sub_depth} = {ans}\\$ mét.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán về độ cao/độ sâu, mực nước biển thường được coi là mốc 0. Khoảng cách giữa hai điểm ở hai phía của mốc 0 sẽ là tổng các khoảng cách từ mỗi điểm đến mốc 0.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "day2": {
+          "min": 7,
+          "max": 10,
+          "step": 1
+        },
+        "day3": {
+          "min": 11,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "day1 !== day2",
+        "day2 !== day3",
+        "day1 !== day3"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm_val": "lcm(lcm(day1, day2), day3)",
+        "ans": "lcm_val",
+        "w2": "(lcm(day1, day2) === ans) ? ans - 2 : (lcm(day1, day2))",
+        "w1": "(day1 + day2 + day3 === ans || day1 + day2 + day3 === w2) ? ans - 3 : (day1 + day2 + day3)",
+        "w3": "(day1 * day2 * day3 === ans || day1 * day2 * day3 === w1 || day1 * day2 * day3 === w2) ? ans + 5 : (day1 * day2 * day3)"
+      },
+      "questionText": "Ba bạn An, Bình và Cường cùng đến thư viện vào một ngày. An đến thư viện sau mỗi {day1} ngày, Bình đến sau mỗi {day2} ngày, và Cường đến sau mỗi {day3} ngày. Hỏi sau bao nhiêu ngày nữa thì cả ba bạn lại cùng gặp nhau ở thư viện lần tiếp theo?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {w2} ngày",
+        "C. {ans} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bài toán này yêu cầu tìm một số ngày mà là bội của cả \\${day1}\\$, \\${day2}\\$ và \\${day3}\\$.",
+        "Bạn cần tìm Bội chung nhỏ nhất (BCNN) của các số \\${day1}\\$, \\${day2}\\$ và \\${day3}\\$."
+      ],
+      "solutionHtml": "Để tìm số ngày mà cả ba bạn An, Bình và Cường cùng gặp nhau ở thư viện lần tiếp theo, chúng ta cần tìm Bội chung nhỏ nhất (BCNN) của số ngày mà mỗi bạn ghé thăm.<br/>Số ngày An ghé thăm là {day1} ngày.<br/>Số ngày Bình ghé thăm là {day2} ngày.<br/>Số ngày Cường ghé thăm là {day3} ngày.<br/>Tính BCNN của \\${day1}\\$, \\${day2}\\$, \\${day3}\\$:<br/>BCNN(\\${day1}\\$, \\${day2}\\$, \\${day3}\\$) = \\${lcm_val}\\$.<br/>Vậy, sau \\${ans}\\$ ngày nữa thì cả ba bạn lại cùng gặp nhau ở thư viện.<br/>Đáp án đúng là C.",
+      "tip": "Khi giải các bài toán về các sự kiện lặp lại và cùng xảy ra một lúc, hãy nghĩ đến việc sử dụng Bội chung nhỏ nhất (BCNN).",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_boys": {
+          "min": 24,
+          "max": 48,
+          "step": 4
+        },
+        "num_girls": {
+          "min": 18,
+          "max": 36,
+          "step": 3
+        }
+      },
+      "constraints": [
+        "num_boys > 0",
+        "num_girls > 0",
+        "gcd(num_boys, num_girls) > 1"
+      ],
+      "formulas": {
+        "ans": "gcd(num_boys, num_girls)",
+        "boys_per_group": "num_boys / ans",
+        "girls_per_group": "num_girls / ans",
+        "w1": "num_boys + num_girls",
+        "w2": "Math.floor(num_boys / 2)",
+        "w3": "Math.floor(num_girls / 2)"
+      },
+      "questionText": "Lớp 6A có {num_boys} bạn nam và {num_girls} bạn nữ. Cô giáo muốn chia lớp thành các nhóm sao cho mỗi nhóm có số lượng bạn nam như nhau và số lượng bạn nữ như nhau. Hỏi cô giáo có thể chia được nhiều nhất bao nhiêu nhóm? Khi đó, mỗi nhóm có bao nhiêu bạn nam và bao nhiêu bạn nữ?",
+      "options": [
+        "A. {w1} nhóm. Mỗi nhóm có {num_boys} nam, {num_girls} nữ.",
+        "B. {ans} nhóm. Mỗi nhóm có {boys_per_group} nam, {girls_per_group} nữ.",
+        "C. {w2} nhóm. Mỗi nhóm có ${num_boys / w2}$ nam, ${num_girls / w2}$ nữ.",
+        "D. ${ans + 1}$ nhóm. Mỗi nhóm có ${num_boys / (ans+1)}$ nam, ${num_girls / (ans+1)}$ nữ."
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để chia thành số nhóm nhiều nhất mà mỗi nhóm đều có số nam như nhau và số nữ như nhau, số nhóm phải là ước chung của cả số nam và số nữ.",
+        "Bạn cần tìm Ước chung lớn nhất (UCLN) của \\${num_boys}\\$ và \\${num_girls}\\$."
+      ],
+      "solutionHtml": "Để cô giáo có thể chia được nhiều nhất số nhóm mà mỗi nhóm đều có số bạn nam và số bạn nữ như nhau, số nhóm phải là Ước chung lớn nhất (UCLN) của tổng số bạn nam và tổng số bạn nữ.<br/>Số bạn nam là {num_boys}.<br/>Số bạn nữ là {num_girls}.<br/>Số nhóm nhiều nhất có thể chia là UCLN(\\${num_boys}\\$, \\${num_girls}\\$) = \\${ans}\\$ nhóm.<br/>Khi đó, mỗi nhóm sẽ có số bạn nam là \\${num_boys} \\div {ans} = {boys_per_group}\\ bạn nam.<br/>Và mỗi nhóm sẽ có số bạn nữ là \\${num_girls} \\div {ans} = {girls_per_group}\\ bạn nữ.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu 'chia đều', 'ghép thành từng phần bằng nhau' hoặc 'số lượng lớn nhất', hãy nghĩ đến việc sử dụng Ước chung lớn nhất (UCLN).",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "min_val": {
+          "min": 100,
+          "max": 200,
+          "step": 5
+        },
+        "max_val": {
+          "min": 400,
+          "max": 500,
+          "step": 5
+        },
+        "d1": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        },
+        "d2": {
+          "min": 10,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 > 1",
+        "d2 > 1",
+        "((a, b) => { while (b) { [a, b] = [b, a % b]; } return a; })(d1, d2) !== Math.max(d1, d2)",
+        "((gcd) => { let l = (d1 * d2) / gcd(d1, d2); let k = Math.floor(min_val / l); let candidate = (k * l); if (candidate <= min_val) candidate += l; return candidate <= max_val; })( (a, b) => { while (b) { [a, b] = [b, a % b]; } return a; })"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "lcm_val": "(d1 * d2) / gcd(d1, d2)",
+        "ans_candidate_initial": "Math.floor(min_val / lcm_val) * lcm_val",
+        "ans_val": "ans_candidate_initial <= min_val ? ans_candidate_initial + lcm_val : ans_candidate_initial",
+        "ans": "ans_val",
+        "w1": "ans_val + lcm_val",
+        "w2": "ans_val - lcm_val",
+        "w3": "(min_val + d1 + d2 === ans || min_val + d1 + d2 === ans + lcm_val || min_val + d1 + d2 === ans - lcm_val) ? ans + 5 : (min_val + d1 + d2)"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất có ba chữ số, biết rằng số đó lớn hơn {min_val} và không vượt quá {max_val}, đồng thời chia hết cho cả {d1} và {d2}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số cần tìm phải là bội chung của \\${d1}\\$ và \\${d2}\\$.",
+        "Hãy tìm Bội chung nhỏ nhất (BCNN) của \\${d1}\\$ và \\${d2}\\$, sau đó tìm bội của BCNN đó trong khoảng cho trước."
+      ],
+      "solutionHtml": "Số tự nhiên cần tìm phải chia hết cho cả \\${d1}\\$ và \\${d2}\\$, vậy nó phải là bội chung của \\${d1}\\$ và \\${d2}\\$.<br/>Bước 1: Tìm Bội chung nhỏ nhất (BCNN) của \\${d1}\\$ và \\${d2}\\$.<br/>UCLN(\\${d1}\\$, \\${d2}\\$) = \\${gcd}({d1}, {d2})\\$.<br/>BCNN(\\${d1}\\$, \\${d2}\\$) = \\$ \\frac{{d1} \\times {d2}}{UCLN({d1}, {d2})} \\$ = \\${lcm_val}\\$.<br/>Bước 2: Tìm bội của \\${lcm_val}\\$ nằm trong khoảng (\\${min_val}\\$, \\${max_val}\\$].<br/>Bội của \\${lcm_val}\\$ nhỏ nhất lớn hơn \\${min_val}\\$ là: \\${ans}\\$.<br/>Kiểm tra: \\${ans}\\$ thỏa mãn \\${min_val} < {ans} \\le {max_val}\\$.<br/>Số tự nhiên nhỏ nhất thỏa mãn các điều kiện là \\${ans}\\$.<br/>Đáp án đúng là B.",
+      "tip": "Khi tìm số thỏa mãn nhiều điều kiện chia hết, hãy tìm BCNN của các số chia. Sau đó, dựa vào BCNN và khoảng giá trị để xác định số cần tìm.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_temp": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "decrease_rate": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "hours_decrease": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "increase_rate": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "hours_increase": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "temp_after_decrease": "initial_temp - (decrease_rate * hours_decrease)",
+        "ans": "temp_after_decrease + (increase_rate * hours_increase)",
+        "w1": "(((initial_temp + (decrease_rate * hours_decrease) - (increase_rate * hours_increase)) === (temp_after_decrease + (increase_rate * hours_increase))) || ((initial_temp + (decrease_rate * hours_decrease) - (increase_rate * hours_increase)) === (initial_temp - (decrease_rate * hours_decrease)))) ? (temp_after_decrease + (increase_rate * hours_increase)) + 5 : (initial_temp + (decrease_rate * hours_decrease) - (increase_rate * hours_increase))",
+        "w2": "((initial_temp - decrease_rate + increase_rate) === (temp_after_decrease + (increase_rate * hours_increase)) || (initial_temp - decrease_rate + increase_rate) === (initial_temp + (decrease_rate * hours_decrease) - (increase_rate * hours_increase))) ? (temp_after_decrease + (increase_rate * hours_increase)) - 5 : (initial_temp - decrease_rate + increase_rate)",
+        "w3": "((initial_temp - (decrease_rate * hours_decrease)) === (temp_after_decrease + (increase_rate * hours_increase))) ? (temp_after_decrease + (increase_rate * hours_increase)) - 10 : (initial_temp - (decrease_rate * hours_decrease))"
+      },
+      "questionText": "Vào một buổi sáng, nhiệt độ tại Sa Pa là {initial_temp}°C$. Buổi trưa, nhiệt độ giảm {decrease_rate}°C$ mỗi giờ trong {hours_decrease} giờ. Đến buổi chiều, nhiệt độ tăng {increase_rate}°C$ mỗi giờ trong {hours_increase} giờ. Hỏi nhiệt độ cuối cùng vào buổi chiều là bao nhiêu?",
+      "options": [
+        "A. {w1}°C",
+        "B. {ans}°C",
+        "C. {w2}°C",
+        "D. {w3}°C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính sự thay đổi nhiệt độ trong buổi trưa trước, sau đó tính sự thay đổi nhiệt độ trong buổi chiều.",
+        "Nhiệt độ giảm là phép trừ, nhiệt độ tăng là phép cộng."
+      ],
+      "solutionHtml": "Nhiệt độ ban đầu là {initial_temp}°C.<br/>Trong buổi trưa, nhiệt độ giảm {decrease_rate}°C$ mỗi giờ trong {hours_decrease} giờ. <br/>Tổng số độ giảm là: \\${decrease_rate} \\times {hours_decrease} = ${decrease_rate * hours_decrease}\\$°C.<br/>Nhiệt độ sau khi giảm là: \\${initial_temp} - ${decrease_rate * hours_decrease} = {temp_after_decrease}\\$°C.<br/>Trong buổi chiều, nhiệt độ tăng {increase_rate}°C$ mỗi giờ trong {hours_increase} giờ.<br/>Tổng số độ tăng là: \\${increase_rate} \\times {hours_increase} = ${increase_rate * hours_increase}\\$°C.<br/>Nhiệt độ cuối cùng vào buổi chiều là: \\${temp_after_decrease} + ${increase_rate * hours_increase} = {ans}\\$°C.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đúng các phép tính (cộng, trừ) và thứ tự thực hiện. Lưu ý dấu của số nguyên trong trường hợp nhiệt độ có thể âm.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "min_limit": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "max_limit": {
+          "min": 200,
+          "max": 300,
+          "step": 5
+        },
+        "divisor": {
+          "min": 7,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "min_limit < max_limit",
+        "divisor > 1",
+        "(Math.floor(max_limit / divisor) - Math.floor((min_limit - 1) / divisor)) > 2"
+      ],
+      "formulas": {
+        "ans": "Math.floor(max_limit / divisor) - Math.floor((min_limit - 1) / divisor)",
+        "w1": "(Math.floor(max_limit / divisor) - Math.floor(min_limit / divisor) === (Math.floor(max_limit / divisor) - Math.floor((min_limit - 1) / divisor))) ? (Math.floor(max_limit / divisor) - Math.floor((min_limit - 1) / divisor)) - 2 : ((Math.floor(max_limit / divisor) - Math.floor(min_limit / divisor) === ((Math.floor(max_limit / divisor) - Math.floor((min_limit - 1) / divisor)) - 1)) ? (Math.floor(max_limit / divisor) - Math.floor((min_limit - 1) / divisor)) + 2 : (Math.floor(max_limit / divisor) - Math.floor(min_limit / divisor)))",
+        "w2": "ans + 1",
+        "w3": "ans - 1"
+      },
+      "questionText": "Có bao nhiêu số tự nhiên lớn hơn {min_limit} và không vượt quá {max_limit} chia hết cho {divisor}?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Các số tự nhiên lớn hơn \\${min_limit}\\$ và không vượt quá \\${max_limit}\\$ nằm trong khoảng (\\${min_limit}\\$, \\${max_limit}\\$].",
+        "Để đếm các số chia hết cho \\${divisor}\\$ trong một khoảng, bạn có thể tìm số lớn nhất và số nhỏ nhất trong khoảng đó chia hết cho \\${divisor}\\$."
+      ],
+      "solutionHtml": "Các số tự nhiên cần tìm nằm trong khoảng (\\${min_limit}\\$, \\${max_limit}\\$]. Tức là các số \\$x\\$ thỏa mãn \\${min_limit} < x \\le {max_limit}\\$.<br/>Số lượng các số chia hết cho \\${divisor}\\$ trong khoảng từ 1 đến \\$N\\$ là \\$ \\lfloor N / {divisor} \\rfloor \\$ .<br/>Số lượng các số tự nhiên lớn hơn \\${min_limit}\\$ và không vượt quá \\${max_limit}\\$ chia hết cho \\${divisor}\\$ là: <br/>\\$ \\lfloor {max_limit} / {divisor} \\rfloor - \\lfloor ({min_limit} - 1) / {divisor} \\rfloor \\$<br/>= \\$${Math.floor(max_limit / divisor)} - ${Math.floor((min_limit - 1) / divisor)} = {ans}\\$ số.<br/>Đáp án đúng là B.",
+      "tip": "Khi đếm số lượng các số trong một khoảng thỏa mãn điều kiện chia hết, hãy cẩn thận với cận trên và cận dưới của khoảng (bao gồm hay không bao gồm). Công thức $\\lfloor N/d \\rfloor - \\lfloor (M-1)/d \\rfloor$ sẽ đếm số lượng bội của $d$ trong khoảng $[M, N]$.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "d2": {
+          "min": 10,
+          "max": 14,
+          "step": 1
+        },
+        "remainder": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 > remainder",
+        "d2 > remainder",
+        "d1 !== d2",
+        "((a, b) => { while (b) { [a, b] = [b, a % b]; } return a; })(d1, d2) === 1"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "lcm_val": "(d1 * d2) / gcd(d1, d2)",
+        "ans": "lcm_val + remainder",
+        "w1": "lcm_val - remainder",
+        "w2": "(d1 * d2 + remainder === ans) ? ans + lcm_val : (d1 * d2 + remainder)",
+        "w3": "lcm_val"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất khác 0, biết rằng khi chia số đó cho {d1} thì dư {remainder}, và khi chia số đó cho {d2} cũng dư {remainder}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu một số khi chia cho \\${d1}\\$ dư \\${remainder}\\$ và chia cho \\${d2}\\$ cũng dư \\${remainder}\\$, thì khi lấy số đó trừ đi \\${remainder}\\$, kết quả sẽ chia hết cho cả \\${d1}\\$ và \\${d2}\\$.",
+        "Số nhỏ nhất chia hết cho cả \\${d1}\\$ và \\${d2}\\$ là Bội chung nhỏ nhất (BCNN) của chúng."
+      ],
+      "solutionHtml": "Gọi số tự nhiên cần tìm là \\$N\\$.<br/>Theo đề bài, khi chia \\$N\\$ cho \\${d1}\\$ thì dư \\${remainder}\\$, nghĩa là \\$N = k \\times {d1} + {remainder}\\$ với \\$k\\$ là số tự nhiên.<br/>Khi chia \\$N\\$ cho \\${d2}\\$ cũng dư \\${remainder}\\$, nghĩa là \\$N = m \\times {d2} + {remainder}\\$ với \\$m\\$ là số tự nhiên.<br/>Từ đó suy ra, \\$N - {remainder}\\$ phải là một số chia hết cho cả \\${d1}\\$ và \\${d2}\\$.<br/>Để \\$N\\$ là số tự nhiên nhỏ nhất khác 0, thì \\$N - {remainder}\\$ phải là Bội chung nhỏ nhất (BCNN) của \\${d1}\\$ và \\${d2}\\$.<br/>Bước 1: Tìm BCNN của \\${d1}\\$ và \\${d2}\\$.<br/>UCLN(\\${d1}\\$, \\${d2}\\$) = \\${gcd}({d1}, {d2})\\$.<br/>BCNN(\\${d1}\\$, \\${d2}\\$) = \\$ \\frac{{d1} \\times {d2}}{UCLN({d1}, {d2})} \\$ = \\${lcm_val}\\$.<br/>Bước 2: Tìm \\$N\\$.<br/>Ta có \\$N - {remainder} = {lcm_val}\\$.<br/>\\$N = {lcm_val} + {remainder} = {ans}\\$.<br/>Đáp án đúng là B.",
+      "tip": "Dạng bài 'chia cho $a$ dư $r$, chia cho $b$ cũng dư $r$' thường có lời giải là BCNN($a, b$) + $r$. Hãy luôn kiểm tra lại điều kiện 'nhỏ nhất khác 0'.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_students": {
+          "min": 60,
+          "max": 100,
+          "step": 5
+        },
+        "math_lovers": {
+          "min": 30,
+          "max": 45,
+          "step": 1
+        },
+        "phys_lovers": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        },
+        "both_lovers": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "both_lovers <= math_lovers",
+        "both_lovers <= phys_lovers",
+        "math_lovers + phys_lovers - both_lovers <= total_students",
+        "total_students - (math_lovers + phys_lovers - both_lovers) > 0"
+      ],
+      "formulas": {
+        "likes_at_least_one": "math_lovers + phys_lovers - both_lovers",
+        "ans": "total_students - likes_at_least_one",
+        "w1": "((total_students - math_lovers - phys_lovers) === likes_at_least_one || (total_students - math_lovers - phys_lovers) === (total_students - likes_at_least_one)) ? (total_students - math_lovers - phys_lovers) - 10 : (total_students - math_lovers - phys_lovers)",
+        "w2": "(likes_at_least_one === (total_students - likes_at_least_one)) ? likes_at_least_one - 5 : likes_at_least_one",
+        "w3": "((total_students - both_lovers) === likes_at_least_one || (total_students - both_lovers) === (total_students - likes_at_least_one) || (total_students - both_lovers) === (total_students - math_lovers - phys_lovers)) ? (total_students - both_lovers) - 8 : (total_students - both_lovers)"
+      },
+      "questionText": "Trong một buổi khảo sát ý kiến về sở thích môn học của {total_students} học sinh khối 6, có {math_lovers} học sinh thích môn Toán, {phys_lovers} học sinh thích môn Vật lí (hoặc Khoa học tự nhiên). Đặc biệt, có {both_lovers} học sinh thích cả hai môn Toán và Vật lí. Hỏi có bao nhiêu học sinh không thích cả môn Toán lẫn môn Vật lí?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tìm tổng số học sinh thích ít nhất một trong hai môn (Toán hoặc Vật lí).",
+        "Sử dụng công thức của nguyên lý bao hàm và loại trừ cho hai tập hợp: \\$|A \\cup B| = |A| + |B| - |A \\cap B|\\$."
+      ],
+      "solutionHtml": "Tổng số học sinh được khảo sát là {total_students} học sinh.<br/>Số học sinh thích môn Toán là {math_lovers}.<br/>Số học sinh thích môn Vật lí là {phys_lovers}.<br/>Số học sinh thích cả hai môn Toán và Vật lí là {both_lovers}.<br/>Số học sinh thích ít nhất một trong hai môn (Toán hoặc Vật lí) là:<br/>Số học sinh thích Toán + Số học sinh thích Vật lí - Số học sinh thích cả hai môn<br/>= \\${math_lovers} + {phys_lovers} - {both_lovers} = {likes_at_least_one}\\ học sinh.<br/>Số học sinh không thích cả môn Toán lẫn môn Vật lí là:<br/>Tổng số học sinh - Số học sinh thích ít nhất một môn<br/>= \\${total_students} - {likes_at_least_one} = {ans}\\ học sinh.<br/>Đáp án đúng là B.",
+      "tip": "Trong các bài toán về tập hợp có sự chồng chéo, đừng quên trừ đi phần giao nhau (các học sinh thích cả hai) khi tính tổng số học sinh thích ít nhất một môn để tránh bị đếm hai lần.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "length": {
+          "min": 36,
+          "max": 72,
+          "step": 12
+        },
+        "width": {
+          "min": 24,
+          "max": 60,
+          "step": 12
+        }
+      },
+      "constraints": [
+        "length > 0",
+        "width > 0",
+        "length !== width",
+        "((a, b) => { while (b) { [a, b] = [b, a % b]; } return a; })(length, width) > 1"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "side_length": "({gcd}(length, width))",
+        "ans": "(length / side_length) * (width / side_length)",
+        "w1": "length * width",
+        "w2": "length + width",
+        "w3": "side_length * side_length"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {length} mét và chiều rộng {width} mét. Người ta muốn chia mảnh vườn này thành các ô đất hình vuông nhỏ bằng nhau để trồng rau, sao cho không còn phần đất thừa. Hỏi có thể chia được nhiều nhất bao nhiêu ô vuông như vậy?",
+      "options": [
+        "A. {w1} ô vuông",
+        "B. {ans} ô vuông",
+        "C. {w2} ô vuông",
+        "D. {w3} ô vuông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để chia mảnh vườn thành các ô vuông bằng nhau mà không có đất thừa, cạnh của mỗi ô vuông phải là ước chung của cả chiều dài và chiều rộng.",
+        "Để số ô vuông là nhiều nhất, cạnh của mỗi ô vuông phải có độ dài lớn nhất. Điều này có nghĩa là cạnh ô vuông chính là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng.",
+        "Sau khi tìm được cạnh của ô vuông, hãy tính diện tích của mảnh vườn và diện tích của một ô vuông để tìm số ô vuông."
+      ],
+      "solutionHtml": "Để chia mảnh vườn hình chữ nhật thành các ô vuông nhỏ bằng nhau mà không còn phần đất thừa, độ dài cạnh của mỗi ô vuông phải là Ước chung của chiều dài và chiều rộng của mảnh vườn.<br/>Để chia được nhiều nhất số ô vuông, độ dài cạnh của mỗi ô vuông phải là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng.<br/>Chiều dài mảnh vườn là {length} mét.<br/>Chiều rộng mảnh vườn là {width} mét.<br/>Bước 1: Tìm UCLN của \\${length}\\$ và \\${width}\\$.<br/>UCLN(\\${length}\\$, \\${width}\\$) = \\${side_length}\\$ mét. Đây chính là độ dài cạnh của mỗi ô vuông nhỏ.<br/>Bước 2: Tính số ô vuông.<br/>Số ô vuông theo chiều dài là: \\${length} \\div {side_length} = ${length / side_length}\\$ (ô).<br/>Số ô vuông theo chiều rộng là: \\${width} \\div {side_length} = ${width / side_length}\\$ (ô).<br/>Tổng số ô vuông có thể chia được là: \\$(${length / side_length}$) \\times (${width / side_length}$) = {ans}\\$ (ô vuông).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu 'chia thành các hình vuông bằng nhau' hoặc 'kích thước lớn nhất có thể', hãy tìm UCLN. Số lượng hình nhỏ sẽ là kết quả của việc chia tổng diện tích (hoặc số lượng đơn vị) cho diện tích (hoặc số đơn vị) của một hình nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_balance": {
+          "min": 500000,
+          "max": 1000000,
+          "step": 50000
+        },
+        "deposit1": {
+          "min": 100000,
+          "max": 300000,
+          "step": 10000
+        },
+        "withdrawal1": {
+          "min": 50000,
+          "max": 150000,
+          "step": 10000
+        },
+        "deposit2": {
+          "min": 150000,
+          "max": 350000,
+          "step": 10000
+        },
+        "withdrawal2": {
+          "min": 80000,
+          "max": 200000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "initial_balance + deposit1 >= withdrawal1",
+        "initial_balance + deposit1 - withdrawal1 + deposit2 >= withdrawal2"
+      ],
+      "formulas": {
+        "balance_after_d1": "initial_balance + deposit1",
+        "balance_after_w1": "balance_after_d1 - withdrawal1",
+        "balance_after_d2": "balance_after_w1 + deposit2",
+        "ans": "balance_after_d2 - withdrawal2",
+        "w1": "initial_balance + deposit1 + withdrawal1 + deposit2 + withdrawal2",
+        "w2": "initial_balance - deposit1 - withdrawal1 - deposit2 - withdrawal2",
+        "w3": "initial_balance + deposit1 + deposit2"
+      },
+      "questionText": "Một tài khoản ngân hàng của anh Khoa có số dư ban đầu là {initial_balance} đồng. Trong tháng đầu tiên, anh gửi thêm {deposit1} đồng. Tháng thứ hai, anh rút ra {withdrawal1} đồng để chi tiêu. Tháng thứ ba, anh lại gửi thêm {deposit2} đồng. Tháng thứ tư, anh rút thêm {withdrawal2} đồng. Hỏi số dư cuối cùng trong tài khoản của anh Khoa là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính số dư sau mỗi giao dịch (gửi tiền là cộng, rút tiền là trừ).",
+        "Cần tính toán theo thứ tự các giao dịch xảy ra."
+      ],
+      "solutionHtml": "Số dư ban đầu trong tài khoản của anh Khoa là {initial_balance} đồng.<br/>Tháng đầu tiên, anh gửi thêm {deposit1} đồng.<br/>Số dư sau tháng 1 là: \\${initial_balance} + {deposit1} = {balance_after_d1}\\ đồng.<br/>Tháng thứ hai, anh rút ra {withdrawal1} đồng.<br/>Số dư sau tháng 2 là: \\${balance_after_d1} - {withdrawal1} = {balance_after_w1}\\ đồng.<br/>Tháng thứ ba, anh gửi thêm {deposit2} đồng.<br/>Số dư sau tháng 3 là: \\${balance_after_w1} + {deposit2} = {balance_after_d2}\\ đồng.<br/>Tháng thứ tư, anh rút thêm {withdrawal2} đồng.<br/>Số dư cuối cùng trong tài khoản là: \\${balance_after_d2} - {withdrawal2} = {ans}\\ đồng.<br/>Đáp án đúng là B.",
+      "tip": "Các bài toán về giao dịch tài chính yêu cầu sự cẩn thận trong việc cộng, trừ số nguyên và giữ đúng thứ tự các giao dịch. 'Gửi tiền' nghĩa là cộng thêm, 'rút tiền' nghĩa là trừ đi.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initial_pos": {
+          "min": 0,
+          "max": 10,
+          "step": 1
+        },
+        "step_forward": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "num_forward": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "step_backward": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "num_backward": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "pos_after_forward": "initial_pos + (step_forward * num_forward)",
+        "ans": "pos_after_forward - (step_backward * num_backward)",
+        "w1": "((initial_pos + step_forward - step_backward) === (pos_after_forward - (step_backward * num_backward))) ? (pos_after_forward - (step_backward * num_backward)) + 3 : (initial_pos + step_forward - step_backward)",
+        "w2": "initial_pos + (step_forward * num_forward) + (step_backward * num_backward)",
+        "w3": "((initial_pos + (step_backward * num_backward)) === (pos_after_forward - (step_backward * num_backward)) || (initial_pos + (step_backward * num_backward)) === (initial_pos + step_forward - step_backward) || (initial_pos + (step_backward * num_backward)) === (initial_pos + (step_forward * num_forward) + (step_backward * num_backward))) ? (pos_after_forward - (step_backward * num_backward)) - 7 : (initial_pos + (step_backward * num_backward))"
+      },
+      "questionText": "Trên một trục số, một con kiến bắt đầu ở vị trí có tọa độ {initial_pos}. Nó bò tiến {step_forward} đơn vị mỗi lần và bò {num_forward} lần. Sau đó, nó quay đầu và bò lùi {step_backward} đơn vị mỗi lần, bò {num_backward} lần. Hỏi cuối cùng con kiến dừng lại ở vị trí có tọa độ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bò tiến là cộng, bò lùi là trừ. Hãy tính tổng quãng đường tiến và tổng quãng đường lùi.",
+        "Vị trí cuối cùng sẽ bằng vị trí ban đầu cộng với tổng quãng đường tiến, rồi trừ đi tổng quãng đường lùi."
+      ],
+      "solutionHtml": "Vị trí ban đầu của con kiến là {initial_pos}.<br/>Con kiến bò tiến {step_forward} đơn vị mỗi lần, bò {num_forward} lần.<br/>Tổng quãng đường tiến là: \\${step_forward} \\times {num_forward} = ${step_forward * num_forward}\\$ đơn vị.<br/>Vị trí sau khi bò tiến là: \\${initial_pos} + ${step_forward * num_forward} = {pos_after_forward}\\$.<br/>Sau đó, con kiến bò lùi {step_backward} đơn vị mỗi lần, bò {num_backward} lần.<br/>Tổng quãng đường lùi là: \\${step_backward} \\times {num_backward} = ${step_backward * num_backward}\\$ đơn vị.<br/>Vị trí cuối cùng của con kiến là: \\${pos_after_forward} - ${step_backward * num_backward} = {ans}\\$.<br/>Đáp án đúng là B.",
+      "tip": "Khi làm việc với trục số và các dịch chuyển, 'tiến' tương ứng với phép cộng và 'lùi' tương ứng với phép trừ. Luôn theo dõi vị trí hiện tại sau mỗi bước di chuyển.",
+      "level": "chat-luong-cao",
+      "type": "kt-c2-d4"
+    }
+  ]
+}

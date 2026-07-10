@@ -1,0 +1,753 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "fracDay1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fracDay1_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "fracDay2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fracDay2_den": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fracDay1_num / fracDay1_den + fracDay2_num / fracDay2_den < 1",
+        "fracDay1_num !== fracDay1_den",
+        "fracDay2_num !== fracDay2_den",
+        "fracDay1_den % fracDay1_num === 0 ? fracDay1_den / fracDay1_num !== 1 : true",
+        "fracDay2_den % fracDay2_num === 0 ? fracDay2_den / fracDay2_num !== 1 : true"
+      ],
+      "formulas": {
+        "fracDay1_val": "fracDay1_num / fracDay1_den",
+        "fracDay2_val": "fracDay2_num / fracDay2_den",
+        "totalDone": "fracDay1_val + fracDay2_val",
+        "ans_val": "1 - totalDone",
+        "ans_num": "Math.round(ans_val * 1000)",
+        "ans_den": "1000",
+        "w1_val": "totalDone",
+        "w1_num": "Math.round(w1_val * 1000)",
+        "w1_den": "1000",
+        "w2_val": "fracDay1_val - fracDay2_val",
+        "w2_num": "Math.round(w2_val * 1000)",
+        "w2_den": "1000",
+        "gcd": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+        "simplify_num_ans": "ans_num / (this.gcd(ans_num, ans_den))",
+        "simplify_den_ans": "ans_den / (this.gcd(ans_num, ans_den))",
+        "simplify_num_w1": "w1_num / (this.gcd(w1_num, w1_den))",
+        "simplify_den_w1": "w1_den / (this.gcd(w1_num, w1_den))",
+        "simplify_num_w2": "Math.abs(w2_num) / (this.gcd(Math.abs(w2_num), w2_den))",
+        "simplify_den_w2": "w2_den / (this.gcd(Math.abs(w2_num), w2_den))"
+      },
+      "questionText": "Một nhóm tình nguyện thực hiện chuyến đi hỗ trợ vùng sâu vùng xa. Ngày thứ nhất, họ đi được $ \\frac{{fracDay1_num}}{{fracDay1_den}} $ tổng quãng đường. Ngày thứ hai, họ tiếp tục đi thêm $ \\frac{{fracDay2_num}}{{fracDay2_den}} $ tổng quãng đường. Hỏi còn lại bao nhiêu phần của quãng đường mà nhóm tình nguyện chưa đi?",
+      "options": [
+        "A. $ \\frac{{simplify_num_w1}}{{simplify_den_w1}} $",
+        "B. $ \\frac{{simplify_num_ans}}{{simplify_den_ans}} $",
+        "C. $ \\frac{{simplify_num_w2}}{{simplify_den_w2}} $",
+        "D. $ 1 - \\frac{{fracDay1_num}}{{fracDay1_den}} \\times \\frac{{fracDay2_num}}{{fracDay2_den}} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng quãng đường nhóm đã đi được trong hai ngày dưới dạng phân số.",
+        "Để tìm phần quãng đường còn lại, ta lấy $1$ trừ đi tổng quãng đường đã đi."
+      ],
+      "solutionHtml": "Quãng đường nhóm tình nguyện đã đi được trong ngày thứ nhất là $ \\frac{{fracDay1_num}}{{fracDay1_den}} $ tổng quãng đường.<br/>Quãng đường nhóm tình nguyện đã đi được trong ngày thứ hai là $ \\frac{{fracDay2_num}}{{fracDay2_den}} $ tổng quãng đường.<br/><br/>Tổng quãng đường nhóm đã đi được trong cả hai ngày là:<br/>$ \\frac{{fracDay1_num}}{{fracDay1_den}} + \\frac{{fracDay2_num}}{{fracDay2_den}} = {fracDay1_val} + {fracDay2_val} = {totalDone} $<br/><br/>Phần quãng đường còn lại mà nhóm tình nguyện chưa đi là:<br/>$ 1 - {totalDone} = {ans_val} = \\frac{{simplify_num_ans}}{{simplify_den_ans}} $<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng hoặc trừ phân số, cần quy đồng mẫu số. Đảm bảo đọc kỹ đề bài để biết cần tìm tổng quãng đường đã đi hay phần quãng đường còn lại.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "originalPrice": {
+          "min": 100000,
+          "max": 500000,
+          "step": 50000
+        },
+        "increasePercent": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        },
+        "decreasePercent": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "increasePercent > decreasePercent",
+        "originalPrice % 10000 === 0"
+      ],
+      "formulas": {
+        "priceAfterIncrease": "originalPrice * (1 + increasePercent / 100)",
+        "finalPrice": "priceAfterIncrease * (1 - decreasePercent / 100)",
+        "changeAmount": "finalPrice - originalPrice",
+        "ans_val": "Math.abs(changeAmount / originalPrice * 100)",
+        "increase_or_decrease": "changeAmount > 0 ? 'tăng' : 'giảm'",
+        "w1_val": "increasePercent - decreasePercent",
+        "w2_val": "increasePercent + decreasePercent",
+        "w3_val": "originalPrice * (1 - (increasePercent - decreasePercent)/100)",
+        "increaseFactorDisplay": "(1 + increasePercent / 100).toFixed(2)",
+        "decreaseFactorDisplay": "(1 - decreasePercent / 100).toFixed(2)",
+        "ansValDisplay": "Math.abs(changeAmount / originalPrice * 100).toFixed(2)",
+        "w3ValDisplay": "w3_val.toFixed(2)"
+      },
+      "questionText": "Một cửa hàng điện máy niêm yết giá một chiếc tủ lạnh là $ {originalPrice} $ đồng. Trong tháng 1, giá tủ lạnh đó được tăng $ {increasePercent} \\% $. Sang tháng 2, để kích cầu mua sắm, cửa hàng lại giảm $ {decreasePercent} \\% $ so với giá đã tăng của tháng 1. Hỏi sau hai lần điều chỉnh, giá chiếc tủ lạnh đã {increase_or_decrease} bao nhiêu phần trăm so với giá niêm yết ban đầu?",
+      "options": [
+        "A. $ {w1_val} \\% $",
+        "B. $ {w2_val} \\% $",
+        "C. $ {ansValDisplay} \\% $",
+        "D. $ {w3ValDisplay} $ đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy tính giá chiếc tủ lạnh sau khi tăng $ {increasePercent} \\% $.",
+        "Sau đó, từ giá đã tăng đó, hãy tính giá sau khi giảm $ {decreasePercent} \\% $.",
+        "So sánh giá cuối cùng với giá niêm yết ban đầu để tìm ra mức tăng/giảm phần trăm."
+      ],
+      "solutionHtml": "Giá chiếc tủ lạnh sau khi tăng $ {increasePercent} \\% $ là:<br/>$$ {originalPrice} \\times (1 + {increasePercent}/100) = {originalPrice} \\times {increaseFactorDisplay} = {priceAfterIncrease} $ (đồng)<br/><br/>Giá chiếc tủ lạnh sau khi giảm $ {decreasePercent} \\% $ so với giá đã tăng là:<br/>$$ {priceAfterIncrease} \\times (1 - {decreasePercent}/100) = {priceAfterIncrease} \\times {decreaseFactorDisplay} = {finalPrice} $ (đồng)<br/><br/>Sự thay đổi về giá so với giá niêm yết ban đầu là:<br/>$$ {finalPrice} - {originalPrice} = {changeAmount} $ (đồng)<br/><br/>Phần trăm thay đổi so với giá niêm yết ban đầu là:<br/>$ ( {changeAmount} / {originalPrice} ) \\times 100 = {ansValDisplay} \\% $<br/>Vì {changeAmount} là {increase_or_decrease} nên giá đã {increase_or_decrease} {ansValDisplay} \\% .<br/>Đáp án đúng là C.",
+      "tip": "Cần cẩn thận khi tính toán phần trăm tăng/giảm liên tiếp. Phần trăm giảm sau đó phải tính trên giá trị đã tăng, chứ không phải giá trị ban đầu. Không thể cộng hoặc trừ trực tiếp các phần trăm thay đổi.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "frac1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac1_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "frac2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac2_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "remainingAmount": {
+          "min": 120000,
+          "max": 250000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "frac1_num < frac1_den",
+        "frac2_num < frac2_den",
+        "frac1_den % frac1_num === 0 ? frac1_den / frac1_num !== 1 : true",
+        "frac2_den % frac2_num === 0 ? frac2_den / frac2_num !== 1 : true"
+      ],
+      "formulas": {
+        "fracSpent1_val": "frac1_num / frac1_den",
+        "fracRemaining1_val": "1 - fracSpent1_val",
+        "fracSpent2_val": "fracRemaining1_val * frac2_num / frac2_den",
+        "fracFinalRemaining_val": "fracRemaining1_val - fracSpent2_val",
+        "ans": "remainingAmount / fracFinalRemaining_val",
+        "w1": "remainingAmount / (1 - fracSpent1_val)",
+        "w2": "remainingAmount / (1 - fracSpent1_val - frac2_num / frac2_den)",
+        "w3": "remainingAmount / (frac1_num / frac1_den + frac2_num / frac2_den)",
+        "frac2ValDisplay": "frac2_num / frac2_den",
+        "ansDisplay": "ans.toFixed(0)",
+        "w1Display": "w1.toFixed(0)",
+        "w2Display": "w2.toFixed(0)",
+        "w3Display": "w3.toFixed(0)"
+      },
+      "questionText": "Bạn An có một số tiền. An đã dùng $ \\frac{{frac1_num}}{{frac1_den}} $ số tiền đó để mua sách. Sau đó, An dùng $ \\frac{{frac2_num}}{{frac2_den}} $ số tiền còn lại để mua dụng cụ học tập. Cuối cùng, An còn lại $ {remainingAmount} $ đồng. Hỏi ban đầu An có bao nhiêu tiền?",
+      "options": [
+        "A. $ {w1Display} $ đồng",
+        "B. $ {w2Display} $ đồng",
+        "C. $ {ansDisplay} $ đồng",
+        "D. $ {w3Display} $ đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm phân số chỉ số tiền còn lại sau khi mua sách.",
+        "Tìm phân số chỉ số tiền đã dùng để mua dụng cụ học tập (so với tổng số tiền ban đầu).",
+        "Tìm phân số chỉ số tiền còn lại cuối cùng (so với tổng số tiền ban đầu).",
+        "Dùng phân số chỉ số tiền còn lại cuối cùng và số tiền thực tế còn lại để tìm số tiền ban đầu."
+      ],
+      "solutionHtml": "Phân số chỉ số tiền An đã dùng để mua sách là $ \\frac{{frac1_num}}{{frac1_den}} $.<br/>Số tiền còn lại sau khi mua sách là $ 1 - \\frac{{frac1_num}}{{frac1_den}} = 1 - {fracSpent1_val} = {fracRemaining1_val} $ (tổng số tiền ban đầu).<br/><br/>An dùng $ \\frac{{frac2_num}}{{frac2_den}} $ số tiền còn lại để mua dụng cụ học tập. Vậy số tiền này tương ứng với:<br/>$ {fracRemaining1_val} \\times \\frac{{frac2_num}}{{frac2_den}} = {fracRemaining1_val} \\times {frac2ValDisplay} = {fracSpent2_val} $ (tổng số tiền ban đầu).<br/><br/>Phân số chỉ số tiền An còn lại cuối cùng là:<br/>$ {fracRemaining1_val} - {fracSpent2_val} = {fracFinalRemaining_val} $ (tổng số tiền ban đầu).<br/><br/>Vì $ {fracFinalRemaining_val} $ tổng số tiền ban đầu tương ứng với $ {remainingAmount} đồng, nên số tiền ban đầu của An là:<br/>$ {remainingAmount} :$ {fracFinalRemaining_val} = {ansDisplay} $ (đồng).<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán có các khoản chi tiêu tính trên 'số tiền còn lại', cần đặc biệt chú ý. Mỗi lần tính toán 'phần còn lại' phải dựa trên số tiền còn lại từ bước trước, không phải số tiền ban đầu, trừ khi đề bài nói rõ.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lengthChangePercent": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        },
+        "widthChangePercent": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "lengthChangePercent > 0",
+        "widthChangePercent > 0",
+        "widthChangePercent < 100",
+        "(1 + lengthChangePercent/100) * (1 - widthChangePercent/100) !== 1"
+      ],
+      "formulas": {
+        "newLengthFactor": "1 + lengthChangePercent / 100",
+        "newWidthFactor": "1 - widthChangePercent / 100",
+        "newAreaFactor": "newLengthFactor * newWidthFactor",
+        "percentChange": "(newAreaFactor - 1) * 100",
+        "ans_val": "Math.abs(percentChange)",
+        "change_type": "percentChange > 0 ? 'tăng' : 'giảm'",
+        "w1_val": "lengthChangePercent - widthChangePercent",
+        "w2_val": "lengthChangePercent + widthChangePercent",
+        "ansValDisplay": "Math.abs(percentChange).toFixed(2)",
+        "wDistractorValDisplay": "(lengthChangePercent * widthChangePercent / 100).toFixed(2)",
+        "percentChangeDisplay": "percentChange.toFixed(2)"
+      },
+      "questionText": "Một thửa ruộng hình chữ nhật có chiều dài được tăng $ {lengthChangePercent} \\% $ và chiều rộng được giảm $ {widthChangePercent} \\% $. Hỏi diện tích thửa ruộng đó đã {change_type} hay giảm bao nhiêu phần trăm so với diện tích ban đầu?",
+      "options": [
+        "A. tăng $ {w2_val} \\% $",
+        "B. giảm $ {w1_val} \\% $",
+        "C. {change_type} $ {ansValDisplay} \\% $",
+        "D. giảm $ {wDistractorValDisplay} \\% $"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Giả sử diện tích ban đầu là $100 \\% $.",
+        "Tính chiều dài mới so với chiều dài ban đầu dưới dạng phần trăm.",
+        "Tính chiều rộng mới so với chiều rộng ban đầu dưới dạng phần trăm.",
+        "Diện tích mới sẽ bằng tích của tỉ lệ chiều dài mới và tỉ lệ chiều rộng mới so với ban đầu. Từ đó, tìm ra phần trăm thay đổi."
+      ],
+      "solutionHtml": "Gọi chiều dài ban đầu là $ L $, chiều rộng ban đầu là $ W $. Diện tích ban đầu là $ S = L \\times W $.<br/><br/>Khi chiều dài tăng $ {lengthChangePercent} \\% $, chiều dài mới là:<br/>$ L' = L \\times (1 + {lengthChangePercent}/100) = L \\times {newLengthFactor} $<br/><br/>Khi chiều rộng giảm $ {widthChangePercent} \\% $, chiều rộng mới là:<br/>$ W' = W \\times (1 - {widthChangePercent}/100) = W \\times {newWidthFactor} $<br/><br/>Diện tích mới của thửa ruộng là:<br/>$ S' = L' \\times W' = (L \\times {newLengthFactor}) \\times (W \\times {newWidthFactor}) = (L \\times W) \\times ({newLengthFactor} \\times {newWidthFactor}) = S \\times {newAreaFactor} $<br/><br/>Phần trăm thay đổi của diện tích so với ban đầu là:<br/>$ ({newAreaFactor} - 1) \\times 100 = {percentChangeDisplay} \\% $<br/>Vì {percentChangeDisplay} là số {change_type} nên diện tích đã {change_type} {ansValDisplay} \\% .<br/>Đáp án đúng là C.",
+      "tip": "Khi cả chiều dài và chiều rộng của hình chữ nhật đều thay đổi theo tỉ lệ phần trăm, sự thay đổi của diện tích không phải là tổng hoặc hiệu của các tỉ lệ phần trăm đó. Ta cần tính tỉ lệ mới của chiều dài và chiều rộng, sau đó nhân chúng lại để tìm tỉ lệ diện tích mới.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 30,
+          "max": 50,
+          "step": 2
+        },
+        "percentFemale": {
+          "min": 40,
+          "max": 60,
+          "step": 10
+        },
+        "percentGoodFemale": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "percentGoodMale": {
+          "min": 15,
+          "max": 35,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "totalStudents % 2 === 0",
+        "percentFemale % 10 === 0",
+        "percentGoodFemale % 5 === 0",
+        "percentGoodMale % 5 === 0",
+        "percentGoodFemale !== percentGoodMale"
+      ],
+      "formulas": {
+        "numFemale": "totalStudents * percentFemale / 100",
+        "numMale": "totalStudents - numFemale",
+        "numGoodFemale": "numFemale * percentGoodFemale / 100",
+        "numGoodMale": "numMale * percentGoodMale / 100",
+        "ans": "numGoodFemale + numGoodMale",
+        "w1": "totalStudents * (percentGoodFemale + percentGoodMale) / 200",
+        "w2": "totalStudents * (percentGoodFemale / 100)",
+        "w3": "numFemale + numMale",
+        "w1Display": "w1.toFixed(0)",
+        "w2Display": "w2.toFixed(0)"
+      },
+      "questionText": "Lớp $6A$ có $ {totalStudents} $ học sinh. Trong đó, số học sinh nữ chiếm $ {percentFemale} \\% $ tổng số học sinh. Biết rằng $ {percentGoodFemale} \\% $ số học sinh nữ là học sinh giỏi môn Toán, và $ {percentGoodMale} \\% $ số học sinh nam là học sinh giỏi môn Toán. Hỏi tổng số học sinh giỏi môn Toán của lớp $6A$ là bao nhiêu em?",
+      "options": [
+        "A. $ {w1Display} $ em",
+        "B. $ {ans.toFixed(0)} $ em",
+        "C. $ {w2Display} $ em",
+        "D. $ {w3} $ em"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số học sinh nữ và số học sinh nam của lớp.",
+        "Tính số học sinh nữ giỏi Toán.",
+        "Tính số học sinh nam giỏi Toán.",
+        "Cộng số học sinh giỏi Toán của cả nam và nữ để có tổng số học sinh giỏi Toán."
+      ],
+      "solutionHtml": "Tổng số học sinh của lớp $6A$ là $ {totalStudents} em.<br/>Số học sinh nữ là: $$ {totalStudents} \\times {percentFemale} \\% = {totalStudents} \\times {percentFemale} / 100 = {numFemale} $ (em)<br/>Số học sinh nam là: $$ {totalStudents} - {numFemale} = {numMale} $ (em)<br/><br/>Số học sinh nữ giỏi môn Toán là: $$ {numFemale} \\times {percentGoodFemale} \\% = {numFemale} \\times {percentGoodFemale} / 100 = {numGoodFemale} $ (em)<br/>Số học sinh nam giỏi môn Toán là: $$ {numMale} \\times {percentGoodMale} \\% = {numMale} \\times {percentGoodMale} / 100 = {numGoodMale} $ (em)<br/><br/>Tổng số học sinh giỏi môn Toán của lớp $6A$ là:<br/>$$ {numGoodFemale} + {numGoodMale} = {ans} $ (em)<br/>Đáp án đúng là B.",
+      "tip": "Cần tính toán số lượng từng nhóm (nam, nữ) trước khi tính số lượng học sinh giỏi trong mỗi nhóm. Không thể lấy phần trăm giỏi chung cho cả lớp khi tỉ lệ giỏi của nam và nữ khác nhau.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "frac1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac1_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "frac2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac2_den": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "percentSpent3": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "frac1_num < frac1_den",
+        "frac2_num < frac2_den",
+        "frac1_den % frac1_num === 0 ? frac1_den / frac1_num !== 1 : true",
+        "frac2_den % frac2_num === 0 ? frac2_den / frac2_num !== 1 : true"
+      ],
+      "formulas": {
+        "fracSpent1_val": "frac1_num / frac1_den",
+        "remaining1_val": "1 - fracSpent1_val",
+        "fracSpent2_val": "remaining1_val * frac2_num / frac2_den",
+        "remaining2_val": "remaining1_val - fracSpent2_val",
+        "fracSpent3_val": "remaining2_val * percentSpent3 / 100",
+        "ans": "(remaining2_val - fracSpent3_val) * 100",
+        "w1": "(1 - fracSpent1_val - frac2_num / frac2_den - percentSpent3 / 100) * 100",
+        "w2": "remaining1_val * 100",
+        "w3": "remaining2_val * 100",
+        "frac2ValDisplay": "frac2_num / frac2_den",
+        "finalRemainingFractionDisplay": "(remaining2_val - fracSpent3_val).toFixed(4)",
+        "ansDisplay": "ans.toFixed(2)",
+        "w1Display": "w1.toFixed(2)",
+        "w2Display": "w2.toFixed(2)",
+        "w3Display": "w3.toFixed(2)"
+      },
+      "questionText": "Một gia đình có một khoản thu nhập hàng tháng. Họ dùng $ \\frac{{frac1_num}}{{frac1_den}} $ số tiền đó để chi tiêu sinh hoạt. $ \\frac{{frac2_num}}{{frac2_den}} $ số tiền còn lại sau đó được dùng để đóng học phí cho con. Cuối cùng, họ dùng $ {percentSpent3} \\% $ số tiền còn lại sau hai khoản chi tiêu trên để mua sắm. Hỏi sau tất cả các khoản chi tiêu đó, gia đình còn lại bao nhiêu phần trăm thu nhập ban đầu?",
+      "options": [
+        "A. $ {w1Display} \\% $",
+        "B. $ {ansDisplay} \\% $",
+        "C. $ {w2Display} \\% $",
+        "D. $ {w3Display} \\% $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Coi tổng thu nhập là $1$ đơn vị.",
+        "Tính phần thu nhập còn lại sau chi tiêu sinh hoạt.",
+        "Tính phần thu nhập còn lại sau đóng học phí.",
+        "Tính phần thu nhập còn lại sau mua sắm. Sau đó đổi ra phần trăm."
+      ],
+      "solutionHtml": "Coi tổng thu nhập ban đầu của gia đình là $1$ đơn vị.<br/><br/>Sau khi chi tiêu sinh hoạt $ \\frac{{frac1_num}}{{frac1_den}} $ số tiền, phần thu nhập còn lại là:<br/>$ 1 - \\frac{{frac1_num}}{{frac1_den}} = 1 - {fracSpent1_val} = {remaining1_val} $ (tổng thu nhập)<br/><br/>Họ dùng $ \\frac{{frac2_num}}{{frac2_den}} $ số tiền còn lại để đóng học phí. Vậy số tiền này tương ứng với:<br/>$ {remaining1_val} \\times \\frac{{frac2_num}}{{frac2_den}} = {remaining1_val} \\times {frac2ValDisplay} = {fracSpent2_val} $ (tổng thu nhập)<br/><br/>Số tiền còn lại sau khi đóng học phí là:<br/>$ {remaining1_val} - {fracSpent2_val} = {remaining2_val} $ (tổng thu nhập)<br/><br/>Họ dùng $ {percentSpent3} \\% $ số tiền còn lại này để mua sắm. Vậy số tiền mua sắm tương ứng với:<br/>$ {remaining2_val} \\times {percentSpent3} \\% = {remaining2_val} \\times {percentSpent3} / 100 = {fracSpent3_val} $ (tổng thu nhập)<br/><br/>Phần thu nhập còn lại cuối cùng là:<br/>$ {remaining2_val} - {fracSpent3_val} = {finalRemainingFractionDisplay} $ (tổng thu nhập)<br/><br/>Chuyển sang phần trăm:<br/>$ {finalRemainingFractionDisplay} \\times 100 = {ansDisplay} \\% $<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có nhiều bước chi tiêu và mỗi bước dựa trên 'số tiền còn lại', hãy biểu diễn tất cả dưới dạng phân số hoặc tỉ lệ so với tổng số tiền ban đầu để tránh nhầm lẫn. Cẩn thận với việc chuyển đổi giữa phân số và phần trăm.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "distance": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "frac1_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "frac1_den": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "speed1": {
+          "min": 40,
+          "max": 60,
+          "step": 5
+        },
+        "speed2": {
+          "min": 30,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "frac1_num < frac1_den",
+        "frac1_den % frac1_num === 0 ? frac1_den / frac1_num !== 1 : true",
+        "speed1 !== speed2"
+      ],
+      "formulas": {
+        "dist1": "distance * frac1_num / frac1_den",
+        "dist2": "distance - dist1",
+        "time1": "dist1 / speed1",
+        "time2": "dist2 / speed2",
+        "totalTime": "time1 + time2",
+        "ans": "distance / totalTime",
+        "w1": "(speed1 + speed2) / 2",
+        "w2": "distance / (speed1 + speed2)",
+        "w3": "time1 + time2 * 2",
+        "time1Display": "time1.toFixed(2)",
+        "time2Display": "time2.toFixed(2)",
+        "totalTimeDisplay": "totalTime.toFixed(2)",
+        "ansDisplay": "ans.toFixed(2)",
+        "w1Display": "w1.toFixed(2)",
+        "w2Display": "w2.toFixed(2)",
+        "w3Display": "w3.toFixed(2)"
+      },
+      "questionText": "Một ô tô đi quãng đường dài $ {distance} $ km. Trong đó, $ \\frac{{frac1_num}}{{frac1_den}} $ quãng đường đầu tiên được đi với vận tốc $ {speed1} $ km/h. Phần quãng đường còn lại ô tô đi với vận tốc $ {speed2} $ km/h. Hỏi vận tốc trung bình của ô tô trên cả quãng đường là bao nhiêu km/h?",
+      "options": [
+        "A. $ {w1Display} $ km/h",
+        "B. $ {ansDisplay} $ km/h",
+        "C. $ {w2Display} $ km/h",
+        "D. $ {w3Display} $ km/h"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính độ dài quãng đường đầu tiên và quãng đường còn lại.",
+        "Tính thời gian ô tô đi trên mỗi đoạn đường.",
+        "Tính tổng thời gian ô tô đi trên cả quãng đường.",
+        "Vận tốc trung bình bằng tổng quãng đường chia cho tổng thời gian."
+      ],
+      "solutionHtml": "Quãng đường đầu tiên ô tô đi là:<br/>$ {distance} \\times \\frac{{frac1_num}}{{frac1_den}} = {dist1} $ (km)<br/>Thời gian ô tô đi trên quãng đường đầu tiên là:<br/>$ {dist1} : {speed1} = {time1Display} $ (giờ)<br/><br/>Quãng đường còn lại ô tô đi là:<br/>$ {distance} - {dist1} = {dist2} $ (km)<br/>Thời gian ô tô đi trên quãng đường còn lại là:<br/>$ {dist2} : {speed2} = {time2Display} $ (giờ)<br/><br/>Tổng thời gian ô tô đi trên cả quãng đường là:<br/>$ {time1Display} + {time2Display} = {totalTimeDisplay} $ (giờ)<br/><br/>Vận tốc trung bình của ô tô trên cả quãng đường là:<br/>$ {distance} : {totalTimeDisplay} = {ansDisplay} $ (km/h)<br/>Đáp án đúng là B.",
+      "tip": "Vận tốc trung bình không phải là trung bình cộng của các vận tốc thành phần khi thời gian hoặc quãng đường di chuyển với mỗi vận tốc là khác nhau. Công thức chính xác là Tổng quãng đường chia cho Tổng thời gian.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "timeFillA": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "timeEmptyB": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "timeFillA < timeEmptyB"
+      ],
+      "formulas": {
+        "rateFillA": "1 / timeFillA",
+        "rateEmptyB": "1 / timeEmptyB",
+        "netRate": "rateFillA - rateEmptyB",
+        "ans": "1 / netRate",
+        "w1": "timeFillA + timeEmptyB",
+        "w2": "timeEmptyB - timeFillA",
+        "w3": "(timeFillA * timeEmptyB) / (timeFillA + timeEmptyB)",
+        "rateFillADisplay": "rateFillA.toFixed(3)",
+        "rateEmptyBDisplay": "rateEmptyB.toFixed(3)",
+        "netRateDisplay": "netRate.toFixed(3)",
+        "ansDisplay": "ans.toFixed(2)",
+        "w3Display": "w3.toFixed(2)"
+      },
+      "questionText": "Một vòi nước $A$ có thể chảy đầy một bể trong $ {timeFillA} $ giờ. Một vòi nước $B$ có thể tháo hết nước ra khỏi bể đó trong $ {timeEmptyB} $ giờ. Nếu bể đang rỗng, mở cả hai vòi cùng lúc thì sau bao lâu bể sẽ đầy?",
+      "options": [
+        "A. $ {w1} $ giờ",
+        "B. $ {w2} $ giờ",
+        "C. $ {ansDisplay} $ giờ",
+        "D. $ {w3Display} $ giờ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính phần bể mà vòi A chảy vào trong 1 giờ.",
+        "Tính phần bể mà vòi B tháo ra trong 1 giờ.",
+        "Tính hiệu suất ròng (phần bể được làm đầy hoặc làm rỗng) khi cả hai vòi cùng hoạt động trong 1 giờ.",
+        "Thời gian để bể đầy sẽ bằng $1$ chia cho hiệu suất ròng."
+      ],
+      "solutionHtml": "Trong $1$ giờ, vòi $A$ chảy được $ \\frac{1}{{timeFillA}} $ bể.<br/>Trong $1$ giờ, vòi $B$ tháo được $ \\frac{1}{{timeEmptyB}} $ bể.<br/><br/>Vì vòi $A$ chảy vào và vòi $B$ tháo ra, và vòi $A$ chảy nhanh hơn vòi $B$ tháo ($ {timeFillA} < {timeEmptyB} $), nên bể sẽ đầy. Trong $1$ giờ, lượng nước ròng chảy vào bể là:<br/>$ \\frac{1}{{timeFillA}} - \\frac{1}{{timeEmptyB}} = {rateFillADisplay} - {rateEmptyBDisplay} = {netRateDisplay} $ (bể)<br/><br/>Thời gian để bể đầy là:<br/>$ 1 : {netRateDisplay} = {ansDisplay} $ (giờ)<br/>Đáp án đúng là C.",
+      "tip": "Với các bài toán về công việc chung hoặc chảy đầy/tháo cạn bể, hãy tính phần công việc/lượng nước làm được trong một đơn vị thời gian. Khi có hoạt động đối nghịch (chảy vào và tháo ra), ta lấy hiệu suất của vòi chảy vào trừ đi hiệu suất của vòi tháo ra.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "originalPrice": {
+          "min": 800000,
+          "max": 1200000,
+          "step": 100000
+        },
+        "discountA_percent": {
+          "min": 15,
+          "max": 25,
+          "step": 5
+        },
+        "bonusA_amount": {
+          "min": 20000,
+          "max": 40000,
+          "step": 5000
+        },
+        "discountB_percent": {
+          "min": 10,
+          "max": 20,
+          "step": 5
+        },
+        "bonusB_amount": {
+          "min": 30000,
+          "max": 50000,
+          "step": 5000
+        }
+      },
+      "constraints": [
+        "originalPrice * (1 - discountA_percent/100) - bonusA_amount > 0",
+        "originalPrice * (1 - discountB_percent/100) - bonusB_amount > 0",
+        "Math.abs((originalPrice * (1 - discountA_percent/100) - bonusA_amount) - (originalPrice * (1 - discountB_percent/100) - bonusB_amount)) > 1000"
+      ],
+      "formulas": {
+        "priceA": "originalPrice * (1 - discountA_percent / 100) - bonusA_amount",
+        "priceB": "originalPrice * (1 - discountB_percent / 100) - bonusB_amount",
+        "priceDiff": "Math.abs(priceA - priceB)",
+        "cheaperStore": "priceA < priceB ? 'Cửa hàng A' : 'Cửa hàng B'",
+        "w1": "priceA + priceB",
+        "w2": "originalPrice - priceA",
+        "w3": "originalPrice - priceB",
+        "discountAAmountCalc": "originalPrice * discountA_percent / 100",
+        "discountBAmountCalc": "originalPrice * discountB_percent / 100",
+        "comparisonOperator": "priceA < priceB ? '<' : '>'"
+      },
+      "questionText": "Bạn Hoa muốn mua một chiếc điện thoại có giá niêm yết là $ {originalPrice} $ đồng. Có hai cửa hàng đang có chương trình khuyến mãi:<br/>- Cửa hàng A: giảm $ {discountA_percent} \\% $ giá niêm yết và tặng thêm phiếu mua hàng trị giá $ {bonusA_amount} $ đồng.<br/>- Cửa hàng B: giảm $ {discountB_percent} \\% $ giá niêm yết và tặng thêm phiếu mua hàng trị giá $ {bonusB_amount} $ đồng.<br/>Hỏi bạn Hoa nên mua điện thoại ở cửa hàng nào để tiết kiệm chi phí nhất và tiết kiệm được bao nhiêu đồng so với cửa hàng còn lại?",
+      "options": [
+        "A. Cửa hàng A, rẻ hơn $ {w2} $ đồng",
+        "B. Cửa hàng B, rẻ hơn $ {w3} $ đồng",
+        "C. {cheaperStore}, rẻ hơn $ {priceDiff} $ đồng",
+        "D. Cửa hàng A và B có giá như nhau"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính giá cuối cùng khi mua ở cửa hàng A.",
+        "Tính giá cuối cùng khi mua ở cửa hàng B.",
+        "So sánh hai mức giá để tìm ra cửa hàng rẻ hơn và số tiền tiết kiệm được."
+      ],
+      "solutionHtml": "Giá điện thoại sau khi khuyến mãi ở cửa hàng A là:<br/>$$ {originalPrice} - ({originalPrice} \\times {discountA_percent}/100) - {bonusA_amount} = {originalPrice} - {discountAAmountCalc} - {bonusA_amount} = {priceA} $ (đồng)<br/><br/>Giá điện thoại sau khi khuyến mãi ở cửa hàng B là:<br/>$$ {originalPrice} - ({originalPrice} \\times {discountB_percent}/100) - {bonusB_amount} = {originalPrice} - {discountBAmountCalc} - {bonusB_amount} = {priceB} $ (đồng)<br/><br/>So sánh hai mức giá: $ {priceA} $ và $ {priceB} $.<br/>Vì $ {priceA} {comparisonOperator} {priceB} $, nên {cheaperStore} có giá rẻ hơn.<br/>Số tiền tiết kiệm được là: ${priceDiff} (đồng).<br/>Vậy, bạn Hoa nên mua ở {cheaperStore} và tiết kiệm được $ {priceDiff} đồng so với cửa hàng còn lại.<br/>Đáp án đúng là C.",
+      "tip": "Khi so sánh các chương trình khuyến mãi phức tạp, cần tính toán chi phí cuối cùng cho mỗi lựa chọn một cách cẩn thận. Không chỉ nhìn vào phần trăm giảm giá mà còn phải tính đến các khoản tặng thêm hoặc giảm giá trực tiếp.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numExcellent_num": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "numExcellent_den": {
+          "min": 4,
+          "max": 5,
+          "step": 1
+        },
+        "numGood_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "numGood_den": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "numAverage": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numExcellent_num < numExcellent_den",
+        "numGood_num < numGood_den",
+        "(numAverage * numGood_num / numGood_den) % 1 === 0",
+        "(numAverage * numGood_num / numGood_den * numExcellent_num / numExcellent_den) % 1 === 0",
+        "numExcellent_num !== numExcellent_den",
+        "numGood_num !== numGood_den"
+      ],
+      "formulas": {
+        "numGood": "numAverage * numGood_num / numGood_den",
+        "numExcellent": "this.numGood * numExcellent_num / numExcellent_den",
+        "ans": "this.numExcellent + this.numGood",
+        "totalStudents": "this.numExcellent + this.numGood + numAverage",
+        "w1": "this.numExcellent",
+        "w2": "this.numGood",
+        "w3": "numAverage",
+        "numGoodRatioDisplay": "numGood_num / numGood_den",
+        "numExcellentRatioDisplay": "numExcellent_num / numExcellent_den"
+      },
+      "questionText": "Trong một lớp học, số học sinh giỏi bằng $ \\frac{{numExcellent_num}}{{numExcellent_den}} $ số học sinh khá. Số học sinh khá bằng $ \\frac{{numGood_num}}{{numGood_den}} $ số học sinh trung bình. Biết số học sinh trung bình của lớp đó là $ {numAverage} $ em. Hỏi tổng số học sinh giỏi và học sinh khá của lớp là bao nhiêu em?",
+      "options": [
+        "A. $ {w1} $ em",
+        "B. $ {w2} $ em",
+        "C. $ {ans} $ em",
+        "D. $ {totalStudents} $ em"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số học sinh khá từ số học sinh trung bình và tỉ lệ tương ứng.",
+        "Tính số học sinh giỏi từ số học sinh khá và tỉ lệ tương ứng.",
+        "Cộng số học sinh giỏi và số học sinh khá để có kết quả cuối cùng."
+      ],
+      "solutionHtml": "Số học sinh trung bình của lớp là $ {numAverage} em.<br/><br/>Số học sinh khá của lớp là:<br/>$$ {numAverage} \\times \\frac{{numGood_num}}{{numGood_den}} = {numAverage} \\times {numGoodRatioDisplay} = {numGood} $ (em)<br/><br/>Số học sinh giỏi của lớp là:<br/>$$ {numGood} \\times \\frac{{numExcellent_num}}{{numExcellent_den}} = {numGood} \\times {numExcellentRatioDisplay} = {numExcellent} $ (em)<br/><br/>Tổng số học sinh giỏi và học sinh khá của lớp là:<br/>$$ {numExcellent} + {numGood} = {ans} $ (em)<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán cho mối quan hệ tỉ lệ liên tiếp giữa các nhóm, hãy bắt đầu từ nhóm có số lượng cụ thể và tính ngược dần lên các nhóm khác. Luôn kiểm tra xem kết quả là số nguyên khi tính số lượng học sinh.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d10"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalDistance": {
+          "min": 200,
+          "max": 400,
+          "step": 50
+        },
+        "percentDay1": {
+          "min": 30,
+          "max": 40,
+          "step": 5
+        },
+        "fracDay2_num": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        },
+        "fracDay2_den": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "totalDistance % 100 === 0",
+        "fracDay2_num < fracDay2_den",
+        "fracDay2_den % fracDay2_num === 0 ? fracDay2_den / fracDay2_num !== 1 : true",
+        "(1 - percentDay1/100) * (1 - fracDay2_num/fracDay2_den) > 0.1"
+      ],
+      "formulas": {
+        "distanceDay1": "totalDistance * percentDay1 / 100",
+        "remainingAfterDay1": "totalDistance - distanceDay1",
+        "distanceDay2": "remainingAfterDay1 * fracDay2_num / fracDay2_den",
+        "ans": "totalDistance - distanceDay1 - distanceDay2",
+        "w1": "distanceDay1 + distanceDay2",
+        "w2": "totalDistance * (1 - percentDay1/100)",
+        "w3": "totalDistance * (percentDay1/100 + fracDay2_num/fracDay2_den)",
+        "frac2ValDisplay": "fracDay2_num / fracDay2_den",
+        "ansDisplay": "ans.toFixed(0)",
+        "w3Display": "w3.toFixed(0)"
+      },
+      "questionText": "Một đoàn tàu hỏa cần di chuyển quãng đường dài $ {totalDistance} $ km. Ngày thứ nhất, tàu đi được $ {percentDay1} \\% $ tổng quãng đường. Ngày thứ hai, tàu đi được $ \\frac{{fracDay2_num}}{{fracDay2_den}} $ quãng đường còn lại sau ngày thứ nhất. Hỏi sau hai ngày, đoàn tàu còn phải đi bao nhiêu ki-lô-mét nữa để hoàn thành quãng đường?",
+      "options": [
+        "A. $ {w1} $ km",
+        "B. $ {ansDisplay} $ km",
+        "C. $ {w2} $ km",
+        "D. $ {w3Display} $ km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính quãng đường tàu đi được trong ngày thứ nhất.",
+        "Tính quãng đường còn lại sau ngày thứ nhất.",
+        "Tính quãng đường tàu đi được trong ngày thứ hai dựa trên quãng đường còn lại.",
+        "Tính quãng đường còn lại sau cả hai ngày."
+      ],
+      "solutionHtml": "Tổng quãng đường đoàn tàu cần di chuyển là $ {totalDistance} $ km.<br/><br/>Quãng đường tàu đi được trong ngày thứ nhất là:<br/>$ {totalDistance} \\times {percentDay1} \\% = {totalDistance} \\times {percentDay1} / 100 = {distanceDay1} $ (km)<br/><br/>Quãng đường còn lại sau ngày thứ nhất là:<br/>$ {totalDistance} - {distanceDay1} = {remainingAfterDay1} $ (km)<br/><br/>Quãng đường tàu đi được trong ngày thứ hai là:<br/>$ {remainingAfterDay1} \\times \\frac{{fracDay2_num}}{{fracDay2_den}} = {remainingAfterDay1} \\times {frac2ValDisplay} = {distanceDay2} $ (km)<br/><br/>Quãng đường đoàn tàu còn phải đi để hoàn thành là:<br/>$ {totalDistance} - {distanceDay1} - {distanceDay2} = {ansDisplay} $ (km)<br/>Đáp án đúng là B.",
+      "tip": "Cần tính toán từng bước theo đúng thứ tự thời gian. Đọc kỹ 'quãng đường còn lại' để xác định đúng cơ sở tính toán cho các phần tiếp theo.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d11"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialAmount": {
+          "min": 100000,
+          "max": 200000,
+          "step": 10000
+        },
+        "rate1": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "rate2": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "years": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "rate1 > rate2",
+        "initialAmount % 10000 === 0"
+      ],
+      "formulas": {
+        "amountAfter1Year": "initialAmount * (1 + rate1 / 100)",
+        "ans": "amountAfter1Year * (1 + rate2 / 100)",
+        "w1": "initialAmount * (1 + (rate1 + rate2) / 100)",
+        "w2": "initialAmount * (1 + rate1 / 100 + rate2 / 100)",
+        "w3": "initialAmount * (1 + rate1 / 100) * (1 + rate1 / 100)",
+        "rate1FactorDisplay": "(1 + rate1 / 100).toFixed(2)",
+        "rate2FactorDisplay": "(1 + rate2 / 100).toFixed(2)",
+        "ansDisplay": "ans.toFixed(0)",
+        "w1Display": "w1.toFixed(0)",
+        "w2Display": "w2.toFixed(0)",
+        "w3Display": "w3.toFixed(0)"
+      },
+      "questionText": "Bác An gửi tiết kiệm $ {initialAmount} $ đồng vào ngân hàng. Năm đầu tiên, lãi suất là $ {rate1} \\% $ một năm. Sang năm thứ hai, lãi suất giảm còn $ {rate2} \\% $ một năm (tiền lãi của năm trước được gộp vào tiền gốc để tính lãi cho năm sau). Hỏi sau $ {years} $ năm, số tiền cả gốc và lãi bác An nhận được là bao nhiêu?",
+      "options": [
+        "A. $ {w1Display} $ đồng",
+        "B. $ {ansDisplay} $ đồng",
+        "C. $ {w2Display} $ đồng",
+        "D. $ {w3Display} $ đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số tiền (cả gốc và lãi) sau năm thứ nhất.",
+        "Dùng số tiền đó làm gốc để tính lãi cho năm thứ hai.",
+        "Cộng tiền gốc và tiền lãi của năm thứ hai để có số tiền cuối cùng."
+      ],
+      "solutionHtml": "Số tiền gốc bác An gửi là $ {initialAmount} đồng.<br/><br/>Sau năm thứ nhất, với lãi suất $ {rate1} \\% $, số tiền cả gốc và lãi bác An nhận được là:<br/>$$ {initialAmount} \\times (1 + {rate1}/100) = {initialAmount} \\times {rate1FactorDisplay} = {amountAfter1Year} $ (đồng)<br/><br/>Sang năm thứ hai, số tiền $ {amountAfter1Year} $ này trở thành tiền gốc để tính lãi với lãi suất $ {rate2} \\% $.<br/>Sau năm thứ hai, số tiền cả gốc và lãi bác An nhận được là:<br/>$$ {amountAfter1Year} \\times (1 + {rate2}/100) = {amountAfter1Year} \\times {rate2FactorDisplay} = {ansDisplay} $ (đồng)<br/>Đáp án đúng là B.",
+      "tip": "Trong bài toán lãi suất kép (tiền lãi được gộp vào tiền gốc), số tiền gốc để tính lãi cho kỳ hạn sau sẽ là tổng tiền gốc và lãi của kỳ hạn trước. Không cộng trực tiếp các tỉ lệ lãi suất.",
+      "level": "chat-luong-cao",
+      "type": "kt-c8-d12"
+    }
+  ]
+}

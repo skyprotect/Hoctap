@@ -1,0 +1,479 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 1,
+          "max": 11,
+          "step": 1
+        },
+        "m": {
+          "min": 0,
+          "max": 55,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "minute_angle": "m * 6",
+        "hour_angle_raw": "(h % 12 + m / 60) * 30",
+        "diff_angle_abs": "Math.abs(formulas.minute_angle - formulas.hour_angle_raw)",
+        "ans": "formulas.diff_angle_abs > 180 ? 360 - formulas.diff_angle_abs : formulas.diff_angle_abs",
+        "w1": "(formulas.minute_angle + formulas.hour_angle_raw) % 360",
+        "w2": "Math.abs(formulas.minute_angle - (h % 12 * 30))",
+        "w3": "Math.abs(formulas.minute_angle - formulas.hour_angle_raw) > 180 ? Math.abs(formulas.minute_angle - formulas.hour_angle_raw) : 360 - Math.abs(formulas.minute_angle - formulas.hour_angle_raw)"
+      },
+      "questionText": "Vào lúc {h} giờ {m} phút, kim giờ và kim phút của một chiếc đồng hồ tạo với nhau một góc nhỏ nhất là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Kim phút quay được $360^\\circ$ trong 60 phút, vậy 1 phút kim phút quay $6^\\circ$.",
+        "Kim giờ quay được $360^\\circ$ trong 12 giờ, vậy 1 giờ kim giờ quay $30^\\circ$, tương đương 1 phút kim giờ quay $0.5^\\circ$.",
+        "Tính vị trí góc của từng kim so với vạch số 12 (mốc $0^\\circ$) rồi lấy trị tuyệt đối hiệu của chúng. Sau đó chọn góc nhỏ hơn $180^\\circ$."
+      ],
+      "solutionHtml": "Để tính góc giữa kim giờ và kim phút vào lúc {h} giờ {m} phút, ta làm như sau:<br/>1.  Tính góc của kim phút so với vạch số 12:<br/>    Mỗi phút kim phút quay được $360^\\circ / 60 = 6^\\circ$.<br/>    Vậy kim phút quay được: {m} \\times 6^\\circ = {minute_angle}^\\circ$.<br/>2.  Tính góc của kim giờ so với vạch số 12:<br/>    Mỗi giờ kim giờ quay được $360^\\circ / 12 = 30^\\circ$.<br/>    Mỗi phút kim giờ quay được $30^\\circ / 60 = 0.5^\\circ$.<br/>    Góc ban đầu của kim giờ tại {h} giờ là $({h} \\% 12) \\times 30^\\circ$. Trong {m} phút, kim giờ đi thêm {m} \\times 0.5^\\circ$.<br/>    Vậy kim giờ quay được tổng cộng: $({h} \\% 12 \\times 30^\\circ) + ({m} \\times 0.5^\\circ) = {hour_angle_raw}^\\circ$.<br/>3.  Tính hiệu số đo góc giữa hai kim:<br/>    Hiệu góc là: $|{minute_angle} - {hour_angle_raw}| = {diff_angle_abs}^\\circ$.<br/>4.  Xác định góc nhỏ nhất:<br/>    Nếu hiệu góc lớn hơn $180^\\circ$, góc nhỏ nhất sẽ là $360^\\circ$ trừ đi hiệu góc đó. Ngược lại, hiệu góc đó chính là góc nhỏ nhất.<br/>    Góc nhỏ nhất là: {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận khi tính vị trí kim giờ, vì nó cũng di chuyển theo kim phút. Luôn chọn góc nhỏ hơn hoặc bằng $180^\\circ$."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ratio": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "angle_part": "180 / (variables.ratio + 1)",
+        "angle2": "formulas.angle_part",
+        "angle1": "variables.ratio * formulas.angle_part",
+        "ans": "formulas.angle1",
+        "w1": "formulas.angle2",
+        "w2": "180 / variables.ratio",
+        "w3": "formulas.angle1 + formulas.angle2 / 2"
+      },
+      "questionText": "Hai góc kề bù $\\widehat{AOB}$ và $\\widehat{BOC}$ có tổng số đo là $180^\\circ$. Biết rằng số đo góc $\\widehat{AOB}$ gấp {ratio} lần số đo góc $\\widehat{BOC}$. Tính số đo góc $\\widehat{AOB}$.",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hai góc kề bù có tổng số đo là $180^\\circ$.",
+        "Nếu góc $\\widehat{AOB}$ gấp {ratio} lần góc $\\widehat{BOC}$, bạn có thể biểu diễn tổng số đo dưới dạng tổng các phần."
+      ],
+      "solutionHtml": "Vì hai góc $\\widehat{AOB}$ và $\\widehat{BOC}$ là hai góc kề bù nên tổng số đo của chúng là $180^\\circ$.<br/>Ta có: $\\widehat{AOB} + \\widehat{BOC} = 180^\\circ$.<br/>Theo đề bài, $\\widehat{AOB}$ gấp {ratio} lần $\\widehat{BOC}$, tức là $\\widehat{AOB} = {ratio} \\times \\widehat{BOC}$.<br/>Thay vào tổng, ta được: $({ratio} \\times \\widehat{BOC}) + \\widehat{BOC} = 180^\\circ$.<br/>Hay $({ratio} + 1) \\times \\widehat{BOC} = 180^\\circ$.<br/>Do đó, $\\widehat{BOC} = 180^\\circ / ({ratio} + 1) = {angle2}^\\circ$.<br/>Số đo góc $\\widehat{AOB}$ là: {ratio} \\times {angle2}^\\circ = {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Khi giải bài toán về tỉ số của các góc, hãy đặt một góc là 'x' và góc kia theo 'x' dựa vào tỉ số, sau đó dùng tổng số đo để tìm 'x'."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numSlices": {
+          "min": 3,
+          "max": 12,
+          "step": 1,
+          "exclude": [
+            7,
+            11
+          ]
+        }
+      },
+      "constraints": [
+        "360 % variables.numSlices === 0"
+      ],
+      "formulas": {
+        "ans": "360 / variables.numSlices",
+        "w1": "180 / variables.numSlices",
+        "w2": "360 - variables.numSlices",
+        "w3": "90 / variables.numSlices"
+      },
+      "questionText": "Một chiếc bánh sinh nhật hình tròn được cắt thành {numSlices} miếng bánh bằng nhau, với các lát cắt đều xuất phát từ tâm bánh. Hỏi góc ở tâm của mỗi miếng bánh là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một hình tròn hoàn chỉnh tương ứng với góc $360^\\circ$ ở tâm.",
+        "Nếu các miếng bánh bằng nhau, ta chỉ cần chia tổng số đo góc cho số lượng miếng bánh."
+      ],
+      "solutionHtml": "Toàn bộ chiếc bánh sinh nhật hình tròn có góc ở tâm là $360^\\circ$.<br/>Vì chiếc bánh được cắt thành {numSlices} miếng bằng nhau, với các lát cắt đều xuất phát từ tâm, nên số đo góc ở tâm của mỗi miếng bánh là:<br/>$360^\\circ : {numSlices} = {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một hình tròn thành các phần bằng nhau, hãy nhớ tổng số đo góc xung quanh tâm là $360^\\circ$."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "percentage": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "variables.percentage % 10 === 0 || variables.percentage % 25 === 0",
+        "90 * variables.percentage / 100 < 90",
+        "90 * variables.percentage / 100 > 0"
+      ],
+      "formulas": {
+        "angle1": "90 * variables.percentage / 100",
+        "ans": "90 - formulas.angle1",
+        "w1": "formulas.angle1",
+        "w2": "90 + formulas.angle1",
+        "w3": "360 - formulas.angle1"
+      },
+      "questionText": "Một góc vuông được chia thành hai góc kề nhau. Biết rằng một trong hai góc đó chiếm {percentage}\\%$ số đo của góc vuông. Tính số đo của góc còn lại.",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số đo của một góc vuông là $90^\\circ$.",
+        "Để tìm một phần của số đo góc vuông, bạn lấy $90^\\circ$ nhân với tỉ lệ phần trăm."
+      ],
+      "solutionHtml": "Số đo của một góc vuông là $90^\\circ$.<br/>Góc thứ nhất chiếm {percentage}\\%$ của góc vuông, vậy số đo góc đó là:<br/>$90^\\circ \\times ({percentage} / 100) = {angle1}^\\circ$.<br/>Hai góc kề nhau chia góc vuông, nên tổng số đo của chúng là $90^\\circ$.<br/>Số đo của góc còn lại là:<br/>$90^\\circ - {angle1}^\\circ = {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ rằng 'chiếm phần trăm' nghĩa là thực hiện phép nhân. Và tổng hai góc chia góc vuông sẽ bằng $90^\\circ$."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "turn1": {
+          "min": 45,
+          "max": 120,
+          "step": 5
+        },
+        "turn2": {
+          "min": 30,
+          "max": 90,
+          "step": 5
+        },
+        "turn3": {
+          "min": 60,
+          "max": 150,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "variables.turn1 !== variables.turn2",
+        "variables.turn2 !== variables.turn3",
+        "variables.turn1 !== variables.turn3",
+        "Math.abs(variables.turn1 - variables.turn2 + variables.turn3) !== 0",
+        "Math.abs(variables.turn1 - variables.turn2 + variables.turn3) !== 360"
+      ],
+      "formulas": {
+        "net_rotation_raw": "variables.turn1 - variables.turn2 + variables.turn3",
+        "ans": "(formulas.net_rotation_raw % 360 + 360) % 360",
+        "w1": "variables.turn1 + variables.turn2 + variables.turn3",
+        "w2": "Math.abs(variables.turn1 + variables.turn2 - variables.turn3)",
+        "w3": "360 - ((formulas.net_rotation_raw % 360 + 360) % 360)"
+      },
+      "questionText": "Một người đang đứng nhìn về hướng Bắc. Người đó quay sang phải {turn1} độ, sau đó quay sang trái {turn2} độ so với hướng hiện tại, rồi lại quay sang phải {turn3} độ so với hướng hiện tại. Hỏi người đó hiện đang nhìn theo hướng nào, so với hướng Bắc (tính theo góc nhỏ nhất từ $0^\\circ$ đến $360^\\circ$ theo chiều kim đồng hồ)?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quy ước quay phải là góc dương (+), quay trái là góc âm (-).",
+        "Cộng hoặc trừ các góc quay để tìm tổng độ quay. Nếu kết quả âm, hãy cộng thêm $360^\\circ$ để ra góc dương tương ứng. Nếu kết quả lớn hơn $360^\\circ$, hãy lấy phần dư khi chia cho $360^\\circ$."
+      ],
+      "solutionHtml": "Quy ước: quay phải là góc dương, quay trái là góc âm.<br/>Các lần quay của người đó là:<br/>- Quay sang phải {turn1} độ: $+{turn1}^\\circ$<br/>- Quay sang trái {turn2} độ: $-{turn2}^\\circ$<br/>- Quay sang phải {turn3} độ: $+{turn3}^\\circ$<br/>Tổng độ quay ròng (tổng hợp) là:<br/>${turn1} - {turn2} + {turn3} = {net_rotation_raw}^\\circ$$.<br/>Để đưa góc về phạm vi từ $0^\\circ$ đến $360^\\circ$ theo chiều kim đồng hồ từ hướng Bắc, ta chuẩn hóa kết quả. <br/>Vậy, góc cuối cùng so với hướng Bắc là: {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Khi xử lý các bài toán quay nhiều lần, hãy gán dấu dương cho một chiều quay (ví dụ: phải) và dấu âm cho chiều ngược lại (trái). Sau đó cộng đại số các góc."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "angle1": {
+          "min": 40,
+          "max": 140,
+          "step": 20
+        }
+      },
+      "constraints": [
+        "180 - variables.angle1 > 0",
+        "(180 - variables.angle1) % 2 === 0"
+      ],
+      "formulas": {
+        "angleBOC": "180 - variables.angle1",
+        "ans": "formulas.angleBOC / 2",
+        "w1": "formulas.angleBOC",
+        "w2": "variables.angle1 / 2",
+        "w3": "180 - formulas.angleBOC / 2"
+      },
+      "questionText": "Trên đường thẳng $xy$ lấy điểm $O$. Tia $Oz$ nằm giữa hai tia $Ox$ và $Oy$. Biết số đo góc $\\widehat{xOz} = {angle1}^\\circ$. Tia $Om$ là tia phân giác của góc $\\widehat{zOy}$. Tính số đo góc $\\widehat{zOm}$.",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Góc $\\widehat{xOy}$ là góc bẹt, có số đo $180^\\circ$.",
+        "Tính số đo góc $\\widehat{zOy}$ trước.",
+        "Tia phân giác chia góc thành hai góc bằng nhau."
+      ],
+      "solutionHtml": "Vì tia $Oz$ nằm giữa hai tia $Ox$ và $Oy$, và $O$ nằm trên đường thẳng $xy$, nên góc $\\widehat{xOy}$ là góc bẹt, có số đo $180^\\circ$.<br/>Ta có: $\\widehat{xOz} + \\widehat{zOy} = \\widehat{xOy}$.<br/>Thay số: {angle1}^\\circ + \\widehat{zOy} = 180^\\circ$.<br/>Vậy $\\widehat{zOy} = 180^\\circ - {angle1}^\\circ = {angleBOC}^\\circ$.<br/>Tia $Om$ là tia phân giác của góc $\\widehat{zOy}$, nên nó chia góc $\\widehat{zOy}$ thành hai góc bằng nhau.<br/>Do đó, $\\widehat{zOm} = \\widehat{mOy} = \\widehat{zOy} / 2 = {angleBOC}^\\circ / 2 = {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Hãy vẽ hình minh họa để dễ hình dung các tia và góc. Luôn xác định đúng góc cần tìm tia phân giác."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sumAngle": {
+          "min": 90,
+          "max": 180,
+          "step": 90
+        },
+        "diffAngle": {
+          "min": 10,
+          "max": 70,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "variables.sumAngle > variables.diffAngle",
+        "(variables.sumAngle + variables.diffAngle) % 2 === 0"
+      ],
+      "formulas": {
+        "large_angle": "(variables.sumAngle + variables.diffAngle) / 2",
+        "small_angle": "(variables.sumAngle - variables.diffAngle) / 2",
+        "ans": "formulas.large_angle",
+        "w1": "formulas.small_angle",
+        "w2": "variables.sumAngle + variables.diffAngle",
+        "w3": "variables.sumAngle - formulas.large_angle / 2"
+      },
+      "questionText": "Hai góc kề nhau $\\widehat{AOB}$ và $\\widehat{BOC}$ có tổng số đo là {sumAngle}^\\circ$. Biết rằng hiệu số đo của hai góc đó là {diffAngle}^\\circ$. Tính số đo của góc lớn hơn trong hai góc đó.",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán tìm hai số khi biết tổng và hiệu của chúng.",
+        "Góc lớn hơn = (Tổng + Hiệu) / 2.",
+        "Góc nhỏ hơn = (Tổng - Hiệu) / 2."
+      ],
+      "solutionHtml": "Đây là bài toán tìm hai số khi biết tổng và hiệu của chúng.<br/>Gọi số đo góc lớn hơn là $x$ và số đo góc nhỏ hơn là $y$.<br/>Ta có:<br/>$x + y = {sumAngle}$ (1)<br/>$x - y = {diffAngle}$ (2)<br/>Cộng (1) và (2) vế theo vế, ta được: $2x = {sumAngle} + {diffAngle}$.<br/>Số đo góc lớn hơn là $x = ({sumAngle} + {diffAngle}) / 2 = {large_angle}^\\circ$.<br/>Số đo góc nhỏ hơn là $y = ({sumAngle} - {diffAngle}) / 2 = {small_angle}^\\circ$.<br/>Góc lớn hơn trong hai góc đó là {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán tìm hai số khi biết tổng và hiệu rất phổ biến. Hãy nhớ công thức: 'số lớn = (tổng + hiệu) / 2' và 'số bé = (tổng - hiệu) / 2'."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numHands": {
+          "min": 3,
+          "max": 12,
+          "step": 1,
+          "exclude": [
+            7,
+            11
+          ]
+        }
+      },
+      "constraints": [
+        "360 % variables.numHands === 0",
+        "variables.numHands >= 3"
+      ],
+      "formulas": {
+        "ans": "360 / variables.numHands",
+        "w1": "360 - variables.numHands",
+        "w2": "180 / variables.numHands",
+        "w3": "90 / variables.numHands"
+      },
+      "questionText": "Một chiếc đồng hồ đặc biệt được thiết kế với {numHands} kim, tất cả các kim này đều xuất phát từ tâm và được bố trí sao cho chúng chia đều một vòng tròn. Hỏi góc giữa hai kim bất kỳ gần nhau nhất là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một vòng tròn hoàn chỉnh có số đo góc là $360^\\circ$.",
+        "Nếu các kim chia đều một vòng tròn, bạn chỉ cần chia tổng số đo góc cho số lượng kim."
+      ],
+      "solutionHtml": "Một vòng tròn hoàn chỉnh (toàn bộ mặt đồng hồ) có số đo góc là $360^\\circ$.<br/>Vì chiếc đồng hồ có {numHands} kim được bố trí đều xung quanh tâm, nên góc giữa hai kim bất kỳ gần nhau nhất sẽ là tổng số đo góc của vòng tròn chia cho số lượng kim.<br/>Góc giữa hai kim gần nhau nhất là: $360^\\circ / {numHands} = {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này tương tự như việc chia đều một hình tròn thành các phần bằng nhau. Cần ghi nhớ giá trị $360^\\circ$ cho một vòng tròn đầy đủ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "incidenceAngle": {
+          "min": 20,
+          "max": 70,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "variables.incidenceAngle > 0",
+        "variables.incidenceAngle < 90"
+      ],
+      "formulas": {
+        "ans": "90 - variables.incidenceAngle",
+        "w1": "variables.incidenceAngle",
+        "w2": "90 + variables.incidenceAngle",
+        "w3": "180 - variables.incidenceAngle"
+      },
+      "questionText": "Một tia sáng chiếu tới một gương phẳng với góc tới là {incidenceAngle}^\\circ$ (góc giữa tia sáng và pháp tuyến của gương). Hỏi sau khi phản xạ, tia sáng đó tạo với mặt gương một góc có số đo là bao nhiêu?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Góc tới là góc tạo bởi tia sáng tới và đường pháp tuyến (đường vuông góc với mặt gương).",
+        "Góc phản xạ bằng góc tới. Góc phản xạ là góc giữa tia phản xạ và pháp tuyến.",
+        "Đường pháp tuyến vuông góc với mặt gương, tức là tạo với mặt gương một góc $90^\\circ$."
+      ],
+      "solutionHtml": "Theo định luật phản xạ ánh sáng, góc phản xạ bằng góc tới. Vì góc tới là {incidenceAngle}^\\circ$, nên góc phản xạ (góc giữa tia phản xạ và đường pháp tuyến) cũng là {incidenceAngle}^\\circ$.<br/>Đường pháp tuyến là đường thẳng vuông góc với mặt gương, do đó góc giữa đường pháp tuyến và mặt gương là $90^\\circ$.<br/>Góc tạo bởi tia phản xạ và mặt gương là phần bù của góc phản xạ so với $90^\\circ$.<br/>Vậy, góc đó là: $90^\\circ - {incidenceAngle}^\\circ = {ans}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Pháp tuyến là một khái niệm quan trọng trong quang học và hình học. Hãy nhớ rằng nó luôn vuông góc với bề mặt."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "angleDeg": {
+          "min": 15,
+          "max": 175,
+          "step": 5,
+          "exclude": [
+            90
+          ]
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "angleType": "variables.angleDeg < 90 ? 'nhọn' : (variables.angleDeg > 90 && variables.angleDeg < 180 ? 'tù' : 'bẹt')",
+        "supplementAngle": "180 - variables.angleDeg",
+        "ans_text": "formulas.angleType + ', góc bù là ' + formulas.supplementAngle + ' độ'",
+        "w1_text": "formulas.angleType + ', góc phụ là ' + (90 - variables.angleDeg) + ' độ'",
+        "w2_text": "variables.angleDeg < 90 ? 'tù, góc bù là ' + formulas.supplementAngle + ' độ' : (variables.angleDeg > 90 && variables.angleDeg < 180 ? 'nhọn, góc bù là ' + formulas.supplementAngle + ' độ' : 'bẹt, góc bù là ' + formulas.supplementAngle + ' độ')",
+        "w3_text": "formulas.angleType + ', góc bù là ' + (360 - variables.angleDeg) + ' độ'"
+      },
+      "questionText": "Cho một góc có số đo là {angleDeg}^\\circ$. Hãy cho biết tên gọi của góc này và số đo của góc bù với nó.",
+      "options": [
+        "A. {w1_text}",
+        "B. {ans_text}",
+        "C. {w2_text}",
+        "D. {w3_text}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Góc nhọn có số đo nhỏ hơn $90^\\circ$. Góc vuông có số đo bằng $90^\\circ$. Góc tù có số đo lớn hơn $90^\\circ$ và nhỏ hơn $180^\\circ$. Góc bẹt có số đo bằng $180^\\circ$.",
+        "Hai góc bù nhau có tổng số đo là $180^\\circ$.",
+        "Hai góc phụ nhau có tổng số đo là $90^\\circ$."
+      ],
+      "solutionHtml": "Cho góc có số đo là {angleDeg}^\\circ$.<br/>1.  **Xác định loại góc:**<br/>    Góc có số đo {angleDeg}^\\circ$ là góc **{angleType}**.<br/>2.  **Tính góc bù:**<br/>    Hai góc bù nhau có tổng số đo là $180^\\circ$.<br/>    Vậy góc bù với góc {angleDeg}^\\circ$ là: $180^\\circ - {angleDeg}^\\circ = {supplementAngle}^\\circ$.<br/>Kết hợp cả hai, ta có: góc **{angleType}**, góc bù là **{supplementAngle} độ**.<br/>Đáp án đúng là B.",
+      "tip": "Cần phân biệt rõ ràng giữa góc 'bù' (tổng $180^\\circ$) và góc 'phụ' (tổng $90^\\circ$), cũng như các loại góc cơ bản."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "angleA": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        },
+        "angleB": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        },
+        "angleC": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "variables.angleA !== variables.angleB",
+        "variables.angleB !== variables.angleC",
+        "variables.angleA !== variables.angleC"
+      ],
+      "formulas": {
+        "ans": "variables.angleA + variables.angleB + variables.angleC",
+        "w1": "variables.angleA + variables.angleB - variables.angleC",
+        "w2": "Math.abs(variables.angleA - variables.angleB - variables.angleC)",
+        "w3": "360 - (variables.angleA + variables.angleB + variables.angleC)"
+      },
+      "questionText": "Một vận động viên đang tập luyện trên sân. Anh ấy bắt đầu chạy thẳng, sau đó rẽ trái một góc {angleA} độ. Tiếp tục chạy thẳng rồi rẽ trái một góc {angleB} độ. Cuối cùng, anh ấy lại rẽ trái thêm một góc {angleC} độ. Hỏi tổng số đo góc mà vận động viên đã quay (theo cùng một chiều) là bao nhiêu độ?",
+      "options": [
+        "A. {w1} độ",
+        "B. {ans} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi rẽ liên tiếp theo cùng một chiều (ví dụ: cùng rẽ trái), tổng số đo góc quay là tổng của các góc rẽ.",
+        "Cần đọc kỹ đề bài để xác định 'tổng số đo góc mà vận động viên đã quay' chứ không phải 'hướng cuối cùng so với ban đầu'."
+      ],
+      "solutionHtml": "Vận động viên đã thực hiện 3 lần rẽ trái liên tiếp với các góc lần lượt là {angleA} độ, {angleB} độ và {angleC} độ.<br/>Vì tất cả các lần rẽ đều theo cùng một chiều (rẽ trái), tổng số đo góc mà vận động viên đã quay là tổng của các góc rẽ này.<br/>Tổng số đo góc đã quay là: {angleA} + {angleB} + {angleC} = {ans}$ độ.<br/>Đáp án đúng là B.",
+      "tip": "Hãy phân biệt rõ giữa 'tổng quãng đường quay' (tổng các giá trị tuyệt đối của góc rẽ) và 'độ lệch góc ròng' (tổng đại số các góc rẽ, có tính đến chiều quay)."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "angleXOY": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        },
+        "angleYOZ": {
+          "min": 20,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "variables.angleXOY !== variables.angleYOZ",
+        "variables.angleXOY + variables.angleYOZ < 180"
+      ],
+      "formulas": {
+        "angleXOY_val": "variables.angleXOY",
+        "angleYOZ_val": "variables.angleYOZ",
+        "ans": "variables.angleXOY + variables.angleYOZ",
+        "w1": "Math.abs(variables.angleXOY - variables.angleYOZ)",
+        "w2": "180 - (variables.angleXOY + variables.angleYOZ)",
+        "w3": "90 - (variables.angleXOY + variables.angleYOZ)"
+      },
+      "questionText": "Trên cùng một nửa mặt phẳng bờ chứa tia $Ox$, vẽ hai tia $Oy$, $Oz$ sao cho $\\widehat{xOy} = {angleXOY}^\\circ$ và $\\widehat{xOz} = {ans}^\\circ$. Biết tia $Oy$ nằm giữa hai tia $Ox$ và $Oz$. Tính số đo góc $\\widehat{yOz}$.",
+      "options": [
+        "A. {w1} độ",
+        "B. {angleYOZ} độ",
+        "C. {w2} độ",
+        "D. {w3} độ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu tia $Oy$ nằm giữa hai tia $Ox$ và $Oz$, thì $\\widehat{xOy} + \\widehat{yOz} = \\widehat{xOz}$.",
+        "Từ công thức trên, bạn có thể suy ra cách tính góc $\\widehat{yOz}$."
+      ],
+      "solutionHtml": "Theo đề bài, tia $Oy$ nằm giữa hai tia $Ox$ và $Oz$.<br/>Khi đó, ta có đẳng thức cộng góc:<br/>$\\widehat{xOy} + \\widehat{yOz} = \\widehat{xOz}$<br/>Thay các giá trị đã biết vào:<br/>{angleXOY_val}^\\circ + \\widehat{yOz} = {ans}^\\circ$<br/>Để tìm số đo góc $\\widehat{yOz}$, ta thực hiện phép trừ:<br/>$\\widehat{yOz} = {ans}^\\circ - {angleXOY_val}^\\circ = {angleYOZ_val}^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Trong bài toán cộng góc, điều quan trọng là phải xác định đúng tia nằm giữa hai tia còn lại để áp dụng công thức chính xác."
+    }
+  ]
+}

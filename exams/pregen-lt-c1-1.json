@@ -1,0 +1,521 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalStudents": {
+          "min": 30,
+          "max": 60,
+          "step": 1
+        },
+        "learnGuitar": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "learnPiano": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "learnBoth": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "learnGuitar > learnBoth",
+        "learnPiano > learnBoth",
+        "(learnGuitar + learnPiano - learnBoth) <= totalStudents",
+        "(learnGuitar + learnPiano - learnBoth) > 0",
+        "learnGuitar + learnPiano !== 3 * learnBoth",
+        "learnGuitar + learnPiano !== 2 * learnBoth",
+        "learnGuitar + learnPiano - 2 * learnBoth !== totalStudents - (learnGuitar + learnPiano - learnBoth)",
+        "learnGuitar + learnPiano - learnBoth !== totalStudents - (learnGuitar + learnPiano - learnBoth)",
+        "learnBoth !== totalStudents - (learnGuitar + learnPiano - learnBoth)"
+      ],
+      "formulas": {
+        "onlyG": "learnGuitar - learnBoth",
+        "onlyP": "learnPiano - learnBoth",
+        "ans": "(learnGuitar - learnBoth) + (learnPiano - learnBoth)",
+        "atLeastOne": "learnGuitar + learnPiano - learnBoth",
+        "neither": "((totalStudents - (learnGuitar + learnPiano - learnBoth)) === learnBoth || (totalStudents - (learnGuitar + learnPiano - learnBoth)) === ((learnGuitar - learnBoth) + (learnPiano - learnBoth)) || (totalStudents - (learnGuitar + learnPiano - learnBoth)) === (learnGuitar + learnPiano - learnBoth)) ? (totalStudents - (learnGuitar + learnPiano - learnBoth)) + 4 : (totalStudents - (learnGuitar + learnPiano - learnBoth))"
+      },
+      "questionText": "Trong một câu lạc bộ âm nhạc có tổng cộng {totalStudents} học sinh. Có {learnGuitar} học sinh biết chơi đàn guitar, {learnPiano} học sinh biết chơi đàn piano và {learnBoth} học sinh biết chơi cả hai loại đàn. Hỏi có bao nhiêu học sinh chỉ biết chơi một trong hai loại đàn đó?",
+      "options": [
+        "A. {ans} học sinh",
+        "B. {atLeastOne} học sinh",
+        "C. {learnBoth} học sinh",
+        "D. {neither} học sinh"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số học sinh chỉ biết chơi đàn guitar là bao nhiêu?",
+        "Số học sinh chỉ biết chơi đàn piano là bao nhiêu?",
+        "Tổng số học sinh chỉ biết chơi một loại đàn là tổng của hai nhóm trên."
+      ],
+      "solutionHtml": "Để tìm số học sinh chỉ biết chơi một trong hai loại đàn, ta cần tìm số học sinh chỉ chơi guitar và số học sinh chỉ chơi piano.<br/>Số học sinh chỉ biết chơi đàn guitar là: $$ {learnGuitar} - {learnBoth} = {onlyG} $ (học sinh).<br/>Số học sinh chỉ biết chơi đàn piano là: $$ {learnPiano} - {learnBoth} = {onlyP} $ (học sinh).<br/>Tổng số học sinh chỉ biết chơi một trong hai loại đàn là: $$ {onlyG} + {onlyP} = {ans} $ (học sinh).<br/>Đáp án đúng là A.",
+      "tip": "Khi làm bài toán về tập hợp có giao, cần phân biệt rõ 'chơi cả hai', 'chỉ chơi một', và 'chơi ít nhất một'.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        },
+        "d2": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d3": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        },
+        "d4": {
+          "min": 0,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2 && d1 !== d3 && d1 !== d4 && d2 !== d3 && d2 !== d4 && d3 !== d4",
+        "([d1, d2, d3, d4].includes(0) || [d1, d2, d3, d4].includes(5))"
+      ],
+      "formulas": {
+        "digits_list": "[d1, d2, d3, d4]",
+        "chosen_ending_digit": "(() => { const digits = [d1, d2, d3, d4]; if (digits.includes(0)) return 0; if (digits.includes(5)) return 5; return -1; })()",
+        "remaining_for_ans": "([d1, d2, d3, d4].filter(d => d !== chosen_ending_digit)).sort((a, b) => b - a)",
+        "ans": "parseInt(remaining_for_ans[0].toString() + remaining_for_ans[1].toString() + remaining_for_ans[2].toString() + chosen_ending_digit.toString())",
+        "all_digits_sorted_desc": "([d1, d2, d3, d4]).sort((a, b) => b - a)",
+        "w1": "(parseInt(all_digits_sorted_desc.join('')) === parseInt(remaining_for_ans[0].toString() + remaining_for_ans[1].toString() + remaining_for_ans[2].toString() + chosen_ending_digit.toString())) ? parseInt(remaining_for_ans[0].toString() + remaining_for_ans[1].toString() + remaining_for_ans[2].toString() + chosen_ending_digit.toString()) - 9 : parseInt(all_digits_sorted_desc.join(''))",
+        "w2_arr_temp": "([d1, d2, d3, d4]).sort((a, b) => a - b)",
+        "w2_arr": "(((w2_arr_temp[0] === 0) && (w2_arr_temp.length > 1)) ? (w2_arr_temp[1].toString() + w2_arr_temp[0].toString() + w2_arr_temp[2].toString() + w2_arr_temp[3].toString()) : (w2_arr_temp.join('')))",
+        "w2": "parseInt(w2_arr)",
+        "w3_temp": "parseInt(remaining_for_ans[0].toString() + remaining_for_ans[2].toString() + remaining_for_ans[1].toString() + chosen_ending_digit.toString())",
+        "w3": "w3_temp === ans ? ans - 5 : w3_temp"
+      },
+      "questionText": "Cho 4 chữ số khác nhau: {d1}, {d2}, {d3}, {d4}. Hãy lập số tự nhiên lớn nhất có 4 chữ số khác nhau từ 4 chữ số đã cho mà chia hết cho 5.",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để số chia hết cho 5, chữ số tận cùng phải là 0 hoặc 5.",
+        "Để lập số lớn nhất, các chữ số hàng nghìn, hàng trăm, hàng chục phải lớn nhất có thể.",
+        "Hãy ưu tiên chữ số 0 làm chữ số tận cùng nếu có cả 0 và 5 trong tập hợp các chữ số, vì khi đó 5 có thể được sử dụng ở vị trí khác có giá trị hàng lớn hơn."
+      ],
+      "solutionHtml": "Để lập số tự nhiên lớn nhất có 4 chữ số khác nhau từ các chữ số {d1}, {d2}, {d3}, {d4} và chia hết cho 5, ta cần thực hiện các bước sau:<br/>Bước 1: Xác định chữ số tận cùng. Vì số phải chia hết cho 5 nên chữ số tận cùng phải là 0 hoặc 5. Trong tập hợp các chữ số {digits_list}, chữ số tận cùng được chọn là {chosen_ending_digit}.<br/>Bước 2: Sắp xếp các chữ số còn lại. Các chữ số còn lại là {remaining_for_ans[0]}, {remaining_for_ans[1]}, {remaining_for_ans[2]}. Để số tạo thành là lớn nhất, ta sắp xếp các chữ số này theo thứ tự giảm dần từ hàng nghìn đến hàng chục.<br/>Như vậy, số lớn nhất có 4 chữ số khác nhau chia hết cho 5 được lập là: $ {remaining_for_ans[0]}{remaining_for_ans[1]}{remaining_for_ans[2]}{chosen_ending_digit} = {ans}.<br/>Đáp án đúng là A.",
+      "tip": "Khi chọn chữ số tận cùng (0 hoặc 5), hãy cân nhắc chữ số nào để lại các chữ số có giá trị lớn hơn cho các hàng cao hơn để tạo ra số lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "notebookPrice": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        },
+        "numNotebooks": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "penPrice": {
+          "min": 3000,
+          "max": 8000,
+          "step": 500
+        },
+        "numPens": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "discountPercent": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "costNotebooks": "notebookPrice * numNotebooks",
+        "costPens": "penPrice * numPens",
+        "totalBeforeDiscount": "costNotebooks + costPens",
+        "discountAmount": "Math.floor(totalBeforeDiscount * discountPercent / 100)",
+        "ans": "totalBeforeDiscount - discountAmount",
+        "w1": "totalBeforeDiscount",
+        "w2": "totalBeforeDiscount - discountPercent",
+        "w3": "costNotebooks + (penPrice * numPens * (100 - discountPercent) / 100)"
+      },
+      "questionText": "Bạn An đi nhà sách mua {numNotebooks} quyển vở, mỗi quyển giá {notebookPrice} đồng và {numPens} chiếc bút, mỗi chiếc giá {penPrice} đồng. Vì là khách hàng thân thiết nên An được giảm giá {discountPercent}% trên tổng hóa đơn. Hỏi bạn An phải trả tất cả bao nhiêu tiền?",
+      "options": [
+        "A. {ans} đồng",
+        "B. {w1} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng số tiền mua vở.",
+        "Tính tổng số tiền mua bút.",
+        "Tính tổng số tiền trước khi giảm giá.",
+        "Tính số tiền được giảm giá dựa trên tổng hóa đơn."
+      ],
+      "solutionHtml": "Để tìm số tiền bạn An phải trả, ta thực hiện các bước sau:<br/>Bước 1: Tính tổng số tiền mua vở.<br/>Số tiền mua vở là: $$ {notebookPrice} \\times {numNotebooks} = {costNotebooks} $ (đồng).<br/>Bước 2: Tính tổng số tiền mua bút.<br/>Số tiền mua bút là: $$ {penPrice} \\times {numPens} = {costPens} $ (đồng).<br/>Bước 3: Tính tổng số tiền trước khi giảm giá.<br/>Tổng số tiền mua sắm là: $$ {costNotebooks} + {costPens} = {totalBeforeDiscount} $ (đồng).<br/>Bước 4: Tính số tiền được giảm giá.<br/>Số tiền được giảm giá là: $$ {totalBeforeDiscount} \\times {discountPercent} \\div 100 = {discountAmount} $ (đồng).<br/>Bước 5: Tính số tiền bạn An phải trả sau khi giảm giá.<br/>Số tiền An phải trả là: $$ {totalBeforeDiscount} - {discountAmount} = {ans} $ (đồng).<br/>Đáp án đúng là A.",
+      "tip": "Hãy nhớ tính tổng hóa đơn trước khi áp dụng phần trăm giảm giá. Một lỗi thường gặp là áp dụng giảm giá cho từng mặt hàng riêng lẻ hoặc tính toán phần trăm giảm giá không chính xác.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "k_offset": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "d1": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "d2": {
+          "min": 9,
+          "max": 12,
+          "step": 1
+        },
+        "lowerBound": {
+          "min": 100,
+          "max": 200,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2",
+        "d1 > k_offset",
+        "d2 > k_offset",
+        "lowerBound >= 100",
+        "d1 * d2 / ((a,b) => { while(b){let t=b; b=a%b; a=t;} return a;})(d1,d2) - k_offset > 0"
+      ],
+      "formulas": {
+        "r1": "d1 - k_offset",
+        "r2": "d2 - k_offset",
+        "gcd": "(a, b) => { while (b) { let t = b; b = a % b; a = t; } return a; }",
+        "lcm": "(a, b) => (a * b) / ((a,b) => { while(b){let t=b; b=a%b; a=t;} return a;})(a, b)",
+        "lcm_val": "((a,b) => (a * b) / ((x,y) => { while(y){let t=y; y=x%y; x=t;} return x;})(a, b))(d1, d2)",
+        "firstCandidate": "lcm_val - k_offset",
+        "ans_temp": "firstCandidate",
+        "ans": "(() => { let currentAns = firstCandidate; while (currentAns <= lowerBound) { currentAns += lcm_val; } return currentAns; })()",
+        "w1": "ans + lcm_val",
+        "w2": "ans - k_offset",
+        "w3": "ans + r1"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất lớn hơn {lowerBound} mà khi chia cho {d1} thì dư $ {r1} $ và khi chia cho {d2} thì dư $ {r2} $.",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Nếu một số chia cho {d1} dư $ {r1} $ và chia cho {d2} dư $ {r2} $, hãy xét hiệu của số đó với số dư tương ứng.",
+        "Nhận thấy rằng $N + {k_offset}$ sẽ chia hết cho cả {d1} và {d2}.",
+        "Vậy $N + {k_offset}$ phải là một bội chung của {d1} và {d2}."
+      ],
+      "solutionHtml": "Gọi số cần tìm là $N$.<br/>Theo đề bài, ta có:<br/>$N \\div {d1}$ dư {r1}, suy ra $N = {d1}k + {r1}$ (với $k$ là số tự nhiên).<br/>$N \\div {d2}$ dư {r2}, suy ra $N = {d2}m + {r2}$ (với $m$ là số tự nhiên).<br/>Ta nhận thấy rằng $ {d1} - {r1} = {k_offset} $ và $ {d2} - {r2} = {k_offset} $.<br/>Điều này có nghĩa là nếu ta cộng {k_offset} vào $N$, thì $N + {k_offset}$ sẽ chia hết cho cả {d1} và {d2}.<br/>Vậy $N + {k_offset}$ là bội chung của {d1} và {d2}.<br/>Bội chung nhỏ nhất (BCNN) của {d1} và {d2} là: $ \\text{BCNN}({d1}, {d2}) = {lcm_val} $.<br/>Do đó, $N + {k_offset}$ phải là một bội của {lcm_val}.<br/>$ N + {k_offset} = {lcm_val} \\times x $ (với $x$ là số tự nhiên khác 0).<br/>$ N = {lcm_val} \\times x - {k_offset} $.<br/>Giá trị nhỏ nhất của $N$ lớn hơn 0 là {firstCandidate}.<br/>Chúng ta cần tìm số tự nhiên nhỏ nhất lớn hơn {lowerBound}.<br/>Ta kiểm tra các bội của {lcm_val}:<br/>{ans_temp}<br/>Tiếp tục cộng {lcm_val} cho đến khi $N$ lớn hơn {lowerBound}:<br/>$N = {ans}$<br/>Vậy số tự nhiên nhỏ nhất lớn hơn {lowerBound} thỏa mãn điều kiện là {ans}.<br/>Đáp án đúng là A.",
+      "tip": "Đối với các bài toán tìm số khi biết số dư, nếu hiệu của số chia và số dư là như nhau, ta có thể cộng hiệu đó vào số cần tìm để có một bội chung.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "factor": {
+          "min": 10,
+          "max": 100,
+          "step": 10
+        },
+        "term1": {
+          "min": 12,
+          "max": 25,
+          "step": 1
+        },
+        "term2": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "sum_terms": "term1 + term2",
+        "ans": "factor * (term1 + term2)",
+        "w1": "factor * term1 + term2",
+        "w2": "factor + term1 + term2",
+        "w3": "factor * (term1 - term2)"
+      },
+      "questionText": "Tính giá trị của biểu thức sau một cách nhanh nhất: $ {factor} \\times {term1} + {factor} \\times {term2} $.",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Quan sát xem có thừa số chung nào trong biểu thức không.",
+        "Vận dụng tính chất phân phối của phép nhân đối với phép cộng.",
+        "Biểu thức có dạng $a \\times b + a \\times c$."
+      ],
+      "solutionHtml": "Biểu thức cần tính là: $ {factor} \\times {term1} + {factor} \\times {term2} $.<br/>Đây là dạng của tính chất phân phối của phép nhân đối với phép cộng: $a \\times b + a \\times c = a \\times (b + c)$.<br/>Áp dụng tính chất này, ta có:<br/>$ {factor} \\times {term1} + {factor} \\times {term2} = {factor} \\times ({term1} + {term2})$<br/>Đầu tiên, tính tổng trong ngoặc:<br/>$ {term1} + {term2} = {sum_terms} $ <br/>Sau đó, thực hiện phép nhân:<br/>$ {factor} \\times {sum_terms} = {ans} $ <br/>Vậy giá trị của biểu thức là {ans}.<br/>Đáp án đúng là A.",
+      "tip": "Hãy luôn tìm cách nhóm các số hạng hoặc sử dụng các tính chất của phép toán (như tính chất phân phối, giao hoán, kết hợp) để việc tính toán trở nên đơn giản và nhanh chóng hơn.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "sonCurrent": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "fatherMultiple": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "yearsLater": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "fatherCurrent": "sonCurrent * fatherMultiple",
+        "sonFuture": "sonCurrent + yearsLater",
+        "fatherFuture": "fatherCurrent + yearsLater",
+        "ans": "sonFuture + fatherFuture",
+        "w1": "sonCurrent + fatherCurrent",
+        "w2": "fatherFuture - sonFuture",
+        "w3": "fatherFuture * 2"
+      },
+      "questionText": "Hiện tại, tuổi của bố gấp {fatherMultiple} lần tuổi của con. Biết rằng con hiện nay {sonCurrent} tuổi. Hỏi sau {yearsLater} năm nữa, tổng số tuổi của hai bố con là bao nhiêu?",
+      "options": [
+        "A. {ans} tuổi",
+        "B. {w1} tuổi",
+        "C. {w2} tuổi",
+        "D. {w3} tuổi"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tuổi bố hiện tại.",
+        "Tính tuổi con sau {yearsLater} năm.",
+        "Tính tuổi bố sau {yearsLater} năm.",
+        "Tính tổng số tuổi của hai bố con sau {yearsLater} năm."
+      ],
+      "solutionHtml": "Để tìm tổng số tuổi của hai bố con sau {yearsLater} năm nữa, ta thực hiện các bước sau:<br/>Bước 1: Tính tuổi của bố hiện tại.<br/>Tuổi của con hiện tại là {sonCurrent} tuổi.<br/>Tuổi của bố hiện tại là: $$ {sonCurrent} \\times {fatherMultiple} = {fatherCurrent} $ (tuổi).<br/>Bước 2: Tính tuổi của con sau {yearsLater} năm nữa.<br/>Tuổi của con sau {yearsLater} năm nữa là: $$ {sonCurrent} + {yearsLater} = {sonFuture} $ (tuổi).<br/>Bước 3: Tính tuổi của bố sau {yearsLater} năm nữa.<br/>Tuổi của bố sau {yearsLater} năm nữa là: $$ {fatherCurrent} + {yearsLater} = {fatherFuture} $ (tuổi).<br/>Bước 4: Tính tổng số tuổi của hai bố con sau {yearsLater} năm nữa.<br/>Tổng số tuổi của hai bố con sau {yearsLater} năm nữa là: $$ {sonFuture} + {fatherFuture} = {ans} $ (tuổi).<br/>Đáp án đúng là A.",
+      "tip": "Khi giải các bài toán về tuổi, hãy cẩn thận xác định các mốc thời gian (hiện tại, quá khứ, tương lai) và mối quan hệ tuổi tại từng thời điểm đó.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numPages": {
+          "min": 150,
+          "max": 350,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "digits1Page": "9 * 1",
+        "digits2Pages": "90 * 2",
+        "num3DigitPages": "numPages - 99",
+        "digits3Pages": "num3DigitPages * 3",
+        "ans": "digits1Page + digits2Pages + digits3Pages",
+        "w1": "(numPages * 3)",
+        "w2": "digits1Page + (numPages - 9) * 2",
+        "w3": "digits1Page + digits2Pages + numPages"
+      },
+      "questionText": "Một cuốn sách có {numPages} trang. Người ta cần bao nhiêu chữ số để đánh số trang cho cuốn sách đó, bắt đầu từ trang số 1?",
+      "options": [
+        "A. {ans} chữ số",
+        "B. {w1} chữ số",
+        "C. {w2} chữ số",
+        "D. {w3} chữ số"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Phân chia các trang thành các nhóm theo số chữ số.",
+        "Trang có 1 chữ số là từ 1 đến 9.",
+        "Trang có 2 chữ số là từ 10 đến 99.",
+        "Trang có 3 chữ số là từ 100 trở đi."
+      ],
+      "solutionHtml": "Để tính tổng số chữ số cần dùng để đánh số trang cho cuốn sách, ta phân loại các trang theo số lượng chữ số của chúng:<br/>1. Các trang có 1 chữ số: Từ trang 1 đến trang 9.<br/>   Có $9 - 1 + 1 = 9$ trang.<br/>   Tổng số chữ số cần dùng là: $ 9 \\times 1 = {digits1Page} $ (chữ số).<br/>2. Các trang có 2 chữ số: Từ trang 10 đến trang 99.<br/>   Có $99 - 10 + 1 = 90$ trang.<br/>   Tổng số chữ số cần dùng là: $ 90 \\times 2 = {digits2Pages} $ (chữ số).<br/>3. Các trang có 3 chữ số: Từ trang 100 đến trang {numPages}.<br/>   Số trang có 3 chữ số là: $$ {numPages} - 99 = {num3DigitPages} $ (trang).<br/>   Tổng số chữ số cần dùng là: $ {num3DigitPages} \\times 3 = {digits3Pages} $ (chữ số).<br/>Tổng số chữ số cần dùng để đánh số trang cho cuốn sách là:<br/>$ {digits1Page} + {digits2Pages} + {digits3Pages} = {ans} $ (chữ số).<br/>Đáp án đúng là A.",
+      "tip": "Đây là một dạng bài toán đếm chữ số thường gặp. Hãy nhớ chia thành các nhóm trang (1 chữ số, 2 chữ số, 3 chữ số,...) và tính số chữ số cho từng nhóm.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        },
+        "exponent": {
+          "min": 20,
+          "max": 50,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "base !== 4 && base !== 5 && base !== 6"
+      ],
+      "formulas": {
+        "base_last_digit": "base % 10",
+        "cycle_arr": "(() => { if (base % 10 === 2) return [2, 4, 8, 6]; else if (base % 10 === 3) return [3, 9, 7, 1]; else if (base % 10 === 7) return [7, 9, 3, 1]; else if (base % 10 === 8) return [8, 4, 2, 6]; else return []; })()",
+        "cycle_len": "cycle_arr.length",
+        "idx_raw": "exponent % cycle_len",
+        "idx": "(idx_raw === 0) ? (cycle_len - 1) : (idx_raw - 1)",
+        "ans": "cycle_arr[idx]",
+        "w1": "cycle_arr[(idx + 1) % cycle_len]",
+        "w2": "cycle_arr[(idx + 2) % cycle_len]",
+        "w3": "cycle_arr[(idx + 3) % cycle_len]"
+      },
+      "questionText": "Tìm chữ số tận cùng của số $ {base}^{exponent} $.",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Chữ số tận cùng của lũy thừa phụ thuộc vào chữ số tận cùng của cơ số và số mũ.",
+        "Quan sát chu kỳ của chữ số tận cùng khi lũy thừa tăng dần.",
+        "Ví dụ: $2^1=2, 2^2=4, 2^3=8, 2^4=16$ (tận cùng 6), $2^5=32$ (tận cùng 2). Chu kỳ là 4."
+      ],
+      "solutionHtml": "Để tìm chữ số tận cùng của $ {base}^{exponent} $, ta chỉ cần xét chữ số tận cùng của cơ số {base}. Chữ số tận cùng của {base} là {base_last_digit}.<br/>Ta xét chu kỳ của chữ số tận cùng của các lũy thừa có cơ số tận cùng là {base_last_digit}:<br/><ul><li>$ {base_last_digit}^1 $ tận cùng là {cycle_arr[0]}</li><li>$ {base_last_digit}^2 $ tận cùng là {cycle_arr[1]}</li><li>$ {base_last_digit}^3 $ tận cùng là {cycle_arr[2]}</li><li>$ {base_last_digit}^4 $ tận cùng là {cycle_arr[3]}</li></ul><br/>Chu kỳ của chữ số tận cùng là {cycle_len}.<br/>Ta lấy số mũ {exponent} chia cho chu kỳ {cycle_len} để tìm số dư:<br/>$ {exponent} \\div {cycle_len} $ có số dư là {idx_raw}.<br/>- Nếu số dư là 0, chữ số tận cùng là chữ số cuối cùng trong chu kỳ (vị trí thứ {cycle_len}).<br/>- Nếu số dư khác 0, chữ số tận cùng là chữ số ở vị trí tương ứng với số dư đó trong chu kỳ (vị trí thứ {idx_raw}).<br/>Trong trường hợp này, số dư là {idx_raw}. Vì vậy, chúng ta tìm chữ số ở vị trí thứ ${idx_raw === 0 ? cycle_len : idx_raw}$ trong chu kỳ.<br/>Chữ số tận cùng của $ {base}^{exponent} $ là {ans}.<br/>Đáp án đúng là A.",
+      "tip": "Ghi nhớ chu kỳ tận cùng của các chữ số cơ số 2, 3, 7, 8 (đều là 4) sẽ giúp làm bài nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "end": {
+          "min": 150,
+          "max": 200,
+          "step": 1
+        },
+        "multiple": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "start < end",
+        "start % multiple !== 0",
+        "end % multiple !== 0"
+      ],
+      "formulas": {
+        "first_mult": "Math.ceil((start + 1) / multiple) * multiple",
+        "last_mult": "Math.floor((end - 1) / multiple) * multiple",
+        "num_terms": "(last_mult - first_mult) / multiple + 1",
+        "ans": "num_terms * (first_mult + last_mult) / 2",
+        "w1": "num_terms * multiple",
+        "w2_range_len": "end - start - 1",
+        "w2": "(start + end) * w2_range_len / 2",
+        "w3": "ans + multiple"
+      },
+      "questionText": "Tính tổng tất cả các số tự nhiên chia hết cho {multiple} và lớn hơn {start} nhưng nhỏ hơn {end}?",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Xác định số nhỏ nhất và số lớn nhất chia hết cho {multiple} trong khoảng $ ({start}, {end}) $.",
+        "Đếm số lượng các số hạng trong dãy số đó.",
+        "Sử dụng công thức tính tổng của một dãy số cách đều."
+      ],
+      "solutionHtml": "Để tính tổng các số tự nhiên chia hết cho {multiple} và lớn hơn {start} nhưng nhỏ hơn {end}, ta làm như sau:<br/>Bước 1: Tìm số hạng đầu tiên (số nhỏ nhất) chia hết cho {multiple} và lớn hơn {start}.<br/>Các số chia hết cho {multiple} có dạng $ {multiple} \\times k $.<br/>Số nhỏ nhất lớn hơn {start} và chia hết cho {multiple} là {first_mult}.<br/>Bước 2: Tìm số hạng cuối cùng (số lớn nhất) chia hết cho {multiple} và nhỏ hơn {end}.<br/>Số lớn nhất nhỏ hơn {end} và chia hết cho {multiple} là {last_mult}.<br/>Bước 3: Tính số lượng các số hạng trong dãy.<br/>Số lượng số hạng là: $ ({last_mult} - {first_mult}) \\div {multiple} + 1 = {num_terms} $ (số hạng).<br/>Bước 4: Áp dụng công thức tính tổng của dãy số cách đều.<br/>Tổng của dãy số là: (Số đầu + Số cuối) $ \\times $ Số lượng số hạng $ \\div 2 $<br/>Tổng = $ ({first_mult} + {last_mult}) \\times {num_terms} \\div 2 = {ans} $.<br/>Vậy, tổng tất cả các số tự nhiên thỏa mãn điều kiện là {ans}.<br/>Đáp án đúng là A.",
+      "tip": "Ghi nhớ công thức tính tổng của dãy số cách đều (dãy số cộng): $ \\text{Tong} = (\\text{so dau} + \\text{so cuoi}) \\times \\text{so luong so hang} \\div 2 $. Để đếm số lượng số hạng, công thức là: $ \\text{So luong} = (\\text{so cuoi} - \\text{so dau}) \\div \\text{khoang cach} + 1 $.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "length": {
+          "min": 40,
+          "max": 100,
+          "step": 4
+        },
+        "width": {
+          "min": 20,
+          "max": 60,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "length > width",
+        "length % 4 === 0",
+        "width % 2 === 0"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { let t = b; b = a % b; a = t; } return a; }",
+        "perimeter": "2 * (length + width)",
+        "step_length": "((a,b) => { while(b){let t=b; b=a%b; a=t;} return a;})(length, width)",
+        "ans": "perimeter / step_length",
+        "w1": "((perimeter / 2) === (perimeter / step_length)) ? (perimeter / step_length) + 10 : (perimeter / 2)",
+        "w2": "((length / step_length + width / step_length) === (perimeter / step_length) || (length / step_length + width / step_length) === (((perimeter / 2) === (perimeter / step_length)) ? (perimeter / step_length) + 10 : (perimeter / 2))) ? (perimeter / step_length) + 20 : (length / step_length + width / step_length)",
+        "w3": "((length + width + step_length) === (perimeter / step_length) || (length + width + step_length) === (((perimeter / 2) === (perimeter / step_length)) ? (perimeter / step_length) + 10 : (perimeter / 2)) || (length + width + step_length) === (((length / step_length + width / step_length) === (perimeter / step_length) || (length / step_length + width / step_length) === (((perimeter / 2) === (perimeter / step_length)) ? (perimeter / step_length) + 10 : (perimeter / 2))) ? (perimeter / step_length) + 20 : (length / step_length + width / step_length))) ? (perimeter / step_length) + 30 : (length + width + step_length)"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {length} mét và chiều rộng {width} mét. Người ta muốn trồng cây xung quanh vườn sao cho mỗi cây cách nhau một khoảng đều đặn và ở mỗi góc vườn đều có cây. Hỏi cần ít nhất bao nhiêu cây?",
+      "options": [
+        "A. {ans} cây",
+        "B. {w1} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Khoảng cách giữa các cây phải là ước chung của chiều dài và chiều rộng.",
+        "Để số cây là ít nhất, khoảng cách giữa các cây phải là lớn nhất có thể.",
+        "Khoảng cách lớn nhất có thể là ƯCLN của chiều dài và chiều rộng.",
+        "Tổng số cây sẽ bằng chu vi chia cho khoảng cách giữa các cây."
+      ],
+      "solutionHtml": "Để số cây cần trồng là ít nhất, khoảng cách giữa các cây phải là lớn nhất có thể.<br/>Vì mỗi cây cách nhau một khoảng đều đặn và ở mỗi góc vườn đều có cây, nên khoảng cách giữa các cây phải là một ước chung của chiều dài và chiều rộng của mảnh vườn.<br/>Để khoảng cách đó là lớn nhất, ta chọn khoảng cách đó chính là ước chung lớn nhất (ƯCLN) của chiều dài và chiều rộng.<br/>Bước 1: Tính ƯCLN của chiều dài và chiều rộng.<br/>Chiều dài là {length} m, chiều rộng là {width} m.<br/>$ \\text{UCLN}({length}, {width}) = {step_length} $.<br/>Vậy khoảng cách giữa mỗi cây là {step_length} mét.<br/>Bước 2: Tính chu vi của mảnh vườn.<br/>Chu vi mảnh vườn hình chữ nhật là: $2 \\times (\\text{chieu dai} + \\text{chieu rong})$<br/>Chu vi = $$ 2 \\times ({length} + {width}) = 2 \\times {length + width} = {perimeter} $ (mét).<br/>Bước 3: Tính số cây cần trồng.<br/>Số cây = $ {perimeter} \\div {step_length} = {ans} $ (cây).<br/>Đáp án đúng là A.",
+      "tip": "Khi bài toán yêu cầu 'ít nhất bao nhiêu' đối với việc phân chia đều, hãy nghĩ đến ƯỚC CHUNG LỚN NHẤT. Khi yêu cầu 'nhiều nhất bao nhiêu' đối với việc gộp lại, hãy nghĩ đến BỘI CHUNG NHỎ NHẤT.",
+      "level": "chat-luong-cao",
+      "type": "lt-c1-1-d4"
+    }
+  ]
+}

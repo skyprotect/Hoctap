@@ -1,0 +1,526 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "numA": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        },
+        "numB": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        },
+        "numC": {
+          "min": 25,
+          "max": 40,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "numA !== numB",
+        "numB !== numC",
+        "numA !== numC",
+        "numA + numB + numC >= 80",
+        "numA + numB + numC <= 120"
+      ],
+      "formulas": {
+        "total_all": "numA + numB + numC",
+        "total_AB": "numA + numB",
+        "total_BC": "numB + numC",
+        "ans": "numB",
+        "w1": "numA",
+        "w2": "numC",
+        "w3": "numA + numC"
+      },
+      "questionText": "Tổng số học sinh của ba lớp 4A, 4B, 4C là $ {total_all} $ em. Tổng số học sinh của lớp 4A và 4B là $ {total_AB} $ em. Tổng số học sinh của lớp 4B và 4C là $ {total_BC} $ em. Hỏi lớp 4B có bao nhiêu học sinh?",
+      "options": [
+        "A. $ {w1} $ em",
+        "B. $ {w2} $ em",
+        "C. $ {ans} $ em",
+        "D. $ {w3} $ em"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm số học sinh lớp 4C, em lấy tổng số học sinh cả ba lớp trừ đi tổng số học sinh lớp 4A và 4B.",
+        "Để tìm số học sinh lớp 4A, em lấy tổng số học sinh cả ba lớp trừ đi tổng số học sinh lớp 4B và 4C.",
+        "Sau khi tìm được số học sinh lớp 4A và 4C, em có thể tìm số học sinh lớp 4B bằng cách lấy tổng số học sinh cả ba lớp trừ đi số học sinh lớp 4A và 4C."
+      ],
+      "solutionHtml": "Bước 1: Tìm số học sinh lớp 4C.<br/>Số học sinh lớp 4C là: $ {total_all} - {total_AB} = {w2} $ (em).<br/><br/>Bước 2: Tìm số học sinh lớp 4A.<br/>Số học sinh lớp 4A là: $ {total_all} - {total_BC} = {w1} $ (em).<br/><br/>Bước 3: Tìm số học sinh lớp 4B.<br/>Số học sinh lớp 4B là: $ {total_all} - {w1} - {w2} = {ans} $ (em).<br/>Hoặc có thể tính nhanh hơn: $ ({total_AB} + {total_BC}) - {total_all} = ({numA} + {numB} + {numB} + {numC}) - ({numA} + {numB} + {numC}) = {numB} $ (em).<br/>Vậy, lớp 4B có $ {ans} $ học sinh.<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán cho tổng của các nhóm có phần tử chung, ta có thể dùng tổng các nhóm trừ đi tổng chung để tìm phần tử chung đó. Chú ý rằng khi cộng tổng 4A+4B với 4B+4C, lớp 4B được tính hai lần."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1_kg": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "times_day2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "less_day3": {
+          "min": 30,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "less_day3 < day1_kg * times_day2",
+        "day1_kg * times_day2 - less_day3 > 0"
+      ],
+      "formulas": {
+        "day2_kg": "day1_kg * times_day2",
+        "day3_kg": "day1_kg * times_day2 - less_day3",
+        "ans": "day1_kg + day1_kg * times_day2 + (day1_kg * times_day2 - less_day3)",
+        "w1": "day1_kg + (day1_kg * times_day2) + less_day3",
+        "w2": "day1_kg + day1_kg * times_day2",
+        "w3": "day1_kg * 3 - less_day3"
+      },
+      "questionText": "Một cửa hàng bán gạo ngày thứ nhất bán được $ {day1_kg} $ kg gạo. Ngày thứ hai bán gấp $ {times_day2} $ lần ngày thứ nhất. Ngày thứ ba bán ít hơn ngày thứ hai $ {less_day3} $ kg. Hỏi cả ba ngày cửa hàng đó bán được tất cả bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. $ {w1} $ kg",
+        "B. $ {w2} $ kg",
+        "C. $ {ans} $ kg",
+        "D. $ {w3} $ kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, hãy tính số gạo bán được trong ngày thứ hai.",
+        "Tiếp theo, tính số gạo bán được trong ngày thứ ba.",
+        "Cuối cùng, cộng tổng số gạo của ba ngày lại."
+      ],
+      "solutionHtml": "Số ki-lô-gam gạo cửa hàng bán được trong ngày thứ hai là:<br/>$ {day1_kg} \\times {times_day2} = {day2_kg} $ (kg)<br/><br/>Số ki-lô-gam gạo cửa hàng bán được trong ngày thứ ba là:<br/>$ {day2_kg} - {less_day3} = {day3_kg} $ (kg)<br/><br/>Tổng số ki-lô-gam gạo cửa hàng bán được trong cả ba ngày là:<br/>$ {day1_kg} + {day2_kg} + {day3_kg} = {ans} $ (kg)<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để xác định đúng các phép tính (gấp mấy lần là nhân, ít hơn là trừ) và trình tự thực hiện các phép tính."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_count": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "avg_old": {
+          "min": 80,
+          "max": 150,
+          "step": 10
+        },
+        "avg_new": {
+          "min": 100,
+          "max": 200,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "avg_new > avg_old",
+        "(num_count + 1) * avg_new - num_count * avg_old > 0"
+      ],
+      "formulas": {
+        "sum_old": "num_count * avg_old",
+        "sum_new": "(num_count + 1) * avg_new",
+        "ans": "(num_count + 1) * avg_new - num_count * avg_old",
+        "w1": "avg_new - avg_old",
+        "w2": "(avg_new + avg_old) / 2",
+        "w3": "num_count * (avg_new - avg_old)"
+      },
+      "questionText": "Trung bình cộng của $ {num_count} $ số là $ {avg_old} $. Nếu thêm một số nữa thì trung bình cộng của các số đó là $ {avg_new} $. Tìm số được thêm vào.",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {w2} $",
+        "C. $ {ans} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, hãy tính tổng của $ {num_count} $ số ban đầu.",
+        "Sau đó, tính tổng của $ {num_count} + 1 $ số sau khi thêm số mới.",
+        "Số được thêm vào chính là hiệu giữa tổng mới và tổng ban đầu."
+      ],
+      "solutionHtml": "Tổng của $ {num_count} $ số ban đầu là:<br/>$ {num_count} \\times {avg_old} = {sum_old} $ <br/><br/>Khi thêm một số nữa, tổng số lượng số là $ {num_count} + 1 $. <br/>Tổng của $ {num_count} + 1 $ số đó là:<br/>$ ({num_count} + 1) \\times {avg_new} = {sum_new} $ <br/><br/>Số được thêm vào là:<br/>$ {sum_new} - {sum_old} = {ans} $ <br/>Đáp án đúng là C.",
+      "tip": "Bài toán trung bình cộng nâng cao thường yêu cầu tính tổng các số trước khi thực hiện các phép toán thêm bớt số. Hãy cẩn thận với số lượng các số trong mỗi trường hợp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "perimeter": {
+          "min": 80,
+          "max": 160,
+          "step": 4
+        },
+        "length_diff": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "perimeter % 2 === 0",
+        "length_diff < perimeter / 2",
+        "(perimeter / 2 - length_diff) % 2 === 0",
+        "(perimeter / 2 - length_diff) / 2 > 0"
+      ],
+      "formulas": {
+        "half_perimeter": "perimeter / 2",
+        "width": "(perimeter / 2 - length_diff) / 2",
+        "length": "(perimeter / 2 + length_diff) / 2",
+        "ans": "((perimeter / 2 + length_diff) / 2) * ((perimeter / 2 - length_diff) / 2)",
+        "w1": "perimeter * 2",
+        "w2": "(perimeter / 2 - length_diff)",
+        "w3": "(perimeter / 2 + length_diff)"
+      },
+      "questionText": "Một hình chữ nhật có chu vi là $ {perimeter} $ cm. Chiều dài hơn chiều rộng $ {length_diff} $ cm. Tính diện tích hình chữ nhật đó.",
+      "options": [
+        "A. $ {w1} \\text{ cm}^2 $",
+        "B. $ {w2} \\text{ cm}^2 $",
+        "C. $ {ans} \\text{ cm}^2 $",
+        "D. $ {w3} \\text{ cm}^2 $"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nửa chu vi hình chữ nhật là tổng của chiều dài và chiều rộng.",
+        "Khi biết tổng và hiệu của chiều dài và chiều rộng, em có thể tìm được mỗi cạnh.",
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng."
+      ],
+      "solutionHtml": "Nửa chu vi hình chữ nhật là:<br/>$ {perimeter} : 2 = {half_perimeter} $ (cm)<br/><br/>Theo đề bài, chiều dài hơn chiều rộng $ {length_diff} $ cm. Vậy đây là bài toán tìm hai số khi biết tổng ($ {half_perimeter} $) và hiệu ($ {length_diff} $) của chúng.<br/><br/>Chiều rộng hình chữ nhật là:<br/>$ ({half_perimeter} - {length_diff}) : 2 = {width} $ (cm)<br/><br/>Chiều dài hình chữ nhật là:<br/>$ {half_perimeter} - {width} = {length} $ (cm)<br/>(Hoặc: $ ({half_perimeter} + {length_diff}) : 2 = {length} $ cm)<br/><br/>Diện tích hình chữ nhật là:<br/>$ {length} \\times {width} = {ans} $ (cm$^2$)<br/>Đáp án đúng là C.",
+      "tip": "Để giải quyết bài toán này, em cần áp dụng kiến thức về chu vi hình chữ nhật để tìm nửa chu vi (tổng của chiều dài và chiều rộng), sau đó vận dụng dạng toán tìm hai số khi biết tổng và hiệu để tìm chiều dài và chiều rộng. Cuối cùng mới tính diện tích."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "spent_money": {
+          "min": 50000,
+          "max": 150000,
+          "step": 10000
+        },
+        "received_money": {
+          "min": 30000,
+          "max": 100000,
+          "step": 5000
+        },
+        "final_money": {
+          "min": 100000,
+          "max": 250000,
+          "step": 10000
+        }
+      },
+      "constraints": [
+        "final_money - received_money + spent_money > 0",
+        "final_money - received_money >= 0"
+      ],
+      "formulas": {
+        "money_before_received": "final_money - received_money",
+        "ans": "final_money - received_money + spent_money",
+        "w1": "final_money + spent_money + received_money",
+        "w2": "final_money - spent_money + received_money",
+        "w3": "final_money - spent_money - received_money"
+      },
+      "questionText": "Bố An có một số tiền. Bố đã tiêu hết $ {spent_money} $ đồng mua quà cho An, sau đó được thưởng thêm $ {received_money} $ đồng. Cuối cùng, bố An có $ {final_money} $ đồng. Hỏi ban đầu bố An có bao nhiêu tiền?",
+      "options": [
+        "A. $ {w1} $ đồng",
+        "B. $ {w2} $ đồng",
+        "C. $ {ans} $ đồng",
+        "D. $ {w3} $ đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy làm ngược các bước từ cuối lên. Trước khi được thưởng, bố An có bao nhiêu tiền?",
+        "Trước khi tiêu tiền, bố An có bao nhiêu tiền?"
+      ],
+      "solutionHtml": "Đây là bài toán 'làm ngược từ cuối lên'.<br/><br/>Số tiền bố An có trước khi được thưởng thêm $ {received_money} $ đồng là:<br/>$ {final_money} - {received_money} = {money_before_received} $ (đồng)<br/><br/>Số tiền ban đầu bố An có (trước khi tiêu $ {spent_money} $ đồng) là:<br/>$ {money_before_received} + {spent_money} = {ans} $ (đồng)<br/>Đáp án đúng là C.",
+      "tip": "Khi giải các bài toán dạng này, em hãy hình dung lại các sự kiện theo trình tự ngược lại và thực hiện các phép tính ngược lại để tìm giá trị ban đầu."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_weight_kg": {
+          "min": 500,
+          "max": 1000,
+          "step": 50
+        },
+        "capacity_per_truck_kg": {
+          "min": 80,
+          "max": 150,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "total_weight_kg > capacity_per_truck_kg"
+      ],
+      "formulas": {
+        "num_full_trucks": "Math.floor(total_weight_kg / capacity_per_truck_kg)",
+        "remaining_weight": "total_weight_kg % capacity_per_truck_kg",
+        "extra_truck_needed": "total_weight_kg % capacity_per_truck_kg > 0 ? 1 : 0",
+        "ans": "Math.floor(total_weight_kg / capacity_per_truck_kg) + (total_weight_kg % capacity_per_truck_kg > 0 ? 1 : 0)",
+        "w1": "Math.floor(total_weight_kg / capacity_per_truck_kg)",
+        "w2": "total_weight_kg / capacity_per_truck_kg",
+        "w3": "total_weight_kg * capacity_per_truck_kg"
+      },
+      "questionText": "Một đoàn xe cần chở $ {total_weight_kg} $ kg hàng. Mỗi xe chở được $ {capacity_per_truck_kg} $ kg hàng. Hỏi cần ít nhất bao nhiêu xe để chở hết số hàng đó?",
+      "options": [
+        "A. $ {w1} $ xe",
+        "B. $ {w2} $ xe",
+        "C. $ {ans} $ xe",
+        "D. $ {w3} $ xe"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy thực hiện phép chia tổng số hàng cho sức chở của mỗi xe.",
+        "Nếu có phần dư, em cần thêm một xe nữa để chở hết số hàng còn lại."
+      ],
+      "solutionHtml": "Số xe chở đầy hàng là:<br/>$ {total_weight_kg} : {capacity_per_truck_kg} = {num_full_trucks} $ (xe) dư $ {remaining_weight} $ kg hàng.<br/><br/>Vì còn dư $ {remaining_weight} $ kg hàng ($ {remaining_weight} > 0 $), nên cần thêm 1 xe nữa để chở số hàng còn lại.<br/>Tổng số xe cần dùng là:<br/>$ {num_full_trucks} + 1 = {ans} $ (xe)<br/>Đáp án đúng là C.",
+      "tip": "Trong các bài toán thực tế về chia nhóm, xếp đồ vật, chở hàng,... nếu có phần dư, luôn cần 'thêm 1' đơn vị (1 nhóm, 1 thùng, 1 xe,...) để hoàn thành công việc, trừ khi đề bài yêu cầu cụ thể khác."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "X": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        },
+        "Y": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "Z": {
+          "min": 50,
+          "max": 100,
+          "step": 10
+        },
+        "W": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "K": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "Z % W === 0",
+        "(X * Y + Z / W - K) > 0",
+        "X * Y + Z / W !== X * Y + Z / W + K"
+      ],
+      "formulas": {
+        "term1": "X * Y",
+        "term2": "Z / W",
+        "term1_plus_term2": "X * Y + Z / W",
+        "ans": "X * Y + Z / W - K",
+        "w1": "X * Y + Z / W + K",
+        "w2": "(X * Y + Z) / W - K",
+        "w3": "X * (Y + Z) / W - K"
+      },
+      "questionText": "Tính giá trị của biểu thức sau: $ {X} \\times {Y} + {Z} : {W} - {K} $",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {w2} $",
+        "C. $ {ans} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhớ quy tắc tính toán: Nhân chia trước, cộng trừ sau.",
+        "Thực hiện phép nhân và phép chia trước.",
+        "Sau đó thực hiện phép cộng và phép trừ từ trái sang phải."
+      ],
+      "solutionHtml": "Để tính giá trị biểu thức $ {X} \\times {Y} + {Z} : {W} - {K} $, ta thực hiện theo thứ tự: nhân, chia trước; cộng, trừ sau.<br/><br/>Bước 1: Thực hiện phép nhân và phép chia.<br/>$ {X} \\times {Y} = {term1} $<br/>$ {Z} : {W} = {term2} $<br/><br/>Biểu thức trở thành: $ {term1} + {term2} - {K} $<br/><br/>Bước 2: Thực hiện phép cộng và phép trừ từ trái sang phải.<br/>$ {term1} + {term2} = {term1_plus_term2} $<br/>$ {term1_plus_term2} - {K} = {ans} $<br/>Vậy giá trị của biểu thức là $ {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Thứ tự thực hiện các phép tính trong biểu thức là 'Nhân chia trước, cộng trừ sau'. Nếu có dấu ngoặc, thực hiện trong ngoặc trước."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "an_marbles": {
+          "min": 20,
+          "max": 40,
+          "step": 2
+        },
+        "binh_more_than_an": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "cuong_fraction_divisor": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(an_marbles + binh_more_than_an) % cuong_fraction_divisor === 0",
+        "(an_marbles + binh_more_than_an) / cuong_fraction_divisor > 0"
+      ],
+      "formulas": {
+        "binh_marbles": "an_marbles + binh_more_than_an",
+        "cuong_marbles": "(an_marbles + binh_more_than_an) / cuong_fraction_divisor",
+        "ans": "an_marbles + (an_marbles + binh_more_than_an) + ((an_marbles + binh_more_than_an) / cuong_fraction_divisor)",
+        "w1": "an_marbles + binh_marbles",
+        "w2": "an_marbles + cuong_marbles",
+        "w3": "an_marbles + binh_marbles + cuong_marbles + binh_more_than_an"
+      },
+      "questionText": "Bạn An có $ {an_marbles} $ viên bi. Bạn Bình có nhiều hơn An $ {binh_more_than_an} $ viên bi. Bạn Cường có số bi bằng $ \\frac{1}{{cuong_fraction_divisor}} $ số bi của Bình. Hỏi cả ba bạn có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. $ {w1} $ viên",
+        "B. $ {w2} $ viên",
+        "C. $ {ans} $ viên",
+        "D. $ {w3} $ viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đầu tiên, hãy tính số bi của Bình.",
+        "Tiếp theo, tính số bi của Cường.",
+        "Cuối cùng, cộng số bi của cả ba bạn lại."
+      ],
+      "solutionHtml": "Số viên bi bạn Bình có là:<br/>$ {an_marbles} + {binh_more_than_an} = {binh_marbles} $ (viên)<br/><br/>Số viên bi bạn Cường có là:<br/>$ {binh_marbles} : {cuong_fraction_divisor} = {cuong_marbles} $ (viên)<br/><br/>Tổng số viên bi cả ba bạn có là:<br/>$ {an_marbles} + {binh_marbles} + {cuong_marbles} = {ans} $ (viên)<br/>Đáp án đúng là C.",
+      "tip": "Để giải quyết bài toán này, em cần đọc kỹ từng câu và xác định mối quan hệ giữa số bi của các bạn để tính toán lần lượt, tránh nhầm lẫn giữa các con số."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_rice_kg": {
+          "min": 800,
+          "max": 1200,
+          "step": 100
+        },
+        "transfer_kg": {
+          "min": 50,
+          "max": 150,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "total_rice_kg % 2 === 0",
+        "transfer_kg < total_rice_kg / 2",
+        "(total_rice_kg / 2 - transfer_kg) > 0"
+      ],
+      "formulas": {
+        "rice_each_after_transfer": "total_rice_kg / 2",
+        "rice1_initial": "total_rice_kg / 2 + transfer_kg",
+        "rice2_initial": "total_rice_kg / 2 - transfer_kg",
+        "ans": "total_rice_kg / 2 + transfer_kg",
+        "w1": "total_rice_kg / 2 - transfer_kg",
+        "w2": "total_rice_kg / 2",
+        "w3": "total_rice_kg + transfer_kg * 2"
+      },
+      "questionText": "Hai kho gạo có tổng cộng $ {total_rice_kg} $ tấn gạo. Nếu chuyển $ {transfer_kg} $ tấn gạo từ kho thứ nhất sang kho thứ hai thì số gạo ở hai kho bằng nhau. Hỏi ban đầu kho thứ nhất có bao nhiêu tấn gạo?",
+      "options": [
+        "A. $ {w1} $ tấn",
+        "B. $ {w2} $ tấn",
+        "C. $ {ans} $ tấn",
+        "D. $ {w3} $ tấn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khi số gạo ở hai kho bằng nhau, mỗi kho sẽ có bao nhiêu tấn?",
+        "Để số gạo ở kho thứ nhất bằng với số đó sau khi chuyển đi, ban đầu kho thứ nhất phải có số gạo đã chuyển đi cộng với số gạo bằng nhau đó."
+      ],
+      "solutionHtml": "Khi chuyển $ {transfer_kg} $ tấn gạo từ kho thứ nhất sang kho thứ hai thì số gạo ở hai kho bằng nhau, nghĩa là mỗi kho sẽ có số gạo là:<br/>$ {total_rice_kg} : 2 = {rice_each_after_transfer} $ (tấn)<br/><br/>Vì kho thứ nhất đã chuyển đi $ {transfer_kg} $ tấn gạo mới còn $ {rice_each_after_transfer} $ tấn, nên số gạo ban đầu ở kho thứ nhất là:<br/>$ {rice_each_after_transfer} + {transfer_kg} = {ans} $ (tấn)<br/><br/>(Số gạo ban đầu ở kho thứ hai là: $ {rice_each_after_transfer} - {transfer_kg} = {rice2_initial} $ tấn).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán 'tìm số ban đầu' dạng nâng cao. Em cần xác định được số gạo mỗi kho khi chúng bằng nhau, sau đó 'hoàn trả' số gạo đã chuyển đi để tìm số gạo ban đầu của kho đã chuyển."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_pages": {
+          "min": 150,
+          "max": 300,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "digits_1_to_9": "9 * 1",
+        "digits_10_to_99": "90 * 2",
+        "remaining_pages": "total_pages - 99",
+        "digits_100_to_total": "(total_pages - 99) * 3",
+        "ans": "9 * 1 + 90 * 2 + (total_pages - 99) * 3",
+        "w1": "total_pages",
+        "w2": "total_pages * 3",
+        "w3": "9 * 1 + (total_pages - 9) * 2"
+      },
+      "questionText": "Để đánh số trang một cuốn sách từ trang 1 đến trang $ {total_pages} $, người ta phải dùng tất cả bao nhiêu chữ số?",
+      "options": [
+        "A. $ {w1} $ chữ số",
+        "B. $ {w2} $ chữ số",
+        "C. $ {ans} $ chữ số",
+        "D. $ {w3} $ chữ số"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Xác định số lượng chữ số cần dùng cho các trang có 1 chữ số (từ 1 đến 9).",
+        "Xác định số lượng chữ số cần dùng cho các trang có 2 chữ số (từ 10 đến 99).",
+        "Xác định số lượng chữ số cần dùng cho các trang có 3 chữ số (từ 100 đến $ {total_pages} $).",
+        "Cộng tổng các chữ số lại."
+      ],
+      "solutionHtml": "Số trang có 1 chữ số là từ 1 đến 9. Có $ 9 $ trang.<br/>Số chữ số cần dùng cho các trang có 1 chữ số là: $ 9 \\times 1 = {digits_1_to_9} $ (chữ số)<br/><br/>Số trang có 2 chữ số là từ 10 đến 99. Có $ 99 - 10 + 1 = 90 $ trang.<br/>Số chữ số cần dùng cho các trang có 2 chữ số là: $ 90 \\times 2 = {digits_10_to_99} $ (chữ số)<br/><br/>Số trang có 3 chữ số là từ 100 đến $ {total_pages} $. Có $ {total_pages} - 100 + 1 = {remaining_pages} $ trang.<br/>Số chữ số cần dùng cho các trang có 3 chữ số là: $ {remaining_pages} \\times 3 = {digits_100_to_total} $ (chữ số)<br/><br/>Tổng số chữ số cần dùng để đánh số trang cuốn sách là:<br/>$ {digits_1_to_9} + {digits_10_to_99} + {digits_100_to_total} = {ans} $ (chữ số)<br/>Đáp án đúng là C.",
+      "tip": "Để giải quyết bài toán này, em cần phân chia các trang sách thành các nhóm theo số lượng chữ số (1 chữ số, 2 chữ số, 3 chữ số,...) rồi tính tổng số chữ số cho từng nhóm và cộng lại."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num_classes": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "avg_students_per_class": {
+          "min": 30,
+          "max": 35,
+          "step": 1
+        },
+        "num_boys_in_class_1": {
+          "min": 15,
+          "max": 20,
+          "step": 1
+        },
+        "num_girls_in_class_1": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "girls_other_classes": {
+          "min": 10,
+          "max": 50,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num_boys_in_class_1 + num_girls_in_class_1 === avg_students_per_class",
+        "girls_other_classes < (num_classes - 1) * avg_students_per_class",
+        "(num_classes - 1) * avg_students_per_class - girls_other_classes > 0"
+      ],
+      "formulas": {
+        "total_students_all_classes": "num_classes * avg_students_per_class",
+        "num_students_in_4A": "num_boys_in_class_1 + num_girls_in_class_1",
+        "total_students_other_classes": "(num_classes - 1) * avg_students_per_class",
+        "total_girls_other_classes_known": "girls_other_classes",
+        "ans": "total_students_other_classes - total_girls_other_classes_known",
+        "w1": "total_students_other_classes + total_girls_other_classes_known",
+        "w2": "num_boys_in_class_1",
+        "w3": "num_girls_in_class_1 + girls_other_classes"
+      },
+      "questionText": "Một trường tiểu học có $ {num_classes} $ lớp 4, trung bình mỗi lớp có $ {avg_students_per_class} $ học sinh. Lớp 4A có $ {num_boys_in_class_1} $ học sinh nam và $ {num_girls_in_class_1} $ học sinh nữ. Tổng số học sinh nữ của $ {num_classes - 1} $ lớp 4 còn lại là $ {girls_other_classes} $. Hỏi tổng số học sinh nam của $ {num_classes - 1} $ lớp 4 còn lại là bao nhiêu?",
+      "options": [
+        "A. $ {w1} $ học sinh",
+        "B. $ {w2} $ học sinh",
+        "C. $ {ans} $ học sinh",
+        "D. $ {w3} $ học sinh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số học sinh của tất cả các lớp 4.",
+        "Tính tổng số học sinh của các lớp 4 còn lại (không tính lớp 4A).",
+        "Tổng số học sinh của các lớp 4 còn lại bao gồm học sinh nam và học sinh nữ. Em đã biết tổng số học sinh nữ của các lớp 4 còn lại."
+      ],
+      "solutionHtml": "Tổng số học sinh của $ {num_classes} $ lớp 4 là:<br/>$ {num_classes} \\times {avg_students_per_class} = {total_students_all_classes} $ (học sinh)<br/><br/>Số học sinh lớp 4A là: $ {num_boys_in_class_1} + {num_girls_in_class_1} = {num_students_in_4A} $ (học sinh)<br/><br/>Tổng số học sinh của $ {num_classes - 1} $ lớp 4 còn lại (không tính lớp 4A) là:<br/>$ {total_students_all_classes} - {num_students_in_4A} = {total_students_other_classes} $ (học sinh)<br/><br/>Theo đề bài, tổng số học sinh nữ của $ {num_classes - 1} $ lớp 4 còn lại là $ {total_girls_other_classes_known} $ học sinh.<br/><br/>Vậy, tổng số học sinh nam của $ {num_classes - 1} $ lớp 4 còn lại là:<br/>$ {total_students_other_classes} - {total_girls_other_classes_known} = {ans} $ (học sinh)<br/>Đáp án đúng là C.",
+      "tip": "Để giải quyết bài toán này, em cần phân tích kỹ thông tin về tổng số học sinh và số học sinh từng giới tính của các nhóm lớp. Sử dụng phép trừ để loại bỏ thông tin đã biết và tìm ra phần còn lại."
+    }
+  ]
+}

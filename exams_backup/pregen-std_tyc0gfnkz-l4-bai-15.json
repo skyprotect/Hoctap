@@ -1,0 +1,501 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "firstBook": {
+          "min": 1,
+          "max": 20,
+          "step": 1
+        },
+        "lastBook": {
+          "min": 100,
+          "max": 300,
+          "step": 1
+        },
+        "step": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.lastBook > variables.firstBook"
+      ],
+      "formulas": {
+        "soDau": "variables.firstBook",
+        "soCuoi": "variables.lastBook",
+        "khoangCach": "variables.step",
+        "hieuSoCuoiVaSoDau": "variables.lastBook - variables.firstBook",
+        "ans": "Math.floor((variables.lastBook - variables.firstBook) / variables.step) + 1",
+        "w1": "Math.floor((variables.lastBook - variables.firstBook) / variables.step)",
+        "w2": "variables.lastBook - variables.firstBook + 1",
+        "w3": "Math.floor(variables.lastBook / variables.step)"
+      },
+      "questionText": "Trong một thư viện, các quyển sách được đánh số thứ tự đặc biệt, bắt đầu từ số $ {firstBook} $. Các số thứ tự tiếp theo cách đều nhau $ {step} $ đơn vị. Quyển sách cuối cùng được đánh số $ {lastBook} $. Hỏi có tất cả bao nhiêu quyển sách như vậy trong thư viện?",
+      "options": [
+        "A. $ {w1} $ quyển",
+        "B. $ {ans} $ quyển",
+        "C. $ {w2} $ quyển",
+        "D. $ {w3} $ quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là một dãy số cách đều. Hãy xác định số hạng đầu, số hạng cuối và khoảng cách giữa các số hạng.",
+        "Công thức tính số lượng số hạng trong dãy số cách đều là: $ (\\text{so cuoi} - \\text{so dau}) : \\text{khoang cach} + 1 $."
+      ],
+      "solutionHtml": "Để tìm số lượng quyển sách, ta nhận thấy đây là một dãy số cách đều với số hạng đầu là $ {soDau} $, số hạng cuối là $ {soCuoi} $ và khoảng cách giữa hai số hạng liên tiếp là $ {khoangCach} $.<br/>Áp dụng công thức tính số lượng số hạng trong dãy số cách đều, ta có:<br/>Số lượng quyển sách là: $ ( {soCuoi} - {soDau} ) : {khoangCach} + 1 = {hieuSoCuoiVaSoDau} : {khoangCach} + 1 = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận với phép tính chia và phép cộng $1$ trong công thức. Đừng quên cộng $1$ ở cuối để tính cả số hạng đầu tiên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "firstPosition": {
+          "min": 5,
+          "max": 20,
+          "step": 1
+        },
+        "distance": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        },
+        "termIndex": {
+          "min": 8,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "viTriDau": "variables.firstPosition",
+        "khoangCach": "variables.distance",
+        "thuTuCot": "variables.termIndex",
+        "soKhoangCach": "variables.termIndex - 1",
+        "tongKhoangCach": "(variables.termIndex - 1) * variables.distance",
+        "ans": "variables.firstPosition + (variables.termIndex - 1) * variables.distance",
+        "w1": "variables.firstPosition + variables.termIndex * variables.distance",
+        "w2": "(variables.termIndex - 1) * variables.distance",
+        "w3": "variables.firstPosition + variables.termIndex + variables.distance"
+      },
+      "questionText": "Một người thợ xây dựng một hàng rào. Cột rào đầu tiên được đặt ở vị trí cách mốc $ 0 $ là $ {firstPosition} $ mét. Các cột rào tiếp theo được đặt cách đều nhau $ {distance} $ mét. Hỏi cột rào thứ $ {termIndex} $ sẽ được đặt ở vị trí cách mốc $ 0 $ là bao nhiêu mét?",
+      "options": [
+        "A. $ {w1} $ mét",
+        "B. $ {ans} $ mét",
+        "C. $ {w2} $ mét",
+        "D. $ {w3} $ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm vị trí của cột rào thứ $ {termIndex} $, hãy xác định khoảng cách từ cột rào đầu tiên đến cột rào đó.",
+        "Cột rào thứ $ {termIndex} $ sẽ có $ {termIndex} - 1 $ khoảng cách so với cột rào đầu tiên."
+      ],
+      "solutionHtml": "Đây là một bài toán tìm số hạng trong dãy số cách đều.<br/>Cột rào thứ nhất ở vị trí $ {viTriDau} $ mét.<br/>Từ cột rào thứ nhất đến cột rào thứ $ {thuTuCot} $ có $ {thuTuCot} - 1 = {soKhoangCach} $ khoảng cách.<br/>Tổng khoảng cách từ cột rào đầu tiên đến cột rào thứ $ {thuTuCot} $ là: $ {soKhoangCach} \\times {khoangCach} = {tongKhoangCach} $ (mét).<br/>Vị trí của cột rào thứ $ {thuTuCot} $ là: $ {viTriDau} + {tongKhoangCach} = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Cột rào thứ $ N $ có $ N-1 $ khoảng cách so với cột rào thứ nhất. Đừng nhầm lẫn giữa số thứ tự cột và số khoảng cách.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startNum": {
+          "min": 10,
+          "max": 50,
+          "step": 1
+        },
+        "endNum": {
+          "min": 150,
+          "max": 300,
+          "step": 1
+        },
+        "divisor": {
+          "min": 3,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.startNum < variables.endNum"
+      ],
+      "formulas": {
+        "soBatDau": "variables.startNum",
+        "soKetThuc": "variables.endNum",
+        "soChia": "variables.divisor",
+        "tongSoLuongTrongKhoang": "variables.endNum - variables.startNum + 1",
+        "ceilStartNumDiv": "Math.ceil(variables.startNum / variables.divisor)",
+        "floorEndNumDiv": "Math.floor(variables.endNum / variables.divisor)",
+        "soDauChiaHet": "Math.ceil(variables.startNum / variables.divisor) * variables.divisor",
+        "soCuoiChiaHet": "Math.floor(variables.endNum / variables.divisor) * variables.divisor",
+        "ans": "formulas.soDauChiaHet <= formulas.soCuoiChiaHet ? (formulas.soCuoiChiaHet - formulas.soDauChiaHet) / variables.divisor + 1 : 0",
+        "w1": "Math.floor(formulas.tongSoLuongTrongKhoang / variables.divisor)",
+        "w2": "formulas.ans + 1",
+        "w3": "formulas.ans - 1"
+      },
+      "questionText": "Từ số $ {startNum} $ đến số $ {endNum} $ (bao gồm cả $ {startNum} $ và $ {endNum} $), có bao nhiêu số tự nhiên chia hết cho $ {divisor} $?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tìm số chia hết cho $ {divisor} $ đầu tiên trong khoảng từ $ {startNum} $ đến $ {endNum} $.",
+        "Hãy tìm số chia hết cho $ {divisor} $ cuối cùng trong khoảng từ $ {startNum} $ đến $ {endNum} $.",
+        "Sau đó áp dụng công thức tính số lượng số hạng trong dãy số cách đều."
+      ],
+      "solutionHtml": "Để tìm số lượng các số tự nhiên chia hết cho $ {soChia} $ trong khoảng từ $ {soBatDau} $ đến $ {soKetThuc} $, ta làm như sau:<br/>Bước 1: Tìm số đầu tiên chia hết cho $ {soChia} $ trong khoảng:<br/>Số đó là $ {formulas.soDauChiaHet} $. (Ví dụ: $ {soBatDau} : {soChia} $ được $ {formulas.ceilStartNumDiv} $, vậy số đầu tiên là $ {formulas.ceilStartNumDiv} \\times {soChia} = {formulas.soDauChiaHet} $).<br/>Bước 2: Tìm số cuối cùng chia hết cho $ {soChia} $ trong khoảng:<br/>Số đó là $ {formulas.soCuoiChiaHet} $. (Ví dụ: $ {soKetThuc} : {soChia} $ được $ {formulas.floorEndNumDiv} $, vậy số cuối cùng là $ {formulas.floorEndNumDiv} \\times {soChia} = {formulas.soCuoiChiaHet} $).<br/>Bước 3: Áp dụng công thức tính số lượng số hạng trong dãy số cách đều (với khoảng cách là $ {soChia} $):<br/>Số lượng số là: $ ( {formulas.soCuoiChiaHet} - {formulas.soDauChiaHet} ) : {soChia} + 1 = {ans} $ (số).<br/>Nếu $ {formulas.soDauChiaHet} > {formulas.soCuoiChiaHet} $, nghĩa là không có số nào thỏa mãn, thì số lượng là $0$. Ở đây $ {formulas.soDauChiaHet} \\le {formulas.soCuoiChiaHet} $, nên kết quả là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi tìm số đầu tiên và số cuối cùng chia hết, hãy sử dụng phép chia và làm tròn cẩn thận (làm tròn lên cho số đầu, làm tròn xuống cho số cuối). Đừng quên xử lý trường hợp không có số nào chia hết.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalPages": {
+          "min": 120,
+          "max": 250,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.totalPages >= 100"
+      ],
+      "formulas": {
+        "tongSoTrang": "variables.totalPages",
+        "soChuSoCho1Den9": "9 * 1",
+        "soChuSoCho10Den99": "90 * 2",
+        "soTrangTu100TroLen": "(variables.totalPages - 99)",
+        "soChuSoCho100TroLen": "(variables.totalPages - 99) * 3",
+        "ans": "formulas.soChuSoCho1Den9 + formulas.soChuSoCho10Den99 + formulas.soChuSoCho100TroLen",
+        "w1": "variables.totalPages * 3",
+        "w2": "formulas.soChuSoCho1Den9 + (variables.totalPages - 9) * 2",
+        "w3": "formulas.soChuSoCho1Den9 + formulas.soChuSoCho10Den99 + (variables.totalPages - 100) * 3"
+      },
+      "questionText": "Để đánh số trang cho một cuốn sách từ trang $ 1 $ đến trang $ {totalPages} $, người ta cần dùng tất cả bao nhiêu chữ số?",
+      "options": [
+        "A. $ {w1} $ chữ số",
+        "B. $ {ans} $ chữ số",
+        "C. $ {w2} $ chữ số",
+        "D. $ {w3} $ chữ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cuốn sách có các trang có $1$ chữ số, $2$ chữ số và $3$ chữ số.",
+        "Đếm số lượng chữ số cho từng loại trang (1 chữ số, 2 chữ số, 3 chữ số) rồi cộng lại."
+      ],
+      "solutionHtml": "Để tính tổng số chữ số cần dùng, ta chia thành các nhóm trang:<br/>1. Các trang có $1$ chữ số: Từ $1$ đến $9$. Có $9$ trang. Số chữ số là $ 9 \\times 1 = {formulas.soChuSoCho1Den9} $ (chữ số).<br/>2. Các trang có $2$ chữ số: Từ $10$ đến $99$. Có $ (99 - 10) + 1 = 90 $ trang. Số chữ số là $ 90 \\times 2 = {formulas.soChuSoCho10Den99} $ (chữ số).<br/>3. Các trang có $3$ chữ số: Từ $100$ đến $ {tongSoTrang} $. Có $ ( {tongSoTrang} - 100 ) + 1 = {formulas.soTrangTu100TroLen} $ trang. Số chữ số là $ {formulas.soTrangTu100TroLen} \\times 3 = {formulas.soChuSoCho100TroLen} $ (chữ số).<br/>Tổng số chữ số cần dùng là: $ {formulas.soChuSoCho1Den9} + {formulas.soChuSoCho10Den99} + {formulas.soChuSoCho100TroLen} = {ans} $ (chữ số).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chia dãy số trang thành các nhóm có cùng số chữ số để tính toán dễ dàng hơn. Cẩn thận khi tính số lượng trang trong mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "term1": {
+          "min": 5,
+          "max": 20,
+          "step": 1
+        },
+        "diff": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "soHang1": "variables.term1",
+        "khoangCach": "variables.diff",
+        "soHang2": "variables.term1 + variables.diff",
+        "soHang3": "variables.term1 + 2 * variables.diff",
+        "soHang4": "variables.term1 + 3 * variables.diff",
+        "hieu2Tru1": "variables.term1 + variables.diff - variables.term1",
+        "ans": "variables.term1 + 4 * variables.diff",
+        "w1": "variables.term1 + 3 * variables.diff",
+        "w2": "variables.term1 + 5 * variables.diff",
+        "w3": "variables.term1 + variables.diff + variables.diff"
+      },
+      "questionText": "Cho dãy số sau: $ {term1}, {soHang2}, {soHang3}, {soHang4}, \\dots $. Nếu dãy số này tuân theo một quy luật nhất định, số tiếp theo trong dãy là số nào?",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy quan sát kỹ sự thay đổi giữa các số hạng liên tiếp để tìm ra quy luật của dãy số.",
+        "Tính hiệu giữa số hạng sau và số hạng trước để xem dãy số là dãy cộng hay trừ với một khoảng cách cố định."
+      ],
+      "solutionHtml": "Bước 1: Tìm quy luật của dãy số.<br/>Ta thấy:<br/>$ {soHang2} - {soHang1} = {hieu2Tru1} $<br/>$ {soHang3} - {soHang2} = {hieu2Tru1} $<br/>$ {soHang4} - {soHang3} = {hieu2Tru1} $<br/>Như vậy, mỗi số hạng sau lớn hơn số hạng trước $ {khoangCach} $ đơn vị. Đây là một dãy số cách đều với khoảng cách là $ {khoangCach} $.<br/>Bước 2: Tìm số tiếp theo.<br/>Số tiếp theo trong dãy sẽ là số hạng thứ 5. Ta lấy số hạng thứ 4 cộng với khoảng cách:<br/>$ {soHang4} + {khoangCach} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra quy luật bằng cách tính hiệu hoặc thương giữa vài cặp số hạng đầu tiên để đảm bảo quy luật là nhất quán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "roadLength": {
+          "min": 100,
+          "max": 300,
+          "step": 10
+        },
+        "distanceBetweenTrees": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.roadLength % variables.distanceBetweenTrees === 0"
+      ],
+      "formulas": {
+        "chieuDaiDoanDuong": "variables.roadLength",
+        "khoangCachCacCay": "variables.distanceBetweenTrees",
+        "soKhoangCachTrenMotBen": "variables.roadLength / variables.distanceBetweenTrees",
+        "soCayTrenMotBen": "formulas.soKhoangCachTrenMotBen + 1",
+        "ans": "formulas.soCayTrenMotBen * 2",
+        "w1": "formulas.soKhoangCachTrenMotBen * 2",
+        "w2": "formulas.soCayTrenMotBen",
+        "w3": "formulas.soKhoangCachTrenMotBen + 1"
+      },
+      "questionText": "Người ta trồng cây ở cả hai bên một đoạn đường dài $ {roadLength} $ mét. Biết rằng các cây được trồng cách đều nhau $ {distanceBetweenTrees} $ mét và ở mỗi đầu đường đều có trồng cây. Hỏi có tất cả bao nhiêu cây được trồng trên đoạn đường đó?",
+      "options": [
+        "A. $ {w1} $ cây",
+        "B. $ {ans} $ cây",
+        "C. $ {w2} $ cây",
+        "D. $ {w3} $ cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính số cây trên MỘT bên đường trước.",
+        "Khi trồng cây ở cả hai đầu đường, số cây luôn nhiều hơn số khoảng cách là $1$."
+      ],
+      "solutionHtml": "Để giải bài toán này, ta thực hiện các bước sau:<br/>Bước 1: Tính số khoảng cách giữa các cây trên một bên đường.<br/>Đoạn đường dài $ {chieuDaiDoanDuong} $ mét, mỗi cây cách nhau $ {khoangCachCacCay} $ mét.<br/>Số khoảng cách là: $ {chieuDaiDoanDuong} : {khoangCachCacCay} = {formulas.soKhoangCachTrenMotBen} $ (khoảng cách).<br/>Bước 2: Tính số cây trên một bên đường.<br/>Vì ở mỗi đầu đường đều có trồng cây, nên số cây trên một bên đường sẽ nhiều hơn số khoảng cách là $1$.<br/>Số cây trên một bên đường là: $ {formulas.soKhoangCachTrenMotBen} + 1 = {formulas.soCayTrenMotBen} $ (cây).<br/>Bước 3: Tính tổng số cây trên cả hai bên đường.<br/>Vì có hai bên đường, nên tổng số cây là: $ {formulas.soCayTrenMotBen} \\times 2 = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Luôn đọc kỹ đề bài để biết có trồng cây ở đầu đường hay không, và có mấy bên đường để nhân thêm. Đây là những chi tiết quan trọng dễ gây nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startValue": {
+          "min": 10,
+          "max": 40,
+          "step": 1
+        },
+        "endValue": {
+          "min": 100,
+          "max": 200,
+          "step": 1
+        },
+        "divisor": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.startValue < variables.endValue"
+      ],
+      "formulas": {
+        "soBatDau": "variables.startValue",
+        "soKetThuc": "variables.endValue",
+        "soChia": "variables.divisor",
+        "tongSoLuongTrongKhoang": "variables.endValue - variables.startValue + 1",
+        "soDauChiaHet": "Math.ceil(variables.startValue / variables.divisor) * variables.divisor",
+        "soCuoiChiaHet": "Math.floor(variables.endValue / variables.divisor) * variables.divisor",
+        "soLuongChiaHet": "formulas.soDauChiaHet <= formulas.soCuoiChiaHet ? (formulas.soCuoiChiaHet - formulas.soDauChiaHet) / variables.divisor + 1 : 0",
+        "ans": "formulas.tongSoLuongTrongKhoang - formulas.soLuongChiaHet",
+        "w1": "formulas.soLuongChiaHet",
+        "w2": "formulas.tongSoLuongTrongKhoang",
+        "w3": "formulas.ans + 1"
+      },
+      "questionText": "Trong các số tự nhiên từ $ {startValue} $ đến $ {endValue} $ (bao gồm cả $ {startValue} $ và $ {endValue} $), có bao nhiêu số KHÔNG chia hết cho $ {divisor} $?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tính tổng số lượng các số tự nhiên trong khoảng đã cho.",
+        "Sau đó, tìm số lượng các số chia hết cho $ {divisor} $ trong khoảng đó (giống như bài trước).",
+        "Lấy tổng số lượng trừ đi số lượng các số chia hết sẽ ra kết quả."
+      ],
+      "solutionHtml": "Để tìm số lượng các số KHÔNG chia hết cho $ {soChia} $, ta làm như sau:<br/>Bước 1: Tính tổng số lượng các số tự nhiên từ $ {soBatDau} $ đến $ {soKetThuc} $.<br/>Tổng số lượng số là: $ {soKetThuc} - {soBatDau} + 1 = {formulas.tongSoLuongTrongKhoang} $ (số).<br/>Bước 2: Tìm số lượng các số chia hết cho $ {soChia} $ trong khoảng này (giống bài toán trước).<br/>Số đầu tiên chia hết cho $ {soChia} $: $ {formulas.soDauChiaHet} $.<br/>Số cuối cùng chia hết cho $ {soChia} $: $ {formulas.soCuoiChiaHet} $.<br/>Số lượng các số chia hết cho $ {soChia} $ là: $ ( {formulas.soCuoiChiaHet} - {formulas.soDauChiaHet} ) : {soChia} + 1 = {formulas.soLuongChiaHet} $ (số).<br/>Bước 3: Lấy tổng số lượng trừ đi số lượng các số chia hết.<br/>Số lượng các số KHÔNG chia hết cho $ {soChia} $ là: $ {formulas.tongSoLuongTrongKhoang} - {formulas.soLuongChiaHet} = {ans} $ (số).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này đòi hỏi tư duy ngược. Hãy nhớ rằng 'không chia hết' là phần còn lại sau khi đã loại bỏ những số 'chia hết'.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "upDistance": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "downDistance": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "columnHeight": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "variables.upDistance > variables.downDistance",
+        "variables.columnHeight > variables.upDistance"
+      ],
+      "formulas": {
+        "bocmLenMoiNgay": "variables.upDistance",
+        "tutcmXuongMoiDem": "variables.downDistance",
+        "chieuCaoCot": "variables.columnHeight",
+        "hieuQuaMoiNgay": "variables.upDistance - variables.downDistance",
+        "chieuCaoCanDatTruocNgayCuoi": "variables.columnHeight - variables.upDistance",
+        "rawDivisionForSolution": "(variables.columnHeight - variables.upDistance) / (variables.upDistance - variables.downDistance)",
+        "soNgayTruocNgayCuoiLamTron": "Math.ceil( (variables.columnHeight - variables.upDistance) / (variables.upDistance - variables.downDistance) )",
+        "quangDuongSauSoNgayTrungGian": "formulas.soNgayTruocNgayCuoiLamTron * formulas.hieuQuaMoiNgay",
+        "quangDuongTongSauNgayCuoiCung": "formulas.quangDuongSauSoNgayTrungGian + variables.upDistance",
+        "ans": "variables.columnHeight <= variables.upDistance ? 1 : formulas.soNgayTruocNgayCuoiLamTron + 1",
+        "w1": "Math.ceil(variables.columnHeight / variables.upDistance)",
+        "w2": "Math.ceil(variables.columnHeight / formulas.hieuQuaMoiNgay)",
+        "w3": "formulas.soNgayTruocNgayCuoiLamTron"
+      },
+      "questionText": "Một con ốc sên bò lên một cái cột. Mỗi ngày nó bò lên được $ {upDistance} $ cm, nhưng ban đêm lại bị tụt xuống $ {downDistance} $ cm. Hỏi sau ít nhất bao nhiêu ngày thì con ốc sên đó bò tới đỉnh cột cao $ {columnHeight} $ cm? (Ngày cuối cùng nếu ốc sên chạm đỉnh thì không bị tụt xuống nữa.)",
+      "options": [
+        "A. $ {w1} $ ngày",
+        "B. $ {ans} $ ngày",
+        "C. $ {w2} $ ngày",
+        "D. $ {w3} $ ngày"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy tính quãng đường thực tế ốc sên bò lên được mỗi ngày (sau khi đã bị tụt xuống).",
+        "Cần đặc biệt chú ý đến ngày cuối cùng khi ốc sên chạm tới đỉnh.",
+        "Tính xem bao nhiêu ngày để ốc sên bò đến gần đỉnh, sau đó tính ngày cuối cùng."
+      ],
+      "solutionHtml": "Đây là một bài toán vận dụng cao về dãy số và tư duy logic.<br/>Mỗi ngày, ốc sên bò lên được thực tế là: $ {bocmLenMoiNgay} - {tutcmXuongMoiDem} = {formulas.hieuQuaMoiNgay} $ (cm).<br/>Nếu $ {chieuCaoCot} \\le {bocmLenMoiNgay} $, ốc sên sẽ tới đỉnh trong 1 ngày. Ở đây $ {chieuCaoCot} > {bocmLenMoiNgay} $, nên ta tiếp tục.<br/>Ta sẽ tính số ngày ốc sên bò để đạt đến độ cao mà từ đó nó có thể bò tới đỉnh mà không bị tụt xuống nữa.<br/>Quãng đường còn lại cần bò để có thể chạm đỉnh trong ngày cuối cùng là: $ {chieuCaoCot} - {bocmLenMoiNgay} = {formulas.chieuCaoCanDatTruocNgayCuoi} $ (cm).<br/>Số ngày để ốc sên bò được $ {formulas.chieuCaoCanDatTruocNgayCuoi} $ cm đầu tiên (tính theo quãng đường thực tế mỗi ngày) là:<br/>$ {formulas.chieuCaoCanDatTruocNgayCuoi} : {formulas.hieuQuaMoiNgay} = {formulas.rawDivisionForSolution} $. <br/>Vì số ngày phải là số nguyên, nên ta làm tròn lên: $ {formulas.soNgayTruocNgayCuoiLamTron} $ (ngày).<br/>Sau $ {formulas.soNgayTruocNgayCuoiLamTron} $ ngày, ốc sên đã bò được $ {formulas.soNgayTruocNgayCuoiLamTron} \\times {formulas.hieuQuaMoiNgay} = {formulas.quangDuongSauSoNgayTrungGian} $ cm.<br/>Vào ngày thứ $ {formulas.soNgayTruocNgayCuoiLamTron} + 1 $, ốc sên sẽ bò thêm $ {bocmLenMoiNgay} $ cm. Lúc này, tổng quãng đường ốc sên đã bò sẽ là $ {formulas.quangDuongSauSoNgayTrungGian} + {bocmLenMoiNgay} = {formulas.quangDuongTongSauNgayCuoiCung} $ cm, chắc chắn vượt quá hoặc bằng $ {chieuCaoCot} $ cm.<br/>Vậy, tổng số ngày ít nhất là: $ {formulas.soNgayTruocNgayCuoiLamTron} + 1 = {ans} $ (ngày).<br/>Đáp án đúng là B.",
+      "tip": "Điểm mấu chốt là ngày cuối cùng ốc sên sẽ chạm đỉnh và không bị tụt xuống nữa. Hãy tính quãng đường cần đạt được TRƯỚC khi chạm đỉnh, rồi mới cộng thêm một ngày cho cú bứt phá cuối cùng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "firstN": {
+          "min": 20,
+          "max": 60,
+          "step": 1
+        },
+        "lastN": {
+          "min": 200,
+          "max": 350,
+          "step": 1
+        },
+        "div1": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "div2": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "variables.firstN < variables.lastN",
+        "variables.div1 !== variables.div2",
+        "(variables.div1 === 2 && variables.div2 === 3) || (variables.div1 === 2 && variables.div2 === 5) || (variables.div1 === 3 && variables.div2 === 5) || (variables.div1 === 3 && variables.div2 === 4) || (variables.div1 === 4 && variables.div2 === 5) || (variables.div1 === 5 && variables.div2 === 6) || (variables.div1 === 2 && variables.div2 === 7) || (variables.div1 === 3 && variables.div2 === 7) || (variables.div1 === 4 && variables.div2 === 7) || (variables.div1 === 5 && variables.div2 === 7)"
+      ],
+      "formulas": {
+        "soBatDau": "variables.firstN",
+        "soKetThuc": "variables.lastN",
+        "uoc1": "variables.div1",
+        "uoc2": "variables.div2",
+        "gcd_impl": "(function(a, b) { while (b) { let t = b; b = a % b; a = t; } return a; })(variables.div1, variables.div2)",
+        "bcnn": "(variables.div1 * variables.div2) / formulas.gcd_impl",
+        "soDauChiaHetBCNN": "Math.ceil(variables.firstN / formulas.bcnn) * formulas.bcnn",
+        "soCuoiChiaHetBCNN": "Math.floor(variables.lastN / formulas.bcnn) * formulas.bcnn",
+        "ans": "formulas.soDauChiaHetBCNN <= formulas.soCuoiChiaHetBCNN ? (formulas.soCuoiChiaHetBCNN - formulas.soDauChiaHetBCNN) / formulas.bcnn + 1 : 0",
+        "tongSoLuongTrongKhoang": "variables.lastN - variables.firstN + 1",
+        "w1": "Math.floor(formulas.tongSoLuongTrongKhoang / variables.div1)",
+        "w2": "Math.floor(formulas.tongSoLuongTrongKhoang / variables.div2)",
+        "w3": "formulas.ans + 1"
+      },
+      "questionText": "Từ $ {firstN} $ đến $ {lastN} $ (bao gồm cả $ {firstN} $ và $ {lastN} $), có bao nhiêu số tự nhiên vừa chia hết cho $ {div1} $ vừa chia hết cho $ {div2} $?",
+      "options": [
+        "A. $ {w1} $ số",
+        "B. $ {ans} $ số",
+        "C. $ {w2} $ số",
+        "D. $ {w3} $ số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để một số vừa chia hết cho $ {div1} $ vừa chia hết cho $ {div2} $, số đó phải chia hết cho Bội chung nhỏ nhất (BCNN) của $ {div1} $ và $ {div2} $.",
+        "Tìm BCNN của $ {div1} $ và $ {div2} $ trước."
+      ],
+      "solutionHtml": "Để một số vừa chia hết cho $ {uoc1} $ vừa chia hết cho $ {uoc2} $, số đó phải chia hết cho Bội chung nhỏ nhất (BCNN) của $ {uoc1} $ và $ {uoc2} $.<br/>Bước 1: Tìm BCNN của $ {uoc1} $ và $ {uoc2} $.<br/>Thực hiện phép toán tìm BCNN, ta được BCNN $ ( {uoc1}, {uoc2} ) = {formulas.bcnn} $.<br/>Bài toán trở thành tìm số lượng các số chia hết cho $ {formulas.bcnn} $ trong khoảng từ $ {soBatDau} $ đến $ {soKetThuc} $.<br/>Bước 2: Tìm số đầu tiên chia hết cho $ {formulas.bcnn} $ trong khoảng:<br/>Số đó là $ {formulas.soDauChiaHetBCNN} $.<br/>Bước 3: Tìm số cuối cùng chia hết cho $ {formulas.bcnn} $ trong khoảng:<br/>Số đó là $ {formulas.soCuoiChiaHetBCNN} $.<br/>Bước 4: Áp dụng công thức tính số lượng số hạng trong dãy số cách đều (với khoảng cách là $ {formulas.bcnn} $):<br/>Số lượng số là: $ ( {formulas.soCuoiChiaHetBCNN} - {formulas.soDauChiaHetBCNN} ) : {formulas.bcnn} + 1 = {ans} $ (số).<br/>Nếu $ {formulas.soDauChiaHetBCNN} > {formulas.soCuoiChiaHetBCNN} $, nghĩa là không có số nào thỏa mãn, thì số lượng là $0$. Ở đây $ {formulas.soDauChiaHetBCNN} \\le {formulas.soCuoiChiaHetBCNN} $, nên kết quả là $ {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu 'vừa chia hết cho A vừa chia hết cho B', hãy nghĩ ngay đến Bội chung nhỏ nhất (BCNN) của A và B. Sau đó, bài toán sẽ trở về dạng tìm số chia hết cho BCNN.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startTerm": {
+          "min": 10,
+          "max": 50,
+          "step": 1
+        },
+        "difference": {
+          "min": 3,
+          "max": 9,
+          "step": 1
+        },
+        "numTerms": {
+          "min": 15,
+          "max": 30,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "soHangDau": "variables.startTerm",
+        "khoangCach": "variables.difference",
+        "soLuongSoHang": "variables.numTerms",
+        "soKhoangCachTuSoDau": "variables.numTerms - 1",
+        "tongKhoangCach": "(variables.numTerms - 1) * variables.difference",
+        "ans": "variables.startTerm + (variables.numTerms - 1) * variables.difference",
+        "w1": "variables.startTerm + variables.numTerms * variables.difference",
+        "w2": "(variables.numTerms - 1) * variables.difference",
+        "w3": "variables.startTerm + variables.numTerms + variables.difference"
+      },
+      "questionText": "Người ta viết một dãy số tự nhiên bắt đầu từ $ {startTerm} $. Mỗi số hạng trong dãy cách đều nhau $ {difference} $ đơn vị. Nếu dãy số đó có tất cả $ {numTerms} $ số hạng, hỏi số hạng cuối cùng của dãy là số nào?",
+      "options": [
+        "A. $ {w1} $",
+        "B. $ {ans} $",
+        "C. $ {w2} $",
+        "D. $ {w3} $"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định số hạng đầu tiên và khoảng cách giữa các số hạng.",
+        "Số hạng thứ $ N $ trong dãy số cách đều được tính bằng công thức: $ \\text{so dau} + (N-1) \\times \\text{khoang cach} $."
+      ],
+      "solutionHtml": "Đây là bài toán tìm số hạng thứ $ N $ trong một dãy số cách đều.<br/>Dãy số bắt đầu từ $ {soHangDau} $.<br/>Khoảng cách giữa hai số hạng liên tiếp là $ {khoangCach} $.<br/>Dãy số có $ {soLuongSoHang} $ số hạng, vậy ta cần tìm số hạng thứ $ {soLuongSoHang} $.<br/>Số hạng cuối cùng (số hạng thứ $ {soLuongSoHang} $) được tính bằng công thức:<br/>$ \\text{So hang cuoi} = \\text{So hang dau} + (\\text{So luong so hang} - 1) \\times \\text{Khoang cach} $<br/>$ = {soHangDau} + ( {soLuongSoHang} - 1 ) \\times {khoangCach} $<br/>$ = {soHangDau} + {tongKhoangCach} $<br/>$ = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ rằng, với $ {soLuongSoHang} $ số hạng, sẽ có $ {soLuongSoHang} - 1 $ khoảng cách giữa số hạng đầu và số hạng cuối. Đây là lỗi phổ biến nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-15-d10"
+    }
+  ]
+}

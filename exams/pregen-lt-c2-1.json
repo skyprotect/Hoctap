@@ -1,0 +1,505 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 6,
+          "max": 8,
+          "step": 1
+        },
+        "d2": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d1 !== d2"
+      ],
+      "formulas": {
+        "sum_d1_d2": "d1 + d2",
+        "A_ans": "(sum_d1_d2 % 9 === 0) ? 9 : (9 - (sum_d1_d2 % 9))",
+        "B_ans": "0",
+        "ans": "d1 * 1000 + A_ans * 100 + d2 * 10 + B_ans",
+        "w1_A": "(A_ans === 9) ? 0 : (A_ans + 1)",
+        "w1": "d1 * 1000 + w1_A * 100 + d2 * 10 + B_ans",
+        "w2_B": "5",
+        "w2_A_temp": "((d1 + w2_B + d2) % 9 === 0) ? 9 : (9 - ((d1 + w2_B + d2) % 9))",
+        "w2": "d1 * 1000 + w2_A_temp * 100 + d2 * 10 + w2_B",
+        "w3_B": "8",
+        "w3_A_temp": "((d1 + w3_B + d2) % 9 === 0) ? 9 : (9 - ((d1 + w3_B + d2) % 9))",
+        "w3": "d1 * 1000 + w3_A_temp * 100 + d2 * 10 + w3_B"
+      },
+      "questionText": "Một mật mã số có dạng $\\overline{{d1}A{d2}B}$ (trong đó $A, B$ là các chữ số). Để mở khóa, số này phải là số tự nhiên lớn nhất thỏa mãn điều kiện chia hết cho cả 2, 3, 5 và 9. Hãy tìm mật mã đúng.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số chia hết cho 2 và 5 phải có chữ số tận cùng là 0.",
+        "Số chia hết cho 9 khi tổng các chữ số của nó chia hết cho 9. Số chia hết cho 3 khi tổng các chữ số của nó chia hết cho 3 (nếu đã chia hết cho 9 thì sẽ chia hết cho 3)."
+      ],
+      "solutionHtml": "Để số $\\overline{{d1}A{d2}B}$ chia hết cho cả 2 và 5, chữ số tận cùng $B$ phải là 0.<br/>Vậy $B = {B_ans}$.<br/>Số trở thành $\\overline{{d1}A{d2}{B_ans}}$.<br/>Để số này chia hết cho 9, tổng các chữ số của nó phải chia hết cho 9.<br/>Tổng các chữ số là {d1} + A + {d2} + {B_ans} = {sum_d1_d2} + A$.<br/>Để {sum_d1_d2} + A$ chia hết cho 9 và $A$ là chữ số để số là lớn nhất, ta chọn $A$ lớn nhất có thể.<br/>Nếu $({sum_d1_d2} \\% 9 = 0)$, $A$ có thể là 0 hoặc 9. Để số lớn nhất, ta chọn $A=9$.<br/>Nếu $({sum_d1_d2} \\% 9 \\ne 0)$, thì $A = 9 - ({sum_d1_d2} \\% 9)$.<br/>Vậy $A = {A_ans}$.<br/>Mật mã đúng là: {d1}{A_ans}{d2}{B_ans} = {ans}$.<br/>Đáp án đúng là B."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numStudents": {
+          "min": 60,
+          "max": 120,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "getDistinctPrimeFactors": "(n) => { const factors = new Set(); for (let i = 2; i <= n; i++) { if (n % i === 0) { if (isPrime(i)) factors.add(i); while (n % i === 0) { n /= i; } } } return Array.from(factors); }",
+        "getNumDivisors": "(n) => { let count = 0; for (let i = 1; i * i <= n; i++) { if (n % i === 0) { if (i * i === n) count++; else count += 2; } } return count; }",
+        "isPrime": "(n) => { if (n <= 1) return false; for (let i = 2; i * i <= n; i++) { if (n % i === 0) return false; } return true; }",
+        "prime_factors_list": "getDistinctPrimeFactors(numStudents)",
+        "ans": "prime_factors_list.length",
+        "total_divisors": "getNumDivisors(numStudents)",
+        "w1": "total_divisors",
+        "w2": "ans + 1",
+        "w3": "ans - 1 > 0 ? ans - 1 : ans + 2"
+      },
+      "questionText": "Một lớp học có {numStudents} học sinh. Cô giáo muốn chia lớp thành các nhóm nhỏ để làm dự án. Mỗi nhóm phải có số lượng học sinh là một số nguyên tố và số học sinh đó phải là ước của tổng số học sinh của lớp. Hỏi có bao nhiêu cách chia nhóm như vậy?",
+      "options": [
+        "A. {w1} cách",
+        "B. {ans} cách",
+        "C. {w2} cách",
+        "D. {w3} cách"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xác định các ước của tổng số học sinh.",
+        "Trong các ước đó, hãy tìm ra những số nào là số nguyên tố."
+      ],
+      "solutionHtml": "Để tìm số cách chia nhóm, ta cần tìm các số nguyên tố là ước của {numStudents}.<br/>Ta phân tích số {numStudents} ra thừa số nguyên tố:<br/>${numStudents} = {numStudents_prime_factorization_html}$<br/>Các ước nguyên tố của {numStudents} là {prime_factors_list_text}.<br/>Số lượng các ước nguyên tố này chính là số cách chia nhóm thỏa mãn đề bài.<br/>Vậy có {ans} cách chia nhóm.<br/>Đáp án đúng là B.",
+      "formulasExtended": {
+        "numStudents_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }",
+        "prime_factors_list_text": "(arr) => { return arr.join(', '); }"
+      }
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "t2": {
+          "min": 15,
+          "max": 25,
+          "step": 5
+        },
+        "t3": {
+          "min": 20,
+          "max": 30,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "t1 % 2 === 0",
+        "t2 % 5 === 0",
+        "t1 !== t2",
+        "t1 !== t3",
+        "t2 !== t3"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm_val_seconds": "lcm(lcm(t1, t2), t3)",
+        "lcm_val_minutes": "Math.floor(lcm_val_seconds / 60)",
+        "lcm_val_extra_seconds": "lcm_val_seconds % 60",
+        "start_hour": "7",
+        "start_minute": "0",
+        "final_minute": "(start_minute + lcm_val_minutes) % 60",
+        "added_hours": "Math.floor((start_minute + lcm_val_minutes) / 60)",
+        "final_hour": "start_hour + added_hours",
+        "ans": "`${final_hour} giờ ${final_minute} phút`",
+        "w1_lcm_minutes": "lcm_val_minutes + 5",
+        "w1_final_minute": "(start_minute + w1_lcm_minutes) % 60",
+        "w1_added_hours": "Math.floor((start_minute + w1_lcm_minutes) / 60)",
+        "w1_final_hour": "start_hour + w1_added_hours",
+        "w1": "`${w1_final_hour} giờ ${w1_final_minute} phút`",
+        "w2_lcm_minutes": "lcm_val_minutes > 5 ? lcm_val_minutes - 5 : lcm_val_minutes + 10",
+        "w2_final_minute": "(start_minute + w2_lcm_minutes) % 60",
+        "w2_added_hours": "Math.floor((start_minute + w2_lcm_minutes) / 60)",
+        "w2_final_hour": "start_hour + w2_added_hours",
+        "w2": "`${w2_final_hour} giờ ${w2_final_minute} phút`",
+        "w3_lcm_minutes_prod": "(t1 * t2) / gcd(t1, t2) * t3",
+        "w3_lcm_minutes": "Math.floor(w3_lcm_minutes_prod / 60)",
+        "w3_final_minute": "(start_minute + w3_lcm_minutes) % 60",
+        "w3_added_hours": "Math.floor((start_minute + w3_lcm_minutes) / 60)",
+        "w3_final_hour": "start_hour + w3_added_hours",
+        "w3": "`${w3_final_hour} giờ ${w3_final_minute} phút`"
+      },
+      "questionText": "Ba đèn tín hiệu giao thông tại một ngã tư nhấp nháy theo chu kỳ khác nhau. Đèn xanh nhấp nháy mỗi {t1} giây, đèn vàng mỗi {t2} giây và đèn đỏ mỗi {t3} giây. Nếu chúng cùng nhấp nháy đúng lúc 7 giờ 00 phút 00 giây sáng, hỏi lần tiếp theo chúng cùng nhấp nháy sẽ là lúc mấy giờ và mấy phút?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm bội chung nhỏ nhất của các chu kỳ nhấp nháy của ba đèn.",
+        "Chuyển kết quả từ giây sang phút và giờ, sau đó cộng vào thời gian xuất phát ban đầu."
+      ],
+      "solutionHtml": "Để tìm thời điểm tiếp theo cả ba đèn cùng nhấp nháy, ta cần tìm bội chung nhỏ nhất của {t1}, {t2} và {t3}.<br/>Ta có:<br/>BCNN({t1}, {t2}, {t3}$) = {lcm_val_seconds} giây.<br/>Đổi {lcm_val_seconds} giây sang phút:<br/>{lcm_val_seconds} giây $= {lcm_val_minutes}$ phút {lcm_val_extra_seconds} giây.<br/>Vì {lcm_val_extra_seconds} giây khác 0 thì sẽ rất hiếm khi chúng trùng nhau tại đúng phút 00 giây. Tuy nhiên, đề bài hỏi 'mấy giờ và mấy phút', ngụ ý chúng ta chỉ cần quan tâm đến phần phút tròn.<br/>Thời gian kể từ 7 giờ 00 phút đến khi ba đèn cùng nhấp nháy lần tiếp theo là {lcm_val_minutes} phút.<br/>Thời điểm chúng cùng nhấp nháy lần tiếp theo là:<br/>7 giờ 00 phút + {lcm_val_minutes} phút = {final_hour} giờ {final_minute} phút.<br/>Đáp án đúng là B."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "minVal": {
+          "min": 100,
+          "max": 200,
+          "step": 5
+        },
+        "maxVal": {
+          "min": 500,
+          "max": 1000,
+          "step": 10
+        },
+        "factor1": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "factor2": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "maxVal > minVal",
+        "factor1 !== factor2",
+        "factor1 < factor2"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "lcm": "(a, b) => (a * b) / gcd(a, b)",
+        "lcm_factors": "lcm(factor1, factor2)",
+        "num_div_lcm_upper": "Math.floor(maxVal / lcm_factors)",
+        "num_div_lcm_lower": "Math.floor((minVal - 1) / lcm_factors)",
+        "ans": "num_div_lcm_upper - num_div_lcm_lower",
+        "num_div_f1_upper": "Math.floor(maxVal / factor1)",
+        "num_div_f1_lower": "Math.floor((minVal - 1) / factor1)",
+        "count_f1": "num_div_f1_upper - num_div_f1_lower",
+        "num_div_f2_upper": "Math.floor(maxVal / factor2)",
+        "num_div_f2_lower": "Math.floor((minVal - 1) / factor2)",
+        "count_f2": "num_div_f2_upper - num_div_f2_lower",
+        "w1": "count_f1",
+        "w2": "count_f2",
+        "w3": "count_f1 + count_f2 - ans"
+      },
+      "questionText": "Trong danh sách các số tự nhiên từ {minVal} đến {maxVal} (bao gồm cả {minVal} và {maxVal}), có bao nhiêu số chia hết cho cả {factor1} và {factor2}?",
+      "options": [
+        "A. {w1} số",
+        "B. {ans} số",
+        "C. {w2} số",
+        "D. {w3} số"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một số chia hết cho cả {factor1} và {factor2} thì nó phải chia hết cho bội chung nhỏ nhất của {factor1} và {factor2}.",
+        "Để đếm số lượng số chia hết cho một số $K$ trong khoảng từ $A$ đến $B$, ta lấy $\\lfloor B/K \\rfloor - \\lfloor (A-1)/K \\rfloor$."
+      ],
+      "solutionHtml": "Để một số chia hết cho cả {factor1} và {factor2}, số đó phải chia hết cho bội chung nhỏ nhất của {factor1} và {factor2}.<br/>Ta có BCNN({factor1}, {factor2}$) = {lcm_factors}.<br/>Bây giờ ta cần tìm số lượng số tự nhiên từ {minVal} đến {maxVal} chia hết cho {lcm_factors}.<br/>Số nhỏ nhất chia hết cho {lcm_factors} trong khoảng này là {lcm_factors} \\cdot \\lceil {minVal} / {lcm_factors} \\rceil$.<br/>Số lớn nhất chia hết cho {lcm_factors} trong khoảng này là {lcm_factors} \\cdot \\lfloor {maxVal} / {lcm_factors} \\rfloor$.<br/>Sử dụng công thức đếm số:<br/>Số lượng số = $\\lfloor {maxVal} / {lcm_factors} \\rfloor - \\lfloor ({minVal} - 1) / {lcm_factors} \\rfloor$<br/>Số lượng số = {num_div_lcm_upper} - {num_div_lcm_lower} = {ans}$.<br/>Vậy có {ans} số thỏa mãn điều kiện.<br/>Đáp án đúng là B."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 6,
+          "max": 8,
+          "step": 1
+        },
+        "target_sum": {
+          "min": 10,
+          "max": 17,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "target_sum - d1 >= 1",
+        "target_sum - d1 <= 9"
+      ],
+      "formulas": {
+        "B_ans": "0",
+        "A_ans": "target_sum - d1",
+        "ans": "A_ans * 100 + d1 * 10 + B_ans",
+        "w1_A": "A_ans === 9 ? 1 : A_ans + 1",
+        "w1": "w1_A * 100 + d1 * 10 + B_ans",
+        "w2_B": "5",
+        "w2": "A_ans * 100 + d1 * 10 + w2_B",
+        "w3_A": "A_ans === 1 ? 9 : A_ans - 1",
+        "w3": "w3_A * 100 + d1 * 10 + B_ans"
+      },
+      "questionText": "Tìm số tự nhiên nhỏ nhất có ba chữ số dạng $\\overline{A{d1}B}$ (với $A, B$ là các chữ số, $A$ là chữ số hàng trăm) sao cho số đó chia hết cho 2 và 5, đồng thời có tổng các chữ số bằng {target_sum}.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để số chia hết cho 2 và 5, chữ số tận cùng phải là 0.",
+        "Sau khi xác định chữ số cuối, dùng điều kiện tổng các chữ số để tìm chữ số đầu tiên."
+      ],
+      "solutionHtml": "Gọi số cần tìm là $\\overline{A{d1}B}$.<br/>Vì số cần tìm chia hết cho cả 2 và 5, nên chữ số hàng đơn vị $B$ phải là 0.<br/>Vậy $B = {B_ans}$.<br/>Số có dạng $\\overline{A{d1}{B_ans}}$.<br/>Tổng các chữ số của số này là $A + {d1} + {B_ans}$.<br/>Theo đề bài, tổng các chữ số bằng {target_sum}, nên:<br/>$A + {d1} + {B_ans} = {target_sum}$<br/>$A + {d1} + 0 = {target_sum}$<br/>$A = {target_sum} - {d1}$<br/>$A = {A_ans}$.<br/>Vậy số cần tìm là {A_ans}{d1}{B_ans} = {ans}$.<br/>Đây là số nhỏ nhất có ba chữ số thỏa mãn vì chữ số hàng trăm $A$ được xác định duy nhất từ các điều kiện.<br/>Đáp án đúng là B."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numApples": {
+          "min": 60,
+          "max": 100,
+          "step": 4
+        },
+        "numOranges": {
+          "min": 75,
+          "max": 120,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "numApples !== numOranges"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "gcd_val": "gcd(numApples, numOranges)",
+        "apples_per_bag": "numApples / gcd_val",
+        "oranges_per_bag": "numOranges / gcd_val",
+        "ans": "gcd_val",
+        "w1": "gcd_val - 1",
+        "w2": "gcd_val + 1",
+        "w3_lcm": "((numApples * numOranges) / gcd(numApples, numOranges))",
+        "w3": "w3_lcm"
+      },
+      "questionText": "Một người nông dân có {numApples} quả táo và {numOranges} quả cam. Anh ta muốn chia chúng vào các túi sao cho mỗi túi có số lượng táo bằng nhau và số lượng cam bằng nhau. Hỏi số túi nhiều nhất có thể chia là bao nhiêu?",
+      "options": [
+        "A. {w1} túi",
+        "B. {ans} túi",
+        "C. {w2} túi",
+        "D. {w3} túi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số túi nhiều nhất phải là ước chung của cả số táo và số cam.",
+        "Tìm ước chung lớn nhất của hai số."
+      ],
+      "solutionHtml": "Để chia {numApples} quả táo và {numOranges} quả cam vào các túi sao cho mỗi túi có số lượng táo bằng nhau và số lượng cam bằng nhau, số túi nhiều nhất có thể chia phải là ước chung lớn nhất (UCLN) của số táo và số cam.<br/>Ta cần tìm UCLN({numApples}, {numOranges}).<br/>Phân tích ra thừa số nguyên tố:<br/>${numApples} = {numApples_prime_factorization_html}$<br/>${numOranges} = {numOranges_prime_factorization_html}$<br/>UCLN({numApples}, {numOranges}) = {gcd_val}.<br/>Vậy số túi nhiều nhất có thể chia là {ans} túi.<br/>Khi đó, mỗi túi sẽ có {apples_per_bag} quả táo và {oranges_per_bag} quả cam.<br/>Đáp án đúng là B.",
+      "formulasExtended": {
+        "isPrime": "(n) => { if (n <= 1) return false; for (let i = 2; i * i <= n; i++) { if (n % i === 0) return false; } return true; }",
+        "numApples_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }",
+        "numOranges_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }"
+      }
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "n2": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        },
+        "n3": {
+          "min": 8,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n1 !== n2",
+        "n1 !== n3",
+        "n2 !== n3"
+      ],
+      "formulas": {
+        "isPrime": "(num) => { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }",
+        "getDistinctPrimeFactors": "(n) => { const factors = new Set(); for (let i = 2; i <= n; i++) { if (n % i === 0) { if (isPrime(i)) factors.add(i); while (n % i === 0) { n /= i; } } } return Array.from(factors); }",
+        "getNumDivisors": "(n) => { let count = 0; for (let i = 1; i * i <= n; i++) { if (n % i === 0) { if (i * i === n) count++; else count += 2; } } return count; }",
+        "N_val": "n1 * n2 * n3",
+        "prime_factors_list": "getDistinctPrimeFactors(N_val)",
+        "ans": "prime_factors_list.length",
+        "total_divisors": "getNumDivisors(N_val)",
+        "w1": "total_divisors",
+        "w2": "ans + 1",
+        "w3": "ans > 0 ? ans - 1 : ans + 2"
+      },
+      "questionText": "Một nhà khoa học đang nghiên cứu một số đặc biệt $N$ được tạo thành từ tích của ba số {n1}, {n2} và {n3}. Hỏi số $N$ này có bao nhiêu ước số là số nguyên tố khác nhau?",
+      "options": [
+        "A. {w1} ước",
+        "B. {ans} ước",
+        "C. {w2} ước",
+        "D. {w3} ước"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính giá trị của $N$ trước.",
+        "Phân tích $N$ ra thừa số nguyên tố. Các cơ số trong phân tích đó chính là các ước nguyên tố khác nhau."
+      ],
+      "solutionHtml": "Số $N$ được tạo thành từ tích của {n1}, {n2} và {n3} là:<br/>$N = {n1} \\times {n2} \\times {n3} = {N_val}$.<br/>Để tìm số lượng các ước nguyên tố khác nhau của $N$, ta cần phân tích $N$ ra thừa số nguyên tố:<br/>${N_val} = {N_val_prime_factorization_html}$<br/>Các ước nguyên tố khác nhau của $N$ là {prime_factors_list_text}.<br/>Số lượng các ước nguyên tố khác nhau là {ans}.<br/>Vậy số $N$ có {ans} ước số là số nguyên tố khác nhau.<br/>Đáp án đúng là B.",
+      "formulasExtended": {
+        "N_val_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }",
+        "prime_factors_list_text": "(arr) => { return arr.join(', '); }"
+      }
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "numA": {
+          "min": 70,
+          "max": 100,
+          "step": 2
+        },
+        "numB": {
+          "min": 90,
+          "max": 120,
+          "step": 3
+        }
+      },
+      "constraints": [
+        "numA % 2 === 0",
+        "numB % 3 === 0",
+        "numA !== numB"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "isPrime": "(n) => { if (n <= 1) return false; for (let i = 2; i * i <= n; i++) { if (n % i === 0) return false; } return true; }",
+        "getDistinctPrimeFactors": "(n) => { const factors = new Set(); for (let i = 2; i <= n; i++) { if (n % i === 0) { if (isPrime(i)) factors.add(i); while (n % i === 0) { n /= i; } } } return Array.from(factors); }",
+        "getNumDivisors": "(n) => { let count = 0; for (let i = 1; i * i <= n; i++) { if (n % i === 0) { if (i * i === n) count++; else count += 2; } } return count; }",
+        "gcd_val": "gcd(numA, numB)",
+        "distinct_prime_factors_of_gcd": "getDistinctPrimeFactors(gcd_val)",
+        "ans": "distinct_prime_factors_of_gcd.length",
+        "total_divisors_of_gcd": "getNumDivisors(gcd_val)",
+        "w1": "total_divisors_of_gcd",
+        "w2": "ans + 1",
+        "w3": "ans > 0 ? ans - 1 : ans + 2"
+      },
+      "questionText": "Cho hai số tự nhiên $A = {numA}$ và $B = {numB}$. Hãy tìm tất cả các ước chung của $A$ và $B$ là số nguyên tố. Có bao nhiêu ước chung như vậy?",
+      "options": [
+        "A. {w1} ước",
+        "B. {ans} ước",
+        "C. {w2} ước",
+        "D. {w3} ước"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đầu tiên, hãy tìm ước chung lớn nhất (UCLN) của hai số $A$ và $B$.",
+        "Sau đó, phân tích UCLN đó ra thừa số nguyên tố. Các thừa số nguyên tố này chính là các ước chung nguyên tố của $A$ và $B$."
+      ],
+      "solutionHtml": "Để tìm các ước chung là số nguyên tố của $A$ và $B$, ta cần tìm ước chung lớn nhất (UCLN) của $A$ và $B$.<br/>$A = {numA}$<br/>$B = {numB}$<br/>Phân tích $A$ và $B$ ra thừa số nguyên tố:<br/>${numA} = {numA_prime_factorization_html}$<br/>${numB} = {numB_prime_factorization_html}$<br/>UCLN({numA}, {numB}$) = {gcd_val_prime_factor_common_html} = {gcd_val}.<br/>Bây giờ, ta tìm các ước nguyên tố của UCLN({numA}, {numB}$) = {gcd_val}.<br/>Phân tích {gcd_val} ra thừa số nguyên tố:<br/>${gcd_val} = {gcd_val_prime_factorization_html}$<br/>Các ước nguyên tố của {gcd_val} (cũng là các ước chung nguyên tố của {numA} và {numB}) là {distinct_prime_factors_of_gcd_text}.<br/>Số lượng các ước chung nguyên tố là {ans}.<br/>Đáp án đúng là B.",
+      "formulasExtended": {
+        "isPrime": "(n) => { if (n <= 1) return false; for (let i = 2; i * i <= n; i++) { if (n % i === 0) return false; } return true; }",
+        "numA_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }",
+        "numB_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }",
+        "gcd_val_prime_factor_common_html": "(numA, numB) => { const getPrimeFactorCounts = (n) => { const counts = {}; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { while (temp_n % i === 0) { counts[i] = (counts[i] || 0) + 1; temp_n /= i; } } } return counts; }; const countsA = getPrimeFactorCounts(numA); const countsB = getPrimeFactorCounts(numB); const commonFactors = []; for (const p in countsA) { if (countsB[p]) { commonFactors.push(`${p}^{${Math.min(countsA[p], countsB[p])}}`); } } if (commonFactors.length === 0) return '1'; return commonFactors.join(' \\cdot '); }",
+        "gcd_val_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }",
+        "distinct_prime_factors_of_gcd_text": "(arr) => { return arr.join(', '); }"
+      }
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "minC": {
+          "min": 100,
+          "max": 150,
+          "step": 5
+        },
+        "maxC": {
+          "min": 200,
+          "max": 250,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "maxC > minC",
+        "(Math.ceil((minC + 1) / 60) * 60 - 1) >= minC && (Math.ceil((minC + 1) / 60) * 60 - 1) <= maxC"
+      ],
+      "formulas": {
+        "lcm_val": "60",
+        "remainder": "1",
+        "lower_bound_for_k": "minC + 1",
+        "upper_bound_for_k": "maxC + 1",
+        "first_multiple_of_lcm": "Math.ceil(lower_bound_for_k / lcm_val) * lcm_val",
+        "ans": "first_multiple_of_lcm - remainder",
+        "w1": "ans + lcm_val",
+        "w2": "ans - lcm_val",
+        "w3": "first_multiple_of_lcm"
+      },
+      "questionText": "Một đội văn nghệ có số người trong khoảng từ {minC} đến {maxC}. Khi đội xếp hàng 2, hàng 3, hàng 4, hàng 5, hàng 6 đều thiếu 1 người. Hỏi đội văn nghệ đó có bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số người của đội là $N$. Khi xếp hàng 2, 3, 4, 5, 6 đều thiếu 1 người có nghĩa là $N+1$ chia hết cho cả 2, 3, 4, 5, 6.",
+        "Tìm Bội chung nhỏ nhất của 2, 3, 4, 5, 6. Số $N+1$ sẽ là một bội của BCNN đó."
+      ],
+      "solutionHtml": "Gọi số người của đội văn nghệ là $N$.<br/>Theo đề bài, khi xếp hàng 2, hàng 3, hàng 4, hàng 5, hàng 6 đều thiếu 1 người. Điều này có nghĩa là nếu thêm 1 người vào đội thì số người sẽ chia hết cho cả 2, 3, 4, 5, 6.<br/>Vậy $N+1$ là bội chung của 2, 3, 4, 5, 6.<br/>Ta tìm Bội chung nhỏ nhất (BCNN) của các số này:<br/>BCNN(2, 3, 4, 5, 6) = BCNN($2, 3, 2^2, 5, 2 \\cdot 3$) = $2^2 \\cdot 3 \\cdot 5 = 4 \\cdot 3 \\cdot 5 = {lcm_val}$.<br/>Vậy $N+1$ phải là một bội của {lcm_val}.<br/>$N+1 \\in \\{ {lcm_val}, 2 \\cdot {lcm_val}, 3 \\cdot {lcm_val}, ... \\} = \\{ 60, 120, 180, 240, ... \\}$.<br/>Do đó, $N \\in \\{ 59, 119, 179, 239, ... \\}$.<br/>Mặt khác, số người của đội trong khoảng từ {minC} đến {maxC}.<br/>Tức là {minC} \\le N \\le {maxC}$.<br/>Ta kiểm tra các giá trị của $N$:<br/>- Nếu $N = 59$, không thỏa mãn {minC} \\le 59 \\le {maxC}$.<br/>- Nếu $N = 119$, thỏa mãn {minC} \\le 119 \\le {maxC}$. (Ví dụ: nếu {minC}=100, {maxC}=150$, thì $100 \\le 119 \\le 150$)<br/>- Nếu $N = 179$, thỏa mãn {minC} \\le 179 \\le {maxC}$. (Ví dụ: nếu {minC}=150, {maxC}=200$, thì $150 \\le 179 \\le 200$)<br/>- Nếu $N = 239$, thỏa mãn {minC} \\le 239 \\le {maxC}$. (Ví dụ: nếu {minC}=200, {maxC}=250$, thì $200 \\le 239 \\le 250$)<br/>Số duy nhất trong khoảng từ {minC} đến {maxC} là {ans} người.<br/>Đáp án đúng là B."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "L": {
+          "min": 100,
+          "max": 150,
+          "step": 2
+        },
+        "W": {
+          "min": 120,
+          "max": 180,
+          "step": 3
+        }
+      },
+      "constraints": [
+        "L !== W"
+      ],
+      "formulas": {
+        "gcd": "(a, b) => { while (b) { [a, b] = [b, a % b]; } return a; }",
+        "isPrime": "(n) => { if (n <= 1) return false; for (let i = 2; i * i <= n; i++) { if (n % i === 0) return false; } return true; }",
+        "getLargestPrimeFactor": "(n) => { if (n <= 1) return null; let largestFactor = 1; for (let i = 2; i * i <= n; i++) { if (n % i === 0) { if (isPrime(i)) largestFactor = Math.max(largestFactor, i); while (n % i === 0) { n /= i; } } } if (n > 1) largestFactor = Math.max(largestFactor, n); return largestFactor; }",
+        "getSmallestPrimeFactor": "(n) => { if (n <= 1) return null; for (let i = 2; i * i <= n; i++) { if (n % i === 0) { if (isPrime(i)) return i; } } return n; }",
+        "gcd_val": "gcd(L, W)",
+        "side_length_ans": "getLargestPrimeFactor(gcd_val)",
+        "ans": "side_length_ans * side_length_ans",
+        "w1": "gcd_val * gcd_val",
+        "w2_side_smaller_prime": "getSmallestPrimeFactor(gcd_val)",
+        "w2": "w2_side_smaller_prime * w2_side_smaller_prime",
+        "w3": "L * W"
+      },
+      "questionText": "Một khu vườn hình chữ nhật có chiều dài {L} mét và chiều rộng {W} mét. Người ta muốn chia khu vườn thành những mảnh đất hình vuông bằng nhau sao cho kích thước cạnh của mỗi mảnh đất hình vuông là một số nguyên tố lớn nhất có thể và số mảnh đất là số nguyên. Hỏi diện tích mỗi mảnh đất hình vuông đó là bao nhiêu?",
+      "options": [
+        "A. {w1} m$^2$",
+        "B. {ans} m$^2$",
+        "C. {w2} m$^2$",
+        "D. {w3} m$^2$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để chia khu vườn thành các mảnh đất hình vuông bằng nhau và có số mảnh là số nguyên, cạnh của hình vuông phải là ước chung của chiều dài và chiều rộng.",
+        "Để kích thước cạnh là số nguyên tố lớn nhất có thể, hãy tìm ước chung lớn nhất của chiều dài và chiều rộng, sau đó tìm ước nguyên tố lớn nhất của ước chung đó."
+      ],
+      "solutionHtml": "Để chia khu vườn hình chữ nhật có chiều dài {L} mét và chiều rộng {W} mét thành những mảnh đất hình vuông bằng nhau, cạnh của hình vuông đó phải là một ước chung của {L} và {W}.<br/>Để kích thước cạnh của hình vuông là lớn nhất có thể, cạnh hình vuông chính là UCLN({L}, {W}$).<br/>Ta tìm UCLN của {L} và {W}: UCLN({L}, {W}$) = {gcd_val}.<br/>Bây giờ, theo yêu cầu đề bài, kích thước cạnh của mỗi mảnh đất hình vuông phải là một <strong>số nguyên tố lớn nhất có thể</strong>.<br/>Ta cần tìm ước nguyên tố lớn nhất của {gcd_val}.<br/>Phân tích {gcd_val} ra thừa số nguyên tố: ${gcd_val} = {gcd_val_prime_factorization_html}$<br/>Ước nguyên tố lớn nhất của {gcd_val} là {side_length_ans}.<br/>Vậy, cạnh của mỗi mảnh đất hình vuông là {side_length_ans} mét.<br/>Diện tích mỗi mảnh đất hình vuông đó là: {side_length_ans} \\times {side_length_ans} = {ans}$ m$^2$.<br/>Đáp án đúng là B.",
+      "formulasExtended": {
+        "gcd_val_prime_factorization_html": "(n) => { let factors = []; let temp_n = n; for (let i = 2; i <= temp_n; i++) { if (isPrime(i)) { let count = 0; while (temp_n % i === 0) { count++; temp_n /= i; } if (count > 0) factors.push(`${i}^{${count}}`); } } if (factors.length === 0) return `${n}`; return factors.join(' \\cdot '); }"
+      }
+    }
+  ]
+}

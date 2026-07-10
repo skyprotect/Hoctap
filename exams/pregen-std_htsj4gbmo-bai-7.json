@@ -1,0 +1,649 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "days1": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "rate1": {
+          "min": 120,
+          "max": 180,
+          "step": 5
+        },
+        "days2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "rate2": {
+          "min": 150,
+          "max": 200,
+          "step": 5
+        },
+        "defective": {
+          "min": 10,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "rate2 > rate1",
+        "defective < (rate1 * days1 + rate2 * days2)"
+      ],
+      "formulas": {
+        "prod1": "rate1 * days1",
+        "prod2": "rate2 * days2",
+        "totalProd": "prod1 + prod2",
+        "ans": "totalProd - defective",
+        "w1": "totalProd + defective",
+        "w2": "totalProd",
+        "w3": "ans + 50"
+      },
+      "questionText": "Một nhà máy sản xuất trong {days1} ngày đầu, mỗi ngày sản xuất được {rate1} sản phẩm. Trong {days2} ngày tiếp theo, năng suất tăng lên, mỗi ngày sản xuất được {rate2} sản phẩm. Cuối cùng, có {defective} sản phẩm bị lỗi và phải loại bỏ. Hỏi tổng số sản phẩm đạt chuẩn của nhà máy là bao nhiêu?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số sản phẩm sản xuất trong {days1} ngày đầu: {rate1} nhân {days1}.",
+        "Bước 2: Tính tổng số sản phẩm sản xuất trong {days2} ngày tiếp theo: {rate2} nhân {days2}.",
+        "Bước 3: Cộng tổng số sản phẩm của hai giai đoạn rồi trừ đi số sản phẩm bị lỗi là {defective}."
+      ],
+      "solutionHtml": "Số sản phẩm nhà máy sản xuất trong {days1} ngày đầu là:<br/>${rate1} \\times {days1} = {prod1}$ (sản phẩm)<br/><br/>Số sản phẩm nhà máy sản xuất trong {days2} ngày tiếp theo là:<br/>${rate2} \\times {days2} = {prod2}$ (sản phẩm)<br/><br/>Tổng số sản phẩm sản xuất được là:<br/>${prod1} + {prod2} = {totalProd}$ (sản phẩm)<br/><br/>Số sản phẩm đạt chuẩn của nhà máy là:<br/>${totalProd} - {defective} = {ans}$ (sản phẩm)<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Cần thực hiện phép nhân trước, sau đó là phép cộng, và cuối cùng là phép trừ theo đúng thứ tự ưu tiên của các phép tính.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialVolume": {
+          "min": 1000,
+          "max": 2000,
+          "step": 100
+        },
+        "inflowRate1": {
+          "min": 50,
+          "max": 80,
+          "step": 5
+        },
+        "inflowTime1": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "outflowRate": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        },
+        "outflowTime": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "inflowRate2": {
+          "min": 60,
+          "max": 90,
+          "step": 5
+        },
+        "inflowTime2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialVolume + inflowRate1 * inflowTime1 - outflowRate * outflowTime + inflowRate2 * inflowTime2 >= 0",
+        "inflowRate2 > outflowRate",
+        "inflowRate1 > outflowRate"
+      ],
+      "formulas": {
+        "added1": "inflowRate1 * inflowTime1",
+        "removed": "outflowRate * outflowTime",
+        "added2": "inflowRate2 * inflowTime2",
+        "ans": "initialVolume + added1 - removed + added2",
+        "w1": "initialVolume + (inflowRate1 + inflowRate2) * (inflowTime1 + inflowTime2) - outflowRate * outflowTime",
+        "w2": "((initialVolume + added1 + removed - added2) === (initialVolume + added1 - removed + added2)) ? (initialVolume + added1 - removed + added2) - 150 : (initialVolume + added1 + removed - added2)",
+        "w3": "initialVolume + (added1 - removed) * added2"
+      },
+      "questionText": "Một bể nước ban đầu chứa {initialVolume} lít nước. Sau đó, người ta bơm nước vào bể với tốc độ {inflowRate1} lít/phút trong {inflowTime1} phút. Tiếp theo, một vòi khác xả nước ra khỏi bể với tốc độ {outflowRate} lít/phút trong {outflowTime} phút. Cuối cùng, người ta lại bơm thêm nước vào bể với tốc độ {inflowRate2} lít/phút trong {inflowTime2} phút. Hỏi sau tất cả các quá trình, trong bể còn lại bao nhiêu lít nước?",
+      "options": [
+        "A. {w1} lít",
+        "B. {ans} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính lượng nước bơm vào lần 1.",
+        "Tính lượng nước xả ra.",
+        "Tính lượng nước bơm vào lần 2.",
+        "Công thức cuối cùng là: Lượng nước ban đầu + Lượng bơm vào 1 - Lượng xả ra + Lượng bơm vào 2."
+      ],
+      "solutionHtml": "Lượng nước được bơm vào bể lần thứ nhất là:<br/>{inflowRate1} \\times {inflowTime1} = {added1}$ (lít)<br/><br/>Lượng nước được xả ra khỏi bể là:<br/>{outflowRate} \\times {outflowTime} = {removed}$ (lít)<br/><br/>Lượng nước được bơm vào bể lần thứ hai là:<br/>{inflowRate2} \\times {inflowTime2} = {added2}$ (lít)<br/><br/>Số lít nước còn lại trong bể sau tất cả các quá trình là:<br/>{initialVolume} + {added1} - {removed} + {added2} = {ans}$ (lít)<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Hãy chú ý đến thứ tự các phép tính nhân trước, sau đó là cộng trừ từ trái sang phải. Các hoạt động 'bơm vào' là cộng, 'xả ra' là trừ.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "weeklyAllowance": {
+          "min": 50000,
+          "max": 100000,
+          "step": 5000
+        },
+        "weeks": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "dailySpending": {
+          "min": 8000,
+          "max": 15000,
+          "step": 1000
+        },
+        "schoolDays": {
+          "min": 5,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "weeklyAllowance > dailySpending * schoolDays",
+        "weeklyAllowance * weeks > dailySpending * schoolDays * weeks"
+      ],
+      "formulas": {
+        "totalAllowance": "weeklyAllowance * weeks",
+        "spendingPerWeek": "dailySpending * schoolDays",
+        "totalSpending": "spendingPerWeek * weeks",
+        "ans": "totalAllowance - totalSpending",
+        "w1": "(weeklyAllowance - dailySpending) * weeks",
+        "w2": "weeklyAllowance * weeks + dailySpending * schoolDays * weeks",
+        "w3": "((weeklyAllowance * weeks - dailySpending * schoolDays) === ((weeklyAllowance - dailySpending) * weeks) || (weeklyAllowance * weeks - dailySpending * schoolDays) === (weeklyAllowance * weeks - dailySpending * schoolDays * weeks)) ? (weeklyAllowance * weeks - dailySpending * schoolDays) - 15000 : (weeklyAllowance * weeks - dailySpending * schoolDays)"
+      },
+      "questionText": "Mẹ cho An {weeklyAllowance} đồng tiền tiêu vặt mỗi tuần. An đi học {schoolDays} ngày/tuần và mỗi ngày An tiêu {dailySpending} đồng. An quyết định tiết kiệm số tiền còn lại trong {weeks} tuần. Hỏi sau {weeks} tuần, An tiết kiệm được bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số tiền An được mẹ cho trong {weeks} tuần.",
+        "Tính số tiền An tiêu mỗi tuần.",
+        "Tính tổng số tiền An tiêu trong {weeks} tuần.",
+        "Số tiền tiết kiệm = Tổng tiền được cho - Tổng tiền tiêu."
+      ],
+      "solutionHtml": "Số tiền An được mẹ cho trong {weeks} tuần là:<br/>$ {weeklyAllowance} \\times {weeks} = {totalAllowance} $ (đồng)<br/><br/>Số tiền An tiêu trong mỗi tuần đi học {schoolDays} ngày là:<br/>$ {dailySpending} \\times {schoolDays} = {spendingPerWeek} $ (đồng)<br/><br/>Tổng số tiền An tiêu trong {weeks} tuần là:<br/>$ {spendingPerWeek} \\times {weeks} = {totalSpending} $ (đồng)<br/><br/>Số tiền An tiết kiệm được sau {weeks} tuần là:<br/>$ {totalAllowance} - {totalSpending} = {ans} $ (đồng)<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Để giải quyết bài toán này, chúng ta có thể tính tổng tiền được cho và tổng tiền đã tiêu trong {weeks} tuần, sau đó lấy hiệu. Hoặc có thể tính số tiền tiết kiệm mỗi tuần rồi nhân với số tuần.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lengthOut": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "widthOut": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "lengthIn": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "widthIn": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "lengthOut > lengthIn",
+        "widthOut > widthIn",
+        "lengthOut * widthOut > lengthIn * widthIn"
+      ],
+      "formulas": {
+        "areaOut": "lengthOut * widthOut",
+        "areaIn": "lengthIn * widthIn",
+        "ans": "areaOut - areaIn",
+        "w1": "(lengthOut - lengthIn) * (widthOut - widthIn)",
+        "w2": "areaOut + areaIn",
+        "w3": "lengthOut * widthOut - lengthIn + widthIn"
+      },
+      "questionText": "Một mảnh đất hình chữ nhật lớn có chiều dài {lengthOut} m và chiều rộng {widthOut} m. Người ta đào một cái ao hình chữ nhật nhỏ ngay chính giữa mảnh đất đó, có chiều dài {lengthIn} m và chiều rộng {widthIn} m. Hỏi diện tích phần đất còn lại (không kể ao) là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} m$^{2}$",
+        "B. {ans} m$^{2}$",
+        "C. {w2} m$^{2}$",
+        "D. {w3} m$^{2}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính diện tích mảnh đất lớn.",
+        "Tính diện tích cái ao.",
+        "Diện tích phần đất còn lại = Diện tích mảnh đất lớn - Diện tích cái ao."
+      ],
+      "solutionHtml": "Diện tích của mảnh đất hình chữ nhật lớn là:<br/>{lengthOut} \\times {widthOut} = {areaOut}$ (m$^{2}$)<br/><br/>Diện tích của cái ao hình chữ nhật nhỏ là:<br/>{lengthIn} \\times {widthIn} = {areaIn}$ (m$^{2}$)<br/><br/>Diện tích phần đất còn lại (không kể ao) là:<br/>{areaOut} - {areaIn} = {ans}$ (m$^{2}$)<br/><br/>Vậy, đáp án đúng là B.",
+      "tip": "Hãy nhớ rằng phép nhân luôn được ưu tiên thực hiện trước phép trừ khi không có dấu ngoặc đơn. Cần tính diện tích từng phần trước khi thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "valA": {
+          "min": 100,
+          "max": 200,
+          "step": 5
+        },
+        "valB": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "valC": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "valD": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "valA % valB === 0",
+        "valD < valC",
+        "valA / valB + valC * valD > 0",
+        "valA / valB + valC * valD !== valA / (valB + valC) * valD",
+        "valA / valB + valC * valD !== valA / valB + valC / valD"
+      ],
+      "formulas": {
+        "ans": "valA / valB + valC * valD",
+        "w1": "valA / (valB + valC) * valD",
+        "w2": "valA / valB + valC / valD",
+        "w3": "(valA + valC) / (valB + valD)"
+      },
+      "questionText": "Lan và Mai cùng tính giá trị của biểu thức $P = {valA} \\div {valB} + {valC} \\times {valD}$.<br/>Lan tính được kết quả là {ans}.<br/>Mai tính được kết quả là {w1}.<br/>Hỏi ai đã tính đúng theo thứ tự thực hiện phép tính?",
+      "options": [
+        "A. Cả Lan và Mai đều đúng",
+        "B. Lan đúng, Mai sai",
+        "C. Lan sai, Mai đúng",
+        "D. Cả Lan và Mai đều sai"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhớ lại thứ tự thực hiện các phép tính: nhân chia trước, cộng trừ sau.",
+        "Nếu có cùng cấp độ (ví dụ: nhân và chia), thực hiện từ trái sang phải."
+      ],
+      "solutionHtml": "Biểu thức cần tính là: $P = {valA} \\div {valB} + {valC} \\times {valD}$.<br/><br/>Theo thứ tự thực hiện các phép tính:<br/>1. Thực hiện các phép nhân và chia trước, từ trái sang phải.<br/>   Phép chia: {valA} \\div {valB} = {valA / valB}$<br/>   Phép nhân: {valC} \\times {valD} = {valC * valD}$<br/><br/>2. Thực hiện các phép cộng và trừ sau, từ trái sang phải.<br/>   ${valA / valB} + {valC * valD} = {ans}$<br/><br/>Vậy, giá trị đúng của biểu thức là {ans}.<br/>Lan đã tính đúng với kết quả là {ans}.<br/>Mai đã tính sai với kết quả là {w1} do không tuân thủ đúng thứ tự phép tính.<br/><br/>Đáp án đúng là B.",
+      "tip": "Nhiều bạn học sinh hay nhầm lẫn thứ tự thực hiện phép tính, đặc biệt khi có cả chia, nhân, cộng. Luôn nhớ 'nhân chia trước, cộng trừ sau'.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "num1": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "num2": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "num3": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "num4": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "num4 > num2 * num3",
+        "num1 !== 0",
+        "num2 !== 0",
+        "num3 !== 0",
+        "num4 !== 0",
+        "num4 - num2 * num3 > num1"
+      ],
+      "formulas": {
+        "ans": "num1 + (num4 - num2 * num3)",
+        "w1": "num1 + num4 + num2 * num3",
+        "w2": "(num1 + num4 - num2) * num3",
+        "w3": "(num1 + num4) - (num2 + num3)"
+      },
+      "questionText": "Tính giá trị của biểu thức $M = {num1} + ( {num4} - {num2} \\times {num3} )$.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhớ lại thứ tự ưu tiên: ngoặc tròn trước, nhân chia sau, cộng trừ cuối cùng.",
+        "Bắt đầu từ phép tính trong dấu ngoặc đơn: {num4} - {num2} \\times {num3}$."
+      ],
+      "solutionHtml": "Biểu thức cần tính là: $M = {num1} + ( {num4} - {num2} \\times {num3} )$<br/><br/>Thực hiện theo thứ tự các phép tính:<br/>1. Trong ngoặc tròn, thực hiện phép nhân trước:<br/>   {num2} \\times {num3} = {num2 * num3}$<br/><br/>2. Tiếp tục thực hiện phép trừ trong ngoặc tròn:<br/>   {num4} - {num2 * num3} = {num4 - num2 * num3}$<br/><br/>3. Cuối cùng, thực hiện phép cộng:<br/>   {num1} + ({num4 - num2 * num3}) = {ans}$<br/><br/>Vậy, giá trị của biểu thức $M$ là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Dấu ngoặc đơn có quyền ưu tiên cao nhất. Hãy hoàn thành tất cả các phép tính bên trong dấu ngoặc trước khi thực hiện các phép tính bên ngoài.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "priceBook": {
+          "min": 25000,
+          "max": 40000,
+          "step": 1000
+        },
+        "numBooks": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "pricePen": {
+          "min": 8000,
+          "max": 15000,
+          "step": 500
+        },
+        "numPens": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "discount": {
+          "min": 10000,
+          "max": 20000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "priceBook * numBooks + pricePen * numPens > discount",
+        "discount > 0"
+      ],
+      "formulas": {
+        "costBooks": "priceBook * numBooks",
+        "costPens": "pricePen * numPens",
+        "totalBeforeDiscount": "costBooks + costPens",
+        "ans": "totalBeforeDiscount - discount",
+        "w1": "priceBook * numBooks + pricePen * numPens + discount",
+        "w2": "(priceBook + pricePen) * (numBooks + numPens) - discount",
+        "w3": "priceBook * numBooks - pricePen * numPens + discount"
+      },
+      "questionText": "Bạn Hoa mua {numBooks} quyển sách, mỗi quyển giá {priceBook} đồng. Bạn ấy còn mua thêm {numPens} cây bút, mỗi cây giá {pricePen} đồng. Cửa hàng giảm giá cho Hoa {discount} đồng trên tổng hóa đơn. Hỏi bạn Hoa phải trả tất cả bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng tiền mua sách.",
+        "Tính tổng tiền mua bút.",
+        "Cộng tổng tiền mua sách và bút để được tổng hóa đơn trước khi giảm giá.",
+        "Trừ đi số tiền được giảm giá."
+      ],
+      "solutionHtml": "Số tiền Hoa phải trả để mua {numBooks} quyển sách là:<br/>$ {priceBook} \\times {numBooks} = {costBooks} $ (đồng)<br/><br/>Số tiền Hoa phải trả để mua {numPens} cây bút là:<br/>$ {pricePen} \\times {numPens} = {costPens} $ (đồng)<br/><br/>Tổng số tiền hóa đơn trước khi giảm giá là:<br/>$ {costBooks} + {costPens} = {totalBeforeDiscount} $ (đồng)<br/><br/>Số tiền Hoa phải trả sau khi được giảm giá {discount} đồng là:<br/>$ {totalBeforeDiscount} - {discount} = {ans} $ (đồng)<br/><br/>Vậy, bạn Hoa phải trả tất cả {ans} đồng.<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu thực hiện nhiều phép tính. Hãy đảm bảo tính toán từng bước một và tuân thủ thứ tự ưu tiên của các phép tính (nhân trước, cộng trừ sau).",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "exponent": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "factor1": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "factor2": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "subtrahend": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "Math.pow(base, exponent) + factor1 * factor2 > subtrahend",
+        "subtrahend > 0"
+      ],
+      "formulas": {
+        "powerVal": "Math.pow(base, exponent)",
+        "productVal": "factor1 * factor2",
+        "ans": "powerVal + productVal - subtrahend",
+        "w1": "Math.pow(base, exponent) + (factor1 + factor2) - subtrahend",
+        "w2": "Math.pow(base, exponent) + factor1 * (factor2 - subtrahend)",
+        "w3": "(Math.pow(base, exponent) + factor1) * factor2 - subtrahend"
+      },
+      "questionText": "Tính giá trị của biểu thức $K = {base}^{exponent} + {factor1} \\times {factor2} - {subtrahend}$.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lũy thừa được ưu tiên cao nhất, sau đó đến nhân chia, rồi mới đến cộng trừ.",
+        "Tính giá trị của lũy thừa {base}^{exponent}$ trước.",
+        "Sau đó tính phép nhân {factor1} \\times {factor2}$.",
+        "Cuối cùng là thực hiện cộng và trừ từ trái sang phải."
+      ],
+      "solutionHtml": "Biểu thức cần tính là: $K = {base}^{exponent} + {factor1} \\times {factor2} - {subtrahend}$<br/><br/>Thực hiện theo thứ tự các phép tính:<br/>1. Tính lũy thừa:<br/>   {base}^{exponent} = {powerVal}$<br/><br/>2. Thực hiện phép nhân:<br/>   {factor1} \\times {factor2} = {productVal}$<br/><br/>3. Thực hiện các phép cộng và trừ từ trái sang phải:<br/>   {powerVal} + {productVal} - {subtrahend} = {ans}$<br/><br/>Vậy, giá trị của biểu thức $K$ là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Trong thứ tự thực hiện phép tính, lũy thừa được ưu tiên thực hiện trước cả phép nhân và chia. Hãy cẩn thận khi có sự xuất hiện của lũy thừa trong biểu thức.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialStock": {
+          "min": 500,
+          "max": 1000,
+          "step": 50
+        },
+        "producedDaily": {
+          "min": 80,
+          "max": 120,
+          "step": 5
+        },
+        "productionDays": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "soldDaily": {
+          "min": 60,
+          "max": 90,
+          "step": 5
+        },
+        "soldDays": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "returnedItems": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "initialStock + producedDaily * productionDays - soldDaily * soldDays + returnedItems > 0",
+        "soldDays > productionDays",
+        "producedDaily > soldDaily"
+      ],
+      "formulas": {
+        "totalProduced": "producedDaily * productionDays",
+        "totalSold": "soldDaily * soldDays",
+        "ans": "initialStock + totalProduced - totalSold + returnedItems",
+        "w1": "(initialStock + totalProduced - totalSold) * returnedItems",
+        "w2": "initialStock + totalProduced + totalSold - returnedItems",
+        "w3": "initialStock + producedDaily * productionDays - (soldDaily * soldDays + returnedItems)"
+      },
+      "questionText": "Một cửa hàng có {initialStock} chiếc áo ban đầu. Trong {productionDays} ngày tiếp theo, mỗi ngày cửa hàng nhập thêm {producedDaily} chiếc áo. Sau đó, cửa hàng bán được {soldDays} ngày, mỗi ngày bán {soldDaily} chiếc áo. Cuối cùng, có {returnedItems} chiếc áo bị khách trả lại do lỗi và được nhập lại vào kho hàng bán. Hỏi sau tất cả, cửa hàng còn lại bao nhiêu chiếc áo?",
+      "options": [
+        "A. {w1} chiếc áo",
+        "B. {ans} chiếc áo",
+        "C. {w2} chiếc áo",
+        "D. {w3} chiếc áo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số áo nhập thêm.",
+        "Tính tổng số áo đã bán.",
+        "Số áo còn lại = Số áo ban đầu + Số áo nhập thêm - Số áo đã bán + Số áo trả lại."
+      ],
+      "solutionHtml": "Số áo cửa hàng nhập thêm là:<br/>$ {producedDaily} \\times {productionDays} = {totalProduced} $ (chiếc áo)<br/><br/>Số áo cửa hàng đã bán là:<br/>$ {soldDaily} \\times {soldDays} = {totalSold} $ (chiếc áo)<br/><br/>Số áo còn lại trong cửa hàng sau tất cả các hoạt động là:<br/>$ {initialStock} + {totalProduced} - {totalSold} + {returnedItems} = {ans} $ (chiếc áo)<br/><br/>Vậy, cửa hàng còn lại {ans} chiếc áo.<br/>Đáp án đúng là B.",
+      "tip": "Để giải bài toán này, bạn cần thực hiện các phép nhân trước để tính tổng số áo nhập và bán, sau đó thực hiện các phép cộng trừ từ trái sang phải để tìm số áo còn lại. Chú ý phép 'trả lại' là cộng thêm vào số lượng còn lại.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 30,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "c": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "d": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0",
+        "b * c !== 0",
+        "d < b * c"
+      ],
+      "formulas": {
+        "step1": "a / b",
+        "step2": "c * d",
+        "ans": "(a / b) + (c * d)",
+        "w1": "Math.round(((a / (b + c) * d) === ((a / b) + (c * d))) ? ((a / b) + (c * d)) + 3 : (a / (b + c) * d))",
+        "w2": "((a / b * c + d) === ((a / b) + (c * d))) ? ((a / b) + (c * d)) + 5 : (a / b * c + d)",
+        "w3": "Math.round((a + c) / (b + d)) === ans ? ans + 2 : Math.round((a + c) / (b + d))"
+      },
+      "questionText": "Kết quả của phép tính $({a} \\div {b}) + ({c} \\times {d})$ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thực hiện các phép tính trong ngoặc trước.",
+        "Sau khi tính xong các phép trong ngoặc, thực hiện phép cộng cuối cùng."
+      ],
+      "solutionHtml": "Biểu thức cần tính là: $({a} \\div {b}) + ({c} \\times {d})$<br/><br/>Thực hiện theo thứ tự các phép tính:<br/>1. Tính giá trị trong ngoặc thứ nhất (phép chia):<br/>   {a} \\div {b} = {step1}$<br/><br/>2. Tính giá trị trong ngoặc thứ hai (phép nhân):<br/>   {c} \\times {d} = {step2}$<br/><br/>3. Cuối cùng, thực hiện phép cộng các kết quả:<br/>   {step1} + {step2} = {ans}$<br/><br/>Vậy, kết quả của phép tính là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Dù phép chia và nhân có độ ưu tiên cao hơn cộng trừ, nhưng khi có dấu ngoặc đơn, các phép tính trong ngoặc luôn được ưu tiên thực hiện trước.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "initialGuests": {
+          "min": 50,
+          "max": 80,
+          "step": 5
+        },
+        "newGuests": {
+          "min": 15,
+          "max": 30,
+          "step": 5
+        },
+        "leavingGuests": {
+          "min": 10,
+          "max": 20,
+          "step": 5
+        },
+        "tables": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(initialGuests + newGuests - leavingGuests) > 0",
+        "(initialGuests + newGuests - leavingGuests) % tables === 0",
+        "initialGuests > leavingGuests"
+      ],
+      "formulas": {
+        "totalGuests": "initialGuests + newGuests - leavingGuests",
+        "ans": "totalGuests / tables",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Một nhà hàng ban đầu có {initialGuests} khách. Sau đó, có thêm {newGuests} khách đến và {leavingGuests} khách ra về. Số khách còn lại được chia đều vào {tables} bàn. Hỏi mỗi bàn có bao nhiêu khách?",
+      "options": [
+        "A. {w1} khách",
+        "B. {ans} khách",
+        "C. {w2} khách",
+        "D. {w3} khách"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số khách hiện có sau khi khách đến và đi.",
+        "Bước 2: Chia tổng số khách đó cho số bàn để tìm số khách mỗi bàn."
+      ],
+      "solutionHtml": "Tổng số khách hiện có trong nhà hàng là:<br/>{initialGuests} + {newGuests} - {leavingGuests} = {totalGuests}$ (khách)<br/><br/>Số khách ở mỗi bàn là:<br/>{totalGuests} \\div {tables} = {ans}$ (khách)<br/><br/>Vậy, mỗi bàn có {ans} khách.<br/>Đáp án đúng là B.",
+      "tip": "Để giải bài toán này, bạn cần tính tổng số khách sau khi có sự thay đổi (khách đến và đi) trước khi thực hiện phép chia. Nếu không có dấu ngoặc đơn, hãy tưởng tượng có một dấu ngoặc bao quanh các phép cộng trừ trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "bai-7-d4"
+    }
+  ]
+}
