@@ -1,5 +1,5 @@
 {
-  "version": "10.62",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.62/ToanHocKiosk_Setup_v10.62.exe",
-  "changelog": "- Khắc phục lỗi 'Access is denied' (mã 5) khi cài đặt ghi đè file node_sqlite3.node bằng cơ chế phát hiện và tắt chọn lọc tiến trình thông qua Mutex và WMI.\n- Nâng cấp bộ cài đặt tự động kiểm tra trạng thái hoạt động của ứng dụng."
+  "version": "10.64",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.64/ToanHocKiosk_Setup_v10.64.exe",
+  "changelog": "- Ẩn banner kết quả học tập (Duolingo), widget điều hướng nổi, widget sự hiện diện, khung chat khi xuất PDF hoặc in ấn đề thi giấy để tránh che lấp nội dung bài học.\n- Đồng bộ phiên bản v10.63."
 }
