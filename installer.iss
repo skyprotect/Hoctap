@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.50
+AppVersion=10.51
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.50
+OutputBaseFilename=ToanHocKiosk_Setup_v10.51
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -60,19 +60,40 @@ Type: files; Name: "{group}\Dung hoc.lnk"
 
 [Code]
 // Tự động tắt các tiến trình đang chạy (node.exe, kiosk_lock.exe) trước khi cài đặt đè
-function InitializeSetup(): Boolean;
+procedure CurStepChanged(CurStep: TSetupStep);
 var
   ResultCode: Integer;
+  SqlitePath: String;
+  OldSqlitePath: String;
 begin
-  Result := True;
-  
-  // Tắt cưỡng bức tất cả các tiến trình Node.js và Kiosk Lock đang chạy
-  ShellExec('taskkill.exe', '/f /im node.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  ShellExec('taskkill.exe', '/f /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  
-  // Cố gắng tắt thông qua cmd như một lớp dự phòng thứ hai
-  ShellExec('cmd.exe', '/c taskkill /f /im node.exe /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  
-  // Tăng thời gian chờ lên 3.5 giây để Windows có dư thời gian giải phóng hoàn toàn file handles của sqlite
-  Sleep(3500);
+  if CurStep = ssInstall then
+  begin
+    // 1. Tắt cưỡng bức các tiến trình đang chạy dưới quyền Administrator đã được nâng cao
+    ShellExec('taskkill.exe', '/f /im node.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    ShellExec('taskkill.exe', '/f /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    ShellExec('cmd.exe', '/c taskkill /f /im node.exe /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    
+    // Chờ 2.0 giây để hệ điều hành Windows giải phóng file handles
+    Sleep(2000);
+    
+    // 2. Giải pháp dự phòng tối hậu: Đổi tên file node_sqlite3.node cũ sang .old (Windows cho phép đổi tên file đang bị khóa)
+    SqlitePath := ExpandConstant('{app}\node_modules\sqlite3\build\Release\node_sqlite3.node');
+    OldSqlitePath := SqlitePath + '.old';
+    if FileExists(SqlitePath) then
+    begin
+      // Xóa file .old cũ nếu tồn tại trước đó
+      if FileExists(OldSqlitePath) then
+      begin
+        DeleteFile(OldSqlitePath);
+      end;
+      // Đổi tên file đang bị khóa sang tên khác
+      if RenameFile(SqlitePath, OldSqlitePath) then
+      begin
+        Log('[Setup] Đã đổi tên node_sqlite3.node sang .old thành công.');
+      end else begin
+        Log('[Setup] Không thể đổi tên node_sqlite3.node, thử xóa trực tiếp...');
+        DeleteFile(SqlitePath);
+      end;
+    end;
+  end;
 end;
