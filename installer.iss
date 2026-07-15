@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.48
+AppVersion=10.49
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.48
+OutputBaseFilename=ToanHocKiosk_Setup_v10.49
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -65,8 +65,14 @@ var
   ResultCode: Integer;
 begin
   Result := True;
-  // Thực hiện tắt tiến trình ngầm để giải phóng tài nguyên trước khi cài đè
+  
+  // Tắt cưỡng bức tất cả các tiến trình Node.js và Kiosk Lock đang chạy
+  ShellExec('taskkill.exe', '/f /im node.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  ShellExec('taskkill.exe', '/f /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  
+  // Cố gắng tắt thông qua cmd như một lớp dự phòng thứ hai
   ShellExec('cmd.exe', '/c taskkill /f /im node.exe /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  // Chờ 1.5 giây để Windows giải phóng hoàn toàn file handles của các file đang chạy (node_sqlite3.node)
-  Sleep(1500);
+  
+  // Tăng thời gian chờ lên 3.5 giây để Windows có dư thời gian giải phóng hoàn toàn file handles của sqlite
+  Sleep(3500);
 end;
