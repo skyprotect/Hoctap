@@ -3,7 +3,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.61
+AppVersion=10.62
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -12,7 +12,7 @@ DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.61
+OutputBaseFilename=ToanHocKiosk_Setup_v10.62
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -251,5 +251,12 @@ begin
         DeleteFile(SqlitePath);
       end;
     end;
+  end
+  else if CurStep = ssPostInstall then
+  begin
+    // Hiển thị thông báo cập nhật thành công trực quan cho người dùng
+    MsgBox('Cập nhật phần mềm Toán Học Kiosk thành công!' + #13#10#13#10 +
+           'Bạn hãy nhấp đúp vào biểu tượng "Toán Học Kiosk" trên màn hình Desktop để khởi chạy ứng dụng.', 
+           mbInformation, MB_OK);
   end;
 end;
