@@ -3,7 +3,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.57
+AppVersion=10.59
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -12,7 +12,7 @@ DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.57
+OutputBaseFilename=ToanHocKiosk_Setup_v10.59
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -21,7 +21,7 @@ UsePreviousAppDir=no
 PrivilegesRequired=admin
 ; Đóng các tiến trình cũ nếu đang chạy
 CloseApplications=yes
-AppMutex=ToanHocKioskMutex
+AppMutex=Global\ToanHocKioskMutex
 
 [Dirs]
 Name: "{app}"; Permissions: users-modify
@@ -67,7 +67,164 @@ Type: files; Name: "{group}\Dừng học.lnk"
 Type: files; Name: "{group}\Dung hoc.lnk"
 
 [Code]
-// Tự động tắt các tiến trình đang chạy (node.exe, kiosk_lock.exe) trước khi cài đặt đè
+function IsAppRunning(): Boolean;
+var
+  WbemLocator, WbemServices, WbemObjectSet: Variant;
+  ProcessEnum: Variant;
+  WbemObject: Variant;
+  TempCount: LongWord;
+  CommandLine: String;
+  ExecutablePath: String;
+  AppDir: String;
+begin
+  Result := False;
+  AppDir := LowerCase(ExpandConstant('{app}'));
+  
+  try
+    WbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+    WbemServices := WbemLocator.ConnectServer('.', 'root\CIMV2');
+    
+    // 1. Kiểm tra kiosk_lock.exe
+    WbemObjectSet := WbemServices.ExecQuery('SELECT Name FROM Win32_Process WHERE Name = ''kiosk_lock.exe''');
+    if not VarIsEmpty(WbemObjectSet) then
+    begin
+      if WbemObjectSet.Count > 0 then
+      begin
+        Result := True;
+        Exit;
+      end;
+    end;
+    
+    // 2. Kiểm tra node.exe liên quan đến server.js và thư mục cài đặt
+    WbemObjectSet := WbemServices.ExecQuery('SELECT Name, CommandLine, ExecutablePath FROM Win32_Process WHERE Name = ''node.exe''');
+    if not VarIsEmpty(WbemObjectSet) then
+    begin
+      ProcessEnum := WbemObjectSet._NewEnum;
+      while ProcessEnum.Next(1, WbemObject, TempCount) do
+      begin
+        CommandLine := '';
+        ExecutablePath := '';
+        if not VarIsNull(WbemObject.CommandLine) then
+          CommandLine := LowerCase(String(WbemObject.CommandLine));
+        if not VarIsNull(WbemObject.ExecutablePath) then
+          ExecutablePath := LowerCase(String(WbemObject.ExecutablePath));
+          
+        if (Pos('server.js', CommandLine) > 0) and 
+           ((Pos(AppDir, CommandLine) > 0) or (Pos(AppDir, ExecutablePath) > 0) or (Pos('toanhockiosk', CommandLine) > 0)) then
+        begin
+          Result := True;
+          Exit;
+        end;
+      end;
+    end;
+  except
+    // Fallback nếu lỗi WMI
+    Result := False;
+  end;
+end;
+
+procedure KillAppProcesses();
+var
+  WbemLocator, WbemServices, WbemObjectSet: Variant;
+  ProcessEnum: Variant;
+  WbemObject: Variant;
+  TempCount: LongWord;
+  CommandLine: String;
+  ExecutablePath: String;
+  AppDir: String;
+  Pid: Integer;
+  ResultCode: Integer;
+begin
+  AppDir := LowerCase(ExpandConstant('{app}'));
+  
+  try
+    WbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+    WbemServices := WbemLocator.ConnectServer('.', 'root\CIMV2');
+    
+    // 1. Tắt kiosk_lock.exe
+    WbemObjectSet := WbemServices.ExecQuery('SELECT ProcessId FROM Win32_Process WHERE Name = ''kiosk_lock.exe''');
+    if not VarIsEmpty(WbemObjectSet) then
+    begin
+      ProcessEnum := WbemObjectSet._NewEnum;
+      while ProcessEnum.Next(1, WbemObject, TempCount) do
+      begin
+        if not VarIsNull(WbemObject.ProcessId) then
+        begin
+          Pid := WbemObject.ProcessId;
+          Exec('taskkill.exe', Format('/f /pid %d', [Pid]), '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+        end;
+      end;
+    end;
+    
+    // 2. Tắt chọn lọc node.exe
+    WbemObjectSet := WbemServices.ExecQuery('SELECT ProcessId, CommandLine, ExecutablePath FROM Win32_Process WHERE Name = ''node.exe''');
+    if not VarIsEmpty(WbemObjectSet) then
+    begin
+      ProcessEnum := WbemObjectSet._NewEnum;
+      while ProcessEnum.Next(1, WbemObject, TempCount) do
+      begin
+        CommandLine := '';
+        ExecutablePath := '';
+        if not VarIsNull(WbemObject.CommandLine) then
+          CommandLine := LowerCase(String(WbemObject.CommandLine));
+        if not VarIsNull(WbemObject.ExecutablePath) then
+          ExecutablePath := LowerCase(String(WbemObject.ExecutablePath));
+          
+        if (Pos('server.js', CommandLine) > 0) and 
+           ((Pos(AppDir, CommandLine) > 0) or (Pos(AppDir, ExecutablePath) > 0) or (Pos('toanhockiosk', CommandLine) > 0)) then
+        begin
+          if not VarIsNull(WbemObject.ProcessId) then
+          begin
+            Pid := WbemObject.ProcessId;
+            Exec('taskkill.exe', Format('/f /pid %d', [Pid]), '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+          end;
+        end;
+      end;
+    end;
+    
+    // Chờ 2.0 giây để hệ điều hành Windows giải phóng file handles hoàn toàn
+    Sleep(2000);
+  except
+    // Fallback tắt hàng loạt nếu lỗi WMI
+    Exec('taskkill.exe', '/f /im kiosk_lock.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    Exec('taskkill.exe', '/f /im node.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    Sleep(2000);
+  end;
+end;
+
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+  PromptMsg: String;
+  UserResponse: Integer;
+begin
+  Result := '';
+  
+  if IsAppRunning() then
+  begin
+    PromptMsg := 'Phần mềm Toán Học Kiosk hiện đang chạy.' + #13#10#13#10 +
+                'Bộ cài đặt cần đóng phần mềm này trước khi tiến hành cập nhật.' + #13#10 +
+                'Bạn có muốn bộ cài đặt tự động đóng phần mềm ngay bây giờ không?';
+                
+    UserResponse := MsgBox(PromptMsg, mbConfirmation, MB_YESNO or MB_DEFBUTTON1);
+    if UserResponse = IDYES then
+    begin
+      // Thực hiện đóng các tiến trình
+      KillAppProcesses();
+      
+      // Kiểm tra lại xem đã đóng hết chưa
+      if IsAppRunning() then
+      begin
+        Result := 'Không thể tự động tắt phần mềm Toán Học Kiosk. Vui lòng đóng phần mềm thủ công hoặc khởi động lại máy tính trước khi cài đặt.';
+      end;
+    end
+    else
+    begin
+      // Người dùng chọn không tự động tắt
+      Result := 'Quá trình cài đặt đã bị hủy bởi người dùng để bảo toàn trạng thái hoạt động của phần mềm.';
+    end;
+  end;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 var
   ResultCode: Integer;
@@ -76,15 +233,10 @@ var
 begin
   if CurStep = ssInstall then
   begin
-    // 1. Tắt cưỡng bức các tiến trình đang chạy dưới quyền Administrator đã được nâng cao
-    ShellExec('taskkill.exe', '/f /im node.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    ShellExec('taskkill.exe', '/f /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    ShellExec('cmd.exe', '/c taskkill /f /im node.exe /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    // Đóng các tiến trình một lần nữa để làm phương án dự phòng tối hậu
+    KillAppProcesses();
     
-    // Chờ 2.0 giây để hệ điều hành Windows giải phóng file handles
-    Sleep(2000);
-    
-    // 2. Giải pháp dự phòng tối hậu: Đổi tên file node_sqlite3.node cũ sang .old (Windows cho phép đổi tên file đang bị khóa)
+    // Đổi tên file node_sqlite3.node cũ sang .old (Windows cho phép đổi tên file đang bị khóa)
     SqlitePath := ExpandConstant('{app}\node_modules\sqlite3\build\Release\node_sqlite3.node');
     OldSqlitePath := SqlitePath + '.old';
     if FileExists(SqlitePath) then

@@ -1,5 +1,5 @@
 {
-  "version": "10.57",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.57/ToanHocKiosk_Setup_v10.57.exe",
-  "changelog": "- Khắc phục triệt để lỗi phân quyền UAC khi chạy installer tự động cập nhật.\n- Tự động hiển thị hộp thoại nâng quyền UAC của Windows để người dùng chấp nhận cài đặt.\n- Node Server tự động chuyển trạng thái lỗi nếu người dùng từ chối UAC thay vì tự động tắt."
+  "version": "10.59",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.59/ToanHocKiosk_Setup_v10.59.exe",
+  "changelog": "- Khắc phục lỗi 'Access is denied' (mã 5) khi cài đặt ghi đè file node_sqlite3.node bằng cơ chế phát hiện và tắt chọn lọc tiến trình thông qua Mutex và WMI.\n- Nâng cấp bộ cài đặt tự động kiểm tra trạng thái hoạt động của ứng dụng."
 }

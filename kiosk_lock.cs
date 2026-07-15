@@ -30,6 +30,7 @@ namespace KioskLock
         private static Process _chromeProcess = null;
         private static readonly object _lockObj = new object();
         private static bool _isPasswordFormOpen = false;
+        private static Mutex _appMutex = null;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct KBDLLHOOKSTRUCT
@@ -186,6 +187,14 @@ namespace KioskLock
         [STAThread]
         static void Main(string[] args)
         {
+            bool createdNew;
+            _appMutex = new Mutex(true, "Global\\ToanHocKioskMutex", out createdNew);
+            if (!createdNew)
+            {
+                WriteLog("Đã phát hiện một tiến trình KioskLock đang chạy (Mutex đã tồn tại). Thoát tiến trình mới.");
+                return;
+            }
+
             WriteLog("Ứng dụng KioskLock bắt đầu khởi chạy.");
             // Đăng ký sự kiện khi ứng dụng thoát để đảm bảo Task Manager luôn được mở lại
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
