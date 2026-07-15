@@ -1,5 +1,5 @@
 {
-  "version": "10.25",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.25/ToanHocKiosk_Setup_v10.25.exe",
-  "changelog": "- Cho phép tự do lựa chọn thư mục cài đặt khi chạy file setup (không bắt buộc cài đè vào thư mục cũ).\n- Nâng cấp cấu hình bộ cài đặt hỗ trợ cài trên nhiều thư mục độc lập."
+  "version": "10.26",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.26/ToanHocKiosk_Setup_v10.26.exe",
+  "changelog": "- Sửa lỗi dính cổng 3000 và chạy đè Kiosk Lock bằng cơ chế kiểm tra Single Instance trực tiếp khi kích hoạt ứng dụng.\n- Sửa lỗi Access Denied khi người dùng cài đặt vào Program Files hoặc các thư mục tùy chỉnh trên ổ C bằng cách nâng quyền cài đặt yêu cầu lên Administrator."
 }

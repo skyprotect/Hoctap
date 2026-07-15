@@ -5,6 +5,28 @@ Set objFile = objFSO.GetFile(strPath)
 strFolder = objFSO.GetParentFolderName(objFile)
 WshShell.CurrentDirectory = strFolder
 
+' TỐI ƯU HIỆU NĂNG & TRÁNH TRÙNG LẶP TIẾN TRÌNH (SINGLE INSTANCE)
+' A. Kiểm tra xem có file "Bat dau hoc.vbs" nào khác đang chạy không (tránh click đúp/click liên tục khi máy chậm)
+Dim objWMIService, colItems, objItem, instanceCount
+Set objWMIService = GetObject("winmgmts:\\.\root\cimv2")
+Set colItems = objWMIService.ExecQuery("Select * from Win32_Process Where Name = 'wscript.exe' Or Name = 'cscript.exe'")
+instanceCount = 0
+For Each objItem in colItems
+    If InStr(LCase(objItem.CommandLine), "bat dau hoc.vbs") > 0 Then
+        instanceCount = instanceCount + 1
+    End If
+Next
+
+If instanceCount > 1 Then
+    WScript.Quit
+End If
+
+' B. Kiểm tra xem kiosk_lock.exe đã đang hoạt động chưa (tránh chạy lại khi ứng dụng đã hiển thị)
+Set colItems = objWMIService.ExecQuery("Select * from Win32_Process Where Name = 'kiosk_lock.exe'")
+If colItems.Count > 0 Then
+    WScript.Quit
+End If
+
 ' 1. Khởi chạy Server Node.js ngầm hoàn toàn
 WshShell.Run "node server.js", 0, False
 
