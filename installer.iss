@@ -1,8 +1,8 @@
-﻿[Setup]
+[Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toán Học Kiosk
-AppVersion=10.15
+AppVersion=10.16
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\Toán Học Kiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.15
+OutputBaseFilename=ToanHocKiosk_Setup_v10.16
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -40,7 +40,7 @@ Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestD
 [Icons]
 Name: "{group}\Toán Học Kiosk"; Filename: "{app}\🚀 Bắt đầu học.vbs"
 Name: "{group}\Dừng học"; Filename: "{app}\⏹ Dừng học.vbs"
-Name: "{commondesktop}\Toán Học Kiosk"; Filename: "{app}\🚀 Bắt đầu học.vbs"; Tasks: desktopicon
+Name: "{userdesktop}\Toán Học Kiosk"; Filename: "{app}\🚀 Bắt đầu học.vbs"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\🚀 Bắt đầu học.vbs"; Description: "{cm:LaunchProgram,Toán Học Kiosk}"; Flags: shellexec postinstall skipifsilent
