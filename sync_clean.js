@@ -24,12 +24,16 @@ const filesToSync = [
   'firebase-service-account.json',
   'version.json',
   'package.json',
-  'package-lock.json'
+  'package-lock.json',
+  'Bat dau hoc.vbs',
+  'Dung hoc.vbs'
 ];
 
 const dirsToSync = [
   'js/lib',
-  'css/lib'
+  'css/lib',
+  'images',
+  'sounds'
 ];
 
 const filesToDeleteInDest = [
@@ -41,7 +45,9 @@ const filesToDeleteInDest = [
   'database.db-shm.old',
   '.port.tmp',
   'kiosk_lock.log',
-  'kiosk_exit_flag.tmp'
+  'kiosk_exit_flag.tmp',
+  '🚀 Bắt đầu học.vbs',
+  '⏹ Dừng học.vbs'
 ];
 
 function copyFileSync(src, dest) {
