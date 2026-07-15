@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.24
+AppVersion=10.25
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,10 +11,11 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.24
+OutputBaseFilename=ToanHocKiosk_Setup_v10.25
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+UsePreviousAppDir=no
 ; Chạy dưới quyền User thông thường để tránh thông báo UAC Administrator
 PrivilegesRequired=lowest
 ; Đóng các tiến trình cũ nếu đang chạy
