@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.36';
+const APP_VERSION = '10.37';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3768,39 +3768,47 @@ app.post('/api/perform-update', express.json(), (req, res) => {
 
 function runInstallerAndExit(exePath) {
   const currentAppDir = path.resolve(__dirname);
+  const tempVbsPath = path.join(path.dirname(exePath), 'run_elevator.vbs');
   
-  // Tránh lỗi UAC trên Windows bằng cách khởi chạy installer qua PowerShell với tùy chọn -Verb RunAs
-  const escapedExePath = exePath.replace(/'/g, "''");
-  const escapedAppDir = currentAppDir.replace(/'/g, "''");
+  // Nội dung file VBScript sử dụng Shell.Application với verb "runas" để kích hoạt UAC của Windows
+  const vbsContent = `
+Set objShell = CreateObject("Shell.Application")
+objShell.ShellExecute "${exePath}", "/SILENT /SP- /SUPPRESSMSGBOXES /DIR=""${currentAppDir}""", "", "runas", 1
+  `.trim();
   
-  const psCommand = `Start-Process -FilePath '${escapedExePath}' -ArgumentList '/SILENT', '/SP-', '/SUPPRESSMSGBOXES', '/DIR="${escapedAppDir}"' -Verb RunAs`;
-  
-  console.log(`[AutoUpdate] Đang chạy lệnh nâng quyền thông qua PowerShell: ${psCommand}`);
-  
-  const child = spawn('powershell.exe', [
-    '-NoProfile',
-    '-ExecutionPolicy', 'Bypass',
-    '-Command',
-    psCommand
-  ], {
-    stdio: 'ignore'
-  });
+  try {
+    fs.writeFileSync(tempVbsPath, vbsContent, 'utf8');
+    console.log(`[AutoUpdate] Đã tạo file VBScript nâng quyền tại: ${tempVbsPath}`);
+    
+    // Bọc spawn trong try-catch để ngăn chặn crash đồng bộ 100%
+    try {
+      const child = spawn('wscript.exe', [tempVbsPath], {
+        detached: true,
+        stdio: 'ignore'
+      });
+      
+      child.on('error', (err) => {
+        console.error('[AutoUpdate] Lỗi khi chạy wscript.exe:', err);
+        updateStatus.status = 'error';
+        updateStatus.error = `Không thể khởi chạy wscript.exe: ${err.message}`;
+      });
 
-  child.on('error', (err) => {
-    console.error('[AutoUpdate] Lỗi khi chạy PowerShell:', err);
-    updateStatus.status = 'error';
-    updateStatus.error = `Không thể khởi chạy tiến trình PowerShell: ${err.message}`;
-  });
+      child.on('exit', (code) => {
+        console.log(`[AutoUpdate] Tiến trình wscript.exe thoát với mã: ${code}`);
+      });
 
-  child.on('exit', (code) => {
-    if (code !== 0) {
-      console.error(`[AutoUpdate] Tiến trình PowerShell thoát với mã lỗi: ${code}`);
+      child.unref();
+      console.log('[AutoUpdate] Đã kích hoạt file VBScript nâng quyền thành công.');
+    } catch (spawnErr) {
+      console.error('[AutoUpdate] Lỗi đồng bộ khi spawn wscript.exe:', spawnErr);
       updateStatus.status = 'error';
-      updateStatus.error = 'Cài đặt bị từ chối hoặc thất bại (UAC bị từ chối).';
-    } else {
-      console.log('[AutoUpdate] PowerShell đã gọi Start-Process thành công.');
+      updateStatus.error = `Không thể spawn wscript.exe: ${spawnErr.message}`;
     }
-  });
+  } catch (err) {
+    console.error('[AutoUpdate] Lỗi khi khởi tạo file VBScript nâng quyền:', err);
+    updateStatus.status = 'error';
+    updateStatus.error = `Lỗi hệ thống khởi tạo cài đặt: ${err.message}`;
+  }
 }
 
 // Phục vụ trang Phụ huynh
