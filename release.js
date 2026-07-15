@@ -113,7 +113,10 @@ if (fs.existsSync(studentHtmlPath)) {
 // C. Cập nhật version.json
 versionData.version = nextVersion;
 versionData.downloadUrl = `https://github.com/skyprotect/Hoctap/releases/download/v${nextVersion}/ToanHocKiosk_Setup_v${nextVersion}.exe`;
-versionData.changelog = changelogText;
+// Giữ nguyên changelog tùy chỉnh nếu nó chứa thông tin chi tiết (không chứa chuỗi mặc định cũ)
+if (!versionData.changelog || versionData.changelog.includes('Cập nhật tự động phiên bản')) {
+  versionData.changelog = changelogText;
+}
 fs.writeFileSync(versionJsonPath, JSON.stringify(versionData, null, 2), 'utf8');
 console.log('✅ Đã cập nhật version.json');
 
@@ -216,7 +219,7 @@ async function publishRelease() {
     tag_name: `v${nextVersion}`,
     target_commitish: 'main',
     name: `v${nextVersion}`,
-    body: changelogText,
+    body: versionData.changelog || changelogText,
     draft: false,
     prerelease: false
   });

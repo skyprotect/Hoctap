@@ -1015,6 +1015,9 @@ const app = {
 
         console.log("Ứng dụng tự động quay về màn hình khởi động do quá 10 phút không tương tác.");
 
+        // Tối ưu hiệu năng: dừng heartbeat và notification polling khi quay về Splash Screen
+        this.stopHeartbeat();
+
         // Dừng video đang phát
         if (typeof this.exitVideoFullscreen === 'function') {
             this.exitVideoFullscreen();
@@ -1509,11 +1512,7 @@ const app = {
             console.error("Lỗi initIdleTimer:", e);
         }
 
-        try {
-            this.startHeartbeat();
-        } catch (e) {
-            console.error("Lỗi startHeartbeat:", e);
-        }
+        // Tối ưu hiệu năng: không khởi chạy startHeartbeat ở đây, sẽ khởi chạy khi bé nhấn bắt đầu học tập và vào giao diện chính
     },
 
     // Hiển thị màn hình thiết lập ban đầu
@@ -2065,6 +2064,11 @@ const app = {
         this.audio.init(); // Preload tất cả âm thanh
         this.checkUpdateAuto(); // Tự động kiểm tra bản cập nhật
 
+        // Tự động kiểm tra bản cập nhật định kỳ mỗi 15 phút
+        setInterval(() => {
+            this.checkUpdateAuto();
+        }, 15 * 60 * 1000);
+
         // Lắng nghe phím Enter trong ô nhập PIN của phụ huynh ở Splash Screen
         const pinInput = document.getElementById("parent-pin");
         if (pinInput) {
@@ -2142,6 +2146,9 @@ const app = {
                     isEntering = false; // Reset cờ trạng thái để bấm được tiếp khi Splash Screen hiển thị lại
                     // Lựa chọn môn học ban đầu
                     this.checkSubjectSelection();
+
+                    // Tối ưu hiệu năng: Khởi chạy heartbeat và notification polling khi bé vào học
+                    this.startHeartbeat();
 
                     // Kích hoạt hiển thị các huy hiệu trong hàng đợi (nếu có)
                     if (this.pendingBadges && this.pendingBadges.length > 0) {
@@ -2398,6 +2405,18 @@ const app = {
     checkChatNotifications: function() {
         const studentId = this.config.defaultStudentId || '';
         if (!studentId) return;
+
+        // TỐI ƯU HIỆU NĂNG: Nếu bé đang làm bài tập, xem video hoặc chơi game, tạm thời bỏ qua polling chat để tiết kiệm CPU và tránh lag
+        const isWatchingVideo = document.body.classList.contains("video-fullscreen-active") || 
+                               document.querySelector(".btn-exit-video-fullscreen") !== null;
+        const practiceActiveBox = document.getElementById("practice-active-box");
+        const isPracticing = practiceActiveBox && !practiceActiveBox.classList.contains("hidden");
+        const tdGameContainer = document.getElementById("td-game-container");
+        const isPlayingGame = tdGameContainer && !tdGameContainer.classList.contains("hidden");
+
+        if (isWatchingVideo || isPracticing || isPlayingGame) {
+            return;
+        }
 
         const url = `/api/chat/notifications?studentId=${studentId}`;
         fetch(this.getApiUrl(url))
@@ -2797,13 +2816,17 @@ const app = {
         }
     },
 
+    isUpdateSwalShowing: false,
+
     checkUpdateAuto: async function() {
+        if (this.isUpdateSwalShowing) return;
         try {
             const response = await fetch('/api/check-update');
             if (!response.ok) return;
             const data = await response.json();
             
             if (data.hasUpdate) {
+                this.isUpdateSwalShowing = true;
                 // Định dạng changelog đẹp mắt (hỗ trợ xuống dòng)
                 const changelogHtml = data.changelog
                     ? data.changelog.split('\n').map(line => `<li>${line}</li>`).join('')
@@ -2839,6 +2862,9 @@ const app = {
                     customClass: {
                         popup: 'custom-swal-dark-popup',
                         title: 'custom-swal-dark-title'
+                    },
+                    willClose: () => {
+                        this.isUpdateSwalShowing = false;
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {

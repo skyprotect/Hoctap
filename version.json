@@ -1,5 +1,5 @@
 {
-  "version": "10.22",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.22/ToanHocKiosk_Setup_v10.22.exe",
-  "changelog": "- Cập nhật tự động phiên bản v10.22\n- Đồng bộ bản sạch và nâng cấp hệ thống ngày 15/07/2026 11:35."
+  "version": "10.24",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.24/ToanHocKiosk_Setup_v10.24.exe",
+  "changelog": "- Tự động kiểm tra bản cập nhật định kỳ ở nền sau mỗi 15 phút.\n- Tối ưu hóa hiệu năng Kiosk: Tạm dừng polling chat notification khi bé làm bài hoặc chơi game.\n- Tạm dừng hoàn toàn heartbeat khi ứng dụng khóa/ở màn hình Splash Screen."
 }
