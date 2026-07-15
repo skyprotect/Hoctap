@@ -1,8 +1,8 @@
-[Setup]
+﻿[Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.27
+AppVersion=10.28
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.27
+OutputBaseFilename=ToanHocKiosk_Setup_v10.28
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -42,9 +42,9 @@ Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestD
 ; Không đóng gói database.db để tránh ghi đè dữ liệu học sinh cũ
 
 [Icons]
-Name: "{group}\Toan Hoc Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"
-Name: "{group}\Dung hoc"; Filename: "{app}\Dung hoc.vbs"; IconFilename: "{app}\images\app.ico"
-Name: "{userdesktop}\Toan Hoc Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
+Name: "{group}\Toan Hoc Kiosk"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\Bat dau hoc.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"
+Name: "{group}\Dung hoc"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\Dung hoc.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"
+Name: "{userdesktop}\Toan Hoc Kiosk"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\Bat dau hoc.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\Bat dau hoc.vbs"; Description: "Khởi chạy ứng dụng Toán Học Kiosk"; Flags: shellexec postinstall skipifsilent
