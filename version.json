@@ -1,5 +1,5 @@
 {
-  "version": "10.31",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.31/ToanHocKiosk_Setup_v10.31.exe",
-  "changelog": "- Sửa lỗi cập nhật ngầm giải nén sai thư mục bằng cách truyền tham số /DIR trong code Node.js.\n- Dọn dẹp triệt để các shortcut cũ không dấu bị hỏng ngoài Desktop để tránh nhầm lẫn."
+  "version": "10.32",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.32/ToanHocKiosk_Setup_v10.32.exe",
+  "changelog": "- Thử nghiệm kiểm tra tính năng cập nhật tự động phiên bản v10.32.\n- Cố định đường dẫn cài đặt nâng cấp và dọn dẹp shortcut cũ ngoài Desktop."
 }
