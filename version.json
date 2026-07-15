@@ -1,5 +1,5 @@
 {
-  "version": "10.59",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.59/ToanHocKiosk_Setup_v10.59.exe",
+  "version": "10.60",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.60/ToanHocKiosk_Setup_v10.60.exe",
   "changelog": "- Khắc phục lỗi 'Access is denied' (mã 5) khi cài đặt ghi đè file node_sqlite3.node bằng cơ chế phát hiện và tắt chọn lọc tiến trình thông qua Mutex và WMI.\n- Nâng cấp bộ cài đặt tự động kiểm tra trạng thái hoạt động của ứng dụng."
 }

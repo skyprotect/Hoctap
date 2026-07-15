@@ -28,29 +28,46 @@ If colItems.Count > 0 Then
     WScript.Quit
 End If
 
-' 1. Khởi chạy Server Node.js ngầm hoàn toàn
-WshShell.Run "node server.js", 0, False
+' 1. Xóa file .port.tmp cũ nếu tồn tại để chuẩn bị nhận diện cổng mới
+portTmpPath = objFSO.BuildPath(strFolder, ".port.tmp")
+If objFSO.FileExists(portTmpPath) Then
+    On Error Resume Next
+    objFSO.DeleteFile portTmpPath, True
+    On Error GoTo 0
+End If
 
-' 2. Chờ server sẵn sàng bằng cách gửi request kiểm tra định kỳ (tối đa 30 lần, mỗi lần cách nhau 300ms)
-Dim http, isReady, attempts
+' Khởi chạy Server Node.js ngầm hoàn toàn và ghi log lỗi ra node_error.log
+WshShell.Run "cmd.exe /c node server.js > node_error.log 2>&1", 0, False
+
+' 2. Chờ server sẵn sàng bằng cách đọc cổng động và gửi request kiểm tra (tối đa 40 lần, mỗi lần 300ms)
+Dim isReady, attempts, port
 isReady = False
 attempts = 0
+port = "3000"
 
-Do While Not isReady And attempts < 30
-    On Error Resume Next
-    Set http = CreateObject("MSXML2.ServerXMLHTTP")
-    http.open "GET", "http://localhost:3000/student.html", False
-    http.send
-    If Err.Number = 0 Then
-        If http.status = 200 Then
-            isReady = True
-        End If
-    End If
-    On Error GoTo 0
+Do While Not isReady And attempts < 40
+    WScript.Sleep 300
+    attempts = attempts + 1
     
-    If Not isReady Then
-        WScript.Sleep 300 ' Chờ 300ms rồi thử lại
-        attempts = attempts + 1
+    If objFSO.FileExists(portTmpPath) Then
+        On Error Resume Next
+        Dim objTextFile, portStr, http
+        Set objTextFile = objFSO.OpenTextFile(portTmpPath, 1)
+        portStr = Trim(objTextFile.ReadLine)
+        objTextFile.Close
+        
+        If portStr <> "" And IsNumeric(portStr) Then
+            port = portStr
+            Set http = CreateObject("MSXML2.XMLHTTP")
+            http.open "GET", "http://localhost:" & port & "/student.html", False
+            http.send
+            If Err.Number = 0 Then
+                If http.status = 200 Then
+                    isReady = True
+                End If
+            End If
+        End If
+        On Error GoTo 0
     End If
 Loop
 
