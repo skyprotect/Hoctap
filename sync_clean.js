@@ -142,6 +142,41 @@ function sync() {
     }
   }
   
+  // Xóa thư mục chrome_profile và logs trong HocTap_Clean để tránh đóng gói file rác khổng lồ làm chậm quá trình cài đặt
+  const cleanProfileDir = path.join(destDir, 'chrome_profile');
+  if (fs.existsSync(cleanProfileDir)) {
+    try {
+      fs.rmSync(cleanProfileDir, { recursive: true, force: true });
+      console.log('✅ Đã xóa thư mục chrome_profile rác trong Clean bundle.');
+    } catch (err) {
+      console.log(`⚠️ Không thể xóa chrome_profile: ${err.message}`);
+    }
+  }
+
+  const cleanLogsDir = path.join(destDir, 'logs');
+  if (fs.existsSync(cleanLogsDir)) {
+    try {
+      fs.rmSync(cleanLogsDir, { recursive: true, force: true });
+      console.log('✅ Đã xóa thư mục logs rác trong Clean bundle.');
+    } catch (err) {
+      console.log(`⚠️ Không thể xóa logs: ${err.message}`);
+    }
+  }
+
+  // Xóa các file exe rác thử nghiệm khác nếu có trong Clean bundle
+  const garbageFiles = ['Cài đặt.exe', 'kiosk_lock_test.exe'];
+  for (let file of garbageFiles) {
+    const filePath = path.join(destDir, file);
+    if (fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+        console.log(`✅ Đã xóa file rác: ${file}`);
+      } catch (err) {
+        console.log(`⚠️ Không thể xóa file rác ${file}: ${err.message}`);
+      }
+    }
+  }
+  
   console.log('--- SYNC COMPLETED SUCCESSFULLY ---');
 }
 
