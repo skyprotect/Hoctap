@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=10.13">
+    <link rel="stylesheet" href="css/style.css?v=10.15">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -794,7 +794,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v10.13 (Cập nhật: 15/07/2026 10:33)</div>
+            <div class="splash-version-tag">Phiên bản: v10.15 (Cập nhật: 15/07/2026 10:51)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1908,14 +1908,14 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=10.13"></script>
-    <script src="js/lessons.js?v=10.13"></script>
-    <script src="js/questions-v1.js?v=10.13"></script>
-    <script src="js/questions-v4.js?v=10.13"></script>
-    <script src="js/questions-v3.js?v=10.13"></script>
-    <script src="js/game.js?v=10.13"></script>
+    <script src="js/english_data.js?v=10.15"></script>
+    <script src="js/lessons.js?v=10.15"></script>
+    <script src="js/questions-v1.js?v=10.15"></script>
+    <script src="js/questions-v4.js?v=10.15"></script>
+    <script src="js/questions-v3.js?v=10.15"></script>
+    <script src="js/game.js?v=10.15"></script>
     
-    <script src="js/app.js?v=10.13"></script>
+    <script src="js/app.js?v=10.15"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2436,6 +2436,30 @@
             border-color: rgba(139, 92, 246, 0.25);
             box-shadow: 0 10px 30px rgba(0,0,0,0.35);
         }
+        .glow-bounce {
+            animation: chat-glow-bounce 1.5s ease-in-out;
+            border-color: rgba(168, 85, 247, 0.8) !important;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6) !important;
+        }
+        @keyframes chat-glow-bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(1.04) translateY(-8px);
+                box-shadow: 0 0 25px rgba(168, 85, 247, 0.7) !important;
+            }
+            40% {
+                transform: scale(0.98) translateY(2px);
+            }
+            60% {
+                transform: scale(1.02) translateY(-3px);
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.5) !important;
+            }
+            80% {
+                transform: scale(0.99) translateY(1px);
+            }
+        }
         .floating-chat-window.hidden {
             display: none !important;
         }
@@ -2867,7 +2891,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v10.13 (Cập nhật: 15/07/2026 10:33)
+        Phiên bản: v10.15 (Cập nhật: 15/07/2026 10:51)
     </div>
 </body>
 </html>

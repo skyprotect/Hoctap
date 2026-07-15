@@ -2208,6 +2208,26 @@ app.post('/api/chat/send', async (req, res) => {
       throw new Error(`Firebase RTDB returned status ${response.status}`);
     }
     const resultData = await response.json();
+
+    // Đồng thời lưu thông báo tin nhắn chưa đọc cho người nhận
+    try {
+      const notifyUrl = `${FIREBASE_RTDB_URL}notifications/${receiverId}/${senderId}.json`;
+      await fetch(notifyUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          senderId,
+          senderName: actualSenderName,
+          text,
+          timestamp: Date.now()
+        })
+      });
+    } catch (notifyErr) {
+      console.error("Lỗi khi ghi thông báo tin nhắn mới lên Firebase:", notifyErr);
+    }
+
     res.json({ success: true, messageId: resultData.name, payload });
   } catch (e) {
     console.error("Lỗi gửi tin nhắn chat:", e);
@@ -2239,6 +2259,51 @@ app.get('/api/chat/messages', async (req, res) => {
     res.json({ success: true, messages: list });
   } catch (e) {
     console.error("Lỗi lấy lịch sử chat:", e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * API lấy danh sách các thông báo tin nhắn chưa đọc của một học sinh
+ */
+app.get('/api/chat/notifications', async (req, res) => {
+  const { studentId } = req.query;
+  if (!studentId) {
+    return res.status(400).json({ error: "Thiếu studentId" });
+  }
+  try {
+    const url = `${FIREBASE_RTDB_URL}notifications/${studentId}.json`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Firebase RTDB returned status ${response.status}`);
+    }
+    const data = await response.json();
+    res.json({ success: true, notifications: data || {} });
+  } catch (e) {
+    console.error("Lỗi lấy thông báo chat:", e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * API xóa thông báo tin nhắn chưa đọc của một người gửi cụ thể đối với một học sinh
+ */
+app.post('/api/chat/clear-notification', async (req, res) => {
+  const { studentId, senderId } = req.body;
+  if (!studentId || !senderId) {
+    return res.status(400).json({ error: "Thiếu studentId hoặc senderId" });
+  }
+  try {
+    const url = `${FIREBASE_RTDB_URL}notifications/${studentId}/${senderId}.json`;
+    const response = await fetch(url, {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      throw new Error(`Firebase RTDB returned status ${response.status}`);
+    }
+    res.json({ success: true });
+  } catch (e) {
+    console.error("Lỗi xóa thông báo chat:", e);
     res.status(500).json({ error: e.message });
   }
 });
@@ -3282,7 +3347,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.13';
+const APP_VERSION = '10.15';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

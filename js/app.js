@@ -183,6 +183,44 @@ const app = {
         playMagicSpell: function() {
             this.playSound('magic_spell');
         },
+        playMessageNotification: function() {
+            this.initContext();
+            if (!this.ctx) {
+                this.playSound('click');
+                return;
+            }
+            try {
+                const now = this.ctx.currentTime;
+                // Nốt thứ nhất (tần số D5)
+                const osc1 = this.ctx.createOscillator();
+                const gain1 = this.ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(587.33, now); 
+                osc1.frequency.exponentialRampToValueAtTime(880, now + 0.12); 
+                gain1.gain.setValueAtTime(0.12, now);
+                gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+                osc1.connect(gain1);
+                gain1.connect(this.ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.22);
+
+                // Nốt thứ hai (tần số D6)
+                const osc2 = this.ctx.createOscillator();
+                const gain2 = this.ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(880, now + 0.08); 
+                osc2.frequency.exponentialRampToValueAtTime(1174.66, now + 0.22); 
+                gain2.gain.setValueAtTime(0.12, now + 0.08);
+                gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc2.connect(gain2);
+                gain2.connect(this.ctx.destination);
+                osc2.start(now + 0.08);
+                osc2.stop(now + 0.35);
+            } catch (e) {
+                console.warn("Lỗi phát âm thanh Web Audio API:", e);
+                this.playSound('click');
+            }
+        },
         playMonter: function() {
             this.playSound('monter');
         },
@@ -1986,6 +2024,9 @@ const app = {
 
         sendPing();
         this.heartbeatInterval = setInterval(sendPing, 15000);
+        
+        // Khởi chạy polling thông báo tin nhắn mới
+        this.startNotificationPolling();
     },
 
     stopHeartbeat: function() {
@@ -1993,6 +2034,8 @@ const app = {
             clearInterval(this.heartbeatInterval);
             this.heartbeatInterval = null;
         }
+        // Dừng polling thông báo tin nhắn mới
+        this.stopNotificationPolling();
     },
 
     presenceInterval: null,
@@ -2152,6 +2195,103 @@ const app = {
             .catch(err => console.warn("[Presence Count Silent] Error:", err));
     },
 
+    notificationPollingInterval: null,
+
+    startNotificationPolling: function() {
+        if (this.notificationPollingInterval) {
+            clearInterval(this.notificationPollingInterval);
+        }
+        this.notificationPollingInterval = setInterval(() => this.checkChatNotifications(), 3000);
+    },
+
+    stopNotificationPolling: function() {
+        if (this.notificationPollingInterval) {
+            clearInterval(this.notificationPollingInterval);
+            this.notificationPollingInterval = null;
+        }
+    },
+
+    checkChatNotifications: function() {
+        const studentId = this.config.defaultStudentId || '';
+        if (!studentId) return;
+
+        const url = `/api/chat/notifications?studentId=${studentId}`;
+        fetch(this.getApiUrl(url))
+            .then(res => res.json())
+            .then(resData => {
+                if (resData.success && resData.notifications) {
+                    const notifications = resData.notifications;
+                    const senderIds = Object.keys(notifications);
+                    
+                    if (senderIds.length > 0) {
+                        senderIds.forEach(senderId => {
+                            const notif = notifications[senderId];
+                            if (notif) {
+                                this.handleNewMessageNotification(senderId, notif.senderName, notif.text);
+                            }
+                        });
+                    }
+                }
+            })
+            .catch(err => console.warn("[Notification Poll] Error:", err));
+    },
+
+    handleNewMessageNotification: function(senderId, senderName, text) {
+        // Kiểm tra xem bé có đang làm bài/xem video không
+        const isWatchingVideo = document.body.classList.contains("video-fullscreen-active") || 
+                               document.querySelector(".btn-exit-video-fullscreen") !== null;
+        const practiceActiveBox = document.getElementById("practice-active-box");
+        const isPracticing = practiceActiveBox && !practiceActiveBox.classList.contains("hidden");
+        const tdGameContainer = document.getElementById("td-game-container");
+        const isPlayingGame = tdGameContainer && !tdGameContainer.classList.contains("hidden");
+        const isBusy = isWatchingVideo || isPracticing || isPlayingGame;
+
+        // Xóa thông báo này trên server ngay lập tức để tránh poll trùng lặp
+        const selfId = this.config.defaultStudentId || '';
+        fetch(this.getApiUrl('/api/chat/clear-notification'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ studentId: selfId, senderId })
+        }).catch(err => console.warn("[Clear Notification] Error:", err));
+
+        if (isBusy) {
+            // Đang bận: chỉ phát âm thanh và hiển thị bong bóng chat thu nhỏ
+            this.currentChatReceiverId = senderId;
+            this.currentChatReceiverName = senderName;
+            
+            // Chuyển sang trạng thái thu nhỏ
+            this.toggleChatMinimize(true);
+            
+            // Tăng số lượng badge tin nhắn chưa đọc
+            const badge = document.getElementById("chat-unread-badge");
+            if (badge) {
+                let currentVal = parseInt(badge.innerText) || 0;
+                currentVal += 1;
+                badge.innerText = currentVal;
+                badge.style.display = "block";
+            }
+            
+            // Phát âm thanh và hiệu ứng nhấp nháy cho bong bóng
+            this.audio.playMessageNotification();
+            const minimizedBubble = document.getElementById("chat-minimized-bubble");
+            if (minimizedBubble) {
+                minimizedBubble.classList.add("glow-bounce");
+                setTimeout(() => minimizedBubble.classList.remove("glow-bounce"), 1500);
+            }
+        } else {
+            // Không bận: Tự động mở bung cửa sổ chat
+            this.openChatWindow(senderId, senderName);
+            
+            // Phát âm thanh và tạo hiệu ứng nhấp nháy cho cửa sổ chat
+            this.audio.playMessageNotification();
+            const chatWindow = document.getElementById("floating-chat-window");
+            if (chatWindow) {
+                chatWindow.classList.add("glow-bounce");
+                setTimeout(() => chatWindow.classList.remove("glow-bounce"), 1500);
+            }
+        }
+    },
+
     currentChatReceiverId: null,
     currentChatReceiverName: null,
     chatPollingInterval: null,
@@ -2162,6 +2302,14 @@ const app = {
         this.currentChatReceiverId = receiverId;
         this.currentChatReceiverName = receiverName;
         this.isChatMinimized = false;
+
+        // Dọn dẹp thông báo tin nhắn chưa đọc của người gửi này trên server
+        const selfId = this.config.defaultStudentId || 'default';
+        fetch(this.getApiUrl('/api/chat/clear-notification'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ studentId: selfId, senderId: receiverId })
+        }).catch(err => console.warn("[Chat Notification Clear] Error:", err));
 
         const chatWindow = document.getElementById("floating-chat-window");
         const minimizedBubble = document.getElementById("chat-minimized-bubble");
@@ -2374,8 +2522,34 @@ const app = {
                         if (badge) {
                             badge.innerText = unreadCount;
                             badge.style.display = unreadCount > 0 ? "block" : "none";
+                            
+                            // Nếu có tin nhắn mới khi đang thu nhỏ, phát âm thanh và hiệu ứng
+                            if (resData.messages.length > this.lastReadMessageCount) {
+                                const lastMsg = resData.messages[resData.messages.length - 1];
+                                if (lastMsg && lastMsg.senderId !== senderId) {
+                                    this.audio.playMessageNotification();
+                                    const minimizedBubble = document.getElementById("chat-minimized-bubble");
+                                    if (minimizedBubble) {
+                                        minimizedBubble.classList.add("glow-bounce");
+                                        setTimeout(() => minimizedBubble.classList.remove("glow-bounce"), 1500);
+                                    }
+                                }
+                            }
                         }
+                        this.lastReadMessageCount = resData.messages.length;
                     } else {
+                        // Nếu có tin nhắn mới tăng lên khi đang mở cửa sổ chat chính, phát âm thanh và tạo hiệu ứng nhấp nháy viền
+                        if (resData.messages.length > this.lastReadMessageCount) {
+                            const lastMsg = resData.messages[resData.messages.length - 1];
+                            if (lastMsg && lastMsg.senderId !== senderId) {
+                                this.audio.playMessageNotification();
+                                const chatWindow = document.getElementById("floating-chat-window");
+                                if (chatWindow) {
+                                    chatWindow.classList.add("glow-bounce");
+                                    setTimeout(() => chatWindow.classList.remove("glow-bounce"), 1500);
+                                }
+                            }
+                        }
                         this.renderChatMessages(resData.messages);
                         this.lastReadMessageCount = resData.messages.length;
                     }
