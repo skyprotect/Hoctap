@@ -1,0 +1,676 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:54:08.631Z
+Lesson ID: eng4-t20
+Lesson Title: Unit 20: At summer camp
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12669 (line 421 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12669 (line 421 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 12669 (Line: 325, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "teamA": { "min": 20, "max": 40, "step": 1 },
+        "teamB": { "min": 15, "max": 35, "step": 1 },
+        "totalGroups": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "(teamA + teamB) % totalGroups === 0"
+      ],
+      "formulas": {
+        "total": "teamA + teamB",
+        "ans": "total / totalGroups",
+        "w1_goc": "ans + 2",
+        "w2_goc": "ans - 2",
+        "w3_goc": "ans + 5",
+        "w1": "w1_goc",
+        "w2": "(w2_goc <= 0) ? ans + 7 : w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Tại trại hè, đội Hùng có {teamA} bạn và đội Lan có {teamB} bạn. Các thầy cô muốn chia tất cả các bạn thành {totalGroups} nhóm có số lượng người bằng nhau. Hỏi mỗi nhóm có bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Trước tiên, hãy tính tổng số bạn ở cả hai đội.",
+        "Sau đó, lấy tổng số bạn chia cho số nhóm."
+      ],
+      "solutionHtml": "Bước 1: Tổng số bạn tham gia trại hè là: {teamA} + {teamB} = {total} (bạn).<br/>Bước 2: Số bạn trong mỗi nhóm là: {total} : {totalGroups} = {ans} (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ yêu cầu đề bài để thực hiện cộng tổng trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hoursPerDay": { "min": 3, "max": 6, "step": 1 },
+        "totalDays": { "min": 4, "max": 10, "step": 1 },
+        "booksPerDay": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "hoursPerDay * totalDays * booksPerDay",
+        "w1": "hoursPerDay * totalDays",
+        "w2": "ans + 10",
+        "w3": "ans - 5"
+      },
+      "questionText": "Trong trại hè, mỗi ngày bạn Minh đọc sách trong {hoursPerDay} giờ. Mỗi giờ bạn đọc được {booksPerDay} trang sách. Hỏi sau {totalDays} ngày, bạn Minh đã đọc được tổng cộng bao nhiêu trang sách?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số trang Minh đọc trong một ngày bằng cách lấy số giờ nhân với số trang mỗi giờ.",
+        "Sau đó nhân kết quả với số ngày."
+      ],
+      "solutionHtml": "Số trang sách Minh đọc trong một ngày: {hoursPerDay} x {booksPerDay} = {val1} (trang).<br/>Tổng số trang Minh đọc sau {totalDays} ngày: {val1} x {totalDays} = {ans} (trang).<br/>Đáp án đúng là B.",
+      "val1": "hoursPerDay * booksPerDay",
+      "tip": "Hãy tính toán theo từng bước nhỏ để không bị sót dữ liệu.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Trong trò chơi truyền tin tại trại hè, có {a} bạn được chia đều vào {b} đội. Nếu mỗi đội cần thêm 3 bạn nữa mới đủ quân số để thi đấu, hỏi hiện tại mỗi đội đang có bao nhiêu bạn?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số bạn cho số đội để tìm quân số hiện tại mỗi đội.",
+        "Thông tin 'thêm 3 bạn' là thông tin nhiễu nếu đề hỏi về quân số hiện tại."
+      ],
+      "solutionHtml": "Số bạn hiện tại của mỗi đội là: {a} : {b} = {ans} (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để biết đâu là dữ liệu cần dùng và đâu là dữ liệu phụ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "camps": { "min": 2, "max": 5, "step": 1 },
+        "tents": { "min": 3, "max": 6, "step": 1 },
+        "peoplePerTent": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "camps * tents * peoplePerTent",
+        "w1": "camps * tents",
+        "w2": "ans + 4",
+        "w3": "ans - 2"
+      },
+      "questionText": "Tại trại hè, có {camps} khu trại, mỗi khu có {tents} cái lều, mỗi cái lều có {peoplePerTent} bạn ở. Hỏi tổng số bạn tham gia ở tất cả các khu trại là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số lều trước: {camps} x {tents}.",
+        "Sau đó nhân với số bạn mỗi lều."
+      ],
+      "solutionHtml": "Tổng số lều là: {camps} x {tents} = {val1} (cái).<br/>Tổng số bạn là: {val1} x {peoplePerTent} = {ans} (bạn).<br/>Đáp án đúng là C.",
+      "val1": "camps * tents",
+      "tip": "Đây là bài toán nhân liên tiếp, hãy cẩn thận với từng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "apples": { "min": 40, "max": 80, "step": 1 },
+        "oranges": { "min": 20, "max": 40, "step": 1 },
+        "people": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "(apples + oranges) % people === 0"
+      ],
+      "formulas": {
+        "total": "apples + oranges",
+        "ans": "total / people",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "apples / people"
+      },
+      "questionText": "Ban tổ chức trại hè chuẩn bị {apples} quả táo và {oranges} quả cam. Toàn bộ số trái cây này được chia đều cho {people} nhóm. Hỏi mỗi nhóm nhận được bao nhiêu quả trái cây?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng tổng số táo và cam lại trước.",
+        "Sau đó chia cho số nhóm."
+      ],
+      "solutionHtml": "Tổng số trái cây là: {apples} + {oranges} = {total} (quả).<br/>Số trái cây mỗi nhóm nhận được: {total} : {people} = {ans} (quả).<br/>Đáp án đúng là B.",
+      "tip": "Phải tính tổng số trái cây trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 8, "max": 10, "step": 1 },
+        "end": { "min": 15, "max": 17, "step": 1 },
+        "speed": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "duration": "end - start",
+        "ans": "duration * speed",
+        "w1": "duration + speed",
+        "w2": "ans + 5",
+        "w3": "ans - 2"
+      },
+      "questionText": "Hoạt động cắm trại kéo dài từ {start} giờ sáng đến {end} giờ chiều cùng ngày. Nếu trong mỗi giờ, các bạn hoàn thành được {speed} nhiệm vụ, hỏi tổng số nhiệm vụ các bạn hoàn thành là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi thời gian từ giờ chiều sang giờ 24h để tính khoảng thời gian.",
+        "Lấy khoảng thời gian nhân với số nhiệm vụ mỗi giờ."
+      ],
+      "solutionHtml": "Thời gian hoạt động là: {end} - {start} = {duration} (giờ).<br/>Tổng số nhiệm vụ: {duration} x {speed} = {ans} (nhiệm vụ).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên đổi giờ chiều (12 giờ trưa trở đi) sang hệ 24 giờ để trừ đúng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bottles": { "min": 10, "max": 20, "step": 1 },
+        "liters": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "bottles * liters",
+        "w1": "bottles + liters",
+        "w2": "ans + 10",
+        "w3": "ans - 5"
+      },
+      "questionText": "Tại trại hè, các bạn chuẩn bị {bottles} bình nước, mỗi bình chứa {liters} lít nước. Hỏi tổng cộng có bao nhiêu lít nước?",
+      "options": [
+        "A. {w1} lít",
+        "B. {w2} lít",
+        "C. {ans} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy số bình nhân với số lít mỗi bình."
+      ],
+      "solutionHtml": "Tổng số lít nước là: {bottles} x {liters} = {ans} (lít).<br/>Đáp án đúng là C.",
+      "tip": "Đây là phép nhân cơ bản, hãy kiểm tra kỹ kết quả.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "books": { "min": 100, "max": 200, "step": 10 },
+        "days": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "books % days === 0"
+      ],
+      "formulas": {
+        "ans": "books / days",
+        "w1": "books - days",
+        "w2": "ans + 5",
+        "w3": "ans - 2"
+      },
+      "questionText": "Bạn Hoa có {books} trang sách cần đọc trong đợt trại hè kéo dài {days} ngày. Biết rằng mỗi ngày Hoa đọc số trang như nhau, hỏi mỗi ngày Hoa đọc bao nhiêu trang?",
+      "options": [
+        "A. {w1} trang",
+        "B. {w2} trang",
+        "C. {ans} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia tổng số trang cho số ngày."
+      ],
+      "solutionHtml": "Mỗi ngày Hoa đọc số trang là: {books} : {days} = {ans} (trang).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ dữ liệu bài cho.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "stickers": { "min": 60, "max": 120, "step": 1 },
+        "kids": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "stickers % kids === 0"
+      ],
+      "formulas": {
+        "ans": "stickers / kids",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Ban tổ chức có {stickers} hình dán tặng thưởng cho {kids} bạn xuất sắc nhất. Hỏi mỗi bạn nhận được bao nhiêu hình dán, biết rằng số hình dán được chia đều?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số hình dán chia cho số bạn."
+      ],
+      "solutionHtml": "Số hình dán mỗi bạn nhận được là: {stickers} : {kids} = {ans} (hình).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều tức là thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "price": { "min": 5, "max": 15, "step": 1 },
+        "quantity": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "price * quantity",
+        "w1": "price + quantity",
+        "w2": "ans + 10",
+        "w3": "ans - 10"
+      },
+      "questionText": "Mỗi chiếc mũ đi trại hè có giá {price} nghìn đồng. Bạn Nam mua {quantity} chiếc cho các bạn trong nhóm. Hỏi Nam phải trả bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1} nghìn",
+        "B. {w2} nghìn",
+        "C. {ans} nghìn",
+        "D. {w3} nghìn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân đơn giá với số lượng mũ."
+      ],
+      "solutionHtml": "Số tiền Nam phải trả là: {price} x {quantity} = {ans} (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Tính cẩn thận phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "teamA": { "min": 20, "max": 40, "step": 1 },
+        "teamB": { "min": 15, "max": 35, "step": 1 },
+        "totalGroups": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "(teamA + teamB) % totalGroups === 0"
+      ],
+      "formulas": {
+        "total": "teamA + teamB",
+        "ans": "total / totalGroups",
+        "w1_goc": "ans + 2",
+        "w2_goc": "ans - 2",
+        "w3_goc": "ans + 5",
+        "w1": "w1_goc",
+        "w2": "(w2_goc <= 0) ? ans + 7 : w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Tại trại hè, đội Hùng có {teamA} bạn và đội Lan có {teamB} bạn. Các thầy cô muốn chia tất cả các bạn thành {totalGroups} nhóm có số lượng người bằng nhau. Hỏi mỗi nhóm có bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Trước tiên, hãy tính tổng số bạn ở cả hai đội.",
+        "Sau đó, lấy tổng số bạn chia cho số nhóm."
+      ],
+      "solutionHtml": "Bước 1: Tổng số bạn tham gia trại hè là: {teamA} + {teamB} = {total} (bạn).<br/>Bước 2: Số bạn trong mỗi nhóm là: {total} : {totalGroups} = {ans} (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ yêu cầu đề bài để thực hiện cộng tổng trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hoursPerDay": { "min": 3, "max": 6, "step": 1 },
+        "totalDays": { "min": 4, "max": 10, "step": 1 },
+        "booksPerDay": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "hoursPerDay * totalDays * booksPerDay",
+        "w1": "hoursPerDay * totalDays",
+        "w2": "ans + 10",
+        "w3": "ans - 5"
+      },
+      "questionText": "Trong trại hè, mỗi ngày bạn Minh đọc sách trong {hoursPerDay} giờ. Mỗi giờ bạn đọc được {booksPerDay} trang sách. Hỏi sau {totalDays} ngày, bạn Minh đã đọc được tổng cộng bao nhiêu trang sách?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số trang Minh đọc trong một ngày bằng cách lấy số giờ nhân với số trang mỗi giờ.",
+        "Sau đó nhân kết quả với số ngày."
+      ],
+      "solutionHtml": "Số trang sách Minh đọc trong một ngày: {hoursPerDay} x {booksPerDay} = {val1} (trang).<br/>Tổng số trang Minh đọc sau {totalDays} ngày: {val1} x {totalDays} = {ans} (trang).<br/>Đáp án đúng là B.",
+      "val1": "hoursPerDay * booksPerDay",
+      "tip": "Hãy tính toán theo từng bước nhỏ để không bị sót dữ liệu.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Trong trò chơi truyền tin tại trại hè, có {a} bạn được chia đều vào {b} đội. Nếu mỗi đội cần thêm 3 bạn nữa mới đủ quân số để thi đấu, hỏi hiện tại mỗi đội đang có bao nhiêu bạn?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số bạn cho số đội để tìm quân số hiện tại mỗi đội.",
+        "Thông tin 'thêm 3 bạn' là thông tin nhiễu nếu đề hỏi về quân số hiện tại."
+      ],
+      "solutionHtml": "Số bạn hiện tại của mỗi đội là: {a} : {b} = {ans} (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để biết đâu là dữ liệu cần dùng và đâu là dữ liệu phụ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "camps": { "min": 2, "max": 5, "step": 1 },
+        "tents": { "min": 3, "max": 6, "step": 1 },
+        "peoplePerTent": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "camps * tents * peoplePerTent",
+        "w1": "camps * tents",
+        "w2": "ans + 4",
+        "w3": "ans - 2"
+      },
+      "questionText": "Tại trại hè, có {camps} khu trại, mỗi khu có {tents} cái lều, mỗi cái lều có {peoplePerTent} bạn ở. Hỏi tổng số bạn tham gia ở tất cả các khu trại là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số lều trước: {camps} x {tents}.",
+        "Sau đó nhân với số bạn mỗi lều."
+      ],
+      "solutionHtml": "Tổng số lều là: {camps} x {tents} = {val1} (cái).<br/>Tổng số bạn là: {val1} x {peoplePerTent} = {ans} (bạn).<br/>Đáp án đúng là C.",
+      "val1": "camps * tents",
+      "tip": "Đây là bài toán nhân liên tiếp, hãy cẩn thận với từng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "apples": { "min": 40, "max": 80, "step": 1 },
+        "oranges": { "min": 20, "max": 40, "step": 1 },
+        "people": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "(apples + oranges) % people === 0"
+      ],
+      "formulas": {
+        "total": "apples + oranges",
+        "ans": "total / people",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "apples / people"
+      },
+      "questionText": "Ban tổ chức trại hè chuẩn bị {apples} quả táo và {oranges} quả cam. Toàn bộ số trái cây này được chia đều cho {people} nhóm. Hỏi mỗi nhóm nhận được bao nhiêu quả trái cây?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng tổng số táo và cam lại trước.",
+        "Sau đó chia cho số nhóm."
+      ],
+      "solutionHtml": "Tổng số trái cây là: {apples} + {oranges} = {total} (quả).<br/>Số trái cây mỗi nhóm nhận được: {total} : {people} = {ans} (quả).<br/>Đáp án đúng là B.",
+      "tip": "Phải tính tổng số trái cây trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 8, "max": 10, "step": 1 },
+        "end": { "min": 15, "max": 17, "step": 1 },
+        "speed": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "duration": "end - start",
+        "ans": "duration * speed",
+        "w1": "duration + speed",
+        "w2": "ans + 5",
+        "w3": "ans - 2"
+      },
+      "questionText": "Hoạt động cắm trại kéo dài từ {start} giờ sáng đến {end} giờ chiều cùng ngày. Nếu trong mỗi giờ, các bạn hoàn thành được {speed} nhiệm vụ, hỏi tổng số nhiệm vụ các bạn hoàn thành là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi thời gian từ giờ chiều sang giờ 24h để tính khoảng thời gian.",
+        "Lấy khoảng thời gian nhân với số nhiệm vụ mỗi giờ."
+      ],
+      "solutionHtml": "Thời gian hoạt động là: {end} - {start} = {duration} (giờ).<br/>Tổng số nhiệm vụ: {duration} x {speed} = {ans} (nhiệm vụ).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên đổi giờ chiều (12 giờ trưa trở đi) sang hệ 24 giờ để trừ đúng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bottles": { "min": 10, "max": 20, "step": 1 },
+        "liters": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "bottles * liters",
+        "w1": "bottles + liters",
+        "w2": "ans + 10",
+        "w3": "ans - 5"
+      },
+      "questionText": "Tại trại hè, các bạn chuẩn bị {bottles} bình nước, mỗi bình chứa {liters} lít nước. Hỏi tổng cộng có bao nhiêu lít nước?",
+      "options": [
+        "A. {w1} lít",
+        "B. {w2} lít",
+        "C. {ans} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy số bình nhân với số lít mỗi bình."
+      ],
+      "solutionHtml": "Tổng số lít nước là: {bottles} x {liters} = {ans} (lít).<br/>Đáp án đúng là C.",
+      "tip": "Đây là phép nhân cơ bản, hãy kiểm tra kỹ kết quả.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "books": { "min": 100, "max": 200, "step": 10 },
+        "days": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "books % days === 0"
+      ],
+      "formulas": {
+        "ans": "books / days",
+        "w1": "books - days",
+        "w2": "ans + 5",
+        "w3": "ans - 2"
+      },
+      "questionText": "Bạn Hoa có {books} trang sách cần đọc trong đợt trại hè kéo dài {days} ngày. Biết rằng mỗi ngày Hoa đọc số trang như nhau, hỏi mỗi ngày Hoa đọc bao nhiêu trang?",
+      "options": [
+        "A. {w1} trang",
+        "B. {w2} trang",
+        "C. {ans} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia tổng số trang cho số ngày."
+      ],
+      "solutionHtml": "Mỗi ngày Hoa đọc số trang là: {books} : {days} = {ans} (trang).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ dữ liệu bài cho.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "stickers": { "min": 60, "max": 120, "step": 1 },
+        "kids": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "stickers % kids === 0"
+      ],
+      "formulas": {
+        "ans": "stickers / kids",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Ban tổ chức có {stickers} hình dán tặng thưởng cho {kids} bạn xuất sắc nhất. Hỏi mỗi bạn nhận được bao nhiêu hình dán, biết rằng số hình dán được chia đều?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số hình dán chia cho số bạn."
+      ],
+      "solutionHtml": "Số hình dán mỗi bạn nhận được là: {stickers} : {kids} = {ans} (hình).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều tức là thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "price": { "min": 5, "max": 15, "step": 1 },
+        "quantity": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "price * quantity",
+        "w1": "price + quantity",
+        "w2": "ans + 10",
+        "w3": "ans - 10"
+      },
+      "questionText": "Mỗi chiếc mũ đi trại hè có giá {price} nghìn đồng. Bạn Nam mua {quantity} chiếc cho các bạn trong nhóm. Hỏi Nam phải trả bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1} nghìn",
+        "B. {w2} nghìn",
+        "C. {ans} nghìn",
+        "D. {w3} nghìn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân đơn giá với số lượng mũ."
+      ],
+      "solutionHtml": "Số tiền Nam phải trả là: {price} x {quantity} = {ans} (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Tính cẩn thận phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t20-d4"
+    }
+  ]
+}
+

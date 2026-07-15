@@ -1,0 +1,681 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:34:32.130Z
+Lesson ID: eng6-t11
+Lesson Title: Unit 11: Our Greener World
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10546 (line 310 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10546 (line 310 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10546 (Line: 323, Column: 10)
+Character causing error: """
+
+Context:
+... $ (túi).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia là công cụ mạnh nhất để xử lý các bài toán chia đều.",
+    "level": "chat-luong-cao",
+    "type>>>[LỖI TẠI ĐÂY]<<<": "eng6-t11-d10"
+  }
+] ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 5 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 2",
+      "w2": "ans + 5",
+      "w3": "ans * 2"
+    },
+    "questionText": "Để bảo vệ môi trường, lớp 6A thu gom được {a} kg giấy vụn trong {b} ngày. Biết rằng mỗi ngày lớp thu gom được một lượng giấy như nhau. Hỏi trung bình mỗi ngày lớp 6A thu gom được bao nhiêu kg giấy vụn?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Muốn tính lượng giấy mỗi ngày, ta lấy tổng số giấy chia cho số ngày.",
+      "Thực hiện phép tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Trung bình mỗi ngày lớp 6A thu gom được số kg giấy vụn là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu tìm giá trị trung bình trên một đơn vị thời gian, ta thực hiện phép chia tổng lượng công việc cho tổng thời gian.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 10",
+      "w2": "ans - 5",
+      "w3": "ans + 20"
+    },
+    "questionText": "Một nhóm học sinh có {a} chiếc chai nhựa đã qua sử dụng. Các bạn dự định chia số chai này vào {b} thùng tái chế sao cho mỗi thùng có số lượng chai bằng nhau. Hỏi mỗi thùng sẽ chứa bao nhiêu chiếc chai nhựa?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {ans} chiếc",
+      "D. {w3} chiếc"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Để chia đều số lượng chai vào các thùng, ta lấy tổng số chai chia cho số thùng.",
+      "Thực hiện phép chia $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số chai nhựa mỗi thùng chứa là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+    "tip": "Bài toán chia đều luôn sử dụng phép chia các số tự nhiên.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b + 2"
+    },
+    "questionText": "Mỗi học sinh trong câu lạc bộ 'Môi trường xanh' cần trồng {a} cây xanh để phủ xanh khuôn viên trường. Nếu câu lạc bộ có {b} thành viên, hỏi tổng số cây mà cả câu lạc bộ cần trồng là bao nhiêu?",
+    "options": [
+      "A. {w1} cây",
+      "B. {ans} cây",
+      "C. {w2} cây",
+      "D. {w3} cây"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Muốn tìm tổng số cây, ta lấy số cây mỗi người trồng nhân với số thành viên.",
+      "Thực hiện phép tính $ {a} \\times {b} $."
+    ],
+    "solutionHtml": "Tổng số cây cả câu lạc bộ cần trồng là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết giá trị của một đơn vị, muốn tìm tổng giá trị của nhiều đơn vị, ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 80, "step": 5 },
+      "b": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": [
+      "a > b",
+      "(a - b) % 2 === 0"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a / 2",
+      "w3": "ans + 5"
+    },
+    "questionText": "Trường học A có {a} túi rác phân loại, trường học B có ít hơn trường học A là {b} túi rác. Hỏi trường học B có bao nhiêu túi rác?",
+    "options": [
+      "A. {w1} túi",
+      "B. {w2} túi",
+      "C. {ans} túi",
+      "D. {w3} túi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Vì trường B ít hơn trường A, ta thực hiện phép tính trừ.",
+      "Tính $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số túi rác trường B có là:<br/>$ {a} - {b} = {ans} $ (túi).<br/>Đáp án đúng là C.",
+    "tip": "Từ khóa 'ít hơn' gợi ý cho chúng ta sử dụng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 6, "step": 1 },
+      "b": { "min": 3, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "a < b"
+    ],
+    "formulas": {
+      "ans": "a * 10 + b * 5",
+      "w1": "(a + b) * 5",
+      "w2": "(a + b) * 10",
+      "w3": "ans + 15"
+    },
+    "questionText": "Một cửa hàng bán túi vải thân thiện môi trường. Loại túi cỡ nhỏ giá 5 nghìn đồng, loại túi cỡ lớn giá 10 nghìn đồng. Một bạn học sinh mua {a} túi lớn và {b} túi nhỏ. Hỏi tổng số tiền bạn đó phải trả là bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn",
+      "B. {ans} nghìn",
+      "C. {w2} nghìn",
+      "D. {w3} nghìn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính số tiền mua túi lớn: $ {a} \\times 10 $.",
+      "Tính số tiền mua túi nhỏ: $ {b} \\times 5 $.",
+      "Cộng hai kết quả lại."
+    ],
+    "solutionHtml": "Số tiền mua túi lớn là: $ {a} \\times 10 = {a*10} $ (nghìn đồng).<br/>Số tiền mua túi nhỏ là: $ {b} \\times 5 = {b*5} $ (nghìn đồng).<br/>Tổng số tiền là: $ {a*10} + {b*5} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Cần tính giá trị từng loại mặt hàng trước khi tính tổng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 30, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 3"
+    },
+    "questionText": "Có {a} thùng đựng rác thải tái chế được chia đều vào {b} khu vực trong trường. Hỏi mỗi khu vực nhận được bao nhiêu thùng rác?",
+    "options": [
+      "A. {w1} thùng",
+      "B. {w2} thùng",
+      "C. {ans} thùng",
+      "D. {w3} thùng"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều số vật phẩm nghĩa là thực hiện phép chia.",
+      "Tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số thùng rác mỗi khu vực nhận là:<br/>$ {a} : {b} = {ans} $ (thùng).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ từ khóa 'chia đều' để chọn đúng phép toán.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 90, "step": 10 },
+      "b": { "min": 10, "max": 30, "step": 5 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a - b",
+      "w2": "a * 2",
+      "w3": "b * 2"
+    },
+    "questionText": "Tổ 1 thu gom được {a} kg nhựa tái chế, tổ 2 thu gom được nhiều hơn tổ 1 là {b} kg nhựa. Hỏi tổng lượng nhựa cả hai tổ thu gom được là bao nhiêu kg?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tìm số nhựa của tổ 2: $ {a} + {b} $.",
+      "Tổng cả hai tổ: Tổ 1 + Tổ 2."
+    ],
+    "solutionHtml": "Số nhựa tổ 2 thu gom là: $ {a} + {b} = {a+b} $ (kg).<br/>Tổng nhựa hai tổ là: $ {a} + {a+b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Đây là bài toán hai bước: tìm giá trị thứ hai rồi tính tổng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a * 5 + b * 8",
+      "w1": "(a + b) * 5",
+      "w2": "(a + b) * 8",
+      "w3": "ans - 5"
+    },
+    "questionText": "Một hội thảo môi trường cung cấp {a} bộ tài liệu loại 5 trang và {b} bộ tài liệu loại 8 trang. Hỏi tổng số trang tài liệu được phát ra là bao nhiêu?",
+    "options": [
+      "A. {w1} trang",
+      "B. {w2} trang",
+      "C. {ans} trang",
+      "D. {w3} trang"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tính số trang loại 5 trang: $ {a} \\times 5 $.",
+      "Tính số trang loại 8 trang: $ {b} \\times 8 $.",
+      "Cộng hai kết quả."
+    ],
+    "solutionHtml": "Số trang của các bộ 5 trang là: $ {a} \\times 5 = {a*5} $ (trang).<br/>Số trang của các bộ 8 trang là: $ {b} \\times 8 = {b*8} $ (trang).<br/>Tổng số trang là: $ {a*5} + {b*8} = {ans} $ (trang).<br/>Đáp án đúng là C.",
+    "tip": "Tính toán riêng lẻ từng nhóm rồi cộng tổng sẽ tránh nhầm lẫn.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 50 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans * 2"
+    },
+    "questionText": "Để phủ xanh trường học, nhà trường mua {a} cây xanh. Nếu số cây đó được chia đều cho {b} khối lớp, hỏi mỗi khối lớp nhận được bao nhiêu cây?",
+    "options": [
+      "A. {w1} cây",
+      "B. {w2} cây",
+      "C. {ans} cây",
+      "D. {w3} cây"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều là thực hiện phép chia.",
+      "Tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số cây mỗi khối nhận được là:<br/>$ {a} : {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+    "tip": "Hãy chú ý đến đơn vị của kết quả.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 1"
+    },
+    "questionText": "Một nhóm tình nguyện viên chuẩn bị {a} túi hạt giống để gieo trong {b} khu vườn. Nếu mỗi khu vườn được gieo số túi hạt giống như nhau, hỏi mỗi khu vườn nhận được bao nhiêu túi hạt giống?",
+    "options": [
+      "A. {w1} túi",
+      "B. {w2} túi",
+      "C. {ans} túi",
+      "D. {w3} túi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều tổng số túi cho các khu vườn.",
+      "Tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số túi hạt giống mỗi khu vườn nhận là:<br/>$ {a} : {b} = {ans} $ (túi).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia là công cụ mạnh nhất để xử lý các bài toán chia đều.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 5 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 2",
+      "w2": "ans + 5",
+      "w3": "ans * 2"
+    },
+    "questionText": "Để bảo vệ môi trường, lớp 6A thu gom được {a} kg giấy vụn trong {b} ngày. Biết rằng mỗi ngày lớp thu gom được một lượng giấy như nhau. Hỏi trung bình mỗi ngày lớp 6A thu gom được bao nhiêu kg giấy vụn?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Muốn tính lượng giấy mỗi ngày, ta lấy tổng số giấy chia cho số ngày.",
+      "Thực hiện phép tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Trung bình mỗi ngày lớp 6A thu gom được số kg giấy vụn là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán yêu cầu tìm giá trị trung bình trên một đơn vị thời gian, ta thực hiện phép chia tổng lượng công việc cho tổng thời gian.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 10",
+      "w2": "ans - 5",
+      "w3": "ans + 20"
+    },
+    "questionText": "Một nhóm học sinh có {a} chiếc chai nhựa đã qua sử dụng. Các bạn dự định chia số chai này vào {b} thùng tái chế sao cho mỗi thùng có số lượng chai bằng nhau. Hỏi mỗi thùng sẽ chứa bao nhiêu chiếc chai nhựa?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {ans} chiếc",
+      "D. {w3} chiếc"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Để chia đều số lượng chai vào các thùng, ta lấy tổng số chai chia cho số thùng.",
+      "Thực hiện phép chia $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số chai nhựa mỗi thùng chứa là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+    "tip": "Bài toán chia đều luôn sử dụng phép chia các số tự nhiên.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b + 2"
+    },
+    "questionText": "Mỗi học sinh trong câu lạc bộ 'Môi trường xanh' cần trồng {a} cây xanh để phủ xanh khuôn viên trường. Nếu câu lạc bộ có {b} thành viên, hỏi tổng số cây mà cả câu lạc bộ cần trồng là bao nhiêu?",
+    "options": [
+      "A. {w1} cây",
+      "B. {ans} cây",
+      "C. {w2} cây",
+      "D. {w3} cây"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Muốn tìm tổng số cây, ta lấy số cây mỗi người trồng nhân với số thành viên.",
+      "Thực hiện phép tính $ {a} \\times {b} $."
+    ],
+    "solutionHtml": "Tổng số cây cả câu lạc bộ cần trồng là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết giá trị của một đơn vị, muốn tìm tổng giá trị của nhiều đơn vị, ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 80, "step": 5 },
+      "b": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": [
+      "a > b",
+      "(a - b) % 2 === 0"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a / 2",
+      "w3": "ans + 5"
+    },
+    "questionText": "Trường học A có {a} túi rác phân loại, trường học B có ít hơn trường học A là {b} túi rác. Hỏi trường học B có bao nhiêu túi rác?",
+    "options": [
+      "A. {w1} túi",
+      "B. {w2} túi",
+      "C. {ans} túi",
+      "D. {w3} túi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Vì trường B ít hơn trường A, ta thực hiện phép tính trừ.",
+      "Tính $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số túi rác trường B có là:<br/>$ {a} - {b} = {ans} $ (túi).<br/>Đáp án đúng là C.",
+    "tip": "Từ khóa 'ít hơn' gợi ý cho chúng ta sử dụng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 6, "step": 1 },
+      "b": { "min": 3, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "a < b"
+    ],
+    "formulas": {
+      "ans": "a * 10 + b * 5",
+      "w1": "(a + b) * 5",
+      "w2": "(a + b) * 10",
+      "w3": "ans + 15"
+    },
+    "questionText": "Một cửa hàng bán túi vải thân thiện môi trường. Loại túi cỡ nhỏ giá 5 nghìn đồng, loại túi cỡ lớn giá 10 nghìn đồng. Một bạn học sinh mua {a} túi lớn và {b} túi nhỏ. Hỏi tổng số tiền bạn đó phải trả là bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn",
+      "B. {ans} nghìn",
+      "C. {w2} nghìn",
+      "D. {w3} nghìn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính số tiền mua túi lớn: $ {a} \\times 10 $.",
+      "Tính số tiền mua túi nhỏ: $ {b} \\times 5 $.",
+      "Cộng hai kết quả lại."
+    ],
+    "solutionHtml": "Số tiền mua túi lớn là: $ {a} \\times 10 = {a*10} $ (nghìn đồng).<br/>Số tiền mua túi nhỏ là: $ {b} \\times 5 = {b*5} $ (nghìn đồng).<br/>Tổng số tiền là: $ {a*10} + {b*5} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Cần tính giá trị từng loại mặt hàng trước khi tính tổng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 30, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 3"
+    },
+    "questionText": "Có {a} thùng đựng rác thải tái chế được chia đều vào {b} khu vực trong trường. Hỏi mỗi khu vực nhận được bao nhiêu thùng rác?",
+    "options": [
+      "A. {w1} thùng",
+      "B. {w2} thùng",
+      "C. {ans} thùng",
+      "D. {w3} thùng"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều số vật phẩm nghĩa là thực hiện phép chia.",
+      "Tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số thùng rác mỗi khu vực nhận là:<br/>$ {a} : {b} = {ans} $ (thùng).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ từ khóa 'chia đều' để chọn đúng phép toán.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 90, "step": 10 },
+      "b": { "min": 10, "max": 30, "step": 5 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a - b",
+      "w2": "a * 2",
+      "w3": "b * 2"
+    },
+    "questionText": "Tổ 1 thu gom được {a} kg nhựa tái chế, tổ 2 thu gom được nhiều hơn tổ 1 là {b} kg nhựa. Hỏi tổng lượng nhựa cả hai tổ thu gom được là bao nhiêu kg?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tìm số nhựa của tổ 2: $ {a} + {b} $.",
+      "Tổng cả hai tổ: Tổ 1 + Tổ 2."
+    ],
+    "solutionHtml": "Số nhựa tổ 2 thu gom là: $ {a} + {b} = {a+b} $ (kg).<br/>Tổng nhựa hai tổ là: $ {a} + {a+b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Đây là bài toán hai bước: tìm giá trị thứ hai rồi tính tổng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a * 5 + b * 8",
+      "w1": "(a + b) * 5",
+      "w2": "(a + b) * 8",
+      "w3": "ans - 5"
+    },
+    "questionText": "Một hội thảo môi trường cung cấp {a} bộ tài liệu loại 5 trang và {b} bộ tài liệu loại 8 trang. Hỏi tổng số trang tài liệu được phát ra là bao nhiêu?",
+    "options": [
+      "A. {w1} trang",
+      "B. {w2} trang",
+      "C. {ans} trang",
+      "D. {w3} trang"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tính số trang loại 5 trang: $ {a} \\times 5 $.",
+      "Tính số trang loại 8 trang: $ {b} \\times 8 $.",
+      "Cộng hai kết quả."
+    ],
+    "solutionHtml": "Số trang của các bộ 5 trang là: $ {a} \\times 5 = {a*5} $ (trang).<br/>Số trang của các bộ 8 trang là: $ {b} \\times 8 = {b*8} $ (trang).<br/>Tổng số trang là: $ {a*5} + {b*8} = {ans} $ (trang).<br/>Đáp án đúng là C.",
+    "tip": "Tính toán riêng lẻ từng nhóm rồi cộng tổng sẽ tránh nhầm lẫn.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 50 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans * 2"
+    },
+    "questionText": "Để phủ xanh trường học, nhà trường mua {a} cây xanh. Nếu số cây đó được chia đều cho {b} khối lớp, hỏi mỗi khối lớp nhận được bao nhiêu cây?",
+    "options": [
+      "A. {w1} cây",
+      "B. {w2} cây",
+      "C. {ans} cây",
+      "D. {w3} cây"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều là thực hiện phép chia.",
+      "Tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số cây mỗi khối nhận được là:<br/>$ {a} : {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+    "tip": "Hãy chú ý đến đơn vị của kết quả.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 1"
+    },
+    "questionText": "Một nhóm tình nguyện viên chuẩn bị {a} túi hạt giống để gieo trong {b} khu vườn. Nếu mỗi khu vườn được gieo số túi hạt giống như nhau, hỏi mỗi khu vườn nhận được bao nhiêu túi hạt giống?",
+    "options": [
+      "A. {w1} túi",
+      "B. {w2} túi",
+      "C. {ans} túi",
+      "D. {w3} túi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều tổng số túi cho các khu vườn.",
+      "Tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số túi hạt giống mỗi khu vườn nhận là:<br/>$ {a} : {b} = {ans} $ (túi).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia là công cụ mạnh nhất để xử lý các bài toán chia đều.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t11-d10"
+  }
+]
+

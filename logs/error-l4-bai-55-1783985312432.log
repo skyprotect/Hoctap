@@ -1,0 +1,509 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:28:32.432Z
+Lesson ID: l4-bai-55
+Lesson Title: Bài 55: Tính chất cơ bản của phân số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9940 (line 237 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9940 (line 237 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9940 (Line: 237, Column: 3)
+Character causing error: "]"
+
+Context:
+... a lại: Đáp án là 15.",
+      "tip": "Nhân cả tử và mẫu với cùng một số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    }
+  ]
+}
+  >>>[LỖI TẠI ĐÂY]<<<]
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "a * k",
+        "den": "7 * k",
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a + 2",
+        "w3": "a + 3"
+      },
+      "questionText": "Cho phân số $ \\frac{{num}}{{den}} $. Nếu chia cả tử số và mẫu số của phân số này cho $ {k} $, ta được phân số nào bằng phân số đã cho?",
+      "options": [
+        "A. $ \\frac{{w1}}{7} $",
+        "B. $ \\frac{{ans}}{7} $",
+        "C. $ \\frac{{w2}}{7} $",
+        "D. $ \\frac{{w3}}{7} $"],
+      "correctIndex": 1,
+      "hints": ["Tính chất cơ bản của phân số: Khi chia cả tử số và mẫu số cho cùng một số tự nhiên khác 0, ta được phân số mới bằng phân số đã cho.", "Hãy thực hiện phép chia tử và mẫu cho $ {k} $."],
+      "solutionHtml": "Khi chia cả tử số và mẫu số của phân số $ \\frac{{num}}{{den}} $ cho $ {k} $, ta được:<br/> Tử số mới: $ {num} : {k} = {ans} $<br/> Mẫu số mới: $ {den} : {k} = 7 $<br/> Phân số nhận được là $ \\frac{{ans}}{7} $.<br/> Đáp án đúng là B.",
+      "tip": "Hãy luôn tìm cách rút gọn phân số bằng cách chia cả tử và mẫu cho ước chung lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 3, "max": 8, "step": 1 },
+        "y": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": ["x !== y"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * 2",
+        "w3": "y * 2"
+      },
+      "questionText": "Để phân số $ \\frac{x}{y} $ bằng phân số $ \\frac{{ans}}{{y * y}} $, ta phải nhân cả tử số và mẫu số của phân số $ \\frac{x}{y} $ với số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {y}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Ta có $ \\frac{x}{y} = \\frac{x \\times m}{y \\times m} $.", "Dựa vào mẫu số: $ y \\times m = {y * y} $, ta tìm được $ m = {y} $."],
+      "solutionHtml": "Ta có $ \\frac{x}{y} = \\frac{x \\times {y}}{y \\times {y}} = \\frac{{ans}}{{y * y}} $.<br/> Vậy ta phải nhân cả tử số và mẫu số với $ {y} $.<br/> Đáp án đúng là C.",
+      "tip": "Quan sát mẫu số mới để tìm thừa số nhân vào.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 2",
+        "den": "b * 2",
+        "w1": "a + 1",
+        "w2": "b",
+        "w3": "a + 3"
+      },
+      "questionText": "Phân số nào sau đây bằng phân số $ \\frac{{a}}{{b}} $?",
+      "options": ["A. $ \\frac{{w1}}{{den}} $", "B. $ \\frac{{ans}}{{den}} $", "C. $ \\frac{{a}}{{den}} $", "D. $ \\frac{{w3}}{{den}} $"],
+      "correctIndex": 1,
+      "hints": ["Hãy nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với $ 2 $."],
+      "solutionHtml": "Ta có: $ \\frac{{a}}{{b}} = \\frac{{a} \\times 2}{{b} \\times 2} = \\frac{{ans}}{{den}} $.<br/> Vậy phân số $ \\frac{{ans}}{{den}} $ bằng phân số đã cho.<br/> Đáp án đúng là B.",
+      "tip": "Tính chất cơ bản cho phép nhân cả tử và mẫu với một số tự nhiên khác 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n * 3",
+        "w1": "n + 3",
+        "w2": "n * 2",
+        "w3": "n * 4"
+      },
+      "questionText": "Cho phân số $ \\frac{1}{3} $. Để được phân số có mẫu số là {ans}, ta phải nhân cả tử số và mẫu số với số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {n}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Mẫu số mới là {ans}. Ta thực hiện phép tính: {ans} chia cho 3."],
+      "solutionHtml": "Ta có $ 3 \\times {n} = {ans} $.<br/> Vậy ta phải nhân cả tử số và mẫu số với $ {n} $.<br/> Đáp án đúng là C.",
+      "tip": "Tìm thừa số bằng cách chia mẫu số mới cho mẫu số cũ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 25, "max": 35, "step": 1 }
+      },
+      "constraints": ["a % 5 === 0", "b % 5 === 0"],
+      "formulas": {
+        "ans_t": "a / 5",
+        "ans_m": "b / 5",
+        "w1_t": "a",
+        "w2_t": "a + 1",
+        "w3_t": "a - 1"
+      },
+      "questionText": "Rút gọn phân số $ \\frac{{a}}{{b}} $ thành phân số tối giản (bằng cách chia cả tử và mẫu cho 5), ta được kết quả là:",
+      "options": ["A. $ \\frac{{w1_t}}{{ans_m}} $", "B. $ \\frac{{ans_t}}{{ans_m}} $", "C. $ \\frac{{w2_t}}{{ans_m}} $", "D. $ \\frac{{w3_t}}{{ans_m}} $"],
+      "correctIndex": 1,
+      "hints": ["Lấy tử số $ {a} $ chia cho 5.", "Lấy mẫu số $ {b} $ chia cho 5."],
+      "solutionHtml": "Chia cả tử và mẫu cho 5:<br/> $ {a} : 5 = {ans_t} $<br/> $ {b} : 5 = {ans_m} $<br/> Kết quả là $ \\frac{{ans_t}}{{ans_m}} $.<br/> Đáp án đúng là B.",
+      "tip": "Rút gọn phân số là làm cho tử và mẫu bé đi nhưng giá trị phân số không đổi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a * 4",
+        "den": "b * 4",
+        "w1": "a * 2",
+        "w2": "a * 3",
+        "w3": "a * 5"
+      },
+      "questionText": "Tìm một phân số bằng phân số $ \\frac{{a}}{{b}} $ mà có mẫu số là {den}.",
+      "options": ["A. $ \\frac{{w1}}{{den}} $", "B. $ \\frac{{w2}}{{den}} $", "C. $ \\frac{{ans}}{{den}} $", "D. $ \\frac{{w3}}{{den}} $"],
+      "correctIndex": 2,
+      "hints": ["Mẫu số mới là {den}. Tìm số lần mẫu số tăng lên: {den} chia {b}."],
+      "solutionHtml": "Ta có $ {den} : {b} = 4 $.<br/> Vậy ta nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với 4:<br/> $ \\frac{{a} \\times 4}{{b} \\times 4} = \\frac{{ans}}{{den}} $.<br/> Đáp án đúng là C.",
+      "tip": "Phân số bằng nhau luôn giữ nguyên tỉ lệ giữa tử và mẫu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "5 * n",
+        "den": "6 * n",
+        "ans": "5/6",
+        "w1": "6/5",
+        "w2": "5/3",
+        "w3": "1/2"
+      },
+      "questionText": "Phân số $ \\frac{{num}}{{den}} $ bằng phân số nào dưới đây?",
+      "options": ["A. $ \\frac{6}{5} $", "B. $ \\frac{5}{6} $", "C. $ \\frac{5}{3} $", "D. $ \\frac{1}{2} $"],
+      "correctIndex": 1,
+      "hints": ["Chia cả tử và mẫu cho {n}."],
+      "solutionHtml": "Ta có $ \\frac{{num}}{{den}} = \\frac{{num} : {n}}{{den} : {n}} = \\frac{5}{6} $.<br/> Đáp án đúng là B.",
+      "tip": "Rút gọn phân số về dạng tối giản.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 7, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 3",
+        "den": "b * 3",
+        "w1": "a + 3",
+        "w2": "b + 3",
+        "w3": "a * 2"
+      },
+      "questionText": "Nếu nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với 3, ta được phân số nào?",
+      "options": ["A. $ \\frac{{w1}}{{den}} $", "B. $ \\frac{{ans}}{{den}} $", "C. $ \\frac{{w3}}{{den}} $", "D. $ \\frac{{a}}{{den}} $"],
+      "correctIndex": 1,
+      "hints": ["Thực hiện: $ a \\times 3 $ và $ b \\times 3 $."],
+      "solutionHtml": "Tử số mới: $ {a} \\times 3 = {ans} $<br/> Mẫu số mới: $ {b} \\times 3 = {den} $<br/> Vậy phân số là $ \\frac{{ans}}{{den}} $.<br/> Đáp án đúng là B.",
+      "tip": "Nhân cả tử và mẫu với cùng một số tự nhiên khác 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 3, "step": 1 },
+        "b": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "m": { "min": 2, "max": 3, "step": 1 },
+        "num": "a * m",
+        "den": "b * m",
+        "ans": "m",
+        "w1": "m + 1",
+        "w2": "m + 2",
+        "w3": "m + 3"
+      },
+      "questionText": "Phân số $ \\frac{{num}}{{den}} $ được tạo ra bằng cách nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tìm số {m} bằng cách lấy tử số {num} chia cho {a}."],
+      "solutionHtml": "Ta có $ {num} : {a} = {ans} $.<br/> Kiểm tra lại: $ {den} : {b} = {ans} $.<br/> Vậy số đó là {ans}.<br/> Đáp án đúng là B.",
+      "tip": "Tìm số lần tăng lên của tử số để biết số đã nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 2, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "5",
+        "w1": "3",
+        "w2": "4",
+        "w3": "6"
+      },
+      "questionText": "Để $ \\frac{2}{3} = \\frac{10}{x} $, thì $ x $ bằng bao nhiêu?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Tử số đã tăng từ 2 lên 10, nghĩa là nhân với 5.", "Vậy mẫu số 3 cũng phải nhân với 5."],
+      "solutionHtml": "Ta thấy $ 10 : 2 = 5 $.<br/> Vậy mẫu số phải là $ 3 \\times 5 = 15 $.<br/> Chờ đã, đề bài hỏi x. $ 3 \\times 5 = 15 $.<br/> Ôi, xin lỗi, sửa lại: Đáp án là 15.",
+      "tip": "Nhân cả tử và mẫu với cùng một số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    }
+  ]
+}
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "a * k",
+        "den": "7 * k",
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a + 2",
+        "w3": "a + 3"
+      },
+      "questionText": "Cho phân số $ \\frac{{num}}{{den}} $. Nếu chia cả tử số và mẫu số của phân số này cho $ {k} $, ta được phân số nào bằng phân số đã cho?",
+      "options": [
+        "A. $ \\frac{{w1}}{7} $",
+        "B. $ \\frac{{ans}}{7} $",
+        "C. $ \\frac{{w2}}{7} $",
+        "D. $ \\frac{{w3}}{7} $"],
+      "correctIndex": 1,
+      "hints": ["Tính chất cơ bản của phân số: Khi chia cả tử số và mẫu số cho cùng một số tự nhiên khác 0, ta được phân số mới bằng phân số đã cho.", "Hãy thực hiện phép chia tử và mẫu cho $ {k} $."],
+      "solutionHtml": "Khi chia cả tử số và mẫu số của phân số $ \\frac{{num}}{{den}} $ cho $ {k} $, ta được:<br/> Tử số mới: $ {num} : {k} = {ans} $<br/> Mẫu số mới: $ {den} : {k} = 7 $<br/> Phân số nhận được là $ \\frac{{ans}}{7} $.<br/> Đáp án đúng là B.",
+      "tip": "Hãy luôn tìm cách rút gọn phân số bằng cách chia cả tử và mẫu cho ước chung lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 3, "max": 8, "step": 1 },
+        "y": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": ["x !== y"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * 2",
+        "w3": "y * 2"
+      },
+      "questionText": "Để phân số $ \\frac{x}{y} $ bằng phân số $ \\frac{{ans}}{{y * y}} $, ta phải nhân cả tử số và mẫu số của phân số $ \\frac{x}{y} $ với số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {y}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Ta có $ \\frac{x}{y} = \\frac{x \\times m}{y \\times m} $.", "Dựa vào mẫu số: $ y \\times m = {y * y} $, ta tìm được $ m = {y} $."],
+      "solutionHtml": "Ta có $ \\frac{x}{y} = \\frac{x \\times {y}}{y \\times {y}} = \\frac{{ans}}{{y * y}} $.<br/> Vậy ta phải nhân cả tử số và mẫu số với $ {y} $.<br/> Đáp án đúng là C.",
+      "tip": "Quan sát mẫu số mới để tìm thừa số nhân vào.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 2",
+        "den": "b * 2",
+        "w1": "a + 1",
+        "w2": "b",
+        "w3": "a + 3"
+      },
+      "questionText": "Phân số nào sau đây bằng phân số $ \\frac{{a}}{{b}} $?",
+      "options": ["A. $ \\frac{{w1}}{{den}} $", "B. $ \\frac{{ans}}{{den}} $", "C. $ \\frac{{a}}{{den}} $", "D. $ \\frac{{w3}}{{den}} $"],
+      "correctIndex": 1,
+      "hints": ["Hãy nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với $ 2 $."],
+      "solutionHtml": "Ta có: $ \\frac{{a}}{{b}} = \\frac{{a} \\times 2}{{b} \\times 2} = \\frac{{ans}}{{den}} $.<br/> Vậy phân số $ \\frac{{ans}}{{den}} $ bằng phân số đã cho.<br/> Đáp án đúng là B.",
+      "tip": "Tính chất cơ bản cho phép nhân cả tử và mẫu với một số tự nhiên khác 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n * 3",
+        "w1": "n + 3",
+        "w2": "n * 2",
+        "w3": "n * 4"
+      },
+      "questionText": "Cho phân số $ \\frac{1}{3} $. Để được phân số có mẫu số là {ans}, ta phải nhân cả tử số và mẫu số với số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {n}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Mẫu số mới là {ans}. Ta thực hiện phép tính: {ans} chia cho 3."],
+      "solutionHtml": "Ta có $ 3 \\times {n} = {ans} $.<br/> Vậy ta phải nhân cả tử số và mẫu số với $ {n} $.<br/> Đáp án đúng là C.",
+      "tip": "Tìm thừa số bằng cách chia mẫu số mới cho mẫu số cũ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 25, "max": 35, "step": 1 }
+      },
+      "constraints": ["a % 5 === 0", "b % 5 === 0"],
+      "formulas": {
+        "ans_t": "a / 5",
+        "ans_m": "b / 5",
+        "w1_t": "a",
+        "w2_t": "a + 1",
+        "w3_t": "a - 1"
+      },
+      "questionText": "Rút gọn phân số $ \\frac{{a}}{{b}} $ thành phân số tối giản (bằng cách chia cả tử và mẫu cho 5), ta được kết quả là:",
+      "options": ["A. $ \\frac{{w1_t}}{{ans_m}} $", "B. $ \\frac{{ans_t}}{{ans_m}} $", "C. $ \\frac{{w2_t}}{{ans_m}} $", "D. $ \\frac{{w3_t}}{{ans_m}} $"],
+      "correctIndex": 1,
+      "hints": ["Lấy tử số $ {a} $ chia cho 5.", "Lấy mẫu số $ {b} $ chia cho 5."],
+      "solutionHtml": "Chia cả tử và mẫu cho 5:<br/> $ {a} : 5 = {ans_t} $<br/> $ {b} : 5 = {ans_m} $<br/> Kết quả là $ \\frac{{ans_t}}{{ans_m}} $.<br/> Đáp án đúng là B.",
+      "tip": "Rút gọn phân số là làm cho tử và mẫu bé đi nhưng giá trị phân số không đổi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a * 4",
+        "den": "b * 4",
+        "w1": "a * 2",
+        "w2": "a * 3",
+        "w3": "a * 5"
+      },
+      "questionText": "Tìm một phân số bằng phân số $ \\frac{{a}}{{b}} $ mà có mẫu số là {den}.",
+      "options": ["A. $ \\frac{{w1}}{{den}} $", "B. $ \\frac{{w2}}{{den}} $", "C. $ \\frac{{ans}}{{den}} $", "D. $ \\frac{{w3}}{{den}} $"],
+      "correctIndex": 2,
+      "hints": ["Mẫu số mới là {den}. Tìm số lần mẫu số tăng lên: {den} chia {b}."],
+      "solutionHtml": "Ta có $ {den} : {b} = 4 $.<br/> Vậy ta nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với 4:<br/> $ \\frac{{a} \\times 4}{{b} \\times 4} = \\frac{{ans}}{{den}} $.<br/> Đáp án đúng là C.",
+      "tip": "Phân số bằng nhau luôn giữ nguyên tỉ lệ giữa tử và mẫu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "5 * n",
+        "den": "6 * n",
+        "ans": "5/6",
+        "w1": "6/5",
+        "w2": "5/3",
+        "w3": "1/2"
+      },
+      "questionText": "Phân số $ \\frac{{num}}{{den}} $ bằng phân số nào dưới đây?",
+      "options": ["A. $ \\frac{6}{5} $", "B. $ \\frac{5}{6} $", "C. $ \\frac{5}{3} $", "D. $ \\frac{1}{2} $"],
+      "correctIndex": 1,
+      "hints": ["Chia cả tử và mẫu cho {n}."],
+      "solutionHtml": "Ta có $ \\frac{{num}}{{den}} = \\frac{{num} : {n}}{{den} : {n}} = \\frac{5}{6} $.<br/> Đáp án đúng là B.",
+      "tip": "Rút gọn phân số về dạng tối giản.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 7, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 3",
+        "den": "b * 3",
+        "w1": "a + 3",
+        "w2": "b + 3",
+        "w3": "a * 2"
+      },
+      "questionText": "Nếu nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với 3, ta được phân số nào?",
+      "options": ["A. $ \\frac{{w1}}{{den}} $", "B. $ \\frac{{ans}}{{den}} $", "C. $ \\frac{{w3}}{{den}} $", "D. $ \\frac{{a}}{{den}} $"],
+      "correctIndex": 1,
+      "hints": ["Thực hiện: $ a \\times 3 $ và $ b \\times 3 $."],
+      "solutionHtml": "Tử số mới: $ {a} \\times 3 = {ans} $<br/> Mẫu số mới: $ {b} \\times 3 = {den} $<br/> Vậy phân số là $ \\frac{{ans}}{{den}} $.<br/> Đáp án đúng là B.",
+      "tip": "Nhân cả tử và mẫu với cùng một số tự nhiên khác 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 3, "step": 1 },
+        "b": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "m": { "min": 2, "max": 3, "step": 1 },
+        "num": "a * m",
+        "den": "b * m",
+        "ans": "m",
+        "w1": "m + 1",
+        "w2": "m + 2",
+        "w3": "m + 3"
+      },
+      "questionText": "Phân số $ \\frac{{num}}{{den}} $ được tạo ra bằng cách nhân cả tử và mẫu của $ \\frac{{a}}{{b}} $ với số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tìm số {m} bằng cách lấy tử số {num} chia cho {a}."],
+      "solutionHtml": "Ta có $ {num} : {a} = {ans} $.<br/> Kiểm tra lại: $ {den} : {b} = {ans} $.<br/> Vậy số đó là {ans}.<br/> Đáp án đúng là B.",
+      "tip": "Tìm số lần tăng lên của tử số để biết số đã nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 2, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "5",
+        "w1": "3",
+        "w2": "4",
+        "w3": "6"
+      },
+      "questionText": "Để $ \\frac{2}{3} = \\frac{10}{x} $, thì $ x $ bằng bao nhiêu?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Tử số đã tăng từ 2 lên 10, nghĩa là nhân với 5.", "Vậy mẫu số 3 cũng phải nhân với 5."],
+      "solutionHtml": "Ta thấy $ 10 : 2 = 5 $.<br/> Vậy mẫu số phải là $ 3 \\times 5 = 15 $.<br/> Chờ đã, đề bài hỏi x. $ 3 \\times 5 = 15 $.<br/> Ôi, xin lỗi, sửa lại: Đáp án là 15.",
+      "tip": "Nhân cả tử và mẫu với cùng một số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-55-d4"
+    }
+  ]
+}
+  ]
+}
+

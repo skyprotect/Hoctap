@@ -1,0 +1,569 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:07:20.425Z
+Lesson ID: l4-bai-8
+Lesson Title: Bài 8: Góc nhọn, góc tù, góc bẹt
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10554 (line 269 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10554 (line 269 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10554 (Line: 269, Column: 1)
+Character causing error: "}"
+
+Context:
+... Góc bẹt là nửa vòng tròn ($180^\\circ$), vậy cả vòng tròn là $360^\\circ$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 80, "step": 1 },
+        "b": { "min": 100, "max": 170, "step": 1 }
+      },
+      "constraints": ["a < 90", "b > 90", "b < 180"],
+      "formulas": {
+        "ans": "90",
+        "w1": "45",
+        "w2": "180",
+        "w3": "135",
+        "sol_a": "a < 90 ? 'góc nhọn' : 'góc tù'",
+        "sol_b": "b < 180 ? 'góc tù' : 'góc bẹt'"
+      },
+      "questionText": "Cho góc $A$ có số đo là {a}$^\\circ$ và góc $B$ có số đo là {b}$^\\circ$. Khẳng định nào sau đây là đúng về loại góc của góc $A$ và góc $B$?",
+      "options": [
+        "A. Góc $A$ là góc tù, góc $B$ là góc nhọn",
+        "B. Góc $A$ là góc nhọn, góc $B$ là góc tù",
+        "C. Cả hai góc đều là góc tù",
+        "D. Cả hai góc đều là góc nhọn"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc nhọn nhỏ hơn $90^\\circ$.", "Góc tù lớn hơn $90^\\circ$ và nhỏ hơn $180^\\circ$.", "Góc bẹt bằng $180^\\circ$."],
+      "solutionHtml": "Góc $A$ có số đo {a}$^\\circ$, vì {a}$^\\circ < 90^\\circ$ nên đó là góc nhọn.<br/>Góc $B$ có số đo {b}$^\\circ$, vì $90^\\circ < {b}^\\circ < 180^\\circ$ nên đó là góc tù.<br/>Vậy khẳng định đúng là B.",
+      "tip": "Ghi nhớ: Nhọn < $90^\\circ$ < Tù < $180^\\circ$ = Bẹt.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "total": "90 + x",
+        "ans": "90 + x",
+        "w1": "90 - x",
+        "w2": "180 + x",
+        "w3": "180 - x"
+      },
+      "questionText": "Một góc nhọn có số đo là {x}$^\\circ$. Nếu ta cộng thêm vào góc đó một góc vuông ($90^\\circ$), thì góc mới tạo thành có số đo là bao nhiêu và thuộc loại góc nào?",
+      "options": [
+        "A. {w1}$^\\circ$, góc nhọn",
+        "B. {ans}$^\\circ$, góc tù",
+        "C. {w3}$^\\circ$, góc nhọn",
+        "D. {w2}$^\\circ$, góc bẹt"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc mới = {x}$^\\circ + 90^\\circ$.", "Số đo này lớn hơn $90^\\circ$ và nhỏ hơn $180^\\circ$."],
+      "solutionHtml": "Số đo góc mới là: {x} + 90 = {ans}$^\\circ$.<br/>Vì $90^\\circ < {ans}^\\circ < 180^\\circ$ nên đây là góc tù.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng một góc nhọn với góc vuông, ta luôn thu được một góc tù.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["k > 1"],
+      "formulas": {
+        "ans": "180",
+        "w1": "90",
+        "w2": "270",
+        "w3": "360"
+      },
+      "questionText": "Nếu ta ghép {k} góc vuông lại với nhau sao cho chúng tạo thành một đường thẳng, thì tổng số đo của {k} góc đó là bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\\circ$",
+        "B. {ans}$^\\circ$",
+        "C. {w2}$^\\circ$",
+        "D. {w3}$^\\circ$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Mỗi góc vuông bằng $90^\\circ$.", "Ta cần thực hiện phép tính $90 \\times {k}$ để ra $180$?"],
+      "solutionHtml": "Vì mỗi góc vuông bằng $90^\\circ$, nên {k} góc vuông có tổng số đo là $90 \\times {k} = 180^\\circ$.<br/>Góc có số đo $180^\\circ$ được gọi là góc bẹt.<br/>Đáp án đúng là B.",
+      "tip": "Đề bài cho biết chúng tạo thành một đường thẳng, mà góc tạo bởi đường thẳng luôn là góc bẹt ($180^\\circ$).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 140, "step": 5 }
+      },
+      "constraints": ["a > 90"],
+      "formulas": {
+        "ans": "180 - a",
+        "w1": "a - 90",
+        "w2": "90",
+        "w3": "360 - a"
+      },
+      "questionText": "Một góc tù có số đo là {a}$^\\circ$. Hỏi cần phải bớt đi bao nhiêu độ để góc đó trở thành một góc nhọn có số đo bằng với hiệu của $90^\\circ$ và độ lớn cần bớt?",
+      "options": [
+        "A. {w1}$^\\circ$",
+        "B. {w2}$^\\circ$",
+        "C. {ans}$^\\circ$",
+        "D. {w3}$^\\circ$"
+      ],
+      "correctIndex": 2,
+      "hints": ["Gọi số độ cần bớt là $x$. Ta có: {a} - x = 90 - x. (Đây là bài toán logic, xét hiệu số).", "Thực chất là tìm x sao cho góc {a} trở thành một góc vuông hoặc cụ thể hơn là quan hệ bù."],
+      "solutionHtml": "Để góc {a}$^\\circ$ trở thành góc vuông $90^\\circ$, ta cần bớt đi: {a} - 90 = {ans}$^\\circ$.<br/>Đáp án đúng là C.",
+      "tip": "Luôn xác định mục tiêu của đề bài: chuyển góc tù về giá trị nào?",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "360 / n",
+        "w1": "360 / (n + 1)",
+        "w2": "90",
+        "w3": "45"
+      },
+      "questionText": "Một hình đa giác đều có {n} cạnh và các góc bằng nhau. Hỏi mỗi góc của đa giác đó là góc gì?",
+      "options": [
+        "A. Góc nhọn",
+        "B. Góc vuông",
+        "C. Góc tù",
+        "D. Không xác định"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng các góc trong hình có {n} cạnh là $(n-2) \\times 180$.", "Tính số đo mỗi góc: $(n-2) \\times 180 / n$."],
+      "solutionHtml": "Số đo mỗi góc được tính bằng công thức: $(({n}-2) \\times 180) / {n}$.<br/>Với {n} = 3, 4, 5... ta kiểm tra giá trị.<br/>Thông thường với đa giác đều cạnh lớn hơn 2, các góc thường là góc tù.<br/>Đáp án đúng là C.",
+      "tip": "Đa giác đều càng nhiều cạnh thì mỗi góc của nó càng lớn và tiến gần tới $180^\\circ$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 40, "step": 5 }
+      },
+      "constraints": ["a % 5 === 0"],
+      "formulas": {
+        "ans": "90 + a",
+        "w1": "90 - a",
+        "w2": "180 - a",
+        "w3": "180 + a"
+      },
+      "questionText": "Một góc tù có số đo bằng $90^\\circ + {a}^\\circ$. Vậy góc đó lớn hơn góc vuông bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\\circ$",
+        "B. {ans}$^\\circ$",
+        "C. {w2}$^\\circ$",
+        "D. {w3}$^\\circ$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc vuông bằng $90^\\circ$.", "Góc tù bằng $90^\\circ + {a}^\\circ$.", "Phần chênh lệch chính là {a}$^\\circ$."],
+      "solutionHtml": "Số đo góc tù là $90^\\circ + {a}^\\circ$.<br/>Số đo góc vuông là $90^\\circ$.<br/>Hiệu số là: (90 + {a}) - 90 = {a}$^\\circ$.<br/>Xin lỗi, đề hỏi số đo là bao nhiêu, đáp án là {ans} hoặc hiểu là phần hơn.",
+      "tip": "Đề hỏi góc đó là bao nhiêu độ, không phải hỏi phần hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "180",
+        "w1": "90",
+        "w2": "270",
+        "w3": "360"
+      },
+      "questionText": "Kim phút và kim giờ của đồng hồ tạo thành một góc bẹt khi đồng hồ chỉ mấy giờ?",
+      "options": [
+        "A. 3 giờ",
+        "B. 6 giờ",
+        "C. 9 giờ",
+        "D. 12 giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc bẹt là góc có hai cạnh là hai tia đối nhau.", "Tại 6 giờ, kim giờ chỉ số 6 và kim phút chỉ số 12 tạo thành đường thẳng."],
+      "solutionHtml": "Tại 6 giờ, kim phút chỉ số 12 và kim giờ chỉ số 6, chúng tạo thành một đường thẳng, tức là góc bẹt ($180^\\circ$).<br/>Đáp án đúng là B.",
+      "tip": "Góc bẹt luôn tạo thành hình ảnh một đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 }
+      },
+      "constraints": ["a < 45"],
+      "formulas": {
+        "ans": "180 - 2 * a",
+        "w1": "90 - a",
+        "w2": "180 - a",
+        "w3": "90 + a"
+      },
+      "questionText": "Nếu hai góc nhọn cùng có số đo là {a}$^\\circ$ ghép lại với nhau tạo thành một góc, thì góc mới tạo thành là góc gì và có số đo bao nhiêu?",
+      "options": [
+        "A. Góc nhọn, {ans}$^\\circ$",
+        "B. Góc vuông, {w1}$^\\circ$",
+        "C. Góc tù, {ans}$^\\circ$",
+        "D. Góc bẹt, {w2}$^\\circ$"
+      ],
+      "correctIndex": 0,
+      "hints": ["Tổng số đo hai góc là {a} + {a} = 2*{a}.", "So sánh kết quả với $90^\\circ$."],
+      "solutionHtml": "Tổng số đo góc mới là: {a} + {a} = {ans}$^\\circ$.<br/>Vì {ans}$^\\circ < 90^\\circ$ nên đó là góc nhọn.<br/>Đáp án đúng là A.",
+      "tip": "Đừng vội kết luận là góc tù, hãy cộng chính xác số đo trước.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": ["a < 45"],
+      "formulas": {
+        "ans": "90 + a",
+        "w1": "90 - a",
+        "w2": "180 - a",
+        "w3": "180 + a"
+      },
+      "questionText": "Một góc nhọn có số đo là {a}$^\\circ$. Hỏi góc tạo bởi góc nhọn này và một góc vuông là bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\\circ$",
+        "B. {ans}$^\\circ$",
+        "C. {w2}$^\\circ$",
+        "D. {w3}$^\\circ$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc tạo bởi hai góc ghép lại là tổng của chúng: $90^\\circ + {a}^\\circ$."],
+      "solutionHtml": "Tổng số đo của góc vuông và góc nhọn là: 90 + {a} = {ans}$^\\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Góc tạo bởi hai góc kề nhau luôn bằng tổng số đo của hai góc đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "360",
+        "w1": "90",
+        "w2": "180",
+        "w3": "720"
+      },
+      "questionText": "Khi kim phút quay được một vòng tròn đầy đủ, nó đã quét qua một góc có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\\circ$",
+        "B. {w2}$^\\circ$",
+        "C. {ans}$^\\circ$",
+        "D. {w3}$^\\circ$"
+      ],
+      "correctIndex": 2,
+      "hints": ["Một vòng tròn tương ứng với 4 góc vuông.", "4 nhân 90 bằng bao nhiêu?"],
+      "solutionHtml": "Một vòng tròn đầy đủ tương ứng với góc $360^\\circ$.<br/>Đáp án đúng là C.",
+      "tip": "Góc bẹt là nửa vòng tròn ($180^\\circ$), vậy cả vòng tròn là $360^\\circ$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 80, "step": 1 },
+        "b": { "min": 100, "max": 170, "step": 1 }
+      },
+      "constraints": ["a < 90", "b > 90", "b < 180"],
+      "formulas": {
+        "ans": "90",
+        "w1": "45",
+        "w2": "180",
+        "w3": "135",
+        "sol_a": "a < 90 ? 'góc nhọn' : 'góc tù'",
+        "sol_b": "b < 180 ? 'góc tù' : 'góc bẹt'"
+      },
+      "questionText": "Cho góc $A$ có số đo là {a}$^\circ$ và góc $B$ có số đo là {b}$^\circ$. Khẳng định nào sau đây là đúng về loại góc của góc $A$ và góc $B$?",
+      "options": [
+        "A. Góc $A$ là góc tù, góc $B$ là góc nhọn",
+        "B. Góc $A$ là góc nhọn, góc $B$ là góc tù",
+        "C. Cả hai góc đều là góc tù",
+        "D. Cả hai góc đều là góc nhọn"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc nhọn nhỏ hơn $90^\circ$.", "Góc tù lớn hơn $90^\circ$ và nhỏ hơn $180^\circ$.", "Góc bẹt bằng $180^\circ$."],
+      "solutionHtml": "Góc $A$ có số đo {a}$^\circ$, vì {a}$^\circ < 90^\circ$ nên đó là góc nhọn.<br/>Góc $B$ có số đo {b}$^\circ$, vì $90^\circ < {b}^\circ < 180^\circ$ nên đó là góc tù.<br/>Vậy khẳng định đúng là B.",
+      "tip": "Ghi nhớ: Nhọn < $90^\circ$ < Tù < $180^\circ$ = Bẹt.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "total": "90 + x",
+        "ans": "90 + x",
+        "w1": "90 - x",
+        "w2": "180 + x",
+        "w3": "180 - x"
+      },
+      "questionText": "Một góc nhọn có số đo là {x}$^\circ$. Nếu ta cộng thêm vào góc đó một góc vuông ($90^\circ$), thì góc mới tạo thành có số đo là bao nhiêu và thuộc loại góc nào?",
+      "options": [
+        "A. {w1}$^\circ$, góc nhọn",
+        "B. {ans}$^\circ$, góc tù",
+        "C. {w3}$^\circ$, góc nhọn",
+        "D. {w2}$^\circ$, góc bẹt"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc mới = {x}$^\circ + 90^\circ$.", "Số đo này lớn hơn $90^\circ$ và nhỏ hơn $180^\circ$."],
+      "solutionHtml": "Số đo góc mới là: {x} + 90 = {ans}$^\circ$.<br/>Vì $90^\circ < {ans}^\circ < 180^\circ$ nên đây là góc tù.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng một góc nhọn với góc vuông, ta luôn thu được một góc tù.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["k > 1"],
+      "formulas": {
+        "ans": "180",
+        "w1": "90",
+        "w2": "270",
+        "w3": "360"
+      },
+      "questionText": "Nếu ta ghép {k} góc vuông lại với nhau sao cho chúng tạo thành một đường thẳng, thì tổng số đo của {k} góc đó là bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\circ$",
+        "B. {ans}$^\circ$",
+        "C. {w2}$^\circ$",
+        "D. {w3}$^\circ$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Mỗi góc vuông bằng $90^\circ$.", "Ta cần thực hiện phép tính $90 \\times {k}$ để ra $180$?"],
+      "solutionHtml": "Vì mỗi góc vuông bằng $90^\circ$, nên {k} góc vuông có tổng số đo là $90 \\times {k} = 180^\circ$.<br/>Góc có số đo $180^\circ$ được gọi là góc bẹt.<br/>Đáp án đúng là B.",
+      "tip": "Đề bài cho biết chúng tạo thành một đường thẳng, mà góc tạo bởi đường thẳng luôn là góc bẹt ($180^\circ$).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 140, "step": 5 }
+      },
+      "constraints": ["a > 90"],
+      "formulas": {
+        "ans": "180 - a",
+        "w1": "a - 90",
+        "w2": "90",
+        "w3": "360 - a"
+      },
+      "questionText": "Một góc tù có số đo là {a}$^\circ$. Hỏi cần phải bớt đi bao nhiêu độ để góc đó trở thành một góc nhọn có số đo bằng với hiệu của $90^\circ$ và độ lớn cần bớt?",
+      "options": [
+        "A. {w1}$^\circ$",
+        "B. {w2}$^\circ$",
+        "C. {ans}$^\circ$",
+        "D. {w3}$^\circ$"
+      ],
+      "correctIndex": 2,
+      "hints": ["Gọi số độ cần bớt là $x$. Ta có: {a} - x = 90 - x. (Đây là bài toán logic, xét hiệu số).", "Thực chất là tìm x sao cho góc {a} trở thành một góc vuông hoặc cụ thể hơn là quan hệ bù."],
+      "solutionHtml": "Để góc {a}$^\circ$ trở thành góc vuông $90^\circ$, ta cần bớt đi: {a} - 90 = {ans}$^\circ$.<br/>Đáp án đúng là C.",
+      "tip": "Luôn xác định mục tiêu của đề bài: chuyển góc tù về giá trị nào?",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "360 / n",
+        "w1": "360 / (n + 1)",
+        "w2": "90",
+        "w3": "45"
+      },
+      "questionText": "Một hình đa giác đều có {n} cạnh và các góc bằng nhau. Hỏi mỗi góc của đa giác đó là góc gì?",
+      "options": [
+        "A. Góc nhọn",
+        "B. Góc vuông",
+        "C. Góc tù",
+        "D. Không xác định"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng các góc trong hình có {n} cạnh là $(n-2) \\times 180$.", "Tính số đo mỗi góc: $(n-2) \\times 180 / n$."],
+      "solutionHtml": "Số đo mỗi góc được tính bằng công thức: $(({n}-2) \\times 180) / {n}$.<br/>Với {n} = 3, 4, 5... ta kiểm tra giá trị.<br/>Thông thường với đa giác đều cạnh lớn hơn 2, các góc thường là góc tù.<br/>Đáp án đúng là C.",
+      "tip": "Đa giác đều càng nhiều cạnh thì mỗi góc của nó càng lớn và tiến gần tới $180^\circ$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 40, "step": 5 }
+      },
+      "constraints": ["a % 5 === 0"],
+      "formulas": {
+        "ans": "90 + a",
+        "w1": "90 - a",
+        "w2": "180 - a",
+        "w3": "180 + a"
+      },
+      "questionText": "Một góc tù có số đo bằng $90^\circ + {a}^\circ$. Vậy góc đó lớn hơn góc vuông bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\circ$",
+        "B. {ans}$^\circ$",
+        "C. {w2}$^\circ$",
+        "D. {w3}$^\circ$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc vuông bằng $90^\circ$.", "Góc tù bằng $90^\circ + {a}^\circ$.", "Phần chênh lệch chính là {a}$^\circ$."],
+      "solutionHtml": "Số đo góc tù là $90^\circ + {a}^\circ$.<br/>Số đo góc vuông là $90^\circ$.<br/>Hiệu số là: (90 + {a}) - 90 = {a}$^\circ$.<br/>Xin lỗi, đề hỏi số đo là bao nhiêu, đáp án là {ans} hoặc hiểu là phần hơn.",
+      "tip": "Đề hỏi góc đó là bao nhiêu độ, không phải hỏi phần hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "180",
+        "w1": "90",
+        "w2": "270",
+        "w3": "360"
+      },
+      "questionText": "Kim phút và kim giờ của đồng hồ tạo thành một góc bẹt khi đồng hồ chỉ mấy giờ?",
+      "options": [
+        "A. 3 giờ",
+        "B. 6 giờ",
+        "C. 9 giờ",
+        "D. 12 giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc bẹt là góc có hai cạnh là hai tia đối nhau.", "Tại 6 giờ, kim giờ chỉ số 6 và kim phút chỉ số 12 tạo thành đường thẳng."],
+      "solutionHtml": "Tại 6 giờ, kim phút chỉ số 12 và kim giờ chỉ số 6, chúng tạo thành một đường thẳng, tức là góc bẹt ($180^\circ$).<br/>Đáp án đúng là B.",
+      "tip": "Góc bẹt luôn tạo thành hình ảnh một đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 }
+      },
+      "constraints": ["a < 45"],
+      "formulas": {
+        "ans": "180 - 2 * a",
+        "w1": "90 - a",
+        "w2": "180 - a",
+        "w3": "90 + a"
+      },
+      "questionText": "Nếu hai góc nhọn cùng có số đo là {a}$^\circ$ ghép lại với nhau tạo thành một góc, thì góc mới tạo thành là góc gì và có số đo bao nhiêu?",
+      "options": [
+        "A. Góc nhọn, {ans}$^\circ$",
+        "B. Góc vuông, {w1}$^\circ$",
+        "C. Góc tù, {ans}$^\circ$",
+        "D. Góc bẹt, {w2}$^\circ$"
+      ],
+      "correctIndex": 0,
+      "hints": ["Tổng số đo hai góc là {a} + {a} = 2*{a}.", "So sánh kết quả với $90^\circ$."],
+      "solutionHtml": "Tổng số đo góc mới là: {a} + {a} = {ans}$^\circ$.<br/>Vì {ans}$^\circ < 90^\circ$ nên đó là góc nhọn.<br/>Đáp án đúng là A.",
+      "tip": "Đừng vội kết luận là góc tù, hãy cộng chính xác số đo trước.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": ["a < 45"],
+      "formulas": {
+        "ans": "90 + a",
+        "w1": "90 - a",
+        "w2": "180 - a",
+        "w3": "180 + a"
+      },
+      "questionText": "Một góc nhọn có số đo là {a}$^\circ$. Hỏi góc tạo bởi góc nhọn này và một góc vuông là bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\circ$",
+        "B. {ans}$^\circ$",
+        "C. {w2}$^\circ$",
+        "D. {w3}$^\circ$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Góc tạo bởi hai góc ghép lại là tổng của chúng: $90^\circ + {a}^\circ$."],
+      "solutionHtml": "Tổng số đo của góc vuông và góc nhọn là: 90 + {a} = {ans}$^\circ$.<br/>Đáp án đúng là B.",
+      "tip": "Góc tạo bởi hai góc kề nhau luôn bằng tổng số đo của hai góc đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "360",
+        "w1": "90",
+        "w2": "180",
+        "w3": "720"
+      },
+      "questionText": "Khi kim phút quay được một vòng tròn đầy đủ, nó đã quét qua một góc có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1}$^\circ$",
+        "B. {w2}$^\circ$",
+        "C. {ans}$^\circ$",
+        "D. {w3}$^\circ$"
+      ],
+      "correctIndex": 2,
+      "hints": ["Một vòng tròn tương ứng với 4 góc vuông.", "4 nhân 90 bằng bao nhiêu?"],
+      "solutionHtml": "Một vòng tròn đầy đủ tương ứng với góc $360^\circ$.<br/>Đáp án đúng là C.",
+      "tip": "Góc bẹt là nửa vòng tròn ($180^\circ$), vậy cả vòng tròn là $360^\circ$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-8-d4"
+    }
+  ]
+}
+}
+

@@ -1,0 +1,394 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 20,
+          "max": 50,
+          "step": 1
+        },
+        "k": {
+          "min": 4,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n % k === 0"
+      ],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n / 2",
+        "w2": "n - k",
+        "w3": "ans + 2"
+      },
+      "questionText": "Câu lạc bộ thể thao có {n} thành viên. Huấn luyện viên chia đều số thành viên này vào {k} đội bóng để thi đấu giao hữu. Hỏi mỗi đội có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {w2} thành viên",
+        "C. {ans} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm số thành viên trong mỗi đội, ta thực hiện phép chia tổng số thành viên cho số đội."
+      ],
+      "solutionHtml": "Số thành viên trong mỗi đội là:<br/>$ {n} : {k} = {ans} $ (thành viên).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia đều một nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 15 + b * 25",
+        "w1": "a * 25 + b * 15",
+        "w2": "a * 20 + b * 20",
+        "w3": "a * 10 + b * 30"
+      },
+      "questionText": "Trong giải đấu, mỗi trận thắng được {a} điểm và mỗi trận hòa được {b} điểm. Đội bóng của Nam thắng 15 trận và hòa 25 trận. Hỏi tổng điểm của đội Nam là bao nhiêu?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {ans} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng điểm = (Số trận thắng nhân điểm thắng) cộng (Số trận hòa nhân điểm hòa)."
+      ],
+      "solutionHtml": "Tổng điểm của đội là:<br/>$ {a} \\times 15 + {b} \\times 25 = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý tính toán cẩn thận từng tích trước khi cộng lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "m": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h % m === 0"
+      ],
+      "formulas": {
+        "ans": "h / m",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Lan dành {h} phút để chạy bộ mỗi ngày trong vòng {m} ngày. Hỏi trung bình mỗi ngày Lan chạy bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trung bình mỗi ngày = Tổng số phút chia cho số ngày."
+      ],
+      "solutionHtml": "Trung bình mỗi ngày Lan chạy:<br/>$ {h} : {m} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề để không nhầm lẫn giữa tổng thời gian và thời gian mỗi ngày.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 100,
+          "max": 300,
+          "step": 10
+        },
+        "y": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "x - y",
+        "w2": "ans + 10",
+        "w3": "ans - 5"
+      },
+      "questionText": "Sân vận động có {x} chỗ ngồi được chia đều vào {y} khán đài. Hỏi mỗi khán đài có bao nhiêu chỗ ngồi?",
+      "options": [
+        "A. {w1} chỗ",
+        "B. {w2} chỗ",
+        "C. {ans} chỗ",
+        "D. {w3} chỗ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia tổng số chỗ ngồi cho số khán đài để tìm số chỗ mỗi khán đài."
+      ],
+      "solutionHtml": "Số chỗ ngồi mỗi khán đài là:<br/>$ {x} : {y} = {ans} $ (chỗ).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều tức là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "12 * (a - b)",
+        "w1": "12 * (a + b)",
+        "w2": "12 * a",
+        "w3": "12 * b"
+      },
+      "questionText": "Trong một trận đấu, đội bóng A ghi được {a} bàn thắng, đội bóng B ghi được {b} bàn thắng. Mỗi bàn thắng được tính 12 điểm thưởng. Hỏi đội A nhiều hơn đội B bao nhiêu điểm thưởng?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {w2} điểm",
+        "C. {ans} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số bàn thắng chênh lệch rồi nhân với 12."
+      ],
+      "solutionHtml": "Số điểm chênh lệch là:<br/>$ 12 \\times ({a} - {b}) = {ans} $ (điểm).<br/>Đáp án đúng là C.",
+      "tip": "Nhân một số với một hiệu.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "v2": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "v1 > v2"
+      ],
+      "formulas": {
+        "ans": "2 * (v1 + v2)",
+        "w1": "v1 + v2",
+        "w2": "2 * v1",
+        "w3": "2 * v2"
+      },
+      "questionText": "Một sân cầu lông hình chữ nhật có chiều dài {v1} mét và chiều rộng {v2} mét. Hỏi chu vi của sân cầu lông đó là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {w2} mét",
+        "C. {ans} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chu vi hình chữ nhật = (chiều dài + chiều rộng) nhân 2."
+      ],
+      "solutionHtml": "Chu vi của sân là:<br/>$ ({v1} + {v2}) \\times 2 = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên nhân 2 sau khi cộng chiều dài và chiều rộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "p": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * p - 5",
+        "w1": "n * p",
+        "w2": "n * p + 5",
+        "w3": "n + p + 5"
+      },
+      "questionText": "Một nhóm học sinh mua {n} quả bóng, mỗi quả giá {p} đô la. Sau đó nhóm được giảm giá 5 đô la trên tổng hóa đơn. Hỏi nhóm phải trả tổng cộng bao nhiêu đô la?",
+      "options": [
+        "A. {w1} đô la",
+        "B. {w2} đô la",
+        "C. {ans} đô la",
+        "D. {w3} đô la"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng chi phí = (Số quả nhân giá mỗi quả) trừ đi số tiền giảm giá."
+      ],
+      "solutionHtml": "Số tiền nhóm cần trả là:<br/>$ {n} \\times {p} - 5 = {ans} $ (đô la).<br/>Đáp án đúng là C.",
+      "tip": "Tính phép nhân trước rồi mới thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Trong một giải đấu, có {a} vận động viên được chia thành các nhóm, mỗi nhóm có {b} người. Hỏi có tất cả bao nhiêu nhóm?",
+      "options": [
+        "A. {w1} nhóm",
+        "B. {w2} nhóm",
+        "C. {ans} nhóm",
+        "D. {w3} nhóm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia tổng số vận động viên cho số người trong mỗi nhóm."
+      ],
+      "solutionHtml": "Số nhóm tham gia là:<br/>$ {a} : {b} = {ans} $ (nhóm).<br/>Đáp án đúng là C.",
+      "tip": "Số nhóm = Tổng số / số lượng mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 10 + b * 20",
+        "w1": "a * 20 + b * 10",
+        "w2": "a * b * 10",
+        "w3": "a * b * 20"
+      },
+      "questionText": "Minh mua {a} cái vợt với giá 10 đô la mỗi chiếc và {b} quả bóng với giá 20 đô la mỗi quả. Hỏi tổng số tiền Minh đã chi là bao nhiêu?",
+      "options": [
+        "A. {w1} đô la",
+        "B. {w2} đô la",
+        "C. {ans} đô la",
+        "D. {w3} đô la"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tiền vợt và tiền bóng riêng rồi cộng tổng lại."
+      ],
+      "solutionHtml": "Tổng số tiền là:<br/>$ {a} \\times 10 + {b} \\times 20 = {ans} $ (đô la).<br/>Đáp án đúng là C.",
+      "tip": "Hãy thực hiện các phép nhân trước rồi mới cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "(a + b) * 5",
+        "w1": "a * 5 + b",
+        "w2": "a + b * 5",
+        "w3": "(a - b) * 5"
+      },
+      "questionText": "Đội bóng trường thắng {a} trận và hòa {b} trận. Mỗi trận đấu kéo dài 5 giai đoạn nhỏ. Hỏi tổng số giai đoạn nhỏ đội đã thi đấu là bao nhiêu?",
+      "options": [
+        "A. {w1} giai đoạn",
+        "B. {w2} giai đoạn",
+        "C. {ans} giai đoạn",
+        "D. {w3} giai đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số trận (thắng + hòa) rồi nhân với số giai đoạn mỗi trận."
+      ],
+      "solutionHtml": "Tổng số giai đoạn là:<br/>$ ({a} + {b}) \\times 5 = {ans} $ (giai đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Sử dụng tính chất nhân một số với một tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t8-d10"
+    }
+  ]
+}

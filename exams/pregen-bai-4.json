@@ -19,19 +19,17 @@
           "step": 1
         }
       },
-      "constraints": [
-        "true"
-      ],
+      "constraints": [],
       "formulas": {
         "numTermsMinus1": "numTerms - 1",
         "productDiffNumTermsMinus1": "(numTerms - 1) * difference",
         "lastTerm": "firstTerm + (numTerms - 1) * difference",
-        "sumFirstLast": "firstTerm + lastTerm",
-        "productNumTermsSumFirstLast": "numTerms * (firstTerm + lastTerm)",
-        "sumOfSeries": "(firstTerm + (firstTerm + (numTerms - 1) * difference)) * numTerms / 2",
+        "sumFirstLast": "firstTerm + (firstTerm + (numTerms - 1) * difference)",
+        "productNumTermsSumFirstLast": "numTerms * (firstTerm + (firstTerm + (numTerms - 1) * difference))",
+        "sumOfSeries": "((firstTerm + (firstTerm + (numTerms - 1) * difference)) * numTerms) / 2",
         "w1": "firstTerm * numTerms",
-        "w2": "firstTerm + lastTerm",
-        "w3": "lastTerm * numTerms"
+        "w2": "firstTerm + (firstTerm + (numTerms - 1) * difference)",
+        "w3": "(firstTerm + (numTerms - 1) * difference) * numTerms"
       },
       "questionText": "Một dãy số tự nhiên được tạo thành bằng cách bắt đầu từ số {firstTerm} và sau đó cộng thêm {difference} vào số liền trước để được số tiếp theo. Nếu dãy số này có tất cả {numTerms} số hạng, hỏi tổng của tất cả các số hạng trong dãy là bao nhiêu?",
       "options": [
@@ -43,11 +41,11 @@
       "correctIndex": 1,
       "hints": [
         "Xác định số hạng cuối cùng của dãy số. Công thức số hạng thứ $n$ của cấp số cộng là $a_n = a_1 + (n-1)d$.",
-        "Sử dụng công thức tính tổng của dãy số cấp số cộng: $S_n = \\frac{{n \\cdot (a_1 + a_n)}}{{2}}$."
+        "Sử dụng công thức tính tổng của dãy số cấp số cộng: $S_n = \\frac{n \\cdot (a_1 + a_n)}{2}$."
       ],
-      "solutionHtml": "Để tìm tổng của dãy số, trước hết chúng ta cần tìm số hạng cuối cùng của dãy.<br/>Số hạng đầu tiên là $a_1 = {firstTerm}$.<br/>Công sai (hiệu giữa hai số hạng liên tiếp) là $d = {difference}$.<br/>Số lượng số hạng là $n = {numTerms}$.<br/><br/>Số hạng cuối cùng ($a_n$) của dãy là:<br/>$a_n = a_1 + (n-1) \\cdot d$<br/>$a_n = {firstTerm} + ({numTerms} - 1) \\cdot {difference}$<br/>$a_n = {firstTerm} + {numTermsMinus1} \\cdot {difference}$<br/>$a_n = {firstTerm} + {productDiffNumTermsMinus1}$<br/>$a_n = {lastTerm}$<br/><br/>Tổng của dãy số ($S_n$) là:<br/>$S_n = \\frac{{n \\cdot (a_1 + a_n)}}{{2}}$<br/>$S_n = \\frac{{{numTerms} \\cdot ({firstTerm} + {lastTerm})}}{{2}}$<br/>$S_n = \\frac{{{numTerms} \\cdot {sumFirstLast}}}{{2}}$<br/>$S_n = \\frac{{{productNumTermsSumFirstLast}}}{{2}}$<br/>$S_n = {sumOfSeries}$<br/><br/>Vậy, tổng của tất cả các số hạng trong dãy là {sumOfSeries}.<br/>Đáp án đúng là B.",
+      "solutionHtml": "Để tìm tổng của dãy số, trước hết chúng ta cần tìm số hạng cuối cùng của dãy.<br/>Số hạng đầu tiên là $a_1 = {firstTerm}$.<br/>Công sai (hiệu giữa hai số hạng liên tiếp) là $d = {difference}$.<br/>Số lượng số hạng là $n = {numTerms}$.<br/><br/>Số hạng cuối cùng ($a_n$) của dãy là:<br/>$a_n = a_1 + (n-1) \\cdot d$<br/>$a_n = {firstTerm} + ({numTerms} - 1) \\cdot {difference}$<br/>$a_n = {firstTerm} + {numTermsMinus1} \\cdot {difference}$<br/>$a_n = {firstTerm} + {productDiffNumTermsMinus1}$<br/>$a_n = {lastTerm}$<br/><br/>Tổng của dãy số ($S_n$) là:<br/>$S_n = \\frac{n \\cdot (a_1 + a_n)}{2}$<br/>$S_n = \\frac{{numTerms} \\cdot ({firstTerm} + {lastTerm})}{2}$<br/>$S_n = \\frac{{numTerms} \\cdot {sumFirstLast}}{2}$<br/>$S_n = \\frac{{productNumTermsSumFirstLast}}{2}$<br/>$S_n = {sumOfSeries}$<br/><br/>Vậy, tổng của tất cả các số hạng trong dãy là {sumOfSeries}.<br/>Đáp án đúng là B.",
       "tip": "Hãy cẩn thận khi xác định số hạng cuối cùng và áp dụng đúng công thức tính tổng. Tránh nhầm lẫn với tổng các số tự nhiên liên tiếp bắt đầu từ $1$.",
-      "level": "chat-luong-cao",
+      "level": "chat-luongcao",
       "type": "bai-4-d4"
     },
     {

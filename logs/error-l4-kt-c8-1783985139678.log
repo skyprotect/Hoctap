@@ -1,0 +1,570 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:25:39.678Z
+Lesson ID: l4-kt-c8
+Lesson Title: Bài tập cuối chương VIII
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9885 (line 395 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9885 (line 395 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9885 (Line: 272, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 200, "max": 500, "step": 10 },
+      "b": { "min": 20, "max": 50, "step": 5 }
+    },
+    "constraints": ["a % b === 0", "a / b > 5"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 5",
+      "w2": "ans - 2",
+      "w3": "ans * 2"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng đã bán đi 1/5 số gạo đó. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính số gạo đã bán bằng cách lấy {a} chia cho 5.", "Sau đó lấy tổng số gạo trừ đi số gạo đã bán để tìm số còn lại."],
+    "solutionHtml": "Số gạo đã bán là: $ {a} : 5 = {a/5} $ (kg).<br/>Số gạo còn lại là: $ {a} - {a/5} = {a - a/5} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ yêu cầu tìm số gạo 'còn lại' chứ không phải số gạo 'đã bán'.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "(a + b) * 2",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "(a + b) * 4"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là {a} mét, chiều rộng kém chiều dài {a-b} mét. Tính chu vi mảnh vườn đó.",
+    "options": [
+      "A. {w1} m",
+      "B. {w2} m",
+      "C. {ans} m",
+      "D. {w3} m"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tìm chiều rộng trước: lấy {a} trừ {a-b}.", "Chu vi hình chữ nhật bằng (chiều dài cộng chiều rộng) nhân 2."],
+    "solutionHtml": "Chiều rộng là: $ {a} - {a-b} = {b} $ (m).<br/>Chu vi mảnh vườn là: $ ({a} + {b}) \\times 2 = {ans} $ (m).<br/>Đáp án đúng là C.",
+    "tip": "Nhớ công thức chu vi là (dài + rộng) x 2.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b"
+    },
+    "questionText": "Một đội công nhân trong {b} ngày sửa được {a} mét đường. Nếu mỗi ngày sửa được số mét đường như nhau thì trong 1 ngày họ sửa được bao nhiêu mét đường?",
+    "options": [
+      "A. {w1} m",
+      "B. {w2} m",
+      "C. {ans} m",
+      "D. {w3} m"
+    ],
+    "correctIndex": 2,
+    "hints": ["Đây là bài toán rút về đơn vị.", "Lấy tổng số mét đường chia cho số ngày."],
+    "solutionHtml": "Số mét đường sửa được trong một ngày là:<br/>$ {a} : {b} = {ans} $ (m).<br/>Đáp án đúng là C.",
+    "tip": "Khi biết tổng số lượng trong nhiều ngày, muốn tìm đơn vị một ngày ta thực hiện phép chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 80, "step": 4 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b"
+    },
+    "questionText": "Mẹ có {a} quả táo, mẹ xếp đều vào {b} giỏ. Hỏi mỗi giỏ có bao nhiêu quả táo?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": ["Xếp đều tức là thực hiện phép chia."],
+    "solutionHtml": "Số quả táo trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Từ 'xếp đều' là dấu hiệu của phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5, "step": 1 },
+      "b": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "b - a",
+      "w3": "(a + b) * 2"
+    },
+    "questionText": "Một lớp học có {a} tổ, mỗi tổ có {b} học sinh. Hỏi lớp học đó có tất cả bao nhiêu học sinh?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {w2} học sinh",
+      "C. {ans} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 2,
+    "hints": ["Mỗi tổ có {b} học sinh, có {a} tổ, vậy ta lấy số học sinh một tổ nhân với số tổ."],
+    "solutionHtml": "Số học sinh của lớp là:<br/>$ {a} \\times {b} = {ans} $ (học sinh).<br/>Đáp án đúng là C.",
+    "tip": "Bài toán cho giá trị của một nhóm, tìm tổng các nhóm ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 100, "step": 5 },
+      "b": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a / 5"
+    },
+    "questionText": "Bình có {a} viên bi, An có ít hơn Bình {b} viên bi. Hỏi An có bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên",
+      "B. {w2} viên",
+      "C. {ans} viên",
+      "D. {w3} viên"
+    ],
+    "correctIndex": 2,
+    "hints": ["An có ít hơn Bình, vậy ta lấy số bi của Bình trừ đi số bi chênh lệch."],
+    "solutionHtml": "Số viên bi của An là:<br/>$ {a} - {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+    "tip": "Từ 'ít hơn' cho biết ta cần thực hiện phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 8, "step": 1 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * 2",
+      "w3": "b * 2"
+    },
+    "questionText": "Một chiếc xe chở được {a} bao gạo, mỗi bao nặng {b} kg. Hỏi chiếc xe chở bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Muốn tìm tổng khối lượng, lấy số bao gạo nhân với khối lượng một bao."],
+    "solutionHtml": "Số ki-lô-gam gạo xe chở là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Nhân số lượng đơn vị với giá trị của mỗi đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 2 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a - b"
+    },
+    "questionText": "Cửa hàng có {a} lít dầu, người ta đóng vào các can, mỗi can {b} lít. Hỏi đóng được bao nhiêu can dầu?",
+    "options": [
+      "A. {w1} can",
+      "B. {w2} can",
+      "C. {ans} can",
+      "D. {w3} can"
+    ],
+    "correctIndex": 2,
+    "hints": ["Lấy tổng số lít dầu chia cho số lít mỗi can."],
+    "solutionHtml": "Số can dầu đóng được là:<br/>$ {a} : {b} = {ans} $ (can).<br/>Đáp án đúng là C.",
+    "tip": "Chia tổng số lượng cho giá trị của một nhóm để tìm số nhóm.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 15, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a + a * b",
+      "w1": "a * b",
+      "w2": "a + b",
+      "w3": "a * 2"
+    },
+    "questionText": "Ngày thứ nhất cửa hàng bán được {a} kg đường. Ngày thứ hai bán gấp {b} lần ngày thứ nhất. Hỏi cả hai ngày cửa hàng bán được bao nhiêu kg đường?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính ngày thứ hai trước: lấy {a} nhân với {b}.", "Sau đó cộng số đường hai ngày lại."],
+    "solutionHtml": "Ngày thứ hai bán được là: $ {a} \\times {b} = {a * b} $ (kg).<br/>Cả hai ngày bán được là: $ {a} + {a * b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ là tính 'cả hai ngày' chứ không phải chỉ tính ngày thứ hai.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 5 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a - b"
+    },
+    "questionText": "Có {a} quyển vở chia đều cho {b} bạn. Hỏi mỗi bạn nhận được bao nhiêu quyển vở?",
+    "options": [
+      "A. {w1} quyển",
+      "B. {w2} quyển",
+      "C. {ans} quyển",
+      "D. {w3} quyển"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia đều là phép chia."],
+    "solutionHtml": "Mỗi bạn nhận được số quyển vở là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia giúp tìm số phần bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 200, "max": 500, "step": 10 },
+      "b": { "min": 20, "max": 50, "step": 5 }
+    },
+    "constraints": ["a % b === 0", "a / b > 5"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 5",
+      "w2": "ans - 2",
+      "w3": "ans * 2"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng đã bán đi 1/5 số gạo đó. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính số gạo đã bán bằng cách lấy {a} chia cho 5.", "Sau đó lấy tổng số gạo trừ đi số gạo đã bán để tìm số còn lại."],
+    "solutionHtml": "Số gạo đã bán là: $ {a} : 5 = {a/5} $ (kg).<br/>Số gạo còn lại là: $ {a} - {a/5} = {a - a/5} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ yêu cầu tìm số gạo 'còn lại' chứ không phải số gạo 'đã bán'.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "(a + b) * 2",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "(a + b) * 4"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là {a} mét, chiều rộng kém chiều dài {a-b} mét. Tính chu vi mảnh vườn đó.",
+    "options": [
+      "A. {w1} m",
+      "B. {w2} m",
+      "C. {ans} m",
+      "D. {w3} m"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tìm chiều rộng trước: lấy {a} trừ {a-b}.", "Chu vi hình chữ nhật bằng (chiều dài cộng chiều rộng) nhân 2."],
+    "solutionHtml": "Chiều rộng là: $ {a} - {a-b} = {b} $ (m).<br/>Chu vi mảnh vườn là: $ ({a} + {b}) \times 2 = {ans} $ (m).<br/>Đáp án đúng là C.",
+    "tip": "Nhớ công thức chu vi là (dài + rộng) x 2.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b"
+    },
+    "questionText": "Một đội công nhân trong {b} ngày sửa được {a} mét đường. Nếu mỗi ngày sửa được số mét đường như nhau thì trong 1 ngày họ sửa được bao nhiêu mét đường?",
+    "options": [
+      "A. {w1} m",
+      "B. {w2} m",
+      "C. {ans} m",
+      "D. {w3} m"
+    ],
+    "correctIndex": 2,
+    "hints": ["Đây là bài toán rút về đơn vị.", "Lấy tổng số mét đường chia cho số ngày."],
+    "solutionHtml": "Số mét đường sửa được trong một ngày là:<br/>$ {a} : {b} = {ans} $ (m).<br/>Đáp án đúng là C.",
+    "tip": "Khi biết tổng số lượng trong nhiều ngày, muốn tìm đơn vị một ngày ta thực hiện phép chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 80, "step": 4 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b"
+    },
+    "questionText": "Mẹ có {a} quả táo, mẹ xếp đều vào {b} giỏ. Hỏi mỗi giỏ có bao nhiêu quả táo?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": ["Xếp đều tức là thực hiện phép chia."],
+    "solutionHtml": "Số quả táo trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Từ 'xếp đều' là dấu hiệu của phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5, "step": 1 },
+      "b": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "b - a",
+      "w3": "(a + b) * 2"
+    },
+    "questionText": "Một lớp học có {a} tổ, mỗi tổ có {b} học sinh. Hỏi lớp học đó có tất cả bao nhiêu học sinh?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {w2} học sinh",
+      "C. {ans} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 2,
+    "hints": ["Mỗi tổ có {b} học sinh, có {a} tổ, vậy ta lấy số học sinh một tổ nhân với số tổ."],
+    "solutionHtml": "Số học sinh của lớp là:<br/>$ {a} \times {b} = {ans} $ (học sinh).<br/>Đáp án đúng là C.",
+    "tip": "Bài toán cho giá trị của một nhóm, tìm tổng các nhóm ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 100, "step": 5 },
+      "b": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a / 5"
+    },
+    "questionText": "Bình có {a} viên bi, An có ít hơn Bình {b} viên bi. Hỏi An có bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên",
+      "B. {w2} viên",
+      "C. {ans} viên",
+      "D. {w3} viên"
+    ],
+    "correctIndex": 2,
+    "hints": ["An có ít hơn Bình, vậy ta lấy số bi của Bình trừ đi số bi chênh lệch."],
+    "solutionHtml": "Số viên bi của An là:<br/>$ {a} - {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+    "tip": "Từ 'ít hơn' cho biết ta cần thực hiện phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 8, "step": 1 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * 2",
+      "w3": "b * 2"
+    },
+    "questionText": "Một chiếc xe chở được {a} bao gạo, mỗi bao nặng {b} kg. Hỏi chiếc xe chở bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Muốn tìm tổng khối lượng, lấy số bao gạo nhân với khối lượng một bao."],
+    "solutionHtml": "Số ki-lô-gam gạo xe chở là:<br/>$ {a} \times {b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Nhân số lượng đơn vị với giá trị của mỗi đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 2 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a - b"
+    },
+    "questionText": "Cửa hàng có {a} lít dầu, người ta đóng vào các can, mỗi can {b} lít. Hỏi đóng được bao nhiêu can dầu?",
+    "options": [
+      "A. {w1} can",
+      "B. {w2} can",
+      "C. {ans} can",
+      "D. {w3} can"
+    ],
+    "correctIndex": 2,
+    "hints": ["Lấy tổng số lít dầu chia cho số lít mỗi can."],
+    "solutionHtml": "Số can dầu đóng được là:<br/>$ {a} : {b} = {ans} $ (can).<br/>Đáp án đúng là C.",
+    "tip": "Chia tổng số lượng cho giá trị của một nhóm để tìm số nhóm.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 15, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a + a * b",
+      "w1": "a * b",
+      "w2": "a + b",
+      "w3": "a * 2"
+    },
+    "questionText": "Ngày thứ nhất cửa hàng bán được {a} kg đường. Ngày thứ hai bán gấp {b} lần ngày thứ nhất. Hỏi cả hai ngày cửa hàng bán được bao nhiêu kg đường?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính ngày thứ hai trước: lấy {a} nhân với {b}.", "Sau đó cộng số đường hai ngày lại."],
+    "solutionHtml": "Ngày thứ hai bán được là: $ {a} \times {b} = {a * b} $ (kg).<br/>Cả hai ngày bán được là: $ {a} + {a * b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ là tính 'cả hai ngày' chứ không phải chỉ tính ngày thứ hai.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 5 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a - b"
+    },
+    "questionText": "Có {a} quyển vở chia đều cho {b} bạn. Hỏi mỗi bạn nhận được bao nhiêu quyển vở?",
+    "options": [
+      "A. {w1} quyển",
+      "B. {w2} quyển",
+      "C. {ans} quyển",
+      "D. {w3} quyển"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia đều là phép chia."],
+    "solutionHtml": "Mỗi bạn nhận được số quyển vở là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia giúp tìm số phần bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-kt-c8-d4"
+  }
+]
+

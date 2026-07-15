@@ -30,6 +30,31 @@ if (!fs.existsSync(envPath)) {
 }
 
 require('dotenv').config();
+const { OAuth2Client } = require('google-auth-library');
+
+// Khởi tạo Firebase Admin SDK
+const admin = require('firebase-admin');
+const { getFirestore } = require('firebase-admin/firestore');
+const { getAuth } = require('firebase-admin/auth');
+const serviceAccountPath = path.join(__dirname, 'firebase-service-account.json');
+let dbFirestore = null;
+let firebaseInitialized = false;
+
+if (fs.existsSync(serviceAccountPath)) {
+  try {
+    const serviceAccount = require(serviceAccountPath);
+    admin.initializeApp({
+      credential: (admin.credential && admin.credential.cert) ? admin.credential.cert(serviceAccount) : admin.cert(serviceAccount)
+    });
+    dbFirestore = getFirestore();
+    firebaseInitialized = true;
+    console.log("🔥 Đã kết nối thành công với Firebase Admin (Firestore)!");
+  } catch (error) {
+    console.error("❌ Lỗi khởi tạo Firebase Admin SDK:", error);
+  }
+} else {
+  console.log("⚠️ Không tìm thấy file cấu hình firebase-service-account.json. Chế độ online Firebase bị tắt.");
+}
 
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'antigravity_secret_key_123';
@@ -194,6 +219,49 @@ function createTables() {
         state_json TEXT
       )
     `);
+
+    // Bảng custom_vocabulary lưu từ vựng tự nạp để ôn tập
+    db.run(`
+      CREATE TABLE IF NOT EXISTS custom_vocabulary (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        student_id TEXT NOT NULL,
+        word TEXT NOT NULL,
+        translation TEXT NOT NULL,
+        phonetics TEXT,
+        type TEXT,
+        example_sentence TEXT,
+        example_translation TEXT,
+        topic_id TEXT,
+        status TEXT DEFAULT 'learning',
+        box_level INTEGER DEFAULT 1,
+        last_reviewed DATETIME,
+        next_review_due DATETIME,
+        review_count INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Bảng custom_topics lưu thông tin nhóm bài học tự chọn
+    db.run(`
+      CREATE TABLE IF NOT EXISTS custom_topics (
+        id TEXT PRIMARY KEY,
+        student_id TEXT NOT NULL,
+        title TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Bảng sync_queue lưu hàng đợi đồng bộ khi offline
+    db.run(`
+      CREATE TABLE IF NOT EXISTS sync_queue (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        table_name TEXT NOT NULL,
+        record_id TEXT NOT NULL,
+        action TEXT NOT NULL,
+        payload TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
   });
 }
 
@@ -213,6 +281,120 @@ function dbGetConfig() {
       }
     });
   });
+}
+
+// Cấu hình URL Firebase Realtime Database phục vụ đồng bộ bảng xếp hạng trực tuyến
+const FIREBASE_RTDB_URL = "https://binhminhchamhoc-default-rtdb.firebaseio.com/";
+
+function dbGetSetting(key) {
+  return new Promise((resolve, reject) => {
+    db.get("SELECT value FROM settings WHERE key = ?", [key], (err, row) => {
+      if (err) return reject(err);
+      if (row) {
+        try {
+          resolve(JSON.parse(row.value));
+        } catch(e) {
+          resolve(null);
+        }
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
+function dbSaveSetting(key, valueObj) {
+  let val = valueObj;
+  if (typeof valueObj === 'object' && valueObj !== null) {
+    val = JSON.stringify(valueObj);
+  } else if (typeof valueObj === 'string') {
+    try {
+      JSON.parse(valueObj);
+    } catch (e) {
+      val = JSON.stringify(valueObj);
+    }
+  } else {
+    val = JSON.stringify(valueObj);
+  }
+
+  return new Promise((resolve, reject) => {
+    db.run(
+      "INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)",
+      [key, val],
+      function(err) {
+        if (err) return reject(err);
+        resolve(this.changes);
+      }
+    );
+  });
+}
+
+async function syncStudentProgressToFirebase(studentId, state, studentNameFromClient = null) {
+  try {
+    if (!studentId || !state) return;
+    
+    // Lấy thông tin học sinh từ config trong bảng settings SQLite
+    const config = await dbGetSetting('config').catch(() => null);
+    const studentsList = (config && config.students) || [];
+    const studentConf = studentsList.find(s => s.id === studentId);
+    
+    const studentName = studentNameFromClient || (studentConf ? studentConf.name : ((state.student && state.student.name) || "Học sinh"));
+    const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6");
+
+    // Thu thập các thông số tối giản phục vụ so sánh xếp hạng học sinh
+    const payload = {
+      studentId: studentId,
+      studentName: studentName,
+      mathXp: state.xp || 0,
+      englishXp: state.englishXp || 0,
+      mathStreak: state.streak || 0,
+      englishStreak: state.englishStreak || 0,
+      classLevel: classLevel,
+      lastActiveDate: state.lastActiveDate || "",
+      lastUpdated: new Date().toISOString()
+    };
+
+    const url = `${FIREBASE_RTDB_URL}leaderboard/${studentId}.json`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      console.warn(`[FirebaseSync] Firebase RTDB returned status ${response.status}`);
+    } else {
+      console.log(`[FirebaseSync] Đồng bộ thành công cho học sinh ${payload.studentName} (${studentId})`);
+    }
+  } catch (err) {
+    console.error("[FirebaseSync] Không thể đồng bộ lên Firebase:", err.message);
+  }
+}
+
+async function syncAllStudentsToFirebase() {
+  console.log("[FirebaseSync] Bắt đầu đồng bộ tất cả học sinh lên Firebase...");
+  try {
+    db.all("SELECT student_id, state_json FROM student_progress", [], async (err, rows) => {
+      if (err) {
+        console.error("[FirebaseSync] Lỗi đọc dữ liệu học sinh từ SQLite:", err.message);
+        return;
+      }
+      if (rows && rows.length > 0) {
+        for (const row of rows) {
+          try {
+            const state = JSON.parse(row.state_json);
+            await syncStudentProgressToFirebase(row.student_id, state);
+          } catch (e) {
+            console.error(`[FirebaseSync] Lỗi phân tích JSON cho học sinh ${row.student_id}:`, e.message);
+          }
+        }
+      }
+      console.log("[FirebaseSync] Hoàn thành đồng bộ toàn bộ học sinh lên Firebase!");
+    });
+  } catch (e) {
+    console.error("[FirebaseSync] Lỗi trong hàm syncAllStudentsToFirebase:", e.message);
+  }
 }
 
 function dbSaveConfig(configObj) {
@@ -276,17 +458,55 @@ function dbGetStudentProgress(studentId) {
   });
 }
 
-function dbSaveStudentProgress(studentId, stateObj) {
-  return new Promise((resolve, reject) => {
-    db.run(
-      "INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)",
-      [studentId, JSON.stringify(stateObj)],
-      function(err) {
-        if (err) return reject(err);
-        resolve(this.changes);
+async function dbSaveStudentProgress(studentId, stateObj, studentName = null) {
+  const jsonStr = JSON.stringify(stateObj);
+  // 1. Lưu cục bộ SQLite trước
+  const changes = await runQuery(
+    "INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)",
+    [studentId, jsonStr]
+  );
+  
+  // 2. Đẩy đồng bộ lên Firebase Firestore nếu đã đăng nhập và online
+  if (firebaseInitialized) {
+    // Chạy ngầm bất đồng bộ để tránh block client
+    (async () => {
+      try {
+        const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'");
+        if (sessionRow && sessionRow.value) {
+          const parentSession = JSON.parse(sessionRow.value);
+          
+          // Tra cứu tên thật và lớp học của học sinh từ config
+          const configSetting = await dbGetSetting('config').catch(() => null);
+          const studentsList = (configSetting && configSetting.students) || [];
+          const studentConf = studentsList.find(s => s.id === studentId);
+          const name = studentName || (studentConf ? studentConf.name : ((stateObj.student && stateObj.student.name) || stateObj.student || "Học sinh"));
+          const classLevel = studentConf ? studentConf.classLevel : (stateObj.classLevel || "1");
+          
+          await dbFirestore.collection('students').doc(studentId).set({
+            studentId: studentId,
+            parentUid: parentSession.parentUid,
+            name: name,
+            classLevel: classLevel,
+            state_json: jsonStr,
+            lastUpdated: new Date().toISOString()
+          });
+          console.log(`⚡ [Firebase Sync] Đã đồng bộ tiến trình học sinh ${name} (${studentId}) thành công.`);
+        }
+      } catch (e) {
+        console.warn(`⚠️ [Firebase Sync] Offline hoặc lỗi sync. Đã ghi vào hàng đợi sync_queue: ${e.message}`);
+        
+        // Tra cứu thông tin dự phòng cho sync_queue
+        const configSetting = await dbGetSetting('config').catch(() => null);
+        const studentsList = (configSetting && configSetting.students) || [];
+        const studentConf = studentsList.find(s => s.id === studentId);
+        const name = studentName || (studentConf ? studentConf.name : ((stateObj.student && stateObj.student.name) || stateObj.student || "Học sinh"));
+        const classLevel = studentConf ? studentConf.classLevel : (stateObj.classLevel || "1");
+        
+        await addToSyncQueue('student_progress', studentId, 'save', { state_json: jsonStr, name: name, classLevel: classLevel });
       }
-    );
-  });
+    })();
+  }
+  return changes;
 }
 
 function dbDeleteStudentProgress(studentId) {
@@ -300,6 +520,248 @@ function dbDeleteStudentProgress(studentId) {
       }
     );
   });
+}
+
+// Các helper Async/Await cho SQLite
+function runQuery(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.run(sql, params, function(err) {
+      if (err) return reject(err);
+      resolve(this.changes);
+    });
+  });
+}
+
+function getQuery(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.get(sql, params, (err, row) => {
+      if (err) return reject(err);
+      resolve(row);
+    });
+  });
+}
+
+function allQuery(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+}
+
+
+
+// Thêm một tác vụ vào sync_queue
+async function addToSyncQueue(tableName, recordId, action, payload) {
+  try {
+    await runQuery(
+      "INSERT INTO sync_queue (table_name, record_id, action, payload) VALUES (?, ?, ?, ?)",
+      [tableName, recordId, action, payload ? JSON.stringify(payload) : null]
+    );
+    console.log(`📥 Đã thêm tác vụ sync [${action} -> ${tableName}:${recordId}] vào hàng đợi offline`);
+  } catch (err) {
+    console.error("❌ Lỗi thêm vào sync_queue:", err);
+  }
+}
+
+// Hàm đẩy (di trú) dữ liệu SQLite hiện tại lên Firestore
+async function pushLocalDataToFirestore(parentUid) {
+  if (!firebaseInitialized) return;
+  console.log("📤 Bắt đầu di trú dữ liệu SQLite lên Firestore...");
+
+  // 1. Di trú student_progress
+  const students = await allQuery("SELECT * FROM student_progress");
+  const configSetting = await dbGetSetting('config').catch(() => null);
+  const studentsList = (configSetting && configSetting.students) || [];
+  
+  for (const s of students) {
+    try {
+      const state = JSON.parse(s.state_json);
+      const studentConf = studentsList.find(std => std.id === s.student_id);
+      const name = studentConf ? studentConf.name : (state.student || "Học sinh");
+      const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || "1");
+      
+      await dbFirestore.collection('students').doc(s.student_id).set({
+        studentId: s.student_id,
+        parentUid: parentUid,
+        name: name,
+        classLevel: classLevel,
+        state_json: s.state_json,
+        lastUpdated: new Date().toISOString()
+      });
+      console.log(`  - Đã đẩy tiến trình học sinh: ${name} (${s.student_id})`);
+    } catch (e) {
+      console.error(`  - Lỗi đẩy tiến trình học sinh ${s.student_id}:`, e);
+    }
+  }
+
+  // 2. Di trú custom_vocabulary
+  const vocab = await allQuery("SELECT * FROM custom_vocabulary");
+  for (const v of vocab) {
+    try {
+      await dbFirestore.collection('custom_vocabulary').doc(`vocab_${v.id}`).set({
+        id: v.id,
+        student_id: v.student_id,
+        parentUid: parentUid,
+        word: v.word,
+        translation: v.translation,
+        phonetics: v.phonetics || "",
+        type: v.type || "",
+        example_sentence: v.example_sentence || "",
+        example_translation: v.example_translation || "",
+        topic_id: v.topic_id || "",
+        status: v.status || "learning",
+        box_level: v.box_level || 1,
+        last_reviewed: v.last_reviewed || null,
+        next_review_due: v.next_review_due || null,
+        review_count: v.review_count || 0,
+        created_at: v.created_at || new Date().toISOString()
+      });
+    } catch (e) {
+      console.error(`  - Lỗi đẩy từ vựng ${v.word}:`, e);
+    }
+  }
+  console.log(`  - Đã đẩy ${vocab.length} từ vựng`);
+
+  // 3. Di trú custom_topics
+  const topics = await allQuery("SELECT * FROM custom_topics");
+  for (const t of topics) {
+    try {
+      await dbFirestore.collection('custom_topics').doc(t.id).set({
+        id: t.id,
+        student_id: t.student_id,
+        parentUid: parentUid,
+        title: t.title,
+        created_at: t.created_at || new Date().toISOString()
+      });
+    } catch (e) {
+      console.error(`  - Lỗi đẩy chủ đề ${t.title}:`, e);
+    }
+  }
+  console.log(`  - Đã đẩy ${topics.length} chủ đề tự tạo`);
+
+  // 4. Di trú config settings
+  const configRow = await getQuery("SELECT value FROM settings WHERE key = 'config'");
+  if (configRow) {
+    await dbFirestore.collection('settings').doc(`config_${parentUid}`).set({
+      parentUid: parentUid,
+      value: configRow.value,
+      lastUpdated: new Date().toISOString()
+    });
+    console.log("  - Đã đẩy cấu hình hệ thống config");
+  }
+
+  console.log("✅ Hoàn thành di trú dữ liệu lên Firestore.");
+}
+
+// Hàm kéo dữ liệu từ Firestore xuống SQLite cục bộ
+async function pullDataFromFirestore(parentUid) {
+  if (!firebaseInitialized) return "Firebase chưa được kích hoạt";
+  console.log(`📥 Bắt đầu kéo dữ liệu từ Firestore cho phụ huynh ${parentUid}...`);
+
+  // 1. Kéo config hệ thống
+  const configDoc = await dbFirestore.collection('settings').doc(`config_${parentUid}`).get();
+  let localConfigLoaded = false;
+  if (configDoc.exists) {
+    const data = configDoc.data();
+    let isValidConfig = false;
+    try {
+      const parsed = typeof data.value === 'string' ? JSON.parse(data.value) : data.value;
+      if (parsed && parsed.students && parsed.students.length > 0) {
+        isValidConfig = true;
+      }
+    } catch(e) {}
+    
+    if (isValidConfig) {
+      await dbSaveSetting('config', data.value);
+      console.log("  - Đã tải config");
+      localConfigLoaded = true;
+    }
+  }
+
+  // 2. Kéo student_progress
+  const studentsSnapshot = await dbFirestore.collection('students').where('parentUid', '==', parentUid).get();
+  if (!studentsSnapshot.empty) {
+    await runQuery("DELETE FROM student_progress");
+    const reconstructedStudents = [];
+    for (const doc of studentsSnapshot.docs) {
+      const data = doc.data();
+      await runQuery(
+        "INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)",
+        [data.studentId, data.state_json]
+      );
+      console.log(`  - Đã tải tiến trình học sinh: ${data.studentId}`);
+      reconstructedStudents.push({
+        id: data.studentId,
+        name: data.name || "Học sinh",
+        classLevel: data.classLevel || "4"
+      });
+    }
+
+    // Nếu không tải được config hợp lệ nhưng lại có học sinh, tự động tái tạo config để tránh bắt nhập mới
+    if (!localConfigLoaded && reconstructedStudents.length > 0) {
+      console.log("⚠️ Không tìm thấy cấu hình hợp lệ trên Firestore nhưng phát hiện học sinh. Đang tự động tái tạo cấu hình...");
+      const reconstructedConfig = {
+        studentName: reconstructedStudents[0].name,
+        parentName: "Phụ huynh",
+        parentPin: "123456",
+        currentClass: reconstructedStudents[0].classLevel,
+        students: reconstructedStudents,
+        defaultStudentId: reconstructedStudents[0].id
+      };
+      await dbSaveSetting('config', reconstructedConfig);
+      
+      // Vá ngược lại cấu hình lên Firestore
+      try {
+        await dbFirestore.collection('settings').doc(`config_${parentUid}`).set({
+          parentUid: parentUid,
+          value: JSON.stringify(reconstructedConfig),
+          lastUpdated: new Date().toISOString()
+        });
+        console.log("  - Đã vá và đồng bộ ngược cấu hình tái tạo lên Firestore");
+      } catch (uploadErr) {
+        console.error("  - Lỗi khi đồng bộ ngược cấu hình tái tạo:", uploadErr.message);
+      }
+    }
+  }
+
+  // 3. Kéo custom_vocabulary
+  const vocabSnapshot = await dbFirestore.collection('custom_vocabulary').where('parentUid', '==', parentUid).get();
+  if (!vocabSnapshot.empty) {
+    await runQuery("DELETE FROM custom_vocabulary");
+    for (const doc of vocabSnapshot.docs) {
+      const data = doc.data();
+      await runQuery(`
+        INSERT OR REPLACE INTO custom_vocabulary 
+        (id, student_id, word, translation, phonetics, type, example_sentence, example_translation, topic_id, status, box_level, last_reviewed, next_review_due, review_count, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          data.id, data.student_id, data.word, data.translation, data.phonetics, data.type, 
+          data.example_sentence, data.example_translation, data.topic_id, data.status, 
+          data.box_level, data.last_reviewed, data.next_review_due, data.review_count, data.created_at
+        ]
+      );
+    }
+    console.log(`  - Đã tải ${vocabSnapshot.size} từ vựng`);
+  }
+
+  // 4. Kéo custom_topics
+  const topicsSnapshot = await dbFirestore.collection('custom_topics').where('parentUid', '==', parentUid).get();
+  if (!topicsSnapshot.empty) {
+    await runQuery("DELETE FROM custom_topics");
+    for (const doc of topicsSnapshot.docs) {
+      const data = doc.data();
+      await runQuery(
+        "INSERT OR REPLACE INTO custom_topics (id, student_id, title, created_at) VALUES (?, ?, ?, ?)",
+        [data.id, data.student_id, data.title, data.created_at]
+      );
+    }
+    console.log(`  - Đã tải ${topicsSnapshot.size} chủ đề tự tạo`);
+  }
+
+  console.log("✅ Hoàn thành tải dữ liệu từ Firestore.");
+  return "Đồng bộ thành công";
 }
 
 // Vô hiệu hóa cache hoàn toàn để giải quyết triệt để lỗi cache ở trình duyệt máy khách
@@ -790,6 +1252,178 @@ Hãy biên soạn đúng 10 câu hỏi chất lượng cao dưới dạng mảng
 Chỉ trả về chuỗi JSON thô, không bọc trong tag \`\`\`json hay bất kỳ văn bản thừa nào.`;
 };
 
+const getEnglishPrompt = (lessonTitle, lessonId, classLevel = '6', skill = 'listening', reviewWords = []) => {
+  const bt = String.fromCharCode(96);
+  
+  let reviewInstruction = "";
+  if (reviewWords && reviewWords.length > 0) {
+    const wordsStr = reviewWords.map(w => `'${w.word}' (nghĩa: '${w.translation}')`).join(', ');
+    reviewInstruction = `
+* YÊU CẦU ÔN TẬP TỪ CŨ (QUAN TRỌNG):
+Học sinh này đã học các từ vựng sau ở bài học trước: ${wordsStr}.
+Hãy bắt buộc lồng ghép các từ vựng ôn tập này vào ít nhất 1 trong 5 câu hỏi được tạo ra (ví dụ: lồng ghép vào đoạn văn đọc hiểu passageText, câu hỏi phản xạ nói, nghe điền từ, hoặc viết lại câu/điền từ).
+Câu hỏi nào có lồng ghép từ vựng ôn tập phải bổ sung các thuộc tính đặc biệt sau:
+- "isReviewQuestion": true
+- "reviewWord": "từ_được_ôn_tập (ví dụ: 'share')"
+Hãy nhớ giải thích nghĩa của từ ôn tập này trong phần "solutionHtml" để học sinh nắm rõ.
+`;
+  }
+
+  return `Bạn là một chuyên gia giáo dục ngoại ngữ dạy Tiếng Anh lớp \${classLevel} theo chuẩn sách giáo khoa Global Success tại Việt Nam và các kỳ thi quốc tế Cambridge (Starters, Movers, Flyers).
+Hãy biên soạn đúng 5 câu hỏi trắc nghiệm hoặc tương tác tiếng Anh chất lượng cao phục vụ rèn luyện kỹ năng: "\${skill}" liên quan trực tiếp đến chủ đề bài học: "\${lessonTitle}" (ID bài học: \${lessonId}).
+${reviewInstruction}
+
+Yêu cầu chi tiết theo từng kỹ năng:
+
+1. Nếu skill là "listening" (Kỹ năng Nghe):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Nghe chọn tranh/từ (Choose the Picture). Thuộc tính: "questionType": "listening", "options": ["A. book", "B. ball", "C. bike", "D. bill"], "correctIndex": [chỉ số đúng], "listeningText": "Từ khóa đúng (ví dụ: ball)".
+   - Dạng 2: Nghe điền từ/câu (Dictation). Thuộc tính: "questionType": "listening", "options": [], "correctAnswer": "Từ hoặc câu đúng (ví dụ: This is a book)", "listeningText": "Câu hoặc từ máy đọc".
+   - Dạng 3: Nghe hiểu phản hồi (Listen and Answer). Thuộc tính: "questionType": "choice", "options": ["4 đáp án phản hồi bằng chữ"], "correctIndex": [chỉ số đúng], "listeningText": "Câu hỏi của máy đọc (ví dụ: Where are you from?)".
+
+2. Nếu skill là "speaking" (Kỹ năng Nói):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Phát âm từ vựng đơn (Word Pronunciation). Thuộc tính: "questionType": "speaking", "speakingText": "Từ vựng đơn (ví dụ: uniform)", "options": ["A. uniform", "B. pencil", "C. ruler", "D. book"], "correctIndex": 0.
+   - Dạng 2: Nói câu mẫu hoàn chỉnh (Sentence Speaking). Thuộc tính: "questionType": "speaking", "speakingText": "Câu mẫu hoàn chỉnh (ví dụ: I wear my school uniform on Mondays)", "options": ["4 đáp án chữ"], "correctIndex": [chỉ số đúng].
+   - Dạng 3: Đàm thoại phản xạ (Role-play Dialogue). Thuộc tính: "questionType": "speaking_roleplay", "listeningText": "Câu hỏi AI nói (ví dụ: What is your name?)", "speakingText": "Gợi ý câu trả lời của con (ví dụ: My name is Minh)", "speakingPhrases": ["my name is", "i am", "im"].
+
+3. Nếu skill là "reading" (Kỹ năng Đọc):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Đọc hiểu đoạn văn ngắn (Passage Comprehension). Thuộc tính: "questionType": "reading_passage", "passageText": "Đoạn văn ngắn tiếng Anh (2-4 câu bám sát lớp học)", "questionText": "Câu hỏi đọc hiểu bằng tiếng Anh", "options": ["4 phương án lựa chọn"], "correctIndex": [chỉ số đúng].
+   - Dạng 2: Điền từ vào đoạn văn (Cloze Test). Thuộc tính: "questionType": "reading_cloze", "passageTemplate": "Đoạn văn có các ô trống dạng {0}, {1} (ví dụ: I live in {0}. She lives in {1}.)", "wordPool": ["Mảng các từ xáo trộn để điền, bao gồm từ đúng và từ nhiễu"], "correctAnswers": ["Mảng các từ đúng tương ứng theo thứ tự {0}, {1} (ví dụ: ['Vietnam', 'England'])"].
+   - Dạng 3: Đọc câu hỏi và trả lời ngắn (Reading Q&A). Thuộc tính: "questionType": "reading_qa", "questionText": "Câu hỏi tình huống ngắn (ví dụ: Alice is from England. Where is she from?)", "correctAnswers": ["Mảng các câu trả lời ngắn được chấp nhận (ví dụ: ['England', 'She is from England'])"].
+
+4. Nếu skill là "writing" (Kỹ năng Viết):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Viết lại câu theo gợi ý (Sentence Rewriting). Thuộc tính: "questionType": "writing_rewrite", "questionText": "Đề bài và từ gợi ý (ví dụ: Rewrite using 'usually': She studies English at night.)", "correctAnswer": "Câu viết lại đúng", "correctAnswers": ["Mảng các câu đúng được chấp nhận"].
+   - Dạng 2: Sắp xếp từ thành câu hoàn chỉnh (Word Unscramble). Thuộc tính: "questionType": "writing", "wordPool": ["Mảng các từ bị xáo trộn vị trí để ghép thành câu"], "correctAnswer": "Câu hoàn chỉnh đúng".
+   - Dạng 3: Điền từ hoàn thành câu (Sentence Completion). Thuộc tính: "questionType": "writing_completion", "questionText": "Câu bị khuyết động từ chưa chia hoặc từ vựng (ví dụ: She usually [study] ____ English.)", "correctAnswer": "Từ đúng để điền (ví dụ: studies)", "correctAnswers": ["studies"].
+
+Yêu cầu định dạng JSON câu hỏi:
+Mỗi câu hỏi phải là một đối tượng chứa đầy đủ các trường sau:
+- "isTemplate": true
+- "variables": {}
+- "constraints": []
+- "formulas": {}
+- "questionType": Loại câu hỏi như mô tả ở trên.
+- "questionText": Đề bài hiển thị cho học sinh.
+- "options": Mảng các lựa chọn (để trống [] đối với dạng tự gõ/kéo thả).
+- "correctIndex": Chỉ số đáp án đúng (0-indexed).
+- "correctAnswer": Đáp án chữ đúng (nếu có).
+- "correctAnswers": Mảng các đáp án chữ đúng chấp nhận được (nếu có).
+- "listeningText": Câu máy phát âm (nếu có).
+- "speakingPhrases": Mảng cụm từ chấm điểm Nói (nếu có).
+- "wordPool": Mảng từ xáo trộn (nếu có).
+- "passageText": Đoạn văn đọc hiểu (nếu có).
+- "passageTemplate": Đoạn văn template điền từ (nếu có).
+- "hints": Mảng các gợi ý bằng TIẾNG VIỆT CÓ DẤU ngắn gọn.
+- "solutionHtml": Lời giải thích chi tiết bằng TIẾNG VIỆT CÓ DẤU đầy đủ, đúng ngữ pháp sư phạm, bọc trong thẻ HTML hoặc định dạng KaTeX phù hợp.
+- "tip": Mẹo ghi nhớ cấu trúc hoặc từ vựng bằng TIẾNG VIỆT CÓ DẤU.
+- "level": Độ khó ("co-ban", "nang-cao", "kho").
+- "type": Mã dạng bài học (ví dụ: "\${lessonId}-d1").
+
+QUY TẮC TRÁNH TRÙNG ĐÁP ÁN:
+Đối với các câu hỏi có "options", tuyệt đối không bao giờ để đáp án đúng trùng lặp với các phương án nhiễu hoặc các phương án nhiễu trùng chéo nhau. Các phương án nhiễu phải là các từ vựng hoặc cấu trúc ngữ pháp khác hoàn toàn về mặt ký tự và ngữ nghĩa so với đáp án đúng và bám sát ngữ cảnh của lớp \${classLevel}.
+
+Hãy biên soạn đúng 5 câu hỏi chất lượng cao dưới dạng mảng JSON \"questions\" như trên.
+Chỉ trả về chuỗi JSON thô, không bọc trong tag \${bt}\${bt}\${bt}json hay bất kỳ văn bản thừa nào.`;
+};
+
+const getEnglishCustomTopicPrompt = (words, topicTitle, skill) => {
+  const bt = String.fromCharCode(96);
+  const wordsListText = words.map(w => `- ${w.word} (${w.type}): ${w.translation}. Ví dụ: "${w.example_sentence}" (${w.example_translation})`).join('\n');
+  
+  return `Bạn là một chuyên gia giáo dục Tiếng Anh trẻ em tại Việt Nam.
+Hãy biên soạn đúng 5 câu hỏi trắc nghiệm hoặc tương tác tiếng Anh chất lượng cao phục vụ rèn luyện kỹ năng: "${skill}" dựa trên nhóm từ vựng sau:
+${wordsListText}
+
+Chủ đề bài học: "${topicTitle}"
+
+Yêu cầu chi tiết theo từng kỹ năng:
+1. Nếu skill là "listening" (Kỹ năng Nghe):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Nghe chọn từ (Choose the Word). Thuộc tính: "questionType": "listening", "options": ["4 phương án chữ tiếng Anh"], "correctIndex": [chỉ số đúng], "listeningText": "Từ khóa đúng".
+   - Dạng 2: Nghe điền từ/câu (Dictation). Thuộc tính: "questionType": "listening", "options": [], "correctAnswer": "Từ hoặc câu đúng", "listeningText": "Câu hoặc từ máy đọc".
+   - Dạng 3: Nghe hiểu phản hồi (Listen and Answer). Thuộc tính: "questionType": "choice", "options": ["4 đáp án phản hồi bằng chữ"], "correctIndex": [chỉ số đúng], "listeningText": "Câu hỏi máy đọc".
+
+2. Nếu skill là "speaking" (Kỹ năng Nói):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Phát âm từ vựng đơn (Word Pronunciation). Thuộc tính: "questionType": "speaking", "speakingText": "Từ tiếng Anh đơn", "options": ["4 phương án chữ"], "correctIndex": [chỉ số đúng].
+   - Dạng 2: Nói câu mẫu hoàn chỉnh (Sentence Speaking). Thuộc tính: "questionType": "speaking", "speakingText": "Câu mẫu hoàn chỉnh sử dụng từ vựng đã học", "options": ["4 phương án chữ"], "correctIndex": [chỉ số đúng].
+   - Dạng 3: Đàm thoại phản xạ (Role-play Dialogue). Thuộc tính: "questionType": "speaking_roleplay", "listeningText": "Câu hỏi AI nói", "speakingText": "Gợi ý câu trả lời của học sinh", "speakingPhrases": ["Mảng các cụm từ quan trọng bắt buộc có trong câu trả lời"].
+
+3. Nếu skill là "reading" (Kỹ năng Đọc):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Đọc hiểu đoạn văn ngắn (Passage Comprehension). Thuộc tính: "questionType": "reading_passage", "passageText": "Đoạn văn ngắn tiếng Anh lồng ghép các từ vựng trên (2-4 câu)", "questionText": "Câu hỏi đọc hiểu", "options": ["4 phương án lựa chọn"], "correctIndex": [chỉ số đúng].
+   - Dạng 2: Điền từ vào đoạn văn (Cloze Test). Thuộc tính: "questionType": "reading_cloze", "passageTemplate": "Đoạn văn có các ô trống dạng {0}, {1}", "wordPool": ["Mảng các từ xáo trộn để điền"], "correctAnswers": ["Mảng các từ đúng tương ứng theo thứ tự {0}, {1}"].
+   - Dạng 3: Đọc câu hỏi và trả lời ngắn (Reading Q&A). Thuộc tính: "questionType": "reading_qa", "questionText": "Câu hỏi tình huống ngắn", "correctAnswers": ["Mảng các câu trả lời ngắn được chấp nhận"].
+
+4. Nếu skill là "writing" (Kỹ năng Viết):
+   Sinh các câu hỏi thuộc 3 dạng:
+   - Dạng 1: Viết lại câu theo gợi ý (Sentence Rewriting). Thuộc tính: "questionType": "writing_rewrite", "questionText": "Đề bài và từ gợi ý", "correctAnswers": ["Mảng các câu đúng được chấp nhận"].
+   - Dạng 2: Sắp xếp từ thành câu hoàn chỉnh (Word Unscramble). Thuộc tính: "questionType": "writing", "wordPool": ["Mảng các từ bị xáo trộn vị trí"], "correctAnswer": "Câu hoàn chỉnh đúng".
+   - Dạng 3: Điền từ hoàn thành câu (Sentence Completion). Thuộc tính: "questionType": "writing_completion", "questionText": "Câu bị khuyết động từ chưa chia hoặc từ vựng", "correctAnswers": ["Mảng từ đúng"].
+
+Yêu cầu định dạng JSON câu hỏi:
+Mỗi câu hỏi phải là một đối tượng chứa đầy đủ các trường sau:
+- "isTemplate": true
+- "variables": {}
+- "constraints": []
+- "formulas": {}
+- "questionType": Loại câu hỏi như mô tả ở trên.
+- "questionText": Đề bài hiển thị cho học sinh.
+- "options": Mảng các lựa chọn (để trống [] đối với dạng tự gõ/kéo thả).
+- "correctIndex": Chỉ số đáp án đúng (0-indexed).
+- "correctAnswer": Đáp án chữ đúng (nếu có).
+- "correctAnswers": Mảng các đáp án chữ đúng chấp nhận được (nếu có).
+- "listeningText": Câu máy phát âm (nếu có).
+- "speakingPhrases": Mảng cụm từ chấm điểm Nói (nếu có).
+- "wordPool": Mảng từ xáo trộn (nếu có).
+- "passageText": Đoạn văn đọc hiểu (nếu có).
+- "passageTemplate": Đoạn văn template điền từ (nếu có).
+- "hints": Mảng các gợi ý ngắn gọn bằng tiếng Việt.
+- "solutionHtml": Lời giải thích chi tiết đầy đủ bằng tiếng Việt, giải thích nghĩa của từ vựng được luyện tập trong câu.
+- "tip": Mẹo ghi nhớ cấu trúc hoặc từ vựng bằng tiếng Việt.
+- "level": Độ khó ("co-ban", "nang-cao", "kho").
+- "type": Mã dạng bài học (ví dụ: "custom-d1").
+
+QUY TẮC TRÁNH TRÙNG ĐÁP ÁN:
+Đối với các câu hỏi có "options", tuyệt đối không bao giờ để đáp án đúng trùng lặp với các phương án nhiễu hoặc các phương án nhiễu trùng chéo nhau. Các phương án nhiễu phải là các từ vựng hoặc cấu trúc ngữ pháp khác hoàn toàn về mặt ký tự và ngữ nghĩa so với đáp án đúng.
+
+Hãy biên soạn đúng 5 câu hỏi chất lượng cao dưới dạng mảng JSON "questions" như trên.
+Chỉ trả về chuỗi JSON thô, không bọc trong tag ${bt}${bt}${bt}json hay bất kỳ văn bản thừa nào.`;
+};
+
+async function auditEnglishQuestions(examData, classLevel = '6', geminiModel = null) {
+  const bt = String.fromCharCode(96);
+  const auditPrompt = `Bạn là chuyên gia thẩm định đề thi Tiếng Anh lớp \${classLevel} chất lượng cao theo chuẩn Global Success.
+Dưới đây là đề thi dạng JSON chứa các câu hỏi Tiếng Anh tương tác:
+\${bt}\${bt}\${bt}json
+\${JSON.stringify(examData, null, 2)}
+\${bt}\${bt}\${bt}
+
+Nhiệm vụ của bạn là thẩm định và sửa các lỗi nếu có:
+1. Đảm bảo toàn bộ các phương án nhiễu (options) không bị trùng lặp với đáp án đúng và không trùng chéo nhau.
+2. Kiểm tra phần gợi ý (hints), lời giải (solutionHtml), và mẹo (tip) phải được viết bằng TIẾNG VIỆT CÓ DẤU đầy đủ, đúng ngữ pháp sư phạm Việt Nam.
+3. Kiểm tra tính đúng đắn của ngữ pháp và từ vựng Tiếng Anh trong đề bài, đảm bảo bám sát chương trình Global Success lớp \${classLevel}.
+4. Đảm bảo các thuộc tính đặc trưng cho Nghe - Nói - Đọc - Viết gồm "questionType", "listeningText", "speakingPhrases", và "spellingWords" được định nghĩa đầy đủ và đúng định dạng.
+5. Trả về đúng cấu trúc JSON, không thêm bất kỳ văn bản giải thích nào ngoài JSON.`;
+
+  try {
+    const data = await callGeminiAPI({
+      contents: [{ role: 'user', parts: [{ text: auditPrompt }] }],
+      generationConfig: { responseMimeType: 'application/json' }
+    }, 'Thẩm định đề thi Tiếng Anh', geminiModel);
+
+    let textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!textResponse) throw new Error('Không nhận được phản hồi từ AI Auditor Tiếng Anh.');
+    return JSON.parse(cleanJsonString(textResponse));
+  } catch (err) {
+    console.error('Lỗi thẩm định bằng AI Auditor Tiếng Anh:', err);
+    throw err;
+  }
+}
+
 const EXAMS_DIR = path.join(__dirname, 'exams');
 if (!fs.existsSync(EXAMS_DIR)) {
   fs.mkdirSync(EXAMS_DIR, { recursive: true });
@@ -891,6 +1525,11 @@ function runDataMigration() {
     }
   } else {
     console.log('[Migration] Không cần di chuyển dữ liệu (đã hoàn thành hoặc không có dữ liệu cũ).');
+    
+    // Đồng bộ tất cả học sinh thật lên Firebase Realtime Database khi khởi chạy
+    syncAllStudentsToFirebase().catch(err => {
+      console.error("[FirebaseSync] Lỗi khởi chạy đồng bộ ban đầu:", err);
+    });
   }
 }
 
@@ -1125,6 +1764,23 @@ app.get('/api/load-config', async (req, res) => {
   try {
     let config = await dbGetConfig();
     
+    // Tự động kéo dữ liệu từ Firestore nếu đã đăng nhập phụ huynh nhưng cấu hình cục bộ trống rỗng
+    const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'").catch(() => null);
+    if (sessionRow && sessionRow.value) {
+      try {
+        const sessionObj = JSON.parse(sessionRow.value);
+        const parentUid = sessionObj.parentUid;
+        if (parentUid && (!config || !config.students || config.students.length === 0)) {
+          console.log(`⚠️ Phát hiện đã đăng nhập phụ huynh ${parentUid} nhưng config cục bộ trống. Tự động kéo dữ liệu từ Firestore về...`);
+          await pullDataFromFirestore(parentUid).catch((err) => console.error("Lỗi tự động kéo dữ liệu khi load config:", err.message));
+          // Đọc lại config mới sau khi kéo dữ liệu thành công
+          config = await dbGetConfig();
+        }
+      } catch (sessionErr) {
+        console.error("Lỗi kiểm tra session để tự động kéo dữ liệu:", sessionErr.message);
+      }
+    }
+    
     // Tự động khởi tạo cấu hình mặc định nếu chưa tồn tại
     if (!config || Object.keys(config).length === 0) {
       config = {
@@ -1168,6 +1824,10 @@ app.post('/api/save-config', authenticateAdminToken, async (req, res) => {
   try {
     const config = req.body;
     await dbSaveConfig(config);
+    // Kích hoạt đồng bộ lại danh sách học sinh lên Firebase RTDB để cập nhật bảng xếp hạng
+    syncAllStudentsToFirebase().catch(err => {
+      console.error("[FirebaseSync] Lỗi chạy ngầm đồng bộ sau khi cập nhật cấu hình:", err);
+    });
     res.json({ success: true });
   } catch (e) {
     console.error("Lỗi save config vào DB:", e);
@@ -1259,6 +1919,158 @@ app.post('/api/setup-initial', async (req, res) => {
 
 
 /**
+ * API trả về Google Client ID cấu hình trong .env
+ */
+app.get('/api/auth/google-client-id', (req, res) => {
+  res.json({ clientId: process.env.GOOGLE_CLIENT_ID || "" });
+});
+
+/**
+ * API kiểm tra trạng thái Session Phụ huynh hiện tại
+ */
+app.get('/api/auth/session', async (req, res) => {
+  try {
+    const row = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'");
+    if (row && row.value) {
+      res.json({ loggedIn: true, session: JSON.parse(row.value) });
+    } else {
+      res.json({ loggedIn: false });
+    }
+  } catch (e) {
+    res.json({ loggedIn: false, error: e.message });
+  }
+});
+
+/**
+ * API Đăng nhập Google Sign-In & Di trú / Đồng bộ dữ liệu
+ */
+app.post('/api/auth/google-login', async (req, res) => {
+  const { idToken } = req.body;
+  if (!idToken) {
+    return res.status(400).json({ error: "Thiếu idToken" });
+  }
+  if (!firebaseInitialized) {
+    return res.status(503).json({ error: "Firebase SDK chưa được khởi tạo. Kiểm tra lại cấu hình file JSON." });
+  }
+  try {
+    // 1. Xác thực Google ID Token nhận được từ Client bằng google-auth-library
+    const oauthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    const ticket = await oauthClient.verifyIdToken({
+      idToken: idToken,
+      audience: process.env.GOOGLE_CLIENT_ID
+    });
+    const payload = ticket.getPayload();
+    const email = payload.email;
+    const displayName = payload.name || "";
+
+    // 2. Tìm hoặc tạo tài khoản trong Firebase Auth để lấy Firebase UID đồng bộ
+    let parentUid;
+    try {
+      const userRecord = await getAuth().getUserByEmail(email);
+      parentUid = userRecord.uid;
+      console.log(`🔍 Tìm thấy tài khoản Firebase Auth hiện có cho email ${email}, UID: ${parentUid}`);
+    } catch (authError) {
+      if (authError.code === 'auth/user-not-found') {
+        const userRecord = await getAuth().createUser({
+          email: email,
+          displayName: displayName,
+          emailVerified: true
+        });
+        parentUid = userRecord.uid;
+        console.log(`🆕 Đã tạo tài khoản Firebase Auth mới cho email ${email}, UID: ${parentUid}`);
+      } else {
+        throw authError;
+      }
+    }
+
+    // 3. Lưu session vào bảng settings cục bộ
+    const parentSessionObj = { parentUid, email, displayName, loginAt: new Date().toISOString() };
+    await dbSaveSetting('parent_session', JSON.stringify(parentSessionObj));
+
+    // 4. Kiểm tra xem trên Firestore đã có bất kỳ học sinh nào thuộc parentUid này chưa
+    const studentsSnapshot = await dbFirestore.collection('students').where('parentUid', '==', parentUid).get();
+    let message = "";
+    
+    if (studentsSnapshot.empty) {
+      // Chưa có học sinh nào -> Chạy luồng DI TRÚ tự động lên Firebase
+      await pushLocalDataToFirestore(parentUid);
+      message = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
+    } else {
+      // Đã có học sinh trên đám mây -> Kéo dữ liệu về ghi đè SQLite cục bộ
+      await pullDataFromFirestore(parentUid);
+      message = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
+    }
+
+    res.json({ success: true, parentSession: parentSessionObj, message });
+  } catch (error) {
+    console.error("Lỗi xử lý đăng nhập Google:", error);
+    res.status(500).json({ error: "Xử lý đăng nhập thất bại: " + error.message });
+  }
+});
+
+/**
+ * API Đăng xuất & Reset dữ liệu thiết bị (Xóa sạch local database và đề thi)
+ */
+app.post('/api/auth/logout', async (req, res) => {
+  try {
+    console.log("⚠️ Bắt đầu xử lý Đăng xuất và Xóa sạch dữ liệu thiết bị...");
+
+    // 1. Xóa session trong SQLite cục bộ
+    await runQuery("DELETE FROM settings WHERE key = 'parent_session'");
+
+    // 2. Xóa sạch dữ liệu học sinh cục bộ
+    await runQuery("DELETE FROM student_progress");
+    await runQuery("DELETE FROM custom_vocabulary");
+    await runQuery("DELETE FROM custom_topics");
+    // Xóa tiến trình lớp trong bảng progress
+    await runQuery("DELETE FROM progress");
+    // Xóa cấu hình config hệ thống để đưa về trắng
+    await runQuery("DELETE FROM settings WHERE key = 'config'");
+    await runQuery("DELETE FROM settings WHERE key = 'leaderboard_math_cache'");
+    await runQuery("DELETE FROM settings WHERE key = 'leaderboard_english_cache'");
+
+    // 3. Xóa các tệp đề thi đã sinh của học sinh trong thư mục exams và exams_backup
+    const examsDir = path.join(__dirname, 'exams');
+    const backupDir = path.join(__dirname, 'exams_backup');
+
+    const cleanExamsFiles = (dir) => {
+      if (!fs.existsSync(dir)) return;
+      const files = fs.readdirSync(dir);
+      for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat.isDirectory()) {
+          cleanExamsFiles(filePath);
+        } else {
+          if (file.includes('std_htsj4gbmo') || file.includes('std_tyc0gfnkz') || file.includes('std_xf9e2lvgv')) {
+            try { fs.unlinkSync(filePath); } catch (e) {}
+          }
+        }
+      }
+    };
+
+    cleanExamsFiles(examsDir);
+    cleanExamsFiles(backupDir);
+
+    // Xóa các file logs rác
+    const logsDir = path.join(__dirname, 'logs');
+    if (fs.existsSync(logsDir)) {
+      const logFiles = fs.readdirSync(logsDir);
+      for (const f of logFiles) {
+        try { fs.unlinkSync(path.join(logsDir, f)); } catch(e) {}
+      }
+    }
+
+    console.log("✅ Đã reset thiết bị sạch sẽ.");
+    res.json({ success: true, message: "Đã đăng xuất và reset thiết bị thành công" });
+  } catch (error) {
+    console.error("Lỗi khi reset thiết bị:", error);
+    res.status(500).json({ error: "Lỗi reset thiết bị: " + error.message });
+  }
+});
+
+
+/**
  * API load progress từ SQLite
  */
 app.get('/api/load-progress', async (req, res) => {
@@ -1284,7 +2096,7 @@ app.get('/api/load-progress', async (req, res) => {
  * API save progress vào SQLite
  */
 app.post('/api/save-progress', async (req, res) => {
-  const { classLevel, studentId, state } = req.body;
+  const { classLevel, studentId, state, studentName } = req.body;
   if ((!classLevel && !studentId) || !state) {
     return res.status(400).json({ error: "Thiếu classLevel/studentId hoặc state" });
   }
@@ -1302,7 +2114,10 @@ app.post('/api/save-progress', async (req, res) => {
     }
 
     if (studentId) {
-      await dbSaveStudentProgress(studentId, state);
+      await dbSaveStudentProgress(studentId, state, studentName);
+      syncStudentProgressToFirebase(studentId, state, studentName).catch(err => {
+        console.error("[FirebaseSync] Lỗi chạy ngầm đồng bộ:", err);
+      });
     } else {
       await dbSaveProgress(classLevel, state);
     }
@@ -1310,6 +2125,241 @@ app.post('/api/save-progress', async (req, res) => {
   } catch (e) {
     console.error("Lỗi save progress vào DB:", e);
     res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * API nhận tín hiệu Heartbeat từ client để cập nhật trạng thái online lên Firebase
+ */
+app.post('/api/heartbeat', async (req, res) => {
+  const { studentId, classLevel } = req.body;
+  if (!studentId) {
+    return res.status(400).json({ error: "Thiếu studentId" });
+  }
+  try {
+    const config = await dbGetSetting('config').catch(() => null);
+    const studentsList = (config && config.students) || [];
+    const studentConf = studentsList.find(s => s.id === studentId);
+    
+    const studentName = studentConf ? studentConf.name : "Học sinh";
+    const actualClassLevel = studentConf ? studentConf.classLevel : (classLevel || "6");
+
+    const payload = {
+      studentId: studentId,
+      studentName: studentName,
+      classLevel: actualClassLevel,
+      lastHeartbeat: new Date().toISOString()
+    };
+
+    const url = `${FIREBASE_RTDB_URL}leaderboard/${studentId}.json`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      console.warn(`[HeartbeatSync] Firebase RTDB returned status ${response.status}`);
+    }
+    res.json({ success: true });
+  } catch (e) {
+    console.error("Lỗi trong API heartbeat:", e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * API gửi tin nhắn chat riêng giữa hai học sinh lên Firebase
+ */
+app.post('/api/chat/send', async (req, res) => {
+  const { senderId, senderName, receiverId, text } = req.body;
+  if (!senderId || !receiverId || !text) {
+    return res.status(400).json({ error: "Thiếu senderId, receiverId hoặc nội dung text" });
+  }
+  try {
+    const roomId = [senderId, receiverId].sort().join("_");
+    
+    // Thu thập thông tin người gửi nếu chưa có tên
+    let actualSenderName = senderName;
+    if (!actualSenderName) {
+      const config = await dbGetSetting('config').catch(() => null);
+      const studentsList = (config && config.students) || [];
+      const studentConf = studentsList.find(s => s.id === senderId);
+      actualSenderName = studentConf ? studentConf.name : "Học sinh";
+    }
+
+    const payload = {
+      senderId,
+      senderName: actualSenderName,
+      text,
+      timestamp: Date.now()
+    };
+
+    const url = `${FIREBASE_RTDB_URL}chats/${roomId}.json`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      throw new Error(`Firebase RTDB returned status ${response.status}`);
+    }
+    const resultData = await response.json();
+    res.json({ success: true, messageId: resultData.name, payload });
+  } catch (e) {
+    console.error("Lỗi gửi tin nhắn chat:", e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * API lấy lịch sử tin nhắn của một phòng chat từ Firebase
+ */
+app.get('/api/chat/messages', async (req, res) => {
+  const { roomId } = req.query;
+  if (!roomId) {
+    return res.status(400).json({ error: "Thiếu roomId" });
+  }
+  try {
+    const url = `${FIREBASE_RTDB_URL}chats/${roomId}.json`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Firebase RTDB returned status ${response.status}`);
+    }
+    const data = await response.json();
+    let list = [];
+    if (data) {
+      list = Object.values(data);
+      // Sắp xếp các tin nhắn theo timestamp tăng dần (từ cũ đến mới)
+      list.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+    }
+    res.json({ success: true, messages: list });
+  } catch (e) {
+    console.error("Lỗi lấy lịch sử chat:", e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * API lấy bảng xếp hạng trực tuyến từ Firebase Realtime Database
+ */
+app.get('/api/leaderboard', async (req, res) => {
+  const subject = req.query.subject || 'english'; // 'english' hoặc 'math'
+  const classLevel = req.query.classLevel; // Tùy chọn lọc theo lớp học (4 hoặc 6)
+
+  try {
+    const url = `${FIREBASE_RTDB_URL}leaderboard.json`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Firebase RTDB returned status ${response.status}`);
+    }
+    const data = await response.json();
+    
+    let list = [];
+    if (data) {
+      list = Object.values(data);
+    }
+    
+    // Lọc theo lớp học nếu được yêu cầu
+    if (classLevel) {
+      list = list.filter(item => item.classLevel === classLevel);
+    }
+
+    // Sắp xếp theo thứ hạng:
+    // 1. Điểm XP giảm dần (theo môn tương ứng)
+    // 2. Streak ngày học liên tục giảm dần (theo môn tương ứng)
+    // 3. Thời gian cập nhật gần nhất tăng dần (ai đạt trước xếp trên)
+    list.sort((a, b) => {
+      const aXp = subject === 'english' ? (a.englishXp || 0) : (a.mathXp || 0);
+      const bXp = subject === 'english' ? (b.englishXp || 0) : (b.mathXp || 0);
+      if (bXp !== aXp) return bXp - aXp;
+
+      const aStreak = subject === 'english' ? (a.englishStreak || 0) : (a.mathStreak || 0);
+      const bStreak = subject === 'english' ? (b.englishStreak || 0) : (b.mathStreak || 0);
+      if (bStreak !== aStreak) return bStreak - aStreak;
+
+      const aTime = a.lastUpdated ? new Date(a.lastUpdated).getTime() : 0;
+      const bTime = b.lastUpdated ? new Date(b.lastUpdated).getTime() : 0;
+      return aTime - bTime;
+    });
+
+    // Lưu cache cục bộ vào bảng settings SQLite
+    await dbSaveSetting(`leaderboard_${subject}_cache`, list);
+
+    res.json({ success: true, source: 'cloud', data: list });
+  } catch (err) {
+    console.warn(`[LeaderboardAPI] Không thể tải dữ liệu trực tuyến từ Firebase: ${err.message}. Đang dùng cache offline hoặc truy vấn SQLite...`);
+    try {
+      const cachedData = await dbGetSetting(`leaderboard_${subject}_cache`);
+      if (cachedData && cachedData.length > 0) {
+        // Loại bỏ học sinh ảo khỏi cache nếu có
+        const cleanCached = cachedData.filter(item => !String(item.studentId).startsWith('mock'));
+        if (cleanCached.length > 0) {
+          return res.json({ success: true, source: 'cache', data: cleanCached });
+        }
+      }
+    } catch (cacheErr) {
+      console.error("[LeaderboardAPI] Lỗi đọc cache từ SQLite:", cacheErr.message);
+    }
+
+    try {
+      // Dựng bảng xếp hạng offline từ các học sinh thật trong SQLite
+      db.all("SELECT student_id, state_json FROM student_progress", [], async (dbErr, rows) => {
+        if (dbErr || !rows || rows.length === 0) {
+          return res.json({ success: true, source: 'offline_empty', data: [] });
+        }
+
+        const config = await dbGetSetting('config').catch(() => null);
+        const studentsList = (config && config.students) || [];
+
+        let list = rows.map(row => {
+          try {
+            const state = JSON.parse(row.state_json);
+            const studentConf = studentsList.find(s => s.id === row.student_id);
+            const studentName = studentConf ? studentConf.name : ((state.student && state.student.name) || "Học sinh");
+            const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6");
+
+            return {
+              studentId: row.student_id,
+              studentName: studentName,
+              mathXp: state.xp || 0,
+              englishXp: state.englishXp || 0,
+              mathStreak: state.streak || 0,
+              englishStreak: state.englishStreak || 0,
+              classLevel: classLevel,
+              lastUpdated: state.lastActiveDate || new Date().toISOString()
+            };
+          } catch (e) {
+            return null;
+          }
+        }).filter(Boolean);
+
+        // Lọc theo lớp học nếu được yêu cầu
+        if (classLevel) {
+          list = list.filter(item => item.classLevel === classLevel);
+        }
+
+        // Sắp xếp
+        list.sort((a, b) => {
+          const aXp = subject === 'english' ? (a.englishXp || 0) : (a.mathXp || 0);
+          const bXp = subject === 'english' ? (b.englishXp || 0) : (b.mathXp || 0);
+          if (bXp !== aXp) return bXp - aXp;
+
+          const aStreak = subject === 'english' ? (a.englishStreak || 0) : (a.mathStreak || 0);
+          const bStreak = subject === 'english' ? (b.englishStreak || 0) : (b.mathStreak || 0);
+          if (bStreak !== aStreak) return bStreak - aStreak;
+          return 0;
+        });
+
+        res.json({ success: true, source: 'offline_sqlite', data: list });
+      });
+    } catch (fallbackErr) {
+      console.error("[LeaderboardAPI] Lỗi tạo bảng xếp hạng offline từ SQLite:", fallbackErr.message);
+      res.json({ success: true, source: 'offline_failed', data: [] });
+    }
   }
 });
 
@@ -1488,15 +2538,89 @@ app.post('/api/pre-generate-questions', async (req, res) => {
  * API lấy bộ đề Chất lượng cao (từ cache hoặc sinh trực tiếp)
  */
 app.get('/api/get-questions', async (req, res) => {
-  const { lessonId, lessonTitle, classLevel, studentId } = req.query;
+  const { lessonId, lessonTitle, classLevel, studentId, skill } = req.query;
   const stId = studentId || 'default';
+  const targetSkill = skill || 'listening';
   if (!lessonId) {
     return res.status(400).json({ error: 'Thiếu tham số lessonId' });
   }
 
-  const cachePath = getPregenFilePath(stId, lessonId);
+  const isCustomTopic = String(lessonId).startsWith('custom-t-');
+  const isEnglish = String(lessonId).startsWith('eng') || isCustomTopic;
 
-  if (fs.existsSync(cachePath)) {
+  // 1. Nếu là Chuyên đề tự chọn của Phụ huynh nạp
+  if (isCustomTopic) {
+    db.all(
+      "SELECT * FROM custom_vocabulary WHERE topic_id = ? AND student_id = ?",
+      [lessonId, stId],
+      async (err, words) => {
+        if (err) {
+          console.error("Lỗi truy vấn từ vựng chuyên đề custom:", err);
+          return res.status(500).json({ error: "Lỗi truy vấn CSDL: " + err.message });
+        }
+        if (!words || words.length === 0) {
+          return res.status(404).json({ error: "Chuyên đề không có từ vựng nào" });
+        }
+
+        let textResponse = '';
+        try {
+          addAiLog(`Tiến hành sinh đề tự chọn cho bài: ${lessonTitle || lessonId} - kỹ năng: ${targetSkill} (HS: ${stId})`);
+          const prompt = getEnglishCustomTopicPrompt(words, lessonTitle || "Chuyên đề tự chọn", targetSkill);
+          const data = await callGeminiAPI({
+            contents: [{ role: 'user', parts: [{ text: prompt }] }],
+            generationConfig: { responseMimeType: 'application/json' }
+          }, 'Tạo đề Chuyên đề Custom');
+
+          textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (!textResponse) throw new Error('Không nhận được nội dung từ Gemini.');
+
+          let examData = JSON.parse(cleanJsonString(textResponse));
+          examData = await auditEnglishQuestions(examData, classLevel || '6');
+
+          if (Array.isArray(examData)) {
+            examData = { questions: examData };
+          }
+          return res.json(examData);
+        } catch (err) {
+          console.error('Lỗi sinh đề cho chuyên đề custom:', err);
+          writeErrorLog(lessonId, lessonTitle || lessonId, err, textResponse, textResponse ? cleanJsonString(textResponse) : '');
+          return res.status(500).json({ error: 'Lỗi nạp đề từ AI: ' + err.message });
+        }
+      }
+    );
+    return;
+  }
+
+  // 2. Kiểm tra xem có từ vựng nào cần ôn tập (Spaced Repetition) không
+  let reviewWords = [];
+  if (isEnglish && stId !== 'default') {
+    try {
+      reviewWords = await new Promise((resolve) => {
+        db.all(
+          `SELECT word, translation FROM custom_vocabulary 
+           WHERE student_id = ? AND next_review_due <= datetime('now') 
+           ORDER BY box_level ASC, last_reviewed ASC LIMIT 2`,
+          [stId],
+          (err, rows) => {
+            if (err) {
+              console.error("Lỗi truy vấn từ vựng ôn tập:", err);
+              resolve([]);
+            } else {
+              resolve(rows || []);
+            }
+          }
+        );
+      });
+    } catch(e) {
+      console.error("Lỗi lấy từ vựng ôn tập:", e);
+    }
+  }
+
+  // 3. Nếu không có từ ôn tập, thử đọc từ Cache cục bộ
+  const cacheKey = isEnglish ? `${lessonId}-${targetSkill}` : lessonId;
+  const cachePath = getPregenFilePath(stId, cacheKey);
+
+  if (reviewWords.length === 0 && fs.existsSync(cachePath)) {
     try {
       const data = fs.readFileSync(cachePath, 'utf8');
       let parsed = JSON.parse(data);
@@ -1509,10 +2633,13 @@ app.get('/api/get-questions', async (req, res) => {
     }
   }
 
+  // 4. Nếu có từ ôn tập hoặc không có cache, sinh đề trực tiếp bằng AI
   let textResponse = '';
   try {
-    addAiLog(`Không thấy cache, tiến hành sinh trực tiếp đề cho bài: ${lessonTitle} (HS: ${stId})`);
-    const prompt = getMathPrompt(lessonTitle || lessonId, lessonId, classLevel || '6');
+    addAiLog(`Tiến hành sinh trực tiếp đề cho bài: ${lessonTitle || lessonId} - kỹ năng: ${targetSkill} (HS: ${stId}) (Ôn tập từ cũ: ${reviewWords.map(w => w.word).join(', ') || 'không'})`);
+    const prompt = isEnglish 
+      ? getEnglishPrompt(lessonTitle || lessonId, lessonId, classLevel || '6', targetSkill, reviewWords)
+      : getMathPrompt(lessonTitle || lessonId, lessonId, classLevel || '6');
     
     const data = await callGeminiAPI({
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
@@ -1523,13 +2650,21 @@ app.get('/api/get-questions', async (req, res) => {
     if (!textResponse) throw new Error('Không nhận được nội dung từ Gemini.');
 
     let examData = JSON.parse(cleanJsonString(textResponse));
-    examData = await auditMathQuestions(examData, classLevel || '6');
+    if (isEnglish) {
+      examData = await auditEnglishQuestions(examData, classLevel || '6');
+    } else {
+      examData = await auditMathQuestions(examData, classLevel || '6');
+    }
 
     if (Array.isArray(examData)) {
       examData = { questions: examData };
     }
 
-    fs.writeFileSync(cachePath, JSON.stringify(examData, null, 2), 'utf8');
+    // Chỉ lưu cache nếu bài học không chứa từ ôn tập cá nhân hóa
+    if (reviewWords.length === 0) {
+      fs.writeFileSync(cachePath, JSON.stringify(examData, null, 2), 'utf8');
+    }
+    
     res.json(examData);
   } catch (err) {
     console.error('Lỗi sinh đề trực tiếp:', err);
@@ -2072,6 +3207,344 @@ Yêu cầu sửa lỗi:
   res.json({ session });
 });
 
+// ==========================================
+// TÍNH NĂNG TỰ NẠP TỪ VỰNG & ÔN TẬP TIẾNG ANH
+// ==========================================
+
+// 1. API lấy danh sách chuyên đề tự nạp
+app.get('/api/custom-topics', (req, res) => {
+  const { studentId } = req.query;
+  if (!studentId) {
+    return res.status(400).json({ error: "Thiếu studentId" });
+  }
+  db.all(
+    "SELECT * FROM custom_topics WHERE student_id = ? ORDER BY created_at DESC",
+    [studentId],
+    (err, rows) => {
+      if (err) {
+        console.error("Lỗi lấy danh sách custom_topics:", err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(rows || []);
+    }
+  );
+});
+
+app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
+  const { shutdown } = req.body || {};
+  const flagPath = path.join(__dirname, 'kiosk_exit_flag.tmp');
+  try {
+    // 1. Đặt flag in-memory NGAY LẬP TƯC
+    kioskExitedTime = Date.now();
+
+    if (shutdown) {
+      // Chế độ thoát hẳn (tắt cả Chrome Kiosk và Node.js server)
+      fs.writeFileSync(flagPath, 'shutdown-kiosk', 'utf8');
+      res.json({ success: true });
+      
+      // Chờ 1.2 giây để kiosk_lock.exe phát hiện file flag và dọn dẹp xong, sau đó tắt Node.js server
+      setTimeout(() => {
+        console.log("Tắt hoàn toàn Node.js server theo yêu cầu shutdown...");
+        process.exit(0);
+      }, 1200);
+    } else {
+      // Chế độ thoát Kiosk thông thường (quay về Dashboard Admin trên trình duyệt thường)
+      fs.writeFileSync(flagPath, 'exit-kiosk', 'utf8');
+
+      // Lấy token từ header để truyền sang trình duyệt thường cho cơ chế tự động đăng nhập (SSO)
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+
+      // Phản hồi ngay cho client
+      res.json({ success: true });
+
+      const { exec } = require('child_process');
+
+      // Chờ 1.5 giây để kiosk_lock.exe tự đọc flag và Cleanup an toàn (gỡ hook phím, tắt Chrome)
+      setTimeout(() => {
+        const url = `http://localhost:${PORT}/admin${token ? '?token=' + token : ''}`;
+        exec(`cmd.exe /c start "" "${url}"`, (err) => {
+          if (err) console.error('Lỗi khi mở trình duyệt thường:', err.message);
+        });
+      }, 1500);
+    }
+  } catch (err) {
+    console.error('Lỗi trong API exit-kiosk:', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+});
+
+// ==========================================
+// TÍNH NĂNG TỰ ĐỘNG CẬP NHẬT QUA INTERNET
+// ==========================================
+const https = require('https');
+const { spawn } = require('child_process');
+
+const APP_VERSION = '10.13';
+
+// 2. API lấy danh sách từ vựng tự nạp
+app.get('/api/custom-vocabulary', (req, res) => {
+  const { studentId } = req.query;
+  if (!studentId) {
+    return res.status(400).json({ error: "Thiếu studentId" });
+  }
+  db.all(
+    "SELECT * FROM custom_vocabulary WHERE student_id = ? ORDER BY created_at DESC",
+    [studentId],
+    (err, rows) => {
+      if (err) {
+        console.error("Lỗi lấy danh sách custom_vocabulary:", err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(rows || []);
+    }
+  );
+});
+
+// 3. API xóa từ vựng
+app.post('/api/custom-vocabulary/delete-word', (req, res) => {
+  const { studentId, wordId } = req.body;
+  if (!studentId || !wordId) {
+    return res.status(400).json({ error: "Thiếu studentId hoặc wordId" });
+  }
+  db.run(
+    "DELETE FROM custom_vocabulary WHERE id = ? AND student_id = ?",
+    [wordId, studentId],
+    function(err) {
+      if (err) {
+        console.error("Lỗi xóa từ vựng:", err);
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ success: true, changes: this.changes });
+    }
+  );
+});
+
+// 4. API xóa chuyên đề (và các từ thuộc chuyên đề đó)
+app.post('/api/custom-topics/delete', (req, res) => {
+  const { studentId, topicId } = req.body;
+  if (!studentId || !topicId) {
+    return res.status(400).json({ error: "Thiếu studentId hoặc topicId" });
+  }
+  db.serialize(() => {
+    db.run("BEGIN TRANSACTION");
+    db.run(
+      "DELETE FROM custom_topics WHERE id = ? AND student_id = ?",
+      [topicId, studentId],
+      (err) => {
+        if (err) {
+          db.run("ROLLBACK");
+          console.error("Lỗi xóa chuyên đề:", err);
+          return res.status(500).json({ error: err.message });
+        }
+        db.run(
+          "DELETE FROM custom_vocabulary WHERE topic_id = ? AND student_id = ?",
+          [topicId, studentId],
+          (err) => {
+            if (err) {
+              db.run("ROLLBACK");
+              console.error("Lỗi xóa từ vựng thuộc chuyên đề:", err);
+              return res.status(500).json({ error: err.message });
+            }
+            db.run("COMMIT", (err) => {
+              if (err) {
+                console.error("Lỗi commit giao dịch:", err);
+                return res.status(500).json({ error: err.message });
+              }
+              res.json({ success: true });
+            });
+          }
+        );
+      }
+    );
+  });
+});
+
+// 5. API lưu từ vựng mới (và tự động hoàn thiện thông tin bằng AI nếu có)
+app.post('/api/custom-vocabulary/add', async (req, res) => {
+  const { studentId, topicTitle, words, autoComplete } = req.body;
+  if (!studentId || !topicTitle || !words || !Array.isArray(words) || words.length === 0) {
+    return res.status(400).json({ error: "Tham số đầu vào không hợp lệ" });
+  }
+
+  try {
+    let processedWords = [...words];
+
+    if (autoComplete) {
+      // Tìm các từ chưa đầy đủ thông tin để gọi AI hoàn thiện
+      const wordsToLookup = words.map(w => w.word.trim().toLowerCase());
+      addAiLog(`Bắt đầu gọi AI tự động hoàn thiện thông tin cho ${wordsToLookup.length} từ vựng: ${wordsToLookup.join(', ')}`);
+      
+      const prompt = `Bạn là chuyên gia giáo dục Tiếng Anh thiếu nhi tại Việt Nam.
+Hãy dịch và giải nghĩa các từ vựng sau dành cho học sinh tiểu học/THCS: ${wordsToLookup.join(', ')}.
+Đối với mỗi từ, hãy tìm phiên âm chuẩn quốc tế (IPA), từ loại (noun, verb, adjective, adverb...), dịch nghĩa tiếng Việt chính xác và đặt 1 câu ví dụ tiếng Anh cực kỳ đơn giản (dưới 8 từ, ngữ cảnh trẻ em dễ hiểu) kèm theo dịch nghĩa tiếng Việt của câu đó.
+
+Yêu cầu định dạng trả về:
+Trả về đúng 1 mảng JSON chứa các đối tượng có cấu trúc chính xác như sau (không bọc trong tag \`\`\`json hay văn bản giải thích nào khác):
+[
+  {
+    "word": "từ tiếng Anh gốc",
+    "translation": "nghĩa dịch tiếng Việt",
+    "phonetics": "phiên âm IPA có dấu gạch chéo ở đầu và cuối (ví dụ: /ʃeə(r)/)",
+    "type": "từ loại (noun, verb, adjective, adverb...)",
+    "example_sentence": "câu ví dụ tiếng Anh đơn giản",
+    "example_translation": "dịch nghĩa câu ví dụ"
+  }
+]`;
+
+      const data = await callGeminiAPI({
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+        generationConfig: { responseMimeType: 'application/json' }
+      }, 'Hoàn thiện từ vựng tự nạp');
+
+      const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!textResponse) throw new Error('Không nhận được phản hồi từ Gemini khi hoàn thiện từ vựng.');
+      
+      const aiResults = JSON.parse(cleanJsonString(textResponse));
+      if (Array.isArray(aiResults)) {
+        processedWords = aiResults.map(aw => {
+          const original = words.find(w => w.word.toLowerCase().trim() === aw.word.toLowerCase().trim()) || {};
+          return {
+            word: aw.word || original.word,
+            translation: aw.translation || original.translation || '',
+            phonetics: aw.phonetics || original.phonetics || '',
+            type: aw.type || original.type || 'noun',
+            example_sentence: aw.example_sentence || original.example_sentence || '',
+            example_translation: aw.example_translation || original.example_translation || ''
+          };
+        });
+      }
+    }
+
+    // Bắt đầu lưu vào Database
+    const topicId = `custom-t-${Date.now()}`;
+    db.serialize(() => {
+      db.run("BEGIN TRANSACTION");
+      
+      // Tạo chuyên đề mới
+      db.run(
+        "INSERT INTO custom_topics (id, student_id, title) VALUES (?, ?, ?)",
+        [topicId, studentId, topicTitle],
+        (err) => {
+          if (err) {
+            db.run("ROLLBACK");
+            console.error("Lỗi khi thêm custom_topics:", err);
+            return res.status(500).json({ error: "Lỗi tạo chuyên đề: " + err.message });
+          }
+
+          // Thêm từng từ vựng vào custom_vocabulary
+          const stmt = db.prepare(
+            "INSERT INTO custom_vocabulary (student_id, word, translation, phonetics, type, example_sentence, example_translation, topic_id, next_review_due) VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))"
+          );
+
+          let errorOccured = false;
+          for (const w of processedWords) {
+            stmt.run(
+              [studentId, w.word.trim(), w.translation.trim(), w.phonetics || '', w.type || 'noun', w.example_sentence || '', w.example_translation || '', topicId],
+              (err) => {
+                if (err) {
+                  errorOccured = true;
+                  console.error("Lỗi chèn từ vựng:", err);
+                }
+              }
+            );
+          }
+
+          stmt.finalize((err) => {
+            if (err || errorOccured) {
+              db.run("ROLLBACK");
+              return res.status(500).json({ error: "Lỗi lưu danh sách từ vựng." });
+            }
+            db.run("COMMIT", (err) => {
+              if (err) {
+                console.error("Lỗi commit giao dịch:", err);
+                return res.status(500).json({ error: "Lỗi commit dữ liệu: " + err.message });
+              }
+              res.json({ success: true, topicId, words: processedWords });
+            });
+          });
+        }
+      );
+    });
+
+  } catch (err) {
+    console.error("Lỗi trong API custom-vocabulary/add:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 6. API cập nhật kết quả ôn tập (Spaced Repetition) cho từng từ
+app.post('/api/custom-vocabulary/report-result', async (req, res) => {
+  const { studentId, word, isCorrect } = req.body;
+  if (!studentId || !word) {
+    return res.status(400).json({ error: "Thiếu studentId hoặc word" });
+  }
+
+  // Tìm thông tin từ vựng hiện tại
+  db.get(
+    "SELECT id, box_level, review_count FROM custom_vocabulary WHERE student_id = ? AND LOWER(word) = LOWER(?)",
+    [studentId, word.trim()],
+    (err, row) => {
+      if (err) {
+        console.error("Lỗi truy vấn từ vựng để cập nhật kết quả:", err);
+        return res.status(500).json({ error: err.message });
+      }
+      if (!row) {
+        // Nếu không phải từ vựng custom thì không cần cập nhật
+        return res.json({ success: true, message: "Từ vựng không tồn tại trong kho tự nạp, bỏ quan." });
+      }
+
+      let newBoxLevel = 1;
+      let intervalDays = 1;
+
+      if (isCorrect) {
+        newBoxLevel = Math.min(5, row.box_level + 1);
+        // Khoảng cách ngày lặp lại ngắt quãng (Leitner interval days)
+        switch(newBoxLevel) {
+          case 2: intervalDays = 2; break;
+          case 3: intervalDays = 4; break;
+          case 4: intervalDays = 7; break;
+          case 5: intervalDays = 15; break;
+          default: intervalDays = 30;
+        }
+      } else {
+        newBoxLevel = 1; // Sai thì quay lại hộp 1
+        intervalDays = 1; // Học lại vào ngày mai
+      }
+
+      const status = newBoxLevel === 5 ? 'mastered' : 'reviewing';
+      const reviewCount = row.review_count + 1;
+
+      db.run(
+        `UPDATE custom_vocabulary 
+         SET box_level = ?, 
+             status = ?, 
+             review_count = ?, 
+             last_reviewed = datetime('now'), 
+             next_review_due = datetime('now', '+' + ? + ' days') 
+         WHERE id = ?`,
+        [newBoxLevel, status, reviewCount, intervalDays, row.id],
+        function(err) {
+          if (err) {
+            console.error("Lỗi cập nhật CSDL custom_vocabulary:", err);
+            return res.status(500).json({ error: err.message });
+          }
+          res.json({ 
+            success: true, 
+            word: word.trim(), 
+            newBoxLevel, 
+            status, 
+            nextReviewInDays: intervalDays 
+          });
+        }
+      );
+    }
+  );
+});
+
+
 /**
  * Flag in-memory: thời gian (timestamp) gọi exit-kiosk gần nhất,
  * giúp /api/is-kiosk-mode trả false ngay lập tức trong thời gian cooldown
@@ -2097,52 +3570,6 @@ app.get('/api/is-kiosk-mode', (req, res) => {
   });
 });
 
-/**
- * API thoát khỏi chế độ Kiosk mode
- */
-app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
-  const flagPath = path.join(__dirname, 'kiosk_exit_flag.tmp');
-  try {
-    // 1. Đặt flag in-memory NGAY LẬP TƯC
-    kioskExitedTime = Date.now();
-
-    // 2. Tạo file flag để báo hiệu kiosk_lock.exe không kill Node.js server khi thoát
-    fs.writeFileSync(flagPath, 'exit-kiosk', 'utf8');
-
-    // Lấy token từ header để truyền sang trình duyệt thường cho cơ chế tự động đăng nhập (SSO)
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    // 3. Phản hồi ngay cho client
-    res.json({ success: true });
-
-    const { exec } = require('child_process');
-
-    // 4. Chờ 1.5 giây để kiosk_lock.exe tự đọc flag và Cleanup an toàn (gỡ hook phím, tắt Chrome)
-    // Hệ thống tự đóng nên Node.js server không cần chạy taskkill /F cưỡng bức gây treo máy.
-    setTimeout(() => {
-      const url = `http://localhost:${PORT}/admin${token ? '?token=' + token : ''}`;
-      // Bọc URL trong dấu nháy kép để cmd.exe không bị lỗi parse các ký tự đặc biệt như ? hay &
-      exec(`cmd.exe /c start "" "${url}"`, (err) => {
-        if (err) console.error('Lỗi khi mở trình duyệt thường:', err.message);
-      });
-    }, 1500);
-
-  } catch (err) {
-    console.error('Lỗi trong API exit-kiosk:', err);
-    if (!res.headersSent) {
-      res.status(500).json({ error: err.message });
-    }
-  }
-});
-
-// ==========================================
-// TÍNH NĂNG TỰ ĐỘNG CẬP NHẬT QUA INTERNET
-// ==========================================
-const https = require('https');
-const { spawn } = require('child_process');
-
-const APP_VERSION = '5.4';
 // URL GitHub hoặc máy chủ lưu trữ file version.json của bạn
 const UPDATE_CHECK_URL = process.env.UPDATE_CHECK_URL || 'https://raw.githubusercontent.com/binhminh-github/toan-hoc-kiosk/main/version.json';
 
@@ -2267,13 +3694,20 @@ app.get(/.*/, (req, res, next) => {
   });
 });
 
-// Đọc và phân tích danh sách bài học từ js/lessons.js bằng vm
+// Đọc và phân tích danh sách bài học từ js/lessons.js và js/english_data.js bằng vm
 let allLessons = [];
 try {
+  const englishFilePath = path.join(__dirname, 'js', 'english_data.js');
+  let englishCode = '';
+  if (fs.existsSync(englishFilePath)) {
+    englishCode = fs.readFileSync(englishFilePath, 'utf8');
+  }
   const lessonsFilePath = path.join(__dirname, 'js', 'lessons.js');
   const lessonsCode = fs.readFileSync(lessonsFilePath, 'utf8');
   const sandbox = { window: {}, document: {}, console: console };
-  const courseData = vm.runInNewContext(lessonsCode + ";\nCOURSE_DATA;", sandbox) || [];
+  
+  // Chạy cả hai file trong context của sandbox
+  const courseData = vm.runInNewContext(englishCode + ";\n" + lessonsCode + ";\nCOURSE_DATA;", sandbox) || [];
   
   courseData.forEach(chapter => {
     if (chapter.lessons && Array.isArray(chapter.lessons)) {
@@ -2281,13 +3715,14 @@ try {
         allLessons.push({
           id: lesson.id,
           title: lesson.title,
-          class: chapter.class || '6'  // Lưu lớp học từ chapter
+          class: chapter.class || '6',  // Lưu lớp học từ chapter
+          subject: chapter.subject || 'math' // Phân tách môn học
         });
       });
     }
   });
 } catch (e) {
-  console.error('Lỗi khi phân tích lessons.js để lấy danh sách bài học:', e);
+  console.error('Lỗi khi phân tích lessons.js và english_data.js để lấy danh sách bài học:', e);
 }
 
 const PREGEN_STATUS_FILE = path.join(EXAMS_DIR, 'pregen_status.json');
@@ -2549,6 +3984,78 @@ async function startPreGenerationWorkerForStudent(studentId, classLevel) {
 }
 
 
+let isSyncing = false;
+async function runSyncWorker() {
+  if (!firebaseInitialized || isSyncing) return;
+  try {
+    const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'");
+    if (!sessionRow || !sessionRow.value) return;
+    const parentSession = JSON.parse(sessionRow.value);
+    const parentUid = parentSession.parentUid;
+
+    const queue = await allQuery("SELECT * FROM sync_queue ORDER BY id ASC LIMIT 10");
+    if (queue.length === 0) return;
+
+    isSyncing = true;
+    console.log(`🔄 [Sync Worker] Đang xử lý ${queue.length} tác vụ đồng bộ tồn đọng...`);
+
+    for (const task of queue) {
+      try {
+        const payload = task.payload ? JSON.parse(task.payload) : null;
+        
+        if (task.table_name === 'student_progress') {
+          if (task.action === 'save') {
+            await dbFirestore.collection('students').doc(task.record_id).set({
+              studentId: task.record_id,
+              parentUid: parentUid,
+              name: payload.name || "Học sinh",
+              classLevel: payload.classLevel || "1",
+              state_json: payload.state_json,
+              lastUpdated: new Date().toISOString()
+            });
+          } else if (task.action === 'delete') {
+            await dbFirestore.collection('students').doc(task.record_id).delete();
+          }
+        } 
+        
+        else if (task.table_name === 'custom_vocabulary') {
+          if (task.action === 'save') {
+            await dbFirestore.collection('custom_vocabulary').doc(`vocab_${task.record_id}`).set({
+              ...payload,
+              parentUid: parentUid
+            });
+          } else if (task.action === 'delete') {
+            await dbFirestore.collection('custom_vocabulary').doc(`vocab_${task.record_id}`).delete();
+          }
+        } 
+        
+        else if (task.table_name === 'custom_topics') {
+          if (task.action === 'save') {
+            await dbFirestore.collection('custom_topics').doc(task.record_id).set({
+              ...payload,
+              parentUid: parentUid
+            });
+          } else if (task.action === 'delete') {
+            await dbFirestore.collection('custom_topics').doc(task.record_id).delete();
+          }
+        }
+
+        await runQuery("DELETE FROM sync_queue WHERE id = ?", [task.id]);
+        console.log(`  - Đồng bộ thành công tác vụ ${task.id} [${task.action} -> ${task.table_name}:${task.record_id}]`);
+      } catch (taskErr) {
+        console.error(`  - Lỗi đồng bộ tác vụ ${task.id}:`, taskErr.message);
+        if (taskErr.message.includes('network') || taskErr.message.includes('fetch') || taskErr.message.includes('unavailable')) {
+          break;
+        }
+      }
+    }
+  } catch (err) {
+    console.error("❌ Lỗi trong Sync Worker:", err);
+  } finally {
+    isSyncing = false;
+  }
+}
+
 const net = require('net');
 
 function findFreePort(startPort) {
@@ -2582,5 +4089,9 @@ findFreePort(PORT).then((freePort) => {
     console.log(`  👉 LAN IP:  http://${localIp}:${freePort}`);
     console.log(`==================================================`);
     runDataMigration();
+    
+    // Khởi chạy Sync Worker ngầm định kỳ (mỗi 60 giây kiểm tra và sync hàng đợi offline)
+    runSyncWorker();
+    setInterval(runSyncWorker, 60000);
   });
 });

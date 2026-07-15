@@ -1,0 +1,434 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 2",
+        "w3": "a - 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 5 : w3"
+      },
+      "questionText": "Bút chì màu đỏ dài {a} cm, bút chì màu xanh dài {b} cm. Hỏi bút chì nào dài hơn?",
+      "options": [
+        "A. Bút chì màu xanh dài hơn",
+        "B. Bút chì màu đỏ dài hơn",
+        "C. Hai bút chì dài bằng nhau",
+        "D. Không xác định được"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "So sánh độ dài {a} và {b}.",
+        "Vì {a} lớn hơn {b} nên bút chì màu đỏ dài hơn."
+      ],
+      "solutionHtml": "Vì {a} cm lớn hơn {b} cm nên bút chì màu đỏ dài hơn.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh độ dài, số nào lớn hơn thì vật đó dài hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "y": {
+          "min": 16,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "y > x"
+      ],
+      "formulas": {
+        "ans": "y - x",
+        "w1": "y + x",
+        "w2": "y",
+        "w3": "x",
+        "w1_f": "(w1 === ans) ? 30 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 28 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 2 : w3"
+      },
+      "questionText": "Sợi dây thứ nhất dài {x} cm, sợi dây thứ hai dài {y} cm. Hỏi sợi dây thứ hai dài hơn sợi dây thứ nhất bao nhiêu cm?",
+      "options": [
+        "A. {w1_f} cm",
+        "B. {w2_f} cm",
+        "C. {ans} cm",
+        "D. {w3_f} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm phần dài hơn, ta lấy độ dài sợi dây dài trừ đi độ dài sợi dây ngắn.",
+        "Thực hiện phép tính: ${y} - {x} = {ans}$."
+      ],
+      "solutionHtml": "Sợi dây thứ hai dài hơn sợi dây thứ nhất là:<br/>${y} - {x} = {ans}$ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Tìm phần chênh lệch thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "b": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "b > a"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "b - a",
+        "w2": "b",
+        "w3": "a",
+        "w1_f": "(w1 === ans) ? 20 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 15 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 2 : w3"
+      },
+      "questionText": "Một gang tay của bé dài {a} cm. Một quyển sách dài {b} cm. Nếu xếp gang tay của bé nối tiếp với quyển sách đó, thì tổng độ dài là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cm",
+        "B. {w2_f} cm",
+        "C. {ans} cm",
+        "D. {w3_f} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Xếp nối tiếp nghĩa là cộng độ dài của hai vật lại với nhau.",
+        "Thực hiện phép tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng độ dài khi xếp nối tiếp là:<br/>${a} + {b} = {ans}$ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Xếp nối tiếp là cộng tổng độ dài các vật.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "diff": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h > diff"
+      ],
+      "formulas": {
+        "ans": "h - diff",
+        "w1": "h + diff",
+        "w2": "h",
+        "w3": "diff",
+        "w1_f": "(w1 === ans) ? 15 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 12 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 1 : w3"
+      },
+      "questionText": "Thước kẻ của Lan dài {h} cm. Thước kẻ của Mai ngắn hơn thước của Lan {diff} cm. Hỏi thước kẻ của Mai dài bao nhiêu cm?",
+      "options": [
+        "A. {w1_f} cm",
+        "B. {w2_f} cm",
+        "C. {w3_f} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Vì thước của Mai ngắn hơn, ta dùng phép trừ.",
+        "Thực hiện ${h} - {diff} = {ans}$."
+      ],
+      "solutionHtml": "Thước kẻ của Mai dài số cm là:<br/>${h} - {diff} = {ans}$ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Ngắn hơn thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "a + 1",
+        "w1_f": "(w1 === ans) ? 20 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 18 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 22 : w3"
+      },
+      "questionText": "Cây lau nhà dài {a} dm. Cái chổi dài hơn cây lau nhà {b} dm. Hỏi cái chổi dài bao nhiêu dm?",
+      "options": [
+        "A. {w1_f} dm",
+        "B. {ans} dm",
+        "C. {w2_f} dm",
+        "D. {w3_f} dm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vì cái chổi dài hơn, ta dùng phép cộng.",
+        "Thực hiện ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Độ dài cái chổi là:<br/>${a} + {b} = {ans}$ (dm).<br/>Đáp án đúng là B.",
+      "tip": "Dài hơn thì dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a",
+        "w2": "a + 2",
+        "w3": "a - 2",
+        "w1_f": "(w1 === ans) ? 15 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 17 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 19 : w3"
+      },
+      "questionText": "Một sợi dây dài {a} cm được cắt thành hai phần bằng nhau. Hỏi mỗi phần dài bao nhiêu cm?",
+      "options": [
+        "A. {ans} cm",
+        "B. {w1_f} cm",
+        "C. {w2_f} cm",
+        "D. {w3_f} cm"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Cắt làm đôi nghĩa là chia cho 2.",
+        "Thực hiện phép tính ${a} : 2 = {ans}$."
+      ],
+      "solutionHtml": "Độ dài mỗi phần là:<br/>${a} : 2 = {ans}$ (cm).<br/>Đáp án đúng là A.",
+      "tip": "Chia đôi là chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? 12 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 10 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 1 : w3"
+      },
+      "questionText": "Cái bút chì dài {a} cm, cái tẩy dài {b} cm. Hỏi bút chì dài hơn cái tẩy bao nhiêu cm?",
+      "options": [
+        "A. {w1_f} cm",
+        "B. {w2_f} cm",
+        "C. {ans} cm",
+        "D. {w3_f} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết dài hơn bao nhiêu, ta lấy độ dài cái bút chì trừ đi độ dài cái tẩy.",
+        "Thực hiện ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Bút chì dài hơn cái tẩy số cm là:<br/>${a} - {b} = {ans}$ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Dài hơn bao nhiêu là so sánh hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a * b <= 20"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + a",
+        "w3": "b + b",
+        "w1_f": "(w1 === ans) ? 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 12 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 8 : w3"
+      },
+      "questionText": "Mỗi bước chân của bé dài {a} dm. Bé bước {b} bước. Hỏi quãng đường bé đi được dài bao nhiêu dm?",
+      "options": [
+        "A. {w1_f} dm",
+        "B. {ans} dm",
+        "C. {w2_f} dm",
+        "D. {w3_f} dm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi bước là {a} dm, {b} bước thì ta lấy {a} nhân với {b}.",
+        "Thực hiện ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Quãng đường bé đi được là:<br/>${a} \\times {b} = {ans}$ (dm).<br/>Đáp án đúng là B.",
+      "tip": "Gấp nhiều lần lên thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? 25 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 15 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 4 : w3"
+      },
+      "questionText": "Bàn học của Nam dài {a} dm. Bàn học của Hà ngắn hơn bàn của Nam {b} dm. Hỏi bàn của Hà dài bao nhiêu dm?",
+      "options": [
+        "A. {w1_f} dm",
+        "B. {w2_f} dm",
+        "C. {ans} dm",
+        "D. {w3_f} dm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ngắn hơn thì ta thực hiện phép trừ.",
+        "Thực hiện ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Bàn của Hà dài số dm là:<br/>${a} - {b} = {ans}$ (dm).<br/>Đáp án đúng là C.",
+      "tip": "Ngắn hơn dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? 12 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 10 : w3"
+      },
+      "questionText": "Sợi dây màu xanh dài {a} m. Sợi dây màu vàng dài {b} m. Hỏi sợi dây nào dài hơn và dài hơn bao nhiêu mét?",
+      "options": [
+        "A. Dây vàng dài hơn {ans} m",
+        "B. Dây xanh dài hơn {ans} m",
+        "C. Dây vàng dài hơn {w1_f} m",
+        "D. Dây xanh dài hơn {w2_f} m"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Vì {b} lớn hơn {a} nên dây vàng dài hơn.",
+        "Lấy {b} trừ {a} để tìm phần dài hơn."
+      ],
+      "solutionHtml": "Vì {b} m lớn hơn {a} m nên dây vàng dài hơn.<br/>Dây vàng dài hơn dây xanh là:<br/>${b} - {a} = {ans}$ (m).<br/>Đáp án đúng là A.",
+      "tip": "Số lớn là vật dài hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-25-d10"
+    }
+  ]
+}

@@ -88,6 +88,8 @@
             }, 1200);
         }
     </script>
+    <!-- Thư viện Google Identity Services để đăng nhập Google -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toán 6 - Kết nối tri thức với cuộc sống</title>
@@ -95,7 +97,7 @@
     <!-- Google Fonts: Inter & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;500;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="css/lib/font-awesome/css/all.min.css">
@@ -124,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=5.4">
+    <link rel="stylesheet" href="css/style.css?v=10.13">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -132,25 +134,79 @@
             position: absolute;
             top: 1.5rem;
             left: 1.5rem;
-            width: 3rem;
-            height: 3rem;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 1.2rem;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7c3aed;
+            font-size: 1.15rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(5px);
             z-index: 1000;
         }
         .splash-parent-settings-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-            color: var(--primary);
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #6d28d9;
+            color: #6d28d9;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+        .splash-switch-student-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7c3aed;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .splash-switch-student-btn:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #6d28d9;
+            color: #6d28d9;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+        .student-select-back-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7c3aed;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .student-select-back-btn:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #6d28d9;
+            color: #6d28d9;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
         }
         .hidden {
             display: none !important;
@@ -173,19 +229,156 @@
         #setup-initial-screen label {
             font-size: 0.75rem;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.7);
+            color: #1e293b !important;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             text-align: left;
         }
+        #setup-initial-screen input::placeholder {
+            color: #4b5563 !important;
+        }
+        .fixed-navigation-widget {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999999;
+            pointer-events: none;
+        }
+        .fixed-navigation-widget .nav-btn {
+            pointer-events: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        }
+        .fixed-navigation-widget .btn-back {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: #7c3aed !important;
+            border: 1px solid rgba(124, 58, 237, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.1) !important;
+        }
+        .fixed-navigation-widget .btn-back:hover {
+            background: #7c3aed !important;
+            color: #ffffff !important;
+            border-color: #7c3aed !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3) !important;
+        }
+        .fixed-navigation-widget .btn-exit {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: #ef4444 !important;
+            border: 1px solid rgba(239, 68, 68, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1) !important;
+        }
+        .fixed-navigation-widget .btn-exit:hover {
+            background: #ef4444 !important;
+            color: #ffffff !important;
+            border-color: #ef4444 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3) !important;
+        }
+
+        /* Ghi đè giao diện sáng pastel cho các màn hình khởi động */
+        .splash-screen {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+        }
+        .splash-screen .splash-glass-card {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #1e293b !important;
+            box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        }
+        #google-login-screen {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+        }
+        #google-login-screen .splash-glass-card {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #1e293b !important;
+            box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        }
+        #setup-initial-screen {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+        }
+        #setup-initial-screen .splash-glass-card {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #1e293b !important;
+            box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        }
+        #setup-initial-screen strong {
+            color: #1e293b !important;
+        }
+        #setup-initial-screen span {
+            color: #4b5563 !important;
+        }
+        .splash-screen .splash-glass-card h1,
+        .splash-screen .splash-glass-card h2,
+        .splash-screen .splash-glass-card h3 {
+            color: #0f172a !important;
+        }
+        .splash-screen .splash-glass-card p,
+        .splash-screen .splash-glass-card span:not(.splash-stat-emoji) {
+            color: #334155 !important;
+        }
+        .splash-screen .splash-glass-card input[type="text"],
+        .splash-screen .splash-glass-card input[type="password"] {
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important;
+            color: #1e293b !important;
+        }
+        .splash-screen .splash-glass-card input[type="text"]::placeholder,
+        .splash-screen .splash-glass-card input[type="password"]::placeholder {
+            color: #4b5563 !important;
+        }
+        .splash-screen .splash-glass-card label {
+            color: #334155 !important;
+        }
+        .splash-screen .splash-glass-card .w-full.border-t.border-white\/10 {
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        .splash-screen .splash-glass-card .text-xs.text-slate-300 {
+            color: #4b5563 !important;
+        }
+        .splash-screen .splash-glass-card button.bg-white\/10 {
+            background: rgba(124, 58, 237, 0.08) !important;
+            border-color: rgba(124, 58, 237, 0.2) !important;
+            color: #7c3aed !important;
+        }
+        .splash-screen .splash-glass-card button.bg-white\/10:hover {
+            background: rgba(124, 58, 237, 0.15) !important;
+        }
+        .splash-screen .splash-glass-card #google-config-warning {
+            background: rgba(239, 68, 68, 0.08) !important;
+            border-color: rgba(239, 68, 68, 0.2) !important;
+        }
+        .splash-screen .splash-glass-card #google-config-warning p {
+            color: #ef4444 !important;
+        }
         #setup-initial-screen input[type="text"],
         #setup-initial-screen input[type="password"] {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important;
             border-radius: 12px;
             padding: 0.75rem 1rem;
-            color: #fff;
+            color: #1e293b !important;
             font-size: 0.9rem;
             transition: all 0.2s ease;
             box-sizing: border-box;
@@ -193,9 +386,9 @@
         #setup-initial-screen input[type="text"]:focus,
         #setup-initial-screen input[type="password"]:focus {
             outline: none;
-            border-color: #8b5cf6;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6 !important;
+            background: rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
         }
         #setup-initial-screen .class-selector-container {
             display: grid;
@@ -209,8 +402,8 @@
             align-items: center;
             gap: 0.75rem;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -218,8 +411,8 @@
             text-align: left;
         }
         #setup-initial-screen .class-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.05) !important;
+            border-color: rgba(139, 92, 246, 0.4) !important;
         }
         #setup-initial-screen .class-card input[type="radio"] {
             width: 1.1rem;
@@ -231,11 +424,11 @@
         #setup-initial-screen .class-card strong {
             display: block;
             font-size: 0.875rem;
-            color: #fff;
+            color: #1e293b !important;
         }
         #setup-initial-screen .class-card span {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(30, 41, 59, 0.7) !important;
         }
         #setup-initial-screen .btn-setup-submit {
             width: 100%;
@@ -381,8 +574,46 @@
     <!-- Canvas pháo hoa giấy chúc mừng -->
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- Màn hình Đăng nhập Google dành cho Phụ huynh -->
+    <div id="google-login-screen" class="splash-screen hidden" style="z-index: 200000; background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);">
+        <div class="splash-bg-blobs">
+            <div class="blob blob-1" style="background: rgba(139, 92, 246, 0.15);"></div>
+            <div class="blob blob-2" style="background: rgba(59, 130, 246, 0.15);"></div>
+            <div class="blob blob-3" style="background: rgba(236, 72, 153, 0.15);"></div>
+        </div>
+        <div class="splash-glass-card flex flex-col items-center justify-center p-8 max-w-md w-full text-center" style="border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);">
+            <div class="splash-logo mb-4">
+                <i class="fa-solid fa-cloud-arrow-up text-violet-400 text-5xl" style="animation: bounce 2s infinite;"></i>
+            </div>
+            <h2 class="text-2xl font-black text-white mb-2" style="font-size: 1.8rem; font-family: 'Plus Jakarta Sans', sans-serif; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Đồng Bộ Đám Mây Cloud ☁️</h2>
+            <p class="text-slate-100 text-sm mb-6" style="margin-bottom: 1.5rem; line-height: 1.6; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">Chào mừng bạn đến với hệ thống tự động đồng bộ tiến trình học tập. Vui lòng đăng nhập tài khoản Google của phụ huynh để tiếp tục.</p>
+            
+            <!-- Nút đăng nhập Google -->
+            <div id="google-signin-btn-container" style="display: flex; justify-content: center; width: 100%; margin-top: 1rem; min-height: 40px;">
+                <div id="g_id_signin"></div>
+            </div>
+ 
+            <!-- Nút học offline dự phòng -->
+            <div style="margin-top: 1rem;">
+                <button onclick="app.skipGoogleLogin()" class="btn-secondary" style="background: rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.15); color: #1e293b; padding: 0.6rem 2rem; border-radius: 12px; font-weight: bold; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.05)'">
+                    <i class="fa-solid fa-wifi-slash"></i> Học ngoại tuyến (Offline)
+                </button>
+            </div>
+ 
+            <!-- Cảnh báo nếu chưa điền CLIENT_ID -->
+            <div id="google-config-warning" class="hidden" style="margin-top: 1.5rem; padding: 1rem; background: rgba(239, 68, 68, 0.15); border: 1px dashed rgba(239, 68, 68, 0.4); border-radius: 12px; text-align: left;">
+                <h4 style="color: #f87171; font-weight: bold; margin-bottom: 0.5rem; font-size: 14px;">⚠️ Chưa cấu hình Google Client ID</h4>
+                <p style="color: #f1f5f9; font-size: 12px; line-height: 1.5;">Vui lòng mở file <code style="background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 4px; color: #f472b6;">.env</code> ở thư mục dự án và thêm dòng sau để kích hoạt đăng nhập:</p>
+                <code style="display: block; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 6px; color: #34d399; font-size: 11px; margin-top: 0.5rem; word-break: break-all;">GOOGLE_CLIENT_ID=mã_client_id_của_bạn</code>
+                <p style="color: #cbd5e1; font-size: 11px; margin-top: 0.5rem; line-height: 1.4;">Bạn có thể lấy mã này từ mục <b>Authentication -> Sign-in method -> Google -> Web client ID</b> trên Firebase Console.</p>
+            </div>
+            
+            <p style="color: #4b5563; font-size: 12px; margin-top: 2rem; font-weight: 500;">Ứng dụng tự động lưu đệm ngoại tuyến (Offline) khi mất kết nối.</p>
+        </div>
+    </div>
+
     <!-- Màn hình Thiết lập ban đầu (Chỉ hiển thị khi chạy lần đầu tiên, chưa có cấu hình) -->
-    <div id="setup-initial-screen" class="splash-screen hidden" style="z-index: 3000;">
+    <div id="setup-initial-screen" class="splash-screen hidden" style="z-index: 150000;">
         <div class="splash-bg-blobs">
             <div class="blob blob-1"></div>
             <div class="blob blob-2"></div>
@@ -399,7 +630,7 @@
                 <!-- Tên phụ huynh -->
                 <div class="setup-field-group">
                     <label for="setup-parent-name">Tên phụ huynh</label>
-                    <input type="text" id="setup-parent-name" required placeholder="Ví dụ: Bố Hải, Mẹ Thu..." />
+                    <input type="text" id="setup-parent-name" required placeholder="Ví dụ: Bố Đăng, Mẹ Thu..." />
                 </div>
                 
                 <!-- Mật khẩu quản lý -->
@@ -411,7 +642,7 @@
                 <!-- Tên học sinh -->
                 <div class="setup-field-group">
                     <label for="setup-student-name">Tên học sinh (Tên con)</label>
-                    <input type="text" id="setup-student-name" required placeholder="Ví dụ: Đức Phúc, Bình Minh..." />
+                    <input type="text" id="setup-student-name" required placeholder="Ví dụ: Bảo Ngọc, Bình Minh..." />
                 </div>
                 
                 <!-- Chọn lớp học -->
@@ -419,17 +650,21 @@
                     <label>Chọn lớp học cho con</label>
                     <div class="class-selector-container">
                         <label class="class-card">
-                            <input type="radio" name="setup-class-level" value="4" checked />
+                            <input type="radio" name="setup-class-level" value="1" checked />
                             <div class="class-info-text">
-                                <strong>Toán Lớp 4</strong>
-                                <span>Chương trình Tiểu học</span>
+                                <strong>Lớp 1</strong>
+                            </div>
+                        </label>
+                        <label class="class-card">
+                            <input type="radio" name="setup-class-level" value="4" />
+                            <div class="class-info-text">
+                                <strong>Lớp 4</strong>
                             </div>
                         </label>
                         <label class="class-card">
                             <input type="radio" name="setup-class-level" value="6" />
                             <div class="class-info-text">
-                                <strong>Toán Lớp 6</strong>
-                                <span>Kết nối tri thức</span>
+                                <strong>Lớp 6</strong>
                             </div>
                         </label>
                     </div>
@@ -451,6 +686,10 @@
             <div class="blob blob-3"></div>
         </div>
         <div class="splash-glass-card flex flex-col items-center justify-center p-8 max-w-lg w-full text-center">
+            <!-- Nút quay lại màn Splash (chỉ hiển thị khi đổi học sinh và đã có học sinh mặc định trước đó) -->
+            <button id="student-select-back-btn" class="student-select-back-btn hidden" onclick="app.goBack()" title="Quay lại">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
             <div class="splash-logo mb-4">
                 <i class="fa-solid fa-graduation-cap text-violet-400 text-4xl" style="font-size: 3rem;"></i>
             </div>
@@ -485,6 +724,11 @@
                         <!-- Nút cài đặt phụ huynh -->
             <button id="splash-parent-settings-btn" class="splash-parent-settings-btn" onclick="window.location.href='/admin'" title="Cài đặt phụ huynh">
                 <i class="fa-solid fa-user-gear"></i>
+            </button>
+
+            <!-- Nút đổi học sinh nhanh -->
+            <button id="splash-switch-student-btn" class="splash-switch-student-btn" onclick="app.showScreenByHistoryName('student-select')" title="Đổi học sinh nhanh">
+                <i class="fa-solid fa-user-group"></i>
             </button>
 
             <!-- Nút làm mới cưỡng bức cực mạnh -->
@@ -550,7 +794,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v5.4 (Cập nhật: 10/07/2026 17:15)</div>
+            <div class="splash-version-tag">Phiên bản: v10.13 (Cập nhật: 15/07/2026 10:33)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -616,6 +860,24 @@
         </div>
         
         <div class="header-right">
+            <!-- Nút Bảng Xếp Hạng -->
+            <button id="btn-global-leaderboard" class="btn-parent" onclick="app.openLeaderboardModal('math')" style="background: linear-gradient(135deg, #a855f7, #7c3aed) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Bảng Xếp Hạng">
+                <i class="fa-solid fa-ranking-star"></i>
+                <span>Xếp Hạng</span>
+            </button>
+
+            <!-- Nút Thẻ Chiến Binh -->
+            <button id="btn-hero-profile" class="btn-parent" onclick="app.renderHeroProfile()" style="background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Hồ Sơ Năng Lực">
+                <i class="fa-solid fa-trophy"></i>
+                <span>Năng Lực</span>
+            </button>
+
+            <!-- Nút Chọn môn học -->
+            <button id="header-select-subject-btn" class="btn-parent" onclick="app.checkSubjectSelection()" style="background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.15); margin-right: 0.5rem;" title="Chọn Môn Học Khác">
+                <i class="fa-solid fa-shapes"></i>
+                <span>Đổi Môn</span>
+            </button>
+
             <!-- Nút đổi Light/Dark mode -->
             <button id="theme-toggle" class="btn-icon" title="Chuyển chế độ Sáng/Tối">
                 <i class="fa-solid fa-moon"></i>
@@ -638,6 +900,19 @@
     <!-- Main Container phục vụ SPA -->
     <main class="app-content">
         
+        <!-- MÀN HÌNH CHỌN MÔN HỌC (GLASSMORPHIC) -->
+        <section id="screen-subject-select" class="screen-section hidden">
+            <div class="subject-select-container">
+                <div class="subject-select-header">
+                    <h2>Chọn Môn Học Bạn Muốn Chinh Phục 🚀</h2>
+                    <p>Hãy lựa chọn lĩnh vực kiến thức để tiếp tục cuộc hành trình chiến binh nhé!</p>
+                </div>
+                <div class="subject-list">
+                    <!-- Danh sách môn học được render động -->
+                </div>
+            </div>
+        </section>
+
         <!-- MÀN HÌNH 1: LỘ TRÌNH HỌC & HỌC TẬP (SPLIT LAYOUT) -->
         <section id="screen-timeline" class="screen-section">
             <div class="split-layout-container">
@@ -728,7 +1003,7 @@
                                             <!-- Video bài giảng -->
                                             <div class="youtube-player-container card" style="padding:1.5rem;">
                                                 <h3><i class="fa-brands fa-youtube"></i> Video Bài giảng Dạng bài</h3>
-                                                <div class="video-wrapper" id="video-wrapper">
+                                                <div class="inline-video-container" id="video-wrapper">
                                                     <!-- Iframe video Youtube sẽ được load động ở đây -->
                                                 </div>
                                                 <div class="focus-mode-bar" style="margin-top:0.8rem;">
@@ -1207,8 +1482,362 @@
                         </div>
                     </div>
                 </div>
+        </section>
+
+        <!-- MÀN HÌNH MỚI: GIAO DIỆN HỌC TIẾNG ANH (GAME-LIKE WEB APP ARCHITECTURE) -->
+        <section id="screen-english-portal" class="screen-section hidden">
+            <div class="english-app-layout">
+                <!-- 1. Left Sidebar Navigation -->
+                <aside class="english-sidebar">
+                    <div class="english-sidebar-logo">
+                        <i class="fa-solid fa-language"></i>
+                        <span>English Pro</span>
+                    </div>
+                    <nav class="english-nav-menu">
+                        <button class="eng-nav-item active" id="eng-nav-map" onclick="app.switchEnglishTab('map')">
+                            <i class="fa-solid fa-map"></i>
+                            <span class="eng-nav-label">Bản đồ</span>
+                        </button>
+                        <button class="eng-nav-item" id="eng-nav-practice" onclick="app.switchEnglishTab('practice')">
+                            <i class="fa-solid fa-spell-check"></i>
+                            <span class="eng-nav-label">Ôn từ vựng</span>
+                        </button>
+                        <button class="eng-nav-item" id="eng-nav-ioe" onclick="app.switchEnglishTab('ioe')">
+                            <i class="fa-solid fa-trophy"></i>
+                            <span class="eng-nav-label">Luyện thi IOE</span>
+                        </button>
+                        <button class="eng-nav-item" id="eng-nav-custom-vocab" onclick="app.switchEnglishTab('custom-vocab')">
+                            <i class="fa-solid fa-square-plus"></i>
+                            <span class="eng-nav-label">Tự tạo chủ đề</span>
+                        </button>
+                        <button class="eng-nav-item" id="eng-nav-leaderboard" onclick="app.switchEnglishTab('leaderboard')">
+                            <i class="fa-solid fa-ranking-star"></i>
+                            <span class="eng-nav-label">Xếp hạng</span>
+                        </button>
+                        <button class="eng-nav-item" id="eng-nav-shop" onclick="app.switchEnglishTab('shop')">
+                            <i class="fa-solid fa-store"></i>
+                            <span class="eng-nav-label">Cửa hàng</span>
+                        </button>
+                        <button class="eng-nav-item" id="eng-nav-profile" onclick="app.switchEnglishTab('profile')">
+                            <i class="fa-solid fa-user-ninja"></i>
+                            <span class="eng-nav-label">Hồ sơ</span>
+                        </button>
+                        <button class="eng-nav-item btn-eng-change-subject" onclick="app.checkSubjectSelection()">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <span class="eng-nav-label">Đổi môn</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <!-- 2. Main Stage (Khu vực nội dung chính) -->
+                <div class="english-main-stage">
+                    <!-- Tab Bản đồ học tập -->
+                    <div id="eng-tab-map" class="eng-tab-pane">
+                        <div class="english-map-header" style="margin-bottom: 1.5rem;">
+                            <h2 id="english-map-class-title" style="margin:0; font-size:1.6rem; font-weight:900; color:#1e293b;">Bản đồ Tiếng Anh</h2>
+                            <p style="margin:4px 0 0 0; color:#64748b; font-size:0.95rem;">Hoàn thành các bài để nhận vương miện 👑</p>
+                        </div>
+                        
+                        <!-- Style CSS cho nút kỹ năng 3D Duolingo -->
+                        <style>
+                            .english-skills-tab-bar {
+                                display: flex;
+                                gap: 1rem;
+                                margin-bottom: 2rem;
+                                justify-content: center;
+                                flex-wrap: wrap;
+                            }
+                            .skill-tab-btn {
+                                border: none;
+                                padding: 0.8rem 1.8rem;
+                                border-radius: 16px;
+                                font-weight: 800;
+                                font-size: 1rem;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                                cursor: pointer;
+                                transition: all 0.1s ease;
+                                transform: translateY(0);
+                            }
+                            .skill-tab-btn.listening {
+                                background: #f1f5f9;
+                                color: #475569;
+                                border-bottom: 4px solid #cbd5e1;
+                                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                            }
+                            .skill-tab-btn.listening.active {
+                                background: linear-gradient(135deg, #60a5fa, #2563eb);
+                                color: white;
+                                border-bottom: 4px solid #1d4ed8;
+                                box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+                            }
+                            .skill-tab-btn.speaking {
+                                background: #f1f5f9;
+                                color: #475569;
+                                border-bottom: 4px solid #cbd5e1;
+                                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                            }
+                            .skill-tab-btn.speaking.active {
+                                background: linear-gradient(135deg, #34d399, #059669);
+                                color: white;
+                                border-bottom: 4px solid #047857;
+                                box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25);
+                            }
+                            .skill-tab-btn.reading {
+                                background: #f1f5f9;
+                                color: #475569;
+                                border-bottom: 4px solid #cbd5e1;
+                                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                            }
+                            .skill-tab-btn.reading.active {
+                                background: linear-gradient(135deg, #fb923c, #ea580c);
+                                color: white;
+                                border-bottom: 4px solid #c2410c;
+                                box-shadow: 0 4px 6px rgba(234, 88, 12, 0.25);
+                            }
+                            .skill-tab-btn.writing {
+                                background: #f1f5f9;
+                                color: #475569;
+                                border-bottom: 4px solid #cbd5e1;
+                                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                            }
+                            .skill-tab-btn.writing.active {
+                                background: linear-gradient(135deg, #a78bfa, #7c3aed);
+                                color: white;
+                                border-bottom: 4px solid #6d28d9;
+                                box-shadow: 0 4px 6px rgba(124, 58, 237, 0.25);
+                            }
+                            .skill-tab-btn:active {
+                                transform: translateY(3px);
+                                border-bottom-width: 1px !important;
+                                margin-bottom: 3px;
+                            }
+                        </style>
+
+                        <!-- Thanh Tab 4 kỹ năng 3D -->
+                        <div class="english-skills-tab-bar">
+                            <button class="skill-tab-btn listening active" onclick="app.selectEnglishSkill('listening')">
+                                🎧 Nghe
+                            </button>
+                            <button class="skill-tab-btn speaking" onclick="app.selectEnglishSkill('speaking')">
+                                🗣️ Nói
+                            </button>
+                            <button class="skill-tab-btn reading" onclick="app.selectEnglishSkill('reading')">
+                                📖 Đọc
+                            </button>
+                            <button class="skill-tab-btn writing" onclick="app.selectEnglishSkill('writing')">
+                                ✍️ Viết
+                            </button>
+                        </div>
+
+                        <div class="english-map-scroll-area">
+                            <div class="english-map-path" id="english-map-path-container">
+                                <!-- Render bản đồ uốn lượn dạng Island Map động qua JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Ôn luyện từ vựng -->
+                    <div id="eng-tab-practice" class="eng-tab-pane hidden">
+                        <div class="card" style="padding: 1.5rem; background: white; border: 2px solid #cbd5e1; border-radius: 20px;">
+                            <h3 style="margin-top:0; font-size:1.3rem; font-weight:900; color:#1e293b;"><i class="fa-solid fa-fire"></i> Đấu Trường Từ Vựng (Vocabulary Arena)</h3>
+                            <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.5rem;">Ôn tập các từ vựng đã học thông qua Flashcard tương tác 3D và các bài tập luyện viết.</p>
+                            <div id="english-vocab-lab-placeholder">
+                                <!-- Nạp Flashcards từ vựng bài học qua JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Luyện thi IOE -->
+                    <div id="eng-tab-ioe" class="eng-tab-pane hidden">
+                        <div class="card" style="padding: 1.5rem; background: white; border: 2px solid #cbd5e1; border-radius: 20px;">
+                            <h3 style="margin-top:0; font-size:1.3rem; font-weight:900; color:#1e293b;"><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Luyện Thi Tiếng Anh IOE Olympic</h3>
+                            <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.5rem;">Luyện thi và kiểm tra các kỹ năng với các dạng bài thi IOE Olympic chuẩn quốc gia theo từng vòng tự luyện.</p>
+                            <div id="english-ioe-placeholder">
+                                <!-- Nạp giao diện IOE qua JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Bảng xếp hạng -->
+                    <div id="eng-tab-leaderboard" class="eng-tab-pane hidden">
+                        <div class="card" style="padding: 1.5rem; background: white; border: 2px solid #cbd5e1; border-radius: 20px;">
+                            <h3 style="margin-top:0; font-size:1.3rem; font-weight:900; color:#1e293b;"><i class="fa-solid fa-ranking-star"></i> Bảng Xếp Hạng Anh Ngữ</h3>
+                            <p style="color:#64748b; font-size:0.9rem;">Cạnh tranh thứ hạng điểm số XP với các chiến binh khác.</p>
+                            <div id="eng-leaderboard-container">
+                                <!-- Render bảng xếp hạng -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Cửa hàng -->
+                    <div id="eng-tab-shop" class="eng-tab-pane hidden">
+                        <div class="card" style="padding: 1.5rem; background: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-main); border-radius: 20px;">
+                            <h3 style="margin-top:0; font-size:1.3rem; font-weight:900; color:var(--text-main);"><i class="fa-solid fa-store"></i> Cửa Hàng Điểm Thưởng</h3>
+                            <p style="color:#64748b; font-size:0.9rem;">Sử dụng điểm thưởng để mua trái tim hồi sinh hoặc mở khóa các vật phẩm thú vị.</p>
+                            <div id="eng-shop-container">
+                                <!-- Render cửa hàng mua sắm vật phẩm -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Hồ sơ -->
+                    <div id="eng-tab-profile" class="eng-tab-pane hidden">
+                        <div class="card" style="padding: 1.5rem; background: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-main); border-radius: 20px;">
+                            <h3 style="margin-top:0; font-size:1.3rem; font-weight:900; color:var(--text-main);"><i class="fa-solid fa-user-ninja"></i> Hồ Sơ Chiến Binh</h3>
+                            <div id="eng-profile-container" style="display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem;">
+                                <!-- Render thông tin chi tiết học sinh -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Tự tạo chủ đề -->
+                    <div id="eng-tab-custom-vocab" class="eng-tab-pane hidden">
+                        <div class="card" style="padding: 1.5rem; background: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-main); border-radius: 20px;">
+                            <h3 style="margin-top:0; font-size:1.3rem; font-weight:900; color:var(--text-main);"><i class="fa-solid fa-square-plus" style="color:#7c3aed;"></i> Tự Tạo Chủ Đề Học Tập</h3>
+                            <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.5rem;">Tự tạo bộ từ vựng mà con học ở trường hoặc bất kỳ đâu để làm bài ôn luyện riêng.</p>
+                            
+                            <!-- Form nạp từ mới -->
+                            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2rem;">
+                                <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #334155; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-circle-plus" style="color:#10b981;"></i> Tạo chuyên đề từ vựng mới</h4>
+                                
+                                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                                    <label style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase;">Tiêu đề chuyên đề:</label>
+                                    <input type="text" id="student-vocab-topic-title" placeholder="Ví dụ: Từ vựng Tiếng Anh Unit 5 - Lớp học" style="width: 100%; padding: 0.75rem; border-radius: 10px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;">
+                                </div>
+
+                                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                                    <label style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase;">Danh sách từ vựng (phân tách bằng dấu phẩy hoặc xuống dòng):</label>
+                                    <textarea id="student-vocab-word-list" rows="3" placeholder="Ví dụ: classmate, blackboard, whiteboard, classroom" style="width: 100%; padding: 0.75rem; border-radius: 10px; border: 1px solid #cbd5e1; font-family: monospace; font-size: 0.9rem; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+                                </div>
+
+                                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #475569; cursor: pointer; user-select: none;">
+                                        <input type="checkbox" id="student-vocab-auto-complete" checked style="width: 1.1rem; height: 1.1rem; accent-color: #7c3aed; cursor: pointer;">
+                                        <span>🤖 Tự động hoàn thiện bằng AI (Dịch nghĩa, phiên âm IPA, ví dụ)</span>
+                                    </label>
+                                    <button class="btn-primary" onclick="app.addStudentCustomVocabulary()" style="background: linear-gradient(135deg, #7c3aed, #6d28d9); border: none; padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 800; color: white; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Lưu & Tạo Bài Học
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quản lý Chuyên đề đã tạo -->
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                                <div style="border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.2rem; background: #f8fafc;">
+                                    <h4 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 800; color: #334155; display: flex; align-items: center; gap: 0.5rem; justify-content: space-between;">
+                                        <span><i class="fa-solid fa-folder-open" style="color:#eab308;"></i> Các chuyên đề đã tạo của con</span>
+                                        <span id="student-vocab-inventory-stats" style="font-size: 0.8rem; font-weight: normal; color: #64748b;">Tổng số: 0 từ</span>
+                                    </h4>
+                                    
+                                    <div id="student-vocab-topics-container" style="display: flex; flex-direction: column; gap: 1rem; max-height: 400px; overflow-y: auto; padding-right: 0.5rem;">
+                                        <!-- Render danh sách chuyên đề tự tạo tại đây -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Right Panel -->
+                <aside class="english-right-panel">
+                    <div class="eng-right-card streak-card" title="Chuỗi ngày học liên tục">
+                        <div class="eng-right-card-icon text-orange">🔥</div>
+                        <div class="eng-right-card-content">
+                            <div class="eng-right-card-val" id="eng-streak-val">0</div>
+                            <div class="eng-right-card-lbl">Ngày liên tục</div>
+                        </div>
+                    </div>
+                    <div class="eng-right-card skills-card" onclick="app.switchEnglishTab('profile')" title="Bộ sưu tập Thẻ Kỹ năng" style="cursor: pointer;">
+                        <div class="eng-right-card-icon text-purple" style="color: #a855f7;">🏆</div>
+                        <div class="eng-right-card-content">
+                            <div class="eng-right-card-val" id="eng-skills-count">0/8</div>
+                            <div class="eng-right-card-lbl">Thẻ kỹ năng</div>
+                        </div>
+                    </div>
+                    <div class="eng-right-card xp-card" title="Điểm kinh nghiệm tích lũy">
+                        <div class="eng-right-card-icon text-yellow">⭐</div>
+                        <div class="eng-right-card-content">
+                            <div class="eng-right-card-val" id="eng-xp-val">0</div>
+                            <div class="eng-right-card-lbl">Tổng XP</div>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </section>
+
+        <!-- MÀN HÌNH OVERLAY: FOCUS MODE BÀI HỌC TIẾNG ANH -->
+        <div id="english-focus-lesson-screen" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #f4f6f9; z-index: 150000; overflow-y: auto; display: flex; flex-direction: column;">
+            <!-- Focus Header -->
+            <div class="english-focus-header">
+                <button class="btn-close-focus" onclick="app.exitEnglishLesson()" title="Thoát bài học">&times;</button>
+                <div class="focus-progress-container">
+                    <div id="english-lesson-progress" class="focus-progress-bar"></div>
+                </div>
+                <div id="english-focus-progress-text" class="focus-progress-text">Câu 1/10</div>
+                <div class="focus-score-details" style="display: flex; gap: 0.8rem; font-weight: 800; font-size: 0.9rem; align-items: center; margin: 0 1rem; white-space: nowrap;">
+                    <span style="color: #22c55e;"><i class="fa-solid fa-circle-check"></i> Đúng: <span id="english-correct-count">0</span></span>
+                    <span style="color: #ef4444;"><i class="fa-solid fa-circle-xmark"></i> Sai: <span id="english-wrong-count">0</span></span>
+                    <span style="color: #f59e0b;"><i class="fa-solid fa-star"></i> Điểm: <span id="english-current-score">0</span></span>
+                </div>
+                <div class="focus-hearts">
+                    <span>❤️</span>
+                    <span id="english-hearts-count">5</span>
+                </div>
+            </div>
+            
+            <!-- Interactive Body -->
+            <div class="english-focus-body">
+                <div id="english-interaction-area">
+                    <!-- Các câu hỏi tương tác (Nghe, Nói, Đọc, Viết) sẽ được render động ở đây -->
+                </div>
+            </div>
+            <!-- Audio Source Footer Label -->
+            <div id="english-audio-source-label" style="position: absolute; bottom: 10px; left: 15px; font-size: 0.78rem; font-weight: 700; color: #94a3b8; background: rgba(255,255,255,0.75); padding: 3px 8px; border-radius: 4px; pointer-events: none; transition: opacity 0.2s; border: 1px solid #cbd5e1; z-index: 10;">
+                🔊 Nguồn âm thanh: Sẵn sàng
+            </div>
+        </div>
+
+        <!-- MÀN HÌNH OVERLAY: FOCUS MODE THI IOE -->
+        <div id="english-ioe-exam-screen" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #f0f4f8; z-index: 155000; overflow-y: auto; display: flex; flex-direction: column;">
+            <!-- IOE Header -->
+            <div class="english-focus-header" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; display: flex; align-items: center; padding: 0.8rem 1.5rem; justify-content: space-between; border-bottom: 3px solid #f59e0b;">
+                <button class="btn-close-focus" onclick="app.exitIoeExam()" title="Thoát thi IOE" style="color: white; font-size: 2rem; background: none; border: none; cursor: pointer; line-height: 1; padding: 0; margin-right: 1.5rem;">&times;</button>
+                <div style="font-weight: 900; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem; letter-spacing: 0.5px;">
+                    🏆 ĐẤU TRƯỜNG OLYMPIC IOE
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; font-weight: 800; font-size: 0.95rem;">
+                    <div style="background: rgba(255,255,255,0.15); padding: 6px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.25);">
+                        ⏱️ <span id="ioe-timer" style="color: #fef08a; font-family: monospace;">20:00</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 6px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.25); display: flex; gap: 0.8rem;">
+                        <span style="color: #4ade80;"><i class="fa-solid fa-circle-check"></i> Đúng: <span id="ioe-correct-count">0</span></span>
+                        <span style="color: #f87171;"><i class="fa-solid fa-circle-xmark"></i> Sai: <span id="ioe-wrong-count">0</span></span>
+                        <span style="color: #facc15;"><i class="fa-solid fa-star"></i> Điểm: <span id="ioe-current-score">0</span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IOE Progress Bar -->
+            <div style="width: 100%; height: 6px; background-color: #cbd5e1; position: relative;">
+                <div id="ioe-exam-progress" style="width: 0%; height: 100%; background: #f59e0b; transition: width 0.3s ease;"></div>
+            </div>
+            <div style="text-align: center; font-weight: 800; font-size: 0.9rem; color: #475569; padding: 5px; background: #e2e8f0;" id="ioe-progress-text">
+                Câu 1/20
+            </div>
+            
+            <!-- Interactive Body -->
+            <div class="english-focus-body" style="flex: 1; max-width: 850px; width: 95%; margin: 2rem auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div id="ioe-interaction-area" style="width: 100%; background: white; padding: 2rem; border-radius: 24px; border: 2px solid #cbd5e1; box-shadow: 0 10px 25px rgba(0,0,0,0.05); min-height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+                    <!-- Nạp câu hỏi IOE -->
+                </div>
+            </div>
+            <!-- IOE Audio Source Footer Label -->
+            <div id="ioe-audio-source-label" style="position: absolute; bottom: 10px; left: 15px; font-size: 0.78rem; font-weight: 700; color: #94a3b8; background: rgba(255,255,255,0.75); padding: 3px 8px; border-radius: 4px; pointer-events: none; transition: opacity 0.2s; border: 1px solid #cbd5e1; z-index: 10;">
+                🔊 Nguồn âm thanh: Sẵn sàng
+            </div>
+        </div>
     </main>
 
     <!-- Modal Danh sách Huy hiệu dành cho Học sinh -->
@@ -1261,13 +1890,32 @@
         </div>
     </div>
 
+    <!-- Modal Quick Study Lab Tiếng Anh -->
+    <div id="quick-study-modal" class="modal hidden" style="z-index: 160000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        <div class="modal-content animate-zoom-in" style="max-width: 700px; width: 95%; background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div class="modal-header" style="background: linear-gradient(135deg, #c084fc, #a855f7); color: white; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="quick-study-title" style="margin:0; font-weight: 900; font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-graduation-cap"></i> Học nhanh (Quick Study Lab)</h3>
+                <button class="close-modal-btn" onclick="app.closeQuickStudyModal()" style="color: white; background: none; border: none; font-size: 1.8rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-body" id="quick-study-body" style="padding: 1.5rem; max-height: 60vh; overflow-y: auto; color: var(--text-main);">
+                <!-- Nội dung từ vựng, mẫu câu, ngữ pháp sẽ được render động ở đây -->
+            </div>
+            <div class="modal-footer" style="padding: 1rem 1.5rem; display: flex; justify-content: flex-end; border-top: 1px solid var(--border-color); gap: 1rem; background: var(--bg-app);">
+                <button class="btn-secondary" onclick="app.closeQuickStudyModal()" style="padding: 0.6rem 1.2rem; border-radius: 10px; font-weight: bold; cursor: pointer; border: 1px solid var(--border-color);">Đóng</button>
+                <button class="btn-primary" id="btn-start-english-challenge" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #10b981; color: white; padding: 0.6rem 1.8rem; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; border: none; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);">Bắt đầu luyện tập 🚀</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Script Scripts -->
-    <script src="js/lessons.js?v=5.4"></script>
-    <script src="js/questions-v4.js?v=5.4"></script>
-    <script src="js/questions-v3.js?v=5.4"></script>
-    <script src="js/game.js?v=5.4"></script>
+    <script src="js/english_data.js?v=10.13"></script>
+    <script src="js/lessons.js?v=10.13"></script>
+    <script src="js/questions-v1.js?v=10.13"></script>
+    <script src="js/questions-v4.js?v=10.13"></script>
+    <script src="js/questions-v3.js?v=10.13"></script>
+    <script src="js/game.js?v=10.13"></script>
     
-    <script src="js/app.js?v=5.4"></script>
+    <script src="js/app.js?v=10.13"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -1323,9 +1971,903 @@
     <!-- Container phục vụ in đề thi từ trang học sinh -->
     <div id="student-print-paper"></div>
 
+    <!-- MODAL HỒ SƠ NĂNG LỰC / THẺ CHIẾN BINH (HERO PROFILE) -->
+    <div id="hero-profile-modal" class="glass-modal hidden" onclick="if(event.target === this) this.classList.add('hidden');">
+        <div class="modal-content hero-modal-content" style="display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(25px);">
+            <div class="modal-header">
+                <h3 style="margin: 0; font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 0.6rem;">
+                    <i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> HỒ SƠ CHIẾN BINH
+                </h3>
+                <button class="btn-close-modal" onclick="document.getElementById('hero-profile-modal').classList.add('hidden')" style="background: none; border: none; color: #cbd5e1; font-size: 1.5rem; cursor: pointer; transition: all 0.25s;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; display: grid; grid-template-columns: 330px 1fr 1fr; gap: 1.5rem;">
+                <!-- Cột 1: Thẻ Chiến Binh 3D Động và Định danh -->
+                <div class="warrior-3d-card">
+                    <!-- Vòng tròn ma thuật xoay ở nền -->
+                    <div class="warrior-magic-circle"></div>
+                    
+                    <!-- Ảnh chiến binh 3D động -->
+                    <div class="warrior-sprite-wrapper">
+                        <img id="hero-warrior-sprite" class="warrior-sprite-img warrior-float" src="images/warrior_novice.png" alt="Chiến binh">
+                    </div>
+                    
+                    <!-- Thông tin định danh của chiến binh -->
+                    <div style="width: 100%; text-align: center; position: relative; z-index: 3; display: flex; flex-direction: column; gap: 0.6rem; align-items: center;">
+                        <h4 id="hero-title" class="hero-text-highlight" style="margin: 0; font-size: 1.45rem; font-weight: 900; letter-spacing: 0.5px;">Chiến binh Tập sự</h4>
+                        <div id="hero-student-name" class="hero-text-accent" style="font-size: 1.15rem; font-weight: 800; margin: 2px 0;"></div>
+                        <span style="font-size: 0.75rem; background: rgba(251, 191, 36, 0.15); border: 1px solid #fbbf24; color: #f59e0b; padding: 2px 10px; border-radius: 99px; font-weight: 800; text-transform: uppercase; margin-bottom: 0.4rem;">Chiến binh Danh dự 🎖️</span>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+                            <div class="hero-badge-item" style="justify-content: center;"><i class="fa-solid fa-star" style="color: #fbbf24; font-size: 1.25rem;"></i> <span id="hero-xp" style="color: #fbbf24; font-size: 1.25rem;">0</span> XP</div>
+                            <div class="hero-badge-item" style="justify-content: center;"><i class="fa-solid fa-fire" style="color: #f87171; font-size: 1.25rem;"></i> <span id="hero-streak" style="color: #f87171; font-size: 1.25rem;">0</span> Ngày liên tiếp</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột 2: Cột Toán -->
+                <div class="hero-detail-card">
+                    <h4 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #34d399; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(52,211,153,0.15); padding-bottom: 0.6rem;">
+                        <i class="fa-solid fa-calculator"></i> NĂNG LỰC TOÁN HỌC
+                    </h4>
+                    
+                    <div class="stat-progress-section" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem;" class="hero-text-muted">
+                            <span>Tiến trình hoàn thành:</span>
+                            <span style="font-weight: 700;"><b id="math-completed-count" class="hero-text-light">0</b> / <span id="math-total-count" class="hero-text-muted">0</span> bài học</span>
+                        </div>
+                        <div class="progress-bar-bg" style="width: 100%; height: 12px; border-radius: 6px; overflow: hidden;">
+                            <div id="math-progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); border-radius: 6px; transition: width 0.5s ease;"></div>
+                        </div>
+                        <div style="text-align: right; font-size: 0.9rem; font-weight: 900; color: #34d399;" id="math-progress-percent">0%</div>
+                    </div>
+
+                    <div class="towers-unlocked-card">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Lực lượng phòng thủ</span>
+                        <span style="font-size: 1.6rem; font-weight: 900;"><b id="math-towers-count">1</b> Tháp canh</span>
+                    </div>
+                </div>
+
+                <!-- Cột 3: Cột Tiếng Anh -->
+                <div class="hero-detail-card">
+                    <h4 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #c084fc; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(192,132,252,0.15); padding-bottom: 0.6rem;">
+                        <i class="fa-solid fa-language"></i> NĂNG LỰC TIẾNG ANH
+                    </h4>
+
+                    <div class="stat-progress-section" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem;" class="hero-text-muted">
+                            <span>Tiến trình hoàn thành:</span>
+                            <span style="font-weight: 700;"><b id="english-completed-count" class="hero-text-light">0</b> / <span id="english-total-count" class="hero-text-muted">0</span> bài học</span>
+                        </div>
+                        <div class="progress-bar-bg" style="width: 100%; height: 12px; border-radius: 6px; overflow: hidden;">
+                            <div id="english-progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #c084fc, #a855f7); border-radius: 6px; transition: width 0.5s ease;"></div>
+                        </div>
+                        <div style="text-align: right; font-size: 0.9rem; font-weight: 900; color: #c084fc;" id="english-progress-percent">0%</div>
+                    </div>
+
+                    <!-- Bảng phân tích kỹ năng khoa học -->
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; padding: 0.8rem; margin-top: 0.5rem;">
+                        <table class="hero-analysis-table">
+                            <tr>
+                                <td style="font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 6px 8px;"><i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> Kỹ năng mạnh nhất:</td>
+                                <td style="text-align: right; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 6px 8px;"><span id="hero-best-skill" class="hero-text-highlight" style="font-weight: 800;">Chưa rõ</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; padding: 6px 8px;"><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> Cần rèn luyện thêm:</td>
+                                <td style="text-align: right; padding: 6px 8px;"><span id="hero-worst-skill" style="color: #fca5a5; font-weight: 800;">Chưa rõ</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Biểu đồ mạng nhện 4 kỹ năng -->
+                    <div class="radar-chart-wrapper" style="width: 100%; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 0.8rem; border: 1px solid rgba(255,255,255,0.04); margin-top: 0.5rem;">
+                        <canvas id="english-skills-chart" width="450" height="320" style="max-width: 100%; height: auto;"></canvas>
+                    </div>
+
+                    <!-- Nhiệm vụ tiêu diệt quái vật từ vựng -->
+                    <div class="weak-words-section" style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem;">
+                        <span style="font-size: 0.88rem; font-weight: 800; display: flex; align-items: center; gap: 0.4rem;">
+                            <i class="fa-solid fa-skull-crossbones" style="color: #ef4444;"></i> Quái vật từ vựng cần vượt qua:
+                        </span>
+                        <ul id="english-targets" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; max-height: 140px; overflow-y: auto;">
+                            <!-- Điền động quái vật từ vựng -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL BẢNG XẾP HẠNG LIÊN THÔNG (LEADERBOARD MODAL) -->
+    <div id="leaderboard-modal" class="glass-modal hidden" onclick="if(event.target === this) this.classList.add('hidden');">
+        <div class="modal-content" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 20px;">
+            <div class="modal-header" style="padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #a855f7, #ec4899); color: #ffffff; border: none;">
+                <h3 style="margin: 0; font-size: 1.4rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 0.6rem; text-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+                    <i class="fa-solid fa-ranking-star"></i> ĐẤU TRƯỜNG CHIẾN BINH 🏆
+                </h3>
+                <button class="btn-close-modal" onclick="document.getElementById('leaderboard-modal').classList.add('hidden')" style="background: none; border: none; color: #ffffff; opacity: 0.8; font-size: 1.5rem; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.2rem;">
+                <!-- Tab môn học dạng Duolingo/Premium -->
+                <div style="display: flex; background: rgba(168, 85, 247, 0.08); padding: 4px; border-radius: 14px; gap: 6px; border: 1px solid rgba(168, 85, 247, 0.12);">
+                    <button id="leaderboard-tab-math" onclick="app.switchLeaderboardSubject('math')" style="flex: 1; border: none; background: none; color: #6b7280; padding: 10px; font-weight: 800; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                        📐 Xếp Hạng Toán học
+                    </button>
+                    <button id="leaderboard-tab-english" onclick="app.switchLeaderboardSubject('english')" style="flex: 1; border: none; background: none; color: #6b7280; padding: 10px; font-weight: 800; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                        🇬🇧 Xếp Hạng Anh ngữ
+                    </button>
+                </div>
+
+                <!-- Lọc lớp học -->
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; color: #4b5563; background: rgba(168, 85, 247, 0.04); padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(168, 85, 247, 0.08);">
+                    <span style="font-weight: 600;"><i class="fa-solid fa-filter" style="color: #a855f7; margin-right: 4px;"></i> Lọc theo khối lớp:</span>
+                    <select id="leaderboard-class-filter" onchange="app.reloadLeaderboardData()" style="background: #ffffff; color: #1e1b4b; border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 8px; padding: 4px 10px; font-weight: bold; cursor: pointer; outline: none; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <option value="">Tất cả các lớp</option>
+                        <option value="4">Chỉ lớp 4</option>
+                        <option value="6">Chỉ lớp 6</option>
+                    </select>
+                </div>
+
+                <!-- Bảng xếp hạng -->
+                <div id="leaderboard-loading" style="text-align: center; padding: 2rem 0; color: #4b5563;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.2rem; color: #a855f7; margin-bottom: 0.8rem;"></i>
+                    <p style="margin: 0; font-size: 0.95rem; font-weight: 600;">Đang kết nối hệ thống xếp hạng...</p>
+                </div>
+
+                <div id="leaderboard-table-wrapper" class="hidden" style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(168, 85, 247, 0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                    <table style="width:100%; border-collapse:collapse; color:#1e1b4b; font-size:0.95rem; background: #ffffff;">
+                        <thead>
+                            <tr style="border-bottom:2px solid rgba(168, 85, 247, 0.15); text-align:left; color:#4b5563; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; background: rgba(168, 85, 247, 0.04);">
+                                <th style="padding:12px 10px; width:70px; text-align:center;">Hạng</th>
+                                <th style="padding:12px 10px;">Chiến binh</th>
+                                <th style="padding:12px 10px; width:80px; text-align:center;">Lớp</th>
+                                <th style="padding:12px 10px; width:100px; text-align:center;">Chuỗi 🔥</th>
+                                <th style="padding:12px 10px; text-align:right; width:110px;">Kinh nghiệm</th>
+                            </tr>
+                        </thead>
+                        <tbody id="global-leaderboard-tbody">
+                            <!-- Chèn động bằng JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="leaderboard-empty" class="hidden" style="text-align: center; padding: 2.5rem 0; color: #6b7280;">
+                    <i class="fa-solid fa-face-frown" style="font-size: 2.5rem; color: #9ca3af; margin-bottom: 0.8rem;"></i>
+                    <p style="margin: 0; font-size: 0.95rem; font-weight: 600;">Chưa có dữ liệu xếp hạng nào.</p>
+                </div>
+            </div>
+            
+            <div class="modal-footer" style="padding: 1rem 1.5rem; border-top: 1px solid rgba(168, 85, 247, 0.12); display: flex; justify-content: space-between; align-items: center; background: rgba(168, 85, 247, 0.02);">
+                <span id="leaderboard-sync-time" style="font-size: 0.8rem; color: #6b7280; font-weight: 600;"><i class="fa-solid fa-rotate"></i> Đồng bộ lúc: --:--:--</span>
+                <button class="btn-back-header" onclick="document.getElementById('leaderboard-modal').classList.add('hidden')" style="padding: 0.5rem 1.5rem; font-size: 0.9rem; border-radius: 10px; margin: 0; background: #ffffff; color: #4b5563; border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Feedback Banner kiểu Duolingo cho môn Tiếng Anh -->
+    <div id="bottom-feedback-banner" class="bottom-feedback-banner">
+        <div class="bottom-feedback-banner-inner">
+            <div class="bottom-feedback-left">
+                <div class="bottom-feedback-duo-character" id="bottom-feedback-duo-character">🦉</div>
+                <div>
+                    <h4 class="bottom-feedback-title" id="bottom-feedback-title">Chính xác!</h4>
+                    <p class="bottom-feedback-subtitle" id="bottom-feedback-subtitle">Bạn đã làm rất tốt.</p>
+                </div>
+            </div>
+            <div class="bottom-feedback-right" id="bottom-feedback-action-area">
+                <!-- Nút Tiếp tục sẽ được đưa vào đây khi làm bài tiếng Anh -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Container phục vụ in đề thi từ trang học sinh -->
+    <div id="student-print-paper"></div>
+
+    <!-- Video độc lập tránh lỗi màn hình đen khi xem video fullscreen cho cả Toán và Anh -->
+    <div id="global-fullscreen-video-wrapper" class="video-wrapper" style="display:none;"></div>
+
+    <!-- Style tùy chỉnh cho Widget Trực tuyến & Sidebar bạn học -->
+    <style>
+        .online-presence-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+        }
+        .online-presence-widget:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+        }
+        .online-presence-widget:active {
+            transform: scale(0.95);
+        }
+        .online-indicator-glow {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background-color: #4ade80;
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4ade80;
+            animation: glow-pulse-online 2s infinite;
+        }
+        @keyframes glow-pulse-online {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+            }
+        }
+        .online-count-badge {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
+        }
+
+        .online-presence-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(168, 85, 247, 0.15);
+            box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .dark-mode .online-presence-sidebar {
+            background: rgba(15, 23, 42, 0.85);
+            border-right: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+        }
+        .online-presence-sidebar.hidden {
+            transform: translateX(-100%);
+            display: flex !important;
+        }
+        .sidebar-presence-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sidebar-presence-header h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #1e1b4b;
+        }
+        .dark-mode .sidebar-presence-header h3 {
+            color: #f8fafc;
+        }
+        .btn-close-presence {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        .btn-close-presence:hover {
+            color: #ef4444;
+        }
+        .sidebar-presence-search {
+            padding: 1rem 1.5rem;
+        }
+        .sidebar-presence-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: white;
+            color: #1e1b4b;
+            font-size: 0.88rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .dark-mode .sidebar-presence-search input {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(139, 92, 246, 0.4);
+            color: #f8fafc;
+        }
+        .sidebar-presence-search input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.25);
+        }
+        .sidebar-presence-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .presence-user-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 10px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(168, 85, 247, 0.05);
+        }
+        .dark-mode .presence-user-item {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.05);
+        }
+        .presence-user-item:hover {
+            background: rgba(168, 85, 247, 0.08);
+            transform: translateY(-2px);
+        }
+        .dark-mode .presence-user-item:hover {
+            background: rgba(139, 92, 246, 0.12);
+        }
+        .presence-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .presence-status-dot {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .dark-mode .presence-status-dot {
+            border-color: #0f172a;
+        }
+        .presence-status-dot.online {
+            background-color: #10b981;
+            box-shadow: 0 0 6px #10b981;
+        }
+        .presence-status-dot.offline {
+            background-color: #94a3b8;
+        }
+        .presence-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+        .presence-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1e1b4b;
+        }
+        .dark-mode .presence-name {
+            color: #f8fafc;
+        }
+        .presence-meta {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .dark-mode .presence-meta {
+            color: #94a3b8;
+        }
+        .presence-empty {
+            text-align: center;
+            padding: 2rem 0;
+            color: #64748b;
+            font-size: 0.88rem;
+        }
+        
+        /* Hiệu ứng nhấp nháy chấm xanh trong leaderboard */
+        .leaderboard-status-dot-pulse {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            background-color: #10b981;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 6px #10b981;
+            animation: glow-pulse-online 2s infinite;
+        }
+
+        /* Style cho Khung chat nổi (Floating Chat Window) */
+        .floating-chat-window {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 340px;
+            height: 440px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark-mode .floating-chat-window {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(139, 92, 246, 0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+        .floating-chat-window.hidden {
+            display: none !important;
+        }
+        .chat-window-header {
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(124, 58, 237, 0.1));
+            border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark-mode .chat-window-header {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(91, 33, 182, 0.15));
+            border-bottom-color: rgba(139, 92, 246, 0.2);
+        }
+        .chat-header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-header-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .chat-header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+        .chat-header-name {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #1e1b4b;
+        }
+        .dark-mode .chat-header-name {
+            color: #f8fafc;
+        }
+        .chat-header-status {
+            font-size: 0.72rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dark-mode .chat-header-status {
+            color: #94a3b8;
+        }
+        .chat-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #94a3b8;
+        }
+        .chat-status-dot.online {
+            background-color: #10b981;
+            box-shadow: 0 0 4px #10b981;
+        }
+        .btn-close-chat {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .btn-close-chat:hover {
+            color: #ef4444;
+        }
+        .chat-window-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .chat-message-bubble-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .chat-message-bubble-wrapper.outgoing {
+            align-items: flex-end;
+        }
+        .chat-message-bubble-wrapper.incoming {
+            align-items: flex-start;
+        }
+        .chat-message-bubble {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            word-break: break-word;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .chat-message-bubble-wrapper.outgoing .chat-message-bubble {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-message-bubble-wrapper.incoming .chat-message-bubble {
+            background: rgba(0, 0, 0, 0.05);
+            color: #1e1b4b;
+            border-bottom-left-radius: 4px;
+        }
+        .dark-mode .chat-message-bubble-wrapper.incoming .chat-message-bubble {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f8fafc;
+        }
+        .chat-message-time {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            margin-top: 2px;
+            padding: 0 4px;
+        }
+        .chat-window-input-area {
+            padding: 10px 16px;
+            border-top: 1px solid rgba(168, 85, 247, 0.15);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .dark-mode .chat-window-input-area {
+            border-top-color: rgba(139, 92, 246, 0.2);
+        }
+        .chat-window-input-area input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: white;
+            color: #1e1b4b;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .dark-mode .chat-window-input-area input {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(139, 92, 246, 0.4);
+            color: #f8fafc;
+        }
+        .chat-window-input-area input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.25);
+        }
+        .btn-send-message {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 0.85rem;
+        }
+        .btn-send-message:hover {
+            transform: scale(1.1);
+        }
+        .btn-send-message:active {
+            transform: scale(0.95);
+        }
+
+        /* Bong bóng chat thu nhỏ */
+        .chat-minimized-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+            z-index: 99999;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-minimized-bubble:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+        }
+        .chat-minimized-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.15);
+        }
+        .chat-minimized-status-dot {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background-color: #94a3b8;
+        }
+        .dark-mode .chat-minimized-status-dot {
+            border-color: #0f172a;
+        }
+        .chat-minimized-status-dot.online {
+            background-color: #10b981;
+            box-shadow: 0 0 6px #10b981;
+        }
+        .chat-unread-badge {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
+        }
+        .chat-minimized-bubble.hidden {
+            display: none !important;
+        }
+        .btn-close-chat-completely {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #475569;
+            color: white;
+            border: 1px solid white;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+        .chat-minimized-bubble:hover .btn-close-chat-completely {
+            opacity: 1;
+        }
+        .btn-close-chat-completely:hover {
+            background: #ef4444;
+        }
+
+        /* Nút thu nhỏ trên header khung chat */
+        .chat-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-minimize-chat {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: #64748b;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-minimize-chat:hover {
+            color: #8b5cf6;
+        }
+
+        /* Emoji Picker */
+        .chat-emoji-picker {
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(168, 85, 247, 0.15);
+            padding: 8px 12px;
+            max-height: 90px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+        .dark-mode .chat-emoji-picker {
+            background: rgba(30, 41, 59, 0.95);
+            border-top-color: rgba(139, 92, 246, 0.2);
+        }
+        .chat-emoji-picker.hidden {
+            display: none !important;
+        }
+        .emoji-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .emoji-list span {
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+        .emoji-list span:hover {
+            transform: scale(1.25);
+        }
+        .btn-emoji-trigger {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        .btn-emoji-trigger:hover {
+            transform: scale(1.15);
+        }
+    </style>
+
+    <!-- WIDGET TRỰC TUYẾN DÀNH CHO HỌC SINH -->
+    <div id="online-presence-widget" class="online-presence-widget" onclick="app.toggleOnlinePresenceSidebar()" title="Xem ai đang online">
+        <span class="online-indicator-glow"></span>
+        <i class="fa-solid fa-users"></i>
+        <span id="online-count-badge" class="online-count-badge">0</span>
+    </div>
+
+    <!-- SIDEBAR TRƯỢT HIỂN THỊ BẠN HỌC TRỰC TUYẾN -->
+    <div id="online-presence-sidebar" class="online-presence-sidebar hidden">
+        <div class="sidebar-presence-header">
+            <h3><i class="fa-solid fa-bolt" style="color:#eab308; margin-right:6px;"></i> Bạn Học Trực Tuyến</h3>
+            <button class="btn-close-presence" onclick="app.toggleOnlinePresenceSidebar()">&times;</button>
+        </div>
+        <div class="sidebar-presence-search">
+            <input type="text" id="presence-search-input" placeholder="Tìm kiếm bạn học..." oninput="app.filterPresenceList()">
+        </div>
+        <div class="sidebar-presence-content" id="online-presence-list">
+            <!-- Render động bằng JS -->
+        </div>
+    </div>
+
+    <!-- KHUNG CHAT NỔI (FLOATING PM CHAT WINDOW) -->
+    <div id="floating-chat-window" class="floating-chat-window hidden">
+        <div class="chat-window-header">
+            <div class="chat-header-user">
+                <div class="chat-header-avatar" id="chat-header-avatar">HS</div>
+                <div class="chat-header-info">
+                    <div class="chat-header-name" id="chat-header-name">Bạn học</div>
+                    <div class="chat-header-status" id="chat-header-status">
+                        <span class="chat-status-dot"></span> <span class="chat-status-text">Ngoại tuyến</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-header-actions">
+                <button class="btn-minimize-chat" onclick="app.toggleChatMinimize(true)" title="Thu nhỏ trò chuyện"><i class="fa-solid fa-window-minimize" style="font-size: 0.8rem; transform: translateY(-4px);"></i></button>
+                <button class="btn-close-chat" onclick="app.closeChatCompletely()" title="Tắt trò chuyện">&times;</button>
+            </div>
+        </div>
+        <div class="chat-window-messages" id="chat-messages-container">
+            <!-- Render động bằng JS -->
+        </div>
+        <!-- BẢNG CHỌN EMOJI (EMOJI PICKER) -->
+        <div id="chat-emoji-picker" class="chat-emoji-picker hidden">
+            <div class="emoji-list">
+                <span onclick="app.insertEmoji('😀')">😀</span>
+                <span onclick="app.insertEmoji('😂')">😂</span>
+                <span onclick="app.insertEmoji('😊')">😊</span>
+                <span onclick="app.insertEmoji('👍')">👍</span>
+                <span onclick="app.insertEmoji('❤️')">❤️</span>
+                <span onclick="app.insertEmoji('🔥')">🔥</span>
+                <span onclick="app.insertEmoji('🎉')">🎉</span>
+                <span onclick="app.insertEmoji('👏')">👏</span>
+                <span onclick="app.insertEmoji('🌟')">🌟</span>
+                <span onclick="app.insertEmoji('🚀')">🚀</span>
+                <span onclick="app.insertEmoji('💯')">💯</span>
+                <span onclick="app.insertEmoji('✍️')">✍️</span>
+                <span onclick="app.insertEmoji('🎯')">🎯</span>
+                <span onclick="app.insertEmoji('📖')">📖</span>
+                <span onclick="app.insertEmoji('🎧')">🎧</span>
+                <span onclick="app.insertEmoji('🗣️')">🗣️</span>
+                <span onclick="app.insertEmoji('🎮')">🎮</span>
+                <span onclick="app.insertEmoji('👾')">👾</span>
+                <span onclick="app.insertEmoji('👑')">👑</span>
+                <span onclick="app.insertEmoji('🦉')">🦉</span>
+            </div>
+        </div>
+        <form class="chat-window-input-area" onsubmit="event.preventDefault(); app.sendChatMessage();">
+            <button type="button" class="btn-emoji-trigger" onclick="app.toggleEmojiPicker()" title="Chèn biểu tượng cảm xúc">😀</button>
+            <input type="text" id="chat-message-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+            <button type="submit" class="btn-send-message" title="Gửi tin nhắn">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- BONG BÓNG CHAT THU NHỎ (MINIMIZED CHAT BUBBLE) -->
+    <div id="chat-minimized-bubble" class="chat-minimized-bubble hidden" onclick="app.toggleChatMinimize(false)" title="Nhấp để mở lại trò chuyện">
+        <div id="chat-minimized-avatar" class="chat-minimized-avatar">HS</div>
+        <span id="chat-minimized-status" class="chat-minimized-status-dot"></span>
+        <span id="chat-unread-badge" class="chat-unread-badge">0</span>
+        <button class="btn-close-chat-completely" onclick="event.stopPropagation(); app.closeChatCompletely()" title="Tắt trò chuyện">&times;</button>
+    </div>
+
+    <!-- Widget điều hướng cố định góc dưới bên trái (Quay lại / Thoát) -->
+    <div class="fixed-navigation-widget">
+        <button id="global-back-btn" class="nav-btn btn-back" onclick="app.goBackHierarchy()" title="Quay lại trang trước">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+        </button>
+        <button id="global-exit-btn" class="nav-btn btn-exit" onclick="app.exitApplicationWithPassword()" title="Thoát ứng dụng">
+            <i class="fa-solid fa-power-off"></i> Thoát
+        </button>
+    </div>
+
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v5.4 (Cập nhật: 10/07/2026 17:15)
+        Phiên bản: v10.13 (Cập nhật: 15/07/2026 10:33)
     </div>
 </body>
 </html>

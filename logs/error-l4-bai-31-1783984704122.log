@@ -1,0 +1,568 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:18:24.122Z
+Lesson ID: l4-bai-31
+Lesson Title: Bài 31: Hình bình hành, hình thoi
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11418 (line 389 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11418 (line 389 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11418 (Line: 271, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh_a": { "min": 5, "max": 15, "step": 1 },
+        "canh_b": { "min": 16, "max": 30, "step": 1 }
+      },
+      "constraints": ["canh_a < canh_b"],
+      "formulas": {
+        "ans": "(canh_a + canh_b) * 2",
+        "w1": "canh_a + canh_b",
+        "w2": "canh_a * canh_b",
+        "w3": "(canh_a + canh_b) * 4"
+      },
+      "questionText": "Một hình bình hành có độ dài hai cạnh kề lần lượt là {canh_a} cm và {canh_b} cm. Tính chu vi của hình bình hành đó.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Chu vi hình bình hành bằng tổng độ dài hai cạnh kề nhân với 2.", "Công thức là (cạnh a + cạnh b) * 2."],
+      "solutionHtml": "Chu vi của hình bình hành là:<br/>$ ({canh_a} + {canh_b}) \\times 2 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Hãy nhớ chu vi hình bình hành giống cách tính chu vi hình chữ nhật.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "duong_cheo_1": { "min": 10, "max": 20, "step": 2 },
+        "duong_cheo_2": { "min": 12, "max": 24, "step": 2 }
+      },
+      "constraints": ["(duong_cheo_1 * duong_cheo_2) % 2 === 0"],
+      "formulas": {
+        "ans": "(duong_cheo_1 * duong_cheo_2) / 2",
+        "w1": "duong_cheo_1 * duong_cheo_2",
+        "w2": "(duong_cheo_1 + duong_cheo_2) / 2",
+        "w3": "(duong_cheo_1 * duong_cheo_2) / 4"
+      },
+      "questionText": "Diện tích của một hình thoi có độ dài hai đường chéo là {duong_cheo_1} cm và {duong_cheo_2} cm là bao nhiêu?",
+      "options": [
+        "A. {w1} cm²",
+        "B. {ans} cm²",
+        "C. {w2} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình thoi bằng tích độ dài hai đường chéo chia cho 2."],
+      "solutionHtml": "Diện tích hình thoi là:<br/>$ ({duong_cheo_1} \\times {duong_cheo_2}) : 2 = {ans} $ (cm²).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên chia cho 2 sau khi nhân hai đường chéo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chu_vi": { "min": 40, "max": 100, "step": 4 },
+        "canh_a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["(chu_vi / 2 - canh_a) > 0"],
+      "formulas": {
+        "ans": "(chu_vi / 2) - canh_a",
+        "w1": "chu_vi / 2",
+        "w2": "chu_vi - canh_a",
+        "w3": "canh_a + 5"
+      },
+      "questionText": "Một hình bình hành có chu vi là {chu_vi} cm, độ dài một cạnh là {canh_a} cm. Tìm độ dài cạnh kề còn lại.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Nửa chu vi hình bình hành là tổng hai cạnh kề.", "Lấy nửa chu vi trừ đi cạnh đã biết."],
+      "solutionHtml": "Nửa chu vi hình bình hành là: {chu_vi} : 2 = {w1} (cm).<br/>Độ dài cạnh kề còn lại là: {w1} - {canh_a} = {ans} (cm).<br/>Đáp án đúng là D.",
+      "tip": "Nửa chu vi hình bình hành chính là tổng độ dài hai cạnh kề nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["canh > 0"],
+      "formulas": {
+        "ans": "canh * 4",
+        "w1": "canh * 2",
+        "w2": "canh * canh",
+        "w3": "canh * 3"
+      },
+      "questionText": "Một hình thoi có độ dài cạnh là {canh} cm. Tính chu vi của hình thoi đó.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Hình thoi có bốn cạnh bằng nhau.", "Chu vi hình thoi bằng độ dài một cạnh nhân với 4."],
+      "solutionHtml": "Chu vi của hình thoi là:<br/>$ {canh} \\times 4 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Hình thoi có đặc điểm là 4 cạnh đều bằng nhau, giống như hình vuông.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "dien_tich": { "min": 40, "max": 100, "step": 2 },
+        "d1": { "min": 4, "max": 10, "step": 1 }
+      },
+      "constraints": ["(dien_tich * 2) % d1 === 0"],
+      "formulas": {
+        "ans": "(dien_tich * 2) / d1",
+        "w1": "dien_tich / d1",
+        "w2": "dien_tich * 2",
+        "w3": "d1 * 2"
+      },
+      "questionText": "Một hình thoi có diện tích {dien_tich} cm² và độ dài một đường chéo là {d1} cm. Tìm độ dài đường chéo còn lại.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Từ công thức diện tích: $ (d1 \\times d2) : 2 = S $, suy ra $ d2 = (S \\times 2) : d1 $."],
+      "solutionHtml": "Đường chéo còn lại là:<br/>$ ({dien_tich} \\times 2) : {d1} = {ans} $ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Hãy vận dụng quan hệ giữa diện tích và hai đường chéo của hình thoi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * 2",
+        "w1": "a + b",
+        "w2": "(a * b)",
+        "w3": "(a + b) * 4"
+      },
+      "questionText": "Một mảnh đất hình bình hành có các cạnh là {a} m và {b} m. Bác nông dân muốn rào xung quanh mảnh đất này, biết rằng mỗi mét hàng rào tốn 10 nghìn đồng. Tính tổng chi phí rào mảnh đất.",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans}0 nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3}0 nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính chu vi mảnh đất trước: $ (a+b) \\times 2 $.", "Sau đó lấy chu vi nhân với 10."],
+      "solutionHtml": "Chu vi mảnh đất là: $ ({a} + {b}) \\times 2 = {ans} $ (m).<br/>Tổng chi phí rào là: $ {ans} \\times 10 = {ans}0 $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Chu vi là tổng độ dài bao quanh, cần tính chu vi trước khi nhân với đơn giá.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chu_vi": { "min": 20, "max": 60, "step": 4 }
+      },
+      "constraints": ["chu_vi % 4 === 0"],
+      "formulas": {
+        "ans": "chu_vi / 4",
+        "w1": "chu_vi / 2",
+        "w2": "chu_vi - 4",
+        "w3": "chu_vi + 4"
+      },
+      "questionText": "Một tấm thẻ hình thoi có chu vi là {chu_vi} cm. Độ dài mỗi cạnh của hình thoi đó là bao nhiêu?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Hình thoi có bốn cạnh bằng nhau.", "Lấy chu vi chia cho 4."],
+      "solutionHtml": "Độ dài cạnh hình thoi là:<br/>$ {chu_vi} : 4 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn với hình bình hành có các cặp cạnh đối bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "h": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a > h"],
+      "formulas": {
+        "ans": "a * h",
+        "w1": "(a + h) * 2",
+        "w2": "a * 2 + h * 2",
+        "w3": "a + h"
+      },
+      "questionText": "Một hình bình hành có cạnh đáy là {a} cm, chiều cao tương ứng là {h} cm. Tính diện tích của hình bình hành đó.",
+      "options": [
+        "A. {w1} cm²",
+        "B. {ans} cm²",
+        "C. {w2} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình bình hành bằng cạnh đáy nhân với chiều cao.", "$ S = a \\times h $."],
+      "solutionHtml": "Diện tích hình bình hành là:<br/>$ {a} \\times {h} = {ans} $ (cm²).<br/>Đáp án đúng là B.",
+      "tip": "Diện tích hình bình hành dùng chiều cao, không dùng cạnh bên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 4, "max": 12, "step": 1 },
+        "d1": { "min": 6, "max": 10, "step": 1 }
+      },
+      "constraints": ["(d1 * (d1 / 2)) % 2 === 0"],
+      "formulas": {
+        "ans": "(d1 * (d1/2)) / 2",
+        "w1": "d1 * 2",
+        "w2": "d1 * 4",
+        "w3": "canh * 4"
+      },
+      "questionText": "Một hình thoi có độ dài đường chéo thứ nhất là {d1} cm, đường chéo thứ hai bằng nửa đường chéo thứ nhất. Tính diện tích của hình thoi này.",
+      "options": [
+        "A. {w1} cm²",
+        "B. {w2} cm²",
+        "C. {ans} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tìm độ dài đường chéo thứ hai trước.", "Sau đó dùng công thức diện tích hình thoi."],
+      "solutionHtml": "Đường chéo thứ hai là: $ {d1} : 2 = {d1/2} $ (cm).<br/>Diện tích hình thoi là: $ ({d1} \\times {d1/2}) : 2 = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để xác định đúng độ dài hai đường chéo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 6, "max": 15, "step": 1 }
+      },
+      "constraints": ["canh > 0"],
+      "formulas": {
+        "ans": "canh * 2",
+        "w1": "canh * 4",
+        "w2": "canh + 2",
+        "w3": "canh * 3"
+      },
+      "questionText": "Một hình bình hành có hai cạnh kề bằng nhau và bằng {canh} cm. Hỏi hình đó là hình gì và có chu vi là bao nhiêu?",
+      "options": [
+        "A. Hình thoi, {w1} cm",
+        "B. Hình thoi, {ans} cm",
+        "C. Hình chữ nhật, {w1} cm",
+        "D. Hình thoi, {w3} cm"
+      ],
+      "correctIndex": 0,
+      "hints": ["Hình bình hành có hai cạnh kề bằng nhau là hình thoi.", "Chu vi hình thoi là cạnh nhân 4."],
+      "solutionHtml": "Hình bình hành có hai cạnh kề bằng nhau là hình thoi (vì 4 cạnh đều bằng {canh} cm).<br/>Chu vi hình thoi là: $ {canh} \\times 4 = {w1} $ (cm).<br/>Đáp án đúng là A.",
+      "tip": "Hình thoi là trường hợp đặc biệt của hình bình hành.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh-ht"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh_a": { "min": 5, "max": 15, "step": 1 },
+        "canh_b": { "min": 16, "max": 30, "step": 1 }
+      },
+      "constraints": ["canh_a < canh_b"],
+      "formulas": {
+        "ans": "(canh_a + canh_b) * 2",
+        "w1": "canh_a + canh_b",
+        "w2": "canh_a * canh_b",
+        "w3": "(canh_a + canh_b) * 4"
+      },
+      "questionText": "Một hình bình hành có độ dài hai cạnh kề lần lượt là {canh_a} cm và {canh_b} cm. Tính chu vi của hình bình hành đó.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Chu vi hình bình hành bằng tổng độ dài hai cạnh kề nhân với 2.", "Công thức là (cạnh a + cạnh b) * 2."],
+      "solutionHtml": "Chu vi của hình bình hành là:<br/>$ ({canh_a} + {canh_b}) \\times 2 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Hãy nhớ chu vi hình bình hành giống cách tính chu vi hình chữ nhật.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "duong_cheo_1": { "min": 10, "max": 20, "step": 2 },
+        "duong_cheo_2": { "min": 12, "max": 24, "step": 2 }
+      },
+      "constraints": ["(duong_cheo_1 * duong_cheo_2) % 2 === 0"],
+      "formulas": {
+        "ans": "(duong_cheo_1 * duong_cheo_2) / 2",
+        "w1": "duong_cheo_1 * duong_cheo_2",
+        "w2": "(duong_cheo_1 + duong_cheo_2) / 2",
+        "w3": "(duong_cheo_1 * duong_cheo_2) / 4"
+      },
+      "questionText": "Diện tích của một hình thoi có độ dài hai đường chéo là {duong_cheo_1} cm và {duong_cheo_2} cm là bao nhiêu?",
+      "options": [
+        "A. {w1} cm²",
+        "B. {ans} cm²",
+        "C. {w2} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình thoi bằng tích độ dài hai đường chéo chia cho 2."],
+      "solutionHtml": "Diện tích hình thoi là:<br/>$ ({duong_cheo_1} \\times {duong_cheo_2}) : 2 = {ans} $ (cm²).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên chia cho 2 sau khi nhân hai đường chéo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chu_vi": { "min": 40, "max": 100, "step": 4 },
+        "canh_a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["(chu_vi / 2 - canh_a) > 0"],
+      "formulas": {
+        "ans": "(chu_vi / 2) - canh_a",
+        "w1": "chu_vi / 2",
+        "w2": "chu_vi - canh_a",
+        "w3": "canh_a + 5"
+      },
+      "questionText": "Một hình bình hành có chu vi là {chu_vi} cm, độ dài một cạnh là {canh_a} cm. Tìm độ dài cạnh kề còn lại.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Nửa chu vi hình bình hành là tổng hai cạnh kề.", "Lấy nửa chu vi trừ đi cạnh đã biết."],
+      "solutionHtml": "Nửa chu vi hình bình hành là: {chu_vi} : 2 = {w1} (cm).<br/>Độ dài cạnh kề còn lại là: {w1} - {canh_a} = {ans} (cm).<br/>Đáp án đúng là D.",
+      "tip": "Nửa chu vi hình bình hành chính là tổng độ dài hai cạnh kề nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["canh > 0"],
+      "formulas": {
+        "ans": "canh * 4",
+        "w1": "canh * 2",
+        "w2": "canh * canh",
+        "w3": "canh * 3"
+      },
+      "questionText": "Một hình thoi có độ dài cạnh là {canh} cm. Tính chu vi của hình thoi đó.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Hình thoi có bốn cạnh bằng nhau.", "Chu vi hình thoi bằng độ dài một cạnh nhân với 4."],
+      "solutionHtml": "Chu vi của hình thoi là:<br/>$ {canh} \\times 4 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Hình thoi có đặc điểm là 4 cạnh đều bằng nhau, giống như hình vuông.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "dien_tich": { "min": 40, "max": 100, "step": 2 },
+        "d1": { "min": 4, "max": 10, "step": 1 }
+      },
+      "constraints": ["(dien_tich * 2) % d1 === 0"],
+      "formulas": {
+        "ans": "(dien_tich * 2) / d1",
+        "w1": "dien_tich / d1",
+        "w2": "dien_tich * 2",
+        "w3": "d1 * 2"
+      },
+      "questionText": "Một hình thoi có diện tích {dien_tich} cm² và độ dài một đường chéo là {d1} cm. Tìm độ dài đường chéo còn lại.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Từ công thức diện tích: $ (d1 \\times d2) : 2 = S $, suy ra $ d2 = (S \\times 2) : d1 $."],
+      "solutionHtml": "Đường chéo còn lại là:<br/>$ ({dien_tich} \\times 2) : {d1} = {ans} $ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Hãy vận dụng quan hệ giữa diện tích và hai đường chéo của hình thoi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * 2",
+        "w1": "a + b",
+        "w2": "(a * b)",
+        "w3": "(a + b) * 4"
+      },
+      "questionText": "Một mảnh đất hình bình hành có các cạnh là {a} m và {b} m. Bác nông dân muốn rào xung quanh mảnh đất này, biết rằng mỗi mét hàng rào tốn 10 nghìn đồng. Tính tổng chi phí rào mảnh đất.",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans}0 nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3}0 nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính chu vi mảnh đất trước: $ (a+b) \\times 2 $.", "Sau đó lấy chu vi nhân với 10."],
+      "solutionHtml": "Chu vi mảnh đất là: $ ({a} + {b}) \\times 2 = {ans} $ (m).<br/>Tổng chi phí rào là: $ {ans} \\times 10 = {ans}0 $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Chu vi là tổng độ dài bao quanh, cần tính chu vi trước khi nhân với đơn giá.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chu_vi": { "min": 20, "max": 60, "step": 4 }
+      },
+      "constraints": ["chu_vi % 4 === 0"],
+      "formulas": {
+        "ans": "chu_vi / 4",
+        "w1": "chu_vi / 2",
+        "w2": "chu_vi - 4",
+        "w3": "chu_vi + 4"
+      },
+      "questionText": "Một tấm thẻ hình thoi có chu vi là {chu_vi} cm. Độ dài mỗi cạnh của hình thoi đó là bao nhiêu?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Hình thoi có bốn cạnh bằng nhau.", "Lấy chu vi chia cho 4."],
+      "solutionHtml": "Độ dài cạnh hình thoi là:<br/>$ {chu_vi} : 4 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn với hình bình hành có các cặp cạnh đối bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "h": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a > h"],
+      "formulas": {
+        "ans": "a * h",
+        "w1": "(a + h) * 2",
+        "w2": "a * 2 + h * 2",
+        "w3": "a + h"
+      },
+      "questionText": "Một hình bình hành có cạnh đáy là {a} cm, chiều cao tương ứng là {h} cm. Tính diện tích của hình bình hành đó.",
+      "options": [
+        "A. {w1} cm²",
+        "B. {ans} cm²",
+        "C. {w2} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình bình hành bằng cạnh đáy nhân với chiều cao.", "$ S = a \\times h $."],
+      "solutionHtml": "Diện tích hình bình hành là:<br/>$ {a} \\times {h} = {ans} $ (cm²).<br/>Đáp án đúng là B.",
+      "tip": "Diện tích hình bình hành dùng chiều cao, không dùng cạnh bên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 4, "max": 12, "step": 1 },
+        "d1": { "min": 6, "max": 10, "step": 1 }
+      },
+      "constraints": ["(d1 * (d1 / 2)) % 2 === 0"],
+      "formulas": {
+        "ans": "(d1 * (d1/2)) / 2",
+        "w1": "d1 * 2",
+        "w2": "d1 * 4",
+        "w3": "canh * 4"
+      },
+      "questionText": "Một hình thoi có độ dài đường chéo thứ nhất là {d1} cm, đường chéo thứ hai bằng nửa đường chéo thứ nhất. Tính diện tích của hình thoi này.",
+      "options": [
+        "A. {w1} cm²",
+        "B. {w2} cm²",
+        "C. {ans} cm²",
+        "D. {w3} cm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tìm độ dài đường chéo thứ hai trước.", "Sau đó dùng công thức diện tích hình thoi."],
+      "solutionHtml": "Đường chéo thứ hai là: $ {d1} : 2 = {d1/2} $ (cm).<br/>Diện tích hình thoi là: $ ({d1} \\times {d1/2}) : 2 = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để xác định đúng độ dài hai đường chéo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-ht"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 6, "max": 15, "step": 1 }
+      },
+      "constraints": ["canh > 0"],
+      "formulas": {
+        "ans": "canh * 2",
+        "w1": "canh * 4",
+        "w2": "canh + 2",
+        "w3": "canh * 3"
+      },
+      "questionText": "Một hình bình hành có hai cạnh kề bằng nhau và bằng {canh} cm. Hỏi hình đó là hình gì và có chu vi là bao nhiêu?",
+      "options": [
+        "A. Hình thoi, {w1} cm",
+        "B. Hình thoi, {ans} cm",
+        "C. Hình chữ nhật, {w1} cm",
+        "D. Hình thoi, {w3} cm"
+      ],
+      "correctIndex": 0,
+      "hints": ["Hình bình hành có hai cạnh kề bằng nhau là hình thoi.", "Chu vi hình thoi là cạnh nhân 4."],
+      "solutionHtml": "Hình bình hành có hai cạnh kề bằng nhau là hình thoi (vì 4 cạnh đều bằng {canh} cm).<br/>Chu vi hình thoi là: $ {canh} \\times 4 = {w1} $ (cm).<br/>Đáp án đúng là A.",
+      "tip": "Hình thoi là trường hợp đặc biệt của hình bình hành.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-31-hbh-ht"
+    }
+  ]
+}
+

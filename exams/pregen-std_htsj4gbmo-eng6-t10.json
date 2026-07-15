@@ -1,0 +1,399 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "val1": "x * 12",
+        "val2": "y * 8",
+        "ans": "val1 + val2",
+        "w1": "ans + 10",
+        "w2": "ans - 4",
+        "w3": "ans * 2",
+        "w1_final": "(w1 === ans) ? ans + 1 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+      },
+      "questionText": "Trong ngôi nhà tương lai, mỗi căn phòng có {x} cửa sổ lớn và {y} cửa sổ nhỏ. Mỗi cửa sổ lớn tốn 12 viên pha lê, mỗi cửa sổ nhỏ tốn 8 viên pha lê. Tính tổng số viên pha lê cần dùng cho các cửa sổ của một căn phòng?",
+      "options": [
+        "A. {w1_final} viên",
+        "B. {ans} viên",
+        "C. {w2_final} viên",
+        "D. {w3_final} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số pha lê cho cửa sổ lớn: {x} nhân 12.",
+        "Tính số pha lê cho cửa sổ nhỏ: {y} nhân 8.",
+        "Cộng hai kết quả lại."
+      ],
+      "solutionHtml": "Số viên pha lê cho cửa sổ lớn là: ${x} \\times 12 = {val1}$ (viên).<br/>Số viên pha lê cho cửa sổ nhỏ là: ${y} \\times 8 = {val2}$ (viên).<br/>Tổng số pha lê là: ${val1} + {val2} = {ans}$ (viên).",
+      "tip": "Hãy tính từng phần rồi cộng tổng để tránh sai sót.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 100,
+          "max": 200
+        },
+        "solar": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "constraints": [
+        "total % 5 === 0",
+        "solar % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "total - solar",
+        "w1": "total + solar",
+        "w2": "total / 2",
+        "w3": "solar * 3",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Ngôi nhà thông minh sử dụng {total} thiết bị điện. Sau khi lắp thêm hệ thống năng lượng mặt trời, số thiết bị điện truyền thống giảm đi {solar} thiết bị. Hỏi hiện tại ngôi nhà còn bao nhiêu thiết bị điện?",
+      "options": [
+        "A. {w1_f} thiết bị",
+        "B. {ans} thiết bị",
+        "C. {w2_f} thiết bị",
+        "D. {w3_f} thiết bị"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng phép tính trừ để tìm số thiết bị còn lại sau khi giảm."
+      ],
+      "solutionHtml": "Số thiết bị còn lại sau khi lắp hệ thống mới là: ${total} - {solar} = {ans}$ (thiết bị).",
+      "tip": "Đọc kỹ đề: 'giảm đi' tương ứng với phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8
+        },
+        "b": {
+          "min": 4,
+          "max": 10
+        }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "b * b",
+        "w3": "a * a",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trong vườn của ngôi nhà tương lai, các khay trồng rau được xếp thành một hình chữ nhật có {a} hàng và mỗi hàng có {b} khay. Hỏi tổng cộng có bao nhiêu khay rau?",
+      "options": [
+        "A. {w1_f} khay",
+        "B. {ans} khay",
+        "C. {w2_f} khay",
+        "D. {w3_f} khay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Diện tích hoặc số lượng vật xếp thành hình chữ nhật được tính bằng tích số hàng và số cột."
+      ],
+      "solutionHtml": "Tổng số khay rau là: ${a} \\times {b} = {ans}$ (khay).",
+      "tip": "Sử dụng phép nhân để tính số phần tử trong lưới hình chữ nhật.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * 15",
+        "w1": "n * 10",
+        "w2": "n * 20",
+        "w3": "n + 15",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Robot giúp việc dọn dẹp {n} phòng khách. Mỗi phòng mất 15 phút. Hỏi robot mất bao nhiêu phút để dọn xong?",
+      "options": [
+        "A. {w1_f} phút",
+        "B. {ans} phút",
+        "C. {w2_f} phút",
+        "D. {w3_f} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số phòng với thời gian mỗi phòng."
+      ],
+      "solutionHtml": "Thời gian robot dọn dẹp là: ${n} \\times 15 = {ans}$ (phút).",
+      "tip": "Đổi đơn vị nếu cần, nhưng bài này đang ở cùng đơn vị phút.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 50
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a / 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà có {a} tấm pin năng lượng mặt trời được chia đều cho {b} tầng mái. Hỏi mỗi tầng mái có bao nhiêu tấm pin?",
+      "options": [
+        "A. {w1_f} tấm",
+        "B. {ans} tấm",
+        "C. {w2_f} tấm",
+        "D. {w3_f} tấm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều nghĩa là dùng phép chia."
+      ],
+      "solutionHtml": "Số tấm pin trên mỗi tầng là: ${a} : {b} = {ans}$ (tấm).",
+      "tip": "Cẩn thận với từ khóa 'chia đều'.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "val1": "x * 2",
+        "val2": "y * 3",
+        "ans": "val1 + val2",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "(x + y) * 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà tương lai có {x} bể cá thông minh và {y} vườn treo. Mỗi bể cá cần 2 bộ lọc, mỗi vườn treo cần 3 hệ thống tưới. Tổng số bộ lọc và hệ thống tưới là bao nhiêu?",
+      "options": [
+        "A. {w1_f}",
+        "B. {ans}",
+        "C. {w2_f}",
+        "D. {w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính riêng bể cá, tính riêng vườn treo rồi cộng lại."
+      ],
+      "solutionHtml": "Tổng thiết bị là: ${x} \\times 2 + {y} \\times 3 = {val1} + {val2} = {ans}$.",
+      "tip": "Ưu tiên phép nhân trước khi thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 10,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * 2",
+        "w1": "n + 2",
+        "w2": "n * 3",
+        "w3": "n / 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trong ngôi nhà, mỗi phòng ngủ có 2 đèn cảm biến. Nếu có {n} phòng ngủ, hỏi cần tổng cộng bao nhiêu đèn?",
+      "options": [
+        "A. {w1_f}",
+        "B. {ans}",
+        "C. {w2_f}",
+        "D. {w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số lượng đèn = số phòng nhân số đèn mỗi phòng."
+      ],
+      "solutionHtml": "Tổng số đèn là: ${n} \\times 2 = {ans}$ (đèn).",
+      "tip": "Đơn giản hóa bằng cách nhân số lượng nhóm với giá trị mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà có {a} cửa tự động dùng chung năng lượng. Nếu mỗi ngày {b} cửa hoạt động luân phiên, hỏi mỗi nhóm có bao nhiêu cửa hoạt động cùng lúc?",
+      "options": [
+        "A. {w1_f}",
+        "B. {ans}",
+        "C. {w2_f}",
+        "D. {w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng phép chia để tìm số nhóm."
+      ],
+      "solutionHtml": "Số cửa trong mỗi nhóm là: ${a} : {b} = {ans}$ (cửa).",
+      "tip": "Phép chia giúp chia đều các vật thể thành các nhóm bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 4,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "h * 60",
+        "w1": "h + 60",
+        "w2": "h * 30",
+        "w3": "h * 10",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Hệ thống lọc nước của ngôi nhà vận hành liên tục trong {h} giờ. Hỏi hệ thống vận hành bao nhiêu phút?",
+      "options": [
+        "A. {w1_f} phút",
+        "B. {ans} phút",
+        "C. {w2_f} phút",
+        "D. {w3_f} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "1 giờ có 60 phút, nên lấy số giờ nhân với 60."
+      ],
+      "solutionHtml": "Số phút là: ${h} \\times 60 = {ans}$ (phút).",
+      "tip": "Đổi đơn vị giờ sang phút bằng cách nhân với 60.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        },
+        "b": {
+          "min": 5,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a / 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà có {a} cảm biến nhiệt, nhưng {b} cảm biến đã bị hỏng. Hỏi còn bao nhiêu cảm biến nhiệt hoạt động tốt?",
+      "options": [
+        "A. {w1_f}",
+        "B. {ans}",
+        "C. {w2_f}",
+        "D. {w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số cảm biến trừ đi số cảm biến bị hỏng."
+      ],
+      "solutionHtml": "Số cảm biến tốt là: ${a} - {b} = {ans}$ (cảm biến).",
+      "tip": "Phép trừ dùng để tính phần còn lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t10-d10"
+    }
+  ]
+}

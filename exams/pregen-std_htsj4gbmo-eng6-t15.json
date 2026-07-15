@@ -1,0 +1,402 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "y": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "(x + y) === (x * y) ? (x + y + 1) : (x + y)",
+        "w2": "(x * 2 + y) === (x * y) ? (x + y + 5) : (x * 2 + y)",
+        "w3": "(x * 3) === (x * y) ? (x * 3 + 2) : (x * 3)"
+      },
+      "questionText": "Câu lạc bộ tình nguyện có {x} nhóm đi dọn dẹp môi trường. Mỗi nhóm có {y} thành viên. Hỏi câu lạc bộ có tổng cộng bao nhiêu thành viên tình nguyện?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số thành viên, ta lấy số nhóm nhân với số thành viên mỗi nhóm.",
+        "Phép tính: {x} nhân {y}."
+      ],
+      "solutionHtml": "Tổng số thành viên tình nguyện là:<br/>$ {x} \\times {y} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài và xác định đúng phép tính là nhân, không phải cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "part": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total % part === 0"
+      ],
+      "formulas": {
+        "ans": "total / part",
+        "w1": "(total / 2) === (total / part) ? (total / 4) : (total / 2)",
+        "w2": "(total / part + 5) === (total / part) ? (total / part + 10) : (total / part + 5)",
+        "w3": "(total / part * 2) === (total / part) ? (total / part * 3) : (total / part * 2)"
+      },
+      "questionText": "Trong buổi phát quà từ thiện, các bạn đã chuẩn bị {total} cuốn vở để tặng cho {part} trường tiểu học. Hỏi mỗi trường nhận được bao nhiêu cuốn vở, biết rằng số vở được chia đều?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {w2} cuốn",
+        "C. {ans} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều {total} cuốn vở cho {part} trường, ta thực hiện phép chia.",
+        "Tính: {total} chia {part}."
+      ],
+      "solutionHtml": "Số vở mỗi trường nhận được là:<br/>$ {total} : {part} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều tức là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "(a + b + 2) === (a + b) ? (a + b + 5) : (a + b + 2)"
+      },
+      "questionText": "Hôm nay, nhóm tình nguyện thu gom được {a} kg giấy vụn vào buổi sáng và {b} kg vào buổi chiều. Hỏi cả ngày nhóm thu gom được bao nhiêu kg giấy vụn?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số giấy vụn thu được trong cả ngày.",
+        "Phép tính: {a} cộng {b}."
+      ],
+      "solutionHtml": "Tổng số giấy vụn thu gom được là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Cần tính tổng số lượng sau hai lần thu gom.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "used": {
+          "min": 10,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "total > used"
+      ],
+      "formulas": {
+        "ans": "total - used",
+        "w1": "total + used",
+        "w2": "(total - used + 5) === (total - used) ? (total - used + 10) : (total - used + 5)",
+        "w3": "(total - used + 2) === (total - used) ? (total - used + 8) : (total - used + 2)"
+      },
+      "questionText": "Quỹ hỗ trợ người già neo đơn có {total} nghìn đồng. Họ đã chi {used} nghìn đồng để mua thuốc men. Hỏi số tiền còn lại trong quỹ là bao nhiêu?",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số tiền còn lại bằng tổng tiền ban đầu trừ đi số tiền đã chi.",
+        "Phép tính: {total} trừ {used}."
+      ],
+      "solutionHtml": "Số tiền còn lại trong quỹ là:<br/>$ {total} - {used} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Lưu ý cụm từ 'còn lại' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "books": {
+          "min": 20,
+          "max": 50,
+          "step": 2
+        },
+        "students": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "books % students === 0"
+      ],
+      "formulas": {
+        "ans": "books / students",
+        "w1": "(books / students + 2) === (books / students) ? (books / students + 4) : (books / students + 2)",
+        "w2": "(books / students * 2) === (books / students) ? (books / students * 3) : (books / students * 2)",
+        "w3": "books"
+      },
+      "questionText": "Có {books} cuốn sách giáo khoa được phân chia cho {students} nhóm học sinh nghèo. Hỏi mỗi nhóm nhận được bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {w2} cuốn",
+        "C. {ans} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Phân chia đều sách cho các nhóm.",
+        "Phép tính: {books} chia {students}."
+      ],
+      "solutionHtml": "Số sách mỗi nhóm nhận được là:<br/>$ {books} : {students} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Phân chia đều là chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "trees": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "rows": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "trees % rows === 0"
+      ],
+      "formulas": {
+        "ans": "trees * rows",
+        "w1": "trees + rows",
+        "w2": "trees - rows",
+        "w3": "trees * rows + 5"
+      },
+      "questionText": "Các tình nguyện viên trồng cây trong vườn trường. Mỗi hàng trồng {trees} cây, tổng cộng có {rows} hàng. Hỏi tổng số cây đã trồng là bao nhiêu?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có nhiều hàng, mỗi hàng có số lượng cây bằng nhau.",
+        "Phép tính: {trees} nhân {rows}."
+      ],
+      "solutionHtml": "Tổng số cây đã trồng là:<br/>$ {trees} \\times {rows} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Tổng của các nhóm bằng nhau là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "(a - b + 3) === (a - b) ? (a - b + 6) : (a - b + 3)"
+      },
+      "questionText": "Lớp 7A có {a} bạn tham gia làm tình nguyện, lớp 7B có {b} bạn tham gia. Hỏi lớp 7A có nhiều hơn lớp 7B bao nhiêu bạn tham gia tình nguyện?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết lớp này nhiều hơn lớp kia bao nhiêu, ta dùng phép trừ.",
+        "Phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số bạn lớp 7A nhiều hơn lớp 7B là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "So sánh hơn kém là dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "w": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h * w",
+        "w1": "h + w",
+        "w2": "h * w + 10",
+        "w3": "h * w - 5"
+      },
+      "questionText": "Mỗi ngày một tình nguyện viên dành {h} giờ để dọn dẹp vệ sinh đường phố. Nếu họ làm việc trong {w} ngày liên tục, hỏi tổng số giờ người đó đã tham gia là bao nhiêu?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {w2} giờ",
+        "C. {ans} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng thời gian bằng cách lấy số giờ mỗi ngày nhân với số ngày làm việc.",
+        "Phép tính: {h} nhân {w}."
+      ],
+      "solutionHtml": "Tổng số giờ tham gia là:<br/>$ {h} \\times {w} = {ans} $ (giờ).<br/>Đáp án đúng là C.",
+      "tip": "Công việc lặp lại qua nhiều ngày là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "candy": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        },
+        "packs": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "candy % packs === 0"
+      ],
+      "formulas": {
+        "ans": "candy / packs",
+        "w1": "(candy / packs + 5) === (candy / packs) ? (candy / packs + 10) : (candy / packs + 5)",
+        "w2": "candy + packs",
+        "w3": "candy - packs"
+      },
+      "questionText": "Có {candy} chiếc bánh quy được chia vào {packs} hộp quà từ thiện. Hỏi mỗi hộp chứa bao nhiêu chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {w3} chiếc",
+        "D. {ans} chiếc"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia số bánh vào các hộp.",
+        "Phép tính: {candy} chia {packs}."
+      ],
+      "solutionHtml": "Số bánh trong mỗi hộp là:<br/>$ {candy} : {packs} = {ans} $ (chiếc).<br/>Đáp án đúng là D.",
+      "tip": "Phép chia dùng khi chia đều vào các phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        },
+        "b": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * 2",
+        "w3": "(a + b + 1) === (a + b) ? (a + b + 7) : (a + b + 1)"
+      },
+      "questionText": "Buổi sáng có {a} tình nguyện viên đến điểm tập trung, buổi chiều có thêm {b} tình nguyện viên nữa. Hỏi tổng cộng có bao nhiêu tình nguyện viên đã đến?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số tình nguyện viên của cả buổi sáng và chiều.",
+        "Phép tính: {a} cộng {b}."
+      ],
+      "solutionHtml": "Tổng số tình nguyện viên là:<br/>$ {a} + {b} = {ans} $ (người).<br/>Đáp án đúng là B.",
+      "tip": "Tính tổng sau hai đợt là phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t15-d10"
+    }
+  ]
+}

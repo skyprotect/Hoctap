@@ -1,0 +1,630 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:49:25.675Z
+Lesson ID: eng4-t9
+Lesson Title: Unit 9: Our sports day
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 14090 (line 439 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 14090 (line 439 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 14090 (Line: 302, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "teams": { "min": 3, "max": 6, "step": 1 },
+      "studentsPerTeam": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": ["teams * studentsPerTeam < 100"],
+    "formulas": {
+      "ans": "teams * studentsPerTeam",
+      "w1_goc": "(teams + 1) * studentsPerTeam",
+      "w2_goc": "teams * (studentsPerTeam + 2)",
+      "w3_goc": "teams * studentsPerTeam + 5",
+      "w1": "(w1_goc === ans) ? w1_goc + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 10) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 15) : w3_goc"
+    },
+    "questionText": "Trong ngày hội thể thao, có {teams} đội thi đấu. Mỗi đội có {studentsPerTeam} thành viên. Hỏi tổng cộng có bao nhiêu học sinh tham gia thi đấu?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số học sinh, ta lấy số đội nhân với số thành viên mỗi đội.", "Thực hiện phép tính: {teams} nhân {studentsPerTeam}."],
+    "solutionHtml": "Số học sinh tham gia thi đấu là:<br/>$ {teams} \\times {studentsPerTeam} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết số nhóm và số lượng trong mỗi nhóm, ta dùng phép nhân để tìm tổng số lượng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalMeters": { "min": 200, "max": 400, "step": 50 },
+      "laps": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["totalMeters % laps === 0"],
+    "formulas": {
+      "ans": "totalMeters / laps",
+      "w1_goc": "totalMeters / (laps - 1)",
+      "w2_goc": "totalMeters / (laps + 1)",
+      "w3_goc": "totalMeters / 2",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 20) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 30) : w3_goc"
+    },
+    "questionText": "Một vận động viên chạy bộ tổng cộng {totalMeters} mét quanh sân vận động sau {laps} vòng chạy. Hỏi mỗi vòng sân vận động dài bao nhiêu mét?",
+    "options": [
+      "A. {w1} mét",
+      "B. {w2} mét",
+      "C. {ans} mét",
+      "D. {w3} mét"
+    ],
+    "correctIndex": 2,
+    "hints": ["Để tìm chiều dài một vòng sân, ta lấy tổng quãng đường chia cho số vòng.", "Thực hiện phép tính: {totalMeters} chia {laps}."],
+    "solutionHtml": "Chiều dài của mỗi vòng sân vận động là:<br/>$ {totalMeters} : {laps} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+    "tip": "Chia đều tổng quãng đường cho số vòng chạy sẽ ra độ dài của một vòng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "teamA": { "min": 15, "max": 25, "step": 1 },
+      "teamB": { "min": 20, "max": 30, "step": 1 }
+    },
+    "constraints": ["teamB > teamA"],
+    "formulas": {
+      "ans": "teamB - teamA",
+      "w1_goc": "teamB + teamA",
+      "w2_goc": "teamB - 5",
+      "w3_goc": "teamA + 5",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 10) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 15) : w3_goc"
+    },
+    "questionText": "Đội Xanh có {teamA} bạn tham gia chạy tiếp sức, đội Đỏ có {teamB} bạn. Hỏi đội Đỏ có nhiều hơn đội Xanh bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {w2} bạn",
+      "C. {w3} bạn",
+      "D. {ans} bạn"
+    ],
+    "correctIndex": 3,
+    "hints": ["Để tìm số bạn đội Đỏ nhiều hơn đội Xanh, ta thực hiện phép tính trừ.", "Lấy số bạn đội Đỏ trừ đi số bạn đội Xanh."],
+    "solutionHtml": "Số bạn đội Đỏ nhiều hơn đội Xanh là:<br/>$ {teamB} - {teamA} = {ans} $ (bạn).<br/>Đáp án đúng là D.",
+    "tip": "Khi so sánh 'nhiều hơn bao nhiêu', ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "bottles": { "min": 10, "max": 20, "step": 1 },
+      "mlPerBottle": { "min": 200, "max": 500, "step": 100 }
+    },
+    "constraints": ["bottles > 0"],
+    "formulas": {
+      "ans": "bottles * mlPerBottle",
+      "w1_goc": "bottles * mlPerBottle / 2",
+      "w2_goc": "bottles * (mlPerBottle + 100)",
+      "w3_goc": "(bottles + 5) * mlPerBottle",
+      "w1": "(w1_goc === ans) ? (ans + 500) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 1000) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 1500) : w3_goc"
+    },
+    "questionText": "Mỗi vận động viên được cấp {bottles} chai nước, mỗi chai chứa {mlPerBottle} ml nước. Hỏi tổng cộng một vận động viên nhận được bao nhiêu ml nước?",
+    "options": [
+      "A. {w1} ml",
+      "B. {ans} ml",
+      "C. {w2} ml",
+      "D. {w3} ml"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số ml nước, ta lấy số chai nhân với dung tích mỗi chai.", "Thực hiện phép nhân: {bottles} nhân {mlPerBottle}."],
+    "solutionHtml": "Tổng số nước một vận động viên nhận được là:<br/>$ {bottles} \\times {mlPerBottle} = {ans} $ (ml).<br/>Đáp án đúng là B.",
+    "tip": "Hãy chú ý đơn vị đo là ml, phép nhân giúp gộp các phần bằng nhau lại.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "startH": { "min": 7, "max": 8, "step": 1 },
+      "startM": { "min": 15, "max": 45, "step": 15 },
+      "duration": { "min": 60, "max": 120, "step": 15 }
+    },
+    "constraints": ["startM + (duration % 60) < 60"],
+    "formulas": {
+      "finishH": "startH + Math.floor(duration / 60)",
+      "finishM": "startM + (duration % 60)",
+      "ansStr": "finishH + ' giờ ' + finishM + ' phút'",
+      "w1Str": "(finishH + 1) + ' giờ ' + finishM + ' phút'",
+      "w2Str": "finishH + ' giờ ' + (finishM + 15) + ' phút'",
+      "w3Str": "finishH + ' giờ ' + (finishM + 30) + ' phút'"
+    },
+    "questionText": "Trận đấu bóng đá bắt đầu lúc {startH} giờ {startM} phút và kéo dài trong {duration} phút. Hỏi trận đấu kết thúc lúc mấy giờ?",
+    "options": [
+      "A. {w1Str}",
+      "B. {ansStr}",
+      "C. {w2Str}",
+      "D. {w3Str}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đổi {duration} phút sang giờ và phút.", "Cộng thời gian bắt đầu với thời gian thi đấu để tìm thời gian kết thúc."],
+    "solutionHtml": "{duration} phút bằng 1 giờ và {duration % 60} phút.<br/>Thời gian kết thúc là:<br/>{startH} giờ {startM} phút + 1 giờ {duration % 60} phút = {ansStr}.<br/>Đáp án đúng là B.",
+    "tip": "Luôn nhớ đổi đơn vị phút sang giờ (60 phút = 1 giờ) trước khi cộng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalMedals": { "min": 20, "max": 40, "step": 2 },
+      "goldRatio": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["totalMedals % (goldRatio + 1) === 0"],
+    "formulas": {
+      "ans": "totalMedals / (goldRatio + 1)",
+      "w1_goc": "totalMedals / goldRatio",
+      "w2_goc": "totalMedals - goldRatio",
+      "w3_goc": "totalMedals / 2",
+      "w1": "(w1_goc === ans) ? (ans + 2) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 4) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 6) : w3_goc"
+    },
+    "questionText": "Đội tuyển trường giành được tổng cộng {totalMedals} huy chương. Số huy chương bạc gấp {goldRatio} lần số huy chương vàng. Hỏi đội tuyển giành được bao nhiêu huy chương vàng?",
+    "options": [
+      "A. {w1} huy chương",
+      "B. {ans} huy chương",
+      "C. {w2} huy chương",
+      "D. {w3} huy chương"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đây là bài toán tổng - tỉ.", "Tổng số phần bằng nhau là 1 (vàng) + {goldRatio} (bạc) = {goldRatio + 1} phần.", "Số huy chương vàng = {totalMedals} chia {goldRatio + 1}."],
+    "solutionHtml": "Số huy chương vàng là:<br/>$ {totalMedals} : ({goldRatio} + 1) = {ans} $ (huy chương).<br/>Đáp án đúng là B.",
+    "tip": "Sử dụng sơ đồ đoạn thẳng cho bài toán tổng - tỉ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "distance": { "min": 600, "max": 1000, "step": 100 },
+      "speed": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["distance % speed === 0"],
+    "formulas": {
+      "ans": "distance / speed",
+      "w1_goc": "distance / (speed + 2)",
+      "w2_goc": "distance / (speed - 1)",
+      "w3_goc": "distance / 2",
+      "w1": "(w1_goc === ans) ? (ans + 20) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 40) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 60) : w3_goc"
+    },
+    "questionText": "Một vận động viên chạy cự ly {distance} mét với vận tốc {speed} mét/giây. Hỏi vận động viên đó mất bao nhiêu giây để hoàn thành đường đua?",
+    "options": [
+      "A. {w1} giây",
+      "B. {w2} giây",
+      "C. {w3} giây",
+      "D. {ans} giây"
+    ],
+    "correctIndex": 3,
+    "hints": ["Để tìm thời gian, ta lấy quãng đường chia cho vận tốc.", "Thực hiện phép tính: {distance} chia {speed}."],
+    "solutionHtml": "Thời gian để hoàn thành đường đua là:<br/>$ {distance} : {speed} = {ans} $ (giây).<br/>Đáp án đúng là D.",
+    "tip": "Công thức tính thời gian: Thời gian = Quãng đường / Vận tốc.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "(a * 2) + (b * 4)",
+      "w1_goc": "(a + b) * 2",
+      "w2_goc": "(a + b) * 4",
+      "w3_goc": "(a * 4) + (b * 2)",
+      "w1": "(w1_goc === ans) ? (ans + 2) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 4) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 6) : w3_goc"
+    },
+    "questionText": "Trong sân có {a} con gà và {b} con chó đang xem hội thao. Hỏi tổng cộng có bao nhiêu cái chân?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {w3}",
+      "D. {ans}"
+    ],
+    "correctIndex": 3,
+    "hints": ["Gà có 2 chân, chó có 4 chân.", "Tính số chân gà: {a} nhân 2.", "Tính số chân chó: {b} nhân 4.", "Cộng hai kết quả lại."],
+    "solutionHtml": "Số chân gà là: $ {a} \\times 2 = {a * 2} $ (chân).<br/>Số chân chó là: $ {b} \\times 4 = {b * 4} $ (chân).<br/>Tổng số chân là: $ {a * 2} + {b * 4} = {ans} $ (chân).<br/>Đáp án đúng là D.",
+    "tip": "Cẩn thận với số chân của mỗi loài động vật.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total": { "min": 100, "max": 200, "step": 10 },
+      "part": { "min": 40, "max": 60, "step": 5 }
+    },
+    "constraints": ["total > part"],
+    "formulas": {
+      "ans": "total - part",
+      "w1_goc": "total + part",
+      "w2_goc": "total / 2",
+      "w3_goc": "part - 10",
+      "w1": "(w1_goc === ans) ? (ans + 10) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 20) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 30) : w3_goc"
+    },
+    "questionText": "Cả trường có {total} học sinh tham gia cổ vũ ngày hội. Trong đó có {part} học sinh nam. Hỏi có bao nhiêu học sinh nữ tham gia cổ vũ?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tổng số học sinh trừ đi số học sinh nam để tìm số học sinh nữ."],
+    "solutionHtml": "Số học sinh nữ là:<br/>$ {total} - {part} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Phép trừ dùng để tìm phần còn lại khi biết tổng và một phần.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "boxCount": { "min": 5, "max": 10, "step": 1 },
+      "ballsPerBox": { "min": 6, "max": 12, "step": 1 }
+    },
+    "constraints": ["boxCount * ballsPerBox % 3 === 0"],
+    "formulas": {
+      "ans": "(boxCount * ballsPerBox) / 3",
+      "w1_goc": "boxCount * 2",
+      "w2_goc": "ballsPerBox * 2",
+      "w3_goc": "boxCount + ballsPerBox",
+      "w1": "(w1_goc === ans) ? (ans + 3) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 6) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 9) : w3_goc"
+    },
+    "questionText": "Có {boxCount} hộp bóng, mỗi hộp có {ballsPerBox} quả bóng. Nếu chia đều số bóng đó vào 3 túi thì mỗi túi có bao nhiêu quả bóng?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính tổng số bóng: {boxCount} nhân {ballsPerBox}.", "Chia tổng số bóng cho 3."],
+    "solutionHtml": "Tổng số quả bóng là: $ {boxCount} \\times {ballsPerBox} = {boxCount * ballsPerBox} $ (quả).<br/>Mỗi túi có số quả bóng là:<br/>$ {boxCount * ballsPerBox} : 3 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Thực hiện phép tính theo thứ tự: Nhân trước, chia sau.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "teams": { "min": 3, "max": 6, "step": 1 },
+      "studentsPerTeam": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": ["teams * studentsPerTeam < 100"],
+    "formulas": {
+      "ans": "teams * studentsPerTeam",
+      "w1_goc": "(teams + 1) * studentsPerTeam",
+      "w2_goc": "teams * (studentsPerTeam + 2)",
+      "w3_goc": "teams * studentsPerTeam + 5",
+      "w1": "(w1_goc === ans) ? w1_goc + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 10) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 15) : w3_goc"
+    },
+    "questionText": "Trong ngày hội thể thao, có {teams} đội thi đấu. Mỗi đội có {studentsPerTeam} thành viên. Hỏi tổng cộng có bao nhiêu học sinh tham gia thi đấu?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số học sinh, ta lấy số đội nhân với số thành viên mỗi đội.", "Thực hiện phép tính: {teams} nhân {studentsPerTeam}."],
+    "solutionHtml": "Số học sinh tham gia thi đấu là:<br/>$ {teams} \\times {studentsPerTeam} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết số nhóm và số lượng trong mỗi nhóm, ta dùng phép nhân để tìm tổng số lượng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalMeters": { "min": 200, "max": 400, "step": 50 },
+      "laps": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["totalMeters % laps === 0"],
+    "formulas": {
+      "ans": "totalMeters / laps",
+      "w1_goc": "totalMeters / (laps - 1)",
+      "w2_goc": "totalMeters / (laps + 1)",
+      "w3_goc": "totalMeters / 2",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 20) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 30) : w3_goc"
+    },
+    "questionText": "Một vận động viên chạy bộ tổng cộng {totalMeters} mét quanh sân vận động sau {laps} vòng chạy. Hỏi mỗi vòng sân vận động dài bao nhiêu mét?",
+    "options": [
+      "A. {w1} mét",
+      "B. {w2} mét",
+      "C. {ans} mét",
+      "D. {w3} mét"
+    ],
+    "correctIndex": 2,
+    "hints": ["Để tìm chiều dài một vòng sân, ta lấy tổng quãng đường chia cho số vòng.", "Thực hiện phép tính: {totalMeters} chia {laps}."],
+    "solutionHtml": "Chiều dài của mỗi vòng sân vận động là:<br/>$ {totalMeters} : {laps} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+    "tip": "Chia đều tổng quãng đường cho số vòng chạy sẽ ra độ dài của một vòng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "teamA": { "min": 15, "max": 25, "step": 1 },
+      "teamB": { "min": 20, "max": 30, "step": 1 }
+    },
+    "constraints": ["teamB > teamA"],
+    "formulas": {
+      "ans": "teamB - teamA",
+      "w1_goc": "teamB + teamA",
+      "w2_goc": "teamB - 5",
+      "w3_goc": "teamA + 5",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 10) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 15) : w3_goc"
+    },
+    "questionText": "Đội Xanh có {teamA} bạn tham gia chạy tiếp sức, đội Đỏ có {teamB} bạn. Hỏi đội Đỏ có nhiều hơn đội Xanh bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {w2} bạn",
+      "C. {w3} bạn",
+      "D. {ans} bạn"
+    ],
+    "correctIndex": 3,
+    "hints": ["Để tìm số bạn đội Đỏ nhiều hơn đội Xanh, ta thực hiện phép tính trừ.", "Lấy số bạn đội Đỏ trừ đi số bạn đội Xanh."],
+    "solutionHtml": "Số bạn đội Đỏ nhiều hơn đội Xanh là:<br/>$ {teamB} - {teamA} = {ans} $ (bạn).<br/>Đáp án đúng là D.",
+    "tip": "Khi so sánh 'nhiều hơn bao nhiêu', ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "bottles": { "min": 10, "max": 20, "step": 1 },
+      "mlPerBottle": { "min": 200, "max": 500, "step": 100 }
+    },
+    "constraints": ["bottles > 0"],
+    "formulas": {
+      "ans": "bottles * mlPerBottle",
+      "w1_goc": "bottles * mlPerBottle / 2",
+      "w2_goc": "bottles * (mlPerBottle + 100)",
+      "w3_goc": "(bottles + 5) * mlPerBottle",
+      "w1": "(w1_goc === ans) ? (ans + 500) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 1000) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 1500) : w3_goc"
+    },
+    "questionText": "Mỗi vận động viên được cấp {bottles} chai nước, mỗi chai chứa {mlPerBottle} ml nước. Hỏi tổng cộng một vận động viên nhận được bao nhiêu ml nước?",
+    "options": [
+      "A. {w1} ml",
+      "B. {ans} ml",
+      "C. {w2} ml",
+      "D. {w3} ml"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số ml nước, ta lấy số chai nhân với dung tích mỗi chai.", "Thực hiện phép nhân: {bottles} nhân {mlPerBottle}."],
+    "solutionHtml": "Tổng số nước một vận động viên nhận được là:<br/>$ {bottles} \\times {mlPerBottle} = {ans} $ (ml).<br/>Đáp án đúng là B.",
+    "tip": "Hãy chú ý đơn vị đo là ml, phép nhân giúp gộp các phần bằng nhau lại.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "startH": { "min": 7, "max": 8, "step": 1 },
+      "startM": { "min": 15, "max": 45, "step": 15 },
+      "duration": { "min": 60, "max": 120, "step": 15 }
+    },
+    "constraints": ["startM + (duration % 60) < 60"],
+    "formulas": {
+      "finishH": "startH + Math.floor(duration / 60)",
+      "finishM": "startM + (duration % 60)",
+      "ansStr": "finishH + ' giờ ' + finishM + ' phút'",
+      "w1Str": "(finishH + 1) + ' giờ ' + finishM + ' phút'",
+      "w2Str": "finishH + ' giờ ' + (finishM + 15) + ' phút'",
+      "w3Str": "finishH + ' giờ ' + (finishM + 30) + ' phút'"
+    },
+    "questionText": "Trận đấu bóng đá bắt đầu lúc {startH} giờ {startM} phút và kéo dài trong {duration} phút. Hỏi trận đấu kết thúc lúc mấy giờ?",
+    "options": [
+      "A. {w1Str}",
+      "B. {ansStr}",
+      "C. {w2Str}",
+      "D. {w3Str}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đổi {duration} phút sang giờ và phút.", "Cộng thời gian bắt đầu với thời gian thi đấu để tìm thời gian kết thúc."],
+    "solutionHtml": "{duration} phút bằng 1 giờ và {duration % 60} phút.<br/>Thời gian kết thúc là:<br/>{startH} giờ {startM} phút + 1 giờ {duration % 60} phút = {ansStr}.<br/>Đáp án đúng là B.",
+    "tip": "Luôn nhớ đổi đơn vị phút sang giờ (60 phút = 1 giờ) trước khi cộng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalMedals": { "min": 20, "max": 40, "step": 2 },
+      "goldRatio": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["totalMedals % (goldRatio + 1) === 0"],
+    "formulas": {
+      "ans": "totalMedals / (goldRatio + 1)",
+      "w1_goc": "totalMedals / goldRatio",
+      "w2_goc": "totalMedals - goldRatio",
+      "w3_goc": "totalMedals / 2",
+      "w1": "(w1_goc === ans) ? (ans + 2) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 4) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 6) : w3_goc"
+    },
+    "questionText": "Đội tuyển trường giành được tổng cộng {totalMedals} huy chương. Số huy chương bạc gấp {goldRatio} lần số huy chương vàng. Hỏi đội tuyển giành được bao nhiêu huy chương vàng?",
+    "options": [
+      "A. {w1} huy chương",
+      "B. {ans} huy chương",
+      "C. {w2} huy chương",
+      "D. {w3} huy chương"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đây là bài toán tổng - tỉ.", "Tổng số phần bằng nhau là 1 (vàng) + {goldRatio} (bạc) = {goldRatio + 1} phần.", "Số huy chương vàng = {totalMedals} chia {goldRatio + 1}."],
+    "solutionHtml": "Số huy chương vàng là:<br/>$ {totalMedals} : ({goldRatio} + 1) = {ans} $ (huy chương).<br/>Đáp án đúng là B.",
+    "tip": "Sử dụng sơ đồ đoạn thẳng cho bài toán tổng - tỉ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "distance": { "min": 600, "max": 1000, "step": 100 },
+      "speed": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["distance % speed === 0"],
+    "formulas": {
+      "ans": "distance / speed",
+      "w1_goc": "distance / (speed + 2)",
+      "w2_goc": "distance / (speed - 1)",
+      "w3_goc": "distance / 2",
+      "w1": "(w1_goc === ans) ? (ans + 20) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 40) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 60) : w3_goc"
+    },
+    "questionText": "Một vận động viên chạy cự ly {distance} mét với vận tốc {speed} mét/giây. Hỏi vận động viên đó mất bao nhiêu giây để hoàn thành đường đua?",
+    "options": [
+      "A. {w1} giây",
+      "B. {w2} giây",
+      "C. {w3} giây",
+      "D. {ans} giây"
+    ],
+    "correctIndex": 3,
+    "hints": ["Để tìm thời gian, ta lấy quãng đường chia cho vận tốc.", "Thực hiện phép tính: {distance} chia {speed}."],
+    "solutionHtml": "Thời gian để hoàn thành đường đua là:<br/>$ {distance} : {speed} = {ans} $ (giây).<br/>Đáp án đúng là D.",
+    "tip": "Công thức tính thời gian: Thời gian = Quãng đường / Vận tốc.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "(a * 2) + (b * 4)",
+      "w1_goc": "(a + b) * 2",
+      "w2_goc": "(a + b) * 4",
+      "w3_goc": "(a * 4) + (b * 2)",
+      "w1": "(w1_goc === ans) ? (ans + 2) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 4) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 6) : w3_goc"
+    },
+    "questionText": "Trong sân có {a} con gà và {b} con chó đang xem hội thao. Hỏi tổng cộng có bao nhiêu cái chân?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {w3}",
+      "D. {ans}"
+    ],
+    "correctIndex": 3,
+    "hints": ["Gà có 2 chân, chó có 4 chân.", "Tính số chân gà: {a} nhân 2.", "Tính số chân chó: {b} nhân 4.", "Cộng hai kết quả lại."],
+    "solutionHtml": "Số chân gà là: $ {a} \\times 2 = {a * 2} $ (chân).<br/>Số chân chó là: $ {b} \\times 4 = {b * 4} $ (chân).<br/>Tổng số chân là: $ {a * 2} + {b * 4} = {ans} $ (chân).<br/>Đáp án đúng là D.",
+    "tip": "Cẩn thận với số chân của mỗi loài động vật.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total": { "min": 100, "max": 200, "step": 10 },
+      "part": { "min": 40, "max": 60, "step": 5 }
+    },
+    "constraints": ["total > part"],
+    "formulas": {
+      "ans": "total - part",
+      "w1_goc": "total + part",
+      "w2_goc": "total / 2",
+      "w3_goc": "part - 10",
+      "w1": "(w1_goc === ans) ? (ans + 10) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 20) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 30) : w3_goc"
+    },
+    "questionText": "Cả trường có {total} học sinh tham gia cổ vũ ngày hội. Trong đó có {part} học sinh nam. Hỏi có bao nhiêu học sinh nữ tham gia cổ vũ?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tổng số học sinh trừ đi số học sinh nam để tìm số học sinh nữ."],
+    "solutionHtml": "Số học sinh nữ là:<br/>$ {total} - {part} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Phép trừ dùng để tìm phần còn lại khi biết tổng và một phần.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "boxCount": { "min": 5, "max": 10, "step": 1 },
+      "ballsPerBox": { "min": 6, "max": 12, "step": 1 }
+    },
+    "constraints": ["boxCount * ballsPerBox % 3 === 0"],
+    "formulas": {
+      "ans": "(boxCount * ballsPerBox) / 3",
+      "w1_goc": "boxCount * 2",
+      "w2_goc": "ballsPerBox * 2",
+      "w3_goc": "boxCount + ballsPerBox",
+      "w1": "(w1_goc === ans) ? (ans + 3) : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? (ans + 6) : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? (ans + 9) : w3_goc"
+    },
+    "questionText": "Có {boxCount} hộp bóng, mỗi hộp có {ballsPerBox} quả bóng. Nếu chia đều số bóng đó vào 3 túi thì mỗi túi có bao nhiêu quả bóng?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính tổng số bóng: {boxCount} nhân {ballsPerBox}.", "Chia tổng số bóng cho 3."],
+    "solutionHtml": "Tổng số quả bóng là: $ {boxCount} \\times {ballsPerBox} = {boxCount * ballsPerBox} $ (quả).<br/>Mỗi túi có số quả bóng là:<br/>$ {boxCount * ballsPerBox} : 3 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Thực hiện phép tính theo thứ tự: Nhân trước, chia sau.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t9-d10"
+  }
+]
+

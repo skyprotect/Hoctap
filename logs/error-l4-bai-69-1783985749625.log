@@ -1,0 +1,556 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:35:49.625Z
+Lesson ID: l4-bai-69
+Lesson Title: Bài 69: Ôn tập phân số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9789 (line 380 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9789 (line 380 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9789 (Line: 265, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0", "a > b * 2"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a / (b/2)",
+      "w2": "a - b",
+      "w3": "a + b"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo. Người ta đã bán đi $ \\frac{1}{{{b}}} $ số gạo đó. Hỏi cửa hàng đã bán bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số gạo đã bán, ta lấy tổng số gạo nhân với phân số chỉ số phần gạo đã bán."],
+    "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {a} \\times \\frac{1}{{{b}}} = {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi nhân một số tự nhiên với phân số có tử số là 1, ta chỉ cần lấy số đó chia cho mẫu số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tong": { "min": 40, "max": 80, "step": 5 },
+      "mau": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["tong % mau === 0", "tong % (mau - 1) === 0"],
+    "formulas": {
+      "ans": "tong / mau",
+      "w1": "tong / (mau - 1)",
+      "w2": "tong - mau",
+      "w3": "tong + mau"
+    },
+    "questionText": "Lớp 4A có {tong} học sinh. Biết rằng $ \\frac{1}{{{mau}}} $ số học sinh của lớp là học sinh giỏi. Hỏi lớp 4A có bao nhiêu học sinh giỏi?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tìm giá trị của một phân số của một số bằng cách lấy số đó nhân với phân số."],
+    "solutionHtml": "Số học sinh giỏi của lớp là:<br/>$ {tong} \\times \\frac{1}{{{mau}}} = {tong} : {mau} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Phân số biểu thị số phần, muốn tìm giá trị của phần đó ta thực hiện phép chia tổng số cho mẫu số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 100, "max": 200, "step": 10 },
+      "y": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": ["x % y === 0"],
+    "formulas": {
+      "ans": "x / y",
+      "w1": "(x / y) + 10",
+      "w2": "(x / y) - 5",
+      "w3": "x / (y + 1)"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có diện tích là $ {x} \\text{ m}^2 $. Người ta dùng $ \\frac{1}{{{y}}} $ diện tích mảnh vườn để trồng hoa. Hỏi diện tích trồng hoa là bao nhiêu mét vuông?",
+    "options": [
+      "A. {w1} $ \\text{m}^2 $",
+      "B. {ans} $ \\text{m}^2 $",
+      "C. {w2} $ \\text{m}^2 $",
+      "D. {w3} $ \\text{m}^2 $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Diện tích trồng hoa bằng $ \\frac{1}{{{y}}} $ diện tích mảnh vườn."],
+    "solutionHtml": "Diện tích trồng hoa là:<br/>$ {x} \\times \\frac{1}{{{y}}} = {x} : {y} = {ans} $ ($ \\text{m}^2 $).<br/>Đáp án đúng là B.",
+    "tip": "Nhớ đơn vị đo diện tích là mét vuông.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 2, "max": 4, "step": 1 },
+      "a": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["a % n === 0"],
+    "formulas": {
+      "ans": "a / n",
+      "w1": "a + n",
+      "w2": "a * n",
+      "w3": "a - n"
+    },
+    "questionText": "Tìm một số, biết rằng $ \\frac{1}{{{n}}} $ của số đó bằng {a}.",
+    "options": [
+      "A. {w1}",
+      "B. {ans * n}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Nếu $ \\frac{1}{{{n}}} $ của một số là {a} thì số đó là {a} nhân với {n}."],
+    "solutionHtml": "Số cần tìm là:<br/>$ {a} \\times {n} = {ans * n} $.<br/>Đáp án đúng là B.",
+    "tip": "Muốn tìm một số khi biết một phần phân số của nó, ta lấy giá trị đó nhân với mẫu số (nếu tử số là 1).",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "ts": { "min": 2, "max": 4, "step": 1 },
+      "ms": { "min": 5, "max": 7, "step": 1 },
+      "val": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": ["val % ts === 0"],
+    "formulas": {
+      "ans": "(val / ts) * ms",
+      "w1": "val * ms / ts + 5",
+      "w2": "val * ts",
+      "w3": "val + ms"
+    },
+    "questionText": "Một đơn vị bộ đội có {val} chiến sĩ, trong đó $ \\frac{{{ts}}}{{{ms}}} $ là chiến sĩ thuộc đội đặc nhiệm. Hỏi đội đặc nhiệm có bao nhiêu chiến sĩ?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia {val} cho {ms} rồi nhân với {ts}."],
+    "solutionHtml": "Số chiến sĩ đội đặc nhiệm là:<br/>$ {val} : {ms} \\times {ts} = {ans} $ (chiến sĩ).<br/>Đáp án đúng là B.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 10 },
+      "b": { "min": 3, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a - (a / b)",
+      "w1": "a / b",
+      "w2": "a + a / b",
+      "w3": "a * 2"
+    },
+    "questionText": "Một cửa hàng có {a} kg đường. Sáng nay cửa hàng đã bán $ \\frac{1}{{{b}}} $ số đường đó. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam đường?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính số đường đã bán, sau đó lấy tổng số đường trừ đi số đã bán."],
+    "solutionHtml": "Số đường đã bán là: $ {a} : {b} = {a / b} $ (kg).<br/>Số đường còn lại là: $ {a} - {a / b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 5, "max": 9, "step": 1 },
+      "y": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["x % y !== 0"],
+    "formulas": {
+      "ans": "(x + y) * 2",
+      "w1": "x + y",
+      "w2": "x * y",
+      "w3": "x - y"
+    },
+    "questionText": "Phân số nào sau đây bằng phân số $ \\frac{{{x}}}{{{y}}} $ mà có tổng của tử số và mẫu số là { (x+y)*2 }?",
+    "options": [
+      "A. $ \\frac{{{x+2}}}{{{y+2}}} $",
+      "B. $ \\frac{{{x}}}{{{y}}} $",
+      "C. $ \\frac{{{x*2}}}{{{y*2}}} $",
+      "D. $ \\frac{{{x+1}}}{{{y+1}}} $"
+    ],
+    "correctIndex": 2,
+    "hints": ["Rút gọn phân số ở các phương án hoặc nhân tử số và mẫu số của $ \\frac{{{x}}}{{{y}}} $ với cùng một số."],
+    "solutionHtml": "Ta có $ \\frac{{{x}}}{{{y}}} = \\frac{{{x*2}}}{{{y*2}}} $. Tổng tử số và mẫu số là: $ {x*2} + {y*2} = { (x+y)*2 } $.<br/>Đáp án đúng là C.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "n",
+      "w1": "n + 1",
+      "w2": "n - 1",
+      "w3": "n * 2"
+    },
+    "questionText": "Điền số thích hợp vào chỗ chấm: $ \\frac{3}{{{n}}} = \\frac{{9}}{{27}} $. Vậy $ n = $ ?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Ta thấy 9 gấp 3 lần 3, do đó $ n \\times 3 = 27 $."],
+    "solutionHtml": "Vì $ 3 \\times 3 = 9 $ nên $ n \\times 3 = 27 $. Suy ra $ n = 27 : 3 = 9 $ (Lưu ý: biến n ở đây được chọn để kết quả hợp lệ, đáp án là 9).<br/>Đáp án đúng là B.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "b - a",
+      "w2": "a * b",
+      "w3": "b + 1"
+    },
+    "questionText": "Cho phân số $ \\frac{{{a}}}{{{b}}} $. Nếu cộng thêm vào tử số {a} đơn vị thì phân số đó bằng 1. Hỏi tổng của tử số và mẫu số ban đầu là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để phân số bằng 1 thì tử số mới phải bằng mẫu số $ b $."],
+    "solutionHtml": "Tử số mới là $ {a} + {a} = {a*2} $. Vì phân số bằng 1 nên $ {a*2} = {b} $. Vậy $ {b} = {a*2} $. Tổng tử và mẫu là $ {a} + {b} = {ans} $.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a * 4",
+      "w1": "a * 2",
+      "w2": "a * 3",
+      "w3": "a * 5"
+    },
+    "questionText": "Một cái bánh được chia làm 4 phần bằng nhau. Bạn An ăn $ \\frac{{{a}}}{4} $ cái bánh. Hỏi bạn An đã ăn bao nhiêu phần của cái bánh?",
+    "options": [
+      "A. {w1}/4",
+      "B. {ans}/16",
+      "C. {a}/{a*4}",
+      "D. {a}/4"
+    ],
+    "correctIndex": 3,
+    "hints": ["Đề bài đã cho biết bạn An ăn {a}/4 cái bánh."],
+    "solutionHtml": "Bạn An ăn $ \\frac{{{a}}}{4} $ cái bánh. Đáp án là D.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0", "a > b * 2"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a / (b/2)",
+      "w2": "a - b",
+      "w3": "a + b"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo. Người ta đã bán đi $ \\frac{1}{{{b}}} $ số gạo đó. Hỏi cửa hàng đã bán bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số gạo đã bán, ta lấy tổng số gạo nhân với phân số chỉ số phần gạo đã bán."],
+    "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {a} \\times \\frac{1}{{{b}}} = {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi nhân một số tự nhiên với phân số có tử số là 1, ta chỉ cần lấy số đó chia cho mẫu số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tong": { "min": 40, "max": 80, "step": 5 },
+      "mau": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["tong % mau === 0", "tong % (mau - 1) === 0"],
+    "formulas": {
+      "ans": "tong / mau",
+      "w1": "tong / (mau - 1)",
+      "w2": "tong - mau",
+      "w3": "tong + mau"
+    },
+    "questionText": "Lớp 4A có {tong} học sinh. Biết rằng $ \\frac{1}{{{mau}}} $ số học sinh của lớp là học sinh giỏi. Hỏi lớp 4A có bao nhiêu học sinh giỏi?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tìm giá trị của một phân số của một số bằng cách lấy số đó nhân với phân số."],
+    "solutionHtml": "Số học sinh giỏi của lớp là:<br/>$ {tong} \\times \\frac{1}{{{mau}}} = {tong} : {mau} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Phân số biểu thị số phần, muốn tìm giá trị của phần đó ta thực hiện phép chia tổng số cho mẫu số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 100, "max": 200, "step": 10 },
+      "y": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": ["x % y === 0"],
+    "formulas": {
+      "ans": "x / y",
+      "w1": "(x / y) + 10",
+      "w2": "(x / y) - 5",
+      "w3": "x / (y + 1)"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có diện tích là $ {x} \\text{ m}^2 $. Người ta dùng $ \\frac{1}{{{y}}} $ diện tích mảnh vườn để trồng hoa. Hỏi diện tích trồng hoa là bao nhiêu mét vuông?",
+    "options": [
+      "A. {w1} $ \\text{m}^2 $",
+      "B. {ans} $ \\text{m}^2 $",
+      "C. {w2} $ \\text{m}^2 $",
+      "D. {w3} $ \\text{m}^2 $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Diện tích trồng hoa bằng $ \\frac{1}{{{y}}} $ diện tích mảnh vườn."],
+    "solutionHtml": "Diện tích trồng hoa là:<br/>$ {x} \\times \\frac{1}{{{y}}} = {x} : {y} = {ans} $ ($ \\text{m}^2 $).<br/>Đáp án đúng là B.",
+    "tip": "Nhớ đơn vị đo diện tích là mét vuông.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 2, "max": 4, "step": 1 },
+      "a": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["a % n === 0"],
+    "formulas": {
+      "ans": "a / n",
+      "w1": "a + n",
+      "w2": "a * n",
+      "w3": "a - n"
+    },
+    "questionText": "Tìm một số, biết rằng $ \\frac{1}{{{n}}} $ của số đó bằng {a}.",
+    "options": [
+      "A. {w1}",
+      "B. {ans * n}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Nếu $ \\frac{1}{{{n}}} $ của một số là {a} thì số đó là {a} nhân với {n}."],
+    "solutionHtml": "Số cần tìm là:<br/>$ {a} \\times {n} = {ans * n} $.<br/>Đáp án đúng là B.",
+    "tip": "Muốn tìm một số khi biết một phần phân số của nó, ta lấy giá trị đó nhân với mẫu số (nếu tử số là 1).",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "ts": { "min": 2, "max": 4, "step": 1 },
+      "ms": { "min": 5, "max": 7, "step": 1 },
+      "val": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": ["val % ts === 0"],
+    "formulas": {
+      "ans": "(val / ts) * ms",
+      "w1": "val * ms / ts + 5",
+      "w2": "val * ts",
+      "w3": "val + ms"
+    },
+    "questionText": "Một đơn vị bộ đội có {val} chiến sĩ, trong đó $ \\frac{{{ts}}}{{{ms}}} $ là chiến sĩ thuộc đội đặc nhiệm. Hỏi đội đặc nhiệm có bao nhiêu chiến sĩ?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia {val} cho {ms} rồi nhân với {ts}."],
+    "solutionHtml": "Số chiến sĩ đội đặc nhiệm là:<br/>$ {val} : {ms} \\times {ts} = {ans} $ (chiến sĩ).<br/>Đáp án đúng là B.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 10 },
+      "b": { "min": 3, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a - (a / b)",
+      "w1": "a / b",
+      "w2": "a + a / b",
+      "w3": "a * 2"
+    },
+    "questionText": "Một cửa hàng có {a} kg đường. Sáng nay cửa hàng đã bán $ \\frac{1}{{{b}}} $ số đường đó. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam đường?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính số đường đã bán, sau đó lấy tổng số đường trừ đi số đã bán."],
+    "solutionHtml": "Số đường đã bán là: $ {a} : {b} = {a / b} $ (kg).<br/>Số đường còn lại là: $ {a} - {a / b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 5, "max": 9, "step": 1 },
+      "y": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["x % y !== 0"],
+    "formulas": {
+      "ans": "(x + y) * 2",
+      "w1": "x + y",
+      "w2": "x * y",
+      "w3": "x - y"
+    },
+    "questionText": "Phân số nào sau đây bằng phân số $ \\frac{{{x}}}{{{y}}} $ mà có tổng của tử số và mẫu số là { (x+y)*2 }?",
+    "options": [
+      "A. $ \\frac{{{x+2}}}{{{y+2}}} $",
+      "B. $ \\frac{{{x}}}{{{y}}} $",
+      "C. $ \\frac{{{x*2}}}{{{y*2}}} $",
+      "D. $ \\frac{{{x+1}}}{{{y+1}}} $"
+    ],
+    "correctIndex": 2,
+    "hints": ["Rút gọn phân số ở các phương án hoặc nhân tử số và mẫu số của $ \\frac{{{x}}}{{{y}}} $ với cùng một số."],
+    "solutionHtml": "Ta có $ \\frac{{{x}}}{{{y}}} = \\frac{{{x*2}}}{{{y*2}}} $. Tổng tử số và mẫu số là: $ {x*2} + {y*2} = { (x+y)*2 } $.<br/>Đáp án đúng là C.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "n",
+      "w1": "n + 1",
+      "w2": "n - 1",
+      "w3": "n * 2"
+    },
+    "questionText": "Điền số thích hợp vào chỗ chấm: $ \\frac{3}{{{n}}} = \\frac{{9}}{{27}} $. Vậy $ n = $ ?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Ta thấy 9 gấp 3 lần 3, do đó $ n \\times 3 = 27 $."],
+    "solutionHtml": "Vì $ 3 \\times 3 = 9 $ nên $ n \\times 3 = 27 $. Suy ra $ n = 27 : 3 = 9 $ (Lưu ý: biến n ở đây được chọn để kết quả hợp lệ, đáp án là 9).<br/>Đáp án đúng là B.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "b - a",
+      "w2": "a * b",
+      "w3": "b + 1"
+    },
+    "questionText": "Cho phân số $ \\frac{{{a}}}{{{b}}} $. Nếu cộng thêm vào tử số {a} đơn vị thì phân số đó bằng 1. Hỏi tổng của tử số và mẫu số ban đầu là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để phân số bằng 1 thì tử số mới phải bằng mẫu số $ b $."],
+    "solutionHtml": "Tử số mới là $ {a} + {a} = {a*2} $. Vì phân số bằng 1 nên $ {a*2} = {b} $. Vậy $ {b} = {a*2} $. Tổng tử và mẫu là $ {a} + {b} = {ans} $.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a * 4",
+      "w1": "a * 2",
+      "w2": "a * 3",
+      "w3": "a * 5"
+    },
+    "questionText": "Một cái bánh được chia làm 4 phần bằng nhau. Bạn An ăn $ \\frac{{{a}}}{4} $ cái bánh. Hỏi bạn An đã ăn bao nhiêu phần của cái bánh?",
+    "options": [
+      "A. {w1}/4",
+      "B. {ans}/16",
+      "C. {a}/{a*4}",
+      "D. {a}/4"
+    ],
+    "correctIndex": 3,
+    "hints": ["Đề bài đã cho biết bạn An ăn {a}/4 cái bánh."],
+    "solutionHtml": "Bạn An ăn $ \\frac{{{a}}}{4} $ cái bánh. Đáp án là D.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-69-d4"
+  }
+]
+

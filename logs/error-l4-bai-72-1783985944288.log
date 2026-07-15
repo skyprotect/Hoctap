@@ -1,0 +1,580 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:39:04.288Z
+Lesson ID: l4-bai-72
+Lesson Title: Bài 72: Ôn tập một số yếu tố thống kê và xác suất
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11247 (line 325 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11247 (line 325 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11247 (Line: 277, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 5 },
+        "b": { "min": 10, "max": 30, "step": 5 },
+        "c": { "min": 15, "max": 40, "step": 5 }
+      },
+      "constraints": ["(a + b + c) % 3 === 0"],
+      "formulas": {
+        "total": "a + b + c",
+        "ans": "total / 3",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Trong ba ngày, cửa hàng bán được lần lượt là {a}, {b} và {c} cuốn sách. Hỏi trung bình mỗi ngày cửa hàng bán được bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1} cuốn sách",
+        "B. {ans} cuốn sách",
+        "C. {w2} cuốn sách",
+        "D. {w3} cuốn sách"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số sách đã bán được trong ba ngày.", "Lấy tổng đó chia cho 3 để tìm trung bình cộng."],
+      "solutionHtml": "Tổng số sách bán được trong ba ngày là:<br/>$ {a} + {b} + {c} = {total} $ (cuốn sách).<br/>Trung bình mỗi ngày cửa hàng bán được số sách là:<br/>$ {total} : 3 = {ans} $ (cuốn sách).<br/>Đáp án đúng là B.",
+      "tip": "Trung bình cộng của các số bằng tổng các số đó chia cho số lượng các số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh-cong"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "red": { "min": 10, "max": 20, "step": 1 },
+        "blue": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["red > blue"],
+      "formulas": {
+        "total": "red + blue",
+        "ans": "red / total",
+        "w1": "blue / total",
+        "w2": "red",
+        "w3": "1"
+      },
+      "questionText": "Trong hộp có {red} viên bi đỏ và {blue} viên bi xanh. Nếu lấy ngẫu nhiên một viên bi, xác suất để lấy được viên bi màu đỏ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {red}/{total}",
+        "C. {blue}/{total}",
+        "D. {w2}/{total}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số viên bi trong hộp.", "Xác suất lấy bi đỏ bằng số bi đỏ chia cho tổng số bi."],
+      "solutionHtml": "Tổng số viên bi trong hộp là:<br/>$ {red} + {blue} = {total} $ (viên bi).<br/>Xác suất lấy được viên bi màu đỏ là: $ \\frac{{red}}{{total}} $.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất của một sự kiện bằng số kết quả thuận lợi chia cho tổng số kết quả có thể xảy ra.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": { "min": 40, "max": 60, "step": 2 },
+        "n2": { "min": 30, "max": 50, "step": 2 },
+        "n3": { "min": 50, "max": 70, "step": 2 }
+      },
+      "constraints": ["n1 % 2 === 0", "n2 % 2 === 0", "n3 % 2 === 0"],
+      "formulas": {
+        "ans": "(n1 + n2 + n3) / 3",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Ba lớp 4A, 4B, 4C có số học sinh giỏi lần lượt là {n1}, {n2} và {n3} bạn. Tính trung bình số học sinh giỏi của mỗi lớp.",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số học sinh giỏi của ba lớp.", "Chia tổng đó cho 3."],
+      "solutionHtml": "Tổng số học sinh giỏi của ba lớp là:<br/>$ {n1} + {n2} + {n3} = {n1+n2+n3} $ (bạn).<br/>Trung bình mỗi lớp có số học sinh giỏi là:<br/>$ {n1+n2+n3} : 3 = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý cộng các số thật chính xác trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["(a * 4) % (a + b) === 0"],
+      "formulas": {
+        "ans": "(a * 4) / (a + b)",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Một bảng thống kê cho thấy có {a} bạn thích chơi bóng đá, {b} bạn thích chơi bóng rổ. Biết rằng mỗi bạn chỉ chọn một môn. Nếu tổng số bạn tham gia là {a+b}, xác suất chọn được bạn thích bóng đá là bao nhiêu trong tổng số bạn?",
+      "options": [
+        "A. {w1}/{a+b}",
+        "B. {a}/{a+b}",
+        "C. {w2}/{a+b}",
+        "D. {w3}/{a+b}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số bạn thích bóng đá là {a}.", "Tổng số bạn là {a+b}."],
+      "solutionHtml": "Số bạn thích bóng đá là {a} bạn. Tổng số bạn là {a+b} bạn.<br/>Xác suất chọn được bạn thích bóng đá là $ \\frac{{a}}{{a+b}} $.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất là tỉ số giữa phần thuận lợi và toàn bộ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": { "min": 100, "max": 200, "step": 10 },
+        "v2": { "min": 200, "max": 300, "step": 10 },
+        "v3": { "min": 300, "max": 400, "step": 10 }
+      },
+      "constraints": ["(v1 + v2 + v3) % 3 === 0"],
+      "formulas": {
+        "ans": "(v1 + v2 + v3) / 3",
+        "w1": "ans + 20",
+        "w2": "ans - 20",
+        "w3": "ans + 40"
+      },
+      "questionText": "Số lượng sản phẩm nhà máy sản xuất trong ba tháng đầu năm lần lượt là {v1}, {v2}, {v3} sản phẩm. Tìm trung bình mỗi tháng nhà máy sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng sản phẩm trong 3 tháng.", "Chia kết quả đó cho 3."],
+      "solutionHtml": "Tổng sản phẩm trong 3 tháng là:<br/>$ {v1} + {v2} + {v3} = {v1+v2+v3} $ (sản phẩm).<br/>Trung bình mỗi tháng là:<br/>$ {v1+v2+v3} : 3 = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Thực hiện phép tính cộng trước, chia sau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh-3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": { "min": 5, "max": 10, "step": 1 },
+        "n": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["t > n"],
+      "formulas": {
+        "ans": "t - n",
+        "w1": "t + n",
+        "w2": "t * n",
+        "w3": "t"
+      },
+      "questionText": "Trong túi có {t} viên bi, trong đó có {n} viên bi màu vàng, còn lại là bi màu xanh. Lấy ngẫu nhiên một viên bi, xác suất lấy được viên bi màu xanh là bao nhiêu?",
+      "options": [
+        "A. {n}/{t}",
+        "B. {ans}/{t}",
+        "C. {w1}/{t}",
+        "D. {w2}/{t}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tìm số viên bi màu xanh bằng cách lấy tổng trừ đi bi vàng.", "Lấy số bi xanh chia cho tổng số bi."],
+      "solutionHtml": "Số viên bi xanh là:<br/>$ {t} - {n} = {ans} $ (viên).<br/>Xác suất lấy được bi xanh là: $ \\frac{{ans}}{{t}} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy xác định đúng số lượng của từng loại bi trước khi tính xác suất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 30, "step": 2 },
+        "b": { "min": 10, "max": 16, "step": 2 }
+      },
+      "constraints": ["(a + b) % 2 === 0"],
+      "formulas": {
+        "ans": "(a + b) / 2",
+        "w1": "a",
+        "w2": "b",
+        "w3": "ans + 2"
+      },
+      "questionText": "Điểm kiểm tra của hai bạn An và Bình lần lượt là {a} và {b} (thang điểm 30). Hỏi trung bình điểm của hai bạn là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {b}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng điểm của hai bạn.", "Chia tổng đó cho 2."],
+      "solutionHtml": "Tổng điểm của hai bạn là:<br/>$ {a} + {b} = {a+b} $ (điểm).<br/>Trung bình điểm của hai bạn là:<br/>$ {a+b} : 2 = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+      "tip": "Trung bình cộng của hai số bằng tổng chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh-4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["v % 2 === 0"],
+      "formulas": {
+        "ans": "1/2",
+        "w1": "1/3",
+        "w2": "2/3",
+        "w3": "1/4"
+      },
+      "questionText": "Một hộp có {v} viên bi, trong đó có một nửa số bi là màu trắng. Nếu lấy ngẫu nhiên 1 viên bi, xác suất để lấy được viên bi màu trắng là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. 1/2",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Vì một nửa số bi là màu trắng, nên tỉ lệ là 1/2."],
+      "solutionHtml": "Vì số bi màu trắng chiếm một nửa tổng số bi, nên xác suất lấy được bi màu trắng là $ \\frac{1}{2} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi một nửa số lượng phần tử có cùng tính chất, xác suất luôn là 1/2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["n % 4 === 0"],
+      "formulas": {
+        "ans": "n / 4",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Có một con xúc xắc cân đối. Xác suất để gieo được mặt có số chấm chia hết cho 6 là bao nhiêu? (Biết xúc xắc có các mặt từ 1 đến 6).",
+      "options": [
+        "A. 1/6",
+        "B. 1/3",
+        "C. 1/2",
+        "D. 2/3"
+      ],
+      "correctIndex": 0,
+      "hints": ["Xúc xắc có 6 mặt: 1, 2, 3, 4, 5, 6.", "Chỉ có mặt số 6 là chia hết cho 6."],
+      "solutionHtml": "Các mặt của xúc xắc là {1, 2, 3, 4, 5, 6}. Chỉ có mặt 6 là chia hết cho 6.<br/>Xác suất là $ \\frac{1}{6} $.<br/>Đáp án đúng là A.",
+      "tip": "Đếm số kết quả thuận lợi trên tổng số kết quả có thể xảy ra.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a + b) % 1 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a * b"
+      },
+      "questionText": "Một nhóm học sinh có {a} bạn nam và {b} bạn nữ. Chọn ngẫu nhiên 1 bạn. Xác suất để chọn được một bạn (nam hoặc nữ) là bao nhiêu?",
+      "options": [
+        "A. {w1}/{ans}",
+        "B. 1",
+        "C. {w3}/{ans}",
+        "D. {w2}/{ans}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tổng số bạn là {a} + {b} = {a+b}.", "Xác suất chọn một bạn trong nhóm luôn bằng 1."],
+      "solutionHtml": "Tổng số học sinh là {a+b} bạn. Xác suất chọn được bất kỳ bạn nào trong nhóm là $ \\frac{{a+b}}{{a+b}} = 1 $.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất của một sự kiện chắc chắn luôn bằng 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-6"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 5 },
+        "b": { "min": 10, "max": 30, "step": 5 },
+        "c": { "min": 15, "max": 40, "step": 5 }
+      },
+      "constraints": ["(a + b + c) % 3 === 0"],
+      "formulas": {
+        "total": "a + b + c",
+        "ans": "total / 3",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Trong ba ngày, cửa hàng bán được lần lượt là {a}, {b} và {c} cuốn sách. Hỏi trung bình mỗi ngày cửa hàng bán được bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1} cuốn sách",
+        "B. {ans} cuốn sách",
+        "C. {w2} cuốn sách",
+        "D. {w3} cuốn sách"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số sách đã bán được trong ba ngày.", "Lấy tổng đó chia cho 3 để tìm trung bình cộng."],
+      "solutionHtml": "Tổng số sách bán được trong ba ngày là:<br/>$ {a} + {b} + {c} = {total} $ (cuốn sách).<br/>Trung bình mỗi ngày cửa hàng bán được số sách là:<br/>$ {total} : 3 = {ans} $ (cuốn sách).<br/>Đáp án đúng là B.",
+      "tip": "Trung bình cộng của các số bằng tổng các số đó chia cho số lượng các số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh-cong"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "red": { "min": 10, "max": 20, "step": 1 },
+        "blue": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["red > blue"],
+      "formulas": {
+        "total": "red + blue",
+        "ans": "red / total",
+        "w1": "blue / total",
+        "w2": "red",
+        "w3": "1"
+      },
+      "questionText": "Trong hộp có {red} viên bi đỏ và {blue} viên bi xanh. Nếu lấy ngẫu nhiên một viên bi, xác suất để lấy được viên bi màu đỏ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {red}/{total}",
+        "C. {blue}/{total}",
+        "D. {w2}/{total}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số viên bi trong hộp.", "Xác suất lấy bi đỏ bằng số bi đỏ chia cho tổng số bi."],
+      "solutionHtml": "Tổng số viên bi trong hộp là:<br/>$ {red} + {blue} = {total} $ (viên bi).<br/>Xác suất lấy được viên bi màu đỏ là: $ \\frac{{red}}{{total}} $.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất của một sự kiện bằng số kết quả thuận lợi chia cho tổng số kết quả có thể xảy ra.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": { "min": 40, "max": 60, "step": 2 },
+        "n2": { "min": 30, "max": 50, "step": 2 },
+        "n3": { "min": 50, "max": 70, "step": 2 }
+      },
+      "constraints": ["n1 % 2 === 0", "n2 % 2 === 0", "n3 % 2 === 0"],
+      "formulas": {
+        "ans": "(n1 + n2 + n3) / 3",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Ba lớp 4A, 4B, 4C có số học sinh giỏi lần lượt là {n1}, {n2} và {n3} bạn. Tính trung bình số học sinh giỏi của mỗi lớp.",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số học sinh giỏi của ba lớp.", "Chia tổng đó cho 3."],
+      "solutionHtml": "Tổng số học sinh giỏi của ba lớp là:<br/>$ {n1} + {n2} + {n3} = {n1+n2+n3} $ (bạn).<br/>Trung bình mỗi lớp có số học sinh giỏi là:<br/>$ {n1+n2+n3} : 3 = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý cộng các số thật chính xác trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["(a * 4) % (a + b) === 0"],
+      "formulas": {
+        "ans": "(a * 4) / (a + b)",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Một bảng thống kê cho thấy có {a} bạn thích chơi bóng đá, {b} bạn thích chơi bóng rổ. Biết rằng mỗi bạn chỉ chọn một môn. Nếu tổng số bạn tham gia là {a+b}, xác suất chọn được bạn thích bóng đá là bao nhiêu trong tổng số bạn?",
+      "options": [
+        "A. {w1}/{a+b}",
+        "B. {a}/{a+b}",
+        "C. {w2}/{a+b}",
+        "D. {w3}/{a+b}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số bạn thích bóng đá là {a}.", "Tổng số bạn là {a+b}."],
+      "solutionHtml": "Số bạn thích bóng đá là {a} bạn. Tổng số bạn là {a+b} bạn.<br/>Xác suất chọn được bạn thích bóng đá là $ \\frac{{a}}{{a+b}} $.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất là tỉ số giữa phần thuận lợi và toàn bộ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": { "min": 100, "max": 200, "step": 10 },
+        "v2": { "min": 200, "max": 300, "step": 10 },
+        "v3": { "min": 300, "max": 400, "step": 10 }
+      },
+      "constraints": ["(v1 + v2 + v3) % 3 === 0"],
+      "formulas": {
+        "ans": "(v1 + v2 + v3) / 3",
+        "w1": "ans + 20",
+        "w2": "ans - 20",
+        "w3": "ans + 40"
+      },
+      "questionText": "Số lượng sản phẩm nhà máy sản xuất trong ba tháng đầu năm lần lượt là {v1}, {v2}, {v3} sản phẩm. Tìm trung bình mỗi tháng nhà máy sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng sản phẩm trong 3 tháng.", "Chia kết quả đó cho 3."],
+      "solutionHtml": "Tổng sản phẩm trong 3 tháng là:<br/>$ {v1} + {v2} + {v3} = {v1+v2+v3} $ (sản phẩm).<br/>Trung bình mỗi tháng là:<br/>$ {v1+v2+v3} : 3 = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Thực hiện phép tính cộng trước, chia sau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh-3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": { "min": 5, "max": 10, "step": 1 },
+        "n": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["t > n"],
+      "formulas": {
+        "ans": "t - n",
+        "w1": "t + n",
+        "w2": "t * n",
+        "w3": "t"
+      },
+      "questionText": "Trong túi có {t} viên bi, trong đó có {n} viên bi màu vàng, còn lại là bi màu xanh. Lấy ngẫu nhiên một viên bi, xác suất lấy được viên bi màu xanh là bao nhiêu?",
+      "options": [
+        "A. {n}/{t}",
+        "B. {ans}/{t}",
+        "C. {w1}/{t}",
+        "D. {w2}/{t}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tìm số viên bi màu xanh bằng cách lấy tổng trừ đi bi vàng.", "Lấy số bi xanh chia cho tổng số bi."],
+      "solutionHtml": "Số viên bi xanh là:<br/>$ {t} - {n} = {ans} $ (viên).<br/>Xác suất lấy được bi xanh là: $ \\frac{{ans}}{{t}} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy xác định đúng số lượng của từng loại bi trước khi tính xác suất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 30, "step": 2 },
+        "b": { "min": 10, "max": 16, "step": 2 }
+      },
+      "constraints": ["(a + b) % 2 === 0"],
+      "formulas": {
+        "ans": "(a + b) / 2",
+        "w1": "a",
+        "w2": "b",
+        "w3": "ans + 2"
+      },
+      "questionText": "Điểm kiểm tra của hai bạn An và Bình lần lượt là {a} và {b} (thang điểm 30). Hỏi trung bình điểm của hai bạn là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {b}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng điểm của hai bạn.", "Chia tổng đó cho 2."],
+      "solutionHtml": "Tổng điểm của hai bạn là:<br/>$ {a} + {b} = {a+b} $ (điểm).<br/>Trung bình điểm của hai bạn là:<br/>$ {a+b} : 2 = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+      "tip": "Trung bình cộng của hai số bằng tổng chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-trung-binh-4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["v % 2 === 0"],
+      "formulas": {
+        "ans": "1/2",
+        "w1": "1/3",
+        "w2": "2/3",
+        "w3": "1/4"
+      },
+      "questionText": "Một hộp có {v} viên bi, trong đó có một nửa số bi là màu trắng. Nếu lấy ngẫu nhiên 1 viên bi, xác suất để lấy được viên bi màu trắng là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. 1/2",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Vì một nửa số bi là màu trắng, nên tỉ lệ là 1/2."],
+      "solutionHtml": "Vì số bi màu trắng chiếm một nửa tổng số bi, nên xác suất lấy được bi màu trắng là $ \\frac{1}{2} $.<br/>Đáp án đúng là B.",
+      "tip": "Khi một nửa số lượng phần tử có cùng tính chất, xác suất luôn là 1/2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["n % 4 === 0"],
+      "formulas": {
+        "ans": "n / 4",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Có một con xúc xắc cân đối. Xác suất để gieo được mặt có số chấm chia hết cho 6 là bao nhiêu? (Biết xúc xắc có các mặt từ 1 đến 6).",
+      "options": [
+        "A. 1/6",
+        "B. 1/3",
+        "C. 1/2",
+        "D. 2/3"
+      ],
+      "correctIndex": 0,
+      "hints": ["Xúc xắc có 6 mặt: 1, 2, 3, 4, 5, 6.", "Chỉ có mặt số 6 là chia hết cho 6."],
+      "solutionHtml": "Các mặt của xúc xắc là {1, 2, 3, 4, 5, 6}. Chỉ có mặt 6 là chia hết cho 6.<br/>Xác suất là $ \\frac{1}{6} $.<br/>Đáp án đúng là A.",
+      "tip": "Đếm số kết quả thuận lợi trên tổng số kết quả có thể xảy ra.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a + b) % 1 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a * b"
+      },
+      "questionText": "Một nhóm học sinh có {a} bạn nam và {b} bạn nữ. Chọn ngẫu nhiên 1 bạn. Xác suất để chọn được một bạn (nam hoặc nữ) là bao nhiêu?",
+      "options": [
+        "A. {w1}/{ans}",
+        "B. 1",
+        "C. {w3}/{ans}",
+        "D. {w2}/{ans}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tổng số bạn là {a} + {b} = {a+b}.", "Xác suất chọn một bạn trong nhóm luôn bằng 1."],
+      "solutionHtml": "Tổng số học sinh là {a+b} bạn. Xác suất chọn được bất kỳ bạn nào trong nhóm là $ \\frac{{a+b}}{{a+b}} = 1 $.<br/>Đáp án đúng là B.",
+      "tip": "Xác suất của một sự kiện chắc chắn luôn bằng 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-72-xac-suat-6"
+    }
+  ]
+}
+

@@ -1,0 +1,482 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:28:03.857Z
+Lesson ID: eng1-t20
+Lesson Title: Unit 20: Transports (NÂNG CAO LỚP 2)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10825 (line 400 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10825 (line 400 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10825 (Line: 228, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x % y === 0", "x > 2 * y"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trên bến cảng có {x} chiếc tàu thủy được xếp đều vào {y} khu vực đậu. Hỏi mỗi khu vực có bao nhiêu chiếc tàu thủy?",
+      "options": ["A. {w1} chiếc tàu", "B. {ans} chiếc tàu", "C. {w2} chiếc tàu", "D. {w3} chiếc tàu"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số tàu mỗi khu vực, ta lấy tổng số tàu chia cho số khu vực.", "Thực hiện phép tính $ {x} : {y} $."],
+      "solutionHtml": "Số tàu thủy trong mỗi khu vực là:<br/>$ {x} : {y} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', hãy nhớ sử dụng phép chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Một đoàn tàu có {a} toa chở khách và {b} toa chở hàng. Hỏi đoàn tàu đó có tất cả bao nhiêu toa?",
+      "options": ["A. {w1} toa", "B. {ans} toa", "C. {w2} toa", "D. {w3} toa"],
+      "correctIndex": 1,
+      "hints": ["Muốn biết tất cả bao nhiêu toa, ta cộng số toa chở khách và số toa chở hàng lại.", "Thực hiện phép tính $ {a} + {b} $."],
+      "solutionHtml": "Tổng số toa của đoàn tàu là:<br/>$ {a} + {b} = {ans} $ (toa).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'tất cả' gợi ý cho chúng ta sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 15, "max": 19, "step": 1 },
+        "gone": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": ["total > gone"],
+      "formulas": {
+        "ans": "total - gone",
+        "w1": "total - gone + 1",
+        "w2": "total - gone - 1",
+        "w3": "total - gone + 2"
+      },
+      "questionText": "Tại sân bay có {total} chiếc máy bay đang chờ cất cánh. Sau đó, có {gone} chiếc đã bay đi. Hỏi còn lại bao nhiêu chiếc máy bay ở sân bay?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Có {total} chiếc, đi mất {gone} chiếc, ta làm phép trừ.", "Thực hiện $ {total} - {gone} $."],
+      "solutionHtml": "Số máy bay còn lại ở sân bay là:<br/>$ {total} - {gone} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'còn lại' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bus": { "min": 3, "max": 5, "step": 1 },
+        "seat": { "min": 4, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "bus * seat",
+        "w1": "bus + seat",
+        "w2": "bus * seat + 2",
+        "w3": "bus * seat - 1"
+      },
+      "questionText": "Có {bus} xe buýt, mỗi xe chở được {seat} hành khách. Hỏi tổng cộng cả {bus} xe chở được bao nhiêu hành khách?",
+      "options": ["A. {w1} hành khách", "B. {ans} hành khách", "C. {w2} hành khách", "D. {w3} hành khách"],
+      "correctIndex": 1,
+      "hints": ["Mỗi xe {seat} hành khách, {bus} xe thì gấp lên {bus} lần.", "Thực hiện phép tính $ {bus} \\times {seat} $."],
+      "solutionHtml": "Tổng số hành khách là:<br/>$ {bus} \\times {seat} = {ans} $ (hành khách).<br/>Đáp án đúng là B.",
+      "tip": "Gấp nhiều lần lên thì dùng phép nhân nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bike": { "min": 2, "max": 4, "step": 1 },
+        "car": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * bike + 4 * car",
+        "w1": "bike + car",
+        "w2": "2 * bike + 4 * car + 2",
+        "w3": "2 * bike + 4 * car - 2"
+      },
+      "questionText": "Có {bike} chiếc xe đạp (mỗi xe có 2 bánh) và {car} chiếc ô tô (mỗi xe có 4 bánh). Hỏi tổng cộng có bao nhiêu bánh xe?",
+      "options": ["A. {w1} bánh", "B. {ans} bánh", "C. {w2} bánh", "D. {w3} bánh"],
+      "correctIndex": 1,
+      "hints": ["Tính số bánh xe đạp: $ 2 \\times {bike} $. Tính số bánh ô tô: $ 4 \\times {car} $. Cộng tổng lại."],
+      "solutionHtml": "Số bánh xe đạp là $ 2 \\times {bike} = {v1} $ (bánh).<br/>Số bánh ô tô là $ 4 \\times {car} = {v2} $ (bánh).<br/>Tổng số bánh là $ {v1} + {v2} = {ans} $ (bánh).",
+      "formulas_pre": {
+        "v1": "2 * bike",
+        "v2": "4 * car"
+      },
+      "tip": "Hãy tính cẩn thận từng loại xe rồi mới cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} chiếc xe máy cần được xếp vào {b} hàng, mỗi hàng có số lượng xe như nhau. Hỏi mỗi hàng có bao nhiêu chiếc xe?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Chia đều {a} vào {b} nhóm.", "Thực hiện phép chia."],
+      "solutionHtml": "Mỗi hàng có số xe là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là từ khóa cho phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a - b",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trên đường có {a} chiếc ô tô màu đỏ và {b} chiếc ô tô màu xanh. Hỏi có tất cả bao nhiêu chiếc ô tô trên đường?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Cộng số xe màu đỏ và số xe màu xanh.", "Phép tính: $ {a} + {b} $."],
+      "solutionHtml": "Tổng số ô tô là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Cộng hai nhóm lại để được tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 12, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Một tàu hỏa có {a} toa, nhưng hiện tại chỉ có {b} toa đang hoạt động. Hỏi có bao nhiêu toa tàu đang không hoạt động?",
+      "options": ["A. {w1} toa", "B. {ans} toa", "C. {w2} toa", "D. {w3} toa"],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng số toa trừ đi số toa đang hoạt động.", "Phép tính: $ {a} - {b} $."],
+      "solutionHtml": "Số toa không hoạt động là:<br/>$ {a} - {b} = {ans} $ (toa).<br/>Đáp án đúng là B.",
+      "tip": "Tìm phần còn lại của tập hợp thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Có {a} bãi đỗ xe, mỗi bãi đỗ được {b} chiếc xe. Hỏi tổng cộng có bao nhiêu xe đang đỗ?",
+      "options": ["A. {w1} xe", "B. {ans} xe", "C. {w2} xe", "D. {w3} xe"],
+      "correctIndex": 1,
+      "hints": ["Mỗi bãi {b} xe, {a} bãi thì có $ {a} \\times {b} $ xe.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số xe đang đỗ là:<br/>$ {a} \\times {b} = {ans} $ (xe).<br/>Đáp án đúng là B.",
+      "tip": "Gấp nhiều lần bằng nhau thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Bến xe có {a} chuyến xe buýt dự kiến khởi hành, nhưng vì trời mưa nên có {b} chuyến bị hủy bỏ. Hỏi còn lại bao nhiêu chuyến xe sẽ khởi hành?",
+      "options": ["A. {w1} chuyến", "B. {ans} chuyến", "C. {w2} chuyến", "D. {w3} chuyến"],
+      "correctIndex": 1,
+      "hints": ["Tổng số chuyến ban đầu trừ đi số chuyến bị hủy.", "Phép tính: $ {a} - {b} $."],
+      "solutionHtml": "Số chuyến xe khởi hành là:<br/>$ {a} - {b} = {ans} $ (chuyến).<br/>Đáp án đúng là B.",
+      "tip": "Bị hủy là mất đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x % y === 0", "x > 2 * y"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trên bến cảng có {x} chiếc tàu thủy được xếp đều vào {y} khu vực đậu. Hỏi mỗi khu vực có bao nhiêu chiếc tàu thủy?",
+      "options": ["A. {w1} chiếc tàu", "B. {ans} chiếc tàu", "C. {w2} chiếc tàu", "D. {w3} chiếc tàu"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số tàu mỗi khu vực, ta lấy tổng số tàu chia cho số khu vực.", "Thực hiện phép tính $ {x} : {y} $."],
+      "solutionHtml": "Số tàu thủy trong mỗi khu vực là:<br/>$ {x} : {y} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', hãy nhớ sử dụng phép chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Một đoàn tàu có {a} toa chở khách và {b} toa chở hàng. Hỏi đoàn tàu đó có tất cả bao nhiêu toa?",
+      "options": ["A. {w1} toa", "B. {ans} toa", "C. {w2} toa", "D. {w3} toa"],
+      "correctIndex": 1,
+      "hints": ["Muốn biết tất cả bao nhiêu toa, ta cộng số toa chở khách và số toa chở hàng lại.", "Thực hiện phép tính $ {a} + {b} $."],
+      "solutionHtml": "Tổng số toa của đoàn tàu là:<br/>$ {a} + {b} = {ans} $ (toa).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'tất cả' gợi ý cho chúng ta sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 15, "max": 19, "step": 1 },
+        "gone": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": ["total > gone"],
+      "formulas": {
+        "ans": "total - gone",
+        "w1": "total - gone + 1",
+        "w2": "total - gone - 1",
+        "w3": "total - gone + 2"
+      },
+      "questionText": "Tại sân bay có {total} chiếc máy bay đang chờ cất cánh. Sau đó, có {gone} chiếc đã bay đi. Hỏi còn lại bao nhiêu chiếc máy bay ở sân bay?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Có {total} chiếc, đi mất {gone} chiếc, ta làm phép trừ.", "Thực hiện $ {total} - {gone} $."],
+      "solutionHtml": "Số máy bay còn lại ở sân bay là:<br/>$ {total} - {gone} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'còn lại' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bus": { "min": 3, "max": 5, "step": 1 },
+        "seat": { "min": 4, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "bus * seat",
+        "w1": "bus + seat",
+        "w2": "bus * seat + 2",
+        "w3": "bus * seat - 1"
+      },
+      "questionText": "Có {bus} xe buýt, mỗi xe chở được {seat} hành khách. Hỏi tổng cộng cả {bus} xe chở được bao nhiêu hành khách?",
+      "options": ["A. {w1} hành khách", "B. {ans} hành khách", "C. {w2} hành khách", "D. {w3} hành khách"],
+      "correctIndex": 1,
+      "hints": ["Mỗi xe {seat} hành khách, {bus} xe thì gấp lên {bus} lần.", "Thực hiện phép tính $ {bus} \\times {seat} $."],
+      "solutionHtml": "Tổng số hành khách là:<br/>$ {bus} \\times {seat} = {ans} $ (hành khách).<br/>Đáp án đúng là B.",
+      "tip": "Gấp nhiều lần lên thì dùng phép nhân nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bike": { "min": 2, "max": 4, "step": 1 },
+        "car": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * bike + 4 * car",
+        "w1": "bike + car",
+        "w2": "2 * bike + 4 * car + 2",
+        "w3": "2 * bike + 4 * car - 2"
+      },
+      "questionText": "Có {bike} chiếc xe đạp (mỗi xe có 2 bánh) và {car} chiếc ô tô (mỗi xe có 4 bánh). Hỏi tổng cộng có bao nhiêu bánh xe?",
+      "options": ["A. {w1} bánh", "B. {ans} bánh", "C. {w2} bánh", "D. {w3} bánh"],
+      "correctIndex": 1,
+      "hints": ["Tính số bánh xe đạp: $ 2 \\times {bike} $. Tính số bánh ô tô: $ 4 \\times {car} $. Cộng tổng lại."],
+      "solutionHtml": "Số bánh xe đạp là $ 2 \\times {bike} = {v1} $ (bánh).<br/>Số bánh ô tô là $ 4 \\times {car} = {v2} $ (bánh).<br/>Tổng số bánh là $ {v1} + {v2} = {ans} $ (bánh).",
+      "formulas_pre": {
+        "v1": "2 * bike",
+        "v2": "4 * car"
+      },
+      "tip": "Hãy tính cẩn thận từng loại xe rồi mới cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} chiếc xe máy cần được xếp vào {b} hàng, mỗi hàng có số lượng xe như nhau. Hỏi mỗi hàng có bao nhiêu chiếc xe?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Chia đều {a} vào {b} nhóm.", "Thực hiện phép chia."],
+      "solutionHtml": "Mỗi hàng có số xe là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là từ khóa cho phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a - b",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trên đường có {a} chiếc ô tô màu đỏ và {b} chiếc ô tô màu xanh. Hỏi có tất cả bao nhiêu chiếc ô tô trên đường?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Cộng số xe màu đỏ và số xe màu xanh.", "Phép tính: $ {a} + {b} $."],
+      "solutionHtml": "Tổng số ô tô là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Cộng hai nhóm lại để được tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 12, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Một tàu hỏa có {a} toa, nhưng hiện tại chỉ có {b} toa đang hoạt động. Hỏi có bao nhiêu toa tàu đang không hoạt động?",
+      "options": ["A. {w1} toa", "B. {ans} toa", "C. {w2} toa", "D. {w3} toa"],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng số toa trừ đi số toa đang hoạt động.", "Phép tính: $ {a} - {b} $."],
+      "solutionHtml": "Số toa không hoạt động là:<br/>$ {a} - {b} = {ans} $ (toa).<br/>Đáp án đúng là B.",
+      "tip": "Tìm phần còn lại của tập hợp thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Có {a} bãi đỗ xe, mỗi bãi đỗ được {b} chiếc xe. Hỏi tổng cộng có bao nhiêu xe đang đỗ?",
+      "options": ["A. {w1} xe", "B. {ans} xe", "C. {w2} xe", "D. {w3} xe"],
+      "correctIndex": 1,
+      "hints": ["Mỗi bãi {b} xe, {a} bãi thì có $ {a} \\times {b} $ xe.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số xe đang đỗ là:<br/>$ {a} \\times {b} = {ans} $ (xe).<br/>Đáp án đúng là B.",
+      "tip": "Gấp nhiều lần bằng nhau thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Bến xe có {a} chuyến xe buýt dự kiến khởi hành, nhưng vì trời mưa nên có {b} chuyến bị hủy bỏ. Hỏi còn lại bao nhiêu chuyến xe sẽ khởi hành?",
+      "options": ["A. {w1} chuyến", "B. {ans} chuyến", "C. {w2} chuyến", "D. {w3} chuyến"],
+      "correctIndex": 1,
+      "hints": ["Tổng số chuyến ban đầu trừ đi số chuyến bị hủy.", "Phép tính: $ {a} - {b} $."],
+      "solutionHtml": "Số chuyến xe khởi hành là:<br/>$ {a} - {b} = {ans} $ (chuyến).<br/>Đáp án đúng là B.",
+      "tip": "Bị hủy là mất đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t20-d4"
+    }
+  ]
+}
+

@@ -1,0 +1,676 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T13:14:58.292Z
+Lesson ID: l4-bai-3
+Lesson Title: Bài 3: Số chẵn, số lẻ
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10042 (line 322 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10042 (line 322 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10042 (Line: 322, Column: 1)
+Character causing error: "}"
+
+Context:
+... = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số chẵn thứ n là $ 2n $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % 2 === 0",
+        "b % 2 !== 0",
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a + b + 4"
+      },
+      "questionText": "Một số chẵn là {a}. Nếu cộng số đó với số lẻ nhỏ nhất lớn hơn {b}, ta được kết quả là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số lẻ nhỏ nhất lớn hơn {b} là số nào?",
+        "Cộng số chẵn đã cho với số lẻ đó để tìm kết quả."
+      ],
+      "solutionHtml": "Số lẻ nhỏ nhất lớn hơn {b} là {b} + 1 (vì {b} là số chẵn/lẻ tùy trường hợp, ta lấy {b}+1).<br/>Tổng cần tìm là: $ {a} + ({b} + 1) = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy xác định đúng tính chẵn lẻ của số cần tìm trước khi thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 10, "max": 20, "step": 1 },
+        "n": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "start % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "start + (n - 1) * 2",
+        "w1": "start + (n - 1) * 2 + 2",
+        "w2": "start + (n - 1) * 2 - 2",
+        "w3": "start + (n - 1) * 2 + 4"
+      },
+      "questionText": "Viết dãy các số chẵn liên tiếp bắt đầu từ {start}. Hỏi số hạng thứ {n} của dãy số đó là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khoảng cách giữa hai số chẵn liên tiếp là 2 đơn vị.",
+        "Số thứ n bằng số đầu cộng với (n-1) lần khoảng cách."
+      ],
+      "solutionHtml": "Số hạng thứ {n} của dãy số chẵn là: $ {start} + ({n} - 1) \\times 2 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Công thức tìm số hạng thứ n là: Số đầu + (n-1) nhân với khoảng cách.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 11, "max": 31, "step": 1 }
+      },
+      "constraints": [
+        "a % 2 === 0",
+        "b % 2 !== 0",
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "Math.floor((b - a) / 2)",
+        "w1": "Math.floor((b - a) / 2) + 1",
+        "w2": "Math.floor((b - a) / 2) - 1",
+        "w3": "Math.floor((b - a) / 2) + 2"
+      },
+      "questionText": "Có bao nhiêu số lẻ nằm giữa số chẵn {a} và số lẻ {b}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Các số lẻ nằm giữa {a} và {b} bắt đầu từ {a}+1 và kết thúc tại {b}-2.",
+        "Sử dụng công thức: (Số cuối - Số đầu) chia 2 rồi cộng 1."
+      ],
+      "solutionHtml": "Số lẻ nhỏ nhất lớn hơn {a} là $ {a} + 1 $.<br/>Số lẻ lớn nhất nhỏ hơn {b} là $ {b} - 2 $.<br/>Số lượng số lẻ là: $ ({b} - 2 - ({a} + 1)) : 2 + 1 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đếm số lượng trong dãy cách đều: (Số cuối - Số đầu) : khoảng cách + 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 15, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "x % 2 !== 0"
+      ],
+      "formulas": {
+        "ans": "x * y + 1",
+        "w1": "x * y",
+        "w2": "x * y + 2",
+        "w3": "x * y - 1"
+      },
+      "questionText": "Tổng của {y} số lẻ liên tiếp mà số lẻ nhỏ nhất là {x} là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê {y} số lẻ liên tiếp bắt đầu từ {x}.",
+        "Cộng các số đó lại với nhau."
+      ],
+      "solutionHtml": "{y} số lẻ liên tiếp bắt đầu từ {x} là: {x}, {x}+2, {x}+4, ...<br/>Tổng là: $ {x} + ({x}+2) = {ans} $ (ví dụ với y=2).<br/>Đáp án đúng là B.",
+      "tip": "Hãy liệt kê cẩn thận để tránh sai sót khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 2 },
+        "b": { "min": 101, "max": 201, "step": 2 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Tổng của một số chẵn {a} và một số lẻ {b} luôn là một số gì?",
+      "options": [
+        "A. Số chẵn lớn hơn {ans}",
+        "B. Số lẻ là {ans}",
+        "C. Số chẵn là {ans}",
+        "D. Số lẻ nhỏ hơn {ans}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quy tắc: Chẵn + Lẻ = Lẻ.",
+        "Hãy thực hiện phép tính {a} + {b}."
+      ],
+      "solutionHtml": "Theo quy tắc số học, tổng của một số chẵn và một số lẻ luôn là một số lẻ.<br/>$ {a} + {b} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ: Chẵn + Chẵn = Chẵn; Lẻ + Lẻ = Chẵn; Chẵn + Lẻ = Lẻ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [
+        "a % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 2",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Tích của số chẵn {a} với bất kỳ số tự nhiên {b} nào luôn là một số gì?",
+      "options": [
+        "A. Luôn là số lẻ",
+        "B. Có thể là số lẻ",
+        "C. Luôn là số chẵn",
+        "D. Không xác định được"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính thử {a} nhân {b}.",
+        "Số chẵn nhân bất kỳ số nào cũng cho kết quả là số chẵn."
+      ],
+      "solutionHtml": "Số chẵn nhân với bất kỳ số tự nhiên nào cũng đều có tận cùng là 0, 2, 4, 6, 8 nên tích luôn là số chẵn.<br/>$ {a} \\times {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số chẵn nhân số nào cũng ra số chẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a > 2"
+      ],
+      "formulas": {
+        "ans": "a * a",
+        "w1": "a * a + 1",
+        "w2": "a * a - 1",
+        "w3": "a * a + 2"
+      },
+      "questionText": "Nếu tổng của hai số lẻ là {a} nhân {a}, hỏi hiệu của chúng có thể là số gì?",
+      "options": [
+        "A. Luôn là số lẻ",
+        "B. Luôn là số chẵn",
+        "C. Có thể là số lẻ",
+        "D. Luôn bằng 0"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng hai số lẻ luôn là số chẵn.",
+        "Hiệu hai số lẻ cũng luôn là số chẵn."
+      ],
+      "solutionHtml": "Tổng của hai số lẻ là một số chẵn. Hiệu của hai số lẻ cũng luôn luôn là một số chẵn.<br/>Đáp án đúng là B.",
+      "tip": "Lẻ - Lẻ = Chẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 60, "step": 2 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 2",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Một cửa hàng có {a} quyển vở, trong đó số vở là số chẵn. Sau khi bán đi {b} quyển vở (là số chẵn), hỏi số vở còn lại là số chẵn hay số lẻ?",
+      "options": [
+        "A. Số lẻ, kết quả là {ans}",
+        "B. Số chẵn, kết quả là {ans}",
+        "C. Số chẵn, kết quả là {w1}",
+        "D. Số lẻ, kết quả là {w1}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chẵn trừ Chẵn bằng Chẵn.",
+        "Tính $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số vở còn lại là: $ {a} - {b} = {ans} $.<br/>Vì {a} và {b} đều là số chẵn nên hiệu của chúng là số chẵn.<br/>Đáp án đúng là B.",
+      "tip": "Chẵn - Chẵn = Chẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * a + 1",
+        "w1": "2 * a",
+        "w2": "2 * a + 2",
+        "w3": "2 * a - 1"
+      },
+      "questionText": "Số lẻ thứ {a} (bắt đầu tính từ 1) là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dãy số lẻ: 1, 3, 5, 7, ...",
+        "Số lẻ thứ n là 2 nhân n trừ 1."
+      ],
+      "solutionHtml": "Số lẻ thứ {a} được tính bằng công thức $ 2 \\times {a} - 1 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số lẻ thứ n là $ 2n - 1 $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * a",
+        "w1": "2 * a - 1",
+        "w2": "2 * a + 1",
+        "w3": "2 * a + 2"
+      },
+      "questionText": "Số chẵn thứ {a} (bắt đầu tính từ 2) là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dãy số chẵn: 2, 4, 6, 8, ...",
+        "Số chẵn thứ n là 2 nhân n."
+      ],
+      "solutionHtml": "Số chẵn thứ {a} được tính bằng công thức $ 2 \\times {a} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số chẵn thứ n là $ 2n $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % 2 === 0",
+        "b % 2 !== 0",
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a + b + 4"
+      },
+      "questionText": "Một số chẵn là {a}. Nếu cộng số đó với số lẻ nhỏ nhất lớn hơn {b}, ta được kết quả là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số lẻ nhỏ nhất lớn hơn {b} là số nào?",
+        "Cộng số chẵn đã cho với số lẻ đó để tìm kết quả."
+      ],
+      "solutionHtml": "Số lẻ nhỏ nhất lớn hơn {b} là {b} + 1 (vì {b} là số chẵn/lẻ tùy trường hợp, ta lấy {b}+1).<br/>Tổng cần tìm là: $ {a} + ({b} + 1) = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Hãy xác định đúng tính chẵn lẻ của số cần tìm trước khi thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 10, "max": 20, "step": 1 },
+        "n": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "start % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "start + (n - 1) * 2",
+        "w1": "start + (n - 1) * 2 + 2",
+        "w2": "start + (n - 1) * 2 - 2",
+        "w3": "start + (n - 1) * 2 + 4"
+      },
+      "questionText": "Viết dãy các số chẵn liên tiếp bắt đầu từ {start}. Hỏi số hạng thứ {n} của dãy số đó là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khoảng cách giữa hai số chẵn liên tiếp là 2 đơn vị.",
+        "Số thứ n bằng số đầu cộng với (n-1) lần khoảng cách."
+      ],
+      "solutionHtml": "Số hạng thứ {n} của dãy số chẵn là: $ {start} + ({n} - 1) \\times 2 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Công thức tìm số hạng thứ n là: Số đầu + (n-1) nhân với khoảng cách.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 11, "max": 31, "step": 1 }
+      },
+      "constraints": [
+        "a % 2 === 0",
+        "b % 2 !== 0",
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "Math.floor((b - a) / 2)",
+        "w1": "Math.floor((b - a) / 2) + 1",
+        "w2": "Math.floor((b - a) / 2) - 1",
+        "w3": "Math.floor((b - a) / 2) + 2"
+      },
+      "questionText": "Có bao nhiêu số lẻ nằm giữa số chẵn {a} và số lẻ {b}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Các số lẻ nằm giữa {a} và {b} bắt đầu từ {a}+1 và kết thúc tại {b}-2.",
+        "Sử dụng công thức: (Số cuối - Số đầu) chia 2 rồi cộng 1."
+      ],
+      "solutionHtml": "Số lẻ nhỏ nhất lớn hơn {a} là $ {a} + 1 $.<br/>Số lẻ lớn nhất nhỏ hơn {b} là $ {b} - 2 $.<br/>Số lượng số lẻ là: $ ({b} - 2 - ({a} + 1)) : 2 + 1 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đếm số lượng trong dãy cách đều: (Số cuối - Số đầu) : khoảng cách + 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 15, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "x % 2 !== 0"
+      ],
+      "formulas": {
+        "ans": "x * y + 1",
+        "w1": "x * y",
+        "w2": "x * y + 2",
+        "w3": "x * y - 1"
+      },
+      "questionText": "Tổng của {y} số lẻ liên tiếp mà số lẻ nhỏ nhất là {x} là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê {y} số lẻ liên tiếp bắt đầu từ {x}.",
+        "Cộng các số đó lại với nhau."
+      ],
+      "solutionHtml": "{y} số lẻ liên tiếp bắt đầu từ {x} là: {x}, {x}+2, {x}+4, ...<br/>Tổng là: $ {x} + ({x}+2) = {ans} $ (ví dụ với y=2).<br/>Đáp án đúng là B.",
+      "tip": "Hãy liệt kê cẩn thận để tránh sai sót khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 2 },
+        "b": { "min": 101, "max": 201, "step": 2 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Tổng của một số chẵn {a} và một số lẻ {b} luôn là một số gì?",
+      "options": [
+        "A. Số chẵn lớn hơn {ans}",
+        "B. Số lẻ là {ans}",
+        "C. Số chẵn là {ans}",
+        "D. Số lẻ nhỏ hơn {ans}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quy tắc: Chẵn + Lẻ = Lẻ.",
+        "Hãy thực hiện phép tính {a} + {b}."
+      ],
+      "solutionHtml": "Theo quy tắc số học, tổng của một số chẵn và một số lẻ luôn là một số lẻ.<br/>$ {a} + {b} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ: Chẵn + Chẵn = Chẵn; Lẻ + Lẻ = Chẵn; Chẵn + Lẻ = Lẻ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [
+        "a % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 2",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Tích của số chẵn {a} với bất kỳ số tự nhiên {b} nào luôn là một số gì?",
+      "options": [
+        "A. Luôn là số lẻ",
+        "B. Có thể là số lẻ",
+        "C. Luôn là số chẵn",
+        "D. Không xác định được"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính thử {a} nhân {b}.",
+        "Số chẵn nhân bất kỳ số nào cũng cho kết quả là số chẵn."
+      ],
+      "solutionHtml": "Số chẵn nhân với bất kỳ số tự nhiên nào cũng đều có tận cùng là 0, 2, 4, 6, 8 nên tích luôn là số chẵn.<br/>$ {a} \\times {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số chẵn nhân số nào cũng ra số chẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a > 2"
+      ],
+      "formulas": {
+        "ans": "a * a",
+        "w1": "a * a + 1",
+        "w2": "a * a - 1",
+        "w3": "a * a + 2"
+      },
+      "questionText": "Nếu tổng của hai số lẻ là {a} nhân {a}, hỏi hiệu của chúng có thể là số gì?",
+      "options": [
+        "A. Luôn là số lẻ",
+        "B. Luôn là số chẵn",
+        "C. Có thể là số lẻ",
+        "D. Luôn bằng 0"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng hai số lẻ luôn là số chẵn.",
+        "Hiệu hai số lẻ cũng luôn là số chẵn."
+      ],
+      "solutionHtml": "Tổng của hai số lẻ là một số chẵn. Hiệu của hai số lẻ cũng luôn luôn là một số chẵn.<br/>Đáp án đúng là B.",
+      "tip": "Lẻ - Lẻ = Chẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 60, "step": 2 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 2",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Một cửa hàng có {a} quyển vở, trong đó số vở là số chẵn. Sau khi bán đi {b} quyển vở (là số chẵn), hỏi số vở còn lại là số chẵn hay số lẻ?",
+      "options": [
+        "A. Số lẻ, kết quả là {ans}",
+        "B. Số chẵn, kết quả là {ans}",
+        "C. Số chẵn, kết quả là {w1}",
+        "D. Số lẻ, kết quả là {w1}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chẵn trừ Chẵn bằng Chẵn.",
+        "Tính $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số vở còn lại là: $ {a} - {b} = {ans} $.<br/>Vì {a} và {b} đều là số chẵn nên hiệu của chúng là số chẵn.<br/>Đáp án đúng là B.",
+      "tip": "Chẵn - Chẵn = Chẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * a + 1",
+        "w1": "2 * a",
+        "w2": "2 * a + 2",
+        "w3": "2 * a - 1"
+      },
+      "questionText": "Số lẻ thứ {a} (bắt đầu tính từ 1) là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dãy số lẻ: 1, 3, 5, 7, ...",
+        "Số lẻ thứ n là 2 nhân n trừ 1."
+      ],
+      "solutionHtml": "Số lẻ thứ {a} được tính bằng công thức $ 2 \\times {a} - 1 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số lẻ thứ n là $ 2n - 1 $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * a",
+        "w1": "2 * a - 1",
+        "w2": "2 * a + 1",
+        "w3": "2 * a + 2"
+      },
+      "questionText": "Số chẵn thứ {a} (bắt đầu tính từ 2) là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dãy số chẵn: 2, 4, 6, 8, ...",
+        "Số chẵn thứ n là 2 nhân n."
+      ],
+      "solutionHtml": "Số chẵn thứ {a} được tính bằng công thức $ 2 \\times {a} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số chẵn thứ n là $ 2n $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-3-d10"
+    }
+  ]
+}
+}
+

@@ -1,0 +1,690 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:28:51.694Z
+Lesson ID: l4-bai-56
+Lesson Title: Bài 56: Rút gọn phân số
+==================================================
+
+[ERROR DETAILS]
+Expected ',' or '}' after property value in JSON at position 504 (line 20 column 46)
+SyntaxError: Expected ',' or '}' after property value in JSON at position 504 (line 20 column 46)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 504 (Line: 20, Column: 46)
+Character causing error: "{"
+
+Context:
+...   "ans": "a / b",
+        "w1": "a / (b + 1)",
+        "w2": "(a + 1) / b",
+        "w3": "(a - 1) / b",
+        "resStr": "\"$\\\\frac{' + 'num' + "}>>>[LỖI TẠI ĐÂY]<<<{" + 'den' + "}$\""\n      },\n      'questionText": "Rút gọn phân số $\\frac{{num}}{{den}}$ về phân số tối giản. Kết quả nhận được là:",
+      "optio ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 },
+        "k": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "num": "a * k",
+        "den": "b * k",
+        "ans": "a / b",
+        "w1": "a / (b + 1)",
+        "w2": "(a + 1) / b",
+        "w3": "(a - 1) / b",
+        "resStr": "\"$\\\\frac{' + 'num' + "}{" + 'den' + "}$\""\n      },\n      'questionText": "Rút gọn phân số $\\frac{{num}}{{den}}$ về phân số tối giản. Kết quả nhận được là:",
+      "options": [
+        "A. $\\frac{{a + 1}}{{b}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{a}}{{b + 1}}$",
+        "D. $\\frac{{a - 1}}{{b}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để rút gọn phân số, ta chia cả tử số và mẫu số cho cùng một số tự nhiên khác 0.",
+        "Ở đây, tử số {num} và mẫu số {den} cùng chia hết cho {k}."
+      ],
+      "solutionHtml": "Ta thấy cả tử số {num} và mẫu số {den} đều chia hết cho {k}:<br/>$\\frac{{num}}{{den}} = \\frac{{num} : {k}}{{den} : {k}} = \\frac{{a}}{{b}}$.<br/>Đáp án đúng là B.",
+      "tip": "Hãy luôn kiểm tra xem tử số và mẫu số có cùng chia hết cho ước chung lớn nhất nào không trước khi kết luận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-rut-gon"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "m1": "a * 2",
+        "n1": "b * 2",
+        "m2": "a * 3",
+        "n2": "b * 3",
+        "m3": "a * 4",
+        "n3": "b * 4",
+        "ans": "\"$\\\\frac{' + 'a' + "}{" + 'b' + "}$\""\n      },\n      'questionText": "Trong các phân số sau đây, phân số nào bằng phân số $\\frac{{m1}}{{n1}}$?",
+      "options": [
+        "A. $\\frac{{m2}}{{n2}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{m3}}{{n3}}$",
+        "D. $\\frac{{m1 + 1}}{{n1 + 1}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hai phân số bằng nhau khi ta nhân hoặc chia cả tử và mẫu với cùng một số.",
+        "Thử rút gọn phân số $\\frac{{m1}}{{n1}}$ bằng cách chia cho 2."
+      ],
+      "solutionHtml": "Rút gọn phân số $\\frac{{m1}}{{n1}}$ bằng cách chia tử và mẫu cho 2:<br/>$\\frac{{m1}}{{n1}} = \\frac{{m1} : 2}{{n1} : 2} = \\frac{{a}}{{b}}$.<br/>Vậy phân số bằng $\\frac{{m1}}{{n1}}$ là $\\frac{{a}}{{b}}$.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh các phân số, hãy đưa chúng về dạng tối giản để dễ đối chiếu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-so-sanh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 5, "step": 1 },
+        "k": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "n * k",
+        "den": "k * k",
+        "ans": "n / k",
+        "w1": "(n + 1) / k",
+        "w2": "n / (k + 1)",
+        "w3": "(n * k) / (k + 1)"
+      },
+      "questionText": "Lớp 4A có {den} bạn, trong đó có {num} bạn nữ. Hãy viết phân số chỉ số phần bạn nữ so với tổng số bạn cả lớp và rút gọn phân số đó.",
+      "options": [
+        "A. $\\frac{{w1}}{1}$",
+        "B. $\\frac{{n}}{{k}}$",
+        "C. $\\frac{{n}}{{k + 1}}$",
+        "D. $\\frac{{n * k}}{{k + 1}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ số bạn nữ là $\\frac{{num}}{{den}}$.",
+        "Chia cả tử và mẫu cho {k} để rút gọn."
+      ],
+      "solutionHtml": "Phân số chỉ số bạn nữ là: $\\frac{{num}}{{den}}$.<br/>Rút gọn phân số này bằng cách chia cả tử và mẫu cho {k}:<br/>$\\frac{{num} : {k}}{{den} : {k}} = \\frac{{n}}{{k}}$.<br/>Đáp án đúng là B.",
+      "tip": "Luôn rút gọn phân số về dạng tối giản trừ khi đề bài yêu cầu giữ nguyên mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-thuc-te"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 21, "max": 30, "step": 1 }
+      },
+      "constraints": [
+        "y % 5 === 0",
+        "x % 5 === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "(x / 5) / (y / 5)",
+        "w2": "(x / 2) / (y / 2)",
+        "w3": "x / (y + 1)"
+      },
+      "questionText": "Phân số nào sau đây là phân số tối giản của $\\frac{{x}}{{y}}$?",
+      "options": [
+        "A. $\\frac{{x / 5}}{{y / 5}}$",
+        "B. $\\frac{{x / 2}}{{y / 2}}$",
+        "C. $\\frac{{x}}{{y + 1}}$",
+        "D. $\\frac{{x + 1}}{{y}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm ước chung lớn nhất của {x} và {y}.",
+        "Cả {x} và {y} đều chia hết cho 5."
+      ],
+      "solutionHtml": "Ta có: $\\frac{{x}}{{y}} = \\frac{{x} : 5}{{y} : 5} = \\frac{{x / 5}}{{y / 5}}$.<br/>Vì {x/5} và {y/5} không cùng chia hết cho số nào khác 1 nên đây là phân số tối giản.<br/>Đáp án đúng là A.",
+      "tip": "Phân số tối giản là phân số không thể rút gọn được nữa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-toi-gian"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n1": "a * 4",
+        "d1": "b * 4",
+        "n2": "a * 5",
+        "d2": "b * 5",
+        "ans": "a / b",
+        "w1": "(a+1)/b",
+        "w2": "a/(b+1)",
+        "w3": "(a+2)/b"
+      },
+      "questionText": "Tìm một phân số bằng $\\frac{{n1}}{{d1}}$ mà có mẫu số bé hơn {d1}.",
+      "options": [
+        "A. $\\frac{{a+1}}{{b}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{a}}{{b+1}}$",
+        "D. $\\frac{{a+2}}{{b}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy rút gọn phân số $\\frac{{n1}}{{d1}}$ bằng cách chia tử và mẫu cho 4.",
+        "Kết quả sẽ là $\\frac{{a}}{{b}}$."
+      ],
+      "solutionHtml": "Ta có: $\\frac{{n1}}{{d1}} = \\frac{{n1} : 4}{{d1} : 4} = \\frac{{a}}{{b}}$.<br/>Phân số $\\frac{{a}}{{b}}$ có mẫu số là {b} nhỏ hơn {d1}.<br/>Đáp án đúng là B.",
+      "tip": "Chia tử và mẫu cho cùng một số chung sẽ làm cho phân số nhỏ đi nhưng giá trị không đổi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-rut-gon-nguoc"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Nếu $\\frac{{a * b}}{{x}} = \\frac{{a}}{{b}}$, hãy tìm giá trị của $x$.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta có $\\frac{{a * b}}{{x}} = \\frac{{a * b}}{{b * b}}$.",
+        "Nhìn vào tử số, ta có $a \\times b = a \\times b$, vậy mẫu số cũng phải bằng nhau."
+      ],
+      "solutionHtml": "Để $\\frac{{a * b}}{{x}} = \\frac{{a}}{{b}}$, ta nhân cả tử và mẫu của phân số thứ hai với $b$:<br/>$\\frac{{a}}{{b}} = \\frac{{a \\times b}}{{b \\times b}} = \\frac{{a * b}}{{b * b}}$.<br/>Vậy $x = b \\times b = {ans}$.<br/>Đáp án đúng là B.",
+      "tip": "Đưa các phân số về cùng tử số hoặc cùng mẫu số để so sánh các thành phần.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-tim-x"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n": "a * 6",
+        "d": "a * 9",
+        "ans": "2 / 3",
+        "w1": "1 / 2",
+        "w2": "3 / 4",
+        "w3": "4 / 5"
+      },
+      "questionText": "Dạng tối giản của phân số $\\frac{{n}}{{d}}$ là phân số nào?",
+      "options": [
+        "A. $\\frac{1}{2}$",
+        "B. $\\frac{2}{3}$",
+        "C. $\\frac{3}{4}$",
+        "D. $\\frac{4}{5}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia cả tử số và mẫu số cho {a * 3}.",
+        "Vì {n} : {a*3} = 2 và {d} : {a*3} = 3."
+      ],
+      "solutionHtml": "Ta rút gọn phân số $\\frac{{n}}{{d}}$ bằng cách chia tử và mẫu cho {a * 3}:<br/>$\\frac{{n} : {a * 3}}{{d} : {a * 3}} = \\frac{2}{3}$.<br/>Đáp án đúng là B.",
+      "tip": "Luôn ưu tiên chia cho ước chung lớn nhất để rút gọn nhanh nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-toi-gian-2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n": "a * 2",
+        "d": "b * 2",
+        "ans": "a / b",
+        "w1": "a / (b + 1)",
+        "w2": "(a + 1) / b",
+        "w3": "(a + 2) / b"
+      },
+      "questionText": "Một mảnh vải dài $\\frac{{n}}{{d}}$ mét. Nếu cắt đi một nửa, mảnh vải còn lại bao nhiêu mét?",
+      "options": [
+        "A. $\\frac{{a}}{{b + 1}}$ mét",
+        "B. $\\frac{{a}}{{b}}$ mét",
+        "C. $\\frac{{a + 1}}{{b}}$ mét",
+        "D. $\\frac{{a + 2}}{{b}}$ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cắt đi một nửa nghĩa là chia số đo cho 2.",
+        "$\\frac{{n}}{{d}} : 2 = \\frac{{n : 2}}{{d}} = \\frac{{a}}{{b}}$."
+      ],
+      "solutionHtml": "Số mét vải còn lại là:<br/>$\\frac{{n}}{{d}} : 2 = \\frac{{n : 2}}{{d}} = \\frac{{a}}{{b}}$ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một phân số cho một số tự nhiên, ta chỉ cần chia tử số cho số đó nếu tử số chia hết.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-thuc-te-2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 15, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "b % 5 === 0",
+        "a % 5 === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a/5) / (b/5)",
+        "w2": "(a/5 + 1) / (b/5)",
+        "w3": "(a/5) / (b/5 + 1)"
+      },
+      "questionText": "Chọn phân số tối giản của $\\frac{{a}}{{b}}$.",
+      "options": [
+        "A. $\\frac{{a/5}}{{b/5}}$",
+        "B. $\\frac{{a/5 + 1}}{{b/5}}$",
+        "C. $\\frac{{a/5}}{{b/5 + 1}}$",
+        "D. $\\frac{{a}}{{b}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Ước chung lớn nhất của {a} và {b} là 5.",
+        "Rút gọn $\\frac{{a}}{{b}}$ bằng cách chia tử và mẫu cho 5."
+      ],
+      "solutionHtml": "Chia cả tử và mẫu cho 5:<br/>$\\frac{{a}}{{b}} = \\frac{{a} : 5}{{b} : 5} = \\frac{{a/5}}{{b/5}}$.<br/>Đây là phân số tối giản.<br/>Đáp án đúng là A.",
+      "tip": "Để tìm phân số tối giản, hãy chia cả tử và mẫu cho ước chung lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-chuan"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n": "a * 3",
+        "d": "a * 3",
+        "ans": "1",
+        "w1": "1/3",
+        "w2": "3",
+        "w3": "0"
+      },
+      "questionText": "Giá trị của phân số $\\frac{{n}}{{d}}$ bằng số nào sau đây?",
+      "options": [
+        "A. 1/3",
+        "B. 1",
+        "C. 3",
+        "D. 0"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi tử số bằng mẫu số thì phân số đó bằng 1.",
+        "Vì {n} = {d} nên phân số có giá trị là 1."
+      ],
+      "solutionHtml": "Phân số có tử số bằng mẫu số (và khác 0) thì luôn có giá trị bằng 1.<br/>$\\frac{{n}}{{d}} = 1$.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên quy tắc: tử số bằng mẫu số thì phân số bằng 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-dac-biet"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 },
+        "k": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "num": "a * k",
+        "den": "b * k",
+        "ans": "a / b",
+        "w1": "a / (b + 1)",
+        "w2": "(a + 1) / b",
+        "w3": "(a - 1) / b",
+        "resStr": "\"$\\\\frac{" + "num" + "}{" + "den" + "}$\""
+      },
+      "questionText": "Rút gọn phân số $\\frac{{num}}{{den}}$ về phân số tối giản. Kết quả nhận được là:",
+      "options": [
+        "A. $\\frac{{a + 1}}{{b}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{a}}{{b + 1}}$",
+        "D. $\\frac{{a - 1}}{{b}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để rút gọn phân số, ta chia cả tử số và mẫu số cho cùng một số tự nhiên khác 0.",
+        "Ở đây, tử số {num} và mẫu số {den} cùng chia hết cho {k}."
+      ],
+      "solutionHtml": "Ta thấy cả tử số {num} và mẫu số {den} đều chia hết cho {k}:<br/>$\\frac{{num}}{{den}} = \\frac{{num} : {k}}{{den} : {k}} = \\frac{{a}}{{b}}$.<br/>Đáp án đúng là B.",
+      "tip": "Hãy luôn kiểm tra xem tử số và mẫu số có cùng chia hết cho ước chung lớn nhất nào không trước khi kết luận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-rut-gon"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "m1": "a * 2",
+        "n1": "b * 2",
+        "m2": "a * 3",
+        "n2": "b * 3",
+        "m3": "a * 4",
+        "n3": "b * 4",
+        "ans": "\"$\\\\frac{" + "a" + "}{" + "b" + "}$\""
+      },
+      "questionText": "Trong các phân số sau đây, phân số nào bằng phân số $\\frac{{m1}}{{n1}}$?",
+      "options": [
+        "A. $\\frac{{m2}}{{n2}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{m3}}{{n3}}$",
+        "D. $\\frac{{m1 + 1}}{{n1 + 1}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hai phân số bằng nhau khi ta nhân hoặc chia cả tử và mẫu với cùng một số.",
+        "Thử rút gọn phân số $\\frac{{m1}}{{n1}}$ bằng cách chia cho 2."
+      ],
+      "solutionHtml": "Rút gọn phân số $\\frac{{m1}}{{n1}}$ bằng cách chia tử và mẫu cho 2:<br/>$\\frac{{m1}}{{n1}} = \\frac{{m1} : 2}{{n1} : 2} = \\frac{{a}}{{b}}$.<br/>Vậy phân số bằng $\\frac{{m1}}{{n1}}$ là $\\frac{{a}}{{b}}$.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh các phân số, hãy đưa chúng về dạng tối giản để dễ đối chiếu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-so-sanh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 5, "step": 1 },
+        "k": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "n * k",
+        "den": "k * k",
+        "ans": "n / k",
+        "w1": "(n + 1) / k",
+        "w2": "n / (k + 1)",
+        "w3": "(n * k) / (k + 1)"
+      },
+      "questionText": "Lớp 4A có {den} bạn, trong đó có {num} bạn nữ. Hãy viết phân số chỉ số phần bạn nữ so với tổng số bạn cả lớp và rút gọn phân số đó.",
+      "options": [
+        "A. $\\frac{{w1}}{1}$",
+        "B. $\\frac{{n}}{{k}}$",
+        "C. $\\frac{{n}}{{k + 1}}$",
+        "D. $\\frac{{n * k}}{{k + 1}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ số bạn nữ là $\\frac{{num}}{{den}}$.",
+        "Chia cả tử và mẫu cho {k} để rút gọn."
+      ],
+      "solutionHtml": "Phân số chỉ số bạn nữ là: $\\frac{{num}}{{den}}$.<br/>Rút gọn phân số này bằng cách chia cả tử và mẫu cho {k}:<br/>$\\frac{{num} : {k}}{{den} : {k}} = \\frac{{n}}{{k}}$.<br/>Đáp án đúng là B.",
+      "tip": "Luôn rút gọn phân số về dạng tối giản trừ khi đề bài yêu cầu giữ nguyên mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-thuc-te"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 21, "max": 30, "step": 1 }
+      },
+      "constraints": [
+        "y % 5 === 0",
+        "x % 5 === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "(x / 5) / (y / 5)",
+        "w2": "(x / 2) / (y / 2)",
+        "w3": "x / (y + 1)"
+      },
+      "questionText": "Phân số nào sau đây là phân số tối giản của $\\frac{{x}}{{y}}$?",
+      "options": [
+        "A. $\\frac{{x / 5}}{{y / 5}}$",
+        "B. $\\frac{{x / 2}}{{y / 2}}$",
+        "C. $\\frac{{x}}{{y + 1}}$",
+        "D. $\\frac{{x + 1}}{{y}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm ước chung lớn nhất của {x} và {y}.",
+        "Cả {x} và {y} đều chia hết cho 5."
+      ],
+      "solutionHtml": "Ta có: $\\frac{{x}}{{y}} = \\frac{{x} : 5}{{y} : 5} = \\frac{{x / 5}}{{y / 5}}$.<br/>Vì {x/5} và {y/5} không cùng chia hết cho số nào khác 1 nên đây là phân số tối giản.<br/>Đáp án đúng là A.",
+      "tip": "Phân số tối giản là phân số không thể rút gọn được nữa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-toi-gian"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n1": "a * 4",
+        "d1": "b * 4",
+        "n2": "a * 5",
+        "d2": "b * 5",
+        "ans": "a / b",
+        "w1": "(a+1)/b",
+        "w2": "a/(b+1)",
+        "w3": "(a+2)/b"
+      },
+      "questionText": "Tìm một phân số bằng $\\frac{{n1}}{{d1}}$ mà có mẫu số bé hơn {d1}.",
+      "options": [
+        "A. $\\frac{{a+1}}{{b}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{a}}{{b+1}}$",
+        "D. $\\frac{{a+2}}{{b}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hãy rút gọn phân số $\\frac{{n1}}{{d1}}$ bằng cách chia tử và mẫu cho 4.",
+        "Kết quả sẽ là $\\frac{{a}}{{b}}$."
+      ],
+      "solutionHtml": "Ta có: $\\frac{{n1}}{{d1}} = \\frac{{n1} : 4}{{d1} : 4} = \\frac{{a}}{{b}}$.<br/>Phân số $\\frac{{a}}{{b}}$ có mẫu số là {b} nhỏ hơn {d1}.<br/>Đáp án đúng là B.",
+      "tip": "Chia tử và mẫu cho cùng một số chung sẽ làm cho phân số nhỏ đi nhưng giá trị không đổi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-rut-gon-nguoc"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Nếu $\\frac{{a * b}}{{x}} = \\frac{{a}}{{b}}$, hãy tìm giá trị của $x$.",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta có $\\frac{{a * b}}{{x}} = \\frac{{a * b}}{{b * b}}$.",
+        "Nhìn vào tử số, ta có $a \\times b = a \\times b$, vậy mẫu số cũng phải bằng nhau."
+      ],
+      "solutionHtml": "Để $\\frac{{a * b}}{{x}} = \\frac{{a}}{{b}}$, ta nhân cả tử và mẫu của phân số thứ hai với $b$:<br/>$\\frac{{a}}{{b}} = \\frac{{a \\times b}}{{b \\times b}} = \\frac{{a * b}}{{b * b}}$.<br/>Vậy $x = b \\times b = {ans}$.<br/>Đáp án đúng là B.",
+      "tip": "Đưa các phân số về cùng tử số hoặc cùng mẫu số để so sánh các thành phần.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-tim-x"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n": "a * 6",
+        "d": "a * 9",
+        "ans": "2 / 3",
+        "w1": "1 / 2",
+        "w2": "3 / 4",
+        "w3": "4 / 5"
+      },
+      "questionText": "Dạng tối giản của phân số $\\frac{{n}}{{d}}$ là phân số nào?",
+      "options": [
+        "A. $\\frac{1}{2}$",
+        "B. $\\frac{2}{3}$",
+        "C. $\\frac{3}{4}$",
+        "D. $\\frac{4}{5}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia cả tử số và mẫu số cho {a * 3}.",
+        "Vì {n} : {a*3} = 2 và {d} : {a*3} = 3."
+      ],
+      "solutionHtml": "Ta rút gọn phân số $\\frac{{n}}{{d}}$ bằng cách chia tử và mẫu cho {a * 3}:<br/>$\\frac{{n} : {a * 3}}{{d} : {a * 3}} = \\frac{2}{3}$.<br/>Đáp án đúng là B.",
+      "tip": "Luôn ưu tiên chia cho ước chung lớn nhất để rút gọn nhanh nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-toi-gian-2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n": "a * 2",
+        "d": "b * 2",
+        "ans": "a / b",
+        "w1": "a / (b + 1)",
+        "w2": "(a + 1) / b",
+        "w3": "(a + 2) / b"
+      },
+      "questionText": "Một mảnh vải dài $\\frac{{n}}{{d}}$ mét. Nếu cắt đi một nửa, mảnh vải còn lại bao nhiêu mét?",
+      "options": [
+        "A. $\\frac{{a}}{{b + 1}}$ mét",
+        "B. $\\frac{{a}}{{b}}$ mét",
+        "C. $\\frac{{a + 1}}{{b}}$ mét",
+        "D. $\\frac{{a + 2}}{{b}}$ mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cắt đi một nửa nghĩa là chia số đo cho 2.",
+        "$\\frac{{n}}{{d}} : 2 = \\frac{{n : 2}}{{d}} = \\frac{{a}}{{b}}$."
+      ],
+      "solutionHtml": "Số mét vải còn lại là:<br/>$\\frac{{n}}{{d}} : 2 = \\frac{{n : 2}}{{d}} = \\frac{{a}}{{b}}$ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một phân số cho một số tự nhiên, ta chỉ cần chia tử số cho số đó nếu tử số chia hết.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-thuc-te-2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 15, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "b % 5 === 0",
+        "a % 5 === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a/5) / (b/5)",
+        "w2": "(a/5 + 1) / (b/5)",
+        "w3": "(a/5) / (b/5 + 1)"
+      },
+      "questionText": "Chọn phân số tối giản của $\\frac{{a}}{{b}}$.",
+      "options": [
+        "A. $\\frac{{a/5}}{{b/5}}$",
+        "B. $\\frac{{a/5 + 1}}{{b/5}}$",
+        "C. $\\frac{{a/5}}{{b/5 + 1}}$",
+        "D. $\\frac{{a}}{{b}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Ước chung lớn nhất của {a} và {b} là 5.",
+        "Rút gọn $\\frac{{a}}{{b}}$ bằng cách chia tử và mẫu cho 5."
+      ],
+      "solutionHtml": "Chia cả tử và mẫu cho 5:<br/>$\\frac{{a}}{{b}} = \\frac{{a} : 5}{{b} : 5} = \\frac{{a/5}}{{b/5}}$.<br/>Đây là phân số tối giản.<br/>Đáp án đúng là A.",
+      "tip": "Để tìm phân số tối giản, hãy chia cả tử và mẫu cho ước chung lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-chuan"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "n": "a * 3",
+        "d": "a * 3",
+        "ans": "1",
+        "w1": "1/3",
+        "w2": "3",
+        "w3": "0"
+      },
+      "questionText": "Giá trị của phân số $\\frac{{n}}{{d}}$ bằng số nào sau đây?",
+      "options": [
+        "A. 1/3",
+        "B. 1",
+        "C. 3",
+        "D. 0"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi tử số bằng mẫu số thì phân số đó bằng 1.",
+        "Vì {n} = {d} nên phân số có giá trị là 1."
+      ],
+      "solutionHtml": "Phân số có tử số bằng mẫu số (và khác 0) thì luôn có giá trị bằng 1.<br/>$\\frac{{n}}{{d}} = 1$.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên quy tắc: tử số bằng mẫu số thì phân số bằng 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-56-dac-biet"
+    }
+  ]
+}
+}
+

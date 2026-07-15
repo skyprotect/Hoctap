@@ -1,0 +1,368 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 1,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a + b <= 5"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(ans + 1 > 5) ? ans - 1 : ans + 1",
+        "w2": "(ans - 1 < 0) ? ans + 2 : ans - 1",
+        "w3": "(ans + 2 > 5) ? ans - 2 : ans + 2"
+      },
+      "questionText": "Trên cành cây có {a} con chim đang đậu. Một lúc sau, có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con chim",
+        "B. {ans} con chim",
+        "C. {w2} con chim",
+        "D. {w3} con chim"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết tổng số chim trên cành, ta lấy số chim ban đầu cộng với số chim mới đến.",
+        "Phép tính là ${a} + {b} = ?$"
+      ],
+      "solutionHtml": "Số chim trên cành cây sau khi thêm là:<br>${a} + {b} = {ans}$ (con chim).<br>Vậy trên cành cây có tất cả {ans} con chim.",
+      "tip": "Đếm tiếp từ số đầu tiên thêm số lượng chim mới đến là cách nhanh nhất.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(ans + 1 > 5) ? 0 : ans + 1",
+        "w2": "(ans - 1 < 0) ? 2 : ans - 1",
+        "w3": "(ans + 2 > 5) ? 1 : ans + 2"
+      },
+      "questionText": "Lan có {a} quả táo, Lan cho bạn {b} quả táo. Hỏi Lan còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lan cho bạn nghĩa là số táo của Lan bị bớt đi.",
+        "Phép tính là ${a} - {b} = ?$"
+      ],
+      "solutionHtml": "Số táo còn lại của Lan là:<br>${a} - {b} = {ans}$ (quả táo).<br>Đáp án đúng là B.",
+      "tip": "Khi bớt đi một số lượng, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a < 5"
+      ],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a",
+        "w2": "a + 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Số liền sau của số {a} là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số liền sau là số đứng ngay sau số đã cho trong dãy số tự nhiên.",
+        "Dãy số là: 0, 1, 2, 3, 4, 5."
+      ],
+      "solutionHtml": "Trong dãy số tự nhiên, sau số {a} là số {ans}.<br>Đáp án đúng là B.",
+      "tip": "Số liền sau hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Số liền trước của số {a} là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số liền trước là số đứng ngay trước số đã cho.",
+        "Hãy đếm ngược lại một đơn vị từ số {a}."
+      ],
+      "solutionHtml": "Số ngay trước số {a} là số {ans}.<br>Đáp án đúng là B.",
+      "tip": "Số liền trước bé hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 0,
+          "max": 2
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a + b <= 5"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Bạn Hoa có {a} viên bi, bạn Nam cho Hoa thêm {b} viên bi. Hỏi Hoa có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng số bi ban đầu và số bi được cho thêm.",
+        "${a} + {b} = ?$"
+      ],
+      "solutionHtml": "Số bi của Hoa là: ${a} + {b} = {ans}$ (viên).<br>Đáp án đúng là B.",
+      "tip": "Thêm vào thì ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Trong giỏ có {a} quả cam, mẹ lấy ra {b} quả để bày lên đĩa. Hỏi trong giỏ còn lại bao nhiêu quả cam?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy ra khỏi giỏ nghĩa là số cam trong giỏ giảm đi.",
+        "${a} - {b} = ?$"
+      ],
+      "solutionHtml": "Số cam còn lại trong giỏ là: ${a} - {b} = {ans}$ (quả).<br>Đáp án đúng là B.",
+      "tip": "Lấy ra dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 3
+        },
+        "b": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      "constraints": [
+        "a + b < 5"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "a + b + 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Trên bàn có {a} cái bút, bạn đặt thêm {b} cái bút nữa. Hỏi trên bàn có tất cả bao nhiêu cái bút?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số bút là ${a} + {b}$.",
+        "Hãy đếm tiếp từ {a} thêm {b} đơn vị."
+      ],
+      "solutionHtml": "Số bút trên bàn là: ${a} + {b} = {ans}$ (cái).<br>Đáp án đúng là B.",
+      "tip": "Đếm tiếp là cách nhanh để tính tổng các số nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "a"
+      },
+      "questionText": "Bạn có {a} cái kẹo, bạn ăn hết sạch {a} cái kẹo đó. Hỏi bạn còn lại bao nhiêu cái kẹo?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ăn hết sạch nghĩa là không còn cái nào.",
+        "Số 0 biểu thị không có gì."
+      ],
+      "solutionHtml": "Số kẹo còn lại là: ${a} - {a} = 0$ (cái).<br>Đáp án đúng là B.",
+      "tip": "Một số trừ đi chính nó luôn bằng 0.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 0,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a >= 0"
+      ],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a",
+        "w2": "a + 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Nếu hôm nay bạn có {a} ngôi sao, ngày mai bạn được thưởng thêm 1 ngôi sao nữa. Hỏi ngày mai bạn có bao nhiêu ngôi sao?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thêm 1 ngôi sao nghĩa là cộng thêm 1 vào số hiện có.",
+        "${a} + 1 = ?$"
+      ],
+      "solutionHtml": "Tổng số ngôi sao là: ${a} + 1 = {ans}$ (ngôi sao).<br>Đáp án đúng là B.",
+      "tip": "Thêm 1 chính là tìm số liền sau của số đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "b"
+      },
+      "questionText": "Có {a} chú chim, có {b} chú chim bay đi mất. Hỏi còn lại bao nhiêu chú chim?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bay đi mất tức là số chim bớt đi.",
+        "${a} - {b} = ?$"
+      ],
+      "solutionHtml": "Số chú chim còn lại là: ${a} - {b} = {ans}$ (chú chim).<br>Đáp án đúng là B.",
+      "tip": "Bớt đi thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d10"
+    }
+  ]
+}

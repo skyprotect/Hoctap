@@ -1,0 +1,745 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:16:13.006Z
+Lesson ID: l4-bai-24
+Lesson Title: Bài 24: Tính chất giao hoán và kết hợp của phép cộng
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12246 (line 356 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12246 (line 356 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 12246 (Line: 356, Column: 1)
+Character causing error: "}"
+
+Context:
+... ,
+      "tip": "Tính toán cẩn thận từng bước một.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sumAB": "a + b"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 400, "step": 10 },
+        "b": { "min": 50, "max": 200, "step": 10 },
+        "c": { "min": 30, "max": 100, "step": 5 }
+      },
+      "constraints": [
+        "a > b",
+        "b > c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + c + b",
+        "w2_goc": "a + b - c",
+        "w3_goc": "a - b + c",
+        "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một cửa hàng trong ba ngày bán được số mét vải lần lượt là {a} m, {b} m và {c} m. Hãy dùng tính chất kết hợp để tính tổng số mét vải cửa hàng đã bán.",
+      "options": [
+        "A. {w1} m",
+        "B. {ans} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số vải là {a} + {b} + {c}.",
+        "Bạn có thể nhóm ({a} + {b}) trước rồi cộng với {c}, hoặc {a} + ({b} + {c}).",
+        "Kết quả cuối cùng không thay đổi nhờ tính chất kết hợp."
+      ],
+      "solutionHtml": "Tổng số mét vải cửa hàng bán được là:<br/>$ {a} + {b} + {c} = ({a} + {b}) + {c} = {valSum} + {c} = {ans} $ (m).<br/>Đáp án đúng là B.",
+      "tip": "Tính chất kết hợp của phép cộng cho phép chúng ta nhóm các số hạng một cách tùy ý để tính toán nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "valSum": "a + b"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 25, "max": 75, "step": 5 },
+        "b": { "min": 15, "max": 45, "step": 5 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 10",
+        "w2_goc": "a + b - 5",
+        "w3_goc": "a + b + 20",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Tính nhanh giá trị biểu thức: $ {a} + {b} + {a} $. Biết rằng có thể đổi chỗ các số hạng.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Sử dụng tính chất giao hoán để đưa hai số {a} lại gần nhau.",
+        "Biểu thức trở thành ({a} + {a}) + {b}."
+      ],
+      "solutionHtml": "Ta có: $ {a} + {b} + {a} = ({a} + {a}) + {b} = {sumA} + {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Khi thấy các số hạng giống nhau, hãy nhóm chúng lại trước để tính toán thuận tiện hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sumA": "a + a"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 500, "step": 10 },
+        "b": { "min": 100, "max": 500, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2",
+        "w4": "a + b"
+      },
+      "questionText": "Cho biết $ {a} + {b} = X $. Hãy chọn khẳng định đúng nhất về tính chất giao hoán.",
+      "options": [
+        "A. {b} + {a} = X",
+        "B. {a} - {b} = X",
+        "C. {b} + {a} = X + 1",
+        "D. {a} + {a} = X"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính chất giao hoán của phép cộng: Khi ta đổi chỗ các số hạng trong một tổng thì tổng không thay đổi.",
+        "Vậy {a} + {b} phải bằng {b} + {a}."
+      ],
+      "solutionHtml": "Theo tính chất giao hoán của phép cộng, ta luôn có: $ {a} + {b} = {b} + {a} $.<br/>Vì $ {a} + {b} = {ans} $ nên $ {b} + {a} = {ans} $.<br/>Đáp án đúng là A.",
+      "tip": "Tính chất giao hoán $ a + b = b + a $ là nền tảng giúp thay đổi thứ tự tính toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 200, "max": 400, "step": 10 },
+        "y": { "min": 100, "max": 300, "step": 10 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x + y + 10",
+        "w2": "x + y - 10",
+        "w3": "x + y + 20"
+      },
+      "questionText": "Một thư viện có {x} quyển sách giáo khoa và {y} quyển sách tham khảo. Hỏi thư viện đó có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số sách là tổng của số sách giáo khoa và số sách tham khảo.",
+        "Phép tính: {x} + {y}."
+      ],
+      "solutionHtml": "Tổng số quyển sách trong thư viện là:<br/>$ {x} + {y} = {ans} $ (quyển sách).<br/>Đáp án đúng là C.",
+      "tip": "Đọc đề bài và xác định đúng các thành phần cần cộng lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 80, "step": 5 },
+        "b": { "min": 20, "max": 70, "step": 5 },
+        "c": { "min": 10, "max": 60, "step": 5 }
+      },
+      "constraints": [
+        "a > b",
+        "b > c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + b + c + 5",
+        "w2_goc": "a + b + c - 5",
+        "w3_goc": "a + c + b + 2",
+        "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 20 : w3_goc"
+      },
+      "questionText": "Tính giá trị biểu thức: $ {a} + {b} + {c} $. Hãy chọn cách tính thuận tiện nhất.",
+      "options": [
+        "A. ({a} + {b}) + {c}",
+        "B. {a} + ({b} + {c})",
+        "C. Kết quả là {ans}",
+        "D. Cả A, B và C đều đúng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Theo tính chất kết hợp, việc nhóm các số hạng theo cách nào cũng cho cùng một kết quả.",
+        "Cả hai cách nhóm A và B đều ra kết quả là {ans}."
+      ],
+      "solutionHtml": "Vì tính chất kết hợp của phép cộng cho phép ta nhóm các số hạng tùy ý, nên:<br/>$ ({a} + {b}) + {c} = {a} + ({b} + {c}) = {ans} $.<br/>Vậy các phương án A, B, C đều đúng. Đáp án đúng là D.",
+      "tip": "Sự linh hoạt trong cách nhóm là chìa khóa để tính nhanh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 45, "step": 1 },
+        "b": { "min": 5, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 5",
+        "w2": "a + b - 5",
+        "w3": "a + b + 10"
+      },
+      "questionText": "Bạn An có {a} viên bi, bạn Bình có {b} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi của hai bạn là tổng số bi của An và Bình.",
+        "Phép tính: {a} + {b}."
+      ],
+      "solutionHtml": "Tổng số viên bi của hai bạn An và Bình là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại phép cộng để tránh sai sót nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 50, "max": 150, "step": 10 },
+        "c": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b",
+        "c > b"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + b + c + 10",
+        "w2_goc": "a + b + c - 10",
+        "w3_goc": "a + b + c + 20",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Một đoàn tàu chở {a} tấn hàng ở toa thứ nhất, {b} tấn hàng ở toa thứ hai và {c} tấn hàng ở toa thứ ba. Tổng số tấn hàng cả ba toa là bao nhiêu?",
+      "options": [
+        "A. {w1} tấn",
+        "B. {ans} tấn",
+        "C. {w2} tấn",
+        "D. {w3} tấn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số hàng là {a} + {b} + {c}.",
+        "Bạn có thể cộng {a} + {b} trước rồi cộng với {c}."
+      ],
+      "solutionHtml": "Tổng số tấn hàng của cả ba toa là:<br/>$ {a} + {b} + {c} = {ans} $ (tấn hàng).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán tổng yêu cầu cộng tất cả các giá trị lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 40, "max": 60, "step": 1 },
+        "y": { "min": 30, "max": 50, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "2 * (x + y)",
+        "w1": "2 * (x + y) + 5",
+        "w2": "x + y",
+        "w3": "2 * x + y"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {x} cm, chiều rộng là {y} cm. Tính chu vi hình chữ nhật đó. (Gợi ý: Chu vi = (dài + rộng) x 2).",
+      "options": [
+        "A. {w2} cm",
+        "B. {w3} cm",
+        "C. {ans} cm",
+        "D. {w1} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chu vi hình chữ nhật là tổng của chiều dài và chiều rộng nhân với 2.",
+        "Phép tính: ({x} + {y}) x 2."
+      ],
+      "solutionHtml": "Chu vi hình chữ nhật là:<br/>$ ({x} + {y}) \\times 2 = {sum} \\times 2 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Hãy nhớ công thức tính chu vi hình chữ nhật bằng tổng chiều dài và chiều rộng nhân với 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sum": "x + y"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 10, "max": 30, "step": 1 },
+        "c": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": [
+        "a !== b",
+        "b !== c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + b + c + 5",
+        "w2_goc": "a + b + c - 5",
+        "w3_goc": "a + b + c + 10",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Cho biểu thức: $ {a} + {b} + {c} $. Nếu ta đổi chỗ $ {a} $ và $ {c} $ thì tổng sẽ thay đổi như thế nào?",
+      "options": [
+        "A. Tăng lên 5 đơn vị",
+        "B. Giảm đi 5 đơn vị",
+        "C. Không thay đổi",
+        "D. Thay đổi tùy thuộc vào giá trị của {b}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính chất giao hoán của phép cộng khẳng định rằng thứ tự các số hạng không làm thay đổi tổng.",
+        "Do đó, {a} + {b} + {c} cũng bằng {c} + {b} + {a}."
+      ],
+      "solutionHtml": "Dựa vào tính chất giao hoán của phép cộng, khi ta thay đổi thứ tự các số hạng trong một tổng, giá trị của tổng đó không bao giờ thay đổi.<br/>Đáp án đúng là C.",
+      "tip": "Giao hoán nghĩa là đổi vị trí, tổng vẫn giữ nguyên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 300, "step": 10 },
+        "b": { "min": 100, "max": 200, "step": 10 },
+        "c": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b",
+        "b > c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b + c + 1",
+        "w2": "a + b + c - 1",
+        "w3": "a + b + c + 2"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo nếp, {b} kg gạo tẻ và {c} kg gạo lứt. Hỏi kho đó có tất cả bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số gạo = gạo nếp + gạo tẻ + gạo lứt.",
+        "Phép tính: {a} + {b} + {c}."
+      ],
+      "solutionHtml": "Tổng số gạo trong kho là:<br/>$ {a} + {b} + {c} = ({a} + {b}) + {c} = {sumAB} + {c} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Tính toán cẩn thận từng bước một.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sumAB": "a + b"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 400, "step": 10 },
+        "b": { "min": 50, "max": 200, "step": 10 },
+        "c": { "min": 30, "max": 100, "step": 5 }
+      },
+      "constraints": [
+        "a > b",
+        "b > c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + c + b",
+        "w2_goc": "a + b - c",
+        "w3_goc": "a - b + c",
+        "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một cửa hàng trong ba ngày bán được số mét vải lần lượt là {a} m, {b} m và {c} m. Hãy dùng tính chất kết hợp để tính tổng số mét vải cửa hàng đã bán.",
+      "options": [
+        "A. {w1} m",
+        "B. {ans} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số vải là {a} + {b} + {c}.",
+        "Bạn có thể nhóm ({a} + {b}) trước rồi cộng với {c}, hoặc {a} + ({b} + {c}).",
+        "Kết quả cuối cùng không thay đổi nhờ tính chất kết hợp."
+      ],
+      "solutionHtml": "Tổng số mét vải cửa hàng bán được là:<br/>$ {a} + {b} + {c} = ({a} + {b}) + {c} = {valSum} + {c} = {ans} $ (m).<br/>Đáp án đúng là B.",
+      "tip": "Tính chất kết hợp của phép cộng cho phép chúng ta nhóm các số hạng một cách tùy ý để tính toán nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "valSum": "a + b"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 25, "max": 75, "step": 5 },
+        "b": { "min": 15, "max": 45, "step": 5 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 10",
+        "w2_goc": "a + b - 5",
+        "w3_goc": "a + b + 20",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Tính nhanh giá trị biểu thức: $ {a} + {b} + {a} $. Biết rằng có thể đổi chỗ các số hạng.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Sử dụng tính chất giao hoán để đưa hai số {a} lại gần nhau.",
+        "Biểu thức trở thành ({a} + {a}) + {b}."
+      ],
+      "solutionHtml": "Ta có: $ {a} + {b} + {a} = ({a} + {a}) + {b} = {sumA} + {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Khi thấy các số hạng giống nhau, hãy nhóm chúng lại trước để tính toán thuận tiện hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sumA": "a + a"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 500, "step": 10 },
+        "b": { "min": 100, "max": 500, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2",
+        "w4": "a + b"
+      },
+      "questionText": "Cho biết $ {a} + {b} = X $. Hãy chọn khẳng định đúng nhất về tính chất giao hoán.",
+      "options": [
+        "A. {b} + {a} = X",
+        "B. {a} - {b} = X",
+        "C. {b} + {a} = X + 1",
+        "D. {a} + {a} = X"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính chất giao hoán của phép cộng: Khi ta đổi chỗ các số hạng trong một tổng thì tổng không thay đổi.",
+        "Vậy {a} + {b} phải bằng {b} + {a}."
+      ],
+      "solutionHtml": "Theo tính chất giao hoán của phép cộng, ta luôn có: $ {a} + {b} = {b} + {a} $.<br/>Vì $ {a} + {b} = {ans} $ nên $ {b} + {a} = {ans} $.<br/>Đáp án đúng là A.",
+      "tip": "Tính chất giao hoán $ a + b = b + a $ là nền tảng giúp thay đổi thứ tự tính toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 200, "max": 400, "step": 10 },
+        "y": { "min": 100, "max": 300, "step": 10 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x + y + 10",
+        "w2": "x + y - 10",
+        "w3": "x + y + 20"
+      },
+      "questionText": "Một thư viện có {x} quyển sách giáo khoa và {y} quyển sách tham khảo. Hỏi thư viện đó có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số sách là tổng của số sách giáo khoa và số sách tham khảo.",
+        "Phép tính: {x} + {y}."
+      ],
+      "solutionHtml": "Tổng số quyển sách trong thư viện là:<br/>$ {x} + {y} = {ans} $ (quyển sách).<br/>Đáp án đúng là C.",
+      "tip": "Đọc đề bài và xác định đúng các thành phần cần cộng lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 80, "step": 5 },
+        "b": { "min": 20, "max": 70, "step": 5 },
+        "c": { "min": 10, "max": 60, "step": 5 }
+      },
+      "constraints": [
+        "a > b",
+        "b > c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + b + c + 5",
+        "w2_goc": "a + b + c - 5",
+        "w3_goc": "a + c + b + 2",
+        "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 20 : w3_goc"
+      },
+      "questionText": "Tính giá trị biểu thức: $ {a} + {b} + {c} $. Hãy chọn cách tính thuận tiện nhất.",
+      "options": [
+        "A. ({a} + {b}) + {c}",
+        "B. {a} + ({b} + {c})",
+        "C. Kết quả là {ans}",
+        "D. Cả A, B và C đều đúng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Theo tính chất kết hợp, việc nhóm các số hạng theo cách nào cũng cho cùng một kết quả.",
+        "Cả hai cách nhóm A và B đều ra kết quả là {ans}."
+      ],
+      "solutionHtml": "Vì tính chất kết hợp của phép cộng cho phép ta nhóm các số hạng tùy ý, nên:<br/>$ ({a} + {b}) + {c} = {a} + ({b} + {c}) = {ans} $.<br/>Vậy các phương án A, B, C đều đúng. Đáp án đúng là D.",
+      "tip": "Sự linh hoạt trong cách nhóm là chìa khóa để tính nhanh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 45, "step": 1 },
+        "b": { "min": 5, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 5",
+        "w2": "a + b - 5",
+        "w3": "a + b + 10"
+      },
+      "questionText": "Bạn An có {a} viên bi, bạn Bình có {b} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi của hai bạn là tổng số bi của An và Bình.",
+        "Phép tính: {a} + {b}."
+      ],
+      "solutionHtml": "Tổng số viên bi của hai bạn An và Bình là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại phép cộng để tránh sai sót nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 50, "max": 150, "step": 10 },
+        "c": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b",
+        "c > b"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + b + c + 10",
+        "w2_goc": "a + b + c - 10",
+        "w3_goc": "a + b + c + 20",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Một đoàn tàu chở {a} tấn hàng ở toa thứ nhất, {b} tấn hàng ở toa thứ hai và {c} tấn hàng ở toa thứ ba. Tổng số tấn hàng cả ba toa là bao nhiêu?",
+      "options": [
+        "A. {w1} tấn",
+        "B. {ans} tấn",
+        "C. {w2} tấn",
+        "D. {w3} tấn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số hàng là {a} + {b} + {c}.",
+        "Bạn có thể cộng {a} + {b} trước rồi cộng với {c}."
+      ],
+      "solutionHtml": "Tổng số tấn hàng của cả ba toa là:<br/>$ {a} + {b} + {c} = {ans} $ (tấn hàng).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán tổng yêu cầu cộng tất cả các giá trị lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 40, "max": 60, "step": 1 },
+        "y": { "min": 30, "max": 50, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "2 * (x + y)",
+        "w1": "2 * (x + y) + 5",
+        "w2": "x + y",
+        "w3": "2 * x + y"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {x} cm, chiều rộng là {y} cm. Tính chu vi hình chữ nhật đó. (Gợi ý: Chu vi = (dài + rộng) x 2).",
+      "options": [
+        "A. {w2} cm",
+        "B. {w3} cm",
+        "C. {ans} cm",
+        "D. {w1} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chu vi hình chữ nhật là tổng của chiều dài và chiều rộng nhân với 2.",
+        "Phép tính: ({x} + {y}) x 2."
+      ],
+      "solutionHtml": "Chu vi hình chữ nhật là:<br/>$ ({x} + {y}) \\times 2 = {sum} \\times 2 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Hãy nhớ công thức tính chu vi hình chữ nhật bằng tổng chiều dài và chiều rộng nhân với 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sum": "x + y"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 10, "max": 30, "step": 1 },
+        "c": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": [
+        "a !== b",
+        "b !== c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1_goc": "a + b + c + 5",
+        "w2_goc": "a + b + c - 5",
+        "w3_goc": "a + b + c + 10",
+        "w1": "w1_goc",
+        "w2": "w2_goc",
+        "w3": "w3_goc"
+      },
+      "questionText": "Cho biểu thức: $ {a} + {b} + {c} $. Nếu ta đổi chỗ $ {a} $ và $ {c} $ thì tổng sẽ thay đổi như thế nào?",
+      "options": [
+        "A. Tăng lên 5 đơn vị",
+        "B. Giảm đi 5 đơn vị",
+        "C. Không thay đổi",
+        "D. Thay đổi tùy thuộc vào giá trị của {b}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính chất giao hoán của phép cộng khẳng định rằng thứ tự các số hạng không làm thay đổi tổng.",
+        "Do đó, {a} + {b} + {c} cũng bằng {c} + {b} + {a}."
+      ],
+      "solutionHtml": "Dựa vào tính chất giao hoán của phép cộng, khi ta thay đổi thứ tự các số hạng trong một tổng, giá trị của tổng đó không bao giờ thay đổi.<br/>Đáp án đúng là C.",
+      "tip": "Giao hoán nghĩa là đổi vị trí, tổng vẫn giữ nguyên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 300, "step": 10 },
+        "b": { "min": 100, "max": 200, "step": 10 },
+        "c": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b",
+        "b > c"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b + c + 1",
+        "w2": "a + b + c - 1",
+        "w3": "a + b + c + 2"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo nếp, {b} kg gạo tẻ và {c} kg gạo lứt. Hỏi kho đó có tất cả bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số gạo = gạo nếp + gạo tẻ + gạo lứt.",
+        "Phép tính: {a} + {b} + {c}."
+      ],
+      "solutionHtml": "Tổng số gạo trong kho là:<br/>$ {a} + {b} + {c} = ({a} + {b}) + {c} = {sumAB} + {c} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Tính toán cẩn thận từng bước một.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-24-d4",
+      "sumAB": "a + b"
+    }
+  ]
+}
+}
+

@@ -1,0 +1,570 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:35:02.636Z
+Lesson ID: l4-bai-68
+Lesson Title: Bài 68: Ôn tập phép tính với số tự nhiên
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10191 (line 390 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10191 (line 390 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10191 (Line: 272, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 500, "step": 10 },
+      "b": { "min": 2, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 10",
+      "w2": "ans - 10",
+      "w3": "a + b"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng đã bán đi 1/ {b} số gạo đó. Hỏi cửa hàng đã bán đi bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số gạo đã bán, ta lấy tổng số gạo chia cho {b}."],
+    "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán hỏi 'một phần mấy' của một số, ta thực hiện phép chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "xeTai": { "min": 2000, "max": 5000, "step": 100 },
+      "xeMay": { "min": 500, "max": 1500, "step": 50 }
+    },
+    "constraints": ["xeTai > xeMay"],
+    "formulas": {
+      "ans": "xeTai + xeMay",
+      "w1": "xeTai - xeMay",
+      "w2": "xeTai + xeMay + 100",
+      "w3": "xeTai + 200"
+    },
+    "questionText": "Một kho thóc có {xeTai} kg thóc ở kho lớn và {xeMay} kg thóc ở kho nhỏ. Hỏi cả hai kho có tất cả bao nhiêu ki-lô-gam thóc?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính tổng số thóc của hai kho bằng cách cộng giá trị của kho lớn và kho nhỏ."],
+    "solutionHtml": "Tổng số thóc của cả hai kho là:<br/>$ {xeTai} + {xeMay} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Cụm từ 'tất cả' gợi ý cho chúng ta thực hiện phép tính cộng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "soCan": { "min": 10, "max": 20, "step": 1 },
+      "giaTien": { "min": 5000, "max": 9000, "step": 1000 }
+    },
+    "constraints": ["(soCan * giaTien) % 1000 === 0"],
+    "formulas": {
+      "ans": "soCan * giaTien",
+      "w1": "soCan + giaTien",
+      "w2": "ans + 1000",
+      "w3": "ans - 1000"
+    },
+    "questionText": "Mẹ mua {soCan} kg cam, mỗi ki-lô-gam có giá {giaTien} đồng. Hỏi mẹ phải trả người bán hàng bao nhiêu tiền?",
+    "options": [
+      "A. {w1} đồng",
+      "B. {w2} đồng",
+      "C. {ans} đồng",
+      "D. {w3} đồng"
+    ],
+    "correctIndex": 2,
+    "hints": ["Số tiền phải trả bằng số ki-lô-gam cam nhân với giá của một ki-lô-gam."],
+    "solutionHtml": "Số tiền mẹ phải trả là:<br/>$ {soCan} \\times {giaTien} = {ans} $ (đồng).<br/>Đáp án đúng là C.",
+    "tip": "Bài toán mua hàng với số lượng lớn ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tuan": { "min": 4, "max": 8, "step": 1 },
+      "sp": { "min": 100, "max": 200, "step": 10 }
+    },
+    "constraints": ["(tuan * 7 * sp) % 1 === 0"],
+    "formulas": {
+      "ans": "tuan * 7 * sp",
+      "w1": "tuan * sp",
+      "w2": "ans + 50",
+      "w3": "ans - 50"
+    },
+    "questionText": "Một công nhân làm việc trong {tuan} tuần, mỗi ngày làm được {sp} sản phẩm. Hỏi người đó làm được bao nhiêu sản phẩm trong khoảng thời gian đó?",
+    "options": [
+      "A. {w1} sản phẩm",
+      "B. {ans} sản phẩm",
+      "C. {w2} sản phẩm",
+      "D. {w3} sản phẩm"
+    ],
+    "correctIndex": 1,
+    "hints": ["Một tuần có 7 ngày. Hãy tính tổng số ngày làm việc rồi nhân với số sản phẩm mỗi ngày."],
+    "solutionHtml": "Tổng số ngày làm việc là: $ {tuan} \\times 7 = {tuan * 7} $ (ngày).<br/>Tổng số sản phẩm làm được là: $ {tuan * 7} \\times {sp} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+    "tip": "Đổi đơn vị thời gian trước khi tính toán.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tong": { "min": 800, "max": 900, "step": 10 },
+      "hieu": { "min": 100, "max": 200, "step": 10 }
+    },
+    "constraints": ["(tong + hieu) % 2 === 0", "tong > hieu"],
+    "formulas": {
+      "ans": "(tong + hieu) / 2",
+      "w1": "(tong - hieu) / 2",
+      "w2": "ans + 50",
+      "w3": "ans - 20"
+    },
+    "questionText": "Hai kho thóc chứa tổng cộng {tong} tấn thóc. Biết kho thứ nhất nhiều hơn kho thứ hai là {hieu} tấn thóc. Tìm số tấn thóc ở kho thứ nhất.",
+    "options": [
+      "A. {w1} tấn",
+      "B. {ans} tấn",
+      "C. {w2} tấn",
+      "D. {w3} tấn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đây là bài toán tìm hai số khi biết tổng và hiệu. Số lớn = (Tổng + Hiệu) : 2."],
+    "solutionHtml": "Số tấn thóc ở kho thứ nhất là:<br/>$ ({tong} + {hieu}) : 2 = {ans} $ (tấn).<br/>Đáp án đúng là B.",
+    "tip": "Ghi nhớ công thức tìm số lớn và số bé để giải nhanh bài toán tổng - hiệu.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 2 },
+      "b": { "min": 10, "max": 15, "step": 1 }
+    },
+    "constraints": ["a % 2 === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "ans * 2",
+      "w3": "ans + 10"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {a} m, chiều rộng bằng 1/2 chiều dài nhưng lại hơn chiều rộng thực tế là {b} m? Xin lỗi, giả sử chiều rộng là {b} m. Tính diện tích mảnh vườn đó.",
+    "options": [
+      "A. {w1} $m^2$",
+      "B. {w2} $m^2$",
+      "C. {ans} $m^2$",
+      "D. {w3} $m^2$"
+    ],
+    "correctIndex": 2,
+    "hints": ["Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."],
+    "solutionHtml": "Diện tích mảnh vườn là:<br/>$ {a} \\times {b} = {ans} $ ($m^2$).<br/>Đáp án đúng là C.",
+    "tip": "Đừng nhầm lẫn giữa công thức tính chu vi và diện tích.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 1000, "max": 2000, "step": 100 },
+      "y": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["x % y === 0"],
+    "formulas": {
+      "ans": "x / y",
+      "w1": "x - y",
+      "w2": "ans + 100",
+      "w3": "ans - 100"
+    },
+    "questionText": "Một đội văn nghệ có {x} bạn được chia đều vào {y} hàng. Hỏi mỗi hàng có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia đều {x} bạn vào {y} hàng, ta thực hiện phép tính chia."],
+    "solutionHtml": "Số bạn mỗi hàng là:<br/>$ {x} : {y} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Chia đều nghĩa là chia bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 9, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a * a * a",
+      "w1": "a * a",
+      "w2": "ans + 10",
+      "w3": "ans - 10"
+    },
+    "questionText": "Một hình lập phương có cạnh là {a} cm. Tính thể tích của hình lập phương đó (Biết thể tích = cạnh x cạnh x cạnh).",
+    "options": [
+      "A. {w1} $cm^3$",
+      "B. {ans} $cm^3$",
+      "C. {w2} $cm^3$",
+      "D. {w3} $cm^3$"
+    ],
+    "correctIndex": 1,
+    "hints": ["Thể tích hình lập phương bằng cạnh nhân cạnh rồi nhân tiếp với cạnh."],
+    "solutionHtml": "Thể tích hình lập phương là:<br/>$ {a} \\times {a} \\times {a} = {ans} $ ($cm^3$).<br/>Đáp án đúng là B.",
+    "tip": "Cẩn thận tính toán từng bước để tránh sai sót phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 300, "max": 500, "step": 10 },
+      "b": { "min": 100, "max": 200, "step": 10 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "ans + 50",
+      "w3": "ans - 50"
+    },
+    "questionText": "Thư viện trường có {a} cuốn sách, trong đó có {b} cuốn sách giáo khoa. Hỏi số sách còn lại không phải là sách giáo khoa là bao nhiêu?",
+    "options": [
+      "A. {w1} cuốn",
+      "B. {ans} cuốn",
+      "C. {w2} cuốn",
+      "D. {w3} cuốn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tổng số sách trừ đi số sách giáo khoa."],
+    "solutionHtml": "Số sách còn lại là:<br/>$ {a} - {b} = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+    "tip": "Tìm phần còn lại của một tổng ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a / b",
+      "w3": "ans + 5"
+    },
+    "questionText": "Một đoàn xe chở hàng, mỗi xe chở được {a} thùng hàng. Có tất cả {b} xe. Hỏi đoàn xe đó chở được bao nhiêu thùng hàng?",
+    "options": [
+      "A. {w1} thùng",
+      "B. {ans} thùng",
+      "C. {w2} thùng",
+      "D. {w3} thùng"
+    ],
+    "correctIndex": 1,
+    "hints": ["Muốn tìm tổng số thùng hàng, ta lấy số thùng mỗi xe nhân với số xe."],
+    "solutionHtml": "Tổng số thùng hàng là:<br/>$ {a} \\times {b} = {ans} $ (thùng).<br/>Đáp án đúng là B.",
+    "tip": "Bài toán 'mỗi phần có bao nhiêu' mà hỏi tổng là dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 500, "step": 10 },
+      "b": { "min": 2, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 10",
+      "w2": "ans - 10",
+      "w3": "a + b"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng đã bán đi 1/ {b} số gạo đó. Hỏi cửa hàng đã bán đi bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số gạo đã bán, ta lấy tổng số gạo chia cho {b}."],
+    "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán hỏi 'một phần mấy' của một số, ta thực hiện phép chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "xeTai": { "min": 2000, "max": 5000, "step": 100 },
+      "xeMay": { "min": 500, "max": 1500, "step": 50 }
+    },
+    "constraints": ["xeTai > xeMay"],
+    "formulas": {
+      "ans": "xeTai + xeMay",
+      "w1": "xeTai - xeMay",
+      "w2": "xeTai + xeMay + 100",
+      "w3": "xeTai + 200"
+    },
+    "questionText": "Một kho thóc có {xeTai} kg thóc ở kho lớn và {xeMay} kg thóc ở kho nhỏ. Hỏi cả hai kho có tất cả bao nhiêu ki-lô-gam thóc?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính tổng số thóc của hai kho bằng cách cộng giá trị của kho lớn và kho nhỏ."],
+    "solutionHtml": "Tổng số thóc của cả hai kho là:<br/>$ {xeTai} + {xeMay} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Cụm từ 'tất cả' gợi ý cho chúng ta thực hiện phép tính cộng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "soCan": { "min": 10, "max": 20, "step": 1 },
+      "giaTien": { "min": 5000, "max": 9000, "step": 1000 }
+    },
+    "constraints": ["(soCan * giaTien) % 1000 === 0"],
+    "formulas": {
+      "ans": "soCan * giaTien",
+      "w1": "soCan + giaTien",
+      "w2": "ans + 1000",
+      "w3": "ans - 1000"
+    },
+    "questionText": "Mẹ mua {soCan} kg cam, mỗi ki-lô-gam có giá {giaTien} đồng. Hỏi mẹ phải trả người bán hàng bao nhiêu tiền?",
+    "options": [
+      "A. {w1} đồng",
+      "B. {w2} đồng",
+      "C. {ans} đồng",
+      "D. {w3} đồng"
+    ],
+    "correctIndex": 2,
+    "hints": ["Số tiền phải trả bằng số ki-lô-gam cam nhân với giá của một ki-lô-gam."],
+    "solutionHtml": "Số tiền mẹ phải trả là:<br/>$ {soCan} \\times {giaTien} = {ans} $ (đồng).<br/>Đáp án đúng là C.",
+    "tip": "Bài toán mua hàng với số lượng lớn ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tuan": { "min": 4, "max": 8, "step": 1 },
+      "sp": { "min": 100, "max": 200, "step": 10 }
+    },
+    "constraints": ["(tuan * 7 * sp) % 1 === 0"],
+    "formulas": {
+      "ans": "tuan * 7 * sp",
+      "w1": "tuan * sp",
+      "w2": "ans + 50",
+      "w3": "ans - 50"
+    },
+    "questionText": "Một công nhân làm việc trong {tuan} tuần, mỗi ngày làm được {sp} sản phẩm. Hỏi người đó làm được bao nhiêu sản phẩm trong khoảng thời gian đó?",
+    "options": [
+      "A. {w1} sản phẩm",
+      "B. {ans} sản phẩm",
+      "C. {w2} sản phẩm",
+      "D. {w3} sản phẩm"
+    ],
+    "correctIndex": 1,
+    "hints": ["Một tuần có 7 ngày. Hãy tính tổng số ngày làm việc rồi nhân với số sản phẩm mỗi ngày."],
+    "solutionHtml": "Tổng số ngày làm việc là: $ {tuan} \\times 7 = {tuan * 7} $ (ngày).<br/>Tổng số sản phẩm làm được là: $ {tuan * 7} \\times {sp} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+    "tip": "Đổi đơn vị thời gian trước khi tính toán.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "tong": { "min": 800, "max": 900, "step": 10 },
+      "hieu": { "min": 100, "max": 200, "step": 10 }
+    },
+    "constraints": ["(tong + hieu) % 2 === 0", "tong > hieu"],
+    "formulas": {
+      "ans": "(tong + hieu) / 2",
+      "w1": "(tong - hieu) / 2",
+      "w2": "ans + 50",
+      "w3": "ans - 20"
+    },
+    "questionText": "Hai kho thóc chứa tổng cộng {tong} tấn thóc. Biết kho thứ nhất nhiều hơn kho thứ hai là {hieu} tấn thóc. Tìm số tấn thóc ở kho thứ nhất.",
+    "options": [
+      "A. {w1} tấn",
+      "B. {ans} tấn",
+      "C. {w2} tấn",
+      "D. {w3} tấn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đây là bài toán tìm hai số khi biết tổng và hiệu. Số lớn = (Tổng + Hiệu) : 2."],
+    "solutionHtml": "Số tấn thóc ở kho thứ nhất là:<br/>$ ({tong} + {hieu}) : 2 = {ans} $ (tấn).<br/>Đáp án đúng là B.",
+    "tip": "Ghi nhớ công thức tìm số lớn và số bé để giải nhanh bài toán tổng - hiệu.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 2 },
+      "b": { "min": 10, "max": 15, "step": 1 }
+    },
+    "constraints": ["a % 2 === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "ans * 2",
+      "w3": "ans + 10"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {a} m, chiều rộng bằng 1/2 chiều dài nhưng lại hơn chiều rộng thực tế là {b} m? Xin lỗi, giả sử chiều rộng là {b} m. Tính diện tích mảnh vườn đó.",
+    "options": [
+      "A. {w1} $m^2$",
+      "B. {w2} $m^2$",
+      "C. {ans} $m^2$",
+      "D. {w3} $m^2$"
+    ],
+    "correctIndex": 2,
+    "hints": ["Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."],
+    "solutionHtml": "Diện tích mảnh vườn là:<br/>$ {a} \\times {b} = {ans} $ ($m^2$).<br/>Đáp án đúng là C.",
+    "tip": "Đừng nhầm lẫn giữa công thức tính chu vi và diện tích.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 1000, "max": 2000, "step": 100 },
+      "y": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["x % y === 0"],
+    "formulas": {
+      "ans": "x / y",
+      "w1": "x - y",
+      "w2": "ans + 100",
+      "w3": "ans - 100"
+    },
+    "questionText": "Một đội văn nghệ có {x} bạn được chia đều vào {y} hàng. Hỏi mỗi hàng có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia đều {x} bạn vào {y} hàng, ta thực hiện phép tính chia."],
+    "solutionHtml": "Số bạn mỗi hàng là:<br/>$ {x} : {y} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Chia đều nghĩa là chia bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 9, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a * a * a",
+      "w1": "a * a",
+      "w2": "ans + 10",
+      "w3": "ans - 10"
+    },
+    "questionText": "Một hình lập phương có cạnh là {a} cm. Tính thể tích của hình lập phương đó (Biết thể tích = cạnh x cạnh x cạnh).",
+    "options": [
+      "A. {w1} $cm^3$",
+      "B. {ans} $cm^3$",
+      "C. {w2} $cm^3$",
+      "D. {w3} $cm^3$"
+    ],
+    "correctIndex": 1,
+    "hints": ["Thể tích hình lập phương bằng cạnh nhân cạnh rồi nhân tiếp với cạnh."],
+    "solutionHtml": "Thể tích hình lập phương là:<br/>$ {a} \\times {a} \\times {a} = {ans} $ ($cm^3$).<br/>Đáp án đúng là B.",
+    "tip": "Cẩn thận tính toán từng bước để tránh sai sót phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 300, "max": 500, "step": 10 },
+      "b": { "min": 100, "max": 200, "step": 10 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "ans + 50",
+      "w3": "ans - 50"
+    },
+    "questionText": "Thư viện trường có {a} cuốn sách, trong đó có {b} cuốn sách giáo khoa. Hỏi số sách còn lại không phải là sách giáo khoa là bao nhiêu?",
+    "options": [
+      "A. {w1} cuốn",
+      "B. {ans} cuốn",
+      "C. {w2} cuốn",
+      "D. {w3} cuốn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tổng số sách trừ đi số sách giáo khoa."],
+    "solutionHtml": "Số sách còn lại là:<br/>$ {a} - {b} = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+    "tip": "Tìm phần còn lại của một tổng ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a / b",
+      "w3": "ans + 5"
+    },
+    "questionText": "Một đoàn xe chở hàng, mỗi xe chở được {a} thùng hàng. Có tất cả {b} xe. Hỏi đoàn xe đó chở được bao nhiêu thùng hàng?",
+    "options": [
+      "A. {w1} thùng",
+      "B. {ans} thùng",
+      "C. {w2} thùng",
+      "D. {w3} thùng"
+    ],
+    "correctIndex": 1,
+    "hints": ["Muốn tìm tổng số thùng hàng, ta lấy số thùng mỗi xe nhân với số xe."],
+    "solutionHtml": "Tổng số thùng hàng là:<br/>$ {a} \\times {b} = {ans} $ (thùng).<br/>Đáp án đúng là B.",
+    "tip": "Bài toán 'mỗi phần có bao nhiêu' mà hỏi tổng là dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-68-d10"
+  }
+]
+

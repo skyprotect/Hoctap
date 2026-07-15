@@ -1,0 +1,371 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x > 0",
+        "2 + x <= 7"
+      ],
+      "formulas": {
+        "ans": "2 + x",
+        "w1": "x + 3",
+        "w2": "x + 4",
+        "w3": "x + 5",
+        "w1_f": "(w1 === ans) ? 6 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 5 : w3"
+      },
+      "questionText": "Hôm nay là thứ Hai. Hỏi còn {x} ngày nữa là đến ngày nào trong tuần?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {w2_f}",
+        "C. Thứ {ans}",
+        "D. Thứ {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Thứ Hai là ngày thứ 2 trong tuần.",
+        "Ta lấy 2 cộng thêm {x} ngày."
+      ],
+      "solutionHtml": "Hôm nay là thứ Hai, là ngày thứ 2 trong tuần.<br/>Sau {x} ngày nữa là thứ: $2 + {x} = {ans}$.<br/>Vậy đó là thứ {ans}.",
+      "tip": "Hãy đếm tiếp các ngày trong tuần bắt đầu từ thứ Hai."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "day < 7",
+        "day - 2 > 1"
+      ],
+      "formulas": {
+        "ans": "day - 2",
+        "w1": "day + 1",
+        "w2": "day + 2",
+        "w3": "day - 1",
+        "w1_f": "(w1 === ans) ? 7 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 6 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 2 : w3"
+      },
+      "questionText": "Hôm nay là thứ {day}. Hỏi {day - 2} ngày trước đó là thứ mấy?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {w3_f}",
+        "C. Thứ {w2_f}",
+        "D. Thứ {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Hôm nay là thứ {day}, ta cần lùi lại {day - 2} ngày."
+      ],
+      "solutionHtml": "Để tìm thứ của ngày hôm trước, ta làm phép trừ:<br/>$ {day} - {day - 2} = {ans} $.<br/>Vậy đó là thứ {ans}.",
+      "tip": "Đếm ngược từ thứ hiện tại về trước."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "jump": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "start + jump + 1 <= 7"
+      ],
+      "formulas": {
+        "ans": "start + jump + 1",
+        "w1": "start + 2",
+        "w2": "start + 3",
+        "w3": "start + 4",
+        "w1_f": "(w1 === ans) ? 7 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 6 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 5 : w3"
+      },
+      "questionText": "Nếu hôm qua là thứ {start}, thì ngày mai sẽ là thứ mấy?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {ans}",
+        "C. Thứ {w2_f}",
+        "D. Thứ {w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu hôm qua là thứ {start}, thì hôm nay là thứ {start + 1}.",
+        "Ngày mai là ngày tiếp theo của hôm nay."
+      ],
+      "solutionHtml": "Hôm qua là thứ {start} thì hôm nay là thứ {start + 1}.<br/>Ngày mai là ngày tiếp theo: $ {start + 1} + 1 = {ans} $.<br/>Vậy ngày mai là thứ {ans}.",
+      "tip": "Xác định thứ của hôm nay trước khi tìm ngày mai."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n + 2 <= 7"
+      ],
+      "formulas": {
+        "ans": "1",
+        "w1": "2",
+        "w2": "3",
+        "w3": "4",
+        "w1_f": "(w1 === ans) ? 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 6 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 7 : w3"
+      },
+      "questionText": "Lan đi học thêm vào thứ {n} và thứ {n+2} hàng tuần. Hỏi có bao nhiêu ngày Lan không đi học thêm giữa hai ngày đó?",
+      "options": [
+        "A. {w1_f} ngày",
+        "B. {w2_f} ngày",
+        "C. {ans} ngày",
+        "D. {w3_f} ngày"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lan đi vào thứ {n} và thứ {n+2}. Các ngày ở giữa là thứ {n+1}."
+      ],
+      "solutionHtml": "Các ngày ở giữa thứ {n} và thứ {n+2} là thứ {n+1}.<br/>Chỉ có đúng 1 ngày ở giữa.",
+      "tip": "Liệt kê các thứ trong tuần để thấy ngày ở giữa."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "k": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "k + 2 <= 7"
+      ],
+      "formulas": {
+        "ans": "k + 1",
+        "w1": "k - 1",
+        "w2": "k + 2",
+        "w3": "k",
+        "w1_f": "(w1 === ans || w1 < 2) ? 7 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 6 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 4 : w3"
+      },
+      "questionText": "Mẹ đi chợ vào thứ {k} và thứ {k+2}. Hỏi ngày ở chính giữa hai ngày đó là thứ mấy?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {w2_f}",
+        "C. Thứ {ans}",
+        "D. Thứ {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ngày ở giữa thứ {k} và thứ {k+2} là thứ {k+1}."
+      ],
+      "solutionHtml": "Ta có các thứ theo thứ tự: thứ {k}, thứ {k+1}, thứ {k+2}.<br/>Vậy ngày ở giữa là thứ {ans}.",
+      "tip": "Sắp xếp thứ tự các ngày trong tuần."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x < 6"
+      ],
+      "formulas": {
+        "ans": "7",
+        "w1": "6",
+        "w2": "5",
+        "w3": "4",
+        "w1_f": "6",
+        "w2_f": "5",
+        "w3_f": "4"
+      },
+      "questionText": "Nếu thứ Hai là ngày bắt đầu tuần, thì ngày cuối cùng của tuần đó là thứ mấy?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {w2_f}",
+        "C. Thứ {w3_f}",
+        "D. Chủ nhật"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Một tuần có 7 ngày.",
+        "Sau thứ Hai, thứ Ba, thứ Tư, thứ Năm, thứ Sáu, thứ Bảy là đến ngày cuối cùng."
+      ],
+      "solutionHtml": "Các ngày trong tuần là: Thứ Hai, Thứ Ba, Thứ Tư, Thứ Năm, Thứ Sáu, Thứ Bảy, Chủ nhật.<br/>Ngày cuối cùng là Chủ nhật.",
+      "tip": "Ghi nhớ thứ tự 7 ngày trong tuần."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "day + 2 <= 7"
+      ],
+      "formulas": {
+        "ans": "day + 2",
+        "w1": "day + 1",
+        "w2": "day + 3",
+        "w3": "day - 1",
+        "w1_f": "(w1 === ans || w1 < 2) ? 6 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 3 : w3"
+      },
+      "questionText": "Bố đi công tác vào thứ {day}, bố đi 2 ngày. Hỏi bố về vào thứ mấy?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {w2_f}",
+        "C. Thứ {ans}",
+        "D. Thứ {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bố đi vào thứ {day}, đi 2 ngày nghĩa là cộng thêm 2."
+      ],
+      "solutionHtml": "Ngày bố về là: $ {day} + 2 = {ans} $.<br/>Vậy bố về vào thứ {ans}.",
+      "tip": "Cẩn thận với từ 'đi 2 ngày', cần tính toán bước nhảy của ngày."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "d2": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d2 > d1 + 1"
+      ],
+      "formulas": {
+        "ans": "d2 - d1 - 1",
+        "w1": "d2 - d1",
+        "w2": "d2 - d1 + 1",
+        "w3": "d1",
+        "w1_f": "(w1 === ans) ? 4 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 3 : w3"
+      },
+      "questionText": "Từ thứ {d1} đến thứ {d2} có bao nhiêu ngày ở giữa?",
+      "options": [
+        "A. {w1_f} ngày",
+        "B. {ans} ngày",
+        "C. {w2_f} ngày",
+        "D. {w3_f} ngày"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Liệt kê các thứ từ {d1} đến {d2} rồi đếm các ngày ở giữa."
+      ],
+      "solutionHtml": "Từ thứ {d1} đến thứ {d2}, các ngày ở giữa là các thứ từ {d1 + 1} đến {d2 - 1}.<br/>Số ngày là: $ {d2} - {d1} - 1 = {ans} $ ngày.",
+      "tip": "Đừng đếm cả ngày bắt đầu và ngày kết thúc."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 2,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n + 5 <= 7"
+      ],
+      "formulas": {
+        "ans": "15",
+        "w1": "14",
+        "w2": "16",
+        "w3": "13",
+        "w1_f": "(w1 === ans) ? 17 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 18 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 12 : w3"
+      },
+      "questionText": "Thứ {n} tuần này là ngày 10. Hỏi thứ {n+5} của tuần đó là ngày mấy?",
+      "options": [
+        "A. Ngày {w1_f}",
+        "B. Ngày {w2_f}",
+        "C. Ngày {ans}",
+        "D. Ngày {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi ngày cách nhau 1 đơn vị.",
+        "Thứ {n+5} cách thứ {n} là 5 ngày."
+      ],
+      "solutionHtml": "Thứ {n} là ngày 10, vậy thứ {n+5} là ngày:<br/>$ 10 + 5 = {ans} $.<br/>Đáp án đúng là ngày {ans}.",
+      "tip": "Cộng thêm số ngày chênh lệch giữa hai thứ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x > 1"
+      ],
+      "formulas": {
+        "ans": "x",
+        "w1": "x + 1",
+        "w2": "x - 1",
+        "w3": "7",
+        "w1_f": "(w1 === ans) ? 6 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? 4 : w3"
+      },
+      "questionText": "Nếu hôm nay là thứ {x}, thì sau 1 tuần nữa sẽ là thứ mấy?",
+      "options": [
+        "A. Thứ {w1_f}",
+        "B. Thứ {w2_f}",
+        "C. Thứ {ans}",
+        "D. Thứ {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Một tuần có 7 ngày.",
+        "Sau 1 tuần, thứ trong tuần vẫn không đổi."
+      ],
+      "solutionHtml": "Sau đúng 1 tuần (7 ngày), thứ trong tuần vẫn lặp lại.<br/>Vậy hôm nay là thứ {x} thì sau 1 tuần vẫn là thứ {x}.",
+      "tip": "Sau đúng 7 ngày, thứ của ngày đó sẽ quay trở lại ban đầu."
+    }
+  ]
+}

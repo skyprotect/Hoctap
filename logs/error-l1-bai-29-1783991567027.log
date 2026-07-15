@@ -1,0 +1,688 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:12:47.027Z
+Lesson ID: l1-bai-29
+Lesson Title: Bài 29: Phép cộng số có hai chữ số với số có một chữ số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9580 (line 323 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9580 (line 323 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9580 (Line: 323, Column: 1)
+Character causing error: "]"
+
+Context:
+... i chữ số với số có một chữ số: hàng chục giữ nguyên, hàng đơn vị cộng hàng đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d10"
+  }
+]
+>>>[LỖI TẠI ĐÂY]<<<]
+]
+  
+  }
+] ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 21, "max": 89, "step": 1 },
+      "b": { "min": 2, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 2",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trong vườn nhà Lan có {a} cây hoa hồng. Mẹ vừa trồng thêm {b} cây hoa hồng nữa. Hỏi tổng cộng trong vườn nhà Lan có bao nhiêu cây hoa hồng?",
+    "options": [
+      "A. {w1} cây",
+      "B. {ans} cây",
+      "C. {w2} cây",
+      "D. {w3} cây"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm tổng số cây hoa hồng, ta thực hiện phép tính cộng.",
+      "Lấy {a} cộng thêm {b}."
+    ],
+    "solutionHtml": "Số cây hoa hồng trong vườn nhà Lan là:<br/>$ {a} + {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Khi cộng số có hai chữ số với số có một chữ số, ta cộng hàng đơn vị với nhau trước.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 10, "max": 80, "step": 10 },
+      "y": { "min": 2, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "x + y",
+      "w1": "x + y + 1",
+      "w2": "x + y - 1",
+      "w3": "x + y + 2"
+    },
+    "questionText": "Minh có {x} viên bi. Bạn tặng Minh thêm {y} viên bi nữa. Hỏi Minh có tất cả bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên bi",
+      "B. {w2} viên bi",
+      "C. {ans} viên bi",
+      "D. {w3} viên bi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Minh có {x} viên, được thêm {y} viên.",
+      "Phép tính là $ {x} + {y} $."
+    ],
+    "solutionHtml": "Số viên bi Minh có là:<br/>$ {x} + {y} = {ans} $ (viên bi).<br/>Đáp án đúng là C.",
+    "tip": "Số tròn chục cộng với số có một chữ số rất dễ tính, ta chỉ cần thay chữ số 0 ở hàng đơn vị bằng số đó.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 41, "max": 95, "step": 1 },
+      "b": { "min": 1, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 5",
+      "w2": "a + b + 2",
+      "w3": "a + b - 1"
+    },
+    "questionText": "Tổ Một của lớp 1A có {a} bạn học sinh. Hôm nay có thêm {b} bạn học sinh mới chuyển đến. Hỏi tổ Một có tất cả bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {w2} bạn",
+      "C. {ans} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Ta cần tính tổng số bạn: {a} cộng thêm {b}.",
+      "Thực hiện phép tính $ {a} + {b} $."
+    ],
+    "solutionHtml": "Số bạn học sinh tổ Một có là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề bài để xác định xem cần thêm hay bớt nhé!",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) === 0"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b + 4",
+      "w3": "a + b + 6"
+    },
+    "questionText": "Một chiếc hộp đựng {a} cái bút chì màu. Nam bỏ thêm vào hộp {b} cái bút chì màu nữa. Hỏi bây giờ trong hộp có bao nhiêu cái bút chì màu?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Hộp đang có {a} cái, thêm {b} cái.",
+      "Ta làm phép cộng: {a} + {b}."
+    ],
+    "solutionHtml": "Tổng số bút chì trong hộp là:<br/>$ {a} + {b} = {ans} $ (cái bút chì).<br/>Đáp án đúng là B.",
+    "tip": "Với số tròn chục, phép cộng số có một chữ số chỉ đơn giản là điền chữ số vào hàng đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 32, "max": 65, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 3",
+      "w3": "a + b + 4"
+    },
+    "questionText": "Trong bến xe có {a} chiếc ô tô đang đỗ. Một lát sau có thêm {b} chiếc ô tô nữa đi vào bến. Hỏi trong bến có tất cả bao nhiêu chiếc ô tô?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {w3} chiếc",
+      "D. {ans} chiếc"
+    ],
+    "correctIndex": 3,
+    "hints": [
+      "Có {a} ô tô, thêm {b} ô tô vào.",
+      "Phép cộng: {a} + {b} = ?"
+    ],
+    "solutionHtml": "Số ô tô trong bến là:<br/>$ {a} + {b} = {ans} $ (chiếc ô tô).<br/>Đáp án đúng là D.",
+    "tip": "Khi cộng, hãy chú ý cộng hàng đơn vị trước: {a%10} + {b} = {(a%10)+b}.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 15, "max": 25, "step": 1 },
+      "b": { "min": 1, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b - 1",
+      "w2": "a + b + 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Trên cành cây có {a} con chim đang đậu. Có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số chim là {a} thêm {b}.",
+      "Thực hiện: {a} + {b}."
+    ],
+    "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+    "tip": "Đếm tiếp thêm {b} đơn vị từ số {a} là một cách làm nhanh.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 80, "step": 10 },
+      "b": { "min": 1, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 5",
+      "w2": "a + b + 3",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Nhà em nuôi {a} con gà và {b} con vịt. Hỏi nhà em nuôi tất cả bao nhiêu con gà và vịt?",
+    "options": [
+      "A. {w1} con",
+      "B. {w2} con",
+      "C. {ans} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tổng số gà và vịt là {a} + {b}.",
+      "Tính nhẩm nhanh nhé!"
+    ],
+    "solutionHtml": "Tổng số con gà và vịt là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+    "tip": "Vì {a} là số tròn chục nên cộng rất nhanh, chỉ cần thay số 0 ở hàng đơn vị bằng số {b}.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 12, "max": 35, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 5"
+    },
+    "questionText": "Quyển truyện của Lan có {a} trang đã đọc. Lan đọc thêm {b} trang nữa. Hỏi Lan đã đọc được tất cả bao nhiêu trang?",
+    "options": [
+      "A. {w1} trang",
+      "B. {ans} trang",
+      "C. {w2} trang",
+      "D. {w3} trang"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lan đọc {a} rồi đọc thêm {b}.",
+      "Tính: {a} + {b}."
+    ],
+    "solutionHtml": "Số trang Lan đã đọc là:<br/>$ {a} + {b} = {ans} $ (trang).<br/>Đáp án đúng là B.",
+    "tip": "Cộng hàng đơn vị: {a%10} + {b} = {(a%10)+b}, giữ nguyên hàng chục.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 42, "max": 74, "step": 1 },
+      "b": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 2",
+      "w3": "a + b + 4"
+    },
+    "questionText": "Trong tủ có {a} chiếc bát. Mẹ mua thêm {b} chiếc bát nữa để vào tủ. Hỏi trong tủ có tất cả bao nhiêu chiếc bát?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {ans} chiếc",
+      "D. {w3} chiếc"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số bát là {a} và thêm {b}.",
+      "Phép tính: {a} + {b}."
+    ],
+    "solutionHtml": "Số bát trong tủ là:<br/>$ {a} + {b} = {ans} $ (chiếc bát).<br/>Đáp án đúng là C.",
+    "tip": "Hãy luôn nhớ cộng số đơn vị trước khi viết kết quả nhé.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 24, "max": 81, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 3",
+      "w2": "a + b - 3",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Đội văn nghệ có {a} bạn tham gia. Sau đó có thêm {b} bạn đăng ký tham gia nữa. Hỏi đội văn nghệ có tất cả bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {w2} bạn",
+      "C. {w3} bạn",
+      "D. {ans} bạn"
+    ],
+    "correctIndex": 3,
+    "hints": [
+      "Số bạn là {a} cộng thêm {b}.",
+      "Tính: {a} + {b} = ?"
+    ],
+    "solutionHtml": "Số bạn trong đội văn nghệ là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là D.",
+    "tip": "Phép cộng số có hai chữ số với số có một chữ số: hàng chục giữ nguyên, hàng đơn vị cộng hàng đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d10"
+  }
+]
+]
+]
+  
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 21, "max": 89, "step": 1 },
+      "b": { "min": 2, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 2",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trong vườn nhà Lan có {a} cây hoa hồng. Mẹ vừa trồng thêm {b} cây hoa hồng nữa. Hỏi tổng cộng trong vườn nhà Lan có bao nhiêu cây hoa hồng?",
+    "options": [
+      "A. {w1} cây",
+      "B. {ans} cây",
+      "C. {w2} cây",
+      "D. {w3} cây"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm tổng số cây hoa hồng, ta thực hiện phép tính cộng.",
+      "Lấy {a} cộng thêm {b}."
+    ],
+    "solutionHtml": "Số cây hoa hồng trong vườn nhà Lan là:<br/>$ {a} + {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Khi cộng số có hai chữ số với số có một chữ số, ta cộng hàng đơn vị với nhau trước.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 10, "max": 80, "step": 10 },
+      "y": { "min": 2, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "x + y",
+      "w1": "x + y + 1",
+      "w2": "x + y - 1",
+      "w3": "x + y + 2"
+    },
+    "questionText": "Minh có {x} viên bi. Bạn tặng Minh thêm {y} viên bi nữa. Hỏi Minh có tất cả bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên bi",
+      "B. {w2} viên bi",
+      "C. {ans} viên bi",
+      "D. {w3} viên bi"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Minh có {x} viên, được thêm {y} viên.",
+      "Phép tính là $ {x} + {y} $."
+    ],
+    "solutionHtml": "Số viên bi Minh có là:<br/>$ {x} + {y} = {ans} $ (viên bi).<br/>Đáp án đúng là C.",
+    "tip": "Số tròn chục cộng với số có một chữ số rất dễ tính, ta chỉ cần thay chữ số 0 ở hàng đơn vị bằng số đó.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 41, "max": 95, "step": 1 },
+      "b": { "min": 1, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 5",
+      "w2": "a + b + 2",
+      "w3": "a + b - 1"
+    },
+    "questionText": "Tổ Một của lớp 1A có {a} bạn học sinh. Hôm nay có thêm {b} bạn học sinh mới chuyển đến. Hỏi tổ Một có tất cả bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {w2} bạn",
+      "C. {ans} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Ta cần tính tổng số bạn: {a} cộng thêm {b}.",
+      "Thực hiện phép tính $ {a} + {b} $."
+    ],
+    "solutionHtml": "Số bạn học sinh tổ Một có là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề bài để xác định xem cần thêm hay bớt nhé!",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) === 0"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b + 4",
+      "w3": "a + b + 6"
+    },
+    "questionText": "Một chiếc hộp đựng {a} cái bút chì màu. Nam bỏ thêm vào hộp {b} cái bút chì màu nữa. Hỏi bây giờ trong hộp có bao nhiêu cái bút chì màu?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Hộp đang có {a} cái, thêm {b} cái.",
+      "Ta làm phép cộng: {a} + {b}."
+    ],
+    "solutionHtml": "Tổng số bút chì trong hộp là:<br/>$ {a} + {b} = {ans} $ (cái bút chì).<br/>Đáp án đúng là B.",
+    "tip": "Với số tròn chục, phép cộng số có một chữ số chỉ đơn giản là điền chữ số vào hàng đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 32, "max": 65, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 3",
+      "w3": "a + b + 4"
+    },
+    "questionText": "Trong bến xe có {a} chiếc ô tô đang đỗ. Một lát sau có thêm {b} chiếc ô tô nữa đi vào bến. Hỏi trong bến có tất cả bao nhiêu chiếc ô tô?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {w3} chiếc",
+      "D. {ans} chiếc"
+    ],
+    "correctIndex": 3,
+    "hints": [
+      "Có {a} ô tô, thêm {b} ô tô vào.",
+      "Phép cộng: {a} + {b} = ?"
+    ],
+    "solutionHtml": "Số ô tô trong bến là:<br/>$ {a} + {b} = {ans} $ (chiếc ô tô).<br/>Đáp án đúng là D.",
+    "tip": "Khi cộng, hãy chú ý cộng hàng đơn vị trước: {a%10} + {b} = {(a%10)+b}.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 15, "max": 25, "step": 1 },
+      "b": { "min": 1, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b - 1",
+      "w2": "a + b + 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Trên cành cây có {a} con chim đang đậu. Có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số chim là {a} thêm {b}.",
+      "Thực hiện: {a} + {b}."
+    ],
+    "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+    "tip": "Đếm tiếp thêm {b} đơn vị từ số {a} là một cách làm nhanh.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 80, "step": 10 },
+      "b": { "min": 1, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 5",
+      "w2": "a + b + 3",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Nhà em nuôi {a} con gà và {b} con vịt. Hỏi nhà em nuôi tất cả bao nhiêu con gà và vịt?",
+    "options": [
+      "A. {w1} con",
+      "B. {w2} con",
+      "C. {ans} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tổng số gà và vịt là {a} + {b}.",
+      "Tính nhẩm nhanh nhé!"
+    ],
+    "solutionHtml": "Tổng số con gà và vịt là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+    "tip": "Vì {a} là số tròn chục nên cộng rất nhanh, chỉ cần thay số 0 ở hàng đơn vị bằng số {b}.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 12, "max": 35, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 5"
+    },
+    "questionText": "Quyển truyện của Lan có {a} trang đã đọc. Lan đọc thêm {b} trang nữa. Hỏi Lan đã đọc được tất cả bao nhiêu trang?",
+    "options": [
+      "A. {w1} trang",
+      "B. {ans} trang",
+      "C. {w2} trang",
+      "D. {w3} trang"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lan đọc {a} rồi đọc thêm {b}.",
+      "Tính: {a} + {b}."
+    ],
+    "solutionHtml": "Số trang Lan đã đọc là:<br/>$ {a} + {b} = {ans} $ (trang).<br/>Đáp án đúng là B.",
+    "tip": "Cộng hàng đơn vị: {a%10} + {b} = {(a%10)+b}, giữ nguyên hàng chục.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 42, "max": 74, "step": 1 },
+      "b": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 2",
+      "w3": "a + b + 4"
+    },
+    "questionText": "Trong tủ có {a} chiếc bát. Mẹ mua thêm {b} chiếc bát nữa để vào tủ. Hỏi trong tủ có tất cả bao nhiêu chiếc bát?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {ans} chiếc",
+      "D. {w3} chiếc"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số bát là {a} và thêm {b}.",
+      "Phép tính: {a} + {b}."
+    ],
+    "solutionHtml": "Số bát trong tủ là:<br/>$ {a} + {b} = {ans} $ (chiếc bát).<br/>Đáp án đúng là C.",
+    "tip": "Hãy luôn nhớ cộng số đơn vị trước khi viết kết quả nhé.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 24, "max": 81, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "(a % 10) + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 3",
+      "w2": "a + b - 3",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Đội văn nghệ có {a} bạn tham gia. Sau đó có thêm {b} bạn đăng ký tham gia nữa. Hỏi đội văn nghệ có tất cả bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {w2} bạn",
+      "C. {w3} bạn",
+      "D. {ans} bạn"
+    ],
+    "correctIndex": 3,
+    "hints": [
+      "Số bạn là {a} cộng thêm {b}.",
+      "Tính: {a} + {b} = ?"
+    ],
+    "solutionHtml": "Số bạn trong đội văn nghệ là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là D.",
+    "tip": "Phép cộng số có hai chữ số với số có một chữ số: hàng chục giữ nguyên, hàng đơn vị cộng hàng đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-29-d10"
+  }
+]
+]
+]
+  
+  }
+]
+

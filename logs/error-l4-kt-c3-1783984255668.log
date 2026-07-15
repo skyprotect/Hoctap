@@ -1,0 +1,704 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:10:55.668Z
+Lesson ID: l4-kt-c3
+Lesson Title: Bài tập cuối chương III
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12376 (line 337 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12376 (line 337 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 12376 (Line: 337, Column: 1)
+Character causing error: "}"
+
+Context:
+... út ban đầu là:<br/>$ {a * b} + {a} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên cộng thêm số bút còn dư ở ngoài hộp."
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 10 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a / (b + 5)",
+        "w2_goc": "a / (b - 2)",
+        "w3_goc": "a * b",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo. Người ta chuyển số gạo đó vào các bao, mỗi bao chứa {b} kg. Hỏi cần tất cả bao nhiêu bao để chứa hết số gạo đó?",
+      "options": [
+        "A. {w1} bao",
+        "B. {ans} bao",
+        "C. {w2} bao",
+        "D. {w3} bao"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số bao cần dùng, ta thực hiện phép chia tổng số gạo cho số gạo trong mỗi bao.",
+        "Phép tính cần thực hiện là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số bao gạo cần dùng là:<br/>$ {a} : {b} = {ans} $ (bao).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tròn chục cho một số, hãy tính toán cẩn thận từng bước chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 50, "step": 1 },
+        "p": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "n % p === 0"
+      ],
+      "formulas": {
+        "ans": "n * p * 100",
+        "w1": "n * p * 10",
+        "w2": "(n + p) * 100",
+        "w3": "n * p * 1000",
+        "w1_fix": "(w1 === ans) ? ans + 100 : w1",
+        "w2_fix": "(w2 === ans || w2 === w1_fix) ? ans + 200 : w2",
+        "w3_fix": "(w3 === ans || w3 === w1_fix || w3 === w2_fix) ? ans + 300 : w3"
+      },
+      "questionText": "Một cửa hàng nhập về {n} thùng dầu, mỗi thùng chứa {p} trăm lít dầu. Hỏi cửa hàng đã nhập về tất cả bao nhiêu lít dầu?",
+      "options": [
+        "A. {w1_fix} lít",
+        "B. {ans} lít",
+        "C. {w2_fix} lít",
+        "D. {w3_fix} lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi thùng có {p} trăm lít, tức là $ {p} \\times 100 $ lít.",
+        "Tính tổng số lít dầu bằng cách nhân số thùng với số lít của mỗi thùng."
+      ],
+      "solutionHtml": "Số lít dầu mỗi thùng chứa là:<br/>$ {p} \\times 100 = {p}00 $ (lít).<br/>Tổng số lít dầu cửa hàng nhập về là:<br/>$ {n} \\times {p}00 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Chú ý quy đổi đơn vị 'trăm lít' sang 'lít' trước khi thực hiện phép nhân."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 300, "step": 1 },
+        "y": { "min": 20, "max": 50, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * 2",
+        "w3": "y * 2",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Lan có {x} viên bi, Hùng có nhiều hơn Lan {y} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tìm số bi của Hùng bằng cách lấy số bi của Lan cộng với {y}.",
+        "Bước 2: Tìm tổng số bi của cả hai bạn."
+      ],
+      "solutionHtml": "Số viên bi của Hùng là:<br/>$ {x} + {y} = {x + y} $ (viên).<br/>Tổng số bi của cả hai bạn là:<br/>$ {x} + {x + y} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên tính số bi của Hùng trước khi tính tổng hai bạn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a - b",
+        "w1_fix": "(w1 === ans) ? ans + 5 : w1",
+        "w2_fix": "(w2 === ans || w2 === w1_fix) ? ans + 10 : w2",
+        "w3_fix": "(w3 === ans || w3 === w1_fix || w3 === w2_fix) ? ans + 15 : w3"
+      },
+      "questionText": "Một sợi dây dài {a} cm được cắt thành {b} đoạn bằng nhau. Hỏi độ dài mỗi đoạn dây là bao nhiêu centimet?",
+      "options": [
+        "A. {w1_fix} cm",
+        "B. {ans} cm",
+        "C. {w2_fix} cm",
+        "D. {w3_fix} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi cắt đều một đoạn dây, ta dùng phép tính chia.",
+        "Lấy chiều dài sợi dây chia cho số đoạn đã cắt."
+      ],
+      "solutionHtml": "Độ dài mỗi đoạn dây là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với đơn vị đo, bài toán hỏi đơn vị centimet."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 5",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Một vườn cây ăn quả có {a} hàng, mỗi hàng trồng {b} cây. Hỏi trong vườn đó có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {ans} cây",
+        "C. {w2_f} cây",
+        "D. {w3_f} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số cây, ta lấy số hàng nhân với số cây trong mỗi hàng.",
+        "Thực hiện phép tính $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán nhân cơ bản, hãy chắc chắn bạn đã đếm đúng số hàng và số cây mỗi hàng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 40, "step": 1 },
+        "y": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "x + 2 * y",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Trong hộp có {x} viên bi xanh và bi đỏ. Biết số bi xanh là {y} viên. Hỏi số bi đỏ nhiều hơn hay ít hơn số bi xanh bao nhiêu viên? (Giả sử số bi xanh là số lớn hơn)",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi đỏ là: tổng số bi trừ đi số bi xanh.",
+        "Sau đó tính hiệu của số bi xanh và số bi đỏ."
+      ],
+      "solutionHtml": "Số bi đỏ là: $ {x} - {y} = {x-y} $ (viên).<br/>Số bi xanh nhiều hơn số bi đỏ là:<br/>$ {y} - {x-y} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài xem số lượng nào lớn hơn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 5 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Có {a} quyển sách được chia đều vào {b} kệ sách. Hỏi mỗi kệ sách chứa bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1_f} quyển",
+        "B. {ans} quyển",
+        "C. {w2_f} quyển",
+        "D. {w3_f} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều số sách cho các kệ thì ta thực hiện phép tính chia.",
+        "Lấy tổng số sách chia cho số kệ."
+      ],
+      "solutionHtml": "Số quyển sách mỗi kệ có là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Kiểm tra lại kết quả bằng phép nhân: $ {ans} \\times {b} = {a} $."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * (b + 5)",
+        "w1": "a * b + 5",
+        "w2": "(a + 5) * b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 6 : w3"
+      },
+      "questionText": "Mỗi ngày cửa hàng bán được {b} kg gạo. Nếu cửa hàng bán thêm 5 kg mỗi ngày thì sau {a} ngày cửa hàng bán được bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {ans} kg",
+        "C. {w2_f} kg",
+        "D. {w3_f_fix} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số kg gạo bán được mỗi ngày sau khi tăng là $ {b} + 5 $.",
+        "Bước 2: Nhân kết quả đó với số ngày là {a}."
+      ],
+      "solutionHtml": "Số kg gạo bán mỗi ngày sau khi tăng là:<br/>$ {b} + 5 = {b+5} $ (kg).<br/>Tổng số gạo bán trong {a} ngày là:<br/>$ {b+5} \\times {a} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính số gạo mỗi ngày sau khi tăng trước nhé."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 6, "step": 1 },
+        "b": { "min": 100, "max": 300, "step": 10 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "b - a",
+        "w3": "a * b + 10",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 15 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 25 : w3"
+      },
+      "questionText": "Một tàu hỏa mỗi giờ đi được {b} km. Hỏi trong {a} giờ tàu hỏa đi được quãng đường dài bao nhiêu ki-lô-mét?",
+      "options": [
+        "A. {w1_f} km",
+        "B. {ans} km",
+        "C. {w2_f} km",
+        "D. {w3_f} km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tính quãng đường, ta lấy vận tốc (quãng đường đi trong 1 giờ) nhân với thời gian.",
+        "Phép tính là $ {b} \\times {a} $."
+      ],
+      "solutionHtml": "Quãng đường tàu hỏa đi được trong {a} giờ là:<br/>$ {b} \\times {a} = {ans} $ (km).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị thời gian và vận tốc đã đồng nhất (giờ và km), bạn chỉ cần nhân trực tiếp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b + a",
+        "w1": "a * b",
+        "w2": "(a + 1) * b",
+        "w3": "a * (b + 1)",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} cái bút, mỗi hộp chứa {b} cái bút. Sau khi bán hết số bút trong các hộp đó, cửa hàng còn lại đúng {a} cái bút. Hỏi tổng số bút ban đầu cửa hàng có là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {ans} cái",
+        "C. {w2_f} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bút trong các hộp là $ {a} \\times {b} $.",
+        "Tổng số bút là số bút trong hộp cộng với số bút còn lại là {a}."
+      ],
+      "solutionHtml": "Số bút trong các hộp là: $ {a} \\times {b} = {a * b} $ (cái).<br/>Tổng số bút ban đầu là:<br/>$ {a * b} + {a} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên cộng thêm số bút còn dư ở ngoài hộp."
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 10 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a / (b + 5)",
+        "w2_goc": "a / (b - 2)",
+        "w3_goc": "a * b",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo. Người ta chuyển số gạo đó vào các bao, mỗi bao chứa {b} kg. Hỏi cần tất cả bao nhiêu bao để chứa hết số gạo đó?",
+      "options": [
+        "A. {w1} bao",
+        "B. {ans} bao",
+        "C. {w2} bao",
+        "D. {w3} bao"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số bao cần dùng, ta thực hiện phép chia tổng số gạo cho số gạo trong mỗi bao.",
+        "Phép tính cần thực hiện là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số bao gạo cần dùng là:<br/>$ {a} : {b} = {ans} $ (bao).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tròn chục cho một số, hãy tính toán cẩn thận từng bước chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 50, "step": 1 },
+        "p": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "n % p === 0"
+      ],
+      "formulas": {
+        "ans": "n * p * 100",
+        "w1": "n * p * 10",
+        "w2": "(n + p) * 100",
+        "w3": "n * p * 1000",
+        "w1_fix": "(w1 === ans) ? ans + 100 : w1",
+        "w2_fix": "(w2 === ans || w2 === w1_fix) ? ans + 200 : w2",
+        "w3_fix": "(w3 === ans || w3 === w1_fix || w3 === w2_fix) ? ans + 300 : w3"
+      },
+      "questionText": "Một cửa hàng nhập về {n} thùng dầu, mỗi thùng chứa {p} trăm lít dầu. Hỏi cửa hàng đã nhập về tất cả bao nhiêu lít dầu?",
+      "options": [
+        "A. {w1_fix} lít",
+        "B. {ans} lít",
+        "C. {w2_fix} lít",
+        "D. {w3_fix} lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi thùng có {p} trăm lít, tức là $ {p} \\times 100 $ lít.",
+        "Tính tổng số lít dầu bằng cách nhân số thùng với số lít của mỗi thùng."
+      ],
+      "solutionHtml": "Số lít dầu mỗi thùng chứa là:<br/>$ {p} \\times 100 = {p}00 $ (lít).<br/>Tổng số lít dầu cửa hàng nhập về là:<br/>$ {n} \\times {p}00 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Chú ý quy đổi đơn vị 'trăm lít' sang 'lít' trước khi thực hiện phép nhân."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 300, "step": 1 },
+        "y": { "min": 20, "max": 50, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * 2",
+        "w3": "y * 2",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Lan có {x} viên bi, Hùng có nhiều hơn Lan {y} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tìm số bi của Hùng bằng cách lấy số bi của Lan cộng với {y}.",
+        "Bước 2: Tìm tổng số bi của cả hai bạn."
+      ],
+      "solutionHtml": "Số viên bi của Hùng là:<br/>$ {x} + {y} = {x + y} $ (viên).<br/>Tổng số bi của cả hai bạn là:<br/>$ {x} + {x + y} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên tính số bi của Hùng trước khi tính tổng hai bạn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a - b",
+        "w1_fix": "(w1 === ans) ? ans + 5 : w1",
+        "w2_fix": "(w2 === ans || w2 === w1_fix) ? ans + 10 : w2",
+        "w3_fix": "(w3 === ans || w3 === w1_fix || w3 === w2_fix) ? ans + 15 : w3"
+      },
+      "questionText": "Một sợi dây dài {a} cm được cắt thành {b} đoạn bằng nhau. Hỏi độ dài mỗi đoạn dây là bao nhiêu centimet?",
+      "options": [
+        "A. {w1_fix} cm",
+        "B. {ans} cm",
+        "C. {w2_fix} cm",
+        "D. {w3_fix} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi cắt đều một đoạn dây, ta dùng phép tính chia.",
+        "Lấy chiều dài sợi dây chia cho số đoạn đã cắt."
+      ],
+      "solutionHtml": "Độ dài mỗi đoạn dây là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với đơn vị đo, bài toán hỏi đơn vị centimet."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 5",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Một vườn cây ăn quả có {a} hàng, mỗi hàng trồng {b} cây. Hỏi trong vườn đó có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {ans} cây",
+        "C. {w2_f} cây",
+        "D. {w3_f} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số cây, ta lấy số hàng nhân với số cây trong mỗi hàng.",
+        "Thực hiện phép tính $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán nhân cơ bản, hãy chắc chắn bạn đã đếm đúng số hàng và số cây mỗi hàng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 40, "step": 1 },
+        "y": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "x + 2 * y",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Trong hộp có {x} viên bi xanh và bi đỏ. Biết số bi xanh là {y} viên. Hỏi số bi đỏ nhiều hơn hay ít hơn số bi xanh bao nhiêu viên? (Giả sử số bi xanh là số lớn hơn)",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi đỏ là: tổng số bi trừ đi số bi xanh.",
+        "Sau đó tính hiệu của số bi xanh và số bi đỏ."
+      ],
+      "solutionHtml": "Số bi đỏ là: $ {x} - {y} = {x-y} $ (viên).<br/>Số bi xanh nhiều hơn số bi đỏ là:<br/>$ {y} - {x-y} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài xem số lượng nào lớn hơn."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 5 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Có {a} quyển sách được chia đều vào {b} kệ sách. Hỏi mỗi kệ sách chứa bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1_f} quyển",
+        "B. {ans} quyển",
+        "C. {w2_f} quyển",
+        "D. {w3_f} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều số sách cho các kệ thì ta thực hiện phép tính chia.",
+        "Lấy tổng số sách chia cho số kệ."
+      ],
+      "solutionHtml": "Số quyển sách mỗi kệ có là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Kiểm tra lại kết quả bằng phép nhân: $ {ans} \\times {b} = {a} $."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * (b + 5)",
+        "w1": "a * b + 5",
+        "w2": "(a + 5) * b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 6 : w3"
+      },
+      "questionText": "Mỗi ngày cửa hàng bán được {b} kg gạo. Nếu cửa hàng bán thêm 5 kg mỗi ngày thì sau {a} ngày cửa hàng bán được bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {ans} kg",
+        "C. {w2_f} kg",
+        "D. {w3_f_fix} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính số kg gạo bán được mỗi ngày sau khi tăng là $ {b} + 5 $.",
+        "Bước 2: Nhân kết quả đó với số ngày là {a}."
+      ],
+      "solutionHtml": "Số kg gạo bán mỗi ngày sau khi tăng là:<br/>$ {b} + 5 = {b+5} $ (kg).<br/>Tổng số gạo bán trong {a} ngày là:<br/>$ {b+5} \\times {a} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính số gạo mỗi ngày sau khi tăng trước nhé."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 6, "step": 1 },
+        "b": { "min": 100, "max": 300, "step": 10 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "b - a",
+        "w3": "a * b + 10",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 15 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 25 : w3"
+      },
+      "questionText": "Một tàu hỏa mỗi giờ đi được {b} km. Hỏi trong {a} giờ tàu hỏa đi được quãng đường dài bao nhiêu ki-lô-mét?",
+      "options": [
+        "A. {w1_f} km",
+        "B. {ans} km",
+        "C. {w2_f} km",
+        "D. {w3_f} km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tính quãng đường, ta lấy vận tốc (quãng đường đi trong 1 giờ) nhân với thời gian.",
+        "Phép tính là $ {b} \\times {a} $."
+      ],
+      "solutionHtml": "Quãng đường tàu hỏa đi được trong {a} giờ là:<br/>$ {b} \\times {a} = {ans} $ (km).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị thời gian và vận tốc đã đồng nhất (giờ và km), bạn chỉ cần nhân trực tiếp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b + a",
+        "w1": "a * b",
+        "w2": "(a + 1) * b",
+        "w3": "a * (b + 1)",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} cái bút, mỗi hộp chứa {b} cái bút. Sau khi bán hết số bút trong các hộp đó, cửa hàng còn lại đúng {a} cái bút. Hỏi tổng số bút ban đầu cửa hàng có là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {ans} cái",
+        "C. {w2_f} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bút trong các hộp là $ {a} \\times {b} $.",
+        "Tổng số bút là số bút trong hộp cộng với số bút còn lại là {a}."
+      ],
+      "solutionHtml": "Số bút trong các hộp là: $ {a} \\times {b} = {a * b} $ (cái).<br/>Tổng số bút ban đầu là:<br/>$ {a * b} + {a} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên cộng thêm số bút còn dư ở ngoài hộp."
+    }
+  ]
+}
+}
+

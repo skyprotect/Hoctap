@@ -1,0 +1,602 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:31:20.720Z
+Lesson ID: l4-bai-61
+Lesson Title: Bài 61: Phép trừ phân số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11277 (line 284 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11277 (line 284 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 11277 (Line: 284, Column: 1)
+Character causing error: "]"
+
+Context:
+... úng là B.",
+    "tip": "Đơn vị của phân số là 'tấn gạo', hãy luôn viết kèm đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d10"
+  }
+]
+>>>[LỖI TẠI ĐÂY]<<<]
+] ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 8, "step": 1 },
+      "b": { "min": 9, "max": 12, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "tu": "b - a",
+      "mau": "b",
+      "ans": "tu / mau",
+      "w1": "(tu + 1) / mau",
+      "w2": "tu / (mau + 1)",
+      "w3": "(tu + 2) / mau"
+    },
+    "questionText": "Một băng giấy được chia thành {b} phần bằng nhau. Bạn An đã tô màu {a} phần. Hỏi phần chưa tô màu chiếm bao nhiêu phần của băng giấy?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {mau} }} $ băng giấy",
+      "B. $ \\frac{{tu}}{{ {mau} }} $ băng giấy",
+      "C. $ \\frac{{w2}}{{ {mau} }} $ băng giấy",
+      "D. $ \\frac{{w3}}{{ {mau} }} $ băng giấy"
+    ],
+    "correctIndex": 1,
+    "hints": ["Toàn bộ băng giấy coi là $ \\frac{{b}}{{ {b} }} $.", "Phần chưa tô màu là $ \\frac{{b}}{{ {b} }} - \\frac{{a}}{{ {b} }} = \\frac{{b-a}}{{ {b} }} $."],
+    "solutionHtml": "Toàn bộ băng giấy được chia làm {b} phần, tương ứng với phân số $ \\frac{{b}}{{ {b} }} $.<br/>Số phần chưa tô màu là:<br/>$ \\frac{{b}}{{ {b} }} - \\frac{{a}}{{ {b} }} = \\frac{{tu}}{{ {b} }} $ (băng giấy).<br/>Đáp án đúng là B.",
+    "tip": "Khi trừ hai phân số cùng mẫu số, ta trừ tử số cho nhau và giữ nguyên mẫu số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 10, "max": 20, "step": 1 },
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 7, "step": 1 }
+    },
+    "constraints": ["a < b", "n % b === 0"],
+    "formulas": {
+      "mau": "n",
+      "tu1": "b * (n / b)",
+      "tu2": "a * (n / b)",
+      "ans_tu": "tu1 - tu2",
+      "ans": "ans_tu / mau",
+      "w1": "(ans_tu + 1) / mau",
+      "w2": "(ans_tu - 1) / mau"
+    },
+    "questionText": "Một cửa hàng có $ \\frac{{b}}{{ {n} }} $ tấn gạo, sau khi bán đi một lượng gạo thì còn lại $ \\frac{{a}}{{ {n} }} $ tấn gạo. Hỏi cửa hàng đã bán đi bao nhiêu phần của tấn gạo?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {mau} }} $ tấn",
+      "B. $ \\frac{{ans_tu}}{{ {mau} }} $ tấn",
+      "C. $ \\frac{{w2}}{{ {mau} }} $ tấn",
+      "D. $ \\frac{{b}}{{ {n} }} $ tấn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Muốn tìm lượng gạo đã bán, ta lấy lượng gạo ban đầu trừ đi lượng gạo còn lại.", "Thực hiện phép trừ: $ \\frac{{b}}{{ {n} }} - \\frac{{a}}{{ {n} }} $."],
+    "solutionHtml": "Lượng gạo cửa hàng đã bán là:<br/>$ \\frac{{b}}{{ {n} }} - \\frac{{a}}{{ {n} }} = \\frac{{ {b} - {a} }}{{ {n} }} = \\frac{{ans_tu}}{{ {n} }} $ (tấn).<br/>Đáp án đúng là B.",
+    "tip": "Hãy chú ý giữ nguyên mẫu số khi các phân số đã có cùng mẫu.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 5, "max": 8, "step": 1 },
+      "y": { "min": 9, "max": 15, "step": 1 }
+    },
+    "constraints": ["x < y"],
+    "formulas": {
+      "ans": "y - x",
+      "w1": "y + x",
+      "w2": "y",
+      "w3": "x"
+    },
+    "questionText": "Tìm số tự nhiên $ X $ biết rằng: $ \\frac{{y}}{{17}} - X = \\frac{{x}}{{17}} $.",
+    "options": [
+      "A. $ \\frac{{w1}}{{17}} $",
+      "B. $ \\frac{{ans}}{{17}} $",
+      "C. $ \\frac{{w2}}{{17}} $",
+      "D. $ \\frac{{w3}}{{17}} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Áp dụng quy tắc: Số trừ = Số bị trừ - Hiệu.", "$ X = \\frac{{y}}{{17}} - \\frac{{x}}{{17}} $."],
+    "solutionHtml": "Ta có:<br/>$ X = \\frac{{y}}{{17}} - \\frac{{x}}{{17}} $<br/>$ X = \\frac{{y - x}}{{17}} = \\frac{{ans}}{{17}} $<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên giữ nguyên mẫu số trong quá trình trừ phân số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 11, "max": 19, "step": 1 },
+      "b": { "min": 2, "max": 9, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "kq": "a - b",
+      "w1": "a + b",
+      "w2": "a",
+      "w3": "b"
+    },
+    "questionText": "Tính giá trị của biểu thức: $ \\frac{{a}}{{20}} - \\frac{{b}}{{20}} $.",
+    "options": [
+      "A. $ \\frac{{w1}}{{20}} $",
+      "B. $ \\frac{{kq}}{{20}} $",
+      "C. $ \\frac{{w2}}{{20}} $",
+      "D. $ \\frac{{w3}}{{20}} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Khi trừ hai phân số cùng mẫu số, ta chỉ cần trừ các tử số cho nhau.", "Kết quả là hiệu các tử số chia cho mẫu số giữ nguyên."],
+    "solutionHtml": "Ta có:<br/>$ \\frac{{a}}{{20}} - \\frac{{b}}{{20}} = \\frac{{a - b}}{{20}} = \\frac{{kq}}{{20}} $<br/>Đáp án đúng là B.",
+    "tip": "Nhớ kiểm tra xem mẫu số đã giống nhau chưa trước khi trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 5, "max": 10, "step": 1 },
+      "c": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % 5 === 0", "b < a/5", "c < b"],
+    "formulas": {
+      "tu": "b - c",
+      "mau": "a",
+      "ans": "tu / mau",
+      "w1": "(tu + 1) / mau",
+      "w2": "(tu - 1) / mau"
+    },
+    "questionText": "Một hồ nước có dung tích $ \\frac{{a}}{{a}} $ (tức là 1 bể). Buổi sáng người ta dùng $ \\frac{{b}}{{a}} $ bể, buổi chiều dùng thêm $ \\frac{{c}}{{a}} $ bể. Hỏi sau hai buổi, lượng nước còn lại chiếm bao nhiêu phần của bể?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {a} }} $ bể",
+      "B. $ \\frac{{ {a} - b - c }}{{ {a} }} $ bể",
+      "C. $ \\frac{{w2}}{{ {a} }} $ bể",
+      "D. $ \\frac{{b - c }}{{ {a} }} $ bể"
+    ],
+    "correctIndex": 1,
+    "hints": ["1 bể là $ \\frac{{a}}{{a}} $.", "Số nước còn lại = $ \\frac{{a}}{{a}} - (\\frac{{b}}{{a}} + \\frac{{c}}{{a}}) $."],
+    "solutionHtml": "Lượng nước còn lại là:<br/>$ \\frac{{ {a} }}{{ {a} }} - (\\frac{{ {b} }}{{ {a} }} + \\frac{{ {c} }}{{ {a} }}) = \\frac{{ {a} - {b} - {c} }}{{ {a} }} $ bể.<br/>Đáp án đúng là B.",
+    "tip": "Hãy thực hiện cộng các phân số trước, sau đó lấy 1 trừ đi kết quả đó.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 8, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a",
+      "w3": "b"
+    },
+    "questionText": "Hiệu của hai phân số $ \\frac{{a}}{{9}} $ và $ \\frac{{b}}{{9}} $ là phân số nào?",
+    "options": [
+      "A. $ \\frac{{w1}}{{9}} $",
+      "B. $ \\frac{{ans}}{{9}} $",
+      "C. $ \\frac{{w2}}{{9}} $",
+      "D. $ \\frac{{w3}}{{9}} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tử số của phân số thứ nhất trừ tử số của phân số thứ hai.", "Giữ nguyên mẫu số là 9."],
+    "solutionHtml": "Hiệu của hai phân số là:<br/>$ \\frac{{a}}{{9}} - \\frac{{b}}{{9}} = \\frac{{a - b}}{{9}} = \\frac{{ans}}{{9}} $<br/>Đáp án đúng là B.",
+    "tip": "Phép trừ phân số cùng mẫu số rất đơn giản, chỉ cần trừ tử số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 3, "max": 7, "step": 1 },
+      "c": { "min": 1, "max": 2, "step": 1 }
+    },
+    "constraints": ["b > c"],
+    "formulas": {
+      "tu": "b - c",
+      "mau": "a",
+      "ans": "tu / mau",
+      "w1": "(tu + 1) / mau",
+      "w2": "tu / (mau + 1)"
+    },
+    "questionText": "Trong một vườn hoa, $ \\frac{{b}}{{a}} $ số cây là hoa hồng, $ \\frac{{c}}{{a}} $ số cây là hoa cúc. Hỏi số cây hoa hồng nhiều hơn số cây hoa cúc bao nhiêu phần số cây trong vườn?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {a} }} $",
+      "B. $ \\frac{{tu}}{{ {a} }} $",
+      "C. $ \\frac{{w2}}{{ {a} }} $",
+      "D. $ \\frac{{ {b} + {c} }}{{ {a} }} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm phần nhiều hơn, ta thực hiện phép trừ $ \\frac{{b}}{{a}} - \\frac{{c}}{{a}} $."],
+    "solutionHtml": "Số cây hoa hồng nhiều hơn số cây hoa cúc là:<br/>$ \\frac{{ {b} }}{{ {a} }} - \\frac{{ {c} }}{{ {a} }} = \\frac{{ {b} - {c} }}{{ {a} }} = \\frac{{tu}}{{ {a} }} $ (số cây).<br/>Đáp án đúng là B.",
+    "tip": "Cụm từ 'nhiều hơn bao nhiêu' luôn gợi ý ta sử dụng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "tu": "a",
+      "mau": "a + 1",
+      "res_tu": "1",
+      "ans": "1 / (a + 1)",
+      "w1": "a / (a + 1)",
+      "w2": "(a + 1) / (a + 1)"
+    },
+    "questionText": "Thực hiện phép tính: $ 1 - \\frac{{a}}{{ {a} + 1 }} $.",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {a} + 1 }} $",
+      "B. $ \\frac{{1}}{{ {a} + 1 }} $",
+      "C. $ \\frac{{w2}}{{ {a} + 1 }} $",
+      "D. $ \\frac{{ {a} }}{{ {a} + 1 }} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Viết 1 dưới dạng phân số có mẫu là {a}+1, tức là $ \\frac{{ {a} + 1 }}{{ {a} + 1 }} $."],
+    "solutionHtml": "Ta có:<br/>$ 1 - \\frac{{ {a} }}{{ {a} + 1 }} = \\frac{{ {a} + 1 }}{{ {a} + 1 }} - \\frac{{ {a} }}{{ {a} + 1 }} = \\frac{{1}}{{ {a} + 1 }} $<br/>Đáp án đúng là B.",
+    "tip": "Số 1 luôn có thể viết thành phân số có tử số và mẫu số bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 2, "max": 5, "step": 1 },
+      "y": { "min": 6, "max": 9, "step": 1 }
+    },
+    "constraints": ["x < y"],
+    "formulas": {
+      "ans": "y - x",
+      "w1": "y + x",
+      "w2": "x",
+      "w3": "y"
+    },
+    "questionText": "Nếu $ \\frac{{x + 3}}{{10}} + \\frac{{ans}}{{10}} = \\frac{{y}}{{10}} $, vậy giá trị của $ ans $ là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Ta có $ x + 3 + ans = y $.", "Vậy $ ans = y - (x + 3) $."],
+    "solutionHtml": "Từ biểu thức $ \\frac{{x + 3}}{{10}} + \\frac{{ans}}{{10}} = \\frac{{y}}{{10}} $, ta có:<br/>$ (x + 3) + ans = y $<br/>$ ans = y - x - 3 = {y} - {x} - 3 = {ans} $<br/>Đáp án đúng là B.",
+    "tip": "Đưa về dạng tổng các tử số để giải phương trình tìm ẩn số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 7, "step": 1 },
+      "b": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "b - a",
+      "w1": "b + a",
+      "w2": "b",
+      "w3": "a"
+    },
+    "questionText": "Một kho gạo có $ \\frac{{b}}{{15}} $ tấn gạo, người ta lấy ra $ \\frac{{a}}{{15}} $ tấn gạo để cứu trợ. Hỏi trong kho còn lại bao nhiêu phần của 15 tấn gạo?",
+    "options": [
+      "A. $ \\frac{{w1}}{{15}} $ tấn",
+      "B. $ \\frac{{ans}}{{15}} $ tấn",
+      "C. $ \\frac{{w2}}{{15}} $ tấn",
+      "D. $ \\frac{{w3}}{{15}} $ tấn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy số gạo ban đầu trừ đi số gạo đã lấy ra.", "$ \\frac{{b}}{{15}} - \\frac{{a}}{{15}} $."],
+    "solutionHtml": "Số gạo còn lại trong kho là:<br/>$ \\frac{{ {b} }}{{15}} - \\frac{{ {a} }}{{15}} = \\frac{{ {b} - {a} }}{{15}} = \\frac{{ans}}{{15}} $ (tấn).<br/>Đáp án đúng là B.",
+    "tip": "Đơn vị của phân số là 'tấn gạo', hãy luôn viết kèm đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d10"
+  }
+]
+]
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 8, "step": 1 },
+      "b": { "min": 9, "max": 12, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "tu": "b - a",
+      "mau": "b",
+      "ans": "tu / mau",
+      "w1": "(tu + 1) / mau",
+      "w2": "tu / (mau + 1)",
+      "w3": "(tu + 2) / mau"
+    },
+    "questionText": "Một băng giấy được chia thành {b} phần bằng nhau. Bạn An đã tô màu {a} phần. Hỏi phần chưa tô màu chiếm bao nhiêu phần của băng giấy?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {mau} }} $ băng giấy",
+      "B. $ \\frac{{tu}}{{ {mau} }} $ băng giấy",
+      "C. $ \\frac{{w2}}{{ {mau} }} $ băng giấy",
+      "D. $ \\frac{{w3}}{{ {mau} }} $ băng giấy"
+    ],
+    "correctIndex": 1,
+    "hints": ["Toàn bộ băng giấy coi là $ \\frac{{b}}{{ {b} }} $.", "Phần chưa tô màu là $ \\frac{{b}}{{ {b} }} - \\frac{{a}}{{ {b} }} = \\frac{{b-a}}{{ {b} }} $."],
+    "solutionHtml": "Toàn bộ băng giấy được chia làm {b} phần, tương ứng với phân số $ \\frac{{b}}{{ {b} }} $.<br/>Số phần chưa tô màu là:<br/>$ \\frac{{b}}{{ {b} }} - \\frac{{a}}{{ {b} }} = \\frac{{tu}}{{ {b} }} $ (băng giấy).<br/>Đáp án đúng là B.",
+    "tip": "Khi trừ hai phân số cùng mẫu số, ta trừ tử số cho nhau và giữ nguyên mẫu số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 10, "max": 20, "step": 1 },
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 7, "step": 1 }
+    },
+    "constraints": ["a < b", "n % b === 0"],
+    "formulas": {
+      "mau": "n",
+      "tu1": "b * (n / b)",
+      "tu2": "a * (n / b)",
+      "ans_tu": "tu1 - tu2",
+      "ans": "ans_tu / mau",
+      "w1": "(ans_tu + 1) / mau",
+      "w2": "(ans_tu - 1) / mau"
+    },
+    "questionText": "Một cửa hàng có $ \\frac{{b}}{{ {n} }} $ tấn gạo, sau khi bán đi một lượng gạo thì còn lại $ \\frac{{a}}{{ {n} }} $ tấn gạo. Hỏi cửa hàng đã bán đi bao nhiêu phần của tấn gạo?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {mau} }} $ tấn",
+      "B. $ \\frac{{ans_tu}}{{ {mau} }} $ tấn",
+      "C. $ \\frac{{w2}}{{ {mau} }} $ tấn",
+      "D. $ \\frac{{b}}{{ {n} }} $ tấn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Muốn tìm lượng gạo đã bán, ta lấy lượng gạo ban đầu trừ đi lượng gạo còn lại.", "Thực hiện phép trừ: $ \\frac{{b}}{{ {n} }} - \\frac{{a}}{{ {n} }} $."],
+    "solutionHtml": "Lượng gạo cửa hàng đã bán là:<br/>$ \\frac{{b}}{{ {n} }} - \\frac{{a}}{{ {n} }} = \\frac{{ {b} - {a} }}{{ {n} }} = \\frac{{ans_tu}}{{ {n} }} $ (tấn).<br/>Đáp án đúng là B.",
+    "tip": "Hãy chú ý giữ nguyên mẫu số khi các phân số đã có cùng mẫu.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 5, "max": 8, "step": 1 },
+      "y": { "min": 9, "max": 15, "step": 1 }
+    },
+    "constraints": ["x < y"],
+    "formulas": {
+      "ans": "y - x",
+      "w1": "y + x",
+      "w2": "y",
+      "w3": "x"
+    },
+    "questionText": "Tìm số tự nhiên $ X $ biết rằng: $ \\frac{{y}}{{17}} - X = \\frac{{x}}{{17}} $.",
+    "options": [
+      "A. $ \\frac{{w1}}{{17}} $",
+      "B. $ \\frac{{ans}}{{17}} $",
+      "C. $ \\frac{{w2}}{{17}} $",
+      "D. $ \\frac{{w3}}{{17}} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Áp dụng quy tắc: Số trừ = Số bị trừ - Hiệu.", "$ X = \\frac{{y}}{{17}} - \\frac{{x}}{{17}} $."],
+    "solutionHtml": "Ta có:<br/>$ X = \\frac{{y}}{{17}} - \\frac{{x}}{{17}} $<br/>$ X = \\frac{{y - x}}{{17}} = \\frac{{ans}}{{17}} $<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên giữ nguyên mẫu số trong quá trình trừ phân số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 11, "max": 19, "step": 1 },
+      "b": { "min": 2, "max": 9, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "kq": "a - b",
+      "w1": "a + b",
+      "w2": "a",
+      "w3": "b"
+    },
+    "questionText": "Tính giá trị của biểu thức: $ \\frac{{a}}{{20}} - \\frac{{b}}{{20}} $.",
+    "options": [
+      "A. $ \\frac{{w1}}{{20}} $",
+      "B. $ \\frac{{kq}}{{20}} $",
+      "C. $ \\frac{{w2}}{{20}} $",
+      "D. $ \\frac{{w3}}{{20}} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Khi trừ hai phân số cùng mẫu số, ta chỉ cần trừ các tử số cho nhau.", "Kết quả là hiệu các tử số chia cho mẫu số giữ nguyên."],
+    "solutionHtml": "Ta có:<br/>$ \\frac{{a}}{{20}} - \\frac{{b}}{{20}} = \\frac{{a - b}}{{20}} = \\frac{{kq}}{{20}} $<br/>Đáp án đúng là B.",
+    "tip": "Nhớ kiểm tra xem mẫu số đã giống nhau chưa trước khi trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 5, "max": 10, "step": 1 },
+      "c": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % 5 === 0", "b < a/5", "c < b"],
+    "formulas": {
+      "tu": "b - c",
+      "mau": "a",
+      "ans": "tu / mau",
+      "w1": "(tu + 1) / mau",
+      "w2": "(tu - 1) / mau"
+    },
+    "questionText": "Một hồ nước có dung tích $ \\frac{{a}}{{a}} $ (tức là 1 bể). Buổi sáng người ta dùng $ \\frac{{b}}{{a}} $ bể, buổi chiều dùng thêm $ \\frac{{c}}{{a}} $ bể. Hỏi sau hai buổi, lượng nước còn lại chiếm bao nhiêu phần của bể?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {a} }} $ bể",
+      "B. $ \\frac{{ {a} - b - c }}{{ {a} }} $ bể",
+      "C. $ \\frac{{w2}}{{ {a} }} $ bể",
+      "D. $ \\frac{{b - c }}{{ {a} }} $ bể"
+    ],
+    "correctIndex": 1,
+    "hints": ["1 bể là $ \\frac{{a}}{{a}} $.", "Số nước còn lại = $ \\frac{{a}}{{a}} - (\\frac{{b}}{{a}} + \\frac{{c}}{{a}}) $."],
+    "solutionHtml": "Lượng nước còn lại là:<br/>$ \\frac{{ {a} }}{{ {a} }} - (\\frac{{ {b} }}{{ {a} }} + \\frac{{ {c} }}{{ {a} }}) = \\frac{{ {a} - {b} - {c} }}{{ {a} }} $ bể.<br/>Đáp án đúng là B.",
+    "tip": "Hãy thực hiện cộng các phân số trước, sau đó lấy 1 trừ đi kết quả đó.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 8, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a",
+      "w3": "b"
+    },
+    "questionText": "Hiệu của hai phân số $ \\frac{{a}}{{9}} $ và $ \\frac{{b}}{{9}} $ là phân số nào?",
+    "options": [
+      "A. $ \\frac{{w1}}{{9}} $",
+      "B. $ \\frac{{ans}}{{9}} $",
+      "C. $ \\frac{{w2}}{{9}} $",
+      "D. $ \\frac{{w3}}{{9}} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tử số của phân số thứ nhất trừ tử số của phân số thứ hai.", "Giữ nguyên mẫu số là 9."],
+    "solutionHtml": "Hiệu của hai phân số là:<br/>$ \\frac{{a}}{{9}} - \\frac{{b}}{{9}} = \\frac{{a - b}}{{9}} = \\frac{{ans}}{{9}} $<br/>Đáp án đúng là B.",
+    "tip": "Phép trừ phân số cùng mẫu số rất đơn giản, chỉ cần trừ tử số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 3, "max": 7, "step": 1 },
+      "c": { "min": 1, "max": 2, "step": 1 }
+    },
+    "constraints": ["b > c"],
+    "formulas": {
+      "tu": "b - c",
+      "mau": "a",
+      "ans": "tu / mau",
+      "w1": "(tu + 1) / mau",
+      "w2": "tu / (mau + 1)"
+    },
+    "questionText": "Trong một vườn hoa, $ \\frac{{b}}{{a}} $ số cây là hoa hồng, $ \\frac{{c}}{{a}} $ số cây là hoa cúc. Hỏi số cây hoa hồng nhiều hơn số cây hoa cúc bao nhiêu phần số cây trong vườn?",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {a} }} $",
+      "B. $ \\frac{{tu}}{{ {a} }} $",
+      "C. $ \\frac{{w2}}{{ {a} }} $",
+      "D. $ \\frac{{ {b} + {c} }}{{ {a} }} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm phần nhiều hơn, ta thực hiện phép trừ $ \\frac{{b}}{{a}} - \\frac{{c}}{{a}} $."],
+    "solutionHtml": "Số cây hoa hồng nhiều hơn số cây hoa cúc là:<br/>$ \\frac{{ {b} }}{{ {a} }} - \\frac{{ {c} }}{{ {a} }} = \\frac{{ {b} - {c} }}{{ {a} }} = \\frac{{tu}}{{ {a} }} $ (số cây).<br/>Đáp án đúng là B.",
+    "tip": "Cụm từ 'nhiều hơn bao nhiêu' luôn gợi ý ta sử dụng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": [],
+    "formulas": {
+      "tu": "a",
+      "mau": "a + 1",
+      "res_tu": "1",
+      "ans": "1 / (a + 1)",
+      "w1": "a / (a + 1)",
+      "w2": "(a + 1) / (a + 1)"
+    },
+    "questionText": "Thực hiện phép tính: $ 1 - \\frac{{a}}{{ {a} + 1 }} $.",
+    "options": [
+      "A. $ \\frac{{w1}}{{ {a} + 1 }} $",
+      "B. $ \\frac{{1}}{{ {a} + 1 }} $",
+      "C. $ \\frac{{w2}}{{ {a} + 1 }} $",
+      "D. $ \\frac{{ {a} }}{{ {a} + 1 }} $"
+    ],
+    "correctIndex": 1,
+    "hints": ["Viết 1 dưới dạng phân số có mẫu là {a}+1, tức là $ \\frac{{ {a} + 1 }}{{ {a} + 1 }} $."],
+    "solutionHtml": "Ta có:<br/>$ 1 - \\frac{{ {a} }}{{ {a} + 1 }} = \\frac{{ {a} + 1 }}{{ {a} + 1 }} - \\frac{{ {a} }}{{ {a} + 1 }} = \\frac{{1}}{{ {a} + 1 }} $<br/>Đáp án đúng là B.",
+    "tip": "Số 1 luôn có thể viết thành phân số có tử số và mẫu số bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 2, "max": 5, "step": 1 },
+      "y": { "min": 6, "max": 9, "step": 1 }
+    },
+    "constraints": ["x < y"],
+    "formulas": {
+      "ans": "y - x",
+      "w1": "y + x",
+      "w2": "x",
+      "w3": "y"
+    },
+    "questionText": "Nếu $ \\frac{{x + 3}}{{10}} + \\frac{{ans}}{{10}} = \\frac{{y}}{{10}} $, vậy giá trị của $ ans $ là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Ta có $ x + 3 + ans = y $.", "Vậy $ ans = y - (x + 3) $."],
+    "solutionHtml": "Từ biểu thức $ \\frac{{x + 3}}{{10}} + \\frac{{ans}}{{10}} = \\frac{{y}}{{10}} $, ta có:<br/>$ (x + 3) + ans = y $<br/>$ ans = y - x - 3 = {y} - {x} - 3 = {ans} $<br/>Đáp án đúng là B.",
+    "tip": "Đưa về dạng tổng các tử số để giải phương trình tìm ẩn số.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 7, "step": 1 },
+      "b": { "min": 8, "max": 12, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "b - a",
+      "w1": "b + a",
+      "w2": "b",
+      "w3": "a"
+    },
+    "questionText": "Một kho gạo có $ \\frac{{b}}{{15}} $ tấn gạo, người ta lấy ra $ \\frac{{a}}{{15}} $ tấn gạo để cứu trợ. Hỏi trong kho còn lại bao nhiêu phần của 15 tấn gạo?",
+    "options": [
+      "A. $ \\frac{{w1}}{{15}} $ tấn",
+      "B. $ \\frac{{ans}}{{15}} $ tấn",
+      "C. $ \\frac{{w2}}{{15}} $ tấn",
+      "D. $ \\frac{{w3}}{{15}} $ tấn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy số gạo ban đầu trừ đi số gạo đã lấy ra.", "$ \\frac{{b}}{{15}} - \\frac{{a}}{{15}} $."],
+    "solutionHtml": "Số gạo còn lại trong kho là:<br/>$ \\frac{{ {b} }}{{15}} - \\frac{{ {a} }}{{15}} = \\frac{{ {b} - {a} }}{{15}} = \\frac{{ans}}{{15}} $ (tấn).<br/>Đáp án đúng là B.",
+    "tip": "Đơn vị của phân số là 'tấn gạo', hãy luôn viết kèm đơn vị.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-61-d10"
+  }
+]
+]
+]
+

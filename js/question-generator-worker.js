@@ -296,7 +296,7 @@ const generator = {
 
         let trimmed = cleanedExpr.trim();
         // Phòng thủ: Phát hiện các từ đơn hoặc cụm từ tiếng Việt thuần túy không bọc nháy do AI sinh lỗi
-        const isPlainWord = /^[a-zA-Z0-9đàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ\s\.\,\_]+$/i.test(trimmed);
+        const isPlainWord = /^[a-zA-Z0-9đàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ\s\.\,\_]+$/i.test(trimmed) && !/\b[a-zA-Z_$][a-zA-Z0-9_$]*\.[a-zA-Z_$][a-zA-Z0-9_$]*\b/.test(trimmed);
         if (isPlainWord) {
             // Nếu không phải là số và không trùng với bất kỳ tên biến hay helper
             const isNumber = !isNaN(Number(trimmed));

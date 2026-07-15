@@ -1,0 +1,620 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:07:01.613Z
+Lesson ID: l4-bai-7
+Lesson Title: Bài 7: Đo góc, đơn vị đo góc
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11365 (line 392 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11365 (line 392 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11365 (Line: 297, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 70, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "180 - (a + b)",
+        "w3": "a + b + 10",
+        "w1_clean": "(w1 === ans || w1 < 0) ? 20 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 40 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 100 : w3"
+      },
+      "questionText": "Một góc có số đo là {a} độ, góc thứ hai có số đo là {b} độ. Nếu ta ghép hai góc đó lại với nhau (không chồng lên nhau), ta được một góc có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Khi ghép hai góc không chồng lên nhau, ta cộng số đo của hai góc đó lại."],
+      "solutionHtml": "Số đo của góc mới tạo thành là:<br/>$ {a} + {b} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Góc ghép bằng tổng số đo các góc thành phần.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 90, "max": 150, "step": 10 },
+        "b": { "min": 20, "max": 60, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a / 2",
+        "w3": "b + 10",
+        "w1_clean": "(w1 === ans) ? 180 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 45 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 30 : w3"
+      },
+      "questionText": "Một góc bẹt bị chia thành hai góc bởi một tia nằm giữa. Biết góc thứ nhất có số đo là {a} độ. Hỏi góc thứ hai có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {w2_clean} độ",
+        "C. {ans} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Góc bẹt có số đo là 180 độ.", "Ta lấy 180 trừ đi số đo của góc thứ nhất."],
+      "solutionHtml": "Số đo góc thứ hai là:<br/>$ 180 - {a} = {ans} $ (độ).<br/>Đáp án đúng là C.",
+      "tip": "Nhớ rằng góc bẹt luôn bằng 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "90 * a",
+        "w1": "90 + a",
+        "w2": "90 * (a + 1)",
+        "w3": "45 * a",
+        "w1_clean": "(w1 === ans) ? 360 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 450 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 135 : w3"
+      },
+      "questionText": "Một chiếc quạt giấy khi mở ra hoàn toàn tạo thành một góc bẹt. Nếu mở ${a}$ chiếc quạt như vậy sát nhau, tổng số đo các góc tạo thành là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một chiếc quạt tạo góc bẹt là 180 độ.", "Tuy nhiên đề bài hỏi góc vuông, lưu ý 1 góc bẹt bằng 2 góc vuông."],
+      "solutionHtml": "Một chiếc quạt giấy mở ra tạo góc bẹt là 180 độ, tương đương 2 góc vuông.<br/>Tổng số đo là: $ 180 * {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Đổi từ góc bẹt sang độ trước khi nhân.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "360 / a",
+        "w1": "360 / (a + 1)",
+        "w2": "180 / a",
+        "w3": "90 / a",
+        "w1_clean": "30",
+        "w2_clean": "45",
+        "w3_clean": "60"
+      },
+      "questionText": "Một vòng tròn có số đo là 360 độ. Nếu chia vòng tròn đó thành {a} phần bằng nhau, mỗi phần có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {w2_clean} độ",
+        "C. {ans} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Chia đều vòng tròn 360 độ cho {a} phần."],
+      "solutionHtml": "Số đo mỗi phần là:<br/>$ 360 : {a} = {ans} $ (độ).<br/>Đáp án đúng là C.",
+      "tip": "Luôn nhớ vòng tròn đầy đủ là 360 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) < 180"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b * 10",
+        "w3": "a * (b + 1)",
+        "w1_clean": "(w1 === ans) ? 100 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 120 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 150 : w3"
+      },
+      "questionText": "Một góc nhọn có số đo là {a} độ. Nếu ta đặt {b} góc như vậy sát nhau, tổng số đo các góc đó là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân số đo của một góc với số lượng góc."],
+      "solutionHtml": "Tổng số đo các góc là:<br/>$ {a} * {b} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân số đo góc.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "90 - a",
+        "w1": "180 - a",
+        "w2": "90 + a",
+        "w3": "a * 2",
+        "w1_clean": "(w1 === ans) ? 150 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 120 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 60 : w3"
+      },
+      "questionText": "Góc phụ với góc {a} độ là góc có số đo bao nhiêu độ? (Biết hai góc phụ nhau có tổng số đo bằng 90 độ)",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hai góc phụ nhau có tổng bằng 90 độ.", "Ta lấy 90 trừ đi góc đã biết."],
+      "solutionHtml": "Số đo góc phụ là:<br/>$ 90 - {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Phụ nhau là 90 độ, bù nhau là 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 140, "step": 10 }
+      },
+      "constraints": ["a < 180"],
+      "formulas": {
+        "ans": "180 - a",
+        "w1": "90 - a",
+        "w2": "360 - a",
+        "w3": "a - 90",
+        "w1_clean": "(w1 < 0) ? 20 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 200 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 50 : w3"
+      },
+      "questionText": "Góc bù với góc {a} độ là góc có số đo bao nhiêu độ? (Biết hai góc bù nhau có tổng số đo bằng 180 độ)",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hai góc bù nhau có tổng bằng 180 độ."],
+      "solutionHtml": "Số đo góc bù là:<br/>$ 180 - {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Bù nhau là 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "90 * a",
+        "w1": "45 * a",
+        "w2": "180 * a",
+        "w3": "360 / a",
+        "w1_clean": "(w1 === ans) ? 30 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 720 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 120 : w3"
+      },
+      "questionText": "Một góc vuông có số đo là 90 độ. Nếu có {a} góc vuông ghép lại với nhau, tổng số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân 90 với số lượng góc vuông là {a}."],
+      "solutionHtml": "Tổng số đo là:<br/>$ 90 * {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Góc vuông là 90 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "180 / a",
+        "w1": "90 / a",
+        "w2": "360 / a",
+        "w3": "a * 10",
+        "w1_clean": "(w1 === ans) ? 15 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 120 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 40 : w3"
+      },
+      "questionText": "Một góc bẹt có số đo 180 độ được chia thành {a} góc nhỏ bằng nhau. Mỗi góc nhỏ có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia 180 cho {a}."],
+      "solutionHtml": "Số đo mỗi góc nhỏ là:<br/>$ 180 : {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Góc bẹt là 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "360",
+        "w1": "180",
+        "w2": "90",
+        "w3": "270",
+        "w1_clean": "180",
+        "w2_clean": "90",
+        "w3_clean": "270"
+      },
+      "questionText": "Kim phút của đồng hồ quay từ số 12 đúng một vòng trở lại số 12. Góc mà kim phút đã quét được là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {w2_clean} độ",
+        "C. {ans} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Một vòng tròn luôn có số đo là 360 độ."],
+      "solutionHtml": "Kim phút quay một vòng tròn tương ứng với góc có số đo 360 độ.<br/>Đáp án đúng là C.",
+      "tip": "Ghi nhớ: Một vòng tròn = 360 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 70, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "180 - (a + b)",
+        "w3": "a + b + 10",
+        "w1_clean": "(w1 === ans || w1 < 0) ? 20 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 40 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 100 : w3"
+      },
+      "questionText": "Một góc có số đo là {a} độ, góc thứ hai có số đo là {b} độ. Nếu ta ghép hai góc đó lại với nhau (không chồng lên nhau), ta được một góc có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Khi ghép hai góc không chồng lên nhau, ta cộng số đo của hai góc đó lại."],
+      "solutionHtml": "Số đo của góc mới tạo thành là:<br/>$ {a} + {b} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Góc ghép bằng tổng số đo các góc thành phần.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 90, "max": 150, "step": 10 },
+        "b": { "min": 20, "max": 60, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a / 2",
+        "w3": "b + 10",
+        "w1_clean": "(w1 === ans) ? 180 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 45 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 30 : w3"
+      },
+      "questionText": "Một góc bẹt bị chia thành hai góc bởi một tia nằm giữa. Biết góc thứ nhất có số đo là {a} độ. Hỏi góc thứ hai có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {w2_clean} độ",
+        "C. {ans} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Góc bẹt có số đo là 180 độ.", "Ta lấy 180 trừ đi số đo của góc thứ nhất."],
+      "solutionHtml": "Số đo góc thứ hai là:<br/>$ 180 - {a} = {ans} $ (độ).<br/>Đáp án đúng là C.",
+      "tip": "Nhớ rằng góc bẹt luôn bằng 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "90 * a",
+        "w1": "90 + a",
+        "w2": "90 * (a + 1)",
+        "w3": "45 * a",
+        "w1_clean": "(w1 === ans) ? 360 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 450 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 135 : w3"
+      },
+      "questionText": "Một chiếc quạt giấy khi mở ra hoàn toàn tạo thành một góc bẹt. Nếu mở ${a}$ chiếc quạt như vậy sát nhau, tổng số đo các góc tạo thành là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một chiếc quạt tạo góc bẹt là 180 độ.", "Tuy nhiên đề bài hỏi góc vuông, lưu ý 1 góc bẹt bằng 2 góc vuông."],
+      "solutionHtml": "Một chiếc quạt giấy mở ra tạo góc bẹt là 180 độ, tương đương 2 góc vuông.<br/>Tổng số đo là: $ 180 * {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Đổi từ góc bẹt sang độ trước khi nhân.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "360 / a",
+        "w1": "360 / (a + 1)",
+        "w2": "180 / a",
+        "w3": "90 / a",
+        "w1_clean": "30",
+        "w2_clean": "45",
+        "w3_clean": "60"
+      },
+      "questionText": "Một vòng tròn có số đo là 360 độ. Nếu chia vòng tròn đó thành {a} phần bằng nhau, mỗi phần có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {w2_clean} độ",
+        "C. {ans} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Chia đều vòng tròn 360 độ cho {a} phần."],
+      "solutionHtml": "Số đo mỗi phần là:<br/>$ 360 : {a} = {ans} $ (độ).<br/>Đáp án đúng là C.",
+      "tip": "Luôn nhớ vòng tròn đầy đủ là 360 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) < 180"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b * 10",
+        "w3": "a * (b + 1)",
+        "w1_clean": "(w1 === ans) ? 100 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 120 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 150 : w3"
+      },
+      "questionText": "Một góc nhọn có số đo là {a} độ. Nếu ta đặt {b} góc như vậy sát nhau, tổng số đo các góc đó là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân số đo của một góc với số lượng góc."],
+      "solutionHtml": "Tổng số đo các góc là:<br/>$ {a} * {b} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân số đo góc.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "90 - a",
+        "w1": "180 - a",
+        "w2": "90 + a",
+        "w3": "a * 2",
+        "w1_clean": "(w1 === ans) ? 150 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 120 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 60 : w3"
+      },
+      "questionText": "Góc phụ với góc {a} độ là góc có số đo bao nhiêu độ? (Biết hai góc phụ nhau có tổng số đo bằng 90 độ)",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hai góc phụ nhau có tổng bằng 90 độ.", "Ta lấy 90 trừ đi góc đã biết."],
+      "solutionHtml": "Số đo góc phụ là:<br/>$ 90 - {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Phụ nhau là 90 độ, bù nhau là 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 140, "step": 10 }
+      },
+      "constraints": ["a < 180"],
+      "formulas": {
+        "ans": "180 - a",
+        "w1": "90 - a",
+        "w2": "360 - a",
+        "w3": "a - 90",
+        "w1_clean": "(w1 < 0) ? 20 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 200 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 50 : w3"
+      },
+      "questionText": "Góc bù với góc {a} độ là góc có số đo bao nhiêu độ? (Biết hai góc bù nhau có tổng số đo bằng 180 độ)",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hai góc bù nhau có tổng bằng 180 độ."],
+      "solutionHtml": "Số đo góc bù là:<br/>$ 180 - {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Bù nhau là 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "90 * a",
+        "w1": "45 * a",
+        "w2": "180 * a",
+        "w3": "360 / a",
+        "w1_clean": "(w1 === ans) ? 30 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 720 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 120 : w3"
+      },
+      "questionText": "Một góc vuông có số đo là 90 độ. Nếu có {a} góc vuông ghép lại với nhau, tổng số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân 90 với số lượng góc vuông là {a}."],
+      "solutionHtml": "Tổng số đo là:<br/>$ 90 * {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Góc vuông là 90 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "180 / a",
+        "w1": "90 / a",
+        "w2": "360 / a",
+        "w3": "a * 10",
+        "w1_clean": "(w1 === ans) ? 15 : w1",
+        "w2_clean": "(w2 === ans || w2 === w1_clean) ? 120 : w2",
+        "w3_clean": "(w3 === ans || w3 === w1_clean || w3 === w2_clean) ? 40 : w3"
+      },
+      "questionText": "Một góc bẹt có số đo 180 độ được chia thành {a} góc nhỏ bằng nhau. Mỗi góc nhỏ có số đo là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {ans} độ",
+        "C. {w2_clean} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia 180 cho {a}."],
+      "solutionHtml": "Số đo mỗi góc nhỏ là:<br/>$ 180 : {a} = {ans} $ (độ).<br/>Đáp án đúng là B.",
+      "tip": "Góc bẹt là 180 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > 0"],
+      "formulas": {
+        "ans": "360",
+        "w1": "180",
+        "w2": "90",
+        "w3": "270",
+        "w1_clean": "180",
+        "w2_clean": "90",
+        "w3_clean": "270"
+      },
+      "questionText": "Kim phút của đồng hồ quay từ số 12 đúng một vòng trở lại số 12. Góc mà kim phút đã quét được là bao nhiêu độ?",
+      "options": [
+        "A. {w1_clean} độ",
+        "B. {w2_clean} độ",
+        "C. {ans} độ",
+        "D. {w3_clean} độ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Một vòng tròn luôn có số đo là 360 độ."],
+      "solutionHtml": "Kim phút quay một vòng tròn tương ứng với góc có số đo 360 độ.<br/>Đáp án đúng là C.",
+      "tip": "Ghi nhớ: Một vòng tròn = 360 độ.",
+      "level": "chat-luong-cao",
+      "type": "trac-nghiem"
+    }
+  ]
+}
+

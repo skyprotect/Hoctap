@@ -1,0 +1,394 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b + 1 === a - b) ? (a - b + 2) : (a - b + 1)",
+        "w2": "(a + b > 10) ? (a - b + 3) : (a + b)",
+        "w3": "(a - 1 === ans) ? (a - 2) : (a - 1)"
+      },
+      "questionText": "Trên đĩa có {a} quả táo, Lan lấy đi {b} quả. Hỏi trên đĩa còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết còn lại bao nhiêu, ta làm phép tính trừ: ${a} - {b}$."
+      ],
+      "solutionHtml": "Số quả táo còn lại trên đĩa là:<br/>${a} - {b} = {ans}$ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Khi 'lấy đi' nghĩa là ta cần thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": {
+          "min": 7,
+          "max": 10,
+          "step": 1
+        },
+        "da_dung": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong > da_dung"
+      ],
+      "formulas": {
+        "ans": "tong - da_dung",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Nam có {tong} cái bút chì, bạn ấy đã dùng hết {da_dung} cái. Hỏi Nam còn lại bao nhiêu cái bút chì?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng phép trừ: ${tong} - {da_dung}$ để tìm số bút còn lại."
+      ],
+      "solutionHtml": "Nam còn lại số bút chì là:<br/>${tong} - {da_dung} = {ans}$ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định phần đã mất đi hoặc đã dùng.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "chim_dau": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "chim_bay": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "chim_dau > chim_bay"
+      ],
+      "formulas": {
+        "ans": "chim_dau - chim_bay",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trên cành cây có {chim_dau} con chim, sau đó có {chim_bay} con bay đi. Hỏi trên cành còn lại bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có tất cả {chim_dau} con, bay đi {chim_bay} con thì ta lấy ${chim_dau} - {chim_bay}$."
+      ],
+      "solutionHtml": "Số chim còn lại trên cành là:<br/>${chim_dau} - {chim_bay} = {ans}$ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Bay đi nghĩa là số lượng giảm đi, dùng phép trừ.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 1",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Trong giỏ có {a} quả cam, mẹ lấy ra {b} quả để làm nước ép. Hỏi trong giỏ còn bao nhiêu quả cam?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phép tính cần thực hiện là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số cam còn lại trong giỏ là:<br/>${a} - {b} = {ans}$ (quả cam).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý từ khóa 'lấy ra'.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_so": {
+          "min": 9,
+          "max": 10,
+          "step": 1
+        },
+        "so_bi_hong": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong_so > so_bi_hong"
+      ],
+      "formulas": {
+        "ans": "tong_so - so_bi_hong",
+        "w1": "ans + 1",
+        "w2": "ans - 2",
+        "w3": "ans + 2"
+      },
+      "questionText": "Lan có {tong_so} viên bi, trong đó có {so_bi_hong} viên bị hỏng. Hỏi Lan còn lại bao nhiêu viên bi tốt?",
+      "options": [
+        "A. {w1} viên",
+        "B. {ans} viên",
+        "C. {w2} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số bi trừ đi số bi hỏng: ${tong_so} - {so_bi_hong}$."
+      ],
+      "solutionHtml": "Số viên bi tốt Lan còn lại là:<br/>${tong_so} - {so_bi_hong} = {ans}$ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Ta loại bỏ những viên bị hỏng để tìm viên còn tốt.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Bàn tay em có {a} ngón, em bị xước mất {b} ngón (giả sử). Hỏi còn lại bao nhiêu ngón không bị xước?",
+      "options": [
+        "A. {w1} ngón",
+        "B. {ans} ngón",
+        "C. {w2} ngón",
+        "D. {w3} ngón"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thực hiện phép tính trừ: ${a} - {b}$."
+      ],
+      "solutionHtml": "Số ngón tay không bị xước là:<br/>${a} - {b} = {ans}$ (ngón).<br/>Đáp án đúng là B.",
+      "tip": "Phân tích đề để tìm số lượng còn lại sau khi bớt đi.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b - 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Bể cá nhà em có {a} con cá, bố vừa cho thêm vào bể nhưng sau đó {b} con bị nhảy ra ngoài. Nếu ban đầu chỉ có {a} con, hỏi còn lại mấy con?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta chỉ quan tâm số lượng ban đầu là {a} và số lượng mất đi là {b}."
+      ],
+      "solutionHtml": "Số cá còn lại trong bể là:<br/>${a} - {b} = {ans}$ (con cá).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các thông tin nhiễu trong đề bài.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": {
+          "min": 8,
+          "max": 10,
+          "step": 1
+        },
+        "da_an": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong > da_an"
+      ],
+      "formulas": {
+        "ans": "tong - da_an",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Mẹ mua {tong} cái bánh, cả nhà đã ăn hết {da_an} cái. Hỏi mẹ còn lại bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bánh còn lại bằng tổng số bánh trừ đi số bánh đã ăn: ${tong} - {da_an}$."
+      ],
+      "solutionHtml": "Số bánh mẹ còn lại là:<br/>${tong} - {da_an} = {ans}$ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Phép trừ dùng để tìm phần còn lại sau khi đã sử dụng.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "ans + 2",
+        "w2": "ans + 3",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trên sân có {a} bạn đang chơi nhảy dây, có {b} bạn phải đi về nhà. Hỏi trên sân còn lại bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy số bạn lúc đầu trừ đi số bạn đi về: ${a} - {b}$."
+      ],
+      "solutionHtml": "Số bạn còn lại trên sân là:<br/>${a} - {b} = {ans}$ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm phần còn lại.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 7,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Tú có {a} viên bi, Tú cho Bi {b} viên. Hỏi Tú còn lại bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {ans} viên",
+        "C. {w2} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cho đi nghĩa là số lượng của Tú giảm xuống, ta thực hiện ${a} - {b}$."
+      ],
+      "solutionHtml": "Số viên bi Tú còn lại là:<br/>${a} - {b} = {ans}$ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ ai là người còn lại số lượng đó.",
+      "level": "chatluong-cao",
+      "type": "l1-bai-11-d4"
+    }
+  ]
+}

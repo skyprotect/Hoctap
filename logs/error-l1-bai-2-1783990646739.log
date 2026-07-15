@@ -1,0 +1,680 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T00:57:26.739Z
+Lesson ID: l1-bai-2
+Lesson Title: Bài 2: Các số 6, 7, 8, 9, 10
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9834 (line 376 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9834 (line 376 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9834 (Line: 327, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "a + b <= 10",
+      "a + b > 5"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a + b + 1",
+      "w2_goc": "a + b - 1",
+      "w3_goc": "a * b",
+      "w1": "(w1_goc === ans) ? 9 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 6 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 7 : w3_goc"
+    },
+    "questionText": "Trong giỏ có {a} quả táo và {b} quả cam. Hỏi trong giỏ có tất cả bao nhiêu quả?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Để tìm tổng số quả, ta làm phép cộng số quả táo và số quả cam.",
+      "Thực hiện phép tính $ {a} + {b} = ? $"
+    ],
+    "solutionHtml": "Số quả trong giỏ là:<br/>$ {a} + {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', chúng ta thường thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total": { "min": 7, "max": 10 },
+      "eaten": { "min": 1, "max": 4 }
+    },
+    "constraints": [
+      "total - eaten >= 5"
+    ],
+    "formulas": {
+      "ans": "total - eaten",
+      "w1_goc": "total + eaten",
+      "w2_goc": "total",
+      "w3_goc": "eaten",
+      "w1": "(w1_goc === ans) ? 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 6 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 5 : w3_goc"
+    },
+    "questionText": "Mẹ có {total} cái bánh, mẹ đã cho em {eaten} cái. Hỏi mẹ còn lại bao nhiêu cái bánh?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm số bánh còn lại, ta lấy tổng số bánh trừ đi số bánh đã cho.",
+      "Thực hiện phép tính $ {total} - {eaten} = ? $"
+    ],
+    "solutionHtml": "Số bánh mẹ còn lại là:<br/>$ {total} - {eaten} = {ans} $ (cái bánh).<br/>Đáp án đúng là B.",
+    "tip": "Phép trừ dùng để tìm phần còn lại sau khi đã bớt đi một số lượng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "a + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a + b + 1",
+      "w2_goc": "a + b + 2",
+      "w3_goc": "a + b - 1",
+      "w1": "(w1_goc === ans) ? 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 8 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 6 : w3_goc"
+    },
+    "questionText": "Lan có {a} bông hoa, Hồng cho Lan thêm {b} bông hoa nữa. Hỏi Lan có tất cả bao nhiêu bông hoa?",
+    "options": [
+      "A. {w1} bông",
+      "B. {w2} bông",
+      "C. {ans} bông",
+      "D. {w3} bông"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Lan được cho thêm, tức là số bông hoa tăng lên.",
+      "Ta làm phép cộng: $ {a} + {b} = ? $"
+    ],
+    "solutionHtml": "Số bông hoa Lan có sau khi được cho thêm là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+    "tip": "Từ 'cho thêm' gợi ý chúng ta thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 6, "max": 8 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 1",
+      "w2": "a - 1",
+      "w3": "a + 2"
+    },
+    "questionText": "Số nào lớn hơn {a} đúng 1 đơn vị?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {ans}",
+      "D. {w3}"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số liền sau của một số là số lớn hơn số đó 1 đơn vị.",
+      "Hãy tìm số liền sau của {a}."
+    ],
+    "solutionHtml": "Số lớn hơn {a} đúng 1 đơn vị là:<br/>$ {a} + 1 = {ans} $.<br/>Đáp án đúng là C.",
+    "tip": "Số liền sau của $ n $ là $ n+1 $.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 7, "max": 9 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a - 1",
+      "w2": "a + 1",
+      "w3": "a - 2"
+    },
+    "questionText": "Số nào nhỏ hơn {a} đúng 1 đơn vị?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {ans}",
+      "D. {w3}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Số liền trước của một số là số nhỏ hơn số đó 1 đơn vị.",
+      "Hãy tìm số liền trước của {a}."
+    ],
+    "solutionHtml": "Số nhỏ hơn {a} đúng 1 đơn vị là:<br/>$ {a} - 1 = {ans} $.<br/>Đáp án đúng là A.",
+    "tip": "Số liền trước của $ n $ là $ n-1 $.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "a + b <= 10"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a + b - 1",
+      "w2_goc": "a + b + 1",
+      "w3_goc": "a + b - 2",
+      "w1": "(w1_goc === ans) ? 6 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 7 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 8 : w3_goc"
+    },
+    "questionText": "Trên cành có {a} con chim, sau đó có thêm {b} con chim bay đến. Hỏi có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con",
+      "B. {w2} con",
+      "C. {ans} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số chim tăng lên, ta dùng phép cộng.",
+      "Tính $ {a} + {b} = ? $"
+    ],
+    "solutionHtml": "Tổng số con chim là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+    "tip": "Đếm số lượng tăng thêm thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total": { "min": 8, "max": 10 },
+      "remove": { "min": 2, "max": 4 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "total - remove",
+      "w1_goc": "total - remove + 1",
+      "w2_goc": "total - remove - 1",
+      "w3_goc": "total",
+      "w1": "(w1_goc === ans) ? 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 4 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 6 : w3_goc"
+    },
+    "questionText": "Bể cá có {total} con cá, bạn An mang đi {remove} con. Hỏi trong bể còn lại bao nhiêu con cá?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "An mang đi nghĩa là số cá trong bể giảm đi.",
+      "Ta làm phép trừ: $ {total} - {remove} = ? $"
+    ],
+    "solutionHtml": "Số cá còn lại là:<br/>$ {total} - {remove} = {ans} $ (con).<br/>Đáp án đúng là B.",
+    "tip": "Từ 'mang đi' là dấu hiệu của phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 3 },
+      "b": { "min": 1, "max": 3 }
+    },
+    "constraints": [
+      "a + b + 2 <= 10"
+    ],
+    "formulas": {
+      "ans": "a + b + 2",
+      "w1_goc": "a + b + 1",
+      "w2_goc": "a + b + 3",
+      "w3_goc": "a + b",
+      "w1": "(w1_goc === ans) ? 9 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 8 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 6 : w3_goc"
+    },
+    "questionText": "Trong hộp có {a} viên bi đỏ, {b} viên bi xanh và 2 viên bi vàng. Hỏi có tất cả bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên",
+      "B. {w2} viên",
+      "C. {ans} viên",
+      "D. {w3} viên"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Cần cộng tất cả các loại bi lại với nhau.",
+      "Phép tính: $ {a} + {b} + 2 = ? $"
+    ],
+    "solutionHtml": "Tổng số viên bi là:<br/>$ {a} + {b} + 2 = {ans} $ (viên).<br/>Đáp án đúng là C.",
+    "tip": "Cộng lần lượt từng nhóm đối tượng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 7 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 2",
+      "w2": "a - 2",
+      "w3": "a + 3"
+    },
+    "questionText": "Số nào đứng ngay trước số {a+1}?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số đứng ngay trước một số chính là số đó trừ đi 1.",
+      "Số cần tìm là $ {a+1} - 1 = ? $"
+    ],
+    "solutionHtml": "Số đứng ngay trước số {a+1} chính là {a}.<br/>Đáp án đúng là B.",
+    "tip": "Đừng nhầm lẫn giữa số đứng trước và số đứng sau.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 6, "max": 8 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 2",
+      "w2": "a - 2",
+      "w3": "a + 1"
+    },
+    "questionText": "Số nào đứng ngay sau số {a-1}?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {ans}",
+      "D. {w3}"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số đứng ngay sau một số chính là số đó cộng thêm 1.",
+      "Số cần tìm là $ {a-1} + 1 = ? $"
+    ],
+    "solutionHtml": "Số đứng ngay sau số {a-1} chính là {a}.<br/>Đáp án đúng là C.",
+    "tip": "Nhớ thứ tự các số tự nhiên: 6, 7, 8, 9, 10.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "a + b <= 10",
+      "a + b > 5"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a + b + 1",
+      "w2_goc": "a + b - 1",
+      "w3_goc": "a * b",
+      "w1": "(w1_goc === ans) ? 9 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 6 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 7 : w3_goc"
+    },
+    "questionText": "Trong giỏ có {a} quả táo và {b} quả cam. Hỏi trong giỏ có tất cả bao nhiêu quả?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Để tìm tổng số quả, ta làm phép cộng số quả táo và số quả cam.",
+      "Thực hiện phép tính $ {a} + {b} = ? $"
+    ],
+    "solutionHtml": "Số quả trong giỏ là:<br/>$ {a} + {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', chúng ta thường thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total": { "min": 7, "max": 10 },
+      "eaten": { "min": 1, "max": 4 }
+    },
+    "constraints": [
+      "total - eaten >= 5"
+    ],
+    "formulas": {
+      "ans": "total - eaten",
+      "w1_goc": "total + eaten",
+      "w2_goc": "total",
+      "w3_goc": "eaten",
+      "w1": "(w1_goc === ans) ? 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 6 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 5 : w3_goc"
+    },
+    "questionText": "Mẹ có {total} cái bánh, mẹ đã cho em {eaten} cái. Hỏi mẹ còn lại bao nhiêu cái bánh?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm số bánh còn lại, ta lấy tổng số bánh trừ đi số bánh đã cho.",
+      "Thực hiện phép tính $ {total} - {eaten} = ? $"
+    ],
+    "solutionHtml": "Số bánh mẹ còn lại là:<br/>$ {total} - {eaten} = {ans} $ (cái bánh).<br/>Đáp án đúng là B.",
+    "tip": "Phép trừ dùng để tìm phần còn lại sau khi đã bớt đi một số lượng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "a + b <= 9"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a + b + 1",
+      "w2_goc": "a + b + 2",
+      "w3_goc": "a + b - 1",
+      "w1": "(w1_goc === ans) ? 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 8 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 6 : w3_goc"
+    },
+    "questionText": "Lan có {a} bông hoa, Hồng cho Lan thêm {b} bông hoa nữa. Hỏi Lan có tất cả bao nhiêu bông hoa?",
+    "options": [
+      "A. {w1} bông",
+      "B. {w2} bông",
+      "C. {ans} bông",
+      "D. {w3} bông"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Lan được cho thêm, tức là số bông hoa tăng lên.",
+      "Ta làm phép cộng: $ {a} + {b} = ? $"
+    ],
+    "solutionHtml": "Số bông hoa Lan có sau khi được cho thêm là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+    "tip": "Từ 'cho thêm' gợi ý chúng ta thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 6, "max": 8 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 1",
+      "w2": "a - 1",
+      "w3": "a + 2"
+    },
+    "questionText": "Số nào lớn hơn {a} đúng 1 đơn vị?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {ans}",
+      "D. {w3}"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số liền sau của một số là số lớn hơn số đó 1 đơn vị.",
+      "Hãy tìm số liền sau của {a}."
+    ],
+    "solutionHtml": "Số lớn hơn {a} đúng 1 đơn vị là:<br/>$ {a} + 1 = {ans} $.<br/>Đáp án đúng là C.",
+    "tip": "Số liền sau của $ n $ là $ n+1 $.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 7, "max": 9 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a - 1",
+      "w2": "a + 1",
+      "w3": "a - 2"
+    },
+    "questionText": "Số nào nhỏ hơn {a} đúng 1 đơn vị?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {ans}",
+      "D. {w3}"
+    ],
+    "correctIndex": 0,
+    "hints": [
+      "Số liền trước của một số là số nhỏ hơn số đó 1 đơn vị.",
+      "Hãy tìm số liền trước của {a}."
+    ],
+    "solutionHtml": "Số nhỏ hơn {a} đúng 1 đơn vị là:<br/>$ {a} - 1 = {ans} $.<br/>Đáp án đúng là A.",
+    "tip": "Số liền trước của $ n $ là $ n-1 $.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "a + b <= 10"
+    ],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a + b - 1",
+      "w2_goc": "a + b + 1",
+      "w3_goc": "a + b - 2",
+      "w1": "(w1_goc === ans) ? 6 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 7 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 8 : w3_goc"
+    },
+    "questionText": "Trên cành có {a} con chim, sau đó có thêm {b} con chim bay đến. Hỏi có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con",
+      "B. {w2} con",
+      "C. {ans} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số chim tăng lên, ta dùng phép cộng.",
+      "Tính $ {a} + {b} = ? $"
+    ],
+    "solutionHtml": "Tổng số con chim là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+    "tip": "Đếm số lượng tăng thêm thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "total": { "min": 8, "max": 10 },
+      "remove": { "min": 2, "max": 4 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "total - remove",
+      "w1_goc": "total - remove + 1",
+      "w2_goc": "total - remove - 1",
+      "w3_goc": "total",
+      "w1": "(w1_goc === ans) ? 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 4 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 6 : w3_goc"
+    },
+    "questionText": "Bể cá có {total} con cá, bạn An mang đi {remove} con. Hỏi trong bể còn lại bao nhiêu con cá?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "An mang đi nghĩa là số cá trong bể giảm đi.",
+      "Ta làm phép trừ: $ {total} - {remove} = ? $"
+    ],
+    "solutionHtml": "Số cá còn lại là:<br/>$ {total} - {remove} = {ans} $ (con).<br/>Đáp án đúng là B.",
+    "tip": "Từ 'mang đi' là dấu hiệu của phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 3 },
+      "b": { "min": 1, "max": 3 }
+    },
+    "constraints": [
+      "a + b + 2 <= 10"
+    ],
+    "formulas": {
+      "ans": "a + b + 2",
+      "w1_goc": "a + b + 1",
+      "w2_goc": "a + b + 3",
+      "w3_goc": "a + b",
+      "w1": "(w1_goc === ans) ? 9 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 8 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 6 : w3_goc"
+    },
+    "questionText": "Trong hộp có {a} viên bi đỏ, {b} viên bi xanh và 2 viên bi vàng. Hỏi có tất cả bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên",
+      "B. {w2} viên",
+      "C. {ans} viên",
+      "D. {w3} viên"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Cần cộng tất cả các loại bi lại với nhau.",
+      "Phép tính: $ {a} + {b} + 2 = ? $"
+    ],
+    "solutionHtml": "Tổng số viên bi là:<br/>$ {a} + {b} + 2 = {ans} $ (viên).<br/>Đáp án đúng là C.",
+    "tip": "Cộng lần lượt từng nhóm đối tượng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 7 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 2",
+      "w2": "a - 2",
+      "w3": "a + 3"
+    },
+    "questionText": "Số nào đứng ngay trước số {a+1}?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số đứng ngay trước một số chính là số đó trừ đi 1.",
+      "Số cần tìm là $ {a+1} - 1 = ? $"
+    ],
+    "solutionHtml": "Số đứng ngay trước số {a+1} chính là {a}.<br/>Đáp án đúng là B.",
+    "tip": "Đừng nhầm lẫn giữa số đứng trước và số đứng sau.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 6, "max": 8 }
+    },
+    "constraints": [],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 2",
+      "w2": "a - 2",
+      "w3": "a + 1"
+    },
+    "questionText": "Số nào đứng ngay sau số {a-1}?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {ans}",
+      "D. {w3}"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số đứng ngay sau một số chính là số đó cộng thêm 1.",
+      "Số cần tìm là $ {a-1} + 1 = ? $"
+    ],
+    "solutionHtml": "Số đứng ngay sau số {a-1} chính là {a}.<br/>Đáp án đúng là C.",
+    "tip": "Nhớ thứ tự các số tự nhiên: 6, 7, 8, 9, 10.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-2-d10"
+  }
+]
+

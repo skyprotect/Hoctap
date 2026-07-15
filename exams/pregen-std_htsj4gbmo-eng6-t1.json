@@ -1,0 +1,400 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0",
+        "a > b * 2"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / (b + 1) >= 1 ? Math.floor(a / (b + 1)) : ans + 2",
+        "w2": "ans + 2",
+        "w3": "ans * 2"
+      },
+      "questionText": "Lớp 6A có {a} học sinh. Trong buổi sinh hoạt về chủ đề 'Trường học mới', cô giáo muốn chia lớp thành {b} nhóm có số lượng học sinh bằng nhau để thảo luận. Hỏi mỗi nhóm có bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số học sinh mỗi nhóm, ta lấy tổng số học sinh chia cho số nhóm.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số học sinh trong mỗi nhóm là:<br/>${a} : {b} = {ans}$ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều một nhóm thành các phần nhỏ bằng nhau, ta luôn sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        },
+        "y": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "x * 4 + y * 2",
+        "w1": "x * 4 + y * 2 - 2",
+        "w2": "(x + y) * 3",
+        "w3": "x * 2 + y * 4"
+      },
+      "questionText": "Trong thư viện trường mới, một chiếc kệ gỗ có {x} ngăn, mỗi ngăn để được 4 quyển sách. Một chiếc kệ nhựa có {y} ngăn, mỗi ngăn để được 2 quyển sách. Tổng số quyển sách cả hai kệ có thể chứa là bao nhiêu?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số sách kệ gỗ: ${x} \\times 4$.",
+        "Tính số sách kệ nhựa: ${y} \\times 2$.",
+        "Cộng hai kết quả lại."
+      ],
+      "solutionHtml": "Số sách kệ gỗ chứa được là: ${x} \\times 4 = {x*4}$ (quyển).<br/>Số sách kệ nhựa chứa được là: ${y} \\times 2 = {y*2}$ (quyển).<br/>Tổng số sách là: ${x*4} + {y*2} = {ans}$ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Luôn tính toán từng phần nhỏ trước khi cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "res": "2 * (a / b)",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trường mới có {a} phòng học, được chia đều vào {b} tầng. Nếu nhà trường muốn xây thêm số phòng học bằng đúng số phòng hiện có ở mỗi tầng, thì mỗi tầng sẽ có bao nhiêu phòng sau khi xây thêm?",
+      "options": [
+        "A. {w1} phòng",
+        "B. {w2} phòng",
+        "C. {w3} phòng",
+        "D. {res} phòng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính số phòng hiện tại của mỗi tầng: ${a} : {b} = {ans}$.",
+        "Sau đó cộng thêm số phòng xây thêm bằng số lượng cũ."
+      ],
+      "solutionHtml": "Số phòng hiện tại của mỗi tầng là: ${a} : {b} = {ans}$ (phòng).<br/>Sau khi xây thêm, mỗi tầng có: ${ans} + {ans} = {res}$ (phòng).<br/>Đáp án đúng là D.",
+      "tip": "Đọc kỹ đề bài để xác định phép tính cộng sau khi đã tìm được kết quả phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 50,
+          "max": 100,
+          "step": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans - 5",
+        "w2": "ans + 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Để chuẩn bị cho ngày khai trường, nhà trường mua {a} bộ bàn ghế mới để phân bổ đều cho {b} khối lớp. Hỏi mỗi khối lớp nhận được bao nhiêu bộ bàn ghế?",
+      "options": [
+        "A. {w1} bộ",
+        "B. {ans} bộ",
+        "C. {w2} bộ",
+        "D. {w3} bộ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta thực hiện phép chia tổng số bàn ghế cho số khối lớp."
+      ],
+      "solutionHtml": "Số bộ bàn ghế mỗi khối lớp nhận được là:<br/>${a} : {b} = {ans}$ (bộ).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều nghĩa là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 5 + b * 10",
+        "w1": "a * 10 + b * 5",
+        "w2": "a * 5 + b * 5",
+        "w3": "a * 10 + b * 10"
+      },
+      "questionText": "Trong túi của An có {a} tờ tiền 5 nghìn đồng và {b} tờ tiền 10 nghìn đồng để mua đồ dùng học tập tại căng-tin trường. Tổng số tiền An có là bao nhiêu?",
+      "options": [
+        "A. {w1} nghìn",
+        "B. {ans} nghìn",
+        "C. {w2} nghìn",
+        "D. {w3} nghìn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tiền từ tờ 5 nghìn: ${a} \\times 5$.",
+        "Tính tiền từ tờ 10 nghìn: ${b} \\times 10$.",
+        "Cộng hai kết quả."
+      ],
+      "solutionHtml": "Số tiền từ tờ 5 nghìn là: ${a} \\times 5 = {a*5}$ (nghìn đồng).<br/>Số tiền từ tờ 10 nghìn là: ${b} \\times 10 = {b*10}$ (nghìn đồng).<br/>Tổng số tiền là: ${a*5} + {b*10} = {ans}$ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Chú ý đơn vị của các tờ tiền.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 4,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "(a + 2) * b",
+        "w1": "a * b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Một vườn trường có {a} hàng cây, mỗi hàng có {b} cây xanh. Nhà trường trồng thêm 2 hàng cây nữa, mỗi hàng vẫn có {b} cây. Tổng số cây trong vườn hiện tại là bao nhiêu?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {w3} cây",
+        "D. {ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số hàng cây sau khi thêm là: ${a} + 2$.",
+        "Tổng số cây là: (${a} + 2) \\times {b}."
+      ],
+      "solutionHtml": "Số hàng cây sau khi thêm là: ${a} + 2 = {a+2}$ (hàng).<br/>Tổng số cây hiện tại là: ${a+2} \\times {b} = {ans}$ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Đừng quên cộng thêm số hàng đã thêm vào tổng số hàng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans * 2"
+      },
+      "questionText": "Thư viện trường nhập về {a} quyển sách giáo khoa mới và chia đều vào {b} giá sách. Mỗi giá sách có bao nhiêu quyển?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phép tính chia: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Mỗi giá sách có: ${a} : {b} = {ans}$ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, hãy dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 2 + b * 3",
+        "w1": "a * 3 + b * 2",
+        "w2": "a * 2 + b * 4",
+        "w3": "a * 4 + b * 2"
+      },
+      "questionText": "Bạn Lan mua {a} quyển vở loại 2 nghìn đồng và {b} chiếc bút loại 3 nghìn đồng. Tổng số tiền Lan phải trả là bao nhiêu?",
+      "options": [
+        "A. {w1} nghìn",
+        "B. {w2} nghìn",
+        "C. {ans} nghìn",
+        "D. {w3} nghìn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tiền vở: ${a} \\times 2$.",
+        "Tính tiền bút: ${b} \\times 3$."
+      ],
+      "solutionHtml": "Tiền vở: ${a} \\times 2 = {a*2}$ (nghìn).<br/>Tiền bút: ${b} \\times 3 = {b*3}$ (nghìn).<br/>Tổng tiền: ${a*2} + {b*3} = {ans}$ (nghìn).<br/>Đáp án đúng là C.",
+      "tip": "Tính toán cẩn thận từng loại mặt hàng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 30,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Trường tổ chức cuộc thi chạy tiếp sức, có {a} học sinh đăng ký tham gia, được chia đều vào {b} đội. Mỗi đội có bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia số học sinh cho số đội."
+      ],
+      "solutionHtml": "Số học sinh mỗi đội là: ${a} : {b} = {ans}$ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 2 + 5",
+        "w1": "a * 2",
+        "w2": "a + 5",
+        "w3": "a * 2 + 10"
+      },
+      "questionText": "Tuần đầu tiên học sinh mới đến trường, bạn Nam đọc được {a} trang sách. Tuần thứ hai bạn ấy đọc được số trang gấp đôi tuần đầu cộng thêm 5 trang nữa. Hỏi tuần thứ hai Nam đọc được bao nhiêu trang?",
+      "options": [
+        "A. {w1} trang",
+        "B. {w2} trang",
+        "C. {w3} trang",
+        "D. {ans} trang"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Gấp đôi tuần đầu là: ${a} \\times 2 = {a*2}$.",
+        "Cộng thêm 5 trang."
+      ],
+      "solutionHtml": "Số trang tuần hai là: ${a} \\times 2 + 5 = {ans}$ (trang).<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân thực hiện trước phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t1-d10"
+    }
+  ]
+}

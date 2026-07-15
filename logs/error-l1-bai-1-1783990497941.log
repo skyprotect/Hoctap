@@ -1,0 +1,478 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T00:54:57.941Z
+Lesson ID: l1-bai-1
+Lesson Title: Bài 1: Các số 0, 1, 2, 3, 4, 5
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9048 (line 365 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9048 (line 365 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9048 (Line: 226, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b <= 5"],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a",
+      "w2_goc": "b",
+      "w3_goc": "5",
+      "w1": "(w1_goc === ans) ? 0 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 1 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 3 : w3_goc"
+    },
+    "questionText": "Trên cành cây có {a} con chim đang đậu. Một lúc sau, có thêm {b} con chim bay đến đậu cùng. Hỏi trên cành cây bây giờ có tất cả bao nhiêu con chim?",
+    "options": ["A. {w1} con chim", "B. {w2} con chim", "C. {ans} con chim", "D. {w3} con chim"],
+    "correctIndex": 2,
+    "hints": ["Để tìm tổng số con chim, em hãy lấy số chim ban đầu là {a} cộng với số chim mới đến là {b}."],
+    "solutionHtml": "Số con chim trên cành cây bây giờ là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là C.",
+    "tip": "Khi bài toán hỏi về tổng số, em hãy nhớ đến phép tính cộng nhé!",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1_goc": "a",
+      "w2_goc": "a + b",
+      "w3_goc": "0",
+      "w1": "(w1_goc === ans) ? 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 2 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 3 : w3_goc"
+    },
+    "questionText": "Mẹ có {a} quả cam, mẹ cho em {b} quả. Hỏi mẹ còn lại bao nhiêu quả cam?",
+    "options": ["A. {w1} quả cam", "B. {ans} quả cam", "C. {w2} quả cam", "D. {w3} quả cam"],
+    "correctIndex": 1,
+    "hints": ["Mẹ có {a} quả mà cho đi {b} quả, tức là số cam giảm đi. Em hãy thực hiện phép trừ $ {a} - {b} $."],
+    "solutionHtml": "Số quả cam mẹ còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+    "tip": "Khi vật phẩm bị bớt đi hoặc cho đi, ta sử dụng phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 0, "max": 2 },
+      "b": { "min": 0, "max": 2 }
+    },
+    "constraints": ["a + b > 0"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "(a + b + 1 > 5) ? 0 : a + b + 1",
+      "w2": "(a + b === 2) ? 4 : 2",
+      "w3": "(a + b === 0) ? 1 : 0"
+    },
+    "questionText": "Bạn An có {a} viên bi, bạn Bình có {b} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+    "options": ["A. {w1} viên bi", "B. {ans} viên bi", "C. {w2} viên bi", "D. {w3} viên bi"],
+    "correctIndex": 1,
+    "hints": ["Cả hai bạn có bao nhiêu thì ta lấy số bi của An cộng với số bi của Bình."],
+    "solutionHtml": "Tổng số viên bi của hai bạn là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+    "tip": "Số 0 cộng với bất kỳ số nào cũng bằng chính số đó.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 }
+    },
+    "constraints": ["a > 0"],
+    "formulas": {
+      "ans": "0",
+      "w1": "a",
+      "w2": "a - 1",
+      "w3": "1"
+    },
+    "questionText": "Trên đĩa có {a} chiếc bánh, Nam ăn hết sạch số bánh đó. Hỏi trên đĩa còn lại mấy chiếc bánh?",
+    "options": ["A. {w1} chiếc bánh", "B. {w2} chiếc bánh", "C. {ans} chiếc bánh", "D. {w3} chiếc bánh"],
+    "correctIndex": 2,
+    "hints": ["Ăn hết sạch nghĩa là không còn cái nào, tương ứng với số 0."],
+    "solutionHtml": "Vì Nam đã ăn hết {a} chiếc bánh, nên số bánh còn lại trên đĩa là $ 0 $ chiếc.<br/>Đáp án đúng là C.",
+    "tip": "Số 0 biểu thị cho việc không còn vật nào cả.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 4 },
+      "b": { "min": 1, "max": 4 }
+    },
+    "constraints": ["a + b <= 5"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "5"
+    },
+    "questionText": "Trong hộp bút của Lan có {a} cái bút đỏ và {b} cái bút xanh. Hỏi trong hộp có tất cả bao nhiêu cái bút?",
+    "options": ["A. {w1} cái bút", "B. {ans} cái bút", "C. {w2} cái bút", "D. {w3} cái bút"],
+    "correctIndex": 1,
+    "hints": ["Tính tổng số bút đỏ và bút xanh."],
+    "solutionHtml": "Tổng số bút trong hộp là:<br/>$ {a} + {b} = {ans} $ (cái bút).<br/>Đáp án đúng là B.",
+    "tip": "Đếm tất cả các vật phẩm để tìm tổng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a",
+      "w2": "a + b",
+      "w3": "0"
+    },
+    "questionText": "Có {a} con thỏ đang chơi trên cỏ, có {b} con thỏ chạy vào hang. Hỏi trên cỏ còn lại mấy con thỏ?",
+    "options": ["A. {w1} con thỏ", "B. {w2} con thỏ", "C. {w3} con thỏ", "D. {ans} con thỏ"],
+    "correctIndex": 3,
+    "hints": ["Thỏ chạy vào hang thì số thỏ trên cỏ sẽ giảm đi."],
+    "solutionHtml": "Số con thỏ còn lại trên cỏ là:<br/>$ {a} - {b} = {ans} $ (con thỏ).<br/>Đáp án đúng là D.",
+    "tip": "Phép trừ dùng để tìm phần còn lại sau khi bớt đi.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a < 5"],
+    "formulas": {
+      "ans": "a + a",
+      "w1": "a",
+      "w2": "a + 1",
+      "w3": "a + 2"
+    },
+    "questionText": "Bạn Mai có {a} bông hoa, bạn Lan có số bông hoa bằng bạn Mai. Hỏi cả hai bạn có bao nhiêu bông hoa?",
+    "options": ["A. {w1} bông hoa", "B. {w2} bông hoa", "C. {ans} bông hoa", "D. {w3} bông hoa"],
+    "correctIndex": 2,
+    "hints": ["Số hoa của Lan cũng là {a}, vậy tổng là {a} cộng {a}."],
+    "solutionHtml": "Cả hai bạn có số bông hoa là:<br/>$ {a} + {a} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề bài để tìm số liệu ẩn.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 0, "max": 1 }
+    },
+    "constraints": ["a + b <= 5"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trên bàn có {a} quả táo, mẹ đặt thêm {b} quả táo nữa vào đĩa. Hỏi trên đĩa có tất cả bao nhiêu quả táo?",
+    "options": ["A. {w1} quả táo", "B. {w2} quả táo", "C. {ans} quả táo", "D. {w3} quả táo"],
+    "correctIndex": 2,
+    "hints": ["Thêm vào nghĩa là thực hiện phép cộng."],
+    "solutionHtml": "Số quả táo trên đĩa là:<br/>$ {a} + {b} = {ans} $ (quả táo).<br/>Đáp án đúng là C.",
+    "tip": "Số nào cộng với 0 cũng bằng chính nó.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 5 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + b"
+    },
+    "questionText": "Tổ em có {a} bạn, trong đó có {b} bạn nữ. Hỏi tổ em có bao nhiêu bạn nam?",
+    "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+    "correctIndex": 2,
+    "hints": ["Lấy tổng số bạn trừ đi số bạn nữ sẽ ra số bạn nam."],
+    "solutionHtml": "Số bạn nam trong tổ là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+    "tip": "Phép trừ giúp tìm số lượng nhóm còn lại.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 3 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b <= 4"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trong ví có {a} đồng xu, bố cho thêm {b} đồng xu nữa. Hỏi bây giờ trong ví có bao nhiêu đồng xu?",
+    "options": ["A. {w1} đồng xu", "B. {w2} đồng xu", "C. {ans} đồng xu", "D. {w3} đồng xu"],
+    "correctIndex": 2,
+    "hints": ["Có sẵn và cho thêm thì ta làm phép cộng."],
+    "solutionHtml": "Số đồng xu trong ví là:<br/>$ {a} + {b} = {ans} $ (đồng xu).<br/>Đáp án đúng là C.",
+    "tip": "Đếm số lượng sau khi thêm vào.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b <= 5"],
+    "formulas": {
+      "ans": "a + b",
+      "w1_goc": "a",
+      "w2_goc": "b",
+      "w3_goc": "5",
+      "w1": "(w1_goc === ans) ? 0 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 1 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 3 : w3_goc"
+    },
+    "questionText": "Trên cành cây có {a} con chim đang đậu. Một lúc sau, có thêm {b} con chim bay đến đậu cùng. Hỏi trên cành cây bây giờ có tất cả bao nhiêu con chim?",
+    "options": ["A. {w1} con chim", "B. {w2} con chim", "C. {ans} con chim", "D. {w3} con chim"],
+    "correctIndex": 2,
+    "hints": ["Để tìm tổng số con chim, em hãy lấy số chim ban đầu là {a} cộng với số chim mới đến là {b}."],
+    "solutionHtml": "Số con chim trên cành cây bây giờ là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là C.",
+    "tip": "Khi bài toán hỏi về tổng số, em hãy nhớ đến phép tính cộng nhé!",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1_goc": "a",
+      "w2_goc": "a + b",
+      "w3_goc": "0",
+      "w1": "(w1_goc === ans) ? 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? 2 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? 3 : w3_goc"
+    },
+    "questionText": "Mẹ có {a} quả cam, mẹ cho em {b} quả. Hỏi mẹ còn lại bao nhiêu quả cam?",
+    "options": ["A. {w1} quả cam", "B. {ans} quả cam", "C. {w2} quả cam", "D. {w3} quả cam"],
+    "correctIndex": 1,
+    "hints": ["Mẹ có {a} quả mà cho đi {b} quả, tức là số cam giảm đi. Em hãy thực hiện phép trừ $ {a} - {b} $."],
+    "solutionHtml": "Số quả cam mẹ còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+    "tip": "Khi vật phẩm bị bớt đi hoặc cho đi, ta sử dụng phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 0, "max": 2 },
+      "b": { "min": 0, "max": 2 }
+    },
+    "constraints": ["a + b > 0"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "(a + b + 1 > 5) ? 0 : a + b + 1",
+      "w2": "(a + b === 2) ? 4 : 2",
+      "w3": "(a + b === 0) ? 1 : 0"
+    },
+    "questionText": "Bạn An có {a} viên bi, bạn Bình có {b} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+    "options": ["A. {w1} viên bi", "B. {ans} viên bi", "C. {w2} viên bi", "D. {w3} viên bi"],
+    "correctIndex": 1,
+    "hints": ["Cả hai bạn có bao nhiêu thì ta lấy số bi của An cộng với số bi của Bình."],
+    "solutionHtml": "Tổng số viên bi của hai bạn là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+    "tip": "Số 0 cộng với bất kỳ số nào cũng bằng chính số đó.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 }
+    },
+    "constraints": ["a > 0"],
+    "formulas": {
+      "ans": "0",
+      "w1": "a",
+      "w2": "a - 1",
+      "w3": "1"
+    },
+    "questionText": "Trên đĩa có {a} chiếc bánh, Nam ăn hết sạch số bánh đó. Hỏi trên đĩa còn lại mấy chiếc bánh?",
+    "options": ["A. {w1} chiếc bánh", "B. {w2} chiếc bánh", "C. {ans} chiếc bánh", "D. {w3} chiếc bánh"],
+    "correctIndex": 2,
+    "hints": ["Ăn hết sạch nghĩa là không còn cái nào, tương ứng với số 0."],
+    "solutionHtml": "Vì Nam đã ăn hết {a} chiếc bánh, nên số bánh còn lại trên đĩa là $ 0 $ chiếc.<br/>Đáp án đúng là C.",
+    "tip": "Số 0 biểu thị cho việc không còn vật nào cả.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 4 },
+      "b": { "min": 1, "max": 4 }
+    },
+    "constraints": ["a + b <= 5"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "5"
+    },
+    "questionText": "Trong hộp bút của Lan có {a} cái bút đỏ và {b} cái bút xanh. Hỏi trong hộp có tất cả bao nhiêu cái bút?",
+    "options": ["A. {w1} cái bút", "B. {ans} cái bút", "C. {w2} cái bút", "D. {w3} cái bút"],
+    "correctIndex": 1,
+    "hints": ["Tính tổng số bút đỏ và bút xanh."],
+    "solutionHtml": "Tổng số bút trong hộp là:<br/>$ {a} + {b} = {ans} $ (cái bút).<br/>Đáp án đúng là B.",
+    "tip": "Đếm tất cả các vật phẩm để tìm tổng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a",
+      "w2": "a + b",
+      "w3": "0"
+    },
+    "questionText": "Có {a} con thỏ đang chơi trên cỏ, có {b} con thỏ chạy vào hang. Hỏi trên cỏ còn lại mấy con thỏ?",
+    "options": ["A. {w1} con thỏ", "B. {w2} con thỏ", "C. {w3} con thỏ", "D. {ans} con thỏ"],
+    "correctIndex": 3,
+    "hints": ["Thỏ chạy vào hang thì số thỏ trên cỏ sẽ giảm đi."],
+    "solutionHtml": "Số con thỏ còn lại trên cỏ là:<br/>$ {a} - {b} = {ans} $ (con thỏ).<br/>Đáp án đúng là D.",
+    "tip": "Phép trừ dùng để tìm phần còn lại sau khi bớt đi.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a < 5"],
+    "formulas": {
+      "ans": "a + a",
+      "w1": "a",
+      "w2": "a + 1",
+      "w3": "a + 2"
+    },
+    "questionText": "Bạn Mai có {a} bông hoa, bạn Lan có số bông hoa bằng bạn Mai. Hỏi cả hai bạn có bao nhiêu bông hoa?",
+    "options": ["A. {w1} bông hoa", "B. {w2} bông hoa", "C. {ans} bông hoa", "D. {w3} bông hoa"],
+    "correctIndex": 2,
+    "hints": ["Số hoa của Lan cũng là {a}, vậy tổng là {a} cộng {a}."],
+    "solutionHtml": "Cả hai bạn có số bông hoa là:<br/>$ {a} + {a} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề bài để tìm số liệu ẩn.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 0, "max": 1 }
+    },
+    "constraints": ["a + b <= 5"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trên bàn có {a} quả táo, mẹ đặt thêm {b} quả táo nữa vào đĩa. Hỏi trên đĩa có tất cả bao nhiêu quả táo?",
+    "options": ["A. {w1} quả táo", "B. {w2} quả táo", "C. {ans} quả táo", "D. {w3} quả táo"],
+    "correctIndex": 2,
+    "hints": ["Thêm vào nghĩa là thực hiện phép cộng."],
+    "solutionHtml": "Số quả táo trên đĩa là:<br/>$ {a} + {b} = {ans} $ (quả táo).<br/>Đáp án đúng là C.",
+    "tip": "Số nào cộng với 0 cũng bằng chính nó.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 5 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + b"
+    },
+    "questionText": "Tổ em có {a} bạn, trong đó có {b} bạn nữ. Hỏi tổ em có bao nhiêu bạn nam?",
+    "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+    "correctIndex": 2,
+    "hints": ["Lấy tổng số bạn trừ đi số bạn nữ sẽ ra số bạn nam."],
+    "solutionHtml": "Số bạn nam trong tổ là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+    "tip": "Phép trừ giúp tìm số lượng nhóm còn lại.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 3 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b <= 4"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trong ví có {a} đồng xu, bố cho thêm {b} đồng xu nữa. Hỏi bây giờ trong ví có bao nhiêu đồng xu?",
+    "options": ["A. {w1} đồng xu", "B. {w2} đồng xu", "C. {ans} đồng xu", "D. {w3} đồng xu"],
+    "correctIndex": 2,
+    "hints": ["Có sẵn và cho thêm thì ta làm phép cộng."],
+    "solutionHtml": "Số đồng xu trong ví là:<br/>$ {a} + {b} = {ans} $ (đồng xu).<br/>Đáp án đúng là C.",
+    "tip": "Đếm số lượng sau khi thêm vào.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-1-d10"
+  }
+]
+

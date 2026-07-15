@@ -1,0 +1,702 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:24:17.085Z
+Lesson ID: l4-bai-46
+Lesson Title: Bài 46: Tìm số trung bình cộng
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 13163 (line 335 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 13163 (line 335 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 13163 (Line: 335, Column: 1)
+Character causing error: "}"
+
+Context:
+...  đúng là C.",
+      "tip": "Đừng quên trừ số bị bỏ đi khỏi tổng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "s1": { "min": 25, "max": 40, "step": 1 },
+        "s2": { "min": 35, "max": 50, "step": 1 },
+        "s3": { "min": 30, "max": 45, "step": 1 }
+      },
+      "constraints": [
+        "(s1 + s2 + s3) % 3 === 0"
+      ],
+      "formulas": {
+        "ans": "(s1 + s2 + s3) / 3",
+        "w1": "((s1 + s2 + s3) / 3) + 2",
+        "w2": "((s1 + s2 + s3) / 3) - 2",
+        "w3": "((s1 + s2 + s3) / 3) + 5"
+      },
+      "questionText": "Ba lớp 4A, 4B và 4C lần lượt thu gom được {s1} kg, {s2} kg và {s3} kg giấy vụn. Hỏi trung bình mỗi lớp thu gom được bao nhiêu ki-lô-gam giấy vụn?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số giấy vụn của cả ba lớp.",
+        "Bước 2: Lấy tổng số đó chia cho 3."
+      ],
+      "solutionHtml": "Tổng số giấy vụn ba lớp thu gom được là:<br/>$ {s1} + {s2} + {s3} = {s1 + s2 + s3} $ (kg).<br/>Trung bình mỗi lớp thu gom được là:<br/>$ {s1 + s2 + s3} : 3 = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Số trung bình cộng bằng tổng các số hạng chia cho số lượng số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tb": { "min": 15, "max": 25, "step": 1 },
+        "n": { "min": 3, "max": 5, "step": 1 },
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "(tb * n - a - b) > 0"
+      ],
+      "formulas": {
+        "ans": "tb * n - a - b",
+        "w1": "tb * n - a + b",
+        "w2": "tb * n + a + b",
+        "w3": "tb * n - (a + b) + 5"
+      },
+      "questionText": "Trung bình cộng số cây xanh của {n} tổ là {tb} cây. Biết tổ một trồng được {a} cây, tổ hai trồng được {b} cây. Hỏi tổ còn lại trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bước 1: Tính tổng số cây của {n} tổ: $ {tb} \\times {n} $.",
+        "Bước 2: Trừ đi số cây của tổ một và tổ hai đã biết."
+      ],
+      "solutionHtml": "Tổng số cây của {n} tổ là:<br/>$ {tb} \\times {n} = {tb * n} $ (cây).<br/>Số cây tổ còn lại trồng được là:<br/>$ {tb * n} - {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Muốn tìm một số hạng trong tổng khi biết trung bình cộng, ta lấy trung bình cộng nhân với số lượng phần tử rồi trừ đi các phần tử còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1": { "min": 100, "max": 200, "step": 10 },
+        "day2": { "min": 150, "max": 250, "step": 10 },
+        "hieu": { "min": 20, "max": 40, "step": 5 }
+      },
+      "constraints": [
+        "(day1 + day2 + (day1 + hieu)) % 3 === 0"
+      ],
+      "formulas": {
+        "ans": "(day1 + day2 + (day1 + hieu)) / 3",
+        "w1": "((day1 + day2 + (day1 + hieu)) / 3) + 10",
+        "w2": "((day1 + day2 + (day1 + hieu)) / 3) - 10",
+        "w3": "((day1 + day2 + (day1 + hieu)) / 3) + 5"
+      },
+      "questionText": "Một cửa hàng ngày thứ nhất bán được {day1} kg gạo, ngày thứ hai bán được {day2} kg gạo. Ngày thứ ba bán được nhiều hơn ngày thứ nhất {hieu} kg gạo. Hỏi trung bình mỗi ngày cửa hàng bán được bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số gạo ngày thứ ba: {day1} + {hieu}.",
+        "Tính tổng ba ngày rồi chia cho 3."
+      ],
+      "solutionHtml": "Ngày thứ ba bán được:<br/>$ {day1} + {hieu} = {day1 + hieu} $ (kg).<br/>Tổng số gạo bán trong 3 ngày:<br/>$ {day1} + {day2} + {day1 + hieu} = {day1 + day2 + day1 + hieu} $ (kg).<br/>Trung bình mỗi ngày bán được:<br/>$ {day1 + day2 + day1 + hieu} : 3 = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên cộng thêm số lượng của ngày thứ ba vào tổng trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 15, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "(x + (x + y) + (x + 2*y) + (x + 3*y)) % 4 === 0"
+      ],
+      "formulas": {
+        "ans": "(x + (x + y) + (x + 2*y) + (x + 3*y)) / 4",
+        "w1": "((x + (x + y) + (x + 2*y) + (x + 3*y)) / 4) + 1",
+        "w2": "((x + (x + y) + (x + 2*y) + (x + 3*y)) / 4) - 1",
+        "w3": "((x + (x + y) + (x + 2*y) + (x + 3*y)) / 4) + 2"
+      },
+      "questionText": "Bốn số tự nhiên liên tiếp cách đều nhau {y} đơn vị, số bé nhất là {x}. Hỏi trung bình cộng của bốn số đó là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Liệt kê 4 số: {x}, {x+y}, {x+2*y}, {x+3*y}.",
+        "Tính trung bình cộng bằng tổng chia cho 4."
+      ],
+      "solutionHtml": "Bốn số đó là: {x}, {x+y}, {x+2*y}, {x+3*y}.<br/>Tổng của chúng là: $ {x} + {x+y} + {x+2*y} + {x+3*y} = {x + (x+y) + (x+2*y) + (x+3*y)} $.<br/>Trung bình cộng là: $ {x + (x+y) + (x+2*y) + (x+3*y)} : 4 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đối với dãy số cách đều, trung bình cộng bằng trung bình cộng của số đầu và số cuối.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 },
+        "diem": { "min": 7, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "((diem + 1) * (n + 1) - diem * n) <= 10"
+      ],
+      "formulas": {
+        "ans": "(diem + 1) * (n + 1) - diem * n",
+        "w1": "(diem + 1) * (n + 1) - diem * n + 1",
+        "w2": "(diem + 1) * (n + 1) - diem * n - 1",
+        "w3": "(diem + 1) * (n + 1) - diem * n + 2"
+      },
+      "questionText": "Bạn An đã có {n} bài kiểm tra với điểm trung bình là {diem}. Để điểm trung bình sau {n+1} bài kiểm tra tăng lên {diem+1} điểm, thì bài kiểm tra tiếp theo An phải đạt bao nhiêu điểm?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {ans} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng điểm sau {n} bài là: {diem} * {n}.",
+        "Tổng điểm cần đạt sau {n+1} bài là: {diem+1} * {n+1}.",
+        "Hiệu hai tổng là số điểm bài thứ {n+1} cần đạt."
+      ],
+      "solutionHtml": "Tổng điểm của {n} bài là: $ {diem} \\times {n} = {diem * n} $ (điểm).<br/>Tổng điểm cần có sau {n+1} bài là: $ {diem + 1} \\times {n + 1} = {(diem + 1) * (n + 1)} $ (điểm).<br/>Số điểm bài thứ {n+1} cần là: $ {(diem + 1) * (n + 1)} - {diem * n} = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính tổng số điểm trước và sau khi thêm bài kiểm tra mới.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 30, "step": 2 },
+        "b": { "min": 40, "max": 60, "step": 2 }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "(a + b) / 2",
+        "w1": "a",
+        "w2": "b",
+        "w3": "(a + b) / 2 + 5"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều rộng là {a} m, chiều dài là {b} m. Hãy tính trung bình cộng của chiều dài và chiều rộng mảnh vườn đó.",
+      "options": [
+        "A. {w1} m",
+        "B. {w2} m",
+        "C. {ans} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Trung bình cộng của hai số bằng tổng của chúng chia cho 2.",
+        "Tính: ({a} + {b}) : 2"
+      ],
+      "solutionHtml": "Trung bình cộng của chiều dài và chiều rộng là:<br/>$ ({a} + {b}) : 2 = {a + b} : 2 = {ans} $ (m).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài tập cơ bản về tìm trung bình cộng của hai số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": { "min": 120, "max": 140, "step": 2 },
+        "h2": { "min": 130, "max": 150, "step": 2 },
+        "h3": { "min": 125, "max": 145, "step": 2 }
+      },
+      "constraints": [
+        "(h1 + h2 + h3) % 3 === 0"
+      ],
+      "formulas": {
+        "ans": "(h1 + h2 + h3) / 3",
+        "w1": "((h1 + h2 + h3) / 3) + 2",
+        "w2": "((h1 + h2 + h3) / 3) - 2",
+        "w3": "((h1 + h2 + h3) / 3) + 4"
+      },
+      "questionText": "Ba bạn Nam, Hùng, Dũng có chiều cao lần lượt là {h1} cm, {h2} cm và {h3} cm. Hỏi trung bình cộng chiều cao của ba bạn là bao nhiêu?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng chiều cao của ba bạn.",
+        "Chia tổng đó cho 3."
+      ],
+      "solutionHtml": "Tổng chiều cao của ba bạn là:<br/>$ {h1} + {h2} + {h3} = {h1 + h2 + h3} $ (cm).<br/>Trung bình cộng chiều cao là:<br/>$ {h1 + h2 + h3} : 3 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị tính là cm, kết quả phải được tính toán cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ts": { "min": 2, "max": 4, "step": 1 },
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "(a + b) / 2",
+        "w1": "a",
+        "w2": "b",
+        "w3": "(a + b) / 2 + 1"
+      },
+      "questionText": "Trong một đợt thi đua, tổ 1 trồng được {a} cây, tổ 2 trồng được {b} cây. Hỏi trung bình mỗi tổ trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có 2 tổ, vậy trung bình cộng là tổng số cây chia cho 2."
+      ],
+      "solutionHtml": "Tổng số cây hai tổ trồng là:<br/>$ {a} + {b} = {a + b} $ (cây).<br/>Trung bình mỗi tổ trồng được là:<br/>$ {a + b} : 2 = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Tổng số tổ ở đây là 2, đừng nhầm lẫn với các con số khác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": { "min": 4, "max": 6, "step": 1 },
+        "n2": { "min": 5, "max": 7, "step": 1 },
+        "v1": { "min": 10, "max": 20, "step": 1 },
+        "v2": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "(n1 * v1 + n2 * v2) % (n1 + n2) === 0"
+      ],
+      "formulas": {
+        "ans": "(n1 * v1 + n2 * v2) / (n1 + n2)",
+        "w1": "(v1 + v2) / 2",
+        "w2": "(v1 + v2)",
+        "w3": "(n1 * v1 + n2 * v2) / (n1 + n2) + 2"
+      },
+      "questionText": "{n1} xe chở được {v1} tạ thóc mỗi xe, {n2} xe chở được {v2} tạ thóc mỗi xe. Hỏi trung bình mỗi xe chở được bao nhiêu tạ thóc?",
+      "options": [
+        "A. {w1} tạ",
+        "B. {w2} tạ",
+        "C. {ans} tạ",
+        "D. {w3} tạ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số thóc của tất cả các xe.",
+        "Tính tổng số xe.",
+        "Lấy tổng số thóc chia cho tổng số xe."
+      ],
+      "solutionHtml": "Tổng số xe là: $ {n1} + {n2} = {n1 + n2} $ (xe).<br/>Tổng số thóc là: $ ({n1} \\times {v1}) + ({n2} \\times {v2}) = {n1 * v1 + n2 * v2} $ (tạ).<br/>Trung bình mỗi xe chở được: $ {n1 * v1 + n2 * v2} : {n1 + n2} = {ans} $ (tạ).<br/>Đáp án đúng là C.",
+      "tip": "Phải tính tổng số thóc và tổng số xe trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 5, "max": 10, "step": 1 },
+        "tb": { "min": 20, "max": 30, "step": 2 }
+      },
+      "constraints": [
+        "(n * tb) % (n - 1) === 0"
+      ],
+      "formulas": {
+        "ans": "(n * tb) / (n - 1)",
+        "w1": "tb + 2",
+        "w2": "tb - 2",
+        "w3": "tb + 5"
+      },
+      "questionText": "Trung bình cộng của {n} số là {tb}. Nếu bỏ đi một số thì trung bình cộng của {n-1} số còn lại là bao nhiêu, biết số bị bỏ đi là {n * tb - (n-1) * ((n * tb) / (n - 1))}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng của {n} số là: {n} * {tb}.",
+        "Số bị bỏ đi là {n * tb - (n-1) * ((n * tb) / (n - 1))}.",
+        "Tính tổng còn lại rồi chia cho {n-1}."
+      ],
+      "solutionHtml": "Tổng của {n} số là: $ {n} \\times {tb} = {n * tb} $.<br/>Tổng của {n-1} số là: $ {n * tb} - {n * tb - (n-1) * ((n * tb) / (n - 1))} = {(n-1) * ((n * tb) / (n - 1))} $.<br/>Trung bình cộng còn lại là: $ {(n-1) * ((n * tb) / (n - 1))} : {n-1} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên trừ số bị bỏ đi khỏi tổng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "s1": { "min": 25, "max": 40, "step": 1 },
+        "s2": { "min": 35, "max": 50, "step": 1 },
+        "s3": { "min": 30, "max": 45, "step": 1 }
+      },
+      "constraints": [
+        "(s1 + s2 + s3) % 3 === 0"
+      ],
+      "formulas": {
+        "ans": "(s1 + s2 + s3) / 3",
+        "w1": "((s1 + s2 + s3) / 3) + 2",
+        "w2": "((s1 + s2 + s3) / 3) - 2",
+        "w3": "((s1 + s2 + s3) / 3) + 5"
+      },
+      "questionText": "Ba lớp 4A, 4B và 4C lần lượt thu gom được {s1} kg, {s2} kg và {s3} kg giấy vụn. Hỏi trung bình mỗi lớp thu gom được bao nhiêu ki-lô-gam giấy vụn?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số giấy vụn của cả ba lớp.",
+        "Bước 2: Lấy tổng số đó chia cho 3."
+      ],
+      "solutionHtml": "Tổng số giấy vụn ba lớp thu gom được là:<br/>$ {s1} + {s2} + {s3} = {s1 + s2 + s3} $ (kg).<br/>Trung bình mỗi lớp thu gom được là:<br/>$ {s1 + s2 + s3} : 3 = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Số trung bình cộng bằng tổng các số hạng chia cho số lượng số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tb": { "min": 15, "max": 25, "step": 1 },
+        "n": { "min": 3, "max": 5, "step": 1 },
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "(tb * n - a - b) > 0"
+      ],
+      "formulas": {
+        "ans": "tb * n - a - b",
+        "w1": "tb * n - a + b",
+        "w2": "tb * n + a + b",
+        "w3": "tb * n - (a + b) + 5"
+      },
+      "questionText": "Trung bình cộng số cây xanh của {n} tổ là {tb} cây. Biết tổ một trồng được {a} cây, tổ hai trồng được {b} cây. Hỏi tổ còn lại trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bước 1: Tính tổng số cây của {n} tổ: $ {tb} \\times {n} $.",
+        "Bước 2: Trừ đi số cây của tổ một và tổ hai đã biết."
+      ],
+      "solutionHtml": "Tổng số cây của {n} tổ là:<br/>$ {tb} \\times {n} = {tb * n} $ (cây).<br/>Số cây tổ còn lại trồng được là:<br/>$ {tb * n} - {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Muốn tìm một số hạng trong tổng khi biết trung bình cộng, ta lấy trung bình cộng nhân với số lượng phần tử rồi trừ đi các phần tử còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day1": { "min": 100, "max": 200, "step": 10 },
+        "day2": { "min": 150, "max": 250, "step": 10 },
+        "hieu": { "min": 20, "max": 40, "step": 5 }
+      },
+      "constraints": [
+        "(day1 + day2 + (day1 + hieu)) % 3 === 0"
+      ],
+      "formulas": {
+        "ans": "(day1 + day2 + (day1 + hieu)) / 3",
+        "w1": "((day1 + day2 + (day1 + hieu)) / 3) + 10",
+        "w2": "((day1 + day2 + (day1 + hieu)) / 3) - 10",
+        "w3": "((day1 + day2 + (day1 + hieu)) / 3) + 5"
+      },
+      "questionText": "Một cửa hàng ngày thứ nhất bán được {day1} kg gạo, ngày thứ hai bán được {day2} kg gạo. Ngày thứ ba bán được nhiều hơn ngày thứ nhất {hieu} kg gạo. Hỏi trung bình mỗi ngày cửa hàng bán được bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số gạo ngày thứ ba: {day1} + {hieu}.",
+        "Tính tổng ba ngày rồi chia cho 3."
+      ],
+      "solutionHtml": "Ngày thứ ba bán được:<br/>$ {day1} + {hieu} = {day1 + hieu} $ (kg).<br/>Tổng số gạo bán trong 3 ngày:<br/>$ {day1} + {day2} + {day1 + hieu} = {day1 + day2 + day1 + hieu} $ (kg).<br/>Trung bình mỗi ngày bán được:<br/>$ {day1 + day2 + day1 + hieu} : 3 = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên cộng thêm số lượng của ngày thứ ba vào tổng trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 15, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "(x + (x + y) + (x + 2*y) + (x + 3*y)) % 4 === 0"
+      ],
+      "formulas": {
+        "ans": "(x + (x + y) + (x + 2*y) + (x + 3*y)) / 4",
+        "w1": "((x + (x + y) + (x + 2*y) + (x + 3*y)) / 4) + 1",
+        "w2": "((x + (x + y) + (x + 2*y) + (x + 3*y)) / 4) - 1",
+        "w3": "((x + (x + y) + (x + 2*y) + (x + 3*y)) / 4) + 2"
+      },
+      "questionText": "Bốn số tự nhiên liên tiếp cách đều nhau {y} đơn vị, số bé nhất là {x}. Hỏi trung bình cộng của bốn số đó là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Liệt kê 4 số: {x}, {x+y}, {x+2*y}, {x+3*y}.",
+        "Tính trung bình cộng bằng tổng chia cho 4."
+      ],
+      "solutionHtml": "Bốn số đó là: {x}, {x+y}, {x+2*y}, {x+3*y}.<br/>Tổng của chúng là: $ {x} + {x+y} + {x+2*y} + {x+3*y} = {x + (x+y) + (x+2*y) + (x+3*y)} $.<br/>Trung bình cộng là: $ {x + (x+y) + (x+2*y) + (x+3*y)} : 4 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đối với dãy số cách đều, trung bình cộng bằng trung bình cộng của số đầu và số cuối.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 },
+        "diem": { "min": 7, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "((diem + 1) * (n + 1) - diem * n) <= 10"
+      ],
+      "formulas": {
+        "ans": "(diem + 1) * (n + 1) - diem * n",
+        "w1": "(diem + 1) * (n + 1) - diem * n + 1",
+        "w2": "(diem + 1) * (n + 1) - diem * n - 1",
+        "w3": "(diem + 1) * (n + 1) - diem * n + 2"
+      },
+      "questionText": "Bạn An đã có {n} bài kiểm tra với điểm trung bình là {diem}. Để điểm trung bình sau {n+1} bài kiểm tra tăng lên {diem+1} điểm, thì bài kiểm tra tiếp theo An phải đạt bao nhiêu điểm?",
+      "options": [
+        "A. {w1} điểm",
+        "B. {ans} điểm",
+        "C. {w2} điểm",
+        "D. {w3} điểm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng điểm sau {n} bài là: {diem} * {n}.",
+        "Tổng điểm cần đạt sau {n+1} bài là: {diem+1} * {n+1}.",
+        "Hiệu hai tổng là số điểm bài thứ {n+1} cần đạt."
+      ],
+      "solutionHtml": "Tổng điểm của {n} bài là: $ {diem} \\times {n} = {diem * n} $ (điểm).<br/>Tổng điểm cần có sau {n+1} bài là: $ {diem + 1} \\times {n + 1} = {(diem + 1) * (n + 1)} $ (điểm).<br/>Số điểm bài thứ {n+1} cần là: $ {(diem + 1) * (n + 1)} - {diem * n} = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính tổng số điểm trước và sau khi thêm bài kiểm tra mới.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 30, "step": 2 },
+        "b": { "min": 40, "max": 60, "step": 2 }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "(a + b) / 2",
+        "w1": "a",
+        "w2": "b",
+        "w3": "(a + b) / 2 + 5"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều rộng là {a} m, chiều dài là {b} m. Hãy tính trung bình cộng của chiều dài và chiều rộng mảnh vườn đó.",
+      "options": [
+        "A. {w1} m",
+        "B. {w2} m",
+        "C. {ans} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Trung bình cộng của hai số bằng tổng của chúng chia cho 2.",
+        "Tính: ({a} + {b}) : 2"
+      ],
+      "solutionHtml": "Trung bình cộng của chiều dài và chiều rộng là:<br/>$ ({a} + {b}) : 2 = {a + b} : 2 = {ans} $ (m).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài tập cơ bản về tìm trung bình cộng của hai số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": { "min": 120, "max": 140, "step": 2 },
+        "h2": { "min": 130, "max": 150, "step": 2 },
+        "h3": { "min": 125, "max": 145, "step": 2 }
+      },
+      "constraints": [
+        "(h1 + h2 + h3) % 3 === 0"
+      ],
+      "formulas": {
+        "ans": "(h1 + h2 + h3) / 3",
+        "w1": "((h1 + h2 + h3) / 3) + 2",
+        "w2": "((h1 + h2 + h3) / 3) - 2",
+        "w3": "((h1 + h2 + h3) / 3) + 4"
+      },
+      "questionText": "Ba bạn Nam, Hùng, Dũng có chiều cao lần lượt là {h1} cm, {h2} cm và {h3} cm. Hỏi trung bình cộng chiều cao của ba bạn là bao nhiêu?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng chiều cao của ba bạn.",
+        "Chia tổng đó cho 3."
+      ],
+      "solutionHtml": "Tổng chiều cao của ba bạn là:<br/>$ {h1} + {h2} + {h3} = {h1 + h2 + h3} $ (cm).<br/>Trung bình cộng chiều cao là:<br/>$ {h1 + h2 + h3} : 3 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị tính là cm, kết quả phải được tính toán cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ts": { "min": 2, "max": 4, "step": 1 },
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "(a + b) / 2",
+        "w1": "a",
+        "w2": "b",
+        "w3": "(a + b) / 2 + 1"
+      },
+      "questionText": "Trong một đợt thi đua, tổ 1 trồng được {a} cây, tổ 2 trồng được {b} cây. Hỏi trung bình mỗi tổ trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có 2 tổ, vậy trung bình cộng là tổng số cây chia cho 2."
+      ],
+      "solutionHtml": "Tổng số cây hai tổ trồng là:<br/>$ {a} + {b} = {a + b} $ (cây).<br/>Trung bình mỗi tổ trồng được là:<br/>$ {a + b} : 2 = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Tổng số tổ ở đây là 2, đừng nhầm lẫn với các con số khác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": { "min": 4, "max": 6, "step": 1 },
+        "n2": { "min": 5, "max": 7, "step": 1 },
+        "v1": { "min": 10, "max": 20, "step": 1 },
+        "v2": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": [
+        "(n1 * v1 + n2 * v2) % (n1 + n2) === 0"
+      ],
+      "formulas": {
+        "ans": "(n1 * v1 + n2 * v2) / (n1 + n2)",
+        "w1": "(v1 + v2) / 2",
+        "w2": "(v1 + v2)",
+        "w3": "(n1 * v1 + n2 * v2) / (n1 + n2) + 2"
+      },
+      "questionText": "{n1} xe chở được {v1} tạ thóc mỗi xe, {n2} xe chở được {v2} tạ thóc mỗi xe. Hỏi trung bình mỗi xe chở được bao nhiêu tạ thóc?",
+      "options": [
+        "A. {w1} tạ",
+        "B. {w2} tạ",
+        "C. {ans} tạ",
+        "D. {w3} tạ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số thóc của tất cả các xe.",
+        "Tính tổng số xe.",
+        "Lấy tổng số thóc chia cho tổng số xe."
+      ],
+      "solutionHtml": "Tổng số xe là: $ {n1} + {n2} = {n1 + n2} $ (xe).<br/>Tổng số thóc là: $ ({n1} \\times {v1}) + ({n2} \\times {v2}) = {n1 * v1 + n2 * v2} $ (tạ).<br/>Trung bình mỗi xe chở được: $ {n1 * v1 + n2 * v2} : {n1 + n2} = {ans} $ (tạ).<br/>Đáp án đúng là C.",
+      "tip": "Phải tính tổng số thóc và tổng số xe trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 5, "max": 10, "step": 1 },
+        "tb": { "min": 20, "max": 30, "step": 2 }
+      },
+      "constraints": [
+        "(n * tb) % (n - 1) === 0"
+      ],
+      "formulas": {
+        "ans": "(n * tb) / (n - 1)",
+        "w1": "tb + 2",
+        "w2": "tb - 2",
+        "w3": "tb + 5"
+      },
+      "questionText": "Trung bình cộng của {n} số là {tb}. Nếu bỏ đi một số thì trung bình cộng của {n-1} số còn lại là bao nhiêu, biết số bị bỏ đi là {n * tb - (n-1) * ((n * tb) / (n - 1))}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng của {n} số là: {n} * {tb}.",
+        "Số bị bỏ đi là {n * tb - (n-1) * ((n * tb) / (n - 1))}.",
+        "Tính tổng còn lại rồi chia cho {n-1}."
+      ],
+      "solutionHtml": "Tổng của {n} số là: $ {n} \\times {tb} = {n * tb} $.<br/>Tổng của {n-1} số là: $ {n * tb} - {n * tb - (n-1) * ((n * tb) / (n - 1))} = {(n-1) * ((n * tb) / (n - 1))} $.<br/>Trung bình cộng còn lại là: $ {(n-1) * ((n * tb) / (n - 1))} : {n-1} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên trừ số bị bỏ đi khỏi tổng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-46-d10"
+    }
+  ]
+}
+}
+

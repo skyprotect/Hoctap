@@ -1,0 +1,738 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:22:30.631Z
+Lesson ID: l4-bai-41
+Lesson Title: Bài 41: Nhân, chia với 10, 100, 1 000, ...
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12962 (line 353 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12962 (line 353 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 12962 (Line: 353, Column: 1)
+Character causing error: "}"
+
+Context:
+... Đáp án đúng là A.",
+      "tip": "Khi nói 'chục', ta chỉ cần nhân với 10.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "b >= 1"
+      ],
+      "formulas": {
+        "m": "Math.pow(10, b)",
+        "ans": "a * m",
+        "w1": "a * (m / 10)",
+        "w2": "a * m + 10",
+        "w3": "a * m * 10",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 100 : w3"
+      },
+      "questionText": "Một cửa hàng nhập về {a} kiện hàng, mỗi kiện có {m} sản phẩm. Hỏi cửa hàng đó nhập về tất cả bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1_f} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2_f} sản phẩm",
+        "D. {w3_f} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số sản phẩm, ta lấy số kiện hàng nhân với số sản phẩm trong mỗi kiện.",
+        "Phép tính cần thực hiện là $ {a} \\times {m} $."
+      ],
+      "solutionHtml": "Số sản phẩm cửa hàng nhập về là:<br/>$ {a} \\times {m} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Khi nhân một số tự nhiên với 10, 100, 1000,... ta chỉ cần viết thêm một, hai, ba,... chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1200, "max": 9900, "step": 100 }
+      },
+      "constraints": [
+        "a % 100 === 0"
+      ],
+      "formulas": {
+        "ans": "a / 100",
+        "w1": "a / 10",
+        "w2": "a * 100",
+        "w3": "a / 100 + 5",
+        "w1_f": "(w1 === ans) ? w1 + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 1000 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Một nhà máy sản xuất được {a} cái bút chì và đóng gói vào các hộp, mỗi hộp gồm 100 cái. Hỏi nhà máy đóng được tất cả bao nhiêu hộp bút chì?",
+      "options": [
+        "A. {w1_f} hộp",
+        "B. {w2_f} hộp",
+        "C. {ans} hộp",
+        "D. {w3_f} hộp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm số hộp, ta lấy tổng số bút chì chia cho số bút chì trong mỗi hộp.",
+        "Phép tính cần thực hiện là $ {a} : 100 $."
+      ],
+      "solutionHtml": "Số hộp bút chì nhà máy đóng được là:<br/>$ {a} : 100 = {ans} $ (hộp).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia một số tròn chục, tròn trăm, tròn nghìn cho 10, 100, 1000,... ta chỉ cần xóa bớt một, hai, ba,... chữ số 0 ở bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a * 1000 * b < 100000"
+      ],
+      "formulas": {
+        "ans": "a * 1000 * b",
+        "w1": "a * 100 * b",
+        "w2": "a * 1000 + b",
+        "w3": "a * b * 100",
+        "w1_f": "(w1 === ans) ? w1 + 500 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2000 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3000 : w3"
+      },
+      "questionText": "Một đoàn xe tải có {a} chiếc xe, mỗi chiếc xe chở {b} nghìn viên gạch. Hỏi cả đoàn xe chở được bao nhiêu viên gạch?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi {b} nghìn viên thành $ {b} \\times 1000 $ viên.",
+        "Sau đó nhân số viên mỗi xe với số xe là {a}."
+      ],
+      "solutionHtml": "Số gạch mỗi xe chở là: $ {b} \\times 1000 = {b * 1000} $ (viên).<br/>Cả đoàn xe chở được là:<br/>$ {b * 1000} \\times {a} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Chú ý đơn vị tính là 'nghìn' tương đương với nhân 1000.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b * 100",
+        "w1": "a * b * 10",
+        "w2": "a * b * 1000",
+        "w3": "a + b * 100",
+        "w1_f": "(w1 === ans) ? w1 + 100 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 200 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 500 : w3"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là {a} trăm mét và chiều rộng là {b} trăm mét. Hỏi diện tích mảnh vườn đó là bao nhiêu mét vuông? (Biết diện tích = chiều dài x chiều rộng).",
+      "options": [
+        "A. {w1_f} $m^2$",
+        "B. {w2_f} $m^2$",
+        "C. {ans} $m^2$",
+        "D. {w3_f} $m^2$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chiều dài là {a} trăm mét, tức là $ {a} \\times 100 $ mét.",
+        "Chiều rộng là {b} trăm mét, tức là $ {b} \\times 100 $ mét.",
+        "Diện tích là $ ({a} \\times 100) \\times ({b} \\times 100) $."
+      ],
+      "solutionHtml": "Chiều dài mảnh vườn: $ {a} \\times 100 = {a * 100} $ (m).<br/>Chiều rộng mảnh vườn: $ {b} \\times 100 = {b * 100} $ (m).<br/>Diện tích mảnh vườn là:<br/>$ {a * 100} \\times {b * 100} = {ans} $ ($m^2$).<br/>Đáp án đúng là C.",
+      "tip": "Khi nhân hai số tròn trăm, ta nhân các chữ số đầu với nhau rồi thêm 4 chữ số 0 vào sau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "a * b * 1000",
+        "w1": "a * b * 100",
+        "w2": "a * b * 10000",
+        "w3": "a * b * 10",
+        "w1_f": "(w1 === ans) ? w1 + 1000 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5000 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 2000 : w3"
+      },
+      "questionText": "Một thư viện có {a} ngăn sách, mỗi ngăn có {b} nghìn cuốn sách. Hỏi tổng cộng thư viện có bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1_f} cuốn",
+        "B. {ans} cuốn",
+        "C. {w2_f} cuốn",
+        "D. {w3_f} cuốn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi ngăn có {b} nghìn cuốn, tức là $ {b} \\times 1000 $ cuốn.",
+        "Có {a} ngăn, vậy số sách là $ {a} \\times ({b} \\times 1000) $."
+      ],
+      "solutionHtml": "Số sách trong thư viện là:<br/>$ {a} \\times {b} \\times 1000 = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Nhân các số với nghìn là cách nhanh nhất để tìm tổng số lượng lớn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 1000 / b",
+        "w1": "a * 100 / b",
+        "w2": "a * 1000 * b",
+        "w3": "a * 1000 / (b - 1)",
+        "w1_f": "(w1 === ans) ? w1 + 500 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 100 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 200 : w3"
+      },
+      "questionText": "Một bác nông dân thu hoạch được {a} nghìn kg khoai lang. Bác muốn chia đều số khoai đó vào {b} xe tải. Hỏi mỗi xe chở được bao nhiêu kg khoai lang?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {w2_f} kg",
+        "C. {ans} kg",
+        "D. {w3_f} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi {a} nghìn kg ra kg: $ {a} \\times 1000 = {a * 1000} $ kg.",
+        "Chia số kg cho {b} xe."
+      ],
+      "solutionHtml": "Tổng số kg khoai lang là: $ {a} \\times 1000 = {a * 1000} $ (kg).<br/>Số kg khoai mỗi xe chở là:<br/>$ {a * 1000} : {b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Đổi đơn vị trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 100",
+        "w1": "a * 10",
+        "w2": "a * 1000",
+        "w3": "a + 100",
+        "w1_f": "(w1 === ans) ? w1 + 50 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 200 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 300 : w3"
+      },
+      "questionText": "Một đội công nhân phải trồng {a} trăm cây xanh. Nếu họ đã trồng được 1/4 số cây đó, thì họ đã trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {ans} cây",
+        "C. {w2_f} cây",
+        "D. {w3_f} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số cây là $ {a} \\times 100 = {a * 100} $ cây.",
+        "Tìm 1/4 của tổng số cây bằng cách lấy tổng chia cho 4."
+      ],
+      "solutionHtml": "Tổng số cây cần trồng là: $ {a} \\times 100 = {a * 100} $ (cây).<br/>Số cây đã trồng là:<br/>$ {a * 100} : 4 = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân với 100 giúp ta dễ dàng chuyển từ 'trăm' sang số đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "(a * 1000) % b === 0"
+      ],
+      "formulas": {
+        "ans": "(a * 1000) / b",
+        "w1": "a * 1000",
+        "w2": "a * 100 / b",
+        "w3": "(a * 1000) + b",
+        "w1_f": "(w1 === ans) ? w1 + 100 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 200 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 300 : w3"
+      },
+      "questionText": "Cửa hàng có {a} nghìn lít dầu. Họ đổ số dầu đó vào các thùng, mỗi thùng chứa đúng $ {b} $ lít. Hỏi cần bao nhiêu thùng để chứa hết số dầu đó?",
+      "options": [
+        "A. {w1_f} thùng",
+        "B. {w2_f} thùng",
+        "C. {w3_f} thùng",
+        "D. {ans} thùng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Đổi {a} nghìn lít sang lít: $ {a} \\times 1000 = {a * 1000} $ lít.",
+        "Chia số tổng lít dầu cho số lít mỗi thùng."
+      ],
+      "solutionHtml": "Tổng số lít dầu là: $ {a} \\times 1000 = {a * 1000} $ (lít).<br/>Số thùng cần dùng là:<br/>$ {a * 1000} : {b} = {ans} $ (thùng).<br/>Đáp án đúng là D.",
+      "tip": "Hãy nhớ rằng 1 nghìn bằng 1000 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 1000",
+        "w1": "a * 100",
+        "w2": "a * 10000",
+        "w3": "a * 10",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 500 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 50 : w3"
+      },
+      "questionText": "Quãng đường từ nhà An đến trường dài {a} ki-lô-mét. Hỏi quãng đường đó dài bao nhiêu mét?",
+      "options": [
+        "A. {w1_f} mét",
+        "B. {w2_f} mét",
+        "C. {ans} mét",
+        "D. {w3_f} mét"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "1 ki-lô-mét bằng 1000 mét.",
+        "Nhân {a} với 1000 để đổi đơn vị."
+      ],
+      "solutionHtml": "Vì 1 km = 1000 m, nên:<br/>$ {a} \\times 1000 = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Đổi đơn vị đo độ dài cũng áp dụng quy tắc nhân với 10, 100, 1000.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 10",
+        "w1": "a * 100",
+        "w2": "a * 1000",
+        "w3": "a + 10",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 30 : w3"
+      },
+      "questionText": "Một cửa hàng bán được {a} chục quả trứng trong buổi sáng. Hỏi cửa hàng đó bán được bao nhiêu quả trứng?",
+      "options": [
+        "A. {ans} quả",
+        "B. {w1_f} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "1 chục bằng 10 đơn vị.",
+        "Ta lấy {a} nhân với 10."
+      ],
+      "solutionHtml": "Số trứng bán được là:<br/>$ {a} \\times 10 = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Khi nói 'chục', ta chỉ cần nhân với 10.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "b >= 1"
+      ],
+      "formulas": {
+        "m": "Math.pow(10, b)",
+        "ans": "a * m",
+        "w1": "a * (m / 10)",
+        "w2": "a * m + 10",
+        "w3": "a * m * 10",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 100 : w3"
+      },
+      "questionText": "Một cửa hàng nhập về {a} kiện hàng, mỗi kiện có {m} sản phẩm. Hỏi cửa hàng đó nhập về tất cả bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1_f} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2_f} sản phẩm",
+        "D. {w3_f} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số sản phẩm, ta lấy số kiện hàng nhân với số sản phẩm trong mỗi kiện.",
+        "Phép tính cần thực hiện là $ {a} \\times {m} $."
+      ],
+      "solutionHtml": "Số sản phẩm cửa hàng nhập về là:<br/>$ {a} \\times {m} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Khi nhân một số tự nhiên với 10, 100, 1000,... ta chỉ cần viết thêm một, hai, ba,... chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1200, "max": 9900, "step": 100 }
+      },
+      "constraints": [
+        "a % 100 === 0"
+      ],
+      "formulas": {
+        "ans": "a / 100",
+        "w1": "a / 10",
+        "w2": "a * 100",
+        "w3": "a / 100 + 5",
+        "w1_f": "(w1 === ans) ? w1 + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 1000 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Một nhà máy sản xuất được {a} cái bút chì và đóng gói vào các hộp, mỗi hộp gồm 100 cái. Hỏi nhà máy đóng được tất cả bao nhiêu hộp bút chì?",
+      "options": [
+        "A. {w1_f} hộp",
+        "B. {w2_f} hộp",
+        "C. {ans} hộp",
+        "D. {w3_f} hộp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm số hộp, ta lấy tổng số bút chì chia cho số bút chì trong mỗi hộp.",
+        "Phép tính cần thực hiện là $ {a} : 100 $."
+      ],
+      "solutionHtml": "Số hộp bút chì nhà máy đóng được là:<br/>$ {a} : 100 = {ans} $ (hộp).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia một số tròn chục, tròn trăm, tròn nghìn cho 10, 100, 1000,... ta chỉ cần xóa bớt một, hai, ba,... chữ số 0 ở bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a * 1000 * b < 100000"
+      ],
+      "formulas": {
+        "ans": "a * 1000 * b",
+        "w1": "a * 100 * b",
+        "w2": "a * 1000 + b",
+        "w3": "a * b * 100",
+        "w1_f": "(w1 === ans) ? w1 + 500 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2000 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3000 : w3"
+      },
+      "questionText": "Một đoàn xe tải có {a} chiếc xe, mỗi chiếc xe chở {b} nghìn viên gạch. Hỏi cả đoàn xe chở được bao nhiêu viên gạch?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi {b} nghìn viên thành $ {b} \\times 1000 $ viên.",
+        "Sau đó nhân số viên mỗi xe với số xe là {a}."
+      ],
+      "solutionHtml": "Số gạch mỗi xe chở là: $ {b} \\times 1000 = {b * 1000} $ (viên).<br/>Cả đoàn xe chở được là:<br/>$ {b * 1000} \\times {a} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Chú ý đơn vị tính là 'nghìn' tương đương với nhân 1000.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b * 100",
+        "w1": "a * b * 10",
+        "w2": "a * b * 1000",
+        "w3": "a + b * 100",
+        "w1_f": "(w1 === ans) ? w1 + 100 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 200 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 500 : w3"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài là {a} trăm mét và chiều rộng là {b} trăm mét. Hỏi diện tích mảnh vườn đó là bao nhiêu mét vuông? (Biết diện tích = chiều dài x chiều rộng).",
+      "options": [
+        "A. {w1_f} $m^2$",
+        "B. {w2_f} $m^2$",
+        "C. {ans} $m^2$",
+        "D. {w3_f} $m^2$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chiều dài là {a} trăm mét, tức là $ {a} \\times 100 $ mét.",
+        "Chiều rộng là {b} trăm mét, tức là $ {b} \\times 100 $ mét.",
+        "Diện tích là $ ({a} \\times 100) \\times ({b} \\times 100) $."
+      ],
+      "solutionHtml": "Chiều dài mảnh vườn: $ {a} \\times 100 = {a * 100} $ (m).<br/>Chiều rộng mảnh vườn: $ {b} \\times 100 = {b * 100} $ (m).<br/>Diện tích mảnh vườn là:<br/>$ {a * 100} \\times {b * 100} = {ans} $ ($m^2$).<br/>Đáp án đúng là C.",
+      "tip": "Khi nhân hai số tròn trăm, ta nhân các chữ số đầu với nhau rồi thêm 4 chữ số 0 vào sau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "a * b * 1000",
+        "w1": "a * b * 100",
+        "w2": "a * b * 10000",
+        "w3": "a * b * 10",
+        "w1_f": "(w1 === ans) ? w1 + 1000 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5000 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 2000 : w3"
+      },
+      "questionText": "Một thư viện có {a} ngăn sách, mỗi ngăn có {b} nghìn cuốn sách. Hỏi tổng cộng thư viện có bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1_f} cuốn",
+        "B. {ans} cuốn",
+        "C. {w2_f} cuốn",
+        "D. {w3_f} cuốn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi ngăn có {b} nghìn cuốn, tức là $ {b} \\times 1000 $ cuốn.",
+        "Có {a} ngăn, vậy số sách là $ {a} \\times ({b} \\times 1000) $."
+      ],
+      "solutionHtml": "Số sách trong thư viện là:<br/>$ {a} \\times {b} \\times 1000 = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Nhân các số với nghìn là cách nhanh nhất để tìm tổng số lượng lớn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 1000 / b",
+        "w1": "a * 100 / b",
+        "w2": "a * 1000 * b",
+        "w3": "a * 1000 / (b - 1)",
+        "w1_f": "(w1 === ans) ? w1 + 500 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 100 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 200 : w3"
+      },
+      "questionText": "Một bác nông dân thu hoạch được {a} nghìn kg khoai lang. Bác muốn chia đều số khoai đó vào {b} xe tải. Hỏi mỗi xe chở được bao nhiêu kg khoai lang?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {w2_f} kg",
+        "C. {ans} kg",
+        "D. {w3_f} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi {a} nghìn kg ra kg: $ {a} \\times 1000 = {a * 1000} $ kg.",
+        "Chia số kg cho {b} xe."
+      ],
+      "solutionHtml": "Tổng số kg khoai lang là: $ {a} \\times 1000 = {a * 1000} $ (kg).<br/>Số kg khoai mỗi xe chở là:<br/>$ {a * 1000} : {b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Đổi đơn vị trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 100",
+        "w1": "a * 10",
+        "w2": "a * 1000",
+        "w3": "a + 100",
+        "w1_f": "(w1 === ans) ? w1 + 50 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 200 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 300 : w3"
+      },
+      "questionText": "Một đội công nhân phải trồng {a} trăm cây xanh. Nếu họ đã trồng được 1/4 số cây đó, thì họ đã trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {ans} cây",
+        "C. {w2_f} cây",
+        "D. {w3_f} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số cây là $ {a} \\times 100 = {a * 100} $ cây.",
+        "Tìm 1/4 của tổng số cây bằng cách lấy tổng chia cho 4."
+      ],
+      "solutionHtml": "Tổng số cây cần trồng là: $ {a} \\times 100 = {a * 100} $ (cây).<br/>Số cây đã trồng là:<br/>$ {a * 100} : 4 = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân với 100 giúp ta dễ dàng chuyển từ 'trăm' sang số đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "(a * 1000) % b === 0"
+      ],
+      "formulas": {
+        "ans": "(a * 1000) / b",
+        "w1": "a * 1000",
+        "w2": "a * 100 / b",
+        "w3": "(a * 1000) + b",
+        "w1_f": "(w1 === ans) ? w1 + 100 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 200 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 300 : w3"
+      },
+      "questionText": "Cửa hàng có {a} nghìn lít dầu. Họ đổ số dầu đó vào các thùng, mỗi thùng chứa đúng $ {b} $ lít. Hỏi cần bao nhiêu thùng để chứa hết số dầu đó?",
+      "options": [
+        "A. {w1_f} thùng",
+        "B. {w2_f} thùng",
+        "C. {w3_f} thùng",
+        "D. {ans} thùng"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Đổi {a} nghìn lít sang lít: $ {a} \\times 1000 = {a * 1000} $ lít.",
+        "Chia số tổng lít dầu cho số lít mỗi thùng."
+      ],
+      "solutionHtml": "Tổng số lít dầu là: $ {a} \\times 1000 = {a * 1000} $ (lít).<br/>Số thùng cần dùng là:<br/>$ {a * 1000} : {b} = {ans} $ (thùng).<br/>Đáp án đúng là D.",
+      "tip": "Hãy nhớ rằng 1 nghìn bằng 1000 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 1000",
+        "w1": "a * 100",
+        "w2": "a * 10000",
+        "w3": "a * 10",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 500 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 50 : w3"
+      },
+      "questionText": "Quãng đường từ nhà An đến trường dài {a} ki-lô-mét. Hỏi quãng đường đó dài bao nhiêu mét?",
+      "options": [
+        "A. {w1_f} mét",
+        "B. {w2_f} mét",
+        "C. {ans} mét",
+        "D. {w3_f} mét"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "1 ki-lô-mét bằng 1000 mét.",
+        "Nhân {a} với 1000 để đổi đơn vị."
+      ],
+      "solutionHtml": "Vì 1 km = 1000 m, nên:<br/>$ {a} \\times 1000 = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Đổi đơn vị đo độ dài cũng áp dụng quy tắc nhân với 10, 100, 1000.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 10",
+        "w1": "a * 100",
+        "w2": "a * 1000",
+        "w3": "a + 10",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 30 : w3"
+      },
+      "questionText": "Một cửa hàng bán được {a} chục quả trứng trong buổi sáng. Hỏi cửa hàng đó bán được bao nhiêu quả trứng?",
+      "options": [
+        "A. {ans} quả",
+        "B. {w1_f} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "1 chục bằng 10 đơn vị.",
+        "Ta lấy {a} nhân với 10."
+      ],
+      "solutionHtml": "Số trứng bán được là:<br/>$ {a} \\times 10 = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Khi nói 'chục', ta chỉ cần nhân với 10.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-41-d4"
+    }
+  ]
+}
+}
+

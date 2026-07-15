@@ -1,0 +1,474 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:06:32.521Z
+Lesson ID: l1-bai-23
+Lesson Title: Bài 23: Bảng các số từ 1 đến 100
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10013 (line 384 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10013 (line 384 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10013 (Line: 224, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trong bảng các số từ 1 đến 100, số nào gấp {b} lần số {ans}?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Gấp {b} lần một số nghĩa là ta lấy số đó nhân với {b}.", "Hãy kiểm tra xem số nào khi chia cho {b} sẽ được kết quả là {ans}."],
+      "solutionHtml": "Ta có phép tính: $ {ans} \\times {b} = {a} $.<br/>Vậy số cần tìm là {a}.<br/>Đáp án đúng là B.",
+      "tip": "Gấp một số lên nhiều lần là phép nhân, còn tìm một số khi biết gấp lần là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 10, "max": 50, "step": 1 },
+        "jump": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["start + jump * 3 <= 100"],
+      "formulas": {
+        "s1": "start + jump",
+        "s2": "start + 2 * jump",
+        "s3": "start + 3 * jump",
+        "ans": "s3",
+        "w1": "s3 - 1",
+        "w2": "s3 + 1",
+        "w3": "s3 + 2"
+      },
+      "questionText": "Một chú ếch nhảy từ số {start} trên bảng số, mỗi lần nhảy cách nhau {jump} đơn vị. Sau 3 lần nhảy, chú ếch đang ở số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Mỗi lần nhảy chú ếch cộng thêm {jump} đơn vị.", "Sau 3 lần nhảy, chú ếch đã cộng thêm tổng cộng là: $ {jump} + {jump} + {jump} $ đơn vị."],
+      "solutionHtml": "Số vị trí chú ếch đạt được là:<br/>$ {start} + {jump} + {jump} + {jump} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Hãy vẽ sơ đồ các bước nhảy để không bị nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 80, "max": 95, "step": 1 }
+      },
+      "constraints": ["a % 10 !== 0"],
+      "formulas": {
+        "chuc": "Math.floor(a / 10)",
+        "donvi": "a % 10",
+        "ans": "chuc + donvi",
+        "w1": "chuc",
+        "w2": "donvi",
+        "w3": "chuc * donvi"
+      },
+      "questionText": "Số {a} gồm mấy chục và mấy đơn vị? Hãy tính tổng của số chục và số đơn vị của số này.",
+      "options": ["A. {w1}", "B. {w2}", "C. {w3}", "D. {ans}"],
+      "correctIndex": 3,
+      "hints": ["Số {a} có {chuc} chục và {donvi} đơn vị.", "Tổng là {chuc} cộng với {donvi}."],
+      "solutionHtml": "Số {a} có {chuc} chục và {donvi} đơn vị.<br/>Tổng là: $ {chuc} + {donvi} = {ans} $.<br/>Đáp án đúng là D.",
+      "tip": "Đừng nhầm lẫn giữa giá trị của chữ số hàng chục và số lượng chục.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": ["n > 2"],
+      "formulas": {
+        "ans": "n * 10",
+        "w1": "n * 10 + 1",
+        "w2": "n * 10 - 1",
+        "w3": "n * 9"
+      },
+      "questionText": "Số tròn chục nào đứng ngay trước số {ans} + 1?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Số đứng trước số {ans} + 1 là số {ans}.", "Số {ans} là một số tròn chục."],
+      "solutionHtml": "Số đứng ngay trước số $ {ans} + 1 $ là số {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Số tròn chục là số có chữ số hàng đơn vị là 0.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a + b < 50"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 1",
+        "w2": "a + b + 2",
+        "w3": "a + b + 5"
+      },
+      "questionText": "Trong bảng số, nếu ta đứng ở số {a} và tiến thêm {b} đơn vị, ta sẽ dừng lại ở số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tiến thêm có nghĩa là thực hiện phép cộng.", "Ta lấy {a} cộng thêm {b}."],
+      "solutionHtml": "Vị trí mới là: $ {a} + {b} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Tiến là cộng thêm, lùi là trừ đi.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 40, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a - 2",
+        "w1": "a + 2",
+        "w2": "a - 4",
+        "w3": "a + 4"
+      },
+      "questionText": "Số nào đứng ngay trước số {a} và là số chẵn?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Số đứng trước {a} là {a} - 1, nhưng đây là số lẻ.", "Số chẵn đứng trước {a} phải là {a} - 2."],
+      "solutionHtml": "Số đứng trước {a} là {a} - 1 (lẻ).<br/>Số chẵn đứng trước {a} là $ {a} - 2 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Các số chẵn cách nhau 2 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 60, "step": 1 }
+      },
+      "constraints": ["a % 2 !== 0"],
+      "formulas": {
+        "ans": "a + 2",
+        "w1": "a - 2",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Số nào đứng ngay sau số {a} và là số lẻ?",
+      "options": ["A. {ans}", "B. {w1}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 0,
+      "hints": ["Số đứng sau {a} là {a} + 1, nhưng đây là số chẵn.", "Số lẻ đứng sau {a} là {a} + 2."],
+      "solutionHtml": "Số đứng sau {a} là {a} + 1 (chẵn).<br/>Số lẻ đứng sau {a} là $ {a} + 2 = {ans} $.<br/>Đáp án đúng là A.",
+      "tip": "Các số lẻ cách nhau 2 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x * y < 100"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x * y + 2",
+        "w2": "x * y - 2",
+        "w3": "x * y + 10"
+      },
+      "questionText": "Trong bảng số, số nào bằng {x} cộng với chính nó {y} lần?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Cộng số {x} với chính nó {y} lần nghĩa là thực hiện phép nhân {x} nhân với ({y} + 1).", "Ví dụ: cộng với chính nó 1 lần là $ x + x = 2x $."],
+      "solutionHtml": "Phép tính là: $ {x} \\times ({y} + 1) = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để phân biệt giữa 'gấp lên' và 'cộng thêm'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * 10 + b < 100"],
+      "formulas": {
+        "ans": "a * 10 + b",
+        "w1": "b * 10 + a",
+        "w2": "a + b",
+        "w3": "a * b"
+      },
+      "questionText": "Số có {a} chục và {b} đơn vị là số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {w3}", "D. {ans}"],
+      "correctIndex": 3,
+      "hints": ["Số có {a} chục là {a}0.", "Thêm {b} đơn vị ta được số {a}{b}."],
+      "solutionHtml": "Số có {a} chục và {b} đơn vị là: $ {a} \\times 10 + {b} = {ans} $.<br/>Đáp án đúng là D.",
+      "tip": "Chục viết trước, đơn vị viết sau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["n > 5"],
+      "formulas": {
+        "ans": "n * 2",
+        "w1": "n",
+        "w2": "n + 2",
+        "w3": "n * 3"
+      },
+      "questionText": "Số nào là số chẵn lớn nhất có 2 chữ số mà khi chia cho 2 ta được kết quả là {n}?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Nếu chia cho 2 được {n}, vậy số đó là $ {n} \\times 2 $.", "Hãy thực hiện phép nhân $ {n} \\times 2 $."],
+      "solutionHtml": "Số đó là: $ {n} \\times 2 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Kiểm tra lại kết quả bằng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trong bảng các số từ 1 đến 100, số nào gấp {b} lần số {ans}?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Gấp {b} lần một số nghĩa là ta lấy số đó nhân với {b}.", "Hãy kiểm tra xem số nào khi chia cho {b} sẽ được kết quả là {ans}."],
+      "solutionHtml": "Ta có phép tính: $ {ans} \\times {b} = {a} $.<br/>Vậy số cần tìm là {a}.<br/>Đáp án đúng là B.",
+      "tip": "Gấp một số lên nhiều lần là phép nhân, còn tìm một số khi biết gấp lần là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 10, "max": 50, "step": 1 },
+        "jump": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["start + jump * 3 <= 100"],
+      "formulas": {
+        "s1": "start + jump",
+        "s2": "start + 2 * jump",
+        "s3": "start + 3 * jump",
+        "ans": "s3",
+        "w1": "s3 - 1",
+        "w2": "s3 + 1",
+        "w3": "s3 + 2"
+      },
+      "questionText": "Một chú ếch nhảy từ số {start} trên bảng số, mỗi lần nhảy cách nhau {jump} đơn vị. Sau 3 lần nhảy, chú ếch đang ở số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Mỗi lần nhảy chú ếch cộng thêm {jump} đơn vị.", "Sau 3 lần nhảy, chú ếch đã cộng thêm tổng cộng là: $ {jump} + {jump} + {jump} $ đơn vị."],
+      "solutionHtml": "Số vị trí chú ếch đạt được là:<br/>$ {start} + {jump} + {jump} + {jump} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Hãy vẽ sơ đồ các bước nhảy để không bị nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 80, "max": 95, "step": 1 }
+      },
+      "constraints": ["a % 10 !== 0"],
+      "formulas": {
+        "chuc": "Math.floor(a / 10)",
+        "donvi": "a % 10",
+        "ans": "chuc + donvi",
+        "w1": "chuc",
+        "w2": "donvi",
+        "w3": "chuc * donvi"
+      },
+      "questionText": "Số {a} gồm mấy chục và mấy đơn vị? Hãy tính tổng của số chục và số đơn vị của số này.",
+      "options": ["A. {w1}", "B. {w2}", "C. {w3}", "D. {ans}"],
+      "correctIndex": 3,
+      "hints": ["Số {a} có {chuc} chục và {donvi} đơn vị.", "Tổng là {chuc} cộng với {donvi}."],
+      "solutionHtml": "Số {a} có {chuc} chục và {donvi} đơn vị.<br/>Tổng là: $ {chuc} + {donvi} = {ans} $.<br/>Đáp án đúng là D.",
+      "tip": "Đừng nhầm lẫn giữa giá trị của chữ số hàng chục và số lượng chục.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": ["n > 2"],
+      "formulas": {
+        "ans": "n * 10",
+        "w1": "n * 10 + 1",
+        "w2": "n * 10 - 1",
+        "w3": "n * 9"
+      },
+      "questionText": "Số tròn chục nào đứng ngay trước số {ans} + 1?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Số đứng trước số {ans} + 1 là số {ans}.", "Số {ans} là một số tròn chục."],
+      "solutionHtml": "Số đứng ngay trước số $ {ans} + 1 $ là số {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Số tròn chục là số có chữ số hàng đơn vị là 0.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a + b < 50"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 1",
+        "w2": "a + b + 2",
+        "w3": "a + b + 5"
+      },
+      "questionText": "Trong bảng số, nếu ta đứng ở số {a} và tiến thêm {b} đơn vị, ta sẽ dừng lại ở số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tiến thêm có nghĩa là thực hiện phép cộng.", "Ta lấy {a} cộng thêm {b}."],
+      "solutionHtml": "Vị trí mới là: $ {a} + {b} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Tiến là cộng thêm, lùi là trừ đi.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 40, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a - 2",
+        "w1": "a + 2",
+        "w2": "a - 4",
+        "w3": "a + 4"
+      },
+      "questionText": "Số nào đứng ngay trước số {a} và là số chẵn?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Số đứng trước {a} là {a} - 1, nhưng đây là số lẻ.", "Số chẵn đứng trước {a} phải là {a} - 2."],
+      "solutionHtml": "Số đứng trước {a} là {a} - 1 (lẻ).<br/>Số chẵn đứng trước {a} là $ {a} - 2 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Các số chẵn cách nhau 2 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 60, "step": 1 }
+      },
+      "constraints": ["a % 2 !== 0"],
+      "formulas": {
+        "ans": "a + 2",
+        "w1": "a - 2",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Số nào đứng ngay sau số {a} và là số lẻ?",
+      "options": ["A. {ans}", "B. {w1}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 0,
+      "hints": ["Số đứng sau {a} là {a} + 1, nhưng đây là số chẵn.", "Số lẻ đứng sau {a} là {a} + 2."],
+      "solutionHtml": "Số đứng sau {a} là {a} + 1 (chẵn).<br/>Số lẻ đứng sau {a} là $ {a} + 2 = {ans} $.<br/>Đáp án đúng là A.",
+      "tip": "Các số lẻ cách nhau 2 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x * y < 100"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x * y + 2",
+        "w2": "x * y - 2",
+        "w3": "x * y + 10"
+      },
+      "questionText": "Trong bảng số, số nào bằng {x} cộng với chính nó {y} lần?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Cộng số {x} với chính nó {y} lần nghĩa là thực hiện phép nhân {x} nhân với ({y} + 1).", "Ví dụ: cộng với chính nó 1 lần là $ x + x = 2x $."],
+      "solutionHtml": "Phép tính là: $ {x} \\times ({y} + 1) = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để phân biệt giữa 'gấp lên' và 'cộng thêm'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * 10 + b < 100"],
+      "formulas": {
+        "ans": "a * 10 + b",
+        "w1": "b * 10 + a",
+        "w2": "a + b",
+        "w3": "a * b"
+      },
+      "questionText": "Số có {a} chục và {b} đơn vị là số nào?",
+      "options": ["A. {w1}", "B. {w2}", "C. {w3}", "D. {ans}"],
+      "correctIndex": 3,
+      "hints": ["Số có {a} chục là {a}0.", "Thêm {b} đơn vị ta được số {a}{b}."],
+      "solutionHtml": "Số có {a} chục và {b} đơn vị là: $ {a} \\times 10 + {b} = {ans} $.<br/>Đáp án đúng là D.",
+      "tip": "Chục viết trước, đơn vị viết sau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["n > 5"],
+      "formulas": {
+        "ans": "n * 2",
+        "w1": "n",
+        "w2": "n + 2",
+        "w3": "n * 3"
+      },
+      "questionText": "Số nào là số chẵn lớn nhất có 2 chữ số mà khi chia cho 2 ta được kết quả là {n}?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Nếu chia cho 2 được {n}, vậy số đó là $ {n} \\times 2 $.", "Hãy thực hiện phép nhân $ {n} \\times 2 $."],
+      "solutionHtml": "Số đó là: $ {n} \\times 2 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Kiểm tra lại kết quả bằng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-23-d10"
+    }
+  ]
+}
+

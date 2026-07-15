@@ -141,7 +141,536 @@ const SUBTOPIC_VIDEOS = {
     "bai-16-d6": "IKOHh_31HDg"
 };
 
+const SYSTEM_SUBJECTS = {
+    "math": {
+        "id": "math",
+        "name": "Toán Học",
+        "icon": "fa-calculator",
+        "themeClass": "math-mode",
+        "supportedClasses": ["1", "4", "6"]
+    },
+    "english": {
+        "id": "english",
+        "name": "Tiếng Anh",
+        "icon": "fa-language",
+        "themeClass": "english-mode",
+        "supportedClasses": ["1", "4", "6"]
+    }
+};
+
 const COURSE_DATA = [
+    {
+        "id": "l1-chuong-1",
+        "class": "1",
+        "semester": 1,
+        "title": "Chủ đề 1: Các số từ 0 đến 10",
+        "subtitle": "Nhận biết, đọc viết các số từ 0 đến 10, đếm và so sánh số lượng",
+        "lessons": [
+            {
+                "id": "l1-bai-1",
+                "title": "Bài 1: Các số 0, 1, 2, 3, 4, 5",
+                "youtubeId": "5yuXocWiNpk",
+                "questionType": "l1-cac-so-0-5",
+                "theoryHtml": "<h4>1. Nhận biết và đọc viết số</h4><p>Học cách đọc, viết các số: $0, 1, 2, 3, 4, 5$.</p><h4>2. Đếm số lượng</h4><p>Quan sát số lượng đồ vật trong hình vẽ để đếm đúng từ 0 đến 5.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-1-d1", "title": "Đếm và nhận biết số từ 0 đến 5", "level": "co-ban", "questionType": "l1-cac-so-0-5-d1", "youtubeId": "5yuXocWiNpk" }
+                ]
+            },
+            {
+                "id": "l1-bai-2",
+                "title": "Bài 2: Các số 6, 7, 8, 9, 10",
+                "youtubeId": "3DgJBllp2Iw",
+                "questionType": "l1-cac-so-6-10",
+                "theoryHtml": "<h4>1. Nhận biết và đọc viết số</h4><p>Học cách đọc, viết các số tiếp theo: $6, 7, 8, 9, 10$.</p><h4>2. Đếm số lượng</h4><p>Đếm số lượng đồ vật tương ứng với các số từ 6 đến 10.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-2-d1", "title": "Đếm và nhận biết số từ 6 đến 10", "level": "co-ban", "questionType": "l1-cac-so-6-10-d1", "youtubeId": "3DgJBllp2Iw" }
+                ]
+            },
+            {
+                "id": "l1-bai-3",
+                "title": "Bài 3: Nhiều hơn, ít hơn, bằng nhau",
+                "youtubeId": "_bHds6wAhWk",
+                "questionType": "l1-nhieu-it-bang",
+                "theoryHtml": "<h4>1. Nhiều hơn, ít hơn</h4><p>So sánh số lượng hai nhóm đồ vật bằng cách ghép cặp một-một.</p><h4>2. Bằng nhau</h4><p>Khi mỗi đồ vật nhóm này đều ghép đôi được với một đồ vật nhóm kia và không thừa ra.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-3-d1", "title": "Nhận biết nhiều hơn, ít hơn, bằng nhau", "level": "co-ban", "questionType": "l1-nhieu-it-bang-d1", "youtubeId": "_bHds6wAhWk" }
+                ]
+            },
+            {
+                "id": "l1-bai-4",
+                "title": "Bài 4: So sánh số",
+                "youtubeId": "b1diDoUy15c",
+                "questionType": "l1-so-sanh-so",
+                "theoryHtml": "<h4>1. Dấu so sánh</h4><p>Sử dụng các ký hiệu: $>$ (lớn hơn), $<$ (bé hơn), $=$ (bằng).</p><h4>2. So sánh các số trong phạm vi 10</h4><p>Ví dụ: $5 > 3$, $2 < 6$, $7 = 7$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-4-d1", "title": "So sánh hai số trong phạm vi 10", "level": "co-ban", "questionType": "l1-so-sanh-so-d1", "youtubeId": "b1diDoUy15c" },
+                    { "id": "l1-bai-4-d2", "title": "Sắp xếp thứ tự các số trong phạm vi 10", "level": "nang-cao", "questionType": "l1-so-sanh-so-d2", "youtubeId": "b1diDoUy15c" }
+                ]
+            },
+            {
+                "id": "l1-bai-5",
+                "title": "Bài 5: Mấy và mấy",
+                "youtubeId": "WmuzWnroaIs",
+                "questionType": "l1-may-va-may",
+                "theoryHtml": "<h4>1. Tách số</h4><p>Tách một số thành tổng của hai số khác. Ví dụ: số 5 gồm 4 và 1, hoặc 3 và 2.</p><h4>2. Gộp số</h4><p>Gộp hai số để được một số lớn hơn. Ví dụ: gộp 3 và 2 được 5.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-5-d1", "title": "Tách và gộp số trong phạm vi 10", "level": "co-ban", "questionType": "l1-may-va-may-d1", "youtubeId": "WmuzWnroaIs" }
+                ]
+            },
+            {
+                "id": "l1-bai-6",
+                "title": "Bài 6: Luyện tập chung",
+                "youtubeId": "mLKig2Q7v4Q",
+                "questionType": "l1-luyen-tap-c1",
+                "theoryHtml": "<h4>Luyện tập ôn tập tổng hợp</h4><p>Ôn tập đếm số, so sánh số và tách gộp số trong phạm vi 10.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-6-d1", "title": "Ôn tập tổng hợp về số trong phạm vi 10", "level": "co-ban", "questionType": "l1-luyen-tap-c1-d1", "youtubeId": "mLKig2Q7v4Q" },
+                    { "id": "l1-bai-6-d2", "title": "Bài toán logic tư duy về số", "level": "kho", "questionType": "l1-luyen-tap-c1-d2", "youtubeId": "mLKig2Q7v4Q" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-2",
+        "class": "1",
+        "semester": 1,
+        "title": "Chủ đề 2: Làm quen với một số hình phẳng",
+        "subtitle": "Hình vuông, hình tròn, hình tam giác, hình chữ nhật và lắp ghép hình",
+        "lessons": [
+            {
+                "id": "l1-bai-7",
+                "title": "Bài 7: Hình vuông, hình tròn, hình tam giác, hình chữ nhật",
+                "youtubeId": "BgBrIthWiz8",
+                "questionType": "l1-hinh-phang",
+                "theoryHtml": "<h4>1. Nhận biết hình phẳng</h4><p>Nhận biết hình dáng của hình vuông, hình tròn, hình tam giác, hình chữ nhật.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-7-d1", "title": "Nhận diện hình vuông, hình tròn, hình tam giác, hình chữ nhật", "level": "co-ban", "questionType": "l1-hinh-phang-d1", "youtubeId": "BgBrIthWiz8" }
+                ]
+            },
+            {
+                "id": "l1-bai-8",
+                "title": "Bài 8: Thực hành lắp ghép, xếp hình",
+                "youtubeId": "7fqL5tYoEns",
+                "questionType": "l1-xep-hinh",
+                "theoryHtml": "<h4>Thực hành lắp ghép, xếp hình</h4><p>Sử dụng các hình phẳng đã học để ghép thành các hình mới (nhà, cây, con vật...).</p>",
+                "subtopics": [
+                    { "id": "l1-bai-8-d1", "title": "Đếm số lượng hình phẳng trong một hình ghép", "level": "nang-cao", "questionType": "l1-xep-hinh-d1", "youtubeId": "7fqL5tYoEns" }
+                ]
+            },
+            {
+                "id": "l1-bai-9",
+                "title": "Bài 9: Luyện tập chung",
+                "youtubeId": "bBUGJtqZwi0",
+                "questionType": "l1-luyen-tap-c2",
+                "theoryHtml": "<h4>Luyện tập hình phẳng</h4><p>Ôn tập nhận biết hình phẳng và đếm hình phẳng.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-9-d1", "title": "Nhận biết và đếm hình phẳng nâng cao", "level": "nang-cao", "questionType": "l1-luyen-tap-c2-d1", "youtubeId": "bBUGJtqZwi0" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-3",
+        "class": "1",
+        "semester": 1,
+        "title": "Chủ đề 3: Phép cộng, phép trừ trong phạm vi 10",
+        "subtitle": "Phép cộng, trừ, bảng cộng trừ phạm vi 10 và ứng dụng giải toán",
+        "lessons": [
+            {
+                "id": "l1-bai-10",
+                "title": "Bài 10: Phép cộng trong phạm vi 10",
+                "youtubeId": "UC1AclTCyVw",
+                "questionType": "l1-cong-pham-vi-10",
+                "theoryHtml": "<h4>1. Khái niệm phép cộng</h4><p>Gộp hai nhóm đồ vật lại với nhau. Sử dụng dấu $+$ và dấu $=$.</p><h4>2. Phép cộng trong phạm vi 10</h4><p>Ví dụ: $3 + 2 = 5$, $6 + 4 = 10$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-10-d1", "title": "Thực hiện phép cộng trong phạm vi 10", "level": "co-ban", "questionType": "l1-cong-pham-vi-10-d1", "youtubeId": "UC1AclTCyVw" },
+                    { "id": "l1-bai-10-d2", "title": "Tìm số thích hợp trong phép cộng dạng ô trống", "level": "nang-cao", "questionType": "l1-cong-pham-vi-10-d2", "youtubeId": "UC1AclTCyVw" }
+                ]
+            },
+            {
+                "id": "l1-bai-11",
+                "title": "Bài 11: Phép trừ trong phạm vi 10",
+                "youtubeId": "WNqXJqrgBcs",
+                "questionType": "l1-tru-pham-vi-10",
+                "theoryHtml": "<h4>1. Khái niệm phép trừ</h4><p>Bớt đi một số đồ vật từ một nhóm ban đầu. Sử dụng dấu $-$ và dấu $=$.</p><h4>2. Phép trừ trong phạm vi 10</h4><p>Ví dụ: $5 - 2 = 3$, $10 - 7 = 3$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-11-d1", "title": "Thực hiện phép trừ trong phạm vi 10", "level": "co-ban", "questionType": "l1-tru-pham-vi-10-d1", "youtubeId": "WNqXJqrgBcs" },
+                    { "id": "l1-bai-11-d2", "title": "Tìm số thích hợp trong phép trừ dạng ô trống", "level": "nang-cao", "questionType": "l1-tru-pham-vi-10-d2", "youtubeId": "WNqXJqrgBcs" }
+                ]
+            },
+            {
+                "id": "l1-bai-12",
+                "title": "Bài 12: Bảng cộng, bảng trừ trong phạm vi 10",
+                "youtubeId": "0R8wmWgiBP0",
+                "questionType": "l1-bang-cong-tru-10",
+                "theoryHtml": "<h4>Bảng cộng trừ phạm vi 10</h4><p>Học thuộc lòng bảng cộng và bảng trừ trong phạm vi 10 để tính toán nhanh.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-12-d1", "title": "Tính toán nhanh với bảng cộng trừ phạm vi 10", "level": "co-ban", "questionType": "l1-bang-cong-tru-10-d1", "youtubeId": "0R8wmWgiBP0" },
+                    { "id": "l1-bai-12-d2", "title": "So sánh giá trị của hai biểu thức phép tính", "level": "nang-cao", "questionType": "l1-bang-cong-tru-10-d2", "youtubeId": "0R8wmWgiBP0" }
+                ]
+            },
+            {
+                "id": "l1-bai-13",
+                "title": "Bài 13: Luyện tập chung",
+                "youtubeId": "HUIE3AlNeBY",
+                "questionType": "l1-luyen-tap-c3",
+                "theoryHtml": "<h4>Luyện tập phép cộng, phép trừ phạm vi 10</h4><p>Ôn luyện kỹ năng tính toán cộng trừ và giải các bài toán đố đơn giản.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-13-d1", "title": "Tính toán dãy tính có 2 phép tính (cộng, trừ liên tiếp)", "level": "nang-cao", "questionType": "l1-luyen-tap-c3-d1", "youtubeId": "HUIE3AlNeBY" },
+                    { "id": "l1-bai-13-d2", "title": "Bài toán đố vui logic nhiều bước tính", "level": "kho", "questionType": "l1-luyen-tap-c3-d2", "youtubeId": "HUIE3AlNeBY" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-4",
+        "class": "1",
+        "semester": 1,
+        "title": "Chủ đề 4: Làm quen với một số hình khối",
+        "subtitle": "Khối lập phương, khối hộp chữ nhật, vị trí và định hướng không gian",
+        "lessons": [
+            {
+                "id": "l1-bai-14",
+                "title": "Bài 14: Khối lập phương, khối hộp chữ nhật",
+                "youtubeId": "6g7KKbH01XM",
+                "questionType": "l1-hinh-khoi",
+                "theoryHtml": "<h4>1. Khối lập phương</h4><p>Hình khối có 6 mặt là hình vuông bằng nhau (ví dụ: xúc xắc, rubik).</p><h4>2. Khối hộp chữ nhật</h4><p>Hình khối có các mặt là hình chữ nhật (ví dụ: hộp sữa, viên gạch).</p>",
+                "subtopics": [
+                    { "id": "l1-bai-14-d1", "title": "Nhận diện khối lập phương, khối hộp chữ nhật trong thực tế", "level": "co-ban", "questionType": "l1-hinh-khoi-d1", "youtubeId": "6g7KKbH01XM" }
+                ]
+            },
+            {
+                "id": "l1-bai-15",
+                "title": "Bài 15: Vị trí, định hướng trong không gian",
+                "youtubeId": "t-qF5Pu0-KI",
+                "questionType": "l1-vi-tri-khong-gian",
+                "theoryHtml": "<h4>Vị trí trong không gian</h4><p>Xác định các vị trí: Trên - Dưới, Trước - Sau, Trái - Phải, Ở giữa.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-15-d1", "title": "Nhận biết vị trí trái, phải, trên, dưới, trước, sau", "level": "co-ban", "questionType": "l1-vi-tri-khong-gian-d1", "youtubeId": "t-qF5Pu0-KI" }
+                ]
+            },
+            {
+                "id": "l1-bai-16",
+                "title": "Bài 16: Luyện tập chung",
+                "youtubeId": "ub1vg4wB7WU",
+                "questionType": "l1-luyen-tap-c4",
+                "theoryHtml": "<h4>Luyện tập hình khối và vị trí</h4><p>Ôn tập nhận biết khối lập phương, khối hộp chữ nhật và xác định vị trí.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-16-d1", "title": "Đếm số lượng khối lập phương ghép thành hình", "level": "nang-cao", "questionType": "l1-luyen-tap-c4-d1", "youtubeId": "ub1vg4wB7WU" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-5",
+        "class": "1",
+        "semester": 1,
+        "title": "Chủ đề 5: Ôn tập học kì 1",
+        "subtitle": "Hệ thống hóa kiến thức học kì I về số, hình học và phép tính phạm vi 10",
+        "lessons": [
+            {
+                "id": "l1-bai-17",
+                "title": "Bài 17: Ôn tập các số trong phạm vi 10",
+                "youtubeId": "Q3_VY4sw8Tc",
+                "questionType": "l1-on-tap-so-10",
+                "theoryHtml": "<h4>Ôn tập số phạm vi 10</h4><p>Ôn lại thứ tự số, đọc viết số, đếm số và cấu tạo số trong phạm vi 10.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-17-d1", "title": "Trắc nghiệm tổng hợp số phạm vi 10", "level": "co-ban", "questionType": "l1-on-tap-so-10-d1", "youtubeId": "Q3_VY4sw8Tc" }
+                ]
+            },
+            {
+                "id": "l1-bai-18",
+                "title": "Bài 18: Ôn tập phép cộng, phép trừ trong phạm vi 10",
+                "youtubeId": "8JO4WJBM-K0",
+                "questionType": "l1-on-tap-phep-tinh-10",
+                "theoryHtml": "<h4>Ôn tập phép tính phạm vi 10</h4><p>Ôn lại các phép cộng trừ và bài toán đố giải bằng phép tính cộng trừ trong phạm vi 10.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-18-d1", "title": "Trắc nghiệm tổng hợp phép tính phạm vi 10", "level": "co-ban", "questionType": "l1-on-tap-phep-tinh-10-d1", "youtubeId": "8JO4WJBM-K0" }
+                ]
+            },
+            {
+                "id": "l1-bai-19",
+                "title": "Bài 19: Ôn tập hình học",
+                "youtubeId": "de27fm2kg8k",
+                "questionType": "l1-on-tap-hinh-hoc",
+                "theoryHtml": "<h4>Ôn tập hình học học kì 1</h4><p>Ôn lại hình phẳng, hình khối và định hướng vị trí không gian.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-19-d1", "title": "Trắc nghiệm tổng hợp hình học", "level": "co-ban", "questionType": "l1-on-tap-hinh-hoc-d1", "youtubeId": "de27fm2kg8k" }
+                ]
+            },
+            {
+                "id": "l1-bai-20",
+                "title": "Bài 20: Ôn tập chung",
+                "youtubeId": "W7cE9A7Y46o",
+                "questionType": "l1-on-tap-chung-hk1",
+                "theoryHtml": "<h4>Ôn tập chung học kì I</h4><p>Đánh giá tổng hợp kiến thức toán học trong cả Học kì I.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-20-d1", "title": "Đề thi thử học kì I - Câu hỏi tổng hợp", "level": "nang-cao", "questionType": "l1-on-tap-chung-hk1-d1", "youtubeId": "W7cE9A7Y46o" },
+                    { "id": "l1-bai-20-d2", "title": "Đề thi thử học kì I - Câu hỏi logic tư duy", "level": "kho", "questionType": "l1-on-tap-chung-hk1-d2", "youtubeId": "W7cE9A7Y46o" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-6",
+        "class": "1",
+        "semester": 2,
+        "title": "Chủ đề 6: Các số đến 100",
+        "subtitle": "Chữ số hàng chục và hàng đơn vị, đọc viết so sánh các số trong phạm vi 100",
+        "lessons": [
+            {
+                "id": "l1-bai-21",
+                "title": "Bài 21: Số có hai chữ số",
+                "youtubeId": "0Lsk-ZgIoeg",
+                "questionType": "l1-so-hai-chu-so",
+                "theoryHtml": "<h4>1. Đọc viết số có hai chữ số</h4><p>Học cách đọc viết các số từ 11 đến 99. Chữ số bên trái biểu thị hàng chục, bên phải biểu thị hàng đơn vị.</p><h4>2. Cấu tạo số</h4><p>Ví dụ: Số 25 gồm 2 chục và 5 đơn vị. Viết là: $25 = 20 + 5$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-21-d1", "title": "Nhận biết hàng chục và hàng đơn vị của số có hai chữ số", "level": "co-ban", "questionType": "l1-so-hai-chu-so-d1", "youtubeId": "0Lsk-ZgIoeg" }
+                ]
+            },
+            {
+                "id": "l1-bai-22",
+                "title": "Bài 22: So sánh số có hai chữ số",
+                "youtubeId": "UKxM2Of8cN0",
+                "questionType": "l1-so-sanh-so-100",
+                "theoryHtml": "<h4>Quy tắc so sánh số có hai chữ số</h4><p>Bước 1: So sánh chữ số hàng chục. Số nào có chữ số hàng chục lớn hơn thì lớn hơn.</p><p>Bước 2: Nếu hàng chục bằng nhau, so sánh chữ số hàng đơn vị. Số nào có chữ số hàng đơn vị lớn hơn thì lớn hơn.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-22-d1", "title": "So sánh hai số trong phạm vi 100", "level": "co-ban", "questionType": "l1-so-sanh-so-100-d1", "youtubeId": "UKxM2Of8cN0" },
+                    { "id": "l1-bai-22-d2", "title": "Sắp xếp thứ tự các số trong phạm vi 100", "level": "nang-cao", "questionType": "l1-so-sanh-so-100-d2", "youtubeId": "UKxM2Of8cN0" }
+                ]
+            },
+            {
+                "id": "l1-bai-23",
+                "title": "Bài 23: Bảng các số từ 1 đến 100",
+                "youtubeId": "SGqTnGz5dQ0",
+                "questionType": "l1-bang-so-100",
+                "theoryHtml": "<h4>Bảng số từ 1 đến 100</h4><p>Tìm hiểu cấu trúc bảng số, quy luật điền số và thứ tự của các số từ 1 đến 100.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-23-d1", "title": "Điền số thích hợp vào bảng số hoặc dãy số quy luật", "level": "co-ban", "questionType": "l1-bang-so-100-d1", "youtubeId": "SGqTnGz5dQ0" }
+                ]
+            },
+            {
+                "id": "l1-bai-24",
+                "title": "Bài 24: Luyện tập chung",
+                "youtubeId": "Q7LJ1JM_PsI",
+                "questionType": "l1-luyen-tap-c6",
+                "theoryHtml": "<h4>Luyện tập số phạm vi 100</h4><p>Tổng hợp kỹ năng đọc viết, phân tích cấu tạo và so sánh số có hai chữ số.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-24-d1", "title": "Trắc nghiệm tổng hợp số phạm vi 100", "level": "co-ban", "questionType": "l1-luyen-tap-c6-d1", "youtubeId": "Q7LJ1JM_PsI" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-7",
+        "class": "1",
+        "semester": 2,
+        "title": "Chủ đề 7: Độ dài và đo độ dài",
+        "subtitle": "So sánh độ dài trực quan và đo độ dài bằng đơn vị tự quy ước và xăng-ti-mét",
+        "lessons": [
+            {
+                "id": "l1-bai-25",
+                "title": "Bài 25: Dài hơn, ngắn hơn",
+                "youtubeId": "BzvoBtMGtBs",
+                "questionType": "l1-dai-ngan",
+                "theoryHtml": "<h4>So sánh độ dài trực quan</h4><p>Đặt hai vật sát cạnh nhau, so sánh đầu mút còn lại để nhận biết vật nào dài hơn, vật nào ngắn hơn.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-25-d1", "title": "So sánh độ dài dài hơn, ngắn hơn của các vật", "level": "co-ban", "questionType": "l1-dai-ngan-d1", "youtubeId": "BzvoBtMGtBs" }
+                ]
+            },
+            {
+                "id": "l1-bai-26",
+                "title": "Bài 26: Đơn vị đo độ dài",
+                "youtubeId": "MKKPJzAOaTs",
+                "questionType": "l1-don-vi-do",
+                "theoryHtml": "<h4>1. Đo bằng đơn vị tự quy ước</h4><p>Sử dụng gang tay, sải tay, bước chân hoặc ghim giấy để đo độ dài.</p><h4>2. Xăng-ti-mét (cm)</h4><p>Xăng-ti-mét là một đơn vị đo độ dài chuẩn. Viết tắt là $cm$. Dùng thước có vạch chia cm để đo.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-26-d1", "title": "Đọc độ dài các vật theo vạch thước thẳng xăng-ti-mét", "level": "co-ban", "questionType": "l1-don-vi-do-d1", "youtubeId": "MKKPJzAOaTs" }
+                ]
+            },
+            {
+                "id": "l1-bai-27",
+                "title": "Bài 27: Thực hành ước lượng và đo độ dài",
+                "youtubeId": "Qk5_rWbUWRM",
+                "questionType": "l1-thuc-hanh-do",
+                "theoryHtml": "<h4>Thực hành ước lượng</h4><p>Rèn luyện tư duy ước lượng độ dài các đồ vật xung quanh (sách vở, hộp bút) trước khi thực hiện đo chính xác.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-27-d1", "title": "Ước lượng và tính toán số đo cm", "level": "nang-cao", "questionType": "l1-thuc-hanh-do-d1", "youtubeId": "Qk5_rWbUWRM" }
+                ]
+            },
+            {
+                "id": "l1-bai-28",
+                "title": "Bài 28: Luyện tập chung",
+                "youtubeId": "jY4QR0UVQvs",
+                "questionType": "l1-luyen-tap-c7",
+                "theoryHtml": "<h4>Luyện tập đo độ dài</h4><p>Ôn tập tính toán các phép cộng trừ kèm theo đơn vị đo $cm$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-28-d1", "title": "Tính toán và so sánh số đo độ dài có kèm đơn vị cm", "level": "co-ban", "questionType": "l1-luyen-tap-c7-d1", "youtubeId": "jY4QR0UVQvs" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-8",
+        "class": "1",
+        "semester": 2,
+        "title": "Chủ đề 8: Phép cộng, phép trừ trong phạm vi 100",
+        "subtitle": "Các phép tính cộng trừ không nhớ cho số có 2 chữ số trong phạm vi 100",
+        "lessons": [
+            {
+                "id": "l1-bai-29",
+                "title": "Bài 29: Phép cộng số có hai chữ số với số có một chữ số",
+                "youtubeId": "FPQYzmi5tTI",
+                "questionType": "l1-cong-2cs-1cs",
+                "theoryHtml": "<h4>Đặt tính rồi tính phép cộng</h4><p>Đặt tính thẳng cột: hàng đơn vị thẳng hàng đơn vị, hàng chục thẳng hàng chục. Cộng từ phải sang trái (cộng hàng đơn vị trước, giữ nguyên hàng chục).</p>",
+                "subtopics": [
+                    { "id": "l1-bai-29-d1", "title": "Thực hiện phép cộng số có 2 chữ số với số có 1 chữ số", "level": "co-ban", "questionType": "l1-cong-2cs-1cs-d1", "youtubeId": "FPQYzmi5tTI" }
+                ]
+            },
+            {
+                "id": "l1-bai-30",
+                "title": "Bài 30: Phép cộng số có hai chữ số với số có hai chữ số",
+                "youtubeId": "hE7aRmOQBuI",
+                "questionType": "l1-cong-2cs-2cs",
+                "theoryHtml": "<h4>Đặt tính phép cộng hai số có 2 chữ số</h4><p>Đặt thẳng cột hàng đơn vị thẳng đơn vị, chục thẳng chục. Cộng đơn vị với đơn vị, cộng chục với chục.</p><p>Ví dụ: $34 + 25 = 59$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-30-d1", "title": "Thực hiện phép cộng hai số có 2 chữ số (không nhớ)", "level": "co-ban", "questionType": "l1-cong-2cs-2cs-d1", "youtubeId": "hE7aRmOQBuI" },
+                    { "id": "l1-bai-30-d2", "title": "Tìm số thích hợp trong phép cộng hai chữ số dạng ô trống", "level": "nang-cao", "questionType": "l1-cong-2cs-2cs-d2", "youtubeId": "hE7aRmOQBuI" }
+                ]
+            },
+            {
+                "id": "l1-bai-31",
+                "title": "Bài 31: Phép trừ số có hai chữ số cho số có một chữ số",
+                "youtubeId": "p0t-2AE0PRg",
+                "questionType": "l1-tru-2cs-1cs",
+                "theoryHtml": "<h4>Quy tắc đặt tính phép trừ</h4><p>Đặt thẳng cột hàng đơn vị. Trừ hàng đơn vị trước, giữ nguyên hàng chục của số bị trừ.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-31-d1", "title": "Thực hiện phép trừ số có 2 chữ số cho số có 1 chữ số", "level": "co-ban", "questionType": "l1-tru-2cs-1cs-d1", "youtubeId": "p0t-2AE0PRg" }
+                ]
+            },
+            {
+                "id": "l1-bai-32",
+                "title": "Bài 32: Phép trừ số có hai chữ số cho số có hai chữ số",
+                "youtubeId": "ecsFqK8xUNI",
+                "questionType": "l1-tru-2cs-2cs",
+                "theoryHtml": "<h4>Đặt tính phép trừ hai số có 2 chữ số</h4><p>Đặt thẳng cột. Thực hiện trừ hàng đơn vị cho hàng đơn vị, hàng chục cho hàng chục.</p><p>Ví dụ: $57 - 24 = 33$.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-32-d1", "title": "Thực hiện phép trừ hai số có 2 chữ số (không nhớ)", "level": "co-ban", "questionType": "l1-tru-2cs-2cs-d1", "youtubeId": "ecsFqK8xUNI" },
+                    { "id": "l1-bai-32-d2", "title": "Tìm số thích hợp trong phép trừ hai chữ số dạng ô trống", "level": "nang-cao", "questionType": "l1-tru-2cs-2cs-d2", "youtubeId": "ecsFqK8xUNI" }
+                ]
+            },
+            {
+                "id": "l1-bai-33",
+                "title": "Bài 33: Luyện tập chung",
+                "youtubeId": "BycQu6PI4M8",
+                "questionType": "l1-luyen-tap-c8",
+                "theoryHtml": "<h4>Luyện tập phép tính phạm vi 100</h4><p>Ôn tập cộng trừ không nhớ phạm vi 100 và ứng dụng giải toán có lời văn.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-33-d1", "title": "So sánh biểu thức phép tính trong phạm vi 100", "level": "nang-cao", "questionType": "l1-luyen-tap-c8-d1", "youtubeId": "BycQu6PI4M8" },
+                    { "id": "l1-bai-33-d2", "title": "Bài toán giải có lời văn một bước tính cộng trừ", "level": "kho", "questionType": "l1-luyen-tap-c8-d2", "youtubeId": "BycQu6PI4M8" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-9",
+        "class": "1",
+        "semester": 2,
+        "title": "Chủ đề 9: Thời gian. Giờ và lịch",
+        "subtitle": "Đọc giờ đúng trên mặt đồng hồ và nhận biết các ngày trong tuần",
+        "lessons": [
+            {
+                "id": "l1-bai-34",
+                "title": "Bài 34: Xem giờ đúng trên đồng hồ",
+                "youtubeId": "HoSX5C_sw58",
+                "questionType": "l1-xem-gio",
+                "theoryHtml": "<h4>Xem giờ đúng</h4><p>Đồng hồ có kim ngắn chỉ giờ, kim dài chỉ phút.</p><p>Khi kim dài (kim phút) chỉ thẳng vào số $12$, kim ngắn chỉ vào số nào thì đồng hồ chỉ đúng bấy nhiêu giờ.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-34-d1", "title": "Đọc giờ đúng trên mặt đồng hồ kim", "level": "co-ban", "questionType": "l1-xem-gio-d1", "youtubeId": "HoSX5C_sw58" }
+                ]
+            },
+            {
+                "id": "l1-bai-35",
+                "title": "Bài 35: Ngày trong tuần",
+                "youtubeId": "6LU6oqIMLmI",
+                "questionType": "l1-ngay-trong-tuan",
+                "theoryHtml": "<h4>Các ngày trong tuần</h4><p>Một tuần lễ có 7 ngày: Thứ Hai, Thứ Ba, Thứ Tư, Thứ Năm, Thứ Sáu, Thứ Bảy, Chủ Nhật.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-35-d1", "title": "Xác định thứ tự ngày trong tuần và hôm qua, hôm nay, ngày mai", "level": "co-ban", "questionType": "l1-ngay-trong-tuan-d1", "youtubeId": "6LU6oqIMLmI" }
+                ]
+            },
+            {
+                "id": "l1-bai-36",
+                "title": "Bài 36: Thực hành xem lịch và giờ",
+                "youtubeId": "5aSgzci6zws",
+                "questionType": "l1-thuc-hanh-lich",
+                "theoryHtml": "<h4>Thực hành xem tờ lịch tờ giờ</h4><p>Đọc số ngày trên tờ lịch block và xác định hoạt động phù hợp với khung giờ đúng trong ngày.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-36-d1", "title": "Xác định ngày trên tờ lịch block và xem giờ hoạt động", "level": "nang-cao", "questionType": "l1-thuc-hanh-lich-d1", "youtubeId": "5aSgzci6zws" }
+                ]
+            },
+            {
+                "id": "l1-bai-37",
+                "title": "Bài 37: Luyện tập chung",
+                "youtubeId": "IPWrJtRV0R8",
+                "questionType": "l1-luyen-tap-c9",
+                "theoryHtml": "<h4>Luyện tập thời gian và lịch</h4><p>Tổng hợp câu hỏi về đọc đồng hồ và lịch tuần lễ.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-37-d1", "title": "Trắc nghiệm tổng hợp đồng hồ và lịch", "level": "co-ban", "questionType": "l1-luyen-tap-c9-d1", "youtubeId": "IPWrJtRV0R8" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "l1-chuong-10",
+        "class": "1",
+        "semester": 2,
+        "title": "Chủ đề 10: Ôn tập cuối năm",
+        "subtitle": "Hệ thống hóa toàn bộ chương trình Toán Lớp 1 chuẩn bị lên Lớp 2",
+        "lessons": [
+            {
+                "id": "l1-bai-38",
+                "title": "Bài 38: Ôn tập các số và phép tính trong phạm vi 10",
+                "youtubeId": "pjDPMIZ7hmk",
+                "questionType": "l1-on-tap-cuoi-nam-10",
+                "theoryHtml": "<h4>Ôn tập tổng hợp học kì I</h4><p>Ôn tập số và tính toán cộng trừ phạm vi 10.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-38-d1", "title": "Đề ôn tập tổng hợp số và phép tính phạm vi 10", "level": "co-ban", "questionType": "l1-on-tap-cuoi-nam-10-d1", "youtubeId": "pjDPMIZ7hmk" }
+                ]
+            },
+            {
+                "id": "l1-bai-39",
+                "title": "Bài 39: Ôn tập các số và phép tính trong phạm vi 100",
+                "youtubeId": "dGMIbMk2am4",
+                "questionType": "l1-on-tap-cuoi-nam-100",
+                "theoryHtml": "<h4>Ôn tập tổng hợp số và tính phạm vi 100</h4><p>Ôn tập số có hai chữ số, phép cộng, phép trừ không nhớ trong phạm vi 100.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-39-d1", "title": "Đề ôn tập phép tính cộng trừ không nhớ phạm vi 100", "level": "co-ban", "questionType": "l1-on-tap-cuoi-nam-100-d1", "youtubeId": "dGMIbMk2am4" }
+                ]
+            },
+            {
+                "id": "l1-bai-40",
+                "title": "Bài 40: Ôn tập hình học và đo lường",
+                "youtubeId": "V25ov82R74Y",
+                "questionType": "l1-on-tap-cuoi-nam-hinh",
+                "theoryHtml": "<h4>Ôn tập hình học và đo lường cuối năm</h4><p>Ôn tập hình phẳng, hình khối, đo độ dài cm, thời gian đồng hồ và tờ lịch block.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-40-d1", "title": "Đề ôn tập tổng hợp hình học và đo lường", "level": "co-ban", "questionType": "l1-on-tap-cuoi-nam-hinh-d1", "youtubeId": "V25ov82R74Y" }
+                ]
+            },
+            {
+                "id": "l1-bai-41",
+                "title": "Bài 41: Ôn tập chung",
+                "youtubeId": "Hl0I96iPXiw",
+                "questionType": "l1-on-tap-chung-cuoi-nam",
+                "theoryHtml": "<h4>Đề khảo sát năng lực cuối năm</h4><p>Hệ thống hóa toàn bộ năng lực toán học của học sinh Lớp 1 chuẩn bị vững bước lên Lớp 2.</p>",
+                "subtopics": [
+                    { "id": "l1-bai-41-d1", "title": "Đề thi thử học kì II - Đề số 1 (Tổng hợp)", "level": "nang-cao", "questionType": "l1-on-tap-chung-cuoi-nam-d1", "youtubeId": "Hl0I96iPXiw" },
+                    { "id": "l1-bai-41-d2", "title": "Đề thi thử học kì II - Đề số 2 (Phát triển tư duy logic)", "level": "kho", "questionType": "l1-on-tap-chung-cuoi-nam-d2", "youtubeId": "Hl0I96iPXiw" }
+                ]
+            }
+        ]
+    },
     {
         "id": "chuong-1",
         "semester": 1,
@@ -3866,8 +4395,34 @@ const COURSE_DATA = [
                 "subtopics": []
             }
         ]
-    }
+    },
 ];
+
+// Tích hợp dữ liệu Tiếng Anh từ english_data.js (chuyển đổi Object sang Array cấu trúc chương bài học)
+if (typeof ENGLISH_COURSE_DATA !== 'undefined') {
+    Object.keys(ENGLISH_COURSE_DATA).forEach(grade => {
+        const gradeData = ENGLISH_COURSE_DATA[grade];
+        if (gradeData && gradeData.topics) {
+            COURSE_DATA.push({
+                title: `English Grade ${grade}`,
+                subject: "english",
+                class: grade,
+                lessons: gradeData.topics.map(t => ({
+                    id: t.id,
+                    title: t.title,
+                    questionType: `english-${grade}`,
+                    vocabulary: t.vocab.map(v => ({ word: v.word, ipa: v.phonetics, meaning: v.translation, sentence: v.sentence, sentenceTranslation: v.sentenceTranslation })),
+                    sentencePatterns: t.sentencePatterns.map(p => ({ pattern: p.english, meaning: p.vietnamese })),
+                    grammar: { title: "Grammar Lab", rule: t.grammar, example: "" },
+                    videos: t.videos || [],
+                    readingPassage: t.readingPassage || "",
+                    readingPassageTitle: t.readingPassageTitle || "",
+                    questions: t.questions || {}
+                }))
+            });
+        }
+    });
+}
 
 function getLessonById(lessonId) {
     for (const chapter of COURSE_DATA) {
@@ -3879,10 +4434,13 @@ function getLessonById(lessonId) {
 
 function populateSubtopics() {
     COURSE_DATA.forEach(chapter => {
+        const subject = chapter.subject || "math";
         chapter.lessons.forEach(lesson => {
             const isExamOrReview = lesson.questionType.startsWith("cuoi-chuong") || 
                                    lesson.questionType.startsWith("luyen-tap-chung") || 
-                                   lesson.id.startsWith("kt-");
+                                   lesson.questionType.startsWith("english-review") ||
+                                   lesson.id.startsWith("kt-") ||
+                                   lesson.id.includes("-review");
             if (isExamOrReview) {
                 lesson.subtopics = [];
                 return;
@@ -3892,37 +4450,71 @@ function populateSubtopics() {
                 return;
             }
 
-            // Sinh 3 dạng bài tương ứng với 3 cấp độ cơ bản, nâng cao, khó
             const titleWord = lesson.title.split(': ')[1] || lesson.title;
-            lesson.subtopics = [
-                {
-                    id: `${lesson.id}-d1`,
-                    title: `Dạng 1: Kiến thức cơ bản về ${titleWord}`,
-                    methodology: `<h4>Phương pháp giải (Cơ bản)</h4><p>Nắm vững các định nghĩa, khái niệm và công thức cốt lõi liên quan đến: <b>${titleWord}</b>.</p><p>Học sinh hãy xem kỹ tóm tắt lý thuyết SGK bên dưới để ghi nhớ các quy tắc nhận biết cơ bản.</p>`,
-                    example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Áp dụng trực tiếp định nghĩa và công thức cơ bản trong sách giáo khoa để giải quyết dạng toán nhận biết.</p></div>`,
-                    questionType: lesson.questionType,
-                    level: "co-ban",
-                    youtubeId: SUBTOPIC_VIDEOS[`${lesson.id}-d1`] || ""
-                },
-                {
-                    id: `${lesson.id}-d2`,
-                    title: `Dạng 2: Thông hiểu & Tính toán về ${titleWord}`,
-                    methodology: `<h4>Phương pháp giải (Thông hiểu)</h4><p>Vận dụng các công thức và tính chất toán học để thực hiện tính toán, biến đổi biểu thức hoặc giải bài toán tìm ẩn số của: <b>${titleWord}</b>.</p>`,
-                    example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Phân tích dữ kiện bài toán, áp dụng thứ tự thực hiện phép tính hoặc quy tắc biến đổi để giải ra đáp số.</p></div>`,
-                    questionType: lesson.questionType,
-                    level: "nang-cao",
-                    youtubeId: SUBTOPIC_VIDEOS[`${lesson.id}-d2`] || ""
-                },
-                {
-                    id: `${lesson.id}-d3`,
-                    title: `Dạng 3: Vận dụng cao & Bài toán thực tế về ${titleWord}`,
-                    methodology: `<h4>Phương pháp giải (Vận dụng cao)</h4><p>Giải các bài toán đố thực tế có lời văn hoặc các bài toán tư duy phát triển từ kiến thức: <b>${titleWord}</b>.</p><p>Yêu cầu học sinh phân tích đề bài tỉ mỉ và tính toán cẩn thận.</p>`,
-                    example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Lập biểu thức toán học biểu diễn mối quan hệ thực tế trong đề bài, sau đó thực hiện tính toán để đưa ra kết luận chính xác.</p></div>`,
-                    questionType: lesson.questionType,
-                    level: "kho",
-                    youtubeId: SUBTOPIC_VIDEOS[`${lesson.id}-d3`] || ""
-                }
-            ];
+            if (subject === "english") {
+                // Sinh subtopics cho môn Tiếng Anh đột phá 3 kỹ năng chính
+                const defaultVid = (lesson.videos && lesson.videos.length > 0) ? lesson.videos[0].id : "";
+                lesson.subtopics = [
+                    {
+                        id: `${lesson.id}-d1`,
+                        title: `Dạng 1: Listening Arena - Luyện nghe từ vựng`,
+                        methodology: `<h4>Phương pháp rèn luyện Nghe</h4><p>Học sinh nhấn vào các biểu tượng từ vựng để lắng nghe cách phát âm chuẩn bản xứ, sau đó tham gia các bài thử thách Nghe và chọn tranh tương ứng.</p>`,
+                        example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Nghe âm đọc 'book' và chọn đúng cuốn sách trong số các đáp án hiển thị.</p></div>`,
+                        questionType: lesson.questionType,
+                        level: "co-ban",
+                        youtubeId: defaultVid
+                    },
+                    {
+                        id: `${lesson.id}-d2`,
+                        title: `Dạng 2: Speaking Altar - Đọc to câu thần chú`,
+                        methodology: `<h4>Phương pháp rèn luyện Nói</h4><p>Hãy nghe giọng đọc mẫu của hệ thống, nhấn nút Micro và đọc to rõ ràng từ vựng/mẫu câu hiển thị để kích hoạt phép thuật diệt quái vật.</p>`,
+                        example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Lắng nghe máy đọc 'I write a book' và nhấn Micro đọc lại thật chuẩn xác.</p></div>`,
+                        questionType: lesson.questionType,
+                        level: "nang-cao",
+                        youtubeId: defaultVid
+                    },
+                    {
+                        id: `${lesson.id}-d3`,
+                        title: `Dạng 3: Reading & Writing Quest - Đọc hiểu & Viết từ`,
+                        methodology: `<h4>Phương pháp rèn luyện Đọc & Viết</h4><p>Học sinh đọc đoạn văn chỉ dẫn hoặc gõ chính xác các chữ cái còn thiếu của từ vựng bay trên quái vật để bảo vệ lâu đài.</p>`,
+                        example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Nhìn từ khuyết 'b_ll' và gõ chữ 'a' để tháp bắn đạn tiêu diệt quái.</p></div>`,
+                        questionType: lesson.questionType,
+                        level: "kho",
+                        youtubeId: defaultVid
+                    }
+                ];
+            } else {
+                // Sinh 3 dạng bài môn Toán như cũ
+                lesson.subtopics = [
+                    {
+                        id: `${lesson.id}-d1`,
+                        title: `Dạng 1: Kiến thức cơ bản về ${titleWord}`,
+                        methodology: `<h4>Phương pháp giải (Cơ bản)</h4><p>Nắm vững các định nghĩa, khái niệm và công thức cốt lõi liên quan đến: <b>${titleWord}</b>.</p><p>Học sinh hãy xem kỹ tóm tắt lý thuyết SGK bên dưới để ghi nhớ các quy tắc nhận biết cơ bản.</p>`,
+                        example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Áp dụng trực tiếp định nghĩa và công thức cơ bản trong sách giáo khoa để giải quyết dạng toán nhận biết.</p></div>`,
+                        questionType: lesson.questionType,
+                        level: "co-ban",
+                        youtubeId: SUBTOPIC_VIDEOS[`${lesson.id}-d1`] || ""
+                    },
+                    {
+                        id: `${lesson.id}-d2`,
+                        title: `Dạng 2: Thông hiểu & Tính toán về ${titleWord}`,
+                        methodology: `<h4>Phương pháp giải (Thông hiểu)</h4><p>Vận dụng các công thức và tính chất toán học để thực hiện tính toán, biến đổi biểu thức hoặc giải bài toán tìm ẩn số của: <b>${titleWord}</b>.</p>`,
+                        example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Phân tích dữ kiện bài toán, áp dụng thứ tự thực hiện phép tính hoặc quy tắc biến đổi để giải ra đáp số.</p></div>`,
+                        questionType: lesson.questionType,
+                        level: "nang-cao",
+                        youtubeId: SUBTOPIC_VIDEOS[`${lesson.id}-d2`] || ""
+                    },
+                    {
+                        id: `${lesson.id}-d3`,
+                        title: `Dạng 3: Vận dụng cao & Bài toán thực tế về ${titleWord}`,
+                        methodology: `<h4>Phương pháp giải (Vận dụng cao)</h4><p>Giải các bài toán đố thực tế có lời văn hoặc các bài toán tư duy phát triển từ kiến thức: <b>${titleWord}</b>.</p><p>Yêu cầu học sinh phân tích đề bài tỉ mỉ và tính toán cẩn thận.</p>`,
+                        example: `<h4>Ví dụ minh họa</h4><div class='formula-highlight'><p>Lập biểu thức toán học biểu diễn mối quan hệ thực tế trong đề bài, sau đó thực hiện tính toán để đưa ra kết luận chính xác.</p></div>`,
+                        questionType: lesson.questionType,
+                        level: "kho",
+                        youtubeId: SUBTOPIC_VIDEOS[`${lesson.id}-d3`] || ""
+                    }
+                ];
+            }
         });
     });
 }

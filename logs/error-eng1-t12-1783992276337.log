@@ -1,0 +1,482 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:24:36.337Z
+Lesson ID: eng1-t12
+Lesson Title: Unit 12: At the lake
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 8769 (line 225 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 8769 (line 225 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 8769 (Line: 225, Column: 1)
+Character causing error: "}"
+
+Context:
+... 
+      "tip": "Cẩn thận với từ 'chia đều', đó là chìa khóa của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Bên bờ hồ có {a} con vịt đang bơi. Các chú vịt được chia thành {b} nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu con vịt?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số con vịt trong mỗi nhóm, ta lấy tổng số vịt chia cho số nhóm."],
+      "solutionHtml": "Số con vịt trong mỗi nhóm là:<br/>$ {a} : {b} = {ans} $ (con vịt).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều một nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 6, "max": 12, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "b - a",
+        "w2": "a + b + 1",
+        "w3": "b + 2"
+      },
+      "questionText": "Buổi sáng có {a} chiếc thuyền câu cá ở hồ, buổi chiều có thêm {b} chiếc thuyền nữa. Hỏi tất cả có bao nhiêu chiếc thuyền ở hồ?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Tổng số thuyền bằng số thuyền ban đầu cộng với số thuyền đến thêm."],
+      "solutionHtml": "Tổng số thuyền là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Khi thấy từ 'thêm' hoặc 'tất cả', ta thường dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 20, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Có {a} chú chim đậu trên cành cây cạnh hồ, sau đó có {b} chú chim bay đi. Hỏi còn lại bao nhiêu chú chim trên cành cây?",
+      "options": ["A. {w1} chú", "B. {w2} chú", "C. {w3} chú", "D. {ans} chú"],
+      "correctIndex": 3,
+      "hints": ["Số chim còn lại bằng số chim ban đầu trừ đi số chim đã bay đi."],
+      "solutionHtml": "Số chim còn lại là:<br/>$ {a} - {b} = {ans} $ (chú chim).<br/>Đáp án đúng là D.",
+      "tip": "Khi một số lượng bị mất đi hoặc rời đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 20"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Ở hồ có {a} chiếc thuyền, mỗi chiếc thuyền chở được {b} người. Hỏi {a} chiếc thuyền đó chở được bao nhiêu người?",
+      "options": ["A. {w1} người", "B. {ans} người", "C. {w2} người", "D. {w3} người"],
+      "correctIndex": 1,
+      "hints": ["Mỗi chiếc chở {b} người, {a} chiếc thì ta lấy {b} nhân với {a}."],
+      "solutionHtml": "Số người chở được là:<br/>$ {b} \\times {a} = {ans} $ (người).<br/>Đáp án đúng là B.",
+      "tip": "Số lượng gấp lên nhiều lần thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 4"
+      },
+      "questionText": "Bố câu được {a} con cá, bố chia đều số cá đó vào {b} chiếc giỏ. Hỏi mỗi giỏ có bao nhiêu con cá?",
+      "options": ["A. {ans} con", "B. {w1} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 0,
+      "hints": ["Chia đều là chia cho số nhóm."],
+      "solutionHtml": "Mỗi giỏ có số cá là:<br/>$ {a} : {b} = {ans} $ (con).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều số lượng cho các phần bằng nhau luôn là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Bên trái hồ có {a} bông hoa, bên phải hồ có {b} bông hoa. Hỏi cả hai bên hồ có bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông", "B. {w2} bông", "C. {ans} bông", "D. {w3} bông"],
+      "correctIndex": 2,
+      "hints": ["Tổng số hoa của hai bên là phép cộng."],
+      "solutionHtml": "Tổng số bông hoa là:<br/>$ {a} + {b} = {ans} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'cả hai' gợi ý chúng ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12, "max": 19, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Đàn vịt có {a} con đang bơi, trong đó có {b} con vịt đực, còn lại là vịt cái. Hỏi đàn vịt có bao nhiêu con vịt cái?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng số vịt trừ đi số vịt đực sẽ ra số vịt cái."],
+      "solutionHtml": "Số vịt cái là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và một phần, muốn tìm phần còn lại ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 25"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "ans + 3",
+        "w3": "ans - 2"
+      },
+      "questionText": "Mỗi hàng cây quanh hồ có {a} cây, có tất cả {b} hàng cây. Hỏi quanh hồ có bao nhiêu cây?",
+      "options": ["A. {w1} cây", "B. {w2} cây", "C. {ans} cây", "D. {w3} cây"],
+      "correctIndex": 2,
+      "hints": ["Tính số cây bằng cách nhân số cây mỗi hàng với số hàng."],
+      "solutionHtml": "Tổng số cây là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Số lượng lặp lại nhiều lần nên ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 10, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Hồ có {a} chiếc thuyền, {b} chiếc đã rời bến đi ra giữa hồ. Hỏi còn lại bao nhiêu chiếc thuyền ở bến?",
+      "options": ["A. {ans} chiếc", "B. {w1} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 0,
+      "hints": ["Số thuyền còn lại bằng tổng số trừ đi số đã rời bến."],
+      "solutionHtml": "Số thuyền còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là A.",
+      "tip": "Rời đi tức là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Có {a} bạn nhỏ đi dạo quanh hồ, các bạn chia đều thành {b} nhóm để chơi trò chơi. Hỏi mỗi nhóm có bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Chia đều vào các nhóm là phép chia."],
+      "solutionHtml": "Số bạn mỗi nhóm là:<br/>$ {a} : {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với từ 'chia đều', đó là chìa khóa của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Bên bờ hồ có {a} con vịt đang bơi. Các chú vịt được chia thành {b} nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu con vịt?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số con vịt trong mỗi nhóm, ta lấy tổng số vịt chia cho số nhóm."],
+      "solutionHtml": "Số con vịt trong mỗi nhóm là:<br/>$ {a} : {b} = {ans} $ (con vịt).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều một nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 6, "max": 12, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "b - a",
+        "w2": "a + b + 1",
+        "w3": "b + 2"
+      },
+      "questionText": "Buổi sáng có {a} chiếc thuyền câu cá ở hồ, buổi chiều có thêm {b} chiếc thuyền nữa. Hỏi tất cả có bao nhiêu chiếc thuyền ở hồ?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Tổng số thuyền bằng số thuyền ban đầu cộng với số thuyền đến thêm."],
+      "solutionHtml": "Tổng số thuyền là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Khi thấy từ 'thêm' hoặc 'tất cả', ta thường dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 20, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Có {a} chú chim đậu trên cành cây cạnh hồ, sau đó có {b} chú chim bay đi. Hỏi còn lại bao nhiêu chú chim trên cành cây?",
+      "options": ["A. {w1} chú", "B. {w2} chú", "C. {w3} chú", "D. {ans} chú"],
+      "correctIndex": 3,
+      "hints": ["Số chim còn lại bằng số chim ban đầu trừ đi số chim đã bay đi."],
+      "solutionHtml": "Số chim còn lại là:<br/>$ {a} - {b} = {ans} $ (chú chim).<br/>Đáp án đúng là D.",
+      "tip": "Khi một số lượng bị mất đi hoặc rời đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 20"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Ở hồ có {a} chiếc thuyền, mỗi chiếc thuyền chở được {b} người. Hỏi {a} chiếc thuyền đó chở được bao nhiêu người?",
+      "options": ["A. {w1} người", "B. {ans} người", "C. {w2} người", "D. {w3} người"],
+      "correctIndex": 1,
+      "hints": ["Mỗi chiếc chở {b} người, {a} chiếc thì ta lấy {b} nhân với {a}."],
+      "solutionHtml": "Số người chở được là:<br/>$ {b} \\times {a} = {ans} $ (người).<br/>Đáp án đúng là B.",
+      "tip": "Số lượng gấp lên nhiều lần thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 4"
+      },
+      "questionText": "Bố câu được {a} con cá, bố chia đều số cá đó vào {b} chiếc giỏ. Hỏi mỗi giỏ có bao nhiêu con cá?",
+      "options": ["A. {ans} con", "B. {w1} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 0,
+      "hints": ["Chia đều là chia cho số nhóm."],
+      "solutionHtml": "Mỗi giỏ có số cá là:<br/>$ {a} : {b} = {ans} $ (con).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều số lượng cho các phần bằng nhau luôn là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Bên trái hồ có {a} bông hoa, bên phải hồ có {b} bông hoa. Hỏi cả hai bên hồ có bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông", "B. {w2} bông", "C. {ans} bông", "D. {w3} bông"],
+      "correctIndex": 2,
+      "hints": ["Tổng số hoa của hai bên là phép cộng."],
+      "solutionHtml": "Tổng số bông hoa là:<br/>$ {a} + {b} = {ans} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'cả hai' gợi ý chúng ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12, "max": 19, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Đàn vịt có {a} con đang bơi, trong đó có {b} con vịt đực, còn lại là vịt cái. Hỏi đàn vịt có bao nhiêu con vịt cái?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng số vịt trừ đi số vịt đực sẽ ra số vịt cái."],
+      "solutionHtml": "Số vịt cái là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và một phần, muốn tìm phần còn lại ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 25"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "ans + 3",
+        "w3": "ans - 2"
+      },
+      "questionText": "Mỗi hàng cây quanh hồ có {a} cây, có tất cả {b} hàng cây. Hỏi quanh hồ có bao nhiêu cây?",
+      "options": ["A. {w1} cây", "B. {w2} cây", "C. {ans} cây", "D. {w3} cây"],
+      "correctIndex": 2,
+      "hints": ["Tính số cây bằng cách nhân số cây mỗi hàng với số hàng."],
+      "solutionHtml": "Tổng số cây là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Số lượng lặp lại nhiều lần nên ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 10, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "ans + 2",
+        "w3": "ans + 4"
+      },
+      "questionText": "Hồ có {a} chiếc thuyền, {b} chiếc đã rời bến đi ra giữa hồ. Hỏi còn lại bao nhiêu chiếc thuyền ở bến?",
+      "options": ["A. {ans} chiếc", "B. {w1} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 0,
+      "hints": ["Số thuyền còn lại bằng tổng số trừ đi số đã rời bến."],
+      "solutionHtml": "Số thuyền còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là A.",
+      "tip": "Rời đi tức là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans + 2"
+      },
+      "questionText": "Có {a} bạn nhỏ đi dạo quanh hồ, các bạn chia đều thành {b} nhóm để chơi trò chơi. Hỏi mỗi nhóm có bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Chia đều vào các nhóm là phép chia."],
+      "solutionHtml": "Số bạn mỗi nhóm là:<br/>$ {a} : {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với từ 'chia đều', đó là chìa khóa của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t12-d10"
+    }
+  ]
+}
+}
+

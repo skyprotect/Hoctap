@@ -1,0 +1,585 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:07:36.134Z
+Lesson ID: l1-bai-26
+Lesson Title: Bài 26: Đơn vị đo độ dài
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9800 (line 275 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9800 (line 275 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9800 (Line: 275, Column: 3)
+Character causing error: "]"
+
+Context:
+... Đáp án đúng là B.",
+      "tip": "Đơn vị cuối cùng cần trả lời là 'miếng'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    }
+  ]
+}
+  >>>[LỖI TẠI ĐÂY]<<<]
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Một sợi dây dài {a} cm, được cắt thành {b} đoạn bằng nhau. Hỏi mỗi đoạn dây dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia sợi dây thành các phần bằng nhau thì ta dùng phép tính chia.", "Lấy tổng chiều dài chia cho số đoạn."],
+      "solutionHtml": "Mỗi đoạn dây dài là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị đo độ dài cần viết đúng là cm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": ["b > a"],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "a + 2",
+        "w3": "b + 1"
+      },
+      "questionText": "Băng giấy màu xanh dài {b} cm, băng giấy màu đỏ dài {a} cm. Hỏi băng giấy màu xanh dài hơn băng giấy màu đỏ bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm phần dài hơn, ta thực hiện phép tính trừ.", "Lấy độ dài băng giấy dài hơn trừ đi độ dài băng giấy ngắn hơn."],
+      "solutionHtml": "Băng giấy xanh dài hơn băng giấy đỏ là:<br/>$ {b} - {a} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh hơn kém, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "b - a",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Bút chì thứ nhất dài {a} cm, bút chì thứ hai dài {b} cm. Hỏi nếu nối hai bút chì lại với nhau thì được một đoạn thẳng dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Nối hai vật lại với nhau có nghĩa là ta thực hiện phép tính cộng.", "Lấy chiều dài bút thứ nhất cộng với chiều dài bút thứ hai."],
+      "solutionHtml": "Tổng chiều dài sau khi nối là:<br/>$ {a} + {b} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị đo độ dài cần giữ nguyên khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Một bước chân của bé dài {a} cm. Bé bước {b} bước như thế trên sàn nhà. Hỏi tổng quãng đường bé đã bước là bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Mỗi bước là {a} cm, {b} bước thì ta lấy {a} cộng {b} lần.", "Đây là dạng bài toán tính tổng các số bằng nhau."],
+      "solutionHtml": "Tổng quãng đường bé bước là:<br/>$ {a} \\times {b} = {ans} $ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Gấp lên nhiều lần ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "ans + 1"
+      },
+      "questionText": "Thanh gỗ dài {a} cm được cưa thành các đoạn bằng nhau, mỗi đoạn dài {b} cm. Hỏi người ta cưa được tất cả bao nhiêu đoạn?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {w2} đoạn",
+        "C. {ans} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số đoạn, ta lấy tổng độ dài chia cho độ dài mỗi đoạn.", "Thực hiện phép chia $ {a} : {b} $."],
+      "solutionHtml": "Số đoạn gỗ cưa được là:<br/>$ {a} : {b} = {ans} $ (đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị của kết quả là 'đoạn' chứ không phải 'cm'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Cuộn dây thứ nhất dài {a} cm, cuộn dây thứ hai ngắn hơn cuộn thứ nhất {b} cm. Hỏi cuộn dây thứ hai dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cuộn thứ hai ngắn hơn cuộn thứ nhất nên ta lấy độ dài cuộn thứ nhất trừ đi phần ngắn hơn.", "Thực hiện phép tính $ {a} - {b} $."],
+      "solutionHtml": "Độ dài cuộn dây thứ hai là:<br/>$ {a} - {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'ngắn hơn' cho biết ta cần thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + 5",
+        "w3": "ans + 2"
+      },
+      "questionText": "Một con kiến bò dọc theo cạnh của một cuốn sách. Mỗi cạnh dài {a} cm, con kiến bò qua {b} cạnh. Hỏi con kiến đã bò được quãng đường dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Con kiến bò qua {b} đoạn, mỗi đoạn dài {a} cm.", "Lấy {a} nhân với {b}."],
+      "solutionHtml": "Tổng quãng đường con kiến đã bò là:<br/>$ {a} \\times {b} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ số lần và độ dài mỗi phần để chọn đúng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 2"
+      },
+      "questionText": "Sợi dây A dài {a} cm, sợi dây B dài hơn sợi dây A là {b} cm. Hỏi sợi dây B dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Sợi dây B dài hơn, nên ta cần thực hiện phép cộng.", "Lấy độ dài sợi dây A cộng thêm phần chênh lệch."],
+      "solutionHtml": "Độ dài sợi dây B là:<br/>$ {a} + {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'dài hơn' nhắc nhở chúng ta về phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a !== b"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Lan có một chiếc thước dài {a} cm, sau khi nối thêm một đoạn dây dài {b} cm và một đoạn kẹp nhựa dài 2 cm. Hỏi tổng chiều dài cả vật là bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng chiều dài bao gồm chiều dài thước, dây và kẹp nhựa.", "Cộng cả ba số lại với nhau."],
+      "solutionHtml": "Tổng chiều dài là:<br/>$ {a} + {b} + 2 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Khi tính tổng các đoạn thẳng nối tiếp, ta cộng hết các độ dài lại.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12, "max": 18, "step": 2 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "ans + 2"
+      },
+      "questionText": "Tấm gỗ dài {a} cm được cắt thành các miếng nhỏ, mỗi miếng dài {b} cm. Hỏi cắt được bao nhiêu miếng gỗ như thế?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số miếng gỗ, ta lấy tổng độ dài chia cho độ dài mỗi miếng.", "Thực hiện phép tính $ {a} : {b} $."],
+      "solutionHtml": "Số miếng gỗ cắt được là:<br/>$ {a} : {b} = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị cuối cùng cần trả lời là 'miếng'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    }
+  ]
+}
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Một sợi dây dài {a} cm, được cắt thành {b} đoạn bằng nhau. Hỏi mỗi đoạn dây dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia sợi dây thành các phần bằng nhau thì ta dùng phép tính chia.", "Lấy tổng chiều dài chia cho số đoạn."],
+      "solutionHtml": "Mỗi đoạn dây dài là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị đo độ dài cần viết đúng là cm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": ["b > a"],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "a + 2",
+        "w3": "b + 1"
+      },
+      "questionText": "Băng giấy màu xanh dài {b} cm, băng giấy màu đỏ dài {a} cm. Hỏi băng giấy màu xanh dài hơn băng giấy màu đỏ bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm phần dài hơn, ta thực hiện phép tính trừ.", "Lấy độ dài băng giấy dài hơn trừ đi độ dài băng giấy ngắn hơn."],
+      "solutionHtml": "Băng giấy xanh dài hơn băng giấy đỏ là:<br/>$ {b} - {a} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh hơn kém, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "b - a",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Bút chì thứ nhất dài {a} cm, bút chì thứ hai dài {b} cm. Hỏi nếu nối hai bút chì lại với nhau thì được một đoạn thẳng dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Nối hai vật lại với nhau có nghĩa là ta thực hiện phép tính cộng.", "Lấy chiều dài bút thứ nhất cộng với chiều dài bút thứ hai."],
+      "solutionHtml": "Tổng chiều dài sau khi nối là:<br/>$ {a} + {b} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị đo độ dài cần giữ nguyên khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Một bước chân của bé dài {a} cm. Bé bước {b} bước như thế trên sàn nhà. Hỏi tổng quãng đường bé đã bước là bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Mỗi bước là {a} cm, {b} bước thì ta lấy {a} cộng {b} lần.", "Đây là dạng bài toán tính tổng các số bằng nhau."],
+      "solutionHtml": "Tổng quãng đường bé bước là:<br/>$ {a} \\times {b} = {ans} $ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Gấp lên nhiều lần ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "ans + 1"
+      },
+      "questionText": "Thanh gỗ dài {a} cm được cưa thành các đoạn bằng nhau, mỗi đoạn dài {b} cm. Hỏi người ta cưa được tất cả bao nhiêu đoạn?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {w2} đoạn",
+        "C. {ans} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số đoạn, ta lấy tổng độ dài chia cho độ dài mỗi đoạn.", "Thực hiện phép chia $ {a} : {b} $."],
+      "solutionHtml": "Số đoạn gỗ cưa được là:<br/>$ {a} : {b} = {ans} $ (đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị của kết quả là 'đoạn' chứ không phải 'cm'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Cuộn dây thứ nhất dài {a} cm, cuộn dây thứ hai ngắn hơn cuộn thứ nhất {b} cm. Hỏi cuộn dây thứ hai dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cuộn thứ hai ngắn hơn cuộn thứ nhất nên ta lấy độ dài cuộn thứ nhất trừ đi phần ngắn hơn.", "Thực hiện phép tính $ {a} - {b} $."],
+      "solutionHtml": "Độ dài cuộn dây thứ hai là:<br/>$ {a} - {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'ngắn hơn' cho biết ta cần thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + 5",
+        "w3": "ans + 2"
+      },
+      "questionText": "Một con kiến bò dọc theo cạnh của một cuốn sách. Mỗi cạnh dài {a} cm, con kiến bò qua {b} cạnh. Hỏi con kiến đã bò được quãng đường dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Con kiến bò qua {b} đoạn, mỗi đoạn dài {a} cm.", "Lấy {a} nhân với {b}."],
+      "solutionHtml": "Tổng quãng đường con kiến đã bò là:<br/>$ {a} \\times {b} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ số lần và độ dài mỗi phần để chọn đúng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 2"
+      },
+      "questionText": "Sợi dây A dài {a} cm, sợi dây B dài hơn sợi dây A là {b} cm. Hỏi sợi dây B dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Sợi dây B dài hơn, nên ta cần thực hiện phép cộng.", "Lấy độ dài sợi dây A cộng thêm phần chênh lệch."],
+      "solutionHtml": "Độ dài sợi dây B là:<br/>$ {a} + {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'dài hơn' nhắc nhở chúng ta về phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a !== b"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Lan có một chiếc thước dài {a} cm, sau khi nối thêm một đoạn dây dài {b} cm và một đoạn kẹp nhựa dài 2 cm. Hỏi tổng chiều dài cả vật là bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng chiều dài bao gồm chiều dài thước, dây và kẹp nhựa.", "Cộng cả ba số lại với nhau."],
+      "solutionHtml": "Tổng chiều dài là:<br/>$ {a} + {b} + 2 = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Khi tính tổng các đoạn thẳng nối tiếp, ta cộng hết các độ dài lại.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12, "max": 18, "step": 2 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "ans + 2"
+      },
+      "questionText": "Tấm gỗ dài {a} cm được cắt thành các miếng nhỏ, mỗi miếng dài {b} cm. Hỏi cắt được bao nhiêu miếng gỗ như thế?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số miếng gỗ, ta lấy tổng độ dài chia cho độ dài mỗi miếng.", "Thực hiện phép tính $ {a} : {b} $."],
+      "solutionHtml": "Số miếng gỗ cắt được là:<br/>$ {a} : {b} = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị cuối cùng cần trả lời là 'miếng'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-26"
+    }
+  ]
+}
+  ]
+}
+

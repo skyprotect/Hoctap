@@ -1,0 +1,485 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:33:32.118Z
+Lesson ID: eng6-t9
+Lesson Title: Unit 9: Cities of the World
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9570 (line 225 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9570 (line 225 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9570 (Line: 225, Column: 1)
+Character causing error: "}"
+
+Context:
+... bông).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là phép tính cơ bản.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<}
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5 },
+        "y": { "min": 10, "max": 20 }
+      },
+      "constraints": ["y % x === 0"],
+      "formulas": {
+        "ans": "y / x",
+        "w1": "(ans + 1 === 10) ? 12 : ans + 1",
+        "w2": "(ans - 1 === 0) ? 2 : ans - 1",
+        "w3": "ans * 2"
+      },
+      "questionText": "Một thành phố có {y} công viên, được chia đều vào {x} quận. Hỏi trung bình mỗi quận có bao nhiêu công viên?",
+      "options": ["A. {w1} công viên", "B. {w2} công viên", "C. {ans} công viên", "D. {w3} công viên"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số công viên trung bình mỗi quận, ta thực hiện phép chia tổng số công viên cho số quận.", "Phép tính là $ {y} : {x} $."],
+      "solutionHtml": "Trung bình mỗi quận có số công viên là:<br/>$ {y} : {x} = {ans} $ (công viên).<br/>Đáp án đúng là C.",
+      "tip": "Khi đề bài yêu cầu tìm giá trị trung bình trên một đơn vị, ta thường dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 5, "max": 10 },
+        "k": { "min": 2, "max": 4 }
+      },
+      "constraints": ["d > k"],
+      "formulas": {
+        "ans": "d * k",
+        "w1": "d + k",
+        "w2": "d - k",
+        "w3": "d * k + 2"
+      },
+      "questionText": "Một du khách tham quan {d} thành phố lớn, mỗi thành phố có {k} bảo tàng lịch sử. Hỏi tổng số bảo tàng du khách đã tham quan là bao nhiêu?",
+      "options": ["A. {w1} bảo tàng", "B. {ans} bảo tàng", "C. {w2} bảo tàng", "D. {w3} bảo tàng"],
+      "correctIndex": 1,
+      "hints": ["Tổng số bảo tàng được tính bằng cách nhân số thành phố với số bảo tàng trong mỗi thành phố.", "Phép tính là $ {d} \\times {k} $."],
+      "solutionHtml": "Tổng số bảo tàng du khách đã tham quan là:<br/>$ {d} \\times {k} = {ans} $ (bảo tàng).<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng của các nhóm bằng nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 100, "max": 200, "step": 10 },
+        "n": { "min": 2, "max": 5 }
+      },
+      "constraints": ["h % n === 0"],
+      "formulas": {
+        "ans": "h / n",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Tòa nhà cao nhất thành phố A cao {h} mét, gấp {n} lần chiều cao của tòa nhà cao nhất thành phố B. Hỏi chiều cao tòa nhà ở thành phố B là bao nhiêu mét?",
+      "options": ["A. {w1} mét", "B. {w2} mét", "C. {ans} mét", "D. {w3} mét"],
+      "correctIndex": 2,
+      "hints": ["Để tìm chiều cao tòa nhà thành phố B, ta lấy chiều cao tòa nhà thành phố A chia cho {n}.", "Phép tính là $ {h} : {n} $."],
+      "solutionHtml": "Chiều cao tòa nhà cao nhất thành phố B là:<br/>$ {h} : {n} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'gấp n lần' giúp ta xác định mối quan hệ giữa các đại lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50 },
+        "b": { "min": 10, "max": 20 }
+      },
+      "constraints": ["(a + b) % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 5",
+        "w3": "a + b - 5"
+      },
+      "questionText": "Trong một tour du lịch vòng quanh thế giới, buổi sáng có {a} người khởi hành, buổi chiều có thêm {b} người gia nhập đoàn. Hỏi tổng số người trong đoàn là bao nhiêu?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {ans} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Tổng số người là tổng của số người buổi sáng và số người buổi chiều.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Tổng số người trong đoàn là:<br/>$ {a} + {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ dữ kiện thêm vào để thực hiện phép cộng đúng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s": { "min": 40, "max": 60 },
+        "r": { "min": 5, "max": 8 }
+      },
+      "constraints": ["s % r === 0"],
+      "formulas": {
+        "ans": "s / r",
+        "w1": "r + 2",
+        "w2": "r - 2",
+        "w3": "r * 2"
+      },
+      "questionText": "Một thư viện thành phố có {s} cuốn sách về văn hóa thế giới, được xếp đều lên {r} kệ sách. Hỏi mỗi kệ có bao nhiêu cuốn sách?",
+      "options": ["A. {w1} cuốn", "B. {w2} cuốn", "C. {ans} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số sách vào các kệ, ta sử dụng phép chia.", "Phép tính: $ {s} : {r} $."],
+      "solutionHtml": "Số sách trên mỗi kệ là:<br/>$ {s} : {r} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Phân chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": { "min": 3, "max": 6 },
+        "c": { "min": 4, "max": 8 }
+      },
+      "constraints": ["t < c"],
+      "formulas": {
+        "ans": "c - t",
+        "w1": "c + t",
+        "w2": "c * t",
+        "w3": "c - t + 1"
+      },
+      "questionText": "Thành phố X có {c} nhà hát, trong khi thành phố Y chỉ có {t} nhà hát. Hỏi thành phố X có nhiều hơn thành phố Y bao nhiêu nhà hát?",
+      "options": ["A. {w1} nhà hát", "B. {ans} nhà hát", "C. {w2} nhà hát", "D. {w3} nhà hát"],
+      "correctIndex": 1,
+      "hints": ["Để tìm phần chênh lệch, ta lấy số lượng lớn trừ đi số lượng nhỏ.", "Phép tính là $ {c} - {t} $."],
+      "solutionHtml": "Số nhà hát thành phố X nhiều hơn thành phố Y là:<br/>$ {c} - {t} = {ans} $ (nhà hát).<br/>Đáp án đúng là B.",
+      "tip": "Câu hỏi 'nhiều hơn bao nhiêu' yêu cầu phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": { "min": 10, "max": 20 },
+        "n2": { "min": 5, "max": 9 }
+      },
+      "constraints": ["n1 > n2"],
+      "formulas": {
+        "ans": "n1 * n2",
+        "w1": "n1 + n2",
+        "w2": "n1 - n2",
+        "w3": "n1 * n2 + 5"
+      },
+      "questionText": "Một đoàn tàu có {n1} toa, mỗi toa chở được {n2} hành khách. Hỏi đoàn tàu chở được tối đa bao nhiêu hành khách?",
+      "options": ["A. {w1} khách", "B. {ans} khách", "C. {w2} khách", "D. {w3} khách"],
+      "correctIndex": 1,
+      "hints": ["Tổng số hành khách bằng số toa nhân với số hành khách mỗi toa.", "Phép tính là $ {n1} \\times {n2} $."],
+      "solutionHtml": "Tổng số hành khách đoàn tàu chở được là:<br/>$ {n1} \\times {n2} = {ans} $ (hành khách).<br/>Đáp án đúng là B.",
+      "tip": "Cần chú ý nhân số toa với số lượng người trên mỗi toa.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": { "min": 50, "max": 100, "step": 5 },
+        "m": { "min": 10, "max": 20 }
+      },
+      "constraints": ["v % m === 0"],
+      "formulas": {
+        "ans": "v / m",
+        "w1": "m + 2",
+        "w2": "m - 2",
+        "w3": "m + 5"
+      },
+      "questionText": "Một thành phố có tổng diện tích mặt nước là {v} km², được chia cho {m} quận quản lý. Hỏi mỗi quận quản lý bao nhiêu km² mặt nước?",
+      "options": ["A. {w1} km²", "B. {w2} km²", "C. {ans} km²", "D. {w3} km²"],
+      "correctIndex": 2,
+      "hints": ["Chia tổng diện tích cho số quận để ra diện tích mỗi quận.", "Phép tính là $ {v} : {m} $."],
+      "solutionHtml": "Diện tích mặt nước mỗi quận quản lý là:<br/>$ {v} : {m} = {ans} $ (km²).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều các đại lượng đo lường.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 10 },
+        "y": { "min": 3, "max": 6 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x - y",
+        "w3": "x * y + 1"
+      },
+      "questionText": "Mỗi ngày tại một quảng trường thành phố có {x} nhóm du khách tham quan, mỗi nhóm có {y} người. Hỏi tổng số du khách trong một ngày là bao nhiêu?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {ans} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Nhân số nhóm với số người mỗi nhóm.", "Phép tính: $ {x} \\times {y} $."],
+      "solutionHtml": "Tổng số du khách trong một ngày là:<br/>$ {x} \\times {y} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng của các nhóm bằng nhau là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40 },
+        "b": { "min": 5, "max": 10 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Để trang trí thành phố, người ta chuẩn bị {a} bông hoa và chia đều vào {b} giỏ treo. Hỏi mỗi giỏ treo có bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông", "B. {w2} bông", "C. {ans} bông", "D. {w3} bông"],
+      "correctIndex": 2,
+      "hints": ["Chia đều hoa vào các giỏ, ta sử dụng phép chia.", "Phép tính: $ {a} : {b} $."],
+      "solutionHtml": "Số bông hoa mỗi giỏ treo là:<br/>$ {a} : {b} = {ans} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là phép tính cơ bản.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d10"
+    }
+  ]
+}
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5 },
+        "y": { "min": 10, "max": 20 }
+      },
+      "constraints": ["y % x === 0"],
+      "formulas": {
+        "ans": "y / x",
+        "w1": "(ans + 1 === 10) ? 12 : ans + 1",
+        "w2": "(ans - 1 === 0) ? 2 : ans - 1",
+        "w3": "ans * 2"
+      },
+      "questionText": "Một thành phố có {y} công viên, được chia đều vào {x} quận. Hỏi trung bình mỗi quận có bao nhiêu công viên?",
+      "options": ["A. {w1} công viên", "B. {w2} công viên", "C. {ans} công viên", "D. {w3} công viên"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số công viên trung bình mỗi quận, ta thực hiện phép chia tổng số công viên cho số quận.", "Phép tính là $ {y} : {x} $."],
+      "solutionHtml": "Trung bình mỗi quận có số công viên là:<br/>$ {y} : {x} = {ans} $ (công viên).<br/>Đáp án đúng là C.",
+      "tip": "Khi đề bài yêu cầu tìm giá trị trung bình trên một đơn vị, ta thường dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 5, "max": 10 },
+        "k": { "min": 2, "max": 4 }
+      },
+      "constraints": ["d > k"],
+      "formulas": {
+        "ans": "d * k",
+        "w1": "d + k",
+        "w2": "d - k",
+        "w3": "d * k + 2"
+      },
+      "questionText": "Một du khách tham quan {d} thành phố lớn, mỗi thành phố có {k} bảo tàng lịch sử. Hỏi tổng số bảo tàng du khách đã tham quan là bao nhiêu?",
+      "options": ["A. {w1} bảo tàng", "B. {ans} bảo tàng", "C. {w2} bảo tàng", "D. {w3} bảo tàng"],
+      "correctIndex": 1,
+      "hints": ["Tổng số bảo tàng được tính bằng cách nhân số thành phố với số bảo tàng trong mỗi thành phố.", "Phép tính là $ {d} \\times {k} $."],
+      "solutionHtml": "Tổng số bảo tàng du khách đã tham quan là:<br/>$ {d} \\times {k} = {ans} $ (bảo tàng).<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng của các nhóm bằng nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 100, "max": 200, "step": 10 },
+        "n": { "min": 2, "max": 5 }
+      },
+      "constraints": ["h % n === 0"],
+      "formulas": {
+        "ans": "h / n",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Tòa nhà cao nhất thành phố A cao {h} mét, gấp {n} lần chiều cao của tòa nhà cao nhất thành phố B. Hỏi chiều cao tòa nhà ở thành phố B là bao nhiêu mét?",
+      "options": ["A. {w1} mét", "B. {w2} mét", "C. {ans} mét", "D. {w3} mét"],
+      "correctIndex": 2,
+      "hints": ["Để tìm chiều cao tòa nhà thành phố B, ta lấy chiều cao tòa nhà thành phố A chia cho {n}.", "Phép tính là $ {h} : {n} $."],
+      "solutionHtml": "Chiều cao tòa nhà cao nhất thành phố B là:<br/>$ {h} : {n} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'gấp n lần' giúp ta xác định mối quan hệ giữa các đại lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50 },
+        "b": { "min": 10, "max": 20 }
+      },
+      "constraints": ["(a + b) % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 5",
+        "w3": "a + b - 5"
+      },
+      "questionText": "Trong một tour du lịch vòng quanh thế giới, buổi sáng có {a} người khởi hành, buổi chiều có thêm {b} người gia nhập đoàn. Hỏi tổng số người trong đoàn là bao nhiêu?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {ans} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Tổng số người là tổng của số người buổi sáng và số người buổi chiều.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Tổng số người trong đoàn là:<br/>$ {a} + {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ dữ kiện thêm vào để thực hiện phép cộng đúng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s": { "min": 40, "max": 60 },
+        "r": { "min": 5, "max": 8 }
+      },
+      "constraints": ["s % r === 0"],
+      "formulas": {
+        "ans": "s / r",
+        "w1": "r + 2",
+        "w2": "r - 2",
+        "w3": "r * 2"
+      },
+      "questionText": "Một thư viện thành phố có {s} cuốn sách về văn hóa thế giới, được xếp đều lên {r} kệ sách. Hỏi mỗi kệ có bao nhiêu cuốn sách?",
+      "options": ["A. {w1} cuốn", "B. {w2} cuốn", "C. {ans} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số sách vào các kệ, ta sử dụng phép chia.", "Phép tính: $ {s} : {r} $."],
+      "solutionHtml": "Số sách trên mỗi kệ là:<br/>$ {s} : {r} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Phân chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": { "min": 3, "max": 6 },
+        "c": { "min": 4, "max": 8 }
+      },
+      "constraints": ["t < c"],
+      "formulas": {
+        "ans": "c - t",
+        "w1": "c + t",
+        "w2": "c * t",
+        "w3": "c - t + 1"
+      },
+      "questionText": "Thành phố X có {c} nhà hát, trong khi thành phố Y chỉ có {t} nhà hát. Hỏi thành phố X có nhiều hơn thành phố Y bao nhiêu nhà hát?",
+      "options": ["A. {w1} nhà hát", "B. {ans} nhà hát", "C. {w2} nhà hát", "D. {w3} nhà hát"],
+      "correctIndex": 1,
+      "hints": ["Để tìm phần chênh lệch, ta lấy số lượng lớn trừ đi số lượng nhỏ.", "Phép tính là $ {c} - {t} $."],
+      "solutionHtml": "Số nhà hát thành phố X nhiều hơn thành phố Y là:<br/>$ {c} - {t} = {ans} $ (nhà hát).<br/>Đáp án đúng là B.",
+      "tip": "Câu hỏi 'nhiều hơn bao nhiêu' yêu cầu phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": { "min": 10, "max": 20 },
+        "n2": { "min": 5, "max": 9 }
+      },
+      "constraints": ["n1 > n2"],
+      "formulas": {
+        "ans": "n1 * n2",
+        "w1": "n1 + n2",
+        "w2": "n1 - n2",
+        "w3": "n1 * n2 + 5"
+      },
+      "questionText": "Một đoàn tàu có {n1} toa, mỗi toa chở được {n2} hành khách. Hỏi đoàn tàu chở được tối đa bao nhiêu hành khách?",
+      "options": ["A. {w1} khách", "B. {ans} khách", "C. {w2} khách", "D. {w3} khách"],
+      "correctIndex": 1,
+      "hints": ["Tổng số hành khách bằng số toa nhân với số hành khách mỗi toa.", "Phép tính là $ {n1} \\times {n2} $."],
+      "solutionHtml": "Tổng số hành khách đoàn tàu chở được là:<br/>$ {n1} \\times {n2} = {ans} $ (hành khách).<br/>Đáp án đúng là B.",
+      "tip": "Cần chú ý nhân số toa với số lượng người trên mỗi toa.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": { "min": 50, "max": 100, "step": 5 },
+        "m": { "min": 10, "max": 20 }
+      },
+      "constraints": ["v % m === 0"],
+      "formulas": {
+        "ans": "v / m",
+        "w1": "m + 2",
+        "w2": "m - 2",
+        "w3": "m + 5"
+      },
+      "questionText": "Một thành phố có tổng diện tích mặt nước là {v} km², được chia cho {m} quận quản lý. Hỏi mỗi quận quản lý bao nhiêu km² mặt nước?",
+      "options": ["A. {w1} km²", "B. {w2} km²", "C. {ans} km²", "D. {w3} km²"],
+      "correctIndex": 2,
+      "hints": ["Chia tổng diện tích cho số quận để ra diện tích mỗi quận.", "Phép tính là $ {v} : {m} $."],
+      "solutionHtml": "Diện tích mặt nước mỗi quận quản lý là:<br/>$ {v} : {m} = {ans} $ (km²).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều các đại lượng đo lường.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 10 },
+        "y": { "min": 3, "max": 6 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x - y",
+        "w3": "x * y + 1"
+      },
+      "questionText": "Mỗi ngày tại một quảng trường thành phố có {x} nhóm du khách tham quan, mỗi nhóm có {y} người. Hỏi tổng số du khách trong một ngày là bao nhiêu?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {ans} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Nhân số nhóm với số người mỗi nhóm.", "Phép tính: $ {x} \\times {y} $."],
+      "solutionHtml": "Tổng số du khách trong một ngày là:<br/>$ {x} \\times {y} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng của các nhóm bằng nhau là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40 },
+        "b": { "min": 5, "max": 10 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Để trang trí thành phố, người ta chuẩn bị {a} bông hoa và chia đều vào {b} giỏ treo. Hỏi mỗi giỏ treo có bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông", "B. {w2} bông", "C. {ans} bông", "D. {w3} bông"],
+      "correctIndex": 2,
+      "hints": ["Chia đều hoa vào các giỏ, ta sử dụng phép chia.", "Phép tính: $ {a} : {b} $."],
+      "solutionHtml": "Số bông hoa mỗi giỏ treo là:<br/>$ {a} : {b} = {ans} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là phép tính cơ bản.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t9-d10"
+    }
+  ]
+}
+}
+}
+

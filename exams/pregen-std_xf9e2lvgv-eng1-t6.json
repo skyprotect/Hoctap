@@ -1,0 +1,382 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b",
+        "(a + b) <= 15"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Trong lớp học có {a} chiếc bút chì trên bàn và {b} chiếc bút chì trong cặp. Hỏi có tất cả bao nhiêu chiếc bút chì?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết tổng số bút chì, ta thực hiện phép tính cộng.",
+        "Hãy lấy số bút chì trên bàn cộng với số bút chì trong cặp."
+      ],
+      "solutionHtml": "Số bút chì có tất cả là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', chúng ta cần cộng các nhóm lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        },
+        "b": {
+          "min": 3,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 1",
+        "w3": "a + b"
+      },
+      "questionText": "Lớp học có {a} quyển vở, bạn An đã dùng hết {b} quyển. Hỏi lớp còn lại bao nhiêu quyển vở chưa dùng?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết còn lại bao nhiêu, ta lấy tổng số vở trừ đi số vở đã dùng.",
+        "Thực hiện phép tính $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số quyển vở còn lại là:<br/>$ {a} - {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'còn lại' thường gợi ý chúng ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 3,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a * b <= 20"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong lớp có {a} hàng ghế, mỗi hàng có {b} cái ghế. Hỏi lớp có tất cả bao nhiêu cái ghế?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi hàng có {b} cái, mà có {a} hàng như vậy.",
+        "Ta thực hiện phép tính nhân $ {a} \\times {b} = {ans} $."
+      ],
+      "solutionHtml": "Tổng số ghế trong lớp là:<br/>$ {a} \\times {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Khi các nhóm có số lượng bằng nhau, phép nhân giúp tính nhanh tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 12
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a % b == 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 1",
+        "w2": "a / b - 1",
+        "w3": "a + b"
+      },
+      "questionText": "Có {a} bức tranh được chia đều treo lên {b} bức tường trong lớp. Hỏi mỗi bức tường treo bao nhiêu bức tranh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {w2} bức",
+        "C. {w3} bức",
+        "D. {ans} bức"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "'Chia đều' là dấu hiệu của phép tính chia.",
+        "Ta lấy tổng số bức tranh chia cho số bức tường."
+      ],
+      "solutionHtml": "Mỗi bức tường treo số bức tranh là:<br/>$ {a} : {b} = {ans} $ (bức).<br/>Đáp án đúng là D.",
+      "tip": "Chia đều là từ khóa quan trọng để xác định phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a * b"
+      },
+      "questionText": "Lớp 1A có {a} bạn nam và {b} bạn nữ. Hỏi tổng số bạn trong lớp là bao nhiêu?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm tổng số bạn, ta cộng số bạn nam và số bạn nữ lại với nhau."
+      ],
+      "solutionHtml": "Tổng số bạn trong lớp là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Đếm tổng số học sinh bằng cách cộng nhóm nam và nhóm nữ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15
+        },
+        "b": {
+          "min": 4,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Trên giá sách có {a} cuốn truyện. Cô giáo lấy ra {b} cuốn để các bạn đọc. Hỏi trên giá còn lại bao nhiêu cuốn truyện?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {w2} cuốn",
+        "C. {ans} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ban đầu có {a} cuốn, lấy ra {b} cuốn, tức là số cuốn giảm đi.",
+        "Ta lấy {a} trừ đi {b}."
+      ],
+      "solutionHtml": "Số cuốn truyện còn lại trên giá là:<br/>$ {a} - {b} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Lấy đi một phần nghĩa là số lượng còn lại ít hơn ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a * b <= 12"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Có {a} bàn học, mỗi bàn có {b} học sinh ngồi. Hỏi tất cả có bao nhiêu học sinh đang ngồi?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {a} bàn, mỗi bàn {b} bạn, ta thực hiện phép nhân $ {a} \\times {b} = {ans} $."
+      ],
+      "solutionHtml": "Tổng số học sinh là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Mỗi nhóm có số lượng bằng nhau thì dùng phép nhân nhé.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a % b == 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a / b + 2",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Cô giáo có {a} chiếc bút chì màu, cô chia đều cho {b} tổ. Hỏi mỗi tổ nhận được bao nhiêu chiếc bút chì?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều là phép tính chia.",
+        "Lấy tổng số bút chì chia cho số tổ."
+      ],
+      "solutionHtml": "Số bút chì mỗi tổ nhận được là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Phân chia công bằng cho các nhóm là bài toán chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 7
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a + b <= 10"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a * b"
+      },
+      "questionText": "Trong hộp bút có {a} cái tẩy và {b} cái gọt bút chì. Hỏi trong hộp có tất cả bao nhiêu đồ dùng?",
+      "options": [
+        "A. {w1} đồ",
+        "B. {w2} đồ",
+        "C. {ans} đồ",
+        "D. {w3} đồ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm tổng số đồ dùng, ta lấy số cái tẩy cộng với số gọt bút chì."
+      ],
+      "solutionHtml": "Tổng số đồ dùng là:<br/>$ {a} + {b} = {ans} $ (đồ).<br/>Đáp án đúng là C.",
+      "tip": "Cộng hai loại đồ vật để có kết quả tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 9,
+          "max": 12
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b",
+        "(a - b) > 0"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Lớp có {a} học sinh, trong đó có {b} học sinh vắng mặt. Hỏi hôm nay lớp có bao nhiêu học sinh đi học?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có tất cả {a} bạn, trừ đi {b} bạn vắng mặt là ra số bạn đi học."
+      ],
+      "solutionHtml": "Số bạn đi học hôm nay là:<br/>$ {a} - {b} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và một phần, ta lấy tổng trừ phần đã biết.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t6-d10"
+    }
+  ]
+}

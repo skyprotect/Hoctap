@@ -1,0 +1,701 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:32:38.473Z
+Lesson ID: l4-bai-64
+Lesson Title: Bài 64: Phép chia phân số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10137 (line 326 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10137 (line 326 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10137 (Line: 326, Column: 1)
+Character causing error: "}"
+
+Context:
+... p": "Đọc kỹ câu hỏi để xác định số nào là số bị chia, số nào là số chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<}
+}
+    }
+  ]
+}
+  ]
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 3, "max": 8 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "(b / a) + 1",
+        "w2": "(b * a)",
+        "w3": "(b + a)",
+        "ansFrac": "b/a"
+      },
+      "questionText": "Một băng giấy dài $ {b} $ mét được cắt thành các đoạn, mỗi đoạn dài $ {a} $ mét. Hỏi cắt được tất cả bao nhiêu đoạn như thế?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {ans} đoạn",
+        "C. {w2} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số đoạn, ta lấy độ dài tổng thể chia cho độ dài mỗi đoạn.",
+        "Phép tính cần thực hiện là $ {b} : {a} $."
+      ],
+      "solutionHtml": "Số đoạn giấy cắt được là:<br/>$ {b} : {a} = {ans} $ (đoạn).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tự nhiên cho một phân số hoặc ngược lại, hãy nhớ quy tắc nhân với phân số đảo ngược hoặc thực hiện phép chia phân số chuẩn xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 9 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a - b"
+      },
+      "questionText": "Mẹ có $ {a} $ lít dầu ăn, muốn chia đều vào các chai, mỗi chai chứa $ {b} $ lít dầu. Hỏi mẹ chia được bao nhiêu chai?",
+      "options": [
+        "A. {w1} chai",
+        "B. {w2} chai",
+        "C. {ans} chai",
+        "D. {w3} chai"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số lít dầu chia cho số lít dầu mỗi chai.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số chai dầu mẹ chia được là:<br/>$ {a} : {b} = {ans} $ (chai).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đơn vị của các số liệu trong đề bài để thực hiện phép tính cho chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4 },
+        "m": { "min": 5, "max": 9 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "m / n",
+        "w1": "m * n",
+        "w2": "m + n",
+        "w3": "n / m"
+      },
+      "questionText": "Có $ {m} $ cái bánh, chia đều cho $ {n} $ bạn. Hỏi mỗi bạn nhận được bao nhiêu phần của cái bánh?",
+      "options": [
+        "A. $ {w1} $ cái bánh",
+        "B. $ {m}/{n} $ cái bánh",
+        "C. $ {w2} $ cái bánh",
+        "D. $ {n}/{m} $ cái bánh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi bạn nhận được số bánh bằng tổng số bánh chia cho số bạn.",
+        "Phép chia là $ {m} : {n} $."
+      ],
+      "solutionHtml": "Mỗi bạn nhận được số bánh là:<br/>$ {m} : {n} = \\frac{{m}}{{n}} $ (cái bánh).<br/>Đáp án đúng là B.",
+      "tip": "Kết quả của phép chia số tự nhiên cho số tự nhiên có thể viết dưới dạng phân số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 6, "max": 10 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "b + a",
+        "w2": "b * a",
+        "w3": "a"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có diện tích là $ {b} $ $m^2$ và chiều rộng là $ {a} $ m. Tính chiều dài của mảnh vườn đó.",
+      "options": [
+        "A. {w1} m",
+        "B. {w2} m",
+        "C. {ans} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm chiều dài, ta lấy diện tích chia cho chiều rộng.",
+        "Phép tính là $ {b} : {a} $."
+      ],
+      "solutionHtml": "Chiều dài mảnh vườn là:<br/>$ {b} : {a} = {ans} $ (m).<br/>Đáp án đúng là C.",
+      "tip": "Công thức diện tích hình chữ nhật là $S = a \\times b$, suy ra $a = S : b$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 7 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "b / a"
+      },
+      "questionText": "Bạn An có $ {a} $ lít sữa, muốn chia đều vào $ {b} $ cốc. Hỏi mỗi cốc chứa bao nhiêu lít sữa?",
+      "options": [
+        "A. {w1} lít",
+        "B. {w2} lít",
+        "C. $ \\frac{{a}}{{b}} $ lít",
+        "D. $ \\frac{{b}}{{a}} $ lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số lít sữa chia cho số cốc.",
+        "Kết quả là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số lít sữa mỗi cốc chứa là:<br/>$ {a} : {b} = \\frac{{a}}{{b}} $ (lít).<br/>Đáp án đúng là C.",
+      "tip": "Phép chia số tự nhiên cho số tự nhiên có thể biểu diễn bằng phân số có tử là số bị chia và mẫu là số chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 8, "max": 12 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "b + a",
+        "w2": "b - a",
+        "w3": "a * b"
+      },
+      "questionText": "Một sợi dây dài $ {b} $ m được cắt thành các đoạn bằng nhau, mỗi đoạn dài $ {a} $ m. Hỏi cắt được bao nhiêu đoạn?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {w2} đoạn",
+        "C. {ans} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng chiều dài sợi dây chia cho chiều dài mỗi đoạn.",
+        "Phép tính là $ {b} : {a} $."
+      ],
+      "solutionHtml": "Số đoạn dây cắt được là:<br/>$ {b} : {a} = {ans} $ (đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Kiểm tra kỹ các đơn vị đo trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "b / a"
+      },
+      "questionText": "Cô giáo có $ {a} $ kg kẹo chia đều cho $ {b} $ tổ. Mỗi tổ nhận được bao nhiêu kg kẹo?",
+      "options": [
+        "A. $ \\frac{{b}}{{a}} $ kg",
+        "B. {w2} kg",
+        "C. {w1} kg",
+        "D. $ \\frac{{a}}{{b}} $ kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia tổng số kẹo cho số tổ.",
+        "Đáp án là phân số với tử là $ {a} $ và mẫu là $ {b} $."
+      ],
+      "solutionHtml": "Mỗi tổ nhận được số kẹo là:<br/>$ {a} : {b} = \\frac{{a}}{{b}} $ (kg).<br/>Đáp án đúng là D.",
+      "tip": "Phép chia số tự nhiên cho số tự nhiên luôn viết được dưới dạng phân số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 9, "max": 12 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "b + a",
+        "w2": "b - a",
+        "w3": "a * 2"
+      },
+      "questionText": "Để làm một chiếc bánh cần $ {a} $ cốc bột. Hỏi với $ {b} $ cốc bột, ta làm được bao nhiêu chiếc bánh như thế?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số bột có cho số bột cần cho một chiếc bánh.",
+        "Phép tính: $ {b} : {a} $."
+      ],
+      "solutionHtml": "Số chiếc bánh làm được là:<br/>$ {b} : {a} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đảm bảo đơn vị của các giá trị đầu vào là đồng nhất trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "b / a",
+        "w2": "a + b",
+        "w3": "a * b"
+      },
+      "questionText": "Có $ {a} $ quả táo chia đều cho $ {b} $ bạn. Hỏi mỗi bạn được mấy phần của quả táo?",
+      "options": [
+        "A. $ \\frac{{a}}{{b}} $ quả",
+        "B. $ \\frac{{b}}{{a}} $ quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Phép tính là $ {a} $ chia cho $ {b} $.",
+        "Kết quả dưới dạng phân số là tử số $ {a} $ và mẫu số $ {b} $."
+      ],
+      "solutionHtml": "Mỗi bạn được số táo là:<br/>$ {a} : {b} = \\frac{{a}}{{b}} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Số bị chia làm tử số, số chia làm mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b"
+      },
+      "questionText": "Bác thợ mộc có $ {a} $ thanh gỗ, bác chia đều số gỗ đó cho $ {b} $ bộ bàn ghế. Hỏi mỗi bộ bàn ghế dùng bao nhiêu thanh gỗ?",
+      "options": [
+        "A. {w1} thanh",
+        "B. {w2} thanh",
+        "C. {w3} thanh",
+        "D. {ans} thanh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tổng số thanh gỗ chia cho số bộ bàn ghế.",
+        "Phép tính: $ {a} : {b} $."
+      ],
+      "solutionHtml": "Mỗi bộ bàn ghế dùng số thanh gỗ là:<br/>$ {a} : {b} = {ans} $ (thanh).<br/>Đáp án đúng là D.",
+      "tip": "Đọc kỹ câu hỏi để xác định số nào là số bị chia, số nào là số chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d10"
+    }
+  ]
+}
+}
+}
+    }
+  ]
+}
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 3, "max": 8 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "(b / a) + 1",
+        "w2": "(b * a)",
+        "w3": "(b + a)",
+        "ansFrac": "b/a"
+      },
+      "questionText": "Một băng giấy dài $ {b} $ mét được cắt thành các đoạn, mỗi đoạn dài $ {a} $ mét. Hỏi cắt được tất cả bao nhiêu đoạn như thế?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {ans} đoạn",
+        "C. {w2} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số đoạn, ta lấy độ dài tổng thể chia cho độ dài mỗi đoạn.",
+        "Phép tính cần thực hiện là $ {b} : {a} $."
+      ],
+      "solutionHtml": "Số đoạn giấy cắt được là:<br/>$ {b} : {a} = {ans} $ (đoạn).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tự nhiên cho một phân số hoặc ngược lại, hãy nhớ quy tắc nhân với phân số đảo ngược hoặc thực hiện phép chia phân số chuẩn xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 9 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a - b"
+      },
+      "questionText": "Mẹ có $ {a} $ lít dầu ăn, muốn chia đều vào các chai, mỗi chai chứa $ {b} $ lít dầu. Hỏi mẹ chia được bao nhiêu chai?",
+      "options": [
+        "A. {w1} chai",
+        "B. {w2} chai",
+        "C. {ans} chai",
+        "D. {w3} chai"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số lít dầu chia cho số lít dầu mỗi chai.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số chai dầu mẹ chia được là:<br/>$ {a} : {b} = {ans} $ (chai).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đơn vị của các số liệu trong đề bài để thực hiện phép tính cho chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4 },
+        "m": { "min": 5, "max": 9 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "m / n",
+        "w1": "m * n",
+        "w2": "m + n",
+        "w3": "n / m"
+      },
+      "questionText": "Có $ {m} $ cái bánh, chia đều cho $ {n} $ bạn. Hỏi mỗi bạn nhận được bao nhiêu phần của cái bánh?",
+      "options": [
+        "A. $ {w1} $ cái bánh",
+        "B. $ {m}/{n} $ cái bánh",
+        "C. $ {w2} $ cái bánh",
+        "D. $ {n}/{m} $ cái bánh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi bạn nhận được số bánh bằng tổng số bánh chia cho số bạn.",
+        "Phép chia là $ {m} : {n} $."
+      ],
+      "solutionHtml": "Mỗi bạn nhận được số bánh là:<br/>$ {m} : {n} = \\frac{{m}}{{n}} $ (cái bánh).<br/>Đáp án đúng là B.",
+      "tip": "Kết quả của phép chia số tự nhiên cho số tự nhiên có thể viết dưới dạng phân số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 6, "max": 10 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "b + a",
+        "w2": "b * a",
+        "w3": "a"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có diện tích là $ {b} $ $m^2$ và chiều rộng là $ {a} $ m. Tính chiều dài của mảnh vườn đó.",
+      "options": [
+        "A. {w1} m",
+        "B. {w2} m",
+        "C. {ans} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm chiều dài, ta lấy diện tích chia cho chiều rộng.",
+        "Phép tính là $ {b} : {a} $."
+      ],
+      "solutionHtml": "Chiều dài mảnh vườn là:<br/>$ {b} : {a} = {ans} $ (m).<br/>Đáp án đúng là C.",
+      "tip": "Công thức diện tích hình chữ nhật là $S = a \\times b$, suy ra $a = S : b$.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 7 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "b / a"
+      },
+      "questionText": "Bạn An có $ {a} $ lít sữa, muốn chia đều vào $ {b} $ cốc. Hỏi mỗi cốc chứa bao nhiêu lít sữa?",
+      "options": [
+        "A. {w1} lít",
+        "B. {w2} lít",
+        "C. $ \\frac{{a}}{{b}} $ lít",
+        "D. $ \\frac{{b}}{{a}} $ lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số lít sữa chia cho số cốc.",
+        "Kết quả là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số lít sữa mỗi cốc chứa là:<br/>$ {a} : {b} = \\frac{{a}}{{b}} $ (lít).<br/>Đáp án đúng là C.",
+      "tip": "Phép chia số tự nhiên cho số tự nhiên có thể biểu diễn bằng phân số có tử là số bị chia và mẫu là số chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 8, "max": 12 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "b + a",
+        "w2": "b - a",
+        "w3": "a * b"
+      },
+      "questionText": "Một sợi dây dài $ {b} $ m được cắt thành các đoạn bằng nhau, mỗi đoạn dài $ {a} $ m. Hỏi cắt được bao nhiêu đoạn?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {w2} đoạn",
+        "C. {ans} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng chiều dài sợi dây chia cho chiều dài mỗi đoạn.",
+        "Phép tính là $ {b} : {a} $."
+      ],
+      "solutionHtml": "Số đoạn dây cắt được là:<br/>$ {b} : {a} = {ans} $ (đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Kiểm tra kỹ các đơn vị đo trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "b / a"
+      },
+      "questionText": "Cô giáo có $ {a} $ kg kẹo chia đều cho $ {b} $ tổ. Mỗi tổ nhận được bao nhiêu kg kẹo?",
+      "options": [
+        "A. $ \\frac{{b}}{{a}} $ kg",
+        "B. {w2} kg",
+        "C. {w1} kg",
+        "D. $ \\frac{{a}}{{b}} $ kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia tổng số kẹo cho số tổ.",
+        "Đáp án là phân số với tử là $ {a} $ và mẫu là $ {b} $."
+      ],
+      "solutionHtml": "Mỗi tổ nhận được số kẹo là:<br/>$ {a} : {b} = \\frac{{a}}{{b}} $ (kg).<br/>Đáp án đúng là D.",
+      "tip": "Phép chia số tự nhiên cho số tự nhiên luôn viết được dưới dạng phân số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 9, "max": 12 }
+      },
+      "constraints": [
+        "b % a === 0"
+      ],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "b + a",
+        "w2": "b - a",
+        "w3": "a * 2"
+      },
+      "questionText": "Để làm một chiếc bánh cần $ {a} $ cốc bột. Hỏi với $ {b} $ cốc bột, ta làm được bao nhiêu chiếc bánh như thế?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số bột có cho số bột cần cho một chiếc bánh.",
+        "Phép tính: $ {b} : {a} $."
+      ],
+      "solutionHtml": "Số chiếc bánh làm được là:<br/>$ {b} : {a} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đảm bảo đơn vị của các giá trị đầu vào là đồng nhất trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "b / a",
+        "w2": "a + b",
+        "w3": "a * b"
+      },
+      "questionText": "Có $ {a} $ quả táo chia đều cho $ {b} $ bạn. Hỏi mỗi bạn được mấy phần của quả táo?",
+      "options": [
+        "A. $ \\frac{{a}}{{b}} $ quả",
+        "B. $ \\frac{{b}}{{a}} $ quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Phép tính là $ {a} $ chia cho $ {b} $.",
+        "Kết quả dưới dạng phân số là tử số $ {a} $ và mẫu số $ {b} $."
+      ],
+      "solutionHtml": "Mỗi bạn được số táo là:<br/>$ {a} : {b} = \\frac{{a}}{{b}} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Số bị chia làm tử số, số chia làm mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b"
+      },
+      "questionText": "Bác thợ mộc có $ {a} $ thanh gỗ, bác chia đều số gỗ đó cho $ {b} $ bộ bàn ghế. Hỏi mỗi bộ bàn ghế dùng bao nhiêu thanh gỗ?",
+      "options": [
+        "A. {w1} thanh",
+        "B. {w2} thanh",
+        "C. {w3} thanh",
+        "D. {ans} thanh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tổng số thanh gỗ chia cho số bộ bàn ghế.",
+        "Phép tính: $ {a} : {b} $."
+      ],
+      "solutionHtml": "Mỗi bộ bàn ghế dùng số thanh gỗ là:<br/>$ {a} : {b} = {ans} $ (thanh).<br/>Đáp án đúng là D.",
+      "tip": "Đọc kỹ câu hỏi để xác định số nào là số bị chia, số nào là số chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-64-d10"
+    }
+  ]
+}
+}
+}
+    }
+  ]
+}
+  ]
+}
+

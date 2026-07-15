@@ -3,16 +3,23 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "firebase-admin": "^14.1.0",
     "jsonwebtoken": "^9.0.3",
     "pdf-parse": "^2.4.5",
     "sqlite3": "^6.0.1"
   },
+  "overrides": {
+    "jwks-rsa": {
+      "jose": "4.15.9"
+    }
+  },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "@playwright/test": "^1.42.1"
+    "@playwright/test": "^1.42.1",
+    "jest": "^29.7.0"
   },
   "scripts": {
     "test": "jest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "release": "node release.js"
   }
 }

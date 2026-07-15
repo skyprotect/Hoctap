@@ -1,0 +1,686 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:35:02.841Z
+Lesson ID: eng6-t12
+Lesson Title: Unit 12: Robots
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 13363 (line 411 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 13363 (line 411 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 13363 (Line: 330, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 8, "step": 1 },
+        "h": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "n > h"
+      ],
+      "formulas": {
+        "ans": "n * h",
+        "w1": "(n+h) === (n*h) ? (n*h)+1 : (n+h)",
+        "w2": "(n-h) === (n*h) ? (n*h)+2 : (n-h)",
+        "w3": "(n*h*2) === (n*h) ? (n*h)+3 : (n*h*2)"
+      },
+      "questionText": "Một robot có {n} cánh tay, mỗi cánh tay có {h} ngón tay. Hỏi robot đó có tổng cộng bao nhiêu ngón tay?",
+      "options": [
+        "A. {w1} ngón tay",
+        "B. {ans} ngón tay",
+        "C. {w2} ngón tay",
+        "D. {w3} ngón tay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Robot có {n} cánh tay, mỗi cánh tay có {h} ngón tay.",
+        "Để tìm tổng số ngón tay, ta lấy số cánh tay nhân với số ngón tay trên mỗi cánh."
+      ],
+      "solutionHtml": "Số ngón tay của robot là:<br/>$ {n} \\times {h} = {ans} $ (ngón tay).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán cho số lượng nhóm và số lượng vật trong mỗi nhóm, ta thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 20, "max": 50, "step": 2 },
+        "perRobot": { "min": 4, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "total % perRobot === 0"
+      ],
+      "formulas": {
+        "ans": "total / perRobot",
+        "w1": "perRobot + 2",
+        "w2": "total - perRobot",
+        "w3": "perRobot - 1"
+      },
+      "questionText": "Một nhà máy sản xuất được {total} con robot và muốn đóng gói vào các thùng, mỗi thùng chứa đúng {perRobot} con robot. Hỏi cần bao nhiêu cái thùng để chứa hết số robot đó?",
+      "options": [
+        "A. {w1} thùng",
+        "B. {ans} thùng",
+        "C. {w2} thùng",
+        "D. {w3} thùng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số robot là {total}, mỗi thùng chứa {perRobot} con.",
+        "Để tìm số thùng, ta thực hiện phép chia tổng số robot cho số robot mỗi thùng."
+      ],
+      "solutionHtml": "Số thùng cần dùng là:<br/>$ {total} : {perRobot} = {ans} $ (thùng).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp tìm số nhóm (thùng) khi biết tổng số lượng và số lượng trên mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 15, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * y",
+        "w3": "x + y + 5"
+      },
+      "questionText": "Một robot loại A có {x} chức năng, một robot loại B có {y} chức năng ít hơn robot loại A. Hỏi robot loại B có bao nhiêu chức năng?",
+      "options": [
+        "A. {w1} chức năng",
+        "B. {ans} chức năng",
+        "C. {w2} chức năng",
+        "D. {w3} chức năng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Robot A có {x} chức năng.",
+        "Robot B có ít hơn robot A là {y} chức năng, nên ta lấy {x} trừ đi {y}."
+      ],
+      "solutionHtml": "Số chức năng của robot loại B là:<br/>$ {x} - {y} = {w1} $ (chức năng).<br/>Vậy đáp án đúng là A.",
+      "tip": "Cẩn thận với cụm từ 'ít hơn' để xác định đúng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 500, "step": 10 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * 2",
+        "w3": "a - b"
+      },
+      "questionText": "Một dây chuyền lắp ráp robot hoàn thiện {a} sản phẩm trong {b} giờ. Nếu tốc độ làm việc không đổi, mỗi giờ dây chuyền hoàn thiện được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dây chuyền hoàn thiện {a} sản phẩm trong {b} giờ.",
+        "Số sản phẩm mỗi giờ là trung bình cộng của mỗi giờ, ta lấy {a} chia cho {b}."
+      ],
+      "solutionHtml": "Số sản phẩm mỗi giờ là:<br/>$ {a} : {b} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Trong bài toán năng suất, lấy tổng sản phẩm chia cho tổng thời gian.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "r1": { "min": 10, "max": 20, "step": 1 },
+        "r2": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "r1 > r2"
+      ],
+      "formulas": {
+        "ans": "r1 + r2",
+        "w1": "r1 - r2",
+        "w2": "r1 * 2",
+        "w3": "r2 * 3"
+      },
+      "questionText": "Robot Alpha làm được {r1} nhiệm vụ trong một ngày, robot Beta làm được {r2} nhiệm vụ trong một ngày. Hỏi cả hai robot làm được bao nhiêu nhiệm vụ trong một ngày?",
+      "options": [
+        "A. {w1} nhiệm vụ",
+        "B. {ans} nhiệm vụ",
+        "C. {w2} nhiệm vụ",
+        "D. {w3} nhiệm vụ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Robot Alpha: {r1} nhiệm vụ.",
+        "Robot Beta: {r2} nhiệm vụ.",
+        "Tổng số nhiệm vụ là tổng của hai giá trị trên."
+      ],
+      "solutionHtml": "Tổng số nhiệm vụ hai robot làm được là:<br/>$ {r1} + {r2} = {ans} $ (nhiệm vụ).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để phân biệt giữa 'tổng số' và 'hiệu số'.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 50, "max": 100, "step": 10 },
+        "step": { "min": 5, "max": 15, "step": 5 }
+      },
+      "constraints": [
+        "step < start"
+      ],
+      "formulas": {
+        "ans": "start - step",
+        "w1": "start + step",
+        "w2": "start - 2*step",
+        "w3": "start"
+      },
+      "questionText": "Một robot đang sạc pin, mức pin hiện tại là {start}%. Sau khi hoạt động một tác vụ, nó tiêu tốn {step}% pin. Hỏi mức pin còn lại của robot là bao nhiêu phần trăm?",
+      "options": [
+        "A. {w1}%",
+        "B. {ans}%",
+        "C. {w2}%",
+        "D. {w3}%"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Pin ban đầu là {start}%.",
+        "Tiêu tốn {step}%, tức là bớt đi một lượng bằng {step}%.",
+        "Ta thực hiện phép tính {start} - {step}."
+      ],
+      "solutionHtml": "Mức pin còn lại của robot là:<br/>$ {start} - {step} = {ans} $ (%).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'tiêu tốn' hoặc 'giảm đi' thường gợi ý về phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "price": { "min": 10, "max": 50, "step": 5 },
+        "quantity": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "price > 5"
+      ],
+      "formulas": {
+        "ans": "price * quantity",
+        "w1": "price + quantity",
+        "w2": "price - quantity",
+        "w3": "price * (quantity - 1)"
+      },
+      "questionText": "Giá của một bộ phận linh kiện robot là {price} nghìn đồng. Trường học mua {quantity} bộ phận đó. Tổng chi phí là bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Giá một bộ là {price} nghìn đồng.",
+        "Số lượng là {quantity} bộ.",
+        "Tổng chi phí = Giá một bộ x Số lượng."
+      ],
+      "solutionHtml": "Tổng chi phí là:<br/>$ {price} \\times {quantity} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết giá một đơn vị, muốn tìm tổng tiền ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong một cuộc thi robot, mỗi đội có {a} thành viên. Nếu có {b} đội tham gia thì tổng cộng có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi đội có {a} thành viên.",
+        "Có tất cả {b} đội.",
+        "Tổng thành viên là {a} nhân với {b}."
+      ],
+      "solutionHtml": "Tổng số thành viên là:<br/>$ {a} \\times {b} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Đếm số nhóm và số phần tử trong nhóm thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 60, "max": 120, "step": 10 },
+        "groups": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "total % groups === 0"
+      ],
+      "formulas": {
+        "ans": "total / groups",
+        "w1": "total + groups",
+        "w2": "total / 2",
+        "w3": "groups * 2"
+      },
+      "questionText": "Một câu lạc bộ công nghệ có {total} học sinh đăng ký học lắp ráp robot. Người ta chia đều số học sinh này vào {groups} lớp. Hỏi mỗi lớp có bao nhiêu học sinh?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số học sinh là {total}.",
+        "Số lớp là {groups}.",
+        "Chia đều {total} cho {groups}."
+      ],
+      "solutionHtml": "Số học sinh mỗi lớp là:<br/>$ {total} : {groups} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'chia đều' là dấu hiệu nhận biết bài toán chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": { "min": 20, "max": 40, "step": 2 },
+        "extra": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "base > extra"
+      ],
+      "formulas": {
+        "ans": "base + extra",
+        "w1": "base - extra",
+        "w2": "base * 2",
+        "w3": "base + extra + 2"
+      },
+      "questionText": "Robot thế hệ đầu tiên có {base} cảm biến. Robot thế hệ thứ hai có nhiều hơn thế hệ đầu tiên {extra} cảm biến. Hỏi robot thế hệ thứ hai có bao nhiêu cảm biến?",
+      "options": [
+        "A. {w1} cảm biến",
+        "B. {ans} cảm biến",
+        "C. {w2} cảm biến",
+        "D. {w3} cảm biến"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thế hệ đầu: {base} cảm biến.",
+        "Thế hệ thứ hai nhiều hơn {extra} cảm biến.",
+        "Ta thực hiện phép cộng {base} + {extra}."
+      ],
+      "solutionHtml": "Số cảm biến của robot thế hệ thứ hai là:<br/>$ {base} + {extra} = {ans} $ (cảm biến).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'nhiều hơn' gợi ý phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 8, "step": 1 },
+        "h": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "n > h"
+      ],
+      "formulas": {
+        "ans": "n * h",
+        "w1": "(n+h) === (n*h) ? (n*h)+1 : (n+h)",
+        "w2": "(n-h) === (n*h) ? (n*h)+2 : (n-h)",
+        "w3": "(n*h*2) === (n*h) ? (n*h)+3 : (n*h*2)"
+      },
+      "questionText": "Một robot có {n} cánh tay, mỗi cánh tay có {h} ngón tay. Hỏi robot đó có tổng cộng bao nhiêu ngón tay?",
+      "options": [
+        "A. {w1} ngón tay",
+        "B. {ans} ngón tay",
+        "C. {w2} ngón tay",
+        "D. {w3} ngón tay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Robot có {n} cánh tay, mỗi cánh tay có {h} ngón tay.",
+        "Để tìm tổng số ngón tay, ta lấy số cánh tay nhân với số ngón tay trên mỗi cánh."
+      ],
+      "solutionHtml": "Số ngón tay của robot là:<br/>$ {n} \\times {h} = {ans} $ (ngón tay).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán cho số lượng nhóm và số lượng vật trong mỗi nhóm, ta thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 20, "max": 50, "step": 2 },
+        "perRobot": { "min": 4, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "total % perRobot === 0"
+      ],
+      "formulas": {
+        "ans": "total / perRobot",
+        "w1": "perRobot + 2",
+        "w2": "total - perRobot",
+        "w3": "perRobot - 1"
+      },
+      "questionText": "Một nhà máy sản xuất được {total} con robot và muốn đóng gói vào các thùng, mỗi thùng chứa đúng {perRobot} con robot. Hỏi cần bao nhiêu cái thùng để chứa hết số robot đó?",
+      "options": [
+        "A. {w1} thùng",
+        "B. {ans} thùng",
+        "C. {w2} thùng",
+        "D. {w3} thùng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số robot là {total}, mỗi thùng chứa {perRobot} con.",
+        "Để tìm số thùng, ta thực hiện phép chia tổng số robot cho số robot mỗi thùng."
+      ],
+      "solutionHtml": "Số thùng cần dùng là:<br/>$ {total} : {perRobot} = {ans} $ (thùng).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp tìm số nhóm (thùng) khi biết tổng số lượng và số lượng trên mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 15, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * y",
+        "w3": "x + y + 5"
+      },
+      "questionText": "Một robot loại A có {x} chức năng, một robot loại B có {y} chức năng ít hơn robot loại A. Hỏi robot loại B có bao nhiêu chức năng?",
+      "options": [
+        "A. {w1} chức năng",
+        "B. {ans} chức năng",
+        "C. {w2} chức năng",
+        "D. {w3} chức năng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Robot A có {x} chức năng.",
+        "Robot B có ít hơn robot A là {y} chức năng, nên ta lấy {x} trừ đi {y}."
+      ],
+      "solutionHtml": "Số chức năng của robot loại B là:<br/>$ {x} - {y} = {w1} $ (chức năng).<br/>Vậy đáp án đúng là A.",
+      "tip": "Cẩn thận với cụm từ 'ít hơn' để xác định đúng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 500, "step": 10 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * 2",
+        "w3": "a - b"
+      },
+      "questionText": "Một dây chuyền lắp ráp robot hoàn thiện {a} sản phẩm trong {b} giờ. Nếu tốc độ làm việc không đổi, mỗi giờ dây chuyền hoàn thiện được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dây chuyền hoàn thiện {a} sản phẩm trong {b} giờ.",
+        "Số sản phẩm mỗi giờ là trung bình cộng của mỗi giờ, ta lấy {a} chia cho {b}."
+      ],
+      "solutionHtml": "Số sản phẩm mỗi giờ là:<br/>$ {a} : {b} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Trong bài toán năng suất, lấy tổng sản phẩm chia cho tổng thời gian.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "r1": { "min": 10, "max": 20, "step": 1 },
+        "r2": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "r1 > r2"
+      ],
+      "formulas": {
+        "ans": "r1 + r2",
+        "w1": "r1 - r2",
+        "w2": "r1 * 2",
+        "w3": "r2 * 3"
+      },
+      "questionText": "Robot Alpha làm được {r1} nhiệm vụ trong một ngày, robot Beta làm được {r2} nhiệm vụ trong một ngày. Hỏi cả hai robot làm được bao nhiêu nhiệm vụ trong một ngày?",
+      "options": [
+        "A. {w1} nhiệm vụ",
+        "B. {ans} nhiệm vụ",
+        "C. {w2} nhiệm vụ",
+        "D. {w3} nhiệm vụ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Robot Alpha: {r1} nhiệm vụ.",
+        "Robot Beta: {r2} nhiệm vụ.",
+        "Tổng số nhiệm vụ là tổng của hai giá trị trên."
+      ],
+      "solutionHtml": "Tổng số nhiệm vụ hai robot làm được là:<br/>$ {r1} + {r2} = {ans} $ (nhiệm vụ).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để phân biệt giữa 'tổng số' và 'hiệu số'.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 50, "max": 100, "step": 10 },
+        "step": { "min": 5, "max": 15, "step": 5 }
+      },
+      "constraints": [
+        "step < start"
+      ],
+      "formulas": {
+        "ans": "start - step",
+        "w1": "start + step",
+        "w2": "start - 2*step",
+        "w3": "start"
+      },
+      "questionText": "Một robot đang sạc pin, mức pin hiện tại là {start}%. Sau khi hoạt động một tác vụ, nó tiêu tốn {step}% pin. Hỏi mức pin còn lại của robot là bao nhiêu phần trăm?",
+      "options": [
+        "A. {w1}%",
+        "B. {ans}%",
+        "C. {w2}%",
+        "D. {w3}%"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Pin ban đầu là {start}%.",
+        "Tiêu tốn {step}%, tức là bớt đi một lượng bằng {step}%.",
+        "Ta thực hiện phép tính {start} - {step}."
+      ],
+      "solutionHtml": "Mức pin còn lại của robot là:<br/>$ {start} - {step} = {ans} $ (%).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'tiêu tốn' hoặc 'giảm đi' thường gợi ý về phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "price": { "min": 10, "max": 50, "step": 5 },
+        "quantity": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "price > 5"
+      ],
+      "formulas": {
+        "ans": "price * quantity",
+        "w1": "price + quantity",
+        "w2": "price - quantity",
+        "w3": "price * (quantity - 1)"
+      },
+      "questionText": "Giá của một bộ phận linh kiện robot là {price} nghìn đồng. Trường học mua {quantity} bộ phận đó. Tổng chi phí là bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Giá một bộ là {price} nghìn đồng.",
+        "Số lượng là {quantity} bộ.",
+        "Tổng chi phí = Giá một bộ x Số lượng."
+      ],
+      "solutionHtml": "Tổng chi phí là:<br/>$ {price} \\times {quantity} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết giá một đơn vị, muốn tìm tổng tiền ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong một cuộc thi robot, mỗi đội có {a} thành viên. Nếu có {b} đội tham gia thì tổng cộng có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi đội có {a} thành viên.",
+        "Có tất cả {b} đội.",
+        "Tổng thành viên là {a} nhân với {b}."
+      ],
+      "solutionHtml": "Tổng số thành viên là:<br/>$ {a} \\times {b} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Đếm số nhóm và số phần tử trong nhóm thì dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 60, "max": 120, "step": 10 },
+        "groups": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "total % groups === 0"
+      ],
+      "formulas": {
+        "ans": "total / groups",
+        "w1": "total + groups",
+        "w2": "total / 2",
+        "w3": "groups * 2"
+      },
+      "questionText": "Một câu lạc bộ công nghệ có {total} học sinh đăng ký học lắp ráp robot. Người ta chia đều số học sinh này vào {groups} lớp. Hỏi mỗi lớp có bao nhiêu học sinh?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số học sinh là {total}.",
+        "Số lớp là {groups}.",
+        "Chia đều {total} cho {groups}."
+      ],
+      "solutionHtml": "Số học sinh mỗi lớp là:<br/>$ {total} : {groups} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'chia đều' là dấu hiệu nhận biết bài toán chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": { "min": 20, "max": 40, "step": 2 },
+        "extra": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "base > extra"
+      ],
+      "formulas": {
+        "ans": "base + extra",
+        "w1": "base - extra",
+        "w2": "base * 2",
+        "w3": "base + extra + 2"
+      },
+      "questionText": "Robot thế hệ đầu tiên có {base} cảm biến. Robot thế hệ thứ hai có nhiều hơn thế hệ đầu tiên {extra} cảm biến. Hỏi robot thế hệ thứ hai có bao nhiêu cảm biến?",
+      "options": [
+        "A. {w1} cảm biến",
+        "B. {ans} cảm biến",
+        "C. {w2} cảm biến",
+        "D. {w3} cảm biến"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thế hệ đầu: {base} cảm biến.",
+        "Thế hệ thứ hai nhiều hơn {extra} cảm biến.",
+        "Ta thực hiện phép cộng {base} + {extra}."
+      ],
+      "solutionHtml": "Số cảm biến của robot thế hệ thứ hai là:<br/>$ {base} + {extra} = {ans} $ (cảm biến).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'nhiều hơn' gợi ý phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t12-d10"
+    }
+  ]
+}
+

@@ -1,0 +1,582 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:50:07.819Z
+Lesson ID: eng4-t11
+Lesson Title: Unit 11: Our food and drink
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9462 (line 275 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9462 (line 275 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9462 (Line: 275, Column: 1)
+Character causing error: "}"
+
+Context:
+... là C.",
+      "tip": "Tính tổng trong một nhóm trước khi nhân với số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "(a / b) + 2"
+      },
+      "questionText": "Một cửa hàng có {a} quả táo, họ chia đều số táo đó vào {b} giỏ để bán. Hỏi mỗi giỏ có bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số quả táo trong mỗi giỏ, ta thực hiện phép chia tổng số táo cho số giỏ."],
+      "solutionHtml": "Số quả táo trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp ta tìm giá trị của một phần bằng nhau trong tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Bạn Nam mua {a} vỉ trứng, mỗi vỉ có {b} quả trứng. Hỏi bạn Nam đã mua tất cả bao nhiêu quả trứng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mỗi vỉ có {b} quả, có {a} vỉ như thế, ta làm phép nhân."],
+      "solutionHtml": "Tổng số quả trứng bạn Nam mua là:<br/>$ {a} \\times {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng đơn vị trong một nhóm, ta dùng phép nhân để tìm tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Nhà hàng có {a} lít nước cam. Sau khi bán đi {b} lít, hỏi trong nhà hàng còn lại bao nhiêu lít nước cam?",
+      "options": [
+        "A. {w1} lít",
+        "B. {ans} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": ["Sử dụng phép trừ để tìm số lượng còn lại sau khi đã bớt đi."],
+      "solutionHtml": "Số lít nước cam còn lại là:<br/>$ {a} - {b} = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán hỏi 'còn lại bao nhiêu' thì ta thường dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b * 2",
+        "w1": "a * b",
+        "w2": "a * b * 3",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Mỗi bữa trưa, Lan ăn {a} cái bánh bao, Minh ăn {b} cái bánh bao. Hỏi trong 2 ngày, cả hai bạn ăn hết bao nhiêu cái bánh bao?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số bánh hai bạn ăn trong một ngày, sau đó nhân với 2 ngày."],
+      "solutionHtml": "Số bánh hai bạn ăn trong một ngày là: $ {a} + {b} = {a+b} $ (cái).<br/>Số bánh hai bạn ăn trong 2 ngày là: $ {a+b} \\times 2 = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên nhân kết quả với số ngày yêu cầu.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b"
+      },
+      "questionText": "Có {a} gói mì được chia đều vào {b} thùng. Hỏi mỗi thùng có bao nhiêu gói mì?",
+      "options": [
+        "A. {w1} gói",
+        "B. {ans} gói",
+        "C. {w2} gói",
+        "D. {w3} gói"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều số gói mì cho các thùng."],
+      "solutionHtml": "Số gói mì mỗi thùng có là:<br/>$ {a} : {b} = {ans} $ (gói).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 5"
+      },
+      "questionText": "Một hộp sữa có {a} vỉ, mỗi vỉ có {b} hộp sữa nhỏ. Hỏi một thùng có bao nhiêu hộp sữa nhỏ?",
+      "options": [
+        "A. {w1} hộp",
+        "B. {w2} hộp",
+        "C. {w3} hộp",
+        "D. {ans} hộp"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tổng số hộp sữa nhỏ bằng số vỉ nhân với số hộp trong mỗi vỉ."],
+      "solutionHtml": "Tổng số hộp sữa nhỏ là:<br/>$ {a} \\times {b} = {ans} $ (hộp).<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân giúp ta tìm tổng số lượng trong các nhóm bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 2 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": ["a > b", "a % 2 === 0", "b % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * 2",
+        "w3": "b * 3"
+      },
+      "questionText": "Sáng nay cửa hàng bán được {a} chai nước ngọt, chiều bán được thêm {b} chai nữa. Hỏi cả ngày cửa hàng bán được bao nhiêu chai?",
+      "options": [
+        "A. {w1} chai",
+        "B. {ans} chai",
+        "C. {w2} chai",
+        "D. {w3} chai"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng số lượng bán buổi sáng và buổi chiều."],
+      "solutionHtml": "Tổng số chai nước ngọt bán được là:<br/>$ {a} + {b} = {ans} $ (chai).<br/>Đáp án đúng là B.",
+      "tip": "Tổng cộng cả hai thời điểm thì dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 7, "step": 1 },
+        "b": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b * 5",
+        "w1": "a * b",
+        "w2": "a * b * 4",
+        "w3": "a + b + 5"
+      },
+      "questionText": "Mỗi người ăn hết {a} bát cơm. Một gia đình có {b} người. Hỏi trong 5 ngày, cả gia đình ăn hết bao nhiêu bát cơm?",
+      "options": [
+        "A. {w1} bát",
+        "B. {w2} bát",
+        "C. {ans} bát",
+        "D. {w3} bát"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính số bát cơm cả nhà ăn trong 1 ngày, sau đó nhân với 5 ngày."],
+      "solutionHtml": "Số bát cơm gia đình ăn trong một ngày là: $ {a} \\times {b} = {a*b} $ (bát).<br/>Số bát cơm gia đình ăn trong 5 ngày là: $ {a*b} \\times 5 = {ans} $ (bát).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài về thời gian (5 ngày).",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a / 2",
+        "w3": "a - b + 5"
+      },
+      "questionText": "Cửa hàng có {a} kg gạo, sau khi xuất kho {b} kg để bán, hỏi cửa hàng còn lại bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng số gạo ban đầu trừ đi số gạo đã xuất."],
+      "solutionHtml": "Số gạo còn lại là:<br/>$ {a} - {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Xuất kho nghĩa là trừ đi.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b * 10",
+        "w1": "a * b",
+        "w2": "a * b * 5",
+        "w3": "a + b + 10"
+      },
+      "questionText": "Mỗi đĩa có {a} quả cam và {b} quả quýt. Hỏi 10 đĩa như thế có tổng cộng bao nhiêu quả?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số quả trong một đĩa trước, sau đó nhân với 10 đĩa."],
+      "solutionHtml": "Số quả trong một đĩa là: $ {a} + {b} = {a+b} $ (quả).<br/>Số quả trong 10 đĩa là: $ {a+b} \\times 10 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng trong một nhóm trước khi nhân với số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "(a / b) + 2"
+      },
+      "questionText": "Một cửa hàng có {a} quả táo, họ chia đều số táo đó vào {b} giỏ để bán. Hỏi mỗi giỏ có bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số quả táo trong mỗi giỏ, ta thực hiện phép chia tổng số táo cho số giỏ."],
+      "solutionHtml": "Số quả táo trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp ta tìm giá trị của một phần bằng nhau trong tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Bạn Nam mua {a} vỉ trứng, mỗi vỉ có {b} quả trứng. Hỏi bạn Nam đã mua tất cả bao nhiêu quả trứng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mỗi vỉ có {b} quả, có {a} vỉ như thế, ta làm phép nhân."],
+      "solutionHtml": "Tổng số quả trứng bạn Nam mua là:<br/>$ {a} \\times {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng đơn vị trong một nhóm, ta dùng phép nhân để tìm tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Nhà hàng có {a} lít nước cam. Sau khi bán đi {b} lít, hỏi trong nhà hàng còn lại bao nhiêu lít nước cam?",
+      "options": [
+        "A. {w1} lít",
+        "B. {ans} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": ["Sử dụng phép trừ để tìm số lượng còn lại sau khi đã bớt đi."],
+      "solutionHtml": "Số lít nước cam còn lại là:<br/>$ {a} - {b} = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán hỏi 'còn lại bao nhiêu' thì ta thường dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b * 2",
+        "w1": "a * b",
+        "w2": "a * b * 3",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Mỗi bữa trưa, Lan ăn {a} cái bánh bao, Minh ăn {b} cái bánh bao. Hỏi trong 2 ngày, cả hai bạn ăn hết bao nhiêu cái bánh bao?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số bánh hai bạn ăn trong một ngày, sau đó nhân với 2 ngày."],
+      "solutionHtml": "Số bánh hai bạn ăn trong một ngày là: $ {a} + {b} = {a+b} $ (cái).<br/>Số bánh hai bạn ăn trong 2 ngày là: $ {a+b} \\times 2 = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên nhân kết quả với số ngày yêu cầu.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b"
+      },
+      "questionText": "Có {a} gói mì được chia đều vào {b} thùng. Hỏi mỗi thùng có bao nhiêu gói mì?",
+      "options": [
+        "A. {w1} gói",
+        "B. {ans} gói",
+        "C. {w2} gói",
+        "D. {w3} gói"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều số gói mì cho các thùng."],
+      "solutionHtml": "Số gói mì mỗi thùng có là:<br/>$ {a} : {b} = {ans} $ (gói).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 5"
+      },
+      "questionText": "Một hộp sữa có {a} vỉ, mỗi vỉ có {b} hộp sữa nhỏ. Hỏi một thùng có bao nhiêu hộp sữa nhỏ?",
+      "options": [
+        "A. {w1} hộp",
+        "B. {w2} hộp",
+        "C. {w3} hộp",
+        "D. {ans} hộp"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tổng số hộp sữa nhỏ bằng số vỉ nhân với số hộp trong mỗi vỉ."],
+      "solutionHtml": "Tổng số hộp sữa nhỏ là:<br/>$ {a} \\times {b} = {ans} $ (hộp).<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân giúp ta tìm tổng số lượng trong các nhóm bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 2 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": ["a > b", "a % 2 === 0", "b % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * 2",
+        "w3": "b * 3"
+      },
+      "questionText": "Sáng nay cửa hàng bán được {a} chai nước ngọt, chiều bán được thêm {b} chai nữa. Hỏi cả ngày cửa hàng bán được bao nhiêu chai?",
+      "options": [
+        "A. {w1} chai",
+        "B. {ans} chai",
+        "C. {w2} chai",
+        "D. {w3} chai"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng số lượng bán buổi sáng và buổi chiều."],
+      "solutionHtml": "Tổng số chai nước ngọt bán được là:<br/>$ {a} + {b} = {ans} $ (chai).<br/>Đáp án đúng là B.",
+      "tip": "Tổng cộng cả hai thời điểm thì dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 7, "step": 1 },
+        "b": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b * 5",
+        "w1": "a * b",
+        "w2": "a * b * 4",
+        "w3": "a + b + 5"
+      },
+      "questionText": "Mỗi người ăn hết {a} bát cơm. Một gia đình có {b} người. Hỏi trong 5 ngày, cả gia đình ăn hết bao nhiêu bát cơm?",
+      "options": [
+        "A. {w1} bát",
+        "B. {w2} bát",
+        "C. {ans} bát",
+        "D. {w3} bát"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính số bát cơm cả nhà ăn trong 1 ngày, sau đó nhân với 5 ngày."],
+      "solutionHtml": "Số bát cơm gia đình ăn trong một ngày là: $ {a} \\times {b} = {a*b} $ (bát).<br/>Số bát cơm gia đình ăn trong 5 ngày là: $ {a*b} \\times 5 = {ans} $ (bát).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài về thời gian (5 ngày).",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a / 2",
+        "w3": "a - b + 5"
+      },
+      "questionText": "Cửa hàng có {a} kg gạo, sau khi xuất kho {b} kg để bán, hỏi cửa hàng còn lại bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng số gạo ban đầu trừ đi số gạo đã xuất."],
+      "solutionHtml": "Số gạo còn lại là:<br/>$ {a} - {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Xuất kho nghĩa là trừ đi.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b * 10",
+        "w1": "a * b",
+        "w2": "a * b * 5",
+        "w3": "a + b + 10"
+      },
+      "questionText": "Mỗi đĩa có {a} quả cam và {b} quả quýt. Hỏi 10 đĩa như thế có tổng cộng bao nhiêu quả?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số quả trong một đĩa trước, sau đó nhân với 10 đĩa."],
+      "solutionHtml": "Số quả trong một đĩa là: $ {a} + {b} = {a+b} $ (quả).<br/>Số quả trong 10 đĩa là: $ {a+b} \\times 10 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng trong một nhóm trước khi nhân với số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t11-d4"
+    }
+  ]
+}
+}
+

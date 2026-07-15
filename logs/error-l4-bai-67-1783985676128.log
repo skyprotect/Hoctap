@@ -1,0 +1,494 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:34:36.128Z
+Lesson ID: l4-bai-67
+Lesson Title: Bài 67: Ôn tập số tự nhiên
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11525 (line 410 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11525 (line 410 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11525 (Line: 234, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "a + b",
+        "ans_str": "ans"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo, người ta chia đều số gạo đó vào {b} bao. Hỏi mỗi bao chứa bao nhiêu ki-lô-gam gạo?",
+      "options": ["A. {w1} kg", "B. {ans_str} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số gạo mỗi bao, ta thực hiện phép tính chia tổng số gạo cho số bao.", "Tính $ {a} : {b} $."],
+      "solutionHtml": "Số gạo trong mỗi bao là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số cho một số, hãy thực hiện phép tính cẩn thận theo từng hàng từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 500, "step": 10 },
+        "y": { "min": 50, "max": 200, "step": 10 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x + y + 10",
+        "w3": "x + 20",
+        "ans_str": "ans"
+      },
+      "questionText": "Một thư viện có {x} cuốn sách khoa học và {y} cuốn sách văn học. Hỏi thư viện đó có tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w1} cuốn", "B. {w2} cuốn", "C. {ans_str} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số cuốn sách, ta lấy số sách khoa học cộng với số sách văn học.", "Tính $ {x} + {y} $."],
+      "solutionHtml": "Tổng số sách trong thư viện là:<br/>$ {x} + {y} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Cần chú ý từ khóa 'tất cả' để xác định phép tính là phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 1 },
+        "b": { "min": 2, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * (b + 1)",
+        "w3": "a * b + 5",
+        "ans_str": "ans"
+      },
+      "questionText": "Một đoàn tàu có {b} toa, mỗi toa chở được {a} hành khách. Hỏi đoàn tàu đó chở được tất cả bao nhiêu hành khách?",
+      "options": ["A. {w1} hành khách", "B. {ans_str} hành khách", "C. {w2} hành khách", "D. {w3} hành khách"],
+      "correctIndex": 1,
+      "hints": ["Mỗi toa chở {a} hành khách, vậy {b} toa chở số hành khách gấp {b} lần.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số hành khách đoàn tàu chở được là:<br/>$ {a} \\times {b} = {ans} $ (hành khách).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết giá trị của một đơn vị (một toa), để tìm giá trị của nhiều đơn vị, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": { "min": 1000, "max": 2000, "step": 100 },
+        "hieu": { "min": 200, "max": 800, "step": 50 }
+      },
+      "constraints": ["(tong + hieu) % 2 === 0", "tong > hieu"],
+      "formulas": {
+        "ans": "(tong + hieu) / 2",
+        "w1": "(tong - hieu) / 2",
+        "w2": "ans + 100",
+        "w3": "ans - 50",
+        "ans_str": "ans"
+      },
+      "questionText": "Hai thùng dầu đựng tất cả {tong} lít dầu. Biết thùng thứ nhất nhiều hơn thùng thứ hai {hieu} lít dầu. Hỏi thùng thứ nhất đựng bao nhiêu lít dầu?",
+      "options": ["A. {w1} lít", "B. {ans_str} lít", "C. {w2} lít", "D. {w3} lít"],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán tìm hai số khi biết tổng và hiệu.", "Số lớn (thùng thứ nhất) = (Tổng + Hiệu) : 2."],
+      "solutionHtml": "Thùng thứ nhất đựng số lít dầu là:<br/>$ ({tong} + {hieu}) : 2 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ công thức: Số lớn bằng (Tổng cộng Hiệu) chia 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 50, "step": 1 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 2",
+        "ans_str": "ans"
+      },
+      "questionText": "Lan có {a} quyển vở, Hoa có ít hơn Lan {b} quyển vở. Hỏi Hoa có bao nhiêu quyển vở?",
+      "options": ["A. {w1} quyển", "B. {w2} quyển", "C. {ans_str} quyển", "D. {w3} quyển"],
+      "correctIndex": 2,
+      "hints": ["Lan có {a} quyển, Hoa ít hơn Lan {b} quyển, vậy ta làm phép trừ.", "Tính $ {a} - {b} $."],
+      "solutionHtml": "Số vở của Hoa là:<br/>$ {a} - {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài xem đối tượng nào nhiều hơn, đối tượng nào ít hơn để chọn phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + b",
+        "w3": "a * b - b",
+        "ans_str": "ans"
+      },
+      "questionText": "Một cửa hàng nhập về {b} đợt hàng, mỗi đợt có {a} cái áo. Hỏi cửa hàng đã nhập về tất cả bao nhiêu cái áo?",
+      "options": ["A. {w1} cái", "B. {w2} cái", "C. {w3} cái", "D. {ans_str} cái"],
+      "correctIndex": 3,
+      "hints": ["Vì mỗi đợt có {a} cái và có {b} đợt, ta lấy {a} nhân với {b}.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số áo cửa hàng nhập về là:<br/>$ {a} \\times {b} = {ans} $ (cái).<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân là phép cộng các số hạng bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 500, "step": 50 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans * 2",
+        "w3": "a - b",
+        "ans_str": "ans"
+      },
+      "questionText": "Mẹ có {a} nghìn đồng, mẹ chia đều cho {b} anh em. Hỏi mỗi anh em nhận được bao nhiêu nghìn đồng?",
+      "options": ["A. {w1} nghìn", "B. {w2} nghìn", "C. {ans_str} nghìn", "D. {w3} nghìn"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số tiền cho số người, ta thực hiện phép chia.", "Tính $ {a} : {b} $."],
+      "solutionHtml": "Số tiền mỗi người nhận được là:<br/>$ {a} : {b} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'chia đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 80, "step": 2 },
+        "b": { "min": 10, "max": 40, "step": 2 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 5",
+        "w3": "a + b - 5",
+        "ans_str": "ans"
+      },
+      "questionText": "Buổi sáng cửa hàng bán được {a} lít xăng, buổi chiều bán được nhiều hơn buổi sáng {b} lít xăng. Hỏi buổi chiều cửa hàng bán được bao nhiêu lít xăng?",
+      "options": ["A. {w1} lít", "B. {w2} lít", "C. {ans_str} lít", "D. {w3} lít"],
+      "correctIndex": 2,
+      "hints": ["Buổi chiều bán nhiều hơn buổi sáng, ta lấy số xăng buổi sáng cộng thêm phần chênh lệch.", "Tính $ {a} + {b} $."],
+      "solutionHtml": "Số lít xăng buổi chiều bán được là:<br/>$ {a} + {b} = {ans} $ (lít).<br/>Đáp án đúng là C.",
+      "tip": "Nhiều hơn thì dùng phép cộng, ít hơn thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 300, "step": 10 },
+        "b": { "min": 50, "max": 100, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 10",
+        "ans_str": "ans"
+      },
+      "questionText": "Quãng đường từ nhà đến trường dài {a} mét. Minh đã đi được {b} mét. Hỏi Minh còn phải đi bao nhiêu mét nữa mới đến trường?",
+      "options": ["A. {w1} m", "B. {w2} m", "C. {ans_str} m", "D. {w3} m"],
+      "correctIndex": 2,
+      "hints": ["Để tìm đoạn đường còn lại, ta lấy tổng quãng đường trừ đi đoạn đường đã đi.", "Tính $ {a} - {b} $."],
+      "solutionHtml": "Quãng đường Minh còn phải đi là:<br/>$ {a} - {b} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Đoạn đường còn lại bằng tổng quãng đường trừ đi đoạn đường đã hoàn thành.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 12, "step": 1 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2",
+        "ans_str": "ans"
+      },
+      "questionText": "Trong một vườn cây, người ta trồng {a} hàng cây, mỗi hàng có {b} cây. Hỏi trong vườn có tất cả bao nhiêu cây?",
+      "options": ["A. {w1} cây", "B. {w2} cây", "C. {w3} cây", "D. {ans_str} cây"],
+      "correctIndex": 3,
+      "hints": ["Số cây bằng số hàng nhân với số cây trong mỗi hàng.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Bài toán về mảng hình chữ nhật (số hàng x số cột) luôn dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "a + b",
+        "ans_str": "ans"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo, người ta chia đều số gạo đó vào {b} bao. Hỏi mỗi bao chứa bao nhiêu ki-lô-gam gạo?",
+      "options": ["A. {w1} kg", "B. {ans_str} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số gạo mỗi bao, ta thực hiện phép tính chia tổng số gạo cho số bao.", "Tính $ {a} : {b} $."],
+      "solutionHtml": "Số gạo trong mỗi bao là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số cho một số, hãy thực hiện phép tính cẩn thận theo từng hàng từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 500, "step": 10 },
+        "y": { "min": 50, "max": 200, "step": 10 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x + y + 10",
+        "w3": "x + 20",
+        "ans_str": "ans"
+      },
+      "questionText": "Một thư viện có {x} cuốn sách khoa học và {y} cuốn sách văn học. Hỏi thư viện đó có tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w1} cuốn", "B. {w2} cuốn", "C. {ans_str} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số cuốn sách, ta lấy số sách khoa học cộng với số sách văn học.", "Tính $ {x} + {y} $."],
+      "solutionHtml": "Tổng số sách trong thư viện là:<br/>$ {x} + {y} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Cần chú ý từ khóa 'tất cả' để xác định phép tính là phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 1 },
+        "b": { "min": 2, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * (b + 1)",
+        "w3": "a * b + 5",
+        "ans_str": "ans"
+      },
+      "questionText": "Một đoàn tàu có {b} toa, mỗi toa chở được {a} hành khách. Hỏi đoàn tàu đó chở được tất cả bao nhiêu hành khách?",
+      "options": ["A. {w1} hành khách", "B. {ans_str} hành khách", "C. {w2} hành khách", "D. {w3} hành khách"],
+      "correctIndex": 1,
+      "hints": ["Mỗi toa chở {a} hành khách, vậy {b} toa chở số hành khách gấp {b} lần.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số hành khách đoàn tàu chở được là:<br/>$ {a} \\times {b} = {ans} $ (hành khách).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết giá trị của một đơn vị (một toa), để tìm giá trị của nhiều đơn vị, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": { "min": 1000, "max": 2000, "step": 100 },
+        "hieu": { "min": 200, "max": 800, "step": 50 }
+      },
+      "constraints": ["(tong + hieu) % 2 === 0", "tong > hieu"],
+      "formulas": {
+        "ans": "(tong + hieu) / 2",
+        "w1": "(tong - hieu) / 2",
+        "w2": "ans + 100",
+        "w3": "ans - 50",
+        "ans_str": "ans"
+      },
+      "questionText": "Hai thùng dầu đựng tất cả {tong} lít dầu. Biết thùng thứ nhất nhiều hơn thùng thứ hai {hieu} lít dầu. Hỏi thùng thứ nhất đựng bao nhiêu lít dầu?",
+      "options": ["A. {w1} lít", "B. {ans_str} lít", "C. {w2} lít", "D. {w3} lít"],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán tìm hai số khi biết tổng và hiệu.", "Số lớn (thùng thứ nhất) = (Tổng + Hiệu) : 2."],
+      "solutionHtml": "Thùng thứ nhất đựng số lít dầu là:<br/>$ ({tong} + {hieu}) : 2 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ công thức: Số lớn bằng (Tổng cộng Hiệu) chia 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 50, "step": 1 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 2",
+        "ans_str": "ans"
+      },
+      "questionText": "Lan có {a} quyển vở, Hoa có ít hơn Lan {b} quyển vở. Hỏi Hoa có bao nhiêu quyển vở?",
+      "options": ["A. {w1} quyển", "B. {w2} quyển", "C. {ans_str} quyển", "D. {w3} quyển"],
+      "correctIndex": 2,
+      "hints": ["Lan có {a} quyển, Hoa ít hơn Lan {b} quyển, vậy ta làm phép trừ.", "Tính $ {a} - {b} $."],
+      "solutionHtml": "Số vở của Hoa là:<br/>$ {a} - {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài xem đối tượng nào nhiều hơn, đối tượng nào ít hơn để chọn phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + b",
+        "w3": "a * b - b",
+        "ans_str": "ans"
+      },
+      "questionText": "Một cửa hàng nhập về {b} đợt hàng, mỗi đợt có {a} cái áo. Hỏi cửa hàng đã nhập về tất cả bao nhiêu cái áo?",
+      "options": ["A. {w1} cái", "B. {w2} cái", "C. {w3} cái", "D. {ans_str} cái"],
+      "correctIndex": 3,
+      "hints": ["Vì mỗi đợt có {a} cái và có {b} đợt, ta lấy {a} nhân với {b}.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số áo cửa hàng nhập về là:<br/>$ {a} \\times {b} = {ans} $ (cái).<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân là phép cộng các số hạng bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 500, "step": 50 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans * 2",
+        "w3": "a - b",
+        "ans_str": "ans"
+      },
+      "questionText": "Mẹ có {a} nghìn đồng, mẹ chia đều cho {b} anh em. Hỏi mỗi anh em nhận được bao nhiêu nghìn đồng?",
+      "options": ["A. {w1} nghìn", "B. {w2} nghìn", "C. {ans_str} nghìn", "D. {w3} nghìn"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số tiền cho số người, ta thực hiện phép chia.", "Tính $ {a} : {b} $."],
+      "solutionHtml": "Số tiền mỗi người nhận được là:<br/>$ {a} : {b} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'chia đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 80, "step": 2 },
+        "b": { "min": 10, "max": 40, "step": 2 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 5",
+        "w3": "a + b - 5",
+        "ans_str": "ans"
+      },
+      "questionText": "Buổi sáng cửa hàng bán được {a} lít xăng, buổi chiều bán được nhiều hơn buổi sáng {b} lít xăng. Hỏi buổi chiều cửa hàng bán được bao nhiêu lít xăng?",
+      "options": ["A. {w1} lít", "B. {w2} lít", "C. {ans_str} lít", "D. {w3} lít"],
+      "correctIndex": 2,
+      "hints": ["Buổi chiều bán nhiều hơn buổi sáng, ta lấy số xăng buổi sáng cộng thêm phần chênh lệch.", "Tính $ {a} + {b} $."],
+      "solutionHtml": "Số lít xăng buổi chiều bán được là:<br/>$ {a} + {b} = {ans} $ (lít).<br/>Đáp án đúng là C.",
+      "tip": "Nhiều hơn thì dùng phép cộng, ít hơn thì dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 300, "step": 10 },
+        "b": { "min": 50, "max": 100, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 10",
+        "ans_str": "ans"
+      },
+      "questionText": "Quãng đường từ nhà đến trường dài {a} mét. Minh đã đi được {b} mét. Hỏi Minh còn phải đi bao nhiêu mét nữa mới đến trường?",
+      "options": ["A. {w1} m", "B. {w2} m", "C. {ans_str} m", "D. {w3} m"],
+      "correctIndex": 2,
+      "hints": ["Để tìm đoạn đường còn lại, ta lấy tổng quãng đường trừ đi đoạn đường đã đi.", "Tính $ {a} - {b} $."],
+      "solutionHtml": "Quãng đường Minh còn phải đi là:<br/>$ {a} - {b} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Đoạn đường còn lại bằng tổng quãng đường trừ đi đoạn đường đã hoàn thành.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 12, "step": 1 },
+        "b": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2",
+        "ans_str": "ans"
+      },
+      "questionText": "Trong một vườn cây, người ta trồng {a} hàng cây, mỗi hàng có {b} cây. Hỏi trong vườn có tất cả bao nhiêu cây?",
+      "options": ["A. {w1} cây", "B. {w2} cây", "C. {w3} cây", "D. {ans_str} cây"],
+      "correctIndex": 3,
+      "hints": ["Số cây bằng số hàng nhân với số cây trong mỗi hàng.", "Tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Bài toán về mảng hình chữ nhật (số hàng x số cột) luôn dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-67-d4"
+    }
+  ]
+}
+

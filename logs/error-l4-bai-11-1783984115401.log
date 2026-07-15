@@ -1,0 +1,662 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:08:35.401Z
+Lesson ID: l4-bai-11
+Lesson Title: Bài 11: Hàng và lớp
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10771 (line 392 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10771 (line 392 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10771 (Line: 318, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 200, "max": 900, "step": 100 },
+        "y": { "min": 20, "max": 90, "step": 10 },
+        "z": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "x > y",
+        "y > z"
+      ],
+      "formulas": {
+        "val": "x * 100000 + y * 1000 + z",
+        "ans": "y",
+        "w1": "x",
+        "w2": "z",
+        "w3": "y + 10"
+      },
+      "questionText": "Số $ {val} $ gồm có mấy nghìn?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp nghìn bao gồm các hàng: nghìn, chục nghìn, trăm nghìn.",
+        "Số $ {val} $ có thể phân tích là: $ {x} $ nghìn, $ {y} $ chục và $ {z} $ đơn vị (theo lớp)."
+      ],
+      "solutionHtml": "Số $ {val} $ có thể được viết thành: $ {x} $ trăm nghìn, $ {y} $ nghìn và $ {z} $ đơn vị.<br/>Vậy số này có $ {y} $ nghìn.<br/>Đáp án đúng là B.",
+      "tip": "Khi xác định số lượng hàng, ta cần nhìn vào chữ số nằm ở hàng đó và các hàng cao hơn thuộc cùng lớp hoặc lớp cao hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 9, "step": 1 },
+        "b": { "min": 0, "max": 9, "step": 1 },
+        "c": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "a !== b",
+        "b !== c"
+      ],
+      "formulas": {
+        "num": "a * 100000 + b * 10000 + c * 1000",
+        "ans": "c",
+        "w1": "a",
+        "w2": "b",
+        "w3": "c + 1"
+      },
+      "questionText": "Trong số $ {num} $, chữ số nào thuộc hàng nghìn?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy viết số này ra và đếm từ phải sang trái.",
+        "Hàng đơn vị, chục, trăm, nghìn, chục nghìn, trăm nghìn."
+      ],
+      "solutionHtml": "Số $ {num} $ có các chữ số là: $ {a} $ ở hàng trăm nghìn, $ {b} $ ở hàng chục nghìn và $ {c} $ ở hàng nghìn.<br/>Vậy chữ số hàng nghìn là $ {c} $.<br/>Đáp án đúng là C.",
+      "tip": "Hàng nghìn là hàng đầu tiên của lớp nghìn (tính từ phải sang trái).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 100000",
+        "w1": "a * 1000",
+        "w2": "a * 10000",
+        "w3": "a * 1000000"
+      },
+      "questionText": "Giá trị của chữ số $ {a} $ trong số $ {a}00000 $ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chữ số này nằm ở hàng nào?",
+        "Chữ số $ {a} $ đứng ở vị trí thứ sáu kể từ phải sang trái."
+      ],
+      "solutionHtml": "Chữ số $ {a} $ nằm ở hàng trăm nghìn.<br/>Giá trị của nó là $ {a} \\times 100000 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Giá trị của một chữ số phụ thuộc vào vị trí (hàng) mà nó đứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 },
+        "b": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "num1": "a * 100000",
+        "num2": "b * 1000",
+        "ans": "num1 + num2",
+        "w1": "num1 + num2 + 10",
+        "w2": "a + b",
+        "w3": "a * 100000 + b"
+      },
+      "questionText": "Số gồm $ {a} $ trăm nghìn và $ {b} $ nghìn được viết là:",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp nghìn có các hàng: trăm nghìn, chục nghìn, nghìn.",
+        "Điền số 0 vào các hàng không có giá trị."
+      ],
+      "solutionHtml": "$ {a} $ trăm nghìn là $ {num1} $.<br/>$ {b} $ nghìn là $ {num2} $.<br/>Tổng là: $ {num1} + {num2} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên điền các số 0 ở hàng chục nghìn và các hàng thuộc lớp đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "Math.pow(10, n-1) * 9",
+        "w1": "Math.pow(10, n)",
+        "w2": "Math.pow(10, n-1)",
+        "w3": "Math.pow(10, n-1) + 1"
+      },
+      "questionText": "Có bao nhiêu số có $ {n} $ chữ số?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số nhỏ nhất có $ {n} $ chữ số là $ 10...0 $ ($ {n-1} $ chữ số 0).",
+        "Số lớn nhất có $ {n} $ chữ số là $ 99...9 $ ($ {n} $ chữ số 9)."
+      ],
+      "solutionHtml": "Số nhỏ nhất có $ {n} $ chữ số là $ {w2} $.<br/>Số lớn nhất có $ {n} $ chữ số là $ {w2} \\times 10 - 1 $.<br/>Số lượng là: $ ({w2} \\times 10 - 1) - {w2} + 1 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Số các số có n chữ số bằng: (Số lớn nhất n chữ số) - (Số nhỏ nhất n chữ số) + 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 50 },
+        "b": { "min": 100, "max": 300, "step": 50 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "num": "a * 1000 + b",
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "a + 1"
+      },
+      "questionText": "Trong số $ {num} $, lớp nghìn gồm những chữ số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp nghìn bao gồm các chữ số đứng ở hàng nghìn, chục nghìn, trăm nghìn.",
+        "Tách số $ {num} $ thành hai lớp từ phải sang trái, mỗi lớp 3 chữ số."
+      ],
+      "solutionHtml": "Số $ {num} $ có thể viết thành $ {a} $ (lớp nghìn) và $ {b} $ (lớp đơn vị).<br/>Vậy lớp nghìn gồm các chữ số tạo thành số $ {a} $.<br/>Đáp án đúng là B.",
+      "tip": "Lớp nghìn nằm bên trái lớp đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "a * 100000 + b",
+        "ans": "100000 * a",
+        "w1": "1000 * a",
+        "w2": "10000 * a",
+        "w3": "100 * a"
+      },
+      "questionText": "Giá trị của chữ số $ {a} $ trong số $ {a}0000{b} $ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đếm các vị trí từ phải qua trái.",
+        "Vị trí thứ 6 là hàng trăm nghìn."
+      ],
+      "solutionHtml": "Số $ {a}0000{b} $ có chữ số $ {a} $ ở hàng trăm nghìn.<br/>Giá trị của nó là $ {a} \\times 100000 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đừng đếm nhầm các chữ số 0 ở giữa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10000 + b * 10",
+        "w1": "a * 10000 + b",
+        "w2": "a * 1000 + b * 10",
+        "w3": "a * 100000 + b"
+      },
+      "questionText": "Số gồm $ {a} $ chục nghìn và $ {b} $ chục là:",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Viết các số theo hàng tương ứng.",
+        "Các hàng không có chữ số thì thay bằng 0."
+      ],
+      "solutionHtml": "$ {a} $ chục nghìn là $ {a}0000 $.<br/>$ {b} $ chục là $ {b}0 $.<br/>Kết quả là $ {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Chú ý hàng nghìn, hàng trăm và hàng đơn vị đều là 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 90, "step": 10 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "x",
+        "w1": "x * 10",
+        "w2": "x / 10",
+        "w3": "x + 100"
+      },
+      "questionText": "Trong số $ {x}000 $, lớp đơn vị có bao nhiêu đơn vị?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp đơn vị gồm hàng trăm, hàng chục và hàng đơn vị.",
+        "Ở số $ {x}000 $, các chữ số hàng trăm, chục, đơn vị là bao nhiêu?"
+      ],
+      "solutionHtml": "Số $ {x}000 $ có chữ số 0 ở hàng trăm, hàng chục và hàng đơn vị.<br/>Vậy lớp đơn vị có 0 đơn vị.<br/>Đáp án đúng là A.",
+      "tip": "Hãy nhìn vào 3 chữ số cuối cùng của số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a * 10",
+        "w2": "a * 100",
+        "w3": "a * 1000"
+      },
+      "questionText": "Số $ {a} $ trăm nghìn bằng bao nhiêu trăm?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}000"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi $ {a} $ trăm nghìn ra đơn vị trước: $ {a}00000 $.",
+        "Muốn biết bằng bao nhiêu trăm, ta chia số đó cho 100."
+      ],
+      "solutionHtml": "$ {a} $ trăm nghìn = $ {a}00000 $.<br/>$ {a}00000 : 100 = {w2} $ trăm.<br/>Đáp án đúng là B.",
+      "tip": "Để đổi từ đơn vị lớn sang đơn vị nhỏ hơn, ta nhân với giá trị tương ứng; để đổi ngược lại, ta chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 200, "max": 900, "step": 100 },
+        "y": { "min": 20, "max": 90, "step": 10 },
+        "z": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "x > y",
+        "y > z"
+      ],
+      "formulas": {
+        "val": "x * 100000 + y * 1000 + z",
+        "ans": "y",
+        "w1": "x",
+        "w2": "z",
+        "w3": "y + 10"
+      },
+      "questionText": "Số $ {val} $ gồm có mấy nghìn?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp nghìn bao gồm các hàng: nghìn, chục nghìn, trăm nghìn.",
+        "Số $ {val} $ có thể phân tích là: $ {x} $ nghìn, $ {y} $ chục và $ {z} $ đơn vị (theo lớp)."
+      ],
+      "solutionHtml": "Số $ {val} $ có thể được viết thành: $ {x} $ trăm nghìn, $ {y} $ nghìn và $ {z} $ đơn vị.<br/>Vậy số này có $ {y} $ nghìn.<br/>Đáp án đúng là B.",
+      "tip": "Khi xác định số lượng hàng, ta cần nhìn vào chữ số nằm ở hàng đó và các hàng cao hơn thuộc cùng lớp hoặc lớp cao hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 9, "step": 1 },
+        "b": { "min": 0, "max": 9, "step": 1 },
+        "c": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "a !== b",
+        "b !== c"
+      ],
+      "formulas": {
+        "num": "a * 100000 + b * 10000 + c * 1000",
+        "ans": "c",
+        "w1": "a",
+        "w2": "b",
+        "w3": "c + 1"
+      },
+      "questionText": "Trong số $ {num} $, chữ số nào thuộc hàng nghìn?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hãy viết số này ra và đếm từ phải sang trái.",
+        "Hàng đơn vị, chục, trăm, nghìn, chục nghìn, trăm nghìn."
+      ],
+      "solutionHtml": "Số $ {num} $ có các chữ số là: $ {a} $ ở hàng trăm nghìn, $ {b} $ ở hàng chục nghìn và $ {c} $ ở hàng nghìn.<br/>Vậy chữ số hàng nghìn là $ {c} $.<br/>Đáp án đúng là C.",
+      "tip": "Hàng nghìn là hàng đầu tiên của lớp nghìn (tính từ phải sang trái).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 100000",
+        "w1": "a * 1000",
+        "w2": "a * 10000",
+        "w3": "a * 1000000"
+      },
+      "questionText": "Giá trị của chữ số $ {a} $ trong số $ {a}00000 $ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chữ số này nằm ở hàng nào?",
+        "Chữ số $ {a} $ đứng ở vị trí thứ sáu kể từ phải sang trái."
+      ],
+      "solutionHtml": "Chữ số $ {a} $ nằm ở hàng trăm nghìn.<br/>Giá trị của nó là $ {a} \\times 100000 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Giá trị của một chữ số phụ thuộc vào vị trí (hàng) mà nó đứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 },
+        "b": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "num1": "a * 100000",
+        "num2": "b * 1000",
+        "ans": "num1 + num2",
+        "w1": "num1 + num2 + 10",
+        "w2": "a + b",
+        "w3": "a * 100000 + b"
+      },
+      "questionText": "Số gồm $ {a} $ trăm nghìn và $ {b} $ nghìn được viết là:",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp nghìn có các hàng: trăm nghìn, chục nghìn, nghìn.",
+        "Điền số 0 vào các hàng không có giá trị."
+      ],
+      "solutionHtml": "$ {a} $ trăm nghìn là $ {num1} $.<br/>$ {b} $ nghìn là $ {num2} $.<br/>Tổng là: $ {num1} + {num2} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên điền các số 0 ở hàng chục nghìn và các hàng thuộc lớp đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "Math.pow(10, n-1) * 9",
+        "w1": "Math.pow(10, n)",
+        "w2": "Math.pow(10, n-1)",
+        "w3": "Math.pow(10, n-1) + 1"
+      },
+      "questionText": "Có bao nhiêu số có $ {n} $ chữ số?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số nhỏ nhất có $ {n} $ chữ số là $ 10...0 $ ($ {n-1} $ chữ số 0).",
+        "Số lớn nhất có $ {n} $ chữ số là $ 99...9 $ ($ {n} $ chữ số 9)."
+      ],
+      "solutionHtml": "Số nhỏ nhất có $ {n} $ chữ số là $ {w2} $.<br/>Số lớn nhất có $ {n} $ chữ số là $ {w2} \\times 10 - 1 $.<br/>Số lượng là: $ ({w2} \\times 10 - 1) - {w2} + 1 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Số các số có n chữ số bằng: (Số lớn nhất n chữ số) - (Số nhỏ nhất n chữ số) + 1.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 50 },
+        "b": { "min": 100, "max": 300, "step": 50 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "num": "a * 1000 + b",
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "a + 1"
+      },
+      "questionText": "Trong số $ {num} $, lớp nghìn gồm những chữ số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp nghìn bao gồm các chữ số đứng ở hàng nghìn, chục nghìn, trăm nghìn.",
+        "Tách số $ {num} $ thành hai lớp từ phải sang trái, mỗi lớp 3 chữ số."
+      ],
+      "solutionHtml": "Số $ {num} $ có thể viết thành $ {a} $ (lớp nghìn) và $ {b} $ (lớp đơn vị).<br/>Vậy lớp nghìn gồm các chữ số tạo thành số $ {a} $.<br/>Đáp án đúng là B.",
+      "tip": "Lớp nghìn nằm bên trái lớp đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "num": "a * 100000 + b",
+        "ans": "100000 * a",
+        "w1": "1000 * a",
+        "w2": "10000 * a",
+        "w3": "100 * a"
+      },
+      "questionText": "Giá trị của chữ số $ {a} $ trong số $ {a}0000{b} $ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đếm các vị trí từ phải qua trái.",
+        "Vị trí thứ 6 là hàng trăm nghìn."
+      ],
+      "solutionHtml": "Số $ {a}0000{b} $ có chữ số $ {a} $ ở hàng trăm nghìn.<br/>Giá trị của nó là $ {a} \\times 100000 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đừng đếm nhầm các chữ số 0 ở giữa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10000 + b * 10",
+        "w1": "a * 10000 + b",
+        "w2": "a * 1000 + b * 10",
+        "w3": "a * 100000 + b"
+      },
+      "questionText": "Số gồm $ {a} $ chục nghìn và $ {b} $ chục là:",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Viết các số theo hàng tương ứng.",
+        "Các hàng không có chữ số thì thay bằng 0."
+      ],
+      "solutionHtml": "$ {a} $ chục nghìn là $ {a}0000 $.<br/>$ {b} $ chục là $ {b}0 $.<br/>Kết quả là $ {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Chú ý hàng nghìn, hàng trăm và hàng đơn vị đều là 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 90, "step": 10 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "x",
+        "w1": "x * 10",
+        "w2": "x / 10",
+        "w3": "x + 100"
+      },
+      "questionText": "Trong số $ {x}000 $, lớp đơn vị có bao nhiêu đơn vị?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lớp đơn vị gồm hàng trăm, hàng chục và hàng đơn vị.",
+        "Ở số $ {x}000 $, các chữ số hàng trăm, chục, đơn vị là bao nhiêu?"
+      ],
+      "solutionHtml": "Số $ {x}000 $ có chữ số 0 ở hàng trăm, hàng chục và hàng đơn vị.<br/>Vậy lớp đơn vị có 0 đơn vị.<br/>Đáp án đúng là A.",
+      "tip": "Hãy nhìn vào 3 chữ số cuối cùng của số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a * 10",
+        "w2": "a * 100",
+        "w3": "a * 1000"
+      },
+      "questionText": "Số $ {a} $ trăm nghìn bằng bao nhiêu trăm?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}000"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi $ {a} $ trăm nghìn ra đơn vị trước: $ {a}00000 $.",
+        "Muốn biết bằng bao nhiêu trăm, ta chia số đó cho 100."
+      ],
+      "solutionHtml": "$ {a} $ trăm nghìn = $ {a}00000 $.<br/>$ {a}00000 : 100 = {w2} $ trăm.<br/>Đáp án đúng là B.",
+      "tip": "Để đổi từ đơn vị lớn sang đơn vị nhỏ hơn, ta nhân với giá trị tương ứng; để đổi ngược lại, ta chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-11-d10"
+    }
+  ]
+}
+

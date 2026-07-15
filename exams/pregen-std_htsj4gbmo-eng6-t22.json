@@ -1,0 +1,435 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": {
+          "min": 60,
+          "max": 120,
+          "step": 10
+        },
+        "t": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(v * t) % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "v * t",
+        "w1": "v + t",
+        "w2": "v / t",
+        "w3": "v * 2",
+        "realW1": "(w1 === ans) ? ans + 10 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 20 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 30 : w3"
+      },
+      "questionText": "Một phương tiện giao thông tương lai di chuyển với vận tốc trung bình {v} km/h. Hỏi sau {t} giờ, phương tiện đó di chuyển được quãng đường dài bao nhiêu kilômét?",
+      "options": [
+        "A. {realW1} km",
+        "B. {ans} km",
+        "C. {realW2} km",
+        "D. {realW3} km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng công thức quãng đường bằng vận tốc nhân thời gian.",
+        "Ta có công thức: $Quãng đường = Vận tốc \\times Thời gian$."
+      ],
+      "solutionHtml": "Quãng đường phương tiện đó đi được là:<br/>$ {v} \\times {t} = {ans} $ (km).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị của quãng đường là kilômét (km), vận tốc là km/h và thời gian là giờ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "m": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(n * m) % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "n * m",
+        "w1": "n + m",
+        "w2": "n * (m - 1)",
+        "w3": "n * (m + 1)",
+        "realW1": "(w1 === ans) ? ans + 5 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 10 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 15 : w3"
+      },
+      "questionText": "Một tàu điện ngầm có {n} toa, mỗi toa chở được tối đa {m} hành khách. Hỏi tổng sức chứa tối đa của cả đoàn tàu là bao nhiêu hành khách?",
+      "options": [
+        "A. {realW1} hành khách",
+        "B. {realW2} hành khách",
+        "C. {ans} hành khách",
+        "D. {realW3} hành khách"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi toa chở được {m} khách, vậy {n} toa chở được tổng cộng bao nhiêu khách?",
+        "Phép tính cần dùng là phép nhân."
+      ],
+      "solutionHtml": "Tổng sức chứa của đoàn tàu là:<br/>$ {n} \\times {m} = {ans} $ (hành khách).<br/>Đáp án đúng là C.",
+      "tip": "Khi làm bài toán đố, hãy chú ý đọc kỹ số lượng đơn vị trong từng nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": {
+          "min": 200,
+          "max": 500,
+          "step": 50
+        },
+        "t": {
+          "min": 4,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "d % t === 0"
+      ],
+      "formulas": {
+        "ans": "d / t",
+        "w1": "d + t",
+        "w2": "d / 2",
+        "w3": "t * 10",
+        "realW1": "(w1 === ans) ? ans + 10 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 20 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 30 : w3"
+      },
+      "questionText": "Một thiết bị vận chuyển hàng tự động di chuyển quãng đường {d} mét trong {t} phút. Hỏi trung bình mỗi phút thiết bị đó di chuyển được bao nhiêu mét?",
+      "options": [
+        "A. {ans} mét",
+        "B. {realW1} mét",
+        "C. {realW2} mét",
+        "D. {realW3} mét"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Để tìm trung bình mỗi phút, ta lấy tổng quãng đường chia cho số phút.",
+        "Phép tính: $ {d} : {t} $."
+      ],
+      "solutionHtml": "Trung bình mỗi phút thiết bị di chuyển được:<br/>$ {d} : {t} = {ans} $ (mét).<br/>Đáp án đúng là A.",
+      "tip": "Từ 'trung bình' gợi ý cho chúng ta thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "k": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "(h * k) % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "h * k",
+        "w1": "h + k",
+        "w2": "h * k + 5",
+        "w3": "k * 2",
+        "realW1": "(w1 === ans) ? ans + 1 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 2 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 3 : w3"
+      },
+      "questionText": "Một trạm sạc xe điện phục vụ {h} lượt xe mỗi giờ. Hỏi trong {k} giờ, trạm sạc đó phục vụ được bao nhiêu lượt xe?",
+      "options": [
+        "A. {realW1} lượt",
+        "B. {realW2} lượt",
+        "C. {realW3} lượt",
+        "D. {ans} lượt"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Trong 1 giờ có {h} lượt, vậy trong {k} giờ có bao nhiêu lượt?",
+        "Nhân số lượt mỗi giờ với tổng số giờ."
+      ],
+      "solutionHtml": "Số lượt xe trạm sạc phục vụ trong {k} giờ là:<br/>$ {h} \\times {k} = {ans} $ (lượt).<br/>Đáp án đúng là D.",
+      "tip": "Phép nhân giúp ta tính nhanh tổng số lượng khi biết số lượng mỗi đơn vị thời gian.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "y": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "x > y",
+        "(x - y) % 10 === 0"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x / 2",
+        "w3": "y * 2",
+        "realW1": "(w1 === ans) ? ans + 10 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 20 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 30 : w3"
+      },
+      "questionText": "Tàu cao tốc chạy với vận tốc {x} km/h, trong khi tàu hỏa thường chạy với vận tốc {y} km/h. Hỏi vận tốc của tàu cao tốc lớn hơn tàu hỏa bao nhiêu km/h?",
+      "options": [
+        "A. {realW1} km/h",
+        "B. {ans} km/h",
+        "C. {realW2} km/h",
+        "D. {realW3} km/h"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết tàu cao tốc chạy nhanh hơn bao nhiêu, ta lấy vận tốc tàu cao tốc trừ đi vận tốc tàu thường.",
+        "Phép tính: $ {x} - {y} $."
+      ],
+      "solutionHtml": "Vận tốc chênh lệch giữa hai loại tàu là:<br/>$ {x} - {y} = {ans} $ (km/h).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'lớn hơn bao nhiêu' thường chỉ phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a * b) % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * a",
+        "realW1": "(w1 === ans) ? ans + 1 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 2 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 3 : w3"
+      },
+      "questionText": "Một hệ thống băng tải chuyển được {a} thùng hàng mỗi phút. Hỏi trong {b} phút, hệ thống đó chuyển được bao nhiêu thùng hàng?",
+      "options": [
+        "A. {realW1} thùng",
+        "B. {realW2} thùng",
+        "C. {ans} thùng",
+        "D. {realW3} thùng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân số thùng mỗi phút cho số phút.",
+        "Phép tính: $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số thùng hàng chuyển được là:<br/>$ {a} \\times {b} = {ans} $ (thùng).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra đơn vị tính để đảm bảo khớp với yêu cầu đề bài.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 400,
+          "max": 800,
+          "step": 50
+        },
+        "per": {
+          "min": 50,
+          "max": 80,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "total % per === 0"
+      ],
+      "formulas": {
+        "ans": "total / per",
+        "w1": "total / 10",
+        "w2": "per / 10",
+        "w3": "total / 20",
+        "realW1": "(w1 === ans) ? ans + 2 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 4 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 6 : w3"
+      },
+      "questionText": "Một chuyến bay dùng hết {total} lít nhiên liệu. Biết mỗi giờ bay tiêu thụ hết {per} lít nhiên liệu. Hỏi chuyến bay đó kéo dài bao nhiêu giờ?",
+      "options": [
+        "A. {realW1} giờ",
+        "B. {ans} giờ",
+        "C. {realW2} giờ",
+        "D. {realW3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số lít chia cho số lít mỗi giờ sẽ ra số giờ.",
+        "Phép tính: $ {total} : {per} $."
+      ],
+      "solutionHtml": "Số giờ bay của chuyến bay là:<br/>$ {total} : {per} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và số lượng từng phần, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "km": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "price": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(km * price) % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "km * price",
+        "w1": "km + price",
+        "w2": "km * 2",
+        "w3": "price * 10",
+        "realW1": "(w1 === ans) ? ans + 5 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 10 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 15 : w3"
+      },
+      "questionText": "Giá cước taxi bay là {price} nghìn đồng cho mỗi kilômét. Nếu quãng đường bay dài {km} km, hỏi tổng chi phí là bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {realW1} nghìn đồng",
+        "B. {realW2} nghìn đồng",
+        "C. {ans} nghìn đồng",
+        "D. {realW3} nghìn đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân giá cước mỗi km với tổng số km.",
+        "Phép tính: $ {price} \\times {km} $."
+      ],
+      "solutionHtml": "Tổng chi phí chuyến bay là:<br/>$ {price} \\times {km} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị tiền tệ cần được giữ nguyên trong kết quả cuối cùng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pass": {
+          "min": 100,
+          "max": 300,
+          "step": 20
+        },
+        "vagon": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "pass % vagon === 0"
+      ],
+      "formulas": {
+        "ans": "pass / vagon",
+        "w1": "vagon * 2",
+        "w2": "pass / 2",
+        "w3": "vagon * 5",
+        "realW1": "(w1 === ans) ? ans + 1 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 2 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 3 : w3"
+      },
+      "questionText": "Một đoàn tàu cao tốc chở {pass} hành khách chia đều vào {vagon} toa tàu. Hỏi mỗi toa chở bao nhiêu hành khách?",
+      "options": [
+        "A. {ans} hành khách",
+        "B. {realW1} hành khách",
+        "C. {realW2} hành khách",
+        "D. {realW3} hành khách"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Chia tổng số hành khách cho số toa.",
+        "Phép tính: $ {pass} : {vagon} $."
+      ],
+      "solutionHtml": "Số hành khách mỗi toa chở là:<br/>$ {pass} : {vagon} = {ans} $ (hành khách).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều tức là mỗi phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 3,
+          "max": 7,
+          "step": 1
+        },
+        "k": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(n * k) % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "n * k",
+        "w1": "n + k",
+        "w2": "n * k + 10",
+        "w3": "k * 3",
+        "realW1": "(w1 === ans) ? ans + 1 : w1",
+        "realW2": "(w2 === ans || w2 === realW1) ? ans + 2 : w2",
+        "realW3": "(w3 === ans || w3 === realW1 || w3 === realW2) ? ans + 3 : w3"
+      },
+      "questionText": "Mỗi chiếc thuyền bay chở được {k} người. Nếu có {n} chiếc thuyền bay như vậy, hỏi tổng số người tối đa có thể được vận chuyển là bao nhiêu?",
+      "options": [
+        "A. {realW1} người",
+        "B. {realW2} người",
+        "C. {realW3} người",
+        "D. {ans} người"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Nhân số người trên mỗi thuyền với số chiếc thuyền.",
+        "Phép tính: $ {k} \\times {n} $."
+      ],
+      "solutionHtml": "Tổng số người được vận chuyển là:<br/>$ {k} \\times {n} = {ans} $ (người).<br/>Đáp án đúng là D.",
+      "tip": "Đừng quên kiểm tra các con số trong đề bài để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t22-d10"
+    }
+  ]
+}

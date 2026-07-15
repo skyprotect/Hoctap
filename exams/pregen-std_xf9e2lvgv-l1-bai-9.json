@@ -1,0 +1,432 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0",
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a - b",
+        "w2_goc": "a + b",
+        "w3_goc": "a + 2",
+        "w1": "(w1_goc === ans) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Lớp 1A có {a} bạn học sinh, cô giáo chia đều các bạn vào {b} nhóm để chơi trò chơi. Hỏi mỗi nhóm có bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để chia đều {a} bạn vào {b} nhóm, ta thực hiện phép tính chia.",
+        "Hãy tính ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số bạn trong mỗi nhóm là:<br/>${a} : {b} = {ans}$ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Khi nghe thấy cụm từ 'chia đều', các con hãy nghĩ ngay đến phép tính chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a - b",
+        "w2_goc": "a + 5",
+        "w3_goc": "a + 1",
+        "w1": "(w1_goc === ans || w1_goc <= 0) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Trong giỏ có {a} quả táo. Mẹ mua thêm {b} quả táo nữa. Hỏi trong giỏ bây giờ có tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {a} quả và mua thêm {b} quả, ta thực hiện phép tính cộng.",
+        "Hãy tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số quả táo trong giỏ là:<br/>${a} + {b} = {ans}$ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Mua thêm tức là số lượng tăng lên, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 15,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1_goc": "a + b",
+        "w2_goc": "a - 1",
+        "w3_goc": "b - 1",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Bạn An có {a} viên bi, bạn An cho bạn Bình {b} viên bi. Hỏi bạn An còn lại bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "An cho đi tức là số bi giảm đi, ta dùng phép trừ.",
+        "Hãy tính ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Số viên bi còn lại của An là:<br/>${a} - {b} = {ans}$ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Khi cho đi hoặc bị mất đi, số lượng sẽ giảm xuống, ta cần dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "a * 4",
+        "w1_goc": "a + 4",
+        "w2_goc": "a * 2",
+        "w3_goc": "a * 3",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 5 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Một chiếc xe ô tô đồ chơi có 4 bánh. Hỏi {a} chiếc xe như thế có tất cả bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái bánh",
+        "B. {ans} cái bánh",
+        "C. {w2} cái bánh",
+        "D. {w3} cái bánh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi chiếc xe có 4 bánh, có {a} chiếc xe ta lấy 4 được lấy {a} lần.",
+        "Tính $4 \\times {a} = {ans}$."
+      ],
+      "solutionHtml": "Số bánh xe là:<br/>$4 \\times {a} = {ans}$ (cái bánh).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số lượng của một đơn vị, muốn tìm tổng số của nhiều đơn vị giống hệt nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a - b",
+        "w2_goc": "a + 1",
+        "w3_goc": "a + b + 1",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Trên cành cây có {a} con chim đang đậu, sau đó có thêm {b} con chim bay đến đậu cùng. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có sẵn {a} con, lại thêm {b} con nữa, ta cộng thêm vào.",
+        "Tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số con chim trên cành là:<br/>${a} + {b} = {ans}$ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'thêm' báo hiệu chúng ta cần sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0",
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a - b",
+        "w2_goc": "a + b",
+        "w3_goc": "b * 2",
+        "w1": "(w1_goc === ans) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Mẹ có {a} bông hoa, mẹ chia đều vào {b} chiếc lọ. Hỏi mỗi chiếc lọ có bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông",
+        "B. {ans} bông",
+        "C. {w2} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều {a} bông hoa vào {b} lọ, ta dùng phép chia.",
+        "Tính ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số bông hoa trong mỗi lọ là:<br/>${a} : {b} = {ans}$ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1_goc": "a + b",
+        "w2_goc": "a + 1",
+        "w3_goc": "a - b + 2",
+        "w1": "(w1_goc === ans) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Một đàn gà có {a} con, trong đó có {b} con là gà trống, còn lại là gà mái. Hỏi đàn gà có bao nhiêu con gà mái?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số gà mái, ta lấy tổng số gà trừ đi số gà trống.",
+        "Tính ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Số con gà mái là:<br/>${a} - {b} = {ans}$ (con gà).<br/>Đáp án đúng là B.",
+      "tip": "Tìm phần còn lại sau khi đã biết tổng và một phần, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > 0",
+        "b > 0"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1_goc": "a + b",
+        "w2_goc": "a + a",
+        "w3_goc": "b + b",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Một hộp bút có {a} cây bút. Hỏi {b} hộp bút như thế có bao nhiêu cây bút?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một hộp có {a} cây, có {b} hộp ta lấy {a} gấp lên {b} lần.",
+        "Tính ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Số cây bút là:<br/>${a} \\times {b} = {ans}$ (cây bút).<br/>Đáp án đúng là B.",
+      "tip": "Gấp lên nhiều lần ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a + b",
+        "w2_goc": "a - b",
+        "w3_goc": "a + 2",
+        "w1": "(w1_goc === ans) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Có {a} quyển vở, cô giáo chia đều cho {b} tổ. Hỏi mỗi tổ nhận được bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều vào các tổ, ta dùng phép chia.",
+        "Tính ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số quyển vở mỗi tổ nhận được là:<br/>${a} : {b} = {ans}$ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là phép tính chia, đừng nhầm với phép tính khác nhé!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a - b",
+        "w2_goc": "a + 1",
+        "w3_goc": "a + b + 2",
+        "w1": "(w1_goc === ans) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Trong vườn nhà em có {a} cây cam, bố trồng thêm {b} cây cam nữa. Hỏi trong vườn có tất cả bao nhiêu cây cam?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trồng thêm nghĩa là số cây tăng lên, ta dùng phép cộng.",
+        "Tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số cây cam trong vườn là:<br/>${a} + {b} = {ans}$ (cây cam).<br/>Đáp án đúng là B.",
+      "tip": "Cộng thêm khi có thêm vật mới, phép toán này rất đơn giản đúng không nào?",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-9-q10"
+    }
+  ]
+}

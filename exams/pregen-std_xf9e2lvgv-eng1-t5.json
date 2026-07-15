@@ -1,0 +1,402 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "fish": {
+          "min": 5,
+          "max": 10
+        },
+        "chips": {
+          "min": 11,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "fish < chips"
+      ],
+      "formulas": {
+        "ans": "chips - fish",
+        "w1": "chips + fish",
+        "w2": "chips + 2",
+        "w3": "fish + 1",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Tại cửa hàng, bạn An mua {fish} phần cá và {chips} phần khoai tây chiên. Hỏi số phần khoai tây chiên nhiều hơn số phần cá là bao nhiêu?",
+      "options": [
+        "{w1_f}",
+        "{ans}",
+        "{w2_f}",
+        "{w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết số phần khoai tây nhiều hơn số phần cá bao nhiêu, ta dùng phép trừ.",
+        "Ta thực hiện phép tính ${chips} - {fish}$."
+      ],
+      "solutionHtml": "Số phần khoai tây nhiều hơn số phần cá là:<br/>${chips} - {fish} = {ans}$ (phần).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán hỏi 'nhiều hơn bao nhiêu', ta luôn thực hiện phép trừ giữa số lớn và số bé.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a * b <= 15"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "a * b + 3",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 5 : w3"
+      },
+      "questionText": "Mỗi hộp cơm có {a} miếng cá. Nếu bác đầu bếp làm {b} hộp cơm, hỏi có tất cả bao nhiêu miếng cá?",
+      "options": [
+        "{w1_f}",
+        "{w2_f}",
+        "{ans}",
+        "{w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có {b} hộp, mỗi hộp có {a} miếng cá, ta thực hiện phép nhân.",
+        "Phép tính là ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Số miếng cá có tất cả là:<br/>${a} \\times {b} = {ans}$ (miếng).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong một nhóm và số nhóm, ta dùng phép nhân để tìm tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 10,
+          "max": 20
+        },
+        "eaten": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "total > eaten"
+      ],
+      "formulas": {
+        "ans": "total - eaten",
+        "w1": "total + eaten",
+        "w2": "total - 1",
+        "w3": "eaten + 5",
+        "w1_f": "(w1 === ans) ? w1 + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 4 : w3"
+      },
+      "questionText": "Cửa hàng có {total} chiếc bánh cá. Sau khi bán đi {eaten} chiếc, hỏi cửa hàng còn lại bao nhiêu chiếc bánh cá?",
+      "options": [
+        "{w1_f}",
+        "{w2_f}",
+        "{ans}",
+        "{w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ban đầu có {total} chiếc, bán đi tức là bớt đi {eaten} chiếc.",
+        "Ta thực hiện phép tính ${total} - {eaten}$."
+      ],
+      "solutionHtml": "Số bánh cá còn lại là:<br/>${total} - {eaten} = {ans}$ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Dùng phép trừ khi vật phẩm bị mất đi, bán đi hoặc bớt đi.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 2",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 1 : w3"
+      },
+      "questionText": "Bạn Hoa mua {a} phần khoai tây và {b} phần cá. Hỏi tổng cộng bạn Hoa mua bao nhiêu phần ăn?",
+      "options": [
+        "{w1_f}",
+        "{ans}",
+        "{w2_f}",
+        "{w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm tổng cộng, ta thực hiện phép tính cộng.",
+        "Ta tính ${a} + {b}$."
+      ],
+      "solutionHtml": "Tổng số phần ăn là:<br/>${a} + {b} = {ans}$ (phần).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'tổng cộng' hoặc 'tất cả' thường chỉ phép toán cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "fish": {
+          "min": 3,
+          "max": 6
+        },
+        "chips": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "fish + chips",
+        "w1": "fish + chips + 1",
+        "w2": "fish + chips - 1",
+        "w3": "fish * chips",
+        "w1_f": "(w1 === ans) ? w1 + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 4 : w3"
+      },
+      "questionText": "Một đĩa có {fish} miếng cá và {chips} miếng khoai tây. Hỏi có tổng cộng bao nhiêu miếng thức ăn trên đĩa?",
+      "options": [
+        "{w1_f}",
+        "{w2_f}",
+        "{w3_f}",
+        "{ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cộng số miếng cá và số miếng khoai tây lại với nhau.",
+        "Ta thực hiện phép tính ${fish} + {chips}$."
+      ],
+      "solutionHtml": "Tổng số miếng thức ăn là:<br/>${fish} + {chips} = {ans}$ (miếng).<br/>Đáp án đúng là D.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "price": {
+          "min": 2,
+          "max": 5
+        },
+        "count": {
+          "min": 3,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "price * count",
+        "w1": "price + count",
+        "w2": "price * count + 2",
+        "w3": "price * count - 1",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 1 : w3"
+      },
+      "questionText": "Mỗi gói khoai tây giá {price} nghìn đồng. Bạn Nam mua {count} gói. Hỏi Nam phải trả bao nhiêu tiền?",
+      "options": [
+        "{w1_f}",
+        "{ans}",
+        "{w2_f}",
+        "{w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mua {count} gói, mỗi gói {price} nghìn, ta lấy giá một gói nhân với số gói.",
+        "Phép tính là ${price} \\times {count}$."
+      ],
+      "solutionHtml": "Số tiền Nam phải trả là:<br/>${price} \\times {count} = {ans}$ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 1 : w3"
+      },
+      "questionText": "Trên bàn có {a} chiếc cốc, trong đó có {b} chiếc cốc bị vỡ. Hỏi có bao nhiêu chiếc cốc còn nguyên vẹn?",
+      "options": [
+        "{w1_f}",
+        "{w2_f}",
+        "{w3_f}",
+        "{ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tổng số cốc trừ đi số cốc bị vỡ.",
+        "Ta thực hiện phép tính ${a} - {b}$."
+      ],
+      "solutionHtml": "Số cốc còn nguyên vẹn là:<br/>${a} - {b} = {ans}$ (chiếc).<br/>Đáp án đúng là D.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3 : w3"
+      },
+      "questionText": "Cửa hàng buổi sáng bán được {a} phần cá, buổi chiều bán thêm được {b} phần nữa. Hỏi cả ngày cửa hàng bán được bao nhiêu phần cá?",
+      "options": [
+        "{ans}",
+        "{w1_f}",
+        "{w2_f}",
+        "{w3_f}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Ta cần cộng số phần bán buổi sáng và buổi chiều.",
+        "Phép tính là ${a} + {b}$."
+      ],
+      "solutionHtml": "Tổng số phần cá bán được là:<br/>${a} + {b} = {ans}$ (phần).<br/>Đáp án đúng là A.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 12
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a / b + 1",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 2 : w3"
+      },
+      "questionText": "Bác chủ quán chia đều {a} miếng cá cho {b} đĩa. Hỏi mỗi đĩa có bao nhiêu miếng cá?",
+      "options": [
+        "{w1_f}",
+        "{ans}",
+        "{w2_f}",
+        "{w3_f}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều số cá vào các đĩa, ta dùng phép chia.",
+        "Phép tính là ${a} : {b}$."
+      ],
+      "solutionHtml": "Số miếng cá mỗi đĩa là:<br/>${a} : {b} = {ans}$ (miếng).<br/>Đáp án đúng là B.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 7
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 2 : w3"
+      },
+      "questionText": "Bạn Lan có {a} đồng xu. Bạn ấy dùng {b} đồng xu để mua đồ ăn. Hỏi Lan còn lại bao nhiêu đồng xu?",
+      "options": [
+        "{w1_f}",
+        "{w2_f}",
+        "{ans}",
+        "{w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bớt đi số đồng xu đã dùng, ta dùng phép trừ.",
+        "Phép tính là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số đồng xu Lan còn lại là:<br/>${a} - {b} = {ans}$ (đồng xu).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t5-d10"
+    }
+  ]
+}

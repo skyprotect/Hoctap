@@ -1,0 +1,373 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": {
+          "min": 2,
+          "max": 5
+        },
+        "v": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "t !== v"
+      ],
+      "formulas": {
+        "ans": "t + v",
+        "w1": "(t + v + 1) === (t + v) ? (t + v + 2) : (t + v + 1)",
+        "w2": "(t + v - 1) === (t + v) ? (t + v + 3) : (t + v - 1)",
+        "w3": "(t * v) === (t + v) ? (t + v + 4) : (t * v)"
+      },
+      "questionText": "Bạn An có {t} hình tam giác và {v} hình vuông. Hỏi bạn An có tất cả bao nhiêu hình?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm tổng số hình, ta lấy số hình tam giác cộng với số hình vuông.",
+        "Phép tính là ${t} + {v}$."
+      ],
+      "solutionHtml": "Số hình bạn An có là:<br/>${t} + {v} = {ans}$ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Hãy phân biệt rõ hình tam giác và hình vuông trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": {
+          "min": 6,
+          "max": 9
+        },
+        "tam": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "tong > tam"
+      ],
+      "formulas": {
+        "ans": "tong - tam",
+        "w1": "tong + tam",
+        "w2": "tam + 1",
+        "w3": "tong - tam + 2"
+      },
+      "questionText": "Trong một hộp đựng {tong} hình gồm hình chữ nhật và hình tam giác. Biết có {tam} hình tam giác. Hỏi có bao nhiêu hình chữ nhật?",
+      "options": [
+        "A. {w1} hình",
+        "B. {ans} hình",
+        "C. {w2} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số hình chữ nhật, ta lấy tổng số hình trừ đi số hình tam giác.",
+        "Phép tính là ${tong} - {tam}$."
+      ],
+      "solutionHtml": "Số hình chữ nhật là:<br/>${tong} - {tam} = {ans}$ (hình).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định cái nào là tổng, cái nào là phần đã biết.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a * 3",
+        "w2": "a * 2",
+        "w3": "a + 4"
+      },
+      "questionText": "Một hình vuông có 4 cạnh bằng nhau. Nếu bạn có {a} hình vuông như vậy, tổng cộng bạn có bao nhiêu cạnh của các hình vuông đó?",
+      "options": [
+        "A. {w1} cạnh",
+        "B. {w2} cạnh",
+        "C. {w3} cạnh",
+        "D. {ans} cạnh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Một hình vuông có 4 cạnh. Với {a} hình, ta lấy 4 cộng lại {a} lần.",
+        "Phép tính là $4 + 4 + ...$ hoặc $4 \\times {a}$."
+      ],
+      "solutionHtml": "Tổng số cạnh của {a} hình vuông là:<br/>$4 \\times {a} = {ans}$ (cạnh).<br/>Đáp án đúng là D.",
+      "tip": "Ghi nhớ đặc điểm hình vuông có 4 cạnh bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "n > 2"
+      ],
+      "formulas": {
+        "ans": "n * 3",
+        "w1": "n + 3",
+        "w2": "n * 2",
+        "w3": "n + 6"
+      },
+      "questionText": "Mỗi hình tam giác có 3 cạnh. Nếu có {n} hình tam giác, hỏi tổng số cạnh của chúng là bao nhiêu?",
+      "options": [
+        "A. {w1} cạnh",
+        "B. {ans} cạnh",
+        "C. {w2} cạnh",
+        "D. {w3} cạnh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một hình tam giác có 3 cạnh. Với {n} hình, ta có phép tính $3 + 3 + ...$ ({n} lần).",
+        "Phép tính là $3 \\times {n}$."
+      ],
+      "solutionHtml": "Tổng số cạnh của {n} hình tam giác là:<br/>$3 \\times {n} = {ans}$ (cạnh).<br/>Đáp án đúng là B.",
+      "tip": "Hình tam giác luôn có 3 cạnh, không thay đổi.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tron": {
+          "min": 2,
+          "max": 4
+        },
+        "vuong": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "tron !== vuong"
+      ],
+      "formulas": {
+        "ans": "tron + 2 + vuong",
+        "t2": "tron + 2",
+        "w1": "tron * vuong",
+        "w2": "abs(tron - vuong) === 0 ? 1 : abs(tron - vuong)",
+        "w3": "tron + vuong + 2 + 1"
+      },
+      "questionText": "Lan có {tron} hình tròn và {vuong} hình vuông. Lan vẽ thêm 2 hình tròn nữa. Hỏi bây giờ Lan có tất cả bao nhiêu hình?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số hình tròn mới là ${tron} + 2$.",
+        "Tổng số hình là số hình tròn mới cộng với số hình vuông."
+      ],
+      "solutionHtml": "Số hình tròn sau khi vẽ thêm là: ${tron} + 2 = {t2}$ (hình).<br/>Tổng số hình là: ${t2} + {vuong} = {ans}$ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Chú ý dữ kiện 'vẽ thêm' để tính lại số hình tròn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 3
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a + b <= 5"
+      ],
+      "formulas": {
+        "ans": "4 * a + 3 * b",
+        "c1": "4 * a",
+        "c2": "3 * b",
+        "w1": "4 + 3 + a + b",
+        "w2": "4 * a + 3 * b + 1",
+        "w3": "3 * a + 4 * b"
+      },
+      "questionText": "Trên bàn có {a} hình vuông và {b} hình tam giác. Hỏi tổng số cạnh của tất cả các hình trên bàn là bao nhiêu?",
+      "options": [
+        "A. {w1} cạnh",
+        "B. {w2} cạnh",
+        "C. {w3} cạnh",
+        "D. {ans} cạnh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Hình vuông có 4 cạnh, hình tam giác có 3 cạnh.",
+        "Tính tổng: $(4 \\times {a}) + (3 \\times {b})$."
+      ],
+      "solutionHtml": "Số cạnh các hình vuông là: $4 \\times {a} = {c1}$ (cạnh).<br/>Số cạnh các hình tam giác là: $3 \\times {b} = {c2}$ (cạnh).<br/>Tổng cộng: ${c1} + {c2} = {ans}$ (cạnh).<br/>Đáp án đúng là D.",
+      "tip": "Đừng quên nhân số lượng với số cạnh của mỗi loại hình.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": {
+          "min": 7,
+          "max": 9
+        },
+        "hcn": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "tong > hcn"
+      ],
+      "formulas": {
+        "ans": "tong - hcn",
+        "w1": "tong + hcn",
+        "w2": "hcn + 2",
+        "w3": "tong - 1"
+      },
+      "questionText": "Có {tong} hình gồm hình chữ nhật và hình tròn. Biết có {hcn} hình chữ nhật. Hỏi có bao nhiêu hình tròn?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {w3} hình",
+        "D. {ans} hình"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tổng số hình trừ đi số hình chữ nhật để ra số hình tròn.",
+        "Phép tính: ${tong} - {hcn}$."
+      ],
+      "solutionHtml": "Số hình tròn là:<br/>${tong} - {hcn} = {ans}$ (hình).<br/>Đáp án đúng là D.",
+      "tip": "Đề cho tổng và một phần, hãy dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "a * 4 + a * 3",
+        "c1": "a * 4",
+        "c2": "a * 3",
+        "w1": "a * 4",
+        "w2": "a * 3",
+        "w3": "a * 2 + 7"
+      },
+      "questionText": "Bạn có {a} hình vuông và {a} hình tam giác. Hỏi tất cả có bao nhiêu cạnh?",
+      "options": [
+        "A. {w1} cạnh",
+        "B. {w2} cạnh",
+        "C. {w3} cạnh",
+        "D. {ans} cạnh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Hình vuông có 4 cạnh, tam giác có 3 cạnh.",
+        "Tổng số cạnh là: $({a} \\times 4) + ({a} \\times 3)$."
+      ],
+      "solutionHtml": "Số cạnh hình vuông: ${a} \\times 4 = {c1}$ (cạnh).<br/>Số cạnh hình tam giác: ${a} \\times 3 = {c2}$ (cạnh).<br/>Tổng: ${c1} + {c2} = {ans}$ (cạnh).<br/>Đáp án đúng là D.",
+      "tip": "Tính từng loại hình rồi cộng lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x",
+        "w3": "y + 1"
+      },
+      "questionText": "Bàn bên trái có {x} hình tròn, bàn bên phải có {y} hình tròn. Hỏi bàn bên trái nhiều hơn bàn bên phải bao nhiêu hình tròn?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm phần hơn, ta lấy số lớn trừ số bé.",
+        "Phép tính: ${x} - {y}$."
+      ],
+      "solutionHtml": "Số hình tròn bàn trái hơn bàn phải là:<br/>${x} - {y} = {ans}$ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'nhiều hơn bao nhiêu' luôn gợi ý phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "2 * a",
+        "w1": "a + 2",
+        "w2": "a * 3",
+        "w3": "a + 4"
+      },
+      "questionText": "Hình tròn không có cạnh. Nếu bạn có {a} hình vuông và {a} hình tròn, hỏi tổng số cạnh của tất cả các hình đó là bao nhiêu?",
+      "options": [
+        "A. {w1} cạnh",
+        "B. {w2} cạnh",
+        "C. {w3} cạnh",
+        "D. {ans} cạnh"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Hình vuông có 4 cạnh, hình tròn có 0 cạnh.",
+        "Tổng số cạnh là: $({a} \\times 4) + ({a} \\times 0)$."
+      ],
+      "solutionHtml": "Số cạnh hình vuông là: ${a} \\times 4 = {4*a}$ (cạnh).<br/>Số cạnh hình tròn là: ${a} \\times 0 = 0$ (cạnh).<br/>Tổng số cạnh là: ${4*a} + 0 = {4*a}$ (cạnh).<br/>Đáp án đúng là D.",
+      "tip": "Hãy nhớ hình tròn không có cạnh nào cả!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-7-d4"
+    }
+  ]
+}

@@ -1,0 +1,481 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:23:52.675Z
+Lesson ID: eng1-t10
+Lesson Title: Unit 10: At the zoo
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9232 (line 225 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9232 (line 225 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9232 (Line: 225, Column: 1)
+Character causing error: "}"
+
+Context:
+...       "tip": "Khi có thêm vật phẩm hoặc động vật, ta cộng thêm vào số cũ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 5, "max": 10, "step": 1 },
+        "k": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["m > k"],
+      "formulas": {
+        "ans": "m + k",
+        "w1": "m + k + 1",
+        "w2": "m + k + 2",
+        "w3": "m + k + 3"
+      },
+      "questionText": "Trong sở thú, có {m} con khỉ đang leo trèo và {k} con khỉ đang ăn chuối. Hỏi có tất cả bao nhiêu con khỉ?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Để tìm tổng số khỉ, em hãy thực hiện phép cộng số khỉ leo trèo và số khỉ đang ăn.", "Phép tính là $ {m} + {k} $."],
+      "solutionHtml": "Số con khỉ có tất cả là:<br/>$ {m} + {k} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi có tất cả bao nhiêu, ta thường sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 8, "max": 15, "step": 1 },
+        "seen": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["total > seen"],
+      "formulas": {
+        "ans": "total - seen",
+        "w1": "total - seen + 1",
+        "w2": "total - seen - 1",
+        "w3": "total - seen + 2"
+      },
+      "questionText": "Bé đi thăm sở thú và thấy {total} con hươu cao cổ. Trong đó có {seen} con đang ngủ. Hỏi có bao nhiêu con hươu cao cổ không ngủ?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số con không ngủ, ta lấy tổng số con hươu trừ đi số con đang ngủ.", "Phép tính là $ {total} - {seen} $."],
+      "solutionHtml": "Số con hươu cao cổ không ngủ là:<br/>$ {total} - {seen} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'không' trong 'không ngủ' gợi ý ta cần thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "birds": { "min": 4, "max": 7, "step": 1 },
+        "times": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["birds > 1"],
+      "formulas": {
+        "ans": "birds * times",
+        "w1": "birds + times",
+        "w2": "birds * times + 1",
+        "w3": "birds * times - 1"
+      },
+      "questionText": "Ở khu vực chim, có {birds} cái chuồng, mỗi chuồng có 2 con vẹt. Hỏi có tất cả bao nhiêu con vẹt?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Có {birds} nhóm, mỗi nhóm 2 con, ta thực hiện phép cộng liên tiếp hoặc phép nhân.", "Phép tính là $ {birds} + {birds} $ hoặc $ {birds} \\times 2 $."],
+      "solutionHtml": "Số con vẹt có tất cả là:<br/>$ {birds} \\times 2 = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia thành các nhóm bằng nhau, ta có thể dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 2",
+        "w2": "a / b - 1",
+        "w3": "a / b + 3"
+      },
+      "questionText": "Trong sở thú có {a} con voi được chia đều vào 2 khu vực tham quan. Hỏi mỗi khu vực có bao nhiêu con voi?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Chia đều {a} con voi vào 2 khu vực, ta lấy {a} chia cho 2.", "Phép tính là $ {a} : 2 $."],
+      "solutionHtml": "Số con voi mỗi khu vực là:<br/>$ {a} : 2 = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều nghĩa là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 8, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x - y + 2",
+        "w3": "x - y - 1"
+      },
+      "questionText": "Sở thú có {x} con hổ, số sư tử ít hơn số hổ là {y} con. Hỏi có bao nhiêu con sư tử?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {w3} con", "D. {ans} con"],
+      "correctIndex": 3,
+      "hints": ["Số sư tử ít hơn số hổ nên ta lấy số hổ trừ đi phần chênh lệch.", "Phép tính là $ {x} - {y} $."],
+      "solutionHtml": "Số con sư tử là:<br/>$ {x} - {y} = {ans} $ (con).<br/>Đáp án đúng là D.",
+      "tip": "Từ 'ít hơn' cho biết ta cần thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Bạn An nhìn thấy {a} con ngựa vằn, {b} con hươu và 2 con đà điểu. Hỏi tổng cộng An đã nhìn thấy bao nhiêu con vật?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Cộng số lượng của tất cả các loài vật lại với nhau.", "Phép tính là $ {a} + {b} + 2 $."],
+      "solutionHtml": "Tổng số con vật là:<br/>$ {a} + {b} + 2 = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Tổng cộng nghĩa là ta tính gộp tất cả các số lại.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 10, "max": 18, "step": 1 },
+        "d": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": ["c > d"],
+      "formulas": {
+        "ans": "c - d",
+        "w1": "c - d + 3",
+        "w2": "c - d + 1",
+        "w3": "c - d - 1"
+      },
+      "questionText": "Trong bể có {c} con chim cánh cụt. Sau khi {d} con nhảy xuống nước, trong bể còn lại bao nhiêu con?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Còn lại bao nhiêu tức là số lượng giảm đi.", "Phép tính là $ {c} - {d} $."],
+      "solutionHtml": "Số con chim cánh cụt còn lại là:<br/>$ {c} - {d} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'còn lại' cho thấy đây là bài toán bớt đi.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 4, "step": 1 }
+      },
+      "constraints": ["a < 6"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi hàng trong sở thú có {a} con công, có {b} hàng như vậy. Hỏi có tất cả bao nhiêu con công?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Có {b} hàng, mỗi hàng {a} con, ta lấy {a} nhân với {b}.", "Phép tính là $ {a} \\times {b} $."],
+      "solutionHtml": "Số con công có tất cả là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Nhân là cách nhanh nhất để cộng các số bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 1",
+        "w2": "a / b + 2",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} con gấu được chia đều vào {b} cái hang. Hỏi mỗi cái hang có bao nhiêu con gấu?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Chia đều {a} con vào {b} hang, ta dùng phép chia.", "Phép tính là $ {a} : {b} $."],
+      "solutionHtml": "Số gấu mỗi hang là:<br/>$ {a} : {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận không nhầm lẫn giữa chia và nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Sở thú có {a} con báo. Sáng nay, có thêm {b} con báo mới được chuyển đến. Hỏi hiện tại có bao nhiêu con báo?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Có thêm thì ta dùng phép cộng.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Số con báo hiện tại là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi có thêm vật phẩm hoặc động vật, ta cộng thêm vào số cũ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 5, "max": 10, "step": 1 },
+        "k": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["m > k"],
+      "formulas": {
+        "ans": "m + k",
+        "w1": "m + k + 1",
+        "w2": "m + k + 2",
+        "w3": "m + k + 3"
+      },
+      "questionText": "Trong sở thú, có {m} con khỉ đang leo trèo và {k} con khỉ đang ăn chuối. Hỏi có tất cả bao nhiêu con khỉ?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Để tìm tổng số khỉ, em hãy thực hiện phép cộng số khỉ leo trèo và số khỉ đang ăn.", "Phép tính là $ {m} + {k} $."],
+      "solutionHtml": "Số con khỉ có tất cả là:<br/>$ {m} + {k} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi có tất cả bao nhiêu, ta thường sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 8, "max": 15, "step": 1 },
+        "seen": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["total > seen"],
+      "formulas": {
+        "ans": "total - seen",
+        "w1": "total - seen + 1",
+        "w2": "total - seen - 1",
+        "w3": "total - seen + 2"
+      },
+      "questionText": "Bé đi thăm sở thú và thấy {total} con hươu cao cổ. Trong đó có {seen} con đang ngủ. Hỏi có bao nhiêu con hươu cao cổ không ngủ?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số con không ngủ, ta lấy tổng số con hươu trừ đi số con đang ngủ.", "Phép tính là $ {total} - {seen} $."],
+      "solutionHtml": "Số con hươu cao cổ không ngủ là:<br/>$ {total} - {seen} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'không' trong 'không ngủ' gợi ý ta cần thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "birds": { "min": 4, "max": 7, "step": 1 },
+        "times": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["birds > 1"],
+      "formulas": {
+        "ans": "birds * times",
+        "w1": "birds + times",
+        "w2": "birds * times + 1",
+        "w3": "birds * times - 1"
+      },
+      "questionText": "Ở khu vực chim, có {birds} cái chuồng, mỗi chuồng có 2 con vẹt. Hỏi có tất cả bao nhiêu con vẹt?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Có {birds} nhóm, mỗi nhóm 2 con, ta thực hiện phép cộng liên tiếp hoặc phép nhân.", "Phép tính là $ {birds} + {birds} $ hoặc $ {birds} \\times 2 $."],
+      "solutionHtml": "Số con vẹt có tất cả là:<br/>$ {birds} \\times 2 = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia thành các nhóm bằng nhau, ta có thể dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 2",
+        "w2": "a / b - 1",
+        "w3": "a / b + 3"
+      },
+      "questionText": "Trong sở thú có {a} con voi được chia đều vào 2 khu vực tham quan. Hỏi mỗi khu vực có bao nhiêu con voi?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Chia đều {a} con voi vào 2 khu vực, ta lấy {a} chia cho 2.", "Phép tính là $ {a} : 2 $."],
+      "solutionHtml": "Số con voi mỗi khu vực là:<br/>$ {a} : 2 = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều nghĩa là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 8, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x - y + 2",
+        "w3": "x - y - 1"
+      },
+      "questionText": "Sở thú có {x} con hổ, số sư tử ít hơn số hổ là {y} con. Hỏi có bao nhiêu con sư tử?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {w3} con", "D. {ans} con"],
+      "correctIndex": 3,
+      "hints": ["Số sư tử ít hơn số hổ nên ta lấy số hổ trừ đi phần chênh lệch.", "Phép tính là $ {x} - {y} $."],
+      "solutionHtml": "Số con sư tử là:<br/>$ {x} - {y} = {ans} $ (con).<br/>Đáp án đúng là D.",
+      "tip": "Từ 'ít hơn' cho biết ta cần thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Bạn An nhìn thấy {a} con ngựa vằn, {b} con hươu và 2 con đà điểu. Hỏi tổng cộng An đã nhìn thấy bao nhiêu con vật?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Cộng số lượng của tất cả các loài vật lại với nhau.", "Phép tính là $ {a} + {b} + 2 $."],
+      "solutionHtml": "Tổng số con vật là:<br/>$ {a} + {b} + 2 = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Tổng cộng nghĩa là ta tính gộp tất cả các số lại.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 10, "max": 18, "step": 1 },
+        "d": { "min": 4, "max": 9, "step": 1 }
+      },
+      "constraints": ["c > d"],
+      "formulas": {
+        "ans": "c - d",
+        "w1": "c - d + 3",
+        "w2": "c - d + 1",
+        "w3": "c - d - 1"
+      },
+      "questionText": "Trong bể có {c} con chim cánh cụt. Sau khi {d} con nhảy xuống nước, trong bể còn lại bao nhiêu con?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Còn lại bao nhiêu tức là số lượng giảm đi.", "Phép tính là $ {c} - {d} $."],
+      "solutionHtml": "Số con chim cánh cụt còn lại là:<br/>$ {c} - {d} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'còn lại' cho thấy đây là bài toán bớt đi.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 4, "step": 1 }
+      },
+      "constraints": ["a < 6"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi hàng trong sở thú có {a} con công, có {b} hàng như vậy. Hỏi có tất cả bao nhiêu con công?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Có {b} hàng, mỗi hàng {a} con, ta lấy {a} nhân với {b}.", "Phép tính là $ {a} \\times {b} $."],
+      "solutionHtml": "Số con công có tất cả là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Nhân là cách nhanh nhất để cộng các số bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 1",
+        "w2": "a / b + 2",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} con gấu được chia đều vào {b} cái hang. Hỏi mỗi cái hang có bao nhiêu con gấu?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Chia đều {a} con vào {b} hang, ta dùng phép chia.", "Phép tính là $ {a} : {b} $."],
+      "solutionHtml": "Số gấu mỗi hang là:<br/>$ {a} : {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận không nhầm lẫn giữa chia và nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Sở thú có {a} con báo. Sáng nay, có thêm {b} con báo mới được chuyển đến. Hỏi hiện tại có bao nhiêu con báo?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Có thêm thì ta dùng phép cộng.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Số con báo hiện tại là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi có thêm vật phẩm hoặc động vật, ta cộng thêm vào số cũ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t10-d10"
+    }
+  ]
+}
+}
+

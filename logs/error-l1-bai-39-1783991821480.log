@@ -1,0 +1,536 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:17:01.480Z
+Lesson ID: l1-bai-39
+Lesson Title: Bài 39: Ôn tập các số và phép tính trong phạm vi 100
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12023 (line 336 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12023 (line 336 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 12023 (Line: 255, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "b + 5",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Trong vườn có {a} cây hoa hồng. Sau khi bác làm vườn nhổ bỏ {b} cây bị héo, trong vườn còn lại bao nhiêu cây hoa hồng?",
+      "options": ["A. {w1_f} cây", "B. {ans} cây", "C. {w2_f} cây", "D. {w3_f} cây"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số cây còn lại, ta thực hiện phép tính trừ.", "Lấy tổng số cây ban đầu trừ đi số cây đã nhổ."],
+      "solutionHtml": "Số cây hoa hồng còn lại là:<br/>$ {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán hỏi về phần còn lại hoặc bớt đi, ta thường dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 1 },
+        "b": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": ["(a + b) < 100"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 5",
+        "w3": "a + b - 5",
+        "w1_f": "(w1 === ans) ? ans + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng có {b} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": ["A. {w1_f} viên", "B. {w2_f} viên", "C. {ans} viên", "D. {w3_f} viên"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số bi của cả hai bạn, ta thực hiện phép tính cộng.", "Lấy số bi của Lan cộng với số bi của Hùng."],
+      "solutionHtml": "Cả hai bạn có tất cả số viên bi là:<br/>$ {a} + {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Khi muốn tính tổng của hai nhóm, ta dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 60, "step": 1 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0", "b % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 10",
+        "w3": "a + b - 10",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 6 : w3"
+      },
+      "questionText": "Đội Một có {a} bạn tham gia văn nghệ, đội Hai có nhiều hơn đội Một {b} bạn. Hỏi đội Hai có bao nhiêu bạn?",
+      "options": ["A. {w1_f} bạn", "B. {ans} bạn", "C. {w2_f} bạn", "D. {w3_f} bạn"],
+      "correctIndex": 1,
+      "hints": ["Đội Hai có nhiều hơn đội Một nên ta dùng phép tính cộng.", "Lấy số bạn của đội Một cộng với số bạn đội Hai nhiều hơn."],
+      "solutionHtml": "Số bạn của đội Hai là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'nhiều hơn' gợi ý ta sử dụng phép cộng để tìm số lượng lớn hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 80, "step": 1 },
+        "b": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["a > b", "(a - b) % 5 === 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5",
+        "w1_f": "(w1 === ans) ? ans + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Trong rổ có {a} quả cam, mẹ đã lấy ra {b} quả để làm nước ép. Hỏi trong rổ còn lại bao nhiêu quả cam?",
+      "options": ["A. {w1_f} quả", "B. {w2_f} quả", "C. {ans} quả", "D. {w3_f} quả"],
+      "correctIndex": 2,
+      "hints": ["Mẹ lấy ra tức là số cam trong rổ giảm đi, ta dùng phép tính trừ.", "Lấy tổng số cam trừ đi số cam đã lấy."],
+      "solutionHtml": "Số quả cam còn lại trong rổ là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Khi lấy đi hoặc bớt ra, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 10, "max": 30, "step": 1 },
+        "c": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": ["(a + b + c) < 100"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b - c",
+        "w2": "a + c - b",
+        "w3": "b + c - a",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Cửa hàng ngày thứ nhất bán được {a} cái bánh, ngày thứ hai bán được {b} cái bánh, ngày thứ ba bán được {c} cái bánh. Hỏi trong ba ngày cửa hàng bán được tất cả bao nhiêu cái bánh?",
+      "options": ["A. {w1_f} cái", "B. {w2_f} cái", "C. {w3_f} cái", "D. {ans} cái"],
+      "correctIndex": 3,
+      "hints": ["Để tìm tổng số bánh bán được trong ba ngày, ta cộng số bánh của từng ngày lại với nhau.", "Phép tính: {a} + {b} + {c}."],
+      "solutionHtml": "Tổng số bánh bán được là:<br/>$ {a} + {b} + {c} = {ans} $ (cái).<br/>Đáp án đúng là D.",
+      "tip": "Tính tổng nhiều thành phần ta thực hiện cộng liên tiếp từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 20 : w3"
+      },
+      "questionText": "Có {a} quyển vở chia đều cho {b} bạn. Hỏi mỗi bạn nhận được bao nhiêu quyển vở?",
+      "options": ["A. {w1_f} quyển", "B. {ans} quyển", "C. {w2_f} quyển", "D. {w3_f} quyển"],
+      "correctIndex": 1,
+      "hints": ["Chia đều nghĩa là thực hiện phép tính chia.", "Lấy tổng số vở chia cho số bạn."],
+      "solutionHtml": "Mỗi bạn nhận được số quyển vở là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 90, "step": 1 },
+        "b": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["a > b", "(a - b) > 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 10",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Tú có {a} viên bi, Tú cho Bình {b} viên bi. Hỏi Tú còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1_f} viên", "B. {w2_f} viên", "C. {ans} viên", "D. {w3_f} viên"],
+      "correctIndex": 2,
+      "hints": ["Tú cho đi tức là số bi của Tú giảm đi.", "Ta thực hiện phép trừ $ {a} - {b} $."],
+      "solutionHtml": "Số viên bi Tú còn lại là:<br/>$ {a} - {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Cho đi, tặng đi là những cụm từ chỉ sự bớt đi (phép trừ).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["a > b", "(a - b) % 2 === 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 4",
+        "w3": "a - b - 4",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 6 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 8 : w3"
+      },
+      "questionText": "Bao gạo thứ nhất nặng {a} kg, bao gạo thứ hai nhẹ hơn bao thứ nhất {b} kg. Hỏi bao gạo thứ hai nặng bao nhiêu kg?",
+      "options": ["A. {ans} kg", "B. {w1_f} kg", "C. {w2_f} kg", "D. {w3_f} kg"],
+      "correctIndex": 0,
+      "hints": ["Nhẹ hơn nghĩa là ta cần làm phép trừ.", "Lấy khối lượng bao thứ nhất trừ đi phần nhẹ hơn."],
+      "solutionHtml": "Khối lượng bao gạo thứ hai là:<br/>$ {a} - {b} = {ans} $ (kg).<br/>Đáp án đúng là A.",
+      "tip": "Cụm từ 'nhẹ hơn' tương đương với việc thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 40, "step": 1 },
+        "b": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["(a + b) < 100"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a + b - 2",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Lớp 1A có {a} bạn nữ và {b} bạn nam. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1_f} bạn", "B. {w2_f} bạn", "C. {ans} bạn", "D. {w3_f} bạn"],
+      "correctIndex": 2,
+      "hints": ["Muốn biết tổng số bạn, ta cộng số bạn nữ và số bạn nam.", "Phép tính: $ {a} + {b} $."],
+      "solutionHtml": "Số bạn của lớp 1A là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Tổng cộng luôn là phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 60, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["(a - b) > 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 3",
+        "w1_f": "(w1 === ans) ? ans + 7 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 9 : w3"
+      },
+      "questionText": "Một tàu hỏa có {a} toa, sau khi dừng ở ga, tàu đã cắt bớt {b} toa. Hỏi tàu còn lại bao nhiêu toa?",
+      "options": ["A. {w1_f} toa", "B. {w2_f} toa", "C. {ans} toa", "D. {w3_f} toa"],
+      "correctIndex": 2,
+      "hints": ["Cắt bớt nghĩa là số toa giảm đi, ta dùng phép tính trừ.", "Lấy số toa ban đầu trừ đi số toa đã cắt."],
+      "solutionHtml": "Số toa còn lại của tàu là:<br/>$ {a} - {b} = {ans} $ (toa).<br/>Đáp án đúng là C.",
+      "tip": "Cắt bớt hoặc giảm đi là gợi ý cho phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "b + 5",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Trong vườn có {a} cây hoa hồng. Sau khi bác làm vườn nhổ bỏ {b} cây bị héo, trong vườn còn lại bao nhiêu cây hoa hồng?",
+      "options": ["A. {w1_f} cây", "B. {ans} cây", "C. {w2_f} cây", "D. {w3_f} cây"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số cây còn lại, ta thực hiện phép tính trừ.", "Lấy tổng số cây ban đầu trừ đi số cây đã nhổ."],
+      "solutionHtml": "Số cây hoa hồng còn lại là:<br/>$ {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán hỏi về phần còn lại hoặc bớt đi, ta thường dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 1 },
+        "b": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": ["(a + b) < 100"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 5",
+        "w3": "a + b - 5",
+        "w1_f": "(w1 === ans) ? ans + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng có {b} viên bi. Hỏi cả hai bạn có tất cả bao nhiêu viên bi?",
+      "options": ["A. {w1_f} viên", "B. {w2_f} viên", "C. {ans} viên", "D. {w3_f} viên"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số bi của cả hai bạn, ta thực hiện phép tính cộng.", "Lấy số bi của Lan cộng với số bi của Hùng."],
+      "solutionHtml": "Cả hai bạn có tất cả số viên bi là:<br/>$ {a} + {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Khi muốn tính tổng của hai nhóm, ta dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 60, "step": 1 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0", "b % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 10",
+        "w3": "a + b - 10",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 6 : w3"
+      },
+      "questionText": "Đội Một có {a} bạn tham gia văn nghệ, đội Hai có nhiều hơn đội Một {b} bạn. Hỏi đội Hai có bao nhiêu bạn?",
+      "options": ["A. {w1_f} bạn", "B. {ans} bạn", "C. {w2_f} bạn", "D. {w3_f} bạn"],
+      "correctIndex": 1,
+      "hints": ["Đội Hai có nhiều hơn đội Một nên ta dùng phép tính cộng.", "Lấy số bạn của đội Một cộng với số bạn đội Hai nhiều hơn."],
+      "solutionHtml": "Số bạn của đội Hai là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'nhiều hơn' gợi ý ta sử dụng phép cộng để tìm số lượng lớn hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 80, "step": 1 },
+        "b": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["a > b", "(a - b) % 5 === 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5",
+        "w1_f": "(w1 === ans) ? ans + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Trong rổ có {a} quả cam, mẹ đã lấy ra {b} quả để làm nước ép. Hỏi trong rổ còn lại bao nhiêu quả cam?",
+      "options": ["A. {w1_f} quả", "B. {w2_f} quả", "C. {ans} quả", "D. {w3_f} quả"],
+      "correctIndex": 2,
+      "hints": ["Mẹ lấy ra tức là số cam trong rổ giảm đi, ta dùng phép tính trừ.", "Lấy tổng số cam trừ đi số cam đã lấy."],
+      "solutionHtml": "Số quả cam còn lại trong rổ là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Khi lấy đi hoặc bớt ra, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 10, "max": 30, "step": 1 },
+        "c": { "min": 10, "max": 30, "step": 1 }
+      },
+      "constraints": ["(a + b + c) < 100"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b - c",
+        "w2": "a + c - b",
+        "w3": "b + c - a",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Cửa hàng ngày thứ nhất bán được {a} cái bánh, ngày thứ hai bán được {b} cái bánh, ngày thứ ba bán được {c} cái bánh. Hỏi trong ba ngày cửa hàng bán được tất cả bao nhiêu cái bánh?",
+      "options": ["A. {w1_f} cái", "B. {w2_f} cái", "C. {w3_f} cái", "D. {ans} cái"],
+      "correctIndex": 3,
+      "hints": ["Để tìm tổng số bánh bán được trong ba ngày, ta cộng số bánh của từng ngày lại với nhau.", "Phép tính: {a} + {b} + {c}."],
+      "solutionHtml": "Tổng số bánh bán được là:<br/>$ {a} + {b} + {c} = {ans} $ (cái).<br/>Đáp án đúng là D.",
+      "tip": "Tính tổng nhiều thành phần ta thực hiện cộng liên tiếp từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 20 : w3"
+      },
+      "questionText": "Có {a} quyển vở chia đều cho {b} bạn. Hỏi mỗi bạn nhận được bao nhiêu quyển vở?",
+      "options": ["A. {w1_f} quyển", "B. {ans} quyển", "C. {w2_f} quyển", "D. {w3_f} quyển"],
+      "correctIndex": 1,
+      "hints": ["Chia đều nghĩa là thực hiện phép tính chia.", "Lấy tổng số vở chia cho số bạn."],
+      "solutionHtml": "Mỗi bạn nhận được số quyển vở là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 90, "step": 1 },
+        "b": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["a > b", "(a - b) > 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 10",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Tú có {a} viên bi, Tú cho Bình {b} viên bi. Hỏi Tú còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1_f} viên", "B. {w2_f} viên", "C. {ans} viên", "D. {w3_f} viên"],
+      "correctIndex": 2,
+      "hints": ["Tú cho đi tức là số bi của Tú giảm đi.", "Ta thực hiện phép trừ $ {a} - {b} $."],
+      "solutionHtml": "Số viên bi Tú còn lại là:<br/>$ {a} - {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Cho đi, tặng đi là những cụm từ chỉ sự bớt đi (phép trừ).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["a > b", "(a - b) % 2 === 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 4",
+        "w3": "a - b - 4",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 6 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 8 : w3"
+      },
+      "questionText": "Bao gạo thứ nhất nặng {a} kg, bao gạo thứ hai nhẹ hơn bao thứ nhất {b} kg. Hỏi bao gạo thứ hai nặng bao nhiêu kg?",
+      "options": ["A. {ans} kg", "B. {w1_f} kg", "C. {w2_f} kg", "D. {w3_f} kg"],
+      "correctIndex": 0,
+      "hints": ["Nhẹ hơn nghĩa là ta cần làm phép trừ.", "Lấy khối lượng bao thứ nhất trừ đi phần nhẹ hơn."],
+      "solutionHtml": "Khối lượng bao gạo thứ hai là:<br/>$ {a} - {b} = {ans} $ (kg).<br/>Đáp án đúng là A.",
+      "tip": "Cụm từ 'nhẹ hơn' tương đương với việc thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 40, "step": 1 },
+        "b": { "min": 10, "max": 40, "step": 1 }
+      },
+      "constraints": ["(a + b) < 100"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a + b - 2",
+        "w1_f": "(w1 === ans) ? ans + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Lớp 1A có {a} bạn nữ và {b} bạn nam. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1_f} bạn", "B. {w2_f} bạn", "C. {ans} bạn", "D. {w3_f} bạn"],
+      "correctIndex": 2,
+      "hints": ["Muốn biết tổng số bạn, ta cộng số bạn nữ và số bạn nam.", "Phép tính: $ {a} + {b} $."],
+      "solutionHtml": "Số bạn của lớp 1A là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Tổng cộng luôn là phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 60, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["(a - b) > 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 3",
+        "w1_f": "(w1 === ans) ? ans + 7 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 9 : w3"
+      },
+      "questionText": "Một tàu hỏa có {a} toa, sau khi dừng ở ga, tàu đã cắt bớt {b} toa. Hỏi tàu còn lại bao nhiêu toa?",
+      "options": ["A. {w1_f} toa", "B. {w2_f} toa", "C. {ans} toa", "D. {w3_f} toa"],
+      "correctIndex": 2,
+      "hints": ["Cắt bớt nghĩa là số toa giảm đi, ta dùng phép tính trừ.", "Lấy số toa ban đầu trừ đi số toa đã cắt."],
+      "solutionHtml": "Số toa còn lại của tàu là:<br/>$ {a} - {b} = {ans} $ (toa).<br/>Đáp án đúng là C.",
+      "tip": "Cắt bớt hoặc giảm đi là gợi ý cho phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-39-d4"
+    }
+  ]
+}
+

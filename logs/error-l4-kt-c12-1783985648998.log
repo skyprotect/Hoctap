@@ -1,0 +1,574 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:34:08.998Z
+Lesson ID: l4-kt-c12
+Lesson Title: Bài tập cuối chương XII
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10933 (line 395 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10933 (line 395 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10933 (Line: 274, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "a + b"
+      },
+      "questionText": "Một cửa hàng nhập về {a} quyển vở và chia đều vào {b} thùng. Hỏi mỗi thùng có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển vở",
+        "B. {ans} quyển vở",
+        "C. {w2} quyển vở",
+        "D. {w3} quyển vở"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số quyển vở trong mỗi thùng, ta thực hiện phép tính chia số vở tổng cho số thùng."],
+      "solutionHtml": "Số quyển vở trong mỗi thùng là:<br/>$ {a} : {b} = {ans} $ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tròn chục cho một số, ta có thể chia các chữ số ở hàng cao trước.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 10",
+        "w3": "a * b - 5"
+      },
+      "questionText": "Mỗi chiếc xe đạp cần {b} chiếc bánh xe. Hỏi {a} chiếc xe đạp như thế cần bao nhiêu chiếc bánh xe?",
+      "options": [
+        "A. {w1} chiếc bánh xe",
+        "B. {ans} chiếc bánh xe",
+        "C. {w2} chiếc bánh xe",
+        "D. {w3} chiếc bánh xe"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm tổng số bánh xe, ta lấy số bánh xe của mỗi xe nhân với tổng số xe."],
+      "solutionHtml": "Số bánh xe cần dùng là:<br/>$ {b} \\times {a} = {ans} $ (chiếc bánh xe).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân có tính chất giao hoán, $a \\times b$ cũng bằng $b \\times a$.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 200, "step": 10 },
+        "y": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x - y + 10",
+        "w3": "x - y - 10"
+      },
+      "questionText": "Một kho gạo có {x} tấn gạo. Sau khi xuất đi một số gạo, kho còn lại {y} tấn gạo. Hỏi cửa hàng đã xuất đi bao nhiêu tấn gạo?",
+      "options": [
+        "A. {w1} tấn",
+        "B. {ans} tấn",
+        "C. {w2} tấn",
+        "D. {w3} tấn"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số gạo đã xuất, ta lấy tổng số gạo ban đầu trừ đi số gạo còn lại trong kho."],
+      "solutionHtml": "Số gạo đã xuất là:<br/>$ {x} - {y} = {ans} $ (tấn gạo).<br/>Đáp án đúng là B.",
+      "tip": "Dạng toán tìm số bị trừ hoặc số trừ khi biết hiệu và số còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) < 100"],
+      "formulas": {
+        "ans": "a * b * 10",
+        "w1": "a * b",
+        "w2": "a * 10",
+        "w3": "b * 10"
+      },
+      "questionText": "Một dãy nhà có {a} tầng, mỗi tầng có {b} căn hộ. Mỗi căn hộ có 10 cửa sổ. Hỏi cả dãy nhà có bao nhiêu cửa sổ?",
+      "options": [
+        "A. {w1} cửa sổ",
+        "B. {ans} cửa sổ",
+        "C. {w2} cửa sổ",
+        "D. {w3} cửa sổ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số căn hộ trước, sau đó nhân với số cửa sổ của mỗi căn hộ."],
+      "solutionHtml": "Tổng số căn hộ là: $ {a} \\times {b} = {a * b} $ (căn hộ).<br/>Tổng số cửa sổ là: $ {a * b} \\times 10 = {ans} $ (cửa sổ).<br/>Đáp án đúng là B.",
+      "tip": "Nhân một số với 10 chỉ cần thêm chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 60, "step": 2 },
+        "b": { "min": 2, "max": 6, "step": 2 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * 2"
+      },
+      "questionText": "Có {a} quả cam được xếp đều vào {b} giỏ. Nếu mỗi giỏ lấy ra 2 quả thì tổng số cam còn lại trong các giỏ là bao nhiêu?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans * b - 2 * b} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cách 1: Tính số cam trong mỗi giỏ rồi trừ 2, sau đó nhân với b. Cách 2: Lấy tổng số cam trừ đi (số giỏ nhân 2)."],
+      "solutionHtml": "Tổng số cam bị lấy ra là: $ {b} \\times 2 = {b * 2} $ (quả).<br/>Số cam còn lại là: $ {a} - {b * 2} = {ans * b - 2 * b} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến đơn vị của bài toán và các bước trung gian.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b"
+      },
+      "questionText": "Mẹ có {a} cái bánh, mẹ chia cho {b} anh em mỗi người bằng nhau. Hỏi mỗi người nhận được bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": ["Phép chia đều giúp tìm giá trị của mỗi phần."],
+      "solutionHtml": "Số bánh mỗi người nhận là:<br/>$ {a} : {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại kết quả bằng phép nhân: $ans \\times b = a$.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 300, "step": 10 },
+        "b": { "min": 50, "max": 80, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Quãng đường từ nhà đến trường dài {a} mét. Lan đã đi được {b} mét. Hỏi Lan còn phải đi bao nhiêu mét nữa mới đến trường?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng chiều dài quãng đường trừ đi quãng đường đã đi."],
+      "solutionHtml": "Quãng đường còn lại là:<br/>$ {a} - {b} = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đơn vị đo của đề bài để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Trong vườn có {a} hàng cây, mỗi hàng có {b} cây ăn quả. Hỏi trong vườn có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": ["Dùng phép nhân để tính tổng số phần bằng nhau."],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Nếu số hàng và số cây mỗi hàng giống nhau, ta có thể dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b"
+      },
+      "questionText": "Một sợi dây dài {a} cm được cắt thành {b} đoạn bằng nhau. Hỏi mỗi đoạn dài bao nhiêu cm?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia chiều dài tổng cho số đoạn."],
+      "solutionHtml": "Mỗi đoạn dây dài là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị sau khi chia vẫn giữ nguyên là cm.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 100, "max": 200, "step": 10 }
+      },
+      "constraints": ["(a * b) < 1000"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 100",
+        "w3": "a * b - 100"
+      },
+      "questionText": "Một nhà máy ngày thứ nhất sản xuất được {b} sản phẩm. Ngày thứ hai sản xuất được gấp {a} lần ngày thứ nhất. Hỏi ngày thứ hai nhà máy sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Gấp a lần nghĩa là ta dùng phép nhân."],
+      "solutionHtml": "Số sản phẩm sản xuất ngày thứ hai là:<br/>$ {b} \\times {a} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Dạng toán gấp lên một số lần là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "a + b"
+      },
+      "questionText": "Một cửa hàng nhập về {a} quyển vở và chia đều vào {b} thùng. Hỏi mỗi thùng có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển vở",
+        "B. {ans} quyển vở",
+        "C. {w2} quyển vở",
+        "D. {w3} quyển vở"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số quyển vở trong mỗi thùng, ta thực hiện phép tính chia số vở tổng cho số thùng."],
+      "solutionHtml": "Số quyển vở trong mỗi thùng là:<br/>$ {a} : {b} = {ans} $ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tròn chục cho một số, ta có thể chia các chữ số ở hàng cao trước.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 10",
+        "w3": "a * b - 5"
+      },
+      "questionText": "Mỗi chiếc xe đạp cần {b} chiếc bánh xe. Hỏi {a} chiếc xe đạp như thế cần bao nhiêu chiếc bánh xe?",
+      "options": [
+        "A. {w1} chiếc bánh xe",
+        "B. {ans} chiếc bánh xe",
+        "C. {w2} chiếc bánh xe",
+        "D. {w3} chiếc bánh xe"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm tổng số bánh xe, ta lấy số bánh xe của mỗi xe nhân với tổng số xe."],
+      "solutionHtml": "Số bánh xe cần dùng là:<br/>$ {b} \\times {a} = {ans} $ (chiếc bánh xe).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân có tính chất giao hoán, $a \\times b$ cũng bằng $b \\times a$.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 200, "step": 10 },
+        "y": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x - y + 10",
+        "w3": "x - y - 10"
+      },
+      "questionText": "Một kho gạo có {x} tấn gạo. Sau khi xuất đi một số gạo, kho còn lại {y} tấn gạo. Hỏi cửa hàng đã xuất đi bao nhiêu tấn gạo?",
+      "options": [
+        "A. {w1} tấn",
+        "B. {ans} tấn",
+        "C. {w2} tấn",
+        "D. {w3} tấn"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số gạo đã xuất, ta lấy tổng số gạo ban đầu trừ đi số gạo còn lại trong kho."],
+      "solutionHtml": "Số gạo đã xuất là:<br/>$ {x} - {y} = {ans} $ (tấn gạo).<br/>Đáp án đúng là B.",
+      "tip": "Dạng toán tìm số bị trừ hoặc số trừ khi biết hiệu và số còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) < 100"],
+      "formulas": {
+        "ans": "a * b * 10",
+        "w1": "a * b",
+        "w2": "a * 10",
+        "w3": "b * 10"
+      },
+      "questionText": "Một dãy nhà có {a} tầng, mỗi tầng có {b} căn hộ. Mỗi căn hộ có 10 cửa sổ. Hỏi cả dãy nhà có bao nhiêu cửa sổ?",
+      "options": [
+        "A. {w1} cửa sổ",
+        "B. {ans} cửa sổ",
+        "C. {w2} cửa sổ",
+        "D. {w3} cửa sổ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số căn hộ trước, sau đó nhân với số cửa sổ của mỗi căn hộ."],
+      "solutionHtml": "Tổng số căn hộ là: $ {a} \\times {b} = {a * b} $ (căn hộ).<br/>Tổng số cửa sổ là: $ {a * b} \\times 10 = {ans} $ (cửa sổ).<br/>Đáp án đúng là B.",
+      "tip": "Nhân một số với 10 chỉ cần thêm chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 60, "step": 2 },
+        "b": { "min": 2, "max": 6, "step": 2 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * 2"
+      },
+      "questionText": "Có {a} quả cam được xếp đều vào {b} giỏ. Nếu mỗi giỏ lấy ra 2 quả thì tổng số cam còn lại trong các giỏ là bao nhiêu?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans * b - 2 * b} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cách 1: Tính số cam trong mỗi giỏ rồi trừ 2, sau đó nhân với b. Cách 2: Lấy tổng số cam trừ đi (số giỏ nhân 2)."],
+      "solutionHtml": "Tổng số cam bị lấy ra là: $ {b} \\times 2 = {b * 2} $ (quả).<br/>Số cam còn lại là: $ {a} - {b * 2} = {ans * b - 2 * b} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến đơn vị của bài toán và các bước trung gian.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b"
+      },
+      "questionText": "Mẹ có {a} cái bánh, mẹ chia cho {b} anh em mỗi người bằng nhau. Hỏi mỗi người nhận được bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": ["Phép chia đều giúp tìm giá trị của mỗi phần."],
+      "solutionHtml": "Số bánh mỗi người nhận là:<br/>$ {a} : {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại kết quả bằng phép nhân: $ans \\times b = a$.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 300, "step": 10 },
+        "b": { "min": 50, "max": 80, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Quãng đường từ nhà đến trường dài {a} mét. Lan đã đi được {b} mét. Hỏi Lan còn phải đi bao nhiêu mét nữa mới đến trường?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy tổng chiều dài quãng đường trừ đi quãng đường đã đi."],
+      "solutionHtml": "Quãng đường còn lại là:<br/>$ {a} - {b} = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đơn vị đo của đề bài để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Trong vườn có {a} hàng cây, mỗi hàng có {b} cây ăn quả. Hỏi trong vườn có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": ["Dùng phép nhân để tính tổng số phần bằng nhau."],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Nếu số hàng và số cây mỗi hàng giống nhau, ta có thể dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b"
+      },
+      "questionText": "Một sợi dây dài {a} cm được cắt thành {b} đoạn bằng nhau. Hỏi mỗi đoạn dài bao nhiêu cm?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia chiều dài tổng cho số đoạn."],
+      "solutionHtml": "Mỗi đoạn dây dài là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị sau khi chia vẫn giữ nguyên là cm.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 100, "max": 200, "step": 10 }
+      },
+      "constraints": ["(a * b) < 1000"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 100",
+        "w3": "a * b - 100"
+      },
+      "questionText": "Một nhà máy ngày thứ nhất sản xuất được {b} sản phẩm. Ngày thứ hai sản xuất được gấp {a} lần ngày thứ nhất. Hỏi ngày thứ hai nhà máy sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {ans} sản phẩm",
+        "C. {w2} sản phẩm",
+        "D. {w3} sản phẩm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Gấp a lần nghĩa là ta dùng phép nhân."],
+      "solutionHtml": "Số sản phẩm sản xuất ngày thứ hai là:<br/>$ {b} \\times {a} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+      "tip": "Dạng toán gấp lên một số lần là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c12-d4"
+    }
+  ]
+}
+

@@ -56,4 +56,6 @@
 - Không được chỉnh sửa mã nguồn trực tiếp trong `HocTap_Clean` mà phải thực hiện trên dự án gốc (`HocTap`), sau đó chạy script đồng bộ để tự động cập nhật sang `HocTap_Clean`.
 - Kịch bản đồng bộ `sync_clean.js` phải luôn đảm bảo xóa sạch các tệp dữ liệu cá nhân của học sinh ở thư mục `HocTap_Clean` (bao gồm `database.db`, `.port.tmp`, và các bản sao lưu `.old`) để phân phối cho người dùng khác một bản sạch 100% không có lịch sử làm bài.
 
-
+## 10. Quy định bảo toàn dữ liệu học tập môn Toán
+- Các yêu cầu chỉnh sửa, cập nhật hoặc phát triển tính năng mới tiếp theo chỉ được thực thi trên phần học môn Tiếng Anh.
+- Toàn bộ dữ liệu học tập môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc phải được bảo toàn, độc lập, riêng rẽ. Tuyệt đối không được làm sai lệch hoặc làm hỏng các dữ liệu này dưới bất kỳ hình thức nào.

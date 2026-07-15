@@ -1777,15 +1777,21 @@ const questions = {
                 q.isSpacedRepetition = false;
                 q.level = randomLevel;
                 q.type = randomType;
-                
-                // Đánh dấu một số câu hỏi là điền số (Short Answer)
-                if (i >= mcqCount) {
+                q.isShortAnswer = false;
+                this.currentQuestions.push(q);
+            }
+
+            // Đánh dấu một số câu hỏi phù hợp là điền số (Short Answer)
+            let shortAnswerAssigned = 0;
+            const targetShortAnswerCount = examQuestionsCount - mcqCount;
+            for (let i = examQuestionsCount - 1; i >= 0; i--) {
+                const q = this.currentQuestions[i];
+                if (shortAnswerAssigned < targetShortAnswerCount && !q.forceMCQ) {
                     q.isShortAnswer = true;
+                    shortAnswerAssigned++;
                 } else {
                     q.isShortAnswer = false;
                 }
-
-                this.currentQuestions.push(q);
             }
         } else if (this.currentLevel === 'chat-luong-cao') {
             // Chế độ Chất lượng cao do AI sinh
@@ -2045,14 +2051,18 @@ const questions = {
                         aiQuestions.push(q);
                     }
 
-                    // 3. Đánh dấu các câu điền đáp án ngắn (6 câu cuối cùng)
+                    // 3. Đánh dấu các câu điền đáp án ngắn phù hợp (tối đa 6 câu)
                     const totalQs = aiQuestions.length; // 16 câu
                     const mcqCount = 10;
-                    for (let i = 0; i < totalQs; i++) {
-                        if (i >= mcqCount) {
-                            aiQuestions[i].isShortAnswer = true;
+                    let shortAnswerAssigned = 0;
+                    const targetShortAnswerCount = totalQs - mcqCount;
+                    for (let i = totalQs - 1; i >= 0; i--) {
+                        const q = aiQuestions[i];
+                        if (shortAnswerAssigned < targetShortAnswerCount && !q.forceMCQ) {
+                            q.isShortAnswer = true;
+                            shortAnswerAssigned++;
                         } else {
-                            aiQuestions[i].isShortAnswer = false;
+                            q.isShortAnswer = false;
                         }
                     }
 
@@ -8052,7 +8062,7 @@ const questions = {
         this.shuffle(options);
         correctIndex = options.indexOf(correctOptionValue);
 
-        return {
+        const qObj = {
             questionText,
             options,
             correctIndex,
@@ -8060,6 +8070,11 @@ const questions = {
             solutionHtml,
             tip
         };
+
+        // Xác định xem câu hỏi có bắt buộc phải là trắc nghiệm hay không
+        qObj.forceMCQ = this.shouldForceMCQ(questionText, correctOptionValue);
+
+        return qObj;
     },
 
     // Hiển thị câu hỏi
@@ -9030,6 +9045,68 @@ const questions = {
         return s;
     },
 
+    shouldForceMCQ: function(questionText, correctOption) {
+        if (typeof questionText !== 'string' || typeof correctOption !== 'string') return false;
+        
+        const textLower = questionText.toLowerCase();
+        const mcqKeywords = [
+            "dưới đây", "sau đây", "khẳng định nào", "phát biểu nào", 
+            "cách viết nào", "nhận xét nào", "đáp án nào", "công thức nào",
+            "hình nào", "trong các phát biểu", "khẳng định nào đúng", 
+            "khẳng định nào sai", "phát biểu nào đúng", "phát biểu nào sai",
+            "phương án nào", "lựa chọn nào"
+        ];
+        
+        for (const kw of mcqKeywords) {
+            if (textLower.includes(kw)) {
+                return true;
+            }
+        }
+        
+        // Kiểm tra đáp án đúng (correctOption)
+        // Loại bỏ ký tự $
+        let cleanOpt = correctOption.replace(/\$/g, '').trim();
+        
+        // Nếu đáp án có chứa LaTeX phức tạp như phân số, căn thức, song song, vuông góc, góc, tam giác
+        const complexLatex = [
+            "\\frac", "\\sqrt", "\\parallel", "\\perp", "\\angle", "\\triangle", 
+            "\\cup", "\\cap", "\\subset", "\\in", "\\notin", "\\bar", "\\overline",
+            "\\times", "\\cdot", "\\degree", "^"
+        ];
+        for (const latex of complexLatex) {
+            if (correctOption.includes(latex)) {
+                return true;
+            }
+        }
+        
+        // Nếu là tập hợp phức tạp (có dấu ngoặc nhọn)
+        if (correctOption.includes('{') || correctOption.includes('}')) {
+            return true;
+        }
+        
+        // Nếu đáp án chứa văn bản dài (ví dụ có chứa các từ tiếng Việt dài, không chỉ là số và đơn vị)
+        // Loại bỏ các chữ số, dấu phép tính (+ - * / = < >)
+        let textOnly = cleanOpt.replace(/[0-9\+\-\*\/\=\<\>\(\)\;\,\.\%]/g, '').trim();
+        // Loại bỏ các đơn vị thông dụng
+        const units = [
+            "chiếc kẹo", "kẹo", "hộp sữa", "sữa", "hộp", "quả", "bông hoa", "hoa", 
+            "quyển sách", "sách", "vở", "bút", "học sinh", "bạn", "khối rubik", 
+            "khối", "rubik", "phần tử", "ước", "bội", "dm", "cm", "m", "kg", "g", 
+            "giờ", "phút", "giây", "lít", "l", "độ c", "độ", "c", "trang", "tuổi", 
+            "con", "cái", "ngày", "tháng", "năm", "đồng", "đ", "lần"
+        ];
+        for (const unit of units) {
+            textOnly = textOnly.replace(new RegExp('\\b' + unit + '\\b', 'gi'), '').trim();
+        }
+        
+        // Nếu sau khi loại bỏ số và đơn vị, phần chữ còn lại vẫn dài (ví dụ > 5 ký tự) hoặc chứa khoảng trắng (nhiều từ)
+        if (textOnly.replace(/\s+/g, '').length > 5) {
+            return true;
+        }
+        
+        return false;
+    },
+
     showPracticeReview: function() {
         this.isGraded = true;
         document.getElementById("practice-result-box").classList.add("hidden");
@@ -9409,10 +9486,21 @@ const questions = {
                         const q = this.generateQuestion(randomType, randomLevel);
                         q.level = randomLevel;
                         q.type = randomType;
-                        if (i >= mcqCount) {
-                            q.isShortAnswer = true;
-                        }
+                        q.isShortAnswer = false;
                         questions.push(q);
+                    }
+
+                    // Đánh dấu các câu điền đáp án ngắn phù hợp
+                    let shortAnswerAssigned = 0;
+                    const targetShortAnswerCount = examQuestionsCount - mcqCount;
+                    for (let i = examQuestionsCount - 1; i >= 0; i--) {
+                        const q = questions[i];
+                        if (shortAnswerAssigned < targetShortAnswerCount && !q.forceMCQ) {
+                            q.isShortAnswer = true;
+                            shortAnswerAssigned++;
+                        } else {
+                            q.isShortAnswer = false;
+                        }
                     }
                 } else {
                     // Sinh đề luyện tập (10 câu)

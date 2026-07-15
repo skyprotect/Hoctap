@@ -1,0 +1,670 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:51:45.196Z
+Lesson ID: eng4-t15
+Lesson Title: Unit 15: My family
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10278 (line 384 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10278 (line 384 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10278 (Line: 322, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 },
+      "b": { "min": 3, "max": 8 }
+    },
+    "constraints": [
+      "(a + b) < 20"
+    ],
+    "formulas": {
+      "total": "a + b",
+      "ans": "total * 4",
+      "w1": "ans + 2",
+      "w2": "ans - 4",
+      "w3": "ans + 8"
+    },
+    "questionText": "Trong gia đình bạn Lan có {a} người lớn và {b} trẻ em. Mỗi người trong gia đình đều có $ 4 $ chiếc bánh trong bữa sáng. Hỏi tổng cộng cả gia đình có bao nhiêu chiếc bánh?",
+    "options": [
+      "A. {w1} chiếc bánh",
+      "B. {ans} chiếc bánh",
+      "C. {w2} chiếc bánh",
+      "D. {w3} chiếc bánh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng số thành viên trong gia đình trước.",
+      "Sau đó lấy tổng số thành viên nhân với số bánh mỗi người nhận được."
+    ],
+    "solutionHtml": "Tổng số thành viên trong gia đình là:<br/>$ {a} + {b} = {total} $ (người).<br/>Số bánh của cả gia đình là:<br/>$ {total} \\times 4 = {ans} $ (chiếc bánh).<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên tính tổng số người trước khi thực hiện phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 20, "max": 50 },
+      "y": { "min": 5, "max": 10 }
+    },
+    "constraints": [
+      "x % y === 0"
+    ],
+    "formulas": {
+      "ans": "x / y",
+      "w1": "ans + 3",
+      "w2": "ans * 2",
+      "w3": "ans + 5"
+    },
+    "questionText": "Bà nội chia đều {x} quả cam cho {y} người cháu trong gia đình. Hỏi mỗi người cháu nhận được bao nhiêu quả cam?",
+    "options": [
+      "A. {w1} quả cam",
+      "B. {w2} quả cam",
+      "C. {ans} quả cam",
+      "D. {w3} quả cam"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Sử dụng phép chia để tìm số phần bằng nhau.",
+      "Thực hiện $ {x} : {y} $."
+    ],
+    "solutionHtml": "Số quả cam mỗi cháu nhận được là:<br/>$ {x} : {y} = {ans} $ (quả cam).<br/>Đáp án đúng là C.",
+    "tip": "Chia đều nghĩa là thực hiện phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "photo": { "min": 2, "max": 6 },
+      "row": { "min": 3, "max": 5 }
+    },
+    "constraints": [
+      "photo * row < 50"
+    ],
+    "formulas": {
+      "ans": "photo * row",
+      "w1": "ans + 2",
+      "w2": "ans + 5",
+      "w3": "ans - 1"
+    },
+    "questionText": "Mẹ dán các tấm ảnh gia đình vào một cuốn album. Mẹ dán {row} hàng, mỗi hàng có {photo} tấm ảnh. Hỏi mẹ đã dán tất cả bao nhiêu tấm ảnh?",
+    "options": [
+      "A. {w1} tấm ảnh",
+      "B. {ans} tấm ảnh",
+      "C. {w2} tấm ảnh",
+      "D. {w3} tấm ảnh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số ảnh bằng số hàng nhân với số ảnh trong mỗi hàng.",
+      "Thực hiện $ {row} \\times {photo} $."
+    ],
+    "solutionHtml": "Số tấm ảnh mẹ đã dán là:<br/>$ {row} \\times {photo} = {ans} $ (tấm ảnh).<br/>Đáp án đúng là B.",
+    "tip": "Nhân số hàng với số ảnh mỗi hàng để ra tổng số.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": [
+      "a > (b * 2)"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 1"
+    },
+    "questionText": "Gia đình ông có {a} người, gia đình bà có ít hơn gia đình ông {b} người. Hỏi gia đình bà có bao nhiêu người?",
+    "options": [
+      "A. {w1} người",
+      "B. {w2} người",
+      "C. {ans} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Gia đình bà ít hơn nên ta làm phép trừ.",
+      "Thực hiện $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số người trong gia đình bà là:<br/>$ {a} - {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+    "tip": "Từ khóa 'ít hơn' gợi ý phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "candy": { "min": 5, "max": 10 },
+      "people": { "min": 3, "max": 6 }
+    },
+    "constraints": [
+      "candy * people < 60"
+    ],
+    "formulas": {
+      "ans": "candy * people",
+      "w1": "ans + 5",
+      "w2": "ans - 2",
+      "w3": "ans + 10"
+    },
+    "questionText": "Bố mua kẹo cho các con. Mỗi con được {candy} cái kẹo. Nếu có {people} người con, hỏi bố cần mua tổng cộng bao nhiêu cái kẹo?",
+    "options": [
+      "A. {w1} cái kẹo",
+      "B. {ans} cái kẹo",
+      "C. {w2} cái kẹo",
+      "D. {w3} cái kẹo"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lấy số kẹo mỗi con nhân với số người con.",
+      "Thực hiện $ {candy} \\times {people} $."
+    ],
+    "solutionHtml": "Tổng số kẹo bố cần mua là:<br/>$ {candy} \\times {people} = {ans} $ (cái kẹo).<br/>Đáp án đúng là B.",
+    "tip": "Mỗi con một số lượng bằng nhau nên dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": [
+      "a !== b"
+    ],
+    "formulas": {
+      "ans": "100 - (a * 10 + b * 5)",
+      "w1": "100 - (a + b)",
+      "w2": "80",
+      "w3": "ans + 10"
+    },
+    "questionText": "Bà có $ 100 $ nghìn đồng. Bà cho con trai {a} tờ $ 10 $ nghìn và con gái {b} tờ $ 5 $ nghìn. Hỏi bà còn lại bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn đồng",
+      "B. {ans} nghìn đồng",
+      "C. {w2} nghìn đồng",
+      "D. {w3} nghìn đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính số tiền bà cho con trai và con gái trước.",
+      "Lấy tổng số tiền bà có trừ đi số tiền đã cho."
+    ],
+    "solutionHtml": "Số tiền bà cho con trai: $ {a} \\times 10 = {a * 10} $ (nghìn đồng).<br/>Số tiền bà cho con gái: $ {b} \\times 5 = {b * 5} $ (nghìn đồng).<br/>Số tiền bà còn lại:<br/>$ 100 - {a * 10} - {b * 5} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Hãy tính toán từng bước số tiền đã dùng trước khi trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 7 }
+    },
+    "constraints": [
+      "a < 10"
+    ],
+    "formulas": {
+      "ans": "a * 2",
+      "w1": "a + 2",
+      "w2": "a * 3",
+      "w3": "ans + 4"
+    },
+    "questionText": "Trong gia đình, mỗi người đều có $ 2 $ chiếc cốc riêng. Nếu gia đình có {a} người, hỏi tổng số chiếc cốc là bao nhiêu?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {ans} chiếc",
+      "D. {w3} chiếc"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số người nhân với số cốc mỗi người.",
+      "Thực hiện $ {a} \\times 2 $."
+    ],
+    "solutionHtml": "Tổng số chiếc cốc là:<br/>$ {a} \\times 2 = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề: mỗi người có 2 chiếc.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 3, "max": 5 }
+    },
+    "constraints": [
+      "a * b < 20"
+    ],
+    "formulas": {
+      "ans": "a * b * 7",
+      "w1": "a * b + 7",
+      "w2": "a * 7",
+      "w3": "ans + 7"
+    },
+    "questionText": "Một tuần có $ 7 $ ngày. Gia đình bạn Nam đi du lịch trong {a} tuần, mỗi tuần đi thăm {b} địa điểm khác nhau. Hỏi tổng cộng bạn Nam đã thăm bao nhiêu địa điểm?",
+    "options": [
+      "A. {w1} địa điểm",
+      "B. {w2} địa điểm",
+      "C. {ans} địa điểm",
+      "D. {w3} địa điểm"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tính số địa điểm mỗi tuần nhân với số tuần.",
+      "Lưu ý: Đề bài cho số tuần và số địa điểm mỗi tuần, số ngày trong tuần chỉ là thông tin phụ nếu không cần thiết."
+    ],
+    "solutionHtml": "Tổng số địa điểm là:<br/>$ {a} \\times {b} = {a * b} $ (địa điểm).<br/>*(Lưu ý: Thông tin 7 ngày không dùng đến trong phép tính này).<br/>Đáp án đúng là C.",
+    "tip": "Cần tỉnh táo loại bỏ các dữ kiện gây nhiễu không liên quan đến phép tính chính.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 8 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 2"
+    },
+    "questionText": "Mẹ có {a} quả táo, muốn chia đều vào {b} giỏ để mang sang biếu ông bà. Hỏi mỗi giỏ có bao nhiêu quả táo?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều là phép chia.",
+      "Thực hiện $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số quả táo trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Chia đều là từ khóa quan trọng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 15 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "(a + b) % 2 === 0"
+    ],
+    "formulas": {
+      "ans": "(a + b) / 2",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 1"
+    },
+    "questionText": "Gia đình có {a} người lớn và {b} trẻ em. Mọi người được chia thành $ 2 $ nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu người?",
+    "options": [
+      "A. {w1} người",
+      "B. {w2} người",
+      "C. {ans} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tính tổng số người trước.",
+      "Sau đó chia cho $ 2 $."
+    ],
+    "solutionHtml": "Tổng số người trong gia đình là:<br/>$ {a} + {b} = {a + b} $ (người).<br/>Số người trong mỗi nhóm là:<br/>$ {a + b} : 2 = {ans} $ (người).<br/>Đáp án đúng là C.",
+    "tip": "Luôn luôn tính tổng trước khi chia nhóm.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 },
+      "b": { "min": 3, "max": 8 }
+    },
+    "constraints": [
+      "(a + b) < 20"
+    ],
+    "formulas": {
+      "total": "a + b",
+      "ans": "total * 4",
+      "w1": "ans + 2",
+      "w2": "ans - 4",
+      "w3": "ans + 8"
+    },
+    "questionText": "Trong gia đình bạn Lan có {a} người lớn và {b} trẻ em. Mỗi người trong gia đình đều có $ 4 $ chiếc bánh trong bữa sáng. Hỏi tổng cộng cả gia đình có bao nhiêu chiếc bánh?",
+    "options": [
+      "A. {w1} chiếc bánh",
+      "B. {ans} chiếc bánh",
+      "C. {w2} chiếc bánh",
+      "D. {w3} chiếc bánh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng số thành viên trong gia đình trước.",
+      "Sau đó lấy tổng số thành viên nhân với số bánh mỗi người nhận được."
+    ],
+    "solutionHtml": "Tổng số thành viên trong gia đình là:<br/>$ {a} + {b} = {total} $ (người).<br/>Số bánh của cả gia đình là:<br/>$ {total} \\times 4 = {ans} $ (chiếc bánh).<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên tính tổng số người trước khi thực hiện phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 20, "max": 50 },
+      "y": { "min": 5, "max": 10 }
+    },
+    "constraints": [
+      "x % y === 0"
+    ],
+    "formulas": {
+      "ans": "x / y",
+      "w1": "ans + 3",
+      "w2": "ans * 2",
+      "w3": "ans + 5"
+    },
+    "questionText": "Bà nội chia đều {x} quả cam cho {y} người cháu trong gia đình. Hỏi mỗi người cháu nhận được bao nhiêu quả cam?",
+    "options": [
+      "A. {w1} quả cam",
+      "B. {w2} quả cam",
+      "C. {ans} quả cam",
+      "D. {w3} quả cam"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Sử dụng phép chia để tìm số phần bằng nhau.",
+      "Thực hiện $ {x} : {y} $."
+    ],
+    "solutionHtml": "Số quả cam mỗi cháu nhận được là:<br/>$ {x} : {y} = {ans} $ (quả cam).<br/>Đáp án đúng là C.",
+    "tip": "Chia đều nghĩa là thực hiện phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "photo": { "min": 2, "max": 6 },
+      "row": { "min": 3, "max": 5 }
+    },
+    "constraints": [
+      "photo * row < 50"
+    ],
+    "formulas": {
+      "ans": "photo * row",
+      "w1": "ans + 2",
+      "w2": "ans + 5",
+      "w3": "ans - 1"
+    },
+    "questionText": "Mẹ dán các tấm ảnh gia đình vào một cuốn album. Mẹ dán {row} hàng, mỗi hàng có {photo} tấm ảnh. Hỏi mẹ đã dán tất cả bao nhiêu tấm ảnh?",
+    "options": [
+      "A. {w1} tấm ảnh",
+      "B. {ans} tấm ảnh",
+      "C. {w2} tấm ảnh",
+      "D. {w3} tấm ảnh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Số ảnh bằng số hàng nhân với số ảnh trong mỗi hàng.",
+      "Thực hiện $ {row} \\times {photo} $."
+    ],
+    "solutionHtml": "Số tấm ảnh mẹ đã dán là:<br/>$ {row} \\times {photo} = {ans} $ (tấm ảnh).<br/>Đáp án đúng là B.",
+    "tip": "Nhân số hàng với số ảnh mỗi hàng để ra tổng số.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": [
+      "a > (b * 2)"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 1"
+    },
+    "questionText": "Gia đình ông có {a} người, gia đình bà có ít hơn gia đình ông {b} người. Hỏi gia đình bà có bao nhiêu người?",
+    "options": [
+      "A. {w1} người",
+      "B. {w2} người",
+      "C. {ans} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Gia đình bà ít hơn nên ta làm phép trừ.",
+      "Thực hiện $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số người trong gia đình bà là:<br/>$ {a} - {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+    "tip": "Từ khóa 'ít hơn' gợi ý phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "candy": { "min": 5, "max": 10 },
+      "people": { "min": 3, "max": 6 }
+    },
+    "constraints": [
+      "candy * people < 60"
+    ],
+    "formulas": {
+      "ans": "candy * people",
+      "w1": "ans + 5",
+      "w2": "ans - 2",
+      "w3": "ans + 10"
+    },
+    "questionText": "Bố mua kẹo cho các con. Mỗi con được {candy} cái kẹo. Nếu có {people} người con, hỏi bố cần mua tổng cộng bao nhiêu cái kẹo?",
+    "options": [
+      "A. {w1} cái kẹo",
+      "B. {ans} cái kẹo",
+      "C. {w2} cái kẹo",
+      "D. {w3} cái kẹo"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lấy số kẹo mỗi con nhân với số người con.",
+      "Thực hiện $ {candy} \\times {people} $."
+    ],
+    "solutionHtml": "Tổng số kẹo bố cần mua là:<br/>$ {candy} \\times {people} = {ans} $ (cái kẹo).<br/>Đáp án đúng là B.",
+    "tip": "Mỗi con một số lượng bằng nhau nên dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": [
+      "a !== b"
+    ],
+    "formulas": {
+      "ans": "100 - (a * 10 + b * 5)",
+      "w1": "100 - (a + b)",
+      "w2": "80",
+      "w3": "ans + 10"
+    },
+    "questionText": "Bà có $ 100 $ nghìn đồng. Bà cho con trai {a} tờ $ 10 $ nghìn và con gái {b} tờ $ 5 $ nghìn. Hỏi bà còn lại bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn đồng",
+      "B. {ans} nghìn đồng",
+      "C. {w2} nghìn đồng",
+      "D. {w3} nghìn đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính số tiền bà cho con trai và con gái trước.",
+      "Lấy tổng số tiền bà có trừ đi số tiền đã cho."
+    ],
+    "solutionHtml": "Số tiền bà cho con trai: $ {a} \\times 10 = {a * 10} $ (nghìn đồng).<br/>Số tiền bà cho con gái: $ {b} \\times 5 = {b * 5} $ (nghìn đồng).<br/>Số tiền bà còn lại:<br/>$ 100 - {a * 10} - {b * 5} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Hãy tính toán từng bước số tiền đã dùng trước khi trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 7 }
+    },
+    "constraints": [
+      "a < 10"
+    ],
+    "formulas": {
+      "ans": "a * 2",
+      "w1": "a + 2",
+      "w2": "a * 3",
+      "w3": "ans + 4"
+    },
+    "questionText": "Trong gia đình, mỗi người đều có $ 2 $ chiếc cốc riêng. Nếu gia đình có {a} người, hỏi tổng số chiếc cốc là bao nhiêu?",
+    "options": [
+      "A. {w1} chiếc",
+      "B. {w2} chiếc",
+      "C. {ans} chiếc",
+      "D. {w3} chiếc"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Số người nhân với số cốc mỗi người.",
+      "Thực hiện $ {a} \\times 2 $."
+    ],
+    "solutionHtml": "Tổng số chiếc cốc là:<br/>$ {a} \\times 2 = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề: mỗi người có 2 chiếc.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 3, "max": 5 }
+    },
+    "constraints": [
+      "a * b < 20"
+    ],
+    "formulas": {
+      "ans": "a * b * 7",
+      "w1": "a * b + 7",
+      "w2": "a * 7",
+      "w3": "ans + 7"
+    },
+    "questionText": "Một tuần có $ 7 $ ngày. Gia đình bạn Nam đi du lịch trong {a} tuần, mỗi tuần đi thăm {b} địa điểm khác nhau. Hỏi tổng cộng bạn Nam đã thăm bao nhiêu địa điểm?",
+    "options": [
+      "A. {w1} địa điểm",
+      "B. {w2} địa điểm",
+      "C. {ans} địa điểm",
+      "D. {w3} địa điểm"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tính số địa điểm mỗi tuần nhân với số tuần.",
+      "Lưu ý: Đề bài cho số tuần và số địa điểm mỗi tuần, số ngày trong tuần chỉ là thông tin phụ nếu không cần thiết."
+    ],
+    "solutionHtml": "Tổng số địa điểm là:<br/>$ {a} \\times {b} = {a * b} $ (địa điểm).<br/>*(Lưu ý: Thông tin 7 ngày không dùng đến trong phép tính này).<br/>Đáp án đúng là C.",
+    "tip": "Cần tỉnh táo loại bỏ các dữ kiện gây nhiễu không liên quan đến phép tính chính.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 8 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "ans + 2"
+    },
+    "questionText": "Mẹ có {a} quả táo, muốn chia đều vào {b} giỏ để mang sang biếu ông bà. Hỏi mỗi giỏ có bao nhiêu quả táo?",
+    "options": [
+      "A. {w1} quả",
+      "B. {w2} quả",
+      "C. {ans} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Chia đều là phép chia.",
+      "Thực hiện $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số quả táo trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+    "tip": "Chia đều là từ khóa quan trọng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 15 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": [
+      "(a + b) % 2 === 0"
+    ],
+    "formulas": {
+      "ans": "(a + b) / 2",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 1"
+    },
+    "questionText": "Gia đình có {a} người lớn và {b} trẻ em. Mọi người được chia thành $ 2 $ nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu người?",
+    "options": [
+      "A. {w1} người",
+      "B. {w2} người",
+      "C. {ans} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 2,
+    "hints": [
+      "Tính tổng số người trước.",
+      "Sau đó chia cho $ 2 $."
+    ],
+    "solutionHtml": "Tổng số người trong gia đình là:<br/>$ {a} + {b} = {a + b} $ (người).<br/>Số người trong mỗi nhóm là:<br/>$ {a + b} : 2 = {ans} $ (người).<br/>Đáp án đúng là C.",
+    "tip": "Luôn luôn tính tổng trước khi chia nhóm.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t15-d4"
+  }
+]
+

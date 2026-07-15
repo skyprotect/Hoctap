@@ -1,0 +1,484 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:06:49.435Z
+Lesson ID: l1-bai-24
+Lesson Title: Bài 24: Luyện tập chung
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9202 (line 225 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9202 (line 225 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9202 (Line: 225, Column: 3)
+Character causing error: "]"
+
+Context:
+... ip": "Làm mất, rơi vãi, hay cho đi đều là các tình huống của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d10"
+    }
+  ]
+}
+  >>>[LỖI TẠI ĐÂY]<<<]
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Trong vườn có {a} bông hoa. Lan hái đi {b} bông hoa để cắm vào lọ. Hỏi trong vườn còn lại bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông hoa", "B. {ans} bông hoa", "C. {w2} bông hoa", "D. {w3} bông hoa"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số hoa còn lại, ta thực hiện phép tính trừ.", "Lấy tổng số hoa ban đầu trừ đi số hoa Lan đã hái."],
+      "solutionHtml": "Số hoa còn lại trong vườn là:<br/>$ {a} - {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Khi đề bài hỏi 'còn lại bao nhiêu', ta thường nghĩ ngay đến phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a + b <= 15"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Mẹ mua cho Nam {a} quyển vở, sau đó mẹ mua thêm {b} quyển vở nữa. Hỏi mẹ đã mua tất cả bao nhiêu quyển vở?",
+      "options": ["A. {w1} quyển vở", "B. {ans} quyển vở", "C. {w2} quyển vở", "D. {w3} quyển vở"],
+      "correctIndex": 1,
+      "hints": ["Mẹ mua thêm nghĩa là ta phải thực hiện phép tính cộng.", "Lấy số vở ban đầu cộng với số vở mua thêm."],
+      "solutionHtml": "Số quyển vở mẹ đã mua tất cả là:<br/>$ {a} + {b} = {ans} $ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'tất cả' hoặc 'thêm' cho biết chúng ta nên sử dụng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Trên bàn có {a} chiếc bánh, An đã ăn hết {b} chiếc bánh. Hỏi trên bàn còn lại bao nhiêu chiếc bánh?",
+      "options": ["A. {w1} chiếc bánh", "B. {w2} chiếc bánh", "C. {ans} chiếc bánh", "D. {w3} chiếc bánh"],
+      "correctIndex": 2,
+      "hints": ["An ăn hết bánh tức là số bánh đã giảm đi.", "Hãy lấy tổng số bánh ban đầu trừ đi số bánh An đã ăn."],
+      "solutionHtml": "Số chiếc bánh còn lại trên bàn là:<br/>$ {a} - {b} = {ans} $ (chiếc bánh).<br/>Đáp án đúng là C.",
+      "tip": "Khi vật phẩm bị mất đi hoặc lấy đi, hãy thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Có {b} giỏ táo, mỗi giỏ đựng {a} quả táo. Hỏi có tất cả bao nhiêu quả táo?",
+      "options": ["A. {w1} quả", "B. {ans} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 1,
+      "hints": ["Có {b} nhóm, mỗi nhóm có {a} quả. Ta có thể cộng các nhóm lại: $ {a} + {a} + ... $.", "Đây là dạng toán gấp lên nhiều lần."],
+      "solutionHtml": "Số quả táo tất cả là:<br/>$ {a} + {a} = {ans} $ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số lượng trong mỗi nhóm và có nhiều nhóm giống nhau, ta thực hiện cộng liên tiếp các nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có nhiều hơn tổ một là {b} bạn. Hỏi tổ hai có bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["'Nhiều hơn' nghĩa là chúng ta cần cộng thêm vào số lượng của tổ một."],
+      "solutionHtml": "Số bạn ở tổ hai là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'nhiều hơn' để chọn đúng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Hùng có {a} viên bi, Hùng cho bạn {b} viên bi. Hỏi Hùng còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1} viên", "B. {ans} viên", "C. {w2} viên", "D. {w3} viên"],
+      "correctIndex": 1,
+      "hints": ["Cho đi nghĩa là số bi của Hùng giảm đi.", "Hãy làm phép tính trừ: $ {a} - {b} $."],
+      "solutionHtml": "Số viên bi Hùng còn lại là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Khi cho bớt đi, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a + b <= 20"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 3",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Lớp 1A có {a} bạn nam và {b} bạn nữ. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Gộp số bạn nam và số bạn nữ lại với nhau để tìm tổng số bạn trong lớp."],
+      "solutionHtml": "Tổng số bạn trong lớp là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi muốn tìm tổng số lượng, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 14, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Cửa hàng có {a} chiếc xe đạp, đã bán đi {b} chiếc. Hỏi cửa hàng còn lại bao nhiêu chiếc xe đạp?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Bán đi nghĩa là số lượng giảm xuống.", "Ta thực hiện phép tính trừ $ {a} - {b} $."],
+      "solutionHtml": "Số xe đạp còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc xe).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'bán đi' hoặc 'đã dùng' để xác định phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a + b <= 10"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a"
+      },
+      "questionText": "Trên cành có {a} con chim, có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành có tất cả bao nhiêu con chim?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Số chim ban đầu tăng thêm vì có thêm các con chim khác bay tới."],
+      "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'bay tới' hoặc 'thêm vào' là dấu hiệu của phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Bình có {a} viên bi, Bình làm mất {b} viên bi. Hỏi Bình còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1} viên", "B. {w2} viên", "C. {ans} viên", "D. {w3} viên"],
+      "correctIndex": 2,
+      "hints": ["Làm mất nghĩa là số bi đã giảm đi.", "Hãy tính $ {a} - {b} $."],
+      "solutionHtml": "Số viên bi còn lại của Bình là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Làm mất, rơi vãi, hay cho đi đều là các tình huống của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d10"
+    }
+  ]
+}
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Trong vườn có {a} bông hoa. Lan hái đi {b} bông hoa để cắm vào lọ. Hỏi trong vườn còn lại bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông hoa", "B. {ans} bông hoa", "C. {w2} bông hoa", "D. {w3} bông hoa"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số hoa còn lại, ta thực hiện phép tính trừ.", "Lấy tổng số hoa ban đầu trừ đi số hoa Lan đã hái."],
+      "solutionHtml": "Số hoa còn lại trong vườn là:<br/>$ {a} - {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Khi đề bài hỏi 'còn lại bao nhiêu', ta thường nghĩ ngay đến phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a + b <= 15"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Mẹ mua cho Nam {a} quyển vở, sau đó mẹ mua thêm {b} quyển vở nữa. Hỏi mẹ đã mua tất cả bao nhiêu quyển vở?",
+      "options": ["A. {w1} quyển vở", "B. {ans} quyển vở", "C. {w2} quyển vở", "D. {w3} quyển vở"],
+      "correctIndex": 1,
+      "hints": ["Mẹ mua thêm nghĩa là ta phải thực hiện phép tính cộng.", "Lấy số vở ban đầu cộng với số vở mua thêm."],
+      "solutionHtml": "Số quyển vở mẹ đã mua tất cả là:<br/>$ {a} + {b} = {ans} $ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'tất cả' hoặc 'thêm' cho biết chúng ta nên sử dụng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Trên bàn có {a} chiếc bánh, An đã ăn hết {b} chiếc bánh. Hỏi trên bàn còn lại bao nhiêu chiếc bánh?",
+      "options": ["A. {w1} chiếc bánh", "B. {w2} chiếc bánh", "C. {ans} chiếc bánh", "D. {w3} chiếc bánh"],
+      "correctIndex": 2,
+      "hints": ["An ăn hết bánh tức là số bánh đã giảm đi.", "Hãy lấy tổng số bánh ban đầu trừ đi số bánh An đã ăn."],
+      "solutionHtml": "Số chiếc bánh còn lại trên bàn là:<br/>$ {a} - {b} = {ans} $ (chiếc bánh).<br/>Đáp án đúng là C.",
+      "tip": "Khi vật phẩm bị mất đi hoặc lấy đi, hãy thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Có {b} giỏ táo, mỗi giỏ đựng {a} quả táo. Hỏi có tất cả bao nhiêu quả táo?",
+      "options": ["A. {w1} quả", "B. {ans} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 1,
+      "hints": ["Có {b} nhóm, mỗi nhóm có {a} quả. Ta có thể cộng các nhóm lại: $ {a} + {a} + ... $.", "Đây là dạng toán gấp lên nhiều lần."],
+      "solutionHtml": "Số quả táo tất cả là:<br/>$ {a} + {a} = {ans} $ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số lượng trong mỗi nhóm và có nhiều nhóm giống nhau, ta thực hiện cộng liên tiếp các nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có nhiều hơn tổ một là {b} bạn. Hỏi tổ hai có bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["'Nhiều hơn' nghĩa là chúng ta cần cộng thêm vào số lượng của tổ một."],
+      "solutionHtml": "Số bạn ở tổ hai là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'nhiều hơn' để chọn đúng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Hùng có {a} viên bi, Hùng cho bạn {b} viên bi. Hỏi Hùng còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1} viên", "B. {ans} viên", "C. {w2} viên", "D. {w3} viên"],
+      "correctIndex": 1,
+      "hints": ["Cho đi nghĩa là số bi của Hùng giảm đi.", "Hãy làm phép tính trừ: $ {a} - {b} $."],
+      "solutionHtml": "Số viên bi Hùng còn lại là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Khi cho bớt đi, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a + b <= 20"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 3",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Lớp 1A có {a} bạn nam và {b} bạn nữ. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Gộp số bạn nam và số bạn nữ lại với nhau để tìm tổng số bạn trong lớp."],
+      "solutionHtml": "Tổng số bạn trong lớp là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi muốn tìm tổng số lượng, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 14, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Cửa hàng có {a} chiếc xe đạp, đã bán đi {b} chiếc. Hỏi cửa hàng còn lại bao nhiêu chiếc xe đạp?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Bán đi nghĩa là số lượng giảm xuống.", "Ta thực hiện phép tính trừ $ {a} - {b} $."],
+      "solutionHtml": "Số xe đạp còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc xe).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'bán đi' hoặc 'đã dùng' để xác định phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a + b <= 10"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a"
+      },
+      "questionText": "Trên cành có {a} con chim, có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành có tất cả bao nhiêu con chim?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Số chim ban đầu tăng thêm vì có thêm các con chim khác bay tới."],
+      "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'bay tới' hoặc 'thêm vào' là dấu hiệu của phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 1, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Bình có {a} viên bi, Bình làm mất {b} viên bi. Hỏi Bình còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1} viên", "B. {w2} viên", "C. {ans} viên", "D. {w3} viên"],
+      "correctIndex": 2,
+      "hints": ["Làm mất nghĩa là số bi đã giảm đi.", "Hãy tính $ {a} - {b} $."],
+      "solutionHtml": "Số viên bi còn lại của Bình là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Làm mất, rơi vãi, hay cho đi đều là các tình huống của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-24-d10"
+    }
+  ]
+}
+  ]
+}
+

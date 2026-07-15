@@ -1,0 +1,409 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "nha_may": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "san_luong": {
+          "min": 1000,
+          "max": 2000,
+          "step": 500
+        }
+      },
+      "constraints": [
+        "san_luong % nha_may === 0"
+      ],
+      "formulas": {
+        "ans": "san_luong / nha_may",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Một tập đoàn năng lượng có {nha_may} nhà máy điện mặt trời, mỗi nhà máy đóng góp sản lượng điện như nhau. Tổng sản lượng điện của cả tập đoàn là {san_luong} MWh. Hỏi mỗi nhà máy sản xuất được bao nhiêu MWh?",
+      "options": [
+        "A. {w1} MWh",
+        "B. {ans} MWh",
+        "C. {w2} MWh",
+        "D. {w3} MWh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vì mỗi nhà máy đóng góp sản lượng như nhau, ta lấy tổng sản lượng chia cho số nhà máy.",
+        "Phép tính: {san_luong} chia {nha_may}."
+      ],
+      "solutionHtml": "Số sản lượng điện mỗi nhà máy sản xuất được là:<br/>$ {san_luong} : {nha_may} = {ans} $ (MWh).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng giá trị và số lượng các phần bằng nhau, ta thực hiện phép chia để tìm giá trị của một phần.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "gio": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "watt": {
+          "min": 100,
+          "max": 500,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "gio * watt",
+        "w1": "ans + 100",
+        "w2": "ans * 2",
+        "w3": "ans + 50"
+      },
+      "questionText": "Một thiết bị tiết kiệm điện tiêu thụ {watt} W trong một giờ. Hỏi sau {gio} giờ hoạt động liên tục, thiết bị đó tiêu thụ tổng cộng bao nhiêu Watt?",
+      "options": [
+        "A. {w1} W",
+        "B. {w2} W",
+        "C. {ans} W",
+        "D. {w3} W"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Sử dụng công thức tính tổng điện năng: số Watt mỗi giờ nhân với số giờ hoạt động.",
+        "Phép tính: {watt} nhân {gio}."
+      ],
+      "solutionHtml": "Tổng lượng điện năng thiết bị tiêu thụ trong {gio} giờ là:<br/>$ {watt} \\times {gio} = {ans} $ (W).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý đơn vị đo và thời gian hoạt động để tính toán chính xác.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tiet_kiem": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "tong_tien": {
+          "min": 200,
+          "max": 500,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "tong_tien % tiet_kiem === 0"
+      ],
+      "formulas": {
+        "ans": "tong_tien / tiet_kiem",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Nhờ sử dụng thiết bị năng lượng mặt trời, gia đình bạn Lan tiết kiệm được {tiet_kiem} kWh điện mỗi tháng. Hỏi để tiết kiệm được tổng cộng {tong_tien} kWh điện, gia đình bạn Lan cần thời gian là bao nhiêu tháng?",
+      "options": [
+        "A. {w1} tháng",
+        "B. {w2} tháng",
+        "C. {ans} tháng",
+        "D. {w3} tháng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số điện cần tiết kiệm chia cho số điện tiết kiệm mỗi tháng.",
+        "Phép tính: {tong_tien} chia {tiet_kiem}."
+      ],
+      "solutionHtml": "Số tháng cần thiết để tiết kiệm được {tong_tien} kWh là:<br/>$ {tong_tien} : {tiet_kiem} = {ans} $ (tháng).<br/>Đáp án đúng là C.",
+      "tip": "Để tìm số lần lặp lại (số tháng), ta chia tổng giá trị cho giá trị của một đơn vị thời gian.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "nhiet_do_dau": {
+          "min": 20,
+          "max": 30,
+          "step": 1
+        },
+        "tang_truong": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "so_gio": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "nhiet_do_dau + (tang_truong * so_gio)",
+        "w1": "nhiet_do_dau + tang_truong",
+        "w2": "nhiet_do_dau + (tang_truong * (so_gio - 1))",
+        "w3": "nhiet_do_dau + (tang_truong * (so_gio + 1))"
+      },
+      "questionText": "Nhiệt độ môi trường bắt đầu ở mức {nhiet_do_dau} độ C. Do ảnh hưởng của năng lượng bức xạ mặt trời, mỗi giờ nhiệt độ tăng thêm {tang_truong} độ C. Hỏi sau {so_gio} giờ, nhiệt độ môi trường là bao nhiêu độ C?",
+      "options": [
+        "A. {w1} độ C",
+        "B. {w2} độ C",
+        "C. {ans} độ C",
+        "D. {w3} độ C"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng nhiệt độ tăng thêm sau {so_gio} giờ.",
+        "Cộng phần tăng thêm đó với nhiệt độ ban đầu."
+      ],
+      "solutionHtml": "Sau {so_gio} giờ, nhiệt độ tăng thêm là: $ {tang_truong} \\times {so_gio} = {tang_truong * so_gio} $ (độ C).<br/>Nhiệt độ cuối cùng là: $ {nhiet_do_dau} + {tang_truong * so_gio} = {ans} $ (độ C).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên tính tổng lượng biến đổi trước khi cộng với giá trị ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thiet_bi": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "cong_suat": {
+          "min": 40,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "thiet_bi * cong_suat",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một hộ gia đình lắp đặt {thiet_bi} bóng đèn LED siêu tiết kiệm điện, mỗi bóng có công suất {cong_suat} W. Tổng công suất tiêu thụ của hệ thống là bao nhiêu Watt?",
+      "options": [
+        "A. {w1} W",
+        "B. {ans} W",
+        "C. {w2} W",
+        "D. {w3} W"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số lượng bóng đèn với công suất mỗi bóng.",
+        "Phép tính: {thiet_bi} nhân {cong_suat}."
+      ],
+      "solutionHtml": "Tổng công suất tiêu thụ của hệ thống là:<br/>$ {thiet_bi} \\times {cong_suat} = {ans} $ (W).<br/>Đáp án đúng là B.",
+      "tip": "Với các thiết bị giống hệt nhau, ta lấy công suất một thiết bị nhân với số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_luong": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "hieu_suat": {
+          "min": 80,
+          "max": 90,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "so_luong * hieu_suat",
+        "w1": "ans + 5",
+        "w2": "ans + 10",
+        "w3": "ans - 5"
+      },
+      "questionText": "Một hệ thống pin năng lượng gồm {so_luong} tấm pin, mỗi tấm có hiệu suất chuyển đổi năng lượng là {hieu_suat} phần trăm (quy đổi đơn vị đơn giản). Nếu mỗi tấm đại diện cho 1 đơn vị năng lượng, tổng năng lượng thu được là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số lượng tấm pin với hiệu suất của mỗi tấm.",
+        "Phép tính: {so_luong} nhân {hieu_suat}."
+      ],
+      "solutionHtml": "Tổng năng lượng thu được là:<br/>$ {so_luong} \\times {hieu_suat} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Tính toán cẩn thận phép nhân các số có hai chữ số.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_gio": {
+          "min": 40,
+          "max": 80,
+          "step": 10
+        },
+        "gio_ngay": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tong_gio % gio_ngay === 0"
+      ],
+      "formulas": {
+        "ans": "tong_gio / gio_ngay",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 1"
+      },
+      "questionText": "Một máy phát điện gió dự kiến vận hành tổng cộng {tong_gio} giờ để hoàn thành dự án năng lượng. Mỗi ngày máy chạy {gio_ngay} giờ. Hỏi cần bao nhiêu ngày để hoàn thành dự án?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {w2} ngày",
+        "C. {ans} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số giờ cần chạy chia cho số giờ máy chạy mỗi ngày.",
+        "Phép tính: {tong_gio} chia {gio_ngay}."
+      ],
+      "solutionHtml": "Số ngày cần để hoàn thành dự án là:<br/>$ {tong_gio} : {gio_ngay} = {ans} $ (ngày).<br/>Đáp án đúng là C.",
+      "tip": "Kiểm tra lại xem đơn vị thời gian đã thống nhất chưa trước khi chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thung_nuoc": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "nang_luong": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "thung_nuoc * nang_luong",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một hệ thống bơm nước chạy bằng năng lượng mặt trời có khả năng bơm {thung_nuoc} thùng nước trong một giờ với mức năng lượng là {nang_luong} đơn vị. Hỏi trong một giờ, nếu hệ thống hoạt động hết công suất thì bơm được bao nhiêu thùng nước (theo quy đổi đơn vị năng lượng)?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bài toán yêu cầu tính tổng thùng nước, nhân số thùng mỗi giờ với đơn vị năng lượng.",
+        "Phép tính: {thung_nuoc} nhân {nang_luong}."
+      ],
+      "solutionHtml": "Tổng số thùng nước hệ thống bơm được là:<br/>$ {thung_nuoc} \\times {nang_luong} = {ans} $ (thùng).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề để xác định đúng hai đại lượng cần nhân với nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_nguoi": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "dien_tieu_thu": {
+          "min": 30,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "so_nguoi * dien_tieu_thu",
+        "w1": "ans + 20",
+        "w2": "ans - 20",
+        "w3": "ans + 10"
+      },
+      "questionText": "Trong một khu phố, mỗi người dân tiêu thụ trung bình {dien_tieu_thu} kWh điện mỗi tháng. Nếu có {so_nguoi} người dân cùng chuyển sang sử dụng năng lượng sạch, tổng lượng điện họ tiêu thụ mỗi tháng là bao nhiêu?",
+      "options": [
+        "A. {w1} kWh",
+        "B. {w2} kWh",
+        "C. {ans} kWh",
+        "D. {w3} kWh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân số lượng người dân với mức tiêu thụ điện trung bình của mỗi người.",
+        "Phép tính: {so_nguoi} nhân {dien_tieu_thu}."
+      ],
+      "solutionHtml": "Tổng lượng điện tiêu thụ của {so_nguoi} người là:<br/>$ {so_nguoi} \\times {dien_tieu_thu} = {ans} $ (kWh).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân là công cụ hữu hiệu để tìm giá trị tổng quát của nhiều đối tượng tương đương.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tuan": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "dien": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "tuan * 7 * dien",
+        "w1": "tuan * dien",
+        "w2": "ans + 10",
+        "w3": "ans - 10"
+      },
+      "questionText": "Một ngôi nhà sử dụng tấm pin năng lượng mặt trời cung cấp đủ điện cho {tuan} tuần, trung bình mỗi ngày nhà đó dùng {dien} kWh điện. Tổng số điện ngôi nhà đã sử dụng trong khoảng thời gian đó là bao nhiêu?",
+      "options": [
+        "A. {w1} kWh",
+        "B. {w2} kWh",
+        "C. {ans} kWh",
+        "D. {w3} kWh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi số tuần ra số ngày: $ {tuan} \\times 7 $.",
+        "Sau đó nhân với lượng điện mỗi ngày."
+      ],
+      "solutionHtml": "Tổng số ngày trong {tuan} tuần là: $ {tuan} \\times 7 = {tuan * 7} $ (ngày).<br/>Tổng lượng điện đã sử dụng là:<br/>$ {tuan * 7} \\times {dien} = {ans} $ (kWh).<br/>Đáp án đúng là C.",
+      "tip": "Luôn quy đổi về cùng một đơn vị thời gian (ở đây là ngày) trước khi thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t21-d4"
+    }
+  ]
+}

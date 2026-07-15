@@ -1,0 +1,458 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T13:22:26.462Z
+Lesson ID: eng6-t3
+Lesson Title: Unit 3: My Friends
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9699 (line 214 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9699 (line 214 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9699 (Line: 214, Column: 1)
+Character causing error: "}"
+
+Context:
+... kẹo mỗi bạn nhận được là:<br/>$ {n} : {k} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại phép chia của mình."
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 20, "max": 40, "step": 1 },
+        "k": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n / (k + 1) % 1 === 0 ? (n / (k + 1)) : (n / k + 2)",
+        "w2": "n / (k - 1) % 1 === 0 ? (n / (k - 1)) : (n / k + 4)",
+        "w3": "n / 2"
+      },
+      "questionText": "Trong buổi họp nhóm chủ đề 'Những người bạn' (My Friends), có {n} học sinh tham gia. Thầy giáo muốn chia đều các học sinh thành {k} nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu học sinh?",
+      "options": ["A. {w1} học sinh", "B. {w2} học sinh", "C. {ans} học sinh", "D. {w3} học sinh"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số học sinh mỗi nhóm, ta thực hiện phép chia tổng số học sinh cho số nhóm.", "Phép tính cần thực hiện là {n} chia cho {k}."],
+      "solutionHtml": "Số học sinh trong mỗi nhóm là:<br/>$ {n} : {k} = {ans} $ (học sinh).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia đều, ta luôn sử dụng phép chia để tìm giá trị của một phần.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t3-toan-hoc"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["(a * b) % 2 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Nhóm bạn của An gồm {a} người, mỗi người mang theo {b} món quà nhỏ để tặng cho các bạn trong lớp. Hỏi tổng số món quà nhóm bạn của An mang đến là bao nhiêu?",
+      "options": ["A. {w1} món quà", "B. {ans} món quà", "C. {w2} món quà", "D. {w3} món quà"],
+      "correctIndex": 1,
+      "hints": ["Mỗi bạn có {b} món quà, có tất cả {a} bạn.", "Tổng số quà là {a} nhân với {b}."],
+      "solutionHtml": "Tổng số món quà là:<br/>$ {a} \\times {b} = {ans} $ (món quà).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán cơ bản về phép nhân."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 10, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "x + 1"
+      },
+      "questionText": "Trong lớp 6A, số bạn nam nhiều hơn số bạn nữ là {ans} người. Nếu biết số bạn nữ là {y} người, hỏi số bạn nam trong lớp là bao nhiêu?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {x} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Số bạn nam = số bạn nữ + phần chênh lệch.", "Thay số vào ta có {y} + {ans}."],
+      "solutionHtml": "Số bạn nam là:<br/>$ {y} + {ans} = {x} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Phân tích kỹ dữ kiện 'nhiều hơn' để chọn phép tính cộng phù hợp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s": { "min": 50, "max": 100, "step": 5 },
+        "t": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["s % t === 0"],
+      "formulas": {
+        "ans": "s / t",
+        "w1": "s / t + 5",
+        "w2": "s / t - 5",
+        "w3": "s - t"
+      },
+      "questionText": "Để chuẩn bị cho buổi dã ngoại, {t} bạn thân cùng góp chung {s} nghìn đồng. Nếu mỗi người đóng góp số tiền như nhau, hỏi mỗi bạn đóng góp bao nhiêu nghìn đồng?",
+      "options": ["A. {w1} nghìn đồng", "B. {ans} nghìn đồng", "C. {w2} nghìn đồng", "D. {w3} nghìn đồng"],
+      "correctIndex": 1,
+      "hints": ["Chia tổng số tiền cho số lượng bạn.", "Phép tính là $ {s} : {t} $."],
+      "solutionHtml": "Mỗi bạn đóng góp số tiền là:<br/>$ {s} : {t} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để không nhầm lẫn giữa tổng số và số đơn vị."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["(a * b) % 1 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 3",
+        "w3": "a * b - 3"
+      },
+      "questionText": "Một nhóm học sinh có {a} bàn, mỗi bàn có {b} bạn ngồi. Hỏi nhóm đó có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Sử dụng phép nhân giữa số bàn và số bạn mỗi bàn.", "Ta có $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số bạn là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra đơn vị tính trước khi trả lời."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 20, "max": 30, "step": 2 },
+        "missing": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["total > missing"],
+      "formulas": {
+        "ans": "total - missing",
+        "w1": "total + missing",
+        "w2": "total / 2",
+        "w3": "total - missing - 1"
+      },
+      "questionText": "Lớp 6A có {total} bạn trong danh sách dự định đi picnic, nhưng hôm nay có {missing} bạn bị ốm nên không thể tham gia. Hỏi có bao nhiêu bạn đi picnic?",
+      "options": ["A. {w1} bạn", "B. {ans} bạn", "C. {w2} bạn", "D. {w3} bạn"],
+      "correctIndex": 1,
+      "hints": ["Số người đi = Tổng số người - Số người vắng mặt.", "Phép tính: {total} - {missing}."],
+      "solutionHtml": "Số bạn tham gia đi picnic là:<br/>$ {total} - {missing} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với từ 'vắng mặt' hoặc 'không thể tham gia'."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 2, "max": 4, "step": 1 },
+        "v": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["(c * v) % 1 === 0"],
+      "formulas": {
+        "ans": "c * v",
+        "w1": "c + v",
+        "w2": "c * v + 1",
+        "w3": "c * v - 1"
+      },
+      "questionText": "Mỗi người bạn trong nhóm đều tặng cho mỗi người còn lại trong nhóm một bức ảnh. Nếu nhóm có {c} người, mỗi người nhận được {v} bức ảnh từ những người khác. Hỏi tổng số bức ảnh đã tặng là bao nhiêu?",
+      "options": ["A. {w1} bức ảnh", "B. {ans} bức ảnh", "C. {w2} bức ảnh", "D. {w3} bức ảnh"],
+      "correctIndex": 1,
+      "hints": ["Tổng số ảnh được tặng bằng số người nhân với số ảnh mỗi người nhận được.", "Ta tính $ {c} \\times {v} $."],
+      "solutionHtml": "Tổng số bức ảnh là:<br/>$ {c} \\times {v} = {ans} $ (bức ảnh).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán về trao đổi quà tặng cần xác định đúng số lượng đối tượng và số phần quà."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * 2",
+        "w3": "y * 2"
+      },
+      "questionText": "Nhóm bạn thứ nhất có {x} người, nhóm bạn thứ hai có nhiều hơn nhóm thứ nhất {y} người. Hỏi cả hai nhóm có bao nhiêu người?",
+      "options": ["A. {w1} người", "B. {x} người", "C. {ans} + x người", "D. {x} + ({x} + {y}) người"],
+      "correctIndex": 3,
+      "formulas_detailed": {
+        "val_group2": "x + y",
+        "ans": "x + (x + y)"
+      },
+      "questionText": "Nhóm bạn thứ nhất có {x} người, nhóm bạn thứ hai có nhiều hơn nhóm thứ nhất {y} người. Hỏi cả hai nhóm có tất cả bao nhiêu người?",
+      "options": ["A. {x + y} người", "B. {x + y + 2} người", "C. {2 * x + y} người", "D. {2 * x + y - 1} người"],
+      "correctIndex": 2,
+      "hints": ["Nhóm thứ hai có {x} + {y} người.", "Tổng cả hai nhóm là {x} + ({x} + {y})."],
+      "solutionHtml": "Số người nhóm thứ hai là:<br/>$ {x} + {y} = {x + y} $ (người).<br/>Tổng số người cả hai nhóm là:<br/>$ {x} + {x + y} = {2 * x + y} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên tính số người của nhóm thứ hai trước khi cộng tổng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["(a * b) % 1 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Lan có {a} người bạn thân, mỗi bạn tặng Lan {b} cuốn sách. Hỏi Lan nhận được tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w1} cuốn", "B. {w2} cuốn", "C. {ans} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 2,
+      "hints": ["Lan có {a} người bạn, mỗi người tặng {b} cuốn.", "Số sách là {a} nhân với {b}."],
+      "solutionHtml": "Số cuốn sách Lan nhận được là:<br/>$ {a} \\times {b} = {ans} $ (cuốn sách).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giúp ta tính tổng số lượng các nhóm bằng nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 20, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n / k + 1",
+        "w2": "n / k - 1",
+        "w3": "n + k"
+      },
+      "questionText": "Có {n} chiếc kẹo được chia đều cho {k} người bạn. Hỏi mỗi người bạn nhận được bao nhiêu chiếc kẹo?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Chia số kẹo cho số người.", "Phép tính là $ {n} : {k} $."],
+      "solutionHtml": "Số kẹo mỗi bạn nhận được là:<br/>$ {n} : {k} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại phép chia của mình."
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 20, "max": 40, "step": 1 },
+        "k": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n / (k + 1) % 1 === 0 ? (n / (k + 1)) : (n / k + 2)",
+        "w2": "n / (k - 1) % 1 === 0 ? (n / (k - 1)) : (n / k + 4)",
+        "w3": "n / 2"
+      },
+      "questionText": "Trong buổi họp nhóm chủ đề 'Những người bạn' (My Friends), có {n} học sinh tham gia. Thầy giáo muốn chia đều các học sinh thành {k} nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu học sinh?",
+      "options": ["A. {w1} học sinh", "B. {w2} học sinh", "C. {ans} học sinh", "D. {w3} học sinh"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số học sinh mỗi nhóm, ta thực hiện phép chia tổng số học sinh cho số nhóm.", "Phép tính cần thực hiện là {n} chia cho {k}."],
+      "solutionHtml": "Số học sinh trong mỗi nhóm là:<br/>$ {n} : {k} = {ans} $ (học sinh).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia đều, ta luôn sử dụng phép chia để tìm giá trị của một phần.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t3-toan-hoc"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["(a * b) % 2 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Nhóm bạn của An gồm {a} người, mỗi người mang theo {b} món quà nhỏ để tặng cho các bạn trong lớp. Hỏi tổng số món quà nhóm bạn của An mang đến là bao nhiêu?",
+      "options": ["A. {w1} món quà", "B. {ans} món quà", "C. {w2} món quà", "D. {w3} món quà"],
+      "correctIndex": 1,
+      "hints": ["Mỗi bạn có {b} món quà, có tất cả {a} bạn.", "Tổng số quà là {a} nhân với {b}."],
+      "solutionHtml": "Tổng số món quà là:<br/>$ {a} \\times {b} = {ans} $ (món quà).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán cơ bản về phép nhân."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 10, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "x + 1"
+      },
+      "questionText": "Trong lớp 6A, số bạn nam nhiều hơn số bạn nữ là {ans} người. Nếu biết số bạn nữ là {y} người, hỏi số bạn nam trong lớp là bao nhiêu?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {x} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Số bạn nam = số bạn nữ + phần chênh lệch.", "Thay số vào ta có {y} + {ans}."],
+      "solutionHtml": "Số bạn nam là:<br/>$ {y} + {ans} = {x} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Phân tích kỹ dữ kiện 'nhiều hơn' để chọn phép tính cộng phù hợp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s": { "min": 50, "max": 100, "step": 5 },
+        "t": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["s % t === 0"],
+      "formulas": {
+        "ans": "s / t",
+        "w1": "s / t + 5",
+        "w2": "s / t - 5",
+        "w3": "s - t"
+      },
+      "questionText": "Để chuẩn bị cho buổi dã ngoại, {t} bạn thân cùng góp chung {s} nghìn đồng. Nếu mỗi người đóng góp số tiền như nhau, hỏi mỗi bạn đóng góp bao nhiêu nghìn đồng?",
+      "options": ["A. {w1} nghìn đồng", "B. {ans} nghìn đồng", "C. {w2} nghìn đồng", "D. {w3} nghìn đồng"],
+      "correctIndex": 1,
+      "hints": ["Chia tổng số tiền cho số lượng bạn.", "Phép tính là $ {s} : {t} $."],
+      "solutionHtml": "Mỗi bạn đóng góp số tiền là:<br/>$ {s} : {t} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để không nhầm lẫn giữa tổng số và số đơn vị."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["(a * b) % 1 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 3",
+        "w3": "a * b - 3"
+      },
+      "questionText": "Một nhóm học sinh có {a} bàn, mỗi bàn có {b} bạn ngồi. Hỏi nhóm đó có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Sử dụng phép nhân giữa số bàn và số bạn mỗi bàn.", "Ta có $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số bạn là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra đơn vị tính trước khi trả lời."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 20, "max": 30, "step": 2 },
+        "missing": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["total > missing"],
+      "formulas": {
+        "ans": "total - missing",
+        "w1": "total + missing",
+        "w2": "total / 2",
+        "w3": "total - missing - 1"
+      },
+      "questionText": "Lớp 6A có {total} bạn trong danh sách dự định đi picnic, nhưng hôm nay có {missing} bạn bị ốm nên không thể tham gia. Hỏi có bao nhiêu bạn đi picnic?",
+      "options": ["A. {w1} bạn", "B. {ans} bạn", "C. {w2} bạn", "D. {w3} bạn"],
+      "correctIndex": 1,
+      "hints": ["Số người đi = Tổng số người - Số người vắng mặt.", "Phép tính: {total} - {missing}."],
+      "solutionHtml": "Số bạn tham gia đi picnic là:<br/>$ {total} - {missing} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với từ 'vắng mặt' hoặc 'không thể tham gia'."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 2, "max": 4, "step": 1 },
+        "v": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["(c * v) % 1 === 0"],
+      "formulas": {
+        "ans": "c * v",
+        "w1": "c + v",
+        "w2": "c * v + 1",
+        "w3": "c * v - 1"
+      },
+      "questionText": "Mỗi người bạn trong nhóm đều tặng cho mỗi người còn lại trong nhóm một bức ảnh. Nếu nhóm có {c} người, mỗi người nhận được {v} bức ảnh từ những người khác. Hỏi tổng số bức ảnh đã tặng là bao nhiêu?",
+      "options": ["A. {w1} bức ảnh", "B. {ans} bức ảnh", "C. {w2} bức ảnh", "D. {w3} bức ảnh"],
+      "correctIndex": 1,
+      "hints": ["Tổng số ảnh được tặng bằng số người nhân với số ảnh mỗi người nhận được.", "Ta tính $ {c} \\times {v} $."],
+      "solutionHtml": "Tổng số bức ảnh là:<br/>$ {c} \\times {v} = {ans} $ (bức ảnh).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán về trao đổi quà tặng cần xác định đúng số lượng đối tượng và số phần quà."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * 2",
+        "w3": "y * 2"
+      },
+      "questionText": "Nhóm bạn thứ nhất có {x} người, nhóm bạn thứ hai có nhiều hơn nhóm thứ nhất {y} người. Hỏi cả hai nhóm có bao nhiêu người?",
+      "options": ["A. {w1} người", "B. {x} người", "C. {ans} + x người", "D. {x} + ({x} + {y}) người"],
+      "correctIndex": 3,
+      "formulas_detailed": {
+        "val_group2": "x + y",
+        "ans": "x + (x + y)"
+      },
+      "questionText": "Nhóm bạn thứ nhất có {x} người, nhóm bạn thứ hai có nhiều hơn nhóm thứ nhất {y} người. Hỏi cả hai nhóm có tất cả bao nhiêu người?",
+      "options": ["A. {x + y} người", "B. {x + y + 2} người", "C. {2 * x + y} người", "D. {2 * x + y - 1} người"],
+      "correctIndex": 2,
+      "hints": ["Nhóm thứ hai có {x} + {y} người.", "Tổng cả hai nhóm là {x} + ({x} + {y})."],
+      "solutionHtml": "Số người nhóm thứ hai là:<br/>$ {x} + {y} = {x + y} $ (người).<br/>Tổng số người cả hai nhóm là:<br/>$ {x} + {x + y} = {2 * x + y} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên tính số người của nhóm thứ hai trước khi cộng tổng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["(a * b) % 1 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Lan có {a} người bạn thân, mỗi bạn tặng Lan {b} cuốn sách. Hỏi Lan nhận được tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w1} cuốn", "B. {w2} cuốn", "C. {ans} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 2,
+      "hints": ["Lan có {a} người bạn, mỗi người tặng {b} cuốn.", "Số sách là {a} nhân với {b}."],
+      "solutionHtml": "Số cuốn sách Lan nhận được là:<br/>$ {a} \\times {b} = {ans} $ (cuốn sách).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giúp ta tính tổng số lượng các nhóm bằng nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 20, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n / k + 1",
+        "w2": "n / k - 1",
+        "w3": "n + k"
+      },
+      "questionText": "Có {n} chiếc kẹo được chia đều cho {k} người bạn. Hỏi mỗi người bạn nhận được bao nhiêu chiếc kẹo?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Chia số kẹo cho số người.", "Phép tính là $ {n} : {k} $."],
+      "solutionHtml": "Số kẹo mỗi bạn nhận được là:<br/>$ {n} : {k} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra lại phép chia của mình."
+    }
+  ]
+}
+}
+

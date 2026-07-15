@@ -1,0 +1,380 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 15
+        },
+        "b": {
+          "min": 2,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_fixed": "(w1 === ans) ? ans + 1 : w1",
+        "w2_fixed": "(w2 === ans || w2 === w1_fixed) ? ans + 2 : w2",
+        "w3_fixed": "(w3 === ans || w3 === w1_fixed || w3 === w2_fixed) ? ans + 3 : w3"
+      },
+      "questionText": "Lan có {a} quyển vở, Hoa có {b} quyển vở. Hỏi Lan có nhiều hơn Hoa bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1_fixed} quyển",
+        "B. {ans} quyển",
+        "C. {w2_fixed} quyển",
+        "D. {w3_fixed} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết Lan có nhiều hơn Hoa bao nhiêu quyển, ta lấy số vở của Lan trừ đi số vở của Hoa."
+      ],
+      "solutionHtml": "Số quyển vở Lan có nhiều hơn Hoa là:<br/>$ {a} - {b} = {ans} $ (quyển).<br/>Vậy Lan có nhiều hơn Hoa {ans} quyển vở.",
+      "tip": "Khi đề bài hỏi 'nhiều hơn bao nhiêu', ta dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 10
+        },
+        "b": {
+          "min": 11,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "b > a"
+      ],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "a",
+        "w3": "b",
+        "w1_fixed": "(w1 === ans) ? ans + 1 : w1",
+        "w2_fixed": "(w2 === ans || w2 === w1_fixed) ? ans + 2 : w2",
+        "w3_fixed": "(w3 === ans || w3 === w1_fixed || w3 === w2_fixed) ? ans + 3 : w3"
+      },
+      "questionText": "Trong vườn có {a} cây cam và {b} cây xoài. Số cây cam ít hơn số cây xoài là bao nhiêu?",
+      "options": [
+        "A. {w1_fixed} cây",
+        "B. {w2_fixed} cây",
+        "C. {ans} cây",
+        "D. {w3_fixed} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số cây cam ít hơn số cây xoài chính là hiệu giữa số cây xoài và số cây cam."
+      ],
+      "solutionHtml": "Số cây cam ít hơn số cây xoài là:<br/>$ {b} - {a} = {ans} $ (cây).<br/>Đáp án đúng là {ans} cây.",
+      "tip": "Muốn tìm số lượng ít hơn, ta lấy số lớn trừ đi số bé."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 5,
+          "max": 10
+        }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "3"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. Hỏi hai tổ có số lượng bạn như thế nào so với nhau?",
+      "options": [
+        "A. Tổ một nhiều hơn tổ hai",
+        "B. Tổ một ít hơn tổ hai",
+        "C. Số bạn hai tổ bằng nhau",
+        "D. Tổ hai nhiều hơn tổ một"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "So sánh số bạn ở hai tổ: {a} và {b}."
+      ],
+      "solutionHtml": "Vì $ {a} = {b} $ nên số bạn ở hai tổ bằng nhau.",
+      "tip": "Khi hai số bằng nhau, ta nói chúng có số lượng như nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8
+        },
+        "b": {
+          "min": 9,
+          "max": 15
+        }
+      },
+      "constraints": [
+        "b > a"
+      ],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "b + 1",
+        "w3": "a + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "An có {a} viên bi, Bình có {b} viên bi. Để Bình có số bi bằng với An, Bình cần cho đi bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bình cần cho đi số bi bằng hiệu giữa số bi của Bình và An."
+      ],
+      "solutionHtml": "Để Bình có số bi bằng An, Bình cần cho đi:<br/>$ {b} - {a} = {ans} $ (viên).",
+      "tip": "Cho đi là bớt đi, ta dùng phép trừ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 12
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Mẹ mua {a} quả táo, số quả cam mẹ mua nhiều hơn số quả táo là {b} quả. Hỏi mẹ mua bao nhiêu quả cam?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {w2_f} quả",
+        "C. {w3_f} quả",
+        "D. {ans} quả"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số quả cam nhiều hơn số quả táo nên ta thực hiện phép cộng."
+      ],
+      "solutionHtml": "Số quả cam mẹ mua là:<br/>$ {a} + {b} = {ans} $ (quả).",
+      "tip": "Khi đề bài cho 'nhiều hơn' và hỏi số lượng lớn hơn, ta dùng phép cộng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15
+        },
+        "b": {
+          "min": 3,
+          "max": 7
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Lớp 1A có {a} bạn nữ, số bạn nam ít hơn số bạn nữ là {b} bạn. Hỏi lớp 1A có bao nhiêu bạn nam?",
+      "options": [
+        "A. {w1_f} bạn",
+        "B. {ans} bạn",
+        "C. {w2_f} bạn",
+        "D. {w3_f} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vì số bạn nam ít hơn số bạn nữ nên ta lấy số bạn nữ trừ đi {b}."
+      ],
+      "solutionHtml": "Số bạn nam lớp 1A là:<br/>$ {a} - {b} = {ans} $ (bạn).",
+      "tip": "Ít hơn bao nhiêu thì ta thực hiện phép trừ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_fixed": "(w1 === ans) ? ans + 1 : w1",
+        "w2_fixed": "(w2 === ans || w2 === w1_fixed) ? ans + 2 : w2",
+        "w3_fixed": "(w3 === ans || w3 === w1_fixed || w3 === w2_fixed) ? ans + 3 : w3"
+      },
+      "questionText": "Bàn thứ nhất có {a} quyển sách. Bàn thứ hai có ít hơn bàn thứ nhất {b} quyển sách. Hỏi bàn thứ hai có bao nhiêu quyển sách?",
+      "options": [
+        "A. {ans} quyển",
+        "B. {w1_fixed} quyển",
+        "C. {w2_fixed} quyển",
+        "D. {w3_fixed} quyển"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Bàn thứ hai ít hơn nên ta làm phép tính trừ: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số sách ở bàn thứ hai là:<br/>$ {a} - {b} = {ans} $ (quyển).",
+      "tip": "Đọc kỹ đề: 'ít hơn' nghĩa là số đó nhỏ đi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 7
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "a + 1",
+        "w1_fixed": "(w1 === ans) ? ans + 1 : w1",
+        "w2_fixed": "(w2 === ans || w2 === w1_fixed) ? ans + 2 : w2",
+        "w3_fixed": "(w3 === ans || w3 === w1_fixed || w3 === w2_fixed) ? ans + 3 : w3"
+      },
+      "questionText": "Mai có {a} bông hoa. Huệ có nhiều hơn Mai {b} bông hoa. Hỏi Huệ có bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1_fixed} bông",
+        "B. {ans} bông",
+        "C. {w2_fixed} bông",
+        "D. {w3_fixed} bông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Huệ có nhiều hơn Mai nên ta thực hiện phép cộng."
+      ],
+      "solutionHtml": "Số bông hoa Huệ có là:<br/>$ {a} + {b} = {ans} $ (bông).",
+      "tip": "Nhiều hơn thì phải tăng thêm."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 12
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_fixed": "(w1 === ans) ? ans + 1 : w1",
+        "w2_fixed": "(w2 === ans || w2 === w1_fixed) ? ans + 2 : w2",
+        "w3_fixed": "(w3 === ans || w3 === w1_fixed || w3 === w2_fixed) ? ans + 3 : w3"
+      },
+      "questionText": "Có {a} con chim đang đậu trên cành, có {b} con chim bay đi. Hỏi trên cành còn lại bao nhiêu con chim?",
+      "options": [
+        "A. {ans} con",
+        "B. {w1_fixed} con",
+        "C. {w2_fixed} con",
+        "D. {w3_fixed} con"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Bay đi nghĩa là số lượng giảm đi, ta dùng phép trừ."
+      ],
+      "solutionHtml": "Số chim còn lại trên cành là:<br/>$ {a} - {b} = {ans} $ (con).",
+      "tip": "Hãy chú ý từ khóa 'bay đi' hay 'bớt đi'."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6
+        },
+        "b": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "3"
+      },
+      "questionText": "Đội A có {a} bạn, đội B có {b} bạn. Số bạn ở hai đội như thế nào?",
+      "options": [
+        "A. Đội A nhiều hơn",
+        "B. Đội B nhiều hơn",
+        "C. Hai đội bằng nhau",
+        "D. Đội A ít hơn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "So sánh {a} và {b}."
+      ],
+      "solutionHtml": "Vì {a} bằng {b} nên số bạn hai đội bằng nhau.",
+      "tip": "Khi số lượng bằng nhau, ta kết luận là 'bằng nhau'."
+    }
+  ]
+}

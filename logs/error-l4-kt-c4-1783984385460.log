@@ -1,0 +1,642 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:13:05.460Z
+Lesson ID: l4-kt-c4
+Lesson Title: Bài tập cuối chương IV
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 13613 (line 305 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 13613 (line 305 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 13613 (Line: 305, Column: 1)
+Character causing error: "}"
+
+Context:
+... g là D.",
+      "tip": "Đúng với quy tắc tìm hai số khi biết tổng và hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a / (b + 5)",
+        "w2_goc": "a / (b - 2)",
+        "w3_goc": "a / (b - 1)",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc % 1 !== 0) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một cửa hàng có {a} kg gạo, dự định chia đều vào các túi, mỗi túi {b} kg. Nếu cửa hàng muốn chia số gạo đó vào các túi, mỗi túi có số lượng gạo ít hơn số dự định là 2 kg, thì cần bao nhiêu túi?",
+      "options": [
+        "A. {w1} túi",
+        "B. {w2} túi",
+        "C. {ans} túi",
+        "D. {w3} túi"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính số kg mỗi túi mới bằng cách lấy {b} trừ đi 2.", "Lấy tổng số gạo là {a} chia cho số kg mỗi túi mới."],
+      "solutionHtml": "Số kg gạo mỗi túi mới là: {b} - 2 = {b-2} (kg).<br/>Số túi cần dùng là: {a} : {b-2} = {ans} (túi).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý đến thay đổi về khối lượng mỗi túi trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * a * b",
+        "w1_goc": "a * a + b",
+        "w2_goc": "a * b * 4",
+        "w3_goc": "a * a * b * 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} cm. Một hình chữ nhật có chiều rộng là {b} cm và chiều dài bằng cạnh hình vuông nhân với 4. Tính tổng diện tích của hình vuông và hình chữ nhật.",
+      "options": [
+        "A. {w1} $cm^2$",
+        "B. {ans} $cm^2$",
+        "C. {w2} $cm^2$",
+        "D. {w3} $cm^2$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình vuông là cạnh nhân cạnh.", "Chiều dài hình chữ nhật là {a} nhân 4.", "Tổng diện tích bằng diện tích hình vuông cộng diện tích hình chữ nhật."],
+      "solutionHtml": "Diện tích hình vuông: {a} x {a} = {a*a} ($cm^2$).<br/>Chiều dài hình chữ nhật: {a} x 4 = {a*4} (cm).<br/>Diện tích hình chữ nhật: {a*4} x {b} = {a*4*b} ($cm^2$).<br/>Tổng diện tích: {a*a} + {a*4*b} = {ans} ($cm^2$).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên tính toán diện tích từng hình trước khi cộng lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["(a + b) % 3 === 0"],
+      "formulas": {
+        "ans": "(a + b) / 3",
+        "w1_goc": "(a - b) / 2",
+        "w2_goc": "(a + b) / 2",
+        "w3_goc": "a / 3 + b",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 5 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 10 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc % 1 !== 0) ? ans + 15 : w3_goc"
+      },
+      "questionText": "Tổng số học sinh của hai lớp 4A và 4B là {a} bạn. Nếu lớp 4A có thêm {b} bạn thì số học sinh hai lớp sẽ bằng nhau. Hỏi số học sinh thực tế của lớp 4A là bao nhiêu?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {w2} học sinh",
+        "C. {w3} học sinh",
+        "D. {ans} học sinh"
+      ],
+      "correctIndex": 3,
+      "hints": ["Đây là bài toán tổng-hiệu. Hiệu số học sinh là {b}.", "Số học sinh lớp 4A là (Tổng - Hiệu) : 2."],
+      "solutionHtml": "Số học sinh lớp 4A là: ({a} - {b}) : 2 = {ans} (học sinh).<br/>Đáp án đúng là D.",
+      "tip": "Khi lớp A có thêm {b} bạn mà bằng lớp B, chứng tỏ ban đầu lớp B hơn lớp A là {b} bạn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 4 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % (b+1) === 0"],
+      "formulas": {
+        "ans": "a / (b+1)",
+        "w1_goc": "a / b",
+        "w2_goc": "a / 2",
+        "w3_goc": "a / 4",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc % 1 !== 0) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Một bác nông dân mang {a} quả táo ra chợ. Bác xếp số táo đó vào các giỏ, mỗi giỏ chứa số lượng táo gấp {b} lần số giỏ bác có. Hỏi bác có bao nhiêu giỏ táo?",
+      "options": [
+        "A. {w1} giỏ",
+        "B. {w2} giỏ",
+        "C. {ans} giỏ",
+        "D. {w3} giỏ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Gọi số giỏ là x. Số táo mỗi giỏ là x nhân {b}.", "Tổng số táo là: x nhân (x nhân {b}) = {a}?", "Cách khác: Số táo = số giỏ x (số giỏ x {b}) = {a}. Vậy số giỏ x số giỏ = {a} chia {b}. Hãy thử tìm số nào nhân chính nó bằng kết quả đó."],
+      "solutionHtml": "Gọi số giỏ là x. Số táo mỗi giỏ là x x {b}.<br/>Tổng số táo: x x (x x {b}) = {a}. Suy ra $x^2 = {a} : {b} = {a/b}$.<br/>Số giỏ là $x = {ans}$.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ: 'mỗi giỏ chứa số lượng táo gấp {b} lần số giỏ'. Đây là dạng tìm hai số biết tích của chúng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1_goc": "a + b",
+        "w2_goc": "a * a",
+        "w3_goc": "b * b",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Trong một dãy số cách đều, số hạng thứ {a} là số {b}. Nếu công sai của dãy là 1, hãy tìm số hạng thứ nhất của dãy đó.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số hạng thứ n = Số hạng thứ nhất + (n - 1) x công sai.", "Áp dụng: {b} = x + ({a} - 1) x 1."],
+      "solutionHtml": "Công thức: $S_n = S_1 + (n-1) \\times d$.<br/>{b} = $S_1$ + ({a} - 1) x 1.<br/>$S_1$ = {b} - {a-1} = {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với việc xác định số khoảng cách trong dãy số.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % (b + 1) === 0"],
+      "formulas": {
+        "ans": "a / (b + 1)",
+        "w1_goc": "a / b",
+        "w2_goc": "a - b",
+        "w3_goc": "a + b",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 6 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 9 : w3_goc"
+      },
+      "questionText": "Tổng số tuổi của mẹ và con là {a} tuổi. Biết rằng tuổi con bằng $1/{b}$ tuổi mẹ. Hỏi tuổi của con là bao nhiêu?",
+      "options": [
+        "A. {w1} tuổi",
+        "B. {ans} tuổi",
+        "C. {w2} tuổi",
+        "D. {w3} tuổi"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tuổi con là 1 phần, tuổi mẹ là {b} phần.", "Tổng số phần bằng nhau là 1 + {b} = {b+1} phần.", "Giá trị một phần là tổng chia tổng số phần."],
+      "solutionHtml": "Tổng số phần bằng nhau: 1 + {b} = {b+1} (phần).<br/>Tuổi của con là: {a} : {b+1} = {ans} (tuổi).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm hai số khi biết tổng và tỉ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a * b) % (a - b) === 0", "a > b"],
+      "formulas": {
+        "ans": "(a * b) / (a - b)",
+        "w1_goc": "a + b",
+        "w2_goc": "a * b",
+        "w3_goc": "a - b",
+        "w1": "(w1_goc === ans) ? ans + 4 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 8 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 12 : w3_goc"
+      },
+      "questionText": "Một hình chữ nhật có chu vi là {a*b*2} cm, chiều dài hơn chiều rộng {a-b} cm. Tìm chiều dài của hình chữ nhật đó.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Nửa chu vi là chu vi chia 2.", "Nửa chu vi = tổng chiều dài và chiều rộng.", "Dùng công thức (Tổng + Hiệu) : 2 để tìm số lớn (chiều dài)."],
+      "solutionHtml": "Nửa chu vi là: {a*b*2} : 2 = {a*b} (cm).<br/>Chiều dài là: ({a*b} + {a-b}) : 2 = {ans} (cm).<br/>Đáp án đúng là D.",
+      "tip": "Luôn tính nửa chu vi trước khi áp dụng công thức Tổng-Hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a * b",
+        "w2_goc": "a + b",
+        "w3_goc": "a - b",
+        "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+      },
+      "questionText": "Một đoàn tàu có {a} toa, mỗi toa có {b} cửa sổ. Nếu người ta sơn tất cả các cửa sổ, mỗi phút sơn được 1 cửa sổ thì mất bao nhiêu phút để sơn xong?",
+      "options": [
+        "A. {w1} phút",
+        "B. {w2} phút",
+        "C. {ans} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số cửa sổ bằng cách lấy số toa nhân số cửa sổ mỗi toa.", "Vì mỗi phút sơn 1 cửa sổ, thời gian bằng tổng số cửa sổ."],
+      "solutionHtml": "Tổng số cửa sổ: {a} x {b} = {a*b} (cửa sổ).<br/>Thời gian sơn: {a*b} : 1 = {a*b} (phút).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa đơn vị toa và đơn vị cửa sổ.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a + (a / b)",
+        "w1_goc": "a",
+        "w2_goc": "a - (a / b)",
+        "w3_goc": "a * b",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Một nhà máy ngày đầu sản xuất được {a} sản phẩm. Ngày thứ hai sản xuất được nhiều hơn ngày đầu $1/{b}$ số sản phẩm của ngày đầu. Hỏi cả hai ngày nhà máy sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {w2} sản phẩm",
+        "C. {w3} sản phẩm",
+        "D. {ans} sản phẩm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tính số sản phẩm ngày thứ hai bằng cách lấy {a} chia {b} rồi cộng với {a}.", "Tổng hai ngày là cộng số sản phẩm ngày đầu và ngày thứ hai."],
+      "solutionHtml": "Số sản phẩm ngày thứ hai: {a} + ({a} : {b}) = {a + a/b} (sản phẩm).<br/>Tổng hai ngày: {a} + {a + a/b} = {ans} (sản phẩm).<br/>Đáp án đúng là D.",
+      "tip": "Hãy tính riêng từng ngày trước khi tổng hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * (a - b)",
+        "w1_goc": "a * a + b * b",
+        "w2_goc": "a * a - b * b",
+        "w3_goc": "(a + b) * (a + b)",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Có hai số, tổng của chúng là {a+b} và hiệu của chúng là {a-b}. Hãy tìm tích của hai số đó.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tìm số lớn bằng (Tổng + Hiệu) : 2.", "Tìm số bé bằng (Tổng - Hiệu) : 2.", "Tích của hai số là nhân hai số vừa tìm được."],
+      "solutionHtml": "Số lớn: ({a+b} + {a-b}) : 2 = {a}.<br/>Số bé: ({a+b} - {a-b}) : 2 = {b}.<br/>Tích: {a} x {b} = {ans}.<br/>Đáp án đúng là D.",
+      "tip": "Đúng với quy tắc tìm hai số khi biết tổng và hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 5, "max": 20, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a / (b + 5)",
+        "w2_goc": "a / (b - 2)",
+        "w3_goc": "a / (b - 1)",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 20 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc % 1 !== 0) ? ans + 30 : w3_goc"
+      },
+      "questionText": "Một cửa hàng có {a} kg gạo, dự định chia đều vào các túi, mỗi túi {b} kg. Nếu cửa hàng muốn chia số gạo đó vào các túi, mỗi túi có số lượng gạo ít hơn số dự định là 2 kg, thì cần bao nhiêu túi?",
+      "options": [
+        "A. {w1} túi",
+        "B. {w2} túi",
+        "C. {ans} túi",
+        "D. {w3} túi"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính số kg mỗi túi mới bằng cách lấy {b} trừ đi 2.", "Lấy tổng số gạo là {a} chia cho số kg mỗi túi mới."],
+      "solutionHtml": "Số kg gạo mỗi túi mới là: {b} - 2 = {b-2} (kg).<br/>Số túi cần dùng là: {a} : {b-2} = {ans} (túi).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý đến thay đổi về khối lượng mỗi túi trước khi thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a * a * b",
+        "w1_goc": "a * a + b",
+        "w2_goc": "a * b * 4",
+        "w3_goc": "a * a * b * 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} cm. Một hình chữ nhật có chiều rộng là {b} cm và chiều dài bằng cạnh hình vuông nhân với 4. Tính tổng diện tích của hình vuông và hình chữ nhật.",
+      "options": [
+        "A. {w1} $cm^2$",
+        "B. {ans} $cm^2$",
+        "C. {w2} $cm^2$",
+        "D. {w3} $cm^2$"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình vuông là cạnh nhân cạnh.", "Chiều dài hình chữ nhật là {a} nhân 4.", "Tổng diện tích bằng diện tích hình vuông cộng diện tích hình chữ nhật."],
+      "solutionHtml": "Diện tích hình vuông: {a} x {a} = {a*a} ($cm^2$).<br/>Chiều dài hình chữ nhật: {a} x 4 = {a*4} (cm).<br/>Diện tích hình chữ nhật: {a*4} x {b} = {a*4*b} ($cm^2$).<br/>Tổng diện tích: {a*a} + {a*4*b} = {ans} ($cm^2$).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên tính toán diện tích từng hình trước khi cộng lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["(a + b) % 3 === 0"],
+      "formulas": {
+        "ans": "(a + b) / 3",
+        "w1_goc": "(a - b) / 2",
+        "w2_goc": "(a + b) / 2",
+        "w3_goc": "a / 3 + b",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 5 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 10 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc % 1 !== 0) ? ans + 15 : w3_goc"
+      },
+      "questionText": "Tổng số học sinh của hai lớp 4A và 4B là {a} bạn. Nếu lớp 4A có thêm {b} bạn thì số học sinh hai lớp sẽ bằng nhau. Hỏi số học sinh thực tế của lớp 4A là bao nhiêu?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {w2} học sinh",
+        "C. {w3} học sinh",
+        "D. {ans} học sinh"
+      ],
+      "correctIndex": 3,
+      "hints": ["Đây là bài toán tổng-hiệu. Hiệu số học sinh là {b}.", "Số học sinh lớp 4A là (Tổng - Hiệu) : 2."],
+      "solutionHtml": "Số học sinh lớp 4A là: ({a} - {b}) : 2 = {ans} (học sinh).<br/>Đáp án đúng là D.",
+      "tip": "Khi lớp A có thêm {b} bạn mà bằng lớp B, chứng tỏ ban đầu lớp B hơn lớp A là {b} bạn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 4 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % (b+1) === 0"],
+      "formulas": {
+        "ans": "a / (b+1)",
+        "w1_goc": "a / b",
+        "w2_goc": "a / 2",
+        "w3_goc": "a / 4",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1 || w2_goc % 1 !== 0) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc % 1 !== 0) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Một bác nông dân mang {a} quả táo ra chợ. Bác xếp số táo đó vào các giỏ, mỗi giỏ chứa số lượng táo gấp {b} lần số giỏ bác có. Hỏi bác có bao nhiêu giỏ táo?",
+      "options": [
+        "A. {w1} giỏ",
+        "B. {w2} giỏ",
+        "C. {ans} giỏ",
+        "D. {w3} giỏ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Gọi số giỏ là x. Số táo mỗi giỏ là x nhân {b}.", "Tổng số táo là: x nhân (x nhân {b}) = {a}?", "Cách khác: Số táo = số giỏ x (số giỏ x {b}) = {a}. Vậy số giỏ x số giỏ = {a} chia {b}. Hãy thử tìm số nào nhân chính nó bằng kết quả đó."],
+      "solutionHtml": "Gọi số giỏ là x. Số táo mỗi giỏ là x x {b}.<br/>Tổng số táo: x x (x x {b}) = {a}. Suy ra $x^2 = {a} : {b} = {a/b}$.<br/>Số giỏ là $x = {ans}$.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ: 'mỗi giỏ chứa số lượng táo gấp {b} lần số giỏ'. Đây là dạng tìm hai số biết tích của chúng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1_goc": "a + b",
+        "w2_goc": "a * a",
+        "w3_goc": "b * b",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Trong một dãy số cách đều, số hạng thứ {a} là số {b}. Nếu công sai của dãy là 1, hãy tìm số hạng thứ nhất của dãy đó.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số hạng thứ n = Số hạng thứ nhất + (n - 1) x công sai.", "Áp dụng: {b} = x + ({a} - 1) x 1."],
+      "solutionHtml": "Công thức: $S_n = S_1 + (n-1) \\times d$.<br/>{b} = $S_1$ + ({a} - 1) x 1.<br/>$S_1$ = {b} - {a-1} = {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với việc xác định số khoảng cách trong dãy số.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % (b + 1) === 0"],
+      "formulas": {
+        "ans": "a / (b + 1)",
+        "w1_goc": "a / b",
+        "w2_goc": "a - b",
+        "w3_goc": "a + b",
+        "w1": "(w1_goc === ans || w1_goc % 1 !== 0) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 6 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 9 : w3_goc"
+      },
+      "questionText": "Tổng số tuổi của mẹ và con là {a} tuổi. Biết rằng tuổi con bằng $1/{b}$ tuổi mẹ. Hỏi tuổi của con là bao nhiêu?",
+      "options": [
+        "A. {w1} tuổi",
+        "B. {ans} tuổi",
+        "C. {w2} tuổi",
+        "D. {w3} tuổi"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tuổi con là 1 phần, tuổi mẹ là {b} phần.", "Tổng số phần bằng nhau là 1 + {b} = {b+1} phần.", "Giá trị một phần là tổng chia tổng số phần."],
+      "solutionHtml": "Tổng số phần bằng nhau: 1 + {b} = {b+1} (phần).<br/>Tuổi của con là: {a} : {b+1} = {ans} (tuổi).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm hai số khi biết tổng và tỉ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a * b) % (a - b) === 0", "a > b"],
+      "formulas": {
+        "ans": "(a * b) / (a - b)",
+        "w1_goc": "a + b",
+        "w2_goc": "a * b",
+        "w3_goc": "a - b",
+        "w1": "(w1_goc === ans) ? ans + 4 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 8 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 12 : w3_goc"
+      },
+      "questionText": "Một hình chữ nhật có chu vi là {a*b*2} cm, chiều dài hơn chiều rộng {a-b} cm. Tìm chiều dài của hình chữ nhật đó.",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Nửa chu vi là chu vi chia 2.", "Nửa chu vi = tổng chiều dài và chiều rộng.", "Dùng công thức (Tổng + Hiệu) : 2 để tìm số lớn (chiều dài)."],
+      "solutionHtml": "Nửa chu vi là: {a*b*2} : 2 = {a*b} (cm).<br/>Chiều dài là: ({a*b} + {a-b}) : 2 = {ans} (cm).<br/>Đáp án đúng là D.",
+      "tip": "Luôn tính nửa chu vi trước khi áp dụng công thức Tổng-Hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1_goc": "a * b",
+        "w2_goc": "a + b",
+        "w3_goc": "a - b",
+        "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+      },
+      "questionText": "Một đoàn tàu có {a} toa, mỗi toa có {b} cửa sổ. Nếu người ta sơn tất cả các cửa sổ, mỗi phút sơn được 1 cửa sổ thì mất bao nhiêu phút để sơn xong?",
+      "options": [
+        "A. {w1} phút",
+        "B. {w2} phút",
+        "C. {ans} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số cửa sổ bằng cách lấy số toa nhân số cửa sổ mỗi toa.", "Vì mỗi phút sơn 1 cửa sổ, thời gian bằng tổng số cửa sổ."],
+      "solutionHtml": "Tổng số cửa sổ: {a} x {b} = {a*b} (cửa sổ).<br/>Thời gian sơn: {a*b} : 1 = {a*b} (phút).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa đơn vị toa và đơn vị cửa sổ.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a + (a / b)",
+        "w1_goc": "a",
+        "w2_goc": "a - (a / b)",
+        "w3_goc": "a * b",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Một nhà máy ngày đầu sản xuất được {a} sản phẩm. Ngày thứ hai sản xuất được nhiều hơn ngày đầu $1/{b}$ số sản phẩm của ngày đầu. Hỏi cả hai ngày nhà máy sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1} sản phẩm",
+        "B. {w2} sản phẩm",
+        "C. {w3} sản phẩm",
+        "D. {ans} sản phẩm"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tính số sản phẩm ngày thứ hai bằng cách lấy {a} chia {b} rồi cộng với {a}.", "Tổng hai ngày là cộng số sản phẩm ngày đầu và ngày thứ hai."],
+      "solutionHtml": "Số sản phẩm ngày thứ hai: {a} + ({a} : {b}) = {a + a/b} (sản phẩm).<br/>Tổng hai ngày: {a} + {a + a/b} = {ans} (sản phẩm).<br/>Đáp án đúng là D.",
+      "tip": "Hãy tính riêng từng ngày trước khi tổng hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * (a - b)",
+        "w1_goc": "a * a + b * b",
+        "w2_goc": "a * a - b * b",
+        "w3_goc": "(a + b) * (a + b)",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Có hai số, tổng của chúng là {a+b} và hiệu của chúng là {a-b}. Hãy tìm tích của hai số đó.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tìm số lớn bằng (Tổng + Hiệu) : 2.", "Tìm số bé bằng (Tổng - Hiệu) : 2.", "Tích của hai số là nhân hai số vừa tìm được."],
+      "solutionHtml": "Số lớn: ({a+b} + {a-b}) : 2 = {a}.<br/>Số bé: ({a+b} - {a-b}) : 2 = {b}.<br/>Tích: {a} x {b} = {ans}.<br/>Đáp án đúng là D.",
+      "tip": "Đúng với quy tắc tìm hai số khi biết tổng và hiệu.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c4-d4"
+    }
+  ]
+}
+}
+

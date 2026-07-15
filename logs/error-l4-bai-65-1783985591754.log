@@ -1,0 +1,744 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:33:11.754Z
+Lesson ID: l4-bai-65
+Lesson Title: Bài 65: Tìm phân số của một số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 15055 (line 480 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 15055 (line 480 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 15055 (Line: 359, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_so_trang": { "min": 80, "max": 150, "step": 10 },
+        "mau_so": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "tong_so_trang % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(tong_so_trang / mau_so) * tu_so",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "(tong_so_trang / mau_so) * (tu_so + 1)",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans - 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 2 : w3"
+      },
+      "questionText": "Cuốn sách truyện của bạn An dày {tong_so_trang} trang. An đã đọc được $ \\frac{{tu_so}}{{mau_so}} $ số trang của cuốn sách. Hỏi An đã đọc được bao nhiêu trang?",
+      "options": [
+        "A. {w1_f} trang",
+        "B. {w2_f} trang",
+        "C. {ans} trang",
+        "D. {w3_f} trang"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm $ \\frac{{tu_so}}{{mau_so}} $ của {tong_so_trang}, ta lấy {tong_so_trang} chia cho {mau_so} rồi nhân với {tu_so}.",
+        "Bước 1: Tìm số trang cho 1 phần: $ {tong_so_trang} : {mau_so} = {tong_so_trang / mau_so} $ (trang).",
+        "Bước 2: Tìm số trang An đã đọc: $ {tong_so_trang / mau_so} \\times {tu_so} = {ans} $ (trang)."
+      ],
+      "solutionHtml": "Số trang An đã đọc được là:<br/>$ {tong_so_trang} : {mau_so} \\times {tu_so} = {ans} $ (trang).<br/>Đáp án đúng là C.",
+      "tip": "Để tìm phân số của một số, ta chia số đó cho mẫu số rồi nhân với tử số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_bi": { "min": 40, "max": 90, "step": 5 },
+        "mau_so": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "tong_bi % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 2, "max": 4, "step": 1 },
+        "ans": "(tong_bi / mau_so) * tu_so",
+        "w1": "ans + 4",
+        "w2": "ans - 4",
+        "w3": "tong_bi - ans",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans - 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 6 : w3"
+      },
+      "questionText": "Trong hộp có {tong_bi} viên bi. Bạn Bình lấy ra $ \\frac{{tu_so}}{{mau_so}} $ số viên bi trong hộp. Hỏi Bình đã lấy ra bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm số viên bi Bình lấy ra, ta tính $ \\frac{{tu_so}}{{mau_so}} $ của {tong_bi}.",
+        "Phép tính: {tong_bi} chia {mau_so} rồi nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số viên bi Bình lấy ra là:<br/>$ {tong_bi} : {mau_so} \\times {tu_so} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Hãy thực hiện chia trước, nhân sau để kết quả chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_kg": { "min": 20, "max": 60, "step": 4 },
+        "mau_so": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "so_kg % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(so_kg / mau_so) * tu_so",
+        "w1": "ans + 2",
+        "w2": "ans * 2",
+        "w3": "ans + 5",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 4 : w3"
+      },
+      "questionText": "Cửa hàng có {so_kg} kg gạo. Buổi sáng cửa hàng bán được $ \\frac{{tu_so}}{{mau_so}} $ số gạo đó. Hỏi cửa hàng đã bán được bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {w2_f} kg",
+        "C. {ans} kg",
+        "D. {w3_f} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số gạo đã bán bằng cách lấy {so_kg} chia cho {mau_so} rồi nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {so_kg} : {mau_so} \\times {tu_so} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị của kết quả phải là kg.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_hoa": { "min": 24, "max": 48, "step": 6 },
+        "mau_so": { "min": 6, "max": 8, "step": 2 }
+      },
+      "constraints": [
+        "tong_hoa % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 5, "step": 2 },
+        "ans": "(tong_hoa / mau_so) * tu_so",
+        "w1": "ans + 3",
+        "w2": "ans - 2",
+        "w3": "ans + 6",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans + 1 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 2 : w3"
+      },
+      "questionText": "Bạn Hoa có {tong_hoa} bông hoa. Hoa tặng bạn $ \\frac{{tu_so}}{{mau_so}} $ số bông hoa đó. Hỏi Hoa đã tặng bạn bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1_f} bông",
+        "B. {w2_f} bông",
+        "C. {w3_f} bông",
+        "D. {ans} bông"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính $ \\frac{{tu_so}}{{mau_so}} $ của {tong_hoa} bằng cách: {tong_hoa} chia {mau_so}, được bao nhiêu nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số bông hoa Hoa tặng bạn là:<br/>$ {tong_hoa} : {mau_so} \\times {tu_so} = {ans} $ (bông).<br/>Đáp án đúng là D.",
+      "tip": "Kiểm tra lại xem số hoa được tặng có nhỏ hơn tổng số hoa ban đầu không nhé.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_hoc_sinh": { "min": 30, "max": 50, "step": 5 },
+        "mau_so": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "tong_hoc_sinh % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 2, "max": 4, "step": 1 },
+        "ans": "(tong_hoc_sinh / mau_so) * tu_so",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 4",
+        "w1_f": "(w1 === ans) ? ans + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 5 : w3"
+      },
+      "questionText": "Lớp 4A có {tong_hoc_sinh} học sinh. Trong đó có $ \\frac{{tu_so}}{{mau_so}} $ số học sinh là nữ. Hỏi lớp 4A có bao nhiêu học sinh nữ?",
+      "options": [
+        "A. {ans} học sinh",
+        "B. {w1_f} học sinh",
+        "C. {w2_f} học sinh",
+        "D. {w3_f} học sinh"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số học sinh nữ là $ \\frac{{tu_so}}{{mau_so}} $ của {tong_hoc_sinh}.",
+        "Tính: {tong_hoc_sinh} chia {mau_so} nhân {tu_so}."
+      ],
+      "solutionHtml": "Số học sinh nữ là:<br/>$ {tong_hoc_sinh} : {mau_so} \\times {tu_so} = {ans} $ (học sinh).<br/>Đáp án đúng là A.",
+      "tip": "Nhớ chia trước, nhân sau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_met": { "min": 20, "max": 40, "step": 4 },
+        "mau_so": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "tong_met % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(tong_met / mau_so) * tu_so",
+        "w1": "ans + 2",
+        "w2": "ans + 5",
+        "w3": "ans - 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f || w3 <= 0) ? ans + 4 : w3"
+      },
+      "questionText": "Một cuộn dây dài {tong_met} mét. Bác thợ cắt đi $ \\frac{{tu_so}}{{mau_so}} $ cuộn dây đó. Hỏi bác thợ đã cắt đi bao nhiêu mét dây?",
+      "options": [
+        "A. {w1_f} m",
+        "B. {w2_f} m",
+        "C. {ans} m",
+        "D. {w3_f} m"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm $ \\frac{{tu_so}}{{mau_so}} $ của {tong_met} bằng cách lấy {tong_met} chia {mau_so} rồi nhân {tu_so}."
+      ],
+      "solutionHtml": "Số mét dây bác thợ đã cắt là:<br/>$ {tong_met} : {mau_so} \\times {tu_so} = {ans} $ (m).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên đơn vị mét (m) trong bài toán độ dài nhé.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_qua": { "min": 36, "max": 72, "step": 6 },
+        "mau_so": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "tong_qua % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 2, "step": 1 },
+        "ans": "(tong_qua / mau_so) * tu_so",
+        "w1": "ans + 6",
+        "w2": "ans + 12",
+        "w3": "ans + 18",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Mẹ mua {tong_qua} quả cam. Mẹ biếu bà $ \\frac{{tu_so}}{{mau_so}} $ số quả cam đó. Hỏi mẹ đã biếu bà bao nhiêu quả cam?",
+      "options": [
+        "A. {ans} quả",
+        "B. {w1_f} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số cam biếu bà là: {tong_qua} : {mau_so} \\times {tu_so}."
+      ],
+      "solutionHtml": "Số quả cam mẹ biếu bà là:<br/>$ {tong_qua} : {mau_so} \\times {tu_so} = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Luôn nhớ quy tắc tìm phân số của một số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_tien": { "min": 100, "max": 500, "step": 20 },
+        "mau_so": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "so_tien % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(so_tien / mau_so) * tu_so",
+        "w1": "ans + 50",
+        "w2": "ans + 100",
+        "w3": "ans + 150",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Bạn Lan có {so_tien} nghìn đồng. Lan dùng $ \\frac{{tu_so}}{{mau_so}} $ số tiền đó để mua sách. Hỏi Lan đã dùng bao nhiêu nghìn đồng để mua sách?",
+      "options": [
+        "A. {w1_f} nghìn đồng",
+        "B. {w2_f} nghìn đồng",
+        "C. {ans} nghìn đồng",
+        "D. {w3_f} nghìn đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lan mua sách hết $ \\frac{{tu_so}}{{mau_so}} $ của {so_tien} nghìn đồng.",
+        "Phép tính: {so_tien} : {mau_so} \\times {tu_so}."
+      ],
+      "solutionHtml": "Số tiền Lan mua sách là:<br/>$ {so_tien} : {mau_so} \\times {tu_so} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa số tiền mua sách và số tiền còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_viên": { "min": 60, "max": 120, "step": 10 },
+        "mau_so": { "min": 5, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "tong_viên % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 2, "max": 4, "step": 1 },
+        "ans": "(tong_viên / mau_so) * tu_so",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Trong rổ có {tong_viên} quả trứng. Mẹ đã lấy ra $ \\frac{{tu_so}}{{mau_so}} $ số trứng để làm bánh. Hỏi mẹ đã lấy ra bao nhiêu quả trứng?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {ans} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số trứng mẹ lấy, ta lấy {tong_viên} chia cho {mau_so} rồi nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số trứng mẹ lấy ra là:<br/>$ {tong_viên} : {mau_so} \\times {tu_so} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Kết quả phải nhỏ hơn {tong_viên} quả trứng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_phut": { "min": 30, "max": 60, "step": 6 },
+        "mau_so": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "tong_phut % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 2, "step": 1 },
+        "ans": "(tong_phut / mau_so) * tu_so",
+        "w1": "ans + 5",
+        "w2": "ans + 10",
+        "w3": "ans + 15",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bạn Nam làm bài tập trong {tong_phut} phút. Nam đã dành $ \\frac{{tu_so}}{{mau_so}} $ thời gian đó để làm bài Toán. Hỏi Nam làm bài Toán hết bao nhiêu phút?",
+      "options": [
+        "A. {w1_f} phút",
+        "B. {w2_f} phút",
+        "C. {w3_f} phút",
+        "D. {ans} phút"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số phút làm toán là: {tong_phut} chia {mau_so} nhân {tu_so}."
+      ],
+      "solutionHtml": "Số phút Nam làm bài Toán là:<br/>$ {tong_phut} : {mau_so} \\times {tu_so} = {ans} $ (phút).<br/>Đáp án đúng là D.",
+      "tip": "Kiểm tra lại phép tính của em.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_so_trang": { "min": 80, "max": 150, "step": 10 },
+        "mau_so": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "tong_so_trang % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(tong_so_trang / mau_so) * tu_so",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "(tong_so_trang / mau_so) * (tu_so + 1)",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans - 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 2 : w3"
+      },
+      "questionText": "Cuốn sách truyện của bạn An dày {tong_so_trang} trang. An đã đọc được $ \\frac{{tu_so}}{{mau_so}} $ số trang của cuốn sách. Hỏi An đã đọc được bao nhiêu trang?",
+      "options": [
+        "A. {w1_f} trang",
+        "B. {w2_f} trang",
+        "C. {ans} trang",
+        "D. {w3_f} trang"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm $ \\frac{{tu_so}}{{mau_so}} $ của {tong_so_trang}, ta lấy {tong_so_trang} chia cho {mau_so} rồi nhân với {tu_so}.",
+        "Bước 1: Tìm số trang cho 1 phần: $ {tong_so_trang} : {mau_so} = {tong_so_trang / mau_so} $ (trang).",
+        "Bước 2: Tìm số trang An đã đọc: $ {tong_so_trang / mau_so} \\times {tu_so} = {ans} $ (trang)."
+      ],
+      "solutionHtml": "Số trang An đã đọc được là:<br/>$ {tong_so_trang} : {mau_so} \\times {tu_so} = {ans} $ (trang).<br/>Đáp án đúng là C.",
+      "tip": "Để tìm phân số của một số, ta chia số đó cho mẫu số rồi nhân với tử số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_bi": { "min": 40, "max": 90, "step": 5 },
+        "mau_so": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "tong_bi % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 2, "max": 4, "step": 1 },
+        "ans": "(tong_bi / mau_so) * tu_so",
+        "w1": "ans + 4",
+        "w2": "ans - 4",
+        "w3": "tong_bi - ans",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans - 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 6 : w3"
+      },
+      "questionText": "Trong hộp có {tong_bi} viên bi. Bạn Bình lấy ra $ \\frac{{tu_so}}{{mau_so}} $ số viên bi trong hộp. Hỏi Bình đã lấy ra bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên",
+        "B. {ans} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm số viên bi Bình lấy ra, ta tính $ \\frac{{tu_so}}{{mau_so}} $ của {tong_bi}.",
+        "Phép tính: {tong_bi} chia {mau_so} rồi nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số viên bi Bình lấy ra là:<br/>$ {tong_bi} : {mau_so} \\times {tu_so} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Hãy thực hiện chia trước, nhân sau để kết quả chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_kg": { "min": 20, "max": 60, "step": 4 },
+        "mau_so": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "so_kg % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(so_kg / mau_so) * tu_so",
+        "w1": "ans + 2",
+        "w2": "ans * 2",
+        "w3": "ans + 5",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 4 : w3"
+      },
+      "questionText": "Cửa hàng có {so_kg} kg gạo. Buổi sáng cửa hàng bán được $ \\frac{{tu_so}}{{mau_so}} $ số gạo đó. Hỏi cửa hàng đã bán được bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {w2_f} kg",
+        "C. {ans} kg",
+        "D. {w3_f} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số gạo đã bán bằng cách lấy {so_kg} chia cho {mau_so} rồi nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {so_kg} : {mau_so} \\times {tu_so} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị của kết quả phải là kg.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_hoa": { "min": 24, "max": 48, "step": 6 },
+        "mau_so": { "min": 6, "max": 8, "step": 2 }
+      },
+      "constraints": [
+        "tong_hoa % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 5, "step": 2 },
+        "ans": "(tong_hoa / mau_so) * tu_so",
+        "w1": "ans + 3",
+        "w2": "ans - 2",
+        "w3": "ans + 6",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans + 1 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 2 : w3"
+      },
+      "questionText": "Bạn Hoa có {tong_hoa} bông hoa. Hoa tặng bạn $ \\frac{{tu_so}}{{mau_so}} $ số bông hoa đó. Hỏi Hoa đã tặng bạn bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1_f} bông",
+        "B. {w2_f} bông",
+        "C. {w3_f} bông",
+        "D. {ans} bông"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính $ \\frac{{tu_so}}{{mau_so}} $ của {tong_hoa} bằng cách: {tong_hoa} chia {mau_so}, được bao nhiêu nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số bông hoa Hoa tặng bạn là:<br/>$ {tong_hoa} : {mau_so} \\times {tu_so} = {ans} $ (bông).<br/>Đáp án đúng là D.",
+      "tip": "Kiểm tra lại xem số hoa được tặng có nhỏ hơn tổng số hoa ban đầu không nhé.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_hoc_sinh": { "min": 30, "max": 50, "step": 5 },
+        "mau_so": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "tong_hoc_sinh % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 2, "max": 4, "step": 1 },
+        "ans": "(tong_hoc_sinh / mau_so) * tu_so",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 4",
+        "w1_f": "(w1 === ans) ? ans + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 5 : w3"
+      },
+      "questionText": "Lớp 4A có {tong_hoc_sinh} học sinh. Trong đó có $ \\frac{{tu_so}}{{mau_so}} $ số học sinh là nữ. Hỏi lớp 4A có bao nhiêu học sinh nữ?",
+      "options": [
+        "A. {ans} học sinh",
+        "B. {w1_f} học sinh",
+        "C. {w2_f} học sinh",
+        "D. {w3_f} học sinh"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số học sinh nữ là $ \\frac{{tu_so}}{{mau_so}} $ của {tong_hoc_sinh}.",
+        "Tính: {tong_hoc_sinh} chia {mau_so} nhân {tu_so}."
+      ],
+      "solutionHtml": "Số học sinh nữ là:<br/>$ {tong_hoc_sinh} : {mau_so} \\times {tu_so} = {ans} $ (học sinh).<br/>Đáp án đúng là A.",
+      "tip": "Nhớ chia trước, nhân sau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_met": { "min": 20, "max": 40, "step": 4 },
+        "mau_so": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "tong_met % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(tong_met / mau_so) * tu_so",
+        "w1": "ans + 2",
+        "w2": "ans + 5",
+        "w3": "ans - 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f || w3 <= 0) ? ans + 4 : w3"
+      },
+      "questionText": "Một cuộn dây dài {tong_met} mét. Bác thợ cắt đi $ \\frac{{tu_so}}{{mau_so}} $ cuộn dây đó. Hỏi bác thợ đã cắt đi bao nhiêu mét dây?",
+      "options": [
+        "A. {w1_f} m",
+        "B. {w2_f} m",
+        "C. {ans} m",
+        "D. {w3_f} m"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm $ \\frac{{tu_so}}{{mau_so}} $ của {tong_met} bằng cách lấy {tong_met} chia {mau_so} rồi nhân {tu_so}."
+      ],
+      "solutionHtml": "Số mét dây bác thợ đã cắt là:<br/>$ {tong_met} : {mau_so} \\times {tu_so} = {ans} $ (m).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên đơn vị mét (m) trong bài toán độ dài nhé.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_qua": { "min": 36, "max": 72, "step": 6 },
+        "mau_so": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "tong_qua % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 2, "step": 1 },
+        "ans": "(tong_qua / mau_so) * tu_so",
+        "w1": "ans + 6",
+        "w2": "ans + 12",
+        "w3": "ans + 18",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Mẹ mua {tong_qua} quả cam. Mẹ biếu bà $ \\frac{{tu_so}}{{mau_so}} $ số quả cam đó. Hỏi mẹ đã biếu bà bao nhiêu quả cam?",
+      "options": [
+        "A. {ans} quả",
+        "B. {w1_f} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số cam biếu bà là: {tong_qua} : {mau_so} \\times {tu_so}."
+      ],
+      "solutionHtml": "Số quả cam mẹ biếu bà là:<br/>$ {tong_qua} : {mau_so} \\times {tu_so} = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Luôn nhớ quy tắc tìm phân số của một số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "so_tien": { "min": 100, "max": 500, "step": 20 },
+        "mau_so": { "min": 4, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "so_tien % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 3, "step": 1 },
+        "ans": "(so_tien / mau_so) * tu_so",
+        "w1": "ans + 50",
+        "w2": "ans + 100",
+        "w3": "ans + 150",
+        "w1_f": "(w1 === ans) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Bạn Lan có {so_tien} nghìn đồng. Lan dùng $ \\frac{{tu_so}}{{mau_so}} $ số tiền đó để mua sách. Hỏi Lan đã dùng bao nhiêu nghìn đồng để mua sách?",
+      "options": [
+        "A. {w1_f} nghìn đồng",
+        "B. {w2_f} nghìn đồng",
+        "C. {ans} nghìn đồng",
+        "D. {w3_f} nghìn đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lan mua sách hết $ \\frac{{tu_so}}{{mau_so}} $ của {so_tien} nghìn đồng.",
+        "Phép tính: {so_tien} : {mau_so} \\times {tu_so}."
+      ],
+      "solutionHtml": "Số tiền Lan mua sách là:<br/>$ {so_tien} : {mau_so} \\times {tu_so} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa số tiền mua sách và số tiền còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_viên": { "min": 60, "max": 120, "step": 10 },
+        "mau_so": { "min": 5, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "tong_viên % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 2, "max": 4, "step": 1 },
+        "ans": "(tong_viên / mau_so) * tu_so",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f || w2 <= 0) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Trong rổ có {tong_viên} quả trứng. Mẹ đã lấy ra $ \\frac{{tu_so}}{{mau_so}} $ số trứng để làm bánh. Hỏi mẹ đã lấy ra bao nhiêu quả trứng?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {ans} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số trứng mẹ lấy, ta lấy {tong_viên} chia cho {mau_so} rồi nhân với {tu_so}."
+      ],
+      "solutionHtml": "Số trứng mẹ lấy ra là:<br/>$ {tong_viên} : {mau_so} \\times {tu_so} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Kết quả phải nhỏ hơn {tong_viên} quả trứng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_phut": { "min": 30, "max": 60, "step": 6 },
+        "mau_so": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "tong_phut % mau_so === 0"
+      ],
+      "formulas": {
+        "tu_so": { "min": 1, "max": 2, "step": 1 },
+        "ans": "(tong_phut / mau_so) * tu_so",
+        "w1": "ans + 5",
+        "w2": "ans + 10",
+        "w3": "ans + 15",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bạn Nam làm bài tập trong {tong_phut} phút. Nam đã dành $ \\frac{{tu_so}}{{mau_so}} $ thời gian đó để làm bài Toán. Hỏi Nam làm bài Toán hết bao nhiêu phút?",
+      "options": [
+        "A. {w1_f} phút",
+        "B. {w2_f} phút",
+        "C. {w3_f} phút",
+        "D. {ans} phút"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số phút làm toán là: {tong_phut} chia {mau_so} nhân {tu_so}."
+      ],
+      "solutionHtml": "Số phút Nam làm bài Toán là:<br/>$ {tong_phut} : {mau_so} \\times {tu_so} = {ans} $ (phút).<br/>Đáp án đúng là D.",
+      "tip": "Kiểm tra lại phép tính của em.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-65-d10"
+    }
+  ]
+}
+

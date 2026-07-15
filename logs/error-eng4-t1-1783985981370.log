@@ -1,0 +1,682 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:39:41.370Z
+Lesson ID: eng4-t1
+Lesson Title: Unit 1: My friends
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9727 (line 324 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9727 (line 324 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9727 (Line: 324, Column: 3)
+Character causing error: "}"
+
+Context:
+... B.",
+    "tip": "Khi biết tổng và một phần, muốn tìm phần còn lại ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  }
+]
+  >>>[LỖI TẠI ĐÂY]<<<}
+] ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "(a + b) === ans ? a + b + 1 : a + b",
+      "w2": "(a - b) === ans || (a - b) === w1 ? a - b + 2 : a - b",
+      "w3": "(a * b) === ans || (a * b) === w1 || (a * b) === w2 ? a * b + 3 : a * b"
+    },
+    "questionText": "Lớp 4A có {a} bạn tham gia câu lạc bộ Tiếng Anh. Thầy giáo chia các bạn thành {b} nhóm có số lượng thành viên bằng nhau. Hỏi mỗi nhóm có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm số bạn trong mỗi nhóm, ta lấy tổng số bạn chia cho số nhóm.",
+      "Thực hiện phép tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số bạn trong mỗi nhóm là:<br/>$ {a} : {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Khi chia đều một nhóm, ta luôn sử dụng phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "nam": { "min": 10, "max": 20, "step": 1 },
+      "nu": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "(nam + nu) % 3 === 0"
+    ],
+    "formulas": {
+      "total": "nam + nu",
+      "ans": "total / 3",
+      "w1": "ans + 1",
+      "w2": "ans + 2",
+      "w3": "ans + 3"
+    },
+    "questionText": "Trong buổi liên hoan nhóm bạn thân, có {nam} bạn nam và {nu} bạn nữ. Các bạn quyết định chia thành 3 hàng đều nhau để chụp ảnh. Hỏi mỗi hàng có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng số bạn trước, sau đó chia cho 3.",
+      "Tổng số bạn là $ {nam} + {nu} = {total} $."
+    ],
+    "solutionHtml": "Tổng số bạn là:<br/>$ {nam} + {nu} = {total} $ (bạn).<br/>Số bạn trong mỗi hàng là:<br/>$ {total} : 3 = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên cộng tổng số bạn trước khi thực hiện chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 4, "max": 8, "step": 1 },
+      "t": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "n * t",
+      "w1": "ans + 2",
+      "w2": "ans - 2",
+      "w3": "ans + 4"
+    },
+    "questionText": "Mỗi nhóm bạn có {n} người. Nếu có {t} nhóm cùng tham gia dự án chung, hỏi tổng cộng có bao nhiêu người tham gia dự án?",
+    "options": [
+      "A. {w1} người",
+      "B. {ans} người",
+      "C. {w2} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Ta có {t} nhóm, mỗi nhóm có {n} người.",
+      "Sử dụng phép tính nhân."
+    ],
+    "solutionHtml": "Tổng số người tham gia dự án là:<br/>$ {n} \\times {t} = {ans} $ (người).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết số lượng đơn vị và số lần lặp lại, ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 30, "max": 50, "step": 1 },
+      "b": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "ans + 2",
+      "w3": "ans - 2"
+    },
+    "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. Hỏi tổ một nhiều hơn tổ hai bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm phần hơn kém, ta lấy số lớn trừ số bé.",
+      "Thực hiện $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số bạn tổ một nhiều hơn tổ hai là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Tìm sự chênh lệch giữa hai đại lượng ta luôn dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "h": { "min": 2, "max": 4, "step": 1 },
+      "p": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "h * p",
+      "w1": "ans + 5",
+      "w2": "ans - 2",
+      "w3": "ans + 10"
+    },
+    "questionText": "Mỗi ngày nhóm bạn của An dành {h} giờ để cùng học Tiếng Anh. Hỏi trong {p} ngày, nhóm bạn đó dành bao nhiêu giờ để học?",
+    "options": [
+      "A. {w1} giờ",
+      "B. {ans} giờ",
+      "C. {w2} giờ",
+      "D. {w3} giờ"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lấy thời gian mỗi ngày nhân với số ngày.",
+      "Phép tính là $ {h} \\times {p} $."
+    ],
+    "solutionHtml": "Số giờ nhóm bạn học trong {p} ngày là:<br/>$ {h} \\times {p} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+    "tip": "Tính tổng thời gian trong nhiều ngày bằng cách nhân số giờ một ngày với tổng số ngày.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "c": { "min": 10, "max": 20, "step": 1 },
+      "k": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "c % k === 0"
+    ],
+    "formulas": {
+      "ans": "c / k",
+      "w1": "ans + 3",
+      "w2": "ans + 5",
+      "w3": "ans + 7"
+    },
+    "questionText": "Bạn Hoa có {c} cái kẹo. Bạn muốn chia đều số kẹo đó cho {k} người bạn thân nhất của mình. Hỏi mỗi người bạn nhận được bao nhiêu cái kẹo?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Chia đều tức là làm phép chia.",
+      "Lấy $ {c} : {k} $."
+    ],
+    "solutionHtml": "Mỗi người bạn nhận được số kẹo là:<br/>$ {c} : {k} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+    "tip": "Từ 'chia đều' là từ khóa cho phép toán chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 5, "max": 9, "step": 1 },
+      "y": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "x + y",
+      "w1": "x * y",
+      "w2": "x - y",
+      "w3": "ans + 3"
+    },
+    "questionText": "Một nhóm bạn có {x} bạn nam và {y} bạn nữ. Hỏi tổng số bạn trong nhóm là bao nhiêu?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số bạn là số bạn nam cộng với số bạn nữ.",
+      "Thực hiện $ {x} + {y} $."
+    ],
+    "solutionHtml": "Tổng số bạn trong nhóm là:<br/>$ {x} + {y} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Khi muốn tìm tổng số lượng, ta dùng phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 2, "max": 5, "step": 1 },
+      "t": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "n * t",
+      "w1": "ans + 1",
+      "w2": "ans + 2",
+      "w3": "ans + 3"
+    },
+    "questionText": "Mỗi thành viên trong nhóm bạn góp {t} quyển sách cũ để làm từ thiện. Nếu nhóm có {n} thành viên, tổng cộng nhóm đã góp bao nhiêu quyển sách?",
+    "options": [
+      "A. {w1} quyển",
+      "B. {ans} quyển",
+      "C. {w2} quyển",
+      "D. {w3} quyển"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Mỗi người góp {t} quyển, có {n} người góp.",
+      "Phép tính là $ {t} \\times {n} $."
+    ],
+    "solutionHtml": "Tổng số sách nhóm góp được là:<br/>$ {t} \\times {n} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+    "tip": "Lặp lại một số lượng nhiều lần ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 1",
+      "w2": "ans + 2",
+      "w3": "ans + 4"
+    },
+    "questionText": "Nhóm bạn có {a} người cùng tham gia một trò chơi chạy tiếp sức. Các bạn chia thành {b} đội có số người bằng nhau. Hỏi mỗi đội có mấy người?",
+    "options": [
+      "A. {w1} người",
+      "B. {ans} người",
+      "C. {w2} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Chia đều thành các đội là bài toán chia.",
+      "Lấy $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số người trong mỗi đội là:<br/>$ {a} : {b} = {ans} $ (người).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề để xác định phép tính phù hợp.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 80, "step": 1 },
+      "b": { "min": 10, "max": 30, "step": 1 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "ans + 5",
+      "w2": "ans - 5",
+      "w3": "ans + 10"
+    },
+    "questionText": "Tổng số bạn tham gia hai câu lạc bộ là {a} bạn. Câu lạc bộ âm nhạc có {b} bạn, còn lại là câu lạc bộ vẽ. Hỏi câu lạc bộ vẽ có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Muốn tìm số thành viên câu lạc bộ vẽ, ta lấy tổng trừ đi số thành viên câu lạc bộ âm nhạc.",
+      "Phép tính là $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số bạn câu lạc bộ vẽ là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết tổng và một phần, muốn tìm phần còn lại ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  }
+]
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "(a + b) === ans ? a + b + 1 : a + b",
+      "w2": "(a - b) === ans || (a - b) === w1 ? a - b + 2 : a - b",
+      "w3": "(a * b) === ans || (a * b) === w1 || (a * b) === w2 ? a * b + 3 : a * b"
+    },
+    "questionText": "Lớp 4A có {a} bạn tham gia câu lạc bộ Tiếng Anh. Thầy giáo chia các bạn thành {b} nhóm có số lượng thành viên bằng nhau. Hỏi mỗi nhóm có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm số bạn trong mỗi nhóm, ta lấy tổng số bạn chia cho số nhóm.",
+      "Thực hiện phép tính $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số bạn trong mỗi nhóm là:<br/>$ {a} : {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Khi chia đều một nhóm, ta luôn sử dụng phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "nam": { "min": 10, "max": 20, "step": 1 },
+      "nu": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "(nam + nu) % 3 === 0"
+    ],
+    "formulas": {
+      "total": "nam + nu",
+      "ans": "total / 3",
+      "w1": "ans + 1",
+      "w2": "ans + 2",
+      "w3": "ans + 3"
+    },
+    "questionText": "Trong buổi liên hoan nhóm bạn thân, có {nam} bạn nam và {nu} bạn nữ. Các bạn quyết định chia thành 3 hàng đều nhau để chụp ảnh. Hỏi mỗi hàng có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng số bạn trước, sau đó chia cho 3.",
+      "Tổng số bạn là $ {nam} + {nu} = {total} $."
+    ],
+    "solutionHtml": "Tổng số bạn là:<br/>$ {nam} + {nu} = {total} $ (bạn).<br/>Số bạn trong mỗi hàng là:<br/>$ {total} : 3 = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên cộng tổng số bạn trước khi thực hiện chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 4, "max": 8, "step": 1 },
+      "t": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "n * t",
+      "w1": "ans + 2",
+      "w2": "ans - 2",
+      "w3": "ans + 4"
+    },
+    "questionText": "Mỗi nhóm bạn có {n} người. Nếu có {t} nhóm cùng tham gia dự án chung, hỏi tổng cộng có bao nhiêu người tham gia dự án?",
+    "options": [
+      "A. {w1} người",
+      "B. {ans} người",
+      "C. {w2} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Ta có {t} nhóm, mỗi nhóm có {n} người.",
+      "Sử dụng phép tính nhân."
+    ],
+    "solutionHtml": "Tổng số người tham gia dự án là:<br/>$ {n} \\times {t} = {ans} $ (người).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết số lượng đơn vị và số lần lặp lại, ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 30, "max": 50, "step": 1 },
+      "b": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "ans + 2",
+      "w3": "ans - 2"
+    },
+    "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. Hỏi tổ một nhiều hơn tổ hai bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Để tìm phần hơn kém, ta lấy số lớn trừ số bé.",
+      "Thực hiện $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số bạn tổ một nhiều hơn tổ hai là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Tìm sự chênh lệch giữa hai đại lượng ta luôn dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "h": { "min": 2, "max": 4, "step": 1 },
+      "p": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "h * p",
+      "w1": "ans + 5",
+      "w2": "ans - 2",
+      "w3": "ans + 10"
+    },
+    "questionText": "Mỗi ngày nhóm bạn của An dành {h} giờ để cùng học Tiếng Anh. Hỏi trong {p} ngày, nhóm bạn đó dành bao nhiêu giờ để học?",
+    "options": [
+      "A. {w1} giờ",
+      "B. {ans} giờ",
+      "C. {w2} giờ",
+      "D. {w3} giờ"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lấy thời gian mỗi ngày nhân với số ngày.",
+      "Phép tính là $ {h} \\times {p} $."
+    ],
+    "solutionHtml": "Số giờ nhóm bạn học trong {p} ngày là:<br/>$ {h} \\times {p} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+    "tip": "Tính tổng thời gian trong nhiều ngày bằng cách nhân số giờ một ngày với tổng số ngày.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "c": { "min": 10, "max": 20, "step": 1 },
+      "k": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "c % k === 0"
+    ],
+    "formulas": {
+      "ans": "c / k",
+      "w1": "ans + 3",
+      "w2": "ans + 5",
+      "w3": "ans + 7"
+    },
+    "questionText": "Bạn Hoa có {c} cái kẹo. Bạn muốn chia đều số kẹo đó cho {k} người bạn thân nhất của mình. Hỏi mỗi người bạn nhận được bao nhiêu cái kẹo?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Chia đều tức là làm phép chia.",
+      "Lấy $ {c} : {k} $."
+    ],
+    "solutionHtml": "Mỗi người bạn nhận được số kẹo là:<br/>$ {c} : {k} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+    "tip": "Từ 'chia đều' là từ khóa cho phép toán chia.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 5, "max": 9, "step": 1 },
+      "y": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "x + y",
+      "w1": "x * y",
+      "w2": "x - y",
+      "w3": "ans + 3"
+    },
+    "questionText": "Một nhóm bạn có {x} bạn nam và {y} bạn nữ. Hỏi tổng số bạn trong nhóm là bao nhiêu?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số bạn là số bạn nam cộng với số bạn nữ.",
+      "Thực hiện $ {x} + {y} $."
+    ],
+    "solutionHtml": "Tổng số bạn trong nhóm là:<br/>$ {x} + {y} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Khi muốn tìm tổng số lượng, ta dùng phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 2, "max": 5, "step": 1 },
+      "t": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "n * t",
+      "w1": "ans + 1",
+      "w2": "ans + 2",
+      "w3": "ans + 3"
+    },
+    "questionText": "Mỗi thành viên trong nhóm bạn góp {t} quyển sách cũ để làm từ thiện. Nếu nhóm có {n} thành viên, tổng cộng nhóm đã góp bao nhiêu quyển sách?",
+    "options": [
+      "A. {w1} quyển",
+      "B. {ans} quyển",
+      "C. {w2} quyển",
+      "D. {w3} quyển"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Mỗi người góp {t} quyển, có {n} người góp.",
+      "Phép tính là $ {t} \\times {n} $."
+    ],
+    "solutionHtml": "Tổng số sách nhóm góp được là:<br/>$ {t} \\times {n} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+    "tip": "Lặp lại một số lượng nhiều lần ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": [
+      "a % b === 0"
+    ],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "ans + 1",
+      "w2": "ans + 2",
+      "w3": "ans + 4"
+    },
+    "questionText": "Nhóm bạn có {a} người cùng tham gia một trò chơi chạy tiếp sức. Các bạn chia thành {b} đội có số người bằng nhau. Hỏi mỗi đội có mấy người?",
+    "options": [
+      "A. {w1} người",
+      "B. {ans} người",
+      "C. {w2} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Chia đều thành các đội là bài toán chia.",
+      "Lấy $ {a} : {b} $."
+    ],
+    "solutionHtml": "Số người trong mỗi đội là:<br/>$ {a} : {b} = {ans} $ (người).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề để xác định phép tính phù hợp.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 80, "step": 1 },
+      "b": { "min": 10, "max": 30, "step": 1 }
+    },
+    "constraints": [
+      "a > b"
+    ],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "ans + 5",
+      "w2": "ans - 5",
+      "w3": "ans + 10"
+    },
+    "questionText": "Tổng số bạn tham gia hai câu lạc bộ là {a} bạn. Câu lạc bộ âm nhạc có {b} bạn, còn lại là câu lạc bộ vẽ. Hỏi câu lạc bộ vẽ có bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Muốn tìm số thành viên câu lạc bộ vẽ, ta lấy tổng trừ đi số thành viên câu lạc bộ âm nhạc.",
+      "Phép tính là $ {a} - {b} $."
+    ],
+    "solutionHtml": "Số bạn câu lạc bộ vẽ là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Khi biết tổng và một phần, muốn tìm phần còn lại ta dùng phép trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng4-t1-d4"
+  }
+]
+  }
+]
+

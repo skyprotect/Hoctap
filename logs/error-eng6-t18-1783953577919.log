@@ -1,0 +1,630 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:39:37.919Z
+Lesson ID: eng6-t18
+Lesson Title: Unit 18: First University in VN (NÂNG CAO LỚP 7)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11724 (line 426 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11724 (line 426 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11724 (Line: 302, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1070, "max": 1080, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["(2024 - a) % b === 0", "2024 - a > 0"],
+    "formulas": {
+      "ans": "(2024 - a) / b",
+      "w1_goc": "(2024 - a) + b",
+      "w2_goc": "(2024 - a) * b",
+      "w3_goc": "a - 1000",
+      "w1": "(w1_goc === ans) ? ans + 7 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 11 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 13 : w3_goc"
+    },
+    "questionText": "Trường đại học đầu tiên ở Việt Nam được thành lập vào năm {a}. Hỏi tính đến năm 2024, trường đã được thành lập bao nhiêu năm và nếu chia số năm đó cho {b} thì được kết quả là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính số năm từ năm {a} đến năm 2024 bằng cách lấy $2024 - {a}$.", "Sau đó lấy kết quả vừa tìm được chia cho {b}."],
+    "solutionHtml": "Số năm từ khi thành lập đến năm 2024 là: $2024 - {a} = {2024 - a}$ (năm).<br/>Kết quả sau khi chia cho {b} là: ${2024 - a} : {b} = {ans}$.<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ năm thành lập của Văn Miếu - Quốc Tử Giám để làm bài chính xác.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 20, "max": 40, "step": 2 },
+      "m": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["n % m === 0"],
+    "formulas": {
+      "ans": "n / m",
+      "w1": "n + m",
+      "w2": "n - m",
+      "w3": "n * m",
+      "w1_final": "(w1 === ans) ? ans + 2 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 4 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 6 : w3"
+    },
+    "questionText": "Một nhóm học sinh đi tham quan Văn Miếu Quốc Tử Giám gồm {n} bạn. Nếu chia đều số bạn đó vào {m} nhóm để nghe hướng dẫn viên thuyết minh, hỏi mỗi nhóm có bao nhiêu bạn?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Để tìm số bạn trong mỗi nhóm, ta thực hiện phép chia tổng số bạn cho số nhóm."],
+    "solutionHtml": "Số bạn trong mỗi nhóm là: ${n} : {m} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia đều chính là phép chia số tự nhiên.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 15, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b + 2",
+      "w1_final": "(w1 === ans) ? ans + 5 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 7 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 9 : w3"
+    },
+    "questionText": "Tại khu vực Văn Miếu, mỗi hàng cây có {a} cây. Người ta trồng {b} hàng cây như thế. Hỏi tổng số cây được trồng là bao nhiêu?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Muốn tìm tổng số cây, ta lấy số cây trong một hàng nhân với số hàng."],
+    "solutionHtml": "Tổng số cây là: ${a} \\times {b} = {ans}$ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Nhân số lượng đơn vị với số nhóm.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 5",
+      "w1_final": "(w1 === ans) ? ans + 3 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 7 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 9 : w3"
+    },
+    "questionText": "Một khu di tích có {a} tấm bia đá được đặt trên lưng rùa. Nếu mỗi sân đình đặt {b} tấm bia, hỏi cần bao nhiêu sân đình để đặt hết số bia đá đó?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tổng số tấm bia chia cho số tấm bia trên một sân."],
+    "solutionHtml": "Số sân đình cần là: ${a} : {b} = {ans}$ (sân).<br/>Đáp án đúng là B.",
+    "tip": "Đây là bài toán chia số tự nhiên.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 100, "step": 5 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans * 2",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+    },
+    "questionText": "Trong một buổi tham quan, {a} học sinh được chia thành các nhóm, mỗi nhóm có {b} học sinh. Hỏi có tất cả bao nhiêu nhóm?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia tổng số học sinh cho số học sinh mỗi nhóm."],
+    "solutionHtml": "Số nhóm có là: ${a} : {b} = {ans}$ (nhóm).<br/>Đáp án đúng là C.",
+    "tip": "Chia tổng số cho giá trị mỗi phần.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": ["(a * b) % 2 === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 10",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+    },
+    "questionText": "Tại Văn Miếu, một dãy hành lang có {a} cột đá. Hỏi {b} dãy hành lang như thế có tổng cộng bao nhiêu cột đá?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Nhân số cột đá trong một dãy với số dãy."],
+    "solutionHtml": "Tổng số cột đá là: ${a} \\times {b} = {ans}$ (cột).<br/>Đáp án đúng là B.",
+    "tip": "Sử dụng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 60, "step": 2 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans * 3",
+      "w1_final": "(w1 === ans) ? ans + 4 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 6 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 8 : w3"
+    },
+    "questionText": "Người ta dự định sơn lại {a} bức tường trong khu di tích. Nếu mỗi ngày đội thợ sơn được {b} bức tường, hỏi sau bao nhiêu ngày thì sơn xong toàn bộ?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia tổng số bức tường cho số bức tường sơn được mỗi ngày."],
+    "solutionHtml": "Số ngày cần để sơn xong là: ${a} : {b} = {ans}$ (ngày).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["(a * b) > 20"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b - 2",
+      "w3": "a * b + 3",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+    },
+    "questionText": "Mỗi chiếc bàn trong phòng trưng bày có {a} chân. Nếu có {b} chiếc bàn như thế, hỏi tổng số chân bàn là bao nhiêu?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Số chân bàn = số bàn nhân với số chân trên một bàn."],
+    "solutionHtml": "Tổng số chân bàn là: ${a} \\times {b} = {ans}$ (chân).<br/>Đáp án đúng là B.",
+    "tip": "Phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 10 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 5",
+      "w1_final": "(w1 === ans) ? ans + 2 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 4 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 6 : w3"
+    },
+    "questionText": "Một thư viện cổ chứa {a} cuốn sách. Người ta xếp số sách này vào {b} kệ, mỗi kệ có số lượng sách như nhau. Hỏi mỗi kệ có bao nhiêu cuốn sách?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia tổng số sách cho số kệ."],
+    "solutionHtml": "Số cuốn sách mỗi kệ là: ${a} : {b} = {ans}$ (cuốn).<br/>Đáp án đúng là B.",
+    "tip": "Phép chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 5 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 2",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 3 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 5 : w3"
+    },
+    "questionText": "Có {a} cây đèn lồng được treo trang trí dọc theo {b} lối đi có độ dài bằng nhau tại Văn Miếu. Hỏi mỗi lối đi có bao nhiêu cây đèn lồng?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia tổng số đèn lồng cho số lối đi."],
+    "solutionHtml": "Số cây đèn lồng mỗi lối đi là: ${a} : {b} = {ans}$ (cây).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1070, "max": 1080, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["(2024 - a) % b === 0", "2024 - a > 0"],
+    "formulas": {
+      "ans": "(2024 - a) / b",
+      "w1_goc": "(2024 - a) + b",
+      "w2_goc": "(2024 - a) * b",
+      "w3_goc": "a - 1000",
+      "w1": "(w1_goc === ans) ? ans + 7 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 11 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 13 : w3_goc"
+    },
+    "questionText": "Trường đại học đầu tiên ở Việt Nam được thành lập vào năm {a}. Hỏi tính đến năm 2024, trường đã được thành lập bao nhiêu năm và nếu chia số năm đó cho {b} thì được kết quả là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính số năm từ năm {a} đến năm 2024 bằng cách lấy $2024 - {a}$.", "Sau đó lấy kết quả vừa tìm được chia cho {b}."],
+    "solutionHtml": "Số năm từ khi thành lập đến năm 2024 là: $2024 - {a} = {2024 - a}$ (năm).<br/>Kết quả sau khi chia cho {b} là: ${2024 - a} : {b} = {ans}$.<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ năm thành lập của Văn Miếu - Quốc Tử Giám để làm bài chính xác.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 20, "max": 40, "step": 2 },
+      "m": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["n % m === 0"],
+    "formulas": {
+      "ans": "n / m",
+      "w1": "n + m",
+      "w2": "n - m",
+      "w3": "n * m",
+      "w1_final": "(w1 === ans) ? ans + 2 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 4 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 6 : w3"
+    },
+    "questionText": "Một nhóm học sinh đi tham quan Văn Miếu Quốc Tử Giám gồm {n} bạn. Nếu chia đều số bạn đó vào {m} nhóm để nghe hướng dẫn viên thuyết minh, hỏi mỗi nhóm có bao nhiêu bạn?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Để tìm số bạn trong mỗi nhóm, ta thực hiện phép chia tổng số bạn cho số nhóm."],
+    "solutionHtml": "Số bạn trong mỗi nhóm là: ${n} : {m} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia đều chính là phép chia số tự nhiên.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 15, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b + 2",
+      "w1_final": "(w1 === ans) ? ans + 5 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 7 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 9 : w3"
+    },
+    "questionText": "Tại khu vực Văn Miếu, mỗi hàng cây có {a} cây. Người ta trồng {b} hàng cây như thế. Hỏi tổng số cây được trồng là bao nhiêu?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Muốn tìm tổng số cây, ta lấy số cây trong một hàng nhân với số hàng."],
+    "solutionHtml": "Tổng số cây là: ${a} \\times {b} = {ans}$ (cây).<br/>Đáp án đúng là B.",
+    "tip": "Nhân số lượng đơn vị với số nhóm.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 10, "max": 20, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 5",
+      "w1_final": "(w1 === ans) ? ans + 3 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 7 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 9 : w3"
+    },
+    "questionText": "Một khu di tích có {a} tấm bia đá được đặt trên lưng rùa. Nếu mỗi sân đình đặt {b} tấm bia, hỏi cần bao nhiêu sân đình để đặt hết số bia đá đó?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Lấy tổng số tấm bia chia cho số tấm bia trên một sân."],
+    "solutionHtml": "Số sân đình cần là: ${a} : {b} = {ans}$ (sân).<br/>Đáp án đúng là B.",
+    "tip": "Đây là bài toán chia số tự nhiên.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 50, "max": 100, "step": 5 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans * 2",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+    },
+    "questionText": "Trong một buổi tham quan, {a} học sinh được chia thành các nhóm, mỗi nhóm có {b} học sinh. Hỏi có tất cả bao nhiêu nhóm?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia tổng số học sinh cho số học sinh mỗi nhóm."],
+    "solutionHtml": "Số nhóm có là: ${a} : {b} = {ans}$ (nhóm).<br/>Đáp án đúng là C.",
+    "tip": "Chia tổng số cho giá trị mỗi phần.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": ["(a * b) % 2 === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 10",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+    },
+    "questionText": "Tại Văn Miếu, một dãy hành lang có {a} cột đá. Hỏi {b} dãy hành lang như thế có tổng cộng bao nhiêu cột đá?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Nhân số cột đá trong một dãy với số dãy."],
+    "solutionHtml": "Tổng số cột đá là: ${a} \\times {b} = {ans}$ (cột).<br/>Đáp án đúng là B.",
+    "tip": "Sử dụng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 60, "step": 2 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans * 3",
+      "w1_final": "(w1 === ans) ? ans + 4 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 6 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 8 : w3"
+    },
+    "questionText": "Người ta dự định sơn lại {a} bức tường trong khu di tích. Nếu mỗi ngày đội thợ sơn được {b} bức tường, hỏi sau bao nhiêu ngày thì sơn xong toàn bộ?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia tổng số bức tường cho số bức tường sơn được mỗi ngày."],
+    "solutionHtml": "Số ngày cần để sơn xong là: ${a} : {b} = {ans}$ (ngày).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["(a * b) > 20"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b - 2",
+      "w3": "a * b + 3",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+    },
+    "questionText": "Mỗi chiếc bàn trong phòng trưng bày có {a} chân. Nếu có {b} chiếc bàn như thế, hỏi tổng số chân bàn là bao nhiêu?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Số chân bàn = số bàn nhân với số chân trên một bàn."],
+    "solutionHtml": "Tổng số chân bàn là: ${a} \\times {b} = {ans}$ (chân).<br/>Đáp án đúng là B.",
+    "tip": "Phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 10 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 5",
+      "w1_final": "(w1 === ans) ? ans + 2 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 4 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 6 : w3"
+    },
+    "questionText": "Một thư viện cổ chứa {a} cuốn sách. Người ta xếp số sách này vào {b} kệ, mỗi kệ có số lượng sách như nhau. Hỏi mỗi kệ có bao nhiêu cuốn sách?",
+    "options": [
+      "A. {w1_final}",
+      "B. {ans}",
+      "C. {w2_final}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia tổng số sách cho số kệ."],
+    "solutionHtml": "Số cuốn sách mỗi kệ là: ${a} : {b} = {ans}$ (cuốn).<br/>Đáp án đúng là B.",
+    "tip": "Phép chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 50, "step": 5 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "ans + 2",
+      "w1_final": "(w1 === ans) ? ans + 1 : w1",
+      "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 3 : w2",
+      "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 5 : w3"
+    },
+    "questionText": "Có {a} cây đèn lồng được treo trang trí dọc theo {b} lối đi có độ dài bằng nhau tại Văn Miếu. Hỏi mỗi lối đi có bao nhiêu cây đèn lồng?",
+    "options": [
+      "A. {w1_final}",
+      "B. {w2_final}",
+      "C. {ans}",
+      "D. {w3_final}"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chia tổng số đèn lồng cho số lối đi."],
+    "solutionHtml": "Số cây đèn lồng mỗi lối đi là: ${a} : {b} = {ans}$ (cây).<br/>Đáp án đúng là C.",
+    "tip": "Phép chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t18-d10"
+  }
+]
+

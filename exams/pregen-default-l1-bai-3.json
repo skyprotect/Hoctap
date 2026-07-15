@@ -1,0 +1,391 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_final": "(w1 === ans) ? ans + 2 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 3 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 4 : w3"
+      },
+      "questionText": "Lan có {a} bông hoa, Mai có {b} bông hoa. Hỏi Lan có nhiều hơn Mai bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1_final} bông hoa",
+        "B. {ans} bông hoa",
+        "C. {w2_final} bông hoa",
+        "D. {w3_final} bông hoa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết Lan nhiều hơn Mai bao nhiêu bông hoa, ta thực hiện phép tính trừ.",
+        "Lấy số hoa của Lan trừ đi số hoa của Mai: ${a} - {b}$."
+      ],
+      "solutionHtml": "Số bông hoa Lan nhiều hơn Mai là:<br/>${a} - {b} = {ans}$ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh hai nhóm, ta lấy số lớn hơn trừ đi số bé hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "a + b + 1",
+        "w1_final": "(w1 === ans) ? ans + 2 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 3 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 4 : w3"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai ít hơn tổ một {b} bạn. Hỏi tổ hai có bao nhiêu bạn?",
+      "options": [
+        "A. {w1_final} bạn",
+        "B. {w2_final} bạn",
+        "C. {ans} bạn",
+        "D. {w3_final} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổ hai ít hơn tổ một nên ta làm phép tính trừ.",
+        "Lấy số bạn tổ một là {a} trừ đi {b}."
+      ],
+      "solutionHtml": "Số bạn tổ hai có là:<br/>${a} - {b} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề: 'ít hơn' nghĩa là số lượng nhỏ hơn, ta thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 7
+        },
+        "b": {
+          "min": 4,
+          "max": 7
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans_txt": "a === b ? 'bằng nhau' : 'không bằng nhau'",
+        "w1": "Bình nhiều hơn Nam",
+        "w2": "Bình ít hơn Nam",
+        "w3": "Không thể so sánh"
+      },
+      "questionText": "Bình có {a} viên bi, Nam có {b} viên bi. Hỏi số bi của Bình và Nam như thế nào so với nhau?",
+      "options": [
+        "A. Bình nhiều hơn Nam",
+        "B. Bình ít hơn Nam",
+        "C. {ans_txt}",
+        "D. Không thể so sánh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "So sánh {a} và {b}.",
+        "Nếu hai số bằng nhau thì kết luận là bằng nhau."
+      ],
+      "solutionHtml": "Vì {a} bằng {b} nên số bi của Bình và Nam bằng nhau.<br/>Đáp án đúng là C.",
+      "tip": "Khi số lượng hai bên bằng nhau, ta nói chúng bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 9
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "a - b",
+        "w3": "a + b + 2",
+        "w1_final": "(w1 === ans) ? ans + 1 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+      },
+      "questionText": "Mẹ có {a} quả cam, mẹ có số quýt nhiều hơn số cam là {b} quả. Hỏi mẹ có bao nhiêu quả quýt?",
+      "options": [
+        "A. {w1_final} quả",
+        "B. {w2_final} quả",
+        "C. {w3_final} quả",
+        "D. {ans} quả"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Nhiều hơn thì ta thực hiện phép tính cộng.",
+        "Lấy số cam là {a} cộng thêm {b}."
+      ],
+      "solutionHtml": "Số quả quýt mẹ có là:<br/>${a} + {b} = {ans}$ (quả).<br/>Đáp án đúng là D.",
+      "tip": "Từ khóa 'nhiều hơn' gợi ý phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "B",
+        "w1": "A",
+        "w2": "C",
+        "w3": "D"
+      },
+      "questionText": "Trong giỏ có {a} quả táo. Nếu lấy ra {a} quả táo thì số táo còn lại so với số táo đã lấy ra sẽ như thế nào?",
+      "options": [
+        "A. Số táo còn lại nhiều hơn",
+        "B. Số táo còn lại ít hơn",
+        "C. Bằng nhau",
+        "D. Không so sánh được"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy hết {a} quả thì còn lại 0 quả.",
+        "Số táo lấy ra là {a}. So sánh 0 với {a}."
+      ],
+      "solutionHtml": "Sau khi lấy hết {a} quả, số táo còn lại là 0. Số táo đã lấy ra là {a}. Vì 0 bé hơn {a} nên số táo còn lại ít hơn số táo đã lấy.<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để biết đối tượng nào so sánh với đối tượng nào.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 6,
+          "max": 9
+        }
+      },
+      "constraints": [
+        "b > a"
+      ],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "b",
+        "w3": "a",
+        "w1_final": "(w1 === ans) ? ans + 1 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+      },
+      "questionText": "Hộp bút có {b} cái bút, hộp màu có {a} cái màu. Hỏi hộp màu ít hơn hộp bút bao nhiêu cái?",
+      "options": [
+        "A. {w1_final} cái",
+        "B. {w2_final} cái",
+        "C. {ans} cái",
+        "D. {w3_final} cái"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết ít hơn bao nhiêu, ta lấy số lớn trừ số bé.",
+        "Phép tính: ${b} - {a}$."
+      ],
+      "solutionHtml": "Hộp màu ít hơn hộp bút số cái là:<br/>${b} - {a} = {ans}$ (cái).<br/>Đáp án đúng là C.",
+      "tip": "So sánh 'ít hơn' hay 'nhiều hơn' đều dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a - b"
+      },
+      "questionText": "Có {a} bạn nam và {b} bạn nữ tham gia trò chơi. Hỏi tổng số bạn tham gia là bao nhiêu?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số bạn là phép cộng hai nhóm.",
+        "{a} cộng {b} bằng bao nhiêu?"
+      ],
+      "solutionHtml": "Tổng số bạn tham gia là:<br/>${a} + {b} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán hỏi 'tổng' nên ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a",
+        "w2": "a - 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Số {a} và số liền sau của nó, số nào lớn hơn?",
+      "options": [
+        "A. Số {a} lớn hơn",
+        "B. Số liền sau lớn hơn",
+        "C. Bằng nhau",
+        "D. Không so sánh được"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số liền sau của {a} là {ans}.",
+        "So sánh {a} và {ans}."
+      ],
+      "solutionHtml": "Số liền sau của {a} là {ans}. Vì {ans} lớn hơn {a} nên số liền sau lớn hơn.<br/>Đáp án đúng là B.",
+      "tip": "Số liền sau luôn lớn hơn số đứng trước nó 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 4 : w3"
+      },
+      "questionText": "Trong vườn có {a} con gà và {b} con vịt. Hỏi số gà cần bớt đi bao nhiêu để bằng số vịt?",
+      "options": [
+        "A. {w1_f} con",
+        "B. {ans} con",
+        "C. {w2_f} con",
+        "D. {w3_f} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn số gà bằng số vịt, ta phải bớt đi phần chênh lệch.",
+        "Phép tính: ${a} - {b}$."
+      ],
+      "solutionHtml": "Số gà cần bớt đi là:<br/>${a} - {b} = {ans}$ (con).<br/>Đáp án đúng là B.",
+      "tip": "Để hai nhóm bằng nhau, ta bớt phần dư ra của nhóm nhiều hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6
+        },
+        "b": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "C",
+        "w1": "A",
+        "w2": "B",
+        "w3": "D"
+      },
+      "questionText": "Nếu {a} = {b}, vậy {a} và {b} như thế nào?",
+      "options": [
+        "A. {a} lớn hơn {b}",
+        "B. {a} bé hơn {b}",
+        "C. {a} bằng {b}",
+        "D. {a} không so sánh được với {b}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dấu = có nghĩa là hai bên bằng nhau.",
+        "Vì {a} bằng {b} nên đáp án là bằng nhau."
+      ],
+      "solutionHtml": "Khi có dấu bằng giữa hai số, ta kết luận hai số đó bằng nhau.<br/>Đáp án đúng là C.",
+      "tip": "Dấu bằng ($=$) dùng để chỉ sự bằng nhau về số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d10"
+    }
+  ]
+}

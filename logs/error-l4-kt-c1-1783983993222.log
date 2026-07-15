@@ -1,0 +1,684 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:06:33.222Z
+Lesson ID: l4-kt-c1
+Lesson Title: Bài tập cuối chương I
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11549 (line 414 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11549 (line 414 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11549 (Line: 329, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 500, "step": 10 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "x * y",
+        "s1": "x",
+        "s2": "y"
+      },
+      "questionText": "Một cửa hàng có {s1} kg gạo. Sau khi bán hết số gạo đó trong {s2} ngày với số lượng gạo bán mỗi ngày như nhau, cửa hàng còn lại 0 kg. Hỏi mỗi ngày cửa hàng đã bán bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số gạo bán mỗi ngày, ta lấy tổng số gạo chia cho số ngày bán.",
+        "Phép tính cần thực hiện là {s1} chia cho {s2}."
+      ],
+      "solutionHtml": "Số gạo bán mỗi ngày là:<br/>$ {s1} : {s2} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tròn chục hoặc tròn trăm cho một số, ta có thể chia các chữ số ở hàng tương ứng rồi viết thêm số không vào kết quả.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a * 1000 + b",
+        "w1": "a * 100 + b",
+        "w2": "a * 10000 + b",
+        "w3": "a + b * 1000",
+        "displayA": "a",
+        "displayB": "b"
+      },
+      "questionText": "Viết số gồm {displayA} nghìn và {displayB} đơn vị dưới dạng số tự nhiên.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hàng nghìn có giá trị là {displayA} nghìn, hàng đơn vị là {displayB}.",
+        "Các hàng trăm và hàng chục không có nên ta viết là chữ số 0."
+      ],
+      "solutionHtml": "Số gồm {displayA} nghìn và {displayB} đơn vị được viết là: {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra các hàng bị khuyết, nếu không có hàng đó thì ta điền chữ số 0 vào vị trí tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 900, "step": 100 },
+        "b": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 10",
+        "w3": "a + b - 10"
+      },
+      "questionText": "Tổng của hai số là {ans}. Nếu tăng số thứ nhất lên {b} đơn vị và giữ nguyên số thứ hai thì tổng mới sẽ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans} + {b}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Khi một số hạng tăng thêm bao nhiêu đơn vị thì tổng cũng tăng thêm bấy nhiêu đơn vị.",
+        "Tổng mới = Tổng cũ + {b}."
+      ],
+      "solutionHtml": "Khi tăng số thứ nhất lên {b} đơn vị, tổng mới sẽ tăng thêm {b} đơn vị.<br/>Tổng mới là: $ {ans} + {b} = {ans+b} $ (Lưu ý: Đề bài yêu cầu tính logic, đáp án A,B,C chỉ là các số giả định).<br/>Đáp án đúng là D (vì kết quả là {ans+b}).",
+      "tip": "Nắm vững quy tắc: Tổng thay đổi cùng chiều với số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "b - a",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Một kệ sách có {a} ngăn, mỗi ngăn chứa {b} quyển sách. Hỏi kệ sách đó chứa tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi ngăn có {b} quyển, có {a} ngăn như vậy.",
+        "Ta thực hiện phép nhân: {a} nhân {b}."
+      ],
+      "solutionHtml": "Số quyển sách trên kệ là:<br/>$ {a} \\times {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán tính tổng số phần bằng nhau thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1000, "max": 5000, "step": 1000 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 100",
+        "w2": "a / b - 100",
+        "w3": "a * b"
+      },
+      "questionText": "Số dân của một thị trấn là {a} người. Nếu chia đều số dân này vào {b} khu phố thì mỗi khu phố có bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {w2} người",
+        "C. {ans} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số dân cho số khu phố, ta dùng phép chia.",
+        "Ta tính $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số người trong mỗi khu phố là:<br/>$ {a} : {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'chia đều' để xác định đúng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 4 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a + a / b",
+        "w1": "a * 2",
+        "w2": "a + b",
+        "w3": "a - a / b"
+      },
+      "questionText": "Tổ một trồng được {a} cây. Tổ hai trồng được số cây bằng 1/{b} số cây của tổ một. Hỏi cả hai tổ trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bước 1: Tính số cây tổ hai trồng: {a} chia {b}.",
+        "Bước 2: Tính tổng số cây của hai tổ."
+      ],
+      "solutionHtml": "Số cây tổ hai trồng là:<br/>$ {a} : {b} = {a/b} $ (cây).<br/>Tổng số cây hai tổ trồng là:<br/>$ {a} + {a/b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán có hai bước tính, đừng quên cộng kết quả của cả hai tổ.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 5"
+      },
+      "questionText": "Một cửa hàng nhập về {a} thùng dầu, mỗi thùng chứa {b} lít dầu. Hỏi cửa hàng đã nhập về tất cả bao nhiêu lít dầu?",
+      "options": [
+        "A. {w1} lít",
+        "B. {w2} lít",
+        "C. {ans} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi thùng có {b} lít, có {a} thùng.",
+        "Phép nhân {a} với {b} sẽ cho ra tổng số lít dầu."
+      ],
+      "solutionHtml": "Tổng số lít dầu cửa hàng nhập về là:<br/>$ {a} \\times {b} = {ans} $ (lít).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị của kết quả phải khớp với đơn vị của đại lượng cần tìm.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 2",
+        "w2": "a / b - 2",
+        "w3": "a * b"
+      },
+      "questionText": "Một sân trường hình chữ nhật có chu vi là {a*2} mét. Biết chiều dài gấp {b} lần chiều rộng. Hãy tìm chiều rộng của sân trường.",
+      "options": [
+        "A. {w1} mét",
+        "B. {w2} mét",
+        "C. {ans} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nửa chu vi sân trường là: {a*2} : 2 = {a} mét.",
+        "Tổng số phần bằng nhau là: 1 + {b} = {b+1} phần.",
+        "Chiều rộng là: {a} : {b+1} (Lưu ý: đề bài này cần chỉnh lại để {a} chia hết cho {b+1})."
+      ],
+      "solutionHtml": "Nửa chu vi là: {a} mét.<br/>Tổng số phần là: 1 + {b} = {b+1}.<br/>Chiều rộng là: {a} : {b+1} = {a/(b+1)} mét.",
+      "tip": "Nhớ tính nửa chu vi trước khi áp dụng phương pháp Tổng - Tỉ.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Một hộp có {a} viên bi. Hỏi {b} hộp như thế có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hộp {a} viên, ta có {b} hộp.",
+        "Sử dụng phép nhân {a} với {b}."
+      ],
+      "solutionHtml": "Số viên bi trong {b} hộp là:<br/>$ {a} \\times {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ câu hỏi để không nhầm lẫn giữa đơn vị và số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 1",
+        "w2": "a / b - 1",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} quyển vở được chia đều vào {b} tập. Hỏi mỗi tập có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều {a} quyển vở cho {b} tập.",
+        "Thực hiện phép tính {a} chia {b}."
+      ],
+      "solutionHtml": "Số quyển vở trong mỗi tập là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là phép tính chia, giúp ta tìm giá trị của một đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 500, "step": 10 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "x * y",
+        "s1": "x",
+        "s2": "y"
+      },
+      "questionText": "Một cửa hàng có {s1} kg gạo. Sau khi bán hết số gạo đó trong {s2} ngày với số lượng gạo bán mỗi ngày như nhau, cửa hàng còn lại 0 kg. Hỏi mỗi ngày cửa hàng đã bán bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số gạo bán mỗi ngày, ta lấy tổng số gạo chia cho số ngày bán.",
+        "Phép tính cần thực hiện là {s1} chia cho {s2}."
+      ],
+      "solutionHtml": "Số gạo bán mỗi ngày là:<br/>$ {s1} : {s2} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia một số tròn chục hoặc tròn trăm cho một số, ta có thể chia các chữ số ở hàng tương ứng rồi viết thêm số không vào kết quả.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a * 1000 + b",
+        "w1": "a * 100 + b",
+        "w2": "a * 10000 + b",
+        "w3": "a + b * 1000",
+        "displayA": "a",
+        "displayB": "b"
+      },
+      "questionText": "Viết số gồm {displayA} nghìn và {displayB} đơn vị dưới dạng số tự nhiên.",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hàng nghìn có giá trị là {displayA} nghìn, hàng đơn vị là {displayB}.",
+        "Các hàng trăm và hàng chục không có nên ta viết là chữ số 0."
+      ],
+      "solutionHtml": "Số gồm {displayA} nghìn và {displayB} đơn vị được viết là: {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra các hàng bị khuyết, nếu không có hàng đó thì ta điền chữ số 0 vào vị trí tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 900, "step": 100 },
+        "b": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 10",
+        "w3": "a + b - 10"
+      },
+      "questionText": "Tổng của hai số là {ans}. Nếu tăng số thứ nhất lên {b} đơn vị và giữ nguyên số thứ hai thì tổng mới sẽ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans} + {b}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Khi một số hạng tăng thêm bao nhiêu đơn vị thì tổng cũng tăng thêm bấy nhiêu đơn vị.",
+        "Tổng mới = Tổng cũ + {b}."
+      ],
+      "solutionHtml": "Khi tăng số thứ nhất lên {b} đơn vị, tổng mới sẽ tăng thêm {b} đơn vị.<br/>Tổng mới là: $ {ans} + {b} = {ans+b} $ (Lưu ý: Đề bài yêu cầu tính logic, đáp án A,B,C chỉ là các số giả định).<br/>Đáp án đúng là D (vì kết quả là {ans+b}).",
+      "tip": "Nắm vững quy tắc: Tổng thay đổi cùng chiều với số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "b - a",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Một kệ sách có {a} ngăn, mỗi ngăn chứa {b} quyển sách. Hỏi kệ sách đó chứa tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi ngăn có {b} quyển, có {a} ngăn như vậy.",
+        "Ta thực hiện phép nhân: {a} nhân {b}."
+      ],
+      "solutionHtml": "Số quyển sách trên kệ là:<br/>$ {a} \\times {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán tính tổng số phần bằng nhau thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1000, "max": 5000, "step": 1000 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 100",
+        "w2": "a / b - 100",
+        "w3": "a * b"
+      },
+      "questionText": "Số dân của một thị trấn là {a} người. Nếu chia đều số dân này vào {b} khu phố thì mỗi khu phố có bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {w2} người",
+        "C. {ans} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số dân cho số khu phố, ta dùng phép chia.",
+        "Ta tính $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số người trong mỗi khu phố là:<br/>$ {a} : {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'chia đều' để xác định đúng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 4 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a + a / b",
+        "w1": "a * 2",
+        "w2": "a + b",
+        "w3": "a - a / b"
+      },
+      "questionText": "Tổ một trồng được {a} cây. Tổ hai trồng được số cây bằng 1/{b} số cây của tổ một. Hỏi cả hai tổ trồng được bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bước 1: Tính số cây tổ hai trồng: {a} chia {b}.",
+        "Bước 2: Tính tổng số cây của hai tổ."
+      ],
+      "solutionHtml": "Số cây tổ hai trồng là:<br/>$ {a} : {b} = {a/b} $ (cây).<br/>Tổng số cây hai tổ trồng là:<br/>$ {a} + {a/b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán có hai bước tính, đừng quên cộng kết quả của cả hai tổ.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 5"
+      },
+      "questionText": "Một cửa hàng nhập về {a} thùng dầu, mỗi thùng chứa {b} lít dầu. Hỏi cửa hàng đã nhập về tất cả bao nhiêu lít dầu?",
+      "options": [
+        "A. {w1} lít",
+        "B. {w2} lít",
+        "C. {ans} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi thùng có {b} lít, có {a} thùng.",
+        "Phép nhân {a} với {b} sẽ cho ra tổng số lít dầu."
+      ],
+      "solutionHtml": "Tổng số lít dầu cửa hàng nhập về là:<br/>$ {a} \\times {b} = {ans} $ (lít).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị của kết quả phải khớp với đơn vị của đại lượng cần tìm.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 2",
+        "w2": "a / b - 2",
+        "w3": "a * b"
+      },
+      "questionText": "Một sân trường hình chữ nhật có chu vi là {a*2} mét. Biết chiều dài gấp {b} lần chiều rộng. Hãy tìm chiều rộng của sân trường.",
+      "options": [
+        "A. {w1} mét",
+        "B. {w2} mét",
+        "C. {ans} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nửa chu vi sân trường là: {a*2} : 2 = {a} mét.",
+        "Tổng số phần bằng nhau là: 1 + {b} = {b+1} phần.",
+        "Chiều rộng là: {a} : {b+1} (Lưu ý: đề bài này cần chỉnh lại để {a} chia hết cho {b+1})."
+      ],
+      "solutionHtml": "Nửa chu vi là: {a} mét.<br/>Tổng số phần là: 1 + {b} = {b+1}.<br/>Chiều rộng là: {a} : {b+1} = {a/(b+1)} mét.",
+      "tip": "Nhớ tính nửa chu vi trước khi áp dụng phương pháp Tổng - Tỉ.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Một hộp có {a} viên bi. Hỏi {b} hộp như thế có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hộp {a} viên, ta có {b} hộp.",
+        "Sử dụng phép nhân {a} với {b}."
+      ],
+      "solutionHtml": "Số viên bi trong {b} hộp là:<br/>$ {a} \\times {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ câu hỏi để không nhầm lẫn giữa đơn vị và số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 1",
+        "w2": "a / b - 1",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} quyển vở được chia đều vào {b} tập. Hỏi mỗi tập có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều {a} quyển vở cho {b} tập.",
+        "Thực hiện phép tính {a} chia {b}."
+      ],
+      "solutionHtml": "Số quyển vở trong mỗi tập là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là phép tính chia, giúp ta tìm giá trị của một đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c1-d4"
+    }
+  ]
+}
+

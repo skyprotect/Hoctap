@@ -1,0 +1,546 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:25:14.022Z
+Lesson ID: l4-lt-c8
+Lesson Title: Luyện tập chung (Chương 8)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10922 (line 394 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10922 (line 394 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10922 (Line: 260, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 200, "max": 500, "step": 10 },
+      "b": { "min": 5, "max": 20, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1_goc": "a / (b + 1) % 1 === 0 ? a / (b + 1) : ans + 5",
+      "w2_goc": "ans + 20",
+      "w3_goc": "ans - 10",
+      "w1": "(w1_goc === ans) ? w1_goc + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc <= 0) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng dự định đóng vào các túi, mỗi túi {b} kg. Hỏi cửa hàng đóng được tất cả bao nhiêu túi gạo?",
+    "options": [
+      "A. {w1} túi",
+      "B. {ans} túi",
+      "C. {w2} túi",
+      "D. {w3} túi"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số túi gạo, ta lấy tổng số ki-lô-gam gạo chia cho số ki-lô-gam trong một túi."],
+    "solutionHtml": "Số túi gạo cửa hàng đóng được là:<br/>$ {a} : {b} = {ans} $ (túi).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề bài để xác định phép tính phù hợp. Ở đây ta cần chia đều tổng số lượng vào các nhóm bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-lt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 80, "step": 2 },
+      "b": { "min": 2, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1_goc": "a - b",
+      "w2_goc": "a + b",
+      "w3_goc": "a * b",
+      "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+    },
+    "questionText": "Một lớp học có {a} học sinh, trong đó số học sinh nam gấp {b} lần số học sinh nữ. Hỏi lớp học có bao nhiêu học sinh nữ?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {w2} học sinh",
+      "C. {ans} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 2,
+    "hints": ["Đây là bài toán tổng tỉ. Tổng số phần bằng nhau là $ {b} + 1 = {b + 1} $ phần.", "Số học sinh nữ là tổng số học sinh chia cho tổng số phần."],
+    "solutionHtml": "Tổng số phần bằng nhau là:<br/>$ {b} + 1 = {b + 1} $ (phần).<br/>Số học sinh nữ là:<br/>$ {a} : {b + 1} = {ans} $ (học sinh).<br/>Đáp án đúng là C.",
+    "tip": "Khi biết tổng và tỉ số, ta luôn tìm tổng số phần trước khi tính giá trị một phần."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 15, "step": 1 },
+      "b": { "min": 100, "max": 300, "step": 5 }
+    },
+    "constraints": ["b % a === 0"],
+    "formulas": {
+      "ans": "b / a",
+      "w1": "ans + 2",
+      "w2": "ans - 2",
+      "w3": "ans + 5"
+    },
+    "questionText": "Một nhà máy sản xuất {b} sản phẩm trong {a} ngày. Nếu mỗi ngày nhà máy sản xuất số sản phẩm như nhau thì trong 1 ngày nhà máy sản xuất được bao nhiêu sản phẩm?",
+    "options": [
+      "A. {w1} sản phẩm",
+      "B. {ans} sản phẩm",
+      "C. {w2} sản phẩm",
+      "D. {w3} sản phẩm"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số sản phẩm trong 1 ngày, ta lấy tổng số sản phẩm chia cho số ngày."],
+    "solutionHtml": "Số sản phẩm mỗi ngày sản xuất là:<br/>$ {b} : {a} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+    "tip": "Bài toán về năng suất trung bình thường sử dụng phép chia tổng khối lượng cho tổng thời gian."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "(a - b) / 2",
+      "w1": "((a - b) / 2) + b",
+      "w2": "a + b",
+      "w3": "(a - b) / 2 + 1"
+    },
+    "questionText": "Hai thùng dầu chứa tất cả {a} lít dầu. Biết thùng thứ nhất nhiều hơn thùng thứ hai {b} lít dầu. Hỏi thùng thứ hai chứa bao nhiêu lít dầu?",
+    "options": [
+      "A. {w1} lít",
+      "B. {ans} lít",
+      "C. {w2} lít",
+      "D. {w3} lít"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đây là bài toán tìm hai số khi biết tổng và hiệu.", "Số bé = (Tổng - Hiệu) : 2."],
+    "solutionHtml": "Số lít dầu thùng thứ hai chứa là:<br/>$ ({a} - {b}) : 2 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+    "tip": "Để tìm số bé, ta lấy (Tổng - Hiệu) chia 2. Để tìm số lớn, ta lấy (Tổng + Hiệu) chia 2."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b + 10"
+    },
+    "questionText": "Một cửa hàng ngày thứ nhất bán được {a} kg đường. Ngày thứ hai bán gấp {b} lần ngày thứ nhất. Hỏi cả hai ngày cửa hàng bán được bao nhiêu kg đường?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {a + ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính ngày thứ hai: $ {a} \\times {b} = {ans} $ kg.", "Tính tổng hai ngày: $ {a} + {ans} $."],
+    "solutionHtml": "Ngày thứ hai cửa hàng bán được là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Tổng hai ngày cửa hàng bán được là:<br/>$ {a} + {ans} = {a + ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Đừng nhầm lẫn giữa giá trị ngày thứ hai và tổng hai ngày."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 6, "step": 1 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b - 2",
+      "w3": "a * b + 2"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {b} mét, chiều rộng {a} mét. Tính diện tích của mảnh vườn đó.",
+    "options": [
+      "A. {w1} mét vuông",
+      "B. {w2} mét vuông",
+      "C. {ans} mét vuông",
+      "D. {w3} mét vuông"
+    ],
+    "correctIndex": 2,
+    "hints": ["Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."],
+    "solutionHtml": "Diện tích mảnh vườn là:<br/>$ {b} \\times {a} = {ans} $ (m²).<br/>Đáp án đúng là C.",
+    "tip": "Đơn vị diện tích là mét vuông (m²)."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 20, "max": 50, "step": 5 }
+    },
+    "constraints": ["(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "(a + b) / 2",
+      "w1": "(a - b) / 2",
+      "w2": "a",
+      "w3": "b"
+    },
+    "questionText": "Tổng của hai số là {a}, hiệu của hai số đó là {b}. Tìm số lớn.",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Số lớn = (Tổng + Hiệu) : 2."],
+    "solutionHtml": "Số lớn là:<br/>$ ({a} + {b}) : 2 = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Nhớ công thức: Số lớn = (Tổng + Hiệu) : 2; Số bé = (Tổng - Hiệu) : 2."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 10, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * a * b",
+      "w1": "a * 4 * b",
+      "w2": "a * a + b",
+      "w3": "a * b"
+    },
+    "questionText": "Một hình vuông có cạnh là {a} cm. Một hình chữ nhật có chiều rộng bằng cạnh hình vuông và chiều dài gấp {b} lần cạnh hình vuông đó. Tính diện tích hình chữ nhật.",
+    "options": [
+      "A. {w1} cm²",
+      "B. {w2} cm²",
+      "C. {ans} cm²",
+      "D. {w3} cm²"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chiều rộng là {a} cm. Chiều dài là $ {a} \\times {b} = {a * b} $ cm.", "Diện tích là $ {a} \\times {a * b} $."],
+    "solutionHtml": "Chiều dài hình chữ nhật là:<br/>$ {a} \\times {b} = {a * b} $ (cm).<br/>Diện tích hình chữ nhật là:<br/>$ {a} \\times {a * b} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề để xác định kích thước các cạnh của hình chữ nhật."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a"
+    },
+    "questionText": "Mẹ hơn con {ans} tuổi. Biết rằng 5 năm nữa, tuổi mẹ vẫn hơn tuổi con bao nhiêu tuổi?",
+    "options": [
+      "A. {w1} tuổi",
+      "B. {w2} tuổi",
+      "C. {w3} tuổi",
+      "D. {ans} tuổi"
+    ],
+    "correctIndex": 3,
+    "hints": ["Hiệu số tuổi của hai người luôn không đổi theo thời gian."],
+    "solutionHtml": "Hiệu số tuổi của mẹ và con luôn không đổi theo thời gian.<br/>Vì hiện tại mẹ hơn con {ans} tuổi, nên 5 năm nữa mẹ vẫn hơn con {ans} tuổi.<br/>Đáp án đúng là D.",
+    "tip": "Đây là bài toán mẹo về hiệu số tuổi, hãy nhớ rằng khoảng cách tuổi tác giữa hai người là cố định."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5, "step": 1 },
+      "b": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "1000 * a + 500 * b",
+      "w1": "1000 * b + 500 * a",
+      "w2": "1500 * (a + b)",
+      "w3": "1000 * a * b"
+    },
+    "questionText": "Bạn An có {a} tờ tiền mệnh giá 1000 đồng và {b} tờ tiền mệnh giá 500 đồng. Hỏi bạn An có tất cả bao nhiêu tiền?",
+    "options": [
+      "A. {w1} đồng",
+      "B. {ans} đồng",
+      "C. {w2} đồng",
+      "D. {w3} đồng"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính tổng tiền loại 1000đ: $ 1000 \\times {a} $.", "Tính tổng tiền loại 500đ: $ 500 \\times {b} $.", "Cộng hai kết quả lại."],
+    "solutionHtml": "Số tiền từ tờ 1000 đồng là:<br/>$ 1000 \\times {a} = {1000 * a} $ (đồng).<br/>Số tiền từ tờ 500 đồng là:<br/>$ 500 \\times {b} = {500 * b} $ (đồng).<br/>Tổng số tiền An có là:<br/>$ {1000 * a} + {500 * b} = {ans} $ (đồng).<br/>Đáp án đúng là B.",
+    "tip": "Cẩn thận với mệnh giá tiền khi nhân số lượng tờ."
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 200, "max": 500, "step": 10 },
+      "b": { "min": 5, "max": 20, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1_goc": "a / (b + 1) % 1 === 0 ? a / (b + 1) : ans + 5",
+      "w2_goc": "ans + 20",
+      "w3_goc": "ans - 10",
+      "w1": "(w1_goc === ans) ? w1_goc + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2 || w3_goc <= 0) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng dự định đóng vào các túi, mỗi túi {b} kg. Hỏi cửa hàng đóng được tất cả bao nhiêu túi gạo?",
+    "options": [
+      "A. {w1} túi",
+      "B. {ans} túi",
+      "C. {w2} túi",
+      "D. {w3} túi"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số túi gạo, ta lấy tổng số ki-lô-gam gạo chia cho số ki-lô-gam trong một túi."],
+    "solutionHtml": "Số túi gạo cửa hàng đóng được là:<br/>$ {a} : {b} = {ans} $ (túi).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề bài để xác định phép tính phù hợp. Ở đây ta cần chia đều tổng số lượng vào các nhóm bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "l4-lt-c8-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 40, "max": 80, "step": 2 },
+      "b": { "min": 2, "max": 8, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1_goc": "a - b",
+      "w2_goc": "a + b",
+      "w3_goc": "a * b",
+      "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+    },
+    "questionText": "Một lớp học có {a} học sinh, trong đó số học sinh nam gấp {b} lần số học sinh nữ. Hỏi lớp học có bao nhiêu học sinh nữ?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {w2} học sinh",
+      "C. {ans} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 2,
+    "hints": ["Đây là bài toán tổng tỉ. Tổng số phần bằng nhau là $ {b} + 1 = {b + 1} $ phần.", "Số học sinh nữ là tổng số học sinh chia cho tổng số phần."],
+    "solutionHtml": "Tổng số phần bằng nhau là:<br/>$ {b} + 1 = {b + 1} $ (phần).<br/>Số học sinh nữ là:<br/>$ {a} : {b + 1} = {ans} $ (học sinh).<br/>Đáp án đúng là C.",
+    "tip": "Khi biết tổng và tỉ số, ta luôn tìm tổng số phần trước khi tính giá trị một phần."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 15, "step": 1 },
+      "b": { "min": 100, "max": 300, "step": 5 }
+    },
+    "constraints": ["b % a === 0"],
+    "formulas": {
+      "ans": "b / a",
+      "w1": "ans + 2",
+      "w2": "ans - 2",
+      "w3": "ans + 5"
+    },
+    "questionText": "Một nhà máy sản xuất {b} sản phẩm trong {a} ngày. Nếu mỗi ngày nhà máy sản xuất số sản phẩm như nhau thì trong 1 ngày nhà máy sản xuất được bao nhiêu sản phẩm?",
+    "options": [
+      "A. {w1} sản phẩm",
+      "B. {ans} sản phẩm",
+      "C. {w2} sản phẩm",
+      "D. {w3} sản phẩm"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số sản phẩm trong 1 ngày, ta lấy tổng số sản phẩm chia cho số ngày."],
+    "solutionHtml": "Số sản phẩm mỗi ngày sản xuất là:<br/>$ {b} : {a} = {ans} $ (sản phẩm).<br/>Đáp án đúng là B.",
+    "tip": "Bài toán về năng suất trung bình thường sử dụng phép chia tổng khối lượng cho tổng thời gian."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "(a - b) / 2",
+      "w1": "((a - b) / 2) + b",
+      "w2": "a + b",
+      "w3": "(a - b) / 2 + 1"
+    },
+    "questionText": "Hai thùng dầu chứa tất cả {a} lít dầu. Biết thùng thứ nhất nhiều hơn thùng thứ hai {b} lít dầu. Hỏi thùng thứ hai chứa bao nhiêu lít dầu?",
+    "options": [
+      "A. {w1} lít",
+      "B. {ans} lít",
+      "C. {w2} lít",
+      "D. {w3} lít"
+    ],
+    "correctIndex": 1,
+    "hints": ["Đây là bài toán tìm hai số khi biết tổng và hiệu.", "Số bé = (Tổng - Hiệu) : 2."],
+    "solutionHtml": "Số lít dầu thùng thứ hai chứa là:<br/>$ ({a} - {b}) : 2 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+    "tip": "Để tìm số bé, ta lấy (Tổng - Hiệu) chia 2. Để tìm số lớn, ta lấy (Tổng + Hiệu) chia 2."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a - b",
+      "w3": "a * b + 10"
+    },
+    "questionText": "Một cửa hàng ngày thứ nhất bán được {a} kg đường. Ngày thứ hai bán gấp {b} lần ngày thứ nhất. Hỏi cả hai ngày cửa hàng bán được bao nhiêu kg đường?",
+    "options": [
+      "A. {w1} kg",
+      "B. {w2} kg",
+      "C. {a + ans} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 2,
+    "hints": ["Tính ngày thứ hai: $ {a} \\times {b} = {ans} $ kg.", "Tính tổng hai ngày: $ {a} + {ans} $."],
+    "solutionHtml": "Ngày thứ hai cửa hàng bán được là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Tổng hai ngày cửa hàng bán được là:<br/>$ {a} + {ans} = {a + ans} $ (kg).<br/>Đáp án đúng là C.",
+    "tip": "Đừng nhầm lẫn giữa giá trị ngày thứ hai và tổng hai ngày."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 6, "step": 1 },
+      "b": { "min": 4, "max": 8, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b - 2",
+      "w3": "a * b + 2"
+    },
+    "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {b} mét, chiều rộng {a} mét. Tính diện tích của mảnh vườn đó.",
+    "options": [
+      "A. {w1} mét vuông",
+      "B. {w2} mét vuông",
+      "C. {ans} mét vuông",
+      "D. {w3} mét vuông"
+    ],
+    "correctIndex": 2,
+    "hints": ["Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."],
+    "solutionHtml": "Diện tích mảnh vườn là:<br/>$ {b} \\times {a} = {ans} $ (m²).<br/>Đáp án đúng là C.",
+    "tip": "Đơn vị diện tích là mét vuông (m²)."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 200, "step": 10 },
+      "b": { "min": 20, "max": 50, "step": 5 }
+    },
+    "constraints": ["(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "(a + b) / 2",
+      "w1": "(a - b) / 2",
+      "w2": "a",
+      "w3": "b"
+    },
+    "questionText": "Tổng của hai số là {a}, hiệu của hai số đó là {b}. Tìm số lớn.",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Số lớn = (Tổng + Hiệu) : 2."],
+    "solutionHtml": "Số lớn là:<br/>$ ({a} + {b}) : 2 = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Nhớ công thức: Số lớn = (Tổng + Hiệu) : 2; Số bé = (Tổng - Hiệu) : 2."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 4, "max": 10, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * a * b",
+      "w1": "a * 4 * b",
+      "w2": "a * a + b",
+      "w3": "a * b"
+    },
+    "questionText": "Một hình vuông có cạnh là {a} cm. Một hình chữ nhật có chiều rộng bằng cạnh hình vuông và chiều dài gấp {b} lần cạnh hình vuông đó. Tính diện tích hình chữ nhật.",
+    "options": [
+      "A. {w1} cm²",
+      "B. {w2} cm²",
+      "C. {ans} cm²",
+      "D. {w3} cm²"
+    ],
+    "correctIndex": 2,
+    "hints": ["Chiều rộng là {a} cm. Chiều dài là $ {a} \\times {b} = {a * b} $ cm.", "Diện tích là $ {a} \\times {a * b} $."],
+    "solutionHtml": "Chiều dài hình chữ nhật là:<br/>$ {a} \\times {b} = {a * b} $ (cm).<br/>Diện tích hình chữ nhật là:<br/>$ {a} \\times {a * b} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đề để xác định kích thước các cạnh của hình chữ nhật."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a * b",
+      "w3": "a"
+    },
+    "questionText": "Mẹ hơn con {ans} tuổi. Biết rằng 5 năm nữa, tuổi mẹ vẫn hơn tuổi con bao nhiêu tuổi?",
+    "options": [
+      "A. {w1} tuổi",
+      "B. {w2} tuổi",
+      "C. {w3} tuổi",
+      "D. {ans} tuổi"
+    ],
+    "correctIndex": 3,
+    "hints": ["Hiệu số tuổi của hai người luôn không đổi theo thời gian."],
+    "solutionHtml": "Hiệu số tuổi của mẹ và con luôn không đổi theo thời gian.<br/>Vì hiện tại mẹ hơn con {ans} tuổi, nên 5 năm nữa mẹ vẫn hơn con {ans} tuổi.<br/>Đáp án đúng là D.",
+    "tip": "Đây là bài toán mẹo về hiệu số tuổi, hãy nhớ rằng khoảng cách tuổi tác giữa hai người là cố định."
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5, "step": 1 },
+      "b": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "1000 * a + 500 * b",
+      "w1": "1000 * b + 500 * a",
+      "w2": "1500 * (a + b)",
+      "w3": "1000 * a * b"
+    },
+    "questionText": "Bạn An có {a} tờ tiền mệnh giá 1000 đồng và {b} tờ tiền mệnh giá 500 đồng. Hỏi bạn An có tất cả bao nhiêu tiền?",
+    "options": [
+      "A. {w1} đồng",
+      "B. {ans} đồng",
+      "C. {w2} đồng",
+      "D. {w3} đồng"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính tổng tiền loại 1000đ: $ 1000 \\times {a} $.", "Tính tổng tiền loại 500đ: $ 500 \\times {b} $.", "Cộng hai kết quả lại."],
+    "solutionHtml": "Số tiền từ tờ 1000 đồng là:<br/>$ 1000 \\times {a} = {1000 * a} $ (đồng).<br/>Số tiền từ tờ 500 đồng là:<br/>$ 500 \\times {b} = {500 * b} $ (đồng).<br/>Tổng số tiền An có là:<br/>$ {1000 * a} + {500 * b} = {ans} $ (đồng).<br/>Đáp án đúng là B.",
+    "tip": "Cẩn thận với mệnh giá tiền khi nhân số lượng tờ."
+  }
+]
+

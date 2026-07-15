@@ -1,0 +1,427 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "lions": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "tigers": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "lions > tigers"
+      ],
+      "formulas": {
+        "ans": "lions + tigers",
+        "w1": "lions",
+        "w2": "lions * 2",
+        "w3": "tigers * 3",
+        "w1_final": "(w1 === ans) ? ans + 1 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3 : w3"
+      },
+      "questionText": "Tại sở thú, có {lions} con sư tử và {tigers} con hổ. Hỏi tổng số con sư tử và hổ tại sở thú là bao nhiêu?",
+      "options": [
+        "{w1_final} con",
+        "{ans} con",
+        "{w2_final} con",
+        "{w3_final} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số, ta thực hiện phép cộng số lượng hai loài thú.",
+        "Ta có phép tính: {lions} cộng {tigers}."
+      ],
+      "solutionHtml": "Số lượng sư tử và hổ là:<br/>$ {lions} + {tigers} = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Khi đề bài hỏi 'tổng', ta luôn thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 12,
+          "max": 20,
+          "step": 2
+        },
+        "monkeys": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total > monkeys",
+        "total % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "total - monkeys",
+        "w1": "total + monkeys",
+        "w2": "total - 2",
+        "w3": "monkeys + 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Có tất cả {total} con khỉ trên cây. Sau khi có {monkeys} con nhảy xuống đất, hỏi trên cây còn lại bao nhiêu con khỉ?",
+      "options": [
+        "{w1_f} con",
+        "{w2_f} con",
+        "{ans} con",
+        "{w3_f} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Vì có một số con khỉ đã nhảy xuống, ta cần thực hiện phép trừ.",
+        "Lấy tổng số khỉ trừ đi số con đã nhảy xuống."
+      ],
+      "solutionHtml": "Số khỉ còn lại trên cây là:<br/>$ {total} - {monkeys} = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Từ khóa 'còn lại' thường nhắc ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Mỗi chiếc lồng nuôi {a} con vẹt. Nếu có {b} chiếc lồng như vậy, hỏi có tất cả bao nhiêu con vẹt?",
+      "options": [
+        "{w1_f} con",
+        "{w2_f} con",
+        "{w3_f} con",
+        "{ans} con"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Đây là bài toán gấp lên một số lần, ta sử dụng phép nhân.",
+        "Lấy số vẹt trong một lồng nhân với số lồng."
+      ],
+      "solutionHtml": "Tổng số con vẹt là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Khi các nhóm có số lượng bằng nhau, ta dùng phép nhân để tính nhanh.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "groups": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total % groups === 0"
+      ],
+      "formulas": {
+        "ans": "total / groups",
+        "w1": "total + groups",
+        "w2": "total - groups",
+        "w3": "groups + 2",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "{total} chú voi được chia đều vào {groups} khu vực bảo tồn. Hỏi mỗi khu vực có bao nhiêu chú voi?",
+      "options": [
+        "{w1_f} chú",
+        "{ans} chú",
+        "{w2_f} chú",
+        "{w3_f} chú"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều là dấu hiệu của phép chia.",
+        "Lấy tổng số chú voi chia cho số khu vực."
+      ],
+      "solutionHtml": "Mỗi khu vực có số chú voi là:<br/>$ {total} \\div {groups} = {ans} $ (chú).<br/>Đáp án đúng là {ans} chú.",
+      "tip": "Chia đều tức là chia thành các phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "y": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x - 1",
+        "w3": "y + 1",
+        "w1_f": "(w1 === ans) ? ans + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 4 : w3"
+      },
+      "questionText": "Có {x} con hươu cao cổ đang ăn lá cây, sau đó có {y} con bỏ đi nơi khác. Hỏi còn lại bao nhiêu con hươu cao cổ?",
+      "options": [
+        "{w1_f} con",
+        "{w2_f} con",
+        "{ans} con",
+        "{w3_f} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dùng phép trừ để tìm số con còn lại.",
+        "Lấy số hươu ban đầu trừ đi số hươu bỏ đi."
+      ],
+      "solutionHtml": "Số hươu cao cổ còn lại là:<br/>$ {x} - {y} = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Cẩn thận với từ 'bỏ đi', đó là làm giảm số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 3",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trong rừng có {a} con gấu nâu và {b} con gấu trắng. Sau đó, có thêm 2 con gấu con đi tới. Hỏi tất cả có bao nhiêu con gấu?",
+      "options": [
+        "{w1_f} con",
+        "{w2_f} con",
+        "{ans} con",
+        "{w3_f} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bài toán có 3 nhóm số: gấu nâu, gấu trắng và gấu con.",
+        "Cộng tất cả các nhóm lại với nhau."
+      ],
+      "solutionHtml": "Tổng số con gấu là:<br/>$ {a} + {b} + 2 = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Cộng liên tiếp các số để có kết quả cuối cùng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "eggs": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "broken": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "eggs > broken"
+      ],
+      "formulas": {
+        "ans": "eggs - broken",
+        "w1": "eggs + broken",
+        "w2": "eggs",
+        "w3": "broken",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Một chú đà điểu ấp {eggs} quả trứng, nhưng có {broken} quả bị hỏng. Hỏi còn lại bao nhiêu quả trứng không bị hỏng?",
+      "options": [
+        "{w1_f} quả",
+        "{ans} quả",
+        "{w2_f} quả",
+        "{w3_f} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số trứng hỏng là số bị loại bỏ.",
+        "Lấy tổng số trứng ban đầu trừ đi số trứng hỏng."
+      ],
+      "solutionHtml": "Số trứng còn lại không hỏng là:<br/>$ {eggs} - {broken} = {ans} $ (quả).<br/>Đáp án đúng là {ans} quả.",
+      "tip": "Đọc kỹ từ khóa 'bị hỏng' để biết cần làm phép tính gì.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "legs": {
+          "min": 4,
+          "max": 8,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "legs > 0"
+      ],
+      "formulas": {
+        "ans": "legs / 4",
+        "w1": "legs / 2",
+        "w2": "legs - 2",
+        "w3": "legs + 4",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Mỗi con ngựa vằn có 4 cái chân. Nếu đếm được {legs} cái chân ngựa vằn, hỏi có bao nhiêu con ngựa vằn?",
+      "options": [
+        "{w1_f} con",
+        "{w2_f} con",
+        "{ans} con",
+        "{w3_f} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi con có 4 chân, ta chia tổng số chân cho 4.",
+        "Thực hiện phép tính {legs} chia cho 4."
+      ],
+      "solutionHtml": "Số con ngựa vằn là:<br/>$ {legs} \\div 4 = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Chia tổng cho số lượng đặc điểm của một nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 2 + b * 4",
+        "legs_a": "a * 2",
+        "legs_b": "b * 4",
+        "w1": "a + b + 4",
+        "w2": "a + b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Có {a} con chim và {b} con thỏ. Hỏi tất cả có bao nhiêu cái chân, biết rằng mỗi con chim có 2 chân và mỗi con thỏ có 4 chân?",
+      "options": [
+        "{w1_f} cái",
+        "{w2_f} cái",
+        "{w3_f} cái",
+        "{ans} cái"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính số chân chim: {a} nhân 2.",
+        "Tính số chân thỏ: {b} nhân 4.",
+        "Sau đó cộng hai kết quả lại."
+      ],
+      "solutionHtml": "Số chân chim là: $ {a} \\times 2 = {legs_a} $ (chân).<br/>Số chân thỏ là: $ {b} \\times 4 = {legs_b} $ (chân).<br/>Tổng số chân là: $ {legs_a} + {legs_b} = {ans} $ (cái).<br/>Đáp án đúng là {ans} cái.",
+      "tip": "Hãy tính số chân của từng nhóm trước khi cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n1": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "n2": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n1 > n2"
+      ],
+      "formulas": {
+        "ans": "n1 + n2",
+        "w1": "n1 - n2",
+        "w2": "n1 * 2",
+        "w3": "n2 * 3",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Một nhóm thám hiểm thấy {n1} con khỉ trên cây và {n2} con khỉ dưới đất. Hỏi tổng số con khỉ họ nhìn thấy là bao nhiêu?",
+      "options": [
+        "{ans} con",
+        "{w1_f} con",
+        "{w2_f} con",
+        "{w3_f} con"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tổng số là cộng các nhóm lại.",
+        "Cộng {n1} và {n2}."
+      ],
+      "solutionHtml": "Tổng số con khỉ là:<br/>$ {n1} + {n2} = {ans} $ (con).<br/>Đáp án đúng là {ans} con.",
+      "tip": "Đếm tổng số là phép cộng các đối tượng trong cùng một nhóm loài.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t17-d10"
+    }
+  ]
+}

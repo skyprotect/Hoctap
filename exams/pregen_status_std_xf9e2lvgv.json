@@ -1,0 +1,167 @@
+{
+  "completed": [
+    "l1-bai-1",
+    "l1-bai-2",
+    "l1-bai-3",
+    "l1-bai-4",
+    "l1-bai-5",
+    "l1-bai-6",
+    "l1-bai-7",
+    "l1-bai-8",
+    "l1-bai-9",
+    "l1-bai-10",
+    "l1-bai-11",
+    "l1-bai-12",
+    "l1-bai-13",
+    "l1-bai-14",
+    "l1-bai-15",
+    "l1-bai-16",
+    "l1-bai-17",
+    "l1-bai-18",
+    "l1-bai-19",
+    "l1-bai-20",
+    "l1-bai-21",
+    "l1-bai-22",
+    "l1-bai-23",
+    "l1-bai-24",
+    "l1-bai-25",
+    "l1-bai-26",
+    "l1-bai-27",
+    "l1-bai-28",
+    "l1-bai-29",
+    "l1-bai-30",
+    "l1-bai-31",
+    "l1-bai-32",
+    "l1-bai-33",
+    "l1-bai-34",
+    "l1-bai-35",
+    "l1-bai-36",
+    "l1-bai-37",
+    "l1-bai-38",
+    "l1-bai-39",
+    "l1-bai-40",
+    "l1-bai-41",
+    "eng1-t1",
+    "eng1-t2",
+    "eng1-t3",
+    "eng1-t4",
+    "eng1-t5",
+    "eng1-t6",
+    "eng1-t7",
+    "eng1-t8",
+    "eng1-t9",
+    "eng1-t10",
+    "eng1-t11",
+    "eng1-t12",
+    "eng1-t13",
+    "eng1-t14",
+    "eng1-t15",
+    "eng1-t16",
+    "eng1-t17",
+    "eng1-t18",
+    "eng1-t19",
+    "eng1-t20"
+  ],
+  "failed": {
+    "l1-bai-1": {
+      "error": "Unexpected non-whitespace character after JSON at position 9048 (line 365 column 1)",
+      "timestamp": 1783990497942
+    },
+    "l1-bai-2": {
+      "error": "Unexpected non-whitespace character after JSON at position 9834 (line 376 column 1)",
+      "timestamp": 1783990646740
+    },
+    "l1-bai-8": {
+      "error": "Unexpected non-whitespace character after JSON at position 10038 (line 274 column 1)",
+      "timestamp": 1783990792763
+    },
+    "l1-bai-10": {
+      "error": "Unexpected non-whitespace character after JSON at position 9769 (line 387 column 1)",
+      "timestamp": 1783990849865
+    },
+    "l1-bai-13": {
+      "error": "Unexpected non-whitespace character after JSON at position 10489 (line 396 column 1)",
+      "timestamp": 1783990930025
+    },
+    "l1-bai-22": {
+      "error": "Unexpected non-whitespace character after JSON at position 8751 (line 225 column 1)",
+      "timestamp": 1783991166976
+    },
+    "l1-bai-23": {
+      "error": "Unexpected non-whitespace character after JSON at position 10013 (line 384 column 1)",
+      "timestamp": 1783991192523
+    },
+    "l1-bai-24": {
+      "error": "Unexpected non-whitespace character after JSON at position 9202 (line 225 column 3)",
+      "timestamp": 1783991209436
+    },
+    "l1-bai-26": {
+      "error": "Unexpected non-whitespace character after JSON at position 9800 (line 275 column 3)",
+      "timestamp": 1783991256135
+    },
+    "l1-bai-27": {
+      "error": "Unexpected non-whitespace character after JSON at position 10288 (line 315 column 1)",
+      "timestamp": 1783991396289
+    },
+    "l1-bai-29": {
+      "error": "Unexpected non-whitespace character after JSON at position 9580 (line 323 column 1)",
+      "timestamp": 1783991567028
+    },
+    "l1-bai-32": {
+      "error": "Unexpected non-whitespace character after JSON at position 9613 (line 313 column 1)",
+      "timestamp": 1783991641479
+    },
+    "l1-bai-33": {
+      "error": "Unexpected non-whitespace character after JSON at position 8852 (line 225 column 1)",
+      "timestamp": 1783991658569
+    },
+    "l1-bai-36": {
+      "error": "Unexpected token 'L', ...\"ionText\": Lan bắt đầ\"... is not valid JSON",
+      "timestamp": 1783991727670
+    },
+    "l1-bai-39": {
+      "error": "Unexpected non-whitespace character after JSON at position 12023 (line 336 column 1)",
+      "timestamp": 1783991821482
+    },
+    "l1-bai-41": {
+      "error": "Unexpected non-whitespace character after JSON at position 9000 (line 223 column 1)",
+      "timestamp": 1783991864670
+    },
+    "eng1-t2": {
+      "error": "Unexpected non-whitespace character after JSON at position 9573 (line 387 column 1)",
+      "timestamp": 1783991916604
+    },
+    "eng1-t7": {
+      "error": "Unexpected non-whitespace character after JSON at position 10132 (line 375 column 1)",
+      "timestamp": 1783992171037
+    },
+    "eng1-t9": {
+      "error": "Unexpected non-whitespace character after JSON at position 9531 (line 275 column 1)",
+      "timestamp": 1783992215181
+    },
+    "eng1-t10": {
+      "error": "Unexpected non-whitespace character after JSON at position 9232 (line 225 column 1)",
+      "timestamp": 1783992232676
+    },
+    "eng1-t12": {
+      "error": "Unexpected non-whitespace character after JSON at position 8769 (line 225 column 1)",
+      "timestamp": 1783992276338
+    },
+    "eng1-t14": {
+      "error": "Unexpected non-whitespace character after JSON at position 11984 (line 406 column 1)",
+      "timestamp": 1783992334389
+    },
+    "eng1-t16": {
+      "error": "Unexpected non-whitespace character after JSON at position 9311 (line 224 column 1)",
+      "timestamp": 1783992376825
+    },
+    "eng1-t19": {
+      "error": "Unexpected non-whitespace character after JSON at position 9459 (line 225 column 1)",
+      "timestamp": 1783992457258
+    },
+    "eng1-t20": {
+      "error": "Unexpected non-whitespace character after JSON at position 10825 (line 400 column 3)",
+      "timestamp": 1783992483858
+    }
+  }
+}

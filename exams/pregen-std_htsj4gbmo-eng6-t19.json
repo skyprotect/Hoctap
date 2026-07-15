@@ -1,0 +1,407 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        },
+        "y": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x - y",
+        "w3": "x + 5"
+      },
+      "questionText": "Một nhóm tình nguyện viên tham gia tuyên truyền an toàn giao thông tại {x} ngã tư. Nếu mỗi ngã tư cần phân công {y} tình nguyện viên, hỏi cần tổng cộng bao nhiêu tình nguyện viên để phủ kín tất cả các ngã tư đó?",
+      "options": [
+        "A. {w1} tình nguyện viên",
+        "B. {ans} tình nguyện viên",
+        "C. {w2} tình nguyện viên",
+        "D. {w3} tình nguyện viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi ngã tư cần {y} bạn, vậy {x} ngã tư cần bao nhiêu bạn?",
+        "Ta thực hiện phép nhân: số ngã tư nhân với số tình nguyện viên mỗi ngã tư."
+      ],
+      "solutionHtml": "Để phủ kín {x} ngã tư, mỗi ngã tư cần {y} tình nguyện viên, ta cần tổng số tình nguyện viên là:<br/>$ {x} \\times {y} = {ans} $ (tình nguyện viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán yêu cầu tính tổng trên nhiều nhóm bằng nhau, ta nên sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": {
+          "min": 30,
+          "max": 50,
+          "step": 5
+        },
+        "v2": {
+          "min": 60,
+          "max": 90,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "v2 > v1"
+      ],
+      "formulas": {
+        "ans": "v2 - v1",
+        "w1": "v2 + v1",
+        "w2": "v1",
+        "w3": "v2"
+      },
+      "questionText": "Xe máy chạy với vận tốc {v1} km/h, trong khi xe ô tô chạy với vận tốc {v2} km/h. Hỏi vận tốc của xe ô tô lớn hơn xe máy bao nhiêu km/h để đảm bảo tuân thủ quy định an toàn giao thông trên đoạn đường này?",
+      "options": [
+        "A. {w1} km/h",
+        "B. {ans} km/h",
+        "C. {w2} km/h",
+        "D. {w3} km/h"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết chênh lệch giữa hai vận tốc, ta thực hiện phép trừ.",
+        "Lấy vận tốc lớn trừ đi vận tốc bé."
+      ],
+      "solutionHtml": "Chênh lệch vận tốc giữa xe ô tô và xe máy là:<br/>$ {v2} - {v1} = {ans} $ (km/h).<br/>Đáp án đúng là B.",
+      "tip": "Để so sánh hai đại lượng hơn kém nhau bao nhiêu, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "t": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "s % t === 0"
+      ],
+      "formulas": {
+        "ans": "s / t",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "s + t"
+      },
+      "questionText": "Một chiếc xe buýt di chuyển quãng đường {s} km trong {t} giờ để đảm bảo đúng lịch trình an toàn. Hỏi vận tốc trung bình của xe buýt là bao nhiêu km/h?",
+      "options": [
+        "A. {w1} km/h",
+        "B. {ans} km/h",
+        "C. {w2} km/h",
+        "D. {w3} km/h"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vận tốc trung bình bằng quãng đường chia cho thời gian.",
+        "Tính $ {s} : {t} $."
+      ],
+      "solutionHtml": "Vận tốc trung bình của xe buýt là:<br/>$ {s} : {t} = {ans} $ (km/h).<br/>Đáp án đúng là B.",
+      "tip": "Công thức vận tốc $ v = s : t $ là kiến thức cốt lõi trong các bài toán giao thông.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "k": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "n > 0",
+        "k > 0"
+      ],
+      "formulas": {
+        "ans": "n * k",
+        "w1": "n + k",
+        "w2": "n * k - 2",
+        "w3": "n * k + 5"
+      },
+      "questionText": "Tại một điểm dừng xe buýt, có {n} hàng người chờ đợi, mỗi hàng có {k} người. Hỏi có tất cả bao nhiêu người đang chờ tại điểm dừng đó?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {n} nhóm, mỗi nhóm {k} người, dùng phép nhân để tìm tổng số người.",
+        "Tính $ {n} \\times {k} $."
+      ],
+      "solutionHtml": "Tổng số người đang chờ tại điểm dừng xe buýt là:<br/>$ {n} \\times {k} = {ans} $ (người).<br/>Đáp án đúng là B.",
+      "tip": "Đếm số lượng nhóm và số thành viên mỗi nhóm là cách nhanh nhất để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "b": {
+          "min": 20,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 10",
+        "w3": "a + b - 5"
+      },
+      "questionText": "Đội tuần tra an toàn giao thông buổi sáng bắt được {a} lỗi vi phạm, buổi chiều bắt được {b} lỗi vi phạm. Hỏi cả ngày đội tuần tra đã xử lý được bao nhiêu lỗi?",
+      "options": [
+        "A. {w1} lỗi",
+        "B. {ans} lỗi",
+        "C. {w2} lỗi",
+        "D. {w3} lỗi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số lỗi cả ngày, ta cộng số lỗi buổi sáng và buổi chiều lại.",
+        "Tính $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số lỗi vi phạm đội tuần tra đã xử lý trong cả ngày là:<br/>$ {a} + {b} = {ans} $ (lỗi).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'cả ngày' thường ám chỉ phép cộng hai khoảng thời gian hoặc sự kiện.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p": {
+          "min": 12,
+          "max": 24,
+          "step": 2
+        },
+        "q": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "p % q === 0"
+      ],
+      "formulas": {
+        "ans": "p / q",
+        "w1": "p + q",
+        "w2": "p - q",
+        "w3": "p * q"
+      },
+      "questionText": "Một con đường dài {p} km có đặt các biển báo giao thông cách đều nhau cứ mỗi {q} km. Hỏi trên toàn bộ con đường đó có bao nhiêu khoảng cách giữa các biển báo?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số khoảng cách bằng độ dài con đường chia cho khoảng cách mỗi biển.",
+        "Tính $ {p} : {q} $."
+      ],
+      "solutionHtml": "Số khoảng cách giữa các biển báo trên con đường là:<br/>$ {p} : {q} = {ans} $ (khoảng).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán khoảng cách thường liên quan đến phép chia khi độ dài được chia đều.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        },
+        "h2": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h1 > 0",
+        "h2 > 0"
+      ],
+      "formulas": {
+        "ans": "12 + h2 - h1",
+        "w1": "12 + h2 + h1",
+        "w2": "h2 - h1",
+        "w3": "12 - h2 + h1"
+      },
+      "questionText": "Một ca làm việc của cảnh sát giao thông bắt đầu lúc {h1} giờ sáng và kết thúc lúc {h2} giờ chiều. Hỏi ca làm việc đó kéo dài bao nhiêu giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian từ {h1} giờ sáng đến {h2} giờ chiều (12 + {h2} giờ).",
+        "Tính khoảng cách thời gian: (12 + {h2}) - {h1}."
+      ],
+      "solutionHtml": "Thời gian làm việc là:<br/>$ (12 + {h2}) - {h1} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Khi tính khoảng thời gian qua mốc 12 giờ trưa, hãy chuyển về định dạng 24 giờ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": {
+          "min": 40,
+          "max": 60,
+          "step": 5
+        },
+        "n": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "m % n === 0"
+      ],
+      "formulas": {
+        "ans": "m / n",
+        "w1": "m + n",
+        "w2": "m - n",
+        "w3": "ans + 5"
+      },
+      "questionText": "Có {m} học sinh tham gia buổi tập huấn an toàn giao thông. Nhà trường chia số học sinh này thành {n} nhóm bằng nhau. Hỏi mỗi nhóm có bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều số học sinh vào các nhóm, ta dùng phép chia.",
+        "Tính $ {m} : {n} $."
+      ],
+      "solutionHtml": "Số học sinh mỗi nhóm là:<br/>$ {m} : {n} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'chia thành ... nhóm bằng nhau' luôn là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "d": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "c > 0",
+        "d > 0"
+      ],
+      "formulas": {
+        "ans": "c * d",
+        "w1": "c + d",
+        "w2": "c - d",
+        "w3": "c * d + 2"
+      },
+      "questionText": "Mỗi chiếc xe đạp cần {d} bánh xe để đảm bảo an toàn kỹ thuật. Trong bãi xe có {c} chiếc xe đạp. Hỏi tổng cộng có bao nhiêu bánh xe?",
+      "options": [
+        "A. {w1} bánh xe",
+        "B. {ans} bánh xe",
+        "C. {w2} bánh xe",
+        "D. {w3} bánh xe"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi xe có {d} bánh, {c} xe thì có bao nhiêu bánh?",
+        "Tính $ {c} \\times {d} $."
+      ],
+      "solutionHtml": "Tổng số bánh xe là:<br/>$ {c} \\times {d} = {ans} $ (bánh xe).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số lượng mỗi đơn vị, nhân với tổng số đơn vị sẽ ra kết quả tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 100,
+          "max": 200,
+          "step": 20
+        },
+        "y": {
+          "min": 50,
+          "max": 80,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "y",
+        "w3": "x"
+      },
+      "questionText": "Quãng đường từ nhà đến trường là {x} mét. Bạn An đã đi được {y} mét và dừng lại ở vạch kẻ đường an toàn. Hỏi An còn phải đi bao nhiêu mét nữa mới đến trường?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm quãng đường còn lại, ta lấy tổng quãng đường trừ đi quãng đường đã đi.",
+        "Tính $ {x} - {y} $."
+      ],
+      "solutionHtml": "Quãng đường An còn phải đi tiếp là:<br/>$ {x} - {y} = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề để xác định đâu là tổng và đâu là phần đã thực hiện.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t19-d10"
+    }
+  ]
+}

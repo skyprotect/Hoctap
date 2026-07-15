@@ -1,0 +1,555 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:15:27.669Z
+Lesson ID: l1-bai-36
+Lesson Title: Bài 36: Thực hành xem lịch và giờ
+==================================================
+
+[ERROR DETAILS]
+Unexpected token 'L', ..."ionText": Lan bắt đầ"... is not valid JSON
+SyntaxError: Unexpected token 'L', ..."ionText": Lan bắt đầ"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+No specific JSON position found in error message.
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 7, "max": 10, "step": 1 },
+        "m": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["h + m < 12"],
+      "formulas": {
+        "ans": "h + m",
+        "w1": "h",
+        "w2": "m",
+        "w3": "h + m + 1"
+      },
+      "questionText": "Bây giờ là {h} giờ đúng. Hỏi {m} giờ nữa thì sẽ là mấy giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng số giờ hiện tại với số giờ cần thêm."],
+      "solutionHtml": "Sau {m} giờ nữa, đồng hồ sẽ chỉ:<br/>$ {h} + {m} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Để biết thời gian sau này, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 3, "max": 5, "step": 1 },
+        "m": { "min": 1, "max": 2, "step": 1 }
+      },
+      "constraints": ["h > m"],
+      "formulas": {
+        "ans": "h - m",
+        "w1": "h",
+        "w2": "h + m",
+        "w3": "h - m + 2"
+      },
+      "questionText": "Bây giờ là {h} giờ đúng. Hỏi {m} giờ trước là mấy giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn biết thời gian trước đó, ta lấy thời gian hiện tại trừ đi số giờ đã qua."],
+      "solutionHtml": "Trước đây {m} giờ, đồng hồ chỉ:<br/>$ {h} - {m} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Khi tính thời gian trong quá khứ, hãy dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 5, "max": 25, "step": 1 }
+      },
+      "constraints": ["d % 7 === 0"],
+      "formulas": {
+        "ans": "d / 7",
+        "w1": "d / 7 + 1",
+        "w2": "d / 7 - 1",
+        "w3": "d / 7 + 2"
+      },
+      "questionText": "{d} ngày bằng bao nhiêu tuần lễ?",
+      "options": [
+        "A. {w1} tuần lễ",
+        "B. {ans} tuần lễ",
+        "C. {w2} tuần lễ",
+        "D. {w3} tuần lễ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một tuần lễ có 7 ngày.", "Ta lấy {d} chia cho 7."],
+      "solutionHtml": "Vì 1 tuần lễ bằng 7 ngày nên {d} ngày có:<br/>$ {d} : 7 = {ans} $ (tuần lễ).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ rằng 1 tuần lễ luôn có 7 ngày.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "w": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "w * 7",
+        "w1": "w * 7 + 1",
+        "w2": "w * 7 - 1",
+        "w3": "w * 7 + 2"
+      },
+      "questionText": "{w} tuần lễ có tất cả bao nhiêu ngày?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {ans} ngày",
+        "C. {w2} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một tuần lễ có 7 ngày.", "Ta lấy {w} nhân với 7."],
+      "solutionHtml": "Số ngày trong {w} tuần lễ là:<br/>$ {w} \\times 7 = {ans} $ (ngày).<br/>Đáp án đúng là B.",
+      "tip": "Đổi từ tuần sang ngày ta dùng phép nhân với 7.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 2, "max": 4, "step": 1 },
+        "duration": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["start + duration < 12"],
+      "formulas": {
+        "ans": "start + duration",
+        "w1": "start + duration + 1",
+        "w2": "start + duration - 1",
+        "w3": "start"
+      },
+      "questionText": Lan bắt đầu làm bài tập lúc {start} giờ. Lan làm xong sau {duration} giờ. Hỏi Lan làm xong vào lúc mấy giờ?",\n      'options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng thời gian bắt đầu với thời gian thực hiện."],
+      "solutionHtml": "Thời gian Lan làm xong là:<br/>$ {start} + {duration} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Thời gian kết thúc bằng thời gian bắt đầu cộng khoảng thời gian thực hiện.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": { "min": 15, "max": 20, "step": 1 },
+        "offset": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["day + offset <= 30"],
+      "formulas": {
+        "ans": "day + offset",
+        "w1": "day - offset",
+        "w2": "day + offset + 1",
+        "w3": "day + offset - 1"
+      },
+      "questionText": Hôm nay là ngày {day} tháng 5. Hỏi {offset} ngày nữa là ngày bao nhiêu?",\n      'options": [
+        "A. {w1} tháng 5",
+        "B. {ans} tháng 5",
+        "C. {w2} tháng 5",
+        "D. {w3} tháng 5"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm ngày tương lai, ta lấy ngày hiện tại cộng với số ngày cần tính."],
+      "solutionHtml": "{offset} ngày nữa là ngày:<br/>$ {day} + {offset} = {ans} $ (tháng 5).<br/>Đáp án đúng là B.",
+      "tip": "Xem lịch cũng giống như đếm số trên trục số.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": { "min": 10, "max": 12, "step": 1 },
+        "offset": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["day > offset"],
+      "formulas": {
+        "ans": "day - offset",
+        "w1": "day + offset",
+        "w2": "day - offset + 1",
+        "w3": "day - offset - 1"
+      },
+      "questionText": Sinh nhật của Hoa là ngày {day} tháng 4. Lan nhớ nhầm là ngày đó đã qua {offset} ngày. Hỏi theo Lan thì sinh nhật Hoa là ngày bao nhiêu?",\n      'options": [
+        "A. {w1} tháng 4",
+        "B. {ans} tháng 4",
+        "C. {w2} tháng 4",
+        "D. {w3} tháng 4"
+      ],
+      "correctIndex": 1,
+      "hints": ["Vì thời gian đã qua nên ta thực hiện phép tính trừ."],
+      "solutionHtml": "Ngày mà Lan nghĩ đến là:<br/>$ {day} - {offset} = {ans} $ (tháng 4).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để biết là cần tìm thời gian trước đó hay sau đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": { "min": 8, "max": 9, "step": 1 },
+        "h2": { "min": 10, "max": 11, "step": 1 }
+      },
+      "constraints": ["h2 > h1"],
+      "formulas": {
+        "ans": "h2 - h1",
+        "w1": "h2 + h1",
+        "w2": "h2 - h1 + 1",
+        "w3": "h2 - h1 + 2"
+      },
+      "questionText": Bạn An bắt đầu đi học lúc {h1} giờ và đến trường lúc {h2} giờ. Hỏi bạn An mất bao nhiêu giờ để đến trường?",\n      'options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn biết khoảng thời gian di chuyển, ta lấy giờ đến nơi trừ đi giờ bắt đầu."],
+      "solutionHtml": "Thời gian An đi đến trường là:<br/>$ {h2} - {h1} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Khoảng thời gian là hiệu của thời điểm kết thúc và thời điểm bắt đầu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 14, "max": 21, "step": 7 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "d / 7",
+        "w1": "d / 7 + 2",
+        "w2": "d / 7 + 3",
+        "w3": "d / 7 + 4"
+      },
+      "questionText": Mẹ đi công tác {d} ngày. Hỏi mẹ đi công tác trong mấy tuần lễ?",\n      'options": [
+        "A. {w1} tuần lễ",
+        "B. {ans} tuần lễ",
+        "C. {w2} tuần lễ",
+        "D. {w3} tuần lễ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhớ lại: 7 ngày bằng 1 tuần lễ."],
+      "solutionHtml": "Số tuần lễ mẹ đi công tác là:<br/>$ {d} : 7 = {ans} $ (tuần lễ).<br/>Đáp án đúng là B.",
+      "tip": "Chia cho 7 để đổi đơn vị từ ngày sang tuần.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 6, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h",
+        "w1": "h + 2",
+        "w2": "h + 4",
+        "w3": "h - 1"
+      },
+      "questionText": Đồng hồ đang chỉ {h} giờ đúng. Hỏi kim dài chỉ vào số mấy và kim ngắn chỉ vào số mấy?",\n      'options": [
+        "A. Kim dài chỉ số {w1}, kim ngắn chỉ số {h}",
+        "B. Kim dài chỉ số 12, kim ngắn chỉ số {ans}",
+        "C. Kim dài chỉ số {w2}, kim ngắn chỉ số {h}",
+        "D. Kim dài chỉ số {h}, kim ngắn chỉ số 12"
+      ],
+      "correctIndex": 1,
+      "hints": ["Khi giờ đúng, kim dài luôn chỉ vào số 12.", "Kim ngắn chỉ vào số giờ hiện tại."],
+      "solutionHtml": "Khi đồng hồ chỉ {h} giờ đúng:<br/>- Kim dài chỉ vào số 12.<br/>- Kim ngắn chỉ vào số {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên vị trí của kim phút khi là giờ đúng!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 7, "max": 10, "step": 1 },
+        "m": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["h + m < 12"],
+      "formulas": {
+        "ans": "h + m",
+        "w1": "h",
+        "w2": "m",
+        "w3": "h + m + 1"
+      },
+      "questionText": "Bây giờ là {h} giờ đúng. Hỏi {m} giờ nữa thì sẽ là mấy giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng số giờ hiện tại với số giờ cần thêm."],
+      "solutionHtml": "Sau {m} giờ nữa, đồng hồ sẽ chỉ:<br/>$ {h} + {m} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Để biết thời gian sau này, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 3, "max": 5, "step": 1 },
+        "m": { "min": 1, "max": 2, "step": 1 }
+      },
+      "constraints": ["h > m"],
+      "formulas": {
+        "ans": "h - m",
+        "w1": "h",
+        "w2": "h + m",
+        "w3": "h - m + 2"
+      },
+      "questionText": "Bây giờ là {h} giờ đúng. Hỏi {m} giờ trước là mấy giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn biết thời gian trước đó, ta lấy thời gian hiện tại trừ đi số giờ đã qua."],
+      "solutionHtml": "Trước đây {m} giờ, đồng hồ chỉ:<br/>$ {h} - {m} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Khi tính thời gian trong quá khứ, hãy dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 5, "max": 25, "step": 1 }
+      },
+      "constraints": ["d % 7 === 0"],
+      "formulas": {
+        "ans": "d / 7",
+        "w1": "d / 7 + 1",
+        "w2": "d / 7 - 1",
+        "w3": "d / 7 + 2"
+      },
+      "questionText": "{d} ngày bằng bao nhiêu tuần lễ?",
+      "options": [
+        "A. {w1} tuần lễ",
+        "B. {ans} tuần lễ",
+        "C. {w2} tuần lễ",
+        "D. {w3} tuần lễ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một tuần lễ có 7 ngày.", "Ta lấy {d} chia cho 7."],
+      "solutionHtml": "Vì 1 tuần lễ bằng 7 ngày nên {d} ngày có:<br/>$ {d} : 7 = {ans} $ (tuần lễ).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ rằng 1 tuần lễ luôn có 7 ngày.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "w": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "w * 7",
+        "w1": "w * 7 + 1",
+        "w2": "w * 7 - 1",
+        "w3": "w * 7 + 2"
+      },
+      "questionText": "{w} tuần lễ có tất cả bao nhiêu ngày?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {ans} ngày",
+        "C. {w2} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một tuần lễ có 7 ngày.", "Ta lấy {w} nhân với 7."],
+      "solutionHtml": "Số ngày trong {w} tuần lễ là:<br/>$ {w} \\times 7 = {ans} $ (ngày).<br/>Đáp án đúng là B.",
+      "tip": "Đổi từ tuần sang ngày ta dùng phép nhân với 7.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 2, "max": 4, "step": 1 },
+        "duration": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["start + duration < 12"],
+      "formulas": {
+        "ans": "start + duration",
+        "w1": "start + duration + 1",
+        "w2": "start + duration - 1",
+        "w3": "start"
+      },
+      "questionText": Lan bắt đầu làm bài tập lúc {start} giờ. Lan làm xong sau {duration} giờ. Hỏi Lan làm xong vào lúc mấy giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng thời gian bắt đầu với thời gian thực hiện."],
+      "solutionHtml": "Thời gian Lan làm xong là:<br/>$ {start} + {duration} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Thời gian kết thúc bằng thời gian bắt đầu cộng khoảng thời gian thực hiện.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": { "min": 15, "max": 20, "step": 1 },
+        "offset": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["day + offset <= 30"],
+      "formulas": {
+        "ans": "day + offset",
+        "w1": "day - offset",
+        "w2": "day + offset + 1",
+        "w3": "day + offset - 1"
+      },
+      "questionText": Hôm nay là ngày {day} tháng 5. Hỏi {offset} ngày nữa là ngày bao nhiêu?",
+      "options": [
+        "A. {w1} tháng 5",
+        "B. {ans} tháng 5",
+        "C. {w2} tháng 5",
+        "D. {w3} tháng 5"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm ngày tương lai, ta lấy ngày hiện tại cộng với số ngày cần tính."],
+      "solutionHtml": "{offset} ngày nữa là ngày:<br/>$ {day} + {offset} = {ans} $ (tháng 5).<br/>Đáp án đúng là B.",
+      "tip": "Xem lịch cũng giống như đếm số trên trục số.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": { "min": 10, "max": 12, "step": 1 },
+        "offset": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["day > offset"],
+      "formulas": {
+        "ans": "day - offset",
+        "w1": "day + offset",
+        "w2": "day - offset + 1",
+        "w3": "day - offset - 1"
+      },
+      "questionText": Sinh nhật của Hoa là ngày {day} tháng 4. Lan nhớ nhầm là ngày đó đã qua {offset} ngày. Hỏi theo Lan thì sinh nhật Hoa là ngày bao nhiêu?",
+      "options": [
+        "A. {w1} tháng 4",
+        "B. {ans} tháng 4",
+        "C. {w2} tháng 4",
+        "D. {w3} tháng 4"
+      ],
+      "correctIndex": 1,
+      "hints": ["Vì thời gian đã qua nên ta thực hiện phép tính trừ."],
+      "solutionHtml": "Ngày mà Lan nghĩ đến là:<br/>$ {day} - {offset} = {ans} $ (tháng 4).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ câu hỏi để biết là cần tìm thời gian trước đó hay sau đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": { "min": 8, "max": 9, "step": 1 },
+        "h2": { "min": 10, "max": 11, "step": 1 }
+      },
+      "constraints": ["h2 > h1"],
+      "formulas": {
+        "ans": "h2 - h1",
+        "w1": "h2 + h1",
+        "w2": "h2 - h1 + 1",
+        "w3": "h2 - h1 + 2"
+      },
+      "questionText": Bạn An bắt đầu đi học lúc {h1} giờ và đến trường lúc {h2} giờ. Hỏi bạn An mất bao nhiêu giờ để đến trường?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn biết khoảng thời gian di chuyển, ta lấy giờ đến nơi trừ đi giờ bắt đầu."],
+      "solutionHtml": "Thời gian An đi đến trường là:<br/>$ {h2} - {h1} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Khoảng thời gian là hiệu của thời điểm kết thúc và thời điểm bắt đầu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 14, "max": 21, "step": 7 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "d / 7",
+        "w1": "d / 7 + 2",
+        "w2": "d / 7 + 3",
+        "w3": "d / 7 + 4"
+      },
+      "questionText": Mẹ đi công tác {d} ngày. Hỏi mẹ đi công tác trong mấy tuần lễ?",
+      "options": [
+        "A. {w1} tuần lễ",
+        "B. {ans} tuần lễ",
+        "C. {w2} tuần lễ",
+        "D. {w3} tuần lễ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhớ lại: 7 ngày bằng 1 tuần lễ."],
+      "solutionHtml": "Số tuần lễ mẹ đi công tác là:<br/>$ {d} : 7 = {ans} $ (tuần lễ).<br/>Đáp án đúng là B.",
+      "tip": "Chia cho 7 để đổi đơn vị từ ngày sang tuần.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 6, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h",
+        "w1": "h + 2",
+        "w2": "h + 4",
+        "w3": "h - 1"
+      },
+      "questionText": Đồng hồ đang chỉ {h} giờ đúng. Hỏi kim dài chỉ vào số mấy và kim ngắn chỉ vào số mấy?",
+      "options": [
+        "A. Kim dài chỉ số {w1}, kim ngắn chỉ số {h}",
+        "B. Kim dài chỉ số 12, kim ngắn chỉ số {ans}",
+        "C. Kim dài chỉ số {w2}, kim ngắn chỉ số {h}",
+        "D. Kim dài chỉ số {h}, kim ngắn chỉ số 12"
+      ],
+      "correctIndex": 1,
+      "hints": ["Khi giờ đúng, kim dài luôn chỉ vào số 12.", "Kim ngắn chỉ vào số giờ hiện tại."],
+      "solutionHtml": "Khi đồng hồ chỉ {h} giờ đúng:<br/>- Kim dài chỉ vào số 12.<br/>- Kim ngắn chỉ vào số {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên vị trí của kim phút khi là giờ đúng!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-36-d10"
+    }
+  ]
+}
+

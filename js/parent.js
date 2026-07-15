@@ -234,6 +234,8 @@ const parentDashboard = {
         this.loadApiKeys();
         this.loadProfileSettings();
         this.initPdfExporter();
+        this.initCustomVocabSelect();
+        this.loadCustomVocabData();
     },
 
     // Cập nhật tên học sinh/phụ huynh động trong màn hình Dashboard phụ huynh
@@ -682,13 +684,26 @@ const parentDashboard = {
         const tbody = document.getElementById("parent-history-tbody");
         tbody.innerHTML = "";
 
-        const sessions = app.state.examSessions || [];
+        const sessions = [];
+        if (app.state.subjects) {
+            if (app.state.subjects.math && app.state.subjects.math.examSessions) {
+                app.state.subjects.math.examSessions.forEach(s => sessions.push({ ...s, subjectName: "Toán Học" }));
+            }
+            if (app.state.subjects.english && app.state.subjects.english.examSessions) {
+                app.state.subjects.english.examSessions.forEach(s => sessions.push({ ...s, subjectName: "Tiếng Anh" }));
+            }
+        } else {
+            // Tương thích ngược
+            const oldSessions = app.state.examSessions || [];
+            oldSessions.forEach(s => sessions.push({ ...s, subjectName: "Toán Học" }));
+        }
+
         const sortedSessions = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date));
 
         if (sortedSessions.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="6" style="padding: 1.5rem; text-align: center; color: var(--text-muted);">
+                    <td colspan="7" style="padding: 1.5rem; text-align: center; color: var(--text-muted);">
                         <i class="fa-solid fa-folder-open" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
                         ${app.config.studentName || 'Con'} chưa hoàn thành lượt làm bài tập hay kiểm tra nào.
                     </td>
@@ -726,10 +741,10 @@ const parentDashboard = {
                 levelClass = lvlClass[sess.level] || 'info';
             }
 
-
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td style="padding: 0.8rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted);">${dateStr}</td>
+                <td style="padding: 0.8rem; font-weight: 700; color: ${sess.subjectName === 'Tiếng Anh' ? '#c084fc' : '#10b981'};">${sess.subjectName}</td>
                 <td style="padding: 0.8rem; font-weight: 700;">${sess.lessonTitle}</td>
                 <td style="padding: 0.8rem;">
                     <span class="sess-badge-level bg-${levelClass}" style="background-color: var(--${levelClass}-bg); color: var(--${levelClass}); border: 1px solid var(--${levelClass}); font-weight:700;">${levelLabel}</span>
@@ -817,7 +832,10 @@ const parentDashboard = {
         this.adviceStatusInterval = setInterval(async () => {
             try {
                 const token = sessionStorage.getItem('adminToken');
-                const statusRes = await fetch(getApiUrl("/api/ai-status"), {
+                const studentId = app.config.defaultStudentId || 'default';
+                const classLevel = app.config.currentClass || '6';
+                const subject = app.currentSubject || 'math';
+                const statusRes = await fetch(getApiUrl(`/api/ai-status?studentId=${studentId}&classLevel=${classLevel}&subject=${subject}`), {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (statusRes.ok) {
@@ -1546,8 +1564,9 @@ const parentDashboard = {
                     <div>
                         <label style="display:block; font-size:12px; font-weight:600; text-transform:uppercase; color:#94a3b8; margin-bottom:4px;">Chọn lớp học:</label>
                         <select id="swal-student-class" class="swal2-select" style="width:100%; margin:0; padding:10px; font-size:14px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff;">
-                            <option value="6">Toán lớp 6</option>
-                            <option value="4">Toán lớp 4</option>
+                            <option value="1">Lớp 1</option>
+                            <option value="4">Lớp 4</option>
+                            <option value="6">Lớp 6</option>
                         </select>
                     </div>
                 </div>
@@ -1630,8 +1649,9 @@ const parentDashboard = {
                     <div>
                         <label style="display:block; font-size:12px; font-weight:600; text-transform:uppercase; color:#94a3b8; margin-bottom:4px;">Chọn lớp học:</label>
                         <select id="swal-student-class" class="swal2-select" style="width:100%; margin:0; padding:10px; font-size:14px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff;">
-                            <option value="6" ${student.classLevel === '6' ? 'selected' : ''}>Toán lớp 6</option>
-                            <option value="4" ${student.classLevel === '4' ? 'selected' : ''}>Toán lớp 4</option>
+                            <option value="1" ${student.classLevel === '1' ? 'selected' : ''}>Lớp 1</option>
+                            <option value="4" ${student.classLevel === '4' ? 'selected' : ''}>Lớp 4</option>
+                            <option value="6" ${student.classLevel === '6' ? 'selected' : ''}>Lớp 6</option>
                         </select>
                     </div>
                 </div>
@@ -1850,6 +1870,58 @@ const parentDashboard = {
         });
     },
 
+    // Đăng xuất và reset toàn bộ thiết bị
+    logoutAndResetDevice: async function() {
+        const result = await Swal.fire({
+            title: 'Xác nhận Đăng xuất & Reset?',
+            text: 'Toàn bộ dữ liệu tiến trình học sinh, từ vựng cục bộ và các file đề thi trên máy này sẽ bị XÓA SẠCH để chuyển giao thiết bị. Bạn có chắc chắn không?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#475569',
+            confirmButtonText: 'Đồng ý, Xóa hết!',
+            cancelButtonText: 'Hủy bỏ'
+        });
+
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Đang dọn dẹp thiết bị...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                const token = sessionStorage.getItem('adminToken');
+                const res = await fetch(getApiUrl('/api/auth/logout'), {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (res.ok) {
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Đã Reset thành công',
+                        text: 'Thiết bị đã được dọn sạch dữ liệu và sẵn sàng bàn giao.',
+                        timer: 2500,
+                        showConfirmButton: false
+                    });
+                    // Tải lại trang (sẽ chuyển về màn hình đăng nhập Google)
+                    window.location.reload();
+                } else {
+                    const err = await res.json();
+                    throw new Error(err.error || 'Lỗi không xác định khi reset');
+                }
+            } catch (e) {
+                Swal.fire('Lỗi hệ thống', e.message, 'error');
+            }
+        }
+    },
+
     // --- MỞ RỘNG MODAL CÀI ĐẶT PHỤ HUYNH TRÊN SPLASH SCREEN ---
     openSplashSettingsModal: function() {
         // Tải config trước để đảm bảo chính xác
@@ -1957,6 +2029,11 @@ const parentDashboard = {
             classSelect.value = currentClassLevel;
         }
 
+        const subjectSelect = document.getElementById("pdf-subject-select");
+        if (subjectSelect) {
+            subjectSelect.value = app.currentSubject || "math";
+        }
+
         // Tự điền tên học sinh hiện tại làm gợi ý vào ô nhập tên học sinh
         const studentNameInput = document.getElementById("pdf-student-name-input");
         if (studentNameInput && viewingStudent) {
@@ -1968,18 +2045,26 @@ const parentDashboard = {
         this.onPdfClassChange();
     },
 
+    onPdfSubjectChange: function() {
+        this.onPdfClassChange();
+    },
+
     onPdfClassChange: function() {
         const classVal = document.getElementById("pdf-class-select").value;
+        const subjectSelect = document.getElementById("pdf-subject-select");
+        const subjectVal = subjectSelect ? subjectSelect.value : "math";
+
         const chapterSelect = document.getElementById("pdf-chapter-select");
         if (!chapterSelect) return;
         chapterSelect.innerHTML = "";
 
         if (typeof COURSE_DATA === "undefined") return;
 
-        // Lọc chương theo lớp học
+        // Lọc chương theo lớp học và môn học
         const chapters = COURSE_DATA.filter(chapter => {
             const chapterClass = chapter.class || '6'; // Mặc định lớp 6 nếu không ghi rõ
-            return chapterClass === classVal;
+            const chapterSubject = chapter.subject || 'math';
+            return chapterClass === classVal && chapterSubject === subjectVal;
         });
 
         chapters.forEach(chapter => {
@@ -2380,6 +2465,311 @@ const parentDashboard = {
               });
         }
         window.print();
+    },
+
+    // ------------------------------------------
+    // HỆ THỐNG TỰ NẠP TỪ VỰNG & ÔN TẬP TIẾNG ANH
+    // ------------------------------------------
+    
+    // Nạp học sinh vào dropdown và tải dữ liệu từ vựng
+    initCustomVocabSelect: function() {
+        const select = document.getElementById("vocab-student-select");
+        if (!select) return;
+        
+        select.innerHTML = "";
+        if (app.config.students && app.config.students.length > 0) {
+            app.config.students.forEach(st => {
+                const opt = document.createElement("option");
+                opt.value = st.id;
+                opt.textContent = `${st.name} (Lớp ${st.grade})`;
+                if (st.id === this.viewingStudentId) {
+                    opt.selected = true;
+                }
+                select.appendChild(opt);
+            });
+        } else {
+            const opt = document.createElement("option");
+            opt.value = "default";
+            opt.textContent = app.config.studentName || "Học sinh";
+            select.appendChild(opt);
+        }
+    },
+
+    // Tải và hiển thị danh sách chuyên đề & từ vựng từ SQLite
+    loadCustomVocabData: function() {
+        // Cập nhật giá trị chọn học sinh trong select khớp với student đang view nếu có thay đổi
+        const select = document.getElementById("vocab-student-select");
+        let studentId = this.viewingStudentId || "default";
+        if (select && select.value) {
+            studentId = select.value;
+        }
+
+        // Tải danh sách chuyên đề
+        fetch(getApiUrl(`/api/custom-topics?studentId=${studentId}`))
+            .then(res => res.json())
+            .then(topics => {
+                this.renderCustomTopicsList(topics, studentId);
+            })
+            .catch(err => {
+                console.error("Lỗi tải custom topics:", err);
+            });
+
+        // Tải danh sách từ vựng chi tiết
+        fetch(getApiUrl(`/api/custom-vocabulary?studentId=${studentId}`))
+            .then(res => res.json())
+            .then(vocab => {
+                this.renderCustomVocabInventory(vocab, studentId);
+            })
+            .catch(err => {
+                console.error("Lỗi tải custom vocabulary:", err);
+            });
+    },
+
+    // Render danh sách chuyên đề (cột trái)
+    renderCustomTopicsList: function(topics, studentId) {
+        const container = document.getElementById("vocab-topics-list");
+        if (!container) return;
+
+        if (!topics || topics.length === 0) {
+            container.innerHTML = `
+                <div class="text-slate-400 text-xs text-center py-6 italic">
+                    Chưa có chuyên đề tự tạo nào.
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = topics.map(t => {
+            const dateStr = new Date(t.created_at).toLocaleDateString("vi-VN", {
+                day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"
+            });
+            return `
+                <div class="bg-slate-800/60 p-3 rounded-lg border border-slate-700/50 flex justify-between items-center gap-2 hover:border-violet-500/50 transition">
+                    <div class="flex-1 min-w-0">
+                        <strong class="text-slate-200 text-xs block truncate" title="${t.title}">${t.title}</strong>
+                        <span class="text-[10px] text-slate-400 block mt-0.5">${dateStr}</span>
+                    </div>
+                    <button class="text-red-400 hover:text-red-300 p-1.5 hover:bg-red-500/10 rounded transition text-xs" title="Xóa chuyên đề này" onclick="parentDashboard.deleteCustomTopic('${t.id}', '${studentId}')">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `;
+        }).join("");
+    },
+
+    // Render kho từ vựng và bảng Leitner (cột phải)
+    renderCustomVocabInventory: function(vocab, studentId) {
+        const tbody = document.getElementById("vocab-inventory-tbody");
+        const statsSpan = document.getElementById("vocab-inventory-stats");
+        if (!tbody) return;
+
+        if (statsSpan) {
+            statsSpan.textContent = `Tổng số: ${vocab ? vocab.length : 0} từ`;
+        }
+
+        if (!vocab || vocab.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="p-6 text-center text-slate-400 italic">
+                        Kho từ vựng trống. Nhập từ mới ở form trên để bắt đầu!
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = vocab.map(v => {
+            // Xác định màu sắc của hộp Leitner
+            let boxColor = "bg-slate-700 text-slate-300";
+            if (v.box_level === 5) boxColor = "bg-emerald-600 text-white font-bold";
+            else if (v.box_level === 4) boxColor = "bg-indigo-600 text-white";
+            else if (v.box_level === 3) boxColor = "bg-blue-600 text-white";
+            else if (v.box_level === 2) boxColor = "bg-amber-600 text-white";
+            
+            // Xử lý hạn ôn tập
+            let reviewStatusHtml = "";
+            const now = new Date();
+            const due = new Date(v.next_review_due);
+            if (v.box_level === 5) {
+                reviewStatusHtml = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> Đã thuộc</span>`;
+            } else if (due <= now) {
+                reviewStatusHtml = `<span class="text-rose-400 font-bold animate-pulse"><i class="fa-solid fa-clock"></i> Chờ ôn ngay</span>`;
+            } else {
+                const diffTime = due - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                reviewStatusHtml = `<span class="text-slate-400">${diffDays} ngày nữa</span>`;
+            }
+
+            return `
+                <tr class="hover:bg-slate-800/30">
+                    <td class="p-2.5 font-bold text-violet-400 select-all">${v.word}</td>
+                    <td class="p-2.5">
+                        <div class="text-[10px] text-slate-400 italic">${v.phonetics || ''} (${v.type || ''})</div>
+                        <div class="text-slate-200">${v.translation}</div>
+                        <div class="text-[10px] text-slate-400 mt-1 pl-2 border-l border-slate-600 max-w-sm truncate" title="${v.example_sentence}">${v.example_sentence}</div>
+                    </td>
+                    <td class="p-2.5 text-center">
+                        <span class="text-[10px] px-2 py-0.5 rounded-full ${boxColor}">Hộp ${v.box_level}</span>
+                    </td>
+                    <td class="p-2.5 text-center text-[10px]">${reviewStatusHtml}</td>
+                    <td class="p-2.5 text-right">
+                        <button class="text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 transition text-xs" title="Xóa từ này" onclick="parentDashboard.deleteCustomWord(${v.id}, '${studentId}')">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    },
+
+    // API thêm từ vựng mới
+    addCustomVocabulary: function() {
+        const studentSelect = document.getElementById("vocab-student-select");
+        const studentId = studentSelect ? studentSelect.value : (this.viewingStudentId || "default");
+        const topicTitle = document.getElementById("vocab-topic-title").value.trim();
+        const wordListRaw = document.getElementById("vocab-word-list").value.trim();
+        const autoComplete = document.getElementById("vocab-auto-complete").checked;
+
+        if (!topicTitle) {
+            Swal.fire("Lỗi", "Vui lòng nhập Tiêu đề bài học!", "error");
+            return;
+        }
+
+        if (!wordListRaw) {
+            Swal.fire("Lỗi", "Vui lòng nhập ít nhất một từ vựng!", "error");
+            return;
+        }
+
+        // Tách từ vựng
+        const rawWords = wordListRaw
+            .split(/[\n,]+/)
+            .map(w => w.trim())
+            .filter(w => w.length > 0);
+
+        if (rawWords.length === 0) {
+            Swal.fire("Lỗi", "Danh sách từ vựng không hợp lệ!", "error");
+            return;
+        }
+
+        // Tạo mảng đối tượng gửi đi
+        const words = rawWords.map(w => ({ word: w }));
+
+        Swal.fire({
+            title: 'Đang lưu từ vựng...',
+            html: autoComplete ? 'Trí tuệ nhân tạo (Gemini AI) đang dịch nghĩa, tạo phiên âm và đặt câu ví dụ...' : 'Đang xử lý lưu thông tin từ vựng...',
+            allowOutsideClick: false,
+            didOpen: () => { Swal.showLoading(); }
+        });
+
+        const token = sessionStorage.getItem('adminToken');
+        fetch(getApiUrl('/api/custom-vocabulary/add'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                studentId,
+                topicTitle,
+                words,
+                autoComplete
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            Swal.close();
+            if (data.success) {
+                Swal.fire("Thành công", `Đã nạp ${data.words.length} từ vựng mới vào cơ sở dữ liệu và tạo bài học thành công!`, "success");
+                document.getElementById("vocab-topic-title").value = "";
+                document.getElementById("vocab-word-list").value = "";
+                this.loadCustomVocabData();
+            } else {
+                Swal.fire("Thất bại", data.error || "Không thể lưu từ vựng mới.", "error");
+            }
+        })
+        .catch(err => {
+            Swal.close();
+            console.error(err);
+            Swal.fire("Lỗi kết nối", "Không thể gửi dữ liệu lên máy chủ.", "error");
+        });
+    },
+
+    // API xóa một từ vựng đơn lẻ
+    deleteCustomWord: function(wordId, studentId) {
+        Swal.fire({
+            title: 'Xóa từ vựng này?',
+            text: "Dữ liệu từ vựng và lịch trình ôn tập Leitner của từ này sẽ bị xóa vĩnh viễn!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#475569',
+            confirmButtonText: 'Đồng ý xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const token = sessionStorage.getItem('adminToken');
+                fetch(getApiUrl('/api/custom-vocabulary/delete-word'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ studentId, wordId })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire("Đã xóa", "Đã xóa từ vựng thành công.", "success");
+                        this.loadCustomVocabData();
+                    } else {
+                        Swal.fire("Lỗi", data.error || "Không thể xóa từ vựng.", "error");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    Swal.fire("Lỗi kết nối", "Không thể liên hệ với máy chủ.", "error");
+                });
+            }
+        });
+    },
+
+    // API xóa toàn bộ chuyên đề
+    deleteCustomTopic: function(topicId, studentId) {
+        Swal.fire({
+            title: 'Xóa chuyên đề này?',
+            text: "Toàn bộ bài học và các từ vựng thuộc chuyên đề này sẽ bị xóa khỏi kho từ vựng của con!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#475569',
+            confirmButtonText: 'Đồng ý xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const token = sessionStorage.getItem('adminToken');
+                fetch(getApiUrl('/api/custom-topics/delete'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ studentId, topicId })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire("Đã xóa", "Chuyên đề và các từ vựng tương ứng đã được dọn sạch.", "success");
+                        this.loadCustomVocabData();
+                    } else {
+                        Swal.fire("Lỗi", data.error || "Không thể xóa chuyên đề.", "error");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    Swal.fire("Lỗi kết nối", "Không thể liên hệ với máy chủ.", "error");
+                });
+            }
+        });
     }
 };
 

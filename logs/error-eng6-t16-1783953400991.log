@@ -1,0 +1,582 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:36:40.991Z
+Lesson ID: eng6-t16
+Lesson Title: Unit 16: Music & Arts (NÂNG CAO LỚP 7)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9761 (line 275 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9761 (line 275 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9761 (Line: 275, Column: 1)
+Character causing error: "}"
+
+Context:
+... r/>Đáp án đúng là B.",
+      "tip": "Chia đều luôn dẫn đến phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 40, "step": 1 },
+        "y": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["x % y === 0"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 5"
+      },
+      "questionText": "Trong buổi hòa nhạc, mỗi hàng ghế có {y} khán giả. Nếu tổng số khán giả là {x} người, hỏi ban tổ chức cần sắp xếp bao nhiêu hàng ghế?",
+      "options": [
+        "A. {w1} hàng",
+        "B. {ans} hàng",
+        "C. {w2} hàng",
+        "D. {w3} hàng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số hàng, ta lấy tổng số khán giả chia cho số người trên mỗi hàng."],
+      "solutionHtml": "Số hàng ghế cần thiết là: $ {x} : {y} = {ans} $ (hàng).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia là công cụ hữu hiệu nhất để phân chia nhóm trong toán học.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Một nhóm múa có {a} thành viên. Mỗi thành viên được phát {b} bông hoa sen để biểu diễn. Hỏi nhóm múa cần tổng cộng bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông",
+        "B. {w2} bông",
+        "C. {ans} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 2,
+      "hints": ["Sử dụng phép nhân để tính tổng số lượng đồ vật."],
+      "solutionHtml": "Tổng số bông hoa cần là: $ {a} \\times {b} = {ans} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng mỗi đơn vị, nhân lên là cách nhanh nhất để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 60 + b * 5",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một buổi biểu diễn nghệ thuật gồm {a} tiết mục hát (mỗi tiết mục dài 60 phút) và {b} tiết mục múa (mỗi tiết mục dài 5 phút). Tổng thời gian biểu diễn là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {w2} phút",
+        "C. {ans} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tổng thời gian của từng loại tiết mục rồi cộng lại."],
+      "solutionHtml": "Thời gian hát: $ {a} \\times 60 = {a*60} $ phút.<br/>Thời gian múa: $ {b} \\times 5 = {b*5} $ phút.<br/>Tổng thời gian: $ {a*60} + {b*5} = {ans} $ phút.<br/>Đáp án đúng là C.",
+      "tip": "Luôn tính riêng các nhóm đối tượng trước khi tổng hợp.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 10"
+      },
+      "questionText": "Nhà hát có {a} ghế, trong đó có {b} ghế đã có khán giả ngồi. Hỏi có bao nhiêu ghế còn trống?",
+      "options": [
+        "A. {w1} ghế",
+        "B. {w2} ghế",
+        "C. {ans} ghế",
+        "D. {w3} ghế"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số ghế trống bằng tổng số ghế trừ đi số ghế đã có người ngồi."],
+      "solutionHtml": "Số ghế trống là: $ {a} - {b} = {ans} $ (ghế).<br/>Đáp án đúng là C.",
+      "tip": "Phép trừ giúp xác định phần còn lại của một tổng thể.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 3",
+        "w3": "a + b + 10"
+      },
+      "questionText": "Trong một cuộc thi vẽ tranh, có {a} đội thi, mỗi đội gồm {b} họa sĩ nhí. Tổng số họa sĩ tham gia là bao nhiêu?",
+      "options": [
+        "A. {w1} họa sĩ",
+        "B. {ans} họa sĩ",
+        "C. {w2} họa sĩ",
+        "D. {w3} họa sĩ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tổng số họa sĩ = (Số đội) nhân (Số họa sĩ mỗi đội)."],
+      "solutionHtml": "Tổng số họa sĩ là: $ {a} \\times {b} = {ans} $ (họa sĩ).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đúng nhóm và số lượng trong mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans - 1"
+      },
+      "questionText": "Một dàn nhạc gồm {a} nhạc cụ được chia đều vào {b} nhóm. Hỏi mỗi nhóm có bao nhiêu nhạc cụ?",
+      "options": [
+        "A. {w1} nhạc cụ",
+        "B. {w2} nhạc cụ",
+        "C. {ans} nhạc cụ",
+        "D. {w3} nhạc cụ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Sử dụng phép chia để tìm số lượng trong mỗi nhóm."],
+      "solutionHtml": "Số nhạc cụ mỗi nhóm là: $ {a} : {b} = {ans} $ (nhạc cụ).<br/>Đáp án đúng là C.",
+      "tip": "Khi 'chia đều', hãy dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12, "max": 24, "step": 2 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a / b",
+        "w2": "a + b",
+        "w3": "a * b + 5"
+      },
+      "questionText": "Nếu mỗi ngày một nghệ sĩ sáng tác được {b} tác phẩm âm nhạc, hỏi trong {a} ngày người đó sáng tác được bao nhiêu tác phẩm?",
+      "options": [
+        "A. {w1} tác phẩm",
+        "B. {w2} tác phẩm",
+        "C. {ans} tác phẩm",
+        "D. {w3} tác phẩm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng tác phẩm = (Số tác phẩm mỗi ngày) nhân (Số ngày)."],
+      "solutionHtml": "Tổng số tác phẩm là: $ {b} \\times {a} = {ans} $ (tác phẩm).<br/>Đáp án đúng là C.",
+      "tip": "Để tính tổng theo thời gian, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": ["a > b", "a % 2 === 0"],
+      "formulas": {
+        "ans": "(a - b) / 2",
+        "w1": "(a - b) / 2 + 5",
+        "w2": "(a - b) / 2 - 5",
+        "w3": "a - b"
+      },
+      "questionText": "Tổng số tranh vẽ và ảnh chụp trong triển lãm là {a} tác phẩm. Biết số tranh nhiều hơn số ảnh là {b} tác phẩm. Hỏi có bao nhiêu bức ảnh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {ans} bức",
+        "C. {w2} bức",
+        "D. {w3} bức"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán tìm hai số khi biết Tổng và Hiệu. Số bé (ảnh) = (Tổng - Hiệu) : 2."],
+      "solutionHtml": "Số bức ảnh là: $ ({a} - {b}) : 2 = {ans} $ (bức).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức: Số bé = (Tổng - Hiệu) / 2.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 1000 + b * 2000",
+        "w1": "a + b",
+        "w2": "a * 1000 + b * 2000 + 500",
+        "w3": "a * 2000 + b * 1000"
+      },
+      "questionText": "Giá vé xem kịch cho trẻ em là 1000 đồng, cho người lớn là 2000 đồng. Một gia đình gồm {a} trẻ em và {b} người lớn. Hỏi tổng chi phí mua vé là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w3} đồng",
+        "C. {ans} đồng",
+        "D. {w2} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tiền vé trẻ em và người lớn riêng biệt rồi cộng lại."],
+      "solutionHtml": "Tiền vé trẻ em: $ {a} \\times 1000 = {a*1000} $ đồng.<br/>Tiền vé người lớn: $ {b} \\times 2000 = {b*2000} $ đồng.<br/>Tổng cộng: $ {a*1000} + {b*2000} = {ans} $ đồng.<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị tiền tệ cần được nhân đúng với số lượng đối tượng tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a / b + 2",
+        "w3": "a / b - 1"
+      },
+      "questionText": "Có {a} bức tranh được treo đều trên {b} bức tường trong phòng triển lãm. Hỏi mỗi bức tường có bao nhiêu bức tranh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {ans} bức",
+        "C. {w2} bức",
+        "D. {w3} bức"
+      ],
+      "correctIndex": 1,
+      "hints": ["Phép chia giúp tìm số phần tử trên mỗi đơn vị."],
+      "solutionHtml": "Số bức tranh trên mỗi tường là: $ {a} : {b} = {ans} $ (bức).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều luôn dẫn đến phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 40, "step": 1 },
+        "y": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["x % y === 0"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 5"
+      },
+      "questionText": "Trong buổi hòa nhạc, mỗi hàng ghế có {y} khán giả. Nếu tổng số khán giả là {x} người, hỏi ban tổ chức cần sắp xếp bao nhiêu hàng ghế?",
+      "options": [
+        "A. {w1} hàng",
+        "B. {ans} hàng",
+        "C. {w2} hàng",
+        "D. {w3} hàng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số hàng, ta lấy tổng số khán giả chia cho số người trên mỗi hàng."],
+      "solutionHtml": "Số hàng ghế cần thiết là: $ {x} : {y} = {ans} $ (hàng).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia là công cụ hữu hiệu nhất để phân chia nhóm trong toán học.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Một nhóm múa có {a} thành viên. Mỗi thành viên được phát {b} bông hoa sen để biểu diễn. Hỏi nhóm múa cần tổng cộng bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông",
+        "B. {w2} bông",
+        "C. {ans} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 2,
+      "hints": ["Sử dụng phép nhân để tính tổng số lượng đồ vật."],
+      "solutionHtml": "Tổng số bông hoa cần là: $ {a} \\times {b} = {ans} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng mỗi đơn vị, nhân lên là cách nhanh nhất để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 60 + b * 5",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một buổi biểu diễn nghệ thuật gồm {a} tiết mục hát (mỗi tiết mục dài 60 phút) và {b} tiết mục múa (mỗi tiết mục dài 5 phút). Tổng thời gian biểu diễn là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {w2} phút",
+        "C. {ans} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tổng thời gian của từng loại tiết mục rồi cộng lại."],
+      "solutionHtml": "Thời gian hát: $ {a} \\times 60 = {a*60} $ phút.<br/>Thời gian múa: $ {b} \\times 5 = {b*5} $ phút.<br/>Tổng thời gian: $ {a*60} + {b*5} = {ans} $ phút.<br/>Đáp án đúng là C.",
+      "tip": "Luôn tính riêng các nhóm đối tượng trước khi tổng hợp.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 10",
+        "w3": "a - b - 10"
+      },
+      "questionText": "Nhà hát có {a} ghế, trong đó có {b} ghế đã có khán giả ngồi. Hỏi có bao nhiêu ghế còn trống?",
+      "options": [
+        "A. {w1} ghế",
+        "B. {w2} ghế",
+        "C. {ans} ghế",
+        "D. {w3} ghế"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số ghế trống bằng tổng số ghế trừ đi số ghế đã có người ngồi."],
+      "solutionHtml": "Số ghế trống là: $ {a} - {b} = {ans} $ (ghế).<br/>Đáp án đúng là C.",
+      "tip": "Phép trừ giúp xác định phần còn lại của một tổng thể.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 3",
+        "w3": "a + b + 10"
+      },
+      "questionText": "Trong một cuộc thi vẽ tranh, có {a} đội thi, mỗi đội gồm {b} họa sĩ nhí. Tổng số họa sĩ tham gia là bao nhiêu?",
+      "options": [
+        "A. {w1} họa sĩ",
+        "B. {ans} họa sĩ",
+        "C. {w2} họa sĩ",
+        "D. {w3} họa sĩ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tổng số họa sĩ = (Số đội) nhân (Số họa sĩ mỗi đội)."],
+      "solutionHtml": "Tổng số họa sĩ là: $ {a} \\times {b} = {ans} $ (họa sĩ).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đúng nhóm và số lượng trong mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans - 1"
+      },
+      "questionText": "Một dàn nhạc gồm {a} nhạc cụ được chia đều vào {b} nhóm. Hỏi mỗi nhóm có bao nhiêu nhạc cụ?",
+      "options": [
+        "A. {w1} nhạc cụ",
+        "B. {w2} nhạc cụ",
+        "C. {ans} nhạc cụ",
+        "D. {w3} nhạc cụ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Sử dụng phép chia để tìm số lượng trong mỗi nhóm."],
+      "solutionHtml": "Số nhạc cụ mỗi nhóm là: $ {a} : {b} = {ans} $ (nhạc cụ).<br/>Đáp án đúng là C.",
+      "tip": "Khi 'chia đều', hãy dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12, "max": 24, "step": 2 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a / b",
+        "w2": "a + b",
+        "w3": "a * b + 5"
+      },
+      "questionText": "Nếu mỗi ngày một nghệ sĩ sáng tác được {b} tác phẩm âm nhạc, hỏi trong {a} ngày người đó sáng tác được bao nhiêu tác phẩm?",
+      "options": [
+        "A. {w1} tác phẩm",
+        "B. {w2} tác phẩm",
+        "C. {ans} tác phẩm",
+        "D. {w3} tác phẩm"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng tác phẩm = (Số tác phẩm mỗi ngày) nhân (Số ngày)."],
+      "solutionHtml": "Tổng số tác phẩm là: $ {b} \\times {a} = {ans} $ (tác phẩm).<br/>Đáp án đúng là C.",
+      "tip": "Để tính tổng theo thời gian, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": ["a > b", "a % 2 === 0"],
+      "formulas": {
+        "ans": "(a - b) / 2",
+        "w1": "(a - b) / 2 + 5",
+        "w2": "(a - b) / 2 - 5",
+        "w3": "a - b"
+      },
+      "questionText": "Tổng số tranh vẽ và ảnh chụp trong triển lãm là {a} tác phẩm. Biết số tranh nhiều hơn số ảnh là {b} tác phẩm. Hỏi có bao nhiêu bức ảnh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {ans} bức",
+        "C. {w2} bức",
+        "D. {w3} bức"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán tìm hai số khi biết Tổng và Hiệu. Số bé (ảnh) = (Tổng - Hiệu) : 2."],
+      "solutionHtml": "Số bức ảnh là: $ ({a} - {b}) : 2 = {ans} $ (bức).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức: Số bé = (Tổng - Hiệu) / 2.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 1000 + b * 2000",
+        "w1": "a + b",
+        "w2": "a * 1000 + b * 2000 + 500",
+        "w3": "a * 2000 + b * 1000"
+      },
+      "questionText": "Giá vé xem kịch cho trẻ em là 1000 đồng, cho người lớn là 2000 đồng. Một gia đình gồm {a} trẻ em và {b} người lớn. Hỏi tổng chi phí mua vé là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w3} đồng",
+        "C. {ans} đồng",
+        "D. {w2} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính tiền vé trẻ em và người lớn riêng biệt rồi cộng lại."],
+      "solutionHtml": "Tiền vé trẻ em: $ {a} \\times 1000 = {a*1000} $ đồng.<br/>Tiền vé người lớn: $ {b} \\times 2000 = {b*2000} $ đồng.<br/>Tổng cộng: $ {a*1000} + {b*2000} = {ans} $ đồng.<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị tiền tệ cần được nhân đúng với số lượng đối tượng tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a / b + 2",
+        "w3": "a / b - 1"
+      },
+      "questionText": "Có {a} bức tranh được treo đều trên {b} bức tường trong phòng triển lãm. Hỏi mỗi bức tường có bao nhiêu bức tranh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {ans} bức",
+        "C. {w2} bức",
+        "D. {w3} bức"
+      ],
+      "correctIndex": 1,
+      "hints": ["Phép chia giúp tìm số phần tử trên mỗi đơn vị."],
+      "solutionHtml": "Số bức tranh trên mỗi tường là: $ {a} : {b} = {ans} $ (bức).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều luôn dẫn đến phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t16-d4"
+    }
+  ]
+}
+}
+

@@ -1,0 +1,546 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:20:17.160Z
+Lesson ID: l4-bai-36
+Lesson Title: Bài 36: Ôn tập đo lường
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9786 (line 375 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9786 (line 375 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9786 (Line: 260, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 2, "max": 5, "step": 1 },
+        "km": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "km * 1000 + m",
+        "w1_goc": "km * 1000 + m + 500",
+        "w2_goc": "km * 100 + m",
+        "w3_goc": "km * 1000 + m - 100",
+        "w1": "(w1_goc === ans) ? ans + 100 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 200 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 300 : w3_goc"
+      },
+      "questionText": "Một đoạn đường dài {km} ki-lô-mét và {m} mét. Hỏi đoạn đường đó dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi ki-lô-mét ra mét: $1 \\text{ km} = 1000 \\text{ m}$.",
+        "Lấy kết quả đổi được cộng với số mét lẻ."
+      ],
+      "solutionHtml": "Ta có: $1 \\text{ km} = 1000 \\text{ m}$.<br/>Vậy {km} km = {km000} m.<br/>Tổng độ dài là: {km000} + {m} = {ans} (mét).",
+      "tip": "Luôn nhớ đổi về cùng đơn vị trước khi tính toán."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "kg": { "min": 5, "max": 10, "step": 1 },
+        "g": { "min": 200, "max": 800, "step": 100 }
+      },
+      "constraints": ["g % 100 === 0"],
+      "formulas": {
+        "ans": "kg * 1000 + g",
+        "w1": "(kg * 1000 + g + 100 === ans) ? ans + 50 : kg * 1000 + g + 100",
+        "w2": "(kg * 1000 === ans) ? ans + 500 : kg * 1000",
+        "w3": "(g * 1000 + kg === ans) ? ans + 200 : g * 1000 + kg"
+      },
+      "questionText": "Một túi gạo cân nặng {kg} ki-lô-gam {g} gam. Hỏi túi gạo đó nặng bao nhiêu gam?",
+      "options": [
+        "A. {w1} gam",
+        "B. {ans} gam",
+        "C. {w2} gam",
+        "D. {w3} gam"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhớ rằng $1 \\text{ kg} = 1000 \\text{ g}$.", "Đổi {kg} kg ra gam rồi cộng thêm {g} g."],
+      "solutionHtml": "Ta có: {kg} kg = {kg000} g.<br/>Vậy túi gạo nặng: {kg000} + {g} = {ans} (gam).",
+      "tip": "Khi đổi đơn vị, hãy cẩn thận với các số có hàng trăm và hàng chục."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 60 + b",
+        "w1": "a * 100 + b",
+        "w2": "a * 60 + b + 10",
+        "w3": "a * 3600 + b"
+      },
+      "questionText": "Một vận động viên chạy hết {a} phút {b} giây. Hỏi vận động viên đó chạy hết tất cả bao nhiêu giây?",
+      "options": [
+        "A. {w1} giây",
+        "B. {ans} giây",
+        "C. {w2} giây",
+        "D. {w3} giây"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ phút} = 60 \\text{ giây}$.", "Đổi {a} phút ra giây, sau đó cộng thêm {b} giây."],
+      "solutionHtml": "Đổi {a} phút = {a60} giây.<br/>Tổng thời gian là: {a60} + {b} = {ans} (giây).",
+      "tip": "Đơn vị thời gian thường gây nhầm lẫn vì $1 \\text{ phút} = 60 \\text{ giây}$ chứ không phải $100$."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tank": { "min": 20, "max": 50, "step": 5 },
+        "bottle": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["tank % bottle === 0"],
+      "formulas": {
+        "ans": "tank / bottle",
+        "w1": "tank + bottle",
+        "w2": "tank * bottle",
+        "w3": "tank - bottle"
+      },
+      "questionText": "Một bể nước chứa {tank} lít nước. Người ta dùng các bình, mỗi bình chứa {bottle} lít để múc hết nước trong bể. Hỏi cần bao nhiêu bình như thế?",
+      "options": [
+        "A. {w1} bình",
+        "B. {ans} bình",
+        "C. {w2} bình",
+        "D. {w3} bình"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số bình, ta lấy tổng số nước chia cho số lít mỗi bình."],
+      "solutionHtml": "Số bình cần dùng là:<br/>{tank} : {bottle} = {ans} (bình).",
+      "tip": "Phân biệt rõ chia tổng lượng cho đơn vị của vật chứa."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "cm": { "min": 200, "max": 500, "step": 50 },
+        "dm": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": ["(cm + dm * 10) % 100 === 0"],
+      "formulas": {
+        "ans": "(cm + dm * 10) / 100",
+        "w1": "(cm + dm * 10) / 10",
+        "w2": "(cm + dm * 10) / 1000",
+        "w3": "(cm + dm * 10) / 1"
+      },
+      "questionText": "Một tấm vải dài {cm} xăng-ti-mét và {dm} đề-xi-mét. Hỏi tấm vải dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi tất cả về xăng-ti-mét, sau đó đổi sang mét.", "$1 \\text{ m} = 100 \\text{ cm}$."],
+      "solutionHtml": "{cm} cm giữ nguyên.<br/>{dm} dm = {dm10} cm.<br/>Tổng chiều dài: {cm} + {dm10} = {total} cm.<br/>Đổi ra mét: {total} : 100 = {ans} (mét).",
+      "tip": "Luôn quy đổi về đơn vị nhỏ nhất trước khi cộng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 2, "max": 4, "step": 1 },
+        "m": { "min": 15, "max": 45, "step": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "h * 60 + m",
+        "w1": "h * 60 + m + 10",
+        "w2": "h * 100 + m",
+        "w3": "h * 60 + m - 5"
+      },
+      "questionText": "Một bộ phim kéo dài {h} giờ {m} phút. Hỏi bộ phim đó kéo dài bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ giờ} = 60 \\text{ phút}$."],
+      "solutionHtml": "{h} giờ = {h60} phút.<br/>Tổng thời gian: {h60} + {m} = {ans} (phút).",
+      "tip": "Ghi nhớ bảng đơn vị đo thời gian."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 1000 + b * 100",
+        "w1": "a * 1000 + b",
+        "w2": "a * 100 + b * 10",
+        "w3": "a * 1000 + b * 50"
+      },
+      "questionText": "Một mảnh đất hình chữ nhật có chiều dài {a} ki-lô-mét và chiều rộng bằng {b} hecto-mét. Hỏi chiều rộng mảnh đất đó là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ hecto-mét} = 100 \\text{ mét}$."],
+      "solutionHtml": "Chiều rộng là {b} hecto-mét.<br/>Đổi: {b} hecto-mét = {ans} (mét).",
+      "tip": "Đừng nhầm lẫn giữa ki-lô-mét và hecto-mét."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bags": { "min": 10, "max": 20, "step": 1 },
+        "kg": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "bags * kg",
+        "w1": "bags + kg",
+        "w2": "bags * kg + 5",
+        "w3": "bags * kg - 2"
+      },
+      "questionText": "Cửa hàng có {bags} bao gạo, mỗi bao nặng {kg} yến. Hỏi tất cả số gạo đó nặng bao nhiêu yến?",
+      "options": [
+        "A. {w1} yến",
+        "B. {ans} yến",
+        "C. {w2} yến",
+        "D. {w3} yến"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy số bao nhân với khối lượng của một bao."],
+      "solutionHtml": "Số yến gạo là:<br/>{bags} x {kg} = {ans} (yến).",
+      "tip": "Đơn vị đo khối lượng cần chú ý là yến hay ki-lô-gam."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 1000",
+        "w1": "a * 100",
+        "w2": "a * 10",
+        "w3": "a * 10000"
+      },
+      "questionText": "Một cây cầu dài {a} ki-lô-mét. Hỏi cây cầu đó dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ km} = 1000 \\text{ m}$."],
+      "solutionHtml": "{a} km = {ans} m.",
+      "tip": "Đây là bài toán đổi đơn vị đo độ dài cơ bản nhất."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 10",
+        "w1": "a",
+        "w2": "a * 100",
+        "w3": "a + 10"
+      },
+      "questionText": "Một cuộn dây dài {a} mét. Hỏi cuộn dây đó dài bao nhiêu đề-xi-mét?",
+      "options": [
+        "A. {w1} dm",
+        "B. {ans} dm",
+        "C. {w2} dm",
+        "D. {w3} dm"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ m} = 10 \\text{ dm}$."],
+      "solutionHtml": "Vì $1 \\text{ m} = 10 \\text{ dm}$ nên {a} m = {ans} dm.",
+      "tip": "Nhân với 10 để đổi từ mét sang đề-xi-mét."
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 2, "max": 5, "step": 1 },
+        "km": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "km * 1000 + m",
+        "w1_goc": "km * 1000 + m + 500",
+        "w2_goc": "km * 100 + m",
+        "w3_goc": "km * 1000 + m - 100",
+        "w1": "(w1_goc === ans) ? ans + 100 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 200 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 300 : w3_goc"
+      },
+      "questionText": "Một đoạn đường dài {km} ki-lô-mét và {m} mét. Hỏi đoạn đường đó dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi ki-lô-mét ra mét: $1 \\text{ km} = 1000 \\text{ m}$.",
+        "Lấy kết quả đổi được cộng với số mét lẻ."
+      ],
+      "solutionHtml": "Ta có: $1 \\text{ km} = 1000 \\text{ m}$.<br/>Vậy {km} km = {km000} m.<br/>Tổng độ dài là: {km000} + {m} = {ans} (mét).",
+      "tip": "Luôn nhớ đổi về cùng đơn vị trước khi tính toán."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "kg": { "min": 5, "max": 10, "step": 1 },
+        "g": { "min": 200, "max": 800, "step": 100 }
+      },
+      "constraints": ["g % 100 === 0"],
+      "formulas": {
+        "ans": "kg * 1000 + g",
+        "w1": "(kg * 1000 + g + 100 === ans) ? ans + 50 : kg * 1000 + g + 100",
+        "w2": "(kg * 1000 === ans) ? ans + 500 : kg * 1000",
+        "w3": "(g * 1000 + kg === ans) ? ans + 200 : g * 1000 + kg"
+      },
+      "questionText": "Một túi gạo cân nặng {kg} ki-lô-gam {g} gam. Hỏi túi gạo đó nặng bao nhiêu gam?",
+      "options": [
+        "A. {w1} gam",
+        "B. {ans} gam",
+        "C. {w2} gam",
+        "D. {w3} gam"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhớ rằng $1 \\text{ kg} = 1000 \\text{ g}$.", "Đổi {kg} kg ra gam rồi cộng thêm {g} g."],
+      "solutionHtml": "Ta có: {kg} kg = {kg000} g.<br/>Vậy túi gạo nặng: {kg000} + {g} = {ans} (gam).",
+      "tip": "Khi đổi đơn vị, hãy cẩn thận với các số có hàng trăm và hàng chục."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 60 + b",
+        "w1": "a * 100 + b",
+        "w2": "a * 60 + b + 10",
+        "w3": "a * 3600 + b"
+      },
+      "questionText": "Một vận động viên chạy hết {a} phút {b} giây. Hỏi vận động viên đó chạy hết tất cả bao nhiêu giây?",
+      "options": [
+        "A. {w1} giây",
+        "B. {ans} giây",
+        "C. {w2} giây",
+        "D. {w3} giây"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ phút} = 60 \\text{ giây}$.", "Đổi {a} phút ra giây, sau đó cộng thêm {b} giây."],
+      "solutionHtml": "Đổi {a} phút = {a60} giây.<br/>Tổng thời gian là: {a60} + {b} = {ans} (giây).",
+      "tip": "Đơn vị thời gian thường gây nhầm lẫn vì $1 \\text{ phút} = 60 \\text{ giây}$ chứ không phải $100$."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tank": { "min": 20, "max": 50, "step": 5 },
+        "bottle": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["tank % bottle === 0"],
+      "formulas": {
+        "ans": "tank / bottle",
+        "w1": "tank + bottle",
+        "w2": "tank * bottle",
+        "w3": "tank - bottle"
+      },
+      "questionText": "Một bể nước chứa {tank} lít nước. Người ta dùng các bình, mỗi bình chứa {bottle} lít để múc hết nước trong bể. Hỏi cần bao nhiêu bình như thế?",
+      "options": [
+        "A. {w1} bình",
+        "B. {ans} bình",
+        "C. {w2} bình",
+        "D. {w3} bình"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số bình, ta lấy tổng số nước chia cho số lít mỗi bình."],
+      "solutionHtml": "Số bình cần dùng là:<br/>{tank} : {bottle} = {ans} (bình).",
+      "tip": "Phân biệt rõ chia tổng lượng cho đơn vị của vật chứa."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "cm": { "min": 200, "max": 500, "step": 50 },
+        "dm": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": ["(cm + dm * 10) % 100 === 0"],
+      "formulas": {
+        "ans": "(cm + dm * 10) / 100",
+        "w1": "(cm + dm * 10) / 10",
+        "w2": "(cm + dm * 10) / 1000",
+        "w3": "(cm + dm * 10) / 1"
+      },
+      "questionText": "Một tấm vải dài {cm} xăng-ti-mét và {dm} đề-xi-mét. Hỏi tấm vải dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi tất cả về xăng-ti-mét, sau đó đổi sang mét.", "$1 \\text{ m} = 100 \\text{ cm}$."],
+      "solutionHtml": "{cm} cm giữ nguyên.<br/>{dm} dm = {dm10} cm.<br/>Tổng chiều dài: {cm} + {dm10} = {total} cm.<br/>Đổi ra mét: {total} : 100 = {ans} (mét).",
+      "tip": "Luôn quy đổi về đơn vị nhỏ nhất trước khi cộng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 2, "max": 4, "step": 1 },
+        "m": { "min": 15, "max": 45, "step": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "h * 60 + m",
+        "w1": "h * 60 + m + 10",
+        "w2": "h * 100 + m",
+        "w3": "h * 60 + m - 5"
+      },
+      "questionText": "Một bộ phim kéo dài {h} giờ {m} phút. Hỏi bộ phim đó kéo dài bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ giờ} = 60 \\text{ phút}$."],
+      "solutionHtml": "{h} giờ = {h60} phút.<br/>Tổng thời gian: {h60} + {m} = {ans} (phút).",
+      "tip": "Ghi nhớ bảng đơn vị đo thời gian."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 1000 + b * 100",
+        "w1": "a * 1000 + b",
+        "w2": "a * 100 + b * 10",
+        "w3": "a * 1000 + b * 50"
+      },
+      "questionText": "Một mảnh đất hình chữ nhật có chiều dài {a} ki-lô-mét và chiều rộng bằng {b} hecto-mét. Hỏi chiều rộng mảnh đất đó là bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ hecto-mét} = 100 \\text{ mét}$."],
+      "solutionHtml": "Chiều rộng là {b} hecto-mét.<br/>Đổi: {b} hecto-mét = {ans} (mét).",
+      "tip": "Đừng nhầm lẫn giữa ki-lô-mét và hecto-mét."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bags": { "min": 10, "max": 20, "step": 1 },
+        "kg": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "bags * kg",
+        "w1": "bags + kg",
+        "w2": "bags * kg + 5",
+        "w3": "bags * kg - 2"
+      },
+      "questionText": "Cửa hàng có {bags} bao gạo, mỗi bao nặng {kg} yến. Hỏi tất cả số gạo đó nặng bao nhiêu yến?",
+      "options": [
+        "A. {w1} yến",
+        "B. {ans} yến",
+        "C. {w2} yến",
+        "D. {w3} yến"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy số bao nhân với khối lượng của một bao."],
+      "solutionHtml": "Số yến gạo là:<br/>{bags} x {kg} = {ans} (yến).",
+      "tip": "Đơn vị đo khối lượng cần chú ý là yến hay ki-lô-gam."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 1000",
+        "w1": "a * 100",
+        "w2": "a * 10",
+        "w3": "a * 10000"
+      },
+      "questionText": "Một cây cầu dài {a} ki-lô-mét. Hỏi cây cầu đó dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {ans} mét",
+        "C. {w2} mét",
+        "D. {w3} mét"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ km} = 1000 \\text{ m}$."],
+      "solutionHtml": "{a} km = {ans} m.",
+      "tip": "Đây là bài toán đổi đơn vị đo độ dài cơ bản nhất."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 10",
+        "w1": "a",
+        "w2": "a * 100",
+        "w3": "a + 10"
+      },
+      "questionText": "Một cuộn dây dài {a} mét. Hỏi cuộn dây đó dài bao nhiêu đề-xi-mét?",
+      "options": [
+        "A. {w1} dm",
+        "B. {ans} dm",
+        "C. {w2} dm",
+        "D. {w3} dm"
+      ],
+      "correctIndex": 1,
+      "hints": ["$1 \\text{ m} = 10 \\text{ dm}$."],
+      "solutionHtml": "Vì $1 \\text{ m} = 10 \\text{ dm}$ nên {a} m = {ans} dm.",
+      "tip": "Nhân với 10 để đổi từ mét sang đề-xi-mét."
+    }
+  ]
+}
+

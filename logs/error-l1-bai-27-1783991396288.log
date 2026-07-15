@@ -1,0 +1,665 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:09:56.288Z
+Lesson ID: l1-bai-27
+Lesson Title: Bài 27: Thực hành ước lượng và đo độ dài
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10288 (line 315 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10288 (line 315 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10288 (Line: 315, Column: 1)
+Character causing error: "}"
+
+Context:
+...  đúng là C.",
+      "tip": "Dạng bài tìm độ chênh lệch luôn là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<}
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "len": { "min": 5, "max": 10, "step": 1 },
+        "sub": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "len > sub"
+      ],
+      "formulas": {
+        "ans": "len - sub",
+        "w1": "len + sub",
+        "w2": "len",
+        "w3": "sub"
+      },
+      "questionText": "Một sợi dây dài {len} cm. Bạn An cắt đi một đoạn dài {sub} cm. Hỏi sợi dây còn lại dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cắt đi nghĩa là chúng ta thực hiện phép tính trừ.",
+        "Ta lấy tổng độ dài trừ đi phần đã cắt."
+      ],
+      "solutionHtml": "Độ dài đoạn dây còn lại là:<br/>$ {len} - {sub} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán nhắc đến cắt bớt hoặc lấy đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pen1": { "min": 10, "max": 15, "step": 1 },
+        "pen2": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "pen1 > pen2"
+      ],
+      "formulas": {
+        "ans": "pen1 - pen2",
+        "w1": "pen1 + pen2",
+        "w2": "pen1 + 1",
+        "w3": "pen2 - 1"
+      },
+      "questionText": "Bút chì của bạn Bình dài {pen1} cm, bút chì của bạn Lan dài {pen2} cm. Hỏi bút chì của Bình dài hơn bút chì của Lan bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết hơn bao nhiêu, ta lấy độ dài của cái dài hơn trừ đi độ dài của cái ngắn hơn.",
+        "Phép tính là $ {pen1} - {pen2} $."
+      ],
+      "solutionHtml": "Bút chì của Bình dài hơn bút chì của Lan là:<br/>$ {pen1} - {pen2} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Câu hỏi 'hơn bao nhiêu' luôn là bài toán hiệu, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Khi đo độ dài một quyển vở, Mai đo được $ {a} $ gang tay, sau đó đo thêm một đoạn bằng $ {b} $ gang tay nữa. Hỏi tổng độ dài quyển vở là bao nhiêu gang tay?",
+      "options": [
+        "A. {w1} gang tay",
+        "B. {ans} gang tay",
+        "C. {w2} gang tay",
+        "D. {w3} gang tay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng độ dài ta thực hiện phép cộng.",
+        "Ta cộng $ {a} $ và $ {b} $ lại với nhau."
+      ],
+      "solutionHtml": "Tổng độ dài quyển vở là:<br/>$ {a} + {b} = {ans} $ (gang tay).<br/>Đáp án đúng là B.",
+      "tip": "Khi đo nối tiếp các đoạn với nhau, ta dùng phép cộng để tìm tổng độ dài.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thanh": { "min": 12, "max": 18, "step": 1 },
+        "can": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "thanh % can === 0"
+      ],
+      "formulas": {
+        "ans": "thanh / can",
+        "w1": "thanh + can",
+        "w2": "thanh - can",
+        "w3": "can * 2"
+      },
+      "questionText": "Một thanh gỗ dài {thanh} dm. Bố cắt thanh gỗ đó thành các đoạn nhỏ, mỗi đoạn dài {can} dm. Hỏi bố cắt được tất cả bao nhiêu đoạn gỗ?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {w2} đoạn",
+        "C. {ans} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để biết cắt được bao nhiêu đoạn, ta lấy tổng độ dài chia cho độ dài mỗi đoạn.",
+        "Phép tính là $ {thanh} : {can} $."
+      ],
+      "solutionHtml": "Số đoạn gỗ bố cắt được là:<br/>$ {thanh} : {can} = {ans} $ (đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều một độ dài cho các phần bằng nhau, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "r1": { "min": 2, "max": 5, "step": 1 },
+        "r2": { "min": 6, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "r1 + r2",
+        "w1": "r2 - r1",
+        "w2": "r2 + 1",
+        "w3": "r1 + r2 + 1"
+      },
+      "questionText": "Bạn Hoa dùng thước đo chiều dài cuốn sách. Lần đầu Hoa đo được {r1} gang tay, lần sau đo được {r2} gang tay. Hỏi cả hai lần Hoa đo được tất cả bao nhiêu gang tay?",
+      "options": [
+        "A. {w1} gang tay",
+        "B. {ans} gang tay",
+        "C. {w2} gang tay",
+        "D. {w3} gang tay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Từ 'tất cả' gợi ý cho chúng ta phép cộng.",
+        "Tính tổng hai lần đo."
+      ],
+      "solutionHtml": "Tổng số gang tay đo được là:<br/>$ {r1} + {r2} = {ans} $ (gang tay).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từ khóa 'tất cả' để xác định đúng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "b"
+      },
+      "questionText": "Sợi dây màu xanh dài {a} cm, sợi dây màu đỏ ngắn hơn sợi dây màu xanh {b} cm. Hỏi sợi dây màu đỏ dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ngắn hơn thì ta phải làm phép trừ.",
+        "Lấy độ dài dây xanh trừ đi phần chênh lệch."
+      ],
+      "solutionHtml": "Độ dài sợi dây màu đỏ là:<br/>$ {a} - {b} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Chú ý cụm từ 'ngắn hơn', ta luôn thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": { "min": 5, "max": 8, "step": 1 },
+        "h2": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h1 + h2",
+        "w1": "h1 - h2",
+        "w2": "h1 + 1",
+        "w3": "h2 + 5"
+      },
+      "questionText": "Một chiếc bút dài {h1} cm. Nếu nối thêm một đoạn dài {h2} cm nữa thì chiếc bút đó dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nối thêm nghĩa là độ dài tăng lên, ta dùng phép cộng.",
+        "Cộng độ dài ban đầu và đoạn nối thêm."
+      ],
+      "solutionHtml": "Độ dài của bút sau khi nối là:<br/>$ {h1} + {h2} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán nói về 'nối thêm', đó là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "full": { "min": 10, "max": 20, "step": 2 },
+        "take": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "full > take * 3"
+      ],
+      "formulas": {
+        "ans": "full - take",
+        "w1": "full + take",
+        "w2": "full",
+        "w3": "take"
+      },
+      "questionText": "Một băng giấy dài {full} cm. Bạn Lan cắt bỏ một đoạn dài {take} cm. Hỏi đoạn băng giấy còn lại dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cắt bỏ nghĩa là bớt đi, ta thực hiện phép trừ.",
+        "Phép tính là $ {full} - {take} $."
+      ],
+      "solutionHtml": "Độ dài đoạn băng giấy còn lại là:<br/>$ {full} - {take} = {ans} $ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Cần phân biệt rõ cắt đi là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Bạn Nam có một sợi dây dài {a} dm. Nam muốn chia sợi dây đó thành {b} phần bằng nhau. Hỏi mỗi phần dài bao nhiêu đề-xi-mét?",
+      "options": [
+        "A. {w1} dm",
+        "B. {w2} dm",
+        "C. {ans} dm",
+        "D. {w3} dm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia thành các phần bằng nhau, ta dùng phép chia.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Mỗi phần có độ dài là:<br/>$ {a} : {b} = {ans} $ (dm).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ yêu cầu chia đều để chọn đúng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "b1": { "min": 3, "max": 6, "step": 1 },
+        "b2": { "min": 7, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b2 - b1",
+        "w1": "b2 + b1",
+        "w2": "b1 + 1",
+        "w3": "b2 - 1"
+      },
+      "questionText": "Cây thước thứ nhất dài {b1} cm, cây thước thứ hai dài {b2} cm. Hỏi cây thước thứ hai dài hơn cây thước thứ nhất bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết thước nào dài hơn bao nhiêu, ta lấy độ dài lớn hơn trừ đi độ dài bé hơn.",
+        "Phép tính là $ {b2} - {b1} $."
+      ],
+      "solutionHtml": "Cây thước thứ hai dài hơn cây thứ nhất là:<br/>$ {b2} - {b1} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Dạng bài tìm độ chênh lệch luôn là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d10"
+    }
+  ]
+}
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "len": { "min": 5, "max": 10, "step": 1 },
+        "sub": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "len > sub"
+      ],
+      "formulas": {
+        "ans": "len - sub",
+        "w1": "len + sub",
+        "w2": "len",
+        "w3": "sub"
+      },
+      "questionText": "Một sợi dây dài {len} cm. Bạn An cắt đi một đoạn dài {sub} cm. Hỏi sợi dây còn lại dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cắt đi nghĩa là chúng ta thực hiện phép tính trừ.",
+        "Ta lấy tổng độ dài trừ đi phần đã cắt."
+      ],
+      "solutionHtml": "Độ dài đoạn dây còn lại là:<br/>$ {len} - {sub} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán nhắc đến cắt bớt hoặc lấy đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pen1": { "min": 10, "max": 15, "step": 1 },
+        "pen2": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "pen1 > pen2"
+      ],
+      "formulas": {
+        "ans": "pen1 - pen2",
+        "w1": "pen1 + pen2",
+        "w2": "pen1 + 1",
+        "w3": "pen2 - 1"
+      },
+      "questionText": "Bút chì của bạn Bình dài {pen1} cm, bút chì của bạn Lan dài {pen2} cm. Hỏi bút chì của Bình dài hơn bút chì của Lan bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết hơn bao nhiêu, ta lấy độ dài của cái dài hơn trừ đi độ dài của cái ngắn hơn.",
+        "Phép tính là $ {pen1} - {pen2} $."
+      ],
+      "solutionHtml": "Bút chì của Bình dài hơn bút chì của Lan là:<br/>$ {pen1} - {pen2} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Câu hỏi 'hơn bao nhiêu' luôn là bài toán hiệu, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Khi đo độ dài một quyển vở, Mai đo được $ {a} $ gang tay, sau đó đo thêm một đoạn bằng $ {b} $ gang tay nữa. Hỏi tổng độ dài quyển vở là bao nhiêu gang tay?",
+      "options": [
+        "A. {w1} gang tay",
+        "B. {ans} gang tay",
+        "C. {w2} gang tay",
+        "D. {w3} gang tay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng độ dài ta thực hiện phép cộng.",
+        "Ta cộng $ {a} $ và $ {b} $ lại với nhau."
+      ],
+      "solutionHtml": "Tổng độ dài quyển vở là:<br/>$ {a} + {b} = {ans} $ (gang tay).<br/>Đáp án đúng là B.",
+      "tip": "Khi đo nối tiếp các đoạn với nhau, ta dùng phép cộng để tìm tổng độ dài.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "thanh": { "min": 12, "max": 18, "step": 1 },
+        "can": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "thanh % can === 0"
+      ],
+      "formulas": {
+        "ans": "thanh / can",
+        "w1": "thanh + can",
+        "w2": "thanh - can",
+        "w3": "can * 2"
+      },
+      "questionText": "Một thanh gỗ dài {thanh} dm. Bố cắt thanh gỗ đó thành các đoạn nhỏ, mỗi đoạn dài {can} dm. Hỏi bố cắt được tất cả bao nhiêu đoạn gỗ?",
+      "options": [
+        "A. {w1} đoạn",
+        "B. {w2} đoạn",
+        "C. {ans} đoạn",
+        "D. {w3} đoạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để biết cắt được bao nhiêu đoạn, ta lấy tổng độ dài chia cho độ dài mỗi đoạn.",
+        "Phép tính là $ {thanh} : {can} $."
+      ],
+      "solutionHtml": "Số đoạn gỗ bố cắt được là:<br/>$ {thanh} : {can} = {ans} $ (đoạn).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều một độ dài cho các phần bằng nhau, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "r1": { "min": 2, "max": 5, "step": 1 },
+        "r2": { "min": 6, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "r1 + r2",
+        "w1": "r2 - r1",
+        "w2": "r2 + 1",
+        "w3": "r1 + r2 + 1"
+      },
+      "questionText": "Bạn Hoa dùng thước đo chiều dài cuốn sách. Lần đầu Hoa đo được {r1} gang tay, lần sau đo được {r2} gang tay. Hỏi cả hai lần Hoa đo được tất cả bao nhiêu gang tay?",
+      "options": [
+        "A. {w1} gang tay",
+        "B. {ans} gang tay",
+        "C. {w2} gang tay",
+        "D. {w3} gang tay"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Từ 'tất cả' gợi ý cho chúng ta phép cộng.",
+        "Tính tổng hai lần đo."
+      ],
+      "solutionHtml": "Tổng số gang tay đo được là:<br/>$ {r1} + {r2} = {ans} $ (gang tay).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từ khóa 'tất cả' để xác định đúng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "b"
+      },
+      "questionText": "Sợi dây màu xanh dài {a} cm, sợi dây màu đỏ ngắn hơn sợi dây màu xanh {b} cm. Hỏi sợi dây màu đỏ dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ngắn hơn thì ta phải làm phép trừ.",
+        "Lấy độ dài dây xanh trừ đi phần chênh lệch."
+      ],
+      "solutionHtml": "Độ dài sợi dây màu đỏ là:<br/>$ {a} - {b} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Chú ý cụm từ 'ngắn hơn', ta luôn thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": { "min": 5, "max": 8, "step": 1 },
+        "h2": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h1 + h2",
+        "w1": "h1 - h2",
+        "w2": "h1 + 1",
+        "w3": "h2 + 5"
+      },
+      "questionText": "Một chiếc bút dài {h1} cm. Nếu nối thêm một đoạn dài {h2} cm nữa thì chiếc bút đó dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nối thêm nghĩa là độ dài tăng lên, ta dùng phép cộng.",
+        "Cộng độ dài ban đầu và đoạn nối thêm."
+      ],
+      "solutionHtml": "Độ dài của bút sau khi nối là:<br/>$ {h1} + {h2} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán nói về 'nối thêm', đó là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "full": { "min": 10, "max": 20, "step": 2 },
+        "take": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "full > take * 3"
+      ],
+      "formulas": {
+        "ans": "full - take",
+        "w1": "full + take",
+        "w2": "full",
+        "w3": "take"
+      },
+      "questionText": "Một băng giấy dài {full} cm. Bạn Lan cắt bỏ một đoạn dài {take} cm. Hỏi đoạn băng giấy còn lại dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cắt bỏ nghĩa là bớt đi, ta thực hiện phép trừ.",
+        "Phép tính là $ {full} - {take} $."
+      ],
+      "solutionHtml": "Độ dài đoạn băng giấy còn lại là:<br/>$ {full} - {take} = {ans} $ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Cần phân biệt rõ cắt đi là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Bạn Nam có một sợi dây dài {a} dm. Nam muốn chia sợi dây đó thành {b} phần bằng nhau. Hỏi mỗi phần dài bao nhiêu đề-xi-mét?",
+      "options": [
+        "A. {w1} dm",
+        "B. {w2} dm",
+        "C. {ans} dm",
+        "D. {w3} dm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia thành các phần bằng nhau, ta dùng phép chia.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Mỗi phần có độ dài là:<br/>$ {a} : {b} = {ans} $ (dm).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ yêu cầu chia đều để chọn đúng phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "b1": { "min": 3, "max": 6, "step": 1 },
+        "b2": { "min": 7, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b2 - b1",
+        "w1": "b2 + b1",
+        "w2": "b1 + 1",
+        "w3": "b2 - 1"
+      },
+      "questionText": "Cây thước thứ nhất dài {b1} cm, cây thước thứ hai dài {b2} cm. Hỏi cây thước thứ hai dài hơn cây thước thứ nhất bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết thước nào dài hơn bao nhiêu, ta lấy độ dài lớn hơn trừ đi độ dài bé hơn.",
+        "Phép tính là $ {b2} - {b1} $."
+      ],
+      "solutionHtml": "Cây thước thứ hai dài hơn cây thứ nhất là:<br/>$ {b2} - {b1} = {ans} $ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Dạng bài tìm độ chênh lệch luôn là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-27-d10"
+    }
+  ]
+}
+}
+}
+

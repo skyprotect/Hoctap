@@ -1,0 +1,560 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:11:47.923Z
+Lesson ID: l4-bai-18
+Lesson Title: Bài 18: Đề-xi-mét vuông, mét vuông, mi-li-mét vuông
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11502 (line 378 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11502 (line 378 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11502 (Line: 267, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 2, "max": 9, "step": 1 },
+        "dm": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "m * 100 + dm * 10",
+        "w1": "m * 10 + dm",
+        "w2": "m * 1000 + dm * 100",
+        "w3": "m * 10 + dm * 100",
+        "ans_str": "ans"
+      },
+      "questionText": "Diện tích một mảnh vườn hình chữ nhật là {m} m² {dm} dm². Hỏi diện tích mảnh vườn đó bằng bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {w2} dm²",
+        "C. {ans} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Ta biết $1$ m² = $100$ dm².", "Vậy {m} m² = {m*100} dm².", "Sau đó cộng thêm {dm} dm² = {dm*10} dm²."],
+      "solutionHtml": "Đổi đơn vị đo diện tích:<br/>$ {m} $ m² = $ {m} \\times 100 = {m*100} $ dm².<br/>$ {dm} $ dm² = $ {dm} \\times 10 = {dm*10} $ dm².<br/>Tổng cộng: $ {m*100} + {dm*10} = {ans} $ dm².<br/>Đáp án đúng là C.",
+      "tip": "Khi đổi từ mét vuông sang đề-xi-mét vuông, ta nhân với $100$. Hãy chú ý đổi đúng từng thành phần.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 10000",
+        "w1": "a * a * 100",
+        "w2": "a * 4 * 10000",
+        "w3": "a * a * 1000"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} mét. Hỏi diện tích hình vuông đó bằng bao nhiêu mi-li-mét vuông?",
+      "options": [
+        "A. {w1} mm²",
+        "B. {ans} mm²",
+        "C. {w2} mm²",
+        "D. {w3} mm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính diện tích hình vuông theo đơn vị mét vuông trước: $ {a} \\times {a} = {a*a} $ m².", "Đổi $1$ m² ra mm². Biết $1$ m² = $100$ dm² = $10.000$ cm² = $1.000.000$ mm²."],
+      "solutionHtml": "Diện tích hình vuông là: $ {a} \\times {a} = {a*a} $ m².<br/>Đổi: $ 1 $ m² = $ 1.000.000 $ mm².<br/>Vậy $ {a*a} $ m² = $ {a*a} \\times 1.000.000 = {ans} $ mm².<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các đơn vị đo diện tích: $1$ m² = $1.000.000$ mm².",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 100",
+        "w1": "a * 10",
+        "w2": "a * 1000",
+        "w3": "a * 50"
+      },
+      "questionText": "Một tấm bìa hình chữ nhật có chiều dài {a} m, chiều rộng bằng $1/10$ chiều dài. Tính diện tích tấm bìa đó ra đơn vị đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {w2} dm²",
+        "C. {ans} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính chiều rộng trước: {a} / 10 = {a/10} m.", "Diện tích là: {a} * {a/10} = {a*a/10} m².", "Đổi từ m² sang dm² nhân 100."],
+      "solutionHtml": "Chiều rộng là: $ {a} : 10 = {a/10} $ m = $ {a/10 * 10} $ dm.<br/>Chiều dài là: $ {a} $ m = $ {a * 10} $ dm.<br/>Diện tích là: $ {a*10} \\times {a/10 * 10} = {ans} $ dm².<br/>Đáp án đúng là C.",
+      "tip": "Nên đổi đơn vị đo sang dm ngay từ đầu để tính diện tích ra dm² cho nhanh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 100",
+        "w1": "a * a * 10",
+        "w2": "a * a * 1000",
+        "w3": "a * 4 * 100"
+      },
+      "questionText": "Một mảnh đất hình vuông có chu vi là {a * 4} m. Tính diện tích mảnh đất đó theo đơn vị đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tìm cạnh hình vuông: $P : 4 = {a}$ m.", "Diện tích = $ {a} \\times {a} = {a*a} $ m².", "Đổi sang dm² bằng cách nhân $100$."],
+      "solutionHtml": "Cạnh của hình vuông là: $ {a*4} : 4 = {a} $ m.<br/>Diện tích hình vuông là: $ {a} \\times {a} = {a*a} $ m².<br/>Đổi $ {a*a} $ m² sang dm²: $ {a*a} \\times 100 = {ans} $ dm².<br/>Đáp án đúng là B.",
+      "tip": "Luôn tính toán các thông số hình học theo cùng một đơn vị đo trước khi tính diện tích.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 10 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a / 100",
+        "w1": "a * a / 10",
+        "w2": "a * a / 1000",
+        "w3": "a * a"
+      },
+      "questionText": "Một căn phòng có diện tích {a * a} dm². Hỏi diện tích căn phòng đó bằng bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} m²",
+        "B. {ans} m²",
+        "C. {w2} m²",
+        "D. {w3} m²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Biết $100$ dm² = $1$ m².", "Vậy để đổi từ dm² sang m², ta chia cho $100$."],
+      "solutionHtml": "Ta có: $100$ dm² = $1$ m².<br/>Vậy $ {a*a} $ dm² = $ {a*a} : 100 = {ans} $ m².<br/>Đáp án đúng là B.",
+      "tip": "Khi đổi đơn vị diện tích từ nhỏ sang lớn, ta cần chia cho các hệ số tương ứng ($100$ cho dm² sang m²).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 4, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 100 + b * 10000",
+        "w1": "a * 100 + b * 100",
+        "w2": "a * 100 + b * 1000",
+        "w3": "a * 10 + b * 100"
+      },
+      "questionText": "Cho diện tích là {a} m² {b} dm². Giá trị này bằng bao nhiêu mi-li-mét vuông?",
+      "options": [
+        "A. {w1} mm²",
+        "B. {w2} mm²",
+        "C. {ans} mm²",
+        "D. {w3} mm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Đổi {a} m² sang mm²: {a} * 1.000.000.", "Đổi {b} dm² sang mm²: {b} * 10.000."],
+      "solutionHtml": "Ta có $1$ m² = $1.000.000$ mm² và $1$ dm² = $10.000$ mm².<br/>$ {a} $ m² = {a*1000000} mm².<br/>$ {b} $ dm² = {b*10000} mm².<br/>Tổng cộng: {a*1000000+b*10000} mm².",
+      "tip": "Hãy quy đổi từng đơn vị về đơn vị đích rồi mới cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 100",
+        "w1": "a * 10",
+        "w2": "a * 200",
+        "w3": "a * 50"
+      },
+      "questionText": "Một mảnh vải hình chữ nhật có chiều dài {a} m, chiều rộng bằng $1/2$ chiều dài. Tính diện tích mảnh vải ra đơn vị mét vuông, sau đó đổi sang đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích = dài * rộng. Đổi ra m² rồi nhân $100$."],
+      "solutionHtml": "Chiều rộng là: $ {a} : 2 = {a/2} $ m.<br/>Diện tích là: $ {a} \\times {a/2} = {a*a/2} $ m².<br/>Đổi sang dm²: $ {a*a/2} \\times 100 = {ans} $ dm².",
+      "tip": "Luôn kiểm tra đơn vị yêu cầu cuối cùng của bài toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a",
+        "w1": "a * 4",
+        "w2": "a * a / 100",
+        "w3": "a * a * 100"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} dm. Diện tích của hình vuông đó là bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình vuông cạnh $a$ là $a \\times a$."],
+      "solutionHtml": "Diện tích hình vuông là: $ {a} \\times {a} = {ans} $ dm².<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề, đơn vị của cạnh đã khớp với đơn vị của diện tích yêu cầu chưa?",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 100",
+        "w1": "a * a * 10",
+        "w2": "a * a * 1000",
+        "w3": "a * 2 * 100"
+      },
+      "questionText": "Một mặt bàn hình chữ nhật có chiều dài {a * 2} dm, chiều rộng là {a} dm. Diện tích mặt bàn đó bằng bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình chữ nhật là dài nhân rộng."],
+      "solutionHtml": "Diện tích là: $ {a*2} \\times {a} = {a*2*a} $ dm².<br/>Đáp án đúng là B.",
+      "tip": "Tính toán cẩn thận để tránh nhầm lẫn giữa chu vi và diện tích.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 100",
+        "w1": "a * a",
+        "w2": "a * a * 10",
+        "w3": "a * 4 * 100"
+      },
+      "questionText": "Một tấm thảm hình vuông có cạnh là {a} m. Diện tích tấm thảm đó là bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {w2} dm²",
+        "C. {ans} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính diện tích ra m² rồi đổi sang dm² bằng cách nhân $100$."],
+      "solutionHtml": "Diện tích thảm là: $ {a} \\times {a} = {a*a} $ m².<br/>Đổi ra dm²: $ {a*a} \\times 100 = {ans} $ dm².",
+      "tip": "Nhớ rằng $1$ m² bằng $100$ dm².",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 2, "max": 9, "step": 1 },
+        "dm": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "m * 100 + dm * 10",
+        "w1": "m * 10 + dm",
+        "w2": "m * 1000 + dm * 100",
+        "w3": "m * 10 + dm * 100",
+        "ans_str": "ans"
+      },
+      "questionText": "Diện tích một mảnh vườn hình chữ nhật là {m} m² {dm} dm². Hỏi diện tích mảnh vườn đó bằng bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {w2} dm²",
+        "C. {ans} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Ta biết $1$ m² = $100$ dm².", "Vậy {m} m² = {m*100} dm².", "Sau đó cộng thêm {dm} dm² = {dm*10} dm²."],
+      "solutionHtml": "Đổi đơn vị đo diện tích:<br/>$ {m} $ m² = $ {m} \\times 100 = {m*100} $ dm².<br/>$ {dm} $ dm² = $ {dm} \\times 10 = {dm*10} $ dm².<br/>Tổng cộng: $ {m*100} + {dm*10} = {ans} $ dm².<br/>Đáp án đúng là C.",
+      "tip": "Khi đổi từ mét vuông sang đề-xi-mét vuông, ta nhân với $100$. Hãy chú ý đổi đúng từng thành phần.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 10000",
+        "w1": "a * a * 100",
+        "w2": "a * 4 * 10000",
+        "w3": "a * a * 1000"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} mét. Hỏi diện tích hình vuông đó bằng bao nhiêu mi-li-mét vuông?",
+      "options": [
+        "A. {w1} mm²",
+        "B. {ans} mm²",
+        "C. {w2} mm²",
+        "D. {w3} mm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính diện tích hình vuông theo đơn vị mét vuông trước: $ {a} \\times {a} = {a*a} $ m².", "Đổi $1$ m² ra mm². Biết $1$ m² = $100$ dm² = $10.000$ cm² = $1.000.000$ mm²."],
+      "solutionHtml": "Diện tích hình vuông là: $ {a} \\times {a} = {a*a} $ m².<br/>Đổi: $ 1 $ m² = $ 1.000.000 $ mm².<br/>Vậy $ {a*a} $ m² = $ {a*a} \\times 1.000.000 = {ans} $ mm².<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các đơn vị đo diện tích: $1$ m² = $1.000.000$ mm².",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 100",
+        "w1": "a * 10",
+        "w2": "a * 1000",
+        "w3": "a * 50"
+      },
+      "questionText": "Một tấm bìa hình chữ nhật có chiều dài {a} m, chiều rộng bằng $1/10$ chiều dài. Tính diện tích tấm bìa đó ra đơn vị đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {w2} dm²",
+        "C. {ans} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính chiều rộng trước: {a} / 10 = {a/10} m.", "Diện tích là: {a} * {a/10} = {a*a/10} m².", "Đổi từ m² sang dm² nhân 100."],
+      "solutionHtml": "Chiều rộng là: $ {a} : 10 = {a/10} $ m = $ {a/10 * 10} $ dm.<br/>Chiều dài là: $ {a} $ m = $ {a * 10} $ dm.<br/>Diện tích là: $ {a*10} \\times {a/10 * 10} = {ans} $ dm².<br/>Đáp án đúng là C.",
+      "tip": "Nên đổi đơn vị đo sang dm ngay từ đầu để tính diện tích ra dm² cho nhanh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 100",
+        "w1": "a * a * 10",
+        "w2": "a * a * 1000",
+        "w3": "a * 4 * 100"
+      },
+      "questionText": "Một mảnh đất hình vuông có chu vi là {a * 4} m. Tính diện tích mảnh đất đó theo đơn vị đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tìm cạnh hình vuông: $P : 4 = {a}$ m.", "Diện tích = $ {a} \\times {a} = {a*a} $ m².", "Đổi sang dm² bằng cách nhân $100$."],
+      "solutionHtml": "Cạnh của hình vuông là: $ {a*4} : 4 = {a} $ m.<br/>Diện tích hình vuông là: $ {a} \\times {a} = {a*a} $ m².<br/>Đổi $ {a*a} $ m² sang dm²: $ {a*a} \\times 100 = {ans} $ dm².<br/>Đáp án đúng là B.",
+      "tip": "Luôn tính toán các thông số hình học theo cùng một đơn vị đo trước khi tính diện tích.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 50, "step": 10 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a / 100",
+        "w1": "a * a / 10",
+        "w2": "a * a / 1000",
+        "w3": "a * a"
+      },
+      "questionText": "Một căn phòng có diện tích {a * a} dm². Hỏi diện tích căn phòng đó bằng bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1} m²",
+        "B. {ans} m²",
+        "C. {w2} m²",
+        "D. {w3} m²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Biết $100$ dm² = $1$ m².", "Vậy để đổi từ dm² sang m², ta chia cho $100$."],
+      "solutionHtml": "Ta có: $100$ dm² = $1$ m².<br/>Vậy $ {a*a} $ dm² = $ {a*a} : 100 = {ans} $ m².<br/>Đáp án đúng là B.",
+      "tip": "Khi đổi đơn vị diện tích từ nhỏ sang lớn, ta cần chia cho các hệ số tương ứng ($100$ cho dm² sang m²).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 4, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 100 + b * 10000",
+        "w1": "a * 100 + b * 100",
+        "w2": "a * 100 + b * 1000",
+        "w3": "a * 10 + b * 100"
+      },
+      "questionText": "Cho diện tích là {a} m² {b} dm². Giá trị này bằng bao nhiêu mi-li-mét vuông?",
+      "options": [
+        "A. {w1} mm²",
+        "B. {w2} mm²",
+        "C. {ans} mm²",
+        "D. {w3} mm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Đổi {a} m² sang mm²: {a} * 1.000.000.", "Đổi {b} dm² sang mm²: {b} * 10.000."],
+      "solutionHtml": "Ta có $1$ m² = $1.000.000$ mm² và $1$ dm² = $10.000$ mm².<br/>$ {a} $ m² = {a*1000000} mm².<br/>$ {b} $ dm² = {b*10000} mm².<br/>Tổng cộng: {a*1000000+b*10000} mm².",
+      "tip": "Hãy quy đổi từng đơn vị về đơn vị đích rồi mới cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 100",
+        "w1": "a * 10",
+        "w2": "a * 200",
+        "w3": "a * 50"
+      },
+      "questionText": "Một mảnh vải hình chữ nhật có chiều dài {a} m, chiều rộng bằng $1/2$ chiều dài. Tính diện tích mảnh vải ra đơn vị mét vuông, sau đó đổi sang đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích = dài * rộng. Đổi ra m² rồi nhân $100$."],
+      "solutionHtml": "Chiều rộng là: $ {a} : 2 = {a/2} $ m.<br/>Diện tích là: $ {a} \\times {a/2} = {a*a/2} $ m².<br/>Đổi sang dm²: $ {a*a/2} \\times 100 = {ans} $ dm².",
+      "tip": "Luôn kiểm tra đơn vị yêu cầu cuối cùng của bài toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a",
+        "w1": "a * 4",
+        "w2": "a * a / 100",
+        "w3": "a * a * 100"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} dm. Diện tích của hình vuông đó là bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình vuông cạnh $a$ là $a \\times a$."],
+      "solutionHtml": "Diện tích hình vuông là: $ {a} \\times {a} = {ans} $ dm².<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề, đơn vị của cạnh đã khớp với đơn vị của diện tích yêu cầu chưa?",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 100",
+        "w1": "a * a * 10",
+        "w2": "a * a * 1000",
+        "w3": "a * 2 * 100"
+      },
+      "questionText": "Một mặt bàn hình chữ nhật có chiều dài {a * 2} dm, chiều rộng là {a} dm. Diện tích mặt bàn đó bằng bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {ans} dm²",
+        "C. {w2} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình chữ nhật là dài nhân rộng."],
+      "solutionHtml": "Diện tích là: $ {a*2} \\times {a} = {a*2*a} $ dm².<br/>Đáp án đúng là B.",
+      "tip": "Tính toán cẩn thận để tránh nhầm lẫn giữa chu vi và diện tích.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * a * 100",
+        "w1": "a * a",
+        "w2": "a * a * 10",
+        "w3": "a * 4 * 100"
+      },
+      "questionText": "Một tấm thảm hình vuông có cạnh là {a} m. Diện tích tấm thảm đó là bao nhiêu đề-xi-mét vuông?",
+      "options": [
+        "A. {w1} dm²",
+        "B. {w2} dm²",
+        "C. {ans} dm²",
+        "D. {w3} dm²"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính diện tích ra m² rồi đổi sang dm² bằng cách nhân $100$."],
+      "solutionHtml": "Diện tích thảm là: $ {a} \\times {a} = {a*a} $ m².<br/>Đổi ra dm²: $ {a*a} \\times 100 = {ans} $ dm².",
+      "tip": "Nhớ rằng $1$ m² bằng $100$ dm².",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-18-d4"
+    }
+  ]
+}
+

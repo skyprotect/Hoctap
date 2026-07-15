@@ -1,0 +1,474 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:25:34.388Z
+Lesson ID: eng1-t14
+Lesson Title: Unit 14: In the toy shop
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11984 (line 406 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11984 (line 406 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11984 (Line: 224, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 2"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trong cửa hàng đồ chơi có {a} chiếc ô tô đồ chơi được xếp đều vào {b} kệ. Hỏi mỗi kệ có bao nhiêu chiếc ô tô?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số ô tô mỗi kệ, ta lấy tổng số ô tô chia cho số kệ.", "Thực hiện phép tính $ {a} : {b} $."],
+      "solutionHtml": "Số ô tô trên mỗi kệ là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, hãy nhớ sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b + 2",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Bạn An có {a} con búp bê. Mẹ mua thêm cho An {b} con búp bê nữa. Hỏi An có tất cả bao nhiêu con búp bê?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["An có {a} con và được mua thêm {b} con.", "Để tính tổng, ta dùng phép cộng $ {a} + {b} $."],
+      "solutionHtml": "Tổng số búp bê An có là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'thêm' nghĩa là chúng ta thực hiện phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b + 2",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Cửa hàng có {a} quả bóng. Cửa hàng đã bán đi {b} quả. Hỏi cửa hàng còn lại bao nhiêu quả bóng?",
+      "options": ["A. {ans} quả", "B. {w1} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 0,
+      "hints": ["Cửa hàng đã bán đi nghĩa là số bóng đã giảm bớt.", "Thực hiện phép trừ $ {a} - {b} $."],
+      "solutionHtml": "Số quả bóng còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Từ 'bán đi' hoặc 'còn lại' thường gợi ý cho ta phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b + 3"
+      },
+      "questionText": "Có {a} hộp quà, mỗi hộp chứa {b} chiếc ô tô nhỏ. Hỏi có tất cả bao nhiêu chiếc ô tô?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Mỗi hộp có {b} chiếc, có {a} hộp, ta cần tính tổng.", "Sử dụng phép nhân $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số ô tô là:<br/>$ {a} \\times {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong mỗi nhóm, hãy nhân với số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Lan có {a} chú gấu bông, Nam có ít hơn Lan {b} chú gấu bông. Hỏi Nam có bao nhiêu chú gấu bông?",
+      "options": ["A. {w1} chú", "B. {ans} chú", "C. {w2} chú", "D. {w3} chú"],
+      "correctIndex": 1,
+      "hints": ["Nam có ít hơn Lan, nghĩa là ta dùng phép trừ.", "Tính $ {a} - {b} $."],
+      "solutionHtml": "Số gấu bông của Nam là:<br/>$ {a} - {b} = {ans} $ (chú).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'ít hơn' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + a + b",
+        "w1": "a + b",
+        "w2": "a + a + b + 1",
+        "w3": "a + a + b + 2"
+      },
+      "questionText": "Cửa hàng bán được {a} bộ xếp hình buổi sáng, buổi chiều bán được nhiều hơn buổi sáng {b} bộ, còn buổi tối bán được bằng buổi sáng. Hỏi tổng cả ngày bán được bao nhiêu bộ?",
+      "options": ["A. {w1} bộ", "B. {w2} bộ", "C. {w3} bộ", "D. {ans} bộ"],
+      "correctIndex": 3,
+      "hints": ["Sáng: {a}, Chiều: {a}+{b}, Tối: {a}.", "Cộng ba số lại."],
+      "solutionHtml": "Số bộ xếp hình bán được:<br/>Sáng: {a}<br/>Chiều: {a} + {b} = {a+b}<br/>Tối: {a}<br/>Tổng: {a} + {a+b} + {a} = {ans} (bộ).<br/>Đáp án đúng là D.",
+      "tip": "Đọc kỹ từng khoảng thời gian trong ngày.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a / 2 + 1",
+        "w2": "a / 2 + 2",
+        "w3": "a / 2 - 1"
+      },
+      "questionText": "Một nửa số bóng trong cửa hàng là bóng màu đỏ. Nếu cửa hàng có {a} quả bóng, hỏi có bao nhiêu quả bóng màu đỏ?",
+      "options": ["A. {w1} quả", "B. {w2} quả", "C. {ans} quả", "D. {w3} quả"],
+      "correctIndex": 2,
+      "hints": ["Một nửa nghĩa là chia cho 2.", "Tính $ {a} : 2 $."],
+      "solutionHtml": "Số quả bóng màu đỏ là:<br/>$ {a} : 2 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Một nửa của một số chính là số đó chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi bé mua {a} con quay. Hỏi {b} bé mua tất cả bao nhiêu con quay?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Mỗi bé {a} con, có {b} bé.", "Thực hiện $ {a} \\times {b} $."],
+      "solutionHtml": "Số con quay là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Số lượng mỗi phần nhân với số phần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a * b"
+      },
+      "questionText": "Trong giỏ có {a} món đồ chơi hình vuông và {b} món đồ chơi hình tròn. Hỏi có tất cả bao nhiêu món đồ chơi?",
+      "options": ["A. {w3} món", "B. {ans} món", "C. {w1} món", "D. {w2} món"],
+      "correctIndex": 1,
+      "hints": ["Cộng số đồ chơi hình vuông và hình tròn.", "Tính $ {a} + {b} $."],
+      "solutionHtml": "Tổng số món đồ chơi là:<br/>$ {a} + {b} = {ans} $ (món).<br/>Đáp án đúng là B.",
+      "tip": "Tính tổng là cộng lại tất cả.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Cửa hàng có {a} chú robot màu xanh và màu đỏ. Biết có {b} chú robot màu đỏ. Hỏi có bao nhiêu chú robot màu xanh?",
+      "options": ["A. {w1} chú", "B. {w2} chú", "C. {ans} chú", "D. {w3} chú"],
+      "correctIndex": 2,
+      "hints": ["Tổng số robot là {a}, robot đỏ là {b}.", "Để tìm robot xanh, lấy tổng trừ đi số robot đỏ $ {a} - {b} $."],
+      "solutionHtml": "Số chú robot màu xanh là:<br/>$ {a} - {b} = {ans} $ (chú).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết tổng và một phần, hãy lấy tổng trừ đi phần đã biết.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 2"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trong cửa hàng đồ chơi có {a} chiếc ô tô đồ chơi được xếp đều vào {b} kệ. Hỏi mỗi kệ có bao nhiêu chiếc ô tô?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số ô tô mỗi kệ, ta lấy tổng số ô tô chia cho số kệ.", "Thực hiện phép tính $ {a} : {b} $."],
+      "solutionHtml": "Số ô tô trên mỗi kệ là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, hãy nhớ sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b + 2",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Bạn An có {a} con búp bê. Mẹ mua thêm cho An {b} con búp bê nữa. Hỏi An có tất cả bao nhiêu con búp bê?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["An có {a} con và được mua thêm {b} con.", "Để tính tổng, ta dùng phép cộng $ {a} + {b} $."],
+      "solutionHtml": "Tổng số búp bê An có là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'thêm' nghĩa là chúng ta thực hiện phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b + 2",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Cửa hàng có {a} quả bóng. Cửa hàng đã bán đi {b} quả. Hỏi cửa hàng còn lại bao nhiêu quả bóng?",
+      "options": ["A. {ans} quả", "B. {w1} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 0,
+      "hints": ["Cửa hàng đã bán đi nghĩa là số bóng đã giảm bớt.", "Thực hiện phép trừ $ {a} - {b} $."],
+      "solutionHtml": "Số quả bóng còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Từ 'bán đi' hoặc 'còn lại' thường gợi ý cho ta phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b + 3"
+      },
+      "questionText": "Có {a} hộp quà, mỗi hộp chứa {b} chiếc ô tô nhỏ. Hỏi có tất cả bao nhiêu chiếc ô tô?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Mỗi hộp có {b} chiếc, có {a} hộp, ta cần tính tổng.", "Sử dụng phép nhân $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số ô tô là:<br/>$ {a} \\times {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong mỗi nhóm, hãy nhân với số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Lan có {a} chú gấu bông, Nam có ít hơn Lan {b} chú gấu bông. Hỏi Nam có bao nhiêu chú gấu bông?",
+      "options": ["A. {w1} chú", "B. {ans} chú", "C. {w2} chú", "D. {w3} chú"],
+      "correctIndex": 1,
+      "hints": ["Nam có ít hơn Lan, nghĩa là ta dùng phép trừ.", "Tính $ {a} - {b} $."],
+      "solutionHtml": "Số gấu bông của Nam là:<br/>$ {a} - {b} = {ans} $ (chú).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'ít hơn' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + a + b",
+        "w1": "a + b",
+        "w2": "a + a + b + 1",
+        "w3": "a + a + b + 2"
+      },
+      "questionText": "Cửa hàng bán được {a} bộ xếp hình buổi sáng, buổi chiều bán được nhiều hơn buổi sáng {b} bộ, còn buổi tối bán được bằng buổi sáng. Hỏi tổng cả ngày bán được bao nhiêu bộ?",
+      "options": ["A. {w1} bộ", "B. {w2} bộ", "C. {w3} bộ", "D. {ans} bộ"],
+      "correctIndex": 3,
+      "hints": ["Sáng: {a}, Chiều: {a}+{b}, Tối: {a}.", "Cộng ba số lại."],
+      "solutionHtml": "Số bộ xếp hình bán được:<br/>Sáng: {a}<br/>Chiều: {a} + {b} = {a+b}<br/>Tối: {a}<br/>Tổng: {a} + {a+b} + {a} = {ans} (bộ).<br/>Đáp án đúng là D.",
+      "tip": "Đọc kỹ từng khoảng thời gian trong ngày.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a / 2 + 1",
+        "w2": "a / 2 + 2",
+        "w3": "a / 2 - 1"
+      },
+      "questionText": "Một nửa số bóng trong cửa hàng là bóng màu đỏ. Nếu cửa hàng có {a} quả bóng, hỏi có bao nhiêu quả bóng màu đỏ?",
+      "options": ["A. {w1} quả", "B. {w2} quả", "C. {ans} quả", "D. {w3} quả"],
+      "correctIndex": 2,
+      "hints": ["Một nửa nghĩa là chia cho 2.", "Tính $ {a} : 2 $."],
+      "solutionHtml": "Số quả bóng màu đỏ là:<br/>$ {a} : 2 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Một nửa của một số chính là số đó chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi bé mua {a} con quay. Hỏi {b} bé mua tất cả bao nhiêu con quay?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Mỗi bé {a} con, có {b} bé.", "Thực hiện $ {a} \\times {b} $."],
+      "solutionHtml": "Số con quay là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Số lượng mỗi phần nhân với số phần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a * b"
+      },
+      "questionText": "Trong giỏ có {a} món đồ chơi hình vuông và {b} món đồ chơi hình tròn. Hỏi có tất cả bao nhiêu món đồ chơi?",
+      "options": ["A. {w3} món", "B. {ans} món", "C. {w1} món", "D. {w2} món"],
+      "correctIndex": 1,
+      "hints": ["Cộng số đồ chơi hình vuông và hình tròn.", "Tính $ {a} + {b} $."],
+      "solutionHtml": "Tổng số món đồ chơi là:<br/>$ {a} + {b} = {ans} $ (món).<br/>Đáp án đúng là B.",
+      "tip": "Tính tổng là cộng lại tất cả.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Cửa hàng có {a} chú robot màu xanh và màu đỏ. Biết có {b} chú robot màu đỏ. Hỏi có bao nhiêu chú robot màu xanh?",
+      "options": ["A. {w1} chú", "B. {w2} chú", "C. {ans} chú", "D. {w3} chú"],
+      "correctIndex": 2,
+      "hints": ["Tổng số robot là {a}, robot đỏ là {b}.", "Để tìm robot xanh, lấy tổng trừ đi số robot đỏ $ {a} - {b} $."],
+      "solutionHtml": "Số chú robot màu xanh là:<br/>$ {a} - {b} = {ans} $ (chú).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết tổng và một phần, hãy lấy tổng trừ đi phần đã biết.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t14-d10"
+    }
+  ]
+}
+

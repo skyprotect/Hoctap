@@ -599,6 +599,9 @@
                     <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl transition duration-200 flex items-center gap-1.5 text-sm" onclick="parentDashboard.saveParentProfileSettings()">
                         <i class="fa-solid fa-floppy-disk text-xs"></i> Lưu thiết lập phụ huynh
                     </button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl transition duration-200 flex items-center gap-1.5 text-sm" onclick="parentDashboard.logoutAndResetDevice()">
+                        <i class="fa-solid fa-power-off text-xs"></i> Đăng xuất & Reset thiết bị
+                    </button>
                 </div>
             </div>
 
@@ -670,6 +673,7 @@
                         <div>
                             <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Chọn lớp học:</label>
                             <select id="pdf-class-select" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500" onchange="parentDashboard.onPdfClassChange()">
+                                <option value="1">Lớp 1</option>
                                 <option value="4">Lớp 4</option>
                                 <option value="6" selected>Lớp 6</option>
                             </select>
@@ -723,6 +727,82 @@
                         <div class="p-6 overflow-x-auto bg-slate-950/20 max-h-[600px] overflow-y-auto">
                             <div id="pdf-exam-paper">
                                 <!-- Đề thi được render bằng JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quản lý Từ vựng Cục bộ & Ôn tập -->
+            <div class="parent-vocab-manager card bg-slate-800 border border-slate-700 rounded-2xl shadow-lg overflow-hidden mb-6">
+                <div class="p-6 border-b border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2"><i class="fa-solid fa-book-open text-violet-400"></i> Quản lý Từ Vựng Cục Bộ & Ôn Tập</h3>
+                    <p class="text-slate-400 text-xs mt-1">Nạp từ vựng mới mà học sinh học ở trường. Hệ thống sẽ tự động tạo bài luyện tập đa giác quan và tự động xen kẽ câu hỏi ôn tập lặp lại ngắt quãng (Spaced Repetition) trong các bài học sau.</p>
+                </div>
+                <div class="p-6 flex flex-col gap-6">
+                    <!-- Form nạp từ mới -->
+                    <div class="bg-slate-900/40 p-5 rounded-xl border border-slate-700/60 flex flex-col gap-4">
+                        <h4 class="text-sm font-bold text-slate-300 flex items-center gap-1.5"><i class="fa-solid fa-circle-plus text-emerald-400"></i> Nạp Nhóm Từ Vựng Mới Cho Con</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Chọn học sinh:</label>
+                                <select id="vocab-student-select" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500" onchange="parentDashboard.loadCustomVocabData()">
+                                    <!-- Sẽ render động tên học sinh từ JS hoặc mặc định -->
+                                </select>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Tiêu đề bài học / Chuyên đề:</label>
+                                <input type="text" id="vocab-topic-title" placeholder="Ví dụ: Từ mới Unit 5 - Thứ ba ngày 14/7" class="w-full p-2.5 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1.5 text-xs uppercase tracking-wider">Danh sách từ vựng cần nạp (Phân tách bằng dấu phẩy hoặc xuống dòng):</label>
+                            <textarea id="vocab-word-list" rows="3" placeholder="Ví dụ: share, borrow, textbook, playground" class="w-full p-3 rounded-lg border border-slate-600 bg-slate-900 text-white text-sm focus:outline-none focus:border-violet-500 font-mono"></textarea>
+                        </div>
+
+                        <div class="flex items-center justify-between flex-wrap gap-4 pt-2">
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                                <input type="checkbox" id="vocab-auto-complete" checked class="rounded border-slate-600 bg-slate-900 text-violet-600 focus:ring-violet-500">
+                                <span>🤖 Tự động hoàn thiện bằng AI (Dịch nghĩa, phiên âm IPA, tạo câu ví dụ)</span>
+                            </label>
+                            <button class="bg-violet-600 hover:bg-violet-700 text-white font-bold px-6 py-2.5 rounded-xl transition duration-200 flex items-center justify-center gap-2 text-sm shadow-md" onclick="parentDashboard.addCustomVocabulary()">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Lưu & Khởi tạo Bài học
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quản lý Chuyên đề đã tạo -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Cột trái: Chuyên đề đã nạp -->
+                        <div class="lg:col-span-1 border border-slate-700/60 rounded-xl p-4 bg-slate-900/20">
+                            <h4 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5"><i class="fa-solid fa-folder text-yellow-500"></i> Các Chuyên đề của con</h4>
+                            <div class="overflow-y-auto max-h-96 flex flex-col gap-2.5 pr-1" id="vocab-topics-list">
+                                <!-- Render động danh sách chuyên đề -->
+                            </div>
+                        </div>
+
+                        <!-- Cột phải: Chi tiết kho từ vựng đã nạp -->
+                        <div class="lg:col-span-2 border border-slate-700/60 rounded-xl p-4 bg-slate-900/20 flex flex-col gap-3">
+                            <div class="flex justify-between items-center flex-wrap gap-2">
+                                <h4 class="text-sm font-bold text-slate-300 flex items-center gap-1.5"><i class="fa-solid fa-list-check text-violet-400"></i> Kho Từ Vựng đã lưu & Lịch trình Ôn tập (Leitner)</h4>
+                                <span class="text-xs text-slate-400" id="vocab-inventory-stats">Tổng số: 0 từ</span>
+                            </div>
+                            <div class="overflow-x-auto overflow-y-auto max-h-96">
+                                <table class="w-full text-left border-collapse text-xs">
+                                    <thead>
+                                        <tr class="border-b border-slate-700 text-slate-300 bg-slate-900/60">
+                                            <th class="p-2">Từ vựng</th>
+                                            <th class="p-2">Phiên âm / Nghĩa dịch</th>
+                                            <th class="p-2 text-center">Hộp Leitner</th>
+                                            <th class="p-2 text-center">Hẹn ôn tập</th>
+                                            <th class="p-2 text-right">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vocab-inventory-tbody" class="divide-y divide-slate-700/40 text-slate-200">
+                                        <!-- Render động danh sách từ vựng -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1215,7 +1295,7 @@
     </script>
 
     <!-- Scripts nạp động -->
-    <script src="js/lessons.js?v=5.4"></script>
-    <script src="js/parent.js?v=5.4"></script>
+    <script src="js/lessons.js?v=9.1"></script>
+    <script src="js/parent.js?v=9.1"></script>
 </body>
 </html>

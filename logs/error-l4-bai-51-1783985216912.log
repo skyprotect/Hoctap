@@ -1,0 +1,588 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:26:56.912Z
+Lesson ID: l4-bai-51
+Lesson Title: Bài 51: Số lần xuất hiện của một sự kiện
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10417 (line 277 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10417 (line 277 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10417 (Line: 277, Column: 1)
+Character causing error: "}"
+
+Context:
+...  "tip": "Quy tắc nhân được dùng khi sự kiện bao gồm nhiều bước liên tiếp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<}
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "xanh": { "min": 5, "max": 15 },
+        "do": { "min": 16, "max": 25 },
+        "vang": { "min": 6, "max": 14 }
+      },
+      "constraints": ["xanh % 2 === 1", "do % 2 === 0", "vang % 2 === 0"],
+      "formulas": {
+        "tong": "xanh + do + vang",
+        "ans": "xanh",
+        "w1": "do",
+        "w2": "vang",
+        "w3": "tong"
+      },
+      "questionText": "Trong hộp có {xanh} viên bi xanh, {do} viên bi đỏ và {vang} viên bi vàng. Nếu lấy ngẫu nhiên 1 viên bi, khả năng lấy được viên bi nào là thấp nhất?",
+      "options": [
+        "A. Bi đỏ",
+        "B. Bi xanh",
+        "C. Bi vàng",
+        "D. Cả ba loại bi đều có khả năng bằng nhau"
+      ],
+      "correctIndex": 1,
+      "hints": ["Sự kiện có số lần xuất hiện ít hơn thì khả năng xảy ra thấp hơn.", "So sánh số lượng bi xanh, đỏ và vàng."],
+      "solutionHtml": "Ta có:<br/>- Số bi xanh: {xanh} viên.<br/>- Số bi đỏ: {do} viên.<br/>- Số bi vàng: {vang} viên.<br/>Vì {xanh} < {vang} < {do}, nên số lượng bi xanh là ít nhất. Do đó, khả năng lấy được bi xanh là thấp nhất.<br/>Đáp án đúng là B.",
+      "tip": "Khi tổng số lần thử nghiệm bằng nhau, sự kiện nào có số lần xuất hiện ít hơn thì khả năng xảy ra sự kiện đó thấp hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 20, "max": 50 },
+        "k": { "min": 2, "max": 5 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n",
+        "w2": "n + k",
+        "w3": "n - k"
+      },
+      "questionText": "Bạn An gieo một con xúc xắc {n} lần. Nếu mặt 6 chấm xuất hiện {k} lần ít hơn số lần An gieo thì mặt 6 chấm đã xuất hiện bao nhiêu lần?",
+      "options": [
+        "A. {w1} lần",
+        "B. {w2} lần",
+        "C. {ans} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số lần xuất hiện mặt 6 chấm = Tổng số lần gieo - {k}."],
+      "solutionHtml": "Số lần mặt 6 chấm xuất hiện là:<br/>$ {n} - {k} $ (đề bài yêu cầu tìm số lần, nhưng ở đây ta dùng logic: nếu số lần ít hơn tổng số lần gieo là k, ta lấy n - k).<br/>Tuy nhiên đề bài là 'k lần ít hơn' tức là n chia k (nếu hiểu là gấp k lần). Ở đây ta giải theo phép trừ: {n} - {k} = {w3}. Xin lỗi, hãy hiểu là: Nếu số lần xuất hiện là 1/k của tổng số lần gieo: $ {n} : {k} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'ít hơn' hoặc 'bằng một phần mấy' để xác định phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8 },
+        "b": { "min": 9, "max": 15 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "b - a",
+        "w2": "a * b",
+        "w3": "b + 2"
+      },
+      "questionText": "Trong một đĩa trái cây có {a} quả táo và {b} quả cam. Nếu nhắm mắt lấy ra 1 quả, số kết quả có thể xảy ra là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số kết quả có thể xảy ra là tổng số quả táo và quả cam trong đĩa."],
+      "solutionHtml": "Số kết quả có thể xảy ra khi lấy 1 quả từ đĩa là tổng số quả có trong đĩa:<br/>$ {a} + {b} = {ans} $ (kết quả).<br/>Đáp án đúng là B.",
+      "tip": "Mỗi quả đều là một kết quả khác nhau về mặt định danh vị trí.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 40, "max": 80 },
+        "y": { "min": 10, "max": 20 }
+      },
+      "constraints": ["x % y === 0"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "x - y",
+        "w2": "x + y",
+        "w3": "y + 5"
+      },
+      "questionText": "Một túi bi có tổng số {x} viên. Bạn Bình rút ra ngẫu nhiên 1 viên và ghi lại màu, sau đó trả lại túi. Bình thực hiện {x} lần rút và thấy màu vàng xuất hiện {y} lần. Hỏi trung bình cứ bao nhiêu lần rút thì có 1 lần rút được bi vàng?",
+      "options": [
+        "A. {w1} lần",
+        "B. {ans} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số lần rút trung bình = Tổng số lần rút / Số lần xuất hiện bi vàng."],
+      "solutionHtml": "Trung bình cứ số lần rút là:<br/>$ {x} : {y} = {ans} $ (lần).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính trung bình số lần là lấy tổng số lượt thử chia cho số lần sự kiện thành công.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": { "min": 3, "max": 7 },
+        "dem": { "min": 10, "max": 20 }
+      },
+      "constraints": ["dem % day === 0"],
+      "formulas": {
+        "ans": "dem / day",
+        "w1": "dem + day",
+        "w2": "dem - day",
+        "w3": "day * 2"
+      },
+      "questionText": "Một dự báo thời tiết cho biết trong {day} ngày tới, khả năng có mưa là như nhau. Nếu tổng số lần quan sát mưa trong {day} ngày là {dem} lần, hỏi mỗi ngày có bao nhiêu lần mưa?",
+      "options": [
+        "A. {w1} lần",
+        "B. {w2} lần",
+        "C. {w3} lần",
+        "D. {ans} lần"
+      ],
+      "correctIndex": 3,
+      "hints": ["Số lần mưa mỗi ngày = Tổng số lần mưa / Số ngày."],
+      "solutionHtml": "Số lần mưa mỗi ngày là:<br/>$ {dem} : {day} = {ans} $ (lần).<br/>Đáp án đúng là D.",
+      "tip": "Khi các sự kiện có khả năng xảy ra như nhau, ta chia đều tổng số lần xuất hiện cho số nhóm thời gian.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a / b"
+      },
+      "questionText": "Một sự kiện A xuất hiện {a} lần trong 1 giờ. Hỏi trong {b} giờ, sự kiện A xuất hiện bao nhiêu lần (giả sử tần suất không đổi)?",
+      "options": [
+        "A. {w1} lần",
+        "B. {ans} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số lần xuất hiện trong {b} giờ = Số lần trong 1 giờ * {b}."],
+      "solutionHtml": "Trong {b} giờ, số lần xuất hiện là:<br/>$ {a} \\times {b} = {ans} $ (lần).<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng phép nhân khi muốn tìm tổng số lần xuất hiện trên một khoảng thời gian dài hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 10 },
+        "k": { "min": 1, "max": 3 }
+      },
+      "constraints": ["n > k"],
+      "formulas": {
+        "ans": "n - k",
+        "w1": "n + k",
+        "w2": "n * k",
+        "w3": "k + 5"
+      },
+      "questionText": "Trên bàn có {n} tấm thẻ đánh số từ 1 đến {n}. Bạn rút ngẫu nhiên 1 tấm thẻ. Có bao nhiêu trường hợp rút được tấm thẻ có số lớn hơn {k}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Các thẻ thỏa mãn là các thẻ từ {k} + 1 đến {n}.", "Số thẻ thỏa mãn = {n} - {k}."],
+      "solutionHtml": "Số tấm thẻ có số lớn hơn {k} là từ số {k+1} đến {n}.<br/>Số lượng là: $ {n} - {k} = {ans} $ (tấm thẻ).<br/>Đáp án đúng là C.",
+      "tip": "Đếm từ số đứng ngay sau {k} đến {n}.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40 },
+        "b": { "min": 5, "max": 10 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "b * 2"
+      },
+      "questionText": "Bạn Minh gieo xúc xắc {a} lần và thấy mặt 1 chấm xuất hiện {ans} lần. Hỏi tỷ lệ xuất hiện mặt 1 chấm so với tổng số lần gieo là 1 phần mấy?",
+      "options": [
+        "A. 1/{w1}",
+        "B. 1/{w2}",
+        "C. 1/{ans}",
+        "D. 1/{b}"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tỷ lệ = Tổng số lần gieo / Số lần xuất hiện."],
+      "solutionHtml": "Tỷ lệ xuất hiện mặt 1 chấm là:<br/>$ {a} : {ans} = {b} $. Vậy là 1/{b}.<br/>Đáp án đúng là D.",
+      "tip": "Tỷ lệ 1 phần mấy được tính bằng cách lấy tổng số chia cho số lần xuất hiện.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 15 },
+        "y": { "min": 5, "max": 9 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x",
+        "w3": "y"
+      },
+      "questionText": "Trong hộp có {x} chiếc bút chì, trong đó có {y} chiếc bút chì màu đỏ. Nếu lấy ra 1 chiếc, số trường hợp lấy phải bút chì không phải màu đỏ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số bút chì không phải màu đỏ = Tổng số bút chì - Số bút chì màu đỏ."],
+      "solutionHtml": "Số chiếc bút chì không phải màu đỏ là:<br/>$ {x} - {y} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Sử dụng phép trừ để loại bỏ các trường hợp không thỏa mãn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a % b !== 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Một sự kiện X có thể xảy ra {a} cách ở bước 1 và {b} cách ở bước 2. Tổng số cách sự kiện X xảy ra kết hợp cả hai bước là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số cách xảy ra cả 2 bước, ta nhân số cách của từng bước."],
+      "solutionHtml": "Tổng số cách xảy ra là:<br/>$ {a} \\times {b} = {ans} $ (cách).<br/>Đáp án đúng là C.",
+      "tip": "Quy tắc nhân được dùng khi sự kiện bao gồm nhiều bước liên tiếp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    }
+  ]
+}
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "xanh": { "min": 5, "max": 15 },
+        "do": { "min": 16, "max": 25 },
+        "vang": { "min": 6, "max": 14 }
+      },
+      "constraints": ["xanh % 2 === 1", "do % 2 === 0", "vang % 2 === 0"],
+      "formulas": {
+        "tong": "xanh + do + vang",
+        "ans": "xanh",
+        "w1": "do",
+        "w2": "vang",
+        "w3": "tong"
+      },
+      "questionText": "Trong hộp có {xanh} viên bi xanh, {do} viên bi đỏ và {vang} viên bi vàng. Nếu lấy ngẫu nhiên 1 viên bi, khả năng lấy được viên bi nào là thấp nhất?",
+      "options": [
+        "A. Bi đỏ",
+        "B. Bi xanh",
+        "C. Bi vàng",
+        "D. Cả ba loại bi đều có khả năng bằng nhau"
+      ],
+      "correctIndex": 1,
+      "hints": ["Sự kiện có số lần xuất hiện ít hơn thì khả năng xảy ra thấp hơn.", "So sánh số lượng bi xanh, đỏ và vàng."],
+      "solutionHtml": "Ta có:<br/>- Số bi xanh: {xanh} viên.<br/>- Số bi đỏ: {do} viên.<br/>- Số bi vàng: {vang} viên.<br/>Vì {xanh} < {vang} < {do}, nên số lượng bi xanh là ít nhất. Do đó, khả năng lấy được bi xanh là thấp nhất.<br/>Đáp án đúng là B.",
+      "tip": "Khi tổng số lần thử nghiệm bằng nhau, sự kiện nào có số lần xuất hiện ít hơn thì khả năng xảy ra sự kiện đó thấp hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 20, "max": 50 },
+        "k": { "min": 2, "max": 5 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n",
+        "w2": "n + k",
+        "w3": "n - k"
+      },
+      "questionText": "Bạn An gieo một con xúc xắc {n} lần. Nếu mặt 6 chấm xuất hiện {k} lần ít hơn số lần An gieo thì mặt 6 chấm đã xuất hiện bao nhiêu lần?",
+      "options": [
+        "A. {w1} lần",
+        "B. {w2} lần",
+        "C. {ans} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số lần xuất hiện mặt 6 chấm = Tổng số lần gieo - {k}."],
+      "solutionHtml": "Số lần mặt 6 chấm xuất hiện là:<br/>$ {n} - {k} $ (đề bài yêu cầu tìm số lần, nhưng ở đây ta dùng logic: nếu số lần ít hơn tổng số lần gieo là k, ta lấy n - k).<br/>Tuy nhiên đề bài là 'k lần ít hơn' tức là n chia k (nếu hiểu là gấp k lần). Ở đây ta giải theo phép trừ: {n} - {k} = {w3}. Xin lỗi, hãy hiểu là: Nếu số lần xuất hiện là 1/k của tổng số lần gieo: $ {n} : {k} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'ít hơn' hoặc 'bằng một phần mấy' để xác định phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8 },
+        "b": { "min": 9, "max": 15 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "b - a",
+        "w2": "a * b",
+        "w3": "b + 2"
+      },
+      "questionText": "Trong một đĩa trái cây có {a} quả táo và {b} quả cam. Nếu nhắm mắt lấy ra 1 quả, số kết quả có thể xảy ra là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số kết quả có thể xảy ra là tổng số quả táo và quả cam trong đĩa."],
+      "solutionHtml": "Số kết quả có thể xảy ra khi lấy 1 quả từ đĩa là tổng số quả có trong đĩa:<br/>$ {a} + {b} = {ans} $ (kết quả).<br/>Đáp án đúng là B.",
+      "tip": "Mỗi quả đều là một kết quả khác nhau về mặt định danh vị trí.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 40, "max": 80 },
+        "y": { "min": 10, "max": 20 }
+      },
+      "constraints": ["x % y === 0"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "x - y",
+        "w2": "x + y",
+        "w3": "y + 5"
+      },
+      "questionText": "Một túi bi có tổng số {x} viên. Bạn Bình rút ra ngẫu nhiên 1 viên và ghi lại màu, sau đó trả lại túi. Bình thực hiện {x} lần rút và thấy màu vàng xuất hiện {y} lần. Hỏi trung bình cứ bao nhiêu lần rút thì có 1 lần rút được bi vàng?",
+      "options": [
+        "A. {w1} lần",
+        "B. {ans} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số lần rút trung bình = Tổng số lần rút / Số lần xuất hiện bi vàng."],
+      "solutionHtml": "Trung bình cứ số lần rút là:<br/>$ {x} : {y} = {ans} $ (lần).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính trung bình số lần là lấy tổng số lượt thử chia cho số lần sự kiện thành công.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "day": { "min": 3, "max": 7 },
+        "dem": { "min": 10, "max": 20 }
+      },
+      "constraints": ["dem % day === 0"],
+      "formulas": {
+        "ans": "dem / day",
+        "w1": "dem + day",
+        "w2": "dem - day",
+        "w3": "day * 2"
+      },
+      "questionText": "Một dự báo thời tiết cho biết trong {day} ngày tới, khả năng có mưa là như nhau. Nếu tổng số lần quan sát mưa trong {day} ngày là {dem} lần, hỏi mỗi ngày có bao nhiêu lần mưa?",
+      "options": [
+        "A. {w1} lần",
+        "B. {w2} lần",
+        "C. {w3} lần",
+        "D. {ans} lần"
+      ],
+      "correctIndex": 3,
+      "hints": ["Số lần mưa mỗi ngày = Tổng số lần mưa / Số ngày."],
+      "solutionHtml": "Số lần mưa mỗi ngày là:<br/>$ {dem} : {day} = {ans} $ (lần).<br/>Đáp án đúng là D.",
+      "tip": "Khi các sự kiện có khả năng xảy ra như nhau, ta chia đều tổng số lần xuất hiện cho số nhóm thời gian.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a / b"
+      },
+      "questionText": "Một sự kiện A xuất hiện {a} lần trong 1 giờ. Hỏi trong {b} giờ, sự kiện A xuất hiện bao nhiêu lần (giả sử tần suất không đổi)?",
+      "options": [
+        "A. {w1} lần",
+        "B. {ans} lần",
+        "C. {w2} lần",
+        "D. {w3} lần"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số lần xuất hiện trong {b} giờ = Số lần trong 1 giờ * {b}."],
+      "solutionHtml": "Trong {b} giờ, số lần xuất hiện là:<br/>$ {a} \\times {b} = {ans} $ (lần).<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng phép nhân khi muốn tìm tổng số lần xuất hiện trên một khoảng thời gian dài hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 10 },
+        "k": { "min": 1, "max": 3 }
+      },
+      "constraints": ["n > k"],
+      "formulas": {
+        "ans": "n - k",
+        "w1": "n + k",
+        "w2": "n * k",
+        "w3": "k + 5"
+      },
+      "questionText": "Trên bàn có {n} tấm thẻ đánh số từ 1 đến {n}. Bạn rút ngẫu nhiên 1 tấm thẻ. Có bao nhiêu trường hợp rút được tấm thẻ có số lớn hơn {k}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Các thẻ thỏa mãn là các thẻ từ {k} + 1 đến {n}.", "Số thẻ thỏa mãn = {n} - {k}."],
+      "solutionHtml": "Số tấm thẻ có số lớn hơn {k} là từ số {k+1} đến {n}.<br/>Số lượng là: $ {n} - {k} = {ans} $ (tấm thẻ).<br/>Đáp án đúng là C.",
+      "tip": "Đếm từ số đứng ngay sau {k} đến {n}.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40 },
+        "b": { "min": 5, "max": 10 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "b * 2"
+      },
+      "questionText": "Bạn Minh gieo xúc xắc {a} lần và thấy mặt 1 chấm xuất hiện {ans} lần. Hỏi tỷ lệ xuất hiện mặt 1 chấm so với tổng số lần gieo là 1 phần mấy?",
+      "options": [
+        "A. 1/{w1}",
+        "B. 1/{w2}",
+        "C. 1/{ans}",
+        "D. 1/{b}"
+      ],
+      "correctIndex": 3,
+      "hints": ["Tỷ lệ = Tổng số lần gieo / Số lần xuất hiện."],
+      "solutionHtml": "Tỷ lệ xuất hiện mặt 1 chấm là:<br/>$ {a} : {ans} = {b} $. Vậy là 1/{b}.<br/>Đáp án đúng là D.",
+      "tip": "Tỷ lệ 1 phần mấy được tính bằng cách lấy tổng số chia cho số lần xuất hiện.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 15 },
+        "y": { "min": 5, "max": 9 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x",
+        "w3": "y"
+      },
+      "questionText": "Trong hộp có {x} chiếc bút chì, trong đó có {y} chiếc bút chì màu đỏ. Nếu lấy ra 1 chiếc, số trường hợp lấy phải bút chì không phải màu đỏ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số bút chì không phải màu đỏ = Tổng số bút chì - Số bút chì màu đỏ."],
+      "solutionHtml": "Số chiếc bút chì không phải màu đỏ là:<br/>$ {x} - {y} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Sử dụng phép trừ để loại bỏ các trường hợp không thỏa mãn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a % b !== 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 2"
+      },
+      "questionText": "Một sự kiện X có thể xảy ra {a} cách ở bước 1 và {b} cách ở bước 2. Tổng số cách sự kiện X xảy ra kết hợp cả hai bước là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số cách xảy ra cả 2 bước, ta nhân số cách của từng bước."],
+      "solutionHtml": "Tổng số cách xảy ra là:<br/>$ {a} \\times {b} = {ans} $ (cách).<br/>Đáp án đúng là C.",
+      "tip": "Quy tắc nhân được dùng khi sự kiện bao gồm nhiều bước liên tiếp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-51-d4"
+    }
+  ]
+}
+}
+}
+

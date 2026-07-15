@@ -1,0 +1,484 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:08:08.170Z
+Lesson ID: l4-bai-10
+Lesson Title: Bài 10: Số có sáu chữ số. Số 1 000 000
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9832 (line 225 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9832 (line 225 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9832 (Line: 225, Column: 1)
+Character causing error: "}"
+
+Context:
+...  "tip": "Công thức tính chu vi hình chữ nhật: $ (dài + rộng) \\times 2 $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<}
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 400, "step": 50 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 900000", "(a * b) % 100 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Một nhà máy sản xuất bánh kẹo trong một ngày làm được {a} hộp bánh. Hỏi trong {b} ngày, nhà máy đó sản xuất được bao nhiêu hộp bánh?",
+      "options": ["A. {w1} hộp bánh", "B. {ans} hộp bánh", "C. {w2} hộp bánh", "D. {w3} hộp bánh"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số hộp bánh trong {b} ngày, ta thực hiện phép nhân số hộp bánh làm trong một ngày với {b}."],
+      "solutionHtml": "Số hộp bánh nhà máy sản xuất được trong {b} ngày là:<br/>$ {a} \\times {b} = {ans} $ (hộp bánh).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán hỏi về tổng số lượng sản phẩm trong một khoảng thời gian, ta thường sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200000, "max": 800000, "step": 100000 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10000",
+        "w2": "ans - 10000",
+        "w3": "ans * 2"
+      },
+      "questionText": "Một kho hàng có {a} quyển sách được chia đều vào {b} kệ sách. Hỏi mỗi kệ sách chứa bao nhiêu quyển sách?",
+      "options": ["A. {w1} quyển", "B. {w2} quyển", "C. {ans} quyển", "D. {w3} quyển"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số sách trên mỗi kệ, ta lấy tổng số sách chia cho số kệ."],
+      "solutionHtml": "Số quyển sách mỗi kệ chứa là:<br/>$ {a} : {b} = {ans} $ (quyển sách).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều một số lượng lớn thành các phần bằng nhau, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300000, "max": 400000, "step": 10000 },
+        "b": { "min": 100000, "max": 200000, "step": 10000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 50000",
+        "w3": "a + b - 50000"
+      },
+      "questionText": "Tháng trước cửa hàng bán được {a} kg gạo. Tháng này cửa hàng bán được nhiều hơn tháng trước {b} kg gạo. Hỏi tháng này cửa hàng bán được bao nhiêu kg gạo?",
+      "options": ["A. {w1} kg", "B. {ans} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Tháng này bán nhiều hơn tháng trước, ta thực hiện phép cộng."],
+      "solutionHtml": "Số gạo cửa hàng bán được trong tháng này là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'nhiều hơn' chỉ ra phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500000, "max": 900000, "step": 100000 },
+        "b": { "min": 100000, "max": 400000, "step": 100000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 50000",
+        "w3": "a - b - 50000"
+      },
+      "questionText": "Quãng đường từ Hà Nội đến Đà Nẵng dài {a} mét. Một đoàn tàu đã đi được {b} mét. Hỏi đoàn tàu còn phải đi bao nhiêu mét nữa để đến nơi?",
+      "options": ["A. {w1} mét", "B. {w2} mét", "C. {w3} mét", "D. {ans} mét"],
+      "correctIndex": 3,
+      "hints": ["Muốn tìm quãng đường còn lại, ta lấy tổng quãng đường trừ đi quãng đường đã đi."],
+      "solutionHtml": "Số mét đường còn lại đoàn tàu phải đi là:<br/>$ {a} - {b} = {ans} $ (mét).<br/>Đáp án đúng là D.",
+      "tip": "Phép trừ giúp tìm ra phần chênh lệch hoặc phần còn thiếu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 20000, "step": 1000 },
+        "b": { "min": 40, "max": 50, "step": 1 }
+      },
+      "constraints": ["(a * b) < 1000000", "(a * b) % 1000 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 20000",
+        "w2": "ans - 20000",
+        "w3": "a + b"
+      },
+      "questionText": "Một hội trường có {b} hàng ghế, mỗi hàng có {a} chỗ ngồi. Hỏi hội trường đó có tất cả bao nhiêu chỗ ngồi?",
+      "options": ["A. {ans} chỗ ngồi", "B. {w1} chỗ ngồi", "C. {w2} chỗ ngồi", "D. {w3} chỗ ngồi"],
+      "correctIndex": 0,
+      "hints": ["Mỗi hàng có {a} ghế, có {b} hàng như thế, ta dùng phép nhân."],
+      "solutionHtml": "Số chỗ ngồi trong hội trường là:<br/>$ {a} \\times {b} = {ans} $ (chỗ ngồi).<br/>Đáp án đúng là A.",
+      "tip": "Tổng số lượng khi có các nhóm bằng nhau là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["(a * 1000) % b === 0"],
+      "formulas": {
+        "ans": "(a * 1000) / b",
+        "w1": "ans + 1000",
+        "w2": "ans - 1000",
+        "w3": "a * 1000"
+      },
+      "questionText": "Một khu đất rộng {a} nghìn mét vuông được chia đều cho {b} hộ gia đình. Hỏi mỗi hộ gia đình nhận được bao nhiêu mét vuông đất?",
+      "options": ["A. {w1} mét vuông", "B. {ans} mét vuông", "C. {w2} mét vuông", "D. {w3} mét vuông"],
+      "correctIndex": 1,
+      "hints": ["Đổi {a} nghìn mét vuông thành số tự nhiên rồi chia cho {b}."],
+      "solutionHtml": "Ta có $ {a} $ nghìn mét vuông là $ {a}000 $ mét vuông.<br/>Số mét vuông mỗi hộ nhận được là:<br/>$ {a}000 : {b} = {ans} $ (mét vuông).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên đổi đơn vị nghìn sang số tự nhiên trước khi tính toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300, "max": 500, "step": 10 },
+        "b": { "min": 200, "max": 300, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a - b) * 1000",
+        "w1": "(a - b) * 100",
+        "w2": "(a + b) * 1000",
+        "w3": "ans + 5000"
+      },
+      "questionText": "Một cửa hàng nhập về {a} nghìn viên bi và đã bán đi {b} nghìn viên bi. Hỏi cửa hàng còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1} viên", "B. {w2} viên", "C. {ans} viên", "D. {w3} viên"],
+      "correctIndex": 2,
+      "hints": ["Đổi {a} nghìn và {b} nghìn sang số tự nhiên, sau đó thực hiện phép trừ."],
+      "solutionHtml": "Đổi: {a} nghìn = {a}000, {b} nghìn = {b}000.<br/>Số viên bi còn lại là:<br/>$ {a}000 - {b}000 = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Hãy luôn chú ý đến chữ 'nghìn' trong đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["(a * 10000 + b * 1000) < 500000"],
+      "formulas": {
+        "ans": "a * 10000 + b * 1000",
+        "w1": "ans + 1000",
+        "w2": "ans - 1000",
+        "w3": "a * 1000 + b * 100"
+      },
+      "questionText": "Một thư viện mua {a} chục nghìn cuốn sách loại A và {b} nghìn cuốn sách loại B. Hỏi thư viện đó đã mua tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w3} cuốn", "B. {ans} cuốn", "C. {w1} cuốn", "D. {w2} cuốn"],
+      "correctIndex": 1,
+      "hints": ["Đổi {a} chục nghìn và {b} nghìn sang số tự nhiên rồi cộng lại."],
+      "solutionHtml": "Đổi: {a} chục nghìn = {a}0000, {b} nghìn = {b}000.<br/>Tổng số sách là:<br/>$ {a}0000 + {b}000 = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ giá trị của từng loại hàng để quy đổi chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 50 },
+        "b": { "min": 50, "max": 100, "step": 10 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans * 2"
+      },
+      "questionText": "Số {a} nghìn gấp bao nhiêu lần số {b} chục?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Đổi cả hai số về cùng đơn vị là đơn vị tự nhiên rồi thực hiện phép chia."],
+      "solutionHtml": "Đổi: {a} nghìn = {a}000, {b} chục = {b}0.<br/>Số lần là:<br/>$ {a}000 : {b}0 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán 'gấp bao nhiêu lần' luôn dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20000, "max": 30000, "step": 1000 },
+        "b": { "min": 10000, "max": 15000, "step": 1000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * 2",
+        "w1": "a + b",
+        "w2": "(a + b) * 4",
+        "w3": "ans - 5000"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {a} mét và chiều rộng là {b} mét. Hỏi chu vi của hình chữ nhật đó là bao nhiêu mét?",
+      "options": ["A. {w1} mét", "B. {ans} mét", "C. {w2} mét", "D. {w3} mét"],
+      "correctIndex": 1,
+      "hints": ["Chu vi hình chữ nhật bằng tổng chiều dài và chiều rộng nhân với 2."],
+      "solutionHtml": "Chu vi hình chữ nhật là:<br/>$ ({a} + {b}) \\times 2 = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính chu vi hình chữ nhật: $ (dài + rộng) \\times 2 $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    }
+  ]
+}
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 400, "step": 50 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 900000", "(a * b) % 100 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Một nhà máy sản xuất bánh kẹo trong một ngày làm được {a} hộp bánh. Hỏi trong {b} ngày, nhà máy đó sản xuất được bao nhiêu hộp bánh?",
+      "options": ["A. {w1} hộp bánh", "B. {ans} hộp bánh", "C. {w2} hộp bánh", "D. {w3} hộp bánh"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số hộp bánh trong {b} ngày, ta thực hiện phép nhân số hộp bánh làm trong một ngày với {b}."],
+      "solutionHtml": "Số hộp bánh nhà máy sản xuất được trong {b} ngày là:<br/>$ {a} \\times {b} = {ans} $ (hộp bánh).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán hỏi về tổng số lượng sản phẩm trong một khoảng thời gian, ta thường sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200000, "max": 800000, "step": 100000 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10000",
+        "w2": "ans - 10000",
+        "w3": "ans * 2"
+      },
+      "questionText": "Một kho hàng có {a} quyển sách được chia đều vào {b} kệ sách. Hỏi mỗi kệ sách chứa bao nhiêu quyển sách?",
+      "options": ["A. {w1} quyển", "B. {w2} quyển", "C. {ans} quyển", "D. {w3} quyển"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số sách trên mỗi kệ, ta lấy tổng số sách chia cho số kệ."],
+      "solutionHtml": "Số quyển sách mỗi kệ chứa là:<br/>$ {a} : {b} = {ans} $ (quyển sách).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều một số lượng lớn thành các phần bằng nhau, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300000, "max": 400000, "step": 10000 },
+        "b": { "min": 100000, "max": 200000, "step": 10000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 50000",
+        "w3": "a + b - 50000"
+      },
+      "questionText": "Tháng trước cửa hàng bán được {a} kg gạo. Tháng này cửa hàng bán được nhiều hơn tháng trước {b} kg gạo. Hỏi tháng này cửa hàng bán được bao nhiêu kg gạo?",
+      "options": ["A. {w1} kg", "B. {ans} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Tháng này bán nhiều hơn tháng trước, ta thực hiện phép cộng."],
+      "solutionHtml": "Số gạo cửa hàng bán được trong tháng này là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'nhiều hơn' chỉ ra phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500000, "max": 900000, "step": 100000 },
+        "b": { "min": 100000, "max": 400000, "step": 100000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 50000",
+        "w3": "a - b - 50000"
+      },
+      "questionText": "Quãng đường từ Hà Nội đến Đà Nẵng dài {a} mét. Một đoàn tàu đã đi được {b} mét. Hỏi đoàn tàu còn phải đi bao nhiêu mét nữa để đến nơi?",
+      "options": ["A. {w1} mét", "B. {w2} mét", "C. {w3} mét", "D. {ans} mét"],
+      "correctIndex": 3,
+      "hints": ["Muốn tìm quãng đường còn lại, ta lấy tổng quãng đường trừ đi quãng đường đã đi."],
+      "solutionHtml": "Số mét đường còn lại đoàn tàu phải đi là:<br/>$ {a} - {b} = {ans} $ (mét).<br/>Đáp án đúng là D.",
+      "tip": "Phép trừ giúp tìm ra phần chênh lệch hoặc phần còn thiếu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 20000, "step": 1000 },
+        "b": { "min": 40, "max": 50, "step": 1 }
+      },
+      "constraints": ["(a * b) < 1000000", "(a * b) % 1000 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 20000",
+        "w2": "ans - 20000",
+        "w3": "a + b"
+      },
+      "questionText": "Một hội trường có {b} hàng ghế, mỗi hàng có {a} chỗ ngồi. Hỏi hội trường đó có tất cả bao nhiêu chỗ ngồi?",
+      "options": ["A. {ans} chỗ ngồi", "B. {w1} chỗ ngồi", "C. {w2} chỗ ngồi", "D. {w3} chỗ ngồi"],
+      "correctIndex": 0,
+      "hints": ["Mỗi hàng có {a} ghế, có {b} hàng như thế, ta dùng phép nhân."],
+      "solutionHtml": "Số chỗ ngồi trong hội trường là:<br/>$ {a} \\times {b} = {ans} $ (chỗ ngồi).<br/>Đáp án đúng là A.",
+      "tip": "Tổng số lượng khi có các nhóm bằng nhau là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["(a * 1000) % b === 0"],
+      "formulas": {
+        "ans": "(a * 1000) / b",
+        "w1": "ans + 1000",
+        "w2": "ans - 1000",
+        "w3": "a * 1000"
+      },
+      "questionText": "Một khu đất rộng {a} nghìn mét vuông được chia đều cho {b} hộ gia đình. Hỏi mỗi hộ gia đình nhận được bao nhiêu mét vuông đất?",
+      "options": ["A. {w1} mét vuông", "B. {ans} mét vuông", "C. {w2} mét vuông", "D. {w3} mét vuông"],
+      "correctIndex": 1,
+      "hints": ["Đổi {a} nghìn mét vuông thành số tự nhiên rồi chia cho {b}."],
+      "solutionHtml": "Ta có $ {a} $ nghìn mét vuông là $ {a}000 $ mét vuông.<br/>Số mét vuông mỗi hộ nhận được là:<br/>$ {a}000 : {b} = {ans} $ (mét vuông).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên đổi đơn vị nghìn sang số tự nhiên trước khi tính toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300, "max": 500, "step": 10 },
+        "b": { "min": 200, "max": 300, "step": 10 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a - b) * 1000",
+        "w1": "(a - b) * 100",
+        "w2": "(a + b) * 1000",
+        "w3": "ans + 5000"
+      },
+      "questionText": "Một cửa hàng nhập về {a} nghìn viên bi và đã bán đi {b} nghìn viên bi. Hỏi cửa hàng còn lại bao nhiêu viên bi?",
+      "options": ["A. {w1} viên", "B. {w2} viên", "C. {ans} viên", "D. {w3} viên"],
+      "correctIndex": 2,
+      "hints": ["Đổi {a} nghìn và {b} nghìn sang số tự nhiên, sau đó thực hiện phép trừ."],
+      "solutionHtml": "Đổi: {a} nghìn = {a}000, {b} nghìn = {b}000.<br/>Số viên bi còn lại là:<br/>$ {a}000 - {b}000 = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Hãy luôn chú ý đến chữ 'nghìn' trong đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["(a * 10000 + b * 1000) < 500000"],
+      "formulas": {
+        "ans": "a * 10000 + b * 1000",
+        "w1": "ans + 1000",
+        "w2": "ans - 1000",
+        "w3": "a * 1000 + b * 100"
+      },
+      "questionText": "Một thư viện mua {a} chục nghìn cuốn sách loại A và {b} nghìn cuốn sách loại B. Hỏi thư viện đó đã mua tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w3} cuốn", "B. {ans} cuốn", "C. {w1} cuốn", "D. {w2} cuốn"],
+      "correctIndex": 1,
+      "hints": ["Đổi {a} chục nghìn và {b} nghìn sang số tự nhiên rồi cộng lại."],
+      "solutionHtml": "Đổi: {a} chục nghìn = {a}0000, {b} nghìn = {b}000.<br/>Tổng số sách là:<br/>$ {a}0000 + {b}000 = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ giá trị của từng loại hàng để quy đổi chính xác.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 50 },
+        "b": { "min": 50, "max": 100, "step": 10 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 1",
+        "w3": "ans * 2"
+      },
+      "questionText": "Số {a} nghìn gấp bao nhiêu lần số {b} chục?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Đổi cả hai số về cùng đơn vị là đơn vị tự nhiên rồi thực hiện phép chia."],
+      "solutionHtml": "Đổi: {a} nghìn = {a}000, {b} chục = {b}0.<br/>Số lần là:<br/>$ {a}000 : {b}0 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán 'gấp bao nhiêu lần' luôn dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20000, "max": 30000, "step": 1000 },
+        "b": { "min": 10000, "max": 15000, "step": 1000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * 2",
+        "w1": "a + b",
+        "w2": "(a + b) * 4",
+        "w3": "ans - 5000"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {a} mét và chiều rộng là {b} mét. Hỏi chu vi của hình chữ nhật đó là bao nhiêu mét?",
+      "options": ["A. {w1} mét", "B. {ans} mét", "C. {w2} mét", "D. {w3} mét"],
+      "correctIndex": 1,
+      "hints": ["Chu vi hình chữ nhật bằng tổng chiều dài và chiều rộng nhân với 2."],
+      "solutionHtml": "Chu vi hình chữ nhật là:<br/>$ ({a} + {b}) \\times 2 = {ans} $ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính chu vi hình chữ nhật: $ (dài + rộng) \\times 2 $.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-10-d4"
+    }
+  ]
+}
+}
+}
+

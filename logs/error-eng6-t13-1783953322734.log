@@ -1,0 +1,671 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:35:22.734Z
+Lesson ID: eng6-t13
+Lesson Title: Unit 13: Hobbies & Benefits (NÂNG CAO LỚP 7)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11635 (line 320 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11635 (line 320 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 11635 (Line: 320, Column: 1)
+Character causing error: "}"
+
+Context:
+...       "tip": "Phép nhân dùng để tính tổng số lượng khi các phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5 },
+        "y": { "min": 10, "max": 20 }
+      },
+      "constraints": [
+        "y % x === 0",
+        "y > x"
+      ],
+      "formulas": {
+        "ans": "y / x",
+        "w1": "(y + x) === ans ? ans + 1 : (y + x)",
+        "w2": "(y - x) === ans || (y - x) === w1 ? ans + 2 : (y - x)",
+        "w3": "(y * x) === ans || (y * x) === w1 || (y * x) === w2 ? ans + 3 : (y * x)"
+      },
+      "questionText": "Câu lạc bộ sở thích có {y} thành viên được chia đều vào {x} nhóm để tham gia các dự án ngoại khóa. Hỏi mỗi nhóm có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số thành viên cho số nhóm.",
+        "Ta thực hiện phép tính {y} chia {x}."
+      ],
+      "solutionHtml": "Số thành viên trong mỗi nhóm là:<br/>$ {y} : {x} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, ta luôn sử dụng phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 3, "max": 8 },
+        "p": { "min": 5, "max": 10 }
+      },
+      "constraints": [
+        "h > 2"
+      ],
+      "formulas": {
+        "ans": "h * p",
+        "w1": "(h + p) === ans ? ans + 1 : (h + p)",
+        "w2": "(h * p * 2) === ans || (h * p * 2) === w1 ? ans + 5 : (h * p * 2)",
+        "w3": "(p * 2) === ans || (p * 2) === w1 || (p * 2) === w2 ? ans + 2 : (p * 2)"
+      },
+      "questionText": "Lan dành ra {h} giờ mỗi ngày để thực hiện sở thích đọc sách. Hỏi sau {p} ngày, Lan đã dành tổng cộng bao nhiêu giờ cho sở thích này?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số giờ mỗi ngày với tổng số ngày.",
+        "Ta thực hiện phép tính {h} nhân {p}."
+      ],
+      "solutionHtml": "Tổng số giờ Lan đã đọc sách là:<br/>$ {h} \\times {p} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng, ta sử dụng phép nhân số lượng đơn vị với số lần lặp lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 40, "max": 80 },
+        "a": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "total % a === 0"
+      ],
+      "formulas": {
+        "ans": "total / a",
+        "w1": "(total - a) === ans ? ans + 2 : (total - a)",
+        "w2": "(total + a) === ans || (total + a) === w1 ? ans + 4 : (total + a)",
+        "w3": "(a * 2) === ans || (a * 2) === w1 || (a * 2) === w2 ? ans + 1 : (a * 2)"
+      },
+      "questionText": "Một nhóm bạn cùng sở thích vẽ tranh có {total} bức tranh cần trưng bày. Nếu mỗi hàng để đúng {a} bức tranh, hỏi cần bao nhiêu hàng để trưng bày hết số tranh?",
+      "options": [
+        "A. {w1} hàng",
+        "B. {ans} hàng",
+        "C. {w2} hàng",
+        "D. {w3} hàng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số tranh cho số tranh trên mỗi hàng.",
+        "Ta thực hiện phép tính {total} chia cho {a}."
+      ],
+      "solutionHtml": "Số hàng cần để trưng bày là:<br/>$ {total} : {a} = {ans} $ (hàng).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp tìm số nhóm hoặc số hàng khi biết tổng số lượng và số lượng mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20 },
+        "y": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "(x + y) === ans ? ans + 3 : (x + y)",
+        "w2": "(x * y) === ans || (x * y) === w1 ? ans + 5 : (x * y)",
+        "w3": "(x / y) === ans || (x / y) === w1 || (x / y) === w2 ? ans + 2 : (x / y)"
+      },
+      "questionText": "Bạn An có {x} thẻ sưu tầm sở thích. Bạn Bình có ít hơn An {y} thẻ. Hỏi bạn Bình có bao nhiêu thẻ?",
+      "options": [
+        "A. {w1} thẻ",
+        "B. {ans} thẻ",
+        "C. {w2} thẻ",
+        "D. {w3} thẻ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy số thẻ của An trừ đi số thẻ ít hơn của Bình.",
+        "Ta thực hiện phép tính {x} trừ {y}."
+      ],
+      "solutionHtml": "Số thẻ của Bình là:<br/>$ {x} - {y} = {ans} $ (thẻ).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán 'ít hơn' đòi hỏi sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 3, "max": 7 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a * b) === ans ? ans + 2 : (a * b)",
+        "w2": "(a - b) === ans || (a - b) === w1 ? ans + 4 : (a - b)",
+        "w3": "(a + b + 2) === ans || (a + b + 2) === w1 || (a + b + 2) === w2 ? ans + 1 : (a + b + 2)"
+      },
+      "questionText": "Hùng có {a} sở thích chính và {b} sở thích phụ. Hỏi tổng số sở thích của Hùng là bao nhiêu?",
+      "options": [
+        "A. {w1} sở thích",
+        "B. {ans} sở thích",
+        "C. {w2} sở thích",
+        "D. {w3} sở thích"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng số sở thích chính và sở thích phụ lại với nhau.",
+        "Ta thực hiện phép tính {a} cộng {b}."
+      ],
+      "solutionHtml": "Tổng số sở thích của Hùng là:<br/>$ {a} + {b} = {ans} $ (sở thích).<br/>Đáp án đúng là B.",
+      "tip": "Khi cần tìm tổng, ta sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 10, "max": 20 }
+      },
+      "constraints": [
+        "(a * b) < 100"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b) === ans ? ans + 3 : (a + b)",
+        "w2": "(a * b + 5) === ans || (a * b + 5) === w1 ? ans + 7 : (a * b + 5)",
+        "w3": "(b - a) === ans || (b - a) === w1 || (b - a) === w2 ? ans + 1 : (b - a)"
+      },
+      "questionText": "Mỗi thành viên trong đội nhảy cần chuẩn bị {a} đôi giày. Nếu đội có {b} thành viên, tổng số đôi giày cần chuẩn bị là bao nhiêu?",
+      "options": [
+        "A. {w1} đôi",
+        "B. {ans} đôi",
+        "C. {w2} đôi",
+        "D. {w3} đôi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số đôi giày mỗi thành viên cần với tổng số thành viên.",
+        "Ta thực hiện phép tính {a} nhân {b}."
+      ],
+      "solutionHtml": "Tổng số đôi giày cần là:<br/>$ {a} \\times {b} = {ans} $ (đôi).<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng số lượng phân phối đều, dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 50 },
+        "y": { "min": 5, "max": 10 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "(x + y) === ans ? ans + 2 : (x + y)",
+        "w2": "(x - y) === ans || (x - y) === w1 ? ans + 3 : (x - y)",
+        "w3": "(y * 2) === ans || (y * 2) === w1 || (y * 2) === w2 ? ans + 1 : (y * 2)"
+      },
+      "questionText": "Một câu lạc bộ nhiếp ảnh có {x} chiếc máy ảnh được chia đều cho {y} nhóm học viên. Hỏi mỗi nhóm nhận được bao nhiêu chiếc máy ảnh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số máy ảnh cho số nhóm.",
+        "Ta thực hiện phép tính {x} chia {y}."
+      ],
+      "solutionHtml": "Số máy ảnh mỗi nhóm nhận được là:<br/>$ {x} : {y} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + a * b",
+        "w1": "(a * b) === ans ? ans + 1 : (a * b)",
+        "w2": "(a * (b + 1) + 2) === ans || (a * (b + 1) + 2) === w1 ? ans + 3 : (a * (b + 1) + 2)",
+        "w3": "(a + b) === ans || (a + b) === w1 || (a + b) === w2 ? ans + 4 : (a + b)"
+      },
+      "questionText": "Bạn Minh có {a} quyển sách về sở thích nấu ăn. Bạn Hoa có gấp {b} lần số sách đó. Hỏi cả hai bạn có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số sách của Hoa trước bằng cách lấy {a} nhân {b}, sau đó cộng với số sách của Minh.",
+        "Số sách của Hoa là {a} nhân {b} = {a * b}, tổng là {a} + {a * b} = {ans}."
+      ],
+      "solutionHtml": "Số sách của Hoa là: $ {a} \\times {b} = {a * b} $ (quyển).<br/>Tổng số sách của hai bạn là: $ {a} + {a * b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Cần tính toán theo từng bước và cộng các kết quả lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a + b) === ans ? ans + 2 : (a + b)",
+        "w2": "(a * b) === ans || (a * b) === w1 ? ans + 5 : (a * b)",
+        "w3": "(a - b + 3) === ans || (a - b + 3) === w1 || (a - b + 3) === w2 ? ans + 1 : (a - b + 3)"
+      },
+      "questionText": "Tổng số thành viên trong hai đội cờ vua là {a}. Nếu đội A có {b} thành viên, hỏi đội B có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số thành viên trừ đi số thành viên đội A.",
+        "Ta thực hiện phép tính {a} trừ {b}."
+      ],
+      "solutionHtml": "Số thành viên của đội B là:<br/>$ {a} - {b} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và một phần, ta dùng phép trừ để tìm phần còn lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b) === ans ? ans + 2 : (a + b)",
+        "w2": "(a * b + 1) === ans || (a * b + 1) === w1 ? ans + 3 : (a * b + 1)",
+        "w3": "(a * 2) === ans || (a * 2) === w1 || (a * 2) === w2 ? ans + 5 : (a * 2)"
+      },
+      "questionText": "Trong một buổi triển lãm sở thích, mỗi bạn mang đến {a} món đồ. Nếu có {b} bạn tham gia, tổng số món đồ là bao nhiêu?",
+      "options": [
+        "A. {w1} món",
+        "B. {ans} món",
+        "C. {w2} món",
+        "D. {w3} món"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số món đồ của mỗi bạn với tổng số bạn.",
+        "Ta thực hiện phép tính {a} nhân {b}."
+      ],
+      "solutionHtml": "Tổng số món đồ là:<br/>$ {a} \\times {b} = {ans} $ (món).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân dùng để tính tổng số lượng khi các phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5 },
+        "y": { "min": 10, "max": 20 }
+      },
+      "constraints": [
+        "y % x === 0",
+        "y > x"
+      ],
+      "formulas": {
+        "ans": "y / x",
+        "w1": "(y + x) === ans ? ans + 1 : (y + x)",
+        "w2": "(y - x) === ans || (y - x) === w1 ? ans + 2 : (y - x)",
+        "w3": "(y * x) === ans || (y * x) === w1 || (y * x) === w2 ? ans + 3 : (y * x)"
+      },
+      "questionText": "Câu lạc bộ sở thích có {y} thành viên được chia đều vào {x} nhóm để tham gia các dự án ngoại khóa. Hỏi mỗi nhóm có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số thành viên cho số nhóm.",
+        "Ta thực hiện phép tính {y} chia {x}."
+      ],
+      "solutionHtml": "Số thành viên trong mỗi nhóm là:<br/>$ {y} : {x} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, ta luôn sử dụng phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 3, "max": 8 },
+        "p": { "min": 5, "max": 10 }
+      },
+      "constraints": [
+        "h > 2"
+      ],
+      "formulas": {
+        "ans": "h * p",
+        "w1": "(h + p) === ans ? ans + 1 : (h + p)",
+        "w2": "(h * p * 2) === ans || (h * p * 2) === w1 ? ans + 5 : (h * p * 2)",
+        "w3": "(p * 2) === ans || (p * 2) === w1 || (p * 2) === w2 ? ans + 2 : (p * 2)"
+      },
+      "questionText": "Lan dành ra {h} giờ mỗi ngày để thực hiện sở thích đọc sách. Hỏi sau {p} ngày, Lan đã dành tổng cộng bao nhiêu giờ cho sở thích này?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số giờ mỗi ngày với tổng số ngày.",
+        "Ta thực hiện phép tính {h} nhân {p}."
+      ],
+      "solutionHtml": "Tổng số giờ Lan đã đọc sách là:<br/>$ {h} \\times {p} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng, ta sử dụng phép nhân số lượng đơn vị với số lần lặp lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 40, "max": 80 },
+        "a": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "total % a === 0"
+      ],
+      "formulas": {
+        "ans": "total / a",
+        "w1": "(total - a) === ans ? ans + 2 : (total - a)",
+        "w2": "(total + a) === ans || (total + a) === w1 ? ans + 4 : (total + a)",
+        "w3": "(a * 2) === ans || (a * 2) === w1 || (a * 2) === w2 ? ans + 1 : (a * 2)"
+      },
+      "questionText": "Một nhóm bạn cùng sở thích vẽ tranh có {total} bức tranh cần trưng bày. Nếu mỗi hàng để đúng {a} bức tranh, hỏi cần bao nhiêu hàng để trưng bày hết số tranh?",
+      "options": [
+        "A. {w1} hàng",
+        "B. {ans} hàng",
+        "C. {w2} hàng",
+        "D. {w3} hàng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số tranh cho số tranh trên mỗi hàng.",
+        "Ta thực hiện phép tính {total} chia cho {a}."
+      ],
+      "solutionHtml": "Số hàng cần để trưng bày là:<br/>$ {total} : {a} = {ans} $ (hàng).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp tìm số nhóm hoặc số hàng khi biết tổng số lượng và số lượng mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20 },
+        "y": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "(x + y) === ans ? ans + 3 : (x + y)",
+        "w2": "(x * y) === ans || (x * y) === w1 ? ans + 5 : (x * y)",
+        "w3": "(x / y) === ans || (x / y) === w1 || (x / y) === w2 ? ans + 2 : (x / y)"
+      },
+      "questionText": "Bạn An có {x} thẻ sưu tầm sở thích. Bạn Bình có ít hơn An {y} thẻ. Hỏi bạn Bình có bao nhiêu thẻ?",
+      "options": [
+        "A. {w1} thẻ",
+        "B. {ans} thẻ",
+        "C. {w2} thẻ",
+        "D. {w3} thẻ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy số thẻ của An trừ đi số thẻ ít hơn của Bình.",
+        "Ta thực hiện phép tính {x} trừ {y}."
+      ],
+      "solutionHtml": "Số thẻ của Bình là:<br/>$ {x} - {y} = {ans} $ (thẻ).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán 'ít hơn' đòi hỏi sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 3, "max": 7 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a * b) === ans ? ans + 2 : (a * b)",
+        "w2": "(a - b) === ans || (a - b) === w1 ? ans + 4 : (a - b)",
+        "w3": "(a + b + 2) === ans || (a + b + 2) === w1 || (a + b + 2) === w2 ? ans + 1 : (a + b + 2)"
+      },
+      "questionText": "Hùng có {a} sở thích chính và {b} sở thích phụ. Hỏi tổng số sở thích của Hùng là bao nhiêu?",
+      "options": [
+        "A. {w1} sở thích",
+        "B. {ans} sở thích",
+        "C. {w2} sở thích",
+        "D. {w3} sở thích"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng số sở thích chính và sở thích phụ lại với nhau.",
+        "Ta thực hiện phép tính {a} cộng {b}."
+      ],
+      "solutionHtml": "Tổng số sở thích của Hùng là:<br/>$ {a} + {b} = {ans} $ (sở thích).<br/>Đáp án đúng là B.",
+      "tip": "Khi cần tìm tổng, ta sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 10, "max": 20 }
+      },
+      "constraints": [
+        "(a * b) < 100"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b) === ans ? ans + 3 : (a + b)",
+        "w2": "(a * b + 5) === ans || (a * b + 5) === w1 ? ans + 7 : (a * b + 5)",
+        "w3": "(b - a) === ans || (b - a) === w1 || (b - a) === w2 ? ans + 1 : (b - a)"
+      },
+      "questionText": "Mỗi thành viên trong đội nhảy cần chuẩn bị {a} đôi giày. Nếu đội có {b} thành viên, tổng số đôi giày cần chuẩn bị là bao nhiêu?",
+      "options": [
+        "A. {w1} đôi",
+        "B. {ans} đôi",
+        "C. {w2} đôi",
+        "D. {w3} đôi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số đôi giày mỗi thành viên cần với tổng số thành viên.",
+        "Ta thực hiện phép tính {a} nhân {b}."
+      ],
+      "solutionHtml": "Tổng số đôi giày cần là:<br/>$ {a} \\times {b} = {ans} $ (đôi).<br/>Đáp án đúng là B.",
+      "tip": "Để tính tổng số lượng phân phối đều, dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 50 },
+        "y": { "min": 5, "max": 10 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "(x + y) === ans ? ans + 2 : (x + y)",
+        "w2": "(x - y) === ans || (x - y) === w1 ? ans + 3 : (x - y)",
+        "w3": "(y * 2) === ans || (y * 2) === w1 || (y * 2) === w2 ? ans + 1 : (y * 2)"
+      },
+      "questionText": "Một câu lạc bộ nhiếp ảnh có {x} chiếc máy ảnh được chia đều cho {y} nhóm học viên. Hỏi mỗi nhóm nhận được bao nhiêu chiếc máy ảnh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số máy ảnh cho số nhóm.",
+        "Ta thực hiện phép tính {x} chia {y}."
+      ],
+      "solutionHtml": "Số máy ảnh mỗi nhóm nhận được là:<br/>$ {x} : {y} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + a * b",
+        "w1": "(a * b) === ans ? ans + 1 : (a * b)",
+        "w2": "(a * (b + 1) + 2) === ans || (a * (b + 1) + 2) === w1 ? ans + 3 : (a * (b + 1) + 2)",
+        "w3": "(a + b) === ans || (a + b) === w1 || (a + b) === w2 ? ans + 4 : (a + b)"
+      },
+      "questionText": "Bạn Minh có {a} quyển sách về sở thích nấu ăn. Bạn Hoa có gấp {b} lần số sách đó. Hỏi cả hai bạn có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số sách của Hoa trước bằng cách lấy {a} nhân {b}, sau đó cộng với số sách của Minh.",
+        "Số sách của Hoa là {a} nhân {b} = {a * b}, tổng là {a} + {a * b} = {ans}."
+      ],
+      "solutionHtml": "Số sách của Hoa là: $ {a} \\times {b} = {a * b} $ (quyển).<br/>Tổng số sách của hai bạn là: $ {a} + {a * b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Cần tính toán theo từng bước và cộng các kết quả lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a + b) === ans ? ans + 2 : (a + b)",
+        "w2": "(a * b) === ans || (a * b) === w1 ? ans + 5 : (a * b)",
+        "w3": "(a - b + 3) === ans || (a - b + 3) === w1 || (a - b + 3) === w2 ? ans + 1 : (a - b + 3)"
+      },
+      "questionText": "Tổng số thành viên trong hai đội cờ vua là {a}. Nếu đội A có {b} thành viên, hỏi đội B có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số thành viên trừ đi số thành viên đội A.",
+        "Ta thực hiện phép tính {a} trừ {b}."
+      ],
+      "solutionHtml": "Số thành viên của đội B là:<br/>$ {a} - {b} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết tổng và một phần, ta dùng phép trừ để tìm phần còn lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b) === ans ? ans + 2 : (a + b)",
+        "w2": "(a * b + 1) === ans || (a * b + 1) === w1 ? ans + 3 : (a * b + 1)",
+        "w3": "(a * 2) === ans || (a * 2) === w1 || (a * 2) === w2 ? ans + 5 : (a * 2)"
+      },
+      "questionText": "Trong một buổi triển lãm sở thích, mỗi bạn mang đến {a} món đồ. Nếu có {b} bạn tham gia, tổng số món đồ là bao nhiêu?",
+      "options": [
+        "A. {w1} món",
+        "B. {ans} món",
+        "C. {w2} món",
+        "D. {w3} món"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số món đồ của mỗi bạn với tổng số bạn.",
+        "Ta thực hiện phép tính {a} nhân {b}."
+      ],
+      "solutionHtml": "Tổng số món đồ là:<br/>$ {a} \\times {b} = {ans} $ (món).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân dùng để tính tổng số lượng khi các phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t13-d4"
+    }
+  ]
+}
+}
+

@@ -1,0 +1,471 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:50:52.118Z
+Lesson ID: eng4-t13
+Lesson Title: Unit 13: Appearance
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9058 (line 220 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9058 (line 220 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9058 (Line: 220, Column: 1)
+Character causing error: "}"
+
+Context:
+... trong mỗi hộp là:<br/>$ {n} : {k} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 20, "max": 40, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "ans + 2",
+        "w2": "ans + 4",
+        "w3": "ans + 6"
+      },
+      "questionText": "Trong một câu lạc bộ tiếng Anh có {n} học sinh. Các học sinh được chia đều thành {k} nhóm để biểu diễn trang phục (Appearance). Hỏi mỗi nhóm có bao nhiêu học sinh?",
+      "options": ["A. {w1} học sinh", "B. {ans} học sinh", "C. {w2} học sinh", "D. {w3} học sinh"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số học sinh mỗi nhóm, ta lấy tổng số học sinh chia cho số nhóm.", "Phép tính cần thực hiện là $ {n} : {k} $."],
+      "solutionHtml": "Số học sinh trong mỗi nhóm là:<br/>$ {n} : {k} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều một nhóm thành các phần bằng nhau, ta luôn sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 10, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * (y + 1)",
+        "w3": "x + 10"
+      },
+      "questionText": "Mỗi bạn học sinh trong đội văn nghệ cần {x} phút để trang điểm cho buổi diễn chủ đề Appearance. Nếu có {y} bạn, hỏi tổng thời gian để cả đội trang điểm xong là bao nhiêu phút?",
+      "options": ["A. {w1} phút", "B. {w2} phút", "C. {ans} phút", "D. {w3} phút"],
+      "correctIndex": 2,
+      "hints": ["Mỗi bạn tốn {x} phút, có {y} bạn, ta lấy {x} nhân với {y}.", "Phép tính là $ {x} \\times {y} $."],
+      "solutionHtml": "Tổng thời gian trang điểm cho cả đội là:<br/>$ {x} \\times {y} = {ans} $ (phút).<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán 'gấp lên nhiều lần' cần sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b", "a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "ans + 5"
+      },
+      "questionText": "Lớp 4A có {a} bộ quần áo truyền thống để biểu diễn. Cô giáo chia số quần áo đó cho {b} tổ, mỗi tổ nhận được số lượng bằng nhau. Hỏi mỗi tổ nhận được bao nhiêu bộ?",
+      "options": ["A. {w1} bộ", "B. {w2} bộ", "C. {ans} bộ", "D. {w3} bộ"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số quần áo cho các tổ, ta thực hiện phép tính chia.", "Phép tính: $ {a} : {b} $."],
+      "solutionHtml": "Số bộ quần áo mỗi tổ nhận được là:<br/>$ {a} : {b} = {ans} $ (bộ).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 100, "max": 200, "step": 10 },
+        "n": { "min": 5, "max": 20, "step": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "m + n",
+        "w1": "m - n",
+        "w2": "m + n + 10",
+        "w3": "m + n + 20"
+      },
+      "questionText": "Chiều cao của bạn An là {m} cm. Bạn Bình cao hơn bạn An {n} cm. Hỏi bạn Bình cao bao nhiêu cm?",
+      "options": ["A. {w1} cm", "B. {ans} cm", "C. {w2} cm", "D. {w3} cm"],
+      "correctIndex": 1,
+      "hints": ["Để tìm chiều cao của bạn Bình, ta lấy chiều cao của An cộng thêm phần chênh lệch.", "Phép tính: $ {m} + {n} $."],
+      "solutionHtml": "Chiều cao của bạn Bình là:<br/>$ {m} + {n} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán 'nhiều hơn' thì ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 5, "max": 15, "step": 1 },
+        "d": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["c > d"],
+      "formulas": {
+        "ans": "c - d",
+        "w1": "c + d",
+        "w2": "c - d + 2",
+        "w3": "c - d + 4"
+      },
+      "questionText": "Trong một cuộc thi thời trang, bạn Mai có {c} phụ kiện, bạn Lan có ít hơn bạn Mai {d} phụ kiện. Hỏi bạn Lan có bao nhiêu phụ kiện?",
+      "options": ["A. {w1} phụ kiện", "B. {w2} phụ kiện", "C. {ans} phụ kiện", "D. {w3} phụ kiện"],
+      "correctIndex": 2,
+      "hints": ["Bạn Lan có ít hơn bạn Mai, ta dùng phép trừ.", "Phép tính: $ {c} - {d} $."],
+      "solutionHtml": "Số phụ kiện bạn Lan có là:<br/>$ {c} - {d} = {ans} $ (phụ kiện).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán 'ít hơn' thì ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": { "min": 2, "max": 8, "step": 1 },
+        "w": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "v * w",
+        "w1": "v + w",
+        "w2": "v * w + 2",
+        "w3": "v * w + 5"
+      },
+      "questionText": "Mỗi bộ trang phục cần {v} chiếc cúc áo. Nếu có {w} bộ trang phục như thế, hỏi cần tất cả bao nhiêu chiếc cúc áo?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số cúc, ta lấy số cúc mỗi bộ nhân với số bộ.", "Phép tính: $ {v} \\times {w} $."],
+      "solutionHtml": "Tổng số cúc áo cần là:<br/>$ {v} \\times {w} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p": { "min": 30, "max": 60, "step": 2 },
+        "q": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["p % q === 0"],
+      "formulas": {
+        "ans": "p / q",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 5"
+      },
+      "questionText": "Có {p} bức ảnh về chủ đề Appearance được treo đều trên {q} bức tường. Hỏi mỗi bức tường có bao nhiêu bức ảnh?",
+      "options": ["A. {w1} bức", "B. {ans} bức", "C. {w2} bức", "D. {w3} bức"],
+      "correctIndex": 1,
+      "hints": ["Chia đều số ảnh cho số bức tường, dùng phép chia.", "Phép tính: $ {p} : {q} $."],
+      "solutionHtml": "Số bức ảnh trên mỗi bức tường là:<br/>$ {p} : {q} = {ans} $ (bức ảnh).<br/>Đáp án đúng là B.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trong một buổi trình diễn, có {x} bạn nam và {y} bạn nữ tham gia. Hỏi tổng số bạn tham gia là bao nhiêu?",
+      "options": ["A. {w1} bạn", "B. {ans} bạn", "C. {w2} bạn", "D. {w3} bạn"],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số bạn bằng cách cộng số bạn nam và bạn nữ.", "Phép tính: $ {x} + {y} $."],
+      "solutionHtml": "Tổng số bạn tham gia là:<br/>$ {x} + {y} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "ans + a",
+        "w3": "ans - b"
+      },
+      "questionText": "Mỗi nhóm có {a} thành viên. Hỏi {b} nhóm như thế có tất cả bao nhiêu thành viên?",
+      "options": ["A. {w1} thành viên", "B. {w2} thành viên", "C. {ans} thành viên", "D. {w3} thành viên"],
+      "correctIndex": 2,
+      "hints": ["Tìm số lượng tổng cộng khi biết mỗi nhóm có bao nhiêu người.", "Phép tính: $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số thành viên là:<br/>$ {a} \\times {b} = {ans} $ (thành viên).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 30, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n + k",
+        "w2": "ans * 2",
+        "w3": "ans + 1"
+      },
+      "questionText": "Có {n} chiếc mũ được chia vào {k} hộp. Hỏi mỗi hộp có bao nhiêu chiếc mũ?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số mũ vào các hộp.", "Phép tính: $ {n} : {k} $."],
+      "solutionHtml": "Số mũ trong mỗi hộp là:<br/>$ {n} : {k} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 20, "max": 40, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "ans + 2",
+        "w2": "ans + 4",
+        "w3": "ans + 6"
+      },
+      "questionText": "Trong một câu lạc bộ tiếng Anh có {n} học sinh. Các học sinh được chia đều thành {k} nhóm để biểu diễn trang phục (Appearance). Hỏi mỗi nhóm có bao nhiêu học sinh?",
+      "options": ["A. {w1} học sinh", "B. {ans} học sinh", "C. {w2} học sinh", "D. {w3} học sinh"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số học sinh mỗi nhóm, ta lấy tổng số học sinh chia cho số nhóm.", "Phép tính cần thực hiện là $ {n} : {k} $."],
+      "solutionHtml": "Số học sinh trong mỗi nhóm là:<br/>$ {n} : {k} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều một nhóm thành các phần bằng nhau, ta luôn sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 10, "step": 1 },
+        "y": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * (y + 1)",
+        "w3": "x + 10"
+      },
+      "questionText": "Mỗi bạn học sinh trong đội văn nghệ cần {x} phút để trang điểm cho buổi diễn chủ đề Appearance. Nếu có {y} bạn, hỏi tổng thời gian để cả đội trang điểm xong là bao nhiêu phút?",
+      "options": ["A. {w1} phút", "B. {w2} phút", "C. {ans} phút", "D. {w3} phút"],
+      "correctIndex": 2,
+      "hints": ["Mỗi bạn tốn {x} phút, có {y} bạn, ta lấy {x} nhân với {y}.", "Phép tính là $ {x} \\times {y} $."],
+      "solutionHtml": "Tổng thời gian trang điểm cho cả đội là:<br/>$ {x} \\times {y} = {ans} $ (phút).<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán 'gấp lên nhiều lần' cần sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b", "a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "ans + 5"
+      },
+      "questionText": "Lớp 4A có {a} bộ quần áo truyền thống để biểu diễn. Cô giáo chia số quần áo đó cho {b} tổ, mỗi tổ nhận được số lượng bằng nhau. Hỏi mỗi tổ nhận được bao nhiêu bộ?",
+      "options": ["A. {w1} bộ", "B. {w2} bộ", "C. {ans} bộ", "D. {w3} bộ"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số quần áo cho các tổ, ta thực hiện phép tính chia.", "Phép tính: $ {a} : {b} $."],
+      "solutionHtml": "Số bộ quần áo mỗi tổ nhận được là:<br/>$ {a} : {b} = {ans} $ (bộ).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 100, "max": 200, "step": 10 },
+        "n": { "min": 5, "max": 20, "step": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "m + n",
+        "w1": "m - n",
+        "w2": "m + n + 10",
+        "w3": "m + n + 20"
+      },
+      "questionText": "Chiều cao của bạn An là {m} cm. Bạn Bình cao hơn bạn An {n} cm. Hỏi bạn Bình cao bao nhiêu cm?",
+      "options": ["A. {w1} cm", "B. {ans} cm", "C. {w2} cm", "D. {w3} cm"],
+      "correctIndex": 1,
+      "hints": ["Để tìm chiều cao của bạn Bình, ta lấy chiều cao của An cộng thêm phần chênh lệch.", "Phép tính: $ {m} + {n} $."],
+      "solutionHtml": "Chiều cao của bạn Bình là:<br/>$ {m} + {n} = {ans} $ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán 'nhiều hơn' thì ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 5, "max": 15, "step": 1 },
+        "d": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["c > d"],
+      "formulas": {
+        "ans": "c - d",
+        "w1": "c + d",
+        "w2": "c - d + 2",
+        "w3": "c - d + 4"
+      },
+      "questionText": "Trong một cuộc thi thời trang, bạn Mai có {c} phụ kiện, bạn Lan có ít hơn bạn Mai {d} phụ kiện. Hỏi bạn Lan có bao nhiêu phụ kiện?",
+      "options": ["A. {w1} phụ kiện", "B. {w2} phụ kiện", "C. {ans} phụ kiện", "D. {w3} phụ kiện"],
+      "correctIndex": 2,
+      "hints": ["Bạn Lan có ít hơn bạn Mai, ta dùng phép trừ.", "Phép tính: $ {c} - {d} $."],
+      "solutionHtml": "Số phụ kiện bạn Lan có là:<br/>$ {c} - {d} = {ans} $ (phụ kiện).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán 'ít hơn' thì ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": { "min": 2, "max": 8, "step": 1 },
+        "w": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "v * w",
+        "w1": "v + w",
+        "w2": "v * w + 2",
+        "w3": "v * w + 5"
+      },
+      "questionText": "Mỗi bộ trang phục cần {v} chiếc cúc áo. Nếu có {w} bộ trang phục như thế, hỏi cần tất cả bao nhiêu chiếc cúc áo?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số cúc, ta lấy số cúc mỗi bộ nhân với số bộ.", "Phép tính: $ {v} \\times {w} $."],
+      "solutionHtml": "Tổng số cúc áo cần là:<br/>$ {v} \\times {w} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p": { "min": 30, "max": 60, "step": 2 },
+        "q": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["p % q === 0"],
+      "formulas": {
+        "ans": "p / q",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 5"
+      },
+      "questionText": "Có {p} bức ảnh về chủ đề Appearance được treo đều trên {q} bức tường. Hỏi mỗi bức tường có bao nhiêu bức ảnh?",
+      "options": ["A. {w1} bức", "B. {ans} bức", "C. {w2} bức", "D. {w3} bức"],
+      "correctIndex": 1,
+      "hints": ["Chia đều số ảnh cho số bức tường, dùng phép chia.", "Phép tính: $ {p} : {q} $."],
+      "solutionHtml": "Số bức ảnh trên mỗi bức tường là:<br/>$ {p} : {q} = {ans} $ (bức ảnh).<br/>Đáp án đúng là B.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["x > y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trong một buổi trình diễn, có {x} bạn nam và {y} bạn nữ tham gia. Hỏi tổng số bạn tham gia là bao nhiêu?",
+      "options": ["A. {w1} bạn", "B. {ans} bạn", "C. {w2} bạn", "D. {w3} bạn"],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số bạn bằng cách cộng số bạn nam và bạn nữ.", "Phép tính: $ {x} + {y} $."],
+      "solutionHtml": "Tổng số bạn tham gia là:<br/>$ {x} + {y} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "ans + a",
+        "w3": "ans - b"
+      },
+      "questionText": "Mỗi nhóm có {a} thành viên. Hỏi {b} nhóm như thế có tất cả bao nhiêu thành viên?",
+      "options": ["A. {w1} thành viên", "B. {w2} thành viên", "C. {ans} thành viên", "D. {w3} thành viên"],
+      "correctIndex": 2,
+      "hints": ["Tìm số lượng tổng cộng khi biết mỗi nhóm có bao nhiêu người.", "Phép tính: $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số thành viên là:<br/>$ {a} \\times {b} = {ans} $ (thành viên).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 30, "step": 1 },
+        "k": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["n % k === 0"],
+      "formulas": {
+        "ans": "n / k",
+        "w1": "n + k",
+        "w2": "ans * 2",
+        "w3": "ans + 1"
+      },
+      "questionText": "Có {n} chiếc mũ được chia vào {k} hộp. Hỏi mỗi hộp có bao nhiêu chiếc mũ?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Chia đều số mũ vào các hộp.", "Phép tính: $ {n} : {k} $."],
+      "solutionHtml": "Số mũ trong mỗi hộp là:<br/>$ {n} : {k} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t13-d4"
+    }
+  ]
+}
+}
+

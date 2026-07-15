@@ -1,0 +1,407 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "cal_per_min": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "time_min": {
+          "min": 20,
+          "max": 60,
+          "step": 10
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "cal_per_min * time_min",
+        "w1": "ans + 50",
+        "w2": "ans - 20",
+        "w3": "ans + 100"
+      },
+      "questionText": "Một bạn học sinh chạy bộ đốt cháy trung bình {cal_per_min} calo mỗi phút. Nếu bạn đó chạy liên tục trong {time_min} phút, tổng số calo mà bạn đó đã đốt cháy là bao nhiêu?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tính tổng số calo, ta nhân số calo đốt cháy trong một phút với tổng số phút đã chạy.",
+        "Phép tính cần thực hiện là {cal_per_min} nhân với {time_min}."
+      ],
+      "solutionHtml": "Số calo đã đốt cháy là:<br/>$ {cal_per_min} \\times {time_min} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đơn vị thời gian và lượng calo tiêu thụ mỗi phút để áp dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total_cal": {
+          "min": 1200,
+          "max": 2000,
+          "step": 100
+        },
+        "meals": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total_cal % meals === 0"
+      ],
+      "formulas": {
+        "ans": "total_cal / meals",
+        "w1": "ans + 100",
+        "w2": "ans - 50",
+        "w3": "ans + 200"
+      },
+      "questionText": "Một người cần nạp {total_cal} calo mỗi ngày để duy trì sức khỏe. Nếu người đó chia đều lượng calo này vào {meals} bữa ăn trong ngày, mỗi bữa ăn sẽ cung cấp bao nhiêu calo?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số calo cho số bữa ăn để tìm lượng calo mỗi bữa.",
+        "Thực hiện phép chia $ {total_cal} : {meals} $."
+      ],
+      "solutionHtml": "Số calo mỗi bữa ăn cung cấp là:<br/>$ {total_cal} : {meals} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, ta luôn sử dụng phép chia hết để tìm giá trị của mỗi phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "water_per_kg": {
+          "min": 30,
+          "max": 40,
+          "step": 1
+        },
+        "weight": {
+          "min": 40,
+          "max": 60,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "water_per_kg * weight",
+        "w1": "ans + 500",
+        "w2": "ans - 300",
+        "w3": "ans + 200"
+      },
+      "questionText": "Theo khuyến cáo, mỗi người nên uống khoảng {water_per_kg} ml nước cho mỗi ki-lô-gam trọng lượng cơ thể. Một học sinh nặng {weight} kg thì cần uống khoảng bao nhiêu ml nước một ngày?",
+      "options": [
+        "A. {w1} ml",
+        "B. {ans} ml",
+        "C. {w2} ml",
+        "D. {w3} ml"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân lượng nước khuyến cáo cho 1 kg với tổng số kg cân nặng của học sinh.",
+        "Phép tính là {water_per_kg} nhân với {weight}."
+      ],
+      "solutionHtml": "Lượng nước cần thiết cho học sinh đó là:<br/>$ {water_per_kg} \\times {weight} = {ans} $ (ml).<br/>Đáp án đúng là B.",
+      "tip": "Chú ý đơn vị tính là ml. Nếu kết quả quá lớn, có thể đổi sang lít bằng cách chia cho 1000.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "run": {
+          "min": 300,
+          "max": 500,
+          "step": 50
+        },
+        "swim": {
+          "min": 200,
+          "max": 400,
+          "step": 50
+        },
+        "cycle": {
+          "min": 400,
+          "max": 600,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "run !== swim",
+        "swim !== cycle",
+        "run !== cycle"
+      ],
+      "formulas": {
+        "ans": "run + swim + cycle",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Trong một buổi tập thể thao, Nam đốt cháy {run} calo khi chạy bộ, {swim} calo khi bơi lội và {cycle} calo khi đạp xe. Tổng lượng calo Nam đã đốt cháy trong buổi tập đó là bao nhiêu?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng lượng calo của ba hoạt động bằng phép cộng.",
+        "Ta thực hiện: $ {run} + {swim} + {cycle} $."
+      ],
+      "solutionHtml": "Tổng lượng calo đốt cháy là:<br/>$ {run} + {swim} + {cycle} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra các số hạng để tránh sai sót khi cộng nhiều số.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "limit": {
+          "min": 2000,
+          "max": 2500,
+          "step": 50
+        },
+        "consumed": {
+          "min": 1500,
+          "max": 1800,
+          "step": 50
+        }
+      },
+      "constraints": [
+        "limit > consumed"
+      ],
+      "formulas": {
+        "ans": "limit - consumed",
+        "w1": "ans + 200",
+        "w2": "ans - 100",
+        "w3": "ans + 500"
+      },
+      "questionText": "Hạn mức calo tối đa của Lan trong một ngày là {limit} calo. Hôm nay Lan đã nạp vào cơ thể {consumed} calo. Hỏi Lan còn có thể nạp thêm bao nhiêu calo nữa mà không vượt quá hạn mức?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm lượng calo còn lại, ta lấy hạn mức tối đa trừ đi số calo đã nạp.",
+        "Phép tính là $ {limit} - {consumed} $."
+      ],
+      "solutionHtml": "Lượng calo Lan còn có thể nạp thêm là:<br/>$ {limit} - {consumed} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán dạng tìm giá trị chênh lệch (số bị trừ - số trừ).",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "apple": {
+          "min": 50,
+          "max": 80,
+          "step": 5
+        },
+        "banana": {
+          "min": 90,
+          "max": 120,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "apple + banana",
+        "w1": "apple + 2 * banana",
+        "w2": "2 * apple + banana",
+        "w3": "apple + banana + 30"
+      },
+      "questionText": "Một quả táo chứa {apple} calo và một quả chuối chứa {banana} calo. Nếu một bạn học sinh ăn 1 quả táo và 1 quả chuối, tổng số calo bạn đó nhận được là bao nhiêu?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng số calo của táo và chuối lại với nhau.",
+        "Phép tính là $ {apple} + {banana} $."
+      ],
+      "solutionHtml": "Tổng số calo là:<br/>$ {apple} + {banana} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các loại trái cây khác nhau, xác định đúng giá trị từng loại trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "walk": {
+          "min": 200,
+          "max": 400,
+          "step": 20
+        },
+        "times": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "walk * times",
+        "w1": "walk + times",
+        "w2": "walk * (times + 1)",
+        "w3": "walk * (times - 1)"
+      },
+      "questionText": "Mỗi lần đi dạo quanh công viên, bạn Minh đốt cháy {walk} calo. Nếu trong tuần này Minh đi dạo {times} lần, hỏi tổng số calo Minh đã đốt cháy là bao nhiêu?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số calo mỗi lần với số lần đi dạo.",
+        "Phép tính là {walk} nhân với {times}."
+      ],
+      "solutionHtml": "Tổng số calo Minh đã đốt cháy là:<br/>$ {walk} \\times {times} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Khi lặp lại cùng một hành động nhiều lần, ta sử dụng phép nhân để tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 500,
+          "max": 1000,
+          "step": 50
+        },
+        "pieces": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total % pieces === 0"
+      ],
+      "formulas": {
+        "ans": "total / pieces",
+        "w1": "ans + 50",
+        "w2": "ans - 20",
+        "w3": "ans + 100"
+      },
+      "questionText": "Một chiếc bánh pizza chứa tổng cộng {total} calo và được cắt thành {pieces} miếng bằng nhau. Hỏi mỗi miếng bánh chứa bao nhiêu calo?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số calo cho số miếng bánh.",
+        "Thực hiện phép tính $ {total} : {pieces} $."
+      ],
+      "solutionHtml": "Số calo trong mỗi miếng bánh là:<br/>$ {total} : {pieces} = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Đảm bảo các miếng bánh bằng nhau thì mới được phép thực hiện phép chia đều.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "min_per_100": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "amount": {
+          "min": 300,
+          "max": 500,
+          "step": 100
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "(amount / 100) * min_per_100",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20"
+      },
+      "questionText": "Cứ {min_per_100} phút vận động mạnh sẽ tiêu thụ hết năng lượng của 100 gam tinh bột. Để tiêu thụ hết {amount} gam tinh bột, cần bao nhiêu phút vận động mạnh?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số đơn vị 100g trong tổng số {amount}g, sau đó nhân với số phút mỗi đơn vị.",
+        "Phép tính là $ ({amount} : 100) \\times {min_per_100} $."
+      ],
+      "solutionHtml": "Thời gian vận động cần thiết là:<br/>$ ({amount} : 100) \\times {min_per_100} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Tìm tỉ lệ giữa các đại lượng trước khi nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "fat": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "carb": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "protein": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "fat !== carb",
+        "carb !== protein"
+      ],
+      "formulas": {
+        "ans": "9 * fat + 4 * carb + 4 * protein",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20"
+      },
+      "questionText": "Trong dinh dưỡng, 1g chất béo cung cấp 9 calo, 1g tinh bột cung cấp 4 calo và 1g đạm cung cấp 4 calo. Một khẩu phần ăn có {fat}g chất béo, {carb}g tinh bột và {protein}g đạm sẽ cung cấp bao nhiêu calo?",
+      "options": [
+        "A. {w1} calo",
+        "B. {ans} calo",
+        "C. {w2} calo",
+        "D. {w3} calo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính calo của từng loại: chất béo ($9 \\times {fat}$), tinh bột ($4 \\times {carb}$), đạm ($4 \\times {protein}$), sau đó cộng lại.",
+        "Phép tính: $ (9 \\times {fat}) + (4 \\times {carb}) + (4 \\times {protein}) $."
+      ],
+      "solutionHtml": "Tổng calo là:<br/>$ (9 \\times {fat}) + (4 \\times {carb}) + (4 \\times {protein}) = {ans} $ (calo).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ thứ tự ưu tiên các phép tính: nhân chia trước, cộng trừ sau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t14-d10"
+    }
+  ]
+}

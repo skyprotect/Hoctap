@@ -1,0 +1,698 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:52:42.449Z
+Lesson ID: eng4-t17
+Lesson Title: Unit 17: In the toy shop
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12986 (line 418 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12986 (line 418 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 12986 (Line: 336, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "a > b",
+        "(a * 5) % b === 0"
+      ],
+      "formulas": {
+        "ans": "(a * 5) / b",
+        "w1": "(a * 5) + 2",
+        "w2": "(a * 5) - 3",
+        "w3": "(a * 5) * 2",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Lan mua {a} con búp bê, mỗi con giá 5 nghìn đồng. Bạn ấy chia đều số tiền đó cho {b} chú heo đất tiết kiệm. Hỏi mỗi chú heo đất nhận được bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1_f} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2_f} nghìn đồng",
+        "D. {w3_f} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số tiền Lan mua búp bê.",
+        "Bước 2: Chia tổng số tiền đó cho {b} chú heo đất."
+      ],
+      "solutionHtml": "Tổng số tiền Lan mua búp bê là:<br/>$ {a} \\times 5 = {a*5} $ (nghìn đồng).<br/>Số tiền mỗi chú heo đất nhận được là:<br/>$ {a*5} : {b} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các bước tính toán để không bỏ sót dữ kiện.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "x + y",
+        "w2": "x - y",
+        "w3": "x * y",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Trong cửa hàng có {x} chiếc ô tô đồ chơi được xếp đều vào {y} kệ hàng. Nếu mỗi kệ hàng bớt đi 1 chiếc thì tổng số ô tô còn lại là bao nhiêu?",
+      "options": [
+        "A. {w1_f} chiếc",
+        "B. {ans - y} chiếc",
+        "C. {w2_f} chiếc",
+        "D. {x - y} chiếc"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số ô tô ban đầu mỗi kệ có là $ {x} : {y} $.",
+        "Sau khi mỗi kệ bớt 1 chiếc, tổng số ô tô giảm đi đúng $ {y} $ chiếc."
+      ],
+      "solutionHtml": "Số ô tô mỗi kệ ban đầu là:<br/>$ {x} : {y} = {ans} $ (chiếc).<br/>Khi mỗi kệ bớt 1 chiếc, tổng số ô tô bớt đi là:<br/>$ {y} \\times 1 = {y} $ (chiếc).<br/>Số ô tô còn lại là:<br/>$ {x} - {y} = {x-y} $ (chiếc).<br/>Đáp án đúng là D.",
+      "tip": "Hãy chú ý số lượng kệ hàng khi bớt đi một đơn vị trên mỗi kệ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 15 + b * 20",
+        "w1": "a * 15 - b * 20",
+        "w2": "(a + b) * 15",
+        "w3": "(a + b) * 20",
+        "w1_f": "(w1 <= 0) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Bạn An mua {a} con robot giá 15 nghìn đồng một con và {b} chiếc xe hơi giá 20 nghìn đồng một chiếc. Tổng số tiền An phải trả là bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1_f} nghìn đồng",
+        "B. {w2_f} nghìn đồng",
+        "C. {ans} nghìn đồng",
+        "D. {w3_f} nghìn đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tiền robot: $ {a} \\times 15 $.",
+        "Tính tiền xe hơi: $ {b} \\times 20 $.",
+        "Cộng hai kết quả lại."
+      ],
+      "solutionHtml": "Tiền mua robot là: $ {a} \\times 15 = {a*15} $ (nghìn đồng).<br/>Tiền mua xe hơi là: $ {b} \\times 20 = {b*20} $ (nghìn đồng).<br/>Tổng tiền là: $ {a*15} + {b*20} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với đơn vị tiền tệ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Cửa hàng đồ chơi có {a} khối lắp ráp. Người ta chia đều vào {b} hộp. Hỏi nếu muốn chia vào số hộp nhiều gấp đôi thì mỗi hộp sẽ có bao nhiêu khối?",
+      "options": [
+        "A. {ans / 2} khối",
+        "B. {ans} khối",
+        "C. {w1_f} khối",
+        "D. {w2_f} khối"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số hộp mới là: $ {b} \\times 2 $.",
+        "Số khối mỗi hộp là: $ {a} : ({b} \\times 2) $."
+      ],
+      "solutionHtml": "Số hộp lúc sau là: $ {b} \\times 2 = {b*2} $ (hộp).<br/>Số khối lắp ráp mỗi hộp lúc sau là:<br/>$ {a} : {b*2} = {ans/2} $ (khối).<br/>Đáp án đúng là A.",
+      "tip": "Khi số hộp tăng lên thì số khối mỗi hộp sẽ giảm đi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 8, "step": 1 },
+        "y": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * y + 5",
+        "w3": "x * y - 5",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3 : w3"
+      },
+      "questionText": "Một kệ đồ chơi có {x} ngăn, mỗi ngăn chứa {y} món đồ chơi. Hỏi kệ đồ chơi đó có bao nhiêu món đồ chơi?",
+      "options": [
+        "A. {w1_f} món",
+        "B. {w2_f} món",
+        "C. {ans} món",
+        "D. {w3_f} món"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy số ngăn nhân với số đồ chơi mỗi ngăn."
+      ],
+      "solutionHtml": "Số món đồ chơi là:<br/>$ {x} \\times {y} = {ans} $ (món).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giúp ta tính tổng số lượng của các nhóm bằng nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Cửa hàng có {a} chiếc máy bay điều khiển từ xa. Cứ mỗi nhóm {b} chiếc máy bay sẽ được giảm giá 10 nghìn đồng cho cả nhóm. Hỏi cửa hàng có bao nhiêu nhóm như vậy?",
+      "options": [
+        "A. {w1_f} nhóm",
+        "B. {w2_f} nhóm",
+        "C. {w3_f} nhóm",
+        "D. {ans} nhóm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia tổng số máy bay cho số lượng mỗi nhóm."
+      ],
+      "solutionHtml": "Số nhóm máy bay là:<br/>$ {a} : {b} = {ans} $ (nhóm).<br/>Đáp án đúng là D.",
+      "tip": "Bài toán hỏi số nhóm, không hỏi số tiền giảm giá."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 10 + b * 5",
+        "w1": "a * 5 + b * 10",
+        "w2": "(a + b) * 7",
+        "w3": "a * b * 10",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3 : w3"
+      },
+      "questionText": "An mua {a} bộ lắp ghép giá 10 nghìn đồng mỗi bộ và {b} quả bóng giá 5 nghìn đồng mỗi quả. Tổng tiền An chi trả là bao nhiêu?",
+      "options": [
+        "A. {w1_f} nghìn",
+        "B. {ans} nghìn",
+        "C. {w2_f} nghìn",
+        "D. {w3_f} nghìn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tiền lắp ghép: {a} nhân 10.",
+        "Tính tiền bóng: {b} nhân 5.",
+        "Cộng lại."
+      ],
+      "solutionHtml": "Tiền lắp ghép: $ {a} \\times 10 = {a*10} $ (nghìn).<br/>Tiền bóng: $ {b} \\times 5 = {b*5} $ (nghìn).<br/>Tổng tiền: $ {a*10} + {b*5} = {ans} $ (nghìn).<br/>Đáp án đúng là B.",
+      "tip": "Luôn thực hiện phép nhân trước khi thực hiện phép cộng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 5 : w3"
+      },
+      "questionText": "Cửa hàng có {a} kệ hàng, mỗi kệ trưng bày {b} loại đồ chơi khác nhau. Hỏi cửa hàng có tất cả bao nhiêu loại đồ chơi?",
+      "options": [
+        "A. {w1_f} loại",
+        "B. {ans} loại",
+        "C. {w2_f} loại",
+        "D. {w3_f} loại"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dùng phép nhân số kệ với số loại đồ chơi mỗi kệ."
+      ],
+      "solutionHtml": "Số loại đồ chơi là:<br/>$ {a} \\times {b} = {ans} $ (loại).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm tổng số lượng theo hàng và cột."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 30, "step": 1 },
+        "y": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "x / y",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Cửa hàng có {x} chiếc xe đồ chơi. Sau khi bán đi {y} chiếc, số xe còn lại được chia vào các giỏ, mỗi giỏ 5 chiếc. Hỏi có bao nhiêu giỏ như vậy?",
+      "options": [
+        "A. {ans/5} giỏ",
+        "B. {w1_f} giỏ",
+        "C. {w2_f} giỏ",
+        "D. {w3_f} giỏ"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số xe còn lại: {x} - {y}.",
+        "Số giỏ: lấy số xe còn lại chia 5."
+      ],
+      "solutionHtml": "Số xe còn lại là: $ {x} - {y} = {x-y} $ (chiếc).<br/>Số giỏ là: $ {x-y} : 5 = {ans/5} $ (giỏ).<br/>Đáp án đúng là A.",
+      "tip": "Phải tính số xe còn lại trước khi chia giỏ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a - b",
+        "w3": "a + b + 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Một kệ đồ chơi có {a} con gấu bông và {b} con chó bông. Bạn Mai lấy đi 1 con gấu bông. Hỏi trên kệ còn lại tổng cộng bao nhiêu con thú bông?",
+      "options": [
+        "A. {w1_f} con",
+        "B. {w2_f} con",
+        "C. {ans - 1} con",
+        "D. {w3_f} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng ban đầu là {a} + {b}.",
+        "Sau khi lấy đi 1 con, tổng giảm đi 1."
+      ],
+      "solutionHtml": "Tổng số thú bông ban đầu là: $ {a} + {b} = {a+b} $ (con).<br/>Số thú bông còn lại là: $ {a+b} - 1 = {ans-1} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên trừ đi số thú bông đã lấy đi."
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "a > b",
+        "(a * 5) % b === 0"
+      ],
+      "formulas": {
+        "ans": "(a * 5) / b",
+        "w1": "(a * 5) + 2",
+        "w2": "(a * 5) - 3",
+        "w3": "(a * 5) * 2",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Lan mua {a} con búp bê, mỗi con giá 5 nghìn đồng. Bạn ấy chia đều số tiền đó cho {b} chú heo đất tiết kiệm. Hỏi mỗi chú heo đất nhận được bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1_f} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2_f} nghìn đồng",
+        "D. {w3_f} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bước 1: Tính tổng số tiền Lan mua búp bê.",
+        "Bước 2: Chia tổng số tiền đó cho {b} chú heo đất."
+      ],
+      "solutionHtml": "Tổng số tiền Lan mua búp bê là:<br/>$ {a} \\times 5 = {a*5} $ (nghìn đồng).<br/>Số tiền mỗi chú heo đất nhận được là:<br/>$ {a*5} : {b} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các bước tính toán để không bỏ sót dữ kiện.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 10, "max": 20, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "x + y",
+        "w2": "x - y",
+        "w3": "x * y",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Trong cửa hàng có {x} chiếc ô tô đồ chơi được xếp đều vào {y} kệ hàng. Nếu mỗi kệ hàng bớt đi 1 chiếc thì tổng số ô tô còn lại là bao nhiêu?",
+      "options": [
+        "A. {w1_f} chiếc",
+        "B. {ans - y} chiếc",
+        "C. {w2_f} chiếc",
+        "D. {x - y} chiếc"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số ô tô ban đầu mỗi kệ có là $ {x} : {y} $.",
+        "Sau khi mỗi kệ bớt 1 chiếc, tổng số ô tô giảm đi đúng $ {y} $ chiếc."
+      ],
+      "solutionHtml": "Số ô tô mỗi kệ ban đầu là:<br/>$ {x} : {y} = {ans} $ (chiếc).<br/>Khi mỗi kệ bớt 1 chiếc, tổng số ô tô bớt đi là:<br/>$ {y} \\times 1 = {y} $ (chiếc).<br/>Số ô tô còn lại là:<br/>$ {x} - {y} = {x-y} $ (chiếc).<br/>Đáp án đúng là D.",
+      "tip": "Hãy chú ý số lượng kệ hàng khi bớt đi một đơn vị trên mỗi kệ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 15 + b * 20",
+        "w1": "a * 15 - b * 20",
+        "w2": "(a + b) * 15",
+        "w3": "(a + b) * 20",
+        "w1_f": "(w1 <= 0) ? ans + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Bạn An mua {a} con robot giá 15 nghìn đồng một con và {b} chiếc xe hơi giá 20 nghìn đồng một chiếc. Tổng số tiền An phải trả là bao nhiêu nghìn đồng?",
+      "options": [
+        "A. {w1_f} nghìn đồng",
+        "B. {w2_f} nghìn đồng",
+        "C. {ans} nghìn đồng",
+        "D. {w3_f} nghìn đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tiền robot: $ {a} \\times 15 $.",
+        "Tính tiền xe hơi: $ {b} \\times 20 $.",
+        "Cộng hai kết quả lại."
+      ],
+      "solutionHtml": "Tiền mua robot là: $ {a} \\times 15 = {a*15} $ (nghìn đồng).<br/>Tiền mua xe hơi là: $ {b} \\times 20 = {b*20} $ (nghìn đồng).<br/>Tổng tiền là: $ {a*15} + {b*20} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với đơn vị tiền tệ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Cửa hàng đồ chơi có {a} khối lắp ráp. Người ta chia đều vào {b} hộp. Hỏi nếu muốn chia vào số hộp nhiều gấp đôi thì mỗi hộp sẽ có bao nhiêu khối?",
+      "options": [
+        "A. {ans / 2} khối",
+        "B. {ans} khối",
+        "C. {w1_f} khối",
+        "D. {w2_f} khối"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số hộp mới là: $ {b} \\times 2 $.",
+        "Số khối mỗi hộp là: $ {a} : ({b} \\times 2) $."
+      ],
+      "solutionHtml": "Số hộp lúc sau là: $ {b} \\times 2 = {b*2} $ (hộp).<br/>Số khối lắp ráp mỗi hộp lúc sau là:<br/>$ {a} : {b*2} = {ans/2} $ (khối).<br/>Đáp án đúng là A.",
+      "tip": "Khi số hộp tăng lên thì số khối mỗi hộp sẽ giảm đi."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5, "max": 8, "step": 1 },
+        "y": { "min": 10, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * y + 5",
+        "w3": "x * y - 5",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3 : w3"
+      },
+      "questionText": "Một kệ đồ chơi có {x} ngăn, mỗi ngăn chứa {y} món đồ chơi. Hỏi kệ đồ chơi đó có bao nhiêu món đồ chơi?",
+      "options": [
+        "A. {w1_f} món",
+        "B. {w2_f} món",
+        "C. {ans} món",
+        "D. {w3_f} món"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy số ngăn nhân với số đồ chơi mỗi ngăn."
+      ],
+      "solutionHtml": "Số món đồ chơi là:<br/>$ {x} \\times {y} = {ans} $ (món).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giúp ta tính tổng số lượng của các nhóm bằng nhau."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Cửa hàng có {a} chiếc máy bay điều khiển từ xa. Cứ mỗi nhóm {b} chiếc máy bay sẽ được giảm giá 10 nghìn đồng cho cả nhóm. Hỏi cửa hàng có bao nhiêu nhóm như vậy?",
+      "options": [
+        "A. {w1_f} nhóm",
+        "B. {w2_f} nhóm",
+        "C. {w3_f} nhóm",
+        "D. {ans} nhóm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia tổng số máy bay cho số lượng mỗi nhóm."
+      ],
+      "solutionHtml": "Số nhóm máy bay là:<br/>$ {a} : {b} = {ans} $ (nhóm).<br/>Đáp án đúng là D.",
+      "tip": "Bài toán hỏi số nhóm, không hỏi số tiền giảm giá."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 10 + b * 5",
+        "w1": "a * 5 + b * 10",
+        "w2": "(a + b) * 7",
+        "w3": "a * b * 10",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 3 : w3"
+      },
+      "questionText": "An mua {a} bộ lắp ghép giá 10 nghìn đồng mỗi bộ và {b} quả bóng giá 5 nghìn đồng mỗi quả. Tổng tiền An chi trả là bao nhiêu?",
+      "options": [
+        "A. {w1_f} nghìn",
+        "B. {ans} nghìn",
+        "C. {w2_f} nghìn",
+        "D. {w3_f} nghìn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tiền lắp ghép: {a} nhân 10.",
+        "Tính tiền bóng: {b} nhân 5.",
+        "Cộng lại."
+      ],
+      "solutionHtml": "Tiền lắp ghép: $ {a} \\times 10 = {a*10} $ (nghìn).<br/>Tiền bóng: $ {b} \\times 5 = {b*5} $ (nghìn).<br/>Tổng tiền: $ {a*10} + {b*5} = {ans} $ (nghìn).<br/>Đáp án đúng là B.",
+      "tip": "Luôn thực hiện phép nhân trước khi thực hiện phép cộng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 5 : w3"
+      },
+      "questionText": "Cửa hàng có {a} kệ hàng, mỗi kệ trưng bày {b} loại đồ chơi khác nhau. Hỏi cửa hàng có tất cả bao nhiêu loại đồ chơi?",
+      "options": [
+        "A. {w1_f} loại",
+        "B. {ans} loại",
+        "C. {w2_f} loại",
+        "D. {w3_f} loại"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dùng phép nhân số kệ với số loại đồ chơi mỗi kệ."
+      ],
+      "solutionHtml": "Số loại đồ chơi là:<br/>$ {a} \\times {b} = {ans} $ (loại).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm tổng số lượng theo hàng và cột."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 20, "max": 30, "step": 1 },
+        "y": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x - y",
+        "w1": "x + y",
+        "w2": "x * y",
+        "w3": "x / y",
+        "w1_f": "(w1 === ans) ? w1 + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Cửa hàng có {x} chiếc xe đồ chơi. Sau khi bán đi {y} chiếc, số xe còn lại được chia vào các giỏ, mỗi giỏ 5 chiếc. Hỏi có bao nhiêu giỏ như vậy?",
+      "options": [
+        "A. {ans/5} giỏ",
+        "B. {w1_f} giỏ",
+        "C. {w2_f} giỏ",
+        "D. {w3_f} giỏ"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số xe còn lại: {x} - {y}.",
+        "Số giỏ: lấy số xe còn lại chia 5."
+      ],
+      "solutionHtml": "Số xe còn lại là: $ {x} - {y} = {x-y} $ (chiếc).<br/>Số giỏ là: $ {x-y} : 5 = {ans/5} $ (giỏ).<br/>Đáp án đúng là A.",
+      "tip": "Phải tính số xe còn lại trước khi chia giỏ."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a - b",
+        "w3": "a + b + 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 7 : w3"
+      },
+      "questionText": "Một kệ đồ chơi có {a} con gấu bông và {b} con chó bông. Bạn Mai lấy đi 1 con gấu bông. Hỏi trên kệ còn lại tổng cộng bao nhiêu con thú bông?",
+      "options": [
+        "A. {w1_f} con",
+        "B. {w2_f} con",
+        "C. {ans - 1} con",
+        "D. {w3_f} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng ban đầu là {a} + {b}.",
+        "Sau khi lấy đi 1 con, tổng giảm đi 1."
+      ],
+      "solutionHtml": "Tổng số thú bông ban đầu là: $ {a} + {b} = {a+b} $ (con).<br/>Số thú bông còn lại là: $ {a+b} - 1 = {ans-1} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên trừ đi số thú bông đã lấy đi."
+    }
+  ]
+}
+

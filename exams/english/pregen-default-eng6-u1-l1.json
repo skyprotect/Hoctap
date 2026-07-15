@@ -1,0 +1,374 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "x !== y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x * y",
+        "w2": "x + y + 2",
+        "w3": "x + y + 5"
+      },
+      "questionText": "An English club has {x} groups of students, each group has {y} members. If each member attends only one group, how many members are there in total? (Chọn đáp án đúng)",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số thành viên bằng số nhóm nhân với số thành viên mỗi nhóm."
+      ],
+      "solutionHtml": "Số thành viên trong câu lạc bộ là:<br/>$ {x} \\times {y} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý cấu trúc Present Simple mô tả thói quen hoặc sự thật hiển nhiên trong câu hỏi.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pages": {
+          "min": 20,
+          "max": 40
+        },
+        "days": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "pages % days === 0"
+      ],
+      "formulas": {
+        "ans": "pages / days",
+        "w1": "pages / 2",
+        "w2": "pages + days",
+        "w3": "pages - days"
+      },
+      "questionText": "Nam reads {pages} pages of his English book in {days} days. If he reads the same number of pages every day, how many pages does he read per day?",
+      "options": [
+        "A. {w1} trang",
+        "B. {w2} trang",
+        "C. {ans} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia tổng số trang cho số ngày để tìm số trang mỗi ngày."
+      ],
+      "solutionHtml": "Số trang Nam đọc mỗi ngày là:<br/>$ {pages} : {days} = {ans} $ (trang).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'every day' để xác định hành động lặp lại.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "price": {
+          "min": 5,
+          "max": 10
+        },
+        "quantity": {
+          "min": 4,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "price > 3"
+      ],
+      "formulas": {
+        "ans": "price * quantity",
+        "w1": "price + quantity",
+        "w2": "price * quantity + 2",
+        "w3": "price * quantity + 5"
+      },
+      "questionText": "Each notebook costs {price} thousand VND. Mai buys {quantity} notebooks. How much does she pay in total?",
+      "options": [
+        "A. {w1} nghìn đồng",
+        "B. {ans} nghìn đồng",
+        "C. {w2} nghìn đồng",
+        "D. {w3} nghìn đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân đơn giá với số lượng."
+      ],
+      "solutionHtml": "Tổng số tiền Mai phải trả là:<br/>$ {price} \\times {quantity} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý đến đơn vị nghìn đồng trong câu hỏi.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 7,
+          "max": 9
+        },
+        "dur": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "start + dur < 12"
+      ],
+      "formulas": {
+        "ans": "start + dur",
+        "w1": "start - dur",
+        "w2": "start + dur + 1",
+        "w3": "start + dur - 1"
+      },
+      "questionText": "Nam starts his English class at {start} AM and the class lasts for {dur} hours. At what time does the class end?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {w2} giờ",
+        "C. {w3} giờ",
+        "D. {ans} giờ"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cộng thời gian bắt đầu với thời lượng học."
+      ],
+      "solutionHtml": "Thời gian kết thúc là:<br/>$ {start} + {dur} = {ans} $ (giờ).<br/>Đáp án đúng là D.",
+      "tip": "Sử dụng thì hiện tại đơn để mô tả lịch trình thời gian cố định.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        },
+        "b": {
+          "min": 5,
+          "max": 9
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 2"
+      },
+      "questionText": "There are {a} students in the classroom, but {b} students are absent today. How many students are present?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {ans} học sinh",
+        "C. {w2} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số học sinh có mặt bằng tổng số trừ đi số vắng mặt."
+      ],
+      "solutionHtml": "Số học sinh có mặt là:<br/>$ {a} - {b} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+      "tip": "Cần phân biệt rõ trạng thái hiện tại so với tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "cups": {
+          "min": 2,
+          "max": 4
+        },
+        "water": {
+          "min": 200,
+          "max": 500
+        }
+      },
+      "constraints": [
+        "water % 100 === 0"
+      ],
+      "formulas": {
+        "ans": "cups * water",
+        "w1": "cups + water",
+        "w2": "cups * water + 100",
+        "w3": "cups * water - 100"
+      },
+      "questionText": "One cup contains {water} ml of water. How many ml of water are in {cups} cups?",
+      "options": [
+        "A. {w1} ml",
+        "B. {w2} ml",
+        "C. {ans} ml",
+        "D. {w3} ml"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân dung tích mỗi cốc với số lượng cốc."
+      ],
+      "solutionHtml": "Tổng dung tích nước là:<br/>$ {cups} \\times {water} = {ans} $ (ml).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra đơn vị đo lường trước khi tính toán.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "apples": {
+          "min": 10,
+          "max": 20
+        },
+        "people": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "apples % people === 0"
+      ],
+      "formulas": {
+        "ans": "apples / people",
+        "w1": "apples / 2",
+        "w2": "apples + people",
+        "w3": "apples - people"
+      },
+      "questionText": "{apples} apples are divided equally among {people} children. How many apples does each child get?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {w3} quả",
+        "D. {ans} quả"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Phép chia đều là phép toán cần thực hiện."
+      ],
+      "solutionHtml": "Số táo mỗi bạn nhận được là:<br/>$ {apples} : {people} = {ans} $ (quả).<br/>Đáp án đúng là D.",
+      "tip": "Từ 'divided equally' chỉ ra phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "speed": {
+          "min": 40,
+          "max": 60
+        },
+        "time": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "speed % 10 === 0"
+      ],
+      "formulas": {
+        "ans": "speed * time",
+        "w1": "speed + time",
+        "w2": "speed * (time + 1)",
+        "w3": "speed * (time - 1)"
+      },
+      "questionText": "A bus travels at a speed of {speed} km per hour. How far does it go in {time} hours?",
+      "options": [
+        "A. {w1} km",
+        "B. {ans} km",
+        "C. {w2} km",
+        "D. {w3} km"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quãng đường bằng vận tốc nhân thời gian."
+      ],
+      "solutionHtml": "Quãng đường bus đi được là:<br/>$ {speed} \\times {time} = {ans} $ (km).<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng công thức $S = v \\times t$.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "boys": {
+          "min": 10,
+          "max": 15
+        },
+        "girls": {
+          "min": 10,
+          "max": 15
+        }
+      },
+      "constraints": [
+        "boys !== girls"
+      ],
+      "formulas": {
+        "ans": "boys + girls",
+        "w1": "boys + girls + 1",
+        "w2": "boys + girls + 2",
+        "w3": "boys + girls + 3"
+      },
+      "questionText": "A club has {boys} boys and {girls} girls. How many members are there in total?",
+      "options": [
+        "A. {w1} người",
+        "B. {w2} người",
+        "C. {ans} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số lượng nam và nữ."
+      ],
+      "solutionHtml": "Tổng số thành viên là:<br/>$ {boys} + {girls} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'total' luôn gợi ý phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "days": {
+          "min": 5,
+          "max": 7
+        },
+        "hours": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "days * hours < 30"
+      ],
+      "formulas": {
+        "ans": "days * hours",
+        "w1": "days + hours",
+        "w2": "days * hours + 2",
+        "w3": "days * hours - 2"
+      },
+      "questionText": "Lan studies English for {hours} hours every day, for {days} days a week. How many hours does she study in total per week?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số giờ mỗi ngày với số ngày trong tuần."
+      ],
+      "solutionHtml": "Tổng số giờ học trong một tuần là:<br/>$ {hours} \\times {days} = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từ 'every day' và 'a week' để xác định tổng số thời gian.",
+      "level": "chat-luong-cao",
+      "type": "eng6-u1-l1-d4"
+    }
+  ]
+}

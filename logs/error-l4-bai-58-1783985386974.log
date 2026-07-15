@@ -1,0 +1,570 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:29:46.974Z
+Lesson ID: l4-bai-58
+Lesson Title: Bài 58: So sánh phân số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9840 (line 383 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9840 (line 383 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9840 (Line: 272, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 8, "step": 1 },
+      "b": { "min": 9, "max": 15, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "(a + 1) / b",
+      "w2": "a / (b + 1)",
+      "w3": "(a + 2) / b",
+      "displayAns": "a / b",
+      "displayW1": "(a + 1) / b",
+      "displayW2": "a / (b + 1)",
+      "displayW3": "(a + 2) / b"
+    },
+    "questionText": "So sánh hai phân số $ \\frac{{a}}{15} $ và $ \\frac{8}{{b}} $. Hãy chọn khẳng định đúng về phân số lớn hơn?",
+    "options": [
+      "A. $ \\frac{{a}}{15} $ lớn hơn",
+      "B. $ \\frac{8}{{b}} $ lớn hơn",
+      "C. Hai phân số bằng nhau",
+      "D. Không thể so sánh được"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để so sánh hai phân số, ta có thể quy đồng mẫu số hoặc đưa về so sánh với 1.", "Hãy thử quy đồng mẫu số của cả hai phân số để dễ dàng so sánh."],
+    "solutionHtml": "Ta có phân số $ \\frac{{a}}{15} $ và $ \\frac{8}{{b}} $.<br/>Thực hiện so sánh bằng cách quy đồng hoặc so sánh với trung gian.<br/>Kết quả cho thấy $ \\frac{8}{{b}} $ lớn hơn vì giá trị của nó tiến gần tới 1 hơn.",
+    "tip": "Khi so sánh phân số, nếu tử số và mẫu số gần nhau, hãy thử so sánh với số 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 7, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a",
+      "w1": "b",
+      "w2": "a + b",
+      "w3": "a - b"
+    },
+    "questionText": "Cho các phân số $ \\frac{5}{7} $; $ \\frac{{a}}{7} $; $ \\frac{{b}}{7} $. Biết rằng $ \\frac{{b}}{7} < \\frac{5}{7} < \\frac{{a}}{7} $. Tìm giá trị của $ {a} $ biết $ {a} $ là số tự nhiên nhỏ nhất thỏa mãn?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Khi hai phân số có cùng mẫu số, phân số nào có tử số lớn hơn thì phân số đó lớn hơn.", "Ta có $ {b} < 5 < {a} $."],
+    "solutionHtml": "Vì các phân số đều có mẫu số là 7, nên ta so sánh các tử số:<br/>$ {b} < 5 < {a} $.<br/>Vì $ {a} > 5 $ và $ {a} $ là số tự nhiên nhỏ nhất thỏa mãn, nên $ {a} = 6 $ (hoặc giá trị hợp lệ theo đề bài).",
+    "tip": "Cùng mẫu số, tử số lớn hơn thì phân số lớn hơn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 8, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a + 1",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + 2"
+    },
+    "questionText": "Tìm số tự nhiên $ x $ sao cho $ \\frac{{a}}{5} < \\frac{x}{5} < \\frac{{b}}{5} $. Biết $ x $ là số tự nhiên nằm giữa $ {a} $ và $ {b} $ và $ x = {a} + 1 $?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cùng mẫu số, ta chỉ cần so sánh các tử số.", "Tìm $ x $ sao cho $ {a} < x < {b} $."],
+    "solutionHtml": "Ta có bất đẳng thức tử số: $ {a} < x < {b} $.<br/>Chọn giá trị thỏa mãn là $ {ans} $.",
+    "tip": "Luôn quy đồng hoặc kiểm tra mẫu số trước khi so sánh.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 2, "max": 4, "step": 1 },
+      "y": { "min": 5, "max": 7, "step": 1 }
+    },
+    "constraints": ["y > x"],
+    "formulas": {
+      "ans": "x * y",
+      "w1": "x + y",
+      "w2": "x * y + 1",
+      "w3": "x * y - 1"
+    },
+    "questionText": "So sánh hai phân số $ \\frac{1}{{x}} $ và $ \\frac{1}{{y}} $. Khi quy đồng mẫu số của hai phân số này, mẫu số chung nhỏ nhất là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Mẫu số chung nhỏ nhất của hai phân số $ \\frac{1}{x} $ và $ \\frac{1}{y} $ chính là tích của hai mẫu số nếu chúng nguyên tố cùng nhau.", "Tính $ {x} \\times {y} $."],
+    "solutionHtml": "Mẫu số chung của $ \\frac{1}{{x}} $ và $ \\frac{1}{{y}} $ là $ {x} \\times {y} = {ans} $.",
+    "tip": "Mẫu số chung thường là bội chung nhỏ nhất.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": ["n > 2"],
+    "formulas": {
+      "ans": "n + 1",
+      "w1": "n",
+      "w2": "n - 1",
+      "w3": "n + 2"
+    },
+    "questionText": "Cho các phân số $ \\frac{1}{{n}} $ và $ \\frac{1}{{n+1}} $. Phân số nào lớn hơn?",
+    "options": [
+      "A. $ \\frac{1}{{n}} $",
+      "B. $ \\frac{1}{{n+1}} $",
+      "C. Hai phân số bằng nhau",
+      "D. Không so sánh được"
+    ],
+    "correctIndex": 0,
+    "hints": ["Với hai phân số có cùng tử số là 1, phân số nào có mẫu số nhỏ hơn thì phân số đó lớn hơn.", "So sánh $ {n} $ và $ {n}+1 $."],
+    "solutionHtml": "Vì $ {n} < {n}+1 $, nên $ \\frac{1}{{n}} > \\frac{1}{{n}+1} $.",
+    "tip": "Phân số có cùng tử số, mẫu số càng nhỏ thì giá trị phân số càng lớn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a",
+      "w1": "b",
+      "w2": "a + b",
+      "w3": "a - 1"
+    },
+    "questionText": "Điền số thích hợp vào ô trống: $ \\frac{{a}}{7} < \\frac{?}{7} < \\frac{{b}}{7} $. Biết số cần điền là số lớn nhất có thể?",
+    "options": [
+      "A. {w1} - 1",
+      "B. {ans}",
+      "C. {w1}",
+      "D. {w2}"
+    ],
+    "correctIndex": 0,
+    "hints": ["Ta có $ {a} < ? < {b} $.", "Tìm số nguyên lớn nhất nhỏ hơn {b}."],
+    "solutionHtml": "Vì $ {a} < ? < {b} $, số lớn nhất thỏa mãn là $ {b} - 1 = {ans} $ (nếu {b}-{a} > 1).",
+    "tip": "Chú ý từ 'lớn nhất' hoặc 'nhỏ nhất' trong bài toán.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3, "step": 1 },
+      "b": { "min": 4, "max": 5, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "1",
+      "w1": "0",
+      "w2": "2",
+      "w3": "3"
+    },
+    "questionText": "Trong các phân số sau, phân số nào lớn hơn 1: $ \\frac{{b}}{{a}} $; $ \\frac{{a}}{{b}} $; $ \\frac{a}{a} $?",
+    "options": [
+      "A. $ \\frac{a}{b} $",
+      "B. $ \\frac{b}{a} $",
+      "C. $ \\frac{a}{a} $",
+      "D. Không có phân số nào"
+    ],
+    "correctIndex": 1,
+    "hints": ["Phân số lớn hơn 1 khi tử số lớn hơn mẫu số."],
+    "solutionHtml": "Vì $ {b} > {a} $ nên phân số $ \\frac{{b}}{{a}} $ có tử số lớn hơn mẫu số, do đó $ \\frac{{b}}{{a}} > 1 $.",
+    "tip": "Tử > Mẫu thì phân số > 1. Tử < Mẫu thì phân số < 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > 1"],
+    "formulas": {
+      "ans": "a + 1",
+      "w1": "a",
+      "w2": "a - 1",
+      "w3": "a + 2"
+    },
+    "questionText": "Cho $ \\frac{1}{2} $ và $ \\frac{1}{{a+1}} $. Nếu $ \\frac{1}{2} > \\frac{1}{{a+1}} $ thì giá trị của $ a $ có thể là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để $ \\frac{1}{2} > \\frac{1}{a+1} $ thì $ 2 < a+1 $."],
+    "solutionHtml": "Ta cần $ a+1 > 2 $, suy ra $ a > 1 $. Vậy giá trị thỏa mãn là $ {ans} $.",
+    "tip": "Mẫu số càng nhỏ thì phân số càng lớn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > 0"],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 1",
+      "w2": "a - 1",
+      "w3": "a + 5"
+    },
+    "questionText": "So sánh $ \\frac{{a}}{{a+1}} $ và 1. Kết quả là?",
+    "options": [
+      "A. $ \\frac{a}{a+1} < 1 $",
+      "B. $ \\frac{a}{a+1} > 1 $",
+      "C. $ \\frac{a}{a+1} = 1 $",
+      "D. Không xác định"
+    ],
+    "correctIndex": 0,
+    "hints": ["Tử số {a} nhỏ hơn mẫu số {a}+1."],
+    "solutionHtml": "Vì $ {a} < {a}+1 $ nên phân số $ \\frac{{a}}{{a+1}} $ bé hơn 1.",
+    "tip": "Tử số bé hơn mẫu số thì phân số đó bé hơn 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": ["a > 0"],
+    "formulas": {
+      "ans": "a + 1",
+      "w1": "a",
+      "w2": "a + 2",
+      "w3": "a + 3"
+    },
+    "questionText": "Cho $ \\frac{{a}+1}{{a}} $ và 1. So sánh hai giá trị này?",
+    "options": [
+      "A. $ \\frac{a+1}{a} > 1 $",
+      "B. $ \\frac{a+1}{a} < 1 $",
+      "C. $ \\frac{a+1}{a} = 1 $",
+      "D. Không xác định"
+    ],
+    "correctIndex": 0,
+    "hints": ["Tử số {a}+1 lớn hơn mẫu số {a}."],
+    "solutionHtml": "Vì $ {a}+1 > {a} $ nên phân số $ \\frac{{a}+1}{{a}} $ lớn hơn 1.",
+    "tip": "Tử số lớn hơn mẫu số thì phân số đó lớn hơn 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 8, "step": 1 },
+      "b": { "min": 9, "max": 15, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "(a + 1) / b",
+      "w2": "a / (b + 1)",
+      "w3": "(a + 2) / b",
+      "displayAns": "a / b",
+      "displayW1": "(a + 1) / b",
+      "displayW2": "a / (b + 1)",
+      "displayW3": "(a + 2) / b"
+    },
+    "questionText": "So sánh hai phân số $ \\frac{{a}}{15} $ và $ \\frac{8}{{b}} $. Hãy chọn khẳng định đúng về phân số lớn hơn?",
+    "options": [
+      "A. $ \\frac{{a}}{15} $ lớn hơn",
+      "B. $ \\frac{8}{{b}} $ lớn hơn",
+      "C. Hai phân số bằng nhau",
+      "D. Không thể so sánh được"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để so sánh hai phân số, ta có thể quy đồng mẫu số hoặc đưa về so sánh với 1.", "Hãy thử quy đồng mẫu số của cả hai phân số để dễ dàng so sánh."],
+    "solutionHtml": "Ta có phân số $ \\frac{{a}}{15} $ và $ \\frac{8}{{b}} $.<br/>Thực hiện so sánh bằng cách quy đồng hoặc so sánh với trung gian.<br/>Kết quả cho thấy $ \\frac{8}{{b}} $ lớn hơn vì giá trị của nó tiến gần tới 1 hơn.",
+    "tip": "Khi so sánh phân số, nếu tử số và mẫu số gần nhau, hãy thử so sánh với số 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 7, "step": 1 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a",
+      "w1": "b",
+      "w2": "a + b",
+      "w3": "a - b"
+    },
+    "questionText": "Cho các phân số $ \\frac{5}{7} $; $ \\frac{{a}}{7} $; $ \\frac{{b}}{7} $. Biết rằng $ \\frac{{b}}{7} < \\frac{5}{7} < \\frac{{a}}{7} $. Tìm giá trị của $ {a} $ biết $ {a} $ là số tự nhiên nhỏ nhất thỏa mãn?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Khi hai phân số có cùng mẫu số, phân số nào có tử số lớn hơn thì phân số đó lớn hơn.", "Ta có $ {b} < 5 < {a} $."],
+    "solutionHtml": "Vì các phân số đều có mẫu số là 7, nên ta so sánh các tử số:<br/>$ {b} < 5 < {a} $.<br/>Vì $ {a} > 5 $ và $ {a} $ là số tự nhiên nhỏ nhất thỏa mãn, nên $ {a} = 6 $ (hoặc giá trị hợp lệ theo đề bài).",
+    "tip": "Cùng mẫu số, tử số lớn hơn thì phân số lớn hơn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 8, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a + 1",
+      "w1": "a",
+      "w2": "b",
+      "w3": "a + 2"
+    },
+    "questionText": "Tìm số tự nhiên $ x $ sao cho $ \\frac{{a}}{5} < \\frac{x}{5} < \\frac{{b}}{5} $. Biết $ x $ là số tự nhiên nằm giữa $ {a} $ và $ {b} $ và $ x = {a} + 1 $?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cùng mẫu số, ta chỉ cần so sánh các tử số.", "Tìm $ x $ sao cho $ {a} < x < {b} $."],
+    "solutionHtml": "Ta có bất đẳng thức tử số: $ {a} < x < {b} $.<br/>Chọn giá trị thỏa mãn là $ {ans} $.",
+    "tip": "Luôn quy đồng hoặc kiểm tra mẫu số trước khi so sánh.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 2, "max": 4, "step": 1 },
+      "y": { "min": 5, "max": 7, "step": 1 }
+    },
+    "constraints": ["y > x"],
+    "formulas": {
+      "ans": "x * y",
+      "w1": "x + y",
+      "w2": "x * y + 1",
+      "w3": "x * y - 1"
+    },
+    "questionText": "So sánh hai phân số $ \\frac{1}{{x}} $ và $ \\frac{1}{{y}} $. Khi quy đồng mẫu số của hai phân số này, mẫu số chung nhỏ nhất là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Mẫu số chung nhỏ nhất của hai phân số $ \\frac{1}{x} $ và $ \\frac{1}{y} $ chính là tích của hai mẫu số nếu chúng nguyên tố cùng nhau.", "Tính $ {x} \\times {y} $."],
+    "solutionHtml": "Mẫu số chung của $ \\frac{1}{{x}} $ và $ \\frac{1}{{y}} $ là $ {x} \\times {y} = {ans} $.",
+    "tip": "Mẫu số chung thường là bội chung nhỏ nhất.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 3, "max": 6, "step": 1 }
+    },
+    "constraints": ["n > 2"],
+    "formulas": {
+      "ans": "n + 1",
+      "w1": "n",
+      "w2": "n - 1",
+      "w3": "n + 2"
+    },
+    "questionText": "Cho các phân số $ \\frac{1}{{n}} $ và $ \\frac{1}{{n+1}} $. Phân số nào lớn hơn?",
+    "options": [
+      "A. $ \\frac{1}{{n}} $",
+      "B. $ \\frac{1}{{n+1}} $",
+      "C. Hai phân số bằng nhau",
+      "D. Không so sánh được"
+    ],
+    "correctIndex": 0,
+    "hints": ["Với hai phân số có cùng tử số là 1, phân số nào có mẫu số nhỏ hơn thì phân số đó lớn hơn.", "So sánh $ {n} $ và $ {n}+1 $."],
+    "solutionHtml": "Vì $ {n} < {n}+1 $, nên $ \\frac{1}{{n}} > \\frac{1}{{n}+1} $.",
+    "tip": "Phân số có cùng tử số, mẫu số càng nhỏ thì giá trị phân số càng lớn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 },
+      "b": { "min": 5, "max": 9, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "a",
+      "w1": "b",
+      "w2": "a + b",
+      "w3": "a - 1"
+    },
+    "questionText": "Điền số thích hợp vào ô trống: $ \\frac{{a}}{7} < \\frac{?}{7} < \\frac{{b}}{7} $. Biết số cần điền là số lớn nhất có thể?",
+    "options": [
+      "A. {w1} - 1",
+      "B. {ans}",
+      "C. {w1}",
+      "D. {w2}"
+    ],
+    "correctIndex": 0,
+    "hints": ["Ta có $ {a} < ? < {b} $.", "Tìm số nguyên lớn nhất nhỏ hơn {b}."],
+    "solutionHtml": "Vì $ {a} < ? < {b} $, số lớn nhất thỏa mãn là $ {b} - 1 = {ans} $ (nếu {b}-{a} > 1).",
+    "tip": "Chú ý từ 'lớn nhất' hoặc 'nhỏ nhất' trong bài toán.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3, "step": 1 },
+      "b": { "min": 4, "max": 5, "step": 1 }
+    },
+    "constraints": ["a < b"],
+    "formulas": {
+      "ans": "1",
+      "w1": "0",
+      "w2": "2",
+      "w3": "3"
+    },
+    "questionText": "Trong các phân số sau, phân số nào lớn hơn 1: $ \\frac{{b}}{{a}} $; $ \\frac{{a}}{{b}} $; $ \\frac{a}{a} $?",
+    "options": [
+      "A. $ \\frac{a}{b} $",
+      "B. $ \\frac{b}{a} $",
+      "C. $ \\frac{a}{a} $",
+      "D. Không có phân số nào"
+    ],
+    "correctIndex": 1,
+    "hints": ["Phân số lớn hơn 1 khi tử số lớn hơn mẫu số."],
+    "solutionHtml": "Vì $ {b} > {a} $ nên phân số $ \\frac{{b}}{{a}} $ có tử số lớn hơn mẫu số, do đó $ \\frac{{b}}{{a}} > 1 $.",
+    "tip": "Tử > Mẫu thì phân số > 1. Tử < Mẫu thì phân số < 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > 1"],
+    "formulas": {
+      "ans": "a + 1",
+      "w1": "a",
+      "w2": "a - 1",
+      "w3": "a + 2"
+    },
+    "questionText": "Cho $ \\frac{1}{2} $ và $ \\frac{1}{{a+1}} $. Nếu $ \\frac{1}{2} > \\frac{1}{{a+1}} $ thì giá trị của $ a $ có thể là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để $ \\frac{1}{2} > \\frac{1}{a+1} $ thì $ 2 < a+1 $."],
+    "solutionHtml": "Ta cần $ a+1 > 2 $, suy ra $ a > 1 $. Vậy giá trị thỏa mãn là $ {ans} $.",
+    "tip": "Mẫu số càng nhỏ thì phân số càng lớn.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["a > 0"],
+    "formulas": {
+      "ans": "a",
+      "w1": "a + 1",
+      "w2": "a - 1",
+      "w3": "a + 5"
+    },
+    "questionText": "So sánh $ \\frac{{a}}{{a+1}} $ và 1. Kết quả là?",
+    "options": [
+      "A. $ \\frac{a}{a+1} < 1 $",
+      "B. $ \\frac{a}{a+1} > 1 $",
+      "C. $ \\frac{a}{a+1} = 1 $",
+      "D. Không xác định"
+    ],
+    "correctIndex": 0,
+    "hints": ["Tử số {a} nhỏ hơn mẫu số {a}+1."],
+    "solutionHtml": "Vì $ {a} < {a}+1 $ nên phân số $ \\frac{{a}}{{a+1}} $ bé hơn 1.",
+    "tip": "Tử số bé hơn mẫu số thì phân số đó bé hơn 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": ["a > 0"],
+    "formulas": {
+      "ans": "a + 1",
+      "w1": "a",
+      "w2": "a + 2",
+      "w3": "a + 3"
+    },
+    "questionText": "Cho $ \\frac{{a}+1}{{a}} $ và 1. So sánh hai giá trị này?",
+    "options": [
+      "A. $ \\frac{a+1}{a} > 1 $",
+      "B. $ \\frac{a+1}{a} < 1 $",
+      "C. $ \\frac{a+1}{a} = 1 $",
+      "D. Không xác định"
+    ],
+    "correctIndex": 0,
+    "hints": ["Tử số {a}+1 lớn hơn mẫu số {a}."],
+    "solutionHtml": "Vì $ {a}+1 > {a} $ nên phân số $ \\frac{{a}+1}{{a}} $ lớn hơn 1.",
+    "tip": "Tử số lớn hơn mẫu số thì phân số đó lớn hơn 1.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-58-d10"
+  }
+]
+

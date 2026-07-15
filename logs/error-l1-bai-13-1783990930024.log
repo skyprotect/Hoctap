@@ -1,0 +1,474 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:02:10.024Z
+Lesson ID: l1-bai-13
+Lesson Title: Bài 13: Luyện tập chung
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10489 (line 396 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10489 (line 396 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10489 (Line: 224, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 3"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a - b) > 0 ? (a - b) : (a + b)",
+        "w2": "(a + b)",
+        "w3": "(a * b)"
+      },
+      "questionText": "Lớp học của An có {a} quyển vở, cô giáo chia đều cho {b} tổ. Hỏi mỗi tổ nhận được bao nhiêu quyển vở?",
+      "options": ["A. {w1} quyển vở", "B. {ans} quyển vở", "C. {w2} quyển vở", "D. {w3} quyển vở"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số vở mỗi tổ nhận được, ta lấy tổng số vở chia cho số tổ."],
+      "solutionHtml": "Số vở mỗi tổ nhận được là:<br/>$ {a} : {b} = {ans} $ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều tức là làm phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "b - a + 10"
+      },
+      "questionText": "Lan có {a} bông hoa, mẹ tặng thêm cho Lan {b} bông hoa nữa. Hỏi Lan có tất cả bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông hoa", "B. {w2} bông hoa", "C. {ans} bông hoa", "D. {w3} bông hoa"],
+      "correctIndex": 2,
+      "hints": ["Lan có thêm hoa, nên ta thực hiện phép tính cộng."],
+      "solutionHtml": "Số bông hoa Lan có tất cả là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Khi thêm vào thì ta dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Trong rổ có {a} quả cam, mẹ lấy ra {b} quả để làm nước ép. Hỏi trong rổ còn lại bao nhiêu quả cam?",
+      "options": ["A. {w1} quả cam", "B. {ans} quả cam", "C. {w2} quả cam", "D. {w3} quả cam"],
+      "correctIndex": 1,
+      "hints": ["Lấy ra tức là bớt đi, ta thực hiện phép tính trừ."],
+      "solutionHtml": "Số quả cam còn lại trong rổ là:<br/>$ {a} - {b} = {ans} $ (quả cam).<br/>Đáp án đúng là B.",
+      "tip": "Bớt đi thì dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 20"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Có {a} khay bánh, mỗi khay có {b} cái bánh. Hỏi có tất cả bao nhiêu cái bánh?",
+      "options": ["A. {w1} cái bánh", "B. {w2} cái bánh", "C. {ans} cái bánh", "D. {w3} cái bánh"],
+      "correctIndex": 2,
+      "hints": ["Mỗi khay có số bánh bằng nhau, ta dùng phép tính nhân."],
+      "solutionHtml": "Số cái bánh có tất cả là:<br/>$ {b} \\times {a} = {ans} $ (cái bánh).<br/>Đáp án đúng là C.",
+      "tip": "Mỗi nhóm bằng nhau thì dùng phép nhân hoặc cộng nhiều lần.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Một băng giấy dài {a} cm. Bình cắt băng giấy thành {b} đoạn bằng nhau. Hỏi mỗi đoạn dài bao nhiêu cm?",
+      "options": ["A. {ans} cm", "B. {w1} cm", "C. {w2} cm", "D. {w3} cm"],
+      "correctIndex": 0,
+      "hints": ["Cắt thành các đoạn bằng nhau là chia."],
+      "solutionHtml": "Mỗi đoạn băng giấy dài là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. Hỏi cả hai tổ có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số bạn của cả hai tổ."],
+      "solutionHtml": "Số bạn của cả hai tổ là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Cả hai tức là gộp lại, dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 2"
+      },
+      "questionText": "Bể cá nhà em có {a} con cá, hôm nay có {b} con cá bị bệnh nên mẹ đem đi chữa. Hỏi trong bể còn lại bao nhiêu con cá?",
+      "options": ["A. {w1} con cá", "B. {w2} con cá", "C. {ans} con cá", "D. {w3} con cá"],
+      "correctIndex": 2,
+      "hints": ["Số cá bị mang đi là số cá bớt đi."],
+      "solutionHtml": "Số con cá còn lại trong bể là:<br/>$ {a} - {b} = {ans} $ (con cá).<br/>Đáp án đúng là C.",
+      "tip": "Còn lại sau khi lấy đi là phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a * b <= 16"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi chiếc xe có {a} bánh xe. Hỏi {b} chiếc xe như thế có bao nhiêu bánh xe?",
+      "options": ["A. {w1} bánh xe", "B. {w2} bánh xe", "C. {ans} bánh xe", "D. {w3} bánh xe"],
+      "correctIndex": 2,
+      "hints": ["Có {b} nhóm, mỗi nhóm {a} đơn vị."],
+      "solutionHtml": "Số bánh xe có tất cả là:<br/>$ {a} \\times {b} = {ans} $ (bánh xe).<br/>Đáp án đúng là C.",
+      "tip": "Mỗi nhóm có số lượng bằng nhau thì dùng phép tính nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a / b + 2"
+      },
+      "questionText": "Có {a} cái bút chì, chia đều vào {b} hộp. Hỏi mỗi hộp có bao nhiêu cái bút chì?",
+      "options": ["A. {w1} cái", "B. {w2} cái", "C. {ans} cái", "D. {w3} cái"],
+      "correctIndex": 2,
+      "hints": ["Chia đều là phép tính chia."],
+      "solutionHtml": "Số cái bút chì trong mỗi hộp là:<br/>$ {a} : {b} = {ans} $ (cái bút chì).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 3"
+      },
+      "questionText": "Trong cửa hàng có {a} chiếc mũ, buổi sáng đã bán đi {b} chiếc. Hỏi cửa hàng còn lại bao nhiêu chiếc mũ?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Bán đi là bớt đi, ta thực hiện phép trừ."],
+      "solutionHtml": "Số chiếc mũ còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc mũ).<br/>Đáp án đúng là C.",
+      "tip": "Bán đi, mất đi, bớt đi đều là phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 3"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a - b) > 0 ? (a - b) : (a + b)",
+        "w2": "(a + b)",
+        "w3": "(a * b)"
+      },
+      "questionText": "Lớp học của An có {a} quyển vở, cô giáo chia đều cho {b} tổ. Hỏi mỗi tổ nhận được bao nhiêu quyển vở?",
+      "options": ["A. {w1} quyển vở", "B. {ans} quyển vở", "C. {w2} quyển vở", "D. {w3} quyển vở"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số vở mỗi tổ nhận được, ta lấy tổng số vở chia cho số tổ."],
+      "solutionHtml": "Số vở mỗi tổ nhận được là:<br/>$ {a} : {b} = {ans} $ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều tức là làm phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "b - a + 10"
+      },
+      "questionText": "Lan có {a} bông hoa, mẹ tặng thêm cho Lan {b} bông hoa nữa. Hỏi Lan có tất cả bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông hoa", "B. {w2} bông hoa", "C. {ans} bông hoa", "D. {w3} bông hoa"],
+      "correctIndex": 2,
+      "hints": ["Lan có thêm hoa, nên ta thực hiện phép tính cộng."],
+      "solutionHtml": "Số bông hoa Lan có tất cả là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Khi thêm vào thì ta dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Trong rổ có {a} quả cam, mẹ lấy ra {b} quả để làm nước ép. Hỏi trong rổ còn lại bao nhiêu quả cam?",
+      "options": ["A. {w1} quả cam", "B. {ans} quả cam", "C. {w2} quả cam", "D. {w3} quả cam"],
+      "correctIndex": 1,
+      "hints": ["Lấy ra tức là bớt đi, ta thực hiện phép tính trừ."],
+      "solutionHtml": "Số quả cam còn lại trong rổ là:<br/>$ {a} - {b} = {ans} $ (quả cam).<br/>Đáp án đúng là B.",
+      "tip": "Bớt đi thì dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a * b <= 20"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Có {a} khay bánh, mỗi khay có {b} cái bánh. Hỏi có tất cả bao nhiêu cái bánh?",
+      "options": ["A. {w1} cái bánh", "B. {w2} cái bánh", "C. {ans} cái bánh", "D. {w3} cái bánh"],
+      "correctIndex": 2,
+      "hints": ["Mỗi khay có số bánh bằng nhau, ta dùng phép tính nhân."],
+      "solutionHtml": "Số cái bánh có tất cả là:<br/>$ {b} \\times {a} = {ans} $ (cái bánh).<br/>Đáp án đúng là C.",
+      "tip": "Mỗi nhóm bằng nhau thì dùng phép nhân hoặc cộng nhiều lần.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Một băng giấy dài {a} cm. Bình cắt băng giấy thành {b} đoạn bằng nhau. Hỏi mỗi đoạn dài bao nhiêu cm?",
+      "options": ["A. {ans} cm", "B. {w1} cm", "C. {w2} cm", "D. {w3} cm"],
+      "correctIndex": 0,
+      "hints": ["Cắt thành các đoạn bằng nhau là chia."],
+      "solutionHtml": "Mỗi đoạn băng giấy dài là:<br/>$ {a} : {b} = {ans} $ (cm).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. Hỏi cả hai tổ có tất cả bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số bạn của cả hai tổ."],
+      "solutionHtml": "Số bạn của cả hai tổ là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Cả hai tức là gộp lại, dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 2"
+      },
+      "questionText": "Bể cá nhà em có {a} con cá, hôm nay có {b} con cá bị bệnh nên mẹ đem đi chữa. Hỏi trong bể còn lại bao nhiêu con cá?",
+      "options": ["A. {w1} con cá", "B. {w2} con cá", "C. {ans} con cá", "D. {w3} con cá"],
+      "correctIndex": 2,
+      "hints": ["Số cá bị mang đi là số cá bớt đi."],
+      "solutionHtml": "Số con cá còn lại trong bể là:<br/>$ {a} - {b} = {ans} $ (con cá).<br/>Đáp án đúng là C.",
+      "tip": "Còn lại sau khi lấy đi là phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a * b <= 16"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi chiếc xe có {a} bánh xe. Hỏi {b} chiếc xe như thế có bao nhiêu bánh xe?",
+      "options": ["A. {w1} bánh xe", "B. {w2} bánh xe", "C. {ans} bánh xe", "D. {w3} bánh xe"],
+      "correctIndex": 2,
+      "hints": ["Có {b} nhóm, mỗi nhóm {a} đơn vị."],
+      "solutionHtml": "Số bánh xe có tất cả là:<br/>$ {a} \\times {b} = {ans} $ (bánh xe).<br/>Đáp án đúng là C.",
+      "tip": "Mỗi nhóm có số lượng bằng nhau thì dùng phép tính nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a / b + 2"
+      },
+      "questionText": "Có {a} cái bút chì, chia đều vào {b} hộp. Hỏi mỗi hộp có bao nhiêu cái bút chì?",
+      "options": ["A. {w1} cái", "B. {w2} cái", "C. {ans} cái", "D. {w3} cái"],
+      "correctIndex": 2,
+      "hints": ["Chia đều là phép tính chia."],
+      "solutionHtml": "Số cái bút chì trong mỗi hộp là:<br/>$ {a} : {b} = {ans} $ (cái bút chì).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 3"
+      },
+      "questionText": "Trong cửa hàng có {a} chiếc mũ, buổi sáng đã bán đi {b} chiếc. Hỏi cửa hàng còn lại bao nhiêu chiếc mũ?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {ans} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 2,
+      "hints": ["Bán đi là bớt đi, ta thực hiện phép trừ."],
+      "solutionHtml": "Số chiếc mũ còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc mũ).<br/>Đáp án đúng là C.",
+      "tip": "Bán đi, mất đi, bớt đi đều là phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-13-d10"
+    }
+  ]
+}
+

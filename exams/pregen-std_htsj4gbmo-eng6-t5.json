@@ -1,0 +1,381 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 5,
+          "max": 10
+        },
+        "k": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "n % k === 0"
+      ],
+      "formulas": {
+        "ans": "n * k",
+        "w1": "n + k",
+        "w2": "n - k",
+        "w3": "n + 2"
+      },
+      "questionText": "Một đoàn du lịch tham quan kỳ quan thiên nhiên gồm {n} nhóm nhỏ, mỗi nhóm có {k} người. Tổng số người trong đoàn là bao nhiêu?",
+      "options": [
+        "A. {w1} người",
+        "B. {w2} người",
+        "C. {ans} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm tổng số người, ta thực hiện phép nhân số nhóm với số người trong mỗi nhóm.",
+        "Tính giá trị ${n} \\times {k}$."
+      ],
+      "solutionHtml": "Số người trong đoàn du lịch là:<br/>${n} \\times {k} = {ans}$ (người).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng nhóm và số người mỗi nhóm, ta dùng phép nhân để tìm tổng số người.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": {
+          "min": 100,
+          "max": 500,
+          "step": 10
+        },
+        "m": {
+          "min": 5,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "t % m === 0"
+      ],
+      "formulas": {
+        "ans": "t / m",
+        "w1": "t / m + 5",
+        "w2": "t / m - 2",
+        "w3": "t / m + 10"
+      },
+      "questionText": "Để bảo tồn kỳ quan thiên nhiên, chính quyền cần quyên góp {t} đô la từ {m} nhà tài trợ với mức đóng góp như nhau. Mỗi nhà tài trợ cần góp bao nhiêu đô la?",
+      "options": [
+        "A. {w1} đô la",
+        "B. {ans} đô la",
+        "C. {w2} đô la",
+        "D. {w3} đô la"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phép chia số tiền tổng cho số nhà tài trợ sẽ cho ra số tiền mỗi người cần đóng.",
+        "Tính ${t} : {m}$."
+      ],
+      "solutionHtml": "Số tiền mỗi nhà tài trợ cần góp là:<br/>${t} : {m} = {ans}$ (đô la).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia giúp ta tìm giá trị của một đơn vị khi biết tổng số và số đơn vị bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "x < y"
+      ],
+      "formulas": {
+        "ans": "x * x * x",
+        "w1": "y * y * y",
+        "w2": "x * y",
+        "w3": "x + x + x"
+      },
+      "questionText": "Một mô hình kỳ quan thiên nhiên hình lập phương có cạnh dài {x} mét. Hỏi thể tích của mô hình này là bao nhiêu mét khối?",
+      "options": [
+        "A. {w1} mét khối",
+        "B. {w2} mét khối",
+        "C. {ans} mét khối",
+        "D. {w3} mét khối"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Thể tích hình lập phương được tính bằng công thức: cạnh nhân cạnh nhân cạnh.",
+        "Tính ${x} \\times {x} \\times {x}$."
+      ],
+      "solutionHtml": "Thể tích của mô hình hình lập phương là:<br/>${x} \\times {x} \\times {x} = {ans}$ (mét khối).<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa công thức tính diện tích xung quanh và thể tích.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 10,
+          "max": 20
+        },
+        "s": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "h % s === 0"
+      ],
+      "formulas": {
+        "ans": "h / s",
+        "w1": "h + s",
+        "w2": "h - s",
+        "w3": "h * s"
+      },
+      "questionText": "Kỳ quan thiên nhiên A có chiều cao {h} mét. Kỳ quan thiên nhiên B chỉ cao bằng 1/{s} chiều cao của A. Hỏi kỳ quan B cao bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {w3} mét",
+        "C. {w2} mét",
+        "D. {ans} mét"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm một phần của một số, ta lấy số đó chia cho số phần.",
+        "Tính ${h} : {s}$."
+      ],
+      "solutionHtml": "Chiều cao của kỳ quan thiên nhiên B là:<br/>${h} : {s} = {ans}$ (mét).<br/>Đáp án đúng là D.",
+      "tip": "Khi bài toán nói 'bằng một phần mấy' thì đó chính là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 30
+        },
+        "b": {
+          "min": 5,
+          "max": 15
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + 2",
+        "w3": "b + 2"
+      },
+      "questionText": "Trong một khu bảo tồn, có {a} loài chim quý và {b} loài thú quý hiếm. Tổng số loài động vật quý hiếm tại khu bảo tồn là bao nhiêu?",
+      "options": [
+        "A. {w1} loài",
+        "B. {ans} loài",
+        "C. {w2} loài",
+        "D. {w3} loài"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số loài là phép cộng giữa số loài chim và số loài thú.",
+        "Tính ${a} + {b}$."
+      ],
+      "solutionHtml": "Tổng số loài động vật quý hiếm là:<br/>${a} + {b} = {ans}$ (loài).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'tổng số' luôn chỉ phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 2,
+          "max": 5
+        },
+        "t": {
+          "min": 10,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "n < t"
+      ],
+      "formulas": {
+        "ans": "t - n",
+        "w1": "t + n",
+        "w2": "t * n",
+        "w3": "t + 2"
+      },
+      "questionText": "Một nhóm thám hiểm dự định ở lại kỳ quan thiên nhiên trong {t} ngày, nhưng do thời tiết xấu họ phải rời đi sớm hơn {n} ngày. Họ đã ở lại kỳ quan đó trong bao nhiêu ngày?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {w2} ngày",
+        "C. {ans} ngày",
+        "D. {w3} ngày"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm số ngày thực tế, ta lấy tổng số ngày dự định trừ đi số ngày rời đi sớm.",
+        "Tính ${t} - {n}$."
+      ],
+      "solutionHtml": "Số ngày đoàn thám hiểm đã ở lại là:<br/>${t} - {n} = {ans}$ (ngày).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'rời đi sớm' hay 'bớt đi' biểu thị phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "r": {
+          "min": 2,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "r > 1"
+      ],
+      "formulas": {
+        "ans": "r * r",
+        "w1": "r * 4",
+        "w2": "r + r",
+        "w3": "r * 3"
+      },
+      "questionText": "Một hồ nước thiên nhiên hình vuông có cạnh là {r} km. Diện tích của mặt hồ là bao nhiêu ki-lô-mét vuông?",
+      "options": [
+        "A. {w1} km²",
+        "B. {w2} km²",
+        "C. {w3} km²",
+        "D. {ans} km²"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Diện tích hình vuông bằng cạnh nhân với chính nó.",
+        "Tính ${r} \\times {r}$."
+      ],
+      "solutionHtml": "Diện tích mặt hồ là:<br/>${r} \\times {r} = {ans}$ (km²).<br/>Đáp án đúng là D.",
+      "tip": "Đơn vị diện tích luôn là đơn vị độ dài bình phương.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p": {
+          "min": 10,
+          "max": 20
+        },
+        "c": {
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "p % c === 0"
+      ],
+      "formulas": {
+        "ans": "p / c",
+        "w1": "p + c",
+        "w2": "p - c",
+        "w3": "p + 2"
+      },
+      "questionText": "Có {p} bức ảnh về kỳ quan thiên nhiên được dán đều vào {c} trang album. Mỗi trang có bao nhiêu bức ảnh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {w2} bức",
+        "C. {ans} bức",
+        "D. {w3} bức"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia tổng số ảnh cho số trang sẽ ra số ảnh trên mỗi trang.",
+        "Tính ${p} : {c}$."
+      ],
+      "solutionHtml": "Số bức ảnh trên mỗi trang là:<br/>${p} : {c} = {ans}$ (bức ảnh).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'dán đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": {
+          "min": 5,
+          "max": 10
+        },
+        "t": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "d > 1"
+      ],
+      "formulas": {
+        "ans": "d * t",
+        "w1": "d + t",
+        "w2": "d - t",
+        "w3": "d / t"
+      },
+      "questionText": "Mỗi ngày có {d} chuyến tàu đưa khách tham quan hang động. Hỏi trong {t} ngày, có bao nhiêu chuyến tàu phục vụ khách?",
+      "options": [
+        "A. {w3} chuyến",
+        "B. {ans} chuyến",
+        "C. {w1} chuyến",
+        "D. {w2} chuyến"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số chuyến bằng số chuyến mỗi ngày nhân với số ngày.",
+        "Tính ${d} \\times {t}$."
+      ],
+      "solutionHtml": "Tổng số chuyến tàu là:<br/>${d} \\times {t} = {ans}$ (chuyến).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết giá trị của một ngày, muốn tìm giá trị của nhiều ngày ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 50
+        },
+        "b": {
+          "min": 10,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 5",
+        "w3": "b - 5"
+      },
+      "questionText": "Kỳ quan thiên nhiên A có chiều dài {a} km, kỳ quan B có chiều dài {b} km. Hỏi kỳ quan A dài hơn kỳ quan B bao nhiêu ki-lô-mét?",
+      "options": [
+        "A. {w1} km",
+        "B. {w2} km",
+        "C. {ans} km",
+        "D. {w3} km"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn so sánh hơn kém, ta lấy độ dài lớn trừ đi độ dài bé.",
+        "Tính ${a} - {b}$."
+      ],
+      "solutionHtml": "Kỳ quan A dài hơn kỳ quan B là:<br/>${a} - {b} = {ans}$ (km).<br/>Đáp án đúng là C.",
+      "tip": "Câu hỏi 'hơn bao nhiêu' luôn yêu cầu thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t5-d10"
+    }
+  ]
+}

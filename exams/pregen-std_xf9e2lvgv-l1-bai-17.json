@@ -1,0 +1,413 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + b <= 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b + 1 > 9) ? a + b - 1 : a + b + 1",
+        "w2": "(a + b + 2 > 9) ? a + b - 2 : a + b + 2",
+        "w3": "(a + b + 3 > 9) ? a + b - 3 : a + b + 3"
+      },
+      "questionText": "Trong giỏ có {a} quả táo đỏ và {b} quả táo xanh. Hỏi trong giỏ có tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {w2} quả táo",
+        "C. {ans} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm tất cả, ta dùng phép tính cộng.",
+        "Ta có: ${a} + {b} = ?$"
+      ],
+      "solutionHtml": "Số quả táo trong giỏ là:<br/>${a} + {b} = {ans}$ (quả táo).<br/>Đáp án đúng là C.",
+      "tip": "Khi đề bài hỏi 'tất cả' là ta đang gộp hai nhóm lại với nhau, hãy dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b + 1 > 9) ? a - b - 1 : a - b + 1",
+        "w2": "(a - b + 2 > 9) ? a - b - 2 : a - b + 2",
+        "w3": "(a - b + 3 > 9) ? a - b - 3 : a - b + 3"
+      },
+      "questionText": "Lan có {a} viên bi, Lan tặng bạn {b} viên bi. Hỏi Lan còn lại bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khi cho đi hoặc mất đi, ta dùng phép tính trừ.",
+        "Ta có: ${a} - {b} = ?$"
+      ],
+      "solutionHtml": "Số viên bi Lan còn lại là:<br/>${a} - {b} = {ans}$ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'tặng' hay 'cho đi' là dấu hiệu của phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a * b <= 9"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a * b + 1 > 9) ? a * b - 1 : a * b + 1",
+        "w2": "(a * b + 2 > 9) ? a * b - 2 : a * b + 2",
+        "w3": "(a * b + 3 > 9) ? a * b - 3 : a * b + 3"
+      },
+      "questionText": "Có {b} hộp bút, mỗi hộp có {a} cái bút. Hỏi có tất cả bao nhiêu cái bút?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Vì mỗi hộp đều có số lượng như nhau, ta lấy {a} cộng với {a} hoặc dùng phép nhân ${a} \\times {b}$.",
+        "Ta có: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Số cái bút tất cả là:<br/>${a} \\times {b} = {ans}$ (cái bút).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân là phép cộng các số hạng bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a / b + 1 > 9) ? a / b - 1 : a / b + 1",
+        "w2": "(a / b + 2 > 9) ? a / b - 2 : a / b + 2",
+        "w3": "(a / b + 3 > 9) ? a / b - 3 : a / b + 3"
+      },
+      "questionText": "Mẹ có {a} quả cam, mẹ chia đều vào {b} đĩa. Hỏi mỗi đĩa có bao nhiêu quả cam?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều nghĩa là ta thực hiện phép tính chia.",
+        "Ta lấy tổng số quả là {a} chia cho số đĩa là {b}."
+      ],
+      "solutionHtml": "Số quả cam ở mỗi đĩa là:<br/>${a} : {b} = {ans}$ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều tức là mỗi phần bằng nhau, hãy dùng phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + b < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b + 1 > 9) ? a + b - 1 : a + b + 1",
+        "w2": "(a + b + 2 > 9) ? a + b - 2 : a + b + 2",
+        "w3": "(a + b + 3 > 9) ? a + b - 3 : a + b + 3"
+      },
+      "questionText": "Trên cành có {a} con chim, sau đó bay đến thêm {b} con chim nữa. Hỏi trên cành có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {w3} con",
+        "D. {ans} con"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Bay đến thêm nghĩa là số lượng tăng lên, ta dùng phép cộng.",
+        "Ta có: ${a} + {b} = ?$"
+      ],
+      "solutionHtml": "Số con chim trên cành là:<br/>${a} + {b} = {ans}$ (con chim).<br/>Đáp án đúng là D.",
+      "tip": "Từ 'thêm' là dấu hiệu của phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b + 1 > 9) ? a - b - 1 : a - b + 1",
+        "w2": "(a - b + 2 > 9) ? a - b - 2 : a - b + 2",
+        "w3": "(a - b + 3 > 9) ? a - b - 3 : a - b + 3"
+      },
+      "questionText": "Bàn em có {a} quyển vở, em cất đi {b} quyển vào cặp. Hỏi trên bàn còn lại bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cất đi nghĩa là số lượng giảm xuống, ta dùng phép tính trừ.",
+        "Ta có: ${a} - {b} = ?$"
+      ],
+      "solutionHtml": "Số quyển vở còn lại trên bàn là:<br/>${a} - {b} = {ans}$ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Cất đi, lấy đi, bớt đi đều là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a * b <= 9"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a * b + 1 > 9) ? a * b - 1 : a * b + 1",
+        "w2": "(a * b + 2 > 9) ? a * b - 2 : a * b + 2",
+        "w3": "(a * b + 3 > 9) ? a * b - 3 : a * b + 3"
+      },
+      "questionText": "Có {b} hàng cây, mỗi hàng có {a} cây. Hỏi có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi hàng đều có số lượng bằng nhau, ta lấy ${a} \\times {b} = ?$"
+      ],
+      "solutionHtml": "Tổng số cây là:<br/>${a} \\times {b} = {ans}$ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Gặp dạng 'mỗi hàng' hoặc 'mỗi nhóm' có số lượng bằng nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a / b + 1 > 9) ? a / b - 1 : a / b + 1",
+        "w2": "(a / b + 2 > 9) ? a / b - 2 : a / b + 2",
+        "w3": "(a / b + 3 > 9) ? a / b - 3 : a / b + 3"
+      },
+      "questionText": "Có {a} chiếc bánh, chia đều cho {b} bạn. Hỏi mỗi bạn được mấy chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều cho các bạn là phép chia.",
+        "Ta thực hiện phép tính ${a} : {b} = ?$"
+      ],
+      "solutionHtml": "Số bánh mỗi bạn nhận được là:<br/>${a} : {b} = {ans}$ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề: 'chia đều' là từ khóa cho phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "c": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + b + c <= 9"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "(a + b + c + 1 > 9) ? a + b + c - 1 : a + b + c + 1",
+        "w2": "(a + b + c + 2 > 9) ? a + b + c - 2 : a + b + c + 2",
+        "w3": "(a + b + c + 3 > 9) ? a + b + c - 3 : a + b + c + 3"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn, tổ ba có {c} bạn. Hỏi cả ba tổ có bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết tổng số bạn của cả ba tổ, ta lấy số bạn của từng tổ cộng lại với nhau.",
+        "Ta có: ${a} + {b} + {c} = ?$"
+      ],
+      "solutionHtml": "Tổng số bạn là:<br/>${a} + {b} + {c} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Cộng liên tiếp các số để tìm tổng của nhiều nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        },
+        "c": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a - b - c > 0"
+      ],
+      "formulas": {
+        "ans": "a - b - c",
+        "w1": "(a - b - c + 1 > 9) ? a - b - c - 1 : a - b - c + 1",
+        "w2": "(a - b - c + 2 > 9) ? a - b - c - 2 : a - b - c + 2",
+        "w3": "(a - b - c + 3 > 9) ? a - b - c - 3 : a - b - c + 3"
+      },
+      "questionText": "Bác nông dân có {a} con gà, bác bán đi {b} con, sau đó lại bán tiếp {c} con. Hỏi bác còn lại bao nhiêu con gà?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {ans} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bác bán đi nghĩa là số gà giảm đi hai lần, ta thực hiện hai phép trừ liên tiếp.",
+        "Ta có: ${a} - {b} - {c} = ?$"
+      ],
+      "solutionHtml": "Số con gà còn lại là:<br/>${a} - {b} - {c} = {ans}$ (con).<br/>Đáp án đúng là C.",
+      "tip": "Bán đi hoặc mất đi hai lần thì ta trừ đi cả hai số lượng đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-17-d10"
+    }
+  ]
+}

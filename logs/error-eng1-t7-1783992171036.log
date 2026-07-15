@@ -1,0 +1,642 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:22:51.036Z
+Lesson ID: eng1-t7
+Lesson Title: Unit 7: In the garden
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10132 (line 375 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10132 (line 375 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10132 (Line: 308, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b + 2",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trong vườn nhà Lan có {a} bông hoa hồng và {b} bông hoa cúc. Hỏi trong vườn nhà Lan có tất cả bao nhiêu bông hoa?",
+      "options": [
+        "{w1} bông hoa",
+        "{ans} bông hoa",
+        "{w2} bông hoa",
+        "{w3} bông hoa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tất cả số bông hoa, ta lấy số hoa hồng cộng với số hoa cúc.",
+        "Phép tính là $ {a} + {b} $."
+      ],
+      "solutionHtml": "Số bông hoa trong vườn là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', ta thường dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 3, "max": 8 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Trên cây có {a} quả táo, chim đã ăn mất {b} quả. Hỏi trên cây còn lại bao nhiêu quả táo?",
+      "options": [
+        "{w1} quả",
+        "{w2} quả",
+        "{ans} quả",
+        "{w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chim ăn mất nghĩa là bớt đi, ta dùng phép tính trừ.",
+        "Phép tính là $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số quả táo còn lại trên cây là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'ăn mất' hay 'còn lại' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Mỗi luống rau có {a} cây cải. Hỏi {b} luống rau như thế có tất cả bao nhiêu cây cải?",
+      "options": [
+        "{w1} cây",
+        "{ans} cây",
+        "{w2} cây",
+        "{w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi luống có {a} cây, có {b} luống, ta lấy {a} nhân với {b}.",
+        "Phép tính là $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Số cây cải có trong {b} luống là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Dạng bài 'mỗi phần có ...' thường sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + a + b + b",
+        "w1": "a + b",
+        "w2": "a + a + b",
+        "w3": "a + b + b"
+      },
+      "questionText": "Trong vườn có {a} cây bưởi và {b} cây cam. Bố trồng thêm {a} cây bưởi và {b} cây cam nữa. Hỏi bây giờ trong vườn có tổng cộng bao nhiêu cây?",
+      "options": [
+        "{w1} cây",
+        "{w2} cây",
+        "{w3} cây",
+        "{ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng số cây cũ và số cây mới trồng thêm.",
+        "Số cây bưởi: {a} + {a}, số cây cam: {b} + {b}. Cộng tổng lại."
+      ],
+      "solutionHtml": "Tổng số cây sau khi trồng thêm là:<br/>$ ({a} + {a}) + ({b} + {b}) = {ans} $ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Hãy chú ý gom nhóm các loại cây giống nhau trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Vườn nhà em có {a} con bướm đang bay. Có {b} con bướm đậu xuống bông hoa. Hỏi còn bao nhiêu con bướm vẫn đang bay?",
+      "options": [
+        "{w1} con",
+        "{ans} con",
+        "{w2} con",
+        "{w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số con bướm đang bay giảm đi khi có {b} con đậu xuống.",
+        "Thực hiện phép tính $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số con bướm vẫn đang bay là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Tách một phần ra khỏi tổng thể là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Trong vườn có {a} con ong vàng và {b} con ong nâu. Hỏi tổng cộng có bao nhiêu con ong trong vườn?",
+      "options": [
+        "{w1} con",
+        "{ans} con",
+        "{w2} con",
+        "{w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta cần cộng số ong vàng và số ong nâu lại với nhau.",
+        "Phép tính là $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số con ong là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề hỏi tổng số lượng của các nhóm, hãy thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Mẹ có {a} hạt giống, mẹ muốn chia đều vào {b} chậu hoa. Hỏi mỗi chậu có bao nhiêu hạt giống?",
+      "options": [
+        "{w1} hạt",
+        "{w2} hạt",
+        "{ans} hạt",
+        "{w3} hạt"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số hạt vào các chậu, ta dùng phép chia.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số hạt giống mỗi chậu là:<br/>$ {a} : {b} = {ans} $ (hạt).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'chia đều' luôn gợi ý ta sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Vườn nhà có {a} cây hoa, hôm nay bố trồng thêm {b} cây nữa. Hỏi bây giờ trong vườn có tất cả bao nhiêu cây hoa?",
+      "options": [
+        "{w1} cây",
+        "{ans} cây",
+        "{w2} cây",
+        "{w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số cây tăng thêm, ta thực hiện phép cộng.",
+        "Phép tính là $ {a} + {b} $."
+      ],
+      "solutionHtml": "Số cây hoa hiện có là:<br/>$ {a} + {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'trồng thêm' nghĩa là cộng thêm vào số lượng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 12 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Có {a} quả cà chua, Lan muốn xếp vào {b} giỏ sao cho số quả ở mỗi giỏ bằng nhau. Hỏi mỗi giỏ có bao nhiêu quả cà chua?",
+      "options": [
+        "{w1} quả",
+        "{ans} quả",
+        "{w2} quả",
+        "{w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xếp đều vào các giỏ, ta thực hiện phép chia.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số quả cà chua trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều số lượng thành các phần bằng nhau là bản chất của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong vườn có {a} hàng cây, mỗi hàng có {b} cây xoài. Hỏi trong vườn có tất cả bao nhiêu cây xoài?",
+      "options": [
+        "{w1} cây",
+        "{w2} cây",
+        "{ans} cây",
+        "{w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hàng có {b} cây, có {a} hàng, ta thực hiện phép nhân.",
+        "Phép tính là $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số cây xoài là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Khi các nhóm có số lượng bằng nhau, phép nhân sẽ giúp ta tính nhanh hơn phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b + 2",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trong vườn nhà Lan có {a} bông hoa hồng và {b} bông hoa cúc. Hỏi trong vườn nhà Lan có tất cả bao nhiêu bông hoa?",
+      "options": [
+        "{w1} bông hoa",
+        "{ans} bông hoa",
+        "{w2} bông hoa",
+        "{w3} bông hoa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tất cả số bông hoa, ta lấy số hoa hồng cộng với số hoa cúc.",
+        "Phép tính là $ {a} + {b} $."
+      ],
+      "solutionHtml": "Số bông hoa trong vườn là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', ta thường dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 3, "max": 8 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Trên cây có {a} quả táo, chim đã ăn mất {b} quả. Hỏi trên cây còn lại bao nhiêu quả táo?",
+      "options": [
+        "{w1} quả",
+        "{w2} quả",
+        "{ans} quả",
+        "{w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chim ăn mất nghĩa là bớt đi, ta dùng phép tính trừ.",
+        "Phép tính là $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số quả táo còn lại trên cây là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'ăn mất' hay 'còn lại' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Mỗi luống rau có {a} cây cải. Hỏi {b} luống rau như thế có tất cả bao nhiêu cây cải?",
+      "options": [
+        "{w1} cây",
+        "{ans} cây",
+        "{w2} cây",
+        "{w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi luống có {a} cây, có {b} luống, ta lấy {a} nhân với {b}.",
+        "Phép tính là $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Số cây cải có trong {b} luống là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Dạng bài 'mỗi phần có ...' thường sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + a + b + b",
+        "w1": "a + b",
+        "w2": "a + a + b",
+        "w3": "a + b + b"
+      },
+      "questionText": "Trong vườn có {a} cây bưởi và {b} cây cam. Bố trồng thêm {a} cây bưởi và {b} cây cam nữa. Hỏi bây giờ trong vườn có tổng cộng bao nhiêu cây?",
+      "options": [
+        "{w1} cây",
+        "{w2} cây",
+        "{w3} cây",
+        "{ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng số cây cũ và số cây mới trồng thêm.",
+        "Số cây bưởi: {a} + {a}, số cây cam: {b} + {b}. Cộng tổng lại."
+      ],
+      "solutionHtml": "Tổng số cây sau khi trồng thêm là:<br/>$ ({a} + {a}) + ({b} + {b}) = {ans} $ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Hãy chú ý gom nhóm các loại cây giống nhau trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Vườn nhà em có {a} con bướm đang bay. Có {b} con bướm đậu xuống bông hoa. Hỏi còn bao nhiêu con bướm vẫn đang bay?",
+      "options": [
+        "{w1} con",
+        "{ans} con",
+        "{w2} con",
+        "{w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số con bướm đang bay giảm đi khi có {b} con đậu xuống.",
+        "Thực hiện phép tính $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số con bướm vẫn đang bay là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Tách một phần ra khỏi tổng thể là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Trong vườn có {a} con ong vàng và {b} con ong nâu. Hỏi tổng cộng có bao nhiêu con ong trong vườn?",
+      "options": [
+        "{w1} con",
+        "{ans} con",
+        "{w2} con",
+        "{w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta cần cộng số ong vàng và số ong nâu lại với nhau.",
+        "Phép tính là $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số con ong là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề hỏi tổng số lượng của các nhóm, hãy thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Mẹ có {a} hạt giống, mẹ muốn chia đều vào {b} chậu hoa. Hỏi mỗi chậu có bao nhiêu hạt giống?",
+      "options": [
+        "{w1} hạt",
+        "{w2} hạt",
+        "{ans} hạt",
+        "{w3} hạt"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số hạt vào các chậu, ta dùng phép chia.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số hạt giống mỗi chậu là:<br/>$ {a} : {b} = {ans} $ (hạt).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'chia đều' luôn gợi ý ta sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Vườn nhà có {a} cây hoa, hôm nay bố trồng thêm {b} cây nữa. Hỏi bây giờ trong vườn có tất cả bao nhiêu cây hoa?",
+      "options": [
+        "{w1} cây",
+        "{ans} cây",
+        "{w2} cây",
+        "{w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số cây tăng thêm, ta thực hiện phép cộng.",
+        "Phép tính là $ {a} + {b} $."
+      ],
+      "solutionHtml": "Số cây hoa hiện có là:<br/>$ {a} + {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'trồng thêm' nghĩa là cộng thêm vào số lượng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 12 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Có {a} quả cà chua, Lan muốn xếp vào {b} giỏ sao cho số quả ở mỗi giỏ bằng nhau. Hỏi mỗi giỏ có bao nhiêu quả cà chua?",
+      "options": [
+        "{w1} quả",
+        "{ans} quả",
+        "{w2} quả",
+        "{w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xếp đều vào các giỏ, ta thực hiện phép chia.",
+        "Phép tính là $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số quả cà chua trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều số lượng thành các phần bằng nhau là bản chất của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong vườn có {a} hàng cây, mỗi hàng có {b} cây xoài. Hỏi trong vườn có tất cả bao nhiêu cây xoài?",
+      "options": [
+        "{w1} cây",
+        "{w2} cây",
+        "{ans} cây",
+        "{w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hàng có {b} cây, có {a} hàng, ta thực hiện phép nhân.",
+        "Phép tính là $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số cây xoài là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Khi các nhóm có số lượng bằng nhau, phép nhân sẽ giúp ta tính nhanh hơn phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t7-q10"
+    }
+  ]
+}
+

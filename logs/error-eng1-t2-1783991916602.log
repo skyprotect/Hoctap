@@ -1,0 +1,470 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:18:36.602Z
+Lesson ID: eng1-t2
+Lesson Title: Unit 2: In the dining room
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9573 (line 387 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9573 (line 387 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9573 (Line: 222, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a > b", "a % 2 === 0", "b % 2 === 0"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Trên bàn ăn có {a} chiếc đĩa màu xanh và {b} chiếc đĩa màu đỏ. Hỏi có tất cả bao nhiêu chiếc đĩa trên bàn?",
+    "options": ["{w1} chiếc đĩa", "{ans} chiếc đĩa", "{w2} chiếc đĩa", "{w3} chiếc đĩa"],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số đĩa, ta lấy số đĩa xanh cộng với số đĩa đỏ.", "Thực hiện phép cộng $ {a} + {b} $."],
+    "solutionHtml": "Số đĩa trên bàn là:<br/>$ {a} + {b} = {ans} $ (chiếc đĩa).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Đếm tất cả các đồ vật có trong nhóm bằng phép tính cộng.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20 },
+      "b": { "min": 3, "max": 8 }
+    },
+    "constraints": ["a > b", "(a - b) > 2"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a - b + 1",
+      "w2": "a - b - 1",
+      "w3": "a + b"
+    },
+    "questionText": "Mẹ bày {a} cái bát trên bàn, sau đó bố lấy đi {b} cái để mang ra bếp. Hỏi trên bàn còn lại bao nhiêu cái bát?",
+    "options": ["{w1} cái bát", "{w2} cái bát", "{ans} cái bát", "{w3} cái bát"],
+    "correctIndex": 2,
+    "hints": ["Khi lấy đi bớt, ta dùng phép tính trừ.", "Thực hiện phép tính $ {a} - {b} $."],
+    "solutionHtml": "Số bát còn lại trên bàn là:<br/>$ {a} - {b} = {ans} $ (cái bát).<br/>Đáp án đúng là phương án thứ ba.",
+    "tip": "Cụm từ 'lấy đi' hoặc 'còn lại' thường ám chỉ phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 3, "max": 5 }
+    },
+    "constraints": ["a > 1", "b > 1"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b + 1",
+      "w3": "a * b - 1"
+    },
+    "questionText": "Mỗi người trong gia đình cần dùng {a} chiếc thìa. Gia đình có {b} người. Hỏi cần chuẩn bị tất cả bao nhiêu chiếc thìa?",
+    "options": ["{w1} chiếc thìa", "{ans} chiếc thìa", "{w2} chiếc thìa", "{w3} chiếc thìa"],
+    "correctIndex": 1,
+    "hints": ["Mỗi người dùng {a} chiếc thìa, có {b} người thì ta lấy {a} gấp lên {b} lần.", "Tính $ {a} \\times {b} $."],
+    "solutionHtml": "Số thìa cần chuẩn bị là:<br/>$ {a} \\times {b} = {ans} $ (chiếc thìa).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Khi số lượng được lặp lại nhiều lần bằng nhau, ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 6, "max": 12 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a / b + 1",
+      "w2": "a / b - 1",
+      "w3": "a + b"
+    },
+    "questionText": "Bố chia đều {a} quả táo vào {b} cái đĩa. Hỏi mỗi đĩa có bao nhiêu quả táo?",
+    "options": ["{w1} quả táo", "{ans} quả táo", "{w2} quả táo", "{w3} quả táo"],
+    "correctIndex": 1,
+    "hints": ["Chia đều vào các đĩa, ta dùng phép tính chia.", "Thực hiện $ {a} : {b} $."],
+    "solutionHtml": "Số quả táo mỗi đĩa có là:<br/>$ {a} : {b} = {ans} $ (quả táo).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Chia đều là dấu hiệu của phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a - b",
+      "w2": "a + b + 2",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trên bàn có {a} chiếc cốc và {b} cái bình. Sau đó mẹ đặt thêm 1 cái cốc nữa. Hỏi bây giờ có bao nhiêu chiếc cốc?",
+    "options": ["{w1} chiếc cốc", "{ans} chiếc cốc", "{w2} chiếc cốc", "{w3} chiếc cốc"],
+    "correctIndex": 1,
+    "hints": ["Để tìm số cốc, ta lấy số cốc ban đầu cộng với số cốc mới đặt thêm.", "Tính $ {a} + 1 = ? $."],
+    "solutionHtml": "Số cốc bây giờ là:<br/>$ {a} + 1 = {ans} $ (chiếc cốc).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Đọc kỹ đề để biết đồ vật nào cần tính, tránh nhầm lẫn với các đồ vật khác.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 8, "max": 15 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a - b + 2",
+      "w3": "a - b - 2"
+    },
+    "questionText": "Có {a} chiếc đĩa sạch. Sau bữa ăn, mẹ mang đi rửa {b} chiếc đĩa bẩn. Hỏi số đĩa sạch ban đầu nhiều hơn số đĩa bẩn bao nhiêu chiếc?",
+    "options": ["{w1} chiếc", "{ans} chiếc", "{w2} chiếc", "{w3} chiếc"],
+    "correctIndex": 1,
+    "hints": ["Muốn biết hơn bao nhiêu, ta lấy số lớn trừ số bé.", "Tính $ {a} - {b} $."],
+    "solutionHtml": "Số đĩa sạch nhiều hơn đĩa bẩn là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Bài toán hỏi 'nhiều hơn bao nhiêu' luôn là phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a > 1"],
+    "formulas": {
+      "ans": "a + a + b",
+      "w1": "a + a",
+      "w2": "a + b",
+      "w3": "a + a + b + 1"
+    },
+    "questionText": "Mỗi bên bàn có {a} cái ghế. Ở đầu bàn có thêm {b} cái ghế nữa. Hỏi tổng cộng có bao nhiêu cái ghế?",
+    "options": ["{w1} cái ghế", "{w2} cái ghế", "{ans} cái ghế", "{w3} cái ghế"],
+    "correctIndex": 2,
+    "hints": ["Có 2 bên bàn, mỗi bên {a} cái, cộng thêm {b} cái ở đầu bàn.", "Tính $ {a} + {a} + {b} = ? $."],
+    "solutionHtml": "Tổng số ghế là:<br/>$ {a} + {a} + {b} = {ans} $ (cái ghế).<br/>Đáp án đúng là phương án thứ ba.",
+    "tip": "Chú ý số bên bàn có thể bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 3, "max": 5 }
+    },
+    "constraints": ["a !== b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 2",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trên kệ bếp có {a} chiếc lọ gia vị và {b} chiếc hộp đựng trà. Hỏi trên kệ có tất cả bao nhiêu đồ vật?",
+    "options": ["{w1} đồ vật", "{ans} đồ vật", "{w2} đồ vật", "{w3} đồ vật"],
+    "correctIndex": 1,
+    "hints": ["Tổng số đồ vật là tổng số lọ và số hộp.", "Tính $ {a} + {b} $."],
+    "solutionHtml": "Số đồ vật trên kệ là:<br/>$ {a} + {b} = {ans} $ (đồ vật).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Từ khóa 'tất cả' nghĩa là cộng lại.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 15 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a - b + 1",
+      "w3": "a - b - 1"
+    },
+    "questionText": "Bố có {a} cái thìa. Bố cho con {b} cái. Hỏi bố còn lại bao nhiêu cái thìa?",
+    "options": ["{w1} cái", "{w2} cái", "{ans} cái", "{w3} cái"],
+    "correctIndex": 2,
+    "hints": ["Bố cho đi thì số thìa giảm đi.", "Tính $ {a} - {b} $."],
+    "solutionHtml": "Số thìa bố còn lại là:<br/>$ {a} - {b} = {ans} $ (cái thìa).<br/>Đáp án đúng là phương án thứ ba.",
+    "tip": "Cho đi là mất bớt đi, ta dùng phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a * b <= 10"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b + 2",
+      "w3": "a * b + 1"
+    },
+    "questionText": "Có {a} khay đựng trái cây, mỗi khay có {b} quả. Hỏi có tất cả bao nhiêu quả trái cây?",
+    "options": ["{w1} quả", "{ans} quả", "{w2} quả", "{w3} quả"],
+    "correctIndex": 1,
+    "hints": ["Có {a} nhóm, mỗi nhóm có {b} quả.", "Tính $ {a} \\times {b} $."],
+    "solutionHtml": "Số quả trái cây là:<br/>$ {a} \\times {b} = {ans} $ (quả).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Tính tổng của các nhóm bằng nhau ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a > b", "a % 2 === 0", "b % 2 === 0"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Trên bàn ăn có {a} chiếc đĩa màu xanh và {b} chiếc đĩa màu đỏ. Hỏi có tất cả bao nhiêu chiếc đĩa trên bàn?",
+    "options": ["{w1} chiếc đĩa", "{ans} chiếc đĩa", "{w2} chiếc đĩa", "{w3} chiếc đĩa"],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số đĩa, ta lấy số đĩa xanh cộng với số đĩa đỏ.", "Thực hiện phép cộng $ {a} + {b} $."],
+    "solutionHtml": "Số đĩa trên bàn là:<br/>$ {a} + {b} = {ans} $ (chiếc đĩa).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Đếm tất cả các đồ vật có trong nhóm bằng phép tính cộng.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 20 },
+      "b": { "min": 3, "max": 8 }
+    },
+    "constraints": ["a > b", "(a - b) > 2"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a - b + 1",
+      "w2": "a - b - 1",
+      "w3": "a + b"
+    },
+    "questionText": "Mẹ bày {a} cái bát trên bàn, sau đó bố lấy đi {b} cái để mang ra bếp. Hỏi trên bàn còn lại bao nhiêu cái bát?",
+    "options": ["{w1} cái bát", "{w2} cái bát", "{ans} cái bát", "{w3} cái bát"],
+    "correctIndex": 2,
+    "hints": ["Khi lấy đi bớt, ta dùng phép tính trừ.", "Thực hiện phép tính $ {a} - {b} $."],
+    "solutionHtml": "Số bát còn lại trên bàn là:<br/>$ {a} - {b} = {ans} $ (cái bát).<br/>Đáp án đúng là phương án thứ ba.",
+    "tip": "Cụm từ 'lấy đi' hoặc 'còn lại' thường ám chỉ phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 3, "max": 5 }
+    },
+    "constraints": ["a > 1", "b > 1"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b + 1",
+      "w3": "a * b - 1"
+    },
+    "questionText": "Mỗi người trong gia đình cần dùng {a} chiếc thìa. Gia đình có {b} người. Hỏi cần chuẩn bị tất cả bao nhiêu chiếc thìa?",
+    "options": ["{w1} chiếc thìa", "{ans} chiếc thìa", "{w2} chiếc thìa", "{w3} chiếc thìa"],
+    "correctIndex": 1,
+    "hints": ["Mỗi người dùng {a} chiếc thìa, có {b} người thì ta lấy {a} gấp lên {b} lần.", "Tính $ {a} \\times {b} $."],
+    "solutionHtml": "Số thìa cần chuẩn bị là:<br/>$ {a} \\times {b} = {ans} $ (chiếc thìa).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Khi số lượng được lặp lại nhiều lần bằng nhau, ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 6, "max": 12 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1": "a / b + 1",
+      "w2": "a / b - 1",
+      "w3": "a + b"
+    },
+    "questionText": "Bố chia đều {a} quả táo vào {b} cái đĩa. Hỏi mỗi đĩa có bao nhiêu quả táo?",
+    "options": ["{w1} quả táo", "{ans} quả táo", "{w2} quả táo", "{w3} quả táo"],
+    "correctIndex": 1,
+    "hints": ["Chia đều vào các đĩa, ta dùng phép tính chia.", "Thực hiện $ {a} : {b} $."],
+    "solutionHtml": "Số quả táo mỗi đĩa có là:<br/>$ {a} : {b} = {ans} $ (quả táo).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Chia đều là dấu hiệu của phép tính chia.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a - b",
+      "w2": "a + b + 2",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trên bàn có {a} chiếc cốc và {b} cái bình. Sau đó mẹ đặt thêm 1 cái cốc nữa. Hỏi bây giờ có bao nhiêu chiếc cốc?",
+    "options": ["{w1} chiếc cốc", "{ans} chiếc cốc", "{w2} chiếc cốc", "{w3} chiếc cốc"],
+    "correctIndex": 1,
+    "hints": ["Để tìm số cốc, ta lấy số cốc ban đầu cộng với số cốc mới đặt thêm.", "Tính $ {a} + 1 = ? $."],
+    "solutionHtml": "Số cốc bây giờ là:<br/>$ {a} + 1 = {ans} $ (chiếc cốc).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Đọc kỹ đề để biết đồ vật nào cần tính, tránh nhầm lẫn với các đồ vật khác.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 8, "max": 15 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a - b + 2",
+      "w3": "a - b - 2"
+    },
+    "questionText": "Có {a} chiếc đĩa sạch. Sau bữa ăn, mẹ mang đi rửa {b} chiếc đĩa bẩn. Hỏi số đĩa sạch ban đầu nhiều hơn số đĩa bẩn bao nhiêu chiếc?",
+    "options": ["{w1} chiếc", "{ans} chiếc", "{w2} chiếc", "{w3} chiếc"],
+    "correctIndex": 1,
+    "hints": ["Muốn biết hơn bao nhiêu, ta lấy số lớn trừ số bé.", "Tính $ {a} - {b} $."],
+    "solutionHtml": "Số đĩa sạch nhiều hơn đĩa bẩn là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Bài toán hỏi 'nhiều hơn bao nhiêu' luôn là phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a > 1"],
+    "formulas": {
+      "ans": "a + a + b",
+      "w1": "a + a",
+      "w2": "a + b",
+      "w3": "a + a + b + 1"
+    },
+    "questionText": "Mỗi bên bàn có {a} cái ghế. Ở đầu bàn có thêm {b} cái ghế nữa. Hỏi tổng cộng có bao nhiêu cái ghế?",
+    "options": ["{w1} cái ghế", "{w2} cái ghế", "{ans} cái ghế", "{w3} cái ghế"],
+    "correctIndex": 2,
+    "hints": ["Có 2 bên bàn, mỗi bên {a} cái, cộng thêm {b} cái ở đầu bàn.", "Tính $ {a} + {a} + {b} = ? $."],
+    "solutionHtml": "Tổng số ghế là:<br/>$ {a} + {a} + {b} = {ans} $ (cái ghế).<br/>Đáp án đúng là phương án thứ ba.",
+    "tip": "Chú ý số bên bàn có thể bằng nhau.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 3, "max": 5 }
+    },
+    "constraints": ["a !== b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 2",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trên kệ bếp có {a} chiếc lọ gia vị và {b} chiếc hộp đựng trà. Hỏi trên kệ có tất cả bao nhiêu đồ vật?",
+    "options": ["{w1} đồ vật", "{ans} đồ vật", "{w2} đồ vật", "{w3} đồ vật"],
+    "correctIndex": 1,
+    "hints": ["Tổng số đồ vật là tổng số lọ và số hộp.", "Tính $ {a} + {b} $."],
+    "solutionHtml": "Số đồ vật trên kệ là:<br/>$ {a} + {b} = {ans} $ (đồ vật).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Từ khóa 'tất cả' nghĩa là cộng lại.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 10, "max": 15 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a - b",
+      "w1": "a + b",
+      "w2": "a - b + 1",
+      "w3": "a - b - 1"
+    },
+    "questionText": "Bố có {a} cái thìa. Bố cho con {b} cái. Hỏi bố còn lại bao nhiêu cái thìa?",
+    "options": ["{w1} cái", "{w2} cái", "{ans} cái", "{w3} cái"],
+    "correctIndex": 2,
+    "hints": ["Bố cho đi thì số thìa giảm đi.", "Tính $ {a} - {b} $."],
+    "solutionHtml": "Số thìa bố còn lại là:<br/>$ {a} - {b} = {ans} $ (cái thìa).<br/>Đáp án đúng là phương án thứ ba.",
+    "tip": "Cho đi là mất bớt đi, ta dùng phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 3 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a * b <= 10"],
+    "formulas": {
+      "ans": "a * b",
+      "w1": "a + b",
+      "w2": "a * b + 2",
+      "w3": "a * b + 1"
+    },
+    "questionText": "Có {a} khay đựng trái cây, mỗi khay có {b} quả. Hỏi có tất cả bao nhiêu quả trái cây?",
+    "options": ["{w1} quả", "{ans} quả", "{w2} quả", "{w3} quả"],
+    "correctIndex": 1,
+    "hints": ["Có {a} nhóm, mỗi nhóm có {b} quả.", "Tính $ {a} \\times {b} $."],
+    "solutionHtml": "Số quả trái cây là:<br/>$ {a} \\times {b} = {ans} $ (quả).<br/>Đáp án đúng là phương án thứ hai.",
+    "tip": "Tính tổng của các nhóm bằng nhau ta dùng phép nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng1-t2-d10"
+  }
+]
+

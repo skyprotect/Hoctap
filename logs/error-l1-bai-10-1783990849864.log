@@ -1,0 +1,572 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:00:49.864Z
+Lesson ID: l1-bai-10
+Lesson Title: Bài 10: Phép cộng trong phạm vi 10
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9769 (line 387 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9769 (line 387 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 9769 (Line: 273, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": ["a + b <= 9"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Lan có {a} viên bi đỏ và {b} viên bi xanh. Hỏi Lan có tất cả bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên bi",
+      "B. {ans} viên bi",
+      "C. {w2} viên bi",
+      "D. {w3} viên bi"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số viên bi, ta thực hiện phép cộng số bi đỏ và số bi xanh.", "Ta có phép tính: $ {a} + {b} = ? $"],
+    "solutionHtml": "Số viên bi Lan có tất cả là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+    "tip": "Khi đề bài hỏi 'có tất cả bao nhiêu', ta luôn thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a + b <= 8"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trên cành cây có {a} con chim đang đậu. Một lúc sau, có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành cây lúc này có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con chim",
+      "B. {ans} con chim",
+      "C. {w2} con chim",
+      "D. {w3} con chim"
+    ],
+    "correctIndex": 1,
+    "hints": ["Có {a} con chim, thêm {b} con chim nữa, ta thực hiện phép cộng.", "Phép tính là: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+    "tip": "Cụm từ 'có thêm' biểu thị cho việc tăng lên, ta dùng phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 1, "max": 3 },
+      "c": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b + c <= 9"],
+    "formulas": {
+      "ans": "a + b + c",
+      "w1": "a + b",
+      "w2": "a + c",
+      "w3": "b + c"
+    },
+    "questionText": "Mai có {a} bông hoa hồng, mẹ tặng thêm {b} bông hoa cúc và bố tặng thêm {c} bông hoa hướng dương. Hỏi Mai có tất cả bao nhiêu bông hoa?",
+    "options": [
+      "A. {w1} bông hoa",
+      "B. {ans} bông hoa",
+      "C. {w2} bông hoa",
+      "D. {w3} bông hoa"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cần cộng tổng tất cả các loại hoa lại với nhau.", "Phép tính: $ {a} + {b} + {c} = ? $"],
+    "solutionHtml": "Tổng số bông hoa Mai có là:<br/>$ {a} + {b} + {c} = {ans} $ (bông hoa).<br/>Đáp án đúng là B.",
+    "tip": "Khi có ba nhóm đồ vật, ta cộng lần lượt từ trái sang phải.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 6 },
+      "b": { "min": 1, "max": 3 }
+    },
+    "constraints": ["a + b <= 9"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Trong giỏ có {a} quả cam. Mẹ cho thêm vào giỏ {b} quả cam nữa. Hỏi trong giỏ bây giờ có bao nhiêu quả cam?",
+    "options": [
+      "A. {w1} quả",
+      "B. {ans} quả",
+      "C. {w2} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 1,
+    "hints": ["Ban đầu có {a} quả, sau đó tăng thêm {b} quả.", "Ta làm phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Số quả cam trong giỏ lúc sau là:<br/>$ {a} + {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+    "tip": "Số lượng tăng lên thì ta sử dụng phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 4 },
+      "b": { "min": 1, "max": 4 }
+    },
+    "constraints": ["a + b <= 8"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Hôm nay Nam làm được {a} bài toán đúng, ngày mai Nam làm thêm được {b} bài toán đúng nữa. Hỏi sau hai ngày Nam làm được tất cả bao nhiêu bài toán đúng?",
+    "options": [
+      "A. {w1} bài",
+      "B. {ans} bài",
+      "C. {w2} bài",
+      "D. {w3} bài"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính tổng số bài toán của hai ngày.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số bài toán Nam làm đúng sau hai ngày là:<br/>$ {a} + {b} = {ans} $ (bài).<br/>Đáp án đúng là B.",
+    "tip": "Từ 'tất cả' là từ khóa để thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a + b <= 9"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 2",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trên bàn có {a} cái bút chì. Hoa để thêm {b} cái bút chì nữa lên bàn. Hỏi trên bàn có tổng cộng bao nhiêu cái bút chì?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tổng số bút chì bằng số bút chì có sẵn cộng với số bút chì mới để thêm.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số bút chì trên bàn là:<br/>$ {a} + {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kĩ để xác định số lượng ban đầu và số lượng thêm vào.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 2",
+      "w3": "a + b - 1"
+    },
+    "questionText": "Bể cá nhà em có {a} con cá vàng. Mẹ mua thêm {b} con cá nữa thả vào bể. Hỏi hiện tại bể cá có bao nhiêu con cá?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": ["Số cá hiện tại bằng số cá cũ cộng số cá mới mua.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Số con cá hiện có trong bể là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+    "tip": "Cần chú ý đơn vị tính là 'con'.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Lớp 1A có {a} bạn nam và {b} bạn nữ. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cộng số bạn nam và số bạn nữ lại với nhau.", "Phép tính: $ {a} + {b} = ? $"],
+    "solutionHtml": "Tổng số bạn học sinh lớp 1A là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Đây là bài toán gộp hai nhóm lại thành một tập hợp.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 2",
+      "w3": "a + b - 1"
+    },
+    "questionText": "Hôm nay em đọc được {a} trang sách, ngày hôm qua em đã đọc được {b} trang sách. Hỏi trong hai ngày em đọc được bao nhiêu trang sách?",
+    "options": [
+      "A. {w1} trang",
+      "B. {ans} trang",
+      "C. {w2} trang",
+      "D. {w3} trang"
+    ],
+    "correctIndex": 1,
+    "hints": ["Em hãy cộng số trang của ngày hôm nay và ngày hôm qua.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số trang sách em đã đọc là:<br/>$ {a} + {b} = {ans} $ (trang).<br/>Đáp án đúng là B.",
+    "tip": "Đề hỏi 'trong hai ngày' tức là tìm tổng số sách đã đọc.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 4 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trên cây có {a} con chim đang đậu, lại có thêm {b} con chim đang bay đến đậu cùng. Hỏi có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cộng số chim đang đậu và số chim mới bay đến.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Số con chim có tất cả là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+    "tip": "Khi hai nhóm nhập lại, ta dùng phép tính cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d10"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 5 }
+    },
+    "constraints": ["a + b <= 9"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Lan có {a} viên bi đỏ và {b} viên bi xanh. Hỏi Lan có tất cả bao nhiêu viên bi?",
+    "options": [
+      "A. {w1} viên bi",
+      "B. {ans} viên bi",
+      "C. {w2} viên bi",
+      "D. {w3} viên bi"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm tổng số viên bi, ta thực hiện phép cộng số bi đỏ và số bi xanh.", "Ta có phép tính: $ {a} + {b} = ? $"],
+    "solutionHtml": "Số viên bi Lan có tất cả là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+    "tip": "Khi đề bài hỏi 'có tất cả bao nhiêu', ta luôn thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a + b <= 8"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trên cành cây có {a} con chim đang đậu. Một lúc sau, có thêm {b} con chim bay tới đậu cùng. Hỏi trên cành cây lúc này có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con chim",
+      "B. {ans} con chim",
+      "C. {w2} con chim",
+      "D. {w3} con chim"
+    ],
+    "correctIndex": 1,
+    "hints": ["Có {a} con chim, thêm {b} con chim nữa, ta thực hiện phép cộng.", "Phép tính là: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+    "tip": "Cụm từ 'có thêm' biểu thị cho việc tăng lên, ta dùng phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 1, "max": 3 },
+      "c": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b + c <= 9"],
+    "formulas": {
+      "ans": "a + b + c",
+      "w1": "a + b",
+      "w2": "a + c",
+      "w3": "b + c"
+    },
+    "questionText": "Mai có {a} bông hoa hồng, mẹ tặng thêm {b} bông hoa cúc và bố tặng thêm {c} bông hoa hướng dương. Hỏi Mai có tất cả bao nhiêu bông hoa?",
+    "options": [
+      "A. {w1} bông hoa",
+      "B. {ans} bông hoa",
+      "C. {w2} bông hoa",
+      "D. {w3} bông hoa"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cần cộng tổng tất cả các loại hoa lại với nhau.", "Phép tính: $ {a} + {b} + {c} = ? $"],
+    "solutionHtml": "Tổng số bông hoa Mai có là:<br/>$ {a} + {b} + {c} = {ans} $ (bông hoa).<br/>Đáp án đúng là B.",
+    "tip": "Khi có ba nhóm đồ vật, ta cộng lần lượt từ trái sang phải.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 6 },
+      "b": { "min": 1, "max": 3 }
+    },
+    "constraints": ["a + b <= 9"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 1",
+      "w3": "a + b + 2"
+    },
+    "questionText": "Trong giỏ có {a} quả cam. Mẹ cho thêm vào giỏ {b} quả cam nữa. Hỏi trong giỏ bây giờ có bao nhiêu quả cam?",
+    "options": [
+      "A. {w1} quả",
+      "B. {ans} quả",
+      "C. {w2} quả",
+      "D. {w3} quả"
+    ],
+    "correctIndex": 1,
+    "hints": ["Ban đầu có {a} quả, sau đó tăng thêm {b} quả.", "Ta làm phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Số quả cam trong giỏ lúc sau là:<br/>$ {a} + {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+    "tip": "Số lượng tăng lên thì ta sử dụng phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 4 },
+      "b": { "min": 1, "max": 4 }
+    },
+    "constraints": ["a + b <= 8"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Hôm nay Nam làm được {a} bài toán đúng, ngày mai Nam làm thêm được {b} bài toán đúng nữa. Hỏi sau hai ngày Nam làm được tất cả bao nhiêu bài toán đúng?",
+    "options": [
+      "A. {w1} bài",
+      "B. {ans} bài",
+      "C. {w2} bài",
+      "D. {w3} bài"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tính tổng số bài toán của hai ngày.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số bài toán Nam làm đúng sau hai ngày là:<br/>$ {a} + {b} = {ans} $ (bài).<br/>Đáp án đúng là B.",
+    "tip": "Từ 'tất cả' là từ khóa để thực hiện phép cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 5 },
+      "b": { "min": 2, "max": 4 }
+    },
+    "constraints": ["a + b <= 9"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b - 2",
+      "w3": "a + b + 3"
+    },
+    "questionText": "Trên bàn có {a} cái bút chì. Hoa để thêm {b} cái bút chì nữa lên bàn. Hỏi trên bàn có tổng cộng bao nhiêu cái bút chì?",
+    "options": [
+      "A. {w1} cái",
+      "B. {ans} cái",
+      "C. {w2} cái",
+      "D. {w3} cái"
+    ],
+    "correctIndex": 1,
+    "hints": ["Tổng số bút chì bằng số bút chì có sẵn cộng với số bút chì mới để thêm.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số bút chì trên bàn là:<br/>$ {a} + {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kĩ để xác định số lượng ban đầu và số lượng thêm vào.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 3, "max": 5 },
+      "b": { "min": 1, "max": 2 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 2",
+      "w3": "a + b - 1"
+    },
+    "questionText": "Bể cá nhà em có {a} con cá vàng. Mẹ mua thêm {b} con cá nữa thả vào bể. Hỏi hiện tại bể cá có bao nhiêu con cá?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": ["Số cá hiện tại bằng số cá cũ cộng số cá mới mua.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Số con cá hiện có trong bể là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+    "tip": "Cần chú ý đơn vị tính là 'con'.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Lớp 1A có {a} bạn nam và {b} bạn nữ. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+    "options": [
+      "A. {w1} bạn",
+      "B. {ans} bạn",
+      "C. {w2} bạn",
+      "D. {w3} bạn"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cộng số bạn nam và số bạn nữ lại với nhau.", "Phép tính: $ {a} + {b} = ? $"],
+    "solutionHtml": "Tổng số bạn học sinh lớp 1A là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+    "tip": "Đây là bài toán gộp hai nhóm lại thành một tập hợp.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 2, "max": 4 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 1",
+      "w2": "a + b + 2",
+      "w3": "a + b - 1"
+    },
+    "questionText": "Hôm nay em đọc được {a} trang sách, ngày hôm qua em đã đọc được {b} trang sách. Hỏi trong hai ngày em đọc được bao nhiêu trang sách?",
+    "options": [
+      "A. {w1} trang",
+      "B. {ans} trang",
+      "C. {w2} trang",
+      "D. {w3} trang"
+    ],
+    "correctIndex": 1,
+    "hints": ["Em hãy cộng số trang của ngày hôm nay và ngày hôm qua.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Tổng số trang sách em đã đọc là:<br/>$ {a} + {b} = {ans} $ (trang).<br/>Đáp án đúng là B.",
+    "tip": "Đề hỏi 'trong hai ngày' tức là tìm tổng số sách đã đọc.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 1, "max": 4 },
+      "b": { "min": 2, "max": 3 }
+    },
+    "constraints": ["a + b <= 7"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a + b + 2",
+      "w2": "a + b - 1",
+      "w3": "a + b + 1"
+    },
+    "questionText": "Trên cây có {a} con chim đang đậu, lại có thêm {b} con chim đang bay đến đậu cùng. Hỏi có tất cả bao nhiêu con chim?",
+    "options": [
+      "A. {w1} con",
+      "B. {ans} con",
+      "C. {w2} con",
+      "D. {w3} con"
+    ],
+    "correctIndex": 1,
+    "hints": ["Cộng số chim đang đậu và số chim mới bay đến.", "Phép tính: $ {a} + {b} $"],
+    "solutionHtml": "Số con chim có tất cả là:<br/>$ {a} + {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+    "tip": "Khi hai nhóm nhập lại, ta dùng phép tính cộng.",
+    "level": "chat-luong-cao",
+    "type": "l1-bai-10-d10"
+  }
+]
+

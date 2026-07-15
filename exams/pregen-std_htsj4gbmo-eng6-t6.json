@@ -1,0 +1,404 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "baoLiXi": {
+          "min": 20,
+          "max": 50,
+          "step": 1
+        },
+        "nguoiNhan": {
+          "min": 4,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "baoLiXi % nguoiNhan === 0"
+      ],
+      "formulas": {
+        "ans": "baoLiXi / nguoiNhan",
+        "w1": "ans + 2",
+        "w2": "ans + 3",
+        "w3": "ans + 4"
+      },
+      "questionText": "Trong dịp Tết, bạn An có {baoLiXi} phong bao lì xì và muốn chia đều số đó cho {nguoiNhan} người em họ. Hỏi mỗi em nhận được bao nhiêu phong bao lì xì?",
+      "options": [
+        "A. {w1} phong bao",
+        "B. {ans} phong bao",
+        "C. {w2} phong bao",
+        "D. {w3} phong bao"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số phong bao mỗi em nhận được, ta thực hiện phép tính chia số lượng phong bao cho số người.",
+        "Phép tính cần thực hiện là {baoLiXi} chia cho {nguoiNhan}."
+      ],
+      "solutionHtml": "Số phong bao lì xì mỗi em nhận được là:<br/>$ {baoLiXi} : {nguoiNhan} = {ans} $ (phong bao).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa phép chia và các phép tính khác.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "donGia": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000
+        },
+        "soLuong": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "donGia * soLuong",
+        "w1": "ans + 10000",
+        "w2": "ans + 5000",
+        "w3": "ans + 20000"
+      },
+      "questionText": "Mẹ đi chợ Tết mua {soLuong} gói bánh, mỗi gói bánh có giá {donGia} đồng. Hỏi mẹ cần trả bao nhiêu tiền cho {soLuong} gói bánh đó?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số tiền mẹ trả bằng giá tiền một gói bánh nhân với số gói bánh mua được.",
+        "Ta thực hiện phép tính $ {donGia} \\times {soLuong} $."
+      ],
+      "solutionHtml": "Số tiền mẹ cần trả là:<br/>$ {donGia} \\times {soLuong} = {ans} $ (đồng).<br/>Đáp án đúng là B.",
+      "tip": "Khi tính tổng số tiền, ta lấy đơn giá nhân với số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongBanh": {
+          "min": 60,
+          "max": 120,
+          "step": 6
+        },
+        "ngayTet": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tongBanh % ngayTet === 0"
+      ],
+      "formulas": {
+        "ans": "tongBanh / ngayTet",
+        "w1": "ans + 5",
+        "w2": "ans + 10",
+        "w3": "ans + 15"
+      },
+      "questionText": "Gia đình bạn Bình chuẩn bị {tongBanh} chiếc bánh chưng để ăn trong {ngayTet} ngày Tết. Nếu số bánh được tiêu thụ đều mỗi ngày, hỏi mỗi ngày gia đình Bình ăn hết bao nhiêu chiếc bánh chưng?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số bánh ăn mỗi ngày, ta lấy tổng số bánh chia cho số ngày.",
+        "Phép tính là $ {tongBanh} : {ngayTet} $."
+      ],
+      "solutionHtml": "Số bánh chưng gia đình Bình ăn mỗi ngày là:<br/>$ {tongBanh} : {ngayTet} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đề bài yêu cầu tìm giá trị trung bình mỗi ngày.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hoa": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "qua": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "hoa > qua"
+      ],
+      "formulas": {
+        "ans": "hoa + qua",
+        "w1": "hoa + 1",
+        "w2": "hoa * 2",
+        "w3": "qua * 3"
+      },
+      "questionText": "Bình trang trí phòng khách với {hoa} cành hoa đào và {qua} quả phật thủ. Hỏi tổng cộng Bình có bao nhiêu đồ trang trí?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng số đồ trang trí là tổng của số cành hoa và số quả phật thủ.",
+        "Phép tính là {hoa} cộng với {qua}."
+      ],
+      "solutionHtml": "Tổng số đồ trang trí là:<br/>$ {hoa} + {qua} = {ans} $ (đồ trang trí).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán hỏi tổng số lượng, nên dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongGoi": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "daDung": {
+          "min": 30,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "tongGoi > daDung"
+      ],
+      "formulas": {
+        "ans": "tongGoi - daDung",
+        "w1": "tongGoi + daDung",
+        "w2": "daDung + 10",
+        "w3": "tongGoi - 20"
+      },
+      "questionText": "Nhà bạn Lan chuẩn bị {tongGoi} gói mứt Tết. Sau những ngày khách đến chơi nhà, gia đình đã dùng hết {daDung} gói. Hỏi nhà Lan còn lại bao nhiêu gói mứt?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số gói mứt còn lại bằng số gói ban đầu trừ đi số gói đã dùng.",
+        "Phép tính là {tongGoi} trừ đi {daDung}."
+      ],
+      "solutionHtml": "Số gói mứt còn lại là:<br/>$ {tongGoi} - {daDung} = {ans} $ (gói).<br/>Đáp án đúng là B.",
+      "tip": "Tìm phần còn lại của một tổng thể, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "soCanh": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "bongMoiCanh": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "soCanh * bongMoiCanh",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "soCanh + bongMoiCanh"
+      },
+      "questionText": "Trên cành đào nhà ông, có {soCanh} cành hoa, mỗi cành có {bongMoiCanh} bông hoa nở rộ. Hỏi tổng cộng trên cây đào có bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tính tổng số bông hoa, ta nhân số cành với số bông trên mỗi cành.",
+        "Phép tính là $ {soCanh} \\times {bongMoiCanh} $."
+      ],
+      "solutionHtml": "Tổng số bông hoa trên cây đào là:<br/>$ {soCanh} \\times {bongMoiCanh} = {ans} $ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này áp dụng quy tắc nhân số nhóm với số lượng trong mỗi nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongTien": {
+          "min": 500000,
+          "max": 1000000,
+          "step": 10000
+        },
+        "soNguoi": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tongTien % soNguoi === 0"
+      ],
+      "formulas": {
+        "ans": "tongTien / soNguoi",
+        "w1": "ans + 50000",
+        "w2": "ans - 50000",
+        "w3": "ans + 100000"
+      },
+      "questionText": "Bố mẹ mừng tuổi cho {soNguoi} anh em trong nhà với tổng số tiền là {tongTien} đồng. Nếu chia đều số tiền mừng tuổi đó, mỗi người nhận được bao nhiêu tiền?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều tổng số tiền cho số người để tìm số tiền mỗi người nhận.",
+        "Phép tính là {tongTien} chia {soNguoi}."
+      ],
+      "solutionHtml": "Số tiền mỗi người nhận được là:<br/>$ {tongTien} : {soNguoi} = {ans} $ (đồng).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều nghĩa là thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "gioGioiThieu": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "phutMoiGio": {
+          "min": 10,
+          "max": 40,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "gioGioiThieu * phutMoiGio",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans + 5"
+      },
+      "questionText": "Trong buổi tất niên, mỗi khách mời được giới thiệu trong {gioGioiThieu} phút. Nếu có {phutMoiGio} khách mời lần lượt được giới thiệu, hỏi tổng thời gian giới thiệu là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng thời gian, ta lấy thời gian mỗi khách nhân với số lượng khách.",
+        "Phép tính là $ {gioGioiThieu} \\times {phutMoiGio} $."
+      ],
+      "solutionHtml": "Tổng thời gian giới thiệu là:<br/>$ {gioGioiThieu} \\times {phutMoiGio} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đơn vị thời gian cần được tính toán cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "quaBanh": {
+          "min": 20,
+          "max": 40,
+          "step": 2
+        },
+        "quaTang": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "quaBanh + quaTang",
+        "w1": "quaBanh - quaTang",
+        "w2": "ans + 5",
+        "w3": "quaBanh * 2"
+      },
+      "questionText": "Bạn Hoa chuẩn bị {quaBanh} túi quà tặng và {quaTang} hộp kẹo để phát cho trẻ em nghèo dịp Tết. Hỏi tổng số món quà Hoa chuẩn bị là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng số lượng túi quà và số hộp kẹo lại với nhau.",
+        "Phép tính là {quaBanh} cộng {quaTang}."
+      ],
+      "solutionHtml": "Tổng số món quà là:<br/>$ {quaBanh} + {quaTang} = {ans} $ (món quà).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán tổng hợp các đối tượng khác nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tongKhach": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "khachDaVe": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "tongKhach > khachDaVe"
+      ],
+      "formulas": {
+        "ans": "tongKhach - khachDaVe",
+        "w1": "tongKhach + khachDaVe",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trong bữa tiệc đầu xuân, có {tongKhach} khách mời đến tham dự. Sau đó, có {khachDaVe} khách phải về trước. Hỏi hiện tại trong bữa tiệc còn bao nhiêu khách?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số khách còn lại là số khách ban đầu trừ đi số khách đã về.",
+        "Phép tính là {tongKhach} trừ {khachDaVe}."
+      ],
+      "solutionHtml": "Số khách còn lại trong bữa tiệc là:<br/>$ {tongKhach} - {khachDaVe} = {ans} $ (khách).<br/>Đáp án đúng là B.",
+      "tip": "Đếm số còn lại sau khi bớt đi một lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t6-d10"
+    }
+  ]
+}

@@ -1,0 +1,686 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:42:11.374Z
+Lesson ID: eng4-t2
+Lesson Title: Unit 2: Time and daily routines
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12371 (line 412 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12371 (line 412 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 12371 (Line: 330, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 6, "max": 8, "step": 1 },
+        "duration": { "min": 30, "max": 90, "step": 15 }
+      },
+      "constraints": [
+        "duration % 30 === 0"
+      ],
+      "formulas": {
+        "endHour": "start + (duration >= 60 ? 1 : 0)",
+        "endMin": "duration % 60",
+        "ans": "duration",
+        "w1": "duration + 15",
+        "w2": "duration - 15",
+        "w3": "duration + 30"
+      },
+      "questionText": "Bạn An bắt đầu làm bài tập về nhà lúc {start} giờ sáng và kết thúc lúc {start} giờ {endMin} phút (nếu endMin bằng 0 thì coi như đúng giờ). Nếu bạn ấy mất {ans} phút để hoàn thành, hãy chọn khẳng định đúng về thời gian làm bài.",
+      "options": [
+        "A. Bạn An làm bài trong {w1} phút",
+        "B. Bạn An làm bài trong {ans} phút",
+        "C. Bạn An làm bài trong {w2} phút",
+        "D. Bạn An làm bài trong {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian làm bài bằng thời điểm kết thúc trừ thời điểm bắt đầu.",
+        "Đổi thời gian ra phút để so sánh."
+      ],
+      "solutionHtml": "Thời điểm bắt đầu là {start} giờ 0 phút.<br/>Thời điểm kết thúc là {start} giờ {endMin} phút (nếu {endMin} là 0 thì là {start} giờ 0 phút).<br/>Vậy bạn An đã làm bài trong {ans} phút.<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý chuyển đổi đơn vị thời gian từ giờ sang phút nếu cần thiết.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "morning": { "min": 20, "max": 40, "step": 5 },
+        "evening": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": [
+        "morning > evening"
+      ],
+      "formulas": {
+        "ans": "morning + evening",
+        "w1": "morning - evening",
+        "w2": "morning + evening + 10",
+        "w3": "morning + evening - 5"
+      },
+      "questionText": "Mỗi ngày, bạn Bình dành {morning} phút để đọc sách vào buổi sáng và {evening} phút để đọc sách vào buổi tối. Hỏi tổng thời gian bạn Bình dành để đọc sách trong một ngày là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng thời gian bằng cách cộng thời gian buổi sáng và buổi tối.",
+        "Phép tính: $ {morning} + {evening} $."
+      ],
+      "solutionHtml": "Tổng thời gian đọc sách là:<br/>$ {morning} + {evening} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các con số được cho trong bài toán.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 5",
+        "w2": "a * b - 5",
+        "w3": "a * b + 10"
+      },
+      "questionText": "Một tuần có 7 ngày. Nếu mỗi ngày bạn Lan dành {b} phút để luyện tiếng Anh, thì trong {a} tuần, bạn ấy đã dành bao nhiêu phút để luyện tiếng Anh?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số ngày trong {a} tuần: $ {a} \\times 7 $.",
+        "Sau đó nhân với số phút mỗi ngày: $ (7 \\times {a}) \\times {b} $."
+      ],
+      "solutionHtml": "Số ngày trong {a} tuần là: $ {a} \\times 7 = {a*7} $ (ngày).<br/>Tổng thời gian luyện tiếng Anh là: $ {a*7} \\times {b} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận với việc đổi đơn vị thời gian từ tuần sang ngày.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 60, "max": 120, "step": 10 },
+        "parts": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "total % parts === 0"
+      ],
+      "formulas": {
+        "ans": "total / parts",
+        "w1": "total / parts + 5",
+        "w2": "total / parts - 5",
+        "w3": "total / parts * 2"
+      },
+      "questionText": "Bạn Minh có {total} phút để hoàn thành {parts} công việc nhà. Nếu thời gian mỗi công việc là như nhau, hỏi bạn Minh mất bao nhiêu phút cho mỗi công việc?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng phép chia để tìm thời gian cho mỗi phần việc.",
+        "Phép tính: $ {total} : {parts} $."
+      ],
+      "solutionHtml": "Thời gian cho mỗi công việc là:<br/>$ {total} : {parts} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều tổng thời gian cho số lượng công việc.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startH": { "min": 7, "max": 9, "step": 1 },
+        "walk": { "min": 15, "max": 25, "step": 5 },
+        "bus": { "min": 20, "max": 35, "step": 5 }
+      },
+      "constraints": [
+        "(walk + bus) < 60"
+      ],
+      "formulas": {
+        "total": "walk + bus",
+        "ans": "walk + bus",
+        "w1": "walk",
+        "w2": "bus",
+        "w3": "walk + bus + 10"
+      },
+      "questionText": "Bạn Hoa đi bộ đến bến xe buýt hết {walk} phút, sau đó đi xe buýt đến trường hết {bus} phút. Hỏi tổng thời gian bạn Hoa đi từ nhà đến trường là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng thời gian đi bộ và thời gian đi xe buýt lại với nhau.",
+        "Phép tính: $ {walk} + {bus} $."
+      ],
+      "solutionHtml": "Tổng thời gian đi từ nhà đến trường là:<br/>$ {walk} + {bus} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đảm bảo cộng chính xác các khoảng thời gian nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 },
+        "t": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * t",
+        "w1": "n * t + 10",
+        "w2": "n * t - 5",
+        "w3": "n * t + 5"
+      },
+      "questionText": "Mỗi ngày bạn Hùng chạy bộ {t} phút. Hỏi trong {n} ngày, bạn Hùng dành tổng cộng bao nhiêu phút để chạy bộ?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số phút mỗi ngày với số ngày.",
+        "Phép tính: $ {t} \\times {n} $."
+      ],
+      "solutionHtml": "Tổng thời gian chạy bộ trong {n} ngày là:<br/>$ {t} \\times {n} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Lập luận từ thời gian đơn vị ra thời gian tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 13, "max": 15, "step": 1 },
+        "add": { "min": 45, "max": 75, "step": 5 }
+      },
+      "constraints": [
+        "add % 15 === 0"
+      ],
+      "formulas": {
+        "h": "start + Math.floor(add / 60)",
+        "m": "add % 60",
+        "ans": "h * 60 + m",
+        "w1": "ans + 15",
+        "w2": "ans - 15",
+        "w3": "ans + 30"
+      },
+      "questionText": "Bố đi làm về lúc {start} giờ chiều. Bố nấu cơm mất {add} phút. Hỏi bố nấu cơm xong lúc mấy giờ? (Chọn số phút kể từ mốc 12 giờ trưa).",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi thời điểm bắt đầu ra phút tính từ 12 giờ trưa: $ {start} \\times 60 $.",
+        "Cộng thêm số phút nấu cơm."
+      ],
+      "solutionHtml": "Thời điểm bắt đầu là {start} giờ chiều, tức $ {start} \\times 60 = {start*60} $ phút từ 12 giờ trưa.<br/>Thời điểm xong là: $ {start*60} + {add} = {ans} $ phút từ 12 giờ trưa.<br/>Đáp án đúng là B.",
+      "tip": "Chú ý quy đổi đơn vị giờ ra phút.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pages": { "min": 10, "max": 20, "step": 1 },
+        "timePer": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "pages * timePer",
+        "w1": "pages * timePer + 5",
+        "w2": "pages * timePer - 2",
+        "w3": "pages * timePer + 10"
+      },
+      "questionText": "Mỗi trang sách, bạn Mai đọc mất {timePer} phút. Hỏi nếu bạn ấy đọc {pages} trang sách thì mất tất cả bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số trang với thời gian đọc mỗi trang.",
+        "Phép tính: $ {pages} \\times {timePer} $."
+      ],
+      "solutionHtml": "Thời gian để đọc {pages} trang sách là:<br/>$ {pages} \\times {timePer} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ số lượng trang và thời gian tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": { "min": 20, "max": 40, "step": 5 },
+        "t2": { "min": 15, "max": 30, "step": 5 }
+      },
+      "constraints": [
+        "t1 > t2"
+      ],
+      "formulas": {
+        "ans": "t1 - t2",
+        "w1": "t1 + t2",
+        "w2": "t1 - t2 + 5",
+        "w3": "t1 - t2 - 5"
+      },
+      "questionText": "Bạn Nam làm bài tập toán hết {t1} phút, bạn Tuấn làm hết {t2} phút. Hỏi bạn Nam làm bài lâu hơn bạn Tuấn bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm thời gian lâu hơn, ta lấy thời gian của bạn Nam trừ đi thời gian của bạn Tuấn.",
+        "Phép tính: $ {t1} - {t2} $."
+      ],
+      "solutionHtml": "Thời gian bạn Nam làm lâu hơn bạn Tuấn là:<br/>$ {t1} - {t2} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'lâu hơn' thường gợi ý cho phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 6, "step": 1 },
+        "m": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * m",
+        "w1": "n * m + 10",
+        "w2": "n * m - 5",
+        "w3": "n * m + 5"
+      },
+      "questionText": "Mỗi ngày An tập thể dục {m} phút. Hỏi trong {n} ngày, An dành tất cả bao nhiêu phút để tập thể dục?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số phút tập mỗi ngày với số ngày.",
+        "Phép tính: $ {m} \\times {n} $."
+      ],
+      "solutionHtml": "Tổng thời gian tập thể dục trong {n} ngày là:<br/>$ {m} \\times {n} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng phép nhân để tìm tổng thời gian theo chu kỳ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 6, "max": 8, "step": 1 },
+        "duration": { "min": 30, "max": 90, "step": 15 }
+      },
+      "constraints": [
+        "duration % 30 === 0"
+      ],
+      "formulas": {
+        "endHour": "start + (duration >= 60 ? 1 : 0)",
+        "endMin": "duration % 60",
+        "ans": "duration",
+        "w1": "duration + 15",
+        "w2": "duration - 15",
+        "w3": "duration + 30"
+      },
+      "questionText": "Bạn An bắt đầu làm bài tập về nhà lúc {start} giờ sáng và kết thúc lúc {start} giờ {endMin} phút (nếu endMin bằng 0 thì coi như đúng giờ). Nếu bạn ấy mất {ans} phút để hoàn thành, hãy chọn khẳng định đúng về thời gian làm bài.",
+      "options": [
+        "A. Bạn An làm bài trong {w1} phút",
+        "B. Bạn An làm bài trong {ans} phút",
+        "C. Bạn An làm bài trong {w2} phút",
+        "D. Bạn An làm bài trong {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thời gian làm bài bằng thời điểm kết thúc trừ thời điểm bắt đầu.",
+        "Đổi thời gian ra phút để so sánh."
+      ],
+      "solutionHtml": "Thời điểm bắt đầu là {start} giờ 0 phút.<br/>Thời điểm kết thúc là {start} giờ {endMin} phút (nếu {endMin} là 0 thì là {start} giờ 0 phút).<br/>Vậy bạn An đã làm bài trong {ans} phút.<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý chuyển đổi đơn vị thời gian từ giờ sang phút nếu cần thiết.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "morning": { "min": 20, "max": 40, "step": 5 },
+        "evening": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": [
+        "morning > evening"
+      ],
+      "formulas": {
+        "ans": "morning + evening",
+        "w1": "morning - evening",
+        "w2": "morning + evening + 10",
+        "w3": "morning + evening - 5"
+      },
+      "questionText": "Mỗi ngày, bạn Bình dành {morning} phút để đọc sách vào buổi sáng và {evening} phút để đọc sách vào buổi tối. Hỏi tổng thời gian bạn Bình dành để đọc sách trong một ngày là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng thời gian bằng cách cộng thời gian buổi sáng và buổi tối.",
+        "Phép tính: $ {morning} + {evening} $."
+      ],
+      "solutionHtml": "Tổng thời gian đọc sách là:<br/>$ {morning} + {evening} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ các con số được cho trong bài toán.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 5",
+        "w2": "a * b - 5",
+        "w3": "a * b + 10"
+      },
+      "questionText": "Một tuần có 7 ngày. Nếu mỗi ngày bạn Lan dành {b} phút để luyện tiếng Anh, thì trong {a} tuần, bạn ấy đã dành bao nhiêu phút để luyện tiếng Anh?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số ngày trong {a} tuần: $ {a} \\times 7 $.",
+        "Sau đó nhân với số phút mỗi ngày: $ (7 \\times {a}) \\times {b} $."
+      ],
+      "solutionHtml": "Số ngày trong {a} tuần là: $ {a} \\times 7 = {a*7} $ (ngày).<br/>Tổng thời gian luyện tiếng Anh là: $ {a*7} \\times {b} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Hãy cẩn thận với việc đổi đơn vị thời gian từ tuần sang ngày.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 60, "max": 120, "step": 10 },
+        "parts": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "total % parts === 0"
+      ],
+      "formulas": {
+        "ans": "total / parts",
+        "w1": "total / parts + 5",
+        "w2": "total / parts - 5",
+        "w3": "total / parts * 2"
+      },
+      "questionText": "Bạn Minh có {total} phút để hoàn thành {parts} công việc nhà. Nếu thời gian mỗi công việc là như nhau, hỏi bạn Minh mất bao nhiêu phút cho mỗi công việc?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng phép chia để tìm thời gian cho mỗi phần việc.",
+        "Phép tính: $ {total} : {parts} $."
+      ],
+      "solutionHtml": "Thời gian cho mỗi công việc là:<br/>$ {total} : {parts} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều tổng thời gian cho số lượng công việc.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startH": { "min": 7, "max": 9, "step": 1 },
+        "walk": { "min": 15, "max": 25, "step": 5 },
+        "bus": { "min": 20, "max": 35, "step": 5 }
+      },
+      "constraints": [
+        "(walk + bus) < 60"
+      ],
+      "formulas": {
+        "total": "walk + bus",
+        "ans": "walk + bus",
+        "w1": "walk",
+        "w2": "bus",
+        "w3": "walk + bus + 10"
+      },
+      "questionText": "Bạn Hoa đi bộ đến bến xe buýt hết {walk} phút, sau đó đi xe buýt đến trường hết {bus} phút. Hỏi tổng thời gian bạn Hoa đi từ nhà đến trường là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cộng thời gian đi bộ và thời gian đi xe buýt lại với nhau.",
+        "Phép tính: $ {walk} + {bus} $."
+      ],
+      "solutionHtml": "Tổng thời gian đi từ nhà đến trường là:<br/>$ {walk} + {bus} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đảm bảo cộng chính xác các khoảng thời gian nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 },
+        "t": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * t",
+        "w1": "n * t + 10",
+        "w2": "n * t - 5",
+        "w3": "n * t + 5"
+      },
+      "questionText": "Mỗi ngày bạn Hùng chạy bộ {t} phút. Hỏi trong {n} ngày, bạn Hùng dành tổng cộng bao nhiêu phút để chạy bộ?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số phút mỗi ngày với số ngày.",
+        "Phép tính: $ {t} \\times {n} $."
+      ],
+      "solutionHtml": "Tổng thời gian chạy bộ trong {n} ngày là:<br/>$ {t} \\times {n} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Lập luận từ thời gian đơn vị ra thời gian tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 13, "max": 15, "step": 1 },
+        "add": { "min": 45, "max": 75, "step": 5 }
+      },
+      "constraints": [
+        "add % 15 === 0"
+      ],
+      "formulas": {
+        "h": "start + Math.floor(add / 60)",
+        "m": "add % 60",
+        "ans": "h * 60 + m",
+        "w1": "ans + 15",
+        "w2": "ans - 15",
+        "w3": "ans + 30"
+      },
+      "questionText": "Bố đi làm về lúc {start} giờ chiều. Bố nấu cơm mất {add} phút. Hỏi bố nấu cơm xong lúc mấy giờ? (Chọn số phút kể từ mốc 12 giờ trưa).",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi thời điểm bắt đầu ra phút tính từ 12 giờ trưa: $ {start} \\times 60 $.",
+        "Cộng thêm số phút nấu cơm."
+      ],
+      "solutionHtml": "Thời điểm bắt đầu là {start} giờ chiều, tức $ {start} \\times 60 = {start*60} $ phút từ 12 giờ trưa.<br/>Thời điểm xong là: $ {start*60} + {add} = {ans} $ phút từ 12 giờ trưa.<br/>Đáp án đúng là B.",
+      "tip": "Chú ý quy đổi đơn vị giờ ra phút.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pages": { "min": 10, "max": 20, "step": 1 },
+        "timePer": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "pages * timePer",
+        "w1": "pages * timePer + 5",
+        "w2": "pages * timePer - 2",
+        "w3": "pages * timePer + 10"
+      },
+      "questionText": "Mỗi trang sách, bạn Mai đọc mất {timePer} phút. Hỏi nếu bạn ấy đọc {pages} trang sách thì mất tất cả bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số trang với thời gian đọc mỗi trang.",
+        "Phép tính: $ {pages} \\times {timePer} $."
+      ],
+      "solutionHtml": "Thời gian để đọc {pages} trang sách là:<br/>$ {pages} \\times {timePer} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ số lượng trang và thời gian tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": { "min": 20, "max": 40, "step": 5 },
+        "t2": { "min": 15, "max": 30, "step": 5 }
+      },
+      "constraints": [
+        "t1 > t2"
+      ],
+      "formulas": {
+        "ans": "t1 - t2",
+        "w1": "t1 + t2",
+        "w2": "t1 - t2 + 5",
+        "w3": "t1 - t2 - 5"
+      },
+      "questionText": "Bạn Nam làm bài tập toán hết {t1} phút, bạn Tuấn làm hết {t2} phút. Hỏi bạn Nam làm bài lâu hơn bạn Tuấn bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm thời gian lâu hơn, ta lấy thời gian của bạn Nam trừ đi thời gian của bạn Tuấn.",
+        "Phép tính: $ {t1} - {t2} $."
+      ],
+      "solutionHtml": "Thời gian bạn Nam làm lâu hơn bạn Tuấn là:<br/>$ {t1} - {t2} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'lâu hơn' thường gợi ý cho phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 6, "step": 1 },
+        "m": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "n * m",
+        "w1": "n * m + 10",
+        "w2": "n * m - 5",
+        "w3": "n * m + 5"
+      },
+      "questionText": "Mỗi ngày An tập thể dục {m} phút. Hỏi trong {n} ngày, An dành tất cả bao nhiêu phút để tập thể dục?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số phút tập mỗi ngày với số ngày.",
+        "Phép tính: $ {m} \\times {n} $."
+      ],
+      "solutionHtml": "Tổng thời gian tập thể dục trong {n} ngày là:<br/>$ {m} \\times {n} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng phép nhân để tìm tổng thời gian theo chu kỳ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t2-d10"
+    }
+  ]
+}
+

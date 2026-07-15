@@ -1,0 +1,64 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-15T03:13:44.169Z
+Student ID: std_htsj4gbmo
+Lesson ID: bai-10
+Lesson Title: Bài 10: Số nguyên tố
+==================================================
+
+[ERROR DETAILS]
+Lỗi tại câu số 10: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+Error: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+    at Object.generateQuestionFromTemplate (http://localhost:3000/js/question-generator-worker.js:1166:19)
+    at self.onmessage (http://localhost:3000/js/question-generator-worker.js:1274:40)
+
+[FAILED TEMPLATE QUESTION (INDEX: 9)]
+{
+  "isTemplate": true,
+  "variables": {
+    "M": {
+      "min": 2,
+      "max": 7,
+      "step": 1
+    },
+    "N": {
+      "min": 10,
+      "max": 30,
+      "step": 1
+    }
+  },
+  "constraints": [
+    "this.isPrime(M)",
+    "this.isPrime(N) === false",
+    "N % M !== 0",
+    "M < N",
+    "this.getRelativePrimes(M, N).length >= 2"
+  ],
+  "formulas": {
+    "isPrime": "(num) => { if (num <= 1) return false; for (let i = 2; i * i <= num; i++) { if (num % i === 0) return false; } return true; }",
+    "getGCD": "(a, b) => { while (b) { let temp = b; b = a % b; a = temp; } return a; }",
+    "getRelativePrimes": "(m, n) => { let count = 0; let nums = []; for (let i = 1; i < n; i++) { if (this.getGCD(i, n) === 1 && this.isPrime(i)) { nums.push(i); } } return nums; }",
+    "relativePrimesList": "this.getRelativePrimes(M, N)",
+    "ansCount": "this.relativePrimesList.length",
+    "wrongAns1": "this.ansCount + 1",
+    "wrongAns2": "this.ansCount === 1 ? 3 : this.ansCount - 1",
+    "wrongAns3": "this.ansCount * 2"
+  },
+  "questionText": "Trong một hệ thống mã hóa, một số nguyên tố $p$ được coi là 'tương thích' với số $N$ nếu $p < N$ và $UCLN(p, N)$ = 1$. Cho số $N = {N}, hãy tìm số lượng các số nguyên tố 'tương thích' với {N} và nhỏ hơn {N}.",
+  "options": [
+    "A. Có {wrongAns1} số",
+    "B. Có {ansCount} số",
+    "C. Có {wrongAns2} số",
+    "D. Có {wrongAns3} số"
+  ],
+  "correctIndex": 1,
+  "hints": [
+    "Số nguyên tố tương thích $p$ phải thỏa mãn hai điều kiện: $p$ là số nguyên tố và $UCLN(p, {N})$ = 1$.",
+    "Điều kiện $UCLN(p, {N})$ = 1$ có nghĩa là $p$ không phải là ước của {N} (nếu $p$ là số nguyên tố).",
+    "Hãy liệt kê các số nguyên tố nhỏ hơn {N} và kiểm tra xem số nào không phải là ước của {N}."
+  ],
+  "solutionHtml": "Một số nguyên tố $p$ được coi là 'tương thích' với số {N} nếu $p < {N} và $UCLN(p, {N})$ = 1$.<br/>Điều kiện $UCLN(p, {N})$ = 1$ đối với một số nguyên tố $p$ chỉ xảy ra khi $p$ không phải là ước của {N}.<br/>Ta thực hiện các bước sau:<br/>1. Liệt kê tất cả các số nguyên tố nhỏ hơn {N}:<br/>   Ví dụ: $2, 3, 5, 7, ...$<br/>2. Với mỗi số nguyên tố $p$ vừa tìm được, kiểm tra xem $p$ có phải là ước của {N} không (tức là {N} \\% p === 0$ hay không).<br/>   - Nếu {N} \\% p \\neq 0$, thì $UCLN(p, {N})$ = 1$, vậy $p$ là số nguyên tố tương thích.<br/>   - Nếu {N} \\% p = 0$, thì $UCLN(p, {N})$ = p$, vậy $p$ không tương thích.<br/>Các số nguyên tố tương thích với {N} và nhỏ hơn {N} là: ${relativePrimesList.join(', ')}.<br/>Tổng cộng có {ansCount} số nguyên tố thỏa mãn.<br/>Đáp án đúng là B.",
+  "tip": "Khi $p$ là số nguyên tố, $UCLN(p, N)$ = 1$ khi và chỉ khi $p$ không là ước của $N$. Nếu $p$ là ước của $N$, thì $UCLN(p, N)$ = p$.",
+  "level": "chat-luong-cao",
+  "type": "bai-10-d4"
+}

@@ -1,0 +1,388 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a + b <= 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b + 1 == ans) ? a + b + 5 : a + b + 1",
+        "w2": "(a + b + 2 == ans || a + b + 2 == w1) ? a + b + 6 : a + b + 2",
+        "w3": "(a + b + 3 == ans || a + b + 3 == w1 || a + b + 3 == w2) ? a + b + 7 : a + b + 3"
+      },
+      "questionText": "Trên cành cây có {a} con chim, sau đó có thêm {b} con chim bay đến. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con chim",
+        "B. {ans} con chim",
+        "C. {w2} con chim",
+        "D. {w3} con chim"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có thêm nghĩa là ta làm phép tính cộng.",
+        "Hãy lấy số chim ban đầu là {a} cộng với số chim mới đến là {b}."
+      ],
+      "solutionHtml": "Số con chim trên cành cây sau khi có thêm là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán có cụm từ 'thêm vào', ta thường sử dụng phép cộng để tìm tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9
+        },
+        "b": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b + 1 == ans) ? a - b + 5 : a - b + 1",
+        "w2": "(a - b + 2 == ans || a - b + 2 == w1) ? a - b + 6 : a - b + 2",
+        "w3": "(a - b + 3 == ans || a - b + 3 == w1 || a - b + 3 == w2) ? a - b + 7 : a - b + 3"
+      },
+      "questionText": "Bạn An có {a} viên bi, bạn An cho bạn Bình {b} viên bi. Hỏi bạn An còn lại bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cho đi nghĩa là số lượng giảm bớt, ta làm phép tính trừ.",
+        "Hãy lấy số bi ban đầu là {a} trừ đi số bi đã cho là {b}."
+      ],
+      "solutionHtml": "Số viên bi bạn An còn lại là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán nói về việc 'cho đi', 'bay đi' hay 'ăn mất', đó là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a + b <= 10"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b + 1 == ans) ? a + b + 5 : a + b + 1",
+        "w2": "(a + b + 2 == ans || a + b + 2 == w1) ? a + b + 6 : a + b + 2",
+        "w3": "(a + b - 1 == ans || a + b - 1 == w1 || a + b - 1 == w2) ? a + b + 7 : a + b - 1"
+      },
+      "questionText": "Trong giỏ có {a} quả táo đỏ và {b} quả táo xanh. Hỏi trong giỏ có tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {w2} quả táo",
+        "C. {ans} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm tổng số táo, ta lấy số táo đỏ cộng với số táo xanh.",
+        "Phép tính là $ {a} + {b} = {ans} $."
+      ],
+      "solutionHtml": "Số quả táo trong giỏ là:<br/>$ {a} + {b} = {ans} $ (quả táo).<br/>Đáp án đúng là C.",
+      "tip": "Tìm 'tất cả' là tìm tổng số lượng, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b + 2 == ans) ? a - b + 5 : a - b + 2",
+        "w2": "(a - b - 1 == ans || a - b - 1 == w1) ? a - b + 6 : a - b - 1",
+        "w3": "(a - b + 3 == ans || a - b + 3 == w1 || a - b + 3 == w2) ? a - b + 7 : a - b + 3"
+      },
+      "questionText": "Trên sân có {a} bạn nhỏ đang chơi, có {b} bạn phải về nhà. Hỏi trên sân còn lại bao nhiêu bạn nhỏ?",
+      "options": [
+        "A. {w1} bạn nhỏ",
+        "B. {ans} bạn nhỏ",
+        "C. {w2} bạn nhỏ",
+        "D. {w3} bạn nhỏ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {b} bạn về nhà nghĩa là số lượng bạn trên sân giảm đi.",
+        "Hãy lấy $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số bạn nhỏ còn lại trên sân là:<br/>$ {a} - {b} = {ans} $ (bạn nhỏ).<br/>Đáp án đúng là B.",
+      "tip": "Khi số lượng giảm đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a + b <= 7"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b + 2 == ans) ? a + b + 5 : a + b + 2",
+        "w2": "(a + b + 3 == ans || a + b + 3 == w1) ? a + b + 6 : a + b + 3",
+        "w3": "(a + b - 1 == ans || a + b - 1 == w1 || a + b - 1 == w2) ? a + b + 7 : a + b - 1"
+      },
+      "questionText": "Mẹ mua {a} bông hồng và {b} bông cúc. Hỏi mẹ mua tất cả bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông hoa",
+        "B. {ans} bông hoa",
+        "C. {w2} bông hoa",
+        "D. {w3} bông hoa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mẹ mua hai loại hoa, muốn biết tổng cộng mẹ mua bao nhiêu bông, ta làm phép cộng.",
+        "Tính $ {a} + {b} = {ans} $."
+      ],
+      "solutionHtml": "Tổng số bông hoa mẹ mua là:<br/>$ {a} + {b} = {ans} $ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Ghép hai nhóm lại với nhau, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 7,
+          "max": 9
+        },
+        "b": {
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b + 1 == ans) ? a - b + 5 : a - b + 1",
+        "w2": "(a - b + 2 == ans || a - b + 2 == w1) ? a - b + 6 : a - b + 2",
+        "w3": "(a - b + 3 == ans || a - b + 3 == w1 || a - b + 3 == w2) ? a - b + 7 : a - b + 3"
+      },
+      "questionText": "Bể cá nhà Lan có {a} con cá, hôm nay mẹ mua thêm nhưng lại làm chết {b} con. Hỏi trong bể còn lại bao nhiêu con cá?",
+      "options": [
+        "A. {w1} con cá",
+        "B. {ans} con cá",
+        "C. {w2} con cá",
+        "D. {w3} con cá"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {b} con cá chết nghĩa là số cá trong bể giảm đi.",
+        "Hãy làm phép trừ: $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số con cá còn lại trong bể là:<br/>$ {a} - {b} = {ans} $ (con cá).<br/>Đáp án đúng là B.",
+      "tip": "Hãy chú ý sự thay đổi của số lượng để chọn phép tính cộng hoặc trừ đúng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a + b + 2 <= 10"
+      ],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "(a + b + 1 == ans) ? a + b + 5 : a + b + 1",
+        "w2": "(a + b + 3 == ans || a + b + 3 == w1) ? a + b + 6 : a + b + 3",
+        "w3": "(a + b + 4 == ans || a + b + 4 == w1 || a + b + 4 == w2) ? a + b + 7 : a + b + 4"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn, tổ ba có 2 bạn. Hỏi cả ba tổ có tất cả bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cả ba tổ là tổng của số bạn trong ba tổ cộng lại.",
+        "Tính $ {a} + {b} + 2 = {ans} $."
+      ],
+      "solutionHtml": "Số bạn của cả ba tổ là:<br/>$ {a} + {b} + 2 = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Với ba nhóm, ta cứ lần lượt cộng các số lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 10
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a - b - 2 >= 1"
+      ],
+      "formulas": {
+        "ans": "a - b - 2",
+        "w1": "(a - b - 1 == ans) ? a - b + 5 : a - b - 1",
+        "w2": "(a - b == ans || a - b == w1) ? a - b + 6 : a - b",
+        "w3": "(a - b + 1 == ans || a - b + 1 == w1 || a - b + 1 == w2) ? a - b + 7 : a - b + 1"
+      },
+      "questionText": "Có {a} quyển vở, bạn Mai lấy đi {b} quyển, sau đó lại lấy đi thêm 2 quyển nữa. Hỏi còn lại bao nhiêu quyển vở?",
+      "options": [
+        "A. {ans} quyển",
+        "B. {w1} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Lấy đi rồi lại lấy đi tiếp nghĩa là ta thực hiện hai lần phép trừ.",
+        "Tính $ {a} - {b} - 2 = {ans} $."
+      ],
+      "solutionHtml": "Số quyển vở còn lại là:<br/>$ {a} - {b} - 2 = {ans} $ (quyển).<br/>Đáp án đúng là A.",
+      "tip": "Khi thực hiện liên tiếp các hành động giảm số lượng, hãy làm phép trừ lần lượt.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a + b + 3 <= 10"
+      ],
+      "formulas": {
+        "ans": "a + b + 3",
+        "w1": "(a + b + 1 == ans) ? a + b + 5 : a + b + 1",
+        "w2": "(a + b + 2 == ans || a + b + 2 == w1) ? a + b + 6 : a + b + 2",
+        "w3": "(a + b + 4 == ans || a + b + 4 == w1 || a + b + 4 == w2) ? a + b + 7 : a + b + 4"
+      },
+      "questionText": "Trong hộp có {a} viên bi xanh, {b} viên bi đỏ và 3 viên bi vàng. Hỏi trong hộp có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {w3} viên",
+        "D. {ans} viên"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn biết tổng cộng bao nhiêu viên bi, ta cộng tất cả lại.",
+        "Phép tính: $ {a} + {b} + 3 = {ans} $."
+      ],
+      "solutionHtml": "Tổng số viên bi là:<br/>$ {a} + {b} + 3 = {ans} $ (viên).<br/>Đáp án đúng là D.",
+      "tip": "Cộng dồn tất cả các nhóm nhỏ để có được tổng lớn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 9,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        },
+        "c": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "a - b - c >= 1"
+      ],
+      "formulas": {
+        "ans": "a - b - c",
+        "w1": "(a - b - c + 1 == ans) ? a - b - c + 5 : a - b - c + 1",
+        "w2": "(a - b - c + 2 == ans || a - b - c + 2 == w1) ? a - b - c + 6 : a - b - c + 2",
+        "w3": "(a - b - c + 3 == ans || a - b - c + 3 == w1 || a - b - c + 3 == w2) ? a - b - c + 7 : a - b - c + 3"
+      },
+      "questionText": "Bà có {a} cái bánh, bà cho cháu {b} cái, sau đó bà lại ăn mất {c} cái. Hỏi bà còn bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cho đi và ăn mất là số bánh giảm đi, ta làm phép trừ.",
+        "Tính $ {a} - {b} - {c} = {ans} $."
+      ],
+      "solutionHtml": "Số cái bánh còn lại là:<br/>$ {a} - {b} - {c} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề để xem số lượng tăng lên hay giảm đi nhé!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-12-d10"
+    }
+  ]
+}

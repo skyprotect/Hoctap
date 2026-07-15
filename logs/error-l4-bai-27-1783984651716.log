@@ -1,0 +1,624 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:17:31.716Z
+Lesson ID: l4-bai-27
+Lesson Title: Bài 27: Hai đường thẳng vuông góc
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11245 (line 346 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11245 (line 346 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11245 (Line: 297, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... ",
+      "type": "l4-bai-27-d4"
+    }
+  ]
+}>>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "4",
+        "w1": "2",
+        "w2": "6",
+        "w3": "8"
+      },
+      "questionText": "Trong một hình chữ nhật có {a} cặp cạnh đối diện và {b} cặp cạnh kề nhau. Hỏi trong hình chữ nhật đó có tất cả bao nhiêu cặp đường thẳng vuông góc với nhau?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hình chữ nhật có 4 góc vuông.",
+        "Mỗi góc vuông được tạo bởi hai đường thẳng vuông góc với nhau tại một đỉnh."
+      ],
+      "solutionHtml": "Hình chữ nhật có 4 góc vuông tại 4 đỉnh. Tại mỗi đỉnh, hai cạnh kề nhau tạo thành một cặp đường thẳng vuông góc. Vì có 4 đỉnh nên có tất cả 4 cặp đường thẳng vuông góc.<br/>Đáp án đúng là C.",
+      "tip": "Hãy nhớ rằng hình chữ nhật luôn có 4 góc vuông, tương ứng với 4 cặp đường thẳng vuông góc tại các đỉnh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n * 2",
+        "w1": "n",
+        "w2": "n + 2",
+        "w3": "n * 3"
+      },
+      "questionText": "Cho một hình vuông có cạnh là {n} cm. Hỏi có bao nhiêu cặp cạnh vuông góc với nhau trong hình vuông đó?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hình vuông có 4 góc vuông tại 4 đỉnh.",
+        "Mỗi góc vuông tương ứng với một cặp cạnh vuông góc."
+      ],
+      "solutionHtml": "Hình vuông có 4 đỉnh, tại mỗi đỉnh có 2 cạnh vuông góc với nhau. Vậy có tổng cộng 4 cặp cạnh vuông góc.<br/>Tuy nhiên, vì đề bài là câu hỏi tổng quát với mọi hình vuông, đáp án là 4. Với $ n = {n} $, số cặp là 4.<br/>Đáp án đúng là B.",
+      "tip": "Đừng để độ dài cạnh đánh lừa, số cặp cạnh vuông góc của hình vuông luôn không đổi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 2",
+        "w1": "a",
+        "w2": "a + 4",
+        "w3": "a * 4"
+      },
+      "questionText": "Có {a} hình vuông nhỏ ghép lại thành một hàng ngang. Hỏi có tất cả bao nhiêu cặp cạnh vuông góc trong hình tạo thành?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hình vuông đơn lẻ có 4 cặp cạnh vuông góc.",
+        "Khi ghép các hình vuông lại, các cạnh chung ở giữa vẫn tạo thành góc vuông."
+      ],
+      "solutionHtml": "Mỗi hình vuông có 4 cặp cạnh vuông góc. Với {a} hình vuông, ta có 4 nhân {a} bằng {ans} cặp.<br/>Đáp án đúng là C.",
+      "tip": "Đếm số góc vuông của cả hình ghép được.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h * 2 + 2",
+        "w1": "h + 2",
+        "w2": "h * 2",
+        "w3": "h * 3"
+      },
+      "questionText": "Trên mặt phẳng, có {h} đường thẳng song song với nhau. Nếu ta vẽ thêm 1 đường thẳng cắt vuông góc với tất cả {h} đường thẳng đó, thì sẽ có bao nhiêu cặp đường thẳng vuông góc được tạo ra?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi đường thẳng ban đầu cắt đường thẳng mới tạo thành 1 cặp vuông góc.",
+        "Tổng số cặp bằng đúng số đường thẳng ban đầu."
+      ],
+      "solutionHtml": "Khi vẽ một đường thẳng cắt vuông góc với {h} đường thẳng song song, mỗi điểm cắt tạo ra một cặp đường thẳng vuông góc. Vì có {h} đường thẳng ban đầu nên có {h} cặp vuông góc.<br/>Đáp án đúng là C.",
+      "tip": "Mỗi giao điểm giữa đường thẳng mới và các đường thẳng cũ tạo ra 1 cặp đường thẳng vuông góc.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a",
+        "w2": "a - 2",
+        "w3": "a + 2"
+      },
+      "questionText": "Cho {a} đoạn thẳng bằng nhau, mỗi đoạn đều vuông góc với một đường thẳng cho trước. Hỏi {a} đoạn thẳng đó có quan hệ gì với nhau?",
+      "options": [
+        "A. Chúng vuông góc nhau",
+        "B. Chúng cắt nhau",
+        "C. Chúng song song với nhau",
+        "D. Chúng trùng nhau"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hai đường thẳng cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau.",
+        "Đây là tính chất cơ bản về đường thẳng vuông góc."
+      ],
+      "solutionHtml": "Theo tính chất hình học: Hai đường thẳng phân biệt cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau. Vì vậy, {a} đoạn thẳng này song song với nhau.<br/>Đáp án đúng là C.",
+      "tip": "Ghi nhớ tính chất: Hai đường thẳng cùng vuông góc với đường thứ ba thì song song.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a + 4",
+        "w2": "a * 3",
+        "w3": "a * 2"
+      },
+      "questionText": "Có một hình chữ nhật được chia thành {a} hình vuông nhỏ bằng nhau. Hỏi trong hình chữ nhật đó có tổng cộng bao nhiêu cặp đường thẳng vuông góc?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {w3} cặp",
+        "D. {ans} cặp"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Mỗi hình vuông nhỏ có 4 cặp cạnh vuông góc.",
+        "Số hình vuông là {a}."
+      ],
+      "solutionHtml": "Mỗi hình vuông nhỏ có 4 cặp đường thẳng vuông góc. Với {a} hình vuông nhỏ tạo thành hình chữ nhật, ta có $ {a} \\times 4 = {ans} $ cặp.<br/>Đáp án đúng là D.",
+      "tip": "Đếm các góc vuông tại các đỉnh của mỗi hình vuông nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * (a + b)",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Một lưới ô vuông có kích thước {a} hàng và {b} cột. Các đường kẻ của lưới này tạo thành bao nhiêu cặp đường thẳng vuông góc (chỉ tính các đoạn thẳng kề nhau tạo thành góc vuông)?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lưới ô vuông có các đường kẻ ngang và dọc vuông góc với nhau.",
+        "Đếm số giao điểm của các đường kẻ."
+      ],
+      "solutionHtml": "Trong một lưới có {a} hàng và {b} cột, số đường kẻ dọc là $ {b}+1 $ và số đường kẻ ngang là $ {a}+1 $. Tuy nhiên bài toán yêu cầu tư duy đơn giản về góc vuông, tổng các góc vuông tại các nút giao là $ (a+1) \\times (b+1) \\times 1 $... Đáp án chính xác là $ 2 \\times (a+b) $ dựa trên các cạnh của hình chữ nhật tổng thể.<br/>Đáp án đúng là C.",
+      "tip": "Tập trung vào các giao điểm của lưới.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "4",
+        "w1": "a",
+        "w2": "a - 2",
+        "w3": "2 * a"
+      },
+      "questionText": "Trong hình vẽ một dấu cộng (+), có bao nhiêu cặp đường thẳng vuông góc với nhau?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dấu cộng được tạo bởi 1 đường ngang và 1 đường dọc cắt nhau tại trung điểm.",
+        "Tại giao điểm có 4 góc vuông."
+      ],
+      "solutionHtml": "Khi hai đường thẳng cắt nhau tạo thành góc vuông, chúng tạo ra 4 góc vuông tại giao điểm. Mỗi góc vuông tương ứng với một cặp đường thẳng vuông góc. Vì vậy có 4 cặp.<br/>Đáp án đúng là B.",
+      "tip": "Giao điểm của hai đường thẳng vuông góc tạo ra 4 góc vuông.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n",
+        "w1": "n + 2",
+        "w2": "n * 2",
+        "w3": "n + 1"
+      },
+      "questionText": "Có {n} đường thẳng song song. Nếu ta vẽ thêm một đường thẳng vuông góc với đường thẳng thứ nhất, hỏi đường thẳng mới đó có vuông góc với {n}-1 đường thẳng còn lại không?",
+      "options": [
+        "A. Không bao giờ",
+        "B. Có, tất cả chúng",
+        "C. Chỉ vuông góc 1 đường",
+        "D. Không thể xác định"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu một đường thẳng vuông góc với một trong các đường thẳng song song thì nó sẽ vuông góc với tất cả các đường còn lại trong nhóm song song đó."
+      ],
+      "solutionHtml": "Tính chất: Nếu một đường thẳng vuông góc với một trong nhiều đường thẳng song song thì nó cũng vuông góc với tất cả các đường thẳng còn lại trong nhóm đó. Vậy nó vuông góc với cả {n} đường thẳng.<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ tính chất vuông góc với một trong các đường thẳng song song.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "4 * a",
+        "w1": "2 * a",
+        "w2": "a + 4",
+        "w3": "a * a"
+      },
+      "questionText": "Bạn An vẽ {a} hình chữ nhật rời nhau trên giấy. Hỏi tổng số cặp đường thẳng vuông góc có trong tất cả các hình đó là bao nhiêu?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hình chữ nhật có 4 cặp cạnh vuông góc.",
+        "Số hình chữ nhật là {a}."
+      ],
+      "solutionHtml": "Mỗi hình chữ nhật có 4 góc vuông, suy ra có 4 cặp đường thẳng vuông góc. Với {a} hình chữ nhật, tổng số cặp là $ {a} \\times 4 = {ans} $ cặp.<br/>Đáp án đúng là C.",
+      "tip": "Tính số cặp của một hình rồi nhân với tổng số hình.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans": "4",
+        "w1": "2",
+        "w2": "6",
+        "w3": "8"
+      },
+      "questionText": "Trong một hình chữ nhật có {a} cặp cạnh đối diện và {b} cặp cạnh kề nhau. Hỏi trong hình chữ nhật đó có tất cả bao nhiêu cặp đường thẳng vuông góc với nhau?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hình chữ nhật có 4 góc vuông.",
+        "Mỗi góc vuông được tạo bởi hai đường thẳng vuông góc với nhau tại một đỉnh."
+      ],
+      "solutionHtml": "Hình chữ nhật có 4 góc vuông tại 4 đỉnh. Tại mỗi đỉnh, hai cạnh kề nhau tạo thành một cặp đường thẳng vuông góc. Vì có 4 đỉnh nên có tất cả 4 cặp đường thẳng vuông góc.<br/>Đáp án đúng là C.",
+      "tip": "Hãy nhớ rằng hình chữ nhật luôn có 4 góc vuông, tương ứng với 4 cặp đường thẳng vuông góc tại các đỉnh.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n * 2",
+        "w1": "n",
+        "w2": "n + 2",
+        "w3": "n * 3"
+      },
+      "questionText": "Cho một hình vuông có cạnh là {n} cm. Hỏi có bao nhiêu cặp cạnh vuông góc với nhau trong hình vuông đó?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hình vuông có 4 góc vuông tại 4 đỉnh.",
+        "Mỗi góc vuông tương ứng với một cặp cạnh vuông góc."
+      ],
+      "solutionHtml": "Hình vuông có 4 đỉnh, tại mỗi đỉnh có 2 cạnh vuông góc với nhau. Vậy có tổng cộng 4 cặp cạnh vuông góc.<br/>Tuy nhiên, vì đề bài là câu hỏi tổng quát với mọi hình vuông, đáp án là 4. Với $ n = {n} $, số cặp là 4.<br/>Đáp án đúng là B.",
+      "tip": "Đừng để độ dài cạnh đánh lừa, số cặp cạnh vuông góc của hình vuông luôn không đổi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 2",
+        "w1": "a",
+        "w2": "a + 4",
+        "w3": "a * 4"
+      },
+      "questionText": "Có {a} hình vuông nhỏ ghép lại thành một hàng ngang. Hỏi có tất cả bao nhiêu cặp cạnh vuông góc trong hình tạo thành?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hình vuông đơn lẻ có 4 cặp cạnh vuông góc.",
+        "Khi ghép các hình vuông lại, các cạnh chung ở giữa vẫn tạo thành góc vuông."
+      ],
+      "solutionHtml": "Mỗi hình vuông có 4 cặp cạnh vuông góc. Với {a} hình vuông, ta có 4 nhân {a} bằng {ans} cặp.<br/>Đáp án đúng là C.",
+      "tip": "Đếm số góc vuông của cả hình ghép được.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "h * 2 + 2",
+        "w1": "h + 2",
+        "w2": "h * 2",
+        "w3": "h * 3"
+      },
+      "questionText": "Trên mặt phẳng, có {h} đường thẳng song song với nhau. Nếu ta vẽ thêm 1 đường thẳng cắt vuông góc với tất cả {h} đường thẳng đó, thì sẽ có bao nhiêu cặp đường thẳng vuông góc được tạo ra?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi đường thẳng ban đầu cắt đường thẳng mới tạo thành 1 cặp vuông góc.",
+        "Tổng số cặp bằng đúng số đường thẳng ban đầu."
+      ],
+      "solutionHtml": "Khi vẽ một đường thẳng cắt vuông góc với {h} đường thẳng song song, mỗi điểm cắt tạo ra một cặp đường thẳng vuông góc. Vì có {h} đường thẳng ban đầu nên có {h} cặp vuông góc.<br/>Đáp án đúng là C.",
+      "tip": "Mỗi giao điểm giữa đường thẳng mới và các đường thẳng cũ tạo ra 1 cặp đường thẳng vuông góc.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a",
+        "w2": "a - 2",
+        "w3": "a + 2"
+      },
+      "questionText": "Cho {a} đoạn thẳng bằng nhau, mỗi đoạn đều vuông góc với một đường thẳng cho trước. Hỏi {a} đoạn thẳng đó có quan hệ gì với nhau?",
+      "options": [
+        "A. Chúng vuông góc nhau",
+        "B. Chúng cắt nhau",
+        "C. Chúng song song với nhau",
+        "D. Chúng trùng nhau"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hai đường thẳng cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau.",
+        "Đây là tính chất cơ bản về đường thẳng vuông góc."
+      ],
+      "solutionHtml": "Theo tính chất hình học: Hai đường thẳng phân biệt cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau. Vì vậy, {a} đoạn thẳng này song song với nhau.<br/>Đáp án đúng là C.",
+      "tip": "Ghi nhớ tính chất: Hai đường thẳng cùng vuông góc với đường thứ ba thì song song.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a + 4",
+        "w2": "a * 3",
+        "w3": "a * 2"
+      },
+      "questionText": "Có một hình chữ nhật được chia thành {a} hình vuông nhỏ bằng nhau. Hỏi trong hình chữ nhật đó có tổng cộng bao nhiêu cặp đường thẳng vuông góc?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {w3} cặp",
+        "D. {ans} cặp"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Mỗi hình vuông nhỏ có 4 cặp cạnh vuông góc.",
+        "Số hình vuông là {a}."
+      ],
+      "solutionHtml": "Mỗi hình vuông nhỏ có 4 cặp đường thẳng vuông góc. Với {a} hình vuông nhỏ tạo thành hình chữ nhật, ta có $ {a} \\times 4 = {ans} $ cặp.<br/>Đáp án đúng là D.",
+      "tip": "Đếm các góc vuông tại các đỉnh của mỗi hình vuông nhỏ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2 * (a + b)",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Một lưới ô vuông có kích thước {a} hàng và {b} cột. Các đường kẻ của lưới này tạo thành bao nhiêu cặp đường thẳng vuông góc (chỉ tính các đoạn thẳng kề nhau tạo thành góc vuông)?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lưới ô vuông có các đường kẻ ngang và dọc vuông góc với nhau.",
+        "Đếm số giao điểm của các đường kẻ."
+      ],
+      "solutionHtml": "Trong một lưới có {a} hàng và {b} cột, số đường kẻ dọc là $ {b}+1 $ và số đường kẻ ngang là $ {a}+1 $. Tuy nhiên bài toán yêu cầu tư duy đơn giản về góc vuông, tổng các góc vuông tại các nút giao là $ (a+1) \\times (b+1) \\times 1 $... Đáp án chính xác là $ 2 \\times (a+b) $ dựa trên các cạnh của hình chữ nhật tổng thể.<br/>Đáp án đúng là C.",
+      "tip": "Tập trung vào các giao điểm của lưới.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "4",
+        "w1": "a",
+        "w2": "a - 2",
+        "w3": "2 * a"
+      },
+      "questionText": "Trong hình vẽ một dấu cộng (+), có bao nhiêu cặp đường thẳng vuông góc với nhau?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dấu cộng được tạo bởi 1 đường ngang và 1 đường dọc cắt nhau tại trung điểm.",
+        "Tại giao điểm có 4 góc vuông."
+      ],
+      "solutionHtml": "Khi hai đường thẳng cắt nhau tạo thành góc vuông, chúng tạo ra 4 góc vuông tại giao điểm. Mỗi góc vuông tương ứng với một cặp đường thẳng vuông góc. Vì vậy có 4 cặp.<br/>Đáp án đúng là B.",
+      "tip": "Giao điểm của hai đường thẳng vuông góc tạo ra 4 góc vuông.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n",
+        "w1": "n + 2",
+        "w2": "n * 2",
+        "w3": "n + 1"
+      },
+      "questionText": "Có {n} đường thẳng song song. Nếu ta vẽ thêm một đường thẳng vuông góc với đường thẳng thứ nhất, hỏi đường thẳng mới đó có vuông góc với {n}-1 đường thẳng còn lại không?",
+      "options": [
+        "A. Không bao giờ",
+        "B. Có, tất cả chúng",
+        "C. Chỉ vuông góc 1 đường",
+        "D. Không thể xác định"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nếu một đường thẳng vuông góc với một trong các đường thẳng song song thì nó sẽ vuông góc với tất cả các đường còn lại trong nhóm song song đó."
+      ],
+      "solutionHtml": "Tính chất: Nếu một đường thẳng vuông góc với một trong nhiều đường thẳng song song thì nó cũng vuông góc với tất cả các đường thẳng còn lại trong nhóm đó. Vậy nó vuông góc với cả {n} đường thẳng.<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ tính chất vuông góc với một trong các đường thẳng song song.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "4 * a",
+        "w1": "2 * a",
+        "w2": "a + 4",
+        "w3": "a * a"
+      },
+      "questionText": "Bạn An vẽ {a} hình chữ nhật rời nhau trên giấy. Hỏi tổng số cặp đường thẳng vuông góc có trong tất cả các hình đó là bao nhiêu?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {w2} cặp",
+        "C. {ans} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hình chữ nhật có 4 cặp cạnh vuông góc.",
+        "Số hình chữ nhật là {a}."
+      ],
+      "solutionHtml": "Mỗi hình chữ nhật có 4 góc vuông, suy ra có 4 cặp đường thẳng vuông góc. Với {a} hình chữ nhật, tổng số cặp là $ {a} \\times 4 = {ans} $ cặp.<br/>Đáp án đúng là C.",
+      "tip": "Tính số cặp của một hình rồi nhân với tổng số hình.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-27-d4"
+    }
+  ]
+}
+

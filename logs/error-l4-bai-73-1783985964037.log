@@ -1,0 +1,640 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:39:24.037Z
+Lesson ID: l4-bai-73
+Lesson Title: Bài 73: Ôn tập chung
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11598 (line 303 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11598 (line 303 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 11598 (Line: 303, Column: 1)
+Character causing error: "]"
+
+Context:
+... ,
+    "tip": "Bài toán thực tế cần tính toán theo từng bước từ mặt phẳng đến khối.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d10"
+  }
+]
+>>>[LỖI TẠI ĐÂY]<<<]
+] ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 200, "max": 500, "step": 10 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1_goc": "a / (b + 1)",
+      "w2_goc": "a - b",
+      "w3_goc": "a + b",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Một kho gạo có {a} kg gạo. Người ta chuyển số gạo đó đều vào {b} xe tải. Hỏi mỗi xe tải chở được bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số gạo mỗi xe tải chở được, ta thực hiện phép chia tổng số gạo cho số xe tải.", "Phép tính cần thực hiện là {a} chia cho {b}."],
+    "solutionHtml": "Mỗi xe tải chở được số ki-lô-gam gạo là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi chia một số cho một số khác, cần chú ý thực hiện các bước tính toán theo cột dọc hoặc nhẩm chính xác.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 10, "max": 50, "step": 1 },
+      "y": { "min": 2, "max": 8, "step": 1 }
+    },
+    "constraints": ["x > y"],
+    "formulas": {
+      "ans": "x * y",
+      "w1": "x + y",
+      "w2": "x - y",
+      "w3": "x / y",
+      "w1_f": "(w1 === ans) ? ans + 5 : w1",
+      "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+      "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+    },
+    "questionText": "Tìm một số, biết rằng nếu lấy số đó chia cho {y} thì được kết quả là {x}.",
+    "options": [
+      "A. {w1_f}",
+      "B. {ans}",
+      "C. {w2_f}",
+      "D. {w3_f}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Gọi số cần tìm là A. Theo đề bài ta có: $ A : {y} = {x} $.", "Muốn tìm số bị chia, ta lấy thương nhân với số chia."],
+    "solutionHtml": "Số cần tìm là:<br/>$ {x} \\times {y} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Hãy nhớ quy tắc: Số bị chia bằng thương nhân với số chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "thung": { "min": 12, "max": 24, "step": 1 },
+      "lit": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "thung * lit",
+      "w1_goc": "thung + lit",
+      "w2_goc": "thung * (lit - 1)",
+      "w3_goc": "thung * (lit + 1)",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một cửa hàng có {thung} thùng dầu, mỗi thùng chứa {lit} lít. Hỏi cửa hàng đó có tất cả bao nhiêu lít dầu?",
+    "options": [
+      "A. {w1} lít",
+      "B. {w2} lít",
+      "C. {ans} lít",
+      "D. {w3} lít"
+    ],
+    "correctIndex": 2,
+    "hints": ["Để tìm tổng số lít dầu, ta lấy số thùng nhân với số lít trong mỗi thùng.", "Phép tính: $ {thung} \\times {lit} $."],
+    "solutionHtml": "Cửa hàng có tất cả số lít dầu là:<br/>$ {thung} \\times {lit} = {ans} $ (lít).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đơn vị của bài toán để thực hiện phép tính phù hợp.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a - b",
+      "w2": "a * b",
+      "w3": "(a + b) + 2",
+      "w1_f": "(w1 === ans) ? ans + 5 : w1",
+      "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+      "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+    },
+    "questionText": "Tổng của hai số là {a}. Nếu thêm vào số thứ hai {b} đơn vị thì tổng mới sẽ là bao nhiêu?",
+    "options": [
+      "A. {w1_f}",
+      "B. {ans}",
+      "C. {w2_f}",
+      "D. {w3_f}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Khi một số hạng trong tổng tăng lên bao nhiêu đơn vị thì tổng cũng tăng lên bấy nhiêu đơn vị.", "Tổng mới = Tổng cũ + số thêm vào."],
+    "solutionHtml": "Tổng mới là:<br/>$ {a} + {b} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Tận dụng tính chất của phép cộng để giải nhanh bài toán này.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 100, "max": 200, "step": 10 },
+      "m": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["n % m === 0"],
+    "formulas": {
+      "ans": "n / m",
+      "w1_goc": "n - m",
+      "w2_goc": "n + m",
+      "w3_goc": "n * m",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một sân vận động có {n} chỗ ngồi được chia đều vào {m} khu vực. Hỏi mỗi khu vực có bao nhiêu chỗ ngồi?",
+    "options": [
+      "A. {w1} chỗ",
+      "B. {ans} chỗ",
+      "C. {w2} chỗ",
+      "D. {w3} chỗ"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia đều số chỗ ngồi vào các khu vực, ta dùng phép chia.", "Lấy $ {n} : {m} $."],
+    "solutionHtml": "Số chỗ ngồi mỗi khu vực là:<br/>$ {n} : {m} = {ans} $ (chỗ).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán có cụm từ 'chia đều', hãy nghĩ ngay đến phép chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 12, "max": 20, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b",
+      "w1_goc": "a + b",
+      "w2_goc": "a * (b + 2)",
+      "w3_goc": "b * (a + 2)",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một hình chữ nhật có chiều rộng là {a} cm, chiều dài gấp {b} lần chiều rộng. Tính diện tích của hình chữ nhật đó.",
+    "options": [
+      "A. {w1} cm²",
+      "B. {w2} cm²",
+      "C. {ans} cm²",
+      "D. {w3} cm²"
+    ],
+    "correctIndex": 2,
+    "hints": ["Bước 1: Tìm chiều dài ($ {a} \\times {b} $).", "Bước 2: Tìm diện tích = chiều dài × chiều rộng."],
+    "solutionHtml": "Chiều dài hình chữ nhật là:<br/>$ {a} \\times {b} = {a * b} $ (cm).<br/>Diện tích hình chữ nhật là:<br/>$ {a * b} \\times {a} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+    "tip": "Đừng quên bước tìm chiều dài trước khi tính diện tích.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 30, "max": 60, "step": 2 },
+      "y": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": ["x > y", "(x + y) % 2 === 0"],
+    "formulas": {
+      "ans": "(x + y) / 2",
+      "w1_goc": "x + y",
+      "w2_goc": "x - y",
+      "w3_goc": "(x + y) / 4",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Trung bình cộng của hai số là {ans}. Biết số thứ nhất là {x}, tìm số thứ hai.",
+    "options": [
+      "A. {y}",
+      "B. {w1}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 0,
+    "hints": ["Tổng của hai số là: Trung bình cộng × 2.", "Số thứ hai = Tổng hai số - số thứ nhất."],
+    "solutionHtml": "Tổng hai số là:<br/>$ {ans} \\times 2 = {x + y} $.<br/>Số thứ hai là:<br/>$ {x + y} - {x} = {y} $.<br/>Đáp án đúng là A.",
+    "tip": "Nhớ công thức: Tổng = Trung bình cộng nhân với số lượng số hạng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 8, "step": 1 },
+      "b": { "min": 4, "max": 7, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b",
+      "w1_goc": "a + b",
+      "w2_goc": "a * b + 2",
+      "w3_goc": "a * b - 2",
+      "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 1 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 2 : w3_goc"
+    },
+    "questionText": "Một vườn hoa hình vuông có cạnh là {a} m. Một vườn hoa khác hình chữ nhật có chiều dài là {b} m và chiều rộng bằng cạnh vườn hoa hình vuông. Diện tích vườn hoa hình chữ nhật là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chiều rộng hình chữ nhật bằng cạnh hình vuông là {a} m.", "Diện tích hình chữ nhật là: chiều dài × chiều rộng."],
+    "solutionHtml": "Chiều rộng hình chữ nhật là {a} m.<br/>Diện tích vườn hoa hình chữ nhật là:<br/>$ {b} \\times {a} = {ans} $ (m²).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề để xác định kích thước các cạnh.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 10 },
+      "b": { "min": 10, "max": 50, "step": 5 }
+    },
+    "constraints": ["a > b", "(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "(a - b) / 2",
+      "w1_goc": "(a + b) / 2",
+      "w2_goc": "a - b",
+      "w3_goc": "a + b",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Tổng của hai số là {a}, hiệu của hai số là {b}. Tìm số bé.",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Công thức tìm số bé là: (Tổng - Hiệu) : 2.", "Áp dụng vào số bài cho: $ ({a} - {b}) : 2 $."],
+    "solutionHtml": "Số bé là:<br/>$ ({a} - {b}) : 2 = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Hãy học thuộc công thức tìm số bé và số lớn khi biết tổng và hiệu.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b * 6",
+      "w1_goc": "a * b",
+      "w2_goc": "(a + b) * 6",
+      "w3_goc": "a * 6",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một khối rubik có {a} hàng, mỗi hàng có {b} ô vuông ở mỗi mặt. Một khối lập phương có 6 mặt như thế. Hỏi tổng số ô vuông của cả khối lập phương đó là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {w3}",
+      "D. {ans}"
+    ],
+    "correctIndex": 3,
+    "hints": ["Tính số ô vuông trên một mặt: {a} nhân {b}.", "Sau đó nhân với 6 mặt."],
+    "solutionHtml": "Số ô vuông trên một mặt là:<br/>$ {a} \\times {b} = {a * b} $ (ô).<br/>Tổng số ô vuông trên 6 mặt là:<br/>$ {a * b} \\times 6 = {ans} $ (ô).<br/>Đáp án đúng là D.",
+    "tip": "Bài toán thực tế cần tính toán theo từng bước từ mặt phẳng đến khối.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d10"
+  }
+]
+]
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 200, "max": 500, "step": 10 },
+      "b": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["a % b === 0"],
+    "formulas": {
+      "ans": "a / b",
+      "w1_goc": "a / (b + 1)",
+      "w2_goc": "a - b",
+      "w3_goc": "a + b",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Một kho gạo có {a} kg gạo. Người ta chuyển số gạo đó đều vào {b} xe tải. Hỏi mỗi xe tải chở được bao nhiêu ki-lô-gam gạo?",
+    "options": [
+      "A. {w1} kg",
+      "B. {ans} kg",
+      "C. {w2} kg",
+      "D. {w3} kg"
+    ],
+    "correctIndex": 1,
+    "hints": ["Để tìm số gạo mỗi xe tải chở được, ta thực hiện phép chia tổng số gạo cho số xe tải.", "Phép tính cần thực hiện là {a} chia cho {b}."],
+    "solutionHtml": "Mỗi xe tải chở được số ki-lô-gam gạo là:<br/>$ {a} : {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+    "tip": "Khi chia một số cho một số khác, cần chú ý thực hiện các bước tính toán theo cột dọc hoặc nhẩm chính xác.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d1"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 10, "max": 50, "step": 1 },
+      "y": { "min": 2, "max": 8, "step": 1 }
+    },
+    "constraints": ["x > y"],
+    "formulas": {
+      "ans": "x * y",
+      "w1": "x + y",
+      "w2": "x - y",
+      "w3": "x / y",
+      "w1_f": "(w1 === ans) ? ans + 5 : w1",
+      "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+      "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+    },
+    "questionText": "Tìm một số, biết rằng nếu lấy số đó chia cho {y} thì được kết quả là {x}.",
+    "options": [
+      "A. {w1_f}",
+      "B. {ans}",
+      "C. {w2_f}",
+      "D. {w3_f}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Gọi số cần tìm là A. Theo đề bài ta có: $ A : {y} = {x} $.", "Muốn tìm số bị chia, ta lấy thương nhân với số chia."],
+    "solutionHtml": "Số cần tìm là:<br/>$ {x} \\times {y} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Hãy nhớ quy tắc: Số bị chia bằng thương nhân với số chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d2"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "thung": { "min": 12, "max": 24, "step": 1 },
+      "lit": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "thung * lit",
+      "w1_goc": "thung + lit",
+      "w2_goc": "thung * (lit - 1)",
+      "w3_goc": "thung * (lit + 1)",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một cửa hàng có {thung} thùng dầu, mỗi thùng chứa {lit} lít. Hỏi cửa hàng đó có tất cả bao nhiêu lít dầu?",
+    "options": [
+      "A. {w1} lít",
+      "B. {w2} lít",
+      "C. {ans} lít",
+      "D. {w3} lít"
+    ],
+    "correctIndex": 2,
+    "hints": ["Để tìm tổng số lít dầu, ta lấy số thùng nhân với số lít trong mỗi thùng.", "Phép tính: $ {thung} \\times {lit} $."],
+    "solutionHtml": "Cửa hàng có tất cả số lít dầu là:<br/>$ {thung} \\times {lit} = {ans} $ (lít).<br/>Đáp án đúng là C.",
+    "tip": "Đọc kỹ đơn vị của bài toán để thực hiện phép tính phù hợp.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d3"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 20, "max": 40, "step": 1 },
+      "b": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": ["a > b"],
+    "formulas": {
+      "ans": "a + b",
+      "w1": "a - b",
+      "w2": "a * b",
+      "w3": "(a + b) + 2",
+      "w1_f": "(w1 === ans) ? ans + 5 : w1",
+      "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 10 : w2",
+      "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+    },
+    "questionText": "Tổng của hai số là {a}. Nếu thêm vào số thứ hai {b} đơn vị thì tổng mới sẽ là bao nhiêu?",
+    "options": [
+      "A. {w1_f}",
+      "B. {ans}",
+      "C. {w2_f}",
+      "D. {w3_f}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Khi một số hạng trong tổng tăng lên bao nhiêu đơn vị thì tổng cũng tăng lên bấy nhiêu đơn vị.", "Tổng mới = Tổng cũ + số thêm vào."],
+    "solutionHtml": "Tổng mới là:<br/>$ {a} + {b} = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Tận dụng tính chất của phép cộng để giải nhanh bài toán này.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "n": { "min": 100, "max": 200, "step": 10 },
+      "m": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": ["n % m === 0"],
+    "formulas": {
+      "ans": "n / m",
+      "w1_goc": "n - m",
+      "w2_goc": "n + m",
+      "w3_goc": "n * m",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một sân vận động có {n} chỗ ngồi được chia đều vào {m} khu vực. Hỏi mỗi khu vực có bao nhiêu chỗ ngồi?",
+    "options": [
+      "A. {w1} chỗ",
+      "B. {ans} chỗ",
+      "C. {w2} chỗ",
+      "D. {w3} chỗ"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chia đều số chỗ ngồi vào các khu vực, ta dùng phép chia.", "Lấy $ {n} : {m} $."],
+    "solutionHtml": "Số chỗ ngồi mỗi khu vực là:<br/>$ {n} : {m} = {ans} $ (chỗ).<br/>Đáp án đúng là B.",
+    "tip": "Khi bài toán có cụm từ 'chia đều', hãy nghĩ ngay đến phép chia.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d5"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 12, "max": 20, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b",
+      "w1_goc": "a + b",
+      "w2_goc": "a * (b + 2)",
+      "w3_goc": "b * (a + 2)",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một hình chữ nhật có chiều rộng là {a} cm, chiều dài gấp {b} lần chiều rộng. Tính diện tích của hình chữ nhật đó.",
+    "options": [
+      "A. {w1} cm²",
+      "B. {w2} cm²",
+      "C. {ans} cm²",
+      "D. {w3} cm²"
+    ],
+    "correctIndex": 2,
+    "hints": ["Bước 1: Tìm chiều dài ($ {a} \\times {b} $).", "Bước 2: Tìm diện tích = chiều dài × chiều rộng."],
+    "solutionHtml": "Chiều dài hình chữ nhật là:<br/>$ {a} \\times {b} = {a * b} $ (cm).<br/>Diện tích hình chữ nhật là:<br/>$ {a * b} \\times {a} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+    "tip": "Đừng quên bước tìm chiều dài trước khi tính diện tích.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d6"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "x": { "min": 30, "max": 60, "step": 2 },
+      "y": { "min": 10, "max": 20, "step": 2 }
+    },
+    "constraints": ["x > y", "(x + y) % 2 === 0"],
+    "formulas": {
+      "ans": "(x + y) / 2",
+      "w1_goc": "x + y",
+      "w2_goc": "x - y",
+      "w3_goc": "(x + y) / 4",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Trung bình cộng của hai số là {ans}. Biết số thứ nhất là {x}, tìm số thứ hai.",
+    "options": [
+      "A. {y}",
+      "B. {w1}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 0,
+    "hints": ["Tổng của hai số là: Trung bình cộng × 2.", "Số thứ hai = Tổng hai số - số thứ nhất."],
+    "solutionHtml": "Tổng hai số là:<br/>$ {ans} \\times 2 = {x + y} $.<br/>Số thứ hai là:<br/>$ {x + y} - {x} = {y} $.<br/>Đáp án đúng là A.",
+    "tip": "Nhớ công thức: Tổng = Trung bình cộng nhân với số lượng số hạng.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d7"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 8, "step": 1 },
+      "b": { "min": 4, "max": 7, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b",
+      "w1_goc": "a + b",
+      "w2_goc": "a * b + 2",
+      "w3_goc": "a * b - 2",
+      "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 1 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 2 : w3_goc"
+    },
+    "questionText": "Một vườn hoa hình vuông có cạnh là {a} m. Một vườn hoa khác hình chữ nhật có chiều dài là {b} m và chiều rộng bằng cạnh vườn hoa hình vuông. Diện tích vườn hoa hình chữ nhật là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Chiều rộng hình chữ nhật bằng cạnh hình vuông là {a} m.", "Diện tích hình chữ nhật là: chiều dài × chiều rộng."],
+    "solutionHtml": "Chiều rộng hình chữ nhật là {a} m.<br/>Diện tích vườn hoa hình chữ nhật là:<br/>$ {b} \\times {a} = {ans} $ (m²).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề để xác định kích thước các cạnh.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d8"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 100, "max": 300, "step": 10 },
+      "b": { "min": 10, "max": 50, "step": 5 }
+    },
+    "constraints": ["a > b", "(a - b) % 2 === 0"],
+    "formulas": {
+      "ans": "(a - b) / 2",
+      "w1_goc": "(a + b) / 2",
+      "w2_goc": "a - b",
+      "w3_goc": "a + b",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Tổng của hai số là {a}, hiệu của hai số là {b}. Tìm số bé.",
+    "options": [
+      "A. {w1}",
+      "B. {ans}",
+      "C. {w2}",
+      "D. {w3}"
+    ],
+    "correctIndex": 1,
+    "hints": ["Công thức tìm số bé là: (Tổng - Hiệu) : 2.", "Áp dụng vào số bài cho: $ ({a} - {b}) : 2 $."],
+    "solutionHtml": "Số bé là:<br/>$ ({a} - {b}) : 2 = {ans} $.<br/>Đáp án đúng là B.",
+    "tip": "Hãy học thuộc công thức tìm số bé và số lớn khi biết tổng và hiệu.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d9"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "a": { "min": 5, "max": 10, "step": 1 },
+      "b": { "min": 2, "max": 4, "step": 1 }
+    },
+    "constraints": ["true"],
+    "formulas": {
+      "ans": "a * b * 6",
+      "w1_goc": "a * b",
+      "w2_goc": "(a + b) * 6",
+      "w3_goc": "a * 6",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 10 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 15 : w3_goc"
+    },
+    "questionText": "Một khối rubik có {a} hàng, mỗi hàng có {b} ô vuông ở mỗi mặt. Một khối lập phương có 6 mặt như thế. Hỏi tổng số ô vuông của cả khối lập phương đó là bao nhiêu?",
+    "options": [
+      "A. {w1}",
+      "B. {w2}",
+      "C. {w3}",
+      "D. {ans}"
+    ],
+    "correctIndex": 3,
+    "hints": ["Tính số ô vuông trên một mặt: {a} nhân {b}.", "Sau đó nhân với 6 mặt."],
+    "solutionHtml": "Số ô vuông trên một mặt là:<br/>$ {a} \\times {b} = {a * b} $ (ô).<br/>Tổng số ô vuông trên 6 mặt là:<br/>$ {a * b} \\times 6 = {ans} $ (ô).<br/>Đáp án đúng là D.",
+    "tip": "Bài toán thực tế cần tính toán theo từng bước từ mặt phẳng đến khối.",
+    "level": "chat-luong-cao",
+    "type": "l4-bai-73-d10"
+  }
+]
+]
+]
+

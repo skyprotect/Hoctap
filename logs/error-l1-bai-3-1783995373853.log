@@ -1,0 +1,724 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T02:16:13.853Z
+Lesson ID: l1-bai-3
+Lesson Title: Bài 3: Nhiều hơn, ít hơn, bằng nhau
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11782 (line 406 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11782 (line 406 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:2451:16
+
+[JSON DIAGNOSTICS]
+Error Position: 11782 (Line: 349, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15 },
+        "b": { "min": 2, "max": 8 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng có {b} viên bi. Hỏi Lan có nhiều hơn Hùng bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2_f} viên bi",
+        "D. {w3_f} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm xem Lan có nhiều hơn Hùng bao nhiêu viên bi, ta lấy số bi của Lan trừ đi số bi của Hùng.",
+        "Ta thực hiện phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số bi Lan có nhiều hơn Hùng là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Muốn biết nhiều hơn bao nhiêu, ta thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 9 },
+        "b": { "min": 3, "max": 9 }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Lớp 1A có {a} bạn nữ và {b} bạn nam. Số bạn nữ và số bạn nam như thế nào so với nhau?",
+      "options": [
+        "A. Số bạn nữ ít hơn số bạn nam",
+        "B. Số bạn nữ nhiều hơn số bạn nam",
+        "C. Số bạn nữ bằng số bạn nam",
+        "D. Không thể xác định được"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "So sánh số lượng bạn nữ là {a} và bạn nam là {b}.",
+        "Vì {a} bằng {b} nên số lượng hai nhóm là như nhau."
+      ],
+      "solutionHtml": "Ta có: {a} = {b}.<br/>Vậy số bạn nữ và số bạn nam bằng nhau.<br/>Đáp án đúng là C.",
+      "tip": "Khi hai số bằng nhau, ta nói chúng bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trong giỏ có {a} quả cam, số quả táo trong giỏ ít hơn số quả cam là {b} quả. Hỏi trong giỏ có bao nhiêu quả táo?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {ans} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số táo ít hơn số cam {b} quả, nghĩa là số táo bằng số cam trừ đi {b}.",
+        "Ta thực hiện phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số quả táo trong giỏ là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Ít hơn thì ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bạn An có {a} quyển vở, bạn Bình có nhiều hơn bạn An {b} quyển vở. Hỏi bạn Bình có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1_f} quyển",
+        "B. {ans} quyển",
+        "C. {w2_f} quyển",
+        "D. {w3_f} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhiều hơn thì ta thực hiện phép cộng.",
+        "Số vở của Bình là: {a} cộng {b}."
+      ],
+      "solutionHtml": "Số quyển vở của Bình là:<br/>$ {a} + {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Nhiều hơn là cộng thêm vào.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 12 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "b + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trên cành có {a} con chim, sau đó bay đi mất {b} con. Hỏi số chim còn lại trên cành so với số chim ban đầu như thế nào?",
+      "options": [
+        "A. Nhiều hơn",
+        "B. Ít hơn",
+        "C. Bằng nhau",
+        "D. Không so sánh được"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ban đầu có {a} con, sau đó bớt đi {b} con.",
+        "Số chim còn lại là {ans} con. Vì {ans} bé hơn {a} nên số chim còn lại ít hơn số chim ban đầu."
+      ],
+      "solutionHtml": "Số chim còn lại là: {a} - {b} = {ans} con.<br/>Vì {ans} < {a} nên số chim còn lại ít hơn số chim ban đầu.<br/>Đáp án đúng là B.",
+      "tip": "Khi bớt đi một số lượng, kết quả luôn ít hơn ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8 },
+        "b": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 2",
+        "w2": "a - 2",
+        "w3": "a + 1"
+      },
+      "questionText": "Có {a} chiếc cốc và {b} cái thìa. Nếu mỗi chiếc cốc đặt một cái thìa thì:",
+      "options": [
+        "A. Thừa chiếc cốc",
+        "B. Thừa cái thìa",
+        "C. Vừa đủ",
+        "D. Không cái nào thừa"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số cốc là {a}, số thìa là {b}.",
+        "Vì {a} bằng {b} nên số lượng là bằng nhau, đặt vừa đủ."
+      ],
+      "solutionHtml": "Vì số lượng cốc là {a} bằng số lượng thìa là {b}, nên khi mỗi cốc một thìa thì vừa đủ.<br/>Đáp án đúng là C.",
+      "tip": "Số lượng bằng nhau thì đặt tương ứng sẽ vừa đủ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 15 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "a - b + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} cái bánh, đã bán đi {b} cái. Hỏi số bánh còn lại ít hơn số bánh ban đầu bao nhiêu cái?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {ans} cái",
+        "C. {w2_f} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bánh còn lại là {ans} cái.",
+        "Số bánh ban đầu là {a}. Số bánh còn lại ít hơn ban đầu đúng bằng số bánh đã bán là {b}."
+      ],
+      "solutionHtml": "Số bánh đã bán đi là {b}, nên số bánh còn lại ít hơn số bánh ban đầu là {b} cái.<br/>Đáp án đúng là B.",
+      "tip": "Số lượng bớt đi chính là phần ít hơn so với ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7 },
+        "b": { "min": 1, "max": 3 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Túi thứ nhất có {a} viên bi, túi thứ hai có nhiều hơn túi thứ nhất {b} viên bi. Hỏi cả hai túi có bao nhiêu viên bi?",
+      "options": [
+        "A. {ans + a} viên",
+        "B. {a + (a+b)} viên",
+        "C. {a + b} viên",
+        "D. {a - b} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Túi thứ nhất: {a} viên.",
+        "Túi thứ hai: {a} cộng {b} bằng {a+b} viên.",
+        "Tổng cả hai túi: {a} cộng {a+b} bằng {a+a+b} viên."
+      ],
+      "solutionHtml": "Túi thứ hai có: {a} + {b} = {a+b} (viên).<br/>Tổng hai túi là: {a} + {a+b} = {a+a+b} (viên).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính số lượng túi thứ hai trước rồi mới tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bạn Nam có {a} nhãn vở, bạn Mai có {b} nhãn vở. Hỏi cả hai bạn có tất cả bao nhiêu nhãn vở?",
+      "options": [
+        "A. {w1_f} nhãn vở",
+        "B. {ans} nhãn vở",
+        "C. {w2_f} nhãn vở",
+        "D. {w3_f} nhãn vở"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cả hai bạn có tất cả là phép tính cộng.",
+        "{a} cộng {b} bằng bao nhiêu?"
+      ],
+      "solutionHtml": "Tổng số nhãn vở của hai bạn là:<br/>$ {a} + {b} = {ans} $ (nhãn vở).<br/>Đáp án đúng là B.",
+      "tip": "Cả hai có tất cả là ta làm phép tính cộng tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 9 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bố mua {a} quả táo, mẹ cho thêm {b} quả nữa. Hỏi lúc này nhà có tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {ans} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Bố mua {a} quả, mẹ cho thêm nghĩa là ta cộng thêm vào.",
+        "Thực hiện phép tính: {a} cộng {b}."
+      ],
+      "solutionHtml": "Số quả táo lúc này là:<br/>$ {a} + {b} = {a+b} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Cho thêm là làm phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15 },
+        "b": { "min": 2, "max": 8 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng có {b} viên bi. Hỏi Lan có nhiều hơn Hùng bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2_f} viên bi",
+        "D. {w3_f} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm xem Lan có nhiều hơn Hùng bao nhiêu viên bi, ta lấy số bi của Lan trừ đi số bi của Hùng.",
+        "Ta thực hiện phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số bi Lan có nhiều hơn Hùng là:<br/>$ {a} - {b} = {ans} $ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Muốn biết nhiều hơn bao nhiêu, ta thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 9 },
+        "b": { "min": 3, "max": 9 }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Lớp 1A có {a} bạn nữ và {b} bạn nam. Số bạn nữ và số bạn nam như thế nào so với nhau?",
+      "options": [
+        "A. Số bạn nữ ít hơn số bạn nam",
+        "B. Số bạn nữ nhiều hơn số bạn nam",
+        "C. Số bạn nữ bằng số bạn nam",
+        "D. Không thể xác định được"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "So sánh số lượng bạn nữ là {a} và bạn nam là {b}.",
+        "Vì {a} bằng {b} nên số lượng hai nhóm là như nhau."
+      ],
+      "solutionHtml": "Ta có: {a} = {b}.<br/>Vậy số bạn nữ và số bạn nam bằng nhau.<br/>Đáp án đúng là C.",
+      "tip": "Khi hai số bằng nhau, ta nói chúng bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trong giỏ có {a} quả cam, số quả táo trong giỏ ít hơn số quả cam là {b} quả. Hỏi trong giỏ có bao nhiêu quả táo?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {ans} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số táo ít hơn số cam {b} quả, nghĩa là số táo bằng số cam trừ đi {b}.",
+        "Ta thực hiện phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số quả táo trong giỏ là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Ít hơn thì ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bạn An có {a} quyển vở, bạn Bình có nhiều hơn bạn An {b} quyển vở. Hỏi bạn Bình có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1_f} quyển",
+        "B. {ans} quyển",
+        "C. {w2_f} quyển",
+        "D. {w3_f} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhiều hơn thì ta thực hiện phép cộng.",
+        "Số vở của Bình là: {a} cộng {b}."
+      ],
+      "solutionHtml": "Số quyển vở của Bình là:<br/>$ {a} + {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Nhiều hơn là cộng thêm vào.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 12 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "b + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Trên cành có {a} con chim, sau đó bay đi mất {b} con. Hỏi số chim còn lại trên cành so với số chim ban đầu như thế nào?",
+      "options": [
+        "A. Nhiều hơn",
+        "B. Ít hơn",
+        "C. Bằng nhau",
+        "D. Không so sánh được"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ban đầu có {a} con, sau đó bớt đi {b} con.",
+        "Số chim còn lại là {ans} con. Vì {ans} bé hơn {a} nên số chim còn lại ít hơn số chim ban đầu."
+      ],
+      "solutionHtml": "Số chim còn lại là: {a} - {b} = {ans} con.<br/>Vì {ans} < {a} nên số chim còn lại ít hơn số chim ban đầu.<br/>Đáp án đúng là B.",
+      "tip": "Khi bớt đi một số lượng, kết quả luôn ít hơn ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8 },
+        "b": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "a === b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 2",
+        "w2": "a - 2",
+        "w3": "a + 1"
+      },
+      "questionText": "Có {a} chiếc cốc và {b} cái thìa. Nếu mỗi chiếc cốc đặt một cái thìa thì:",
+      "options": [
+        "A. Thừa chiếc cốc",
+        "B. Thừa cái thìa",
+        "C. Vừa đủ",
+        "D. Không cái nào thừa"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số cốc là {a}, số thìa là {b}.",
+        "Vì {a} bằng {b} nên số lượng là bằng nhau, đặt vừa đủ."
+      ],
+      "solutionHtml": "Vì số lượng cốc là {a} bằng số lượng thìa là {b}, nên khi mỗi cốc một thìa thì vừa đủ.<br/>Đáp án đúng là C.",
+      "tip": "Số lượng bằng nhau thì đặt tương ứng sẽ vừa đủ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 15 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "a - b + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} cái bánh, đã bán đi {b} cái. Hỏi số bánh còn lại ít hơn số bánh ban đầu bao nhiêu cái?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {ans} cái",
+        "C. {w2_f} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bánh còn lại là {ans} cái.",
+        "Số bánh ban đầu là {a}. Số bánh còn lại ít hơn ban đầu đúng bằng số bánh đã bán là {b}."
+      ],
+      "solutionHtml": "Số bánh đã bán đi là {b}, nên số bánh còn lại ít hơn số bánh ban đầu là {b} cái.<br/>Đáp án đúng là B.",
+      "tip": "Số lượng bớt đi chính là phần ít hơn so với ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7 },
+        "b": { "min": 1, "max": 3 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Túi thứ nhất có {a} viên bi, túi thứ hai có nhiều hơn túi thứ nhất {b} viên bi. Hỏi cả hai túi có bao nhiêu viên bi?",
+      "options": [
+        "A. {ans + a} viên",
+        "B. {a + (a+b)} viên",
+        "C. {a + b} viên",
+        "D. {a - b} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Túi thứ nhất: {a} viên.",
+        "Túi thứ hai: {a} cộng {b} bằng {a+b} viên.",
+        "Tổng cả hai túi: {a} cộng {a+b} bằng {a+a+b} viên."
+      ],
+      "solutionHtml": "Túi thứ hai có: {a} + {b} = {a+b} (viên).<br/>Tổng hai túi là: {a} + {a+b} = {a+a+b} (viên).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính số lượng túi thứ hai trước rồi mới tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b + 1",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bạn Nam có {a} nhãn vở, bạn Mai có {b} nhãn vở. Hỏi cả hai bạn có tất cả bao nhiêu nhãn vở?",
+      "options": [
+        "A. {w1_f} nhãn vở",
+        "B. {ans} nhãn vở",
+        "C. {w2_f} nhãn vở",
+        "D. {w3_f} nhãn vở"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cả hai bạn có tất cả là phép tính cộng.",
+        "{a} cộng {b} bằng bao nhiêu?"
+      ],
+      "solutionHtml": "Tổng số nhãn vở của hai bạn là:<br/>$ {a} + {b} = {ans} $ (nhãn vở).<br/>Đáp án đúng là B.",
+      "tip": "Cả hai có tất cả là ta làm phép tính cộng tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 9 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? ans + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 3 : w3"
+      },
+      "questionText": "Bố mua {a} quả táo, mẹ cho thêm {b} quả nữa. Hỏi lúc này nhà có tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1_f} quả",
+        "B. {ans} quả",
+        "C. {w2_f} quả",
+        "D. {w3_f} quả"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Bố mua {a} quả, mẹ cho thêm nghĩa là ta cộng thêm vào.",
+        "Thực hiện phép tính: {a} cộng {b}."
+      ],
+      "solutionHtml": "Số quả táo lúc này là:<br/>$ {a} + {b} = {a+b} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Cho thêm là làm phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-3-d10"
+    }
+  ]
+}
+

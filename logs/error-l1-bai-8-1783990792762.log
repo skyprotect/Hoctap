@@ -1,0 +1,580 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T00:59:52.762Z
+Lesson ID: l1-bai-8
+Lesson Title: Bài 8: Thực hành lắp ghép, xếp hình
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10038 (line 274 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10038 (line 274 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10038 (Line: 274, Column: 1)
+Character causing error: "}"
+
+Context:
+... ng).<br/>Đáp án đúng là B.",
+      "tip": "Chia đôi tức là chia cho số 2.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "hinh_vuong": { "min": 3, "max": 6 },
+        "hinh_tron": { "min": 2, "max": 5 }
+      },
+      "constraints": ["hinh_vuong > hinh_tron"],
+      "formulas": {
+        "ans": "hinh_vuong + hinh_tron",
+        "w1": "hinh_vuong",
+        "w2": "hinh_tron",
+        "w3": "hinh_vuong + hinh_tron + 2"
+      },
+      "questionText": "Lan có {hinh_vuong} hình vuông và {hinh_tron} hình tròn. Lan xếp các hình đó lại thành một hàng. Hỏi Lan có tất cả bao nhiêu hình?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số hình, em hãy lấy số hình vuông cộng với số hình tròn nhé."],
+      "solutionHtml": "Số hình Lan có tất cả là:<br/>$ {hinh_vuong} + {hinh_tron} = {ans} $ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán hỏi 'tất cả bao nhiêu', chúng ta thường thực hiện phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": { "min": 8, "max": 10 },
+        "hinh_tam_giac": { "min": 3, "max": 5 }
+      },
+      "constraints": ["tong > hinh_tam_giac"],
+      "formulas": {
+        "ans": "tong - hinh_tam_giac",
+        "w1": "hinh_tam_giac",
+        "w2": "tong",
+        "w3": "tong + hinh_tam_giac"
+      },
+      "questionText": "Bạn An có tất cả {tong} miếng ghép, trong đó có {hinh_tam_giac} miếng hình tam giác, còn lại là miếng hình vuông. Hỏi bạn An có bao nhiêu miếng hình vuông?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Biết tổng là {tong} và có {hinh_tam_giac} hình tam giác, em hãy lấy tổng trừ đi số hình tam giác để tìm số hình vuông."],
+      "solutionHtml": "Số miếng hình vuông là:<br/>$ {tong} - {hinh_tam_giac} = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Tìm phần còn lại, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a * b <= 10"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Để xếp được {a} bông hoa bằng giấy, mỗi bông hoa cần {b} miếng ghép. Hỏi để xếp được {a} bông hoa như thế, bạn cần bao nhiêu miếng ghép?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {w2} miếng",
+        "C. {ans} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mỗi bông hoa có {b} miếng, vậy {a} bông hoa gấp lên {a} lần. Em hãy tính $ {b} \\times {a} $ nhé."],
+      "solutionHtml": "Số miếng ghép cần dùng là:<br/>$ {b} \\times {a} = {ans} $ (miếng).<br/>Đáp án đúng là C.",
+      "tip": "Khi cùng một số lượng được lặp lại nhiều lần, ta sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_mieng": { "min": 6, "max": 9 },
+        "nhom": { "min": 2, "max": 3 }
+      },
+      "constraints": ["tong_mieng % nhom === 0"],
+      "formulas": {
+        "ans": "tong_mieng / nhom",
+        "w1": "tong_mieng - nhom",
+        "w2": "tong_mieng + nhom",
+        "w3": "ans + 2"
+      },
+      "questionText": "Cô giáo có {tong_mieng} miếng ghép hình, cô chia đều vào {nhom} túi. Hỏi mỗi túi có bao nhiêu miếng ghép?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều vào các túi nghĩa là chúng ta thực hiện phép tính chia."],
+      "solutionHtml": "Số miếng ghép trong mỗi túi là:<br/>$ {tong_mieng} : {nhom} = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều cho các nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hinh_tron": { "min": 4, "max": 6 },
+        "chenh_lech": { "min": 1, "max": 2 }
+      },
+      "constraints": ["hinh_tron > chenh_lech"],
+      "formulas": {
+        "ans": "hinh_tron - chenh_lech",
+        "w1": "hinh_tron + chenh_lech",
+        "w2": "hinh_tron",
+        "w3": "hinh_tron + 1"
+      },
+      "questionText": "Bạn Bình xếp được {hinh_tron} hình tròn. Số hình vuông Bình xếp được ít hơn số hình tròn là {chenh_lech} hình. Hỏi Bình xếp được bao nhiêu hình vuông?",
+      "options": [
+        "A. {w1} hình",
+        "B. {ans} hình",
+        "C. {w2} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số hình vuông ít hơn hình tròn, vậy ta lấy số hình tròn trừ đi số chênh lệch."],
+      "solutionHtml": "Số hình vuông Bình xếp được là:<br/>$ {hinh_tron} - {chenh_lech} = {ans} $ (hình).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từ 'ít hơn' để biết là phép trừ nhé.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ngay1": { "min": 2, "max": 4 },
+        "ngay2": { "min": 3, "max": 5 }
+      },
+      "constraints": ["ngay1 + ngay2 <= 10"],
+      "formulas": {
+        "ans": "ngay1 + ngay2",
+        "w1": "ngay2 - ngay1",
+        "w2": "ngay1 + 5",
+        "w3": "ngay2 + 2"
+      },
+      "questionText": "Ngày thứ nhất em xếp được {ngay1} hình. Ngày thứ hai em xếp thêm được {ngay2} hình nữa. Hỏi sau hai ngày em xếp được tất cả bao nhiêu hình?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": ["Cộng số hình của ngày thứ nhất và ngày thứ hai để ra tổng số hình nhé."],
+      "solutionHtml": "Sau hai ngày em xếp được là:<br/>$ {ngay1} + {ngay2} = {ans} $ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Hai ngày cộng lại, ta dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": { "min": 7, "max": 9 },
+        "da_xep": { "min": 3, "max": 5 }
+      },
+      "constraints": ["tong > da_xep"],
+      "formulas": {
+        "ans": "tong - da_xep",
+        "w1": "tong + da_xep",
+        "w2": "da_xep",
+        "w3": "ans + 1"
+      },
+      "questionText": "Bạn cần xếp {tong} hình để hoàn thành bức tranh. Bạn đã xếp được {da_xep} hình. Hỏi bạn còn phải xếp bao nhiêu hình nữa mới hoàn thành?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng số hình cần xếp trừ đi số hình đã xếp sẽ ra số hình còn thiếu."],
+      "solutionHtml": "Số hình cần xếp thêm là:<br/>$ {tong} - {da_xep} = {ans} $ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Tìm số còn lại, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a * b <= 10"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Mỗi hàng em xếp {a} miếng ghép. Em xếp được {b} hàng như thế. Hỏi em đã xếp tất cả bao nhiêu miếng ghép?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {w2} miếng",
+        "C. {ans} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Có {b} hàng, mỗi hàng {a} miếng, ta lấy {a} nhân với {b}."],
+      "solutionHtml": "Số miếng ghép em đã xếp là:<br/>$ {a} \\times {b} = {ans} $ (miếng).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số nhóm và số phần tử mỗi nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hinh_tron": { "min": 3, "max": 5 },
+        "hinh_tam_giac": { "min": 3, "max": 5 }
+      },
+      "constraints": ["hinh_tron !== hinh_tam_giac"],
+      "formulas": {
+        "ans": "hinh_tron > hinh_tam_giac ? hinh_tron : hinh_tam_giac",
+        "w1": "hinh_tron < hinh_tam_giac ? hinh_tron : hinh_tam_giac",
+        "w2": "hinh_tron + hinh_tam_giac",
+        "w3": "hinh_tron + hinh_tam_giac + 1"
+      },
+      "questionText": "Bạn Mai có {hinh_tron} hình tròn và {hinh_tam_giac} hình tam giác. Hỏi số lượng hình nào nhiều hơn?",
+      "options": [
+        "A. Hình tròn",
+        "B. Hình tam giác",
+        "C. {ans} là số lượng lớn nhất",
+        "D. {w2} hình tất cả"
+      ],
+      "correctIndex": 2,
+      "hints": ["So sánh {hinh_tron} và {hinh_tam_giac} xem số nào lớn hơn."],
+      "solutionHtml": "Ta so sánh: $ {hinh_tron} $ và $ {hinh_tam_giac} $. Số lớn hơn là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ câu hỏi xem đề bài hỏi 'hình nào' hay hỏi 'số lượng bao nhiêu'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "mieng": { "min": 4, "max": 8 }
+      },
+      "constraints": ["mieng % 2 === 0"],
+      "formulas": {
+        "ans": "mieng / 2",
+        "w1": "mieng",
+        "w2": "mieng - 2",
+        "w3": "mieng + 1"
+      },
+      "questionText": "Bạn có {mieng} miếng ghép hình vuông. Bạn muốn chia đôi số miếng ghép này cho hai bạn. Hỏi mỗi bạn nhận được bao nhiêu miếng?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đôi nghĩa là chia cho 2."],
+      "solutionHtml": "Mỗi bạn nhận được số miếng ghép là:<br/>$ {mieng} : 2 = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Chia đôi tức là chia cho số 2.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "hinh_vuong": { "min": 3, "max": 6 },
+        "hinh_tron": { "min": 2, "max": 5 }
+      },
+      "constraints": ["hinh_vuong > hinh_tron"],
+      "formulas": {
+        "ans": "hinh_vuong + hinh_tron",
+        "w1": "hinh_vuong",
+        "w2": "hinh_tron",
+        "w3": "hinh_vuong + hinh_tron + 2"
+      },
+      "questionText": "Lan có {hinh_vuong} hình vuông và {hinh_tron} hình tròn. Lan xếp các hình đó lại thành một hàng. Hỏi Lan có tất cả bao nhiêu hình?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng số hình, em hãy lấy số hình vuông cộng với số hình tròn nhé."],
+      "solutionHtml": "Số hình Lan có tất cả là:<br/>$ {hinh_vuong} + {hinh_tron} = {ans} $ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Khi bài toán hỏi 'tất cả bao nhiêu', chúng ta thường thực hiện phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": { "min": 8, "max": 10 },
+        "hinh_tam_giac": { "min": 3, "max": 5 }
+      },
+      "constraints": ["tong > hinh_tam_giac"],
+      "formulas": {
+        "ans": "tong - hinh_tam_giac",
+        "w1": "hinh_tam_giac",
+        "w2": "tong",
+        "w3": "tong + hinh_tam_giac"
+      },
+      "questionText": "Bạn An có tất cả {tong} miếng ghép, trong đó có {hinh_tam_giac} miếng hình tam giác, còn lại là miếng hình vuông. Hỏi bạn An có bao nhiêu miếng hình vuông?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Biết tổng là {tong} và có {hinh_tam_giac} hình tam giác, em hãy lấy tổng trừ đi số hình tam giác để tìm số hình vuông."],
+      "solutionHtml": "Số miếng hình vuông là:<br/>$ {tong} - {hinh_tam_giac} = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Tìm phần còn lại, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a * b <= 10"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Để xếp được {a} bông hoa bằng giấy, mỗi bông hoa cần {b} miếng ghép. Hỏi để xếp được {a} bông hoa như thế, bạn cần bao nhiêu miếng ghép?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {w2} miếng",
+        "C. {ans} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mỗi bông hoa có {b} miếng, vậy {a} bông hoa gấp lên {a} lần. Em hãy tính $ {b} \\times {a} $ nhé."],
+      "solutionHtml": "Số miếng ghép cần dùng là:<br/>$ {b} \\times {a} = {ans} $ (miếng).<br/>Đáp án đúng là C.",
+      "tip": "Khi cùng một số lượng được lặp lại nhiều lần, ta sử dụng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong_mieng": { "min": 6, "max": 9 },
+        "nhom": { "min": 2, "max": 3 }
+      },
+      "constraints": ["tong_mieng % nhom === 0"],
+      "formulas": {
+        "ans": "tong_mieng / nhom",
+        "w1": "tong_mieng - nhom",
+        "w2": "tong_mieng + nhom",
+        "w3": "ans + 2"
+      },
+      "questionText": "Cô giáo có {tong_mieng} miếng ghép hình, cô chia đều vào {nhom} túi. Hỏi mỗi túi có bao nhiêu miếng ghép?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều vào các túi nghĩa là chúng ta thực hiện phép tính chia."],
+      "solutionHtml": "Số miếng ghép trong mỗi túi là:<br/>$ {tong_mieng} : {nhom} = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều cho các nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hinh_tron": { "min": 4, "max": 6 },
+        "chenh_lech": { "min": 1, "max": 2 }
+      },
+      "constraints": ["hinh_tron > chenh_lech"],
+      "formulas": {
+        "ans": "hinh_tron - chenh_lech",
+        "w1": "hinh_tron + chenh_lech",
+        "w2": "hinh_tron",
+        "w3": "hinh_tron + 1"
+      },
+      "questionText": "Bạn Bình xếp được {hinh_tron} hình tròn. Số hình vuông Bình xếp được ít hơn số hình tròn là {chenh_lech} hình. Hỏi Bình xếp được bao nhiêu hình vuông?",
+      "options": [
+        "A. {w1} hình",
+        "B. {ans} hình",
+        "C. {w2} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số hình vuông ít hơn hình tròn, vậy ta lấy số hình tròn trừ đi số chênh lệch."],
+      "solutionHtml": "Số hình vuông Bình xếp được là:<br/>$ {hinh_tron} - {chenh_lech} = {ans} $ (hình).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ từ 'ít hơn' để biết là phép trừ nhé.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ngay1": { "min": 2, "max": 4 },
+        "ngay2": { "min": 3, "max": 5 }
+      },
+      "constraints": ["ngay1 + ngay2 <= 10"],
+      "formulas": {
+        "ans": "ngay1 + ngay2",
+        "w1": "ngay2 - ngay1",
+        "w2": "ngay1 + 5",
+        "w3": "ngay2 + 2"
+      },
+      "questionText": "Ngày thứ nhất em xếp được {ngay1} hình. Ngày thứ hai em xếp thêm được {ngay2} hình nữa. Hỏi sau hai ngày em xếp được tất cả bao nhiêu hình?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": ["Cộng số hình của ngày thứ nhất và ngày thứ hai để ra tổng số hình nhé."],
+      "solutionHtml": "Sau hai ngày em xếp được là:<br/>$ {ngay1} + {ngay2} = {ans} $ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Hai ngày cộng lại, ta dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tong": { "min": 7, "max": 9 },
+        "da_xep": { "min": 3, "max": 5 }
+      },
+      "constraints": ["tong > da_xep"],
+      "formulas": {
+        "ans": "tong - da_xep",
+        "w1": "tong + da_xep",
+        "w2": "da_xep",
+        "w3": "ans + 1"
+      },
+      "questionText": "Bạn cần xếp {tong} hình để hoàn thành bức tranh. Bạn đã xếp được {da_xep} hình. Hỏi bạn còn phải xếp bao nhiêu hình nữa mới hoàn thành?",
+      "options": [
+        "A. {w1} hình",
+        "B. {w2} hình",
+        "C. {ans} hình",
+        "D. {w3} hình"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tổng số hình cần xếp trừ đi số hình đã xếp sẽ ra số hình còn thiếu."],
+      "solutionHtml": "Số hình cần xếp thêm là:<br/>$ {tong} - {da_xep} = {ans} $ (hình).<br/>Đáp án đúng là C.",
+      "tip": "Tìm số còn lại, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a * b <= 10"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Mỗi hàng em xếp {a} miếng ghép. Em xếp được {b} hàng như thế. Hỏi em đã xếp tất cả bao nhiêu miếng ghép?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {w2} miếng",
+        "C. {ans} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Có {b} hàng, mỗi hàng {a} miếng, ta lấy {a} nhân với {b}."],
+      "solutionHtml": "Số miếng ghép em đã xếp là:<br/>$ {a} \\times {b} = {ans} $ (miếng).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số nhóm và số phần tử mỗi nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "hinh_tron": { "min": 3, "max": 5 },
+        "hinh_tam_giac": { "min": 3, "max": 5 }
+      },
+      "constraints": ["hinh_tron !== hinh_tam_giac"],
+      "formulas": {
+        "ans": "hinh_tron > hinh_tam_giac ? hinh_tron : hinh_tam_giac",
+        "w1": "hinh_tron < hinh_tam_giac ? hinh_tron : hinh_tam_giac",
+        "w2": "hinh_tron + hinh_tam_giac",
+        "w3": "hinh_tron + hinh_tam_giac + 1"
+      },
+      "questionText": "Bạn Mai có {hinh_tron} hình tròn và {hinh_tam_giac} hình tam giác. Hỏi số lượng hình nào nhiều hơn?",
+      "options": [
+        "A. Hình tròn",
+        "B. Hình tam giác",
+        "C. {ans} là số lượng lớn nhất",
+        "D. {w2} hình tất cả"
+      ],
+      "correctIndex": 2,
+      "hints": ["So sánh {hinh_tron} và {hinh_tam_giac} xem số nào lớn hơn."],
+      "solutionHtml": "Ta so sánh: $ {hinh_tron} $ và $ {hinh_tam_giac} $. Số lớn hơn là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ câu hỏi xem đề bài hỏi 'hình nào' hay hỏi 'số lượng bao nhiêu'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "mieng": { "min": 4, "max": 8 }
+      },
+      "constraints": ["mieng % 2 === 0"],
+      "formulas": {
+        "ans": "mieng / 2",
+        "w1": "mieng",
+        "w2": "mieng - 2",
+        "w3": "mieng + 1"
+      },
+      "questionText": "Bạn có {mieng} miếng ghép hình vuông. Bạn muốn chia đôi số miếng ghép này cho hai bạn. Hỏi mỗi bạn nhận được bao nhiêu miếng?",
+      "options": [
+        "A. {w1} miếng",
+        "B. {ans} miếng",
+        "C. {w2} miếng",
+        "D. {w3} miếng"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đôi nghĩa là chia cho 2."],
+      "solutionHtml": "Mỗi bạn nhận được số miếng ghép là:<br/>$ {mieng} : 2 = {ans} $ (miếng).<br/>Đáp án đúng là B.",
+      "tip": "Chia đôi tức là chia cho số 2.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-8-d10"
+    }
+  ]
+}
+}
+

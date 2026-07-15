@@ -1,0 +1,504 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:09:24.259Z
+Lesson ID: l4-bai-13
+Lesson Title: Bài 13: Làm tròn số đến hàng trăm nghìn
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 3975 (line 130 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 3975 (line 130 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 3975 (Line: 89, Column: 41)
+Character causing error: " "
+
+Context:
+... 9000"
+      },
+      "questionText": "Số {val} khi làm tròn đến hàng trăm nghìn sẽ bằng với số nào sau đây?",
+      "options": ["A. {w1}", "B. {ans}",>>>[LỖI TẠI ĐÂY]<<< "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Chữ số hàng chục nghìn là {b/10000}."],
+      "solutionHtml": "Số {val} có chữ số hà ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 8, "step": 1 },
+        "r": { "min": 10001, "max": 49999, "step": 100 }
+      },
+      "constraints": ["r % 100 === 0"],
+      "formulas": {
+        "val": "{n}00000 + {r}",
+        "ans": "{n}00000",
+        "w1": "({n}+1) * 100000",
+        "w2": "{n}10000",
+        "w3": "{n}99999"
+      },
+      "questionText": "Số dân của một thị trấn là {val} người. Khi làm tròn số dân này đến hàng trăm nghìn, ta được số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Để làm tròn đến hàng trăm nghìn, ta xét chữ số ở hàng chục nghìn.", "Vì chữ số hàng chục nghìn là {r}[0] (nhỏ hơn 5), ta làm tròn xuống."],
+      "solutionHtml": "Số dân là {val}. Chữ số hàng chục nghìn là {r}[0], nhỏ hơn 5 nên ta làm tròn xuống.<br/>Kết quả là {ans} người.<br/>Đáp án đúng là B.",
+      "tip": "Quy tắc: Nếu chữ số hàng làm tròn ngay sau nó nhỏ hơn 5, ta giữ nguyên chữ số hàng đó và thay các chữ số phía sau bằng số 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 7, "step": 1 },
+        "r": { "min": 50001, "max": 99999, "step": 100 }
+      },
+      "constraints": ["r % 100 === 0"],
+      "formulas": {
+        "val": "{n}00000 + {r}",
+        "ans": "({n}+1) * 100000",
+        "w1": "{n}00000",
+        "w2": "({n}+2) * 100000",
+        "w3": "{n}50000"
+      },
+      "questionText": "Một nhà máy sản xuất được {val} sản phẩm trong một năm. Làm tròn số sản phẩm đó đến hàng trăm nghìn ta được kết quả là bao nhiêu?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Xét chữ số hàng chục nghìn để làm tròn đến hàng trăm nghìn.", "Chữ số hàng chục nghìn là {r}[0] lớn hơn hoặc bằng 5."],
+      "solutionHtml": "Số sản phẩm là {val}. Chữ số hàng chục nghìn là {r}[0], vì {r}[0] >= 5 nên ta làm tròn lên.<br/>Ta cộng thêm 1 vào hàng trăm nghìn: {n} + 1 = {ans/100000}.<br/>Kết quả là {ans} sản phẩm.<br/>Đáp án đúng là B.",
+      "tip": "Khi chữ số hàng ngay sau hàng làm tròn lớn hơn hoặc bằng 5, ta tăng chữ số hàng làm tròn lên 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": { "min": 2, "max": 5, "step": 1 },
+        "add": { "min": 10000, "max": 40000, "step": 1000 }
+      },
+      "constraints": ["add % 1000 === 0"],
+      "formulas": {
+        "num1": "{base}00000 + {add}",
+        "num2": "{base}00000 - {add}",
+        "sum": "{num1} + {num2}",
+        "ans": "2 * {base} * 100000",
+        "w1": "{ans} + 100000",
+        "w2": "{ans} - 100000",
+        "w3": "{base}00000"
+      },
+      "questionText": "Tổng của hai số là {num1} và {num2}. Hãy tính tổng đó rồi làm tròn kết quả đến hàng trăm nghìn.",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tính tổng: {num1} + {num2}.", "Sau đó làm tròn kết quả đến hàng trăm nghìn."],
+      "solutionHtml": "Tổng hai số là: {num1} + {num2} = {sum}.<br/>Làm tròn {sum} đến hàng trăm nghìn: vì chữ số hàng chục nghìn là 0, ta làm tròn xuống thành {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Luôn thực hiện phép tính trước khi làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 50000, "max": 90000, "step": 10000 }
+      },
+      "constraints": ["b % 10000 === 0"],
+      "formulas": {
+        "val": "{a}00000 + {b}",
+        "ans": "({a}+1) * 100000",
+        "w1": "{a}00000",
+        "w2": "({a}+2) * 100000",
+        "w3": "{a}99000"
+      },
+      "questionText": "Số {val} khi làm tròn đến hàng trăm nghìn sẽ bằng với số nào sau đây?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Chữ số hàng chục nghìn là {b/10000}."],
+      "solutionHtml": "Số {val} có chữ số hàng chục nghìn là {b/10000}. Vì {b/10000} >= 5, ta làm tròn lên.<br/>Kết quả là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên cộng 1 vào hàng cần làm tròn khi chữ số liền sau nó từ 5 trở lên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "val1": "{a}40000",
+        "val2": "{b}60000",
+        "diff": "{val1} - {val2}",
+        "ans": "200000",
+        "w1": "100000",
+        "w2": "300000",
+        "w3": "0"
+      },
+      "questionText": "Hiệu của {val1} và {val2} sau khi làm tròn đến hàng trăm nghìn là bao nhiêu?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tính hiệu trước: {val1} - {val2} = {diff}.", "Làm tròn {diff} đến hàng trăm nghìn."],
+      "solutionHtml": "Hiệu là: {val1} - {val2} = {diff}.<br/>Làm tròn {diff} đến hàng trăm nghìn: chữ số hàng chục nghìn là 8 (lớn hơn 5) nên ta làm tròn lên thành {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Số cần làm tròn là hiệu của hai số đã cho.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 900, "step": 100 },
+        "b": { "min": 100, "max": 900, "step": 100 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "val": "500000 + {a}00",
+        "ans": "500000",
+        "w1": "600000",
+        "w2": "400000",
+        "w3": "50000"
+      },
+      "questionText": "Số nào dưới đây khi làm tròn đến hàng trăm nghìn thì bằng 500.000?",
+      "options": ["A. {val}", "B. 449999", "C. 560000", "D. 610000"],
+      "correctIndex": 0,
+      "hints": ["Số cần làm tròn phải có chữ số hàng chục nghìn từ 0 đến 4."],
+      "solutionHtml": "{val} có chữ số hàng chục nghìn là 0, do đó làm tròn đến hàng trăm nghìn ta được 500.000.<br/>Đáp án đúng là A.",
+      "tip": "Kiểm tra chữ số hàng chục nghìn của từng đáp án.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "val": "{n}50000",
+        "ans": "({n}+1) * 100000",
+        "w1": "{n}00000",
+        "w2": "({n}+2) * 100000",
+        "w3": "{n}49999"
+      },
+      "questionText": "Khi làm tròn số {val} đến hàng trăm nghìn, ta nhận được số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Số {val} có chữ số hàng chục nghìn là 5."],
+      "solutionHtml": "Vì chữ số hàng chục nghìn là 5, theo quy tắc làm tròn ta phải làm tròn lên.<br/>Kết quả là ({n}+1)00000 = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ rằng từ 5 trở lên thì làm tròn lên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100000, "max": 200000, "step": 10000 },
+        "y": { "min": 300000, "max": 400000, "step": 10000 }
+      },
+      "constraints": ["(x+y)%100000 === 0"],
+      "formulas": {
+        "sum": "{x} + {y}",
+        "ans": "({x}+{y})",
+        "w1": "{x}+{y}+100000",
+        "w2": "{x}+{y}-100000",
+        "w3": "{x}+{y}+50000"
+      },
+      "questionText": "Tổng của {x} và {y} sau khi làm tròn đến hàng trăm nghìn là bao nhiêu?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["{x} + {y} = {sum}."],
+      "solutionHtml": "Tổng là: {x} + {y} = {sum}.<br/>{sum} đã là số tròn trăm nghìn nên làm tròn đến hàng trăm nghìn vẫn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Nếu số đã là số tròn trăm nghìn thì làm tròn vẫn chính là nó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "val": "{n}49999",
+        "ans": "{n}00000",
+        "w1": "({n}+1) * 100000",
+        "w2": "{n}50000",
+        "w3": "({n}-1) * 100000"
+      },
+      "questionText": "Số {val} làm tròn đến hàng trăm nghìn thì được kết quả là:",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Chữ số hàng chục nghìn là 4."],
+      "solutionHtml": "Chữ số hàng chục nghìn là 4, nhỏ hơn 5 nên ta giữ nguyên hàng trăm nghìn.<br/>Kết quả là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Luôn nhìn vào chữ số ở hàng thấp hơn liền kề bên phải để quyết định làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "val": "{a}00000 * {b}",
+        "ans": "({a} * {b} < 5) ? ({a} * {b}) * 100000 : (Math.ceil(({a}*{b})/10)*100000)",
+        "w1": "({a}*{b} * 100000) + 100000",
+        "w2": "({a}*{b} * 100000) - 100000",
+        "w3": "{a}00000"
+      },
+      "questionText": "Tích của {a}00000 nhân với {b} là bao nhiêu? Hãy làm tròn kết quả đến hàng trăm nghìn.",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["{a}00000 nhân {b} bằng {a*b}00000."],
+      "solutionHtml": "Tích là: {a}00000 * {b} = {a*b}00000.<br/>Số này đã là số tròn trăm nghìn, làm tròn đến hàng trăm nghìn vẫn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Thực hiện phép tính nhân trước, sau đó xét giá trị để làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 8, "step": 1 },
+        "r": { "min": 10001, "max": 49999, "step": 100 }
+      },
+      "constraints": ["r % 100 === 0"],
+      "formulas": {
+        "val": "{n}00000 + {r}",
+        "ans": "{n}00000",
+        "w1": "({n}+1) * 100000",
+        "w2": "{n}10000",
+        "w3": "{n}99999"
+      },
+      "questionText": "Số dân của một thị trấn là {val} người. Khi làm tròn số dân này đến hàng trăm nghìn, ta được số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Để làm tròn đến hàng trăm nghìn, ta xét chữ số ở hàng chục nghìn.", "Vì chữ số hàng chục nghìn là {r}[0] (nhỏ hơn 5), ta làm tròn xuống."],
+      "solutionHtml": "Số dân là {val}. Chữ số hàng chục nghìn là {r}[0], nhỏ hơn 5 nên ta làm tròn xuống.<br/>Kết quả là {ans} người.<br/>Đáp án đúng là B.",
+      "tip": "Quy tắc: Nếu chữ số hàng làm tròn ngay sau nó nhỏ hơn 5, ta giữ nguyên chữ số hàng đó và thay các chữ số phía sau bằng số 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 7, "step": 1 },
+        "r": { "min": 50001, "max": 99999, "step": 100 }
+      },
+      "constraints": ["r % 100 === 0"],
+      "formulas": {
+        "val": "{n}00000 + {r}",
+        "ans": "({n}+1) * 100000",
+        "w1": "{n}00000",
+        "w2": "({n}+2) * 100000",
+        "w3": "{n}50000"
+      },
+      "questionText": "Một nhà máy sản xuất được {val} sản phẩm trong một năm. Làm tròn số sản phẩm đó đến hàng trăm nghìn ta được kết quả là bao nhiêu?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Xét chữ số hàng chục nghìn để làm tròn đến hàng trăm nghìn.", "Chữ số hàng chục nghìn là {r}[0] lớn hơn hoặc bằng 5."],
+      "solutionHtml": "Số sản phẩm là {val}. Chữ số hàng chục nghìn là {r}[0], vì {r}[0] >= 5 nên ta làm tròn lên.<br/>Ta cộng thêm 1 vào hàng trăm nghìn: {n} + 1 = {ans/100000}.<br/>Kết quả là {ans} sản phẩm.<br/>Đáp án đúng là B.",
+      "tip": "Khi chữ số hàng ngay sau hàng làm tròn lớn hơn hoặc bằng 5, ta tăng chữ số hàng làm tròn lên 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "base": { "min": 2, "max": 5, "step": 1 },
+        "add": { "min": 10000, "max": 40000, "step": 1000 }
+      },
+      "constraints": ["add % 1000 === 0"],
+      "formulas": {
+        "num1": "{base}00000 + {add}",
+        "num2": "{base}00000 - {add}",
+        "sum": "{num1} + {num2}",
+        "ans": "2 * {base} * 100000",
+        "w1": "{ans} + 100000",
+        "w2": "{ans} - 100000",
+        "w3": "{base}00000"
+      },
+      "questionText": "Tổng của hai số là {num1} và {num2}. Hãy tính tổng đó rồi làm tròn kết quả đến hàng trăm nghìn.",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tính tổng: {num1} + {num2}.", "Sau đó làm tròn kết quả đến hàng trăm nghìn."],
+      "solutionHtml": "Tổng hai số là: {num1} + {num2} = {sum}.<br/>Làm tròn {sum} đến hàng trăm nghìn: vì chữ số hàng chục nghìn là 0, ta làm tròn xuống thành {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Luôn thực hiện phép tính trước khi làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 50000, "max": 90000, "step": 10000 }
+      },
+      "constraints": ["b % 10000 === 0"],
+      "formulas": {
+        "val": "{a}00000 + {b}",
+        "ans": "({a}+1) * 100000",
+        "w1": "{a}00000",
+        "w2": "({a}+2) * 100000",
+        "w3": "{a}99000"
+      },
+      "questionText": "Số {val} khi làm tròn đến hàng trăm nghìn sẽ bằng với số nào sau đây?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Chữ số hàng chục nghìn là {b/10000}."],
+      "solutionHtml": "Số {val} có chữ số hàng chục nghìn là {b/10000}. Vì {b/10000} >= 5, ta làm tròn lên.<br/>Kết quả là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên cộng 1 vào hàng cần làm tròn khi chữ số liền sau nó từ 5 trở lên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "val1": "{a}40000",
+        "val2": "{b}60000",
+        "diff": "{val1} - {val2}",
+        "ans": "200000",
+        "w1": "100000",
+        "w2": "300000",
+        "w3": "0"
+      },
+      "questionText": "Hiệu của {val1} và {val2} sau khi làm tròn đến hàng trăm nghìn là bao nhiêu?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tính hiệu trước: {val1} - {val2} = {diff}.", "Làm tròn {diff} đến hàng trăm nghìn."],
+      "solutionHtml": "Hiệu là: {val1} - {val2} = {diff}.<br/>Làm tròn {diff} đến hàng trăm nghìn: chữ số hàng chục nghìn là 8 (lớn hơn 5) nên ta làm tròn lên thành {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Số cần làm tròn là hiệu của hai số đã cho.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 900, "step": 100 },
+        "b": { "min": 100, "max": 900, "step": 100 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "val": "500000 + {a}00",
+        "ans": "500000",
+        "w1": "600000",
+        "w2": "400000",
+        "w3": "50000"
+      },
+      "questionText": "Số nào dưới đây khi làm tròn đến hàng trăm nghìn thì bằng 500.000?",
+      "options": ["A. {val}", "B. 449999", "C. 560000", "D. 610000"],
+      "correctIndex": 0,
+      "hints": ["Số cần làm tròn phải có chữ số hàng chục nghìn từ 0 đến 4."],
+      "solutionHtml": "{val} có chữ số hàng chục nghìn là 0, do đó làm tròn đến hàng trăm nghìn ta được 500.000.<br/>Đáp án đúng là A.",
+      "tip": "Kiểm tra chữ số hàng chục nghìn của từng đáp án.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "val": "{n}50000",
+        "ans": "({n}+1) * 100000",
+        "w1": "{n}00000",
+        "w2": "({n}+2) * 100000",
+        "w3": "{n}49999"
+      },
+      "questionText": "Khi làm tròn số {val} đến hàng trăm nghìn, ta nhận được số nào?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Số {val} có chữ số hàng chục nghìn là 5."],
+      "solutionHtml": "Vì chữ số hàng chục nghìn là 5, theo quy tắc làm tròn ta phải làm tròn lên.<br/>Kết quả là ({n}+1)00000 = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ rằng từ 5 trở lên thì làm tròn lên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100000, "max": 200000, "step": 10000 },
+        "y": { "min": 300000, "max": 400000, "step": 10000 }
+      },
+      "constraints": ["(x+y)%100000 === 0"],
+      "formulas": {
+        "sum": "{x} + {y}",
+        "ans": "({x}+{y})",
+        "w1": "{x}+{y}+100000",
+        "w2": "{x}+{y}-100000",
+        "w3": "{x}+{y}+50000"
+      },
+      "questionText": "Tổng của {x} và {y} sau khi làm tròn đến hàng trăm nghìn là bao nhiêu?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["{x} + {y} = {sum}."],
+      "solutionHtml": "Tổng là: {x} + {y} = {sum}.<br/>{sum} đã là số tròn trăm nghìn nên làm tròn đến hàng trăm nghìn vẫn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Nếu số đã là số tròn trăm nghìn thì làm tròn vẫn chính là nó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 1, "max": 9, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "val": "{n}49999",
+        "ans": "{n}00000",
+        "w1": "({n}+1) * 100000",
+        "w2": "{n}50000",
+        "w3": "({n}-1) * 100000"
+      },
+      "questionText": "Số {val} làm tròn đến hàng trăm nghìn thì được kết quả là:",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Chữ số hàng chục nghìn là 4."],
+      "solutionHtml": "Chữ số hàng chục nghìn là 4, nhỏ hơn 5 nên ta giữ nguyên hàng trăm nghìn.<br/>Kết quả là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Luôn nhìn vào chữ số ở hàng thấp hơn liền kề bên phải để quyết định làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "val": "{a}00000 * {b}",
+        "ans": "({a} * {b} < 5) ? ({a} * {b}) * 100000 : (Math.ceil(({a}*{b})/10)*100000)",
+        "w1": "({a}*{b} * 100000) + 100000",
+        "w2": "({a}*{b} * 100000) - 100000",
+        "w3": "{a}00000"
+      },
+      "questionText": "Tích của {a}00000 nhân với {b} là bao nhiêu? Hãy làm tròn kết quả đến hàng trăm nghìn.",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["{a}00000 nhân {b} bằng {a*b}00000."],
+      "solutionHtml": "Tích là: {a}00000 * {b} = {a*b}00000.<br/>Số này đã là số tròn trăm nghìn, làm tròn đến hàng trăm nghìn vẫn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Thực hiện phép tính nhân trước, sau đó xét giá trị để làm tròn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-13-d4"
+    }
+  ]
+}
+

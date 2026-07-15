@@ -1,0 +1,480 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:26:16.824Z
+Lesson ID: eng1-t16
+Lesson Title: Unit 16: At home
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9311 (line 224 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9311 (line 224 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9311 (Line: 224, Column: 1)
+Character causing error: "}"
+
+Context:
+... .",
+      "tip": "Phần còn lại luôn bằng tổng số trừ đi phần đã thực hiện.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a > b", "(a + b) % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trong phòng khách nhà Lan có {a} cái ghế đơn và {b} cái ghế đôi. Hỏi trong phòng khách có tất cả bao nhiêu cái ghế?",
+      "options": ["A. {w1} cái ghế", "B. {ans} cái ghế", "C. {w2} cái ghế", "D. {w3} cái ghế"],
+      "correctIndex": 1,
+      "hints": ["Muốn tính tổng số ghế, ta lấy số ghế đơn cộng với số ghế đôi.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Số ghế trong phòng khách là:<br/>$ {a} + {b} = {ans} $ (cái ghế).<br/>Đáp án đúng là B.",
+      "tip": "Hãy đếm kỹ các loại ghế trước khi thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-01"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 10, "max": 20 },
+        "used": { "min": 3, "max": 8 }
+      },
+      "constraints": ["total > used", "(total - used) % 2 === 0"],
+      "formulas": {
+        "ans": "total - used",
+        "w1": "total - used + 1",
+        "w2": "total - used - 2",
+        "w3": "total - used + 3"
+      },
+      "questionText": "Mẹ mua {total} quả cam. Mẹ đã dùng {used} quả để pha nước cam cho cả nhà. Hỏi mẹ còn lại bao nhiêu quả cam?",
+      "options": ["A. {w1} quả", "B. {ans} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm số quả cam còn lại, ta lấy số cam ban đầu trừ đi số cam đã dùng.", "Phép tính là $ {total} - {used} $."],
+      "solutionHtml": "Số cam còn lại là:<br/>$ {total} - {used} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Số lượng còn lại bằng số ban đầu trừ đi số đã sử dụng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-02"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "shelf1": { "min": 5, "max": 9 },
+        "shelf2": { "min": 5, "max": 9 }
+      },
+      "constraints": ["shelf1 !== shelf2"],
+      "formulas": {
+        "ans": "shelf1 + shelf2",
+        "w1": "shelf1 + shelf2 + 2",
+        "w2": "shelf1 + shelf2 - 1",
+        "w3": "shelf1 + shelf2 + 4"
+      },
+      "questionText": "Trên giá sách thứ nhất có {shelf1} cuốn truyện, trên giá sách thứ hai có {shelf2} cuốn truyện. Hỏi cả hai giá sách có bao nhiêu cuốn truyện?",
+      "options": ["A. {w1} cuốn", "B. {ans} cuốn", "C. {w2} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 1,
+      "hints": ["Ta thực hiện phép tính cộng số sách của hai giá lại với nhau.", "Phép tính là $ {shelf1} + {shelf2} $."],
+      "solutionHtml": "Tổng số cuốn truyện là:<br/>$ {shelf1} + {shelf2} = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Cộng hai số lượng lại để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-03"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "apples": { "min": 4, "max": 8 },
+        "people": { "min": 2, "max": 4 }
+      },
+      "constraints": ["apples % people === 0"],
+      "formulas": {
+        "ans": "apples / people",
+        "w1": "apples / people + 1",
+        "w2": "apples / people + 2",
+        "w3": "apples / people - 1"
+      },
+      "questionText": "Bố chia đều {apples} quả táo cho {people} anh em. Hỏi mỗi người nhận được bao nhiêu quả táo?",
+      "options": ["A. {w1} quả", "B. {ans} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 1,
+      "hints": ["Chia đều nghĩa là thực hiện phép tính chia.", "Phép tính là $ {apples} : {people} $."],
+      "solutionHtml": "Số quả táo mỗi người nhận được là:<br/>$ {apples} : {people} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều cho các nhóm bằng nhau ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-04"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "shoes": { "min": 3, "max": 6 }
+      },
+      "constraints": ["shoes > 1"],
+      "formulas": {
+        "ans": "shoes * 2",
+        "w1": "shoes * 2 + 1",
+        "w2": "shoes * 2 - 1",
+        "w3": "shoes * 2 + 2"
+      },
+      "questionText": "Mỗi đôi giày có 2 chiếc. Hỏi {shoes} đôi giày có tất cả bao nhiêu chiếc giày?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Một đôi là 2 chiếc, vậy {shoes} đôi ta lấy 2 nhân với {shoes}.", "Phép tính là $ 2 \\times {shoes} $."],
+      "solutionHtml": "Số chiếc giày là:<br/>$ 2 \\times {shoes} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Mỗi đôi luôn gồm 2 chiếc.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-05"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a > 1", "b > 1"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 1",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong phòng có {a} bàn, mỗi bàn có {b} cái ghế. Hỏi phòng có tất cả bao nhiêu cái ghế?",
+      "options": ["A. {w1} cái", "B. {ans} cái", "C. {w2} cái", "D. {w3} cái"],
+      "correctIndex": 1,
+      "hints": ["Có {a} bàn, mỗi bàn {b} ghế, ta dùng phép nhân $ {a} \\times {b} $."],
+      "solutionHtml": "Số cái ghế là:<br/>$ {a} \\times {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Khi mỗi nhóm có cùng số lượng, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-06"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 15, "max": 20 },
+        "lost": { "min": 2, "max": 5 }
+      },
+      "constraints": ["total > lost"],
+      "formulas": {
+        "ans": "total - lost",
+        "w1": "total - lost + 2",
+        "w2": "total - lost - 1",
+        "w3": "total - lost + 3"
+      },
+      "questionText": "Bạn Hoa có {total} cái kẹp tóc, bạn làm mất {lost} cái. Hỏi bạn Hoa còn lại bao nhiêu cái kẹp tóc?",
+      "options": ["A. {w1} cái", "B. {ans} cái", "C. {w2} cái", "D. {w3} cái"],
+      "correctIndex": 1,
+      "hints": ["Làm mất đi tức là ta thực hiện phép trừ.", "Phép tính là $ {total} - {lost} $."],
+      "solutionHtml": "Số kẹp tóc còn lại là:<br/>$ {total} - {lost} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Làm mất, tiêu đi, ăn hết là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-07"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "flowers": { "min": 6, "max": 12 },
+        "vases": { "min": 2, "max": 3 }
+      },
+      "constraints": ["flowers % vases === 0"],
+      "formulas": {
+        "ans": "flowers / vases",
+        "w1": "flowers / vases + 1",
+        "w2": "flowers / vases + 2",
+        "w3": "flowers / vases - 1"
+      },
+      "questionText": "Bạn Mai có {flowers} bông hoa, bạn cắm đều vào {vases} lọ. Hỏi mỗi lọ có bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông", "B. {ans} bông", "C. {w2} bông", "D. {w3} bông"],
+      "correctIndex": 1,
+      "hints": ["Cắm đều vào các lọ nghĩa là chia đều.", "Phép tính là $ {flowers} : {vases} $."],
+      "solutionHtml": "Số bông hoa trong mỗi lọ là:<br/>$ {flowers} : {vases} = {ans} $ (bông).<br/>Đáp án đúng là B.",
+      "tip": "Cắm đều, chia đều là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-08"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 5, "max": 9 }
+      },
+      "constraints": ["a !== b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b + 2",
+        "w3": "a + b - 2"
+      },
+      "questionText": "Trong phòng bếp có {a} cái bát trắng và {b} cái bát hoa. Hỏi trong bếp có tất cả bao nhiêu cái bát?",
+      "options": ["A. {w1} cái", "B. {ans} cái", "C. {w2} cái", "D. {w3} cái"],
+      "correctIndex": 1,
+      "hints": ["Gộp cả hai loại bát lại ta được tổng số bát.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Tổng số bát là:<br/>$ {a} + {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đọc đề thật kỹ để phân biệt các loại đồ vật trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-09"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pages": { "min": 10, "max": 15 },
+        "read": { "min": 3, "max": 7 }
+      },
+      "constraints": ["pages > read"],
+      "formulas": {
+        "ans": "pages - read",
+        "w1": "pages - read + 2",
+        "w2": "pages - read + 3",
+        "w3": "pages - read - 1"
+      },
+      "questionText": "Cuốn sách của Lan có {pages} trang. Lan đã đọc được {read} trang. Hỏi Lan còn bao nhiêu trang nữa thì đọc xong?",
+      "options": ["A. {w1} trang", "B. {ans} trang", "C. {w2} trang", "D. {w3} trang"],
+      "correctIndex": 1,
+      "hints": ["Muốn biết còn lại bao nhiêu trang chưa đọc, ta lấy tổng số trang trừ đi số trang đã đọc.", "Phép tính là $ {pages} - {read} $."],
+      "solutionHtml": "Số trang còn lại là:<br/>$ {pages} - {read} = {ans} $ (trang).<br/>Đáp án đúng là B.",
+      "tip": "Phần còn lại luôn bằng tổng số trừ đi phần đã thực hiện.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a > b", "(a + b) % 2 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trong phòng khách nhà Lan có {a} cái ghế đơn và {b} cái ghế đôi. Hỏi trong phòng khách có tất cả bao nhiêu cái ghế?",
+      "options": ["A. {w1} cái ghế", "B. {ans} cái ghế", "C. {w2} cái ghế", "D. {w3} cái ghế"],
+      "correctIndex": 1,
+      "hints": ["Muốn tính tổng số ghế, ta lấy số ghế đơn cộng với số ghế đôi.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Số ghế trong phòng khách là:<br/>$ {a} + {b} = {ans} $ (cái ghế).<br/>Đáp án đúng là B.",
+      "tip": "Hãy đếm kỹ các loại ghế trước khi thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-01"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 10, "max": 20 },
+        "used": { "min": 3, "max": 8 }
+      },
+      "constraints": ["total > used", "(total - used) % 2 === 0"],
+      "formulas": {
+        "ans": "total - used",
+        "w1": "total - used + 1",
+        "w2": "total - used - 2",
+        "w3": "total - used + 3"
+      },
+      "questionText": "Mẹ mua {total} quả cam. Mẹ đã dùng {used} quả để pha nước cam cho cả nhà. Hỏi mẹ còn lại bao nhiêu quả cam?",
+      "options": ["A. {w1} quả", "B. {ans} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm số quả cam còn lại, ta lấy số cam ban đầu trừ đi số cam đã dùng.", "Phép tính là $ {total} - {used} $."],
+      "solutionHtml": "Số cam còn lại là:<br/>$ {total} - {used} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Số lượng còn lại bằng số ban đầu trừ đi số đã sử dụng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-02"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "shelf1": { "min": 5, "max": 9 },
+        "shelf2": { "min": 5, "max": 9 }
+      },
+      "constraints": ["shelf1 !== shelf2"],
+      "formulas": {
+        "ans": "shelf1 + shelf2",
+        "w1": "shelf1 + shelf2 + 2",
+        "w2": "shelf1 + shelf2 - 1",
+        "w3": "shelf1 + shelf2 + 4"
+      },
+      "questionText": "Trên giá sách thứ nhất có {shelf1} cuốn truyện, trên giá sách thứ hai có {shelf2} cuốn truyện. Hỏi cả hai giá sách có bao nhiêu cuốn truyện?",
+      "options": ["A. {w1} cuốn", "B. {ans} cuốn", "C. {w2} cuốn", "D. {w3} cuốn"],
+      "correctIndex": 1,
+      "hints": ["Ta thực hiện phép tính cộng số sách của hai giá lại với nhau.", "Phép tính là $ {shelf1} + {shelf2} $."],
+      "solutionHtml": "Tổng số cuốn truyện là:<br/>$ {shelf1} + {shelf2} = {ans} $ (cuốn).<br/>Đáp án đúng là B.",
+      "tip": "Cộng hai số lượng lại để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-03"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "apples": { "min": 4, "max": 8 },
+        "people": { "min": 2, "max": 4 }
+      },
+      "constraints": ["apples % people === 0"],
+      "formulas": {
+        "ans": "apples / people",
+        "w1": "apples / people + 1",
+        "w2": "apples / people + 2",
+        "w3": "apples / people - 1"
+      },
+      "questionText": "Bố chia đều {apples} quả táo cho {people} anh em. Hỏi mỗi người nhận được bao nhiêu quả táo?",
+      "options": ["A. {w1} quả", "B. {ans} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 1,
+      "hints": ["Chia đều nghĩa là thực hiện phép tính chia.", "Phép tính là $ {apples} : {people} $."],
+      "solutionHtml": "Số quả táo mỗi người nhận được là:<br/>$ {apples} : {people} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều cho các nhóm bằng nhau ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-04"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "shoes": { "min": 3, "max": 6 }
+      },
+      "constraints": ["shoes > 1"],
+      "formulas": {
+        "ans": "shoes * 2",
+        "w1": "shoes * 2 + 1",
+        "w2": "shoes * 2 - 1",
+        "w3": "shoes * 2 + 2"
+      },
+      "questionText": "Mỗi đôi giày có 2 chiếc. Hỏi {shoes} đôi giày có tất cả bao nhiêu chiếc giày?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Một đôi là 2 chiếc, vậy {shoes} đôi ta lấy 2 nhân với {shoes}.", "Phép tính là $ 2 \\times {shoes} $."],
+      "solutionHtml": "Số chiếc giày là:<br/>$ 2 \\times {shoes} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Mỗi đôi luôn gồm 2 chiếc.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-05"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["a > 1", "b > 1"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 1",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong phòng có {a} bàn, mỗi bàn có {b} cái ghế. Hỏi phòng có tất cả bao nhiêu cái ghế?",
+      "options": ["A. {w1} cái", "B. {ans} cái", "C. {w2} cái", "D. {w3} cái"],
+      "correctIndex": 1,
+      "hints": ["Có {a} bàn, mỗi bàn {b} ghế, ta dùng phép nhân $ {a} \\times {b} $."],
+      "solutionHtml": "Số cái ghế là:<br/>$ {a} \\times {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Khi mỗi nhóm có cùng số lượng, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-06"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": { "min": 15, "max": 20 },
+        "lost": { "min": 2, "max": 5 }
+      },
+      "constraints": ["total > lost"],
+      "formulas": {
+        "ans": "total - lost",
+        "w1": "total - lost + 2",
+        "w2": "total - lost - 1",
+        "w3": "total - lost + 3"
+      },
+      "questionText": "Bạn Hoa có {total} cái kẹp tóc, bạn làm mất {lost} cái. Hỏi bạn Hoa còn lại bao nhiêu cái kẹp tóc?",
+      "options": ["A. {w1} cái", "B. {ans} cái", "C. {w2} cái", "D. {w3} cái"],
+      "correctIndex": 1,
+      "hints": ["Làm mất đi tức là ta thực hiện phép trừ.", "Phép tính là $ {total} - {lost} $."],
+      "solutionHtml": "Số kẹp tóc còn lại là:<br/>$ {total} - {lost} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Làm mất, tiêu đi, ăn hết là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-07"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "flowers": { "min": 6, "max": 12 },
+        "vases": { "min": 2, "max": 3 }
+      },
+      "constraints": ["flowers % vases === 0"],
+      "formulas": {
+        "ans": "flowers / vases",
+        "w1": "flowers / vases + 1",
+        "w2": "flowers / vases + 2",
+        "w3": "flowers / vases - 1"
+      },
+      "questionText": "Bạn Mai có {flowers} bông hoa, bạn cắm đều vào {vases} lọ. Hỏi mỗi lọ có bao nhiêu bông hoa?",
+      "options": ["A. {w1} bông", "B. {ans} bông", "C. {w2} bông", "D. {w3} bông"],
+      "correctIndex": 1,
+      "hints": ["Cắm đều vào các lọ nghĩa là chia đều.", "Phép tính là $ {flowers} : {vases} $."],
+      "solutionHtml": "Số bông hoa trong mỗi lọ là:<br/>$ {flowers} : {vases} = {ans} $ (bông).<br/>Đáp án đúng là B.",
+      "tip": "Cắm đều, chia đều là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-08"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 5, "max": 9 }
+      },
+      "constraints": ["a !== b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b + 2",
+        "w3": "a + b - 2"
+      },
+      "questionText": "Trong phòng bếp có {a} cái bát trắng và {b} cái bát hoa. Hỏi trong bếp có tất cả bao nhiêu cái bát?",
+      "options": ["A. {w1} cái", "B. {ans} cái", "C. {w2} cái", "D. {w3} cái"],
+      "correctIndex": 1,
+      "hints": ["Gộp cả hai loại bát lại ta được tổng số bát.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Tổng số bát là:<br/>$ {a} + {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Đọc đề thật kỹ để phân biệt các loại đồ vật trước khi cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-09"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pages": { "min": 10, "max": 15 },
+        "read": { "min": 3, "max": 7 }
+      },
+      "constraints": ["pages > read"],
+      "formulas": {
+        "ans": "pages - read",
+        "w1": "pages - read + 2",
+        "w2": "pages - read + 3",
+        "w3": "pages - read - 1"
+      },
+      "questionText": "Cuốn sách của Lan có {pages} trang. Lan đã đọc được {read} trang. Hỏi Lan còn bao nhiêu trang nữa thì đọc xong?",
+      "options": ["A. {w1} trang", "B. {ans} trang", "C. {w2} trang", "D. {w3} trang"],
+      "correctIndex": 1,
+      "hints": ["Muốn biết còn lại bao nhiêu trang chưa đọc, ta lấy tổng số trang trừ đi số trang đã đọc.", "Phép tính là $ {pages} - {read} $."],
+      "solutionHtml": "Số trang còn lại là:<br/>$ {pages} - {read} = {ans} $ (trang).<br/>Đáp án đúng là B.",
+      "tip": "Phần còn lại luôn bằng tổng số trừ đi phần đã thực hiện.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t16-10"
+    }
+  ]
+}
+}
+

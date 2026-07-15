@@ -1,0 +1,693 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:38:36.662Z
+Lesson ID: l4-bai-71
+Lesson Title: Bài 71: Ôn tập hình học và đo lường
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10314 (line 328 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10314 (line 328 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10314 (Line: 328, Column: 3)
+Character causing error: "]"
+
+Context:
+... vị đo chu vi là đơn vị độ dài, không phải đơn vị diện tích (cm2, dm2).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d10"
+    }
+  ]
+}
+  >>>[LỖI TẠI ĐÂY]<<<]
+}
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "dai": { "min": 15, "max": 25, "step": 1 },
+        "rong": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "dai > rong",
+        "(2 * (dai + rong)) % 4 === 0"
+      ],
+      "formulas": {
+        "chuVi": "2 * (dai + rong)",
+        "canhHinhVuong": "chuVi / 4",
+        "ans": "canhHinhVuong",
+        "w1": "canhHinhVuong + 2",
+        "w2": "canhHinhVuong - 2",
+        "w3": "canhHinhVuong + 5"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {dai} cm và chiều rộng là {rong} cm. Một hình vuông có chu vi bằng chu vi hình chữ nhật đó. Hỏi cạnh của hình vuông đó dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính chu vi hình chữ nhật trước: $ (dai + rong) \\times 2 $.",
+        "Hình vuông có 4 cạnh bằng nhau, nên lấy chu vi chia cho 4."
+      ],
+      "solutionHtml": "Chu vi của hình chữ nhật là: <br/> $ ({dai} + {rong}) \\times 2 = {chuVi} $ (cm). <br/> Vì hình vuông có cùng chu vi nên cạnh của hình vuông là: <br/> $ {chuVi} : 4 = {ans} $ (cm). <br/> Đáp án đúng là B.",
+      "tip": "Hãy nhớ công thức tính chu vi hình chữ nhật là tổng chiều dài và chiều rộng nhân với 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "nam": { "min": 2000, "max": 2024, "step": 1 }
+      },
+      "constraints": [
+        "nam % 4 === 0"
+      ],
+      "formulas": {
+        "ans": "366",
+        "w1": "365",
+        "w2": "364",
+        "w3": "367"
+      },
+      "questionText": "Năm {nam} là một năm nhuận. Hỏi năm đó có bao nhiêu ngày?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {w3} ngày",
+        "C. {ans} ngày",
+        "D. {w2} ngày"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Năm thường có 365 ngày.",
+        "Năm nhuận có thêm 1 ngày so với năm thường."
+      ],
+      "solutionHtml": "Năm thường có 365 ngày. Năm nhuận có 366 ngày. <br/> Đáp án đúng là C.",
+      "tip": "Ghi nhớ: Năm nhuận có 366 ngày, tháng Hai của năm đó có 29 ngày.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 1 },
+        "b": { "min": 20, "max": 35, "step": 1 }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "tong": "a + b",
+        "ans": "tong / 2",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có tổng chiều dài và chiều rộng là {tong} m. Nếu chiều dài hơn chiều rộng {a - b} m (đơn vị m), tính chiều dài của mảnh vườn đó.",
+      "options": [
+        "A. {w1} m",
+        "B. {ans} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán tìm hai số khi biết tổng và hiệu.",
+        "Chiều dài = (Tổng + Hiệu) : 2."
+      ],
+      "solutionHtml": "Chiều dài mảnh vườn là: <br/> $ ({tong} + {a - b}) : 2 = {ans} $ (m). <br/> Đáp án đúng là B.",
+      "tip": "Với bài toán tìm hai số, hãy luôn nhớ: Số lớn = (Tổng + Hiệu) : 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lit": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": [
+        "lit % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "lit * 1000",
+        "w1": "lit * 100",
+        "w2": "lit * 10",
+        "w3": "lit"
+      },
+      "questionText": "Một thùng chứa {lit} lít nước. Hỏi thùng đó chứa bao nhiêu mi-li-lít nước?",
+      "options": [
+        "A. {w1} ml",
+        "B. {w2} ml",
+        "C. {ans} ml",
+        "D. {w3} ml"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "1 lít = 1000 mi-li-lít.",
+        "Ta lấy số lít nhân với 1000."
+      ],
+      "solutionHtml": "Vì 1 lít = 1000 ml, nên {lit} lít nước bằng: <br/> $ {lit} \\times 1000 = {ans} $ (ml). <br/> Đáp án đúng là C.",
+      "tip": "Đổi đơn vị dung tích cần nhớ kỹ bảng đơn vị đo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 10, "max": 20, "step": 1 },
+        "dm": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "total": "m * 10 + dm",
+        "ans": "total * 100",
+        "w1": "total",
+        "w2": "total * 10",
+        "w3": "total + 100"
+      },
+      "questionText": "Một đoạn dây dài {m} m {dm} dm. Hỏi đoạn dây đó dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi hết ra xăng-ti-mét: 1 m = 100 cm, 1 dm = 10 cm.",
+        "Tính: {m} nhân 100 cộng {dm} nhân 10."
+      ],
+      "solutionHtml": "Đổi: <br/> {m} m = {m * 100} cm. <br/> {dm} dm = {dm * 10} cm. <br/> Tổng cộng: $ {m * 100} + {dm * 10} = {ans} $ (cm). <br/> Đáp án đúng là C.",
+      "tip": "Cẩn thận khi đổi các đơn vị đo độ dài hỗn hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 6, "max": 12, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "canh * canh",
+        "chuVi": "canh * 4",
+        "w1": "chuVi",
+        "w2": "canh * 2",
+        "w3": "canh + canh"
+      },
+      "questionText": "Một hình vuông có cạnh dài {canh} cm. Hỏi diện tích của hình vuông đó là bao nhiêu xăng-ti-mét vuông?",
+      "options": [
+        "A. {w1} cm2",
+        "B. {w2} cm2",
+        "C. {ans} cm2",
+        "D. {w3} cm2"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình vuông bằng cạnh nhân với chính nó.",
+        "Tính: {canh} nhân {canh}."
+      ],
+      "solutionHtml": "Diện tích hình vuông là: <br/> $ {canh} \\times {canh} = {ans} $ (cm2). <br/> Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa chu vi (cạnh x 4) và diện tích (cạnh x cạnh).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 10 },
+        "b": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 100",
+        "w3": "b + 100"
+      },
+      "questionText": "Một cửa hàng có {a} kg gạo. Ngày đầu cửa hàng bán được {b} kg gạo. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w3} kg",
+        "C. {w2} kg",
+        "D. {ans} kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm số gạo còn lại, lấy số gạo ban đầu trừ đi số gạo đã bán.",
+        "Phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số gạo còn lại là: <br/> $ {a} - {b} = {ans} $ (kg). <br/> Đáp án đúng là D.",
+      "tip": "Đọc đề kỹ để xác định phép tính trừ hay cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b * 100",
+        "w1": "a * b * 10",
+        "w2": "a + b * 100",
+        "w3": "a * 100 + b"
+      },
+      "questionText": "Một mảnh đất hình chữ nhật có chiều dài {a} m, chiều rộng {b} m. Tính diện tích mảnh đất đó theo đơn vị mét vuông.",
+      "options": [
+        "A. {w1} m2",
+        "B. {w3} m2",
+        "C. {ans} m2",
+        "D. {w2} m2"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng.",
+        "Tính: {a} nhân {b}."
+      ],
+      "solutionHtml": "Diện tích mảnh đất là: <br/> $ {a} \\times {b} = {a * b} $ (m2). <br/> Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra đơn vị trong câu hỏi là mét hay xăng-ti-mét.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "total": "a * 60 + b * 60",
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a * 60",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Một người đi xe đạp trong {a} giờ, sau đó đi bộ thêm {b} giờ. Tổng thời gian người đó đã đi là bao nhiêu giờ?",
+      "options": [
+        "A. {w2} giờ",
+        "B. {ans} giờ",
+        "C. {w1} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng thời gian bằng cách cộng số giờ đi xe đạp và đi bộ.",
+        "Phép tính: {a} + {b}."
+      ],
+      "solutionHtml": "Tổng thời gian là: <br/> $ {a} + {b} = {ans} $ (giờ). <br/> Đáp án đúng là B.",
+      "tip": "Đọc kỹ đơn vị thời gian để tránh bị lừa bởi đơn vị phút.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a * a",
+        "w2": "a + 4",
+        "w3": "a * 2"
+      },
+      "questionText": "Một cái bàn hình vuông có độ dài cạnh là {a} dm. Hỏi chu vi của mặt bàn đó là bao nhiêu đề-xi-mét?",
+      "options": [
+        "A. {w1} dm",
+        "B. {w2} dm",
+        "C. {ans} dm",
+        "D. {w3} dm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chu vi hình vuông bằng cạnh nhân 4.",
+        "Tính: {a} nhân 4."
+      ],
+      "solutionHtml": "Chu vi của mặt bàn là: <br/> $ {a} \\times 4 = {ans} $ (dm). <br/> Đáp án đúng là C.",
+      "tip": "Đơn vị đo chu vi là đơn vị độ dài, không phải đơn vị diện tích (cm2, dm2).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d10"
+    }
+  ]
+}
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "dai": { "min": 15, "max": 25, "step": 1 },
+        "rong": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "dai > rong",
+        "(2 * (dai + rong)) % 4 === 0"
+      ],
+      "formulas": {
+        "chuVi": "2 * (dai + rong)",
+        "canhHinhVuong": "chuVi / 4",
+        "ans": "canhHinhVuong",
+        "w1": "canhHinhVuong + 2",
+        "w2": "canhHinhVuong - 2",
+        "w3": "canhHinhVuong + 5"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {dai} cm và chiều rộng là {rong} cm. Một hình vuông có chu vi bằng chu vi hình chữ nhật đó. Hỏi cạnh của hình vuông đó dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính chu vi hình chữ nhật trước: $ (dai + rong) \\times 2 $.",
+        "Hình vuông có 4 cạnh bằng nhau, nên lấy chu vi chia cho 4."
+      ],
+      "solutionHtml": "Chu vi của hình chữ nhật là: <br/> $ ({dai} + {rong}) \\times 2 = {chuVi} $ (cm). <br/> Vì hình vuông có cùng chu vi nên cạnh của hình vuông là: <br/> $ {chuVi} : 4 = {ans} $ (cm). <br/> Đáp án đúng là B.",
+      "tip": "Hãy nhớ công thức tính chu vi hình chữ nhật là tổng chiều dài và chiều rộng nhân với 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "nam": { "min": 2000, "max": 2024, "step": 1 }
+      },
+      "constraints": [
+        "nam % 4 === 0"
+      ],
+      "formulas": {
+        "ans": "366",
+        "w1": "365",
+        "w2": "364",
+        "w3": "367"
+      },
+      "questionText": "Năm {nam} là một năm nhuận. Hỏi năm đó có bao nhiêu ngày?",
+      "options": [
+        "A. {w1} ngày",
+        "B. {w3} ngày",
+        "C. {ans} ngày",
+        "D. {w2} ngày"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Năm thường có 365 ngày.",
+        "Năm nhuận có thêm 1 ngày so với năm thường."
+      ],
+      "solutionHtml": "Năm thường có 365 ngày. Năm nhuận có 366 ngày. <br/> Đáp án đúng là C.",
+      "tip": "Ghi nhớ: Năm nhuận có 366 ngày, tháng Hai của năm đó có 29 ngày.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 1 },
+        "b": { "min": 20, "max": 35, "step": 1 }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "tong": "a + b",
+        "ans": "tong / 2",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một mảnh vườn hình chữ nhật có tổng chiều dài và chiều rộng là {tong} m. Nếu chiều dài hơn chiều rộng {a - b} m (đơn vị m), tính chiều dài của mảnh vườn đó.",
+      "options": [
+        "A. {w1} m",
+        "B. {ans} m",
+        "C. {w2} m",
+        "D. {w3} m"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán tìm hai số khi biết tổng và hiệu.",
+        "Chiều dài = (Tổng + Hiệu) : 2."
+      ],
+      "solutionHtml": "Chiều dài mảnh vườn là: <br/> $ ({tong} + {a - b}) : 2 = {ans} $ (m). <br/> Đáp án đúng là B.",
+      "tip": "Với bài toán tìm hai số, hãy luôn nhớ: Số lớn = (Tổng + Hiệu) : 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lit": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": [
+        "lit % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "lit * 1000",
+        "w1": "lit * 100",
+        "w2": "lit * 10",
+        "w3": "lit"
+      },
+      "questionText": "Một thùng chứa {lit} lít nước. Hỏi thùng đó chứa bao nhiêu mi-li-lít nước?",
+      "options": [
+        "A. {w1} ml",
+        "B. {w2} ml",
+        "C. {ans} ml",
+        "D. {w3} ml"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "1 lít = 1000 mi-li-lít.",
+        "Ta lấy số lít nhân với 1000."
+      ],
+      "solutionHtml": "Vì 1 lít = 1000 ml, nên {lit} lít nước bằng: <br/> $ {lit} \\times 1000 = {ans} $ (ml). <br/> Đáp án đúng là C.",
+      "tip": "Đổi đơn vị dung tích cần nhớ kỹ bảng đơn vị đo.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": { "min": 10, "max": 20, "step": 1 },
+        "dm": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "total": "m * 10 + dm",
+        "ans": "total * 100",
+        "w1": "total",
+        "w2": "total * 10",
+        "w3": "total + 100"
+      },
+      "questionText": "Một đoạn dây dài {m} m {dm} dm. Hỏi đoạn dây đó dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi hết ra xăng-ti-mét: 1 m = 100 cm, 1 dm = 10 cm.",
+        "Tính: {m} nhân 100 cộng {dm} nhân 10."
+      ],
+      "solutionHtml": "Đổi: <br/> {m} m = {m * 100} cm. <br/> {dm} dm = {dm * 10} cm. <br/> Tổng cộng: $ {m * 100} + {dm * 10} = {ans} $ (cm). <br/> Đáp án đúng là C.",
+      "tip": "Cẩn thận khi đổi các đơn vị đo độ dài hỗn hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "canh": { "min": 6, "max": 12, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "canh * canh",
+        "chuVi": "canh * 4",
+        "w1": "chuVi",
+        "w2": "canh * 2",
+        "w3": "canh + canh"
+      },
+      "questionText": "Một hình vuông có cạnh dài {canh} cm. Hỏi diện tích của hình vuông đó là bao nhiêu xăng-ti-mét vuông?",
+      "options": [
+        "A. {w1} cm2",
+        "B. {w2} cm2",
+        "C. {ans} cm2",
+        "D. {w3} cm2"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình vuông bằng cạnh nhân với chính nó.",
+        "Tính: {canh} nhân {canh}."
+      ],
+      "solutionHtml": "Diện tích hình vuông là: <br/> $ {canh} \\times {canh} = {ans} $ (cm2). <br/> Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa chu vi (cạnh x 4) và diện tích (cạnh x cạnh).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 10 },
+        "b": { "min": 50, "max": 150, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 100",
+        "w3": "b + 100"
+      },
+      "questionText": "Một cửa hàng có {a} kg gạo. Ngày đầu cửa hàng bán được {b} kg gạo. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w3} kg",
+        "C. {w2} kg",
+        "D. {ans} kg"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm số gạo còn lại, lấy số gạo ban đầu trừ đi số gạo đã bán.",
+        "Phép tính: {a} trừ {b}."
+      ],
+      "solutionHtml": "Số gạo còn lại là: <br/> $ {a} - {b} = {ans} $ (kg). <br/> Đáp án đúng là D.",
+      "tip": "Đọc đề kỹ để xác định phép tính trừ hay cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b * 100",
+        "w1": "a * b * 10",
+        "w2": "a + b * 100",
+        "w3": "a * 100 + b"
+      },
+      "questionText": "Một mảnh đất hình chữ nhật có chiều dài {a} m, chiều rộng {b} m. Tính diện tích mảnh đất đó theo đơn vị mét vuông.",
+      "options": [
+        "A. {w1} m2",
+        "B. {w3} m2",
+        "C. {ans} m2",
+        "D. {w2} m2"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng.",
+        "Tính: {a} nhân {b}."
+      ],
+      "solutionHtml": "Diện tích mảnh đất là: <br/> $ {a} \\times {b} = {a * b} $ (m2). <br/> Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra đơn vị trong câu hỏi là mét hay xăng-ti-mét.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 1, "max": 3, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "total": "a * 60 + b * 60",
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a * 60",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Một người đi xe đạp trong {a} giờ, sau đó đi bộ thêm {b} giờ. Tổng thời gian người đó đã đi là bao nhiêu giờ?",
+      "options": [
+        "A. {w2} giờ",
+        "B. {ans} giờ",
+        "C. {w1} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng thời gian bằng cách cộng số giờ đi xe đạp và đi bộ.",
+        "Phép tính: {a} + {b}."
+      ],
+      "solutionHtml": "Tổng thời gian là: <br/> $ {a} + {b} = {ans} $ (giờ). <br/> Đáp án đúng là B.",
+      "tip": "Đọc kỹ đơn vị thời gian để tránh bị lừa bởi đơn vị phút.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a * a",
+        "w2": "a + 4",
+        "w3": "a * 2"
+      },
+      "questionText": "Một cái bàn hình vuông có độ dài cạnh là {a} dm. Hỏi chu vi của mặt bàn đó là bao nhiêu đề-xi-mét?",
+      "options": [
+        "A. {w1} dm",
+        "B. {w2} dm",
+        "C. {ans} dm",
+        "D. {w3} dm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chu vi hình vuông bằng cạnh nhân 4.",
+        "Tính: {a} nhân 4."
+      ],
+      "solutionHtml": "Chu vi của mặt bàn là: <br/> $ {a} \\times 4 = {ans} $ (dm). <br/> Đáp án đúng là C.",
+      "tip": "Đơn vị đo chu vi là đơn vị độ dài, không phải đơn vị diện tích (cm2, dm2).",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-71-d10"
+    }
+  ]
+}
+  ]
+}
+}
+

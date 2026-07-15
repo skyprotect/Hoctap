@@ -1,0 +1,405 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "books": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "shelves": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "books % shelves === 0",
+        "books / shelves > 1"
+      ],
+      "formulas": {
+        "ans": "books / shelves",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans + 3"
+      },
+      "questionText": "Trong phòng ngủ của bé có {books} quyển truyện được xếp đều vào {shelves} cái kệ sách. Hỏi mỗi kệ sách có bao nhiêu quyển truyện?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm số sách mỗi kệ, ta lấy tổng số sách chia cho số kệ.",
+        "Thực hiện phép tính chia: {books} chia {shelves} bằng bao nhiêu?"
+      ],
+      "solutionHtml": "Số quyển truyện ở mỗi kệ là:<br/>$ {books} : {shelves} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, hãy nhớ đến bảng chia hoặc phép nhân ngược lại nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pillows": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "added": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "pillows + added <= 20"
+      ],
+      "formulas": {
+        "ans": "pillows + added",
+        "w1": "pillows",
+        "w2": "pillows + added + 1",
+        "w3": "pillows + added - 1"
+      },
+      "questionText": "Trên giường có {pillows} chiếc gối. Mẹ mua thêm {added} chiếc gối mới đặt vào. Hỏi hiện tại trên giường có tất cả bao nhiêu chiếc gối?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ban đầu có {pillows} chiếc gối, thêm vào là thực hiện phép cộng.",
+        "Ta cần tính $ {pillows} + {added} $."
+      ],
+      "solutionHtml": "Tổng số gối trên giường là:<br/>$ {pillows} + {added} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'thêm vào' cho thấy chúng ta cần thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "socks": {
+          "min": 10,
+          "max": 18,
+          "step": 2
+        },
+        "lost": {
+          "min": 2,
+          "max": 6,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "socks > lost"
+      ],
+      "formulas": {
+        "ans": "socks - lost",
+        "w1": "socks",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trong ngăn kéo có {socks} chiếc tất. Bé lấy ra {lost} chiếc để đi chơi. Hỏi trong ngăn kéo còn lại bao nhiêu chiếc tất?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy ra là phép tính trừ.",
+        "Ta thực hiện: $ {socks} - {lost} $."
+      ],
+      "solutionHtml": "Số chiếc tất còn lại trong ngăn kéo là:<br/>$ {socks} - {lost} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài xem là thêm vào hay lấy bớt đi nhé.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "toys": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "group": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "toys * group",
+        "w1": "toys + group",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Mỗi hộp đồ chơi trong phòng ngủ có {toys} con búp bê. Hỏi {group} hộp như thế có tất cả bao nhiêu con búp bê?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đây là bài toán gấp lên nhiều lần, ta dùng phép nhân.",
+        "$ {toys} \\times {group} = ? $"
+      ],
+      "solutionHtml": "Tổng số con búp bê là:<br/>$ {toys} \\times {group} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức: mỗi phần có bao nhiêu nhân với số phần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "lamps": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "bulbs": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "lamps * bulbs",
+        "w1": "lamps + bulbs",
+        "w2": "ans + 1",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trong phòng có {lamps} chiếc đèn ngủ, mỗi chiếc đèn lắp {bulbs} bóng đèn. Hỏi có tất cả bao nhiêu bóng đèn?",
+      "options": [
+        "A. {w1} bóng",
+        "B. {ans} bóng",
+        "C. {w2} bóng",
+        "D. {w3} bóng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi đèn có {bulbs} bóng, có {lamps} đèn, vậy ta nhân số đèn với số bóng mỗi đèn.",
+        "Thực hiện: $ {lamps} \\times {bulbs} $"
+      ],
+      "solutionHtml": "Số bóng đèn có tất cả là:<br/>$ {lamps} \\times {bulbs} = {ans} $ (bóng).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này là dạng toán gấp lên một số lần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "bookshelf1": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "bookshelf2": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "bookshelf1 + bookshelf2",
+        "w1": "bookshelf1",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trên kệ sách thứ nhất có {bookshelf1} quyển sách, kệ thứ hai có {bookshelf2} quyển. Hỏi cả hai kệ có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tính tổng cả hai kệ, ta cộng số sách kệ thứ nhất và kệ thứ hai.",
+        "$ {bookshelf1} + {bookshelf2} = ? $"
+      ],
+      "solutionHtml": "Tổng số sách là:<br/>$ {bookshelf1} + {bookshelf2} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Phép cộng là cách nhanh nhất để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pictures": {
+          "min": 4,
+          "max": 10,
+          "step": 1
+        },
+        "takenDown": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "pictures > takenDown"
+      ],
+      "formulas": {
+        "ans": "pictures - takenDown",
+        "w1": "pictures + takenDown",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trên tường phòng ngủ có {pictures} bức tranh. Mẹ tháo xuống {takenDown} bức tranh để lau dọn. Hỏi trên tường còn lại bao nhiêu bức tranh?",
+      "options": [
+        "A. {w1} bức",
+        "B. {ans} bức",
+        "C. {w2} bức",
+        "D. {w3} bức"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tháo xuống tức là giảm đi, dùng phép trừ.",
+        "$ {pictures} - {takenDown} = ? $"
+      ],
+      "solutionHtml": "Số bức tranh còn lại trên tường là:<br/>$ {pictures} - {takenDown} = {ans} $ (bức).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với các từ như 'tháo xuống' hay 'còn lại'.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "boys": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "girls": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "boys + girls",
+        "w1": "boys * girls",
+        "w2": "ans + 1",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trong phòng ngủ đang có {boys} bạn nam và {girls} bạn nữ đang chơi đồ chơi. Hỏi có tất cả bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cần tính tổng số bạn trong phòng.",
+        "$ {boys} + {girls} = ? $"
+      ],
+      "solutionHtml": "Tổng số bạn trong phòng là:<br/>$ {boys} + {girls} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Tổng số bạn bằng tổng số bạn nam cộng bạn nữ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "cars": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "wheelsPerCar": {
+          "min": 4,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "cars * wheelsPerCar",
+        "w1": "cars + wheelsPerCar",
+        "w2": "ans + 2",
+        "w3": "ans - 2"
+      },
+      "questionText": "Bé có {cars} chiếc ô tô đồ chơi. Mỗi chiếc ô tô có {wheelsPerCar} bánh xe. Hỏi tất cả số ô tô có bao nhiêu bánh xe?",
+      "options": [
+        "A. {w1} bánh",
+        "B. {ans} bánh",
+        "C. {w2} bánh",
+        "D. {w3} bánh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi chiếc có {wheelsPerCar} bánh, có {cars} chiếc, ta làm phép nhân.",
+        "$ {cars} \\times {wheelsPerCar} = ? $"
+      ],
+      "solutionHtml": "Tổng số bánh xe là:<br/>$ {cars} \\times {wheelsPerCar} = {ans} $ (bánh).<br/>Đáp án đúng là B.",
+      "tip": "Một chiếc có 4 bánh, vậy nhiều chiếc sẽ có số bánh gấp lên.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pencils": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "friends": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "pencils % friends === 0"
+      ],
+      "formulas": {
+        "ans": "pencils / friends",
+        "w1": "pencils + friends",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Trên bàn học có {pencils} chiếc bút chì, bé chia đều cho {friends} người bạn. Hỏi mỗi bạn nhận được bao nhiêu chiếc bút chì?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều nghĩa là phép chia.",
+        "$ {pencils} : {friends} = ? $"
+      ],
+      "solutionHtml": "Số bút mỗi bạn nhận được là:<br/>$ {pencils} : {friends} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa chia và cộng nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t4-d10"
+    }
+  ]
+}

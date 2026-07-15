@@ -12,12 +12,19 @@ const filesToSync = [
   'kiosk_lock.exe',
   'js/app.js',
   'js/lessons.js',
+  'js/english_data.js',
   'js/parent.js',
+  'js/questions-v1.js',
   'js/questions-v3.js',
   'js/questions-v4.js',
   'js/game.js',
   'css/style.css',
-  '.env.example'
+  '.env.example',
+  '.env',
+  'firebase-service-account.json',
+  'version.json',
+  'package.json',
+  'package-lock.json'
 ];
 
 const dirsToSync = [
@@ -33,7 +40,6 @@ const filesToDeleteInDest = [
   'database.db-wal.old',
   'database.db-shm.old',
   '.port.tmp',
-  '.env',
   'kiosk_lock.log',
   'kiosk_exit_flag.tmp'
 ];

@@ -1,0 +1,478 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:17:44.668Z
+Lesson ID: l1-bai-41
+Lesson Title: Bài 41: Ôn tập chung
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9000 (line 223 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9000 (line 223 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9000 (Line: 223, Column: 1)
+Character causing error: "}"
+
+Context:
+... br/>Đáp án đúng là D.",
+      "tip": "Đừng quên số chân của mỗi con vật.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 3"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "b + 2",
+        "w3": "a - 2"
+      },
+      "questionText": "Trong vườn có {a} cây hoa, trong đó có {b} cây hoa hồng, còn lại là hoa cúc. Hỏi trong vườn có bao nhiêu cây hoa cúc?",
+      "options": ["A. {w1} cây", "B. {ans} cây", "C. {w2} cây", "D. {w3} cây"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số cây hoa cúc, ta lấy tổng số cây trừ đi số cây hoa hồng.", "Thực hiện phép tính: {a} trừ {b}."],
+      "solutionHtml": "Số cây hoa cúc trong vườn là:<br/>$ {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi phần còn lại, ta thường sử dụng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "b + 3"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng cho Lan thêm {b} viên bi nữa. Hỏi Lan có tất cả bao nhiêu viên bi?",
+      "options": ["A. {w1} viên bi", "B. {w2} viên bi", "C. {ans} viên bi", "D. {w3} viên bi"],
+      "correctIndex": 2,
+      "hints": ["Lan được cho thêm bi, nghĩa là số bi của Lan tăng lên.", "Thực hiện phép tính cộng: {a} cộng {b}."],
+      "solutionHtml": "Số viên bi Lan có tất cả là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'thêm' hoặc 'tất cả' là dấu hiệu của phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Mỗi hộp bút có {a} chiếc bút. Hỏi {b} hộp bút như thế có tất cả bao nhiêu chiếc bút?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {w3} chiếc", "D. {ans} chiếc"],
+      "correctIndex": 3,
+      "hints": ["Có {b} nhóm, mỗi nhóm có {a} chiếc bút.", "Ta tính bằng cách cộng {a} lặp lại {b} lần, tức là {a} nhân {b}."],
+      "solutionHtml": "Số chiếc bút trong {b} hộp là:<br/>$ {a} \\times {b} = {ans} $ (chiếc).<br/>Đáp án đúng là D.",
+      "tip": "Khi đề bài cho biết giá trị của 'mỗi' nhóm, ta dùng phép nhân để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a - 2",
+        "w2": "a + 2",
+        "w3": "a / 2 + 1"
+      },
+      "questionText": "Mẹ có {a} quả cam, mẹ chia đều vào {b} cái giỏ. Hỏi mỗi giỏ có bao nhiêu quả cam?",
+      "options": ["A. {ans} quả", "B. {w1} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 0,
+      "hints": ["Chia đều vào {b} giỏ nghĩa là ta thực hiện phép chia.", "Lấy tổng số cam {a} chia cho {b}."],
+      "solutionHtml": "Số quả cam mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Bàn tay em có {a} ngón, em bị thương mất {b} ngón tay. Hỏi em còn lại bao nhiêu ngón tay lành lặn?",
+      "options": ["A. {w1} ngón", "B. {w2} ngón", "C. {ans} ngón", "D. {w3} ngón"],
+      "correctIndex": 2,
+      "hints": ["Bị thương mất đi nghĩa là bớt đi.", "Thực hiện phép tính trừ: {a} trừ {b}."],
+      "solutionHtml": "Số ngón tay còn lành lặn là:<br/>$ {a} - {b} = {ans} $ (ngón).<br/>Đáp án đúng là C.",
+      "tip": "Mất đi hoặc rơi đi đều là các từ chỉ phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trên cành có {a} con chim, thêm {b} con chim bay đến và sau đó có thêm 2 con nữa bay đến. Hỏi trên cành có tất cả bao nhiêu con chim?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán có ba thành phần cộng lại.", "Tính: {a} cộng {b} cộng 2."],
+      "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} + 2 = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi có nhiều nhóm thêm vào, ta cộng lần lượt từng nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a - b - 1",
+        "w1": "a - b",
+        "w2": "a - b + 1",
+        "w3": "a + b"
+      },
+      "questionText": "Trong rổ có {a} quả táo. Bạn An lấy ra {b} quả, sau đó mẹ lại lấy ra thêm 1 quả nữa. Hỏi trong rổ còn lại bao nhiêu quả táo?",
+      "options": ["A. {w1} quả", "B. {w2} quả", "C. {ans} quả", "D. {w3} quả"],
+      "correctIndex": 2,
+      "hints": ["Lấy ra tức là giảm đi số lượng.", "Ta có: {a} trừ {b} rồi lại trừ tiếp 1."],
+      "solutionHtml": "Số táo còn lại trong rổ là:<br/>$ {a} - {b} - 1 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Lấy ra nhiều lần thì lần lượt trừ đi các số đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + a + a",
+        "w1": "a + a",
+        "w2": "a + a + a + 1",
+        "w3": "a * 4"
+      },
+      "questionText": "Một chiếc xe đạp có 2 bánh. Nếu mỗi bánh xe có {a} nan hoa. Hỏi một chiếc xe đạp có tổng cộng bao nhiêu nan hoa?",
+      "options": ["A. {w1} nan", "B. {w2} nan", "C. {ans} nan", "D. {w3} nan"],
+      "correctIndex": 2,
+      "hints": ["Xe đạp có 2 bánh, mỗi bánh có {a} nan hoa.", "Tổng số nan hoa là {a} cộng {a}."],
+      "solutionHtml": "Tổng số nan hoa là:<br/>$ {a} + {a} = {ans} $ (nan).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý số lượng bánh xe của một chiếc xe đạp.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Lớp 1A có {a} học sinh, trong đó có {b} bạn đang đi tập văn nghệ. Hỏi trong lớp còn lại bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Số bạn đi tập văn nghệ không còn ở trong lớp.", "Phép tính: {a} trừ {b}."],
+      "solutionHtml": "Số bạn còn lại trong lớp là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi một số lượng rời đi, ta làm phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a * 2",
+        "w2": "a + 4",
+        "w3": "a * 3"
+      },
+      "questionText": "Một con chó có 4 chân. Hỏi {a} con chó như thế có tổng cộng bao nhiêu cái chân?",
+      "options": ["A. {w1} cái", "B. {w2} cái", "C. {w3} cái", "D. {ans} cái"],
+      "correctIndex": 3,
+      "hints": ["Mỗi con chó có 4 chân.", "Ta lấy 4 cộng 4 (nếu {a} là 2) hoặc tính {a} nhân 4."],
+      "solutionHtml": "Số chân của {a} con chó là:<br/>$ 4 \\times {a} = {ans} $ (cái chân).<br/>Đáp án đúng là D.",
+      "tip": "Đừng quên số chân của mỗi con vật.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 3"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "b + 2",
+        "w3": "a - 2"
+      },
+      "questionText": "Trong vườn có {a} cây hoa, trong đó có {b} cây hoa hồng, còn lại là hoa cúc. Hỏi trong vườn có bao nhiêu cây hoa cúc?",
+      "options": ["A. {w1} cây", "B. {ans} cây", "C. {w2} cây", "D. {w3} cây"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số cây hoa cúc, ta lấy tổng số cây trừ đi số cây hoa hồng.", "Thực hiện phép tính: {a} trừ {b}."],
+      "solutionHtml": "Số cây hoa cúc trong vườn là:<br/>$ {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi phần còn lại, ta thường sử dụng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "b + 3"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng cho Lan thêm {b} viên bi nữa. Hỏi Lan có tất cả bao nhiêu viên bi?",
+      "options": ["A. {w1} viên bi", "B. {w2} viên bi", "C. {ans} viên bi", "D. {w3} viên bi"],
+      "correctIndex": 2,
+      "hints": ["Lan được cho thêm bi, nghĩa là số bi của Lan tăng lên.", "Thực hiện phép tính cộng: {a} cộng {b}."],
+      "solutionHtml": "Số viên bi Lan có tất cả là:<br/>$ {a} + {b} = {ans} $ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'thêm' hoặc 'tất cả' là dấu hiệu của phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Mỗi hộp bút có {a} chiếc bút. Hỏi {b} hộp bút như thế có tất cả bao nhiêu chiếc bút?",
+      "options": ["A. {w1} chiếc", "B. {w2} chiếc", "C. {w3} chiếc", "D. {ans} chiếc"],
+      "correctIndex": 3,
+      "hints": ["Có {b} nhóm, mỗi nhóm có {a} chiếc bút.", "Ta tính bằng cách cộng {a} lặp lại {b} lần, tức là {a} nhân {b}."],
+      "solutionHtml": "Số chiếc bút trong {b} hộp là:<br/>$ {a} \\times {b} = {ans} $ (chiếc).<br/>Đáp án đúng là D.",
+      "tip": "Khi đề bài cho biết giá trị của 'mỗi' nhóm, ta dùng phép nhân để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 18, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": ["a % 2 === 0"],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a - 2",
+        "w2": "a + 2",
+        "w3": "a / 2 + 1"
+      },
+      "questionText": "Mẹ có {a} quả cam, mẹ chia đều vào {b} cái giỏ. Hỏi mỗi giỏ có bao nhiêu quả cam?",
+      "options": ["A. {ans} quả", "B. {w1} quả", "C. {w2} quả", "D. {w3} quả"],
+      "correctIndex": 0,
+      "hints": ["Chia đều vào {b} giỏ nghĩa là ta thực hiện phép chia.", "Lấy tổng số cam {a} chia cho {b}."],
+      "solutionHtml": "Số quả cam mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 1, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Bàn tay em có {a} ngón, em bị thương mất {b} ngón tay. Hỏi em còn lại bao nhiêu ngón tay lành lặn?",
+      "options": ["A. {w1} ngón", "B. {w2} ngón", "C. {ans} ngón", "D. {w3} ngón"],
+      "correctIndex": 2,
+      "hints": ["Bị thương mất đi nghĩa là bớt đi.", "Thực hiện phép tính trừ: {a} trừ {b}."],
+      "solutionHtml": "Số ngón tay còn lành lặn là:<br/>$ {a} - {b} = {ans} $ (ngón).<br/>Đáp án đúng là C.",
+      "tip": "Mất đi hoặc rơi đi đều là các từ chỉ phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trên cành có {a} con chim, thêm {b} con chim bay đến và sau đó có thêm 2 con nữa bay đến. Hỏi trên cành có tất cả bao nhiêu con chim?",
+      "options": ["A. {w1} con", "B. {ans} con", "C. {w2} con", "D. {w3} con"],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán có ba thành phần cộng lại.", "Tính: {a} cộng {b} cộng 2."],
+      "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} + 2 = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi có nhiều nhóm thêm vào, ta cộng lần lượt từng nhóm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a - b - 1",
+        "w1": "a - b",
+        "w2": "a - b + 1",
+        "w3": "a + b"
+      },
+      "questionText": "Trong rổ có {a} quả táo. Bạn An lấy ra {b} quả, sau đó mẹ lại lấy ra thêm 1 quả nữa. Hỏi trong rổ còn lại bao nhiêu quả táo?",
+      "options": ["A. {w1} quả", "B. {w2} quả", "C. {ans} quả", "D. {w3} quả"],
+      "correctIndex": 2,
+      "hints": ["Lấy ra tức là giảm đi số lượng.", "Ta có: {a} trừ {b} rồi lại trừ tiếp 1."],
+      "solutionHtml": "Số táo còn lại trong rổ là:<br/>$ {a} - {b} - 1 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Lấy ra nhiều lần thì lần lượt trừ đi các số đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + a + a",
+        "w1": "a + a",
+        "w2": "a + a + a + 1",
+        "w3": "a * 4"
+      },
+      "questionText": "Một chiếc xe đạp có 2 bánh. Nếu mỗi bánh xe có {a} nan hoa. Hỏi một chiếc xe đạp có tổng cộng bao nhiêu nan hoa?",
+      "options": ["A. {w1} nan", "B. {w2} nan", "C. {ans} nan", "D. {w3} nan"],
+      "correctIndex": 2,
+      "hints": ["Xe đạp có 2 bánh, mỗi bánh có {a} nan hoa.", "Tổng số nan hoa là {a} cộng {a}."],
+      "solutionHtml": "Tổng số nan hoa là:<br/>$ {a} + {a} = {ans} $ (nan).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý số lượng bánh xe của một chiếc xe đạp.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Lớp 1A có {a} học sinh, trong đó có {b} bạn đang đi tập văn nghệ. Hỏi trong lớp còn lại bao nhiêu bạn?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Số bạn đi tập văn nghệ không còn ở trong lớp.", "Phép tính: {a} trừ {b}."],
+      "solutionHtml": "Số bạn còn lại trong lớp là:<br/>$ {a} - {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi một số lượng rời đi, ta làm phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * 4",
+        "w1": "a * 2",
+        "w2": "a + 4",
+        "w3": "a * 3"
+      },
+      "questionText": "Một con chó có 4 chân. Hỏi {a} con chó như thế có tổng cộng bao nhiêu cái chân?",
+      "options": ["A. {w1} cái", "B. {w2} cái", "C. {w3} cái", "D. {ans} cái"],
+      "correctIndex": 3,
+      "hints": ["Mỗi con chó có 4 chân.", "Ta lấy 4 cộng 4 (nếu {a} là 2) hoặc tính {a} nhân 4."],
+      "solutionHtml": "Số chân của {a} con chó là:<br/>$ 4 \\times {a} = {ans} $ (cái chân).<br/>Đáp án đúng là D.",
+      "tip": "Đừng quên số chân của mỗi con vật.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-41-d10"
+    }
+  ]
+}
+}
+

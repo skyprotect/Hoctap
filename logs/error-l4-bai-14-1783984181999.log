@@ -1,0 +1,582 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:09:41.999Z
+Lesson ID: l4-bai-14
+Lesson Title: Bài 14: So sánh các số có nhiều chữ số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9283 (line 275 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9283 (line 275 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9283 (Line: 275, Column: 1)
+Character causing error: "}"
+
+Context:
+... s} $.<br/>Đáp án đúng là B.",
+      "tip": "Cộng thêm 1 vào hàng đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50000, "max": 90000, "step": 1000 },
+        "b": { "min": 40000, "max": 49000, "step": 1000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 10000",
+        "w3": "a - 10000"
+      },
+      "questionText": "Trong một đợt gây quỹ từ thiện, lớp 4A quyên góp được {a} đồng, lớp 4B quyên góp được {b} đồng. Hỏi lớp nào quyên góp được nhiều tiền hơn?",
+      "options": [
+        "A. Lớp 4B",
+        "B. Cả hai lớp quyên góp bằng nhau",
+        "C. Lớp 4A",
+        "D. Không thể xác định được"
+      ],
+      "correctIndex": 2,
+      "hints": ["Để so sánh hai số, ta so sánh từng hàng từ trái sang phải.", "Số nào có hàng chục nghìn lớn hơn thì số đó lớn hơn."],
+      "solutionHtml": "Ta so sánh hai số {a} và {b}:<br/>Cả hai số đều có 5 chữ số.<br/>Hàng chục nghìn của {a} là 5 trở lên, hàng chục nghìn của {b} là 4. Vì {a} > {b} nên lớp 4A quyên góp được nhiều tiền hơn.<br/>Đáp án đúng là C.",
+      "tip": "Khi so sánh hai số có cùng số chữ số, hãy so sánh từ hàng cao nhất trở xuống.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 9, "step": 1 },
+        "y": { "min": 10000, "max": 50000, "step": 1000 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "x * 10000 + y",
+        "w1": "x * 10000 + y + 1000",
+        "w2": "x * 10000 + y - 1000",
+        "w3": "(x + 1) * 10000 + y"
+      },
+      "questionText": "Số gồm {x} chục nghìn và {y} đơn vị được viết là số nào sau đây?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số gồm {x} chục nghìn là {x}0000.", "Cộng giá trị đó với {y} để có kết quả cuối cùng."],
+      "solutionHtml": "Số có {x} chục nghìn là {x}0000.<br/>Cộng thêm {y} đơn vị, ta được: {x}0000 + {y} = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ viết các chữ số vào đúng hàng của nó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 120000, "max": 150000, "step": 100 },
+        "b": { "min": 120000, "max": 150000, "step": 100 }
+      },
+      "constraints": ["a !== b"],
+      "formulas": {
+        "ans": "(a > b) ? a : b",
+        "w1": "(a < b) ? a : b",
+        "w2": "a + 1",
+        "w3": "b - 1"
+      },
+      "questionText": "So sánh hai số sau: $ {a} $ và $ {b} $. Số lớn hơn là:",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["So sánh hàng trăm nghìn, hàng chục nghìn, hàng nghìn..."],
+      "solutionHtml": "So sánh lần lượt các hàng từ trái sang phải:<br/>Cả hai số đều có hàng trăm nghìn là 1.<br/>Ta so sánh tiếp các hàng tiếp theo để tìm ra số lớn hơn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng dấu $ < $ hoặc $ > $ để so sánh các số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 20000, "step": 1000 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 100",
+        "w2": "a / b - 100",
+        "w3": "a / b * 2"
+      },
+      "questionText": "Một nhà máy sản xuất {a} chiếc bánh trong {b} ngày. Nếu mỗi ngày sản xuất số lượng như nhau, hãy chọn số lượng bánh sản xuất trong 1 ngày:",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": ["Lấy tổng số bánh chia cho số ngày."],
+      "solutionHtml": "Số bánh sản xuất trong 1 ngày là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia số lớn, hãy đặt tính cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300000, "max": 400000, "step": 10000 },
+        "b": { "min": 10000, "max": 20000, "step": 1000 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1000",
+        "w3": "a + b - 1000"
+      },
+      "questionText": "Tổng của {a} và {b} là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Thực hiện phép cộng hai số."],
+      "solutionHtml": "Ta có phép tính: $ {a} + {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với các số có nhiều chữ số khi đặt tính.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500000, "max": 600000, "step": 5000 },
+        "b": { "min": 200000, "max": 300000, "step": 5000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1000",
+        "w2": "a - b - 1000",
+        "w3": "a + b"
+      },
+      "questionText": "Hiệu của {a} và {b} là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Thực hiện phép trừ: số bị trừ trừ đi số trừ."],
+      "solutionHtml": "Ta có phép tính: $ {a} - {b} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ mượn đơn vị khi chữ số hàng nhỏ hơn bị trừ cho chữ số lớn hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 1, "max": 4, "step": 1 },
+        "y": { "min": 0, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "x * 100000 + y * 10000 + 500",
+        "w1": "x * 100000 + y * 10000 + 400",
+        "w2": "x * 100000 + (y + 1) * 10000 + 500",
+        "w3": "x * 100000 + y * 10000 + 600"
+      },
+      "questionText": "Số có {x} trăm nghìn, {y} chục nghìn và 5 trăm là:",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Viết các giá trị của từng hàng rồi cộng lại."],
+      "solutionHtml": "Số đó có: {x} trăm nghìn, {y} chục nghìn, 0 nghìn, 5 trăm, 0 chục, 0 đơn vị. Vậy số đó là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên các hàng có giá trị bằng 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200000, "max": 300000, "step": 1000 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 1000",
+        "w2": "a * b - 1000",
+        "w3": "a + b"
+      },
+      "questionText": "Một cửa hàng bán được {a} kg gạo mỗi ngày. Hỏi trong {b} ngày cửa hàng đó bán được bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân số lượng gạo mỗi ngày với số ngày."],
+      "solutionHtml": "Số gạo bán được trong {b} ngày là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Kiểm tra lại phép nhân với số có nhiều chữ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1000, "max": 5000, "step": 100 },
+        "b": { "min": 6000, "max": 9000, "step": 100 },
+        "c": { "min": 10000, "max": 15000, "step": 100 }
+      },
+      "constraints": ["a < b", "b < c"],
+      "formulas": {
+        "ans": "c",
+        "w1": "b",
+        "w2": "a",
+        "w3": "a + b"
+      },
+      "questionText": "Sắp xếp các số sau theo thứ tự từ bé đến lớn: {a}, {c}, {b}. Số lớn nhất trong dãy là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["So sánh giá trị của ba số."],
+      "solutionHtml": "Ta có: {a} < {b} < {c}.<br/>Số lớn nhất là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Dãy số tăng dần thì số cuối cùng là số lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 90000, "step": 1000 }
+      },
+      "constraints": ["a % 1000 === 0"],
+      "formulas": {
+        "ans": "a + 1000",
+        "w1": "a",
+        "w2": "a - 1000",
+        "w3": "a + 2000"
+      },
+      "questionText": "Số liền sau của số {a} là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số liền sau của một số là số đó cộng thêm 1 đơn vị."],
+      "solutionHtml": "Số liền sau của {a} là: $ {a} + 1 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Cộng thêm 1 vào hàng đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50000, "max": 90000, "step": 1000 },
+        "b": { "min": 40000, "max": 49000, "step": 1000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 10000",
+        "w3": "a - 10000"
+      },
+      "questionText": "Trong một đợt gây quỹ từ thiện, lớp 4A quyên góp được {a} đồng, lớp 4B quyên góp được {b} đồng. Hỏi lớp nào quyên góp được nhiều tiền hơn?",
+      "options": [
+        "A. Lớp 4B",
+        "B. Cả hai lớp quyên góp bằng nhau",
+        "C. Lớp 4A",
+        "D. Không thể xác định được"
+      ],
+      "correctIndex": 2,
+      "hints": ["Để so sánh hai số, ta so sánh từng hàng từ trái sang phải.", "Số nào có hàng chục nghìn lớn hơn thì số đó lớn hơn."],
+      "solutionHtml": "Ta so sánh hai số {a} và {b}:<br/>Cả hai số đều có 5 chữ số.<br/>Hàng chục nghìn của {a} là 5 trở lên, hàng chục nghìn của {b} là 4. Vì {a} > {b} nên lớp 4A quyên góp được nhiều tiền hơn.<br/>Đáp án đúng là C.",
+      "tip": "Khi so sánh hai số có cùng số chữ số, hãy so sánh từ hàng cao nhất trở xuống.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 9, "step": 1 },
+        "y": { "min": 10000, "max": 50000, "step": 1000 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "x * 10000 + y",
+        "w1": "x * 10000 + y + 1000",
+        "w2": "x * 10000 + y - 1000",
+        "w3": "(x + 1) * 10000 + y"
+      },
+      "questionText": "Số gồm {x} chục nghìn và {y} đơn vị được viết là số nào sau đây?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số gồm {x} chục nghìn là {x}0000.", "Cộng giá trị đó với {y} để có kết quả cuối cùng."],
+      "solutionHtml": "Số có {x} chục nghìn là {x}0000.<br/>Cộng thêm {y} đơn vị, ta được: {x}0000 + {y} = {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ viết các chữ số vào đúng hàng của nó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 120000, "max": 150000, "step": 100 },
+        "b": { "min": 120000, "max": 150000, "step": 100 }
+      },
+      "constraints": ["a !== b"],
+      "formulas": {
+        "ans": "(a > b) ? a : b",
+        "w1": "(a < b) ? a : b",
+        "w2": "a + 1",
+        "w3": "b - 1"
+      },
+      "questionText": "So sánh hai số sau: $ {a} $ và $ {b} $. Số lớn hơn là:",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["So sánh hàng trăm nghìn, hàng chục nghìn, hàng nghìn..."],
+      "solutionHtml": "So sánh lần lượt các hàng từ trái sang phải:<br/>Cả hai số đều có hàng trăm nghìn là 1.<br/>Ta so sánh tiếp các hàng tiếp theo để tìm ra số lớn hơn là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Sử dụng dấu $ < $ hoặc $ > $ để so sánh các số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 20000, "step": 1000 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 100",
+        "w2": "a / b - 100",
+        "w3": "a / b * 2"
+      },
+      "questionText": "Một nhà máy sản xuất {a} chiếc bánh trong {b} ngày. Nếu mỗi ngày sản xuất số lượng như nhau, hãy chọn số lượng bánh sản xuất trong 1 ngày:",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": ["Lấy tổng số bánh chia cho số ngày."],
+      "solutionHtml": "Số bánh sản xuất trong 1 ngày là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Khi chia số lớn, hãy đặt tính cẩn thận.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300000, "max": 400000, "step": 10000 },
+        "b": { "min": 10000, "max": 20000, "step": 1000 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1000",
+        "w3": "a + b - 1000"
+      },
+      "questionText": "Tổng của {a} và {b} là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Thực hiện phép cộng hai số."],
+      "solutionHtml": "Ta có phép tính: $ {a} + {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với các số có nhiều chữ số khi đặt tính.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500000, "max": 600000, "step": 5000 },
+        "b": { "min": 200000, "max": 300000, "step": 5000 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1000",
+        "w2": "a - b - 1000",
+        "w3": "a + b"
+      },
+      "questionText": "Hiệu của {a} và {b} là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Thực hiện phép trừ: số bị trừ trừ đi số trừ."],
+      "solutionHtml": "Ta có phép tính: $ {a} - {b} = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ mượn đơn vị khi chữ số hàng nhỏ hơn bị trừ cho chữ số lớn hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 1, "max": 4, "step": 1 },
+        "y": { "min": 0, "max": 9, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "x * 100000 + y * 10000 + 500",
+        "w1": "x * 100000 + y * 10000 + 400",
+        "w2": "x * 100000 + (y + 1) * 10000 + 500",
+        "w3": "x * 100000 + y * 10000 + 600"
+      },
+      "questionText": "Số có {x} trăm nghìn, {y} chục nghìn và 5 trăm là:",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Viết các giá trị của từng hàng rồi cộng lại."],
+      "solutionHtml": "Số đó có: {x} trăm nghìn, {y} chục nghìn, 0 nghìn, 5 trăm, 0 chục, 0 đơn vị. Vậy số đó là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên các hàng có giá trị bằng 0.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200000, "max": 300000, "step": 1000 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 1000",
+        "w2": "a * b - 1000",
+        "w3": "a + b"
+      },
+      "questionText": "Một cửa hàng bán được {a} kg gạo mỗi ngày. Hỏi trong {b} ngày cửa hàng đó bán được bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân số lượng gạo mỗi ngày với số ngày."],
+      "solutionHtml": "Số gạo bán được trong {b} ngày là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Kiểm tra lại phép nhân với số có nhiều chữ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1000, "max": 5000, "step": 100 },
+        "b": { "min": 6000, "max": 9000, "step": 100 },
+        "c": { "min": 10000, "max": 15000, "step": 100 }
+      },
+      "constraints": ["a < b", "b < c"],
+      "formulas": {
+        "ans": "c",
+        "w1": "b",
+        "w2": "a",
+        "w3": "a + b"
+      },
+      "questionText": "Sắp xếp các số sau theo thứ tự từ bé đến lớn: {a}, {c}, {b}. Số lớn nhất trong dãy là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": ["So sánh giá trị của ba số."],
+      "solutionHtml": "Ta có: {a} < {b} < {c}.<br/>Số lớn nhất là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Dãy số tăng dần thì số cuối cùng là số lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 90000, "step": 1000 }
+      },
+      "constraints": ["a % 1000 === 0"],
+      "formulas": {
+        "ans": "a + 1000",
+        "w1": "a",
+        "w2": "a - 1000",
+        "w3": "a + 2000"
+      },
+      "questionText": "Số liền sau của số {a} là số nào?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số liền sau của một số là số đó cộng thêm 1 đơn vị."],
+      "solutionHtml": "Số liền sau của {a} là: $ {a} + 1 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Cộng thêm 1 vào hàng đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-14-d10"
+    }
+  ]
+}
+}
+

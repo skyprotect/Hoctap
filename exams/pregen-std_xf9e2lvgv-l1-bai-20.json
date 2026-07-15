@@ -1,0 +1,385 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "(a + b) <= 15"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Trong vườn có {a} bông hoa hồng và {b} bông hoa cúc. Hỏi trong vườn có tất cả bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông hoa",
+        "B. {ans} bông hoa",
+        "C. {w2} bông hoa",
+        "D. {w3} bông hoa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số hoa, ta thực hiện phép cộng số hoa hồng và số hoa cúc.",
+        "Phép tính là ${a} + {b}$."
+      ],
+      "solutionHtml": "Số hoa trong vườn là:<br/>${a} + {b} = {ans}$ (bông hoa).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        },
+        "b": {
+          "min": 2,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Lan có {a} quyển vở, Lan cho bạn {b} quyển. Hỏi Lan còn lại bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển vở",
+        "B. {ans} quyển vở",
+        "C. {w2} quyển vở",
+        "D. {w3} quyển vở"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lan cho đi nghĩa là số vở giảm đi, ta dùng phép trừ.",
+        "Phép tính là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số quyển vở Lan còn lại là:<br/>${a} - {b} = {ans}$ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Khi bị mất đi hoặc cho đi, ta sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "(a * b) <= 20"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Có {a} túi, mỗi túi đựng {b} quả cam. Hỏi có tất cả bao nhiêu quả cam?",
+      "options": [
+        "A. {w1} quả cam",
+        "B. {ans} quả cam",
+        "C. {w2} quả cam",
+        "D. {w3} quả cam"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {a} nhóm, mỗi nhóm có {b} đơn vị, ta dùng phép cộng các số giống nhau hoặc phép nhân.",
+        "Phép tính là ${b} + {b} + ...$ ({a} lần)."
+      ],
+      "solutionHtml": "Số quả cam là:<br/>${b} \\times {a} = {ans}$ (quả cam).<br/>Đáp án đúng là B.",
+      "tip": "Dạng bài 'mỗi túi có bao nhiêu' thường là dạng toán gấp lên một số lần.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 19
+        },
+        "b": {
+          "min": 1,
+          "max": 9
+        }
+      },
+      "constraints": [
+        "a > b",
+        "(a - b) <= 10"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "An có {a} viên bi, Bình có ít hơn An {b} viên bi. Hỏi Bình có bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bình ít hơn An nên ta lấy số bi của An trừ đi phần chênh lệch.",
+        "Phép tính là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số viên bi của Bình là:<br/>${a} - {b} = {ans}$ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Thấy cụm từ 'ít hơn' thì làm phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "(a + b) <= 20"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Hùng có {a} nhãn vở, mẹ cho Hùng thêm {b} nhãn vở nữa. Hỏi Hùng có tất cả bao nhiêu nhãn vở?",
+      "options": [
+        "A. {w1} nhãn vở",
+        "B. {ans} nhãn vở",
+        "C. {w2} nhãn vở",
+        "D. {w3} nhãn vở"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thêm nghĩa là số lượng tăng lên, ta dùng phép cộng.",
+        "Phép tính là ${a} + {b}$."
+      ],
+      "solutionHtml": "Số nhãn vở Hùng có là:<br/>${a} + {b} = {ans}$ (nhãn vở).<br/>Đáp án đúng là B.",
+      "tip": "Thấy cụm từ 'thêm' thì làm phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        },
+        "b": {
+          "min": 1,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "(a - b) >= 0"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Trên cành có {a} con chim, có {b} con chim bay đi. Hỏi trên cành còn lại bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con chim",
+        "B. {ans} con chim",
+        "C. {w2} con chim",
+        "D. {w3} con chim"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chim bay đi nghĩa là số chim giảm đi, ta làm phép trừ.",
+        "Phép tính là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số con chim còn lại là:<br/>${a} - {b} = {ans}$ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Dạng bài 'bay đi', 'rời đi' là làm phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9
+        },
+        "b": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "(a + b) <= 15"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Lớp 1A có {a} bạn nam và {b} bạn nữ. Hỏi lớp 1A có tất cả bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết tổng số bạn, ta cộng số bạn nam và số bạn nữ lại với nhau.",
+        "Phép tính là ${a} + {b}$."
+      ],
+      "solutionHtml": "Số bạn của lớp 1A là:<br/>${a} + {b} = {ans}$ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Tính tổng số người thì dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "(a - b) >= 0"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Mẹ có {a} quả táo, mẹ lấy ra {b} quả để gọt. Hỏi mẹ còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mẹ lấy ra nghĩa là số táo giảm đi, ta dùng phép trừ.",
+        "Phép tính là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số táo mẹ còn lại là:<br/>${a} - {b} = {ans}$ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Lấy ra dùng là bớt đi, làm phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 12
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "(a - b) > 0"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Trong rổ có {a} quả trứng, bị vỡ mất {b} quả. Hỏi trong rổ còn lại bao nhiêu quả trứng nguyên vẹn?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Vỡ mất nghĩa là giảm đi, ta dùng phép trừ.",
+        "Phép tính là ${a} - {b}$."
+      ],
+      "solutionHtml": "Số quả trứng còn lại là:<br/>${a} - {b} = {ans}$ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Bị vỡ, hỏng, mất đi đều là làm phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8
+        },
+        "b": {
+          "min": 3,
+          "max": 7
+        }
+      },
+      "constraints": [
+        "(a + b) <= 15"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Buổi sáng Nam đọc được {a} trang sách, buổi chiều Nam đọc thêm {b} trang sách nữa. Hỏi cả ngày Nam đọc được bao nhiêu trang sách?",
+      "options": [
+        "A. {w1} trang",
+        "B. {ans} trang",
+        "C. {w2} trang",
+        "D. {w3} trang"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết cả ngày đọc bao nhiêu trang, ta cộng số trang buổi sáng và buổi chiều lại.",
+        "Phép tính là ${a} + {b}$."
+      ],
+      "solutionHtml": "Số trang sách Nam đọc được cả ngày là:<br/>${a} + {b} = {ans}$ (trang).<br/>Đáp án đúng là B.",
+      "tip": "Tìm tổng của hai khoảng thời gian thì dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-20-q10"
+    }
+  ]
+}

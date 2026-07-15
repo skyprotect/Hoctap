@@ -1,0 +1,594 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:48:26.386Z
+Lesson ID: eng4-t7
+Lesson Title: Unit 7: Our timetable
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10065 (line 281 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10065 (line 281 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10065 (Line: 281, Column: 1)
+Character causing error: "}"
+
+Context:
+... r/>Đáp án đúng là B.",
+      "tip": "Tổng số tiết là tổng của các buổi học.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 2, "max": 5, "step": 1 },
+        "m": { "min": 10, "max": 45, "step": 5 }
+      },
+      "constraints": ["h * 60 + m >= 120", "h * 60 + m <= 300"],
+      "formulas": {
+        "total": "h * 60 + m",
+        "ans": "total",
+        "w1": "total + 10",
+        "w2": "total - 5",
+        "w3": "total + 20"
+      },
+      "questionText": "Một tiết học kéo dài {h} giờ {m} phút. Hỏi tiết học đó kéo dài bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi 1 giờ bằng 60 phút.", "Nhân số giờ với 60 rồi cộng thêm số phút."],
+      "solutionHtml": "Ta có 1 giờ = 60 phút.<br/>Số phút tiết học kéo dài là:<br/>$ {h} \\times 60 + {m} = {total} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Hãy luôn đổi về cùng một đơn vị đo thời gian trước khi thực hiện phép tính.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 7, "max": 9, "step": 1 },
+        "dur": { "min": 45, "max": 90, "step": 5 }
+      },
+      "constraints": ["(start * 60 + dur) % 60 === 0 || (start * 60 + dur) % 60 === 30"],
+      "formulas": {
+        "total": "start * 60 + dur",
+        "endH": "Math.floor(total / 60)",
+        "endM": "total % 60",
+        "ans": "endH * 100 + endM",
+        "w1": "(endH + 1) * 100 + endM",
+        "w2": "endH * 100 + (endM + 15)",
+        "w3": "(endH - 1) * 100 + endM"
+      },
+      "questionText": "Tiết học bắt đầu lúc {start} giờ sáng và kéo dài {dur} phút. Hỏi tiết học kết thúc lúc mấy giờ?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi thời gian kéo dài thành giờ và phút.", "Cộng thêm vào thời điểm bắt đầu."],
+      "solutionHtml": "{dur} phút bằng {Math.floor(dur/60)} giờ {dur % 60} phút.<br/>Thời điểm kết thúc: {start} giờ + {Math.floor(dur/60)} giờ {dur % 60} phút = {endH} giờ {endM} phút.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng thời gian, hãy lưu ý tổng số phút vượt quá 60 thì chuyển thành giờ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 6, "step": 1 },
+        "t": { "min": 20, "max": 40, "step": 5 }
+      },
+      "constraints": ["(n * t) % 60 === 0"],
+      "formulas": {
+        "total": "n * t",
+        "ans": "total / 60",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans * 2"
+      },
+      "questionText": "Bạn An có {n} môn học mỗi ngày, mỗi môn kéo dài {t} phút. Tổng thời gian An học các môn đó là bao nhiêu giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số phút học trong ngày.", "Chia tổng số phút cho 60 để đổi ra giờ."],
+      "solutionHtml": "Tổng số phút học trong ngày là: $ {n} \\times {t} = {total} $ (phút).<br/>Đổi ra giờ: $ {total} : 60 = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức: 60 phút = 1 giờ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a * b"
+      },
+      "questionText": "Trong thời khóa biểu tuần này, Lan có {a} tiết Toán và {b} tiết Tiếng Việt. Hỏi tổng cộng Lan có bao nhiêu tiết của hai môn này?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy số tiết Toán cộng với số tiết Tiếng Việt."],
+      "solutionHtml": "Tổng số tiết hai môn là:<br/>$ {a} + {b} = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đúng số lượng các môn học cần cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 2, "max": 5, "step": 1 },
+        "m": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["d * m % 2 === 0"],
+      "formulas": {
+        "ans": "d * m / 2",
+        "w1": "d * m",
+        "w2": "d + m",
+        "w3": "d * m + 1"
+      },
+      "questionText": "Một tuần học có {d} ngày, mỗi ngày có {m} tiết học. Nếu một nửa số tiết học là các môn tự nhiên, hỏi có bao nhiêu tiết môn tự nhiên?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số tiết trong {d} ngày.", "Chia đôi tổng số tiết đó."],
+      "solutionHtml": "Tổng số tiết học là: $ {d} \\times {m} = {d*m} $ (tiết).<br/>Số tiết môn tự nhiên là: $ {d*m} : 2 = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Lưu ý cụm từ 'một nửa' có nghĩa là chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 1, "max": 3, "step": 1 },
+        "m": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "total": "h * 60 + m",
+        "ans": "total * 5",
+        "w1": "total * 4",
+        "w2": "total * 6",
+        "w3": "total + 5"
+      },
+      "questionText": "Bạn Nam dành {h} giờ {m} phút để ôn tập theo thời khóa biểu mỗi ngày. Hỏi trong 5 ngày, Nam dành bao nhiêu phút để ôn tập?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi {h} giờ {m} phút thành số phút.", "Nhân kết quả với 5."],
+      "solutionHtml": "Đổi: $ {h} \\text{ giờ } {m} \\text{ phút } = {total} \\text{ phút} $.<br/>Tổng thời gian trong 5 ngày là: $ {total} \\times 5 = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đổi đơn vị trước khi tính toán sẽ giúp tránh sai sót.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 8, "step": 1 },
+        "a": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["n % a === 0"],
+      "formulas": {
+        "ans": "n / a",
+        "w1": "n + a",
+        "w2": "n * a",
+        "w3": "n - a"
+      },
+      "questionText": "Trong thời khóa biểu có {n} tiết thể dục được chia đều vào {a} ngày. Hỏi mỗi ngày có bao nhiêu tiết thể dục?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều nghĩa là thực hiện phép tính chia."],
+      "solutionHtml": "Số tiết thể dục mỗi ngày là:<br/>$ {n} : {a} = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy 'chia đều' hoặc 'chia vào các nhóm', ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Thời gian làm bài kiểm tra Toán là {a} phút, thời gian làm bài Tiếng Việt là {b} phút. Hỏi thời gian làm bài Toán lâu hơn thời gian làm bài Tiếng Việt bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn biết hơn bao nhiêu, ta thực hiện phép tính trừ."],
+      "solutionHtml": "Thời gian làm bài Toán lâu hơn bài Tiếng Việt là:<br/>$ {a} - {b} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'hơn bao nhiêu' là dấu hiệu của phép trừ so sánh.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 },
+        "t": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "n * t",
+        "w1": "n * t + 5",
+        "w2": "n * t - 5",
+        "w3": "n + t"
+      },
+      "questionText": "Mỗi tuần bạn Hoa có {n} buổi học thêm, mỗi buổi kéo dài {t} phút. Hỏi mỗi tuần Hoa học thêm bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân số buổi với số phút mỗi buổi."],
+      "solutionHtml": "Số phút học thêm trong một tuần là:<br/>$ {n} \\times {t} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Gấp n lần lên là nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 1",
+        "w3": "a - b"
+      },
+      "questionText": "Sáng nay lớp 4A có {a} tiết học, chiều nay có {b} tiết học nữa. Hỏi cả ngày lớp 4A có bao nhiêu tiết học?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng số tiết buổi sáng và buổi chiều."],
+      "solutionHtml": "Tổng số tiết học trong cả ngày là:<br/>$ {a} + {b} = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Tổng số tiết là tổng của các buổi học.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 2, "max": 5, "step": 1 },
+        "m": { "min": 10, "max": 45, "step": 5 }
+      },
+      "constraints": ["h * 60 + m >= 120", "h * 60 + m <= 300"],
+      "formulas": {
+        "total": "h * 60 + m",
+        "ans": "total",
+        "w1": "total + 10",
+        "w2": "total - 5",
+        "w3": "total + 20"
+      },
+      "questionText": "Một tiết học kéo dài {h} giờ {m} phút. Hỏi tiết học đó kéo dài bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi 1 giờ bằng 60 phút.", "Nhân số giờ với 60 rồi cộng thêm số phút."],
+      "solutionHtml": "Ta có 1 giờ = 60 phút.<br/>Số phút tiết học kéo dài là:<br/>$ {h} \\times 60 + {m} = {total} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Hãy luôn đổi về cùng một đơn vị đo thời gian trước khi thực hiện phép tính.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": { "min": 7, "max": 9, "step": 1 },
+        "dur": { "min": 45, "max": 90, "step": 5 }
+      },
+      "constraints": ["(start * 60 + dur) % 60 === 0 || (start * 60 + dur) % 60 === 30"],
+      "formulas": {
+        "total": "start * 60 + dur",
+        "endH": "Math.floor(total / 60)",
+        "endM": "total % 60",
+        "ans": "endH * 100 + endM",
+        "w1": "(endH + 1) * 100 + endM",
+        "w2": "endH * 100 + (endM + 15)",
+        "w3": "(endH - 1) * 100 + endM"
+      },
+      "questionText": "Tiết học bắt đầu lúc {start} giờ sáng và kéo dài {dur} phút. Hỏi tiết học kết thúc lúc mấy giờ?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi thời gian kéo dài thành giờ và phút.", "Cộng thêm vào thời điểm bắt đầu."],
+      "solutionHtml": "{dur} phút bằng {Math.floor(dur/60)} giờ {dur % 60} phút.<br/>Thời điểm kết thúc: {start} giờ + {Math.floor(dur/60)} giờ {dur % 60} phút = {endH} giờ {endM} phút.<br/>Đáp án đúng là B.",
+      "tip": "Khi cộng thời gian, hãy lưu ý tổng số phút vượt quá 60 thì chuyển thành giờ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 6, "step": 1 },
+        "t": { "min": 20, "max": 40, "step": 5 }
+      },
+      "constraints": ["(n * t) % 60 === 0"],
+      "formulas": {
+        "total": "n * t",
+        "ans": "total / 60",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans * 2"
+      },
+      "questionText": "Bạn An có {n} môn học mỗi ngày, mỗi môn kéo dài {t} phút. Tổng thời gian An học các môn đó là bao nhiêu giờ?",
+      "options": [
+        "A. {w1} giờ",
+        "B. {ans} giờ",
+        "C. {w2} giờ",
+        "D. {w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số phút học trong ngày.", "Chia tổng số phút cho 60 để đổi ra giờ."],
+      "solutionHtml": "Tổng số phút học trong ngày là: $ {n} \\times {t} = {total} $ (phút).<br/>Đổi ra giờ: $ {total} : 60 = {ans} $ (giờ).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức: 60 phút = 1 giờ.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a * b"
+      },
+      "questionText": "Trong thời khóa biểu tuần này, Lan có {a} tiết Toán và {b} tiết Tiếng Việt. Hỏi tổng cộng Lan có bao nhiêu tiết của hai môn này?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lấy số tiết Toán cộng với số tiết Tiếng Việt."],
+      "solutionHtml": "Tổng số tiết hai môn là:<br/>$ {a} + {b} = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định đúng số lượng các môn học cần cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 2, "max": 5, "step": 1 },
+        "m": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["d * m % 2 === 0"],
+      "formulas": {
+        "ans": "d * m / 2",
+        "w1": "d * m",
+        "w2": "d + m",
+        "w3": "d * m + 1"
+      },
+      "questionText": "Một tuần học có {d} ngày, mỗi ngày có {m} tiết học. Nếu một nửa số tiết học là các môn tự nhiên, hỏi có bao nhiêu tiết môn tự nhiên?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số tiết trong {d} ngày.", "Chia đôi tổng số tiết đó."],
+      "solutionHtml": "Tổng số tiết học là: $ {d} \\times {m} = {d*m} $ (tiết).<br/>Số tiết môn tự nhiên là: $ {d*m} : 2 = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Lưu ý cụm từ 'một nửa' có nghĩa là chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 1, "max": 3, "step": 1 },
+        "m": { "min": 10, "max": 30, "step": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "total": "h * 60 + m",
+        "ans": "total * 5",
+        "w1": "total * 4",
+        "w2": "total * 6",
+        "w3": "total + 5"
+      },
+      "questionText": "Bạn Nam dành {h} giờ {m} phút để ôn tập theo thời khóa biểu mỗi ngày. Hỏi trong 5 ngày, Nam dành bao nhiêu phút để ôn tập?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đổi {h} giờ {m} phút thành số phút.", "Nhân kết quả với 5."],
+      "solutionHtml": "Đổi: $ {h} \\text{ giờ } {m} \\text{ phút } = {total} \\text{ phút} $.<br/>Tổng thời gian trong 5 ngày là: $ {total} \\times 5 = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Đổi đơn vị trước khi tính toán sẽ giúp tránh sai sót.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 4, "max": 8, "step": 1 },
+        "a": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["n % a === 0"],
+      "formulas": {
+        "ans": "n / a",
+        "w1": "n + a",
+        "w2": "n * a",
+        "w3": "n - a"
+      },
+      "questionText": "Trong thời khóa biểu có {n} tiết thể dục được chia đều vào {a} ngày. Hỏi mỗi ngày có bao nhiêu tiết thể dục?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều nghĩa là thực hiện phép tính chia."],
+      "solutionHtml": "Số tiết thể dục mỗi ngày là:<br/>$ {n} : {a} = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy 'chia đều' hoặc 'chia vào các nhóm', ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 5 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Thời gian làm bài kiểm tra Toán là {a} phút, thời gian làm bài Tiếng Việt là {b} phút. Hỏi thời gian làm bài Toán lâu hơn thời gian làm bài Tiếng Việt bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn biết hơn bao nhiêu, ta thực hiện phép tính trừ."],
+      "solutionHtml": "Thời gian làm bài Toán lâu hơn bài Tiếng Việt là:<br/>$ {a} - {b} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'hơn bao nhiêu' là dấu hiệu của phép trừ so sánh.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 },
+        "t": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "n * t",
+        "w1": "n * t + 5",
+        "w2": "n * t - 5",
+        "w3": "n + t"
+      },
+      "questionText": "Mỗi tuần bạn Hoa có {n} buổi học thêm, mỗi buổi kéo dài {t} phút. Hỏi mỗi tuần Hoa học thêm bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": ["Nhân số buổi với số phút mỗi buổi."],
+      "solutionHtml": "Số phút học thêm trong một tuần là:<br/>$ {n} \\times {t} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Gấp n lần lên là nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 1",
+        "w3": "a - b"
+      },
+      "questionText": "Sáng nay lớp 4A có {a} tiết học, chiều nay có {b} tiết học nữa. Hỏi cả ngày lớp 4A có bao nhiêu tiết học?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {ans} tiết",
+        "C. {w2} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 1,
+      "hints": ["Cộng số tiết buổi sáng và buổi chiều."],
+      "solutionHtml": "Tổng số tiết học trong cả ngày là:<br/>$ {a} + {b} = {ans} $ (tiết).<br/>Đáp án đúng là B.",
+      "tip": "Tổng số tiết là tổng của các buổi học.",
+      "level": "chat-luong-cao",
+      "type": "eng4-t7-d4"
+    }
+  ]
+}
+}
+

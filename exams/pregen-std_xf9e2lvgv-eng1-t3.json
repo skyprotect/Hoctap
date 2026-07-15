@@ -1,0 +1,404 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a / b + 1 === a / b) ? a / b + 2 : a / b + 1",
+        "w2": "(a / b + 2 === a / b) ? a / b + 4 : a / b + 2",
+        "w3": "(a / b - 1 === a / b) ? a / b - 2 : a / b - 1"
+      },
+      "questionText": "Tại chợ, mẹ mua {a} quả táo và chia đều vào {b} túi. Hỏi mỗi túi có bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số quả trong mỗi túi, em lấy tổng số quả chia cho số túi.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Mỗi túi có số quả táo là:<br/>${a} : {b} = {ans}$ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia đều, ta luôn sử dụng phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a - b"
+      },
+      "questionText": "Bạn An có {a} viên kẹo, bạn Bình có {b} viên kẹo. Cả hai bạn cùng đến chợ mua thêm kẹo. Hỏi cả hai bạn có tất cả bao nhiêu viên kẹo?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết cả hai có bao nhiêu kẹo, ta lấy số kẹo của An cộng với số kẹo của Bình.",
+        "Thực hiện phép tính: ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Cả hai bạn có số viên kẹo là:<br/>${a} + {b} = {ans}$ (viên kẹo).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'tất cả' thường gợi ý chúng ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Bác bán hàng có {a} chiếc bánh. Bác đã bán đi {b} chiếc. Hỏi bác còn lại bao nhiêu chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {w3} chiếc",
+        "D. {ans} chiếc"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Bán đi nghĩa là bớt đi, ta dùng phép trừ.",
+        "Thực hiện phép tính: ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Số bánh bác còn lại là:<br/>${a} - {b} = {ans}$ (chiếc bánh).<br/>Đáp án đúng là D.",
+      "tip": "Từ khóa 'bán đi' hoặc 'còn lại' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Mỗi giỏ đựng {a} quả cam. Cô Lan mua {b} giỏ cam như thế. Hỏi cô Lan mua bao nhiêu quả cam?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi giỏ có {a} quả, có {b} giỏ, ta lấy {a} nhân với {b}.",
+        "Thực hiện phép tính: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Số quả cam cô Lan mua là:<br/>${a} \\times {b} = {ans}$ (quả cam).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'mỗi' và hỏi tổng số cho nhiều nhóm, hãy nghĩ đến phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a",
+        "w2": "a / b + 3",
+        "w3": "a / b - 2"
+      },
+      "questionText": "Tại chợ, một chùm nho có {a} quả. Bố chia đều chùm nho cho 2 anh em. Hỏi mỗi người được bao nhiêu quả?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều cho 2 người nghĩa là lấy tổng số quả chia cho 2.",
+        "Thực hiện phép tính: ${a} : 2 = {ans}$."
+      ],
+      "solutionHtml": "Số quả nho mỗi người nhận được là:<br/>${a} : 2 = {ans}$ (quả nho).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a - b"
+      },
+      "questionText": "Buổi sáng, mẹ mua {a} bông hoa. Buổi chiều, mẹ mua thêm {b} bông hoa nữa. Hỏi mẹ đã mua tất cả bao nhiêu bông hoa?",
+      "options": [
+        "A. {w3} bông",
+        "B. {w2} bông",
+        "C. {ans} bông",
+        "D. {w1} bông"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mua thêm nghĩa là số lượng tăng lên, ta dùng phép cộng.",
+        "Thực hiện phép tính: ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Mẹ đã mua tất cả số bông hoa là:<br/>${a} + {b} = {ans}$ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'thêm' cho biết ta cần thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / b + 2",
+        "w2": "a / b - 1",
+        "w3": "a"
+      },
+      "questionText": "Có {a} chiếc bánh trung thu được xếp đều vào {b} hộp. Hỏi mỗi hộp có bao nhiêu chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Xếp đều là chia đều vào các nhóm.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Mỗi hộp có số bánh là:<br/>${a} : {b} = {ans}$ (chiếc bánh).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều là từ khóa của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "b"
+      },
+      "questionText": "Túi của An có {a} viên bi, Túi của Bình có {b} viên bi. Hỏi An có nhiều hơn Bình bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết hơn bao nhiêu, ta lấy số lớn trừ số bé.",
+        "Thực hiện phép tính: ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "An có nhiều hơn Bình số viên bi là:<br/>${a} - {b} = {ans}$ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Câu hỏi 'nhiều hơn bao nhiêu' là bài toán về hiệu số.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * 2"
+      },
+      "questionText": "Có {a} hàng rau, mỗi hàng có {b} cây rau. Hỏi có tất cả bao nhiêu cây rau?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi hàng có {b} cây, có {a} hàng như thế, ta lấy {b} nhân với {a}.",
+        "Thực hiện phép tính: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số cây rau là:<br/>${a} \\times {b} = {ans}$ (cây rau).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong mỗi nhóm, ta dùng phép nhân để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 14,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a / b + 1",
+        "w3": "a + b"
+      },
+      "questionText": "Mẹ có {a} chiếc bánh, mẹ chia đều cho {b} anh em. Mỗi người nhận được bao nhiêu chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều là phép chia.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số bánh mỗi người nhận được là:<br/>${a} : {b} = {ans}$ (chiếc bánh).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều tức là chia cho số người.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t3-d4"
+    }
+  ]
+}

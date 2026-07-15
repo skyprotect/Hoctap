@@ -1,0 +1,440 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 40,
+          "step": 10
+        },
+        "b": {
+          "min": 10,
+          "max": 30,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "a + b <= 99"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 10",
+        "w2_goc": "a + b - 10",
+        "w3_goc": "a - b + 20",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 5 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 2 : w3_goc"
+      },
+      "questionText": "Trong vườn nhà An có {a} cây táo và {b} cây cam. Hỏi trong vườn nhà An có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết tổng số cây, ta lấy số cây táo cộng với số cây cam.",
+        "Ta thực hiện phép tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số cây trong vườn nhà An là:<br/>${a} + {b} = {ans}$ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi muốn tìm tổng số lượng, ta dùng phép cộng hai số.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 35,
+          "max": 65,
+          "step": 1
+        },
+        "b": {
+          "min": 12,
+          "max": 24,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 10"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 1",
+        "w2_goc": "a + b - 1",
+        "w3_goc": "a + b + 2",
+        "w1": "(w1_goc === ans) ? ans + 3 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Lan hái được {a} bông hoa, mẹ tặng Lan thêm {b} bông hoa nữa. Hỏi bây giờ Lan có tất cả bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông hoa",
+        "B. {w2} bông hoa",
+        "C. {ans} bông hoa",
+        "D. {w3} bông hoa"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lan có thêm hoa, nghĩa là số hoa tăng lên.",
+        "Ta thực hiện phép tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số bông hoa Lan có là:<br/>${a} + {b} = {ans}$ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Khi nhận thêm vật phẩm, ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 22,
+          "max": 44,
+          "step": 1
+        },
+        "b": {
+          "min": 25,
+          "max": 50,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 10",
+        "w2_goc": "a + b - 11",
+        "w3_goc": "a + b + 12",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Thùng thứ nhất đựng {a} lít dầu, thùng thứ hai đựng {b} lít dầu. Hỏi cả hai thùng đựng tất cả bao nhiêu lít dầu?",
+      "options": [
+        "A. {ans} lít dầu",
+        "B. {w1} lít dầu",
+        "C. {w2} lít dầu",
+        "D. {w3} lít dầu"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Cả hai thùng nghĩa là tổng số dầu của thùng thứ nhất và thùng thứ hai.",
+        "Thực hiện phép tính ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số lít dầu cả hai thùng có là:<br/>${a} + {b} = {ans}$ (lít dầu).<br/>Đáp án đúng là A.",
+      "tip": "Cụm từ 'cả hai' gợi ý chúng ta làm phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 31,
+          "max": 40,
+          "step": 1
+        },
+        "b": {
+          "min": 21,
+          "max": 30,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b - 2",
+        "w2_goc": "a + b + 2",
+        "w3_goc": "a + b - 5",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Lớp 1A có {a} học sinh nam và {b} học sinh nữ. Hỏi lớp 1A có tất cả bao nhiêu học sinh?",
+      "options": [
+        "A. {w1} học sinh",
+        "B. {w2} học sinh",
+        "C. {ans} học sinh",
+        "D. {w3} học sinh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số học sinh nam và số học sinh nữ lại với nhau.",
+        "Phép tính là ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số học sinh của lớp 1A là:<br/>${a} + {b} = {ans}$ (học sinh).<br/>Đáp án đúng là C.",
+      "tip": "Tổng số lượng một nhóm bao gồm cả hai bộ phận thành phần.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 23,
+          "max": 33,
+          "step": 1
+        },
+        "b": {
+          "min": 14,
+          "max": 24,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 10",
+        "w2_goc": "a + b - 10",
+        "w3_goc": "a + b + 1",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Quãng đường từ nhà đến trường dài {a} mét. Từ trường đến công viên dài hơn {b} mét. Hỏi quãng đường từ nhà đến công viên (đi qua trường) dài bao nhiêu mét?",
+      "options": [
+        "A. {w1} mét",
+        "B. {w2} mét",
+        "C. {w3} mét",
+        "D. {ans} mét"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cộng độ dài hai đoạn đường lại với nhau.",
+        "Phép tính là ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Độ dài quãng đường từ nhà đến công viên là:<br/>${a} + {b} = {ans}$ (mét).<br/>Đáp án đúng là D.",
+      "tip": "Với bài toán đo lường, ta cũng thực hiện phép cộng các đơn vị giống nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "b": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 2",
+        "w2_goc": "a + b - 2",
+        "w3_goc": "a + b + 5",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Một cửa hàng buổi sáng bán được {a} quyển vở, buổi chiều bán được {b} quyển vở. Hỏi cả ngày cửa hàng đó bán được bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển vở",
+        "B. {ans} quyển vở",
+        "C. {w2} quyển vở",
+        "D. {w3} quyển vở"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng vở bán được trong hai buổi.",
+        "Thực hiện phép cộng ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số quyển vở cả ngày cửa hàng bán là:<br/>${a} + {b} = {ans}$ (quyển vở).<br/>Đáp án đúng là B.",
+      "tip": "Cộng hai số có hai chữ số, ta cộng hàng đơn vị với hàng đơn vị, hàng chục với hàng chục.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 30,
+          "step": 10
+        },
+        "b": {
+          "min": 20,
+          "max": 30,
+          "step": 10
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 10",
+        "w2_goc": "a + b - 10",
+        "w3_goc": "a + b + 20",
+        "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 25 : w3_goc"
+      },
+      "questionText": "Bạn Hùng có {a} viên bi, bạn Nam cho Hùng thêm {b} viên bi. Hỏi Hùng có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {w2} viên bi",
+        "C. {ans} viên bi",
+        "D. {w3} viên bi"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bạn Nam cho thêm nghĩa là Hùng có thêm bi.",
+        "Thực hiện ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số viên bi Hùng có là:<br/>${a} + {b} = {ans}$ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Các số tròn chục cộng với nhau rất dễ, hãy cộng số hàng chục và giữ nguyên số 0 ở hàng đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 41,
+          "max": 50,
+          "step": 1
+        },
+        "b": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 3",
+        "w2_goc": "a + b - 3",
+        "w3_goc": "a + b + 7",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Trên cành cây có {a} con chim đang đậu, sau đó có thêm {b} con chim bay đến. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {ans} con chim",
+        "B. {w1} con chim",
+        "C. {w2} con chim",
+        "D. {w3} con chim"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thêm số chim bay đến vào số chim đang đậu.",
+        "Ta thực hiện ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số chim trên cành là:<br/>${a} + {b} = {ans}$ (con chim).<br/>Đáp án đúng là A.",
+      "tip": "Luôn kiểm tra đơn vị sau khi tính toán nhé.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 32,
+          "max": 42,
+          "step": 1
+        },
+        "b": {
+          "min": 21,
+          "max": 31,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 5",
+        "w2_goc": "a + b - 5",
+        "w3_goc": "a + b + 8",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Trong hộp có {a} viên bi đỏ và {b} viên bi xanh. Hỏi trong hộp có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên bi",
+        "B. {w2} viên bi",
+        "C. {w3} viên bi",
+        "D. {ans} viên bi"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tổng số bi đỏ và bi xanh.",
+        "Phép tính là ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số viên bi trong hộp là:<br/>${a} + {b} = {ans}$ (viên bi).<br/>Đáp án đúng là D.",
+      "tip": "Cộng hai số có hai chữ số là bài học rất thú vị, hãy luyện tập thường xuyên.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 25,
+          "max": 35,
+          "step": 1
+        },
+        "b": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) + (b % 10) < 10",
+        "(Math.floor(a / 10)) + (Math.floor(b / 10)) < 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 4",
+        "w2_goc": "a + b - 4",
+        "w3_goc": "a + b + 6",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Mẹ mua {a} quả táo, bố mua thêm {b} quả táo nữa. Hỏi cả bố và mẹ mua tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số táo của bố và mẹ.",
+        "Phép tính là ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số quả táo bố và mẹ mua là:<br/>${a} + {b} = {ans}$ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Khi làm toán đố, hãy xác định các dữ kiện rồi chọn phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-30-d10"
+    }
+  ]
+}

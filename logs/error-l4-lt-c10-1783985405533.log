@@ -1,0 +1,585 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:30:05.533Z
+Lesson ID: l4-lt-c10
+Lesson Title: Luyện tập chung (Chương 10)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10497 (line 277 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10497 (line 277 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10497 (Line: 277, Column: 1)
+Character causing error: "}"
+
+Context:
+... "tip": "Nhân một số với 10 chỉ cần thêm một chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 20, "max": 40, "step": 5 }
+      },
+      "constraints": ["a % b === 0", "a > b * 5"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo. Người ta chuyển toàn bộ số gạo đó vào các bao, mỗi bao chứa {b} kg. Hỏi cần dùng tất cả bao nhiêu bao gạo để chứa hết số gạo đó?",
+      "options": [
+        "{w1} bao",
+        "{ans} bao",
+        "{w2} bao",
+        "{w3} bao"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số bao gạo, ta lấy tổng số gạo chia cho số gạo trong mỗi bao.", "Phép tính cần thực hiện là {a} chia cho {b}."],
+      "solutionHtml": "Số bao gạo cần dùng là:<br/>$ {a} : {b} = {ans} $ (bao).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia các số tròn chục, hãy loại bỏ chữ số 0 ở tận cùng của cả số bị chia và số chia để tính toán nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": { "min": 40, "max": 60, "step": 1 },
+        "v2": { "min": 20, "max": 30, "step": 1 }
+      },
+      "constraints": ["v1 > v2", "(v1 + v2) % 2 === 0"],
+      "formulas": {
+        "ans": "(v1 + v2) / 2",
+        "sum": "v1 + v2",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Hai đội công nhân sửa được tổng cộng {sum} mét đường. Biết đội thứ nhất sửa được {v1} mét đường và sửa nhiều hơn đội thứ hai. Hỏi đội thứ hai sửa được bao nhiêu mét đường?",
+      "options": [
+        "{w1} mét",
+        "{w2} mét",
+        "{ans} mét",
+        "{w3} mét"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số mét đường đội thứ hai sửa được, ta lấy tổng số mét đường trừ đi số mét đường đội thứ nhất đã sửa.", "Phép tính: {sum} - {v1} = ?"],
+      "solutionHtml": "Số mét đường đội thứ hai sửa được là:<br/>$ {sum} - {v1} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Trong bài toán tổng - hiệu hoặc bài toán tìm số hạng chưa biết, hãy xác định rõ tổng và các thành phần đã cho.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 20, "step": 1 },
+        "m": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["(n * m) % 4 === 0"],
+      "formulas": {
+        "total": "n * m",
+        "ans": "(n * m) / 4",
+        "w1": "ans + 2",
+        "w2": "ans - 3",
+        "w3": "ans + 5"
+      },
+      "questionText": "Một cửa hàng có {n} thùng dầu, mỗi thùng chứa {m} lít dầu. Người ta chia đều số dầu đó vào {4} can. Hỏi mỗi can chứa bao nhiêu lít dầu?",
+      "options": [
+        "{w1} lít",
+        "{ans} lít",
+        "{w2} lít",
+        "{w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bước 1: Tính tổng số lít dầu cửa hàng có.<br/>Bước 2: Chia tổng số dầu đó cho 4."],
+      "solutionHtml": "Tổng số lít dầu cửa hàng có là:<br/>$ {n} \\times {m} = {total} $ (lít).<br/>Số lít dầu trong mỗi can là:<br/>$ {total} : 4 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán hai bước tính, hãy tính tổng trước khi chia đều.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": ["(a * b) % 5 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một thư viện có {a} ngăn sách, mỗi ngăn xếp {b} quyển sách. Hỏi thư viện đó có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "{w1} quyển",
+        "{w2} quyển",
+        "{ans} quyển",
+        "{w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tính tổng số sách, ta lấy số ngăn nhân với số sách trong mỗi ngăn."],
+      "solutionHtml": "Tổng số quyển sách thư viện có là:<br/>$ {a} \\times {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân là phép cộng các số hạng bằng nhau. Ở đây là {a} lần {b}.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 200, "step": 5 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x % y === 0"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans + 5"
+      },
+      "questionText": "Có {x} chiếc bánh được xếp vào các hộp, mỗi hộp có {y} chiếc bánh. Sau đó, người ta đem chia đều số hộp bánh đó cho {y} gia đình. Hỏi mỗi gia đình nhận được bao nhiêu hộp bánh?",
+      "options": [
+        "{w1} hộp",
+        "{ans} hộp",
+        "{w2} hộp",
+        "{w3} hộp"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bước 1: Tìm số hộp bánh có tất cả bằng cách lấy {x} chia {y}.<br/>Bước 2: Lấy số hộp tìm được chia tiếp cho {y}."],
+      "solutionHtml": "Số hộp bánh có tất cả là:<br/>$ {x} : {y} = {x/y} $ (hộp).<br/>Số hộp mỗi gia đình nhận là:<br/>$ {x/y} : {y} = {ans} $ (hộp).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa đơn vị là 'chiếc bánh' và 'hộp bánh'.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 12, "max": 20, "step": 1 },
+        "d": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["c % d === 0"],
+      "formulas": {
+        "ans": "(c * 2) / d",
+        "w1": "ans + 2",
+        "w2": "ans + 4",
+        "w3": "ans - 1"
+      },
+      "questionText": "Một cửa hàng nhập về {c} thùng cam, mỗi thùng {d} kg. Nếu cửa hàng đó nhập gấp đôi số thùng cam trên thì tổng số ki-lô-gam cam là bao nhiêu?",
+      "options": [
+        "{w1} kg",
+        "{ans} kg",
+        "{w2} kg",
+        "{w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bước 1: Tính số kg cam trong {c} thùng.<br/>Bước 2: Gấp đôi số đó lên."],
+      "solutionHtml": "Tổng số ki-lô-gam cam trong {c} thùng là:<br/>$ {c} \\times {d} = {c*d} $ (kg).<br/>Khi nhập gấp đôi số thùng, tổng số cam là:<br/>$ {c*d} \\times 2 = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Gấp đôi nghĩa là nhân với 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 1 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 3",
+        "w2": "ans + 6",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trong một buổi đồng diễn, {a} bạn học sinh được xếp đều vào {b} hàng. Hỏi mỗi hàng có bao nhiêu bạn học sinh?",
+      "options": [
+        "{w1} bạn",
+        "{w2} bạn",
+        "{w3} bạn",
+        "{ans} bạn"
+      ],
+      "correctIndex": 3,
+      "hints": ["Để tìm số học sinh trong mỗi hàng, ta thực hiện phép tính chia số học sinh cho số hàng."],
+      "solutionHtml": "Số bạn học sinh trong mỗi hàng là:<br/>$ {a} : {b} = {ans} $ (bạn).<br/>Đáp án đúng là D.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 30, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một hình chữ nhật có chiều rộng là {b} cm, chiều dài gấp {a/b} lần chiều rộng (giả sử kết quả a/b là số nguyên). Tính diện tích hình chữ nhật đó với chiều dài là {a} cm?",
+      "options": [
+        "{w1} cm vuông",
+        "{ans} cm vuông",
+        "{w2} cm vuông",
+        "{w3} cm vuông"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."],
+      "solutionHtml": "Diện tích hình chữ nhật là:<br/>$ {a} \\times {b} = {ans} $ (cm vuông).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính diện tích hình chữ nhật: $ S = d \\times r $.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 5"
+      },
+      "questionText": "Một nhà máy sản xuất {a} chiếc áo trong {b} ngày. Nếu mỗi ngày sản xuất số lượng áo như nhau thì trong 1 ngày nhà máy sản xuất được bao nhiêu chiếc áo?",
+      "options": [
+        "{w1} chiếc",
+        "{ans} chiếc",
+        "{w2} chiếc",
+        "{w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm số áo sản xuất trong 1 ngày, ta lấy tổng số áo chia cho số ngày."],
+      "solutionHtml": "Số áo sản xuất trong 1 ngày là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán rút về đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * 10",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một hộp có {a} viên bi đỏ và {b} viên bi xanh. Hỏi trong {10} hộp như thế có tất cả bao nhiêu viên bi?",
+      "options": [
+        "{w1} viên",
+        "{w2} viên",
+        "{ans} viên",
+        "{w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": ["Bước 1: Tính tổng số bi trong 1 hộp.<br/>Bước 2: Nhân tổng số đó với 10."],
+      "solutionHtml": "Tổng số bi trong 1 hộp là:<br/>$ {a} + {b} = {a+b} $ (viên).<br/>Tổng số bi trong 10 hộp là:<br/>$ {a+b} \\times 10 = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Nhân một số với 10 chỉ cần thêm một chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 400, "step": 10 },
+        "b": { "min": 20, "max": 40, "step": 5 }
+      },
+      "constraints": ["a % b === 0", "a > b * 5"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 5",
+        "w2": "ans - 2",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo. Người ta chuyển toàn bộ số gạo đó vào các bao, mỗi bao chứa {b} kg. Hỏi cần dùng tất cả bao nhiêu bao gạo để chứa hết số gạo đó?",
+      "options": [
+        "{w1} bao",
+        "{ans} bao",
+        "{w2} bao",
+        "{w3} bao"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tìm số bao gạo, ta lấy tổng số gạo chia cho số gạo trong mỗi bao.", "Phép tính cần thực hiện là {a} chia cho {b}."],
+      "solutionHtml": "Số bao gạo cần dùng là:<br/>$ {a} : {b} = {ans} $ (bao).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia các số tròn chục, hãy loại bỏ chữ số 0 ở tận cùng của cả số bị chia và số chia để tính toán nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v1": { "min": 40, "max": 60, "step": 1 },
+        "v2": { "min": 20, "max": 30, "step": 1 }
+      },
+      "constraints": ["v1 > v2", "(v1 + v2) % 2 === 0"],
+      "formulas": {
+        "ans": "(v1 + v2) / 2",
+        "sum": "v1 + v2",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Hai đội công nhân sửa được tổng cộng {sum} mét đường. Biết đội thứ nhất sửa được {v1} mét đường và sửa nhiều hơn đội thứ hai. Hỏi đội thứ hai sửa được bao nhiêu mét đường?",
+      "options": [
+        "{w1} mét",
+        "{w2} mét",
+        "{ans} mét",
+        "{w3} mét"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số mét đường đội thứ hai sửa được, ta lấy tổng số mét đường trừ đi số mét đường đội thứ nhất đã sửa.", "Phép tính: {sum} - {v1} = ?"],
+      "solutionHtml": "Số mét đường đội thứ hai sửa được là:<br/>$ {sum} - {v1} = {ans} $ (mét).<br/>Đáp án đúng là C.",
+      "tip": "Trong bài toán tổng - hiệu hoặc bài toán tìm số hạng chưa biết, hãy xác định rõ tổng và các thành phần đã cho.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 10, "max": 20, "step": 1 },
+        "m": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": ["(n * m) % 4 === 0"],
+      "formulas": {
+        "total": "n * m",
+        "ans": "(n * m) / 4",
+        "w1": "ans + 2",
+        "w2": "ans - 3",
+        "w3": "ans + 5"
+      },
+      "questionText": "Một cửa hàng có {n} thùng dầu, mỗi thùng chứa {m} lít dầu. Người ta chia đều số dầu đó vào {4} can. Hỏi mỗi can chứa bao nhiêu lít dầu?",
+      "options": [
+        "{w1} lít",
+        "{ans} lít",
+        "{w2} lít",
+        "{w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bước 1: Tính tổng số lít dầu cửa hàng có.<br/>Bước 2: Chia tổng số dầu đó cho 4."],
+      "solutionHtml": "Tổng số lít dầu cửa hàng có là:<br/>$ {n} \\times {m} = {total} $ (lít).<br/>Số lít dầu trong mỗi can là:<br/>$ {total} : 4 = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán hai bước tính, hãy tính tổng trước khi chia đều.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 15, "max": 25, "step": 1 }
+      },
+      "constraints": ["(a * b) % 5 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 10",
+        "w2": "ans - 5",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một thư viện có {a} ngăn sách, mỗi ngăn xếp {b} quyển sách. Hỏi thư viện đó có tất cả bao nhiêu quyển sách?",
+      "options": [
+        "{w1} quyển",
+        "{w2} quyển",
+        "{ans} quyển",
+        "{w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tính tổng số sách, ta lấy số ngăn nhân với số sách trong mỗi ngăn."],
+      "solutionHtml": "Tổng số quyển sách thư viện có là:<br/>$ {a} \\times {b} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân là phép cộng các số hạng bằng nhau. Ở đây là {a} lần {b}.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 100, "max": 200, "step": 5 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x % y === 0"],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans + 5"
+      },
+      "questionText": "Có {x} chiếc bánh được xếp vào các hộp, mỗi hộp có {y} chiếc bánh. Sau đó, người ta đem chia đều số hộp bánh đó cho {y} gia đình. Hỏi mỗi gia đình nhận được bao nhiêu hộp bánh?",
+      "options": [
+        "{w1} hộp",
+        "{ans} hộp",
+        "{w2} hộp",
+        "{w3} hộp"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bước 1: Tìm số hộp bánh có tất cả bằng cách lấy {x} chia {y}.<br/>Bước 2: Lấy số hộp tìm được chia tiếp cho {y}."],
+      "solutionHtml": "Số hộp bánh có tất cả là:<br/>$ {x} : {y} = {x/y} $ (hộp).<br/>Số hộp mỗi gia đình nhận là:<br/>$ {x/y} : {y} = {ans} $ (hộp).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để tránh nhầm lẫn giữa đơn vị là 'chiếc bánh' và 'hộp bánh'.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 12, "max": 20, "step": 1 },
+        "d": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": ["c % d === 0"],
+      "formulas": {
+        "ans": "(c * 2) / d",
+        "w1": "ans + 2",
+        "w2": "ans + 4",
+        "w3": "ans - 1"
+      },
+      "questionText": "Một cửa hàng nhập về {c} thùng cam, mỗi thùng {d} kg. Nếu cửa hàng đó nhập gấp đôi số thùng cam trên thì tổng số ki-lô-gam cam là bao nhiêu?",
+      "options": [
+        "{w1} kg",
+        "{ans} kg",
+        "{w2} kg",
+        "{w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bước 1: Tính số kg cam trong {c} thùng.<br/>Bước 2: Gấp đôi số đó lên."],
+      "solutionHtml": "Tổng số ki-lô-gam cam trong {c} thùng là:<br/>$ {c} \\times {d} = {c*d} $ (kg).<br/>Khi nhập gấp đôi số thùng, tổng số cam là:<br/>$ {c*d} \\times 2 = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Gấp đôi nghĩa là nhân với 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 30, "max": 50, "step": 1 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 3",
+        "w2": "ans + 6",
+        "w3": "ans - 2"
+      },
+      "questionText": "Trong một buổi đồng diễn, {a} bạn học sinh được xếp đều vào {b} hàng. Hỏi mỗi hàng có bao nhiêu bạn học sinh?",
+      "options": [
+        "{w1} bạn",
+        "{w2} bạn",
+        "{w3} bạn",
+        "{ans} bạn"
+      ],
+      "correctIndex": 3,
+      "hints": ["Để tìm số học sinh trong mỗi hàng, ta thực hiện phép tính chia số học sinh cho số hàng."],
+      "solutionHtml": "Số bạn học sinh trong mỗi hàng là:<br/>$ {a} : {b} = {ans} $ (bạn).<br/>Đáp án đúng là D.",
+      "tip": "Chia đều là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 30, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một hình chữ nhật có chiều rộng là {b} cm, chiều dài gấp {a/b} lần chiều rộng (giả sử kết quả a/b là số nguyên). Tính diện tích hình chữ nhật đó với chiều dài là {a} cm?",
+      "options": [
+        "{w1} cm vuông",
+        "{ans} cm vuông",
+        "{w2} cm vuông",
+        "{w3} cm vuông"
+      ],
+      "correctIndex": 1,
+      "hints": ["Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."],
+      "solutionHtml": "Diện tích hình chữ nhật là:<br/>$ {a} \\times {b} = {ans} $ (cm vuông).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính diện tích hình chữ nhật: $ S = d \\times r $.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 2",
+        "w3": "ans + 5"
+      },
+      "questionText": "Một nhà máy sản xuất {a} chiếc áo trong {b} ngày. Nếu mỗi ngày sản xuất số lượng áo như nhau thì trong 1 ngày nhà máy sản xuất được bao nhiêu chiếc áo?",
+      "options": [
+        "{w1} chiếc",
+        "{ans} chiếc",
+        "{w2} chiếc",
+        "{w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm số áo sản xuất trong 1 ngày, ta lấy tổng số áo chia cho số ngày."],
+      "solutionHtml": "Số áo sản xuất trong 1 ngày là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán rút về đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "(a + b) * 10",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "ans + 20"
+      },
+      "questionText": "Một hộp có {a} viên bi đỏ và {b} viên bi xanh. Hỏi trong {10} hộp như thế có tất cả bao nhiêu viên bi?",
+      "options": [
+        "{w1} viên",
+        "{w2} viên",
+        "{ans} viên",
+        "{w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": ["Bước 1: Tính tổng số bi trong 1 hộp.<br/>Bước 2: Nhân tổng số đó với 10."],
+      "solutionHtml": "Tổng số bi trong 1 hộp là:<br/>$ {a} + {b} = {a+b} $ (viên).<br/>Tổng số bi trong 10 hộp là:<br/>$ {a+b} \\times 10 = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Nhân một số với 10 chỉ cần thêm một chữ số 0 vào bên phải số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-lt-c10-d10"
+    }
+  ]
+}
+}
+

@@ -1,0 +1,405 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === ans) ? a + b + 1 : a + b",
+        "w2": "(a - b === ans || a - b === w1) ? a - b + 2 : a - b",
+        "w3": "(a * b === ans || a * b === w1 || a * b === w2) ? a * b + 3 : a * b"
+      },
+      "questionText": "Trong khu phố của An, có {a} tòa nhà được chia đều vào {b} con đường. Hỏi mỗi con đường có bao nhiêu tòa nhà?",
+      "options": [
+        "A. {w1} tòa nhà",
+        "B. {ans} tòa nhà",
+        "C. {w2} tòa nhà",
+        "D. {w3} tòa nhà"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bạn hãy chia tổng số tòa nhà cho số con đường.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số tòa nhà trên mỗi con đường là:<br/>${a} : {b} = {ans}$ (tòa nhà).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định phép tính chia phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === ans) ? a + b + 5 : a + b",
+        "w2": "(a * b + 2 === ans || a * b + 2 === w1) ? a * b + 4 : a * b + 2",
+        "w3": "(a * b - 2 === ans || a * b - 2 === w1 || a * b - 2 === w2) ? a * b - 3 : a * b - 2"
+      },
+      "questionText": "Mỗi hàng cây trong công viên có {b} cái cây. Nếu có {a} hàng cây như vậy, tổng số cây trong công viên là bao nhiêu?",
+      "options": [
+        "A. {w1} cái cây",
+        "B. {w2} cái cây",
+        "C. {ans} cái cây",
+        "D. {w3} cái cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng bằng cách nhân số hàng với số cây mỗi hàng.",
+        "Thực hiện phép tính: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số cây trong công viên là:<br/>${a} \\times {b} = {ans}$ (cái cây).<br/>Đáp án đúng là C.",
+      "tip": "Trong bài toán này, chúng ta sử dụng phép nhân để tìm tổng số lượng vật phẩm giống nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "b": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        }
+      },
+      "constraints": [
+        "a > b",
+        "(a - b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a + b === ans) ? a + b + 2 : a + b",
+        "w2": "(a / 2 === ans || a / 2 === w1) ? a + 1 : a / 2",
+        "w3": "(b * 2 === ans || b * 2 === w1 || b * 2 === w2) ? b * 3 : b * 2"
+      },
+      "questionText": "Khu phố A có {a} ngôi nhà, khu phố B ít hơn khu phố A là {b} ngôi nhà. Hỏi khu phố B có bao nhiêu ngôi nhà?",
+      "options": [
+        "A. {w1} ngôi nhà",
+        "B. {ans} ngôi nhà",
+        "C. {w2} ngôi nhà",
+        "D. {w3} ngôi nhà"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số nhà ở khu phố B, hãy lấy số nhà của khu phố A trừ đi phần chênh lệch.",
+        "Thực hiện phép tính: ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Số ngôi nhà tại khu phố B là:<br/>${a} - {b} = {ans}$ (ngôi nhà).<br/>Đáp án đúng là B.",
+      "tip": "Khi bài toán hỏi về 'ít hơn', ta cần thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 15,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a - b === ans) ? a - b + 5 : a - b",
+        "w2": "(a * 2 === ans || a * 2 === w1) ? a + 2 : a * 2",
+        "w3": "(b * 3 === ans || b * 3 === w1 || b * 3 === w2) ? b + 10 : b * 3"
+      },
+      "questionText": "Sáng nay, có {a} người đến thăm thư viện, chiều nay có thêm {b} người nữa. Hỏi tổng số người đến thư viện trong ngày hôm nay là bao nhiêu?",
+      "options": [
+        "A. {w1} người",
+        "B. {w2} người",
+        "C. {ans} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số người bằng cách cộng số người buổi sáng và buổi chiều.",
+        "Thực hiện phép tính: ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số người đến thư viện là:<br/>${a} + {b} = {ans}$ (người).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'thêm' báo hiệu chúng ta cần sử dụng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === ans) ? a + b + 3 : a + b",
+        "w2": "(a * b + 1 === ans || a * b + 1 === w1) ? a * b + 5 : a * b + 1",
+        "w3": "(a * b - 1 === ans || a * b - 1 === w1 || a * b - 1 === w2) ? a * b - 2 : a * b - 1"
+      },
+      "questionText": "Một cửa hàng có {a} dãy kệ, mỗi dãy kệ chứa {b} quyển sách. Hỏi tổng số sách trong cửa hàng là bao nhiêu?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {w3} quyển",
+        "D. {ans} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số sách tổng cộng bằng số dãy kệ nhân với số sách trên mỗi kệ.",
+        "Thực hiện phép tính: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số quyển sách là:<br/>${a} \\times {b} = {ans}$ (quyển sách).<br/>Đáp án đúng là D.",
+      "tip": "Hãy tưởng tượng sơ đồ hoặc bảng để dễ dàng tính toán các vật phẩm được sắp xếp theo hàng/dãy.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 40,
+          "max": 80,
+          "step": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === ans) ? a + b + 4 : a + b",
+        "w2": "(a / (b+1) === ans || a / (b+1) === w1) ? a / 2 : a / (b+1)",
+        "w3": "(a - b === ans || a - b === w1 || a - b === w2) ? a - b + 3 : a - b"
+      },
+      "questionText": "Tại trung tâm thể thao, {a} vận động viên được chia đều thành {b} đội. Hỏi mỗi đội có bao nhiêu vận động viên?",
+      "options": [
+        "A. {w1} vận động viên",
+        "B. {w2} vận động viên",
+        "C. {ans} vận động viên",
+        "D. {w3} vận động viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều một nhóm lớn thành các nhóm nhỏ là phép tính chia.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số vận động viên mỗi đội là:<br/>${a} : {b} = {ans}$ (vận động viên).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra lại phép tính bằng cách nhân ngược lại kết quả với số đội xem có bằng tổng số ban đầu không.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "b": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a + b === ans) ? a + b + 10 : a + b",
+        "w2": "(a / 2 === ans || a / 2 === w1) ? a / 4 : a / 2",
+        "w3": "(b * 2 === ans || b * 2 === w1 || b * 2 === w2) ? b * 3 : b * 2"
+      },
+      "questionText": "Khu chung cư có {a} căn hộ đã bán và {b} căn hộ chưa bán. Hỏi số căn hộ đã bán nhiều hơn số căn hộ chưa bán là bao nhiêu?",
+      "options": [
+        "A. {w1} căn hộ",
+        "B. {ans} căn hộ",
+        "C. {w2} căn hộ",
+        "D. {w3} căn hộ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm phần chênh lệch, ta lấy số lớn trừ đi số bé.",
+        "Thực hiện phép tính: ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Số căn hộ đã bán nhiều hơn số căn hộ chưa bán là:<br/>${a} - {b} = {ans}$ (căn hộ).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'nhiều hơn bao nhiêu' luôn yêu cầu phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 12,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a * b === ans) ? a * b + 2 : a * b",
+        "w2": "(a - b === ans || a - b === w1) ? a - b + 5 : a - b",
+        "w3": "(a + b + 2 === ans || a + b + 2 === w1 || a + b + 2 === w2) ? a + b + 4 : a + b + 2"
+      },
+      "questionText": "Trên con đường đi học, Nam đi qua {a} cửa hàng thực phẩm và {b} hiệu sách. Hỏi tổng cộng Nam đã đi qua bao nhiêu cửa hàng?",
+      "options": [
+        "A. {w1} cửa hàng",
+        "B. {w2} cửa hàng",
+        "C. {ans} cửa hàng",
+        "D. {w3} cửa hàng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số cửa hàng là tổng của cửa hàng thực phẩm và hiệu sách.",
+        "Thực hiện phép tính: ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số cửa hàng là:<br/>${a} + {b} = {ans}$ (cửa hàng).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên cộng cả hai loại cửa hàng để có tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === ans) ? a + b + 5 : a + b",
+        "w2": "(a * b + 3 === ans || a * b + 3 === w1) ? a * b + 4 : a * b + 3",
+        "w3": "(a * b - 2 === ans || a * b - 2 === w1 || a * b - 2 === w2) ? a * b + 1 : a * b - 2"
+      },
+      "questionText": "Mỗi tuần gia đình Lan tiêu thụ hết {a} kg gạo. Hỏi trong {b} tuần, gia đình Lan tiêu thụ hết bao nhiêu kg gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số kg gạo tiêu thụ mỗi tuần với số tuần.",
+        "Thực hiện phép tính: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Số gạo tiêu thụ trong {b} tuần là:<br/>${a} \\times {b} = {ans}$ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân là công cụ hiệu quả nhất cho các bài toán về tiêu thụ theo đơn vị thời gian bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 60,
+          "max": 120,
+          "step": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === ans) ? a + b + 5 : a + b",
+        "w2": "(a / (b+2) === ans || a / (b+2) === w1) ? a / 5 : a / (b+2)",
+        "w3": "(b * 10 === ans || b * 10 === w1 || b * 10 === w2) ? b * 20 : b * 10"
+      },
+      "questionText": "Bưu điện nhận được {a} bức thư và chia đều vào {b} túi giao hàng. Hỏi mỗi túi chứa bao nhiêu bức thư?",
+      "options": [
+        "A. {w1} bức thư",
+        "B. {w2} bức thư",
+        "C. {w3} bức thư",
+        "D. {ans} bức thư"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Khi chia đều một số lượng vật phẩm vào các túi, ta sử dụng phép chia.",
+        "Thực hiện phép tính: ${a} : {b} = {ans}$."
+      ],
+      "solutionHtml": "Số bức thư trong mỗi túi là:<br/>${a} : {b} = {ans}$ (bức thư).<br/>Đáp án đúng là D.",
+      "tip": "Đọc kỹ con số để thực hiện phép chia chính xác.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t4-d10"
+    }
+  ]
+}

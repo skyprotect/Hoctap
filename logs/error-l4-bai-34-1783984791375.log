@@ -1,0 +1,674 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:19:51.375Z
+Lesson ID: l4-bai-34
+Lesson Title: Bài 34: Ôn tập phép cộng, phép trừ
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11359 (line 331 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11359 (line 331 column 3)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11359 (Line: 324, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "thung1": { "min": 200, "max": 400, "step": 10 },
+        "thung2": { "min": 150, "max": 350, "step": 10 },
+        "ban_di": { "min": 50, "max": 100, "step": 5 }
+      },
+      "constraints": [
+        "thung1 > ban_di",
+        "thung2 > ban_di"
+      ],
+      "formulas": {
+        "tong": "thung1 + thung2",
+        "ans": "tong - ban_di * 2",
+        "w1": "tong - ban_di",
+        "w2": "tong + ban_di",
+        "w3": "thung1 + thung2 - ban_di"
+      },
+      "questionText": "Cửa hàng có hai thùng dầu, thùng thứ nhất đựng {thung1} lít, thùng thứ hai đựng {thung2} lít. Nếu người ta bán đi mỗi thùng {ban_di} lít dầu thì cả hai thùng còn lại bao nhiêu lít dầu?",
+      "options": [
+        "A. {w1} lít",
+        "B. {ans} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số dầu lúc đầu của hai thùng.",
+        "Số dầu bán đi của cả hai thùng là {ban_di} nhân 2.",
+        "Lấy tổng trừ đi số dầu đã bán đi."
+      ],
+      "solutionHtml": "Số dầu lúc đầu của cả hai thùng là:<br/>$ {thung1} + {thung2} = {tong} $ (lít).<br/>Tổng số dầu đã bán đi là:<br/>$ {ban_di} \\times 2 = {ban_di * 2} $ (lít).<br/>Số dầu còn lại là:<br/>$ {tong} - {ban_di * 2} = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Khi bán đi từ mỗi thùng một lượng bằng nhau, ta có thể tính tổng rồi trừ đi hai lần số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1500, "max": 3000, "step": 100 },
+        "b": { "min": 400, "max": 800, "step": 50 },
+        "c": { "min": 200, "max": 500, "step": 50 }
+      },
+      "constraints": [
+        "a > b + c"
+      ],
+      "formulas": {
+        "ans": "a - (b + c)",
+        "w1": "a - b + c",
+        "w2": "a + b - c",
+        "w3": "a - b - c + 100"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo. Ngày đầu xuất đi {b} kg, ngày thứ hai xuất đi {c} kg. Hỏi sau hai ngày, trong kho còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có thể tính tổng số gạo đã xuất đi rồi lấy số gạo ban đầu trừ đi.",
+        "Hoặc lấy số gạo ban đầu trừ đi số gạo ngày đầu, sau đó tiếp tục trừ đi số gạo ngày thứ hai."
+      ],
+      "solutionHtml": "Tổng số gạo xuất đi trong hai ngày là:<br/>$ {b} + {c} = {b + c} $ (kg).<br/>Số gạo còn lại trong kho là:<br/>$ {a} - {b + c} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán liên tiếp trừ đi một số từ tổng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "xe1": { "min": 1200, "max": 2000, "step": 50 },
+        "xe2_hieu": { "min": 100, "max": 400, "step": 50 }
+      },
+      "constraints": [
+        "xe1 > xe2_hieu"
+      ],
+      "formulas": {
+        "xe2": "xe1 - xe2_hieu",
+        "ans": "xe1 + (xe1 - xe2_hieu)",
+        "w1": "xe1 + xe2_hieu",
+        "w2": "xe1 - xe2_hieu",
+        "w3": "xe1 + xe1 + xe2_hieu"
+      },
+      "questionText": "Xe tải thứ nhất chở được {xe1} kg hàng. Xe tải thứ hai chở ít hơn xe thứ nhất {xe2_hieu} kg hàng. Hỏi cả hai xe chở được bao nhiêu ki-lô-gam hàng?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm số hàng xe thứ hai chở được trước bằng phép trừ.",
+        "Sau đó cộng số hàng của hai xe lại."
+      ],
+      "solutionHtml": "Số hàng xe tải thứ hai chở được là:<br/>$ {xe1} - {xe2_hieu} = {xe2} $ (kg).<br/>Cả hai xe chở được số ki-lô-gam hàng là:<br/>$ {xe1} + {xe2} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài xem 'nhiều hơn' hay 'ít hơn' để xác định phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s_dau": { "min": 500, "max": 1000, "step": 10 },
+        "tang": { "min": 100, "max": 300, "step": 10 },
+        "giam": { "min": 50, "max": 200, "step": 10 }
+      },
+      "constraints": [
+        "s_dau + tang > giam"
+      ],
+      "formulas": {
+        "ans": "s_dau + tang - giam",
+        "w1": "s_dau - tang + giam",
+        "w2": "s_dau + tang + giam",
+        "w3": "s_dau - tang - giam"
+      },
+      "questionText": "Một thư viện có {s_dau} quyển sách. Sau khi mua thêm {tang} quyển, thư viện đã chuyển đi cho các lớp học {giam} quyển. Hỏi thư viện còn lại bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {w3} quyển",
+        "D. {ans} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính số sách sau khi mua thêm trước.",
+        "Sau đó lấy kết quả trừ đi số sách đã chuyển đi."
+      ],
+      "solutionHtml": "Số sách sau khi mua thêm là:<br/>$ {s_dau} + {tang} = {s_dau + tang} $ (quyển).<br/>Số sách còn lại sau khi chuyển đi là:<br/>$ {s_dau + tang} - {giam} = {ans} $ (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Làm phép tính từ trái qua phải theo thứ tự thời gian xảy ra sự việc.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5000, "max": 8000, "step": 100 },
+        "y": { "min": 1000, "max": 2000, "step": 100 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x + y + 100",
+        "w3": "x + y - 500"
+      },
+      "questionText": "Tìm một số, biết rằng nếu lấy số đó cộng với {y} thì được kết quả là {x + y}. Số cần tìm là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số cần tìm là A. Ta có: A + {y} = {x + y}.",
+        "Muốn tìm số hạng chưa biết, ta lấy tổng trừ đi số hạng đã biết."
+      ],
+      "solutionHtml": "Số cần tìm là:<br/>$ {x + y} - {y} = {x} $.<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm số hạng chưa biết trong phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300, "max": 500, "step": 10 },
+        "b": { "min": 100, "max": 200, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 50",
+        "w3": "a - b - 50"
+      },
+      "questionText": "Hiệu của hai số là {a - b}. Nếu số bị trừ là {a}, thì số trừ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Ta có công thức: Số bị trừ - Số trừ = Hiệu.",
+        "Suy ra: Số trừ = Số bị trừ - Hiệu."
+      ],
+      "solutionHtml": "Số trừ là:<br/>$ {a} - {a - b} = {b} $.<br/>Đáp án đúng là D.",
+      "tip": "Nắm vững mối quan hệ giữa các thành phần trong phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2000, "max": 4000, "step": 100 },
+        "y": { "min": 500, "max": 1500, "step": 100 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x + y + 200",
+        "w3": "x + y - 200"
+      },
+      "questionText": "Tính tổng của {x} và {y} rồi trừ đi 0, kết quả là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bất kỳ số nào cộng hoặc trừ với 0 vẫn giữ nguyên giá trị.",
+        "Chỉ cần tính {x} + {y}."
+      ],
+      "solutionHtml": "Ta có:<br/>$ {x} + {y} - 0 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Tính chất của số 0 trong phép cộng và phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": { "min": 100, "max": 200, "step": 10 },
+        "t2": { "min": 100, "max": 200, "step": 10 },
+        "t3": { "min": 100, "max": 200, "step": 10 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "t1 + t2 + t3",
+        "w1": "t1 + t2 - t3",
+        "w2": "t1 + t3",
+        "w3": "t2 + t3"
+      },
+      "questionText": "Một cửa hàng ngày thứ nhất bán được {t1} bộ quần áo, ngày thứ hai bán được {t2} bộ, ngày thứ ba bán được {t3} bộ. Hỏi cả ba ngày cửa hàng bán được bao nhiêu bộ quần áo?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cộng số lượng của cả ba ngày lại với nhau."
+      ],
+      "solutionHtml": "Số bộ quần áo bán được trong ba ngày là:<br/>$ {t1} + {t2} + {t3} = {ans} $ (bộ).<br/>Đáp án đúng là D.",
+      "tip": "Tính tổng của nhiều số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500, "max": 900, "step": 10 },
+        "b": { "min": 100, "max": 400, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + (a - b)",
+        "w1": "a + b",
+        "w2": "a + a + b",
+        "w3": "a - b"
+      },
+      "questionText": "Số thứ nhất là {a}. Số thứ hai kém số thứ nhất {b}. Tìm tổng của hai số đó?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số thứ hai: {a} - {b}.",
+        "Sau đó cộng số thứ nhất và số thứ hai lại."
+      ],
+      "solutionHtml": "Số thứ hai là:<br/>$ {a} - {b} = {a - b} $.<br/>Tổng của hai số là:<br/>$ {a} + {a - b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Luôn tìm số chưa biết trước khi tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ngay": { "min": 2, "max": 5, "step": 1 },
+        "san_xuat": { "min": 100, "max": 500, "step": 50 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "ngay * san_xuat",
+        "w1": "ngay + san_xuat",
+        "w2": "ngay * san_xuat + 100",
+        "w3": "ngay * san_xuat - 100"
+      },
+      "questionText": "Một nhà máy sản xuất mỗi ngày được {san_xuat} sản phẩm. Hỏi trong {ngay} ngày, nhà máy đó sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số sản phẩm mỗi ngày nhân với số ngày làm việc."
+      ],
+      "solutionHtml": "Trong {ngay} ngày, nhà máy sản xuất được:<br/>$ {san_xuat} \\times {ngay} = {ans} $ (sản phẩm).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán về đại lượng sản xuất trong nhiều ngày.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "thung1": { "min": 200, "max": 400, "step": 10 },
+        "thung2": { "min": 150, "max": 350, "step": 10 },
+        "ban_di": { "min": 50, "max": 100, "step": 5 }
+      },
+      "constraints": [
+        "thung1 > ban_di",
+        "thung2 > ban_di"
+      ],
+      "formulas": {
+        "tong": "thung1 + thung2",
+        "ans": "tong - ban_di * 2",
+        "w1": "tong - ban_di",
+        "w2": "tong + ban_di",
+        "w3": "thung1 + thung2 - ban_di"
+      },
+      "questionText": "Cửa hàng có hai thùng dầu, thùng thứ nhất đựng {thung1} lít, thùng thứ hai đựng {thung2} lít. Nếu người ta bán đi mỗi thùng {ban_di} lít dầu thì cả hai thùng còn lại bao nhiêu lít dầu?",
+      "options": [
+        "A. {w1} lít",
+        "B. {ans} lít",
+        "C. {w2} lít",
+        "D. {w3} lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số dầu lúc đầu của hai thùng.",
+        "Số dầu bán đi của cả hai thùng là {ban_di} nhân 2.",
+        "Lấy tổng trừ đi số dầu đã bán đi."
+      ],
+      "solutionHtml": "Số dầu lúc đầu của cả hai thùng là:<br/>$ {thung1} + {thung2} = {tong} $ (lít).<br/>Tổng số dầu đã bán đi là:<br/>$ {ban_di} \\times 2 = {ban_di * 2} $ (lít).<br/>Số dầu còn lại là:<br/>$ {tong} - {ban_di * 2} = {ans} $ (lít).<br/>Đáp án đúng là B.",
+      "tip": "Khi bán đi từ mỗi thùng một lượng bằng nhau, ta có thể tính tổng rồi trừ đi hai lần số đó.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1500, "max": 3000, "step": 100 },
+        "b": { "min": 400, "max": 800, "step": 50 },
+        "c": { "min": 200, "max": 500, "step": 50 }
+      },
+      "constraints": [
+        "a > b + c"
+      ],
+      "formulas": {
+        "ans": "a - (b + c)",
+        "w1": "a - b + c",
+        "w2": "a + b - c",
+        "w3": "a - b - c + 100"
+      },
+      "questionText": "Một kho gạo có {a} kg gạo. Ngày đầu xuất đi {b} kg, ngày thứ hai xuất đi {c} kg. Hỏi sau hai ngày, trong kho còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có thể tính tổng số gạo đã xuất đi rồi lấy số gạo ban đầu trừ đi.",
+        "Hoặc lấy số gạo ban đầu trừ đi số gạo ngày đầu, sau đó tiếp tục trừ đi số gạo ngày thứ hai."
+      ],
+      "solutionHtml": "Tổng số gạo xuất đi trong hai ngày là:<br/>$ {b} + {c} = {b + c} $ (kg).<br/>Số gạo còn lại trong kho là:<br/>$ {a} - {b + c} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán liên tiếp trừ đi một số từ tổng ban đầu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "xe1": { "min": 1200, "max": 2000, "step": 50 },
+        "xe2_hieu": { "min": 100, "max": 400, "step": 50 }
+      },
+      "constraints": [
+        "xe1 > xe2_hieu"
+      ],
+      "formulas": {
+        "xe2": "xe1 - xe2_hieu",
+        "ans": "xe1 + (xe1 - xe2_hieu)",
+        "w1": "xe1 + xe2_hieu",
+        "w2": "xe1 - xe2_hieu",
+        "w3": "xe1 + xe1 + xe2_hieu"
+      },
+      "questionText": "Xe tải thứ nhất chở được {xe1} kg hàng. Xe tải thứ hai chở ít hơn xe thứ nhất {xe2_hieu} kg hàng. Hỏi cả hai xe chở được bao nhiêu ki-lô-gam hàng?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm số hàng xe thứ hai chở được trước bằng phép trừ.",
+        "Sau đó cộng số hàng của hai xe lại."
+      ],
+      "solutionHtml": "Số hàng xe tải thứ hai chở được là:<br/>$ {xe1} - {xe2_hieu} = {xe2} $ (kg).<br/>Cả hai xe chở được số ki-lô-gam hàng là:<br/>$ {xe1} + {xe2} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài xem 'nhiều hơn' hay 'ít hơn' để xác định phép tính phù hợp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "s_dau": { "min": 500, "max": 1000, "step": 10 },
+        "tang": { "min": 100, "max": 300, "step": 10 },
+        "giam": { "min": 50, "max": 200, "step": 10 }
+      },
+      "constraints": [
+        "s_dau + tang > giam"
+      ],
+      "formulas": {
+        "ans": "s_dau + tang - giam",
+        "w1": "s_dau - tang + giam",
+        "w2": "s_dau + tang + giam",
+        "w3": "s_dau - tang - giam"
+      },
+      "questionText": "Một thư viện có {s_dau} quyển sách. Sau khi mua thêm {tang} quyển, thư viện đã chuyển đi cho các lớp học {giam} quyển. Hỏi thư viện còn lại bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {w3} quyển",
+        "D. {ans} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính số sách sau khi mua thêm trước.",
+        "Sau đó lấy kết quả trừ đi số sách đã chuyển đi."
+      ],
+      "solutionHtml": "Số sách sau khi mua thêm là:<br/>$ {s_dau} + {tang} = {s_dau + tang} $ (quyển).<br/>Số sách còn lại sau khi chuyển đi là:<br/>$ {s_dau + tang} - {giam} = {ans} $ (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Làm phép tính từ trái qua phải theo thứ tự thời gian xảy ra sự việc.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 5000, "max": 8000, "step": 100 },
+        "y": { "min": 1000, "max": 2000, "step": 100 }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x + y + 100",
+        "w3": "x + y - 500"
+      },
+      "questionText": "Tìm một số, biết rằng nếu lấy số đó cộng với {y} thì được kết quả là {x + y}. Số cần tìm là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gọi số cần tìm là A. Ta có: A + {y} = {x + y}.",
+        "Muốn tìm số hạng chưa biết, ta lấy tổng trừ đi số hạng đã biết."
+      ],
+      "solutionHtml": "Số cần tìm là:<br/>$ {x + y} - {y} = {x} $.<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm số hạng chưa biết trong phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 300, "max": 500, "step": 10 },
+        "b": { "min": 100, "max": 200, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 50",
+        "w3": "a - b - 50"
+      },
+      "questionText": "Hiệu của hai số là {a - b}. Nếu số bị trừ là {a}, thì số trừ là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Ta có công thức: Số bị trừ - Số trừ = Hiệu.",
+        "Suy ra: Số trừ = Số bị trừ - Hiệu."
+      ],
+      "solutionHtml": "Số trừ là:<br/>$ {a} - {a - b} = {b} $.<br/>Đáp án đúng là D.",
+      "tip": "Nắm vững mối quan hệ giữa các thành phần trong phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2000, "max": 4000, "step": 100 },
+        "y": { "min": 500, "max": 1500, "step": 100 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x + y + 200",
+        "w3": "x + y - 200"
+      },
+      "questionText": "Tính tổng của {x} và {y} rồi trừ đi 0, kết quả là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Bất kỳ số nào cộng hoặc trừ với 0 vẫn giữ nguyên giá trị.",
+        "Chỉ cần tính {x} + {y}."
+      ],
+      "solutionHtml": "Ta có:<br/>$ {x} + {y} - 0 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Tính chất của số 0 trong phép cộng và phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": { "min": 100, "max": 200, "step": 10 },
+        "t2": { "min": 100, "max": 200, "step": 10 },
+        "t3": { "min": 100, "max": 200, "step": 10 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "t1 + t2 + t3",
+        "w1": "t1 + t2 - t3",
+        "w2": "t1 + t3",
+        "w3": "t2 + t3"
+      },
+      "questionText": "Một cửa hàng ngày thứ nhất bán được {t1} bộ quần áo, ngày thứ hai bán được {t2} bộ, ngày thứ ba bán được {t3} bộ. Hỏi cả ba ngày cửa hàng bán được bao nhiêu bộ quần áo?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cộng số lượng của cả ba ngày lại với nhau."
+      ],
+      "solutionHtml": "Số bộ quần áo bán được trong ba ngày là:<br/>$ {t1} + {t2} + {t3} = {ans} $ (bộ).<br/>Đáp án đúng là D.",
+      "tip": "Tính tổng của nhiều số hạng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500, "max": 900, "step": 10 },
+        "b": { "min": 100, "max": 400, "step": 10 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + (a - b)",
+        "w1": "a + b",
+        "w2": "a + a + b",
+        "w3": "a - b"
+      },
+      "questionText": "Số thứ nhất là {a}. Số thứ hai kém số thứ nhất {b}. Tìm tổng của hai số đó?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số thứ hai: {a} - {b}.",
+        "Sau đó cộng số thứ nhất và số thứ hai lại."
+      ],
+      "solutionHtml": "Số thứ hai là:<br/>$ {a} - {b} = {a - b} $.<br/>Tổng của hai số là:<br/>$ {a} + {a - b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Luôn tìm số chưa biết trước khi tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "ngay": { "min": 2, "max": 5, "step": 1 },
+        "san_xuat": { "min": 100, "max": 500, "step": 50 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "ngay * san_xuat",
+        "w1": "ngay + san_xuat",
+        "w2": "ngay * san_xuat + 100",
+        "w3": "ngay * san_xuat - 100"
+      },
+      "questionText": "Một nhà máy sản xuất mỗi ngày được {san_xuat} sản phẩm. Hỏi trong {ngay} ngày, nhà máy đó sản xuất được bao nhiêu sản phẩm?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số sản phẩm mỗi ngày nhân với số ngày làm việc."
+      ],
+      "solutionHtml": "Trong {ngay} ngày, nhà máy sản xuất được:<br/>$ {san_xuat} \\times {ngay} = {ans} $ (sản phẩm).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán về đại lượng sản xuất trong nhiều ngày.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-34-d4"
+    }
+  ]
+}
+

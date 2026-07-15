@@ -1,0 +1,740 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T13:17:40.032Z
+Lesson ID: l4-bai-4
+Lesson Title: Bài 4: Biểu thức chứa chữ
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 12069 (line 354 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 12069 (line 354 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 12069 (Line: 354, Column: 1)
+Character causing error: "}"
+
+Context:
+... án đúng là C.",
+      "tip": "Cạnh nhân cạnh, không phải cạnh nhân 2 nhé!",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a - b",
+        "w3": "(a + b + 2)",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 7 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} hộp bút, mỗi hộp chứa {b} chiếc bút. Nếu cửa hàng nhập thêm một kiện hàng mới có đúng {a} + {b} chiếc bút thì tổng số bút trong cửa hàng là bao nhiêu?",
+      "options": [
+        "A. {w1_f} chiếc",
+        "B. {w2_f} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3_f} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số bút ban đầu: {a} nhân {b}.",
+        "Tổng số bút là: (Số bút ban đầu) cộng ({a} cộng {b})."
+      ],
+      "solutionHtml": "Số bút ban đầu trong cửa hàng là: $ {a} \\times {b} = {a * b} $ (chiếc).<br/>Tổng số bút sau khi nhập thêm là: $ {a * b} + ({a} + {b}) = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Hãy cẩn thận xác định thứ tự thực hiện các phép tính trong biểu thức chứa chữ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 9 : w3"
+      },
+      "questionText": "Một nhóm bạn có {a} viên bi, chia đều cho {b} bạn. Nếu gọi số viên bi mỗi bạn nhận được là $x$, hãy biểu diễn $x$ dưới dạng biểu thức và tìm giá trị của nó.",
+      "options": [
+        "A. $x = {w1_f}$",
+        "B. $x = {ans}$",
+        "C. $x = {w2_f}$",
+        "D. $x = {w3_f}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều {a} viên bi cho {b} bạn có nghĩa là thực hiện phép tính chia.",
+        "Biểu thức là: $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số viên bi mỗi bạn nhận được là: $ {a} : {b} = {ans} $ (viên).<br/>Vậy giá trị $x$ là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Chia đều một số lượng cho một nhóm luôn dẫn đến phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a / 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Tuổi của anh là $x$ (năm), tuổi của em là $y$ (năm). Biết anh hơn em {a} - {b} tuổi. Nếu $x = {a}$ và $y = {b}$, hãy tính hiệu số tuổi của hai anh em.",
+      "options": [
+        "A. {w1_f} tuổi",
+        "B. {w2_f} tuổi",
+        "C. {ans} tuổi",
+        "D. {w3_f} tuổi"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hiệu số tuổi của hai người không đổi theo thời gian.",
+        "Ta lấy tuổi của anh trừ tuổi của em."
+      ],
+      "solutionHtml": "Hiệu số tuổi của hai anh em là: $ {a} - {b} = {ans} $ (tuổi).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán về hiệu số tuổi thường dùng phép trừ để giải quyết.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 6, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 8 : w3"
+      },
+      "questionText": "Một vườn cây có {a} hàng, mỗi hàng có {b} cây ăn quả. Tổng số cây trong vườn là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {w2_f} cây",
+        "C. {w3_f} cây",
+        "D. {ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Để tìm tổng số cây, ta lấy số hàng nhân với số cây mỗi hàng.",
+        "Phép tính: $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số cây trong vườn là: $ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Tính toán cẩn thận phép nhân các số có một chữ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Giá trị của biểu thức $a : b$ với $a = {a}$ và $b = {b}$ là bao nhiêu?",
+      "options": [
+        "A. {w1_f}",
+        "B. {w2_f}",
+        "C. {ans}",
+        "D. {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Thay số vào biểu thức đã cho.",
+        "Tính kết quả của $ {a} : {b} $."
+      ],
+      "solutionHtml": "Thay giá trị vào biểu thức: $ {a} : {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Khi thay số vào biểu thức, hãy chú ý thứ tự các chữ cái tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Trong kho có {a} kg gạo. Người ta xuất đi {b} kg gạo. Hỏi trong kho còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {ans} kg",
+        "C. {w2_f} kg",
+        "D. {w3_f} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số gạo còn lại bằng số gạo ban đầu trừ đi số gạo đã xuất.",
+        "Phép tính: $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số gạo còn lại là: $ {a} - {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Xuất đi tức là làm giảm số lượng, sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + a",
+        "w3": "b + b",
+        "w1_f": "(w1 === ans) ? w1 + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 4 : w3"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {a} cm, chiều rộng là {b} cm. Diện tích hình chữ nhật được tính bằng công thức $S = {a} \\times {b}$. Hãy tính diện tích hình chữ nhật đó.",
+      "options": [
+        "A. {w1_f} cm²",
+        "B. {w2_f} cm²",
+        "C. {ans} cm²",
+        "D. {w3_f} cm²"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng.",
+        "Tính: $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Diện tích hình chữ nhật là: $ {a} \\times {b} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên đơn vị đo diện tích là xăng-ti-mét vuông.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 15 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 5 : w3"
+      },
+      "questionText": "Có {a} quyển sách được chia đều vào {b} kệ. Hỏi mỗi kệ có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1_f} quyển",
+        "B. {w2_f} quyển",
+        "C. {w3_f} quyển",
+        "D. {ans} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia đều sách vào các kệ, ta thực hiện phép chia.",
+        "Phép tính: $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số sách mỗi kệ có là: $ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Đọc đề bài để phân biệt giữa phép chia và phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Một buổi sáng, cửa hàng bán được {a} cái bánh. Buổi chiều bán thêm được {b} cái bánh nữa. Tổng số bánh cửa hàng bán được trong ngày là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {ans} cái",
+        "C. {w2_f} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số bánh bằng cách cộng số bánh buổi sáng và buổi chiều.",
+        "Phép tính: $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số bánh bán được trong ngày là: $ {a} + {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Tổng số là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * a",
+        "w1": "a + a",
+        "w2": "a * 2",
+        "w3": "a + 5",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 7 : w3"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} cm. Diện tích hình vuông đó được tính bằng công thức $S = a \\times a$. Hãy tính diện tích hình vuông này.",
+      "options": [
+        "A. {w1_f} cm²",
+        "B. {w2_f} cm²",
+        "C. {ans} cm²",
+        "D. {w3_f} cm²"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình vuông bằng cạnh nhân với chính nó.",
+        "Tính: $ {a} \\times {a} $."
+      ],
+      "solutionHtml": "Diện tích hình vuông là: $ {a} \\times {a} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+      "tip": "Cạnh nhân cạnh, không phải cạnh nhân 2 nhé!",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 15, "step": 1 },
+        "b": { "min": 2, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a - b",
+        "w3": "(a + b + 2)",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 7 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} hộp bút, mỗi hộp chứa {b} chiếc bút. Nếu cửa hàng nhập thêm một kiện hàng mới có đúng {a} + {b} chiếc bút thì tổng số bút trong cửa hàng là bao nhiêu?",
+      "options": [
+        "A. {w1_f} chiếc",
+        "B. {w2_f} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3_f} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính số bút ban đầu: {a} nhân {b}.",
+        "Tổng số bút là: (Số bút ban đầu) cộng ({a} cộng {b})."
+      ],
+      "solutionHtml": "Số bút ban đầu trong cửa hàng là: $ {a} \\times {b} = {a * b} $ (chiếc).<br/>Tổng số bút sau khi nhập thêm là: $ {a * b} + ({a} + {b}) = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Hãy cẩn thận xác định thứ tự thực hiện các phép tính trong biểu thức chứa chữ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 7 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 9 : w3"
+      },
+      "questionText": "Một nhóm bạn có {a} viên bi, chia đều cho {b} bạn. Nếu gọi số viên bi mỗi bạn nhận được là $x$, hãy biểu diễn $x$ dưới dạng biểu thức và tìm giá trị của nó.",
+      "options": [
+        "A. $x = {w1_f}$",
+        "B. $x = {ans}$",
+        "C. $x = {w2_f}$",
+        "D. $x = {w3_f}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều {a} viên bi cho {b} bạn có nghĩa là thực hiện phép tính chia.",
+        "Biểu thức là: $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số viên bi mỗi bạn nhận được là: $ {a} : {b} = {ans} $ (viên).<br/>Vậy giá trị $x$ là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Chia đều một số lượng cho một nhóm luôn dẫn đến phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 10, "max": 20, "step": 2 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a / 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 15 : w3"
+      },
+      "questionText": "Tuổi của anh là $x$ (năm), tuổi của em là $y$ (năm). Biết anh hơn em {a} - {b} tuổi. Nếu $x = {a}$ và $y = {b}$, hãy tính hiệu số tuổi của hai anh em.",
+      "options": [
+        "A. {w1_f} tuổi",
+        "B. {w2_f} tuổi",
+        "C. {ans} tuổi",
+        "D. {w3_f} tuổi"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hiệu số tuổi của hai người không đổi theo thời gian.",
+        "Ta lấy tuổi của anh trừ tuổi của em."
+      ],
+      "solutionHtml": "Hiệu số tuổi của hai anh em là: $ {a} - {b} = {ans} $ (tuổi).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán về hiệu số tuổi thường dùng phép trừ để giải quyết.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 6, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 2 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 8 : w3"
+      },
+      "questionText": "Một vườn cây có {a} hàng, mỗi hàng có {b} cây ăn quả. Tổng số cây trong vườn là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {w2_f} cây",
+        "C. {w3_f} cây",
+        "D. {ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Để tìm tổng số cây, ta lấy số hàng nhân với số cây mỗi hàng.",
+        "Phép tính: $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Tổng số cây trong vườn là: $ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Tính toán cẩn thận phép nhân các số có một chữ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 10 : w3"
+      },
+      "questionText": "Giá trị của biểu thức $a : b$ với $a = {a}$ và $b = {b}$ là bao nhiêu?",
+      "options": [
+        "A. {w1_f}",
+        "B. {w2_f}",
+        "C. {ans}",
+        "D. {w3_f}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Thay số vào biểu thức đã cho.",
+        "Tính kết quả của $ {a} : {b} $."
+      ],
+      "solutionHtml": "Thay giá trị vào biểu thức: $ {a} : {b} = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Khi thay số vào biểu thức, hãy chú ý thứ tự các chữ cái tương ứng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 200, "step": 10 },
+        "b": { "min": 20, "max": 50, "step": 5 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 20 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 30 : w3"
+      },
+      "questionText": "Trong kho có {a} kg gạo. Người ta xuất đi {b} kg gạo. Hỏi trong kho còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1_f} kg",
+        "B. {ans} kg",
+        "C. {w2_f} kg",
+        "D. {w3_f} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số gạo còn lại bằng số gạo ban đầu trừ đi số gạo đã xuất.",
+        "Phép tính: $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số gạo còn lại là: $ {a} - {b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Xuất đi tức là làm giảm số lượng, sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + a",
+        "w3": "b + b",
+        "w1_f": "(w1 === ans) ? w1 + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 4 : w3"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {a} cm, chiều rộng là {b} cm. Diện tích hình chữ nhật được tính bằng công thức $S = {a} \\times {b}$. Hãy tính diện tích hình chữ nhật đó.",
+      "options": [
+        "A. {w1_f} cm²",
+        "B. {w2_f} cm²",
+        "C. {ans} cm²",
+        "D. {w3_f} cm²"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng.",
+        "Tính: $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Diện tích hình chữ nhật là: $ {a} \\times {b} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên đơn vị đo diện tích là xăng-ti-mét vuông.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 1 },
+        "b": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 15 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 5 : w3"
+      },
+      "questionText": "Có {a} quyển sách được chia đều vào {b} kệ. Hỏi mỗi kệ có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1_f} quyển",
+        "B. {w2_f} quyển",
+        "C. {w3_f} quyển",
+        "D. {ans} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia đều sách vào các kệ, ta thực hiện phép chia.",
+        "Phép tính: $ {a} : {b} $."
+      ],
+      "solutionHtml": "Số sách mỗi kệ có là: $ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Đọc đề bài để phân biệt giữa phép chia và phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 30, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * 2",
+        "w3": "b * 2",
+        "w1_f": "(w1 === ans) ? w1 + 5 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 8 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 12 : w3"
+      },
+      "questionText": "Một buổi sáng, cửa hàng bán được {a} cái bánh. Buổi chiều bán thêm được {b} cái bánh nữa. Tổng số bánh cửa hàng bán được trong ngày là bao nhiêu?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {ans} cái",
+        "C. {w2_f} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số bánh bằng cách cộng số bánh buổi sáng và buổi chiều.",
+        "Phép tính: $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số bánh bán được trong ngày là: $ {a} + {b} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Tổng số là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * a",
+        "w1": "a + a",
+        "w2": "a * 2",
+        "w3": "a + 5",
+        "w1_f": "(w1 === ans) ? w1 + 10 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? ans + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? ans + 7 : w3"
+      },
+      "questionText": "Một hình vuông có cạnh là {a} cm. Diện tích hình vuông đó được tính bằng công thức $S = a \\times a$. Hãy tính diện tích hình vuông này.",
+      "options": [
+        "A. {w1_f} cm²",
+        "B. {w2_f} cm²",
+        "C. {ans} cm²",
+        "D. {w3_f} cm²"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Diện tích hình vuông bằng cạnh nhân với chính nó.",
+        "Tính: $ {a} \\times {a} $."
+      ],
+      "solutionHtml": "Diện tích hình vuông là: $ {a} \\times {a} = {ans} $ (cm²).<br/>Đáp án đúng là C.",
+      "tip": "Cạnh nhân cạnh, không phải cạnh nhân 2 nhé!",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-4-d10"
+    }
+  ]
+}
+}
+

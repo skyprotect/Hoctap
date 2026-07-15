@@ -1,0 +1,582 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:23:35.179Z
+Lesson ID: eng1-t9
+Lesson Title: Unit 9: In the shop
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9531 (line 275 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9531 (line 275 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9531 (Line: 275, Column: 1)
+Character causing error: "}"
+
+Context:
+... n đúng là C.",
+      "tip": "Đừng quên cộng thêm chiếc bánh lẻ ở cuối nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === ans) ? ans + 1 : a + b",
+        "w2": "(a - b === ans || a - b === w1) ? ans + 2 : a - b",
+        "w3": "(a * b === ans || a * b === w1 || a * b === w2) ? ans + 3 : a * b"
+      },
+      "questionText": "Trong cửa hàng, mẹ mua {a} quyển vở và chia đều vào {b} chiếc túi. Hỏi mỗi chiếc túi có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều {a} quyển vở cho {b} chiếc túi là ta thực hiện phép tính chia.", "Hãy tính $ {a} : {b} $."],
+      "solutionHtml": "Số quyển vở trong mỗi chiếc túi là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', các em hãy nghĩ ngay đến phép tính chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "An có {a} chiếc bút trong hộp, bạn mua thêm {b} chiếc nữa. Hỏi bây giờ An có tất cả bao nhiêu chiếc bút?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mua thêm nghĩa là số lượng bút tăng lên, ta dùng phép cộng.", "Hãy tính $ {a} + {b} $."],
+      "solutionHtml": "Số bút An có tất cả là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Mua thêm là làm cho tổng tăng lên, đó là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15 },
+        "b": { "min": 3, "max": 7 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 1",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Cửa hàng có {a} quả táo, cô bán hàng đã bán đi {b} quả. Hỏi cửa hàng còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bán đi nghĩa là số lượng táo giảm xuống, ta dùng phép trừ.", "Hãy tính $ {a} - {b} $."],
+      "solutionHtml": "Số quả táo còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'bán đi' hoặc 'còn lại' thường nhắc chúng ta sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 1",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Trong cửa hàng đồ chơi, có {a} hàng xếp. Mỗi hàng có {b} con búp bê. Hỏi có tất cả bao nhiêu con búp bê?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {ans} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mỗi hàng có {b} con, ta có {a} hàng, ta dùng phép nhân.", "Hãy tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số con búp bê là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong mỗi nhóm và số nhóm, ta thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 12 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Cửa hàng xếp {a} chiếc cốc vào các hộp, mỗi hộp đựng {b} chiếc. Hỏi xếp được tất cả bao nhiêu hộp cốc?",
+      "options": [
+        "A. {w1} hộp",
+        "B. {w2} hộp",
+        "C. {ans} hộp",
+        "D. {w3} hộp"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số hộp, ta chia tổng số cốc cho số cốc mỗi hộp.", "Hãy tính $ {a} : {b} $."],
+      "solutionHtml": "Số hộp cốc được xếp là:<br/>$ {a} : {b} = {ans} $ (hộp).<br/>Đáp án đúng là C.",
+      "tip": "Tìm số nhóm là chúng ta thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b + 1",
+        "w2": "a + b + 3",
+        "w3": "a + b + 4"
+      },
+      "questionText": "Lan mua {a} cái kẹo và {b} cái bánh. Sau đó Lan mua thêm 2 cái kẹo nữa. Hỏi Lan có tất cả bao nhiêu món đồ?",
+      "options": [
+        "A. {w1} món",
+        "B. {ans} món",
+        "C. {w2} món",
+        "D. {w3} món"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lan mua kẹo và bánh, rồi mua thêm kẹo, ta cộng tất cả lại.", "Hãy tính $ {a} + {b} + 2 $."],
+      "solutionHtml": "Số món đồ Lan có là:<br/>$ {a} + {b} + 2 = {ans} $ (món).<br/>Đáp án đúng là B.",
+      "tip": "Hãy liệt kê từng loại trước khi cộng tổng nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 8 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b - 1",
+        "w1": "a - b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Cửa hàng có {a} cái bút chì. Minh mua {b} cái, sau đó lại làm mất 1 cái. Hỏi cửa hàng còn bao nhiêu cái?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": ["Đầu tiên trừ đi số bút Minh mua, sau đó trừ tiếp số bút bị mất.", "Hãy tính $ {a} - {b} - 1 $."],
+      "solutionHtml": "Số bút còn lại là:<br/>$ {a} - {b} - 1 = {ans} $ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với những bài toán có nhiều lần giảm đi!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + a",
+        "w1": "a + b + a + 1",
+        "w2": "a + b + a - 1",
+        "w3": "a + b + a + 2"
+      },
+      "questionText": "Cửa hàng có {a} túi cam và {b} túi quýt. Cửa hàng lại nhập thêm {a} túi cam nữa. Hỏi có tất cả bao nhiêu túi trái cây?",
+      "options": [
+        "A. {w1} túi",
+        "B. {w2} túi",
+        "C. {ans} túi",
+        "D. {w3} túi"
+      ],
+      "correctIndex": 2,
+      "hints": ["Cộng số túi cam ban đầu với số túi quýt, rồi cộng tiếp số túi cam mới nhập.", "Hãy tính $ {a} + {b} + {a} $."],
+      "solutionHtml": "Tổng số túi trái cây là:<br/>$ {a} + {b} + {a} = {ans} $ (túi).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý số lượng của từng loại trái cây.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 10 },
+        "b": { "min": 2, "max": 2 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Có {a} quả bóng được chia đều cho {b} bạn. Sau đó mỗi bạn lại được tặng thêm 2 quả nữa. Hỏi mỗi bạn có bao nhiêu quả bóng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": ["Đầu tiên lấy {a} chia cho {b}, sau đó cộng thêm 2.", "Hãy tính $ ({a} : {b}) + 2 $."],
+      "solutionHtml": "Số bóng mỗi bạn có là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ thứ tự các bước trong đề bài nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 4 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b + 1",
+        "w1": "a * b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi hộp đựng {a} cái bánh. Lan mua {b} hộp và được tặng thêm 1 cái bánh lẻ. Hỏi Lan có tất cả bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": ["Lấy số hộp nhân với số bánh mỗi hộp, rồi cộng thêm 1.", "Hãy tính $ {a} \\times {b} + 1 $."],
+      "solutionHtml": "Số bánh Lan có là:<br/>$ {a} \\times {b} + 1 = {ans} $ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên cộng thêm chiếc bánh lẻ ở cuối nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 2, "max": 5 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === ans) ? ans + 1 : a + b",
+        "w2": "(a - b === ans || a - b === w1) ? ans + 2 : a - b",
+        "w3": "(a * b === ans || a * b === w1 || a * b === w2) ? ans + 3 : a * b"
+      },
+      "questionText": "Trong cửa hàng, mẹ mua {a} quyển vở và chia đều vào {b} chiếc túi. Hỏi mỗi chiếc túi có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia đều {a} quyển vở cho {b} chiếc túi là ta thực hiện phép tính chia.", "Hãy tính $ {a} : {b} $."],
+      "solutionHtml": "Số quyển vở trong mỗi chiếc túi là:<br/>$ {a} : {b} = {ans} $ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', các em hãy nghĩ ngay đến phép tính chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a + b + 2"
+      },
+      "questionText": "An có {a} chiếc bút trong hộp, bạn mua thêm {b} chiếc nữa. Hỏi bây giờ An có tất cả bao nhiêu chiếc bút?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mua thêm nghĩa là số lượng bút tăng lên, ta dùng phép cộng.", "Hãy tính $ {a} + {b} $."],
+      "solutionHtml": "Số bút An có tất cả là:<br/>$ {a} + {b} = {ans} $ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Mua thêm là làm cho tổng tăng lên, đó là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15 },
+        "b": { "min": 3, "max": 7 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 1",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Cửa hàng có {a} quả táo, cô bán hàng đã bán đi {b} quả. Hỏi cửa hàng còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": ["Bán đi nghĩa là số lượng táo giảm xuống, ta dùng phép trừ.", "Hãy tính $ {a} - {b} $."],
+      "solutionHtml": "Số quả táo còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'bán đi' hoặc 'còn lại' thường nhắc chúng ta sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4 },
+        "b": { "min": 3, "max": 5 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 1",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Trong cửa hàng đồ chơi, có {a} hàng xếp. Mỗi hàng có {b} con búp bê. Hỏi có tất cả bao nhiêu con búp bê?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {ans} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 2,
+      "hints": ["Mỗi hàng có {b} con, ta có {a} hàng, ta dùng phép nhân.", "Hãy tính $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số con búp bê là:<br/>$ {a} \\times {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong mỗi nhóm và số nhóm, ta thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 12 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 2",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Cửa hàng xếp {a} chiếc cốc vào các hộp, mỗi hộp đựng {b} chiếc. Hỏi xếp được tất cả bao nhiêu hộp cốc?",
+      "options": [
+        "A. {w1} hộp",
+        "B. {w2} hộp",
+        "C. {ans} hộp",
+        "D. {w3} hộp"
+      ],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm số hộp, ta chia tổng số cốc cho số cốc mỗi hộp.", "Hãy tính $ {a} : {b} $."],
+      "solutionHtml": "Số hộp cốc được xếp là:<br/>$ {a} : {b} = {ans} $ (hộp).<br/>Đáp án đúng là C.",
+      "tip": "Tìm số nhóm là chúng ta thực hiện phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b + 1",
+        "w2": "a + b + 3",
+        "w3": "a + b + 4"
+      },
+      "questionText": "Lan mua {a} cái kẹo và {b} cái bánh. Sau đó Lan mua thêm 2 cái kẹo nữa. Hỏi Lan có tất cả bao nhiêu món đồ?",
+      "options": [
+        "A. {w1} món",
+        "B. {ans} món",
+        "C. {w2} món",
+        "D. {w3} món"
+      ],
+      "correctIndex": 1,
+      "hints": ["Lan mua kẹo và bánh, rồi mua thêm kẹo, ta cộng tất cả lại.", "Hãy tính $ {a} + {b} + 2 $."],
+      "solutionHtml": "Số món đồ Lan có là:<br/>$ {a} + {b} + 2 = {ans} $ (món).<br/>Đáp án đúng là B.",
+      "tip": "Hãy liệt kê từng loại trước khi cộng tổng nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 8 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b - 1",
+        "w1": "a - b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Cửa hàng có {a} cái bút chì. Minh mua {b} cái, sau đó lại làm mất 1 cái. Hỏi cửa hàng còn bao nhiêu cái?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": ["Đầu tiên trừ đi số bút Minh mua, sau đó trừ tiếp số bút bị mất.", "Hãy tính $ {a} - {b} - 1 $."],
+      "solutionHtml": "Số bút còn lại là:<br/>$ {a} - {b} - 1 = {ans} $ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với những bài toán có nhiều lần giảm đi!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 6 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a + b + a",
+        "w1": "a + b + a + 1",
+        "w2": "a + b + a - 1",
+        "w3": "a + b + a + 2"
+      },
+      "questionText": "Cửa hàng có {a} túi cam và {b} túi quýt. Cửa hàng lại nhập thêm {a} túi cam nữa. Hỏi có tất cả bao nhiêu túi trái cây?",
+      "options": [
+        "A. {w1} túi",
+        "B. {w2} túi",
+        "C. {ans} túi",
+        "D. {w3} túi"
+      ],
+      "correctIndex": 2,
+      "hints": ["Cộng số túi cam ban đầu với số túi quýt, rồi cộng tiếp số túi cam mới nhập.", "Hãy tính $ {a} + {b} + {a} $."],
+      "solutionHtml": "Tổng số túi trái cây là:<br/>$ {a} + {b} + {a} = {ans} $ (túi).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý số lượng của từng loại trái cây.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 10 },
+        "b": { "min": 2, "max": 2 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 3"
+      },
+      "questionText": "Có {a} quả bóng được chia đều cho {b} bạn. Sau đó mỗi bạn lại được tặng thêm 2 quả nữa. Hỏi mỗi bạn có bao nhiêu quả bóng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": ["Đầu tiên lấy {a} chia cho {b}, sau đó cộng thêm 2.", "Hãy tính $ ({a} : {b}) + 2 $."],
+      "solutionHtml": "Số bóng mỗi bạn có là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ thứ tự các bước trong đề bài nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 4 },
+        "b": { "min": 2, "max": 3 }
+      },
+      "constraints": ["true"],
+      "formulas": {
+        "ans": "a * b + 1",
+        "w1": "a * b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi hộp đựng {a} cái bánh. Lan mua {b} hộp và được tặng thêm 1 cái bánh lẻ. Hỏi Lan có tất cả bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": ["Lấy số hộp nhân với số bánh mỗi hộp, rồi cộng thêm 1.", "Hãy tính $ {a} \\times {b} + 1 $."],
+      "solutionHtml": "Số bánh Lan có là:<br/>$ {a} \\times {b} + 1 = {ans} $ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên cộng thêm chiếc bánh lẻ ở cuối nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t9-d10"
+    }
+  ]
+}
+}
+

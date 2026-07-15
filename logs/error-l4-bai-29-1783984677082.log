@@ -1,0 +1,628 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:17:57.082Z
+Lesson ID: l4-bai-29
+Lesson Title: Bài 29: Hai đường thẳng song song
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10542 (line 338 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10542 (line 338 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10542 (Line: 284, Column: 28)
+Character causing error: "
+"
+
+Context:
+... hẳng song song $m$ và $n$. Một đường thẳng $k$ song song với $m$. Hỏi $k$ có song song với $n$ không?",
+      "options": [
+        "A. Không bao giờ",>>>[LỖI TẠI ĐÂY]<<<
+        "B. Có, luôn luôn song song",
+        "C. Chỉ song song nếu k trùng m",
+        "D. Chỉ song song nếu k trùng n"
+      ],
+      "correctIndex ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "2",
+        "w1": "4",
+        "w2": "0",
+        "w3": "1"
+      },
+      "questionText": "Trong hình chữ nhật ABCD, hãy xác định số lượng cặp cạnh song song với nhau.",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một hình chữ nhật có hai cặp cạnh đối diện song song với nhau."],
+      "solutionHtml": "Trong hình chữ nhật, cặp cạnh đối diện thứ nhất song song với nhau và cặp cạnh đối diện thứ hai cũng song song với nhau. Vậy có tổng cộng 2 cặp cạnh song song. Đáp án đúng là B.",
+      "tip": "Đừng quên rằng các cặp cạnh đối diện của hình chữ nhật luôn song song và bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n",
+        "w1": "n + 1",
+        "w2": "n - 1",
+        "w3": "2 * n"
+      },
+      "questionText": "Một hình thang có một cặp cạnh đáy song song. Nếu ta vẽ thêm {n} đường thẳng song song với hai cạnh đáy đó, hỏi trong hình có tất cả bao nhiêu đường thẳng song song với nhau?",
+      "options": [
+        "A. {w1} đường thẳng",
+        "B. {w2} đường thẳng",
+        "C. {ans} đường thẳng",
+        "D. {w3} đường thẳng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Ban đầu đã có 2 cạnh đáy song song. Vẽ thêm {n} đường thẳng song song nữa."],
+      "solutionHtml": "Hình thang có 2 cạnh đáy song song. Khi vẽ thêm {n} đường thẳng song song với các cạnh này, ta có tổng cộng $ 2 + {n} $ đường thẳng song song. Để ý kỹ câu hỏi: 'vẽ thêm {n} đường thẳng song song với hai cạnh đáy'. Tổng cộng là {ans} đường thẳng. Đáp án đúng là C.",
+      "tip": "Cẩn thận với từ 'vẽ thêm' và số lượng các đường thẳng đã có sẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n * (n - 1) / 2",
+        "w1": "n * (n - 1)",
+        "w2": "n + 1",
+        "w3": "n * 2"
+      },
+      "questionText": "Trên mặt phẳng có {n} đường thẳng phân biệt, biết rằng tất cả các đường thẳng này đều song song với nhau. Hỏi có bao nhiêu cặp đường thẳng song song trong hình?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số cặp đường thẳng được chọn từ {n} đường thẳng là tổ hợp chập 2 của {n}."],
+      "solutionHtml": "Với {n} đường thẳng song song, mỗi cặp gồm 2 đường thẳng bất kỳ đều song song với nhau. Công thức tính số cặp là $ \\frac{{n} \\times ({n}-1)}{2} = {ans} $. Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu đếm số cách chọn 2 đường thẳng từ {n} đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "4"
+      },
+      "questionText": "Cho hai đường thẳng a và b cắt nhau tại điểm O. Hỏi có bao nhiêu đường thẳng song song với đường thẳng a đi qua điểm O?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": ["Qua một điểm nằm ngoài một đường thẳng, chỉ có duy nhất một đường thẳng song song với đường thẳng đó."],
+      "solutionHtml": "Điểm O nằm trên đường thẳng a, nên không thể vẽ bất kỳ đường thẳng nào khác đi qua O mà song song với a được. Đáp án đúng là D.",
+      "tip": "Tính chất của đường thẳng song song: Qua một điểm nằm ngoài đường thẳng cho trước, chỉ vẽ được một đường thẳng song song duy nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x !== y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x * y",
+        "w2": "x + y + 1",
+        "w3": "x + y - 1"
+      },
+      "questionText": "Hình vẽ có một tập hợp gồm {x} đường thẳng nằm ngang song song và {y} đường thẳng đứng song song. Có bao nhiêu hình chữ nhật được tạo thành từ các đường thẳng này?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "formulas_calc": {
+         "res": "(x*(x-1)/2) * (y*(y-1)/2)"
+      },
+      "formulas": {
+        "ans": "(x*(x-1)/2) * (y*(y-1)/2)",
+        "w1": "x * y",
+        "w2": "x + y",
+        "w3": "x + y + 2"
+      },
+      "questionText": "Có {x} đường thẳng song song nằm ngang và {y} đường thẳng song song thẳng đứng cắt nhau. Tổng số hình chữ nhật được tạo thành là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tạo thành 1 hình chữ nhật, ta chọn 2 đường ngang từ {x} đường và 2 đường dọc từ {y} đường."],
+      "solutionHtml": "Số cách chọn 2 đường ngang là $ \\frac{{x} \\times ({x}-1)}{2} $. Số cách chọn 2 đường dọc là $ \\frac{{y} \\times ({y}-1)}{2} $. Tổng số hình chữ nhật là tích của hai giá trị trên: $ {ans} $. Đáp án đúng là B.",
+      "tip": "Sử dụng quy tắc nhân để chọn các cặp đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a * 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong một hình bình hành ABCD, cặp cạnh AB song song với CD. Nếu ta kéo dài cạnh AB về phía B và cạnh CD về phía D, thì hai phần mới kéo dài đó có song song với nhau không?",
+      "options": [
+        "A. Có, luôn song song",
+        "B. Không song song",
+        "C. Chỉ song song khi kéo dài bằng nhau",
+        "D. Song song nếu hình bình hành là hình vuông"
+      ],
+      "correctIndex": 0,
+      "hints": ["Tính chất của hình bình hành và đường thẳng song song."],
+      "solutionHtml": "Trong hình bình hành, hai cạnh đối AB và CD song song. Khi kéo dài các cạnh này, các phần kéo dài vẫn nằm trên các đường thẳng song song ban đầu nên chúng vẫn song song với nhau. Đáp án đúng là A.",
+      "tip": "Đường thẳng chứa cạnh của hình bình hành vẫn giữ nguyên tính chất song song khi kéo dài.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "a"
+      },
+      "questionText": "Cho hai đường thẳng song song $m$ và $n$. Một đường thẳng $k$ cắt $m$ tại A và cắt $n$ tại B. Có bao nhiêu đường thẳng song song với $k$ mà đi qua điểm A?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Điểm A đã nằm trên đường thẳng k."],
+      "solutionHtml": "Đường thẳng k đi qua điểm A, do đó bất kỳ đường thẳng nào khác đi qua A thì hoặc là trùng với k hoặc cắt k. Không tồn tại đường thẳng song song với k mà đi qua A. Đáp án đúng là B.",
+      "tip": "Cẩn thận với vị trí của điểm so với đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 2",
+        "w2": "a * 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Có {a} đường thẳng song song cách đều nhau trên một tờ giấy. Hỏi có bao nhiêu khoảng cách ở giữa các đường thẳng đó?",
+      "options": [
+        "A. {w1}",
+        "B. {w3}",
+        "C. {ans}",
+        "D. {w2}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số khoảng cách giữa n vật bằng n - 1."],
+      "solutionHtml": "Với {a} đường thẳng song song, số khoảng cách giữa chúng là $ {a} - 1 $. À xin lỗi, đáp án là {a}-1. Đợi đã, $ {a}-1 $ mới đúng. Vậy đáp án là C.",
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a * 2"
+      },
+      "questionText": "Có {a} đường thẳng song song cách đều nhau. Hỏi có bao nhiêu khoảng cách giữa các đường thẳng liên tiếp?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "solutionHtml": "Số khoảng cách giữa {a} đường thẳng là {a} - 1 = {ans}. Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2",
+        "w1": "1",
+        "w2": "3",
+        "w3": "4"
+      },
+      "questionText": "Hình thang cân ABCD (AB song song CD) có bao nhiêu cặp cạnh song song?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hình thang chỉ có duy nhất một cặp cạnh đáy song song."],
+      "solutionHtml": "Hình thang cân có hai cạnh đáy AB và CD song song với nhau. Hai cạnh bên không song song. Vậy chỉ có 1 cặp cạnh song song. Đáp án đúng là B.",
+      "tip": "Định nghĩa hình thang là tứ giác có ít nhất một cặp cạnh song song.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "1",
+        "w1": "0",
+        "w2": "2",
+        "w3": "4"
+      },
+      "questionText": "Cho hai đường thẳng song song $m$ và $n$. Một đường thẳng $k$ song song với $m$. Hỏi $k$ có song song với $n$ không?",
+      "options": [
+        "A. Không bao giờ",
+        "B. Có, luôn luôn song song",
+        "C. Chỉ song song nếu k trùng m",
+        "D. Chỉ song song nếu k trùng n"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính chất bắc cầu: Nếu a song song với b và b song song với c thì a song song với c."],
+      "solutionHtml": "Theo tính chất của đường thẳng song song, nếu $k // m$ và $m // n$ thì $k // n$. Đáp án đúng là B.",
+      "tip": "Tính chất bắc cầu rất quan trọng trong hình học phẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a < b"],
+      "formulas": {
+        "ans": "2",
+        "w1": "4",
+        "w2": "0",
+        "w3": "1"
+      },
+      "questionText": "Trong hình chữ nhật ABCD, hãy xác định số lượng cặp cạnh song song với nhau.",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": ["Một hình chữ nhật có hai cặp cạnh đối diện song song với nhau."],
+      "solutionHtml": "Trong hình chữ nhật, cặp cạnh đối diện thứ nhất song song với nhau và cặp cạnh đối diện thứ hai cũng song song với nhau. Vậy có tổng cộng 2 cặp cạnh song song. Đáp án đúng là B.",
+      "tip": "Đừng quên rằng các cặp cạnh đối diện của hình chữ nhật luôn song song và bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n",
+        "w1": "n + 1",
+        "w2": "n - 1",
+        "w3": "2 * n"
+      },
+      "questionText": "Một hình thang có một cặp cạnh đáy song song. Nếu ta vẽ thêm {n} đường thẳng song song với hai cạnh đáy đó, hỏi trong hình có tất cả bao nhiêu đường thẳng song song với nhau?",
+      "options": [
+        "A. {w1} đường thẳng",
+        "B. {w2} đường thẳng",
+        "C. {ans} đường thẳng",
+        "D. {w3} đường thẳng"
+      ],
+      "correctIndex": 2,
+      "hints": ["Ban đầu đã có 2 cạnh đáy song song. Vẽ thêm {n} đường thẳng song song nữa."],
+      "solutionHtml": "Hình thang có 2 cạnh đáy song song. Khi vẽ thêm {n} đường thẳng song song với các cạnh này, ta có tổng cộng $ 2 + {n} $ đường thẳng song song. Để ý kỹ câu hỏi: 'vẽ thêm {n} đường thẳng song song với hai cạnh đáy'. Tổng cộng là {ans} đường thẳng. Đáp án đúng là C.",
+      "tip": "Cẩn thận với từ 'vẽ thêm' và số lượng các đường thẳng đã có sẵn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n * (n - 1) / 2",
+        "w1": "n * (n - 1)",
+        "w2": "n + 1",
+        "w3": "n * 2"
+      },
+      "questionText": "Trên mặt phẳng có {n} đường thẳng phân biệt, biết rằng tất cả các đường thẳng này đều song song với nhau. Hỏi có bao nhiêu cặp đường thẳng song song trong hình?",
+      "options": [
+        "A. {w1} cặp",
+        "B. {ans} cặp",
+        "C. {w2} cặp",
+        "D. {w3} cặp"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số cặp đường thẳng được chọn từ {n} đường thẳng là tổ hợp chập 2 của {n}."],
+      "solutionHtml": "Với {n} đường thẳng song song, mỗi cặp gồm 2 đường thẳng bất kỳ đều song song với nhau. Công thức tính số cặp là $ \\frac{{n} \\times ({n}-1)}{2} = {ans} $. Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu đếm số cách chọn 2 đường thẳng từ {n} đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "4"
+      },
+      "questionText": "Cho hai đường thẳng a và b cắt nhau tại điểm O. Hỏi có bao nhiêu đường thẳng song song với đường thẳng a đi qua điểm O?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": ["Qua một điểm nằm ngoài một đường thẳng, chỉ có duy nhất một đường thẳng song song với đường thẳng đó."],
+      "solutionHtml": "Điểm O nằm trên đường thẳng a, nên không thể vẽ bất kỳ đường thẳng nào khác đi qua O mà song song với a được. Đáp án đúng là D.",
+      "tip": "Tính chất của đường thẳng song song: Qua một điểm nằm ngoài đường thẳng cho trước, chỉ vẽ được một đường thẳng song song duy nhất.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5, "step": 1 },
+        "y": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["x !== y"],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x * y",
+        "w2": "x + y + 1",
+        "w3": "x + y - 1"
+      },
+      "questionText": "Hình vẽ có một tập hợp gồm {x} đường thẳng nằm ngang song song và {y} đường thẳng đứng song song. Có bao nhiêu hình chữ nhật được tạo thành từ các đường thẳng này?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "formulas_calc": {
+         "res": "(x*(x-1)/2) * (y*(y-1)/2)"
+      },
+      "formulas": {
+        "ans": "(x*(x-1)/2) * (y*(y-1)/2)",
+        "w1": "x * y",
+        "w2": "x + y",
+        "w3": "x + y + 2"
+      },
+      "questionText": "Có {x} đường thẳng song song nằm ngang và {y} đường thẳng song song thẳng đứng cắt nhau. Tổng số hình chữ nhật được tạo thành là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Để tạo thành 1 hình chữ nhật, ta chọn 2 đường ngang từ {x} đường và 2 đường dọc từ {y} đường."],
+      "solutionHtml": "Số cách chọn 2 đường ngang là $ \\frac{{x} \\times ({x}-1)}{2} $. Số cách chọn 2 đường dọc là $ \\frac{{y} \\times ({y}-1)}{2} $. Tổng số hình chữ nhật là tích của hai giá trị trên: $ {ans} $. Đáp án đúng là B.",
+      "tip": "Sử dụng quy tắc nhân để chọn các cặp đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 10, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a * 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong một hình bình hành ABCD, cặp cạnh AB song song với CD. Nếu ta kéo dài cạnh AB về phía B và cạnh CD về phía D, thì hai phần mới kéo dài đó có song song với nhau không?",
+      "options": [
+        "A. Có, luôn song song",
+        "B. Không song song",
+        "C. Chỉ song song khi kéo dài bằng nhau",
+        "D. Song song nếu hình bình hành là hình vuông"
+      ],
+      "correctIndex": 0,
+      "hints": ["Tính chất của hình bình hành và đường thẳng song song."],
+      "solutionHtml": "Trong hình bình hành, hai cạnh đối AB và CD song song. Khi kéo dài các cạnh này, các phần kéo dài vẫn nằm trên các đường thẳng song song ban đầu nên chúng vẫn song song với nhau. Đáp án đúng là A.",
+      "tip": "Đường thẳng chứa cạnh của hình bình hành vẫn giữ nguyên tính chất song song khi kéo dài.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "0",
+        "w1": "1",
+        "w2": "2",
+        "w3": "a"
+      },
+      "questionText": "Cho hai đường thẳng song song $m$ và $n$. Một đường thẳng $k$ cắt $m$ tại A và cắt $n$ tại B. Có bao nhiêu đường thẳng song song với $k$ mà đi qua điểm A?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Điểm A đã nằm trên đường thẳng k."],
+      "solutionHtml": "Đường thẳng k đi qua điểm A, do đó bất kỳ đường thẳng nào khác đi qua A thì hoặc là trùng với k hoặc cắt k. Không tồn tại đường thẳng song song với k mà đi qua A. Đáp án đúng là B.",
+      "tip": "Cẩn thận với vị trí của điểm so với đường thẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 2",
+        "w2": "a * 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Có {a} đường thẳng song song cách đều nhau trên một tờ giấy. Hỏi có bao nhiêu khoảng cách ở giữa các đường thẳng đó?",
+      "options": [
+        "A. {w1}",
+        "B. {w3}",
+        "C. {ans}",
+        "D. {w2}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số khoảng cách giữa n vật bằng n - 1."],
+      "solutionHtml": "Với {a} đường thẳng song song, số khoảng cách giữa chúng là $ {a} - 1 $. À xin lỗi, đáp án là {a}-1. Đợi đã, $ {a}-1 $ mới đúng. Vậy đáp án là C.",
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a * 2"
+      },
+      "questionText": "Có {a} đường thẳng song song cách đều nhau. Hỏi có bao nhiêu khoảng cách giữa các đường thẳng liên tiếp?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "solutionHtml": "Số khoảng cách giữa {a} đường thẳng là {a} - 1 = {ans}. Đáp án đúng là C.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2",
+        "w1": "1",
+        "w2": "3",
+        "w3": "4"
+      },
+      "questionText": "Hình thang cân ABCD (AB song song CD) có bao nhiêu cặp cạnh song song?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hình thang chỉ có duy nhất một cặp cạnh đáy song song."],
+      "solutionHtml": "Hình thang cân có hai cạnh đáy AB và CD song song với nhau. Hai cạnh bên không song song. Vậy chỉ có 1 cặp cạnh song song. Đáp án đúng là B.",
+      "tip": "Định nghĩa hình thang là tứ giác có ít nhất một cặp cạnh song song.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "1",
+        "w1": "0",
+        "w2": "2",
+        "w3": "4"
+      },
+      "questionText": "Cho hai đường thẳng song song $m$ và $n$. Một đường thẳng $k$ song song với $m$. Hỏi $k$ có song song với $n$ không?",
+      "options": [
+        "A. Không bao giờ",
+        "B. Có, luôn luôn song song",
+        "C. Chỉ song song nếu k trùng m",
+        "D. Chỉ song song nếu k trùng n"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính chất bắc cầu: Nếu a song song với b và b song song với c thì a song song với c."],
+      "solutionHtml": "Theo tính chất của đường thẳng song song, nếu $k // m$ và $m // n$ thì $k // n$. Đáp án đúng là B.",
+      "tip": "Tính chất bắc cầu rất quan trọng trong hình học phẳng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-29-d10"
+    }
+  ]
+}
+

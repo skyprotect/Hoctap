@@ -1,0 +1,482 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-14T01:27:37.257Z
+Lesson ID: eng1-t19
+Lesson Title: Unit 19: Jobs & Occupations (NÂNG CAO LỚP 2)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 9459 (line 225 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 9459 (line 225 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 9459 (Line: 225, Column: 1)
+Character causing error: "}"
+
+Context:
+... ng là C.",
+      "tip": "Tổng cộng luôn là phép tính cộng các thành phần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 3"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "a - b"
+      },
+      "questionText": "Trong một tiệm bánh, có {a} chiếc bánh được chia đều vào {b} khay để bác thợ làm bánh (Baker) trưng bày. Hỏi mỗi khay có bao nhiêu chiếc bánh?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số bánh mỗi khay, ta lấy tổng số bánh chia cho số khay.", "Tính $ {a} : {b} $."],
+      "solutionHtml": "Số bánh trong mỗi khay là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', hãy nhớ ngay đến phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Bác nông dân (Farmer) trồng được {a} cây táo và {b} cây cam trong vườn. Hỏi bác nông dân trồng tất cả bao nhiêu cây?",
+      "options": ["A. {w1} cây", "B. {w2} cây", "C. {ans} cây", "D. {w3} cây"],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số cây bằng cách cộng số cây táo và cây cam lại với nhau.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Tổng số cây bác nông dân trồng là:<br/>$ {a} + {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'tất cả' là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "b + 1"
+      },
+      "questionText": "Một chú cảnh sát (Police officer) có {a} chiếc còi, chú đã tặng lại {b} chiếc còi cho các bạn nhỏ. Hỏi chú cảnh sát còn lại bao nhiêu chiếc còi?",
+      "options": ["A. {ans} chiếc", "B. {w1} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 0,
+      "hints": ["Để tìm số còi còn lại, ta lấy số còi ban đầu trừ đi số còi đã tặng.", "Phép tính là $ {a} - {b} $."],
+      "solutionHtml": "Số còi chú cảnh sát còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là A.",
+      "tip": "Từ 'còn lại' thường dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Cô giáo (Teacher) có {a} nhóm học sinh, mỗi nhóm có {b} bạn đang đọc sách. Hỏi có tất cả bao nhiêu bạn học sinh?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Mỗi nhóm có {b} bạn, có {a} nhóm như thế, ta làm phép nhân.", "Phép tính là $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số bạn học sinh là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi có các nhóm bằng nhau, ta dùng phép nhân để tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b + a",
+        "w1": "a + b",
+        "w2": "a + a",
+        "w3": "a + b + 1"
+      },
+      "questionText": "Một bác sĩ (Doctor) khám cho {a} bệnh nhân vào buổi sáng, khám tiếp {b} bệnh nhân vào buổi trưa và thêm {a} bệnh nhân vào buổi chiều. Hỏi tổng cộng bác sĩ đã khám cho bao nhiêu bệnh nhân?",
+      "options": ["A. {w1} bệnh nhân", "B. {w2} bệnh nhân", "C. {ans} bệnh nhân", "D. {w3} bệnh nhân"],
+      "correctIndex": 2,
+      "hints": ["Hãy cộng số lượng bệnh nhân của cả ba buổi lại với nhau.", "Phép tính là $ {a} + {b} + {a} $."],
+      "solutionHtml": "Tổng số bệnh nhân bác sĩ đã khám là:<br/>$ {a} + {b} + {a} = {ans} $ (bệnh nhân).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ các con số trong đề bài để không bỏ sót dữ liệu.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a",
+        "w2": "a / b + 2",
+        "w3": "a / b - 1"
+      },
+      "questionText": "Một anh thợ xây (Builder) có {a} viên gạch và chia đều cho {b} hàng. Hỏi mỗi hàng có bao nhiêu viên gạch?",
+      "options": ["A. {w1} viên", "B. {w2} viên", "C. {ans} viên", "D. {w3} viên"],
+      "correctIndex": 2,
+      "hints": ["Chia đều {a} viên gạch cho {b} hàng.", "Phép tính là $ {a} : {b} $."],
+      "solutionHtml": "Số viên gạch mỗi hàng là:<br/>$ {a} : {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là từ khóa cho phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b"
+      },
+      "questionText": "Một đầu bếp (Chef) nấu {a} món ăn, nhưng khách chỉ chọn ăn {b} món. Hỏi còn lại bao nhiêu món đầu bếp đã nấu mà khách chưa chọn?",
+      "options": ["A. {w1} món", "B. {w2} món", "C. {w3} món", "D. {ans} món"],
+      "correctIndex": 3,
+      "hints": ["Ta thực hiện phép tính trừ để tìm số món còn lại.", "Phép tính là $ {a} - {b} $."],
+      "solutionHtml": "Số món ăn còn lại là:<br/>$ {a} - {b} = {ans} $ (món).<br/>Đáp án đúng là D.",
+      "tip": "Tìm phần chênh lệch giữa tổng số và phần đã dùng là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 4, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Một người đưa thư (Postman) mang {a} túi thư, mỗi túi có {b} lá thư. Hỏi người đưa thư mang tất cả bao nhiêu lá thư?",
+      "options": ["A. {w1} lá", "B. {ans} lá", "C. {w2} lá", "D. {w3} lá"],
+      "correctIndex": 1,
+      "hints": ["Có {a} túi, mỗi túi có {b} lá thư, ta làm phép nhân.", "Phép tính là $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số lá thư là:<br/>$ {a} \\times {b} = {ans} $ (lá).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số nhóm và số phần tử mỗi nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Một nha sĩ (Dentist) khám cho {a} người trong {b} ngày, mỗi ngày khám số lượng người như nhau. Hỏi mỗi ngày nha sĩ khám cho bao nhiêu người?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {ans} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số người mỗi ngày, ta chia tổng số người cho số ngày.", "Phép tính là $ {a} : {b} $."],
+      "solutionHtml": "Số người nha sĩ khám mỗi ngày là:<br/>$ {a} : {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đề bài cho biết số lượng chia đều theo thời gian, đó là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + 2",
+        "w3": "b + 2"
+      },
+      "questionText": "Trong lớp học, có {a} bạn muốn làm họa sĩ (Artist), {b} bạn muốn làm phi công (Pilot) và có thêm 2 bạn muốn làm giáo viên. Hỏi tổng cộng có bao nhiêu bạn đã chọn nghề nghiệp?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Cộng tất cả các nhóm học sinh lại: {a} + {b} + 2.", "Phép tính là $ {a} + {b} + 2 $."],
+      "solutionHtml": "Tổng số bạn chọn nghề nghiệp là:<br/>$ {a} + {b} + 2 = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Tổng cộng luôn là phép tính cộng các thành phần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0", "a > b * 3"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "a - b"
+      },
+      "questionText": "Trong một tiệm bánh, có {a} chiếc bánh được chia đều vào {b} khay để bác thợ làm bánh (Baker) trưng bày. Hỏi mỗi khay có bao nhiêu chiếc bánh?",
+      "options": ["A. {w1} chiếc", "B. {ans} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 1,
+      "hints": ["Để tìm số bánh mỗi khay, ta lấy tổng số bánh chia cho số khay.", "Tính $ {a} : {b} $."],
+      "solutionHtml": "Số bánh trong mỗi khay là:<br/>$ {a} : {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', hãy nhớ ngay đến phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9, "step": 1 },
+        "b": { "min": 3, "max": 7, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Bác nông dân (Farmer) trồng được {a} cây táo và {b} cây cam trong vườn. Hỏi bác nông dân trồng tất cả bao nhiêu cây?",
+      "options": ["A. {w1} cây", "B. {w2} cây", "C. {ans} cây", "D. {w3} cây"],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số cây bằng cách cộng số cây táo và cây cam lại với nhau.", "Phép tính là $ {a} + {b} $."],
+      "solutionHtml": "Tổng số cây bác nông dân trồng là:<br/>$ {a} + {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'tất cả' là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 15, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "b + 1"
+      },
+      "questionText": "Một chú cảnh sát (Police officer) có {a} chiếc còi, chú đã tặng lại {b} chiếc còi cho các bạn nhỏ. Hỏi chú cảnh sát còn lại bao nhiêu chiếc còi?",
+      "options": ["A. {ans} chiếc", "B. {w1} chiếc", "C. {w2} chiếc", "D. {w3} chiếc"],
+      "correctIndex": 0,
+      "hints": ["Để tìm số còi còn lại, ta lấy số còi ban đầu trừ đi số còi đã tặng.", "Phép tính là $ {a} - {b} $."],
+      "solutionHtml": "Số còi chú cảnh sát còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là A.",
+      "tip": "Từ 'còn lại' thường dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 3, "max": 5, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Cô giáo (Teacher) có {a} nhóm học sinh, mỗi nhóm có {b} bạn đang đọc sách. Hỏi có tất cả bao nhiêu bạn học sinh?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Mỗi nhóm có {b} bạn, có {a} nhóm như thế, ta làm phép nhân.", "Phép tính là $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số bạn học sinh là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi có các nhóm bằng nhau, ta dùng phép nhân để tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b + a",
+        "w1": "a + b",
+        "w2": "a + a",
+        "w3": "a + b + 1"
+      },
+      "questionText": "Một bác sĩ (Doctor) khám cho {a} bệnh nhân vào buổi sáng, khám tiếp {b} bệnh nhân vào buổi trưa và thêm {a} bệnh nhân vào buổi chiều. Hỏi tổng cộng bác sĩ đã khám cho bao nhiêu bệnh nhân?",
+      "options": ["A. {w1} bệnh nhân", "B. {w2} bệnh nhân", "C. {ans} bệnh nhân", "D. {w3} bệnh nhân"],
+      "correctIndex": 2,
+      "hints": ["Hãy cộng số lượng bệnh nhân của cả ba buổi lại với nhau.", "Phép tính là $ {a} + {b} + {a} $."],
+      "solutionHtml": "Tổng số bệnh nhân bác sĩ đã khám là:<br/>$ {a} + {b} + {a} = {ans} $ (bệnh nhân).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ các con số trong đề bài để không bỏ sót dữ liệu.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 2 },
+        "b": { "min": 2, "max": 2, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a",
+        "w2": "a / b + 2",
+        "w3": "a / b - 1"
+      },
+      "questionText": "Một anh thợ xây (Builder) có {a} viên gạch và chia đều cho {b} hàng. Hỏi mỗi hàng có bao nhiêu viên gạch?",
+      "options": ["A. {w1} viên", "B. {w2} viên", "C. {ans} viên", "D. {w3} viên"],
+      "correctIndex": 2,
+      "hints": ["Chia đều {a} viên gạch cho {b} hàng.", "Phép tính là $ {a} : {b} $."],
+      "solutionHtml": "Số viên gạch mỗi hàng là:<br/>$ {a} : {b} = {ans} $ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều là từ khóa cho phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 6, "max": 9, "step": 1 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a",
+        "w3": "b"
+      },
+      "questionText": "Một đầu bếp (Chef) nấu {a} món ăn, nhưng khách chỉ chọn ăn {b} món. Hỏi còn lại bao nhiêu món đầu bếp đã nấu mà khách chưa chọn?",
+      "options": ["A. {w1} món", "B. {w2} món", "C. {w3} món", "D. {ans} món"],
+      "correctIndex": 3,
+      "hints": ["Ta thực hiện phép tính trừ để tìm số món còn lại.", "Phép tính là $ {a} - {b} $."],
+      "solutionHtml": "Số món ăn còn lại là:<br/>$ {a} - {b} = {ans} $ (món).<br/>Đáp án đúng là D.",
+      "tip": "Tìm phần chênh lệch giữa tổng số và phần đã dùng là phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 5, "step": 1 },
+        "b": { "min": 4, "max": 6, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Một người đưa thư (Postman) mang {a} túi thư, mỗi túi có {b} lá thư. Hỏi người đưa thư mang tất cả bao nhiêu lá thư?",
+      "options": ["A. {w1} lá", "B. {ans} lá", "C. {w2} lá", "D. {w3} lá"],
+      "correctIndex": 1,
+      "hints": ["Có {a} túi, mỗi túi có {b} lá thư, ta làm phép nhân.", "Phép tính là $ {a} \\times {b} $."],
+      "solutionHtml": "Tổng số lá thư là:<br/>$ {a} \\times {b} = {ans} $ (lá).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số nhóm và số phần tử mỗi nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 8, "max": 12, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a / b + 1"
+      },
+      "questionText": "Một nha sĩ (Dentist) khám cho {a} người trong {b} ngày, mỗi ngày khám số lượng người như nhau. Hỏi mỗi ngày nha sĩ khám cho bao nhiêu người?",
+      "options": ["A. {w1} người", "B. {w2} người", "C. {ans} người", "D. {w3} người"],
+      "correctIndex": 2,
+      "hints": ["Để tìm số người mỗi ngày, ta chia tổng số người cho số ngày.", "Phép tính là $ {a} : {b} $."],
+      "solutionHtml": "Số người nha sĩ khám mỗi ngày là:<br/>$ {a} : {b} = {ans} $ (người).<br/>Đáp án đúng là C.",
+      "tip": "Đề bài cho biết số lượng chia đều theo thời gian, đó là phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 7, "step": 1 },
+        "b": { "min": 2, "max": 3, "step": 1 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b + 2",
+        "w1": "a + b",
+        "w2": "a + 2",
+        "w3": "b + 2"
+      },
+      "questionText": "Trong lớp học, có {a} bạn muốn làm họa sĩ (Artist), {b} bạn muốn làm phi công (Pilot) và có thêm 2 bạn muốn làm giáo viên. Hỏi tổng cộng có bao nhiêu bạn đã chọn nghề nghiệp?",
+      "options": ["A. {w1} bạn", "B. {w2} bạn", "C. {ans} bạn", "D. {w3} bạn"],
+      "correctIndex": 2,
+      "hints": ["Cộng tất cả các nhóm học sinh lại: {a} + {b} + 2.", "Phép tính là $ {a} + {b} + 2 $."],
+      "solutionHtml": "Tổng số bạn chọn nghề nghiệp là:<br/>$ {a} + {b} + 2 = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Tổng cộng luôn là phép tính cộng các thành phần.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t19-d10"
+    }
+  ]
+}
+}
+

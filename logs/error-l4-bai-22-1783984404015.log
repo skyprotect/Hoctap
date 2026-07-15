@@ -1,0 +1,487 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:13:24.015Z
+Lesson ID: l4-bai-22
+Lesson Title: Bài 22: Phép cộng các số có nhiều chữ số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10636 (line 228 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10636 (line 228 column 1)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 10636 (Line: 228, Column: 1)
+Character causing error: "}"
+
+Context:
+...  "tip": "Kiểm tra lại kết quả bằng cách cộng ngược lại từ dưới lên trên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d10"
+    }
+  ]
+}
+>>>[LỖI TẠI ĐÂY]<<<} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2500, "max": 4500, "step": 100 },
+        "b": { "min": 1500, "max": 3000, "step": 100 }
+      },
+      "constraints": ["(a + b) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Một cửa hàng trong tháng thứ nhất bán được {a} kg gạo, tháng thứ hai bán được {b} kg gạo. Hỏi cả hai tháng cửa hàng bán được bao nhiêu ki-lô-gam gạo?",
+      "options": ["A. {w1} kg", "B. {ans} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Để tìm tổng số gạo cả hai tháng, ta thực hiện phép cộng số gạo của tháng thứ nhất với số gạo của tháng thứ hai.", "Phép tính cần thực hiện là: {a} + {b}."],
+      "solutionHtml": "Số gạo cả hai tháng cửa hàng bán được là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Vậy đáp án đúng là B.",
+      "tip": "Khi cộng các số có nhiều chữ số, ta cần đặt tính sao cho các hàng đơn vị, chục, trăm, nghìn thẳng cột với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12000, "max": 25000, "step": 1000 },
+        "b": { "min": 8000, "max": 15000, "step": 1000 },
+        "c": { "min": 5000, "max": 9000, "step": 1000 }
+      },
+      "constraints": ["a > b", "b > c"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "ans + 2000",
+        "w3": "ans - 1000"
+      },
+      "questionText": "Một trang trại nuôi {a} con gà, {b} con vịt và {c} con ngan. Hỏi trang trại đó có tất cả bao nhiêu con gia cầm?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm tổng số gia cầm, ta lấy số con gà cộng với số con vịt, rồi cộng tiếp với số con ngan.", "Ta thực hiện phép tính: {a} + {b} + {c}."],
+      "solutionHtml": "Tổng số gia cầm của trang trại là:<br/>$ {a} + {b} + {c} = {ans} $ (con).<br/>Vậy đáp án đúng là C.",
+      "tip": "Với dãy phép cộng nhiều số hạng, ta có thể cộng lần lượt từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40000, "max": 60000, "step": 2000 },
+        "b": { "min": 10000, "max": 20000, "step": 1000 }
+      },
+      "constraints": ["(a + b) % 500 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 5000",
+        "w2": "a + b - 5000",
+        "w3": "a + b + 10000"
+      },
+      "questionText": "Quãng đường từ Hà Nội đến Hải Phòng dài {a} mét. Từ Hải Phòng đi tiếp đến địa điểm nghỉ dưỡng dài thêm {b} mét. Hỏi quãng đường từ Hà Nội đến địa điểm nghỉ dưỡng dài bao nhiêu mét?",
+      "options": ["A. {w1} m", "B. {w2} m", "C. {ans} m", "D. {w3} m"],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng quãng đường, ta cộng độ dài hai chặng đường lại với nhau.", "Phép tính: {a} + {b}."],
+      "solutionHtml": "Quãng đường từ Hà Nội đến địa điểm nghỉ dưỡng là:<br/>$ {a} + {b} = {ans} $ (m).<br/>Vậy đáp án đúng là C.",
+      "tip": "Hãy chú ý đơn vị đo độ dài trong bài toán, nếu các số cùng đơn vị thì ta cộng trực tiếp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 150000, "max": 300000, "step": 10000 },
+        "b": { "min": 50000, "max": 100000, "step": 10000 }
+      },
+      "constraints": ["(a + b) % 10000 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "ans + 10000",
+        "w2": "ans - 20000",
+        "w3": "ans + 30000"
+      },
+      "questionText": "Một công ty sản xuất tháng đầu được {a} sản phẩm, tháng sau sản xuất thêm được {b} sản phẩm so với tháng đầu. Hỏi tổng sản phẩm công ty sản xuất trong hai tháng là bao nhiêu?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Đề bài cho biết tháng sau sản xuất thêm {b} sản phẩm so với tháng đầu. Vậy tháng sau sản xuất được {a} + {b} sản phẩm.", "Tổng cộng hai tháng là: {a} + ({a} + {b})."],
+      "solutionHtml": "Số sản phẩm tháng sau là: $ {a} + {b} = {a + b} $ (sản phẩm).<br/>Tổng sản phẩm hai tháng là: $ {a} + {a + b} = {ans} $ (sản phẩm).<br/>Vậy đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'thêm ... so với' để xác định đúng giá trị của tháng thứ hai trước khi cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1200, "max": 1800, "step": 100 },
+        "b": { "min": 900, "max": 1100, "step": 100 }
+      },
+      "constraints": ["(a + b) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 500",
+        "w2": "a + b - 200",
+        "w3": "a + b + 100"
+      },
+      "questionText": "Thư viện trường có {a} cuốn sách giáo khoa và {b} cuốn sách tham khảo. Hỏi thư viện có tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tổng số sách là tổng của số sách giáo khoa và số sách tham khảo.", "Ta lấy {a} cộng với {b}."],
+      "solutionHtml": "Tổng số sách trong thư viện là:<br/>$ {a} + {b} = {ans} $ (cuốn).<br/>Vậy đáp án đúng là B.",
+      "tip": "Khi cộng các số có nhiều chữ số, ta thực hiện từ hàng đơn vị sang trái.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3000, "max": 5000, "step": 500 },
+        "b": { "min": 2000, "max": 4000, "step": 500 },
+        "c": { "min": 1000, "max": 3000, "step": 500 }
+      },
+      "constraints": ["(a + b + c) % 500 === 0"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "a + c",
+        "w3": "b + c"
+      },
+      "questionText": "Ba khối lớp 4 quyên góp được lần lượt là {a}, {b} và {c} quyển vở. Hỏi cả ba khối lớp quyên góp được bao nhiêu quyển vở?",
+      "options": ["A. {w1}", "B. {w2}", "C. {w3}", "D. {ans}"],
+      "correctIndex": 3,
+      "hints": ["Tính tổng ba số: {a}, {b}, {c}.", "Sử dụng tính chất giao hoán và kết hợp của phép cộng nếu cần."],
+      "solutionHtml": "Tổng số vở quyên góp được là:<br/>$ {a} + {b} + {c} = {ans} $ (quyển).<br/>Vậy đáp án đúng là D.",
+      "tip": "Có thể cộng lần lượt hoặc nhóm các số tròn nghìn để tính nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500000, "max": 800000, "step": 50000 },
+        "b": { "min": 200000, "max": 400000, "step": 50000 }
+      },
+      "constraints": ["(a + b) % 100000 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 100000",
+        "w2": "a + b + 100000",
+        "w3": "a + b + 200000"
+      },
+      "questionText": "Một chiếc máy tính trị giá {a} đồng, một chiếc máy in trị giá {b} đồng. Hỏi mua cả hai món đồ đó hết bao nhiêu tiền?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Số tiền mua cả hai món đồ là tổng của giá trị chiếc máy tính và chiếc máy in.", "Phép tính: {a} + {b}."],
+      "solutionHtml": "Tổng số tiền cần trả là:<br/>$ {a} + {b} = {ans} $ (đồng).<br/>Vậy đáp án đúng là C.",
+      "tip": "Chú ý cẩn thận số lượng các chữ số 0 khi cộng các số lớn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1500, "max": 2500, "step": 100 },
+        "b": { "min": 1500, "max": 2500, "step": 100 }
+      },
+      "constraints": ["a !== b", "(a + b) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 200",
+        "w2": "a + b + 200",
+        "w3": "a + b + 400"
+      },
+      "questionText": "Một nhà máy có {a} công nhân nam và {b} công nhân nữ. Hỏi nhà máy đó có tất cả bao nhiêu công nhân?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm tổng số công nhân, ta lấy số công nhân nam cộng với số công nhân nữ.", "Thực hiện phép tính {a} + {b}."],
+      "solutionHtml": "Tổng số công nhân của nhà máy là:<br/>$ {a} + {b} = {ans} $ (công nhân).<br/>Vậy đáp án đúng là B.",
+      "tip": "Đặt tính thẳng hàng là cách tốt nhất để tránh nhầm lẫn khi cộng các số nhiều chữ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2000, "max": 3000, "step": 200 },
+        "b": { "min": 1000, "max": 2000, "step": 200 },
+        "c": { "min": 500, "max": 1000, "step": 100 }
+      },
+      "constraints": ["(a + b + c) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "b + c",
+        "w3": "a + b + c + 500"
+      },
+      "questionText": "Một đoàn tàu chở khách gồm 3 toa. Toa thứ nhất chở {a} khách, toa thứ hai chở {b} khách, toa thứ ba chở {c} khách. Hỏi đoàn tàu chở bao nhiêu khách?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số khách của cả 3 toa.", "Phép tính: {a} + {b} + {c}."],
+      "solutionHtml": "Số khách đoàn tàu chở là:<br/>$ {a} + {b} + {c} = {ans} $ (khách).<br/>Vậy đáp án đúng là C.",
+      "tip": "Cộng lần lượt từng số một để không bỏ sót các hàng đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 15000, "step": 1000 },
+        "b": { "min": 5000, "max": 8000, "step": 1000 }
+      },
+      "constraints": ["(a + b) % 1000 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 1000",
+        "w2": "a + b + 1000",
+        "w3": "a + b + 2000"
+      },
+      "questionText": "Một người nông dân thu hoạch được {a} kg thóc ở thửa ruộng thứ nhất và thu hoạch được {b} kg ở thửa ruộng thứ hai. Tổng số thóc thu hoạch được ở cả hai thửa là bao nhiêu?",
+      "options": ["A. {w1} kg", "B. {ans} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số thóc bằng cách thực hiện phép cộng số thóc của hai thửa ruộng.", "Phép tính: {a} + {b}."],
+      "solutionHtml": "Tổng số thóc người nông dân thu hoạch được là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Vậy đáp án đúng là B.",
+      "tip": "Kiểm tra lại kết quả bằng cách cộng ngược lại từ dưới lên trên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d10"
+    }
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2500, "max": 4500, "step": 100 },
+        "b": { "min": 1500, "max": 3000, "step": 100 }
+      },
+      "constraints": ["(a + b) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "ans + 100",
+        "w2": "ans - 100",
+        "w3": "ans + 200"
+      },
+      "questionText": "Một cửa hàng trong tháng thứ nhất bán được {a} kg gạo, tháng thứ hai bán được {b} kg gạo. Hỏi cả hai tháng cửa hàng bán được bao nhiêu ki-lô-gam gạo?",
+      "options": ["A. {w1} kg", "B. {ans} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Để tìm tổng số gạo cả hai tháng, ta thực hiện phép cộng số gạo của tháng thứ nhất với số gạo của tháng thứ hai.", "Phép tính cần thực hiện là: {a} + {b}."],
+      "solutionHtml": "Số gạo cả hai tháng cửa hàng bán được là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Vậy đáp án đúng là B.",
+      "tip": "Khi cộng các số có nhiều chữ số, ta cần đặt tính sao cho các hàng đơn vị, chục, trăm, nghìn thẳng cột với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 12000, "max": 25000, "step": 1000 },
+        "b": { "min": 8000, "max": 15000, "step": 1000 },
+        "c": { "min": 5000, "max": 9000, "step": 1000 }
+      },
+      "constraints": ["a > b", "b > c"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "ans + 2000",
+        "w3": "ans - 1000"
+      },
+      "questionText": "Một trang trại nuôi {a} con gà, {b} con vịt và {c} con ngan. Hỏi trang trại đó có tất cả bao nhiêu con gia cầm?",
+      "options": ["A. {w1} con", "B. {w2} con", "C. {ans} con", "D. {w3} con"],
+      "correctIndex": 2,
+      "hints": ["Muốn tìm tổng số gia cầm, ta lấy số con gà cộng với số con vịt, rồi cộng tiếp với số con ngan.", "Ta thực hiện phép tính: {a} + {b} + {c}."],
+      "solutionHtml": "Tổng số gia cầm của trang trại là:<br/>$ {a} + {b} + {c} = {ans} $ (con).<br/>Vậy đáp án đúng là C.",
+      "tip": "Với dãy phép cộng nhiều số hạng, ta có thể cộng lần lượt từ trái sang phải.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40000, "max": 60000, "step": 2000 },
+        "b": { "min": 10000, "max": 20000, "step": 1000 }
+      },
+      "constraints": ["(a + b) % 500 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 5000",
+        "w2": "a + b - 5000",
+        "w3": "a + b + 10000"
+      },
+      "questionText": "Quãng đường từ Hà Nội đến Hải Phòng dài {a} mét. Từ Hải Phòng đi tiếp đến địa điểm nghỉ dưỡng dài thêm {b} mét. Hỏi quãng đường từ Hà Nội đến địa điểm nghỉ dưỡng dài bao nhiêu mét?",
+      "options": ["A. {w1} m", "B. {w2} m", "C. {ans} m", "D. {w3} m"],
+      "correctIndex": 2,
+      "hints": ["Để tìm tổng quãng đường, ta cộng độ dài hai chặng đường lại với nhau.", "Phép tính: {a} + {b}."],
+      "solutionHtml": "Quãng đường từ Hà Nội đến địa điểm nghỉ dưỡng là:<br/>$ {a} + {b} = {ans} $ (m).<br/>Vậy đáp án đúng là C.",
+      "tip": "Hãy chú ý đơn vị đo độ dài trong bài toán, nếu các số cùng đơn vị thì ta cộng trực tiếp.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 150000, "max": 300000, "step": 10000 },
+        "b": { "min": 50000, "max": 100000, "step": 10000 }
+      },
+      "constraints": ["(a + b) % 10000 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "ans + 10000",
+        "w2": "ans - 20000",
+        "w3": "ans + 30000"
+      },
+      "questionText": "Một công ty sản xuất tháng đầu được {a} sản phẩm, tháng sau sản xuất thêm được {b} sản phẩm so với tháng đầu. Hỏi tổng sản phẩm công ty sản xuất trong hai tháng là bao nhiêu?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Đề bài cho biết tháng sau sản xuất thêm {b} sản phẩm so với tháng đầu. Vậy tháng sau sản xuất được {a} + {b} sản phẩm.", "Tổng cộng hai tháng là: {a} + ({a} + {b})."],
+      "solutionHtml": "Số sản phẩm tháng sau là: $ {a} + {b} = {a + b} $ (sản phẩm).<br/>Tổng sản phẩm hai tháng là: $ {a} + {a + b} = {ans} $ (sản phẩm).<br/>Vậy đáp án đúng là C.",
+      "tip": "Đọc kỹ từ khóa 'thêm ... so với' để xác định đúng giá trị của tháng thứ hai trước khi cộng tổng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1200, "max": 1800, "step": 100 },
+        "b": { "min": 900, "max": 1100, "step": 100 }
+      },
+      "constraints": ["(a + b) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 500",
+        "w2": "a + b - 200",
+        "w3": "a + b + 100"
+      },
+      "questionText": "Thư viện trường có {a} cuốn sách giáo khoa và {b} cuốn sách tham khảo. Hỏi thư viện có tất cả bao nhiêu cuốn sách?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Tổng số sách là tổng của số sách giáo khoa và số sách tham khảo.", "Ta lấy {a} cộng với {b}."],
+      "solutionHtml": "Tổng số sách trong thư viện là:<br/>$ {a} + {b} = {ans} $ (cuốn).<br/>Vậy đáp án đúng là B.",
+      "tip": "Khi cộng các số có nhiều chữ số, ta thực hiện từ hàng đơn vị sang trái.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3000, "max": 5000, "step": 500 },
+        "b": { "min": 2000, "max": 4000, "step": 500 },
+        "c": { "min": 1000, "max": 3000, "step": 500 }
+      },
+      "constraints": ["(a + b + c) % 500 === 0"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "a + c",
+        "w3": "b + c"
+      },
+      "questionText": "Ba khối lớp 4 quyên góp được lần lượt là {a}, {b} và {c} quyển vở. Hỏi cả ba khối lớp quyên góp được bao nhiêu quyển vở?",
+      "options": ["A. {w1}", "B. {w2}", "C. {w3}", "D. {ans}"],
+      "correctIndex": 3,
+      "hints": ["Tính tổng ba số: {a}, {b}, {c}.", "Sử dụng tính chất giao hoán và kết hợp của phép cộng nếu cần."],
+      "solutionHtml": "Tổng số vở quyên góp được là:<br/>$ {a} + {b} + {c} = {ans} $ (quyển).<br/>Vậy đáp án đúng là D.",
+      "tip": "Có thể cộng lần lượt hoặc nhóm các số tròn nghìn để tính nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 500000, "max": 800000, "step": 50000 },
+        "b": { "min": 200000, "max": 400000, "step": 50000 }
+      },
+      "constraints": ["(a + b) % 100000 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 100000",
+        "w2": "a + b + 100000",
+        "w3": "a + b + 200000"
+      },
+      "questionText": "Một chiếc máy tính trị giá {a} đồng, một chiếc máy in trị giá {b} đồng. Hỏi mua cả hai món đồ đó hết bao nhiêu tiền?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Số tiền mua cả hai món đồ là tổng của giá trị chiếc máy tính và chiếc máy in.", "Phép tính: {a} + {b}."],
+      "solutionHtml": "Tổng số tiền cần trả là:<br/>$ {a} + {b} = {ans} $ (đồng).<br/>Vậy đáp án đúng là C.",
+      "tip": "Chú ý cẩn thận số lượng các chữ số 0 khi cộng các số lớn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1500, "max": 2500, "step": 100 },
+        "b": { "min": 1500, "max": 2500, "step": 100 }
+      },
+      "constraints": ["a !== b", "(a + b) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 200",
+        "w2": "a + b + 200",
+        "w3": "a + b + 400"
+      },
+      "questionText": "Một nhà máy có {a} công nhân nam và {b} công nhân nữ. Hỏi nhà máy đó có tất cả bao nhiêu công nhân?",
+      "options": ["A. {w1}", "B. {ans}", "C. {w2}", "D. {w3}"],
+      "correctIndex": 1,
+      "hints": ["Muốn tìm tổng số công nhân, ta lấy số công nhân nam cộng với số công nhân nữ.", "Thực hiện phép tính {a} + {b}."],
+      "solutionHtml": "Tổng số công nhân của nhà máy là:<br/>$ {a} + {b} = {ans} $ (công nhân).<br/>Vậy đáp án đúng là B.",
+      "tip": "Đặt tính thẳng hàng là cách tốt nhất để tránh nhầm lẫn khi cộng các số nhiều chữ số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2000, "max": 3000, "step": 200 },
+        "b": { "min": 1000, "max": 2000, "step": 200 },
+        "c": { "min": 500, "max": 1000, "step": 100 }
+      },
+      "constraints": ["(a + b + c) % 100 === 0"],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "b + c",
+        "w3": "a + b + c + 500"
+      },
+      "questionText": "Một đoàn tàu chở khách gồm 3 toa. Toa thứ nhất chở {a} khách, toa thứ hai chở {b} khách, toa thứ ba chở {c} khách. Hỏi đoàn tàu chở bao nhiêu khách?",
+      "options": ["A. {w1}", "B. {w2}", "C. {ans}", "D. {w3}"],
+      "correctIndex": 2,
+      "hints": ["Tính tổng số khách của cả 3 toa.", "Phép tính: {a} + {b} + {c}."],
+      "solutionHtml": "Số khách đoàn tàu chở là:<br/>$ {a} + {b} + {c} = {ans} $ (khách).<br/>Vậy đáp án đúng là C.",
+      "tip": "Cộng lần lượt từng số một để không bỏ sót các hàng đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10000, "max": 15000, "step": 1000 },
+        "b": { "min": 5000, "max": 8000, "step": 1000 }
+      },
+      "constraints": ["(a + b) % 1000 === 0"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b - 1000",
+        "w2": "a + b + 1000",
+        "w3": "a + b + 2000"
+      },
+      "questionText": "Một người nông dân thu hoạch được {a} kg thóc ở thửa ruộng thứ nhất và thu hoạch được {b} kg ở thửa ruộng thứ hai. Tổng số thóc thu hoạch được ở cả hai thửa là bao nhiêu?",
+      "options": ["A. {w1} kg", "B. {ans} kg", "C. {w2} kg", "D. {w3} kg"],
+      "correctIndex": 1,
+      "hints": ["Tính tổng số thóc bằng cách thực hiện phép cộng số thóc của hai thửa ruộng.", "Phép tính: {a} + {b}."],
+      "solutionHtml": "Tổng số thóc người nông dân thu hoạch được là:<br/>$ {a} + {b} = {ans} $ (kg).<br/>Vậy đáp án đúng là B.",
+      "tip": "Kiểm tra lại kết quả bằng cách cộng ngược lại từ dưới lên trên.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-22-d10"
+    }
+  ]
+}
+}
+

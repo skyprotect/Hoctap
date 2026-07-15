@@ -1,0 +1,574 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:30:32.099Z
+Lesson ID: l4-kt-c10
+Lesson Title: Bài tập cuối chương X
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 10802 (line 402 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 10802 (line 402 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 10802 (Line: 274, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 10 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a / b) % 5 === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "a / (b + 1) + 20"
+      },
+      "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng đã bán hết $\\frac{1}{{{b}}}$ số gạo đó. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính số gạo đã bán bằng cách lấy {a} chia cho {b}.", "Số gạo còn lại bằng tổng số gạo ban đầu trừ đi số gạo đã bán."],
+      "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {a} : {b} = {a/b} $ (kg).<br/>Số gạo còn lại là:<br/>$ {a} - {a/b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn giữa số gạo đã bán và số gạo còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 30, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a * b) % 10 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * (b + 1)"
+      },
+      "questionText": "Một thùng có {a} ngăn, mỗi ngăn chứa {b} quyển sách. Hỏi nếu có {a} thùng như thế thì tổng cộng có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": ["Trước hết hãy tính số sách trong một thùng bằng cách lấy {a} nhân {b}.", "Sau đó nhân kết quả đó với {a} thùng."],
+      "solutionHtml": "Số sách trong một thùng là:<br/>$ {a} \\times {b} = {a*b} $ (quyển).<br/>Số sách trong {a} thùng là:<br/>$ {a*b} \\times {a} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Hãy cẩn thận với phép tính hai bước nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 120, "max": 240, "step": 20 }
+      },
+      "constraints": ["b % a === 0"],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "ans + 5",
+        "w2": "ans * 2",
+        "w3": "b / (a - 1)"
+      },
+      "questionText": "{a} bạn cùng gấp được {b} ngôi sao giấy trong một khoảng thời gian. Nếu mỗi bạn gấp số lượng bằng nhau, hỏi mỗi bạn đã gấp được bao nhiêu ngôi sao?",
+      "options": [
+        "A. {w1} ngôi sao",
+        "B. {ans} ngôi sao",
+        "C. {w2} ngôi sao",
+        "D. {w3} ngôi sao"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán chia đều cho {a} bạn."],
+      "solutionHtml": "Mỗi bạn gấp được số ngôi sao là:<br/>$ {b} : {a} = {ans} $ (ngôi sao).<br/>Đáp án đúng là B.",
+      "tip": "Dùng phép chia để tìm giá trị của mỗi phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) % 10 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 10",
+        "w3": "a * (b + 2)"
+      },
+      "questionText": "Một đoàn tàu chở {a} toa, mỗi toa chở {b} tấn hàng. Hỏi đoàn tàu đó chở tất cả bao nhiêu tấn hàng?",
+      "options": [
+        "A. {w1} tấn",
+        "B. {w2} tấn",
+        "C. {w3} tấn",
+        "D. {ans} tấn"
+      ],
+      "correctIndex": 3,
+      "hints": ["Sử dụng phép nhân giữa số toa và số tấn hàng mỗi toa."],
+      "solutionHtml": "Tổng số tấn hàng là:<br/>$ {a} \\times {b} = {ans} $ (tấn).<br/>Đáp án đúng là D.",
+      "tip": "Bài toán tổng quát hóa từ đơn vị sang số lượng lớn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 4 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 4",
+        "w2": "ans - 2",
+        "w3": "a + b"
+      },
+      "questionText": "Có {a} quả cam được chia đều vào {b} giỏ. Hỏi mỗi giỏ có bao nhiêu quả cam?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia tổng số cam cho số giỏ."],
+      "solutionHtml": "Số quả cam trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia đều là phép tính cơ bản của bài toán này.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Lan có {a} bông hoa, Hồng có nhiều hơn Lan {b} bông hoa. Hỏi cả hai bạn có tất cả bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông",
+        "B. {w2} bông",
+        "C. {a + (a + b)} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính số hoa của Hồng trước: $ {a} + {b} = ... $", "Sau đó cộng số hoa của Lan và Hồng."],
+      "solutionHtml": "Số hoa của Hồng là:<br/>$ {a} + {b} = {a+b} $ (bông).<br/>Tổng số hoa hai bạn là:<br/>$ {a} + {a+b} = {a + a + b} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ là 'nhiều hơn' chứ không phải là 'có'.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 300, "step": 10 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a / b",
+        "w2": "a + b",
+        "w3": "a * (b + 1)"
+      },
+      "questionText": "Một thư viện mỗi ngày cho mượn {a} cuốn sách. Hỏi trong {b} ngày, thư viện đó cho mượn được bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {w2} cuốn",
+        "C. {ans} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số sách mượn trong {b} ngày gấp {b} lần số sách mượn trong một ngày."],
+      "solutionHtml": "Số sách mượn trong {b} ngày là:<br/>$ {a} \\times {b} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giữa giá trị đơn vị và số lần lặp.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 5",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} học sinh được chia thành các nhóm, mỗi nhóm có {b} bạn. Hỏi có tất cả bao nhiêu nhóm học sinh?",
+      "options": [
+        "A. {w1} nhóm",
+        "B. {ans} nhóm",
+        "C. {w2} nhóm",
+        "D. {w3} nhóm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia tổng số học sinh cho số bạn trong một nhóm."],
+      "solutionHtml": "Số nhóm học sinh là:<br/>$ {a} : {b} = {ans} $ (nhóm).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 50, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) % 2 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Mỗi chiếc xe chở được {a} kg hàng. Hỏi {b} chiếc xe như thế chở được bao nhiêu ki-lô-gam hàng?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": ["Nhân số hàng mỗi xe với số xe."],
+      "solutionHtml": "Số hàng {b} chiếc xe chở là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán tỉ lệ thuận đơn giản.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 60, "max": 120, "step": 10 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans * 2",
+        "w3": "a - b"
+      },
+      "questionText": "Một cửa hàng có {a} mét vải, người ta cắt ra để may quần áo, mỗi bộ hết {b} mét vải. Hỏi cửa hàng may được bao nhiêu bộ quần áo?",
+      "options": [
+        "A. {w1} bộ",
+        "B. {w2} bộ",
+        "C. {ans} bộ",
+        "D. {w3} bộ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Chia tổng số vải cho số mét vải mỗi bộ."],
+      "solutionHtml": "Số bộ quần áo may được là:<br/>$ {a} : {b} = {ans} $ (bộ).<br/>Đáp án đúng là C.",
+      "tip": "Phép chia giúp tìm số phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 200, "max": 500, "step": 10 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a / b) % 5 === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 10",
+        "w2": "ans - 10",
+        "w3": "a / (b + 1) + 20"
+      },
+      "questionText": "Một cửa hàng có {a} kg gạo, cửa hàng đã bán hết $\\frac{1}{{{b}}}$ số gạo đó. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1} kg",
+        "B. {ans} kg",
+        "C. {w2} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 1,
+      "hints": ["Tính số gạo đã bán bằng cách lấy {a} chia cho {b}.", "Số gạo còn lại bằng tổng số gạo ban đầu trừ đi số gạo đã bán."],
+      "solutionHtml": "Số gạo cửa hàng đã bán là:<br/>$ {a} : {b} = {a/b} $ (kg).<br/>Số gạo còn lại là:<br/>$ {a} - {a/b} = {ans} $ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn giữa số gạo đã bán và số gạo còn lại.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 15, "max": 30, "step": 1 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["(a * b) % 10 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 5",
+        "w3": "a * (b + 1)"
+      },
+      "questionText": "Một thùng có {a} ngăn, mỗi ngăn chứa {b} quyển sách. Hỏi nếu có {a} thùng như thế thì tổng cộng có bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": ["Trước hết hãy tính số sách trong một thùng bằng cách lấy {a} nhân {b}.", "Sau đó nhân kết quả đó với {a} thùng."],
+      "solutionHtml": "Số sách trong một thùng là:<br/>$ {a} \\times {b} = {a*b} $ (quyển).<br/>Số sách trong {a} thùng là:<br/>$ {a*b} \\times {a} = {ans} $ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Hãy cẩn thận với phép tính hai bước nhân.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8, "step": 1 },
+        "b": { "min": 120, "max": 240, "step": 20 }
+      },
+      "constraints": ["b % a === 0"],
+      "formulas": {
+        "ans": "b / a",
+        "w1": "ans + 5",
+        "w2": "ans * 2",
+        "w3": "b / (a - 1)"
+      },
+      "questionText": "{a} bạn cùng gấp được {b} ngôi sao giấy trong một khoảng thời gian. Nếu mỗi bạn gấp số lượng bằng nhau, hỏi mỗi bạn đã gấp được bao nhiêu ngôi sao?",
+      "options": [
+        "A. {w1} ngôi sao",
+        "B. {ans} ngôi sao",
+        "C. {w2} ngôi sao",
+        "D. {w3} ngôi sao"
+      ],
+      "correctIndex": 1,
+      "hints": ["Đây là bài toán chia đều cho {a} bạn."],
+      "solutionHtml": "Mỗi bạn gấp được số ngôi sao là:<br/>$ {b} : {a} = {ans} $ (ngôi sao).<br/>Đáp án đúng là B.",
+      "tip": "Dùng phép chia để tìm giá trị của mỗi phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 50, "max": 100, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) % 10 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 10",
+        "w3": "a * (b + 2)"
+      },
+      "questionText": "Một đoàn tàu chở {a} toa, mỗi toa chở {b} tấn hàng. Hỏi đoàn tàu đó chở tất cả bao nhiêu tấn hàng?",
+      "options": [
+        "A. {w1} tấn",
+        "B. {w2} tấn",
+        "C. {w3} tấn",
+        "D. {ans} tấn"
+      ],
+      "correctIndex": 3,
+      "hints": ["Sử dụng phép nhân giữa số toa và số tấn hàng mỗi toa."],
+      "solutionHtml": "Tổng số tấn hàng là:<br/>$ {a} \\times {b} = {ans} $ (tấn).<br/>Đáp án đúng là D.",
+      "tip": "Bài toán tổng quát hóa từ đơn vị sang số lượng lớn.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 40, "max": 80, "step": 4 },
+        "b": { "min": 4, "max": 8, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "ans + 4",
+        "w2": "ans - 2",
+        "w3": "a + b"
+      },
+      "questionText": "Có {a} quả cam được chia đều vào {b} giỏ. Hỏi mỗi giỏ có bao nhiêu quả cam?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia tổng số cam cho số giỏ."],
+      "solutionHtml": "Số quả cam trong mỗi giỏ là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia đều là phép tính cơ bản của bài toán này.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20, "step": 1 },
+        "b": { "min": 5, "max": 15, "step": 1 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Lan có {a} bông hoa, Hồng có nhiều hơn Lan {b} bông hoa. Hỏi cả hai bạn có tất cả bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông",
+        "B. {w2} bông",
+        "C. {a + (a + b)} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 2,
+      "hints": ["Tính số hoa của Hồng trước: $ {a} + {b} = ... $", "Sau đó cộng số hoa của Lan và Hồng."],
+      "solutionHtml": "Số hoa của Hồng là:<br/>$ {a} + {b} = {a+b} $ (bông).<br/>Tổng số hoa hai bạn là:<br/>$ {a} + {a+b} = {a + a + b} $ (bông).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ là 'nhiều hơn' chứ không phải là 'có'.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 100, "max": 300, "step": 10 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a / b",
+        "w2": "a + b",
+        "w3": "a * (b + 1)"
+      },
+      "questionText": "Một thư viện mỗi ngày cho mượn {a} cuốn sách. Hỏi trong {b} ngày, thư viện đó cho mượn được bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {w2} cuốn",
+        "C. {ans} cuốn",
+        "D. {w3} cuốn"
+      ],
+      "correctIndex": 2,
+      "hints": ["Số sách mượn trong {b} ngày gấp {b} lần số sách mượn trong một ngày."],
+      "solutionHtml": "Số sách mượn trong {b} ngày là:<br/>$ {a} \\times {b} = {ans} $ (cuốn).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giữa giá trị đơn vị và số lần lặp.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 20, "max": 40, "step": 2 },
+        "b": { "min": 2, "max": 5, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans + 5",
+        "w3": "a * b"
+      },
+      "questionText": "Có {a} học sinh được chia thành các nhóm, mỗi nhóm có {b} bạn. Hỏi có tất cả bao nhiêu nhóm học sinh?",
+      "options": [
+        "A. {w1} nhóm",
+        "B. {ans} nhóm",
+        "C. {w2} nhóm",
+        "D. {w3} nhóm"
+      ],
+      "correctIndex": 1,
+      "hints": ["Chia tổng số học sinh cho số bạn trong một nhóm."],
+      "solutionHtml": "Số nhóm học sinh là:<br/>$ {a} : {b} = {ans} $ (nhóm).<br/>Đáp án đúng là B.",
+      "tip": "Khi chia nhóm, ta dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 50, "step": 5 },
+        "b": { "min": 2, "max": 4, "step": 1 }
+      },
+      "constraints": ["(a * b) % 2 === 0"],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Mỗi chiếc xe chở được {a} kg hàng. Hỏi {b} chiếc xe như thế chở được bao nhiêu ki-lô-gam hàng?",
+      "options": [
+        "A. {w1} kg",
+        "B. {w2} kg",
+        "C. {ans} kg",
+        "D. {w3} kg"
+      ],
+      "correctIndex": 2,
+      "hints": ["Nhân số hàng mỗi xe với số xe."],
+      "solutionHtml": "Số hàng {b} chiếc xe chở là:<br/>$ {a} \\times {b} = {ans} $ (kg).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán tỉ lệ thuận đơn giản.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 60, "max": 120, "step": 10 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": ["a % b === 0"],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "ans * 2",
+        "w3": "a - b"
+      },
+      "questionText": "Một cửa hàng có {a} mét vải, người ta cắt ra để may quần áo, mỗi bộ hết {b} mét vải. Hỏi cửa hàng may được bao nhiêu bộ quần áo?",
+      "options": [
+        "A. {w1} bộ",
+        "B. {w2} bộ",
+        "C. {ans} bộ",
+        "D. {w3} bộ"
+      ],
+      "correctIndex": 2,
+      "hints": ["Chia tổng số vải cho số mét vải mỗi bộ."],
+      "solutionHtml": "Số bộ quần áo may được là:<br/>$ {a} : {b} = {ans} $ (bộ).<br/>Đáp án đúng là C.",
+      "tip": "Phép chia giúp tìm số phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l4-kt-c10-d4"
+    }
+  ]
+}
+

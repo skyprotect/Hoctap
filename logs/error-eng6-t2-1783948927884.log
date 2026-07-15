@@ -1,0 +1,753 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T13:22:07.884Z
+Lesson ID: eng6-t2
+Lesson Title: Unit 2: My House
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11494 (line 359 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11494 (line 359 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3837:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 11494 (Line: 359, Column: 3)
+Character causing error: "]"
+
+Context:
+... {ans} (phòng).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d10"
+    }
+  ]
+}
+  >>>[LỖI TẠI ĐÂY]<<<]
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5 },
+        "y": { "min": 3, "max": 6 },
+        "s": { "min": 10, "max": 20 }
+      },
+      "constraints": [
+        "(x + y) * s % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "(x + y) * s",
+        "w1": "x * s + y",
+        "w2": "(x + y) * (s + 2)",
+        "w3": "(x + y) * (s - 2)",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Trong ngôi nhà của Nam có {x} phòng ngủ và {y} phòng khách. Mỗi phòng được trang trí bằng {s} bức tranh treo tường. Hỏi tổng số bức tranh trong các phòng đó là bao nhiêu?",
+      "options": [
+        "A. {w1_str} bức tranh",
+        "B. {ans_str} bức tranh",
+        "C. {w2_str} bức tranh",
+        "D. {w3_str} bức tranh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số phòng trước: {x} + {y} = {x+y}.",
+        "Sau đó nhân tổng số phòng với {s} bức tranh mỗi phòng."
+      ],
+      "solutionHtml": "Tổng số phòng trong nhà là: {x} + {y} = {x+y} (phòng).<br/>Tổng số bức tranh là: {x+y} * {s} = {ans} (bức tranh).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính tổng số lượng phòng trước khi thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 5, "max": 10 },
+        "h": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "n % h === 0"
+      ],
+      "formulas": {
+        "ans": "n / h",
+        "w1": "n + h",
+        "w2": "n * h",
+        "w3": "n - h",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà có {n} chiếc ghế được chia đều vào {h} phòng. Hỏi mỗi phòng có bao nhiêu chiếc ghế?",
+      "options": [
+        "A. {w1_str} chiếc",
+        "B. {w2_str} chiếc",
+        "C. {ans_str} chiếc",
+        "D. {w3_str} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số ghế cho số phòng.",
+        "Phép tính là {n} chia cho {h}."
+      ],
+      "solutionHtml": "Số ghế trong mỗi phòng là: {n} : {h} = {ans} (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'chia đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": { "min": 2, "max": 4 },
+        "r": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "t * r * 2",
+        "w1": "t * r",
+        "w2": "t + r",
+        "w3": "t * r + 5",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Một ngôi nhà có {t} tầng, mỗi tầng có {r} cửa sổ ở mặt trước và mặt sau. Hỏi tổng số cửa sổ của ngôi nhà là bao nhiêu?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số cửa sổ mỗi tầng là {r} * 2.",
+        "Sau đó nhân với {t} tầng."
+      ],
+      "solutionHtml": "Số cửa sổ mỗi tầng là: {r} * 2 = {r*2} (cửa sổ).<br/>Tổng số cửa sổ cả nhà là: {r*2} * {t} = {ans} (cửa sổ).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên nhân với 2 vì có cửa sổ ở cả mặt trước và sau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 5, "max": 9 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 2",
+        "w3": "b - 2",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Nhà Mai có {a} quyển sách trong thư viện, trong khi nhà Lan có {b} quyển. Hỏi nhà Mai nhiều hơn nhà Lan bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1_str} quyển",
+        "B. {w2_str} quyển",
+        "C. {w3_str} quyển",
+        "D. {ans_str} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn biết nhà này nhiều hơn nhà kia bao nhiêu, ta dùng phép trừ."
+      ],
+      "solutionHtml": "Số quyển sách nhà Mai nhiều hơn là: {a} - {b} = {ans} (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Khi so sánh hai số lượng, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 3, "max": 6 },
+        "w": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "d * w",
+        "w1": "d + w",
+        "w2": "d * w + 2",
+        "w3": "d * w - 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Một căn phòng hình chữ nhật có chiều dài {d} mét và chiều rộng {w} mét. Diện tích sàn của phòng là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1_str} m2",
+        "B. {ans_str} m2",
+        "C. {w2_str} m2",
+        "D. {w3_str} m2"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."
+      ],
+      "solutionHtml": "Diện tích căn phòng là: {d} * {w} = {ans} (mét vuông).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính diện tích hình chữ nhật là dài nhân rộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p": { "min": 4, "max": 8 },
+        "f": { "min": 2, "max": 3 }
+      },
+      "constraints": [
+        "p % f === 0"
+      ],
+      "formulas": {
+        "ans": "p * f",
+        "w1": "p + f",
+        "w2": "p / f",
+        "w3": "p * f + 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Mỗi phòng trong ngôi nhà có {p} chiếc đèn. Nếu nhà có {f} phòng như nhau, hỏi tổng số đèn là bao nhiêu?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân số đèn mỗi phòng với số phòng."
+      ],
+      "solutionHtml": "Tổng số đèn là: {p} * {f} = {ans} (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán gấp nhiều lần số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 5, "max": 10 },
+        "m": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "h > m"
+      ],
+      "formulas": {
+        "ans": "h - m",
+        "w1": "h + m",
+        "w2": "h * m",
+        "w3": "h - m + 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà của Nam có {h} cửa sổ, ngôi nhà của Minh có {m} cửa sổ. Hỏi nhà của Nam nhiều hơn nhà Minh bao nhiêu cái?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Sử dụng phép trừ để tìm phần chênh lệch."
+      ],
+      "solutionHtml": "Số cửa sổ nhà Nam nhiều hơn là: {h} - {m} = {ans} (cái).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán hỏi về phần hơn kém.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 3, "max": 6 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 2",
+        "w3": "b - a",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Trong nhà, tầng 1 có {a} cái ghế, tầng 2 có {b} cái ghế. Hỏi tổng cộng có bao nhiêu cái ghế?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số ghế ở tầng 1 và tầng 2."
+      ],
+      "solutionHtml": "Tổng số ghế là: {a} + {b} = {ans} (cái).<br/>Đáp án đúng là C.",
+      "tip": "Cộng hai giá trị lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 4, "max": 10 },
+        "s": { "min": 2, "max": 3 }
+      },
+      "constraints": [
+        "c % s === 0"
+      ],
+      "formulas": {
+        "ans": "c / s",
+        "w1": "c * s",
+        "w2": "c + s",
+        "w3": "c - s",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Có {c} cái đĩa được chia đều vào {s} giá kệ. Hỏi mỗi kệ có bao nhiêu cái đĩa?",
+      "options": [
+        "A. {w1_str}",
+        "B. {ans_str}",
+        "C. {w2_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số đĩa cho số kệ."
+      ],
+      "solutionHtml": "Số đĩa mỗi kệ là: {c} : {s} = {ans} (cái).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia là cần thiết ở đây.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "a + b + 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Nhà bạn có {a} phòng khách và {b} phòng bếp. Hỏi nhà bạn có tất cả bao nhiêu phòng trong hai khu vực này?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số phòng khách và phòng bếp."
+      ],
+      "solutionHtml": "Tổng số phòng là: {a} + {b} = {ans} (phòng).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d10"
+    }
+  ]
+}
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": { "min": 2, "max": 5 },
+        "y": { "min": 3, "max": 6 },
+        "s": { "min": 10, "max": 20 }
+      },
+      "constraints": [
+        "(x + y) * s % 1 === 0"
+      ],
+      "formulas": {
+        "ans": "(x + y) * s",
+        "w1": "x * s + y",
+        "w2": "(x + y) * (s + 2)",
+        "w3": "(x + y) * (s - 2)",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Trong ngôi nhà của Nam có {x} phòng ngủ và {y} phòng khách. Mỗi phòng được trang trí bằng {s} bức tranh treo tường. Hỏi tổng số bức tranh trong các phòng đó là bao nhiêu?",
+      "options": [
+        "A. {w1_str} bức tranh",
+        "B. {ans_str} bức tranh",
+        "C. {w2_str} bức tranh",
+        "D. {w3_str} bức tranh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số phòng trước: {x} + {y} = {x+y}.",
+        "Sau đó nhân tổng số phòng với {s} bức tranh mỗi phòng."
+      ],
+      "solutionHtml": "Tổng số phòng trong nhà là: {x} + {y} = {x+y} (phòng).<br/>Tổng số bức tranh là: {x+y} * {s} = {ans} (bức tranh).<br/>Đáp án đúng là B.",
+      "tip": "Hãy tính tổng số lượng phòng trước khi thực hiện phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 5, "max": 10 },
+        "h": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "n % h === 0"
+      ],
+      "formulas": {
+        "ans": "n / h",
+        "w1": "n + h",
+        "w2": "n * h",
+        "w3": "n - h",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà có {n} chiếc ghế được chia đều vào {h} phòng. Hỏi mỗi phòng có bao nhiêu chiếc ghế?",
+      "options": [
+        "A. {w1_str} chiếc",
+        "B. {w2_str} chiếc",
+        "C. {ans_str} chiếc",
+        "D. {w3_str} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số ghế cho số phòng.",
+        "Phép tính là {n} chia cho {h}."
+      ],
+      "solutionHtml": "Số ghế trong mỗi phòng là: {n} : {h} = {ans} (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'chia đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": { "min": 2, "max": 4 },
+        "r": { "min": 5, "max": 8 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "t * r * 2",
+        "w1": "t * r",
+        "w2": "t + r",
+        "w3": "t * r + 5",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Một ngôi nhà có {t} tầng, mỗi tầng có {r} cửa sổ ở mặt trước và mặt sau. Hỏi tổng số cửa sổ của ngôi nhà là bao nhiêu?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số cửa sổ mỗi tầng là {r} * 2.",
+        "Sau đó nhân với {t} tầng."
+      ],
+      "solutionHtml": "Số cửa sổ mỗi tầng là: {r} * 2 = {r*2} (cửa sổ).<br/>Tổng số cửa sổ cả nhà là: {r*2} * {t} = {ans} (cửa sổ).<br/>Đáp án đúng là C.",
+      "tip": "Đừng quên nhân với 2 vì có cửa sổ ở cả mặt trước và sau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 5, "max": 9 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 2",
+        "w3": "b - 2",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Nhà Mai có {a} quyển sách trong thư viện, trong khi nhà Lan có {b} quyển. Hỏi nhà Mai nhiều hơn nhà Lan bao nhiêu quyển sách?",
+      "options": [
+        "A. {w1_str} quyển",
+        "B. {w2_str} quyển",
+        "C. {w3_str} quyển",
+        "D. {ans_str} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn biết nhà này nhiều hơn nhà kia bao nhiêu, ta dùng phép trừ."
+      ],
+      "solutionHtml": "Số quyển sách nhà Mai nhiều hơn là: {a} - {b} = {ans} (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Khi so sánh hai số lượng, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": { "min": 3, "max": 6 },
+        "w": { "min": 2, "max": 5 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "d * w",
+        "w1": "d + w",
+        "w2": "d * w + 2",
+        "w3": "d * w - 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Một căn phòng hình chữ nhật có chiều dài {d} mét và chiều rộng {w} mét. Diện tích sàn của phòng là bao nhiêu mét vuông?",
+      "options": [
+        "A. {w1_str} m2",
+        "B. {ans_str} m2",
+        "C. {w2_str} m2",
+        "D. {w3_str} m2"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng."
+      ],
+      "solutionHtml": "Diện tích căn phòng là: {d} * {w} = {ans} (mét vuông).<br/>Đáp án đúng là B.",
+      "tip": "Công thức tính diện tích hình chữ nhật là dài nhân rộng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "p": { "min": 4, "max": 8 },
+        "f": { "min": 2, "max": 3 }
+      },
+      "constraints": [
+        "p % f === 0"
+      ],
+      "formulas": {
+        "ans": "p * f",
+        "w1": "p + f",
+        "w2": "p / f",
+        "w3": "p * f + 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Mỗi phòng trong ngôi nhà có {p} chiếc đèn. Nếu nhà có {f} phòng như nhau, hỏi tổng số đèn là bao nhiêu?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân số đèn mỗi phòng với số phòng."
+      ],
+      "solutionHtml": "Tổng số đèn là: {p} * {f} = {ans} (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán gấp nhiều lần số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": { "min": 5, "max": 10 },
+        "m": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "h > m"
+      ],
+      "formulas": {
+        "ans": "h - m",
+        "w1": "h + m",
+        "w2": "h * m",
+        "w3": "h - m + 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Ngôi nhà của Nam có {h} cửa sổ, ngôi nhà của Minh có {m} cửa sổ. Hỏi nhà của Nam nhiều hơn nhà Minh bao nhiêu cái?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Sử dụng phép trừ để tìm phần chênh lệch."
+      ],
+      "solutionHtml": "Số cửa sổ nhà Nam nhiều hơn là: {h} - {m} = {ans} (cái).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán hỏi về phần hơn kém.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5 },
+        "b": { "min": 3, "max": 6 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 2",
+        "w3": "b - a",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Trong nhà, tầng 1 có {a} cái ghế, tầng 2 có {b} cái ghế. Hỏi tổng cộng có bao nhiêu cái ghế?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số ghế ở tầng 1 và tầng 2."
+      ],
+      "solutionHtml": "Tổng số ghế là: {a} + {b} = {ans} (cái).<br/>Đáp án đúng là C.",
+      "tip": "Cộng hai giá trị lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": { "min": 4, "max": 10 },
+        "s": { "min": 2, "max": 3 }
+      },
+      "constraints": [
+        "c % s === 0"
+      ],
+      "formulas": {
+        "ans": "c / s",
+        "w1": "c * s",
+        "w2": "c + s",
+        "w3": "c - s",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Có {c} cái đĩa được chia đều vào {s} giá kệ. Hỏi mỗi kệ có bao nhiêu cái đĩa?",
+      "options": [
+        "A. {w1_str}",
+        "B. {ans_str}",
+        "C. {w2_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia tổng số đĩa cho số kệ."
+      ],
+      "solutionHtml": "Số đĩa mỗi kệ là: {c} : {s} = {ans} (cái).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia là cần thiết ở đây.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 8 },
+        "b": { "min": 2, "max": 4 }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "a + b + 1",
+        "ans_str": "ans",
+        "w1_str": "(w1 === ans) ? ans + 1 : w1",
+        "w2_str": "(w2 === ans || w2 === w1) ? ans + 2 : w2",
+        "w3_str": "(w3 === ans || w3 === w1 || w3 === w2) ? ans + 3 : w3"
+      },
+      "questionText": "Nhà bạn có {a} phòng khách và {b} phòng bếp. Hỏi nhà bạn có tất cả bao nhiêu phòng trong hai khu vực này?",
+      "options": [
+        "A. {w1_str}",
+        "B. {w2_str}",
+        "C. {ans_str}",
+        "D. {w3_str}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số phòng khách và phòng bếp."
+      ],
+      "solutionHtml": "Tổng số phòng là: {a} + {b} = {ans} (phòng).<br/>Đáp án đúng là C.",
+      "tip": "Tính tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t2-d10"
+    }
+  ]
+}
+  ]
+}
+

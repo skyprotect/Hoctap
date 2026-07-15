@@ -1,0 +1,752 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T14:40:44.931Z
+Lesson ID: eng6-t20
+Lesson Title: Unit 20: Films & Reviews (NÂNG CAO LỚP 7)
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 14191 (line 335 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 14191 (line 335 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 14191 (Line: 354, Column: 56)
+Character causing error: "s"
+
+Context:
+... "
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhân số ngày với số vé mỗi ngày."
+    ],
+    "solutionHtml": "Tổng số vé bán được là:<br/>$ {day>>>[LỖI TẠI ĐÂY]<<<s} \\times {ticketsPerDay} = {ans} $ (vé).<br/>Đáp án đúng là B.",
+    "tip": "Đọc đề để xác định đúng phép tính nhân.",
+    "level": "chat-luong-cao" ...
+
+[CLEANED JSON TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalStudents": { "min": 40, "max": 60, "step": 1 },
+      "filmA": { "min": 15, "max": 25, "step": 1 },
+      "filmB": { "min": 15, "max": 25, "step": 1 },
+      "both": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "totalStudents > (filmA + filmB - both)",
+      "filmA > both",
+      "filmB > both"
+    ],
+    "formulas": {
+      "ans": "totalStudents - (filmA + filmB - both)",
+      "w1_goc": "totalStudents - (filmA + filmB)",
+      "w2_goc": "filmA + filmB - both",
+      "w3_goc": "totalStudents - both",
+      "w1": "(w1_goc === ans || w1_goc < 0) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 8 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 12 : w3_goc"
+    },
+    "questionText": "Trong một lớp học, có {totalStudents} học sinh. Có {filmA} học sinh thích xem phim hành động, {filmB} học sinh thích xem phim hoạt hình và {both} học sinh thích cả hai loại phim này. Hỏi có bao nhiêu học sinh không thích cả hai loại phim đó?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Sử dụng biểu đồ Venn hoặc nguyên lý bù trừ.",
+      "Số học sinh thích ít nhất một trong hai loại phim là: {filmA} + {filmB} - {both}."
+    ],
+    "solutionHtml": "Số học sinh thích ít nhất một trong hai bộ phim là:<br/>$ {filmA} + {filmB} - {both} = {w2_goc} $ (học sinh).<br/>Số học sinh không thích bộ phim nào là:<br/>$ {totalStudents} - {w2_goc} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Khi làm bài tập dạng này, hãy chú ý loại bỏ phần giao nhau để tránh đếm trùng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "seatsPerRow": { "min": 10, "max": 20, "step": 1 },
+      "totalRows": { "min": 10, "max": 20, "step": 1 },
+      "ticketPrice": { "min": 50, "max": 100, "step": 5 }
+    },
+    "constraints": [
+      "seatsPerRow % 2 === 0"
+    ],
+    "formulas": {
+      "totalSeats": "seatsPerRow * totalRows",
+      "ans": "totalSeats * ticketPrice",
+      "w1_goc": "(totalSeats - 5) * ticketPrice",
+      "w2_goc": "totalSeats * (ticketPrice + 10)",
+      "w3_goc": "seatsPerRow * ticketPrice",
+      "w1": "(w1_goc === ans) ? ans + 100 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 200 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 300 : w3_goc"
+    },
+    "questionText": "Một rạp chiếu phim có {totalRows} hàng ghế, mỗi hàng có {seatsPerRow} ghế. Nếu giá mỗi vé xem phim là {ticketPrice} nghìn đồng, hỏi tổng doanh thu của rạp nếu bán hết tất cả số vé là bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn đồng",
+      "B. {ans} nghìn đồng",
+      "C. {w2} nghìn đồng",
+      "D. {w3} nghìn đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng số ghế trước: {totalRows} nhân {seatsPerRow}.",
+      "Sau đó nhân tổng số ghế với giá tiền mỗi vé."
+    ],
+    "solutionHtml": "Tổng số ghế của rạp là:<br/>$ {totalRows} \\times {seatsPerRow} = {totalSeats} $ (ghế).<br/>Tổng doanh thu là:<br/>$ {totalSeats} \\times {ticketPrice} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đơn vị tính để tránh nhầm lẫn giữa số ghế và số tiền.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "hours": { "min": 2, "max": 5, "step": 1 },
+      "minutes": { "min": 10, "max": 50, "step": 5 },
+      "totalFrames": { "min": 1000, "max": 5000, "step": 500 }
+    },
+    "constraints": [
+      "totalFrames % (hours * 60 + minutes) === 0"
+    ],
+    "formulas": {
+      "totalMinutes": "hours * 60 + minutes",
+      "ans": "totalFrames / totalMinutes",
+      "w1_goc": "totalFrames / hours",
+      "w2_goc": "totalFrames / minutes",
+      "w3_goc": "totalMinutes * 2",
+      "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 5 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 10 : w3_goc"
+    },
+    "questionText": "Một bộ phim dài {hours} giờ {minutes} phút có tổng cộng {totalFrames} khung hình (frames). Hỏi trung bình mỗi phút bộ phim hiển thị bao nhiêu khung hình?",
+    "options": [
+      "A. {w1} khung hình/phút",
+      "B. {ans} khung hình/phút",
+      "C. {w2} khung hình/phút",
+      "D. {w3} khung hình/phút"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đổi tổng thời gian ra phút: {hours} giờ {minutes} phút bằng bao nhiêu phút?",
+      "Lấy tổng số khung hình chia cho tổng số phút."
+    ],
+    "solutionHtml": "Đổi thời gian: {hours} giờ {minutes} phút = {totalMinutes} phút.<br/>Số khung hình mỗi phút là:<br/>$ {totalFrames} : {totalMinutes} = {ans} $ (khung hình/phút).<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên đổi đơn vị thời gian trước khi chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalTickets": { "min": 200, "max": 500, "step": 10 },
+      "ratio1": { "min": 2, "max": 4, "step": 1 },
+      "ratio2": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "totalTickets % (ratio1 + ratio2) === 0"
+    ],
+    "formulas": {
+      "unit": "totalTickets / (ratio1 + ratio2)",
+      "ans": "unit * ratio1",
+      "w1_goc": "unit * ratio2",
+      "w2_goc": "totalTickets / ratio1",
+      "w3_goc": "totalTickets / ratio2",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Rạp chiếu phim bán được {totalTickets} vé, trong đó tỉ lệ vé người lớn và vé trẻ em là {ratio1} : {ratio2}. Hỏi số vé người lớn đã bán được là bao nhiêu?",
+    "options": [
+      "A. {w1} vé",
+      "B. {ans} vé",
+      "C. {w2} vé",
+      "D. {w3} vé"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số phần bằng nhau là: {ratio1} + {ratio2} = {total_parts}.",
+      "Giá trị một phần là: {totalTickets} chia {total_parts}."
+    ],
+    "solutionHtml": "Tổng số phần bằng nhau là: {ratio1} + {ratio2} = {total_parts} phần.<br/>Giá trị một phần là: {totalTickets} : {total_parts} = {unit}.<br/>Số vé người lớn là: {unit} * {ratio1} = {ans} (vé).<br/>Đáp án đúng là B.",
+    "tip": "Áp dụng phương pháp tìm hai số khi biết tổng và tỉ số.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "actors": { "min": 5, "max": 10, "step": 1 },
+      "scenes": { "min": 4, "max": 8, "step": 1 },
+      "takesPerScene": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "actors * scenes * takesPerScene",
+      "w1_goc": "actors * scenes",
+      "w2_goc": "scenes * takesPerScene",
+      "w3_goc": "actors + scenes + takesPerScene",
+      "w1": "(w1_goc === ans) ? ans + 15 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 25 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 35 : w3_goc"
+    },
+    "questionText": "Một đoàn phim có {actors} diễn viên chính. Họ quay {scenes} cảnh phim, và mỗi cảnh yêu cầu quay lại {takesPerScene} lần. Tổng số lượt diễn xuất của các diễn viên chính là bao nhiêu?",
+    "options": [
+      "A. {w1} lượt",
+      "B. {ans} lượt",
+      "C. {w2} lượt",
+      "D. {w3} lượt"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhân số diễn viên với số cảnh và số lần quay lại mỗi cảnh."
+    ],
+    "solutionHtml": "Tổng số lượt diễn xuất là:<br/>$ {actors} \\times {scenes} \\times {takesPerScene} = {ans} $ (lượt).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ câu hỏi để không bỏ sót các tham số.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "rating1": { "min": 7, "max": 9, "step": 1 },
+      "rating2": { "min": 7, "max": 9, "step": 1 },
+      "rating3": { "min": 7, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "(rating1 + rating2 + rating3) % 3 === 0"
+    ],
+    "formulas": {
+      "ans": "(rating1 + rating2 + rating3) / 3",
+      "w1_goc": "rating1 + rating2",
+      "w2_goc": "rating3 + 1",
+      "w3_goc": "rating1 + rating2 + rating3",
+      "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+    },
+    "questionText": "Một bộ phim nhận được ba đánh giá từ các nhà phê bình với điểm số lần lượt là {rating1}, {rating2} và {rating3}. Điểm trung bình của bộ phim đó là bao nhiêu?",
+    "options": [
+      "A. {w1} điểm",
+      "B. {ans} điểm",
+      "C. {w2} điểm",
+      "D. {w3} điểm"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng điểm rồi chia cho 3."
+    ],
+    "solutionHtml": "Tổng số điểm là: $ {rating1} + {rating2} + {rating3} = {total_sum} $.<br/>Điểm trung bình là: $ {total_sum} : 3 = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+    "tip": "Trung bình cộng bằng tổng các giá trị chia cho số lượng giá trị.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "filmLength": { "min": 90, "max": 150, "step": 10 },
+      "ads": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "filmLength % 5 === 0"
+    ],
+    "formulas": {
+      "ans": "filmLength + ads",
+      "w1_goc": "filmLength - ads",
+      "w2_goc": "filmLength",
+      "w3_goc": "ads * 10",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 25 : w3_goc"
+    },
+    "questionText": "Một bộ phim dài {filmLength} phút, nhưng bị gián đoạn bởi {ads} phút quảng cáo. Tổng thời gian bạn phải ngồi trước màn hình là bao nhiêu phút?",
+    "options": [
+      "A. {w1} phút",
+      "B. {ans} phút",
+      "C. {w2} phút",
+      "D. {w3} phút"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng thời gian bằng thời lượng phim cộng với thời gian quảng cáo."
+    ],
+    "solutionHtml": "Tổng thời gian là: $ {filmLength} + {ads} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề bài để xem quảng cáo có nằm trong thời lượng phim hay không.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "ticketsSold": { "min": 100, "max": 200, "step": 10 },
+      "discount": { "min": 10, "max": 30, "step": 5 }
+    },
+    "constraints": [
+      "ticketsSold % 10 === 0"
+    ],
+    "formulas": {
+      "ans": "ticketsSold - (ticketsSold * discount / 100)",
+      "w1_goc": "ticketsSold + discount",
+      "w2_goc": "ticketsSold * 2",
+      "w3_goc": "ticketsSold - 5",
+      "w1": "(w1_goc === ans) ? ans + 20 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 30 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 40 : w3_goc"
+    },
+    "questionText": "Rạp chiếu phim có {ticketsSold} người đặt vé, nhưng có {discount}% khách hàng hủy vé vào phút cuối. Hỏi còn lại bao nhiêu người đi xem phim?",
+    "options": [
+      "A. {w1} người",
+      "B. {ans} người",
+      "C. {w2} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính số khách hủy vé: {ticketsSold} nhân {discount} phần trăm.",
+      "Lấy tổng trừ đi số khách đã hủy."
+    ],
+    "solutionHtml": "Số khách hủy vé là: $ {ticketsSold} \\times {discount} \\% = {ticketsSold} \\times \\frac{{discount}}{100} = {num_huy} $ (người).<br/>Số người đi xem là: $ {ticketsSold} - {num_huy} = {ans} $ (người).<br/>Đáp án đúng là B.",
+    "tip": "Phần trăm có thể được tính bằng cách chia số đó cho 100 rồi nhân với tổng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "price1": { "min": 50, "max": 80, "step": 5 },
+      "price2": { "min": 30, "max": 60, "step": 5 }
+    },
+    "constraints": [
+      "price1 > price2"
+    ],
+    "formulas": {
+      "ans": "price1 - price2",
+      "w1_goc": "price1 + price2",
+      "w2_goc": "price1",
+      "w3_goc": "price2",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Vé người lớn giá {price1} nghìn đồng, vé trẻ em giá {price2} nghìn đồng. Chênh lệch giữa hai loại vé là bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn đồng",
+      "B. {ans} nghìn đồng",
+      "C. {w2} nghìn đồng",
+      "D. {w3} nghìn đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lấy giá vé người lớn trừ giá vé trẻ em."
+    ],
+    "solutionHtml": "Chênh lệch giá vé là:<br/>$ {price1} - {price2} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Từ chênh lệch nghĩa là thực hiện phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "days": { "min": 3, "max": 7, "step": 1 },
+      "ticketsPerDay": { "min": 50, "max": 100, "step": 10 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "days * ticketsPerDay",
+      "w1_goc": "days + ticketsPerDay",
+      "w2_goc": "ticketsPerDay / days",
+      "w3_goc": "days * 2 + ticketsPerDay",
+      "w1": "(w1_goc === ans) ? ans + 50 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 100 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 150 : w3_goc"
+    },
+    "questionText": "Một bộ phim được chiếu tại rạp trong {days} ngày, trung bình mỗi ngày bán được {ticketsPerDay} vé. Tổng số vé đã bán được sau {days} ngày là bao nhiêu?",
+    "options": [
+      "A. {w1} vé",
+      "B. {ans} vé",
+      "C. {w2} vé",
+      "D. {w3} vé"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhân số ngày với số vé mỗi ngày."
+    ],
+    "solutionHtml": "Tổng số vé bán được là:<br/>$ {days} \\times {ticketsPerDay} = {ans} $ (vé).<br/>Đáp án đúng là B.",
+    "tip": "Đọc đề để xác định đúng phép tính nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  }
+]
+
+[RAW AI RESPONSE TEXT]
+[
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalStudents": { "min": 40, "max": 60, "step": 1 },
+      "filmA": { "min": 15, "max": 25, "step": 1 },
+      "filmB": { "min": 15, "max": 25, "step": 1 },
+      "both": { "min": 5, "max": 10, "step": 1 }
+    },
+    "constraints": [
+      "totalStudents > (filmA + filmB - both)",
+      "filmA > both",
+      "filmB > both"
+    ],
+    "formulas": {
+      "ans": "totalStudents - (filmA + filmB - both)",
+      "w1_goc": "totalStudents - (filmA + filmB)",
+      "w2_goc": "filmA + filmB - both",
+      "w3_goc": "totalStudents - both",
+      "w1": "(w1_goc === ans || w1_goc < 0) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 8 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 12 : w3_goc"
+    },
+    "questionText": "Trong một lớp học, có {totalStudents} học sinh. Có {filmA} học sinh thích xem phim hành động, {filmB} học sinh thích xem phim hoạt hình và {both} học sinh thích cả hai loại phim này. Hỏi có bao nhiêu học sinh không thích cả hai loại phim đó?",
+    "options": [
+      "A. {w1} học sinh",
+      "B. {ans} học sinh",
+      "C. {w2} học sinh",
+      "D. {w3} học sinh"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Sử dụng biểu đồ Venn hoặc nguyên lý bù trừ.",
+      "Số học sinh thích ít nhất một trong hai loại phim là: {filmA} + {filmB} - {both}."
+    ],
+    "solutionHtml": "Số học sinh thích ít nhất một trong hai bộ phim là:<br/>$ {filmA} + {filmB} - {both} = {w2_goc} $ (học sinh).<br/>Số học sinh không thích bộ phim nào là:<br/>$ {totalStudents} - {w2_goc} = {ans} $ (học sinh).<br/>Đáp án đúng là B.",
+    "tip": "Khi làm bài tập dạng này, hãy chú ý loại bỏ phần giao nhau để tránh đếm trùng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "seatsPerRow": { "min": 10, "max": 20, "step": 1 },
+      "totalRows": { "min": 10, "max": 20, "step": 1 },
+      "ticketPrice": { "min": 50, "max": 100, "step": 5 }
+    },
+    "constraints": [
+      "seatsPerRow % 2 === 0"
+    ],
+    "formulas": {
+      "totalSeats": "seatsPerRow * totalRows",
+      "ans": "totalSeats * ticketPrice",
+      "w1_goc": "(totalSeats - 5) * ticketPrice",
+      "w2_goc": "totalSeats * (ticketPrice + 10)",
+      "w3_goc": "seatsPerRow * ticketPrice",
+      "w1": "(w1_goc === ans) ? ans + 100 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 200 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 300 : w3_goc"
+    },
+    "questionText": "Một rạp chiếu phim có {totalRows} hàng ghế, mỗi hàng có {seatsPerRow} ghế. Nếu giá mỗi vé xem phim là {ticketPrice} nghìn đồng, hỏi tổng doanh thu của rạp nếu bán hết tất cả số vé là bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn đồng",
+      "B. {ans} nghìn đồng",
+      "C. {w2} nghìn đồng",
+      "D. {w3} nghìn đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng số ghế trước: {totalRows} nhân {seatsPerRow}.",
+      "Sau đó nhân tổng số ghế với giá tiền mỗi vé."
+    ],
+    "solutionHtml": "Tổng số ghế của rạp là:<br/>$ {totalRows} \\times {seatsPerRow} = {totalSeats} $ (ghế).<br/>Tổng doanh thu là:<br/>$ {totalSeats} \\times {ticketPrice} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đơn vị tính để tránh nhầm lẫn giữa số ghế và số tiền.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "hours": { "min": 2, "max": 5, "step": 1 },
+      "minutes": { "min": 10, "max": 50, "step": 5 },
+      "totalFrames": { "min": 1000, "max": 5000, "step": 500 }
+    },
+    "constraints": [
+      "totalFrames % (hours * 60 + minutes) === 0"
+    ],
+    "formulas": {
+      "totalMinutes": "hours * 60 + minutes",
+      "ans": "totalFrames / totalMinutes",
+      "w1_goc": "totalFrames / hours",
+      "w2_goc": "totalFrames / minutes",
+      "w3_goc": "totalMinutes * 2",
+      "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 5 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 10 : w3_goc"
+    },
+    "questionText": "Một bộ phim dài {hours} giờ {minutes} phút có tổng cộng {totalFrames} khung hình (frames). Hỏi trung bình mỗi phút bộ phim hiển thị bao nhiêu khung hình?",
+    "options": [
+      "A. {w1} khung hình/phút",
+      "B. {ans} khung hình/phút",
+      "C. {w2} khung hình/phút",
+      "D. {w3} khung hình/phút"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Đổi tổng thời gian ra phút: {hours} giờ {minutes} phút bằng bao nhiêu phút?",
+      "Lấy tổng số khung hình chia cho tổng số phút."
+    ],
+    "solutionHtml": "Đổi thời gian: {hours} giờ {minutes} phút = {totalMinutes} phút.<br/>Số khung hình mỗi phút là:<br/>$ {totalFrames} : {totalMinutes} = {ans} $ (khung hình/phút).<br/>Đáp án đúng là B.",
+    "tip": "Đừng quên đổi đơn vị thời gian trước khi chia.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "totalTickets": { "min": 200, "max": 500, "step": 10 },
+      "ratio1": { "min": 2, "max": 4, "step": 1 },
+      "ratio2": { "min": 3, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "totalTickets % (ratio1 + ratio2) === 0"
+    ],
+    "formulas": {
+      "unit": "totalTickets / (ratio1 + ratio2)",
+      "ans": "unit * ratio1",
+      "w1_goc": "unit * ratio2",
+      "w2_goc": "totalTickets / ratio1",
+      "w3_goc": "totalTickets / ratio2",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Rạp chiếu phim bán được {totalTickets} vé, trong đó tỉ lệ vé người lớn và vé trẻ em là {ratio1} : {ratio2}. Hỏi số vé người lớn đã bán được là bao nhiêu?",
+    "options": [
+      "A. {w1} vé",
+      "B. {ans} vé",
+      "C. {w2} vé",
+      "D. {w3} vé"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng số phần bằng nhau là: {ratio1} + {ratio2} = {total_parts}.",
+      "Giá trị một phần là: {totalTickets} chia {total_parts}."
+    ],
+    "solutionHtml": "Tổng số phần bằng nhau là: {ratio1} + {ratio2} = {total_parts} phần.<br/>Giá trị một phần là: {totalTickets} : {total_parts} = {unit}.<br/>Số vé người lớn là: {unit} * {ratio1} = {ans} (vé).<br/>Đáp án đúng là B.",
+    "tip": "Áp dụng phương pháp tìm hai số khi biết tổng và tỉ số.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "actors": { "min": 5, "max": 10, "step": 1 },
+      "scenes": { "min": 4, "max": 8, "step": 1 },
+      "takesPerScene": { "min": 2, "max": 5, "step": 1 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "actors * scenes * takesPerScene",
+      "w1_goc": "actors * scenes",
+      "w2_goc": "scenes * takesPerScene",
+      "w3_goc": "actors + scenes + takesPerScene",
+      "w1": "(w1_goc === ans) ? ans + 15 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 25 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 35 : w3_goc"
+    },
+    "questionText": "Một đoàn phim có {actors} diễn viên chính. Họ quay {scenes} cảnh phim, và mỗi cảnh yêu cầu quay lại {takesPerScene} lần. Tổng số lượt diễn xuất của các diễn viên chính là bao nhiêu?",
+    "options": [
+      "A. {w1} lượt",
+      "B. {ans} lượt",
+      "C. {w2} lượt",
+      "D. {w3} lượt"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhân số diễn viên với số cảnh và số lần quay lại mỗi cảnh."
+    ],
+    "solutionHtml": "Tổng số lượt diễn xuất là:<br/>$ {actors} \\times {scenes} \\times {takesPerScene} = {ans} $ (lượt).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ câu hỏi để không bỏ sót các tham số.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "rating1": { "min": 7, "max": 9, "step": 1 },
+      "rating2": { "min": 7, "max": 9, "step": 1 },
+      "rating3": { "min": 7, "max": 9, "step": 1 }
+    },
+    "constraints": [
+      "(rating1 + rating2 + rating3) % 3 === 0"
+    ],
+    "formulas": {
+      "ans": "(rating1 + rating2 + rating3) / 3",
+      "w1_goc": "rating1 + rating2",
+      "w2_goc": "rating3 + 1",
+      "w3_goc": "rating1 + rating2 + rating3",
+      "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+    },
+    "questionText": "Một bộ phim nhận được ba đánh giá từ các nhà phê bình với điểm số lần lượt là {rating1}, {rating2} và {rating3}. Điểm trung bình của bộ phim đó là bao nhiêu?",
+    "options": [
+      "A. {w1} điểm",
+      "B. {ans} điểm",
+      "C. {w2} điểm",
+      "D. {w3} điểm"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính tổng điểm rồi chia cho 3."
+    ],
+    "solutionHtml": "Tổng số điểm là: $ {rating1} + {rating2} + {rating3} = {total_sum} $.<br/>Điểm trung bình là: $ {total_sum} : 3 = {ans} $ (điểm).<br/>Đáp án đúng là B.",
+    "tip": "Trung bình cộng bằng tổng các giá trị chia cho số lượng giá trị.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "filmLength": { "min": 90, "max": 150, "step": 10 },
+      "ads": { "min": 5, "max": 15, "step": 1 }
+    },
+    "constraints": [
+      "filmLength % 5 === 0"
+    ],
+    "formulas": {
+      "ans": "filmLength + ads",
+      "w1_goc": "filmLength - ads",
+      "w2_goc": "filmLength",
+      "w3_goc": "ads * 10",
+      "w1": "(w1_goc === ans) ? ans + 5 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 15 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 25 : w3_goc"
+    },
+    "questionText": "Một bộ phim dài {filmLength} phút, nhưng bị gián đoạn bởi {ads} phút quảng cáo. Tổng thời gian bạn phải ngồi trước màn hình là bao nhiêu phút?",
+    "options": [
+      "A. {w1} phút",
+      "B. {ans} phút",
+      "C. {w2} phút",
+      "D. {w3} phút"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tổng thời gian bằng thời lượng phim cộng với thời gian quảng cáo."
+    ],
+    "solutionHtml": "Tổng thời gian là: $ {filmLength} + {ads} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+    "tip": "Đọc kỹ đề bài để xem quảng cáo có nằm trong thời lượng phim hay không.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "ticketsSold": { "min": 100, "max": 200, "step": 10 },
+      "discount": { "min": 10, "max": 30, "step": 5 }
+    },
+    "constraints": [
+      "ticketsSold % 10 === 0"
+    ],
+    "formulas": {
+      "ans": "ticketsSold - (ticketsSold * discount / 100)",
+      "w1_goc": "ticketsSold + discount",
+      "w2_goc": "ticketsSold * 2",
+      "w3_goc": "ticketsSold - 5",
+      "w1": "(w1_goc === ans) ? ans + 20 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 30 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 40 : w3_goc"
+    },
+    "questionText": "Rạp chiếu phim có {ticketsSold} người đặt vé, nhưng có {discount}% khách hàng hủy vé vào phút cuối. Hỏi còn lại bao nhiêu người đi xem phim?",
+    "options": [
+      "A. {w1} người",
+      "B. {ans} người",
+      "C. {w2} người",
+      "D. {w3} người"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Tính số khách hủy vé: {ticketsSold} nhân {discount} phần trăm.",
+      "Lấy tổng trừ đi số khách đã hủy."
+    ],
+    "solutionHtml": "Số khách hủy vé là: $ {ticketsSold} \\times {discount} \\% = {ticketsSold} \\times \\frac{{discount}}{100} = {num_huy} $ (người).<br/>Số người đi xem là: $ {ticketsSold} - {num_huy} = {ans} $ (người).<br/>Đáp án đúng là B.",
+    "tip": "Phần trăm có thể được tính bằng cách chia số đó cho 100 rồi nhân với tổng.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "price1": { "min": 50, "max": 80, "step": 5 },
+      "price2": { "min": 30, "max": 60, "step": 5 }
+    },
+    "constraints": [
+      "price1 > price2"
+    ],
+    "formulas": {
+      "ans": "price1 - price2",
+      "w1_goc": "price1 + price2",
+      "w2_goc": "price1",
+      "w3_goc": "price2",
+      "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 20 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 30 : w3_goc"
+    },
+    "questionText": "Vé người lớn giá {price1} nghìn đồng, vé trẻ em giá {price2} nghìn đồng. Chênh lệch giữa hai loại vé là bao nhiêu nghìn đồng?",
+    "options": [
+      "A. {w1} nghìn đồng",
+      "B. {ans} nghìn đồng",
+      "C. {w2} nghìn đồng",
+      "D. {w3} nghìn đồng"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Lấy giá vé người lớn trừ giá vé trẻ em."
+    ],
+    "solutionHtml": "Chênh lệch giá vé là:<br/>$ {price1} - {price2} = {ans} $ (nghìn đồng).<br/>Đáp án đúng là B.",
+    "tip": "Từ chênh lệch nghĩa là thực hiện phép tính trừ.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  },
+  {
+    "isTemplate": true,
+    "variables": {
+      "days": { "min": 3, "max": 7, "step": 1 },
+      "ticketsPerDay": { "min": 50, "max": 100, "step": 10 }
+    },
+    "constraints": [
+      "true"
+    ],
+    "formulas": {
+      "ans": "days * ticketsPerDay",
+      "w1_goc": "days + ticketsPerDay",
+      "w2_goc": "ticketsPerDay / days",
+      "w3_goc": "days * 2 + ticketsPerDay",
+      "w1": "(w1_goc === ans) ? ans + 50 : w1_goc",
+      "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 100 : w2_goc",
+      "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 150 : w3_goc"
+    },
+    "questionText": "Một bộ phim được chiếu tại rạp trong {days} ngày, trung bình mỗi ngày bán được {ticketsPerDay} vé. Tổng số vé đã bán được sau {days} ngày là bao nhiêu?",
+    "options": [
+      "A. {w1} vé",
+      "B. {ans} vé",
+      "C. {w2} vé",
+      "D. {w3} vé"
+    ],
+    "correctIndex": 1,
+    "hints": [
+      "Nhân số ngày với số vé mỗi ngày."
+    ],
+    "solutionHtml": "Tổng số vé bán được là:<br/>$ {days} \\times {ticketsPerDay} = {ans} $ (vé).<br/>Đáp án đúng là B.",
+    "tip": "Đọc đề để xác định đúng phép tính nhân.",
+    "level": "chat-luong-cao",
+    "type": "eng6-t20-d4"
+  }
+]
+

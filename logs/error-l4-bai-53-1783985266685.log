@@ -1,0 +1,702 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-13T23:27:46.685Z
+Lesson ID: l4-bai-53
+Lesson Title: Bài 53: Khái niệm phân số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 11546 (line 419 column 1)
+SyntaxError: Unexpected non-whitespace character after JSON at position 11546 (line 419 column 1)
+    at JSON.parse (<anonymous>)
+    at auditMathQuestions (F:\KHQS\AntiGravity\HocTap\server.js:1130:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\KHQS\AntiGravity\HocTap\server.js:3840:20
+
+[JSON DIAGNOSTICS]
+Error Position: 11546 (Line: 338, Column: 2)
+Character causing error: "EOF"
+
+Context:
+... >>>[LỖI TẠI ĐÂY]<<< ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 9, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "ans_den": "b",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "b - 1"
+      },
+      "questionText": "Một chiếc bánh pizza được cắt thành {ans_den} phần bằng nhau. Lan đã ăn {ans} phần. Phân số nào dưới đây biểu thị số phần bánh Lan đã ăn?",
+      "options": [
+        "A. $\\frac{{w1}}{{ans}}$",
+        "B. $\\frac{{ans}}{{ans_den}}$",
+        "C. $\\frac{{ans}}{{w2}}$",
+        "D. $\\frac{{w3}}{{ans_den}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ số phần đã ăn có tử số là số phần Lan ăn và mẫu số là tổng số phần của chiếc bánh.",
+        "Tử số là {ans}, mẫu số là {ans_den}."
+      ],
+      "solutionHtml": "Chiếc bánh được chia thành {ans_den} phần bằng nhau (mẫu số là {ans_den}).<br/>Lan ăn {ans} phần (tử số là {ans}).<br/>Vậy phân số biểu thị số phần bánh Lan ăn là $\\frac{{ans}}{{ans_den}}$.<br/>Đáp án đúng là B.",
+      "tip": "Mẫu số luôn chỉ tổng số phần chia đều, còn tử số chỉ số phần được chọn hoặc đã lấy đi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 7, "step": 1 },
+        "m": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "n < m"
+      ],
+      "formulas": {
+        "ans_t": "n",
+        "ans_m": "m",
+        "w1_t": "m",
+        "w1_m": "n",
+        "w2_t": "n + 1",
+        "w2_m": "m",
+        "w3_t": "n",
+        "w3_m": "m + 1"
+      },
+      "questionText": "Tử số của một phân số là {ans_t}, mẫu số của phân số đó là {ans_m}. Hãy viết phân số đó.",
+      "options": [
+        "A. $\\frac{{w1_t}}{{w1_m}}$",
+        "B. $\\frac{{ans_t}}{{ans_m}}$",
+        "C. $\\frac{{w2_t}}{{w2_m}}$",
+        "D. $\\frac{{w3_t}}{{w3_m}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số có dạng $\\frac{a}{b}$ trong đó $a$ là tử số và $b$ là mẫu số ($b$ khác 0).",
+        "Ở đây tử số là {ans_t} và mẫu số là {ans_m}."
+      ],
+      "solutionHtml": "Theo khái niệm phân số, tử số viết trên gạch ngang, mẫu số viết dưới gạch ngang.<br/>Vậy phân số cần tìm là $\\frac{{ans_t}}{{ans_m}}$.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ quy tắc: Tử số ở trên, mẫu số ở dưới.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 9, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "b - a"
+      },
+      "questionText": "Phân số $\\frac{{a}}{{b}}$ có mẫu số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Trong phân số $\\frac{x}{y}$, số $y$ đứng dưới dấu gạch ngang gọi là mẫu số.",
+        "Ở phân số $\\frac{{a}}{{b}}$, số dưới dấu gạch ngang là {b}."
+      ],
+      "solutionHtml": "Phân số $\\frac{{a}}{{b}}$ có tử số là {a} và mẫu số là {b}.<br/>Đáp án đúng là A.",
+      "tip": "Mẫu số nằm bên dưới dấu gạch ngang phân số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans_t": "a",
+        "ans_m": "b",
+        "w1_t": "b",
+        "w1_m": "a",
+        "w2_t": "a + 1",
+        "w2_m": "b",
+        "w3_t": "a",
+        "w3_m": "b + 1"
+      },
+      "questionText": "Trong các phân số sau, đâu là phân số có tử số là {a} và mẫu số là {b}?",
+      "options": [
+        "A. $\\frac{{w1_t}}{{w1_m}}$",
+        "B. $\\frac{{w2_t}}{{w2_m}}$",
+        "C. $\\frac{{ans_t}}{{ans_m}}$",
+        "D. $\\frac{{w3_t}}{{w3_m}}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tử số nằm phía trên, mẫu số nằm phía dưới.",
+        "Phân số cần tìm có dạng $\\frac{{a}}{{b}}$."
+      ],
+      "solutionHtml": "Phân số có tử số là {a} và mẫu số là {b} được viết là $\\frac{{a}}{{b}}$.<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn vị trí tử số và mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "a + 1"
+      },
+      "questionText": "Phân số $\\frac{{a}}{{b}}$ có tử số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trong phân số, số nằm trên dấu gạch ngang là tử số.",
+        "Ở phân số $\\frac{{a}}{{b}}$, số nằm trên là {a}."
+      ],
+      "solutionHtml": "Phân số $\\frac{{a}}{{b}}$ có tử số là {a} và mẫu số là {b}.<br/>Đáp án đúng là B.",
+      "tip": "Tử số là số nằm trên gạch ngang.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "total": "a + b",
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "b - a"
+      },
+      "questionText": "Một nhóm học sinh có {a} bạn nữ và {b} bạn nam. Phân số chỉ phần bạn nữ trong tổng số học sinh của nhóm là bao nhiêu?",
+      "options": [
+        "A. $\\frac{{a}}{{total}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{b}}{{total}}$",
+        "D. $\\frac{{total}}{{a}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tổng số học sinh là: {a} + {b} = {total} (bạn).",
+        "Phân số chỉ số bạn nữ là: (số bạn nữ) / (tổng số học sinh)."
+      ],
+      "solutionHtml": "Tổng số học sinh của nhóm là: {a} + {b} = {total} (bạn).<br/>Phân số chỉ phần bạn nữ là tử số là {a} và mẫu số là {total}.<br/>Vậy phân số đó là $\\frac{{a}}{{total}}$.<br/>Đáp án đúng là A.",
+      "tip": "Mẫu số luôn là tổng số phần hoặc tổng số đối tượng đang xét.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b"
+      },
+      "questionText": "Một băng giấy chia làm {b} phần bằng nhau. Nếu đã tô màu {a} phần thì còn lại bao nhiêu phần chưa tô màu?",
+      "options": [
+        "A. $\\frac{{ans}}{{b}}$",
+        "B. $\\frac{{w1}}{{b}}$",
+        "C. $\\frac{{w2}}{{b}}$",
+        "D. $\\frac{{w3}}{{b}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số phần chưa tô màu là: {b} - {a} = {ans} (phần).",
+        "Phân số chỉ phần chưa tô màu là tử số là {ans} và mẫu số là tổng số phần {b}."
+      ],
+      "solutionHtml": "Số phần chưa tô màu là: {b} - {a} = {ans} (phần).<br/>Vì băng giấy có {b} phần bằng nhau nên mẫu số là {b}.<br/>Vậy phân số cần tìm là $\\frac{{ans}}{{b}}$.<br/>Đáp án đúng là A.",
+      "tip": "Đọc kỹ đề xem hỏi phần đã tô hay chưa tô màu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans_t": "a",
+        "ans_m": "b",
+        "w1_t": "b",
+        "w1_m": "a",
+        "w2_t": "a + b",
+        "w2_m": "a",
+        "w3_t": "b",
+        "w3_m": "a + b"
+      },
+      "questionText": "Chọn phân số có tử số là {a} và mẫu số là {b}.",
+      "options": [
+        "A. $\\frac{{w1_t}}{{w1_m}}$",
+        "B. $\\frac{{ans_t}}{{ans_m}}$",
+        "C. $\\frac{{w2_t}}{{w2_m}}$",
+        "D. $\\frac{{w3_t}}{{w3_m}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tử số nằm trên gạch ngang, mẫu số nằm dưới gạch ngang.",
+        "Ta cần tìm phân số có tử là {a} và mẫu là {b}."
+      ],
+      "solutionHtml": "Phân số có tử số là {a} và mẫu số là {b} được viết là $\\frac{{a}}{{b}}$.<br/>Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn vị trí tử và mẫu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "b - 1"
+      },
+      "questionText": "Trong phân số $\\frac{{a}}{{b}}$, tử số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tử số là số nằm trên dấu gạch ngang của phân số.",
+        "Với phân số $\\frac{{a}}{{b}}$, tử số là {a}."
+      ],
+      "solutionHtml": "Trong phân số $\\frac{{a}}{{b}}$, số nằm trên dấu gạch ngang là {a}, nên tử số là {a}.<br/>Đáp án đúng là B.",
+      "tip": "Số nằm trên là tử, số nằm dưới là mẫu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 7, "step": 1 },
+        "b": { "min": 8, "max": 12, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "b - a"
+      },
+      "questionText": "Trong phân số $\\frac{{a}}{{b}}$, mẫu số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mẫu số là số nằm dưới dấu gạch ngang của phân số.",
+        "Với phân số $\\frac{{a}}{{b}}$, mẫu số là {b}."
+      ],
+      "solutionHtml": "Trong phân số $\\frac{{a}}{{b}}$, số nằm dưới dấu gạch ngang là {b}, nên mẫu số là {b}.<br/>Đáp án đúng là B.",
+      "tip": "Mẫu số là số chỉ đơn vị chia đều, nằm dưới gạch ngang.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d10"
+    }
+  ]
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 8, "step": 1 },
+        "b": { "min": 9, "max": 15, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "ans_den": "b",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "b - 1"
+      },
+      "questionText": "Một chiếc bánh pizza được cắt thành {ans_den} phần bằng nhau. Lan đã ăn {ans} phần. Phân số nào dưới đây biểu thị số phần bánh Lan đã ăn?",
+      "options": [
+        "A. $\\frac{{w1}}{{ans}}$",
+        "B. $\\frac{{ans}}{{ans_den}}$",
+        "C. $\\frac{{ans}}{{w2}}$",
+        "D. $\\frac{{w3}}{{ans_den}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số chỉ số phần đã ăn có tử số là số phần Lan ăn và mẫu số là tổng số phần của chiếc bánh.",
+        "Tử số là {ans}, mẫu số là {ans_den}."
+      ],
+      "solutionHtml": "Chiếc bánh được chia thành {ans_den} phần bằng nhau (mẫu số là {ans_den}).<br/>Lan ăn {ans} phần (tử số là {ans}).<br/>Vậy phân số biểu thị số phần bánh Lan ăn là $\\frac{{ans}}{{ans_den}}$.<br/>Đáp án đúng là B.",
+      "tip": "Mẫu số luôn chỉ tổng số phần chia đều, còn tử số chỉ số phần được chọn hoặc đã lấy đi.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": { "min": 2, "max": 7, "step": 1 },
+        "m": { "min": 3, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "n < m"
+      ],
+      "formulas": {
+        "ans_t": "n",
+        "ans_m": "m",
+        "w1_t": "m",
+        "w1_m": "n",
+        "w2_t": "n + 1",
+        "w2_m": "m",
+        "w3_t": "n",
+        "w3_m": "m + 1"
+      },
+      "questionText": "Tử số của một phân số là {ans_t}, mẫu số của phân số đó là {ans_m}. Hãy viết phân số đó.",
+      "options": [
+        "A. $\\frac{{w1_t}}{{w1_m}}$",
+        "B. $\\frac{{ans_t}}{{ans_m}}$",
+        "C. $\\frac{{w2_t}}{{w2_m}}$",
+        "D. $\\frac{{w3_t}}{{w3_m}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Phân số có dạng $\\frac{a}{b}$ trong đó $a$ là tử số và $b$ là mẫu số ($b$ khác 0).",
+        "Ở đây tử số là {ans_t} và mẫu số là {ans_m}."
+      ],
+      "solutionHtml": "Theo khái niệm phân số, tử số viết trên gạch ngang, mẫu số viết dưới gạch ngang.<br/>Vậy phân số cần tìm là $\\frac{{ans_t}}{{ans_m}}$.<br/>Đáp án đúng là B.",
+      "tip": "Nhớ quy tắc: Tử số ở trên, mẫu số ở dưới.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 9, "step": 1 },
+        "b": { "min": 10, "max": 20, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "b - a"
+      },
+      "questionText": "Phân số $\\frac{{a}}{{b}}$ có mẫu số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Trong phân số $\\frac{x}{y}$, số $y$ đứng dưới dấu gạch ngang gọi là mẫu số.",
+        "Ở phân số $\\frac{{a}}{{b}}$, số dưới dấu gạch ngang là {b}."
+      ],
+      "solutionHtml": "Phân số $\\frac{{a}}{{b}}$ có tử số là {a} và mẫu số là {b}.<br/>Đáp án đúng là A.",
+      "tip": "Mẫu số nằm bên dưới dấu gạch ngang phân số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans_t": "a",
+        "ans_m": "b",
+        "w1_t": "b",
+        "w1_m": "a",
+        "w2_t": "a + 1",
+        "w2_m": "b",
+        "w3_t": "a",
+        "w3_m": "b + 1"
+      },
+      "questionText": "Trong các phân số sau, đâu là phân số có tử số là {a} và mẫu số là {b}?",
+      "options": [
+        "A. $\\frac{{w1_t}}{{w1_m}}$",
+        "B. $\\frac{{w2_t}}{{w2_m}}$",
+        "C. $\\frac{{ans_t}}{{ans_m}}$",
+        "D. $\\frac{{w3_t}}{{w3_m}}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tử số nằm phía trên, mẫu số nằm phía dưới.",
+        "Phân số cần tìm có dạng $\\frac{{a}}{{b}}$."
+      ],
+      "solutionHtml": "Phân số có tử số là {a} và mẫu số là {b} được viết là $\\frac{{a}}{{b}}$.<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn vị trí tử số và mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5, "step": 1 },
+        "b": { "min": 6, "max": 10, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "a + 1"
+      },
+      "questionText": "Phân số $\\frac{{a}}{{b}}$ có tử số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trong phân số, số nằm trên dấu gạch ngang là tử số.",
+        "Ở phân số $\\frac{{a}}{{b}}$, số nằm trên là {a}."
+      ],
+      "solutionHtml": "Phân số $\\frac{{a}}{{b}}$ có tử số là {a} và mẫu số là {b}.<br/>Đáp án đúng là B.",
+      "tip": "Tử số là số nằm trên gạch ngang.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 4, "step": 1 },
+        "b": { "min": 5, "max": 8, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "total": "a + b",
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + b",
+        "w3": "b - a"
+      },
+      "questionText": "Một nhóm học sinh có {a} bạn nữ và {b} bạn nam. Phân số chỉ phần bạn nữ trong tổng số học sinh của nhóm là bao nhiêu?",
+      "options": [
+        "A. $\\frac{{a}}{{total}}$",
+        "B. $\\frac{{a}}{{b}}$",
+        "C. $\\frac{{b}}{{total}}$",
+        "D. $\\frac{{total}}{{a}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tổng số học sinh là: {a} + {b} = {total} (bạn).",
+        "Phân số chỉ số bạn nữ là: (số bạn nữ) / (tổng số học sinh)."
+      ],
+      "solutionHtml": "Tổng số học sinh của nhóm là: {a} + {b} = {total} (bạn).<br/>Phân số chỉ phần bạn nữ là tử số là {a} và mẫu số là {total}.<br/>Vậy phân số đó là $\\frac{{a}}{{total}}$.<br/>Đáp án đúng là A.",
+      "tip": "Mẫu số luôn là tổng số phần hoặc tổng số đối tượng đang xét.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6, "step": 1 },
+        "b": { "min": 4, "max": 7, "step": 1 }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b"
+      },
+      "questionText": "Một băng giấy chia làm {b} phần bằng nhau. Nếu đã tô màu {a} phần thì còn lại bao nhiêu phần chưa tô màu?",
+      "options": [
+        "A. $\\frac{{ans}}{{b}}$",
+        "B. $\\frac{{w1}}{{b}}$",
+        "C. $\\frac{{w2}}{{b}}$",
+        "D. $\\frac{{w3}}{{b}}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số phần chưa tô màu là: {b} - {a} = {ans} (phần).",
+        "Phân số chỉ phần chưa tô màu là tử số là {ans} và mẫu số là tổng số phần {b}."
+      ],
+      "solutionHtml": "Số phần chưa tô màu là: {b} - {a} = {ans} (phần).<br/>Vì băng giấy có {b} phần bằng nhau nên mẫu số là {b}.<br/>Vậy phân số cần tìm là $\\frac{{ans}}{{b}}$.<br/>Đáp án đúng là A.",
+      "tip": "Đọc kỹ đề xem hỏi phần đã tô hay chưa tô màu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 3, "max": 6, "step": 1 }
+      },
+      "constraints": [
+        "a !== b"
+      ],
+      "formulas": {
+        "ans_t": "a",
+        "ans_m": "b",
+        "w1_t": "b",
+        "w1_m": "a",
+        "w2_t": "a + b",
+        "w2_m": "a",
+        "w3_t": "b",
+        "w3_m": "a + b"
+      },
+      "questionText": "Chọn phân số có tử số là {a} và mẫu số là {b}.",
+      "options": [
+        "A. $\\frac{{w1_t}}{{w1_m}}$",
+        "B. $\\frac{{ans_t}}{{ans_m}}$",
+        "C. $\\frac{{w2_t}}{{w2_m}}$",
+        "D. $\\frac{{w3_t}}{{w3_m}}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tử số nằm trên gạch ngang, mẫu số nằm dưới gạch ngang.",
+        "Ta cần tìm phân số có tử là {a} và mẫu là {b}."
+      ],
+      "solutionHtml": "Phân số có tử số là {a} và mẫu số là {b} được viết là $\\frac{{a}}{{b}}$.<br/>Đáp án đúng là B.",
+      "tip": "Đừng nhầm lẫn vị trí tử và mẫu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 5, "step": 1 },
+        "b": { "min": 5, "max": 9, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "b - 1"
+      },
+      "questionText": "Trong phân số $\\frac{{a}}{{b}}$, tử số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tử số là số nằm trên dấu gạch ngang của phân số.",
+        "Với phân số $\\frac{{a}}{{b}}$, tử số là {a}."
+      ],
+      "solutionHtml": "Trong phân số $\\frac{{a}}{{b}}$, số nằm trên dấu gạch ngang là {a}, nên tử số là {a}.<br/>Đáp án đúng là B.",
+      "tip": "Số nằm trên là tử, số nằm dưới là mẫu.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 7, "step": 1 },
+        "b": { "min": 8, "max": 12, "step": 1 }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "b - a"
+      },
+      "questionText": "Trong phân số $\\frac{{a}}{{b}}$, mẫu số là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mẫu số là số nằm dưới dấu gạch ngang của phân số.",
+        "Với phân số $\\frac{{a}}{{b}}$, mẫu số là {b}."
+      ],
+      "solutionHtml": "Trong phân số $\\frac{{a}}{{b}}$, số nằm dưới dấu gạch ngang là {b}, nên mẫu số là {b}.<br/>Đáp án đúng là B.",
+      "tip": "Mẫu số là số chỉ đơn vị chia đều, nằm dưới gạch ngang.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-53-d10"
+    }
+  ]
+}
+

@@ -1,0 +1,379 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a * 10 + b >= 20",
+        "a * 10 + b <= 99"
+      ],
+      "formulas": {
+        "ans": "a * 10 + b",
+        "w1": "b * 10 + a",
+        "w2": "(a + 1) * 10 + b",
+        "w3": "a * 10 + (b + 1 > 9 ? b - 1 : b + 1)",
+        "w1_final": "(w1 === ans) ? 11 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 22 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 33 : w3"
+      },
+      "questionText": "Số có hai chữ số gồm chữ số hàng chục là {a} và chữ số hàng đơn vị là {b} là số nào?",
+      "options": [
+        "A. {w1_final}",
+        "B. {ans}",
+        "C. {w2_final}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số có hai chữ số được viết dưới dạng: Chữ số hàng chục đứng trước, chữ số hàng đơn vị đứng sau.",
+        "Ta viết {a} rồi viết tiếp {b} ngay phía sau."
+      ],
+      "solutionHtml": "Số có hai chữ số với hàng chục là {a} và hàng đơn vị là {b} được viết là: {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Hãy nhớ: Chữ số hàng chục luôn đứng bên trái, chữ số hàng đơn vị luôn đứng bên phải.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-21-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10",
+        "w1": "a * 10 + 1",
+        "w2": "(a - 1) * 10",
+        "w3": "(a + 1) * 10",
+        "w1_final": "(w1 === ans) ? 80 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 70 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 90 : w3"
+      },
+      "questionText": "Số tròn chục nào đứng ngay trước số {a+1}0?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {ans}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số tròn chục là các số có chữ số hàng đơn vị bằng 0.",
+        "Số đứng trước số {a+1}0 là số ít hơn nó 10 đơn vị."
+      ],
+      "solutionHtml": "Số tròn chục đứng ngay trước {a+1}0 là {a}0, hay chính là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Số tròn chục có tận cùng là số 0."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "tens": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        },
+        "ones": {
+          "min": 1,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "tens * 10 + ones",
+        "w1": "tens * 10",
+        "w2": "ones * 10 + tens",
+        "w3": "(tens + 1) * 10",
+        "w1_final": "(w1 === ans) ? 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 55 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 90 : w3"
+      },
+      "questionText": "Số nào gồm {tens} chục và {ones} đơn vị?",
+      "options": [
+        "A. {w1_final}",
+        "B. {ans}",
+        "C. {w2_final}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chữ số hàng chục là {tens}, chữ số hàng đơn vị là {ones}.",
+        "Ghép lại ta được số có hai chữ số."
+      ],
+      "solutionHtml": "Số có {tens} chục và {ones} đơn vị được viết là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Chữ số hàng chục là giá trị của các nhóm mười."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 11,
+          "max": 80,
+          "step": 1
+        },
+        "jump": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(start + jump) < 99"
+      ],
+      "formulas": {
+        "ans": "start + jump",
+        "w1": "start + 1",
+        "w2": "start + jump + 1",
+        "w3": "start + jump - 1",
+        "w1_final": "(w1 === ans) ? start + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? start + 5 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? start + 7 : w3"
+      },
+      "questionText": "Bé Lan có {start} viên bi. Mẹ cho thêm bé {jump} viên bi nữa. Hỏi bé Lan có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {ans}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm tổng số bi, ta thực hiện phép tính cộng: ${start} + {jump} = {ans}$.",
+        "Hãy đếm thêm {jump} đơn vị từ {start}."
+      ],
+      "solutionHtml": "Số bi bé Lan có sau khi được mẹ cho thêm là: ${start} + {jump} = {ans}$ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Phép cộng giúp ta tìm tổng số lượng."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a * 10 + b > 20"
+      ],
+      "formulas": {
+        "ans": "a * 10 + b",
+        "w1": "a * 10",
+        "w2": "b * 10 + a",
+        "w3": "(a + 1) * 10",
+        "w1_final": "(w1 === ans) ? 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 30 : w3"
+      },
+      "questionText": "Số nào gồm {a} chục và {b} đơn vị?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {ans}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số có {a} chục là số {a}0.",
+        "Thêm {b} đơn vị vào số {a}0 ta được {ans}."
+      ],
+      "solutionHtml": "Số gồm {a} chục và {b} đơn vị là {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Đừng nhầm lẫn giữa chữ số hàng chục và hàng đơn vị."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10 + a",
+        "w1": "a * 10",
+        "w2": "a + a",
+        "w3": "(a + 1) * 10",
+        "w1_final": "(w1 === ans) ? 11 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 22 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 33 : w3"
+      },
+      "questionText": "Số có hai chữ số giống nhau mà chữ số hàng chục là {a} là số nào?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {w3_final}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Số có hai chữ số giống nhau nghĩa là chữ số hàng chục và hàng đơn vị bằng nhau.",
+        "Chữ số hàng chục là {a} nên chữ số hàng đơn vị cũng phải là {a}."
+      ],
+      "solutionHtml": "Vì chữ số hàng chục và hàng đơn vị đều là {a}, nên số đó là {ans}.<br/>Đáp án đúng là D.",
+      "tip": "Số có hai chữ số giống nhau còn gọi là số thập phân kép (ví dụ 11, 22, ...)"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10 + 9",
+        "w1": "a * 10 + 8",
+        "w2": "(a + 1) * 10",
+        "w3": "a * 10",
+        "w1_final": "(w1 === ans) ? 15 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 25 : w3"
+      },
+      "questionText": "Số lớn nhất có hai chữ số mà chữ số hàng chục là {a} là số nào?",
+      "options": [
+        "A. {w1_final}",
+        "B. {ans}",
+        "C. {w2_final}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chữ số hàng chục là {a}.",
+        "Để số là lớn nhất, chữ số hàng đơn vị phải là số lớn nhất trong các số (0, 1, 2, ..., 9), đó là số 9."
+      ],
+      "solutionHtml": "Số lớn nhất có hai chữ số với hàng chục là {a} là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Muốn số lớn nhất, hãy chọn chữ số hàng đơn vị lớn nhất là 9."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10 + 1",
+        "w1": "a * 10",
+        "w2": "a * 10 + 2",
+        "w3": "(a - 1) * 10 + 9",
+        "w1_final": "(w1 === ans) ? 40 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 50 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 60 : w3"
+      },
+      "questionText": "Số bé nhất có hai chữ số mà chữ số hàng chục là {a} là số nào?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {ans}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chữ số hàng chục là {a}.",
+        "Để số là bé nhất, chữ số hàng đơn vị phải là số bé nhất, đó là số 0. Tuy nhiên, nếu là {a}0 thì lại nhỏ hơn {a}1. Đề bài yêu cầu số có hai chữ số, thì số bé nhất bắt đầu từ 0.",
+        "Số bé nhất với hàng chục là {a} chính là {a}0. Nếu đề bài yêu cầu số khác 0, thì là {a}1."
+      ],
+      "solutionHtml": "Số bé nhất có hai chữ số bắt đầu bằng {a} là {a}0. Tuy nhiên, nếu tính cả các số thì {a}0 là số bé nhất.<br/>Đáp án đúng là C.",
+      "tip": "Số bé nhất có chữ số hàng đơn vị là 0."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + 10",
+        "w1": "a",
+        "w2": "a * 10",
+        "w3": "a + 11",
+        "w1_final": "(w1 === ans) ? 5 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 25 : w3"
+      },
+      "questionText": "Một chục và {a} đơn vị tạo thành số nào?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {ans}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Một chục bằng 10.",
+        "Ta cộng thêm {a} đơn vị: $10 + {a} = {ans}$."
+      ],
+      "solutionHtml": "Một chục và {a} đơn vị tạo thành số {ans}.<br/>Đáp án đúng là C.",
+      "tip": "Một chục là số 10."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 10 + b",
+        "w1": "(a + 1) * 10 + b",
+        "w2": "a * 10 + (b + 1)",
+        "w3": "a * 10",
+        "w1_final": "(w1 === ans) ? 99 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? 88 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? 77 : w3"
+      },
+      "questionText": "Viết số có hai chữ số, biết chữ số hàng chục là {a} và chữ số hàng đơn vị là {b}.",
+      "options": [
+        "A. {w1_final}",
+        "B. {ans}",
+        "C. {w2_final}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Hàng chục viết trước, hàng đơn vị viết sau.",
+        "Chữ số {a} đứng ở vị trí hàng chục, chữ số {b} ở vị trí hàng đơn vị."
+      ],
+      "solutionHtml": "Số có hai chữ số với hàng chục là {a} và hàng đơn vị là {b} được viết là {ans}.<br/>Đáp án đúng là B.",
+      "tip": "Luôn xác định đúng vị trí hàng chục và hàng đơn vị."
+    }
+  ]
+}

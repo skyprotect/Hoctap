@@ -1,0 +1,397 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "hours": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "minutes": {
+          "min": 15,
+          "max": 45,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "hours > 1"
+      ],
+      "formulas": {
+        "totalMinutes": "hours * 60 + minutes",
+        "w1": "totalMinutes + 10",
+        "w2": "totalMinutes - 10",
+        "w3": "totalMinutes + 20"
+      },
+      "questionText": "Một gia đình dành {hours} giờ {minutes} phút mỗi ngày để xem các chương trình truyền hình giáo dục. Hỏi tổng thời gian gia đình đó xem truyền hình trong một ngày là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {w2} phút",
+        "C. {totalMinutes} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đổi {hours} giờ ra phút bằng cách nhân với 60.",
+        "Cộng thêm {minutes} phút vào kết quả vừa tìm được."
+      ],
+      "solutionHtml": "Bước 1: Đổi {hours} giờ ra phút: $ {hours} \\times 60 = {hours * 60} $ (phút).<br/>Bước 2: Tổng thời gian là: $ {hours * 60} + {minutes} = {totalMinutes} $ (phút).<br/>Đáp án đúng là C.",
+      "tip": "Luôn đổi về cùng đơn vị thời gian trước khi thực hiện cộng các giá trị.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "channels": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        },
+        "portion": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "channels % portion === 0"
+      ],
+      "formulas": {
+        "ans": "channels / portion",
+        "w1": "ans + 2",
+        "w2": "ans + 5",
+        "w3": "ans - 2"
+      },
+      "questionText": "Danh sách các kênh truyền hình của nhà Lan có {channels} kênh. Trong đó, số kênh tin tức chiếm $ \\frac{1}{ {portion} } $ tổng số kênh. Hỏi nhà Lan có bao nhiêu kênh tin tức?",
+      "options": [
+        "A. {w1} kênh",
+        "B. {ans} kênh",
+        "C. {w2} kênh",
+        "D. {w3} kênh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm một phần {portion} của số lượng {channels} kênh.",
+        "Thực hiện phép tính: $ {channels} \\div {portion} $."
+      ],
+      "solutionHtml": "Số kênh tin tức là:<br/>$ {channels} \\div {portion} = {ans} $ (kênh).<br/>Đáp án đúng là B.",
+      "tip": "Phân số của một số được tính bằng cách lấy số đó chia cho mẫu số.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "showA": {
+          "min": 30,
+          "max": 60,
+          "step": 5
+        },
+        "showB": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "showA > showB"
+      ],
+      "formulas": {
+        "ans": "showA + showB",
+        "w1": "showA - showB",
+        "w2": "showA + 10",
+        "w3": "showB + 10"
+      },
+      "questionText": "Chương trình 'Thế giới động vật' kéo dài {showA} phút, chương trình 'Tin tức tối' kéo dài {showB} phút. Hỏi tổng thời gian của cả hai chương trình là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {w2} phút",
+        "C. {ans} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm tổng thời gian, ta cộng thời lượng của hai chương trình lại với nhau."
+      ],
+      "solutionHtml": "Tổng thời gian là:<br/>$ {showA} + {showB} = {ans} $ (phút).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài xem hỏi về tổng thời gian hay chênh lệch thời gian.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "watched": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "total > watched"
+      ],
+      "formulas": {
+        "ans": "total - watched",
+        "w1": "total + watched",
+        "w2": "ans + 20",
+        "w3": "ans + 10"
+      },
+      "questionText": "Một đài truyền hình có kế hoạch phát sóng {total} bộ phim trong năm. Đến nay, họ đã phát sóng được {watched} bộ. Hỏi đài truyền hình đó còn lại bao nhiêu bộ phim nữa chưa phát sóng?",
+      "options": [
+        "A. {w1} bộ",
+        "B. {ans} bộ",
+        "C. {w2} bộ",
+        "D. {w3} bộ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số bộ phim trừ đi số bộ phim đã phát sóng."
+      ],
+      "solutionHtml": "Số bộ phim còn lại là:<br/>$ {total} - {watched} = {ans} $ (bộ phim).<br/>Đáp án đúng là B.",
+      "tip": "Đây là bài toán tìm phần còn lại, hãy thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "adTime": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "numAds": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "adTime > 0"
+      ],
+      "formulas": {
+        "ans": "adTime * numAds",
+        "w1": "adTime + numAds",
+        "w2": "ans + 5",
+        "w3": "ans + 2"
+      },
+      "questionText": "Trong một chương trình truyền hình, có {numAds} đoạn quảng cáo, mỗi đoạn kéo dài {adTime} phút. Hỏi tổng thời lượng quảng cáo trong chương trình đó là bao nhiêu phút?",
+      "options": [
+        "A. {w1} phút",
+        "B. {ans} phút",
+        "C. {w2} phút",
+        "D. {w3} phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Nhân số lượng quảng cáo với thời lượng mỗi đoạn."
+      ],
+      "solutionHtml": "Tổng thời lượng quảng cáo là:<br/>$ {numAds} \\times {adTime} = {ans} $ (phút).<br/>Đáp án đúng là B.",
+      "tip": "Khi các phần có thời lượng bằng nhau, dùng phép nhân để tính tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "series": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "epsPerSeries": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "series > 0"
+      ],
+      "formulas": {
+        "ans": "series * epsPerSeries",
+        "w1": "series + epsPerSeries",
+        "w2": "ans + 10",
+        "w3": "ans + 5"
+      },
+      "questionText": "Một bộ phim truyền hình dài {series} phần, mỗi phần có {epsPerSeries} tập. Hỏi bộ phim đó có tổng cộng bao nhiêu tập?",
+      "options": [
+        "A. {w1} tập",
+        "B. {w2} tập",
+        "C. {ans} tập",
+        "D. {w3} tập"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số tập bằng cách lấy số phần nhân với số tập mỗi phần."
+      ],
+      "solutionHtml": "Tổng số tập phim là:<br/>$ {series} \\times {epsPerSeries} = {ans} $ (tập).<br/>Đáp án đúng là C.",
+      "tip": "Để tính tổng các nhóm bằng nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "startHour": {
+          "min": 18,
+          "max": 20,
+          "step": 1
+        },
+        "duration": {
+          "min": 90,
+          "max": 90,
+          "step": 15
+        }
+      },
+      "constraints": [
+        "duration === 90"
+      ],
+      "formulas": {
+        "ans": "startHour + 1",
+        "w1": "startHour + 2",
+        "w2": "startHour + 1",
+        "w3": "startHour + 3"
+      },
+      "questionText": "Chương trình thời sự bắt đầu lúc {startHour} giờ và kéo dài đúng {duration} phút. Hỏi chương trình kết thúc vào lúc mấy giờ?",
+      "options": [
+        "A. {startHour} giờ 30 phút",
+        "B. {ans} giờ 30 phút",
+        "C. {startHour + 2} giờ 00 phút",
+        "D. {startHour + 1} giờ 45 phút"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đổi {duration} phút sang giờ (90 phút = 1 giờ 30 phút).",
+        "Cộng thời gian bắt đầu với thời lượng đã đổi."
+      ],
+      "solutionHtml": "Chương trình kéo dài 1 giờ 30 phút. Kết thúc lúc:<br/>$ {startHour} $ giờ + 1 giờ 30 phút = {ans} giờ 30 phút.<br/>Đáp án đúng là B.",
+      "tip": "Chú ý đơn vị thời gian khi cộng giờ và phút.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "totalAudience": {
+          "min": 1000,
+          "max": 5000,
+          "step": 500
+        },
+        "rating": {
+          "min": 10,
+          "max": 25,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "(totalAudience * rating) % 100 === 0"
+      ],
+      "formulas": {
+        "ans": "(totalAudience * rating) / 100",
+        "w1": "ans + 100",
+        "w2": "ans - 50",
+        "w3": "ans + 200"
+      },
+      "questionText": "Trong tổng số {totalAudience} người xem truyền hình, có {rating}% số người yêu thích chương trình 'Trò chơi trí tuệ'. Hỏi có bao nhiêu người yêu thích chương trình này?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm {rating}% của {totalAudience} bằng cách lấy {totalAudience} nhân {rating} rồi chia cho 100."
+      ],
+      "solutionHtml": "Số người yêu thích là:<br/>$ ({totalAudience} \\times {rating}) \\div 100 = {ans} $ (người).<br/>Đáp án đúng là B.",
+      "tip": "Phần trăm của một số là giá trị của tỉ số đó so với tổng.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "viewers": {
+          "min": 200,
+          "max": 600,
+          "step": 50
+        },
+        "multiplier": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "viewers > 0"
+      ],
+      "formulas": {
+        "ans": "viewers * multiplier",
+        "w1": "viewers + multiplier",
+        "w2": "ans + 100",
+        "w3": "ans + 50"
+      },
+      "questionText": "Tuần trước, kênh A có {viewers} lượt xem. Tuần này, số lượt xem tăng gấp {multiplier} lần so với tuần trước. Hỏi số lượt xem trong tuần này là bao nhiêu?",
+      "options": [
+        "A. {w1} lượt",
+        "B. {w2} lượt",
+        "C. {ans} lượt",
+        "D. {w3} lượt"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số lượt xem tăng gấp {multiplier} lần nghĩa là thực hiện phép nhân với {multiplier}."
+      ],
+      "solutionHtml": "Số lượt xem tuần này là:<br/>$ {viewers} \\times {multiplier} = {ans} $ (lượt).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'gấp n lần' luôn đi kèm với phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "pages": {
+          "min": 10,
+          "max": 30,
+          "step": 2
+        },
+        "articles": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "pages % articles === 0"
+      ],
+      "formulas": {
+        "ans": "pages / articles",
+        "w1": "pages + articles",
+        "w2": "ans + 2",
+        "w3": "ans + 1"
+      },
+      "questionText": "Một cuốn tạp chí truyền hình có {pages} trang, chứa {articles} bài viết có độ dài bằng nhau. Hỏi mỗi bài viết chiếm bao nhiêu trang?",
+      "options": [
+        "A. {w1} trang",
+        "B. {w2} trang",
+        "C. {w3} trang",
+        "D. {ans} trang"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chia tổng số trang cho số lượng bài viết."
+      ],
+      "solutionHtml": "Số trang mỗi bài viết là:<br/>$ {pages} \\div {articles} = {ans} $ (trang).<br/>Đáp án đúng là D.",
+      "tip": "Chia đều một tổng thành các phần bằng nhau dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t7-d10"
+    }
+  ]
+}

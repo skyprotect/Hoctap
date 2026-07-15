@@ -1,0 +1,209 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 5,
+          "max": 10
+        }
+      },
+      "constraints": [
+        "n >= 5"
+      ],
+      "formulas": {
+        "ans": "n * 15000",
+        "w1": "ans + 5000",
+        "w2": "ans - 5000",
+        "w3": "ans + 10000"
+      },
+      "questionText": "Mỗi bát phở bò có giá 15.000 đồng. Bạn Nam mua {n} bát phở cho gia đình. Tổng số tiền Nam phải trả là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {w2} đồng",
+        "C. {ans} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số tiền bằng cách nhân số bát phở với đơn giá một bát."
+      ],
+      "solutionHtml": "Tổng số tiền Nam phải trả là:<br/>${n} \\times 15000 = {ans}$ (đồng).<br/>Đáp án đúng là C.",
+      "tip": "Hãy chú ý đến đơn giá và số lượng trước khi tính toán.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t17-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 20,
+          "max": 50
+        },
+        "y": {
+          "min": 5,
+          "max": 10
+        }
+      },
+      "constraints": [
+        "x % y === 0"
+      ],
+      "formulas": {
+        "ans": "x / y",
+        "w1": "ans + 2",
+        "w2": "ans + 3",
+        "w3": "ans + 4"
+      },
+      "questionText": "Một nhà hàng chuẩn bị {x} chiếc nem rán để chia đều vào {y} đĩa. Hỏi mỗi đĩa sẽ có bao nhiêu chiếc nem?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Sử dụng phép chia để tìm số lượng nem trên mỗi đĩa."
+      ],
+      "solutionHtml": "Số nem mỗi đĩa có là:<br/>${x} : {y} = {ans}$ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều tức là thực hiện phép chia số lượng tổng cho số nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t17-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        }
+      },
+      "formulas": {
+        "ans": "a * 2000",
+        "w1": "ans + 1000",
+        "w2": "ans + 3000",
+        "w3": "ans + 4000"
+      },
+      "questionText": "Một ly trà đá có giá 2.000 đồng. Bạn Mai mua {a} ly trà đá cho các bạn trong lớp. Tổng số tiền Mai phải trả là bao nhiêu?",
+      "options": [
+        "A. {w1} đồng",
+        "B. {ans} đồng",
+        "C. {w2} đồng",
+        "D. {w3} đồng"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy giá tiền của một ly nhân với số ly."
+      ],
+      "solutionHtml": "Tổng số tiền Mai phải trả là:<br/>${a} \\times 2000 = {ans}$ (đồng).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đơn vị tiền tệ để tránh nhầm lẫn.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t17-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 40,
+          "max": 80
+        },
+        "eaten": {
+          "min": 10,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "total > eaten"
+      ],
+      "formulas": {
+        "ans": "total - eaten",
+        "w1": "ans + 5",
+        "w2": "ans - 5",
+        "w3": "ans + 10"
+      },
+      "questionText": "Trên bàn có {total} chiếc bánh chưng. Sau khi gia đình ăn hết {eaten} chiếc, trên bàn còn lại bao nhiêu chiếc bánh chưng?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Dùng phép trừ để tìm số lượng còn lại."
+      ],
+      "solutionHtml": "Số bánh chưng còn lại là:<br/>${total} - {eaten} = {ans}$ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Dùng phép trừ để tìm phần còn dư.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t17-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "m": {
+          "min": 3,
+          "max": 6
+        },
+        "n": {
+          "min": 4,
+          "max": 8
+        }
+      },
+      "formulas": {
+        "ans": "m * n",
+        "w1": "ans + 2",
+        "w2": "ans + 4",
+        "w3": "ans + 6"
+      },
+      "questionText": "Mỗi đĩa có {m} cái chả giò. Cô Lan chuẩn bị {n} đĩa như vậy. Tổng số chả giò là bao nhiêu?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Nhân số đĩa với số chả giò mỗi đĩa."
+      ],
+      "solutionHtml": "Tổng số chả giò là:<br/>${m} \\times {n} = {ans}$ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Phép nhân giúp tìm tổng số lượng các nhóm bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t17-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 6,
+          "max": 10
+        }
+      },
+      "formulas": {
+        "ans": "a + b",
+        "w1": "ans + 1",
+        "w2": "ans + 2",
+        "w3": "ans - 1"
+      },
+      "questionText": "Bữa sáng, Nam ăn {a} món ăn truyền thống và {b} món ăn hiện đại. Tổng cộng Nam đã ăn bao nhiêu món?",
+      "options": [
+        "A. {w1} món",
+        "B. {w2} món",
+        "C. {ans} món",
+        "D. {w3} món"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số món truyền thống và số món hiện đại."
+      ],
+      "solutionHtml": "Tổng số món Nam đã ăn là:<br/>${a} + {b} = {ans}$ (món).<br/>Đáp án đúng là C.",
+      "tip": "Cộng hai đại lượng để tìm tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng6-t17-d6"
+    }
+  ]
+}
