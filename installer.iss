@@ -3,7 +3,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.60
+AppVersion=10.61
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -12,7 +12,7 @@ DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.60
+OutputBaseFilename=ToanHocKiosk_Setup_v10.61
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -34,11 +34,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
-; Sao chép tất cả các tệp từ thư mục HocTap_Clean
-Source: "F:\KHQS\AntiGravity\HocTap_Clean\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
+; Sao chép tất cả các tệp từ thư mục HocTap_Clean và cấp quyền sửa đổi cho users thường
+Source: "F:\KHQS\AntiGravity\HocTap_Clean\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Permissions: users-modify
 
-; Tạo tệp cấu hình mặc định .env từ .env.example khi cài đặt lần đầu (KHÔNG ghi đè nếu đã tồn tại)
-Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestDir: "{app}"; Flags: onlyifdoesntexist
+; Tạo tệp cấu hình mặc định .env từ .env.example khi cài đặt lần đầu (KHÔNG ghi đè nếu đã tồn tại) và cấp quyền sửa đổi
+Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestDir: "{app}"; Flags: onlyifdoesntexist; Permissions: users-modify
 
 ; Không đóng gói database.db để tránh ghi đè dữ liệu học sinh cũ
 
@@ -46,10 +46,6 @@ Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestD
 Name: "{group}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"
 Name: "{group}\Dừng học"; Filename: "{app}\Dung hoc.vbs"; IconFilename: "{app}\images\app.ico"
 Name: "{userdesktop}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
-
-[Run]
-Filename: "{app}\Bat dau hoc.vbs"; Description: "Khởi chạy ứng dụng Toán Học Kiosk"; Flags: shellexec postinstall skipifsilent
-Filename: "{app}\Bat dau hoc.vbs"; Flags: shellexec; Check: WizardSilent
 
 
 [InstallDelete]
