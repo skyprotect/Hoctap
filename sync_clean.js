@@ -18,6 +18,8 @@ const filesToSync = [
   'js/questions-v3.js',
   'js/questions-v4.js',
   'js/game.js',
+  'js/question-generator-worker.js',
+  'js/remove-bg-worker.js',
   'css/style.css',
   '.env.example',
   '.env',
@@ -176,17 +178,14 @@ function sync() {
       }
     }
   }
-  // Dọn dẹp devDependencies rác (như Playwright, Jest) trong node_modules của Clean bundle để tối ưu hóa bộ cài
-  const cleanNodeModules = path.join(destDir, 'node_modules');
-  if (fs.existsSync(cleanNodeModules)) {
-    console.log('🧹 Đang dọn dẹp devDependencies (Playwright, Jest...) trong node_modules của Clean bundle...');
-    try {
-      const { execSync } = require('child_process');
-      execSync('npm prune --production', { cwd: destDir, stdio: 'inherit' });
-      console.log('✅ Đã loại bỏ thành công devDependencies rác trong Clean bundle.');
-    } catch (err) {
-      console.log(`⚠️ Cảnh báo: Lỗi khi chạy npm prune: ${err.message}`);
-    }
+  // Đảm bảo cài đặt đầy đủ và dọn dẹp các production dependencies của Clean bundle (loại bỏ các devDependencies rác)
+  console.log('🧹 Đang cài đặt production dependencies trong node_modules của Clean bundle...');
+  try {
+    const { execSync } = require('child_process');
+    execSync('npm install --omit=dev', { cwd: destDir, stdio: 'inherit' });
+    console.log('✅ Đã hoàn tất cài đặt production dependencies trong Clean bundle.');
+  } catch (err) {
+    console.log(`⚠️ Cảnh báo: Lỗi khi chạy npm install ở Clean bundle: ${err.message}`);
   }
   
   console.log('--- SYNC COMPLETED SUCCESSFULLY ---');

@@ -2743,7 +2743,22 @@ app.post('/api/save-printed-pdf', async (req, res) => {
     return res.status(400).json({ error: "Thiếu dữ liệu HTML hoặc tên tệp!" });
   }
 
-  const { chromium } = require('@playwright/test');
+  // Hàm tự động tìm đường dẫn Chrome hoặc Edge khả dụng trên Windows
+  const findSystemChromeOrEdge = () => {
+    const paths = [
+      'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+      'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+      'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    ];
+    for (const p of paths) {
+      if (fs.existsSync(p)) {
+        return p;
+      }
+    }
+    return null;
+  };
+
+  const { chromium } = require('playwright-core');
   let browser;
   try {
     const outputDir = path.join(__dirname, 'exported_exams');
@@ -2754,7 +2769,15 @@ app.post('/api/save-printed-pdf', async (req, res) => {
     const safeFilename = filename.replace(/[^a-zA-Z0-9.\-_]/g, '_');
     const outputPath = path.join(outputDir, safeFilename);
 
-    browser = await chromium.launch({ headless: true });
+    const systemBrowserPath = findSystemChromeOrEdge();
+    if (!systemBrowserPath) {
+      throw new Error("Không tìm thấy trình duyệt Google Chrome hoặc Microsoft Edge trên hệ thống!");
+    }
+
+    browser = await chromium.launch({
+      executablePath: systemBrowserPath,
+      headless: true
+    });
     const page = await browser.newPage();
     
     // Tạo cấu trúc HTML hoàn chỉnh với KaTeX CSS
@@ -3343,7 +3366,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.64';
+const APP_VERSION = '10.65';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
