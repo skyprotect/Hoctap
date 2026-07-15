@@ -5,23 +5,6 @@ Set objFile = objFSO.GetFile(strPath)
 strFolder = objFSO.GetParentFolderName(objFile)
 WshShell.CurrentDirectory = strFolder
 
-' TỰ ĐỘNG CẬP NHẬT/TẠO SHORTCUT TRÊN DESKTOP TRỎ ĐÚNG ICON CHUẨN
-On Error Resume Next
-Dim objShortcut, strDesktopPath, strShortcutPath
-strDesktopPath = WshShell.SpecialFolders("Desktop")
-strShortcutPath = strDesktopPath & "\Toán Học Kiosk.lnk"
-If objFSO.FileExists(strShortcutPath) Then
-    objFSO.DeleteFile strShortcutPath, True
-    WScript.Sleep 100
-End If
-Set objShortcut = WshShell.CreateShortcut(strShortcutPath)
-objShortcut.TargetPath = strFolder & "\Bat dau hoc.vbs"
-objShortcut.WorkingDirectory = strFolder
-objShortcut.IconLocation = strFolder & "\images\app.ico"
-objShortcut.Description = "Khởi chạy ứng dụng Toán Học Kiosk"
-objShortcut.Save
-On Error GoTo 0
-
 
 ' TỐI ƯU HIỆU NĂNG & TRÁNH TRÙNG LẶP TIẾN TRÌNH (SINGLE INSTANCE)
 ' A. Kiểm tra xem có file "Bat dau hoc.vbs" nào khác đang chạy không (tránh click đúp/click liên tục khi máy chậm)
