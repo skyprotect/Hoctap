@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.38';
+const APP_VERSION = '10.39';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3769,6 +3769,7 @@ app.post('/api/perform-update', express.json(), (req, res) => {
 function runInstallerAndExit(exePath) {
   const currentAppDir = path.resolve(__dirname);
   const tempVbsPath = path.join(path.dirname(exePath), 'run_elevator.vbs');
+  const flagPath = path.join(currentAppDir, 'kiosk_exit_flag.tmp');
   
   // Nội dung file VBScript sử dụng Shell.Application với verb "runas" để kích hoạt UAC của Windows
   const vbsContent = `
@@ -3777,37 +3778,51 @@ objShell.ShellExecute "${exePath}", "/SILENT /SP- /SUPPRESSMSGBOXES /DIR=""${cur
   `.trim();
   
   try {
-    fs.writeFileSync(tempVbsPath, vbsContent, 'utf8');
-    console.log(`[AutoUpdate] Đã tạo file VBScript nâng quyền tại: ${tempVbsPath}`);
+    // 1. Tạo file cờ để báo cho kiosk_lock.exe tự thoát an toàn và giữ Node Server chạy
+    fs.writeFileSync(flagPath, 'update-kiosk', 'utf8');
+    console.log(`[AutoUpdate] Đã tạo file cờ thoát Kiosk Mode: ${flagPath}`);
     
-    // Bọc spawn trong try-catch để ngăn chặn crash đồng bộ 100%
-    try {
-      const child = spawn('wscript.exe', [tempVbsPath], {
-        detached: true,
-        stdio: 'ignore'
-      });
-      
-      child.on('error', (err) => {
-        console.error('[AutoUpdate] Lỗi khi chạy wscript.exe:', err);
+    // 2. Chờ 1.5 giây để kiosk_lock.exe phát hiện, dọn dẹp đóng Chrome Kiosk và thoát hẳn
+    console.log('[AutoUpdate] Chờ 1.5 giây để Kiosk Mode giải phóng màn hình về Desktop...');
+    setTimeout(() => {
+      try {
+        fs.writeFileSync(tempVbsPath, vbsContent, 'utf8');
+        console.log(`[AutoUpdate] Đã tạo file VBScript nâng quyền tại: ${tempVbsPath}`);
+        
+        // 3. Khởi chạy file VBScript nâng quyền bằng wscript.exe
+        try {
+          const child = spawn('wscript.exe', [tempVbsPath], {
+            detached: true,
+            stdio: 'ignore'
+          });
+          
+          child.on('error', (err) => {
+            console.error('[AutoUpdate] Lỗi khi chạy wscript.exe:', err);
+            updateStatus.status = 'error';
+            updateStatus.error = `Không thể khởi chạy wscript.exe: ${err.message}`;
+          });
+
+          child.on('exit', (code) => {
+            console.log(`[AutoUpdate] Tiến trình wscript.exe thoát với mã: ${code}`);
+          });
+
+          child.unref();
+          console.log('[AutoUpdate] Đã kích hoạt file VBScript nâng quyền thành công.');
+        } catch (spawnErr) {
+          console.error('[AutoUpdate] Lỗi đồng bộ khi spawn wscript.exe:', spawnErr);
+          updateStatus.status = 'error';
+          updateStatus.error = `Không thể spawn wscript.exe: ${spawnErr.message}`;
+        }
+      } catch (err) {
+        console.error('[AutoUpdate] Lỗi khi khởi tạo file VBScript nâng quyền:', err);
         updateStatus.status = 'error';
-        updateStatus.error = `Không thể khởi chạy wscript.exe: ${err.message}`;
-      });
-
-      child.on('exit', (code) => {
-        console.log(`[AutoUpdate] Tiến trình wscript.exe thoát với mã: ${code}`);
-      });
-
-      child.unref();
-      console.log('[AutoUpdate] Đã kích hoạt file VBScript nâng quyền thành công.');
-    } catch (spawnErr) {
-      console.error('[AutoUpdate] Lỗi đồng bộ khi spawn wscript.exe:', spawnErr);
-      updateStatus.status = 'error';
-      updateStatus.error = `Không thể spawn wscript.exe: ${spawnErr.message}`;
-    }
-  } catch (err) {
-    console.error('[AutoUpdate] Lỗi khi khởi tạo file VBScript nâng quyền:', err);
+        updateStatus.error = `Lỗi hệ thống khởi tạo cài đặt: ${err.message}`;
+      }
+    }, 1500);
+  } catch (flagErr) {
+    console.error('[AutoUpdate] Lỗi khi ghi file cờ thoát Kiosk:', flagErr);
     updateStatus.status = 'error';
-    updateStatus.error = `Lỗi hệ thống khởi tạo cài đặt: ${err.message}`;
+    updateStatus.error = `Lỗi khởi tạo giải phóng Kiosk: ${flagErr.message}`;
   }
 }
 
