@@ -10,6 +10,10 @@ On Error Resume Next
 Dim objShortcut, strDesktopPath, strShortcutPath
 strDesktopPath = WshShell.SpecialFolders("Desktop")
 strShortcutPath = strDesktopPath & "\Toán Học Kiosk.lnk"
+If objFSO.FileExists(strShortcutPath) Then
+    objFSO.DeleteFile strShortcutPath, True
+    WScript.Sleep 100
+End If
 Set objShortcut = WshShell.CreateShortcut(strShortcutPath)
 objShortcut.TargetPath = strFolder & "\Bat dau hoc.vbs"
 objShortcut.WorkingDirectory = strFolder

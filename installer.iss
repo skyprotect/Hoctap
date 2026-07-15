@@ -2,16 +2,16 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.53
+AppVersion=10.54
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
 AppUpdatesURL=https://github.com/skyprotect/Hoctap
-DefaultDirName={localappdata}\ToanHocKiosk
+DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.53
+OutputBaseFilename=ToanHocKiosk_Setup_v10.54
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -53,9 +53,12 @@ Filename: "{app}\Bat dau hoc.vbs"; Description: "Khởi chạy ứng dụng Toá
 ; Dọn dẹp các tệp tạm thời cũ khi nâng cấp nhưng KHÔNG xóa database.db và .env
 Type: files; Name: "{app}\*.tmp"
 Type: files; Name: "{app}\*.log"
-; Xóa bỏ các shortcut cũ không dấu bị hỏng từ các phiên bản trước để tránh nhầm lẫn
+; Xóa bỏ các shortcut cũ bị hỏng từ các phiên bản trước để tránh nhầm lẫn
+Type: files; Name: "{userdesktop}\Toán Học Kiosk.lnk"
 Type: files; Name: "{userdesktop}\Toan Hoc Kiosk.lnk"
+Type: files; Name: "{group}\Toán Học Kiosk.lnk"
 Type: files; Name: "{group}\Toan Hoc Kiosk.lnk"
+Type: files; Name: "{group}\Dừng học.lnk"
 Type: files; Name: "{group}\Dung hoc.lnk"
 
 [Code]
