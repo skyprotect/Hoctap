@@ -59,3 +59,7 @@
 ## 10. Quy định bảo toàn dữ liệu học tập môn Toán
 - Các yêu cầu chỉnh sửa, cập nhật hoặc phát triển tính năng mới tiếp theo chỉ được thực thi trên phần học môn Tiếng Anh.
 - Toàn bộ dữ liệu học tập môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc phải được bảo toàn, độc lập, riêng rẽ. Tuyệt đối không được làm sai lệch hoặc làm hỏng các dữ liệu này dưới bất kỳ hình thức nào.
+
+## 11. Quy tắc tự động đồng bộ Git và Tự động phát hành
+- **Đồng bộ mã nguồn trước khi sửa đổi**: Mỗi khi thực hiện bất kỳ thay đổi nào liên quan đến mã nguồn (HTML, CSS, JS) trong các phiên làm việc, AI Agent bắt buộc phải tự động chạy lệnh `git pull origin main` để kéo các thay đổi mới nhất từ GitHub về máy cục bộ nhằm tránh xung đột nhánh.
+- **Tự động chạy lệnh phát hành (Release)**: Ngay sau khi hoàn thành việc chỉnh sửa mã nguồn, AI Agent bắt buộc phải tự động thực thi lệnh phát hành `npm run release` để đóng gói bộ cài mới và đẩy lên GitHub Releases trực tuyến cho người dùng mà không cần chờ yêu cầu thủ công.
