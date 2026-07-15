@@ -1,5 +1,5 @@
 {
-  "version": "10.28",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.28/ToanHocKiosk_Setup_v10.28.exe",
-  "changelog": "- Sửa lỗi icon ngoài Desktop bị trắng tinh bằng cách cấu hình shortcut chạy qua wscript.exe.\n- Sửa lỗi font tiếng Việt hiển thị ở màn hình cài đặt thành công."
+  "version": "10.29",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.29/ToanHocKiosk_Setup_v10.29.exe",
+  "changelog": "- Sửa lỗi cập nhật ngầm tự giải nén sai thư mục làm sinh ra 2 phần mềm song song.\n- Khắc phục lỗi phím bắt đầu học không chạy và sửa lỗi biểu tượng ngoài Desktop bị trắng bằng cách tạo shortcut tiếng Việt có dấu mới."
 }

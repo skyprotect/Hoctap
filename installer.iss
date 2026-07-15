@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.28
+AppVersion=10.29
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,11 +11,10 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.28
+OutputBaseFilename=ToanHocKiosk_Setup_v10.29
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-UsePreviousAppDir=no
 ; Chạy dưới quyền Administrator để có đủ quyền cài đặt vào ổ C (tránh lỗi Access Denied)
 PrivilegesRequired=admin
 ; Đóng các tiến trình cũ nếu đang chạy
@@ -42,9 +41,9 @@ Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestD
 ; Không đóng gói database.db để tránh ghi đè dữ liệu học sinh cũ
 
 [Icons]
-Name: "{group}\Toan Hoc Kiosk"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\Bat dau hoc.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"
-Name: "{group}\Dung hoc"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\Dung hoc.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"
-Name: "{userdesktop}\Toan Hoc Kiosk"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\Bat dau hoc.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
+Name: "{group}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"
+Name: "{group}\Dừng học"; Filename: "{app}\Dung hoc.vbs"; IconFilename: "{app}\images\app.ico"
+Name: "{userdesktop}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\Bat dau hoc.vbs"; Description: "Khởi chạy ứng dụng Toán Học Kiosk"; Flags: shellexec postinstall skipifsilent
