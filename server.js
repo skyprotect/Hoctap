@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.30';
+const APP_VERSION = '10.31';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3768,7 +3768,8 @@ app.post('/api/perform-update', express.json(), (req, res) => {
 
 function runInstallerAndExit(exePath) {
   // Chạy file setup exe của Inno Setup ngầm hoàn toàn độc lập
-  const child = spawn(exePath, ['/SILENT', '/SP-', '/SUPPRESSMSGBOXES'], {
+  const currentAppDir = path.resolve(__dirname);
+  const child = spawn(exePath, ['/SILENT', '/SP-', '/SUPPRESSMSGBOXES', `/DIR=${currentAppDir}`], {
     detached: true,
     stdio: 'ignore',
     cwd: path.dirname(exePath)

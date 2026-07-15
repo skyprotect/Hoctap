@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.30
+AppVersion=10.31
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.30
+OutputBaseFilename=ToanHocKiosk_Setup_v10.31
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -52,6 +52,10 @@ Filename: "{app}\Bat dau hoc.vbs"; Description: "Khởi chạy ứng dụng Toá
 ; Dọn dẹp các tệp tạm thời cũ khi nâng cấp nhưng KHÔNG xóa database.db và .env
 Type: files; Name: "{app}\*.tmp"
 Type: files; Name: "{app}\*.log"
+; Xóa bỏ các shortcut cũ không dấu bị hỏng từ các phiên bản trước để tránh nhầm lẫn
+Type: files; Name: "{userdesktop}\Toan Hoc Kiosk.lnk"
+Type: files; Name: "{group}\Toan Hoc Kiosk.lnk"
+Type: files; Name: "{group}\Dung hoc.lnk"
 
 [Code]
 // Tự động tắt các tiến trình đang chạy (node.exe, kiosk_lock.exe) trước khi cài đặt đè
