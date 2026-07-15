@@ -1722,21 +1722,180 @@ const app = {
         });
     },
 
+    initFirebaseClient: async function() {
+        if (typeof firebase === 'undefined') {
+            console.warn("Firebase SDK chưa được load (offline hoặc lỗi mạng).");
+            return null;
+        }
+        try {
+            const fbConfigRes = await fetch(this.getApiUrl('/api/auth/firebase-config'));
+            if (!fbConfigRes.ok) throw new Error("Không thể lấy cấu hình Firebase từ Server.");
+            const fbConfig = await fbConfigRes.json();
+            if (!firebase.apps.length) {
+                firebase.initializeApp(fbConfig);
+            }
+            return {
+                auth: firebase.auth(),
+                db: firebase.firestore()
+            };
+        } catch (e) {
+            console.error("Lỗi khởi tạo Firebase Client:", e);
+            return null;
+        }
+    },
+
+    pushLocalDataToFirestoreClient: async function(db, parentUid) {
+        console.log("📤 [Client Sync] Bắt đầu di trú dữ liệu SQLite lên Firestore...");
+        const res = await fetch(this.getApiUrl('/api/sync/local-data'));
+        if (!res.ok) throw new Error("Không thể lấy dữ liệu SQLite cục bộ để di trú.");
+        const json = await res.json();
+        const { studentProgress, customVocabulary, customTopics, config } = json.data;
+
+        // 1. Di trú config
+        if (config) {
+            await db.collection('settings').doc(`config_${parentUid}`).set({
+                parentUid: parentUid,
+                value: config,
+                lastUpdated: new Date().toISOString()
+            });
+            console.log("  - Đã đẩy cấu hình config");
+        }
+
+        // 2. Di trú student_progress
+        if (studentProgress && studentProgress.length > 0) {
+            const configObj = config ? JSON.parse(config) : null;
+            const studentsList = (configObj && configObj.students) || [];
+            
+            for (const s of studentProgress) {
+                try {
+                    const state = JSON.parse(s.state_json);
+                    const studentConf = studentsList.find(std => std.id === s.student_id);
+                    const name = studentConf ? studentConf.name : (state.student || "Học sinh");
+                    const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || "1");
+
+                    await db.collection('students').doc(s.student_id).set({
+                        studentId: s.student_id,
+                        parentUid: parentUid,
+                        name: name,
+                        classLevel: classLevel,
+                        state_json: s.state_json,
+                        lastUpdated: new Date().toISOString()
+                    });
+                    console.log(`  - Đã đẩy tiến trình học sinh: ${name}`);
+                } catch (e) {
+                    console.error("Lỗi đẩy học sinh:", e);
+                }
+            }
+        }
+
+        // 3. Di trú custom_vocabulary
+        if (customVocabulary && customVocabulary.length > 0) {
+            for (const v of customVocabulary) {
+                await db.collection('custom_vocabulary').doc(`vocab_${v.id}`).set({
+                    id: v.id,
+                    topic_id: v.topic_id,
+                    word: v.word,
+                    meaning: v.meaning,
+                    type: v.type,
+                    pronunciation: v.pronunciation || "",
+                    example: v.example || "",
+                    image_path: v.image_path || "",
+                    audio_path: v.audio_path || "",
+                    parentUid: parentUid,
+                    lastUpdated: new Date().toISOString()
+                });
+            }
+            console.log(`  - Đã đẩy ${customVocabulary.length} từ vựng tự tạo`);
+        }
+
+        // 4. Di trú custom_topics
+        if (customTopics && customTopics.length > 0) {
+            for (const t of customTopics) {
+                await db.collection('custom_topics').doc(t.id).set({
+                    id: t.id,
+                    name: t.name,
+                    description: t.description || "",
+                    category: t.category || "General",
+                    parentUid: parentUid,
+                    cover_image: t.cover_image || "",
+                    is_completed: t.is_completed || 0,
+                    created_at: t.created_at || new Date().toISOString(),
+                    lastUpdated: new Date().toISOString()
+                });
+            }
+            console.log(`  - Đã đẩy ${customTopics.length} chủ đề tự tạo`);
+        }
+        console.log("✅ Hoàn thành di trú dữ liệu lên Firestore.");
+    },
+
+    pullDataFromFirestoreClient: async function(db, parentUid) {
+        console.log("📥 [Client Sync] Bắt đầu kéo dữ liệu từ Firestore...");
+        
+        // 1. Kéo config
+        const configDoc = await db.collection('settings').doc(`config_${parentUid}`).get();
+        let config = null;
+        if (configDoc.exists) {
+            config = configDoc.data().value;
+        }
+
+        // 2. Kéo học sinh
+        const studentsSnap = await db.collection('students').where('parentUid', '==', parentUid).get();
+        const students = [];
+        studentsSnap.forEach(doc => students.push(doc.data()));
+
+        // 3. Kéo từ vựng
+        const vocabSnap = await db.collection('custom_vocabulary').where('parentUid', '==', parentUid).get();
+        const vocabularies = [];
+        vocabSnap.forEach(doc => vocabularies.push(doc.data()));
+
+        // 4. Kéo chủ đề
+        const topicsSnap = await db.collection('custom_topics').where('parentUid', '==', parentUid).get();
+        const topics = [];
+        topicsSnap.forEach(doc => topics.push(doc.data()));
+
+        // Gửi về Server để ghi đè SQLite cục bộ
+        const syncRes = await fetch(this.getApiUrl('/api/sync/save-pulled-data'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ config, students, vocabularies, topics })
+        });
+
+        if (!syncRes.ok) {
+            throw new Error("Không thể ghi đè dữ liệu kéo về vào SQLite.");
+        }
+        console.log("✅ Hoàn thành đồng bộ dữ liệu đám mây về SQLite.");
+    },
+
     checkGoogleSession: async function() {
         try {
-            // 1. Gọi API kiểm tra session phụ huynh
+            // 1. Khởi tạo Firebase Client SDK trước tiên
+            const fb = await this.initFirebaseClient();
+
+            // 2. Gọi API kiểm tra session phụ huynh trên Server
             const sessionRes = await fetch(this.getApiUrl('/api/auth/session'));
             if (sessionRes.ok) {
                 const sessionData = await sessionRes.json();
                 if (sessionData.loggedIn) {
                     console.log("✅ Phụ huynh đã đăng nhập Google:", sessionData.session.email);
+                    
+                    // Nếu Firebase Auth chưa có currentUser, hoặc email không khớp, ta lắng nghe sự kiện khôi phục đăng nhập
+                    if (fb && fb.auth) {
+                        fb.auth.onAuthStateChanged((user) => {
+                            if (user) {
+                                console.log("🔥 Đã xác thực Firebase Auth Client (Persistence):", user.email);
+                            } else {
+                                console.warn("⚠️ Firebase Auth Client chưa được đăng nhập. Yêu cầu đăng nhập lại ở lần sau.");
+                            }
+                        });
+                    }
+
                     const googleLoginScreen = document.getElementById("google-login-screen");
                     if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
                     return true;
                 }
             }
             
-            // 2. Nếu chưa đăng nhập, hiện màn hình đăng nhập Google
+            // 3. Nếu chưa đăng nhập, hiện màn hình đăng nhập Google
             const googleLoginScreen = document.getElementById("google-login-screen");
             if (googleLoginScreen) {
                 googleLoginScreen.classList.remove("hidden");
@@ -1776,18 +1935,42 @@ const app = {
                                 });
                                 
                                 try {
+                                    if (!fb || !fb.auth || !fb.db) {
+                                        throw new Error("Không thể kết nối Firebase. Máy tính có thể đang offline hoặc cấu hình Firebase bị lỗi.");
+                                    }
+
+                                    // A. Đăng nhập Firebase Auth trên Client bằng Google ID Token
+                                    const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
+                                    const userCredential = await fb.auth.signInWithCredential(credential);
+                                    const firebaseUid = userCredential.user.uid;
+                                    console.log("🔥 Đã đăng nhập Firebase Auth Client thành công, UID:", firebaseUid);
+
+                                    // B. Gửi Google ID Token và Firebase UID về Local Server để tạo session
                                     const loginRes = await fetch(this.getApiUrl('/api/auth/google-login'), {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ idToken: response.credential })
+                                        body: JSON.stringify({ idToken: response.credential, firebaseUid: firebaseUid })
                                     });
                                     
                                     if (loginRes.ok) {
-                                        const loginData = await loginRes.json();
+                                        // C. Kiểm tra xem trên Firestore đã có bất kỳ học sinh nào thuộc parentUid này chưa
+                                        const studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
+                                        let syncMessage = "";
+                                        
+                                        if (studentsSnap.empty) {
+                                            // Chưa có học sinh nào -> Chạy luồng DI TRÚ tự động lên Firebase
+                                            await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
+                                            syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
+                                        } else {
+                                            // Đã có học sinh trên đám mây -> Kéo dữ liệu về ghi đè SQLite cục bộ
+                                            await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
+                                            syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
+                                        }
+
                                         Swal.fire({
                                             icon: 'success',
                                             title: 'Thành công',
-                                            text: loginData.message || 'Đăng nhập Google thành công!',
+                                            text: syncMessage || 'Đăng nhập Google thành công!',
                                             timer: 2500,
                                             showConfirmButton: false
                                         });
@@ -1801,6 +1984,7 @@ const app = {
                                         throw new Error(errorData.error || 'Lỗi không xác định khi đăng nhập');
                                     }
                                 } catch (err) {
+                                    console.error("Lỗi đăng nhập Google / Firebase:", err);
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Lỗi đăng nhập',
@@ -3612,6 +3796,32 @@ const app = {
                 // Đồng bộ thành công -> Xóa cờ dirty offline
                 localStorage.removeItem(localKey + "_offline_dirty");
                 localStorage.removeItem(localKey + "_offline_data");
+
+                // Đồng bộ lên Firebase Firestore nếu đã đăng nhập
+                if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
+                    try {
+                        const auth = firebase.auth();
+                        const db = firebase.firestore();
+                        if (auth.currentUser) {
+                            const parentUid = auth.currentUser.uid;
+                            const name = this.config.studentName || (this.state.student && this.state.student.name) || "Học sinh";
+                            db.collection('students').doc(studentId).set({
+                                studentId: studentId,
+                                parentUid: parentUid,
+                                name: name,
+                                classLevel: classLevel,
+                                state_json: JSON.stringify(this.state),
+                                lastUpdated: new Date().toISOString()
+                            }).then(() => {
+                                console.log(`⚡ [Firestore Client Sync] Đã đồng bộ tiến trình học sinh ${name} (${studentId}) lên đám mây.`);
+                            }).catch(err => {
+                                console.warn("⚠️ [Firestore Client Sync] Lỗi ghi Firestore:", err.message);
+                            });
+                        }
+                    } catch (fbErr) {
+                        console.warn("⚠️ [Firestore Client Sync] Lỗi khởi tạo/gọi Firestore Client:", fbErr.message);
+                    }
+                }
 
                 if (data && data.state) {
                     if (!this.hasPendingSave) {

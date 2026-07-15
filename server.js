@@ -32,29 +32,20 @@ if (!fs.existsSync(envPath)) {
 require('dotenv').config();
 const { OAuth2Client } = require('google-auth-library');
 
-// Khởi tạo Firebase Admin SDK
-const admin = require('firebase-admin');
-const { getFirestore } = require('firebase-admin/firestore');
-const { getAuth } = require('firebase-admin/auth');
-const serviceAccountPath = path.join(__dirname, 'firebase-service-account.json');
-let dbFirestore = null;
-let firebaseInitialized = false;
+// Cấu hình Firebase Web (trả về cho Client)
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY || "AIzaSyDOewYQ-Jwfwg_NU_JpW6w-05NwkMAjaXo",
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN || "binhminhchamhoc.firebaseapp.com",
+  databaseURL: process.env.FIREBASE_DATABASE_URL || "https://binhminhchamhoc-default-rtdb.firebaseio.com",
+  projectId: process.env.FIREBASE_PROJECT_ID || "binhminhchamhoc",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "binhminhchamhoc.firebasestorage.app",
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "1033910156653",
+  appId: process.env.FIREBASE_APP_ID || "1:1033910156653:web:5e57eabcff563054842e64",
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID || "G-367K48DJD6"
+};
+const firebaseInitialized = true;
+console.log("🔥 Chế độ Firebase Web Client đã được kích hoạt.");
 
-if (fs.existsSync(serviceAccountPath)) {
-  try {
-    const serviceAccount = require(serviceAccountPath);
-    admin.initializeApp({
-      credential: (admin.credential && admin.credential.cert) ? admin.credential.cert(serviceAccount) : admin.cert(serviceAccount)
-    });
-    dbFirestore = getFirestore();
-    firebaseInitialized = true;
-    console.log("🔥 Đã kết nối thành công với Firebase Admin (Firestore)!");
-  } catch (error) {
-    console.error("❌ Lỗi khởi tạo Firebase Admin SDK:", error);
-  }
-} else {
-  console.log("⚠️ Không tìm thấy file cấu hình firebase-service-account.json. Chế độ online Firebase bị tắt.");
-}
 
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'antigravity_secret_key_123';
@@ -465,47 +456,6 @@ async function dbSaveStudentProgress(studentId, stateObj, studentName = null) {
     "INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)",
     [studentId, jsonStr]
   );
-  
-  // 2. Đẩy đồng bộ lên Firebase Firestore nếu đã đăng nhập và online
-  if (firebaseInitialized) {
-    // Chạy ngầm bất đồng bộ để tránh block client
-    (async () => {
-      try {
-        const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'");
-        if (sessionRow && sessionRow.value) {
-          const parentSession = JSON.parse(sessionRow.value);
-          
-          // Tra cứu tên thật và lớp học của học sinh từ config
-          const configSetting = await dbGetSetting('config').catch(() => null);
-          const studentsList = (configSetting && configSetting.students) || [];
-          const studentConf = studentsList.find(s => s.id === studentId);
-          const name = studentName || (studentConf ? studentConf.name : ((stateObj.student && stateObj.student.name) || stateObj.student || "Học sinh"));
-          const classLevel = studentConf ? studentConf.classLevel : (stateObj.classLevel || "1");
-          
-          await dbFirestore.collection('students').doc(studentId).set({
-            studentId: studentId,
-            parentUid: parentSession.parentUid,
-            name: name,
-            classLevel: classLevel,
-            state_json: jsonStr,
-            lastUpdated: new Date().toISOString()
-          });
-          console.log(`⚡ [Firebase Sync] Đã đồng bộ tiến trình học sinh ${name} (${studentId}) thành công.`);
-        }
-      } catch (e) {
-        console.warn(`⚠️ [Firebase Sync] Offline hoặc lỗi sync. Đã ghi vào hàng đợi sync_queue: ${e.message}`);
-        
-        // Tra cứu thông tin dự phòng cho sync_queue
-        const configSetting = await dbGetSetting('config').catch(() => null);
-        const studentsList = (configSetting && configSetting.students) || [];
-        const studentConf = studentsList.find(s => s.id === studentId);
-        const name = studentName || (studentConf ? studentConf.name : ((stateObj.student && stateObj.student.name) || stateObj.student || "Học sinh"));
-        const classLevel = studentConf ? studentConf.classLevel : (stateObj.classLevel || "1");
-        
-        await addToSyncQueue('student_progress', studentId, 'save', { state_json: jsonStr, name: name, classLevel: classLevel });
-      }
-    })();
-  }
   return changes;
 }
 
@@ -1945,12 +1895,9 @@ app.get('/api/auth/session', async (req, res) => {
  * API Đăng nhập Google Sign-In & Di trú / Đồng bộ dữ liệu
  */
 app.post('/api/auth/google-login', async (req, res) => {
-  const { idToken } = req.body;
-  if (!idToken) {
-    return res.status(400).json({ error: "Thiếu idToken" });
-  }
-  if (!firebaseInitialized) {
-    return res.status(503).json({ error: "Firebase SDK chưa được khởi tạo. Kiểm tra lại cấu hình file JSON." });
+  const { idToken, firebaseUid } = req.body;
+  if (!idToken || !firebaseUid) {
+    return res.status(400).json({ error: "Thiếu idToken hoặc firebaseUid" });
   }
   try {
     // 1. Xác thực Google ID Token nhận được từ Client bằng google-auth-library
@@ -1963,48 +1910,97 @@ app.post('/api/auth/google-login', async (req, res) => {
     const email = payload.email;
     const displayName = payload.name || "";
 
-    // 2. Tìm hoặc tạo tài khoản trong Firebase Auth để lấy Firebase UID đồng bộ
-    let parentUid;
-    try {
-      const userRecord = await getAuth().getUserByEmail(email);
-      parentUid = userRecord.uid;
-      console.log(`🔍 Tìm thấy tài khoản Firebase Auth hiện có cho email ${email}, UID: ${parentUid}`);
-    } catch (authError) {
-      if (authError.code === 'auth/user-not-found') {
-        const userRecord = await getAuth().createUser({
-          email: email,
-          displayName: displayName,
-          emailVerified: true
-        });
-        parentUid = userRecord.uid;
-        console.log(`🆕 Đã tạo tài khoản Firebase Auth mới cho email ${email}, UID: ${parentUid}`);
-      } else {
-        throw authError;
-      }
-    }
-
-    // 3. Lưu session vào bảng settings cục bộ
-    const parentSessionObj = { parentUid, email, displayName, loginAt: new Date().toISOString() };
+    // 2. Lưu session vào bảng settings cục bộ
+    const parentSessionObj = { parentUid: firebaseUid, email, displayName, loginAt: new Date().toISOString() };
     await dbSaveSetting('parent_session', JSON.stringify(parentSessionObj));
 
-    // 4. Kiểm tra xem trên Firestore đã có bất kỳ học sinh nào thuộc parentUid này chưa
-    const studentsSnapshot = await dbFirestore.collection('students').where('parentUid', '==', parentUid).get();
-    let message = "";
-    
-    if (studentsSnapshot.empty) {
-      // Chưa có học sinh nào -> Chạy luồng DI TRÚ tự động lên Firebase
-      await pushLocalDataToFirestore(parentUid);
-      message = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
-    } else {
-      // Đã có học sinh trên đám mây -> Kéo dữ liệu về ghi đè SQLite cục bộ
-      await pullDataFromFirestore(parentUid);
-      message = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
-    }
-
-    res.json({ success: true, parentSession: parentSessionObj, message });
+    console.log(`👤 Đăng nhập thành công cho email: ${email}, UID: ${firebaseUid}`);
+    res.json({ success: true, parentSession: parentSessionObj });
   } catch (error) {
     console.error("Lỗi xử lý đăng nhập Google:", error);
     res.status(500).json({ error: "Xử lý đăng nhập thất bại: " + error.message });
+  }
+});
+
+/**
+ * API cung cấp cấu hình Firebase Web cho Client
+ */
+app.get('/api/auth/firebase-config', (req, res) => {
+  res.json(firebaseConfig);
+});
+
+/**
+ * API lấy toàn bộ dữ liệu SQLite cục bộ để đồng bộ lên Firestore
+ */
+app.get('/api/sync/local-data', async (req, res) => {
+  try {
+    const studentProgress = await allQuery("SELECT * FROM student_progress");
+    const customVocabulary = await allQuery("SELECT * FROM custom_vocabulary");
+    const customTopics = await allQuery("SELECT * FROM custom_topics");
+    const configRow = await getQuery("SELECT value FROM settings WHERE key = 'config'");
+    const config = configRow ? configRow.value : null;
+
+    res.json({
+      success: true,
+      data: {
+        studentProgress,
+        customVocabulary,
+        customTopics,
+        config
+      }
+    });
+  } catch (err) {
+    console.error("Lỗi lấy dữ liệu cục bộ để sync:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * API lưu dữ liệu từ Firestore xuống SQLite cục bộ (khi kéo về máy mới)
+ */
+app.post('/api/sync/save-pulled-data', async (req, res) => {
+  const { config, students, vocabularies, topics } = req.body;
+  try {
+    // 1. Ghi đè config
+    if (config) {
+      await dbSaveSetting('config', typeof config === 'string' ? config : JSON.stringify(config));
+    }
+
+    // 2. Ghi đè tiến trình học sinh
+    if (students && Array.isArray(students)) {
+      for (const s of students) {
+        await runQuery(
+          "INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)",
+          [s.studentId, s.state_json]
+        );
+      }
+    }
+
+    // 3. Ghi đè từ vựng tự tạo
+    if (vocabularies && Array.isArray(vocabularies)) {
+      // Xóa từ vựng cũ để tránh trùng lặp nếu cần, hoặc ghi đè trực tiếp
+      for (const v of vocabularies) {
+        await runQuery(
+          "INSERT OR REPLACE INTO custom_vocabulary (id, topic_id, word, meaning, type, pronunciation, example, image_path, audio_path, parentUid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          [v.id, v.topic_id, v.word, v.meaning, v.type, v.pronunciation, v.example, v.image_path, v.audio_path, v.parentUid]
+        );
+      }
+    }
+
+    // 4. Ghi đè chủ đề tự tạo
+    if (topics && Array.isArray(topics)) {
+      for (const t of topics) {
+        await runQuery(
+          "INSERT OR REPLACE INTO custom_topics (id, name, description, category, parentUid, cover_image, is_completed, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+          [t.id, t.name, t.description, t.category, t.parentUid, t.cover_image, t.is_completed || 0, t.created_at]
+        );
+      }
+    }
+
+    res.json({ success: true, message: "Đã đồng bộ dữ liệu đám mây về thiết bị cục bộ thành công!" });
+  } catch (err) {
+    console.error("Lỗi ghi đè dữ liệu kéo về từ cloud:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -3347,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.16';
+const APP_VERSION = '10.18';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3759,6 +3755,11 @@ app.get(/.*/, (req, res, next) => {
   });
 });
 
+async function runSyncWorker() {
+  // Tiến trình đồng bộ đã được chuyển hoàn toàn sang phía Client. Vô hiệu hoá Worker trên Server.
+  return;
+}
+
 // Đọc và phân tích danh sách bài học từ js/lessons.js và js/english_data.js bằng vm
 let allLessons = [];
 try {
@@ -4049,77 +4050,7 @@ async function startPreGenerationWorkerForStudent(studentId, classLevel) {
 }
 
 
-let isSyncing = false;
-async function runSyncWorker() {
-  if (!firebaseInitialized || isSyncing) return;
-  try {
-    const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'");
-    if (!sessionRow || !sessionRow.value) return;
-    const parentSession = JSON.parse(sessionRow.value);
-    const parentUid = parentSession.parentUid;
 
-    const queue = await allQuery("SELECT * FROM sync_queue ORDER BY id ASC LIMIT 10");
-    if (queue.length === 0) return;
-
-    isSyncing = true;
-    console.log(`🔄 [Sync Worker] Đang xử lý ${queue.length} tác vụ đồng bộ tồn đọng...`);
-
-    for (const task of queue) {
-      try {
-        const payload = task.payload ? JSON.parse(task.payload) : null;
-        
-        if (task.table_name === 'student_progress') {
-          if (task.action === 'save') {
-            await dbFirestore.collection('students').doc(task.record_id).set({
-              studentId: task.record_id,
-              parentUid: parentUid,
-              name: payload.name || "Học sinh",
-              classLevel: payload.classLevel || "1",
-              state_json: payload.state_json,
-              lastUpdated: new Date().toISOString()
-            });
-          } else if (task.action === 'delete') {
-            await dbFirestore.collection('students').doc(task.record_id).delete();
-          }
-        } 
-        
-        else if (task.table_name === 'custom_vocabulary') {
-          if (task.action === 'save') {
-            await dbFirestore.collection('custom_vocabulary').doc(`vocab_${task.record_id}`).set({
-              ...payload,
-              parentUid: parentUid
-            });
-          } else if (task.action === 'delete') {
-            await dbFirestore.collection('custom_vocabulary').doc(`vocab_${task.record_id}`).delete();
-          }
-        } 
-        
-        else if (task.table_name === 'custom_topics') {
-          if (task.action === 'save') {
-            await dbFirestore.collection('custom_topics').doc(task.record_id).set({
-              ...payload,
-              parentUid: parentUid
-            });
-          } else if (task.action === 'delete') {
-            await dbFirestore.collection('custom_topics').doc(task.record_id).delete();
-          }
-        }
-
-        await runQuery("DELETE FROM sync_queue WHERE id = ?", [task.id]);
-        console.log(`  - Đồng bộ thành công tác vụ ${task.id} [${task.action} -> ${task.table_name}:${task.record_id}]`);
-      } catch (taskErr) {
-        console.error(`  - Lỗi đồng bộ tác vụ ${task.id}:`, taskErr.message);
-        if (taskErr.message.includes('network') || taskErr.message.includes('fetch') || taskErr.message.includes('unavailable')) {
-          break;
-        }
-      }
-    }
-  } catch (err) {
-    console.error("❌ Lỗi trong Sync Worker:", err);
-  } finally {
-    isSyncing = false;
-  }
-}
 
 const net = require('net');
 

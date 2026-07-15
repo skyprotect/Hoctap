@@ -10,6 +10,8 @@ chrome_profile/
 temp_update/
 kiosk_lock.log
 kiosk_exit_flag.tmp
+firebase-service-account.json
+
 
 # Loại trừ các file build cài đặt setup lớn
 *.exe
