@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.34';
+const APP_VERSION = '10.35';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3767,19 +3767,40 @@ app.post('/api/perform-update', express.json(), (req, res) => {
 });
 
 function runInstallerAndExit(exePath) {
-  // Chạy file setup exe của Inno Setup ngầm hoàn toàn độc lập
   const currentAppDir = path.resolve(__dirname);
-  const child = spawn(exePath, ['/SILENT', '/SP-', '/SUPPRESSMSGBOXES', `/DIR=${currentAppDir}`], {
-    detached: true,
-    stdio: 'ignore',
-    cwd: path.dirname(exePath)
-  });
-  child.unref();
   
-  setTimeout(() => {
-    console.log('Đang thoát tiến trình Node.js hiện tại để tiến hành cài đặt nâng cấp...');
-    process.exit(0);
-  }, 1000);
+  // Tránh lỗi UAC trên Windows bằng cách khởi chạy installer qua PowerShell với tùy chọn -Verb RunAs
+  const escapedExePath = exePath.replace(/'/g, "''");
+  const escapedAppDir = currentAppDir.replace(/'/g, "''");
+  
+  const psCommand = `Start-Process -FilePath '${escapedExePath}' -ArgumentList '/SILENT', '/SP-', '/SUPPRESSMSGBOXES', '/DIR="${escapedAppDir}"' -Verb RunAs`;
+  
+  console.log(`[AutoUpdate] Đang chạy lệnh nâng quyền thông qua PowerShell: ${psCommand}`);
+  
+  const child = spawn('powershell.exe', [
+    '-NoProfile',
+    '-ExecutionPolicy', 'Bypass',
+    '-Command',
+    psCommand
+  ], {
+    stdio: 'ignore'
+  });
+
+  child.on('error', (err) => {
+    console.error('[AutoUpdate] Lỗi khi chạy PowerShell:', err);
+    updateStatus.status = 'error';
+    updateStatus.error = `Không thể khởi chạy tiến trình PowerShell: ${err.message}`;
+  });
+
+  child.on('exit', (code) => {
+    if (code !== 0) {
+      console.error(`[AutoUpdate] Tiến trình PowerShell thoát với mã lỗi: ${code}`);
+      updateStatus.status = 'error';
+      updateStatus.error = 'Cài đặt bị từ chối hoặc thất bại (UAC bị từ chối).';
+    } else {
+      console.log('[AutoUpdate] PowerShell đã gọi Start-Process thành công.');
+    }
+  });
 }
 
 // Phục vụ trang Phụ huynh
