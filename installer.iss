@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.46
+AppVersion=10.47
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.46
+OutputBaseFilename=ToanHocKiosk_Setup_v10.47
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -67,4 +67,6 @@ begin
   Result := True;
   // Thực hiện tắt tiến trình ngầm để giải phóng tài nguyên trước khi cài đè
   ShellExec('cmd.exe', '/c taskkill /f /im node.exe /im kiosk_lock.exe', '', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  // Chờ 1.5 giây để Windows giải phóng hoàn toàn file handles của các file đang chạy (node_sqlite3.node)
+  Sleep(1500);
 end;
