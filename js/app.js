@@ -2943,19 +2943,35 @@ const app = {
                                     }
                                 } catch (err) {
                                     errorCount++;
-                                    // Trong quá trình cài đặt, server Node.js sẽ thoát. Do đó, nếu gặp lỗi kết nối
-                                    // khi đang ở trạng thái chuẩn bị cài đặt (hoặc sau khi cài xong), ta coi đó là bình thường.
-                                    if (errorCount > 8) {
+                                    
+                                    // Cập nhật giao diện Swal để báo cho người dùng biết là đang cài đặt tệp tin mới và chờ server khởi động lại
+                                    const statusDetail = document.getElementById('update-status-detail');
+                                    if (statusDetail) {
+                                        statusDetail.innerHTML = `
+                                            <p style="color: var(--success, #2ecc71); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">Đang tiến hành cài đặt các tệp tin mới...</p>
+                                            <p>Ứng dụng đang được nâng cấp lên phiên bản v${latestVersion}.</p>
+                                            <p>Hệ thống sẽ tự động khởi động lại sau khi hoàn tất. Vui lòng không tắt máy tính!</p>
+                                            <div style="text-align: center; margin-top: 15px;">
+                                                <div class="update-spinner" style="display: inline-block; width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: #3E8EED; animation: spin 1s ease-in-out infinite;"></div>
+                                                <style>
+                                                    @keyframes spin { to { transform: rotate(360deg); } }
+                                                </style>
+                                            </div>
+                                        `;
+                                    }
+                                    
+                                    if (errorCount > 60) { // Quá 90 giây (60 lần * 1.5s) mà server chưa online lại
                                         Swal.fire({
-                                            title: 'Mất kết nối!',
-                                            text: 'Mất kết nối với máy chủ học tập cục bộ.',
+                                            title: 'Lỗi cập nhật!',
+                                            text: 'Quá trình cài đặt mất quá nhiều thời gian hoặc máy chủ không thể khởi động lại.',
                                             icon: 'error',
                                             background: 'var(--bg-card)',
                                             color: 'var(--text-main)',
                                             confirmButtonText: 'Đóng'
                                         });
                                     } else {
-                                        setTimeout(poll, 1000);
+                                        // Thử kết nối lại (polling) sau 1500ms
+                                        setTimeout(poll, 1500);
                                     }
                                 }
                             };

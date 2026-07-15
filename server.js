@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.56';
+const APP_VERSION = '10.57';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3807,7 +3807,11 @@ objShell.ShellExecute "${exePath}", "/SILENT /SP- /DIR=""${currentAppDir}""", ""
           });
 
           child.unref();
-          console.log('[AutoUpdate] Đã kích hoạt file VBScript nâng quyền thành công.');
+          console.log('[AutoUpdate] Đã kích hoạt file VBScript nâng quyền thành công. Node Server sẽ tự thoát sau 1.5 giây để giải phóng file handles.');
+          setTimeout(() => {
+            console.log('[AutoUpdate] Server Node.js chủ động thoát.');
+            process.exit(0);
+          }, 1500);
         } catch (spawnErr) {
           console.error('[AutoUpdate] Lỗi đồng bộ khi spawn wscript.exe:', spawnErr);
           updateStatus.status = 'error';

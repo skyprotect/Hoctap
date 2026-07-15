@@ -42,22 +42,22 @@ function run() {
     process.exit(1);
   }
 
-  // 1. Chuyển đổi và resize ảnh JPEG/PNG gốc sang định dạng PNG 256x256 pixel bằng PowerShell .NET
-  console.log('⏳ Đang chuyển đổi và resize ảnh AI sang định dạng PNG 256x256...');
+  // 1. Chuyển đổi, resize ảnh AI sang định dạng PNG 256x256 và XÓA NỀN tự động (Transparent Background) bằng PowerShell .NET
+  console.log('⏳ Đang resize và xóa nền (làm trong suốt) ảnh AI...');
   try {
     const formattedAiPath = aiPngPath.replace(/\\/g, '/');
     const formattedTargetPath = targetPngPath.replace(/\\/g, '/');
     
-    const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "Add-Type -AssemblyName System.Drawing; $src = [System.Drawing.Bitmap]::FromFile('${formattedAiPath}'); $dst = New-Object System.Drawing.Bitmap(256, 256); $g = [System.Drawing.Graphics]::FromImage($dst); $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality; $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality; $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality; $g.DrawImage($src, 0, 0, 256, 256); $g.Dispose(); $src.Dispose(); $dst.Save('${formattedTargetPath}', [System.Drawing.Imaging.ImageFormat]::Png); $dst.Dispose();"`;
+    const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "Add-Type -AssemblyName System.Drawing; $src = [System.Drawing.Bitmap]::FromFile('${formattedAiPath}'); $dst = New-Object System.Drawing.Bitmap(256, 256, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb); $g = [System.Drawing.Graphics]::FromImage($dst); $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality; $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality; $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality; $g.DrawImage($src, 0, 0, 256, 256); $g.Dispose(); $src.Dispose(); $bgCol = $dst.GetPixel(0, 0); $bgR = [int]$bgCol.R; $bgG = [int]$bgCol.G; $bgB = [int]$bgCol.B; $visited = New-Object 'Boolean[,]' 256, 256; $queue = New-Object System.Collections.Queue; $visited[0, 0] = $true; $queue.Enqueue(@(0, 0)); $visited[255, 0] = $true; $queue.Enqueue(@(255, 0)); $visited[0, 255] = $true; $queue.Enqueue(@(0, 255)); $visited[255, 255] = $true; $queue.Enqueue(@(255, 255)); $tolerance = 65; $dx = @(1, -1, 0, 0); $dy = @(0, 0, 1, -1); while ($queue.Count -gt 0) { $curr = $queue.Dequeue(); $cx = [int]$curr[0]; $cy = [int]$curr[1]; $pixelCol = $dst.GetPixel($cx, $cy); $rDiff = [int]$pixelCol.R - $bgR; $gDiff = [int]$pixelCol.G - $bgG; $bDiff = [int]$pixelCol.B - $bgB; $dist = [Math]::Sqrt(($rDiff * $rDiff) + ($gDiff * $gDiff) + ($bDiff * $bDiff)); if ($dist -lt $tolerance) { $dst.SetPixel($cx, $cy, [System.Drawing.Color]::Transparent); for ($i = 0; $i -lt 4; $i++) { $nx = $cx + $dx[$i]; $ny = $cy + $dy[$i]; if ($nx -ge 0 -and $nx -lt 256 -and $ny -ge 0 -and $ny -lt 256) { if (!$visited[$nx, $ny]) { $visited[$nx, $ny] = $true; $queue.Enqueue(@($nx, $ny)); } } } } } $dst.Save('${formattedTargetPath}', [System.Drawing.Imaging.ImageFormat]::Png); $dst.Dispose();"`;
     
     execSync(psCommand, { stdio: 'inherit' });
-    console.log(`✅ Đã resize và lưu ảnh PNG 256x256 tại: ${targetPngPath}`);
+    console.log(`✅ Đã lưu ảnh PNG 256x256 đã xóa nền tại: ${targetPngPath}`);
   } catch (error) {
-    console.error('❌ LỖI khi chạy lệnh PowerShell chuyển đổi ảnh:', error.message);
+    console.error('❌ LỖI khi chạy lệnh PowerShell chuyển đổi và xóa nền ảnh:', error.message);
     process.exit(1);
   }
 
-  // 2. Chuyển đổi PNG thực thụ sang file .ico
+  // 2. Đóng gói PNG trong suốt sang file .ico
   pngToIco(targetPngPath, targetIcoPath);
 }
 
