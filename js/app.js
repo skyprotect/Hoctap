@@ -2845,7 +2845,23 @@ const app = {
                         // Hiển thị màn hình chờ tải và cài đặt
                         Swal.fire({
                             title: 'Đang tiến hành cập nhật...',
-                            html: 'Hệ thống đang tải bản cập nhật và cài đặt tự động.<br><b>Vui lòng không tắt máy tính!</b>',
+                            html: `
+                                <div id="update-status-detail" style="text-align: left; font-size: 0.95rem; line-height: 1.6;">
+                                    <p>Hệ thống đang tải bản cập nhật và cài đặt tự động...</p>
+                                    <div class="update-progress-container" style="margin-top: 15px; width: 100%;">
+                                        <div class="progress-bar-bg" style="width: 100%; background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 8px;">
+                                            <div id="update-progress-bar" style="width: 0%; background: #3E8EED; height: 100%; transition: width 0.3s ease;"></div>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">
+                                            <span id="update-percent">Đang chuẩn bị...</span>
+                                            <span id="update-bytes">0.00 MB / 0.00 MB</span>
+                                        </div>
+                                    </div>
+                                    <p style="color: var(--warning); font-size: 0.85rem; font-weight: 500; margin-top: 15px;">
+                                        ⚠️ Vui lòng giữ kết nối Internet và không tắt chương trình!
+                                    </p>
+                                </div>
+                            `,
                             allowOutsideClick: false,
                             allowEscapeKey: false,
                             showConfirmButton: false,
@@ -2856,14 +2872,69 @@ const app = {
                             }
                         });
 
-                        // Gọi API nâng cấp
-                        fetch('/api/perform-update', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ downloadUrl: data.downloadUrl })
-                        }).then(res => {
-                            if (res.ok) {
-                                let countdown = 12;
+                        // Hàm bắt đầu polling
+                        const startPollingUpdate = (latestVersion) => {
+                            let errorCount = 0;
+                            let countdown = 12;
+                            let isInstallingStarted = false;
+
+                            const poll = async () => {
+                                try {
+                                    const res = await fetch('/api/update-status');
+                                    if (!res.ok) throw new Error('Lỗi kết nối API trạng thái');
+                                    const statusData = await res.json();
+                                    errorCount = 0;
+
+                                    if (statusData.status === 'downloading') {
+                                        const bar = document.getElementById('update-progress-bar');
+                                        const percentText = document.getElementById('update-percent');
+                                        const bytesText = document.getElementById('update-bytes');
+
+                                        if (bar) bar.style.width = statusData.progress + '%';
+                                        if (percentText) percentText.textContent = `Đang tải: ${statusData.progress}%`;
+                                        if (bytesText) {
+                                            const downloadedMB = (statusData.downloadedBytes / (1024 * 1024)).toFixed(2);
+                                            const totalMB = (statusData.totalBytes / (1024 * 1024)).toFixed(2);
+                                            bytesText.textContent = `${downloadedMB} MB / ${totalMB} MB`;
+                                        }
+                                        setTimeout(poll, 800);
+                                    } else if (statusData.status === 'installing') {
+                                        if (!isInstallingStarted) {
+                                            isInstallingStarted = true;
+                                            runInstallerCountdown();
+                                        }
+                                    } else if (statusData.status === 'error') {
+                                        Swal.fire({
+                                            title: 'Lỗi cập nhật!',
+                                            text: statusData.error || 'Có lỗi xảy ra trong quá trình tải.',
+                                            icon: 'error',
+                                            background: 'var(--bg-card)',
+                                            color: 'var(--text-main)',
+                                            confirmButtonText: 'Đóng'
+                                        });
+                                    } else {
+                                        setTimeout(poll, 800);
+                                    }
+                                } catch (err) {
+                                    errorCount++;
+                                    // Trong quá trình cài đặt, server Node.js sẽ thoát. Do đó, nếu gặp lỗi kết nối
+                                    // khi đang ở trạng thái chuẩn bị cài đặt (hoặc sau khi cài xong), ta coi đó là bình thường.
+                                    if (errorCount > 8) {
+                                        Swal.fire({
+                                            title: 'Mất kết nối!',
+                                            text: 'Mất kết nối với máy chủ học tập cục bộ.',
+                                            icon: 'error',
+                                            background: 'var(--bg-card)',
+                                            color: 'var(--text-main)',
+                                            confirmButtonText: 'Đóng'
+                                        });
+                                    } else {
+                                        setTimeout(poll, 1000);
+                                    }
+                                }
+                            };
+
+                            const runInstallerCountdown = () => {
                                 const interval = setInterval(() => {
                                     countdown--;
                                     if (countdown <= 0) {
@@ -2871,10 +2942,32 @@ const app = {
                                         window.location.reload();
                                     } else {
                                         Swal.update({
-                                            html: `Đang cài đặt các tệp tin mới và khởi động lại ứng dụng trong <b>${countdown}</b> giây.<br>Vui lòng không tắt chương trình!`
+                                            title: '🎉 Tải Hoàn Tất!',
+                                            html: `
+                                                <div style="text-align: center; font-size: 0.95rem; line-height: 1.6;">
+                                                    <p style="color: var(--success, #2ecc71); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">Đã tải xong tệp tin cài đặt!</p>
+                                                    <p>Đang cài đặt các tệp tin mới và khởi động lại ứng dụng trong <b>${countdown}</b> giây.</p>
+                                                    <p style="color: var(--warning); font-size: 0.85rem; font-weight: 500;">
+                                                        ⚠️ Vui lòng không tắt chương trình cho đến khi hoàn tất!
+                                                    </p>
+                                                </div>
+                                            `
                                         });
                                     }
                                 }, 1000);
+                            };
+
+                            setTimeout(poll, 500);
+                        };
+
+                        // Gọi API nâng cấp
+                        fetch('/api/perform-update', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ downloadUrl: data.downloadUrl })
+                        }).then(res => {
+                            if (res.ok) {
+                                startPollingUpdate(data.latestVersion);
                             } else {
                                 Swal.fire({
                                     title: 'Lỗi cập nhật!',
@@ -2886,7 +2979,7 @@ const app = {
                                 });
                             }
                         }).catch(err => {
-                            // Đôi khi server tắt trước khi trả về phản hồi HTTP hoàn chỉnh, ta tự động reload sau 10s
+                            // Dự phòng khi server ngắt ngay lập tức
                             let countdown = 10;
                             const interval = setInterval(() => {
                                 countdown--;

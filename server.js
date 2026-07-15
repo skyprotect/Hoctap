@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.20';
+const APP_VERSION = '10.22';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3680,6 +3680,18 @@ app.get('/api/check-update', (req, res) => {
   });
 });
 
+let updateStatus = {
+  status: 'idle', // 'idle', 'downloading', 'installing', 'error'
+  progress: 0,
+  downloadedBytes: 0,
+  totalBytes: 0,
+  error: null
+};
+
+app.get('/api/update-status', (req, res) => {
+  res.json(updateStatus);
+});
+
 app.post('/api/perform-update', express.json(), (req, res) => {
   const { downloadUrl } = req.body;
   if (!downloadUrl) {
@@ -3693,6 +3705,18 @@ app.post('/api/perform-update', express.json(), (req, res) => {
     fs.mkdirSync(tempDir, { recursive: true });
   }
   
+  // Reset trạng thái
+  updateStatus = {
+    status: 'downloading',
+    progress: 0,
+    downloadedBytes: 0,
+    totalBytes: 0,
+    error: null
+  };
+  
+  // Trả về phản hồi ngay lập tức cho client biết là đã bắt đầu tải
+  res.json({ success: true, message: 'Đã bắt đầu tải bản cập nhật.' });
+  
   const file = fs.createWriteStream(exePath);
   
   const downloadFile = (url) => {
@@ -3702,22 +3726,40 @@ app.post('/api/perform-update', express.json(), (req, res) => {
       }
       
       if (response.statusCode !== 200) {
-        res.status(500).json({ error: `Tải bản cập nhật thất bại (Mã lỗi: ${response.statusCode})` });
+        updateStatus.status = 'error';
+        updateStatus.error = `Tải bản cập nhật thất bại (Mã lỗi: ${response.statusCode})`;
+        file.close();
+        fs.unlink(exePath, () => {});
         return;
       }
       
+      const totalBytes = parseInt(response.headers['content-length'], 10) || 0;
+      updateStatus.totalBytes = totalBytes;
+      let downloadedBytes = 0;
+      
+      response.on('data', (chunk) => {
+        downloadedBytes += chunk.length;
+        updateStatus.downloadedBytes = downloadedBytes;
+        if (totalBytes > 0) {
+          updateStatus.progress = Math.round((downloadedBytes / totalBytes) * 100);
+        }
+      });
+      
       response.pipe(file);
+      
       file.on('finish', () => {
         file.close(() => {
           console.log('✅ Đã tải xong file setup setup_update.exe. Chuẩn bị chạy cài đặt...');
-          res.json({ success: true, message: 'Đang chuẩn bị cài đặt bản cập nhật...' });
+          updateStatus.status = 'installing';
+          updateStatus.progress = 100;
           
           runInstallerAndExit(exePath);
         });
       });
     }).on('error', (err) => {
       fs.unlink(exePath, () => {});
-      res.status(500).json({ error: `Lỗi kết nối tải bản cập nhật: ${err.message}` });
+      updateStatus.status = 'error';
+      updateStatus.error = `Lỗi kết nối tải bản cập nhật: ${err.message}`;
     });
   };
   
