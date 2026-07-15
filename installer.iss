@@ -2,7 +2,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=10.26
+AppVersion=10.27
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -11,7 +11,7 @@ DefaultDirName={localappdata}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v10.26
+OutputBaseFilename=ToanHocKiosk_Setup_v10.27
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -21,6 +21,9 @@ PrivilegesRequired=admin
 ; Đóng các tiến trình cũ nếu đang chạy
 CloseApplications=yes
 AppMutex=ToanHocKioskMutex
+
+[Dirs]
+Name: "{app}"; Permissions: users-modify
 
 [Languages]
 Name: "vietnamese"; MessagesFile: "compiler:Languages\Vietnamese.isl"
@@ -44,7 +47,7 @@ Name: "{group}\Dung hoc"; Filename: "{app}\Dung hoc.vbs"; IconFilename: "{app}\i
 Name: "{userdesktop}\Toan Hoc Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\Bat dau hoc.vbs"; Description: "Mở ứng dụng Toan Hoc Kiosk"; Flags: shellexec postinstall skipifsilent
+Filename: "{app}\Bat dau hoc.vbs"; Description: "Khởi chạy ứng dụng Toán Học Kiosk"; Flags: shellexec postinstall skipifsilent
 
 [InstallDelete]
 ; Dọn dẹp các tệp tạm thời cũ khi nâng cấp nhưng KHÔNG xóa database.db và .env

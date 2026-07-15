@@ -1,5 +1,5 @@
 {
-  "version": "10.26",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.26/ToanHocKiosk_Setup_v10.26.exe",
-  "changelog": "- Sửa lỗi dính cổng 3000 và chạy đè Kiosk Lock bằng cơ chế kiểm tra Single Instance trực tiếp khi kích hoạt ứng dụng.\n- Sửa lỗi Access Denied khi người dùng cài đặt vào Program Files hoặc các thư mục tùy chỉnh trên ổ C bằng cách nâng quyền cài đặt yêu cầu lên Administrator."
+  "version": "10.27",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.27/ToanHocKiosk_Setup_v10.27.exe",
+  "changelog": "- Khắc phục lỗi Access Denied/Permission Denied khi chạy ứng dụng trong ổ C bằng cách tự động phân quyền ghi và sửa đổi (users-modify) cho thư mục cài đặt."
 }

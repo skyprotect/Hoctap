@@ -128,8 +128,10 @@ if (fs.existsSync(installerPath)) {
   installerContent = installerContent.replace(/AppVersion=[\d\.]+/g, `AppVersion=${nextVersion}`);
   installerContent = installerContent.replace(/OutputBaseFilename=ToanHocKiosk_Setup_v[\d\.]+/g, `OutputBaseFilename=ToanHocKiosk_Setup_v${nextVersion}`);
   
-  fs.writeFileSync(installerPath, installerContent, 'utf8');
-  console.log('✅ Đã cập nhật installer.iss');
+  // Loại bỏ ký tự BOM cũ nếu có trước khi thêm mới để tránh bị lặp BOM
+  installerContent = installerContent.replace(/^\uFEFF/g, '');
+  fs.writeFileSync(installerPath, '\ufeff' + installerContent, 'utf8');
+  console.log('✅ Đã cập nhật installer.iss (UTF-8 with BOM)');
 }
 
 // 4. Đồng bộ bản sạch (Clean Bundle)
