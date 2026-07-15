@@ -3343,7 +3343,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.55';
+const APP_VERSION = '10.56';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
@@ -3774,7 +3774,7 @@ function runInstallerAndExit(exePath) {
   // Nội dung file VBScript sử dụng Shell.Application với verb "runas" để kích hoạt UAC của Windows
   const vbsContent = `
 Set objShell = CreateObject("Shell.Application")
-objShell.ShellExecute "${exePath}", "/SILENT /SP- /SUPPRESSMSGBOXES /DIR=""${currentAppDir}""", "", "runas", 1
+objShell.ShellExecute "${exePath}", "/SILENT /SP- /DIR=""${currentAppDir}""", "", "runas", 1
   `.trim();
   
   try {

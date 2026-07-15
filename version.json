@@ -1,5 +1,5 @@
 {
-  "version": "10.55",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.55/ToanHocKiosk_Setup_v10.55.exe",
+  "version": "10.56",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v10.56/ToanHocKiosk_Setup_v10.56.exe",
   "changelog": "- Khắc phục triệt để lỗi phân quyền UAC khi chạy installer tự động cập nhật.\n- Tự động hiển thị hộp thoại nâng quyền UAC của Windows để người dùng chấp nhận cài đặt.\n- Node Server tự động chuyển trạng thái lỗi nếu người dùng từ chối UAC thay vì tự động tắt."
 }

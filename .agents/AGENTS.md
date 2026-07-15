@@ -63,3 +63,8 @@
 ## 11. Quy tắc tự động đồng bộ Git và Tự động phát hành
 - **Đồng bộ mã nguồn trước khi sửa đổi**: Mỗi khi thực hiện bất kỳ thay đổi nào liên quan đến mã nguồn (HTML, CSS, JS) trong các phiên làm việc, AI Agent bắt buộc phải tự động chạy lệnh `git pull origin main` để kéo các thay đổi mới nhất từ GitHub về máy cục bộ nhằm tránh xung đột nhánh.
 - **Tự động chạy lệnh phát hành (Release)**: Ngay sau khi hoàn thành việc chỉnh sửa mã nguồn, AI Agent bắt buộc phải tự động thực thi lệnh phát hành `npm run release` để đóng gói bộ cài mới và đẩy lên GitHub Releases trực tuyến cho người dùng mà không cần chờ yêu cầu thủ công.
+
+## 12. Quy tắc nghiêm cấm sai chính tả và lỗi font chữ
+- **Tuyệt đối cấm** xảy ra các trường hợp sai chính tả (bao gồm cả tiếng Việt và tiếng Anh) và lỗi hiển thị font chữ (như lỗi mã hóa UTF-8 thành ký tự lạ dạng `ToÃ¡n Há»c`) trong toàn bộ dự án, bao gồm mã nguồn, giao diện người dùng, tài liệu hướng dẫn, các file script khởi chạy và phím tắt/lối tắt hệ thống.
+- Mọi chuỗi ký tự hiển thị phải được kiểm tra kỹ lưỡng về định dạng mã hóa và lỗi chính tả trước khi phát hành.
+

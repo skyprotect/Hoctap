@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 // Đường dẫn ảnh gốc sinh bởi AI
 const aiPngPath = "C:/Users/Binh Minh/.gemini/antigravity/brain/4ba90cba-758c-4c97-8203-55d4c83a80f2/new_app_icon_1784114022386.png";
@@ -41,11 +42,22 @@ function run() {
     process.exit(1);
   }
 
-  // 1. Sao chép PNG sang thư mục images
-  fs.copyFileSync(aiPngPath, targetPngPath);
-  console.log(`✅ Đã cập nhật ảnh PNG tại: ${targetPngPath}`);
+  // 1. Chuyển đổi và resize ảnh JPEG/PNG gốc sang định dạng PNG 256x256 pixel bằng PowerShell .NET
+  console.log('⏳ Đang chuyển đổi và resize ảnh AI sang định dạng PNG 256x256...');
+  try {
+    const formattedAiPath = aiPngPath.replace(/\\/g, '/');
+    const formattedTargetPath = targetPngPath.replace(/\\/g, '/');
+    
+    const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "Add-Type -AssemblyName System.Drawing; $src = [System.Drawing.Bitmap]::FromFile('${formattedAiPath}'); $dst = New-Object System.Drawing.Bitmap(256, 256); $g = [System.Drawing.Graphics]::FromImage($dst); $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality; $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality; $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality; $g.DrawImage($src, 0, 0, 256, 256); $g.Dispose(); $src.Dispose(); $dst.Save('${formattedTargetPath}', [System.Drawing.Imaging.ImageFormat]::Png); $dst.Dispose();"`;
+    
+    execSync(psCommand, { stdio: 'inherit' });
+    console.log(`✅ Đã resize và lưu ảnh PNG 256x256 tại: ${targetPngPath}`);
+  } catch (error) {
+    console.error('❌ LỖI khi chạy lệnh PowerShell chuyển đổi ảnh:', error.message);
+    process.exit(1);
+  }
 
-  // 2. Chuyển đổi và lưu thành file .ico
+  // 2. Chuyển đổi PNG thực thụ sang file .ico
   pngToIco(targetPngPath, targetIcoPath);
 }
 
