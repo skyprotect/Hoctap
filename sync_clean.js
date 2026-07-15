@@ -176,6 +176,18 @@ function sync() {
       }
     }
   }
+  // Dọn dẹp devDependencies rác (như Playwright, Jest) trong node_modules của Clean bundle để tối ưu hóa bộ cài
+  const cleanNodeModules = path.join(destDir, 'node_modules');
+  if (fs.existsSync(cleanNodeModules)) {
+    console.log('🧹 Đang dọn dẹp devDependencies (Playwright, Jest...) trong node_modules của Clean bundle...');
+    try {
+      const { execSync } = require('child_process');
+      execSync('npm prune --production', { cwd: destDir, stdio: 'inherit' });
+      console.log('✅ Đã loại bỏ thành công devDependencies rác trong Clean bundle.');
+    } catch (err) {
+      console.log(`⚠️ Cảnh báo: Lỗi khi chạy npm prune: ${err.message}`);
+    }
+  }
   
   console.log('--- SYNC COMPLETED SUCCESSFULLY ---');
 }
