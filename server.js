@@ -2745,11 +2745,22 @@ app.post('/api/save-printed-pdf', async (req, res) => {
 
   // Hàm tự động tìm đường dẫn Chrome hoặc Edge khả dụng trên Windows
   const findSystemChromeOrEdge = () => {
-    const paths = [
-      'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    const paths = [];
+    
+    // Thêm các đường dẫn trong LOCALAPPDATA của người dùng
+    if (process.env.LOCALAPPDATA) {
+      paths.push(path.join(process.env.LOCALAPPDATA, 'Google\\Chrome\\Application\\chrome.exe'));
+      paths.push(path.join(process.env.LOCALAPPDATA, 'Microsoft\\Edge\\Application\\msedge.exe'));
+    }
+    
+    // Thêm các đường dẫn mặc định trong Program Files
+    paths.push(
       'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
       'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-    ];
+      'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+      'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
+    );
+    
     for (const p of paths) {
       if (fs.existsSync(p)) {
         return p;
@@ -3366,7 +3377,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.65';
+const APP_VERSION = '10.66';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

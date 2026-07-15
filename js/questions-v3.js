@@ -9866,6 +9866,65 @@ const questions = {
         window.print();
     },
 
+    downloadPDFFromPreview: function() {
+        const previewPaper = document.getElementById("print-preview-paper");
+        if (!previewPaper) return;
+
+        const lessonTitle = (this.currentLesson && this.currentLesson.title) || "de_thi";
+        const sanitizedTitle = removeVietnameseTones(lessonTitle)
+            .replace(/[^a-zA-Z0-9\-_]/g, '_')
+            .replace(/_+/g, '_');
+        const filename = `de_thi_${sanitizedTitle}_${Date.now()}.pdf`;
+
+        // Hiển thị trạng thái đang xử lý trên nút bấm
+        const btn = document.querySelector('button[onclick="questions.downloadPDFFromPreview()"]');
+        let oldHtml = "";
+        if (btn) {
+            oldHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tải file...';
+            btn.disabled = true;
+        }
+
+        fetch(this.getApiUrl('/api/save-printed-pdf'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                html: previewPaper.innerHTML,
+                filename: filename
+            })
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("HTTP error " + res.status);
+            return res.json();
+        })
+        .then(data => {
+            if (data.success && data.path) {
+                // Tạo thẻ link ảo để tải xuống
+                const downloadUrl = this.getApiUrl(data.path);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                alert("Lỗi khi sinh PDF: " + (data.error || "Không rõ nguyên nhân"));
+            }
+        })
+        .catch(err => {
+            console.error("Lỗi tải PDF:", err);
+            alert("Lỗi kết nối server: " + err.message);
+        })
+        .finally(() => {
+            if (btn) {
+                btn.innerHTML = oldHtml;
+                btn.disabled = false;
+            }
+        });
+    },
+
     closePrintPreview: function() {
         const previewModal = document.getElementById("print-preview-modal");
         if (previewModal) {
