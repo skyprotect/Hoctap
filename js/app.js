@@ -7256,36 +7256,160 @@ const app = {
 
     promptFastPlayGame: function() {
         Swal.fire({
-            title: 'Nhập mật khẩu chơi game 🎮',
+            title: 'CHỌN CHẾ ĐỘ CHƠI GAME 🎮',
+            html: `
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Vui lòng chọn đối tượng đang chơi game:</p>
+                <div style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; width: 100%;">
+                    <button id="swal-btn-student" style="flex: 1; min-width: 140px; padding: 1.2rem 1rem; font-size: 1.1rem; font-weight: bold; color: white; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); transition: transform 0.2s;">
+                        👦 Học Sinh<br>
+                        <span style="font-size: 0.75rem; font-weight: normal; opacity: 0.85;">Đổi thẻ lấy 5 phút chơi</span>
+                    </button>
+                    <button id="swal-btn-parent" style="flex: 1; min-width: 140px; padding: 1.2rem 1rem; font-size: 1.1rem; font-weight: bold; color: white; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3); transition: transform 0.2s;">
+                        👨‍👩‍👧 Phụ Huynh<br>
+                        <span style="font-size: 0.75rem; font-weight: normal; opacity: 0.85;">Mật khẩu, không giới hạn</span>
+                    </button>
+                </div>
+            `,
+            showConfirmButton: false,
+            showCancelButton: true,
+            cancelButtonText: 'Quay lại',
+            target: document.getElementById('splash-screen') || 'body',
+            didOpen: () => {
+                const btnStudent = document.getElementById("swal-btn-student");
+                const btnParent = document.getElementById("swal-btn-parent");
+                
+                if (btnStudent) {
+                    btnStudent.onclick = () => {
+                        Swal.close();
+                        this.showStudentExchangeGoldCardModal();
+                    };
+                }
+                
+                if (btnParent) {
+                    btnParent.onclick = () => {
+                        Swal.close();
+                        this.promptParentFastPlayGame();
+                    };
+                }
+            }
+        });
+    },
+
+    promptParentFastPlayGame: function() {
+        Swal.fire({
+            title: 'Mật khẩu Phụ Huynh 🔑',
             input: 'password',
-            inputPlaceholder: 'Mật khẩu...',
+            inputPlaceholder: 'Nhập mật khẩu phụ huynh...',
             inputAttributes: {
                 autocapitalize: 'off',
                 autocorrect: 'off'
             },
             showCancelButton: true,
-            confirmButtonText: 'Đồng ý',
+            confirmButtonText: 'Xác nhận',
             cancelButtonText: 'Hủy',
             confirmButtonColor: 'var(--primary)',
             target: document.getElementById('splash-screen') || 'body'
         }).then((result) => {
             if (result.isConfirmed) {
                 if (result.value === 'haidangppk') {
-                    this.fastPlayGame();
+                    this.fastPlayGame(); // Không giới hạn
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Sai mật khẩu! ❌',
-                        text: 'Mật khẩu bạn nhập không chính xác.',
+                        text: 'Mật khẩu phụ huynh nhập không chính xác.',
                         confirmButtonColor: 'var(--danger)',
                         target: document.getElementById('splash-screen') || 'body'
+                    }).then(() => {
+                        this.promptFastPlayGame(); // Quay lại chọn chế độ
                     });
                 }
+            } else {
+                this.promptFastPlayGame(); // Quay lại chọn chế độ
             }
         });
     },
 
-    fastPlayGame: async function() {
+    showStudentExchangeGoldCardModal: function() {
+        const goldSkills = this.state.goldSkills || [];
+        if (goldSkills.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Con chưa có thẻ mạ vàng nào! 😢',
+                text: 'Hãy tích lũy đủ 300 XP và vào Tiệm Mạ Vàng ở góc học tập môn Tiếng Anh để nâng cấp thẻ năng lực của mình trước khi đổi lượt chơi game nhé!',
+                confirmButtonText: 'Đồng ý',
+                confirmButtonColor: 'var(--primary)',
+                target: document.getElementById('splash-screen') || 'body'
+            });
+            return;
+        }
+
+        // Tạo danh sách thẻ mạ vàng dưới dạng HTML
+        const cardsHtml = goldSkills.map(cardId => {
+            const card = SKILL_CARDS.find(c => c.id === cardId);
+            if (!card) return '';
+            return `
+                <div class="swal-exchange-card gold-skill-card-shine" onclick="app.confirmExchangeGoldCard('${card.id}')" style="background: var(--bg-card); border: 2px solid #eab308; border-radius: 16px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 0 10px rgba(234, 179, 8, 0.25); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; min-width: 130px;">
+                    <div style="font-size: 2.2rem;">${card.icon}</div>
+                    <div style="font-weight: 800; font-size: 0.9rem; color: var(--text-main); text-transform: uppercase;">${card.name}</div>
+                    <div style="font-size: 0.7rem; color: #d97706; font-weight: bold; background: #fef3c7; padding: 2px 8px; border-radius: 99px;">MẠ VÀNG</div>
+                </div>
+            `;
+        }).join("");
+
+        Swal.fire({
+            title: 'ĐỔI THẺ MẠ VÀNG LẤY LƯỢT CHƠI 🪙',
+            html: `
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem;">Chọn 1 thẻ mạ vàng của con dưới đây để đổi lấy <b>5 phút</b> chơi game thủ thành nhé!</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; max-height: 350px; overflow-y: auto; padding: 0.5rem;">
+                    ${cardsHtml}
+                </div>
+            `,
+            showCancelButton: true,
+            cancelButtonText: 'Quay lại',
+            showConfirmButton: false,
+            target: document.getElementById('splash-screen') || 'body'
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.cancel) {
+                this.promptFastPlayGame(); // Quay lại chọn chế độ
+            }
+        });
+    },
+
+    confirmExchangeGoldCard: function(cardId) {
+        const card = SKILL_CARDS.find(c => c.id === cardId);
+        if (!card) return;
+
+        Swal.fire({
+            title: 'Xác nhận đổi thẻ? 🪙',
+            html: `<p>Con có chắc chắn muốn đổi thẻ mạ vàng <b>${card.icon} ${card.name}</b> để lấy <b>5 phút</b> chơi game không?</p>
+                   <p style="color: var(--danger); font-weight: bold; font-size: 0.9rem;">⚠️ Lưu ý: Sau khi đổi, thẻ này sẽ biến mất khỏi bộ sưu tập của con.</p>`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Đúng vậy, đổi thẻ!',
+            cancelButtonText: 'Hủy',
+            confirmButtonColor: 'var(--success)',
+            cancelButtonColor: 'var(--danger)',
+            target: document.getElementById('splash-screen') || 'body'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Xóa thẻ khỏi goldSkills
+                this.state.goldSkills = (this.state.goldSkills || []).filter(id => id !== cardId);
+                this.saveProgress();
+                
+                // Đóng tất cả các SweetAlert
+                Swal.close();
+                
+                // Khởi chạy game với thời gian đếm ngược 5 phút (300 giây)
+                this.fastPlayGame(300);
+            } else {
+                // Nếu hủy thì quay lại màn hình chọn thẻ
+                this.showStudentExchangeGoldCardModal();
+            }
+        });
+    },
+
+    fastPlayGame: async function(timeLimitSeconds) {
         // Dừng âm thanh greeting của Splash Screen
         if (typeof this.stopSplashGreeting === 'function') {
             this.stopSplashGreeting();
@@ -7385,6 +7509,97 @@ const app = {
             
             // Chuyển sang Phase chiến đấu thủ thành trực tiếp
             questions.switchToBattlePhase();
+            
+            // Khởi chạy bộ đếm ngược thời gian nếu học sinh đổi thẻ chơi (có giới hạn thời gian)
+            if (this.gamePlayInterval) {
+                clearInterval(this.gamePlayInterval);
+                this.gamePlayInterval = null;
+            }
+            const oldTimer = document.getElementById("game-play-timer-widget");
+            if (oldTimer && oldTimer.parentNode) oldTimer.parentNode.removeChild(oldTimer);
+
+            if (timeLimitSeconds && typeof timeLimitSeconds === 'number' && timeLimitSeconds > 0) {
+                let remainingTime = timeLimitSeconds;
+                
+                // Tạo widget đếm ngược thời gian chơi game
+                const timerEl = document.createElement("div");
+                timerEl.id = "game-play-timer-widget";
+                timerEl.style.cssText = `
+                    position: fixed;
+                    top: 12px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    z-index: 2100000000;
+                    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                    border: 2px solid #eab308;
+                    box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+                    padding: 8px 20px;
+                    border-radius: 50px;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-weight: 800;
+                    font-size: 1.2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(timerEl);
+
+                const formatTime = (sec) => {
+                    const m = Math.floor(sec / 60);
+                    const s = sec % 60;
+                    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                };
+
+                timerEl.innerHTML = `<span style="font-size:1.4rem; animation: pulseFastGameBtn 1s infinite;">⏳</span> Thời gian còn lại: <span id="game-play-timer-val" style="color:#eab308;">${formatTime(remainingTime)}</span>`;
+
+                this.gamePlayInterval = setInterval(() => {
+                    remainingTime--;
+                    
+                    const valEl = document.getElementById("game-play-timer-val");
+                    if (valEl) {
+                        valEl.innerText = formatTime(remainingTime);
+                    }
+                    
+                    // Nhấp nháy màu đỏ khi thời gian còn dưới 30 giây
+                    if (remainingTime <= 30 && valEl) {
+                        valEl.style.color = "#ef4444";
+                    }
+                    
+                    if (remainingTime <= 0) {
+                        clearInterval(this.gamePlayInterval);
+                        this.gamePlayInterval = null;
+                        
+                        if (timerEl && timerEl.parentNode) {
+                            timerEl.parentNode.removeChild(timerEl);
+                        }
+                        
+                        // Dừng game
+                        if (window.game) game.stop();
+                        if (window.questions && questions.examInterval) clearInterval(questions.examInterval);
+                        
+                        // Tắt các chế độ giao diện
+                        app.exitFullscreen();
+                        document.body.classList.remove("practice-fullscreen-active");
+                        document.body.classList.remove("super-focus-active");
+                        document.body.classList.remove("game-mode-active");
+                        app.restoreScrollbar();
+                        
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Hết giờ chơi game! ⏰',
+                            text: 'Thời gian chơi game của con đã hết. Hãy tiếp tục học bài để nhận thêm các thẻ mạ vàng nhé!',
+                            confirmButtonText: 'Đồng ý',
+                            confirmButtonColor: 'var(--primary)',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                }, 1000);
+            }
             
             // Khởi chạy heartbeat/telemetry học tập
             this.startHeartbeat();

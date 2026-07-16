@@ -8693,6 +8693,16 @@ const questions = {
         if (window.game) game.stop();
         if (this.examInterval) clearInterval(this.examInterval);
         
+        // Dọn dẹp bộ đếm thời gian chơi game nhanh của học sinh nếu có
+        if (window.app && app.gamePlayInterval) {
+            clearInterval(app.gamePlayInterval);
+            app.gamePlayInterval = null;
+            const timerEl = document.getElementById("game-play-timer-widget");
+            if (timerEl && timerEl.parentNode) {
+                timerEl.parentNode.removeChild(timerEl);
+            }
+        }
+        
         // Mở rộng lại sidebar khi thoát chế độ thực hành
         if (window.app && typeof app.expandSidebar === 'function') {
             app.expandSidebar();
