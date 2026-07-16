@@ -6755,3 +6755,171 @@ body.light-mode .warrior-magic-circle {
     86% { transform: translate(0, 0); }
 }
 
+/* ==========================================================================
+   NÂNG CẤP GIAO DIỆN CHƠI GAME TỰ DO (FREE PLAY) & THẺ MẠ VÀNG HOÀNG GIA
+   ========================================================================== */
+
+/* 1. Thẻ mạ vàng hoàng gia siêu đẳng cấp */
+.gold-card-royal {
+    position: relative !important;
+    background: linear-gradient(135deg, #111827 0%, #030712 100%) !important;
+    color: #f3f4f6 !important;
+    border: 2px solid transparent !important;
+    background-image: linear-gradient(#111827, #030712), linear-gradient(135deg, #f59e0b, #eab308, #b45309, #f59e0b) !important;
+    background-origin: border-box !important;
+    background-clip: padding-box, border-box !important;
+    box-shadow: 0 10px 25px rgba(234, 179, 8, 0.15), 0 0 15px rgba(234, 179, 8, 0.25) !important;
+    border-radius: 20px !important;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.gold-card-royal:hover {
+    transform: translateY(-5px) scale(1.02) !important;
+    box-shadow: 0 15px 35px rgba(234, 179, 8, 0.25), 0 0 25px rgba(234, 179, 8, 0.45) !important;
+}
+
+/* Thêm huy hiệu hoàng gia nhỏ ở góc thẻ */
+.gold-card-royal::before {
+    content: '👑 ROYAL' !important;
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    font-size: 0.65rem !important;
+    font-weight: 900 !important;
+    color: #eab308 !important;
+    background: rgba(234, 179, 8, 0.15) !important;
+    padding: 2px 6px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(234, 179, 8, 0.3) !important;
+    letter-spacing: 0.5px !important;
+    z-index: 10 !important;
+    text-shadow: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Hiệu ứng quét tia sáng mạ vàng góc chéo siêu mịn */
+.gold-card-royal-shine {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.gold-card-royal-shine::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -150% !important;
+    left: -150% !important;
+    width: 400% !important;
+    height: 400% !important;
+    background: linear-gradient(
+        45deg,
+        transparent 45%,
+        rgba(255, 215, 0, 0.05) 47%,
+        rgba(255, 215, 0, 0.45) 50%,
+        rgba(255, 215, 0, 0.05) 53%,
+        transparent 55%
+    ) !important;
+    transform: rotate(15deg) !important;
+    animation: goldRoyalShine 4.5s infinite ease-in-out !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+}
+
+@keyframes goldRoyalShine {
+    0% {
+        top: -150%;
+        left: -150%;
+    }
+    35%, 100% {
+        top: 50%;
+        left: 50%;
+    }
+}
+
+/* Kiểu chữ tiêu đề vàng nhũ trong thẻ bài hoàng gia */
+.gold-card-royal .gold-title-glow {
+    color: #f59e0b !important;
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.4) !important;
+    font-weight: 900 !important;
+}
+
+/* 2. Tối ưu hóa giao diện chơi game tự do (Free Play) */
+
+/* Ẩn widget điều hướng khi đang trong chế độ chơi tự do */
+body.free-play-mode-active .fixed-navigation-widget {
+    display: none !important;
+}
+
+/* Phóng to tối đa container game khi ở chế độ tự do */
+body.free-play-mode-active #td-game-container {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+body.free-play-mode-active .game-main-layout {
+    height: 100% !important;
+    align-items: stretch !important;
+}
+
+/* Mở rộng wrapper và canvas game */
+body.free-play-mode-active .canvas-wrapper {
+    max-width: calc((100vh - 120px) * 1.6) !important;
+    max-height: calc(100vh - 120px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(16, 185, 129, 0.15) !important;
+    border: 2px solid #10b981 !important;
+}
+
+/* Tối ưu hóa thanh HUD và các sidebar trong Free Play */
+body.free-play-mode-active .game-hud-bar {
+    background: rgba(5, 22, 9, 0.85) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.3) !important;
+    border-radius: 12px !important;
+    margin-bottom: 0.6rem !important;
+    padding: 8px 24px !important;
+}
+
+body.free-play-mode-active .game-sidebar-left,
+body.free-play-mode-active .game-sidebar-right {
+    background: rgba(3, 10, 5, 0.85) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.25) !important;
+    border-radius: 14px !important;
+    padding: 0.8rem !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.free-play-mode-active .btn-game-tower {
+    padding: 0.8rem 0.4rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+}
+
+body.free-play-mode-active .btn-skill {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+}
+
+/* Tùy chọn thẻ vàng trong hộp thoại Exchange (SweetAlert) */
+.gold-card-option.royal-exchange {
+    background: linear-gradient(135deg, #111827 0%, #030712 100%) !important;
+    border: 2px solid rgba(245, 158, 11, 0.3) !important;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.1) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.gold-card-option.royal-exchange:hover {
+    border-color: #f59e0b !important;
+    box-shadow: 0 6px 15px rgba(245, 158, 11, 0.2) !important;
+    transform: translateY(-2px) !important;
+}
+
+.gold-card-option.royal-exchange.selected {
+    border-color: #fbbf24 !important;
+    background: rgba(245, 158, 11, 0.05) !important;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.3) !important;
+}
+

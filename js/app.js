@@ -9964,11 +9964,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
 
             return `
-                <div class="eng-shop-card" style="background:var(--bg-card); border: 2px solid ${isGold ? '#eab308' : 'var(--border-color)'}; border-radius:20px; padding:1.5rem; text-align:center; display:flex; flex-direction:column; justify-content:space-between; align-items:center; box-shadow:${isGold ? '0 0 12px rgba(234,179,8,0.2)' : 'none'}; min-height:240px; height:100%;">
+                <div class="eng-shop-card ${isGold ? 'gold-card-royal gold-card-royal-shine' : ''}" style="background:var(--bg-card); border: 2px solid ${isGold ? 'transparent' : 'var(--border-color)'}; border-radius:20px; padding:1.5rem; text-align:center; display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:240px; height:100%;">
                     <div>
                         <div style="font-size:2.8rem; margin-bottom:0.4rem; filter: ${isUnlocked ? 'none' : 'grayscale(1) opacity(0.5)'};">${card.icon}</div>
-                        <div style="font-weight:900; font-size:1.1rem; color:var(--text-main); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;">${card.name}</div>
-                        <div style="font-size:0.8rem; color:#64748b; margin-bottom:0.5rem; min-height:36px; display:flex; align-items:center; justify-content:center; line-height:1.3;">${card.desc}</div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--text-main); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;" class="${isGold ? 'gold-title-glow' : ''}">${card.name}</div>
+                        <div style="font-size:0.8rem; color:${isGold ? '#a7f3d0' : '#64748b'}; margin-bottom:0.5rem; min-height:36px; display:flex; align-items:center; justify-content:center; line-height:1.3;">${card.desc}</div>
                     </div>
                     <div style="width:100%;">
                         <div style="margin-bottom:0.6rem;">${statusText}</div>
@@ -10032,7 +10032,29 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         this.saveEnglishState();
     },
 
+    isStudentStudying: function() {
+        const engLesson = document.getElementById('english-focus-lesson-screen');
+        const lessonDetail = document.getElementById('lesson-detail-panel');
+        const practiceTab = document.getElementById('tab-practice');
+        
+        const isEngStudying = engLesson && !engLesson.classList.contains('hidden');
+        const isMathStudying = lessonDetail && !lessonDetail.classList.contains('hidden') && practiceTab && !practiceTab.classList.contains('hidden');
+        
+        return isEngStudying || isMathStudying;
+    },
+
     openFreePlayGameSelection: function() {
+        if (this.isStudentStudying()) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Học tập là ưu tiên! 📚',
+                text: 'Con đang trong chế độ học tập tích cực. Hãy hoàn thành bài học hiện tại trước khi tham gia chơi game giải trí tự do nhé!',
+                confirmButtonText: 'Đã hiểu và tiếp tục học',
+                confirmButtonColor: '#7c3aed'
+            });
+            return;
+        }
+
         Swal.fire({
             title: 'Chọn chế độ chơi game 🎮',
             text: 'Vui lòng chọn vai trò của con:',
@@ -10073,13 +10095,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const card = SKILL_CARDS.find(c => c.id === cardId);
             if (card) {
                 optionsHtml += `
-                    <div class="gold-card-option" onclick="app.selectGoldCardToExchange('${card.id}')" id="opt-${card.id}" style="display:flex; align-items:center; gap:12px; padding:12px; margin-bottom:8px; border:2px solid var(--border-color); border-radius:12px; cursor:pointer; background:var(--bg-card); transition:all 0.2s;">
+                    <div class="gold-card-option royal-exchange gold-card-royal gold-card-royal-shine" onclick="app.selectGoldCardToExchange('${card.id}')" id="opt-${card.id}" style="display:flex; align-items:center; gap:12px; padding:12px; margin-bottom:8px; cursor:pointer;">
                         <span style="font-size:2rem; filter: drop-shadow(0 0 4px gold);">${card.icon}</span>
                         <div style="text-align:left; flex:1;">
-                            <div style="font-weight:900; color:#d97706;">${card.name} (Mạ Vàng)</div>
-                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">${card.desc}</div>
+                            <div style="font-weight:900;" class="gold-title-glow">${card.name} (Mạ Vàng)</div>
+                            <div style="font-size:0.8rem; color:#a7f3d0; font-weight:600;">${card.desc}</div>
                         </div>
-                        <div class="checkbox-indicator" style="width:20px; height:20px; border-radius:50%; border:2px solid var(--border-color); display:flex; align-items:center; justify-content:center;"></div>
+                        <div class="checkbox-indicator" style="width:20px; height:20px; border-radius:50%; border:2px solid rgba(255,215,0,0.4); display:flex; align-items:center; justify-content:center; z-index: 10;"></div>
                     </div>
                 `;
             }
@@ -10131,11 +10153,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         this.state.goldSkills.forEach(id => {
             const el = document.getElementById(`opt-${id}`);
             if (el) {
-                el.style.borderColor = 'var(--border-color)';
-                el.style.background = 'var(--bg-card)';
+                el.classList.remove('selected');
                 const indicator = el.querySelector('.checkbox-indicator');
                 if (indicator) {
-                    indicator.style.borderColor = 'var(--border-color)';
+                    indicator.style.borderColor = 'rgba(255,215,0,0.4)';
                     indicator.style.background = 'none';
                     indicator.innerHTML = '';
                 }
@@ -10144,14 +10165,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         
         const el = document.getElementById(`opt-${cardId}`);
         if (el) {
-            el.style.borderColor = '#eab308';
-            el.style.background = 'rgba(234,179,8,0.05)';
+            el.classList.add('selected');
             const indicator = el.querySelector('.checkbox-indicator');
             if (indicator) {
-                indicator.style.borderColor = '#eab308';
-                indicator.style.background = '#eab308';
+                indicator.style.borderColor = '#fbbf24';
+                indicator.style.background = '#fbbf24';
                 indicator.innerHTML = '✓';
-                indicator.style.color = 'white';
+                indicator.style.color = '#111827';
                 indicator.style.fontWeight = 'bold';
                 indicator.style.fontSize = '0.8rem';
             }
@@ -10230,6 +10250,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         gameContainer.classList.remove("hidden");
         overlay.classList.remove("hidden");
         document.body.classList.add("game-mode-active");
+        document.body.classList.add("free-play-mode-active");
 
         // Cấu hình game ở chế độ Free Play
         if (window.game) {
@@ -10316,6 +10337,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const overlay = document.getElementById("free-play-overlay");
         if (overlay) overlay.classList.add("hidden");
         document.body.classList.remove("game-mode-active");
+        document.body.classList.remove("free-play-mode-active");
 
         // Di chuyển trả game container về vị trí cũ trong DOM
         const gameContainer = document.getElementById("td-game-container");
@@ -10368,9 +10390,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             let borderStyle = "1px solid var(--border-color)";
             
             if (isGold) {
-                cardClass += " gold-skill-card-shine";
-                borderStyle = "3px solid #fbbf24";
-                cardStyle = `background: ${card.color}; color: white; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); transform: translate3d(0,0,0); position: relative;`;
+                cardClass += " gold-card-royal gold-card-royal-shine";
+                borderStyle = "2px solid transparent";
+                cardStyle = `transform: translate3d(0,0,0); position: relative;`;
             } else if (isUnlocked) {
                 cardStyle = `background: ${card.color}; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);`;
             } else {
@@ -10382,23 +10404,18 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             
             return `
                 <div class="${cardClass}" style="border: ${borderStyle}; border-radius: 16px; padding: 1.2rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 215px; height: 100%; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); ${cardStyle}">
-                    ${isGold ? `
-                        <div style="position: absolute; top: -10px; right: -10px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; font-size: 0.65rem; font-weight: 900; padding: 2px 8px; border-radius: 99px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #f59e0b; z-index: 10;">
-                            MẠ VÀNG 👑
-                        </div>
-                    ` : ''}
                     <div style="font-size: 3rem; margin-bottom: 0.2rem; filter: ${isUnlocked ? 'none' : 'grayscale(1) contrast(0.5)'};">
                         ${isUnlocked ? card.icon : '🔒'}
                     </div>
                     <div>
-                        <div style="font-weight: 900; font-size: 0.95rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; color: ${isUnlocked ? 'white' : 'var(--text-main)'};">
+                        <div style="font-weight: 900; font-size: 0.95rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; color: ${isUnlocked ? 'white' : 'var(--text-main)'};" class="${isGold ? 'gold-title-glow' : ''}">
                             ${card.name}
                         </div>
-                        <div style="font-size: 0.72rem; line-height: 1.3; color: ${isUnlocked ? 'rgba(255,255,255,0.85)' : 'var(--text-muted)'};">
+                        <div style="font-size: 0.72rem; line-height: 1.3; color: ${isGold ? '#a7f3d0' : isUnlocked ? 'rgba(255,255,255,0.85)' : 'var(--text-muted)'};">
                             ${card.desc}
                         </div>
                     </div>
-                    <div style="font-size: 0.7rem; font-weight: 800; margin-top: 6px; padding: 2px 8px; border-radius: 99px; background: ${isGold ? '#78350f' : isUnlocked ? 'rgba(255,255,255,0.2)' : 'var(--primary-bg)'}; color: ${isGold ? '#fef3c7' : isUnlocked ? 'white' : 'var(--primary)'};">
+                    <div style="font-size: 0.7rem; font-weight: 800; margin-top: 6px; padding: 2px 8px; border-radius: 99px; background: ${isGold ? 'rgba(245,158,11,0.2)' : isUnlocked ? 'rgba(255,255,255,0.2)' : 'var(--primary-bg)'}; color: ${isGold ? '#fbbf24' : isUnlocked ? 'white' : 'var(--primary)'};">
                         ${isGold ? 'CỰC PHẨM' : isUnlocked ? 'ĐÃ ĐẠT' : 'CHƯA ĐẠT'}
                     </div>
                 </div>
