@@ -7254,6 +7254,143 @@ const app = {
         this.switchLessonTab('theory');
     },
 
+    promptFastPlayGame: function() {
+        Swal.fire({
+            title: 'Nhập mật khẩu chơi game 🎮',
+            input: 'password',
+            inputPlaceholder: 'Mật khẩu...',
+            inputAttributes: {
+                autocapitalize: 'off',
+                autocorrect: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy',
+            confirmButtonColor: 'var(--primary)',
+            target: document.getElementById('splash-screen') || 'body'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value === 'haidangppk') {
+                    this.fastPlayGame();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sai mật khẩu! ❌',
+                        text: 'Mật khẩu bạn nhập không chính xác.',
+                        confirmButtonColor: 'var(--danger)',
+                        target: document.getElementById('splash-screen') || 'body'
+                    });
+                }
+            }
+        });
+    },
+
+    fastPlayGame: async function() {
+        // Dừng âm thanh greeting của Splash Screen
+        if (typeof this.stopSplashGreeting === 'function') {
+            this.stopSplashGreeting();
+        }
+        
+        if (this.audio) {
+            this.audio.init();
+            this.audio.isUnlocked = true;
+            this.audio.playStartup();
+        }
+        
+        // Ẩn Splash Screen với transition mượt mà
+        const splashScreen = document.getElementById("splash-screen");
+        if (splashScreen) {
+            splashScreen.classList.add("fade-out");
+            setTimeout(() => {
+                splashScreen.style.display = "none";
+            }, 600);
+        }
+        
+        // Khởi tạo workspace học sinh nếu cần
+        await this.initStudentWorkspace();
+        
+        // Chọn môn học là Tiếng Anh để tuân thủ quy tắc bảo toàn môn Toán (Quy tắc 10)
+        this.currentSubject = 'english';
+        
+        // Tìm bài học tiếng Anh có thực trong COURSE_DATA để questions.js tham chiếu an toàn
+        let englishLesson = null;
+        if (typeof COURSE_DATA !== 'undefined') {
+            const englishChapter = COURSE_DATA.find(chap => chap.subject === 'english');
+            if (englishChapter && englishChapter.lessons && englishChapter.lessons.length > 0) {
+                englishLesson = englishChapter.lessons[0];
+            }
+        }
+        
+        if (!englishLesson) {
+            englishLesson = {
+                id: 'fast-game-english-lesson',
+                title: 'English Tower Defense Challenge',
+                subject: 'english'
+            };
+        }
+        
+        if (window.questions) {
+            // Thiết lập trạng thái làm bài tập giả lập của questions
+            questions.isFastGame = true; // Lưu cờ trạng thái chơi nhanh
+            questions.currentLesson = englishLesson;
+            
+            // Tải Hero
+            questions.hero.load();
+            if (!questions.hero.selectedId) {
+                questions.hero.selectedId = 'light_warrior'; // Mặc định chọn light_warrior
+            }
+            
+            // Tạo 5 câu hỏi dummy đã trả lời đúng để bỏ qua phần làm toán trắc nghiệm
+            questions.currentQuestions = Array.from({length: 5}, (_, i) => ({
+                id: 'dummy_' + i,
+                type: 'trac-nghiem',
+                questionText: 'Thử thách phòng thủ tháp canh tiếng Anh!',
+                options: ['Đúng', 'Sai A', 'Sai B', 'Sai C'],
+                correctIndex: 0,
+                userSelectedIndex: 0 // Đã trả lời đúng
+            }));
+            questions.currentQuestionIndex = 0;
+            questions.correctCount = 5;
+            questions.practiceMode = 'game';
+            questions.accumulatedGold = 350; // Tặng sẵn 350 vàng để xây tháp phòng thủ
+            questions.accumulatedXp = 100;
+            questions.isExamMode = false;
+            questions.isGraded = false;
+            questions.practiceStartTime = Date.now();
+            
+            // Đảm bảo hiển thị màn hình timeline ở chế độ xem chi tiết bài học
+            this.showScreen('lesson');
+            const englishPortal = document.getElementById("screen-english-portal");
+            if (englishPortal) englishPortal.classList.add("hidden");
+            
+            // Chuyển sang Tab thực hành
+            this.switchLessonTab('practice', false);
+            
+            // Ẩn tất cả các box intro khác, chỉ hiển thị box làm bài chính
+            const boxIds = [
+                "practice-locked-warning-box",
+                "practice-lesson-exam-intro-box",
+                "practice-level-select-box",
+                "practice-exam-intro-box",
+                "practice-levels-dashboard-box",
+                "practice-mode-select-box"
+            ];
+            boxIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add("hidden");
+            });
+            
+            const activeBox = document.getElementById("practice-active-box");
+            if (activeBox) activeBox.classList.remove("hidden");
+            
+            // Chuyển sang Phase chiến đấu thủ thành trực tiếp
+            questions.switchToBattlePhase();
+            
+            // Khởi chạy heartbeat/telemetry học tập
+            this.startHeartbeat();
+        }
+    },
+
     checkSubjectSelection: function() {
         const classLevel = this.config.currentClass || "6";
         const availableSubjects = Object.values(SYSTEM_SUBJECTS).filter(s => s.supportedClasses.includes(classLevel));

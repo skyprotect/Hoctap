@@ -8716,6 +8716,60 @@ const questions = {
         document.body.classList.remove("practice-fullscreen-active");
         app.restoreScrollbar();
 
+        if (this.isFastGame) {
+            // Chế độ chơi game nhanh: Bỏ qua việc lưu tiến trình/session học tập để tránh ghi dữ liệu giả
+            this.correctCount = 5;
+            
+            const resultScoreTitle = document.getElementById("result-score-title");
+            if (resultScoreTitle) resultScoreTitle.innerText = "Xuất sắc (100%)";
+            
+            const resultScoreDesc = document.getElementById("result-score-desc");
+            if (resultScoreDesc) resultScoreDesc.innerText = "Chúc mừng bạn đã hoàn thành Đấu Trường Thủ Thành!";
+            
+            const xpEarnedVal = document.getElementById("xp-earned-val");
+            if (xpEarnedVal) xpEarnedVal.innerText = "100";
+            
+            const correctCountEl = document.getElementById("result-correct-count");
+            if (correctCountEl) correctCountEl.innerText = "5/5";
+            
+            const rankBadge = document.getElementById("result-rank-badge");
+            if (rankBadge) {
+                rankBadge.innerText = "Chiến Thần";
+                rankBadge.style.backgroundColor = "var(--success-bg)";
+                rankBadge.style.color = "var(--success)";
+            }
+
+            // Bắn pháo hoa giấy và phát âm thanh vui vẻ
+            app.confetti.start();
+            app.audio.playBadge();
+
+            // Cấu hình lại các nút ở màn hình kết quả
+            const backBtn = document.getElementById("btn-back-to-practice");
+            if (backBtn) {
+                backBtn.innerHTML = `<i class="fa-solid fa-house"></i> Màn hình chính`;
+                backBtn.onclick = function() {
+                    window.location.reload();
+                };
+            }
+            const retryBtn = document.getElementById("retry-practice-btn");
+            if (retryBtn) {
+                retryBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> Chơi lại game`;
+                retryBtn.onclick = function() {
+                    if (window.app && typeof app.fastPlayGame === 'function') {
+                        app.fastPlayGame();
+                    }
+                };
+            }
+            const reviewBtn = document.getElementById("btn-show-practice-review");
+            if (reviewBtn) {
+                reviewBtn.classList.add("hidden");
+            }
+
+            document.getElementById("practice-active-box").classList.add("hidden");
+            document.getElementById("practice-result-box").classList.remove("hidden");
+            return;
+        }
+
         // Chấm điểm hàng loạt các câu hỏi
         this.correctCount = 0;
         this.currentQuestions.forEach(q => {
@@ -9169,6 +9223,24 @@ const questions = {
     },
 
     exitPractice: function() {
+        if (this.isFastGame) {
+            Swal.fire({
+                title: 'Con muốn dừng chơi game?',
+                text: 'Hệ thống sẽ tải lại trang và đưa con về màn hình chính.',
+                icon: 'warning',
+                target: document.getElementById('tab-practice') || 'body',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--danger)',
+                cancelButtonColor: 'var(--primary)',
+                confirmButtonText: 'Có, dừng chơi',
+                cancelButtonText: 'Không, chơi tiếp'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+            return;
+        }
         if (this.isExiting) return;
         this.isExiting = true;
 

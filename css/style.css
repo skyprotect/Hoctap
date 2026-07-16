@@ -3742,6 +3742,43 @@ body.light-mode .ai-lesson-node.pending {
     transform: scale(0.98);
 }
 
+.btn-splash-fast-game {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 1.1rem 3.5rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    animation: pulseFastGameBtn 2.2s infinite;
+}
+
+.btn-splash-fast-game:hover {
+    transform: scale(1.06);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-splash-fast-game:active {
+    transform: scale(0.98);
+}
+
+@keyframes pulseFastGameBtn {
+    0%, 100% {
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 45px rgba(16, 185, 129, 0.75);
+    }
+}
+
 @keyframes pulseStartBtn {
     0%, 100% {
         box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
