@@ -1,0 +1,14 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-16T11:33:04.268Z
+Student ID: std_htsj4gbmo
+Lesson ID: unknown
+Lesson Title: unknown
+==================================================
+
+[ERROR DETAILS]
+Uncaught TypeError: Cannot read properties of null (reading 'subtopics')
+TypeError: Cannot read properties of null (reading 'subtopics')
+    at Object.switchLessonTab (http://localhost:3000/js/app.js?v=10.85:5485:45)
+    at HTMLButtonElement.onclick (http://localhost:3000/:1002:192)
+
