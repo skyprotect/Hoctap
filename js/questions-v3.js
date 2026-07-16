@@ -8668,6 +8668,7 @@ const questions = {
 
     // Callback được gọi từ game.js khi đợt quái thủ thành kết thúc
     onWaveComplete: function() {
+        if (!this.currentQuestions) return;
         const nextBtn = document.getElementById("next-question-btn");
         if (nextBtn) {
             nextBtn.disabled = false;

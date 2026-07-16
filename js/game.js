@@ -637,6 +637,24 @@ const game = {
         this.renderedHeroSkillsId = null;
         this.updateSkillsHUD();
         
+        // Khởi tạo biến cho cơ chế mới: Vật phẩm rơi & Thời tiết ngẫu nhiên bớt đồng điệu
+        this.drops = [];
+        this.weatherParticles = [];
+        const weatherTypes = ['snow', 'leaves', 'magic_dust'];
+        this.weatherType = weatherTypes[Math.floor(Math.random() * weatherTypes.length)];
+        
+        // Tạo các hạt thời tiết ban đầu rải rác
+        for (let i = 0; i < 40; i++) {
+            this.weatherParticles.push({
+                x: Math.random() * 880,
+                y: Math.random() * 600,
+                size: 1.2 + Math.random() * 2.5,
+                speed: 0.4 + Math.random() * 0.8,
+                angle: Math.random() * Math.PI * 2,
+                spin: 0.01 + Math.random() * 0.02
+            });
+        }
+        
         // Nạp trước tài nguyên hình ảnh game nếu chưa nạp
         if (!this.imagesLoaded) {
             this.loadGameAssets();
@@ -878,6 +896,17 @@ const game = {
             const x = (e.clientX - rect.left) * (this.canvas.width / rect.width);
             const y = (e.clientY - rect.top) * (this.canvas.height / rect.height);
             
+            // 2.0.1. Kiểm tra click trúng vật phẩm rơi (drops) trước tiên
+            if (this.drops && this.drops.length > 0) {
+                for (let i = this.drops.length - 1; i >= 0; i--) {
+                    const drop = this.drops[i];
+                    if (Math.hypot(drop.x - x, drop.y - y) < 30) {
+                        this.collectDrop(drop, i);
+                        return; // Nhặt xong thoát ngay, không thực hiện hành động nào khác
+                    }
+                }
+            }
+            
             // 2.1. Nếu đang có hộp thoại xác nhận xây tháp, kiểm tra click trúng nút V hoặc X trước
             if (this.confirmBuildPos) {
                 const buildX = this.confirmBuildPos.x;
@@ -962,7 +991,7 @@ const game = {
                 this.confirmBuildPos = null;
             }
             
-            // 2.2. Kiểm tra bấm trúng tháp đã xây để xem nâng cấp/bán
+            // 2.2. Kiểm tra bấm trúng tháp đã xây để xem nâng cấp/bán HOẶC Kích Tốc (Click Boost)
             let clickedTower = null;
             for (let t of this.towers) {
                 const dist = Math.hypot(t.x - x, t.y - y);
@@ -974,6 +1003,33 @@ const game = {
             
             if (clickedTower) {
                 this.selectedTowerInstance = clickedTower;
+                
+                // Logic Kích tốc Tháp (Click Boost) - Mới lạ hấp dẫn
+                if (!clickedTower.boostTimer && !clickedTower.boostCooldown) {
+                    clickedTower.boostClicks = (clickedTower.boostClicks || 0) + 1;
+                    clickedTower.lastClickTime = performance.now();
+                    
+                    if (clickedTower.boostClicks >= 3) {
+                        clickedTower.boostTimer = 4 * 60; // 4 giây (240 frames)
+                        clickedTower.boostCooldown = 8 * 60; // 8 giây hồi chiêu (480 frames)
+                        clickedTower.boostClicks = 0;
+                        this.spawnPopup(clickedTower.x, clickedTower.y - 30, "⚡ KÍCH TỐC (x2 Tốc Bắn)!", "#06b6d4", 16);
+                        
+                        // Phát tiếng sét uy lực
+                        if (window.app && app.audio) {
+                            app.audio.playTdSound('thunder');
+                        }
+                    } else {
+                        const needed = 3 - clickedTower.boostClicks;
+                        this.spawnPopup(clickedTower.x, clickedTower.y - 25, `Nhấp ${needed} lần nữa để Kích tốc!`, "#a7f3d0", 12);
+                    }
+                } else if (clickedTower.boostTimer > 0) {
+                    this.spawnPopup(clickedTower.x, clickedTower.y - 25, "Đang Kích Tốc!", "#06b6d4", 13);
+                } else if (clickedTower.boostCooldown > 0) {
+                    const secs = Math.ceil(clickedTower.boostCooldown / 60);
+                    this.spawnPopup(clickedTower.x, clickedTower.y - 25, `Đang hồi chiêu: ${secs}s`, "#94a3b8", 12);
+                }
+
                 this.updateHUD();
                 return;
             }
@@ -2237,7 +2293,16 @@ const game = {
                 if (tower.angle === undefined) tower.angle = -Math.PI / 2; // Hướng lên mặc định
             }
 
-            tower.timer++;
+            // Cập nhật thời gian Boost
+            if (tower.boostTimer && tower.boostTimer > 0) {
+                tower.boostTimer--;
+            }
+            if (tower.boostCooldown && tower.boostCooldown > 0) {
+                tower.boostCooldown--;
+            }
+
+            // Tốc độ bắn x2 khi ở trạng thái Overdrive (Boost)
+            tower.timer += (tower.boostTimer && tower.boostTimer > 0) ? 2 : 1;
             if (tower.timer >= tower.cooldown) {
                 if (target) {
                     this.fireProjectile(tower, target);
@@ -2517,12 +2582,16 @@ const game = {
             this.doubleGoldTimer--;
         }
 
+        // Cập nhật các cơ chế thời tiết và vật phẩm rơi mới
+        this.updateWeather();
+        this.updateDrops();
+
         // 7. Kiểm tra đợt quái hoàn thành (khi quái chết hết và không sinh thêm nữa)
         if (this.isWaveActive && this.hasStartedSpawning && !this.isSpawning && this.enemies.length === 0) {
             this.isWaveActive = false;
             
             // Gọi callback thông báo đợt quái hoàn thành để questions.js mở khóa nút Tiếp tục làm bài
-            if (window.questions && typeof window.questions.onWaveComplete === 'function') {
+            if (!this.isFreePlay && window.questions && typeof window.questions.onWaveComplete === 'function') {
                 window.questions.onWaveComplete();
             }
             
@@ -2642,6 +2711,28 @@ const game = {
                         life: 20 + Math.random() * 15,
                         maxLife: 35,
                         size: 2 + Math.random() * 2
+                    });
+                }
+                
+                // Sinh vật phẩm rơi ngẫu nhiên (Power-up drops) với tỷ lệ 15%
+                if (Math.random() < 0.15) {
+                    if (!this.drops) this.drops = [];
+                    const rand = Math.random();
+                    let dropType = 'gold_chest';
+                    if (rand < 0.5) {
+                        dropType = 'gold_chest';
+                    } else if (rand < 0.75) {
+                        dropType = 'castle_heart';
+                    } else {
+                        dropType = 'mana_potion';
+                    }
+                    
+                    this.drops.push({
+                        x: x,
+                        y: y,
+                        type: dropType,
+                        life: 360, // 6 giây biến mất
+                        yOffset: 0
                     });
                 }
                 
@@ -4690,6 +4781,32 @@ const game = {
             this.ctx.ellipse(t.x, t.y + 11, 19, 6, 0, 0, Math.PI * 2);
             this.ctx.fill();
 
+            // Vẽ hiệu ứng kích tốc (Boost/Overdrive) xung quanh tháp
+            if (t.boostTimer && t.boostTimer > 0) {
+                this.ctx.save();
+                this.ctx.strokeStyle = `rgba(6, 182, 212, ${0.4 + 0.6 * Math.abs(Math.sin(performance.now() / 100))})`;
+                this.ctx.lineWidth = 2.5;
+                this.ctx.shadowColor = '#06b6d4';
+                this.ctx.shadowBlur = 12;
+                this.ctx.beginPath();
+                this.ctx.arc(t.x, t.y, 22, 0, Math.PI * 2);
+                this.ctx.stroke();
+                
+                // Vẽ các tia điện nhỏ phát ra từ tháp
+                if (Math.random() < 0.35) {
+                    this.ctx.strokeStyle = '#ffffff';
+                    this.ctx.lineWidth = 1.5;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(t.x, t.y - 12);
+                    let ex = t.x + (Math.random() - 0.5) * 36;
+                    let ey = t.y - 12 + (Math.random() - 0.5) * 36;
+                    this.ctx.lineTo((t.x + ex) / 2 + (Math.random() - 0.5) * 8, (t.y - 12 + ey) / 2 + (Math.random() - 0.5) * 8);
+                    this.ctx.lineTo(ex, ey);
+                    this.ctx.stroke();
+                }
+                this.ctx.restore();
+            }
+
             // Vẽ tháp
             this.drawSingleTower(t);
         });
@@ -5102,6 +5219,11 @@ const game = {
             this.ctx.fillText("QUÁI VẬT SẮP XUẤT HIỆN!", this.canvas.width / 2, this.canvas.height / 2 + 60);
             this.ctx.restore();
         }
+
+        // Vẽ các vật phẩm rơi (drops) & thời tiết động mới bổ sung
+        this.drawDrops();
+        this.drawWeather();
+
         this.ctx.restore();
     },
     
@@ -5160,6 +5282,9 @@ const game = {
         setTimeout(() => {
             canvasContainer.classList.remove("shake-red-effect");
         }, 300);
+        
+        // Rung lắc màn hình canvas thực tế
+        this.screenShake = Math.max(this.screenShake || 0, 15);
         
         // Kích hoạt tiếng nổ / sai nhẹ của hệ thống
         if (window.app && app.audio) app.audio.playWrong();
@@ -6134,6 +6259,160 @@ const game = {
                 window.questions.finishPractice();
             }
         });
+    },
+
+    // Hồi máu lâu đài
+    healCastle: function(amount) {
+        this.hp = Math.min(this.maxHp, this.hp + amount);
+        this.updateHUD();
+    },
+
+    // Kích hoạt nhặt vật phẩm rơi (drops)
+    collectDrop: function(drop, index) {
+        this.drops.splice(index, 1);
+        
+        if (drop.type === 'gold_chest') {
+            const goldAmount = Math.round(50 + Math.random() * 30);
+            this.gold += goldAmount;
+            this.updateHUD();
+            this.spawnPopup(drop.x, drop.y, `+${goldAmount}G 🪙`, "#fbbf24", 18);
+            if (window.app && app.audio) app.audio.playTdSound('coin');
+            
+        } else if (drop.type === 'castle_heart') {
+            this.healCastle(1);
+            this.spawnPopup(drop.x, drop.y, `+1 HP ❤️`, "#ef4444", 18);
+            if (window.app && app.audio) app.audio.playTdSound('sword_slash');
+            
+        } else if (drop.type === 'mana_potion') {
+            this.mana = Math.min(this.maxMana, this.mana + 30);
+            this.updateSkillsHUD();
+            this.spawnPopup(drop.x, drop.y, `+30 Mana 🧪`, "#3b82f6", 18);
+            if (window.app && app.audio) app.audio.playTdSound('ice');
+        }
+    },
+
+    // Cập nhật các hạt thời tiết động
+    updateWeather: function() {
+        if (!this.weatherParticles) this.weatherParticles = [];
+        const width = this.canvas ? this.canvas.width : 880;
+        const height = this.canvas ? this.canvas.height : 600;
+        
+        this.weatherParticles.forEach(p => {
+            if (this.weatherType === 'snow') {
+                p.y += p.speed * 0.8;
+                p.x += Math.sin(p.angle) * 0.3;
+                p.angle += p.spin;
+            } else if (this.weatherType === 'leaves') {
+                p.y += p.speed * 1.2;
+                p.x += Math.sin(p.angle) * 0.7;
+                p.angle += p.spin * 1.5;
+            } else if (this.weatherType === 'magic_dust') {
+                p.y += p.speed * 0.5;
+                p.x += Math.sin(p.angle) * 0.4;
+                p.angle += p.spin;
+            }
+            
+            // Nếu bay quá mép dưới hoặc 2 bên thì reset lại lên trên
+            if (p.y > height) {
+                p.y = -10;
+                p.x = Math.random() * width;
+            }
+            if (p.x < -10) p.x = width + 5;
+            if (p.x > width + 10) p.x = -5;
+        });
+    },
+
+    // Vẽ thời tiết động lên canvas
+    drawWeather: function() {
+        if (!this.weatherParticles || this.weatherParticles.length === 0) return;
+        
+        this.ctx.save();
+        this.weatherParticles.forEach(p => {
+            if (this.weatherType === 'snow') {
+                this.ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                this.ctx.fill();
+            } else if (this.weatherType === 'leaves') {
+                // Vẽ chiếc lá phong đơn giản
+                this.ctx.fillStyle = p.size > 2.5 ? 'rgba(239, 68, 68, 0.65)' : 'rgba(245, 158, 11, 0.65)';
+                this.ctx.save();
+                this.ctx.translate(p.x, p.y);
+                this.ctx.rotate(p.angle);
+                this.ctx.beginPath();
+                this.ctx.ellipse(0, 0, p.size * 2, p.size, 0, 0, Math.PI * 2);
+                this.ctx.fill();
+                this.ctx.restore();
+            } else if (this.weatherType === 'magic_dust') {
+                // Vẽ bụi sáng ma thuật nhấp nháy tinh tế
+                this.ctx.fillStyle = `rgba(168, 85, 247, ${0.4 + Math.sin(p.angle) * 0.3})`;
+                this.ctx.shadowColor = '#c084fc';
+                this.ctx.shadowBlur = 4;
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.size * 0.8, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+        });
+        this.ctx.restore();
+    },
+
+    // Cập nhật các vật phẩm rơi (drops)
+    updateDrops: function() {
+        if (!this.drops) this.drops = [];
+        for (let i = this.drops.length - 1; i >= 0; i--) {
+            const drop = this.drops[i];
+            drop.life--;
+            
+            // Hiệu ứng bập bùng nhẹ (floating) theo hàm sin
+            drop.yOffset = Math.sin(performance.now() / 200) * 4;
+            
+            if (drop.life <= 0) {
+                this.drops.splice(i, 1);
+            }
+        }
+    },
+
+    // Vẽ vật phẩm rơi lên Canvas
+    drawDrops: function() {
+        if (!this.drops || this.drops.length === 0) return;
+        
+        this.ctx.save();
+        this.drops.forEach(drop => {
+            const drawY = drop.y + (drop.yOffset || 0);
+            
+            // Vẽ bóng mờ chói sáng xung quanh vật phẩm rơi (Glow)
+            this.ctx.beginPath();
+            const glowGrad = this.ctx.createRadialGradient(drop.x, drawY, 2, drop.x, drawY, 25);
+            
+            let emoji = '🪙';
+            let glowColor = 'rgba(251, 191, 36, 0.45)';
+            if (drop.type === 'castle_heart') {
+                emoji = '❤️';
+                glowColor = 'rgba(239, 68, 68, 0.45)';
+            } else if (drop.type === 'mana_potion') {
+                emoji = '🧪';
+                glowColor = 'rgba(59, 130, 246, 0.45)';
+            }
+            
+            glowGrad.addColorStop(0, glowColor);
+            glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            this.ctx.fillStyle = glowGrad;
+            this.ctx.arc(drop.x, drawY, 25, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Vẽ emoji ở chính giữa
+            this.ctx.font = '24px sans-serif';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            
+            // Tạo hiệu ứng nhấp nháy mờ ảo khi sắp biến mất (dưới 2 giây)
+            if (drop.life < 120) {
+                this.ctx.globalAlpha = 0.3 + 0.7 * Math.abs(Math.sin(drop.life / 8));
+            }
+            
+            this.ctx.fillText(emoji, drop.x, drawY);
+        });
+        this.ctx.restore();
     }
 };
 
