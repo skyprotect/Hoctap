@@ -6,6 +6,7 @@ const game = {
     lastTime: 0,
     accumulator: 0,
     timestep: 1000 / 60,
+    isFreePlay: false,
     
     // Bộ nhớ đệm và trình nạp tài nguyên hình ảnh game
     images: {},
@@ -2551,6 +2552,29 @@ const game = {
                     // Tạo hiệu ứng pháo hoa ăn mừng lớn
                     this.createVictoryConfetti(270, 100);
                     
+                    if (this.isFreePlay) {
+                        Swal.fire({
+                            title: 'CHIẾN THẮNG RỰC RỠ! 🏆',
+                            html: `<div style="font-size: 3.5rem; margin-bottom: 1rem;">🏰✨</div>
+                                   <p>Chúc mừng con! Con đã phòng thủ thành công lâu đài qua cả <b>${this.totalWaves} đợt quái vật nguy hiểm</b>!</p>`,
+                            showCancelButton: true,
+                            confirmButtonText: 'Chơi lại 🎮',
+                            cancelButtonText: 'Thoát game 🚪',
+                            confirmButtonColor: 'var(--success)',
+                            cancelButtonColor: 'var(--danger)',
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                game.init('td-canvas', 5, game.hero);
+                            } else {
+                                if (window.app && typeof app.exitFreePlayGame === 'function') {
+                                    app.exitFreePlayGame();
+                                }
+                            }
+                        });
+                        return;
+                    }
+                    
                     Swal.fire({
                         title: 'CHIẾN THẮNG RỰC RỠ! 🏆',
                         html: `<div style="font-size: 3.5rem; margin-bottom: 1rem;">🏰✨</div>
@@ -2560,8 +2584,8 @@ const game = {
                         confirmButtonColor: 'var(--success)',
                         target: document.getElementById('tab-practice') || 'body',
                         allowOutsideClick: false
-                    }).then(() => {
-                        if (window.questions && typeof window.questions.finishPractice === 'function') {
+                    }).then((result) => {
+                        if (result && window.questions && typeof window.questions.finishPractice === 'function') {
                             window.questions.finishPractice();
                         }
                     });
@@ -6059,6 +6083,29 @@ const game = {
         
         // Kích hoạt tiếng Defeat
         if (window.app && app.audio) app.audio.playDefeat();
+        
+        if (this.isFreePlay) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lâu đài bị thất thủ! 🏰',
+                text: 'Máu lâu đài đã về 0. Con muốn chơi lại hay thoát game?',
+                showCancelButton: true,
+                confirmButtonText: 'Chơi lại 🎮',
+                cancelButtonText: 'Thoát game 🚪',
+                confirmButtonColor: 'var(--primary)',
+                cancelButtonColor: 'var(--danger)',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    game.init('td-canvas', 5, game.hero);
+                } else {
+                    if (window.app && typeof app.exitFreePlayGame === 'function') {
+                        app.exitFreePlayGame();
+                    }
+                }
+            });
+            return;
+        }
         
         // Thực hiện hạ cấp anh hùng
         let downgradeMsg = "";

@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=10.86">
+    <link rel="stylesheet" href="css/style.css?v=10.87">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -811,7 +811,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v10.86 (Cập nhật: 16/07/2026 18:35)</div>
+            <div class="splash-version-tag">Phiên bản: v10.87 (Cập nhật: 16/07/2026 18:44)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -906,6 +906,12 @@
                 <span>Đánh Giá</span>
             </button>
             
+            <!-- Nút Chơi Game giải trí tự do -->
+            <button id="btn-free-play-game" class="btn-parent" onclick="app.openFreePlayGameSelection()" style="background: linear-gradient(135deg, #06b6d4, #0891b2) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Chơi Game Giải Trí Tự Do">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Chơi Game</span>
+            </button>
+
             <!-- Nút Dashboard Phụ huynh -->
             <button class="btn-parent" onclick="window.location.href='/admin'">
                 <i class="fa-solid fa-user-shield"></i>
@@ -1928,19 +1934,19 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=10.86"></script>
-    <script src="js/lessons.js?v=10.86"></script>
-    <script src="js/questions-v1.js?v=10.86"></script>
-    <script src="js/questions-v4.js?v=10.86"></script>
-    <script src="js/questions-v3.js?v=10.86"></script>
-    <script src="js/game.js?v=10.86"></script>
+    <script src="js/english_data.js?v=10.87"></script>
+    <script src="js/lessons.js?v=10.87"></script>
+    <script src="js/questions-v1.js?v=10.87"></script>
+    <script src="js/questions-v4.js?v=10.87"></script>
+    <script src="js/questions-v3.js?v=10.87"></script>
+    <script src="js/game.js?v=10.87"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
-    <script src="js/app.js?v=10.86"></script>
+    <script src="js/app.js?v=10.87"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2916,7 +2922,32 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v10.86 (Cập nhật: 16/07/2026 18:35)
+        Phiên bản: v10.87 (Cập nhật: 16/07/2026 18:44)
+    </div>
+
+    <!-- OVERLAY CHƠI GAME TỰ DO -->
+    <div id="free-play-overlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; background: #030e06; display: flex; flex-direction: column; overflow: hidden; font-family: 'Inter', sans-serif;">
+        <div class="free-play-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #051609; border-bottom: 2px solid #10b981; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 10;">
+            <div style="display: flex; align-items: center; gap: 12px; color: white;">
+                <span style="font-size: 1.8rem; filter: drop-shadow(0 0 4px #10b981);">🎮</span>
+                <div>
+                    <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #10b981; letter-spacing: 0.5px;" id="free-play-title">CHẾ ĐỘ GIẢI TRÍ TỰ DO</h3>
+                    <p style="margin: 2px 0 0 0; font-size: 0.75rem; color: #a7f3d0; font-weight: 500;">Bảo vệ lâu đài bằng các tháp canh chiến thuật!</p>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <span id="free-play-timer" style="font-weight: 800; color: #f59e0b; background: rgba(245,158,11,0.1); padding: 6px 16px; border-radius: 20px; border: 1.5px solid #f59e0b; font-size: 1.1rem; display: none; box-shadow: 0 0 10px rgba(245,158,11,0.2); letter-spacing: 0.5px;">
+                    ⏳ Còn lại: 07:00
+                </span>
+                <button onclick="app.exitFreePlayGame()" style="background: linear-gradient(135deg, #ef4444, #dc2626); border: none; color: white; padding: 8px 18px; border-radius: 10px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 6px rgba(239,68,68,0.2); transition: all 0.2s;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Thoát Game
+                </button>
+            </div>
+        </div>
+        <!-- Vùng chứa game container sau khi di chuyển -->
+        <div id="free-play-game-wrapper" style="flex: 1; width: 100%; height: calc(100vh - 70px); display: flex; justify-content: center; align-items: center; background: #020703; position: relative; padding: 1rem;">
+            <!-- #td-game-container sẽ được append vào đây khi chơi -->
+        </div>
     </div>
 </body>
 </html>

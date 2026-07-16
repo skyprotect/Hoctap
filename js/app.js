@@ -10032,6 +10032,308 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         this.saveEnglishState();
     },
 
+    openFreePlayGameSelection: function() {
+        Swal.fire({
+            title: 'Chọn chế độ chơi game 🎮',
+            text: 'Vui lòng chọn vai trò của con:',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Học sinh 🎒',
+            cancelButtonText: 'Phụ huynh 🔑',
+            confirmButtonColor: '#06b6d4',
+            cancelButtonColor: '#7c3aed',
+            allowOutsideClick: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Chế độ Học sinh
+                this.openStudentGameExchange();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Chế độ Phụ huynh
+                this.openParentGameVerification();
+            }
+        });
+    },
+
+    openStudentGameExchange: function() {
+        if (!this.state.goldSkills || this.state.goldSkills.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Chưa có thẻ mạ vàng! 🌟',
+                html: `Con cần có ít nhất 1 thẻ năng lực <b>Mạ Vàng</b> để đổi lấy 7 phút chơi game.<br/><br/>Hãy tích lũy điểm <b>XP</b> và vào mục <b>Cửa Hàng (Shop)</b> ở phần Tiếng Anh để mạ vàng các thẻ năng lực đã đạt được nhé!`,
+                confirmButtonText: 'Đã hiểu',
+                confirmButtonColor: '#eab308'
+            });
+            return;
+        }
+
+        // Tạo giao diện chọn thẻ mạ vàng để đổi
+        app.selectedExchangeCardId = null;
+        let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
+        this.state.goldSkills.forEach(cardId => {
+            const card = SKILL_CARDS.find(c => c.id === cardId);
+            if (card) {
+                optionsHtml += `
+                    <div class="gold-card-option" onclick="app.selectGoldCardToExchange('${card.id}')" id="opt-${card.id}" style="display:flex; align-items:center; gap:12px; padding:12px; margin-bottom:8px; border:2px solid var(--border-color); border-radius:12px; cursor:pointer; background:var(--bg-card); transition:all 0.2s;">
+                        <span style="font-size:2rem; filter: drop-shadow(0 0 4px gold);">${card.icon}</span>
+                        <div style="text-align:left; flex:1;">
+                            <div style="font-weight:900; color:#d97706;">${card.name} (Mạ Vàng)</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">${card.desc}</div>
+                        </div>
+                        <div class="checkbox-indicator" style="width:20px; height:20px; border-radius:50%; border:2px solid var(--border-color); display:flex; align-items:center; justify-content:center;"></div>
+                    </div>
+                `;
+            }
+        });
+        optionsHtml += '</div>';
+
+        Swal.fire({
+            title: 'Đổi thẻ mạ vàng lấy giờ chơi 🔄',
+            html: `
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng của con để đổi lấy <b>7 phút chơi game</b> (thẻ sẽ bị tiêu hao vĩnh viễn):</p>
+                ${optionsHtml}
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận đổi',
+            cancelButtonText: 'Hủy bỏ',
+            confirmButtonColor: '#eab308',
+            cancelButtonColor: '#475569',
+            allowOutsideClick: false,
+            didOpen: () => {
+                const confirmBtn = Swal.getConfirmButton();
+                if (confirmBtn) confirmBtn.setAttribute('disabled', 'true');
+            }
+        }).then((result) => {
+            if (result.isConfirmed && app.selectedExchangeCardId) {
+                const cardId = app.selectedExchangeCardId;
+                // Xóa thẻ khỏi danh sách
+                this.state.goldSkills = this.state.goldSkills.filter(id => id !== cardId);
+                this.saveEnglishState();
+
+                // Lấy thông tin thẻ để hiển thị thông báo chúc mừng
+                const card = SKILL_CARDS.find(c => c.id === cardId);
+                const cardName = card ? card.name : "Thẻ năng lực";
+
+                Swal.fire({
+                    title: 'Đổi thẻ thành công! 🎉',
+                    html: `Đã đổi thẻ <b>"${cardName}"</b> lấy <b>7 phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
+                    icon: 'success',
+                    confirmButtonText: 'Vào chơi ngay 🚀',
+                    confirmButtonColor: '#10b981'
+                }).then(() => {
+                    this.startFreePlayGame(420); // 7 phút = 420 giây
+                });
+            }
+        });
+    },
+
+    selectGoldCardToExchange: function(cardId) {
+        if (!this.state.goldSkills) return;
+        this.state.goldSkills.forEach(id => {
+            const el = document.getElementById(`opt-${id}`);
+            if (el) {
+                el.style.borderColor = 'var(--border-color)';
+                el.style.background = 'var(--bg-card)';
+                const indicator = el.querySelector('.checkbox-indicator');
+                if (indicator) {
+                    indicator.style.borderColor = 'var(--border-color)';
+                    indicator.style.background = 'none';
+                    indicator.innerHTML = '';
+                }
+            }
+        });
+        
+        const el = document.getElementById(`opt-${cardId}`);
+        if (el) {
+            el.style.borderColor = '#eab308';
+            el.style.background = 'rgba(234,179,8,0.05)';
+            const indicator = el.querySelector('.checkbox-indicator');
+            if (indicator) {
+                indicator.style.borderColor = '#eab308';
+                indicator.style.background = '#eab308';
+                indicator.innerHTML = '✓';
+                indicator.style.color = 'white';
+                indicator.style.fontWeight = 'bold';
+                indicator.style.fontSize = '0.8rem';
+            }
+        }
+        app.selectedExchangeCardId = cardId;
+        const confirmBtn = Swal.getConfirmButton();
+        if (confirmBtn) confirmBtn.removeAttribute('disabled');
+    },
+
+    openParentGameVerification: function() {
+        Swal.fire({
+            title: 'Xác thực phụ huynh 🔑',
+            text: 'Nhập Mật mã/Mã PIN phụ huynh để chơi game vô hạn thời gian:',
+            input: 'password',
+            inputPlaceholder: 'Nhập mã PIN phụ huynh...',
+            showCancelButton: true,
+            confirmButtonColor: '#7c3aed',
+            cancelButtonColor: '#475569',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy bỏ'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const pin = result.value;
+                if (!pin) {
+                    Swal.fire({ icon: 'error', title: 'Lỗi', text: 'Vui lòng nhập mã PIN phụ huynh!' });
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Đang xác thực...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                try {
+                    const res = await fetch(this.getApiUrl("/api/verify-pin"), {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ pin })
+                    });
+                    const data = await res.json();
+                    
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Xác thực thành công! ✨',
+                            text: 'Phụ huynh đã mở khóa chế độ chơi game vô hạn thời gian.',
+                            icon: 'success',
+                            confirmButtonText: 'Bắt đầu chơi 🚀',
+                            confirmButtonColor: '#10b981'
+                        }).then(() => {
+                            this.startFreePlayGame(Infinity);
+                        });
+                    } else {
+                        Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Mã PIN phụ huynh không chính xác!' });
+                    }
+                } catch (e) {
+                    console.error("Lỗi xác thực PIN chơi game:", e);
+                    Swal.fire({ icon: 'error', title: 'Lỗi máy chủ', text: 'Không thể kết nối đến máy chủ để xác thực!' });
+                }
+            }
+        });
+    },
+
+    startFreePlayGame: function(duration) {
+        const gameContainer = document.getElementById("td-game-container");
+        const wrapper = document.getElementById("free-play-game-wrapper");
+        const overlay = document.getElementById("free-play-overlay");
+        if (!gameContainer || !wrapper || !overlay) return;
+
+        // Lưu vị trí gốc để trả về sau khi chơi xong
+        this.gameContainerParent = gameContainer.parentNode;
+        this.gameContainerNextSibling = gameContainer.nextSibling;
+
+        // Di chuyển game container sang overlay chơi game tự do
+        wrapper.appendChild(gameContainer);
+        gameContainer.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+        document.body.classList.add("game-mode-active");
+
+        // Cấu hình game ở chế độ Free Play
+        if (window.game) {
+            game.isFreePlay = true;
+            game.gold = 250;
+            game.hp = 10;
+            game.currentWave = 0;
+            game.totalWaves = 5;
+            
+            if (window.questions && questions.hero) {
+                questions.hero.load();
+                game.hero = questions.hero;
+            }
+            
+            game.init('td-canvas', 5, game.hero);
+            
+            const startWaveBtn = document.getElementById("btn-start-wave");
+            if (startWaveBtn) startWaveBtn.classList.remove("hidden");
+            
+            // Bắt đầu nhạc nền game
+            if (this.audio) {
+                this.audio.playBackground();
+            }
+        }
+
+        const timerVal = document.getElementById("free-play-timer");
+        const titleVal = document.getElementById("free-play-title");
+
+        if (duration === Infinity) {
+            // Chế độ Phụ huynh: Vô hạn thời gian
+            if (timerVal) timerVal.style.display = 'none';
+            if (titleVal) titleVal.innerHTML = 'CHẾ ĐỘ PHỤ HUYNH (VÔ HẠN THỜI GIAN)';
+        } else {
+            // Chế độ Học sinh: 7 phút
+            if (timerVal) timerVal.style.display = 'inline-block';
+            if (titleVal) titleVal.innerHTML = 'CHẾ ĐỘ HỌC SINH (GIỚI HẠN 7 PHÚT)';
+
+            this.freePlayTimeRemaining = duration;
+            const updateTimerDisplay = () => {
+                const mins = Math.floor(this.freePlayTimeRemaining / 60);
+                const secs = this.freePlayTimeRemaining % 60;
+                if (timerVal) {
+                    timerVal.innerHTML = `⏳ Còn lại: ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            };
+            
+            updateTimerDisplay();
+            
+            if (this.freePlayTimerInterval) {
+                clearInterval(this.freePlayTimerInterval);
+            }
+            
+            this.freePlayTimerInterval = setInterval(() => {
+                this.freePlayTimeRemaining--;
+                if (this.freePlayTimeRemaining <= 0) {
+                    clearInterval(this.freePlayTimerInterval);
+                    this.freePlayTimerInterval = null;
+                    this.exitFreePlayGame();
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Hết giờ chơi game! ⏰',
+                        text: 'Thời gian 7 phút chơi game của con đã hết. Hãy tiếp tục học tập để tích lũy thêm thẻ mạ vàng nhé!',
+                        confirmButtonColor: '#10b981',
+                        confirmButtonText: 'Đồng ý'
+                    });
+                } else {
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+    },
+
+    exitFreePlayGame: function() {
+        if (this.freePlayTimerInterval) {
+            clearInterval(this.freePlayTimerInterval);
+            this.freePlayTimerInterval = null;
+        }
+
+        if (window.game) {
+            game.stop();
+            game.isFreePlay = false;
+        }
+
+        const overlay = document.getElementById("free-play-overlay");
+        if (overlay) overlay.classList.add("hidden");
+        document.body.classList.remove("game-mode-active");
+
+        // Di chuyển trả game container về vị trí cũ trong DOM
+        const gameContainer = document.getElementById("td-game-container");
+        if (gameContainer && this.gameContainerParent) {
+            gameContainer.classList.add("hidden");
+            if (this.gameContainerNextSibling) {
+                this.gameContainerParent.insertBefore(gameContainer, this.gameContainerNextSibling);
+            } else {
+                this.gameContainerParent.appendChild(gameContainer);
+            }
+        }
+        
+        // Dừng nhạc nền game và quay lại nhạc chính nếu cần
+        if (this.audio) {
+            this.audio.stopBackground();
+        }
+    },
+
     // Hồ sơ chiến binh & Radar Năng lực
     renderEnglishProfile: function() {
         const container = document.getElementById("eng-profile-container");
