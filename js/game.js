@@ -10,6 +10,7 @@ const game = {
     // Các biến quản lý PixiJS (WebGPU/WebGL 2.0 Engine)
     pixiApp: null,
     gameTicker: null,
+    resizeHandler: null,
     legacyCanvas: null,
     legacyTexture: null,
     legacySprite: null,
@@ -636,32 +637,48 @@ const game = {
                     this.pixiApp.ticker.remove(this.gameTicker);
                     this.gameTicker = null;
                 }
+                if (this.resizeHandler) {
+                    window.removeEventListener('resize', this.resizeHandler);
+                    this.resizeHandler = null;
+                }
                 this.pixiApp.destroy(true, { children: true, texture: true, sourceTexture: true });
+                console.log("PixiJS: Old App destroyed successfully.");
             } catch (e) {
-                console.warn("Lỗi khi dọn dẹp PixiApp cũ:", e);
+                console.warn("PixiJS: Error destroying old App:", e);
             }
             this.pixiApp = null;
         }
 
         const oldCanvas = document.getElementById(canvasId);
-        if (!oldCanvas) return;
+        if (!oldCanvas) {
+            console.error(`PixiJS Init Failed: Canvas with ID '${canvasId}' not found.`);
+            return;
+        }
 
-        // 1. Khởi tạo Application Pixi v8 mới
+        // 1. Khởi tạo Application Pixi v8 mới hỗ trợ co giãn toàn màn hình & độ phân giải cao
         this.pixiApp = new PIXI.Application();
+        const container = oldCanvas.parentNode;
         await this.pixiApp.init({
-            width: 960,
-            height: 600,
+            resizeTo: container || window, // Tự động co giãn theo container cha hoặc cửa sổ
+            autoDensity: true,             // Tự động scale độ phân giải css theo resolution vật lý
+            resolution: window.devicePixelRatio || 1, // Sắc nét trên màn hình Retina
             preference: 'webgpu', // Ưu tiên sức mạnh WebGPU, tự động lùi về WebGL 2.0 nếu không hỗ trợ
             backgroundAlpha: 0
         });
+        console.log("PixiJS Init Success: WebGPU/WebGL Application initialized.");
 
         // 2. Thay thế canvas cũ trong DOM
-        const parent = oldCanvas.parentNode;
         this.canvas = this.pixiApp.canvas;
         this.canvas.id = canvasId;
+        
+        // Thiết lập các thuộc tính CSS rõ ràng để hiển thị toàn màn hình mượt mà
         this.canvas.className = oldCanvas.className;
-        this.canvas.style.cssText = oldCanvas.style.cssText;
-        parent.replaceChild(this.canvas, oldCanvas);
+        this.canvas.style.display = 'block';
+        this.canvas.style.width = '100%';
+        this.canvas.style.height = '100%';
+        
+        container.replaceChild(this.canvas, oldCanvas);
+        console.log("PixiJS: Replaced old Canvas in DOM with PixiJS canvas.");
 
         // 3. Khởi tạo cấu trúc z-index Container phân lớp
         this.mapContainer = new PIXI.Container();
@@ -683,6 +700,7 @@ const game = {
         this.pixiApp.stage.addChild(this.enemyContainer);
         this.pixiApp.stage.addChild(this.vfxContainer);
         this.pixiApp.stage.addChild(this.uiContainer);
+        console.log("Containers Added: Map, Path, Tower, Enemy, VFX, UI containers initialized.");
 
         // 4. Khởi tạo Canvas 2D phụ (Bridge) hỗ trợ các hàm vẽ cũ chưa refactor
         this.legacyCanvas = document.createElement('canvas');
@@ -693,20 +711,49 @@ const game = {
         // Tạo Texture từ canvas phụ và hiển thị lên Stage thông qua legacySprite
         this.legacyTexture = PIXI.Texture.from(this.legacyCanvas);
         this.legacySprite = new PIXI.Sprite(this.legacyTexture);
-        this.vfxContainer.addChild(this.legacySprite); // Chèn lên trên mapContainer
+        this.vfxContainer.addChild(this.legacySprite); // Chèn vào VFX Container (ở trên mapContainer)
+        console.log("Bridge Sprite Created: Canvas 2D Bridge texture and sprite initialized.");
 
         // 5. Khởi tạo Graphics vẽ nền và lưới bản đồ tĩnh bằng WebGPU
         this.bgGraphics = new PIXI.Graphics();
         this.mapContainer.addChild(this.bgGraphics);
+
+        // 6. Đăng ký sự kiện co giãn màn hình (Resize) và gọi đồng bộ ngay lập tức
+        this.resizeHandler = () => this.resizeGame();
+        window.addEventListener('resize', this.resizeHandler);
+        this.resizeGame();
     },
 
-    // Vẽ nền bản đồ và lưới ô vuông neon bằng PIXI.Graphics
+    // Hàm tự động co giãn và căn giữa hệ tọa độ logic 960x600 vào kích thước thực tế
+    resizeGame: function() {
+        if (!this.pixiApp || !this.canvas) return;
+
+        const container = this.canvas.parentNode;
+        const width = container ? container.clientWidth : window.innerWidth;
+        const height = container ? container.clientHeight : window.innerHeight;
+
+        // Thay đổi kích thước renderer của PixiJS v8
+        this.pixiApp.renderer.resize(width, height);
+
+        // Tính toán tỉ lệ scale fit (letterbox) giữ nguyên tỉ lệ logic 960x600
+        const scaleX = width / 960;
+        const scaleY = height / 600;
+        const scale = Math.min(scaleX, scaleY);
+
+        this.pixiApp.stage.scale.set(scale);
+
+        // Căn giữa stage
+        this.pixiApp.stage.x = (width - 960 * scale) / 2;
+        this.pixiApp.stage.y = (height - 600 * scale) / 2;
+
+        // Vẽ lại background tĩnh khớp với kích thước logic
+        this.drawBackground();
+    },
+
+    // Vẽ nền bản đồ và lưới ô vuông neon bằng PIXI.Graphics (kích thước logic cố định 960x600)
     drawBackground: function() {
         if (!this.bgGraphics) return;
         this.bgGraphics.clear();
-
-        // Lấy thông tin chủ đề bản đồ ngẫu nhiên hiện tại
-        const theme = this.mapThemes[this.mapTheme] || this.mapThemes.plains;
 
         // Định nghĩa màu nền tối giản Cyber/Quantum
         const bgColor = 0x090f1d; // Deep Space Black-Blue
@@ -867,6 +914,12 @@ const game = {
         if (this.pixiApp && this.pixiApp.ticker && this.gameTicker) {
             this.pixiApp.ticker.remove(this.gameTicker);
             this.gameTicker = null;
+        }
+        
+        // Gỡ sự kiện resize
+        if (this.resizeHandler) {
+            window.removeEventListener('resize', this.resizeHandler);
+            this.resizeHandler = null;
         }
         
         this.unbindEvents();
@@ -1064,17 +1117,21 @@ const game = {
     bindEvents: function() {
         // 1. Sự kiện Mouse Move để cập nhật preview tháp theo ô lưới (sửa đổi tính tỉ lệ scale thực tế)
         this.canvasMouseMoveHandler = (e) => {
-            if (!this.canvas) return;
+            if (!this.canvas || !this.pixiApp) return;
             const rect = this.canvas.getBoundingClientRect();
-            // Scale tọa độ chuột theo tỉ lệ thực tế của canvas pixel
-            this.mouseX = (e.clientX - rect.left) * (this.canvas.width / rect.width);
-            this.mouseY = (e.clientY - rect.top) * (this.canvas.height / rect.height);
+            const clientX = e.clientX - rect.left;
+            const clientY = e.clientY - rect.top;
+            
+            // Quy đổi sang tọa độ stage logic (960x600) bằng toLocal của PixiJS v8
+            const localPos = this.pixiApp.stage.toLocal(new PIXI.Point(clientX, clientY));
+            this.mouseX = localPos.x;
+            this.mouseY = localPos.y;
             
             // Tính toán ô lưới 40x40 gần nhất
             const gridX = Math.floor(this.mouseX / 40) * 40 + 20;
             const gridY = Math.floor(this.mouseY / 40) * 40 + 20;
             
-            if (gridX > 0 && gridX < this.canvas.width && gridY > 0 && gridY < this.canvas.height) {
+            if (gridX > 0 && gridX < 960 && gridY > 0 && gridY < 600) {
                 this.previewX = gridX;
                 this.previewY = gridY;
                 this.isPreviewValid = this.isValidGrid(gridX, gridY);
@@ -1087,10 +1144,15 @@ const game = {
 
         // 2. Sự kiện Click để chọn tháp, hoặc xác nhận/hủy xây tháp (sửa đổi tính tỉ lệ scale thực tế)
         this.canvasClickHandler = (e) => {
+            if (!this.canvas || !this.pixiApp) return;
             const rect = this.canvas.getBoundingClientRect();
-            // Scale tọa độ chuột theo tỉ lệ thực tế của canvas pixel
-            const x = (e.clientX - rect.left) * (this.canvas.width / rect.width);
-            const y = (e.clientY - rect.top) * (this.canvas.height / rect.height);
+            const clientX = e.clientX - rect.left;
+            const clientY = e.clientY - rect.top;
+            
+            // Quy đổi sang tọa độ stage logic (960x600) bằng toLocal của PixiJS v8
+            const localPos = this.pixiApp.stage.toLocal(new PIXI.Point(clientX, clientY));
+            const x = localPos.x;
+            const y = localPos.y;
             
             // 2.1. Nếu đang có hộp thoại xác nhận xây tháp, kiểm tra click trúng nút V hoặc X trước
             if (this.confirmBuildPos) {
@@ -1880,6 +1942,7 @@ const game = {
         // 2. Cập nhật Texture nguồn của PixiJS để đẩy dữ liệu pixel lên GPU (WebGPU/WebGL)
         if (this.legacyTexture && this.legacyTexture.source) {
             this.legacyTexture.source.update();
+            this.legacyTexture.source.dirty(); // Đánh dấu là đã thay đổi để Pixi v8 buộc vẽ lại
         }
     },
     
