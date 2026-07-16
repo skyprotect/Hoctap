@@ -247,6 +247,31 @@ const app = {
                 }
             }
         },
+        duckTimeout: null,
+        duckBackgroundMusic: function() {
+            if (!this.sounds || !this.sounds.background) return;
+            const bgAudio = this.sounds.background;
+            const originalVol = 0.22;
+            const duckedVol = 0.05;
+            
+            bgAudio.volume = duckedVol;
+            
+            if (this.duckTimeout) clearTimeout(this.duckTimeout);
+            
+            // Phục hồi dần âm lượng nhạc nền sau 1.2 giây
+            this.duckTimeout = setTimeout(() => {
+                let currentVol = duckedVol;
+                const interval = setInterval(() => {
+                    currentVol += 0.02;
+                    if (currentVol >= originalVol) {
+                        bgAudio.volume = originalVol;
+                        clearInterval(interval);
+                    } else {
+                        bgAudio.volume = currentVol;
+                    }
+                }, 50);
+            }, 1200);
+        },
         playTdSound: function(type) {
             if (!this.isUnlocked) return;
             try {
@@ -258,13 +283,21 @@ const app = {
                     ctx.resume();
                 }
                 
+                // Thực hiện Audio Ducking cho các hiệu ứng âm thanh lớn
+                if (type === 'upgrade' || type === 'thunder' || type === 'bomb') {
+                    this.duckBackgroundMusic();
+                }
+                
+                // Pitch Variation: Tự động lệch tần số ngẫu nhiên +-7%
+                const pitchFactor = 0.93 + Math.random() * 0.14;
+                
                 if (type === 'archer') {
                     // Tiếng vút tên bay nhẹ nhàng
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(600, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.12);
+                    osc.frequency.setValueAtTime(600 * pitchFactor, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(120 * pitchFactor, ctx.currentTime + 0.12);
                     
                     gain.gain.setValueAtTime(0.2, ctx.currentTime);
                     gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.12);
@@ -288,8 +321,8 @@ const app = {
                     
                     const filter = ctx.createBiquadFilter();
                     filter.type = 'lowpass';
-                    filter.frequency.setValueAtTime(300, ctx.currentTime);
-                    filter.frequency.exponentialRampToValueAtTime(10, ctx.currentTime + 0.35);
+                    filter.frequency.setValueAtTime(300 * pitchFactor, ctx.currentTime);
+                    filter.frequency.exponentialRampToValueAtTime(10 * pitchFactor, ctx.currentTime + 0.35);
                     
                     const gain = ctx.createGain();
                     gain.gain.setValueAtTime(0.5, ctx.currentTime);
@@ -309,12 +342,12 @@ const app = {
                     const gain = ctx.createGain();
                     
                     osc1.type = 'sine';
-                    osc1.frequency.setValueAtTime(1000, ctx.currentTime);
-                    osc1.frequency.linearRampToValueAtTime(250, ctx.currentTime + 0.18);
+                    osc1.frequency.setValueAtTime(1000 * pitchFactor, ctx.currentTime);
+                    osc1.frequency.linearRampToValueAtTime(250 * pitchFactor, ctx.currentTime + 0.18);
                     
                     osc2.type = 'triangle';
-                    osc2.frequency.setValueAtTime(1300, ctx.currentTime);
-                    osc2.frequency.linearRampToValueAtTime(350, ctx.currentTime + 0.18);
+                    osc2.frequency.setValueAtTime(1300 * pitchFactor, ctx.currentTime);
+                    osc2.frequency.linearRampToValueAtTime(350 * pitchFactor, ctx.currentTime + 0.18);
                     
                     gain.gain.setValueAtTime(0.12, ctx.currentTime);
                     gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.18);
@@ -335,14 +368,14 @@ const app = {
                     const gain = ctx.createGain();
                     
                     osc1.type = 'sine';
-                    osc1.frequency.setValueAtTime(1800, ctx.currentTime);
-                    osc1.frequency.exponentialRampToValueAtTime(3500, ctx.currentTime + 0.03);
-                    osc1.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.12);
+                    osc1.frequency.setValueAtTime(1800 * pitchFactor, ctx.currentTime);
+                    osc1.frequency.exponentialRampToValueAtTime(3500 * pitchFactor, ctx.currentTime + 0.03);
+                    osc1.frequency.exponentialRampToValueAtTime(600 * pitchFactor, ctx.currentTime + 0.12);
                     
                     osc2.type = 'triangle';
-                    osc2.frequency.setValueAtTime(1400, ctx.currentTime);
-                    osc2.frequency.exponentialRampToValueAtTime(2200, ctx.currentTime + 0.04);
-                    osc2.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.15);
+                    osc2.frequency.setValueAtTime(1400 * pitchFactor, ctx.currentTime);
+                    osc2.frequency.exponentialRampToValueAtTime(2200 * pitchFactor, ctx.currentTime + 0.04);
+                    osc2.frequency.exponentialRampToValueAtTime(200 * pitchFactor, ctx.currentTime + 0.15);
                     
                     gain.gain.setValueAtTime(0.25, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
@@ -360,8 +393,8 @@ const app = {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(988, ctx.currentTime); // Nốt B5
-                    osc.frequency.setValueAtTime(1318, ctx.currentTime + 0.08); // Nốt E6
+                    osc.frequency.setValueAtTime(988 * pitchFactor, ctx.currentTime); // Nốt B5
+                    osc.frequency.setValueAtTime(1318 * pitchFactor, ctx.currentTime + 0.08); // Nốt E6
                     
                     gain.gain.setValueAtTime(0.18, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
@@ -381,29 +414,55 @@ const app = {
                     }
                     const noiseNode = ctx.createBufferSource();
                     noiseNode.buffer = buffer;
-
+ 
                     const osc = ctx.createOscillator();
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(160, ctx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(30, ctx.currentTime + 0.45);
-
+                    osc.frequency.setValueAtTime(160 * pitchFactor, ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(30 * pitchFactor, ctx.currentTime + 0.45);
+ 
                     const filter = ctx.createBiquadFilter();
                     filter.type = 'lowpass';
-                    filter.frequency.setValueAtTime(400, ctx.currentTime);
-
+                    filter.frequency.setValueAtTime(400 * pitchFactor, ctx.currentTime);
+ 
                     const gain = ctx.createGain();
                     gain.gain.setValueAtTime(0.35, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
-
+ 
                     noiseNode.connect(filter);
                     osc.connect(filter);
                     filter.connect(gain);
                     gain.connect(ctx.destination);
-
+ 
                     noiseNode.start();
                     osc.start();
                     noiseNode.stop(ctx.currentTime + 0.45);
                     osc.stop(ctx.currentTime + 0.45);
+                } else if (type === 'upgrade') {
+                    // Âm thanh nâng cấp tháp khoa học viễn tưởng cực kỳ hoành tráng (tiếng quét tần số cao vút + nốt vàng lấp lánh)
+                    const osc1 = ctx.createOscillator();
+                    const osc2 = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    
+                    osc1.type = 'sawtooth';
+                    osc1.frequency.setValueAtTime(150 * pitchFactor, ctx.currentTime);
+                    osc1.frequency.exponentialRampToValueAtTime(880 * pitchFactor, ctx.currentTime + 0.35);
+                    
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(300 * pitchFactor, ctx.currentTime);
+                    osc2.frequency.exponentialRampToValueAtTime(1760 * pitchFactor, ctx.currentTime + 0.4);
+                    
+                    gain.gain.setValueAtTime(0.01, ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.22, ctx.currentTime + 0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+                    
+                    osc1.connect(gain);
+                    osc2.connect(gain);
+                    gain.connect(ctx.destination);
+                    
+                    osc1.start();
+                    osc2.start();
+                    osc1.stop(ctx.currentTime + 0.45);
+                    osc2.stop(ctx.currentTime + 0.45);
                 }
             } catch (e) {
                 console.warn("Lỗi phát âm thanh TD:", e);

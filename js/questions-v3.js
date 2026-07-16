@@ -8616,7 +8616,7 @@ const questions = {
             // Cho phép chuẩn bị chiến đấu
             game.isBattlePhase = true;
             game.currentWave = 0; // reset wave về 0 để chuẩn bị đợt 1
-            game.totalWaves = 5;  // Cố định 5 đợt phòng thủ
+            game.totalWaves = this.isFastGame ? 999999 : 5;  // Cho phép chơi không giới hạn đợt quái ở chế độ chơi nhanh (Phụ huynh)
             
             // Cộng XP tích lũy và XP thưởng hoàn thành bài học (+80) cho Hero
             this.hero.addXp((this.accumulatedXp || 0) + 80);
@@ -8730,28 +8730,41 @@ const questions = {
             // Chế độ chơi game nhanh: Bỏ qua việc lưu tiến trình/session học tập để tránh ghi dữ liệu giả
             this.correctCount = 5;
             
+            const isGameWon = window.game && window.game.hp > 0;
+            
+            const resultIconEmoji = document.getElementById("result-icon-emoji");
+            if (resultIconEmoji) {
+                resultIconEmoji.innerText = isGameWon ? "🏆" : "💀";
+            }
+            
             const resultScoreTitle = document.getElementById("result-score-title");
-            if (resultScoreTitle) resultScoreTitle.innerText = "Xuất sắc (100%)";
+            if (resultScoreTitle) {
+                resultScoreTitle.innerText = isGameWon ? "Chiến Thắng Rực Rỡ! 🎉" : "Lâu Đài Thất Thủ! 😢";
+            }
             
             const resultScoreDesc = document.getElementById("result-score-desc");
-            if (resultScoreDesc) resultScoreDesc.innerText = "Chúc mừng bạn đã hoàn thành Đấu Trường Thủ Thành!";
-            
-            const xpEarnedVal = document.getElementById("xp-earned-val");
-            if (xpEarnedVal) xpEarnedVal.innerText = "100";
-            
-            const correctCountEl = document.getElementById("result-correct-count");
-            if (correctCountEl) correctCountEl.innerText = "5/5";
-            
-            const rankBadge = document.getElementById("result-rank-badge");
-            if (rankBadge) {
-                rankBadge.innerText = "Chiến Thần";
-                rankBadge.style.backgroundColor = "var(--success-bg)";
-                rankBadge.style.color = "var(--success)";
+            if (resultScoreDesc) {
+                resultScoreDesc.innerText = isGameWon ? 
+                    "Chúc mừng phụ huynh đã bảo vệ thành công lâu đài qua các đợt quái vật!" : 
+                    "Máu lâu đài đã về 0. Hãy thử lại để phục thù và bảo vệ lâu đài nhé!";
             }
+            
+            // Ẩn phần cộng XP và chi tiết câu đúng/sai vì chế độ này không làm bài tập
+            const xpEarnedBox = document.getElementById("xp-earned-box-wrapper") || document.querySelector(".xp-earned-box");
+            const resultDetails = document.getElementById("result-details-wrapper") || document.querySelector(".result-details");
+            if (xpEarnedBox) xpEarnedBox.classList.add("hidden");
+            if (resultDetails) resultDetails.classList.add("hidden");
+            
+            const examReviewBox = document.getElementById("exam-review-box");
+            if (examReviewBox) examReviewBox.classList.add("hidden");
 
-            // Bắn pháo hoa giấy và phát âm thanh vui vẻ
-            app.confetti.start();
-            app.audio.playBadge();
+            // Bắn pháo hoa giấy và phát âm thanh vui vẻ nếu thắng
+            if (isGameWon) {
+                app.confetti.start();
+                app.audio.playBadge();
+            } else {
+                app.audio.playDefeat();
+            }
 
             // Cấu hình lại các nút ở màn hình kết quả
             const backBtn = document.getElementById("btn-back-to-practice");
@@ -8782,6 +8795,14 @@ const questions = {
 
         // Chấm điểm hàng loạt các câu hỏi
         this.correctCount = 0;
+        
+        // Hiện lại các phần tử bị ẩn do chế độ chơi nhanh trước đó (nếu có)
+        const xpEarnedBox = document.getElementById("xp-earned-box-wrapper") || document.querySelector(".xp-earned-box");
+        const resultDetails = document.getElementById("result-details-wrapper") || document.querySelector(".result-details");
+        if (xpEarnedBox) xpEarnedBox.classList.remove("hidden");
+        if (resultDetails) resultDetails.classList.remove("hidden");
+        const reviewBtn = document.getElementById("btn-show-practice-review");
+        if (reviewBtn) reviewBtn.classList.remove("hidden");
         this.currentQuestions.forEach(q => {
             const isCorrect = q.isShortAnswer ? 
                 this.checkShortAnswer(q.userShortAnswer || '', q.options[q.correctIndex]) :

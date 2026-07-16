@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=10.71">
+    <link rel="stylesheet" href="css/style.css?v=10.81">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -816,7 +816,7 @@
                     CHƠI GAME &nbsp;<i class="fa-solid fa-gamepad"></i>
                 </button>
             </div>
-            <div class="splash-version-tag">Phiên bản: v10.71 (Cập nhật: 16/07/2026 16:40)</div>
+            <div class="splash-version-tag">Phiên bản: v10.81 (Cập nhật: 16/07/2026 18:13)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1452,11 +1452,11 @@
                                             <h3 class="result-score" id="result-score-title" style="font-size:1.6rem; font-weight:800; color:var(--primary);">Xuất sắc (100%)</h3>
                                             <p class="result-desc" id="result-score-desc" style="color:var(--text-muted); margin: 0.5rem auto 1.5rem; max-width: 480px;">Bạn làm rất tốt! Bài tiếp theo đã được mở khóa.</p>
                                             
-                                            <div class="xp-earned-box" style="margin-bottom: 1.5rem;">
+                                            <div class="xp-earned-box" id="xp-earned-box-wrapper" style="margin-bottom: 1.5rem;">
                                                 <span class="xp-plus" style="background-color: var(--warning-bg); color: var(--warning); border: 2px dashed var(--warning); padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 800; font-size: 1.2rem;">+<span id="xp-earned-val">50</span> XP</span>
                                             </div>
 
-                                            <div class="result-details" style="display:flex; justify-content:center; gap:2rem; margin:1.5rem 0; background: var(--bg-app); padding: 1rem; border-radius: 12px; border: 1px solid var(--border-color); max-width: 380px; margin: 0 auto 1.5rem;">
+                                            <div class="result-details" id="result-details-wrapper" style="display:flex; justify-content:center; gap:2rem; margin:1.5rem 0; background: var(--bg-app); padding: 1rem; border-radius: 12px; border: 1px solid var(--border-color); max-width: 380px; margin: 0 auto 1.5rem;">
                                                 <div class="detail-item">
                                                     <span class="detail-label" style="color:var(--text-muted); font-size:0.9rem;">Số câu đúng:</span><br>
                                                     <span class="detail-val" id="result-correct-count" style="font-weight:800; font-size:1.15rem; color:var(--text-main);">5/5</span>
@@ -1932,20 +1932,24 @@
         </div>
     </div>
 
+    <!-- PixiJS v8 and GSAP libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.2.3/pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=10.71"></script>
-    <script src="js/lessons.js?v=10.71"></script>
-    <script src="js/questions-v1.js?v=10.71"></script>
-    <script src="js/questions-v4.js?v=10.71"></script>
-    <script src="js/questions-v3.js?v=10.71"></script>
-    <script src="js/game.js?v=10.71"></script>
+    <script src="js/english_data.js?v=10.81"></script>
+    <script src="js/lessons.js?v=10.81"></script>
+    <script src="js/questions-v1.js?v=10.81"></script>
+    <script src="js/questions-v4.js?v=10.81"></script>
+    <script src="js/questions-v3.js?v=10.81"></script>
+    <script src="js/game.js?v=10.81"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
-    <script src="js/app.js?v=10.71"></script>
+    <script src="js/app.js?v=10.81"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2921,7 +2925,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v10.71 (Cập nhật: 16/07/2026 16:40)
+        Phiên bản: v10.81 (Cập nhật: 16/07/2026 18:13)
     </div>
 </body>
 </html>

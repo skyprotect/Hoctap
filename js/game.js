@@ -7,6 +7,22 @@ const game = {
     accumulator: 0,
     timestep: 1000 / 60,
     
+    // Các biến quản lý PixiJS (WebGPU/WebGL 2.0 Engine)
+    pixiApp: null,
+    gameTicker: null,
+    legacyCanvas: null,
+    legacyTexture: null,
+    legacySprite: null,
+    
+    // Hệ thống Container z-index phân lớp
+    mapContainer: null,
+    pathContainer: null,
+    towerContainer: null,
+    enemyContainer: null,
+    vfxContainer: null,
+    uiContainer: null,
+    bgGraphics: null,
+    
     // Bộ nhớ đệm và trình nạp tài nguyên hình ảnh game
     images: {},
     imagesLoaded: false,
@@ -335,7 +351,7 @@ const game = {
     // Cấu hình các loại tháp
     towerConfig: {
         archer: {
-            name: "Tháp Cung 🏹",
+            name: "Quantum Laser Bow 🏹",
             cost: 100,
             range: 135,
             damage: 26,
@@ -344,7 +360,7 @@ const game = {
             description: "Tháp cung bắn tên gỗ tầm xa nhanh lên cả loài bay và đi bộ"
         },
         ice: {
-            name: "Tháp Băng ❄️",
+            name: "Chrono Frost Nova ❄️",
             cost: 100,
             range: 115,
             damage: 12,
@@ -355,7 +371,7 @@ const game = {
             description: "Làm chậm quái bay và đi bộ trong tầm bắn diện rộng"
         },
         bomb: {
-            name: "Tháp Pháo 💣",
+            name: "Plasma Artillery 💣",
             cost: 150,
             range: 145,
             damage: 55,
@@ -365,7 +381,7 @@ const game = {
             description: "Sát thương nổ lan cực mạnh, CHỈ tác dụng lên loài đi bộ"
         },
         soldier: {
-            name: "Tháp Lính 🛡️",
+            name: "Hyperion Guardian 🛡️",
             cost: 120,
             range: 120,
             damage: 18,
@@ -375,7 +391,7 @@ const game = {
             description: "Sinh ra 4 chiến binh chặn đường và cản quái đi bộ"
         },
         thunder: {
-            name: "Tháp Sấm Sét ⚡",
+            name: "Tesla Storm Overlord ⚡",
             cost: 200,
             range: 140,
             damage: 35,
@@ -385,7 +401,7 @@ const game = {
             description: "Mở khóa cấp 10. Phóng sấm sét giật lan 3 mục tiêu (bay & đi bộ)"
         },
         laser: {
-            name: "Tháp Laser 📡",
+            name: "Gatling Laser 📡",
             cost: 250,
             range: 160,
             damage: 8,
@@ -395,7 +411,7 @@ const game = {
             description: "Mở khóa cấp 15. Bắn tia laser liên tục cực nhanh lên 2 loài"
         },
         poison: {
-            name: "Tháp Độc Học 🧪",
+            name: "Bio-Chemical Toxins 🧪",
             cost: 180,
             range: 130,
             damage: 15,
@@ -407,7 +423,7 @@ const game = {
             description: "Mở khóa cấp 20. Bắn chất độc gây sát thương duy trì theo thời gian"
         },
         fire: {
-            name: "Tháp Hỏa Long 🌋",
+            name: "Singularity Core 🌋",
             cost: 300,
             range: 125,
             damage: 48,
@@ -419,7 +435,7 @@ const game = {
             description: "Mở khóa cấp 25. Bắn dung nham nổ diện rộng đốt cháy quái"
         },
         void: {
-            name: "Tháp Vô Cực 🌀",
+            name: "Quantum Void Gate 🌀",
             cost: 350,
             range: 150,
             damage: 80,
@@ -545,48 +561,194 @@ const game = {
         this.path = this.paths[0];
     },
 
+    freezeFrames: 0,
+    initObjectPools: function() {
+        // Khởi tạo Object Pool cho particles với 3000 phần tử tĩnh
+        const particleArray = Array.from({length: 3000}, () => ({ active: false }));
+        particleArray.push = function(obj) {
+            const p = particleArray.find(item => !item.active);
+            if (p) {
+                p.active = true;
+                p.x = obj.x; p.y = obj.y; p.vx = obj.vx; p.vy = obj.vy;
+                p.color = obj.color; p.alpha = obj.alpha !== undefined ? obj.alpha : 1.0;
+                p.life = obj.life; p.maxLife = obj.maxLife || obj.life;
+                p.size = obj.size;
+                p.isSnowflake = obj.isSnowflake || false;
+                p.isSmoke = obj.isSmoke || false;
+                p.scaleSpeed = obj.scaleSpeed || 0;
+                p.alphaSpeed = obj.alphaSpeed || 0;
+                p.angle = obj.angle || 0;
+                p.spin = obj.spin || 0;
+                p.rotSpeed = obj.rotSpeed || 0;
+                p.vx_wind = obj.vx_wind || 0;
+                return p;
+            }
+            return null;
+        };
+        this.particles = particleArray;
+
+        // Khởi tạo Object Pool cho projectiles với 150 phần tử tĩnh
+        const projectileArray = Array.from({length: 150}, () => ({ active: false }));
+        projectileArray.push = function(obj) {
+            const p = projectileArray.find(item => !item.active);
+            if (p) {
+                p.active = true;
+                p.type = obj.type;
+                p.x = obj.x; p.y = obj.y;
+                p.target = obj.target;
+                p.lastTargetX = obj.lastTargetX || 0;
+                p.lastTargetY = obj.lastTargetY || 0;
+                p.speed = obj.speed || 0;
+                p.damage = obj.damage || 0;
+                p.splashRadius = obj.splashRadius || 0;
+                p.color = obj.color || "#ffffff";
+                p.life = obj.life || 0;
+                p.maxLife = obj.maxLife || obj.life || 0;
+                p.points = obj.points || null;
+                p.startX = obj.startX || 0;
+                p.startY = obj.startY || 0;
+                p.endX = obj.endX || 0;
+                p.endY = obj.endY || 0;
+                p.burnDamage = obj.burnDamage || 0;
+                p.burnDuration = obj.burnDuration || 0;
+                p.poisonDamage = obj.poisonDamage || 0;
+                p.poisonDuration = obj.poisonDuration || 0;
+                p.pullStrength = obj.pullStrength || 0;
+                p.isRing = obj.isRing || false;
+                p.maxRadius = obj.maxRadius || 0;
+                p.recoil = obj.recoil || 0;
+                return p;
+            }
+            return null;
+        };
+        this.projectiles = projectileArray;
+    },
+    triggerHitStop: function(frames) {
+        this.freezeFrames = frames;
+    },
+
+    // Khởi tạo PixiJS v8 bất đồng bộ (WebGPU ưu tiên, fallback WebGL 2.0)
+    initPixi: async function(canvasId) {
+        // Dọn dẹp Pixi cũ nếu có để tránh rò rỉ bộ nhớ (Memory Leak)
+        if (this.pixiApp) {
+            try {
+                if (this.gameTicker) {
+                    this.pixiApp.ticker.remove(this.gameTicker);
+                    this.gameTicker = null;
+                }
+                this.pixiApp.destroy(true, { children: true, texture: true, sourceTexture: true });
+            } catch (e) {
+                console.warn("Lỗi khi dọn dẹp PixiApp cũ:", e);
+            }
+            this.pixiApp = null;
+        }
+
+        const oldCanvas = document.getElementById(canvasId);
+        if (!oldCanvas) return;
+
+        // 1. Khởi tạo Application Pixi v8 mới
+        this.pixiApp = new PIXI.Application();
+        await this.pixiApp.init({
+            width: 960,
+            height: 600,
+            preference: 'webgpu', // Ưu tiên sức mạnh WebGPU, tự động lùi về WebGL 2.0 nếu không hỗ trợ
+            backgroundAlpha: 0
+        });
+
+        // 2. Thay thế canvas cũ trong DOM
+        const parent = oldCanvas.parentNode;
+        this.canvas = this.pixiApp.canvas;
+        this.canvas.id = canvasId;
+        this.canvas.className = oldCanvas.className;
+        this.canvas.style.cssText = oldCanvas.style.cssText;
+        parent.replaceChild(this.canvas, oldCanvas);
+
+        // 3. Khởi tạo cấu trúc z-index Container phân lớp
+        this.mapContainer = new PIXI.Container();
+        this.mapContainer.label = 'mapContainer';
+        this.pathContainer = new PIXI.Container();
+        this.pathContainer.label = 'pathContainer';
+        this.towerContainer = new PIXI.Container();
+        this.towerContainer.label = 'towerContainer';
+        this.enemyContainer = new PIXI.Container();
+        this.enemyContainer.label = 'enemyContainer';
+        this.vfxContainer = new PIXI.Container();
+        this.vfxContainer.label = 'vfxContainer';
+        this.uiContainer = new PIXI.Container();
+        this.uiContainer.label = 'uiContainer';
+
+        this.pixiApp.stage.addChild(this.mapContainer);
+        this.pixiApp.stage.addChild(this.pathContainer);
+        this.pixiApp.stage.addChild(this.towerContainer);
+        this.pixiApp.stage.addChild(this.enemyContainer);
+        this.pixiApp.stage.addChild(this.vfxContainer);
+        this.pixiApp.stage.addChild(this.uiContainer);
+
+        // 4. Khởi tạo Canvas 2D phụ (Bridge) hỗ trợ các hàm vẽ cũ chưa refactor
+        this.legacyCanvas = document.createElement('canvas');
+        this.legacyCanvas.width = 960;
+        this.legacyCanvas.height = 600;
+        this.ctx = this.legacyCanvas.getContext('2d');
+
+        // Tạo Texture từ canvas phụ và hiển thị lên Stage thông qua legacySprite
+        this.legacyTexture = PIXI.Texture.from(this.legacyCanvas);
+        this.legacySprite = new PIXI.Sprite(this.legacyTexture);
+        this.vfxContainer.addChild(this.legacySprite); // Chèn lên trên mapContainer
+
+        // 5. Khởi tạo Graphics vẽ nền và lưới bản đồ tĩnh bằng WebGPU
+        this.bgGraphics = new PIXI.Graphics();
+        this.mapContainer.addChild(this.bgGraphics);
+    },
+
+    // Vẽ nền bản đồ và lưới ô vuông neon bằng PIXI.Graphics
+    drawBackground: function() {
+        if (!this.bgGraphics) return;
+        this.bgGraphics.clear();
+
+        // Lấy thông tin chủ đề bản đồ ngẫu nhiên hiện tại
+        const theme = this.mapThemes[this.mapTheme] || this.mapThemes.plains;
+
+        // Định nghĩa màu nền tối giản Cyber/Quantum
+        const bgColor = 0x090f1d; // Deep Space Black-Blue
+        this.bgGraphics.rect(0, 0, 960, 600);
+        this.bgGraphics.fill({ color: bgColor, alpha: 1 });
+
+        // Vẽ lưới ô vuông neon cyan chìm mờ nhẹ
+        const gridSize = 40;
+        const gridColor = 0x00f0ff; // Neon Cyan
+        const gridAlpha = 0.08;     // Mờ tinh tế
+        
+        for (let x = 0; x <= 960; x += gridSize) {
+            this.bgGraphics.moveTo(x, 0);
+            this.bgGraphics.lineTo(x, 600);
+        }
+        for (let y = 0; y <= 600; y += gridSize) {
+            this.bgGraphics.moveTo(0, y);
+            this.bgGraphics.lineTo(960, y);
+        }
+        this.bgGraphics.stroke({ width: 1, color: gridColor, alpha: gridAlpha });
+
+        // Thêm đường viền neon trang trí màu tím Quantum ở cạnh biên
+        const borderNeonColor = 0xbd53f9; // Neon Purple
+        this.bgGraphics.moveTo(0, 0);
+        this.bgGraphics.lineTo(960, 0);
+        this.bgGraphics.moveTo(0, 600);
+        this.bgGraphics.lineTo(960, 600);
+        this.bgGraphics.stroke({ width: 2, color: borderNeonColor, alpha: 0.15 });
+    },
+
     // Khởi tạo trò chơi
     init: function(canvasId, totalQuestions, heroData) {
+        this.initObjectPools();
+        this.freezeFrames = 0;
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
-        this.ctx = this.canvas.getContext('2d');
         
-        // Tạo đường đi ngẫu nhiên cho quái
-        this.generateRandomPaths();
-        
-        // Reset danh sách vật thể trang trí để sinh mới ngẫu nhiên không đè lên đường đi
-        this.terrainObjects = null;
-        
-        // Chọn chủ đề bản đồ ngẫu nhiên mỗi lần bắt đầu game
-        const themeKeys = Object.keys(this.mapThemes);
-        this.mapTheme = themeKeys[Math.floor(Math.random() * themeKeys.length)];
-        
-        this.hp = 10;
-        this.maxHp = 10;
-        this.gold = 250;
-        this.currentWave = 0;
-        this.totalWaves = 5; // Tăng lên 5 đợt phòng thủ theo yêu cầu người dùng
-        this.enemies = [];
-        this.towers = [];
-        this.soldiers = [];
-        this.projectiles = [];
-        this.particles = [];
-        this.popups = [];
-        this.activeEffects = [];
-        this.isPlaying = true;
-        this.selectedTowerType = 'archer';
-        this.selectedTowerInstance = null;
-        this.rageTimer = 0;
-        this.isRaged = false;
-        this.isWaveActive = false;
-        this.isSpawning = false;
-        this.spawnInterval = null; // Quản lý interval sinh quái
-        this.countdown = null; // Quản lý bộ đếm ngược 3, 2, 1
-        
-        // Biến mới theo dõi quái vượt qua và trạng thái wave
-        this.escapedMonsters = {};
-        this.hasStartedSpawning = false;
-        this.updateEscapedMonstersHUD();
+        // Hủy ticker cũ nếu có
+        if (this.pixiApp && this.pixiApp.ticker && this.gameTicker) {
+            this.pixiApp.ticker.remove(this.gameTicker);
+            this.gameTicker = null;
+        }
         
         // Nhận dữ liệu Anh Hùng
         this.hero = heroData || null;
@@ -605,13 +767,56 @@ const game = {
         this.isPreviewValid = false;
         this.confirmBuildPos = null;
         
-        // Hủy frame cũ nếu có
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-        }
+        // Khởi động quá trình bất đồng bộ để tránh chặn luồng chính
+        this.initGameAsync(canvasId, totalQuestions, heroData);
+    },
+
+    initGameAsync: async function(canvasId, totalQuestions, heroData) {
+        // 1. Khởi tạo PixiJS và thay thế canvas (đảm bảo hoàn thành trước khi làm các việc khác)
+        await this.initPixi(canvasId);
+
+        // Tạo đường đi ngẫu nhiên cho quái
+        this.generateRandomPaths();
+        
+        // Reset danh sách vật thể trang trí để sinh mới ngẫu nhiên không đè lên đường đi
+        this.terrainObjects = null;
+        
+        // Chọn chủ đề bản đồ ngẫu nhiên mỗi lần bắt đầu game
+        const themeKeys = Object.keys(this.mapThemes);
+        this.mapTheme = themeKeys[Math.floor(Math.random() * themeKeys.length)];
+        
+        this.hp = 10;
+        this.maxHp = 10;
+        this.gold = 250;
+        this.currentWave = 0;
+        this.totalWaves = 5;
+        this.enemies = [];
+        this.towers = [];
+        this.soldiers = [];
+        this.projectiles = [];
+        this.particles = [];
+        this.popups = [];
+        this.activeEffects = [];
+        this.isPlaying = true;
+        this.selectedTowerType = 'archer';
+        this.selectedTowerInstance = null;
+        this.rageTimer = 0;
+        this.isRaged = false;
+        this.isWaveActive = false;
+        this.isSpawning = false;
+        this.spawnInterval = null;
+        this.countdown = null;
+        
+        // Biến mới theo dõi quái vượt qua và trạng thái wave
+        this.escapedMonsters = {};
+        this.hasStartedSpawning = false;
+        this.updateEscapedMonstersHUD();
         
         this.renderTowerButtons();
         this.updateHUD();
+        
+        // Ràng buộc lại toàn bộ event listeners vào canvas mới của PixiJS
+        this.unbindEvents();
         this.bindEvents();
         
         // Thông báo bản đồ ngẫu nhiên được chọn
@@ -640,20 +845,30 @@ const game = {
         if (!this.imagesLoaded) {
             this.loadGameAssets();
         }
+
+        // Vẽ background tĩnh bằng WebGPU Graphics
+        this.drawBackground();
         
-        // Bắt đầu game loop
+        // Bắt đầu game loop sử dụng PIXI.Ticker
         this.lastTime = performance.now();
         this.accumulator = 0;
-        this.loop();
+        
+        this.gameTicker = (ticker) => {
+            this.loop(ticker);
+        };
+        this.pixiApp.ticker.add(this.gameTicker);
     },
     
     // Dừng game
     stop: function() {
         this.isPlaying = false;
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-            this.animationFrame = null;
+        
+        // Tạm dừng ticker an toàn
+        if (this.pixiApp && this.pixiApp.ticker && this.gameTicker) {
+            this.pixiApp.ticker.remove(this.gameTicker);
+            this.gameTicker = null;
         }
+        
         this.unbindEvents();
         
         // Dọn dẹp bộ đếm sinh quái vật
@@ -916,6 +1131,22 @@ const game = {
                             splashRadius: config.splashRadius
                         };
                         this.towers.push(newTower);
+                        // Tạo hiệu ứng vòng bụi xây dựng (shockwave)
+                        for (let k = 0; k < 24; k++) {
+                            const angle = (k / 24) * Math.PI * 2;
+                            const speed = 1.8 + Math.random() * 0.8;
+                            this.particles.push({
+                                x: buildX,
+                                y: buildY,
+                                vx: Math.cos(angle) * speed,
+                                vy: Math.sin(angle) * speed,
+                                color: "#e2e8f0",
+                                alpha: 0.75,
+                                life: 16 + Math.random() * 8,
+                                maxLife: 24,
+                                size: 2.2 + Math.random() * 1.5
+                            });
+                        }
 
                         // NẾU XÂY THÁP LÍNH -> TỰ ĐỘNG SINH 4 CHIẾN BINH ĐỨNG GÁC
                         if (this.confirmBuildPos.type === 'soldier') {
@@ -1108,22 +1339,26 @@ const game = {
         
         this.spawnPopup(tower.x, tower.y - 15, `⚡ Nâng cấp! -${cost}G`, "#fbbf24");
         
-        // Hiệu ứng hạt lấp lánh màu vàng xung quanh tháp được nâng cấp
-        for (let i = 0; i < 15; i++) {
+        // Cột sáng nâng cấp bay thẳng lên trời
+        for (let i = 0; i < 40; i++) {
             this.particles.push({
-                x: tower.x,
-                y: tower.y,
-                vx: (Math.random() - 0.5) * 3,
-                vy: (Math.random() - 0.5) * 3 - 1,
+                x: tower.x + (Math.random() - 0.5) * 16,
+                y: tower.y - Math.random() * 30,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: -2.0 - Math.random() * 2.5,
                 color: "#fbbf24",
-                alpha: 1,
-                life: 30 + Math.random() * 20,
-                maxLife: 50,
-                size: 2 + Math.random() * 2
+                alpha: 1.0,
+                life: 25 + Math.random() * 15,
+                maxLife: 40,
+                size: 1.8 + Math.random() * 2.2
             });
         }
         
-        if (window.app && app.audio) app.audio.playClick();
+        if (window.app && app.audio && typeof app.audio.playTdSound === 'function') {
+            app.audio.playTdSound('upgrade');
+        } else if (window.app && app.audio) {
+            app.audio.playClick();
+        }
         this.deselectTower();
     },
     
@@ -1617,15 +1852,13 @@ const game = {
         }, 1000);
     },
     
-    // Vòng lặp vẽ và cập nhật trạng thái game
-    loop: function() {
+    // Vòng lặp vẽ và cập nhật trạng thái game, được kích hoạt bởi PIXI.Ticker
+    loop: function(ticker) {
         if (!this.isPlaying) return;
         
-        const now = performance.now();
-        let elapsed = now - this.lastTime;
-        // Giới hạn trễ tích lũy tối đa 100ms mỗi frame để tránh xoắn ốc tử thần
+        // Sử dụng ticker.elapsedMS để tính thời gian trôi qua, mượt mà và chính xác
+        let elapsed = ticker.elapsedMS;
         if (elapsed > 100) elapsed = 100;
-        this.lastTime = now;
         
         this.accumulator += elapsed;
         
@@ -1641,13 +1874,22 @@ const game = {
             this.accumulator = 0;
         }
         
+        // 1. Vẽ các thực thể cũ lên canvas 2D ẩn (Bridge)
         this.draw();
         
-        this.animationFrame = requestAnimationFrame(() => this.loop());
+        // 2. Cập nhật Texture nguồn của PixiJS để đẩy dữ liệu pixel lên GPU (WebGPU/WebGL)
+        if (this.legacyTexture && this.legacyTexture.source) {
+            this.legacyTexture.source.update();
+        }
     },
     
     // Cập nhật vật lý và trạng thái
     update: function() {
+        if (this.freezeFrames > 0) {
+            this.freezeFrames--;
+            return;
+        }
+
         if (this.screenShake > 0) this.screenShake--;
         
         // 1. Cập nhật đếm ngược nổi giận (quái tăng tốc khi làm sai)
@@ -2236,6 +2478,10 @@ const game = {
                 if (tower.angle === undefined) tower.angle = -Math.PI / 2; // Hướng lên mặc định
             }
 
+            if (tower.recoil > 0) {
+                tower.recoil -= 0.08; // Phục hồi recoil dần
+                if (tower.recoil < 0) tower.recoil = 0;
+            }
             tower.timer++;
             if (tower.timer >= tower.cooldown) {
                 if (target) {
@@ -2245,15 +2491,16 @@ const game = {
             }
         });
         
-        // 4. Cập nhật đạn bay
-        for (let i = this.projectiles.length - 1; i >= 0; i--) {
+        // 4. Cập nhật đạn bay (Object Pool)
+        for (let i = 0; i < this.projectiles.length; i++) {
             const p = this.projectiles[i];
+            if (!p.active) continue;
             
             // Đạn dạng tia hoặc sét biến mất nhanh
             if (p.type === 'laser' || p.type === 'lightning' || p.type === 'laser_beam') {
                 p.life--;
                 if (p.life <= 0) {
-                    this.projectiles.splice(i, 1);
+                    p.active = false;
                 }
                 continue;
             }
@@ -2403,42 +2650,23 @@ const game = {
                             });
                         }
                     }
-                    this.projectiles.splice(i, 1);
+                    p.active = false;
                 } else {
                     p.x += (dx / dist) * p.speed;
-                    p.y += (dy / dist) * p.speed;
-                    
-                    // Tàn bụi kéo theo sau đạn
-                    if ((p.type === 'arrow' || p.type === 'poison_flask') && Math.random() < 0.35) {
-                        this.particles.push({
-                            x: p.x, y: p.y,
-                            vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
-                            color: p.type === 'poison_flask' ? "rgba(168, 85, 247, 0.4)" : "rgba(226, 232, 240, 0.4)",
-                            alpha: 0.7, life: 10 + Math.random() * 8, maxLife: 18,
-                            size: 1 + Math.random() * 1.2
-                        });
-                    } else if ((p.type === 'bomb' || p.type === 'fire_boulder' || p.type === 'void_orb') && Math.random() < 0.55) {
-                        this.particles.push({
-                            x: p.x, y: p.y,
-                            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6,
-                            color: p.type === 'void_orb' ? "#6366f1" : (Math.random() < 0.5 ? "#ea580c" : "#fbbf24"),
-                            alpha: 0.8, life: 12 + Math.random() * 6, maxLife: 18,
-                            size: 1.2 + Math.random() * 1.5
-                        });
-                    }
                 }
             }
         }
         
         // 5. Cập nhật các vụ nổ hạt
-        for (let i = this.particles.length - 1; i >= 0; i--) {
+        for (let i = 0; i < this.particles.length; i++) {
             const part = this.particles[i];
+            if (!part.active) continue;
             part.x += part.vx;
             part.y += part.vy;
             part.life--;
-            part.alpha = part.life / part.maxLife;
+            part.alpha = Math.max(0, part.life / part.maxLife);
             if (part.life <= 0) {
-                this.particles.splice(i, 1);
+                part.active = false;
             }
         }
         
@@ -2576,6 +2804,19 @@ const game = {
             const idx = this.enemies.indexOf(enemy);
             if (idx !== -1) {
                 this.enemies.splice(idx, 1);
+                
+                // Rung màn hình và hit stop khi quái lớn/Boss bị tiêu diệt
+                if (enemy.type === 'boss') {
+                    this.screenShake = Math.max(this.screenShake || 0, 18);
+                    this.triggerHitStop(4); // Tạm dừng 4 frame
+                } else if (enemy.type === 'titan' || enemy.type === 'lava_golem') {
+                    this.screenShake = Math.max(this.screenShake || 0, 8);
+                    this.triggerHitStop(2);
+                } else {
+                    if (Math.random() < 0.15) {
+                        this.triggerHitStop(1);
+                    }
+                }
                 
                 // Tính toán vàng nhận được (Áp dụng bộ nhân vàng của Hero)
                 const mult = this.getHeroMultipliers();
@@ -2739,6 +2980,8 @@ const game = {
             });
             
         } else if (tower.type === 'bomb') {
+            tower.recoil = 1.0; // Bắt đầu lực giật lùi
+            this.screenShake = Math.max(this.screenShake || 0, 7); // Rung nhẹ khi pháo bắn
             // Tháp pháo bắn đạn cầu bay chậm
             this.projectiles.push({
                 type: 'bomb',
@@ -2818,6 +3061,7 @@ const game = {
             });
             
         } else if (tower.type === 'laser') {
+            tower.recoil = 1.0; // Rung nhẹ nòng Gatling
             // Tháp Laser bắn liên tục
             this.projectiles.push({
                 type: 'laser_beam',
@@ -3217,493 +3461,452 @@ const game = {
 
     // Hàm vẽ một tháp cụ thể lên Canvas (dùng chung cho tháp thực tế, preview và tháp xác nhận)
     drawSingleTower: function(t) {
-        // Xác định bộ lọc hình ảnh theo cấp độ nâng cấp tháp
-        let filterStr = "none";
-        if (t.level === 2) {
-            // Cấp 2: Ánh sáng xanh băng / Lam ngọc
-            filterStr = "hue-rotate(120deg) saturate(1.5) brightness(1.05)";
-        } else if (t.level === 3) {
-            // Cấp 3: Vàng hoàng kim / Hỏa tinh
-            filterStr = "hue-rotate(-50deg) saturate(2) brightness(1.2)";
-        } else if (t.level >= 4) {
-            // Cấp 4+: Tím vũ trụ / Siêu cấp
-            filterStr = "hue-rotate(240deg) saturate(2.2) brightness(1.3)";
-        }
+        // Vẽ vòng đệm Neon phát sáng quanh chân tháp nâng cấp
+        this.ctx.save();
+        const baseGlowColor = t.level >= 3 ? "#fbbf24" : (t.type === 'ice' ? "#38bdf8" : (t.type === 'laser' ? "#ec4899" : "#6366f1"));
+        this.ctx.strokeStyle = baseGlowColor;
+        this.ctx.lineWidth = 2.5;
+        this.ctx.shadowColor = baseGlowColor;
+        this.ctx.shadowBlur = 10;
+        this.ctx.beginPath();
+        this.ctx.arc(t.x, t.y + 6, 22, 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.restore();
 
-        // Vẽ hiệu ứng Tháp Nâng Cấp Hiện Đại (Cấp 2, Cấp 3+)
-        if (t.level >= 2) {
-            this.ctx.save();
-            // Vòng đệm Neon phát sáng quanh chân tháp nâng cấp
-            this.ctx.strokeStyle = t.level >= 3 ? "#fbbf24" : "#38bdf8";
-            this.ctx.lineWidth = 2.5;
-            this.ctx.shadowColor = t.level >= 3 ? "#fbbf24" : "#38bdf8";
-            this.ctx.shadowBlur = 10;
+        // 100% Vector Canvas Renderer phong cách Sci-Fi Cyberpunk/Quantum
+        this.ctx.save();
+        this.ctx.shadowBlur = 8;
+        
+        if (t.type === 'archer') {
+            // Quantum Laser Bow Tower
+            // Bệ tháp đá Quantum đen xám
+            this.ctx.fillStyle = "#1e293b";
+            this.ctx.strokeStyle = "#38bdf8";
+            this.ctx.lineWidth = 1.5;
             this.ctx.beginPath();
-            this.ctx.arc(t.x, t.y + 6, 22, 0, Math.PI * 2);
+            this.ctx.moveTo(t.x - 10, t.y + 10);
+            this.ctx.lineTo(t.x - 7, t.y - 15);
+            this.ctx.lineTo(t.x + 7, t.y - 15);
+            this.ctx.lineTo(t.x + 10, t.y + 10);
+            this.ctx.closePath();
+            this.ctx.fill();
+            this.ctx.stroke();
+
+            // Mái vòm năng lượng
+            this.ctx.fillStyle = "rgba(56, 189, 248, 0.25)";
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 15, 11, Math.PI, 0);
+            this.ctx.fill();
+
+            // Viên ngọc lượng tử lơ lửng
+            const bob = Math.sin(Date.now() * 0.007) * 4;
+            const gemY = t.y - 25 + bob;
+            
+            // Hào quang vàng rực
+            const gemGrad = this.ctx.createRadialGradient(t.x, gemY, 1, t.x, gemY, 12);
+            gemGrad.addColorStop(0, "#ffffff");
+            gemGrad.addColorStop(0.4, "#eab308");
+            gemGrad.addColorStop(1, "rgba(234, 179, 8, 0)");
+            this.ctx.fillStyle = gemGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, gemY, 10, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Vòng elip lượng tử xoay chéo bao quanh
+            this.ctx.strokeStyle = "#38bdf8";
+            this.ctx.lineWidth = 1.2;
+            this.ctx.save();
+            this.ctx.translate(t.x, gemY);
+            this.ctx.rotate(Date.now() * 0.004);
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, 0, 14, 5, Math.PI / 6, 0, Math.PI * 2);
             this.ctx.stroke();
             this.ctx.restore();
-        }
 
-        if (this.imagesLoaded && ['archer', 'ice', 'bomb', 'soldier'].includes(t.type) && this.images['tower_' + t.type]) {
-            // Vẽ bóng đổ dưới chân tháp
-            this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+            // Vẽ emoji đại diện
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("🏹", t.x, t.y - 2);
+
+        } else if (t.type === 'ice') {
+            // Chrono Frost Tower
+            // Bệ tháp băng pha lê xanh chàm
+            this.ctx.fillStyle = "#0f172a";
+            this.ctx.strokeStyle = "#06b6d4";
+            this.ctx.lineWidth = 1.8;
             this.ctx.beginPath();
-            this.ctx.ellipse(t.x, t.y + 8, 16, 5, 0, 0, Math.PI * 2);
+            this.ctx.moveTo(t.x - 12, t.y + 10);
+            this.ctx.lineTo(t.x - 6, t.y - 18);
+            this.ctx.lineTo(t.x + 6, t.y - 18);
+            this.ctx.lineTo(t.x + 12, t.y + 10);
+            this.ctx.closePath();
             this.ctx.fill();
-            
-            // Vẽ tháp bằng hình ảnh Pixel Art đã lọc nền kèm bộ lọc theo cấp độ
-            const img = this.images['tower_' + t.type];
-            this.ctx.save();
-            if (filterStr !== "none") {
-                this.ctx.filter = filterStr;
-            }
-            this.ctx.drawImage(img, t.x - 22, t.y - 34, 44, 46);
-            this.ctx.restore();
-            
-            // Trang trí thêm các chi tiết thực tế tùy theo Cấp độ (để hình ảnh khác biệt hoàn toàn)
-            if (t.level === 2) {
-                // Vẽ 1 viên ngọc xanh phát sáng trên nóc tháp
+            this.ctx.stroke();
+
+            // Tinh thể băng lớn ở đỉnh phát hào quang
+            const pulse = 8 + Math.sin(Date.now() * 0.01) * 2;
+            const crystalGrad = this.ctx.createRadialGradient(t.x, t.y - 25, 1, t.x, t.y - 25, pulse);
+            crystalGrad.addColorStop(0, "#ffffff");
+            crystalGrad.addColorStop(0.5, "#38bdf8");
+            crystalGrad.addColorStop(1, "rgba(56, 189, 248, 0)");
+            this.ctx.fillStyle = crystalGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 25, pulse, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Tinh thể băng thoi nhỏ xoay động xung quanh
+            const crystalCount = t.level >= 3 ? 3 : 2;
+            const rotAngle = Date.now() * 0.003;
+            for (let i = 0; i < crystalCount; i++) {
+                const angle = rotAngle + i * (Math.PI * 2 / crystalCount);
+                const cx = t.x + Math.cos(angle) * 16;
+                const cy = t.y - 20 + Math.sin(angle) * 6; // Xoay elip nghiêng elip dẹt
+                
                 this.ctx.save();
+                this.ctx.translate(cx, cy);
+                this.ctx.rotate(angle + Math.PI / 4);
                 this.ctx.fillStyle = "#38bdf8";
-                this.ctx.shadowColor = "#38bdf8";
-                this.ctx.shadowBlur = 8;
+                this.ctx.strokeStyle = "#ffffff";
+                this.ctx.lineWidth = 0.8;
                 this.ctx.beginPath();
-                this.ctx.arc(t.x, t.y - 32, 4, 0, Math.PI * 2);
+                this.ctx.moveTo(0, -5);
+                this.ctx.lineTo(3, 0);
+                this.ctx.lineTo(0, 5);
+                this.ctx.lineTo(-3, 0);
+                this.ctx.closePath();
                 this.ctx.fill();
-                this.ctx.restore();
-            } else if (t.level === 3) {
-                // Vẽ 2 cờ đuôi nheo màu đỏ/vàng hai bên tháp
-                this.ctx.save();
-                this.ctx.fillStyle = "#fbbf24";
-                this.ctx.beginPath();
-                // Cờ bên trái
-                this.ctx.moveTo(t.x - 18, t.y - 20);
-                this.ctx.lineTo(t.x - 26, t.y - 25);
-                this.ctx.lineTo(t.x - 18, t.y - 30);
-                this.ctx.fill();
-                // Cờ bên phải
-                this.ctx.beginPath();
-                this.ctx.moveTo(t.x + 18, t.y - 20);
-                this.ctx.lineTo(t.x + 26, t.y - 25);
-                this.ctx.lineTo(t.x + 18, t.y - 30);
-                this.ctx.fill();
-                
-                // Ngọc vàng trung tâm
-                this.ctx.fillStyle = "#f59e0b";
-                this.ctx.shadowColor = "#fbbf24";
-                this.ctx.shadowBlur = 12;
-                this.ctx.beginPath();
-                this.ctx.arc(t.x, t.y - 32, 6, 0, Math.PI * 2);
-                this.ctx.fill();
-                this.ctx.restore();
-            } else if (t.level >= 4) {
-                // Cấp 4+: Hào quang và vòng xoay ma thuật tím trên đỉnh
-                this.ctx.save();
-                this.ctx.strokeStyle = "rgba(168, 85, 247, 0.7)";
-                this.ctx.lineWidth = 1.5;
-                this.ctx.beginPath();
-                this.ctx.ellipse(t.x, t.y - 36, 12, 4, 0, 0, Math.PI * 2);
                 this.ctx.stroke();
-                
-                // Viên ngọc hắc ám lơ lửng
-                const bob = Math.sin(Date.now() * 0.006) * 3;
-                this.ctx.fillStyle = "#c084fc";
-                this.ctx.shadowColor = "#a855f7";
-                this.ctx.shadowBlur = 15;
-                this.ctx.beginPath();
-                this.ctx.arc(t.x, t.y - 38 + bob, 7, 0, Math.PI * 2);
-                this.ctx.fill();
                 this.ctx.restore();
             }
-        } else {
-            // Fallback vẽ hình học vector nâng cấp theo cấp độ & loại tháp
-            if (t.type === 'archer') {
-                if (t.level === 1) {
-                    // Tháp cung gỗ cấp 1
-                    this.ctx.fillStyle = "#78350f";
-                    this.ctx.fillRect(t.x - 9, t.y - 18, 18, 26);
-                    this.ctx.fillStyle = "#ea580c";
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x - 14, t.y - 18);
-                    this.ctx.lineTo(t.x, t.y - 34);
-                    this.ctx.lineTo(t.x + 14, t.y - 18);
-                    this.ctx.closePath();
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#fbbf24";
-                    this.ctx.font = "bold 11px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.textBaseline = "middle";
-                    this.ctx.fillText("🏹", t.x, t.y - 3);
-                } else if (t.level === 2) {
-                    // Tháp đá cường hóa cấp 2
-                    this.ctx.fillStyle = "#475569";
-                    this.ctx.fillRect(t.x - 11, t.y - 20, 22, 28);
-                    this.ctx.fillStyle = "#0284c7"; // Mái xanh lam
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x - 16, t.y - 20);
-                    this.ctx.lineTo(t.x, t.y - 38);
-                    this.ctx.lineTo(t.x + 16, t.y - 20);
-                    this.ctx.closePath();
-                    this.ctx.fill();
-                    // Ngọc xanh lam ở đỉnh
-                    this.ctx.fillStyle = "#38bdf8";
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y - 38, 4, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#ffffff";
-                    this.ctx.font = "bold 12px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("🏹🏹", t.x, t.y - 5);
-                } else if (t.level === 3) {
-                    // Pháo đài cổ hoàng kim cấp 3
-                    this.ctx.fillStyle = "#1e293b";
-                    this.ctx.fillRect(t.x - 13, t.y - 24, 26, 32);
-                    this.ctx.fillStyle = "#eab308"; // Mái vàng
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x - 18, t.y - 24);
-                    this.ctx.lineTo(t.x, t.y - 42);
-                    this.ctx.lineTo(t.x + 18, t.y - 24);
-                    this.ctx.closePath();
-                    this.ctx.fill();
-                    // Lá cờ vàng
-                    this.ctx.fillStyle = "#eab308";
-                    this.ctx.fillRect(t.x - 1, t.y - 52, 2, 10);
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x + 1, t.y - 52);
-                    this.ctx.lineTo(t.x + 12, t.y - 47);
-                    this.ctx.lineTo(t.x + 1, t.y - 42);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#ffffff";
-                    this.ctx.font = "bold 13px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("🔱", t.x, t.y - 8);
-                } else {
-                    // Đền thờ thần tiễn siêu cấp (Lv4+)
-                    this.ctx.fillStyle = "#3b0764"; // Đá tím
-                    this.ctx.fillRect(t.x - 14, t.y - 26, 28, 34);
-                    this.ctx.fillStyle = "#a855f7"; // Mái tím neon
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x - 20, t.y - 26);
-                    this.ctx.lineTo(t.x, t.y - 46);
-                    this.ctx.lineTo(t.x + 20, t.y - 26);
-                    this.ctx.closePath();
-                    this.ctx.fill();
-                    // Quả cầu năng lượng tím bay lơ lửng
-                    const bob = Math.sin(Date.now() * 0.007) * 3;
-                    this.ctx.fillStyle = "#c084fc";
-                    this.ctx.shadowColor = "#c084fc";
-                    this.ctx.shadowBlur = 12;
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y - 52 + bob, 5, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.shadowBlur = 0;
-                    this.ctx.fillStyle = "#ffffff";
-                    this.ctx.font = "bold 14px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("⚡", t.x, t.y - 8);
-                }
-            } else if (t.type === 'ice') {
-                if (t.level === 1) {
-                    this.ctx.fillStyle = "#5b21b6";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 18, 7, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    const crystalGrad = this.ctx.createLinearGradient(t.x - 10, t.y - 28, t.x + 10, t.y + 6);
-                    crystalGrad.addColorStop(0, "#e0f2fe");
-                    crystalGrad.addColorStop(0.5, "#38bdf8");
-                    crystalGrad.addColorStop(1, "#0369a1");
-                    this.ctx.fillStyle = crystalGrad;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x, t.y - 32);
-                    this.ctx.lineTo(t.x + 10, t.y - 6);
-                    this.ctx.lineTo(t.x + 6, t.y + 6);
-                    this.ctx.lineTo(t.x - 6, t.y + 6);
-                    this.ctx.lineTo(t.x - 10, t.y - 6);
-                    this.ctx.closePath();
-                    this.ctx.fill();
-                } else if (t.level === 2) {
-                    // Cấp 2: 2 tinh thể băng song sinh
-                    this.ctx.fillStyle = "#1e1b4b";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 20, 7, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#38bdf8";
-                    this.ctx.beginPath();
-                    // Tinh thể trái
-                    this.ctx.moveTo(t.x - 6, t.y - 35);
-                    this.ctx.lineTo(t.x, t.y - 4);
-                    this.ctx.lineTo(t.x - 12, t.y - 4);
-                    this.ctx.fill();
-                    // Tinh thể phải
-                    this.ctx.fillStyle = "#7dd3fc";
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x + 6, t.y - 35);
-                    this.ctx.lineTo(t.x + 12, t.y - 4);
-                    this.ctx.lineTo(t.x, t.y - 4);
-                    this.ctx.fill();
-                } else if (t.level === 3) {
-                    // Cấp 3: Đại pháp đài băng tinh thể tam giác
-                    this.ctx.fillStyle = "#0f172a";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 22, 8, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#0284c7";
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(t.x, t.y - 42);
-                    this.ctx.lineTo(t.x + 14, t.y);
-                    this.ctx.lineTo(t.x - 14, t.y);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#e0f2fe";
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y - 42, 5, 0, Math.PI * 2);
-                    this.ctx.fill();
-                } else {
-                    // Cấp 4+: Hố đen băng giá bay lơ lửng
-                    this.ctx.fillStyle = "#090d16";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 24, 8, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    const timeAngle = Date.now() * 0.005;
-                    this.ctx.save();
-                    this.ctx.translate(t.x, t.y - 20);
-                    this.ctx.rotate(timeAngle);
-                    this.ctx.fillStyle = "#38bdf8";
-                    this.ctx.fillRect(-12, -12, 24, 24);
-                    this.ctx.rotate(Math.PI / 4);
-                    this.ctx.fillStyle = "#e0f2fe";
-                    this.ctx.fillRect(-8, -8, 16, 16);
-                    this.ctx.restore();
-                }
-            } else if (t.type === 'bomb') {
-                if (t.level === 1) {
-                    this.ctx.fillStyle = "#1e293b";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 18, 7, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#475569";
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y, 13, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.save();
-                    this.ctx.translate(t.x, t.y);
-                    this.ctx.rotate(t.angle || -Math.PI / 2);
-                    this.ctx.fillStyle = "#0f172a";
-                    this.ctx.fillRect(0, -5, 24, 10);
-                    this.ctx.restore();
-                } else if (t.level === 2) {
-                    // Cấp 2: Tháp pháo kép cản quái
-                    this.ctx.fillStyle = "#334155";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 20, 8, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#64748b";
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y, 15, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.save();
-                    this.ctx.translate(t.x, t.y);
-                    this.ctx.rotate(t.angle || -Math.PI / 2);
-                    this.ctx.fillStyle = "#0f172a";
-                    // 2 nòng súng kép
-                    this.ctx.fillRect(0, -7, 26, 5);
-                    this.ctx.fillRect(0, 2, 26, 5);
-                    this.ctx.restore();
-                } else if (t.level === 3) {
-                    // Cấp 3: Đại pháo đài rồng phun lửa
-                    this.ctx.fillStyle = "#1e293b";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 22, 8, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#b91c1c";
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y, 16, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.save();
-                    this.ctx.translate(t.x, t.y);
-                    this.ctx.rotate(t.angle || -Math.PI / 2);
-                    this.ctx.fillStyle = "#7f1d1d";
-                    this.ctx.fillRect(0, -6, 28, 12);
-                    this.ctx.fillStyle = "#fbbf24";
-                    this.ctx.fillRect(24, -4, 6, 8); // đầu nòng vàng phát sáng
-                    this.ctx.restore();
-                } else {
-                    // Cấp 4+: Tháp pháo plasma siêu cấp
-                    this.ctx.fillStyle = "#0f051d";
-                    this.ctx.beginPath();
-                    this.ctx.ellipse(t.x, t.y + 8, 24, 8, 0, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.fillStyle = "#7c3aed";
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y, 17, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    this.ctx.save();
-                    this.ctx.translate(t.x, t.y);
-                    this.ctx.rotate(t.angle || -Math.PI / 2);
-                    this.ctx.fillStyle = "#4c1d95";
-                    this.ctx.fillRect(0, -5, 30, 10);
-                    // Lõi phát sáng xanh plasma
-                    this.ctx.fillStyle = "#22d3ee";
-                    this.ctx.fillRect(10, -2, 22, 4);
-                    this.ctx.restore();
-                }
-            } else if (t.type === 'soldier') {
-                if (t.level === 1) {
-                    this.ctx.fillStyle = "#15803d";
-                    this.ctx.fillRect(t.x - 12, t.y - 14, 24, 22);
-                    this.ctx.fillStyle = "#fbbf24";
-                    this.ctx.font = "bold 13px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("🛡️", t.x, t.y - 2);
-                } else if (t.level === 2) {
-                    // Binh doanh cấp 2: Nhà gạch có mái thép che chắn
-                    this.ctx.fillStyle = "#b45309";
-                    this.ctx.fillRect(t.x - 14, t.y - 16, 28, 24);
-                    this.ctx.fillStyle = "#64748b";
-                    this.ctx.fillRect(t.x - 16, t.y - 20, 32, 5);
-                    this.ctx.fillStyle = "#ffffff";
-                    this.ctx.font = "bold 12px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("⚔️", t.x, t.y - 4);
-                } else if (t.level === 3) {
-                    // Pháo đài quân sự cấp 3
-                    this.ctx.fillStyle = "#334155";
-                    this.ctx.fillRect(t.x - 16, t.y - 20, 32, 28);
-                    this.ctx.fillStyle = "#ea580c"; // Mái đỏ
-                    this.ctx.fillRect(t.x - 18, t.y - 24, 36, 5);
-                    this.ctx.fillStyle = "#ffffff";
-                    this.ctx.font = "bold 13px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("🏰", t.x, t.y - 6);
-                } else {
-                    // Thánh điện Kỵ sĩ siêu cấp (Lv4+)
-                    this.ctx.fillStyle = "#1e293b";
-                    this.ctx.fillRect(t.x - 18, t.y - 22, 36, 30);
-                    // Cột thánh điện hai bên
-                    this.ctx.fillStyle = "#fbbf24";
-                    this.ctx.fillRect(t.x - 18, t.y - 26, 4, 34);
-                    this.ctx.fillRect(t.x + 14, t.y - 26, 4, 34);
-                    this.ctx.fillStyle = "#f59e0b";
-                    this.ctx.fillRect(t.x - 20, t.y - 28, 8, 4);
-                    this.ctx.fillRect(t.x + 12, t.y - 28, 8, 4);
-                    this.ctx.fillStyle = "#ffffff";
-                    this.ctx.font = "bold 14px sans-serif";
-                    this.ctx.textAlign = "center";
-                    this.ctx.fillText("👼", t.x, t.y - 6);
-                }
-            } else if (t.type === 'thunder') {
-                // Tháp Sấm Sét vector
-                this.ctx.fillStyle = "#312e81";
-                this.ctx.fillRect(t.x - 10, t.y - 20, 20, 28);
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("❄️", t.x, t.y - 2);
+
+        } else if (t.type === 'bomb') {
+            // Plasma Artillery Tower
+            // Bệ sắt cơ khí nặng nề
+            this.ctx.fillStyle = "#334155";
+            this.ctx.strokeStyle = "#ea580c";
+            this.ctx.lineWidth = 1.5;
+            this.ctx.fillRect(t.x - 11, t.y - 8, 22, 18);
+            this.ctx.strokeRect(t.x - 11, t.y - 8, 22, 18);
+
+            // Đầu súng tròn bọc giáp
+            this.ctx.fillStyle = "#1e293b";
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 8, 12, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Tính toán Recoil Easing (easeOutQuad)
+            const recoilVal = t.recoil || 0;
+            const easeRecoil = recoilVal * (2 - recoilVal);
+            const recoilOffset = -8 * easeRecoil; // Đẩy lùi nòng 8px
+
+            // Vẽ nòng pháo kép giật lùi theo góc bắn
+            this.ctx.save();
+            this.ctx.translate(t.x, t.y - 8);
+            this.ctx.rotate(t.angle || -Math.PI / 2);
+            this.ctx.translate(recoilOffset, 0); // Giật lùi nòng súng
+            
+            this.ctx.fillStyle = "#475569";
+            this.ctx.strokeStyle = "#ea580c";
+            this.ctx.lineWidth = 1.0;
+            // 2 nòng súng song song
+            this.ctx.fillRect(0, -6, 22, 4);
+            this.ctx.strokeRect(0, -6, 22, 4);
+            this.ctx.fillRect(0, 2, 22, 4);
+            this.ctx.strokeRect(0, 2, 22, 4);
+            
+            // Lõi magma nạp năng lượng rực sáng đầu nòng
+            if (recoilVal > 0.3) {
                 this.ctx.fillStyle = "#fbbf24";
-                this.ctx.fillRect(t.x - 12, t.y - 22, 4, 6);
-                this.ctx.fillRect(t.x + 8, t.y - 22, 4, 6);
-                const bob = Math.sin(Date.now() * 0.008) * 3;
-                const glowGrad = this.ctx.createRadialGradient(t.x, t.y - 34 + bob, 1, t.x, t.y - 34 + bob, 10);
-                glowGrad.addColorStop(0, "#ffffff");
-                glowGrad.addColorStop(0.4, "#06b6d4");
-                glowGrad.addColorStop(1, "rgba(6, 182, 212, 0)");
-                this.ctx.fillStyle = glowGrad;
+                this.ctx.fillRect(20, -5, 4, 10);
+            }
+            this.ctx.restore();
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("💣", t.x, t.y + 6);
+
+        } else if (t.type === 'soldier') {
+            // Hyperion Guardian Base
+            // Pháo đài thép
+            this.ctx.fillStyle = "#1e293b";
+            this.ctx.strokeStyle = "#22c55e";
+            this.ctx.lineWidth = 2.0;
+            this.ctx.fillRect(t.x - 14, t.y - 12, 28, 22);
+            this.ctx.strokeRect(t.x - 14, t.y - 12, 28, 22);
+
+            // Cổng kịch phát năng lượng xanh lá (Vòng tròn cổng dịch chuyển)
+            const portalPulse = 14 + Math.sin(Date.now() * 0.015) * 2.5;
+            this.ctx.strokeStyle = "rgba(34, 197, 94, 0.85)";
+            this.ctx.lineWidth = 2.0;
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 12, portalPulse, 0, Math.PI * 2);
+            this.ctx.stroke();
+
+            // Hiệu ứng hạt bụi năng lượng bay lên nhẹ
+            if (Math.random() < 0.15) {
+                this.particles.push({
+                    x: t.x + (Math.random() - 0.5) * 20,
+                    y: t.y - 5,
+                    vx: 0,
+                    vy: -0.6 - Math.random() * 0.6,
+                    color: "#22c55e",
+                    alpha: 0.8,
+                    life: 20,
+                    maxLife: 20,
+                    size: 1.2
+                });
+            }
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("🛡️", t.x, t.y + 2);
+
+        } else if (t.type === 'thunder') {
+            // Tesla Storm Overlord
+            // Cột phóng điện Tesla cao áp
+            this.ctx.fillStyle = "#1e1b4b";
+            this.ctx.strokeStyle = "#06b6d4";
+            this.ctx.lineWidth = 1.5;
+            this.ctx.fillRect(t.x - 6, t.y - 20, 12, 28);
+            this.ctx.strokeRect(t.x - 6, t.y - 20, 12, 28);
+
+            // Các vòng kim loại tích điện
+            this.ctx.fillStyle = "#475569";
+            this.ctx.fillRect(t.x - 10, t.y - 12, 20, 3);
+            this.ctx.fillRect(t.x - 8, t.y - 4, 16, 3);
+
+            // Quả cầu năng lượng sấm sét Tesla
+            const bob = Math.sin(Date.now() * 0.008) * 3;
+            const ballY = t.y - 28 + bob;
+            const glow = 10 + Math.sin(Date.now() * 0.035) * 3;
+
+            const grad = this.ctx.createRadialGradient(t.x, ballY, 1, t.x, ballY, glow);
+            grad.addColorStop(0, "#ffffff");
+            grad.addColorStop(0.3, "#22d3ee");
+            grad.addColorStop(0.7, "#0891b2");
+            grad.addColorStop(1, "rgba(6, 182, 212, 0)");
+            this.ctx.fillStyle = grad;
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, ballY, glow, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Tia sét trang trí nhảy liên tục từ đỉnh xuống chân tháp
+            if (Math.random() < 0.28) {
+                this.ctx.strokeStyle = "#e0f2fe";
+                this.ctx.lineWidth = 1.0;
+                this.ctx.shadowBlur = 6;
+                this.ctx.shadowColor = "#22d3ee";
                 this.ctx.beginPath();
-                this.ctx.arc(t.x, t.y - 34 + bob, 10, 0, Math.PI * 2);
-                this.ctx.fill();
-                
-                if (t.level >= 2) {
-                    this.ctx.strokeStyle = "#22d3ee";
-                    this.ctx.lineWidth = 1.5;
-                    this.ctx.beginPath();
-                    this.ctx.arc(t.x, t.y - 34 + bob, 14, 0, Math.PI * 2);
-                    this.ctx.stroke();
+                this.ctx.moveTo(t.x, ballY);
+                let cx = t.x;
+                let cy = ballY;
+                for (let s = 0; s < 4; s++) {
+                    cx += (Math.random() - 0.5) * 10;
+                    cy += 7;
+                    this.ctx.lineTo(cx, cy);
                 }
-                this.ctx.fillStyle = "#ffffff";
-                this.ctx.font = "bold 11px sans-serif";
-                this.ctx.textAlign = "center";
-                this.ctx.fillText("⚡", t.x, t.y - 3);
-            } else if (t.type === 'laser') {
-                // Tháp Laser vector
-                this.ctx.fillStyle = "#7f1d1d";
-                this.ctx.fillRect(t.x - 12, t.y - 18, 24, 26);
-                this.ctx.fillStyle = "#ef4444";
-                this.ctx.fillRect(t.x - 8, t.y - 25, 16, 7);
-                const pulse = 6 + Math.sin(Date.now() * 0.015) * 2;
-                const crystalGrad = this.ctx.createRadialGradient(t.x, t.y - 35, 1, t.x, t.y - 35, pulse);
-                crystalGrad.addColorStop(0, "#ffffff");
-                crystalGrad.addColorStop(0.6, "#ec4899");
-                crystalGrad.addColorStop(1, "rgba(236, 72, 153, 0)");
-                this.ctx.fillStyle = crystalGrad;
-                this.ctx.beginPath();
-                this.ctx.arc(t.x, t.y - 35, pulse, 0, Math.PI * 2);
-                this.ctx.fill();
-                this.ctx.fillStyle = "#ffffff";
-                this.ctx.font = "bold 11px sans-serif";
-                this.ctx.textAlign = "center";
-                this.ctx.fillText("📡", t.x, t.y - 3);
-            } else if (t.type === 'poison') {
-                // Tháp Độc Học vector
-                this.ctx.fillStyle = "#4a044e";
-                this.ctx.fillRect(t.x - 12, t.y - 20, 24, 28);
-                this.ctx.fillStyle = "#c084fc";
-                this.ctx.fillRect(t.x - 8, t.y - 14, 16, 18);
-                const bubbleY = t.y - 24 + Math.sin(Date.now() * 0.005) * 2;
-                this.ctx.fillStyle = "#d8b4fe";
-                this.ctx.beginPath();
-                this.ctx.arc(t.x - 4, bubbleY, 3, 0, Math.PI * 2);
-                this.ctx.arc(t.x + 5, bubbleY - 2, 2.5, 0, Math.PI * 2);
-                this.ctx.fill();
-                this.ctx.fillStyle = "#ffffff";
-                this.ctx.font = "bold 11px sans-serif";
-                this.ctx.textAlign = "center";
-                this.ctx.fillText("🧪", t.x, t.y - 2);
-            } else if (t.type === 'fire') {
-                // Tháp Hỏa Long vector
-                this.ctx.fillStyle = "#1c1917";
-                this.ctx.fillRect(t.x - 13, t.y - 22, 26, 30);
+                this.ctx.stroke();
+                this.ctx.shadowBlur = 0;
+            }
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("⚡", t.x, t.y - 2);
+
+        } else if (t.type === 'laser') {
+            // Gatling Laser Turret
+            // Bệ súng nòng xoay hiện đại
+            this.ctx.fillStyle = "#0f172a";
+            this.ctx.strokeStyle = "#ec4899";
+            this.ctx.lineWidth = 1.5;
+            this.ctx.fillRect(t.x - 12, t.y - 6, 24, 16);
+            this.ctx.strokeRect(t.x - 12, t.y - 6, 24, 16);
+
+            // Bệ xoay tròn nòng súng
+            this.ctx.fillStyle = "#334155";
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 6, 10, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Nếu đang bắn, xoay nòng súng Gatling liên tục
+            const recoilVal = t.recoil || 0;
+            if (recoilVal > 0) {
+                t.spinAngle = (t.spinAngle || 0) + 0.35;
+            }
+
+            const spin = t.spinAngle || 0;
+
+            // Vẽ cụm nòng xoay 3 ống của Gatling theo góc bắn
+            this.ctx.save();
+            this.ctx.translate(t.x, t.y - 6);
+            this.ctx.rotate(t.angle || -Math.PI / 2);
+            
+            // Vẽ 3 nòng Gatling xoay quanh tâm
+            this.ctx.fillStyle = "#1e293b";
+            this.ctx.strokeStyle = "#ec4899";
+            this.ctx.lineWidth = 0.8;
+            for (let i = 0; i < 3; i++) {
+                const pipeOffset = Math.sin(spin + i * (Math.PI * 2 / 3)) * 4;
+                this.ctx.fillRect(0, -2 + pipeOffset, 24, 4);
+                this.ctx.strokeRect(0, -2 + pipeOffset, 24, 4);
+            }
+
+            // Hiệu ứng lửa nòng (muzzle flash) đỏ cam khi bắn
+            if (recoilVal > 0.6) {
                 this.ctx.fillStyle = "#f97316";
-                this.ctx.fillRect(t.x - 8, t.y - 14, 3, 14);
-                this.ctx.fillRect(t.x + 5, t.y - 14, 3, 14);
-                const pulseSize = 8 + Math.sin(Date.now() * 0.01) * 2.5;
-                const lavaGrad = this.ctx.createRadialGradient(t.x, t.y - 35, 1, t.x, t.y - 35, pulseSize);
-                lavaGrad.addColorStop(0, "#facc15");
-                lavaGrad.addColorStop(0.5, "#f97316");
-                lavaGrad.addColorStop(1, "rgba(249, 115, 22, 0)");
-                this.ctx.fillStyle = lavaGrad;
                 this.ctx.beginPath();
-                this.ctx.arc(t.x, t.y - 35, pulseSize, 0, Math.PI * 2);
+                this.ctx.moveTo(24, -5);
+                this.ctx.lineTo(34, 0);
+                this.ctx.lineTo(24, 5);
+                this.ctx.closePath();
                 this.ctx.fill();
-                this.ctx.fillStyle = "#ffffff";
-                this.ctx.font = "bold 11px sans-serif";
-                this.ctx.textAlign = "center";
-                this.ctx.fillText("🌋", t.x, t.y - 3);
-            } else if (t.type === 'void') {
-                // Tháp Vô Cực vector
-                this.ctx.fillStyle = "#0f172a";
-                this.ctx.fillRect(t.x - 14, t.y - 24, 28, 32);
-                this.ctx.save();
-                this.ctx.translate(t.x, t.y - 38);
-                this.ctx.rotate(Date.now() * 0.005);
-                this.ctx.strokeStyle = "#6366f1";
-                this.ctx.lineWidth = 2.5;
+                
+                this.ctx.fillStyle = "#fbbf24";
                 this.ctx.beginPath();
-                this.ctx.arc(0, 0, 11, 0, Math.PI * 2);
-                this.ctx.stroke();
-                this.ctx.fillStyle = "#020617";
-                this.ctx.beginPath();
-                this.ctx.arc(0, 0, 7, 0, Math.PI * 2);
+                this.ctx.moveTo(24, -2.5);
+                this.ctx.lineTo(29, 0);
+                this.ctx.lineTo(24, 2.5);
+                this.ctx.closePath();
                 this.ctx.fill();
-                this.ctx.restore();
-                this.ctx.fillStyle = "#ffffff";
-                this.ctx.font = "bold 11px sans-serif";
-                this.ctx.textAlign = "center";
-                this.ctx.fillText("🌀", t.x, t.y - 3);
             }
+            this.ctx.restore();
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("📡", t.x, t.y + 6);
+
+        } else if (t.type === 'poison') {
+            // Bio-Chemical Toxins Tower
+            // Bình hóa học phát sáng neon tím sậm
+            this.ctx.fillStyle = "#3b0764";
+            this.ctx.strokeStyle = "#c084fc";
+            this.ctx.lineWidth = 1.5;
+            this.ctx.fillRect(t.x - 11, t.y - 12, 22, 22);
+            this.ctx.strokeRect(t.x - 11, t.y - 12, 22, 22);
+
+            // Nước độc tím sủi bọt bên trong
+            const timeAngle = Date.now() * 0.005;
+            const bubbleHeight = Math.sin(timeAngle) * 2;
+            this.ctx.fillStyle = "#a855f7";
+            this.ctx.fillRect(t.x - 9, t.y - 4 + bubbleHeight, 18, 12 - bubbleHeight);
+
+            // Bong bóng bay lên
+            const pulse = 7 + Math.sin(Date.now() * 0.006) * 1.5;
+            const glowGrad = this.ctx.createRadialGradient(t.x, t.y - 24, 1, t.x, t.y - 24, pulse);
+            glowGrad.addColorStop(0, "#ffffff");
+            glowGrad.addColorStop(0.5, "#a855f7");
+            glowGrad.addColorStop(1, "rgba(168, 85, 247, 0)");
+            this.ctx.fillStyle = glowGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 24, pulse, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("🧪", t.x, t.y - 2);
+
+        } else if (t.type === 'fire') {
+            // Singularity Core (Tháp Hỏa Long)
+            // Lõi magma cơ khí
+            this.ctx.fillStyle = "#1c1917";
+            this.ctx.strokeStyle = "#ea580c";
+            this.ctx.lineWidth = 1.5;
+            this.ctx.fillRect(t.x - 12, t.y - 12, 24, 22);
+            this.ctx.strokeRect(t.x - 12, t.y - 12, 24, 22);
+
+            // Hào quang nhiệt hạch rực đỏ cam
+            const lavaPulse = 8 + Math.sin(Date.now() * 0.012) * 2.8;
+            const lavaGrad = this.ctx.createRadialGradient(t.x, t.y - 24, 1, t.x, t.y - 24, lavaPulse);
+            lavaGrad.addColorStop(0, "#facc15");
+            lavaGrad.addColorStop(0.4, "#ea580c");
+            lavaGrad.addColorStop(1, "rgba(234, 88, 12, 0)");
+            this.ctx.fillStyle = lavaGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(t.x, t.y - 24, lavaPulse, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Vòng plasma cam đỏ nghiêng xoay tròn xung quanh lõi
+            this.ctx.strokeStyle = "#f97316";
+            this.ctx.lineWidth = 1.6;
+            this.ctx.save();
+            this.ctx.translate(t.x, t.y - 24);
+            this.ctx.rotate(-Date.now() * 0.003);
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, 0, 16, 6, Math.PI / 4, 0, Math.PI * 2);
+            this.ctx.stroke();
+            this.ctx.restore();
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("🌋", t.x, t.y - 2);
+
+        } else if (t.type === 'void') {
+            // Quantum Void Gate (Tháp Vô Cực)
+            // Khung cổng vũ trụ cổ xưa màu xanh đen sâu thẳm
+            this.ctx.fillStyle = "#030712";
+            this.ctx.strokeStyle = "#6366f1";
+            this.ctx.lineWidth = 2.0;
+            this.ctx.beginPath();
+            this.ctx.moveTo(t.x - 14, t.y + 10);
+            this.ctx.lineTo(t.x - 14, t.y - 12);
+            this.ctx.lineTo(t.x + 14, t.y - 12);
+            this.ctx.lineTo(t.x + 14, t.y + 10);
+            this.ctx.closePath();
+            this.ctx.fill();
+            this.ctx.stroke();
+
+            // Lỗ đen hút bụi xoay tròn ở tâm
+            this.ctx.save();
+            this.ctx.translate(t.x, t.y - 16);
+            this.ctx.rotate(Date.now() * 0.006);
+            this.ctx.fillStyle = "#020617";
+            this.ctx.strokeStyle = "#4f46e5";
+            this.ctx.lineWidth = 2.5;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, 10, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.stroke();
+            
+            // Hào quang lỗ đen
+            const voidGrad = this.ctx.createRadialGradient(0, 0, 3, 0, 0, 14);
+            voidGrad.addColorStop(0, "#000000");
+            voidGrad.addColorStop(0.5, "#6366f1");
+            voidGrad.addColorStop(1, "rgba(99, 102, 241, 0)");
+            this.ctx.fillStyle = voidGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, 14, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.restore();
+
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.font = "bold 11px sans-serif";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText("🌀", t.x, t.y + 6);
         }
 
-        // Nếu tháp cấp cao (Cấp 3+), vẽ thêm nòng kép/hào quang năng lượng cực hiện đại
+        this.ctx.restore();
+
+        // Nếu tháp cấp cao (Cấp 3+), vẽ thêm hào quang ngôi sao rực rỡ
         if (t.level >= 3) {
             this.ctx.save();
             this.ctx.fillStyle = "#fbbf24";
-            this.ctx.font = "bold 10px sans-serif";
+            this.ctx.shadowColor = "#fbbf24";
+            this.ctx.shadowBlur = 6;
+            this.ctx.font = "bold 9px sans-serif";
             this.ctx.textAlign = "center";
-            this.ctx.fillText("✨MAX", t.x, t.y - 38);
+            this.ctx.fillText("✨MAX", t.x, t.y - 36);
             this.ctx.restore();
         }
         
@@ -3714,7 +3917,6 @@ const game = {
         this.ctx.textBaseline = "middle";
         this.ctx.fillText("Lv" + t.level, t.x, t.y + 11);
     },
-
     // Sinh các vị trí trang trí bản đồ cố định
     _generateTerrainObjects: function() {
         this.terrainObjects = [];
@@ -4033,8 +4235,9 @@ const game = {
 
     // Vẽ giao diện game lên Canvas
     draw: function() {
+        if (!this.ctx) return;
         this.ctx.save();
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.clearRect(0, 0, 960, 600); // Xóa canvas phụ 2D
         
         if (this.screenShake > 0) {
             const dx = (Math.random() - 0.5) * this.screenShake * 2.5;
@@ -4045,32 +4248,8 @@ const game = {
         // Lấy thông tin màu sắc của Bản đồ ngẫu nhiên hiện tại (Random Map Theme)
         const theme = this.mapThemes[this.mapTheme] || this.mapThemes.plains;
         
-        // 1. Vẽ nền bản đồ - gradient theo chủ đề
-        const bgGrad = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
-        bgGrad.addColorStop(0, theme.bgGrad1 || theme.bg);
-        bgGrad.addColorStop(1, theme.bgGrad2 || theme.bg);
-        this.ctx.fillStyle = bgGrad;
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        // Vẽ các chi tiết terrain trang trí theo chủ đề bản đồ
-        this._drawMapTerrain(theme);
-        
-        // Vẽ lưới ô vuông neon chìm nhẹ theo chủ đề bản đồ
-        this.ctx.strokeStyle = theme.grid;
-        this.ctx.lineWidth = 1;
-        const gridSize = 40;
-        for (let gx2 = 0; gx2 < this.canvas.width; gx2 += gridSize) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(gx2, 0);
-            this.ctx.lineTo(gx2, this.canvas.height);
-            this.ctx.stroke();
-        }
-        for (let gy2 = 0; gy2 < this.canvas.height; gy2 += gridSize) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, gy2);
-            this.ctx.lineTo(this.canvas.width, gy2);
-            this.ctx.stroke();
-        }
+        // CHÚ Ý: Vẽ nền bản đồ và Grid đã được chuyển sang PixiJS Graphics tĩnh (drawBackground)
+        // ở mapContainer để tối ưu hóa hiệu năng VRAM.
 
         // 2. Vẽ tất cả 3 đường đi của quái vật (Multi-paths) - Bóng đổ 3D & Họa tiết gạch đá lát đường Chibi
         this.paths.forEach(p => {
@@ -4672,6 +4851,8 @@ const game = {
         
         // 6. Vẽ đạn bay
         this.projectiles.forEach(p => {
+            if (!p.active) return;
+            if (!p.active) return;
             this.ctx.shadowBlur = 8;
             this.ctx.shadowColor = p.color;
             
@@ -4836,6 +5017,8 @@ const game = {
         
         // 7. Vẽ các hạt bụi nổ lấp lánh và bông tuyết 3D rơi
         this.particles.forEach(part => {
+            if (!part.active) return;
+            if (!part.active) return;
             this.ctx.save();
             this.ctx.globalAlpha = part.alpha;
             if (part.isSnowflake) {

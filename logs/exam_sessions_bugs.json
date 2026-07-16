@@ -3792,5 +3792,11 @@
       "type": "bai-10-d4"
     },
     "timestamp": 1784085224169
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "errorMessage": "Uncaught TypeError: Cannot read properties of null (reading 'id')",
+    "timestamp": 1784195904611
   }
 ]

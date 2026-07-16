@@ -1,0 +1,14 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-16T09:58:24.611Z
+Student ID: std_htsj4gbmo
+Lesson ID: unknown
+Lesson Title: unknown
+==================================================
+
+[ERROR DETAILS]
+Uncaught TypeError: Cannot read properties of null (reading 'id')
+TypeError: Cannot read properties of null (reading 'id')
+    at Object.switchLessonTab (http://localhost:3000/js/app.js?v=10.75:5537:57)
+    at HTMLButtonElement.onclick (http://localhost:3000/:1005:190)
+
