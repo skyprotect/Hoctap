@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_width"
+    android:layout_height="match_height"
+    android:background="#0f172a"
+    android:padding="24dp">
+
+    <!-- Card trung tâm -->
+    <LinearLayout
+        android:layout_width="480dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="12dp"
+        android:padding="32dp"
+        android:backgroundTint="#1e293b"
+        android:gravity="center">
+
+        <!-- Vương miện / Icon -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👑"
+            android:textSize="48sp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TABLET LOCK"
+            android:textColor="#fbbf24"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vui lòng nhập mã bảo mật quy đổi từ thẻ mạ vàng"
+            android:textColor="#94a3b8"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <!-- Ô hiển thị mã đang nhập -->
+        <TextView
+            android:id="@+id/txtPinDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="32dp"
+            android:background="#0f172a"
+            android:textColor="#ffffff"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:letterSpacing="0.4"
+            android:text="" />
+
+        <!-- Trạng thái / Thông báo lỗi -->
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#f87171"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <!-- Bàn phím số -->
+        <GridLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:columnCount="3"
+            android:rowCount="4">
+
+            <!-- Dòng 1 -->
+            <Button
+                android:id="@+id/btn1"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="1"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btn2"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="2"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btn3"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="3"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <!-- Dòng 2 -->
+            <Button
+                android:id="@+id/btn4"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="4"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btn5"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="5"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btn6"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="6"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <!-- Dòng 3 -->
+            <Button
+                android:id="@+id/btn7"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="7"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btn8"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="8"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btn9"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="9"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <!-- Dòng 4 -->
+            <Button
+                android:id="@+id/btnDelete"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="DEL"
+                android:textColor="#f87171"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/btn0"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnConfirm"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="OK"
+                android:textColor="#34d399"
+                android:textSize="18sp" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

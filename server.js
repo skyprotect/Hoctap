@@ -253,6 +253,19 @@ function createTables() {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
+
+    // Bảng tablet_tokens lưu trữ mã bảo mật để chơi tablet
+    db.run(`
+      CREATE TABLE IF NOT EXISTS tablet_tokens (
+        token TEXT PRIMARY KEY,
+        student_id TEXT,
+        minutes INTEGER,
+        status TEXT,
+        created_at TEXT,
+        activated_at TEXT,
+        expires_at TEXT
+      )
+    `);
   });
 }
 
@@ -3197,6 +3210,287 @@ app.post('/api/verify-pin', async (req, res) => {
   } catch (e) {
     console.error("Lỗi xác thực PIN:", e);
     return res.status(500).json({ error: "Lỗi máy chủ khi xác thực PIN: " + e.message });
+});
+
+/**
+ * API sinh mã số bảo mật để chơi tablet (quy đổi thẻ mạ vàng)
+ */
+app.post('/api/tablet/generate-token', async (req, res) => {
+  const { studentId, minutes } = req.body;
+  if (!studentId || !minutes) {
+    return res.status(400).json({ error: "Thiếu thông tin studentId hoặc minutes" });
+  }
+
+  try {
+    // 1. Sinh mã PIN 6 số ngẫu nhiên không trùng lặp
+    let token = "";
+    let isUnique = false;
+    let attempts = 0;
+
+    while (!isUnique && attempts < 10) {
+      attempts++;
+      token = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Kiểm tra trong SQLite trước
+      const existingInDb = await new Promise((resolve) => {
+        db.get("SELECT token FROM tablet_tokens WHERE token = ?", [token], (err, row) => {
+          resolve(!!row);
+        });
+      });
+
+      if (!existingInDb) {
+        // Kiểm tra trên Firebase Realtime Database
+        if (FIREBASE_RTDB_URL) {
+          try {
+            const url = `${FIREBASE_RTDB_URL}tablet_tokens/${token}.json`;
+            const checkRes = await fetch(url);
+            if (checkRes.ok) {
+              const data = await checkRes.json();
+              if (data === null) {
+                isUnique = true;
+              }
+            } else {
+              isUnique = true;
+            }
+          } catch (firebaseErr) {
+            console.error("Lỗi kiểm tra Firebase RTDB khi sinh token:", firebaseErr.message);
+            isUnique = true;
+          }
+        } else {
+          isUnique = true;
+        }
+      }
+    }
+
+    if (!isUnique) {
+      return res.status(500).json({ error: "Không thể sinh mã số bảo mật duy nhất lúc này. Vui lòng thử lại!" });
+    }
+
+    // 2. Lưu token vào Firebase RTDB
+    const createdAt = new Date().toISOString();
+    const tokenPayload = {
+      token: token,
+      studentId: studentId,
+      minutes: parseInt(minutes, 10),
+      status: "unused",
+      createdAt: createdAt,
+      activatedAt: null,
+      expiresAt: null
+    };
+
+    if (FIREBASE_RTDB_URL) {
+      try {
+        const url = `${FIREBASE_RTDB_URL}tablet_tokens/${token}.json`;
+        const fbRes = await fetch(url, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(tokenPayload)
+        });
+        if (!fbRes.ok) {
+          throw new Error(`Firebase RTDB trả về mã lỗi ${fbRes.status}`);
+        }
+      } catch (fbErr) {
+        console.error("Lỗi lưu token lên Firebase RTDB:", fbErr.message);
+      }
+    }
+
+    // 3. Lưu token vào SQLite cục bộ
+    await new Promise((resolve, reject) => {
+      db.run(
+        "INSERT INTO tablet_tokens (token, student_id, minutes, status, created_at) VALUES (?, ?, ?, ?, ?)",
+        [token, studentId, minutes, "unused", createdAt],
+        (err) => {
+          if (err) return reject(err);
+          resolve();
+        }
+      );
+    });
+
+    console.log(`🔑 Sinh mã bảo mật chơi Tablet thành công: Token=${token}, Student=${studentId}, Số phút=${minutes}`);
+    return res.json({ success: true, token, minutes });
+
+  } catch (e) {
+    console.error("Lỗi sinh mã bảo mật tablet:", e);
+    return res.status(500).json({ error: "Lỗi máy chủ khi sinh mã bảo mật: " + e.message });
+  }
+});
+
+/**
+ * API lấy danh sách mã bảo mật của học sinh
+ */
+app.get('/api/tablet/tokens', async (req, res) => {
+  const { studentId } = req.query;
+  if (!studentId) {
+    return res.status(400).json({ error: "Thiếu studentId" });
+  }
+
+  try {
+    const tokens = await new Promise((resolve, reject) => {
+      db.all(
+        "SELECT * FROM tablet_tokens WHERE student_id = ? ORDER BY created_at DESC",
+        [studentId],
+        (err, rows) => {
+          if (err) return reject(err);
+          resolve(rows);
+        }
+      );
+    });
+    return res.json(tokens);
+  } catch (e) {
+    console.error("Lỗi lấy danh sách token:", e);
+    return res.status(500).json({ error: "Lỗi máy chủ khi lấy danh sách mã bảo mật: " + e.message });
+  }
+});
+
+/**
+ * API Tablet gọi để kiểm tra thông tin mã bảo mật (để xác thực)
+ */
+app.post('/api/tablet/verify-token', async (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ error: "Thiếu token" });
+  }
+
+  try {
+    const tokenInfo = await new Promise((resolve) => {
+      db.get("SELECT * FROM tablet_tokens WHERE token = ?", [token], (err, row) => {
+        resolve(row);
+      });
+    });
+
+    if (!tokenInfo) {
+      return res.status(404).json({ success: false, error: "Mã số bảo mật không tồn tại!" });
+    }
+
+    if (tokenInfo.status === "used") {
+      return res.status(400).json({ success: false, error: "Mã số bảo mật này đã được sử dụng hết thời gian!" });
+    }
+
+    return res.json({
+      success: true,
+      token: tokenInfo.token,
+      minutes: tokenInfo.minutes,
+      status: tokenInfo.status,
+      createdAt: tokenInfo.created_at,
+      activatedAt: tokenInfo.activated_at,
+      expiresAt: tokenInfo.expires_at
+    });
+  } catch (e) {
+    console.error("Lỗi xác thực token phía tablet:", e);
+    return res.status(500).json({ error: "Lỗi máy chủ khi xác thực mã bảo mật: " + e.message });
+  }
+});
+
+/**
+ * API Tablet gọi để bắt đầu kích hoạt sử dụng mã bảo mật (khi học sinh bắt đầu sử dụng)
+ */
+app.post('/api/tablet/activate-token', async (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ error: "Thiếu token" });
+  }
+
+  try {
+    const tokenInfo = await new Promise((resolve) => {
+      db.get("SELECT * FROM tablet_tokens WHERE token = ?", [token], (err, row) => {
+        resolve(row);
+      });
+    });
+
+    if (!tokenInfo) {
+      return res.status(404).json({ success: false, error: "Mã số bảo mật không tồn tại!" });
+    }
+
+    if (tokenInfo.status !== "unused") {
+      return res.status(400).json({ success: false, error: "Mã số bảo mật này đã được sử dụng hoặc đang kích hoạt!" });
+    }
+
+    const activatedAt = new Date().toISOString();
+    const expiresAt = new Date(Date.now() + tokenInfo.minutes * 60 * 1000).toISOString();
+
+    await new Promise((resolve, reject) => {
+      db.run(
+        "UPDATE tablet_tokens SET status = ?, activated_at = ?, expires_at = ? WHERE token = ?",
+        ["active", activatedAt, expiresAt, token],
+        (err) => {
+          if (err) return reject(err);
+          resolve();
+        }
+      );
+    });
+
+    if (FIREBASE_RTDB_URL) {
+      try {
+        const url = `${FIREBASE_RTDB_URL}tablet_tokens/${token}.json`;
+        await fetch(url, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status: "active",
+            activatedAt: activatedAt,
+            expiresAt: expiresAt
+          })
+        });
+      } catch (fbErr) {
+        console.error("Lỗi đồng bộ kích hoạt lên Firebase RTDB:", fbErr.message);
+      }
+    }
+
+    console.log(`📱 Kích hoạt sử dụng Tablet thành công cho mã ${token} (${tokenInfo.minutes} phút).`);
+    return res.json({
+      success: true,
+      token,
+      minutes: tokenInfo.minutes,
+      activatedAt,
+      expiresAt
+    });
+  } catch (e) {
+    console.error("Lỗi kích hoạt token phía tablet:", e);
+    return res.status(500).json({ error: "Lỗi máy chủ khi kích hoạt mã bảo mật: " + e.message });
+  }
+});
+
+/**
+ * API Tablet gọi để kết thúc sử dụng mã bảo mật (khi hết giờ hoặc tự khóa)
+ */
+app.post('/api/tablet/use-token', async (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ error: "Thiếu token" });
+  }
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.run(
+        "UPDATE tablet_tokens SET status = ? WHERE token = ?",
+        ["used", token],
+        (err) => {
+          if (err) return reject(err);
+          resolve();
+        }
+      );
+    });
+
+    if (FIREBASE_RTDB_URL) {
+      try {
+        const url = `${FIREBASE_RTDB_URL}tablet_tokens/${token}.json`;
+        await fetch(url, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status: "used"
+          })
+        });
+      } catch (fbErr) {
+        console.error("Lỗi đồng bộ sử dụng xong lên Firebase RTDB:", fbErr.message);
+      }
+    }
+
+    console.log(`🔒 Mã bảo mật chơi Tablet ${token} đã được đánh dấu là ĐÃ SỬ DỤNG (USED) xong.`);
+    return res.json({ success: true, token, status: "used" });
+  } catch (e) {
+    console.error("Lỗi đánh dấu token đã dùng:", e);
+    return res.status(500).json({ error: "Lỗi máy chủ khi kết thúc sử dụng mã bảo mật: " + e.message });
   }
 });
 
@@ -3377,7 +3671,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.91';
+const APP_VERSION = '10.92';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

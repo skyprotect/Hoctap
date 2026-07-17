@@ -10088,6 +10088,34 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             return;
         }
 
+        Swal.fire({
+            title: 'Chọn thiết bị chơi game 🎮',
+            html: `
+                <p style="font-size:0.95rem; margin-bottom:1.5rem; font-weight:600; color:#475569;">Con muốn đổi thẻ mạ vàng lấy giờ chơi trên thiết bị nào?</p>
+                <div style="margin-top: 15px; font-size: 0.9rem;">
+                    <a href="#" onclick="Swal.close(); app.showTabletTokensList(); return false;" style="color: #0ea5e9; font-weight: 800; text-decoration: none; border-bottom: 2px dashed #0ea5e9; padding-bottom: 2px;">
+                        📋 Xem lịch sử các mã bảo mật đã đổi
+                    </a>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Máy tính này 💻',
+            cancelButtonText: 'Máy tính bảng 📱',
+            confirmButtonColor: '#0ea5e9',
+            cancelButtonColor: '#10b981',
+            allowOutsideClick: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Đổi chơi trên PC (như cũ)
+                this.exchangeGoldCardForPcPlay();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Đổi chơi trên Tablet
+                this.exchangeGoldCardForTabletPlay();
+            }
+        });
+    },
+
+    exchangeGoldCardForPcPlay: function() {
         // Tạo giao diện chọn thẻ mạ vàng để đổi
         app.selectedExchangeCardId = null;
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
@@ -10109,15 +10137,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         optionsHtml += '</div>';
 
         Swal.fire({
-            title: 'Đổi thẻ mạ vàng lấy giờ chơi 🔄',
+            title: 'Đổi thẻ chơi trên PC 💻🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng của con để đổi lấy <b>7 phút chơi game</b> (thẻ sẽ bị tiêu hao vĩnh viễn):</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng của con để đổi lấy <b>7 phút chơi game</b> trên máy tính này:</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
             confirmButtonText: 'Xác nhận đổi',
-            cancelButtonText: 'Hủy bỏ',
-            confirmButtonColor: '#eab308',
+            cancelButtonText: 'Quay lại',
+            confirmButtonColor: '#0ea5e9',
             cancelButtonColor: '#475569',
             allowOutsideClick: false,
             didOpen: () => {
@@ -10144,8 +10172,180 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 }).then(() => {
                     this.startFreePlayGame(420); // 7 phút = 420 giây
                 });
+            } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
+                this.openStudentGameExchange();
             }
         });
+    },
+
+    exchangeGoldCardForTabletPlay: function() {
+        // Giao diện chọn thẻ mạ vàng để đổi
+        app.selectedExchangeCardId = null;
+        let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
+        this.state.goldSkills.forEach(cardId => {
+            const card = SKILL_CARDS.find(c => c.id === cardId);
+            if (card) {
+                optionsHtml += `
+                    <div class="gold-card-option royal-exchange gold-card-royal gold-card-royal-shine" onclick="app.selectGoldCardToExchange('${card.id}')" id="opt-${card.id}" style="display:flex; align-items:center; gap:12px; padding:12px; margin-bottom:8px; cursor:pointer;">
+                        <span style="font-size:2rem; filter: drop-shadow(0 0 4px gold);">${card.icon}</span>
+                        <div style="text-align:left; flex:1;">
+                            <div style="font-weight:900;" class="gold-title-glow">${card.name} (Mạ Vàng)</div>
+                            <div style="font-size:0.8rem; color:#a7f3d0; font-weight:600;">${card.desc}</div>
+                        </div>
+                        <div class="checkbox-indicator" style="width:20px; height:20px; border-radius:50%; border:2px solid rgba(255,215,0,0.4); display:flex; align-items:center; justify-content:center; z-index: 10;"></div>
+                    </div>
+                `;
+            }
+        });
+        optionsHtml += '</div>';
+
+        Swal.fire({
+            title: 'Đổi thẻ chơi trên Tablet 📱🔄',
+            html: `
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng để đổi lấy <b>mã số bảo mật sử dụng Tablet trong 7 phút</b>:</p>
+                ${optionsHtml}
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận đổi',
+            cancelButtonText: 'Quay lại',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#475569',
+            allowOutsideClick: false,
+            didOpen: () => {
+                const confirmBtn = Swal.getConfirmButton();
+                if (confirmBtn) confirmBtn.setAttribute('disabled', 'true');
+            }
+        }).then(async (result) => {
+            if (result.isConfirmed && app.selectedExchangeCardId) {
+                const cardId = app.selectedExchangeCardId;
+                const studentId = this.config.defaultStudentId || '';
+                
+                Swal.fire({
+                    title: 'Đang xử lý quy đổi...',
+                    html: 'Vui lòng chờ trong giây lát...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                try {
+                    const response = await fetch(this.getApiUrl('/api/tablet/generate-token'), {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ studentId, minutes: 7 })
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        // Xóa thẻ khỏi danh sách và lưu lại tiến trình
+                        this.state.goldSkills = this.state.goldSkills.filter(id => id !== cardId);
+                        this.saveEnglishState();
+
+                        Swal.fire({
+                            title: 'Mã số bảo mật Tablet 🏆✨',
+                            html: `
+                                <div style="margin: 1rem 0; padding: 1.5rem; background: #f0fdf4; border-radius: 12px; border: 2px dashed #10b981;">
+                                    <div style="font-size: 2.5rem; font-weight: 900; letter-spacing: 5px; color: #047857;">${data.token}</div>
+                                    <div style="font-size: 0.9rem; color: #065f46; font-weight: 700; margin-top: 8px;">Hiệu lực: ${data.minutes} phút sử dụng Tablet</div>
+                                </div>
+                                <p style="font-size: 0.9rem; color: #475569; font-weight: 600;">Con hãy nhập mã này trên ứng dụng máy tính bảng để mở khóa nhé. Hết giờ máy sẽ tự động khóa lại!</p>
+                            `,
+                            icon: 'success',
+                            confirmButtonText: 'Đã ghi lại mã số',
+                            confirmButtonColor: '#10b981'
+                        });
+                    } else {
+                        const errData = await response.json();
+                        throw new Error(errData.error || 'Lỗi hệ thống');
+                    }
+                } catch (err) {
+                    console.error("Lỗi quy đổi thẻ lấy mã tablet:", err);
+                    Swal.fire("Lỗi quy đổi ❌", "Có lỗi xảy ra: " + err.message, "error");
+                }
+            } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
+                this.openStudentGameExchange();
+            }
+        });
+    },
+
+    showTabletTokensList: async function() {
+        const studentId = this.config.defaultStudentId || '';
+        
+        Swal.fire({
+            title: 'Đang tải danh sách...',
+            allowOutsideClick: false,
+            didOpen: () => { Swal.showLoading(); }
+        });
+
+        try {
+            const res = await fetch(this.getApiUrl(`/api/tablet/tokens?studentId=${studentId}`));
+            if (res.ok) {
+                const tokens = await res.json();
+                
+                if (tokens.length === 0) {
+                    Swal.fire({
+                        title: 'Lịch sử mã bảo mật 📋',
+                        text: 'Con chưa quy đổi mã bảo mật Tablet nào cả!',
+                        icon: 'info',
+                        confirmButtonText: 'Đã hiểu',
+                        confirmButtonColor: '#0ea5e9'
+                    }).then(() => {
+                        this.openStudentGameExchange();
+                    });
+                    return;
+                }
+
+                let listHtml = '<div style="max-height: 350px; overflow-y: auto; text-align: left; padding: 5px;">';
+                tokens.forEach(t => {
+                    let statusBadge = '';
+                    let borderCol = '#cbd5e1';
+                    let bgCol = '#f8fafc';
+                    if (t.status === 'unused') {
+                        statusBadge = '<span style="background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:800;">Chưa dùng</span>';
+                        borderCol = '#86efac';
+                        bgCol = '#f0fdf4';
+                    } else if (t.status === 'active') {
+                        statusBadge = '<span style="background:#fef9c3; color:#a16207; padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:800;">Đang dùng</span>';
+                        borderCol = '#fde047';
+                        bgCol = '#fefce8';
+                    } else {
+                        statusBadge = '<span style="background:#f1f5f9; color:#64748b; padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:800;">Đã hết giờ</span>';
+                    }
+
+                    const dateStr = new Date(t.created_at).toLocaleString('vi-VN');
+
+                    listHtml += `
+                        <div style="border: 2px solid ${borderCol}; background: ${bgCol}; padding: 12px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <div>
+                                <div style="font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; color: #1e293b;">${t.token}</div>
+                                <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-top: 4px;">Tạo: ${dateStr}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.85rem; font-weight: 800; color: #334155; margin-bottom: 4px;">Thời lượng: ${t.minutes} phút</div>
+                                <div>${statusBadge}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                listHtml += '</div>';
+
+                Swal.fire({
+                    title: 'Lịch sử mã bảo mật 📋📱',
+                    html: listHtml,
+                    confirmButtonText: 'Quay lại',
+                    confirmButtonColor: '#475569'
+                }).then(() => {
+                    this.openStudentGameExchange();
+                });
+            } else {
+                throw new Error("Lỗi tải dữ liệu");
+            }
+        } catch (err) {
+            console.error("Lỗi lấy danh sách token:", err);
+            Swal.fire("Lỗi tải danh sách ❌", "Không thể lấy thông tin lịch sử: " + err.message, "error").then(() => {
+                this.openStudentGameExchange();
+            });
+        }
     },
 
     selectGoldCardToExchange: function(cardId) {
