@@ -29,6 +29,9 @@ class KioskService : Service() {
     private var countDownTimer: CountDownTimer? = null
     private var remainingTimeSeconds: Long = 0
     private var currentToken: String = ""
+    private var initialMinutes: Int = 0
+    private var currentHistoryId: String = ""
+    private var isHistoryUpdated = false
 
     private val client = OkHttpClient()
     private val FIREBASE_RTDB_URL = "https://binhminhchamhoc-default-rtdb.firebaseio.com/"
@@ -52,6 +55,21 @@ class KioskService : Service() {
         val minutes = intent?.getIntExtra("minutes", 7) ?: 7
         currentToken = intent?.getStringExtra("token") ?: ""
         remainingTimeSeconds = minutes * 60L
+        initialMinutes = minutes
+        isHistoryUpdated = false
+
+        // 0. Dọn dẹp Widget và Timer cũ trước khi bắt đầu chu kỳ mới (Tránh đè view/timer)
+        countDownTimer?.cancel()
+        countDownTimer = null
+        remotePollHandler.removeCallbacks(remotePollRunnable)
+        floatingView?.let {
+            try {
+                windowManager?.removeView(it)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            floatingView = null
+        }
 
         // 1. Chạy Foreground Service với Notification để tránh bị Android kill
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
@@ -76,10 +94,23 @@ class KioskService : Service() {
         remotePollHandler.post(remotePollRunnable)
         updateRemainingTimeOnFirebase(remainingTimeSeconds)
 
+        // 5. Ghi nhận lịch sử mở khóa lên Firebase
+        createHistoryEntry(minutes)
+
         return START_NOT_STICKY
     }
 
     private fun showFloatingWidget() {
+        // Gỡ bỏ floatingView cũ nếu đã được tạo trước đó để tránh rò rỉ và đè chữ
+        floatingView?.let {
+            try {
+                windowManager?.removeView(it)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            floatingView = null
+        }
+
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
         // Layout params cho Floating View đè lên các ứng dụng khác
@@ -113,7 +144,11 @@ class KioskService : Service() {
             text = "Thời gian: --:--"
         }
 
-        windowManager?.addView(floatingView, params)
+        try {
+            windowManager?.addView(floatingView, params)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun startCountdown() {
@@ -151,6 +186,9 @@ class KioskService : Service() {
     }
 
     private fun lockDevice() {
+        // 0. Cập nhật lịch sử mở khóa trên Firebase
+        updateHistoryEntryOnLock()
+
         // 1. Đồng bộ lên Firebase trạng thái "used" của Token này
         if (currentToken.isNotEmpty() && currentToken != "remote") {
             val url = "${FIREBASE_RTDB_URL}tablet_tokens/$currentToken.json"
@@ -187,8 +225,17 @@ class KioskService : Service() {
         super.onDestroy()
         countDownTimer?.cancel()
         remotePollHandler.removeCallbacks(remotePollRunnable)
+        
+        // Cập nhật lịch sử nếu chưa được ghi nhận hoàn thành
+        updateHistoryEntryOnLock()
+
         if (floatingView != null && windowManager != null) {
-            windowManager?.removeView(floatingView)
+            try {
+                windowManager?.removeView(floatingView)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            floatingView = null
         }
     }
 
@@ -245,6 +292,81 @@ class KioskService : Service() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
+    }
+
+    private fun createHistoryEntry(minutes: Int) {
+        val historyUrl = "${FIREBASE_RTDB_URL}tablet_history.json"
+        val df = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.US).apply {
+            timeZone = java.util.TimeZone.getTimeZone("UTC")
+        }
+        val unlockedAt = df.format(java.util.Date())
+        val tokenVal = if (currentToken.isNotEmpty()) currentToken else "remote"
+
+        val jsonPayload = """
+            {
+                "token": "$tokenVal",
+                "unlockedAt": "$unlockedAt",
+                "lockedAt": null,
+                "minutes": $minutes,
+                "actualDurationSeconds": null,
+                "status": "active"
+            }
+        """.trimIndent()
+
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(historyUrl).post(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
+            override fun onResponse(call: Call, response: Response) {
+                val resBody = response.body?.string()
+                if (response.isSuccessful && resBody != null) {
+                    try {
+                        val jsonObject = com.google.gson.JsonParser.parseString(resBody).asJsonObject
+                        currentHistoryId = jsonObject.get("name")?.asString ?: ""
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                response.close()
+            }
+        })
+    }
+
+    private fun updateHistoryEntryOnLock() {
+        if (currentHistoryId.isEmpty() || isHistoryUpdated) return
+        isHistoryUpdated = true
+
+        val historyUrl = "${FIREBASE_RTDB_URL}tablet_history/$currentHistoryId.json"
+        val df = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.US).apply {
+            timeZone = java.util.TimeZone.getTimeZone("UTC")
+        }
+        val lockedAt = df.format(java.util.Date())
+        
+        val durationLimitSeconds = initialMinutes * 60L
+        val actualSeconds = if (remainingTimeSeconds < 0) durationLimitSeconds else (durationLimitSeconds - remainingTimeSeconds)
+
+        val jsonPayload = """
+            {
+                "lockedAt": "$lockedAt",
+                "actualDurationSeconds": $actualSeconds,
+                "status": "completed"
+            }
+        """.trimIndent()
+
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(historyUrl).patch(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
             override fun onResponse(call: Call, response: Response) {
                 response.close()
             }

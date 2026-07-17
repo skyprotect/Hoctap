@@ -321,6 +321,93 @@
         .toast.show {
             transform: translateX(-50%) translateY(0);
         }
+
+        /* Custom scrollbar cho danh sách lịch sử */
+        #historyList::-webkit-scrollbar {
+            width: 5px;
+        }
+        #historyList::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        #historyList::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        #historyList::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .history-item {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .history-item:hover {
+            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .history-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: left;
+        }
+
+        .history-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .history-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .history-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .history-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .badge-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-completed {
+            background: rgba(148, 163, 184, 0.08);
+            color: var(--text-secondary);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        .history-duration {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--amber-color);
+        }
     </style>
 </head>
 <body>
@@ -363,6 +450,17 @@
                 <button class="btn btn-lock" id="btnLock">
                     <span>🔒</span> KHÓA KHẨN CẤP
                 </button>
+            </div>
+        </div>
+
+        <!-- Phần Lịch sử Mở khóa -->
+        <div class="history-section" style="margin-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 25px; text-align: left;">
+            <h2 class="section-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span>📜 Lịch sử sử dụng</span>
+                <span id="totalUnlockTime" style="font-size: 12px; color: var(--amber-color); font-weight: 800; background: rgba(251, 191, 36, 0.1); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(251, 191, 36, 0.2); text-transform: none; letter-spacing: 0;">Tổng: 0 phút</span>
+            </h2>
+            <div id="historyList" style="max-height: 250px; overflow-y: auto; padding-right: 4px; margin-top: 10px;">
+                <div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px 0;">Đang tải lịch sử...</div>
             </div>
         </div>
     </div>
@@ -473,6 +571,82 @@
 
         btnLock.addEventListener('click', () => {
             sendCommand('lock');
+        });
+
+        // Lắng nghe lịch sử mở khóa từ Firebase
+        db.ref("tablet_history").orderByChild("unlockedAt").limitToLast(50).on("value", (snapshot) => {
+            const historyList = document.getElementById('historyList');
+            const totalUnlockTime = document.getElementById('totalUnlockTime');
+            historyList.innerHTML = '';
+            
+            const data = snapshot.val();
+            if (!data) {
+                historyList.innerHTML = `<div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px 0;">Chưa có lịch sử mở khóa nào.</div>`;
+                totalUnlockTime.textContent = 'Tổng: 0 phút';
+                return;
+            }
+
+            // Chuyển object thành array và sort ngược (mới nhất lên đầu)
+            const historyArray = Object.keys(data).map(key => ({
+                id: key,
+                ...data[key]
+            })).sort((a, b) => new Date(b.unlockedAt) - new Date(a.unlockedAt));
+
+            let totalSeconds = 0;
+
+            historyArray.forEach(item => {
+                // Tính tổng thời gian mở khóa
+                if (item.status === 'active') {
+                    // Nếu đang hoạt động, tạm tính theo số phút đăng ký
+                    totalSeconds += (item.minutes || 0) * 60;
+                } else {
+                    totalSeconds += (item.actualDurationSeconds || 0);
+                }
+
+                // Format thời gian hiển thị (local time)
+                const unlockDate = new Date(item.unlockedAt);
+                const timeString = unlockDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                const dateString = unlockDate.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+                
+                let lockedTimeString = '';
+                if (item.lockedAt) {
+                    const lockDate = new Date(item.lockedAt);
+                    lockedTimeString = ` - Khóa: ${lockDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`;
+                }
+
+                const durationText = item.status === 'active' 
+                    ? `Đang chơi (${item.minutes}m)` 
+                    : `${Math.round((item.actualDurationSeconds || 0) / 60)} phút`;
+
+                const typeText = item.token === 'remote' ? '🔓 Từ xa' : `🔑 PIN: ${item.token}`;
+                
+                const badgeClass = item.status === 'active' ? 'badge-active' : 'badge-completed';
+                const statusLabel = item.status === 'active' ? 'Đang chơi' : 'Đã khóa';
+
+                const itemHtml = `
+                    <div class="history-item">
+                        <div class="history-left">
+                            <span class="history-title">${typeText}</span>
+                            <span class="history-time">Mở: ${timeString} ${dateString}${lockedTimeString}</span>
+                        </div>
+                        <div class="history-right">
+                            <span class="history-badge ${badgeClass}">${statusLabel}</span>
+                            <span class="history-duration">${durationText}</span>
+                        </div>
+                    </div>
+                `;
+                historyList.insertAdjacentHTML('beforeend', itemHtml);
+            });
+
+            // Hiển thị tổng thời gian mở khóa tích lũy (giờ + phút)
+            const totalMinutes = Math.round(totalSeconds / 60);
+            if (totalMinutes >= 60) {
+                const hours = Math.floor(totalMinutes / 60);
+                const mins = totalMinutes % 60;
+                totalUnlockTime.textContent = `Tổng: ${hours}h ${mins}m`;
+            } else {
+                totalUnlockTime.textContent = `Tổng: ${totalMinutes} phút`;
+            }
         });
     </script>
 </body>
