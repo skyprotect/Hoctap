@@ -3210,6 +3210,7 @@ app.post('/api/verify-pin', async (req, res) => {
   } catch (e) {
     console.error("Lỗi xác thực PIN:", e);
     return res.status(500).json({ error: "Lỗi máy chủ khi xác thực PIN: " + e.message });
+  }
 });
 
 /**
@@ -3671,7 +3672,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.92';
+const APP_VERSION = '10.93';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
