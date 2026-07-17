@@ -8,6 +8,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
@@ -33,6 +35,14 @@ class MainActivity : AppCompatActivity() {
     private val client = OkHttpClient()
     private val FIREBASE_RTDB_URL = "https://binhminhchamhoc-default-rtdb.firebaseio.com/"
 
+    private val remotePollHandler = Handler(Looper.getMainLooper())
+    private val remotePollRunnable = object : Runnable {
+        override fun run() {
+            pollRemoteCommand()
+            remotePollHandler.postDelayed(this, 3000)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,12 +54,21 @@ class MainActivity : AppCompatActivity() {
         initViews()
         setupLockBehavior()
         checkOverlayPermission()
+
+        // Khởi chạy vòng lặp kiểm tra lệnh từ xa
+        remotePollHandler.post(remotePollRunnable)
     }
 
     override fun onResume() {
         super.onResume()
         // Kích hoạt lại Kiosk Mode khi học sinh quay lại màn hình khóa
         startKioskMode()
+        updateStatusOnFirebase("locked")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        remotePollHandler.removeCallbacks(remotePollRunnable)
     }
 
     private fun initViews() {
@@ -254,6 +273,66 @@ class MainActivity : AppCompatActivity() {
         showStatus(msg, true)
         currentPin = ""
         updatePinDisplay()
+    }
+
+    private fun pollRemoteCommand() {
+        val url = "$FIREBASE_RTDB_URL/tablet_control.json"
+        val request = Request.Builder().url(url).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Bỏ qua lỗi kết nối
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+                if (response.isSuccessful && responseBody != null && responseBody != "null") {
+                    try {
+                        val jsonObject = JsonParser.parseString(responseBody).asJsonObject
+                        val command = jsonObject.get("command")?.asString ?: "none"
+                        val minutes = jsonObject.get("minutes")?.asInt ?: 0
+
+                        if (command == "unlock" && minutes > 0) {
+                            runOnUiThread {
+                                clearRemoteCommand()
+                                unlockTabletForPlay(minutes, "remote")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                response.close()
+            }
+        })
+    }
+
+    private fun clearRemoteCommand() {
+        val url = "$FIREBASE_RTDB_URL/tablet_control.json"
+        val jsonPayload = "{\"command\": \"none\", \"minutes\": 0}"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).patch(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
+    }
+
+    private fun updateStatusOnFirebase(status: String) {
+        val url = "$FIREBASE_RTDB_URL/tablet_control.json"
+        val jsonPayload = "{\"status\": \"$status\", \"remainingTime\": 0}"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).patch(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
     }
 
     // Ghi đè sự kiện bấm phím cứng để chặn thoát

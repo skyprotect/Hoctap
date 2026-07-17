@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace 'com.skyprotect.tabletlock'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.skyprotect.tabletlock"
         minSdk 21
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        targetSdk 34
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

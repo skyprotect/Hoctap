@@ -3792,5 +3792,781 @@
       "type": "bai-10-d4"
     },
     "timestamp": 1784085224169
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 13 + 35 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $13 + 35 = 48$, số này chia 5 dư $3$.<br>Để tổng $S = (48) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $3$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $2$ (vì $3 + 2 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 13 + 35 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng để $S$ chia hết cho $5$?",
+      "solutionHtml": "Ta có $13 + 35 = 48$. Số $48$ khi chia cho $5$ thì dư $3$ ($48 = 5 \\times 9 + 3$).<br/>Để tổng $S = 48 + x$ chia hết cho $5$, thì tổng của số dư của $48$ và số dư của $x$ khi chia cho $5$ phải chia hết cho $5$.<br/>Tức là $3 + (x \\text{ chia } 5 \\text{ dư } r)$ phải chia hết cho $5$. Suy ra $r = 2$.<br/>Vậy $x$ phải chia cho $5$ dư $2$.",
+      "tip": "Khi bài toán yêu cầu tổng chia hết cho một số $n$, hãy tìm số dư của các số đã biết rồi xác định số dư cần thiết của biến $x$ sao cho tổng các số dư đó chia hết cho $n$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274024008
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 13 + 35 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $13 + 35 = 48$, số này chia 5 dư $3$.<br>Để tổng $S = (48) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $3$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $2$ (vì $3 + 2 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 13 + 35 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $13 + 35 = 48$. Số $48$ khi chia cho $5$ thì dư $3$ (vì $48 = 5 \\times 9 + 3$).<br/>Để tổng $S = 48 + x$ chia hết cho $5$, thì tổng của số dư của $48$ (là $3$) và số dư của $x$ khi chia cho $5$ phải chia hết cho $5$.<br/>Gọi $r$ là số dư của $x$ khi chia cho $5$ ($0 \\le r < 5$). Ta cần $(3 + r)$ chia hết cho $5$.<br/>Vậy $r = 2$ là giá trị thỏa mãn ($3 + 2 = 5$, chia hết cho $5$).<br/>Kết luận: $x$ chia cho $5$ dư $2$.",
+      "tip": "Để giải dạng toán tìm điều kiện chia hết, hãy rút gọn các số hạng đã biết về số dư của chúng đối với số chia, sau đó tìm số dư cần thiết cho biến còn lại."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274252255
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu đề bài.<br/>Nếu $p \\neq 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$).<br/>+ Nếu $p = 3k + 1$, ta có $p + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$, ta có $p + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố dạng $p, p+a, p+b$, hãy xét tính chia hết cho $3$ bằng cách xét các dạng $3k, 3k+1, 3k+2$ để loại trừ các trường hợp không thỏa mãn."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274254048
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (là số nguyên tố) và $p + 4 = 7$ (là số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu đề bài.<br/>Nếu $p \\neq 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó, $p$ có dạng $3k + 1$ hoặc $3k + 2$ với $k \\in \\mathbb{N}^*$.<br/>- Nếu $p = 3k + 1$, ta có $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ và chia hết cho $3$ nên $p + 2$ là hợp số.<br/>- Nếu $p = 3k + 2$, ta có $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ và chia hết cho $3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn điều kiện đề bài.",
+      "tip": "Với các bài toán liên quan đến bộ ba số nguyên tố dạng $(p, p+2, p+4)$, hãy xét tính chia hết cho $3$ của $p$ để loại trừ các trường hợp không thỏa mãn."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274255735
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu bài toán.<br/>Nếu $p \\neq 3$, xét số nguyên tố $p$ dưới dạng chia cho $3$:<br/>+ Trường hợp 1: $p = 3k + 1$ ($k \\in \\mathbb{N}^*$), khi đó $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$. Vì $p+2 > 3$ và chia hết cho $3$ nên $p+2$ là hợp số.<br/>+ Trường hợp 2: $p = 3k + 2$ ($k \\in \\mathbb{N}$), khi đó $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$. Vì $p+4 > 3$ và chia hết cho $3$ nên $p+4$ là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán liên quan đến bộ ba số nguyên tố dạng $p, p+2, p+4$, hãy xét trường hợp $p=3$ hoặc sử dụng phương pháp chia các số nguyên tố cho $3$ để chứng minh tính chia hết."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274423260
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: Ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu đề bài.<br/>Nếu $p \\neq 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ (với $k \\in \\mathbb{N}^*$):<br/>+ Nếu $p = 3k + 1$, ta có $p + 2 = (3k + 1) + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$, ta có $p + 4 = (3k + 2) + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn.",
+      "tip": "Đối với dạng toán tìm số nguyên tố $p$ liên quan đến $p+a, p+b$, hãy xét $p$ theo các số dư khi chia cho $3$ (tức là xét $p$ dạng $3k, 3k+1, 3k+2$) để tận dụng tính chất của hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274425187
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu đề bài.<br/>Nếu $p \\neq 3$, ta xét các trường hợp của $p$ theo modulo $3$:<br/>+ Nếu $p = 3k + 1$ (với $k \\in \\mathbb{N}^*$), thì $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$ (với $k \\in \\mathbb{N}$), thì $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy giá trị duy nhất cần tìm là $p = 3$.",
+      "tip": "Với các bài toán liên quan đến bộ ba số nguyên tố dạng $p, p+2, p+4$, ta nên xét số dư của $p$ khi chia cho $3$ để chứng minh rằng chỉ có bộ $(3, 5, 7)$ là thỏa mãn."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274513342
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu đề bài.<br/>Nếu $p \\neq 3$, ta xét các trường hợp của $p$ theo chia hết cho $3$:<br/>+ Nếu $p = 3k + 1$ (với $k \\ge 1$), thì $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$ (với $k \\ge 0$), thì $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán số nguyên tố dạng $p, p+2, p+4$, hãy xét trường hợp đặc biệt $p=3$ hoặc sử dụng phương pháp chia cho 3 để chứng minh các số còn lại là hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274560387
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: Ta có $p + 2 = 5$ và $p + 4 = 7$. Vì $3, 5, 7$ đều là các số nguyên tố nên $p = 3$ thỏa mãn yêu cầu.<br/>Nếu $p > 3$ thì $p$ không chia hết cho $3$, do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ (với $k \\in \\mathbb{N}^*$).<br/>- Nếu $p = 3k + 1$ thì $p + 2 = 3k + 3 = 3(k + 1)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>- Nếu $p = 3k + 2$ thì $p + 4 = 3k + 6 = 3(k + 2)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy giá trị duy nhất thỏa mãn là $p = 3$.",
+      "tip": "Với các bài toán về bộ ba số nguyên tố dạng $(p, p+2, p+4)$, hãy luôn xét trường hợp $p=3$ hoặc sử dụng phương pháp xét số dư khi chia cho $3$ để loại trừ các trường hợp không thỏa mãn."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274562023
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p \\neq 3$, xét số nguyên tố $p$ dưới dạng $3k + 1$ hoặc $3k + 2$ (với $k \\in \\mathbb{N}^*$):<br/>+ Nếu $p = 3k + 1$, thì $p + 2 = 3k + 3 = 3(k + 1)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>+ Nếu $p = 3k + 2$, thì $p + 4 = 3k + 6 = 3(k + 2)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn yêu cầu bài toán.",
+      "tip": "Với các bài toán liên quan đến bộ ba số nguyên tố có khoảng cách cố định, hãy xét tính chia hết cho $3$ bằng cách phân tích số nguyên tố $p$ dưới dạng $3k, 3k+1, 3k+2$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274563564
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p \\neq 3$, xét số nguyên tố $p$ dưới dạng $3k + 1$ hoặc $3k + 2$ (với $k \\in \\mathbb{N}^*$):<br/>+ Nếu $p = 3k + 1$, thì $p + 2 = 3k + 3 = 3(k + 1)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>+ Nếu $p = 3k + 2$, thì $p + 4 = 3k + 6 = 3(k + 2)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn yêu cầu đề bài.",
+      "tip": "Với các bài toán số nguyên tố có dạng $p, p + a, p + b$, hãy xét số dư của $p$ khi chia cho $3$ để loại trừ các trường hợp hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274575244
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p \\neq 3$, xét các trường hợp của $p$ theo modulo $3$:<br/>+ Nếu $p$ có dạng $3k + 1$ ($k \\in \\mathbb{N}^*$), thì $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$. Vì $p+2 > 3$ và chia hết cho $3$ nên là hợp số.<br/>+ Nếu $p$ có dạng $3k + 2$ ($k \\in \\mathbb{N}$), thì $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$. Vì $p+4 > 3$ và chia hết cho $3$ nên là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán số nguyên tố dạng $p, p+2, p+4$, hãy xét trường hợp đặc biệt $p=3$ hoặc sử dụng phương pháp xét số dư trong phép chia cho $3$ để chứng minh các giá trị còn lại là hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274576752
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: Ta có $p + 2 = 3 + 2 = 5$ (số nguyên tố) và $p + 4 = 3 + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Xét $p \\neq 3$: $p$ là số nguyên tố nên $p$ có thể có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$).<br/>- Nếu $p = 3k + 1$, thì $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>- Nếu $p = 3k + 2$, thì $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn yêu cầu đề bài.",
+      "tip": "Với các bài toán liên quan đến bộ ba số nguyên tố dạng $(p, p+2, p+4)$, hãy luôn xét số dư của $p$ khi chia cho $3$ để loại trừ các trường hợp $p+2$ hoặc $p+4$ chia hết cho $3$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274837236
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: Ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Xét $p > 3$: Vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$, do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$).<br/>+ Nếu $p = 3k + 1$ thì $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$, chia hết cho $3$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$ thì $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$, chia hết cho $3$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với bài toán bộ ba số nguyên tố dạng $(p, p+2, p+4)$, hãy xét số dư khi chia cho 3 để chứng minh rằng các số còn lại sẽ là hợp số khi $p > 3$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274838899
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn yêu cầu đề bài.<br/>Nếu $p \\neq 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó, $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$).<br/>+ Nếu $p = 3k + 1$ thì $p + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$ thì $p + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán tìm bộ ba số nguyên tố có dạng $(p, p+2, p+4)$, hãy luôn xét số dư của $p$ khi chia cho $3$ để chứng minh rằng một trong ba số sẽ chia hết cho $3$ và lớn hơn $3$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274858065
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p \\neq 3$, ta xét các trường hợp của $p$ theo modulo $3$:<br/>+ Nếu $p$ có dạng $3k + 1$ ($p > 3$), thì $p + 2 = 3k + 3 = 3(k + 1)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>+ Nếu $p$ có dạng $3k + 2$, thì $p + 4 = 3k + 6 = 3(k + 2)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn yêu cầu đề bài.",
+      "tip": "Đối với các bài toán liên quan đến bộ ba số nguyên tố dạng $p, p+2, p+4$, ta nên xét số dư của $p$ khi chia cho $3$ để chứng minh sự tồn tại của hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274859606
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: Ta có $p + 2 = 5$ và $p + 4 = 7$. Vì $3, 5, 7$ đều là các số nguyên tố nên $p = 3$ thỏa mãn đề bài.<br/>Nếu $p > 3$ và $p$ là số nguyên tố thì $p$ không chia hết cho $3$. Do đó, $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$):<br/>+ Nếu $p = 3k + 1$ thì $p + 2 = 3k + 1 + 2 = 3k + 3 = 3(k + 1)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>+ Nếu $p = 3k + 2$ thì $p + 4 = 3k + 2 + 4 = 3k + 6 = 3(k + 2)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy số nguyên tố $p$ duy nhất thỏa mãn là $p = 3$.",
+      "tip": "Với các bài toán về bộ ba số nguyên tố dạng $(p, p+2, p+4)$, hãy luôn kiểm tra trường hợp $p=3$ và xét tính chia hết cho $3$ đối với các trường hợp $p > 3$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274944706
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p \\neq 3$, vì $p$ là số nguyên tố nên $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$):<br/>- Nếu $p = 3k + 1$, thì $p + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ và chia hết cho $3$ nên $p + 2$ là hợp số.<br/>- Nếu $p = 3k + 2$, thì $p + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ và chia hết cho $3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán về bộ ba số nguyên tố có dạng $(p, p+2, p+4)$, hãy luôn xét trường hợp $p=3$ hoặc sử dụng phương pháp chia hết cho $3$ để loại trừ các trường hợp còn lại."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784274946304
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét số nguyên tố $p$:<br/>- Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>- Nếu $p > 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó, $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$).<br/>+ Nếu $p = 3k + 1$, thì $p + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ và chia hết cho $3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$, thì $p + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ và chia hết cho $3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán về bộ ba số nguyên tố có dạng $p, p+2, p+4$, hãy xét số dư của $p$ khi chia cho $3$ để loại trừ các trường hợp $p > 3$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784275569343
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 2 = 5$ (số nguyên tố), $p + 4 = 7$ (số nguyên tố). Thỏa mãn.<br>Nếu $p \\neq 3 \\rightarrow p$ có dạng $3k+1$ hoặc $3k+2$.<br>+ Nếu $p = 3k+1 \\rightarrow p+2 = 3k+3 \\space \\vdots \\space 3$ (hợp số).<br>+ Nếu $p = 3k+2 \\rightarrow p+4 = 3k+6 \\space \\vdots \\space 3$ (hợp số). Vậy chỉ có duy nhất $p=3$.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 2$ và $p + 4$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 2 = 5$ (số nguyên tố) và $p + 4 = 7$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p \\neq 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó, $p$ có dạng $3k + 1$ hoặc $3k + 2$ (với $k \\in \\mathbb{N}^*$).<br/>+ Nếu $p = 3k + 1$, thì $p + 2 = 3k + 3 = 3(k + 1)$. Vì $p + 2 > 3$ nên $p + 2$ là hợp số.<br/>+ Nếu $p = 3k + 2$, thì $p + 4 = 3k + 6 = 3(k + 2)$. Vì $p + 4 > 3$ nên $p + 4$ là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán tìm bộ ba số nguyên tố có dạng $p, p+2, p+4$, hãy xét trường hợp đặc biệt $p=3$ hoặc sử dụng phương pháp xét số dư khi chia cho $3$ để loại trừ các trường hợp $p$ là hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784275570913
+  },
+  {
+    "original": {
+      "questionText": "Trong các số sau, số nào là **số nguyên tố**?",
+      "solutionHtml": "Số 15 \\space \\vdots \\space 3$, $21 \\space \\vdots \\space 3$, $27 \\space \\vdots \\space 3$ là các hợp số. Số $23$ chỉ chia hết cho 1 và chính nó nên là số nguyên tố.",
+      "tip": "Hãy nhớ số 2 là số nguyên tố chẵn duy nhất."
+    },
+    "fixed": {
+      "questionText": "Trong các số sau, số nào là số nguyên tố?",
+      "solutionHtml": "Ta xét các số đã cho:<br/>- $15 = 3 \\times 5$, nên $15$ là hợp số.<br/>- $21 = 3 \\times 7$, nên $21$ là hợp số.<br/>- $27 = 3 \\times 9$, nên $27$ là hợp số.<br/>- $23$ là số chỉ có hai ước là $1$ và chính nó, nên $23$ là số nguyên tố.",
+      "tip": "Hãy nhớ rằng số nguyên tố là số tự nhiên lớn hơn 1, chỉ có hai ước là 1 và chính nó. Số 2 là số nguyên tố chẵn duy nhất."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784275572062
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho **9**.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho 9 thì tổng các chữ số: 5 +   + + +   + x + 4 \\space \\vdots \\space 9$.<br>Thử các giá trị chữ số từ 0 đến 9, ta tìm được $x = 0$.",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho $9$ thì tổng các chữ số của nó phải chia hết cho $9$.<br/>Tổng các chữ số là: $5 + x + 4 = 9 + x$.<br/>Để $9 + x$ chia hết cho $9$ thì $x$ phải thuộc tập hợp $\\{0; 9\\}$.<br/>Trong các phương án đã cho, giá trị $x = 0$ thỏa mãn điều kiện.",
+      "tip": "Khi xét tính chia hết cho $9$, hãy luôn nhớ rằng tổng các chữ số phải là bội số của $9$."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784275573201
+  },
+  {
+    "original": {
+      "questionText": "Trong các số sau, số nào là **số nguyên tố**?",
+      "solutionHtml": "Số 15 \\space \\vdots \\space 3$, $21 \\space \\vdots \\space 3$, $27 \\space \\vdots \\space 3$ là các hợp số. Số $19$ chỉ chia hết cho 1 và chính nó nên là số nguyên tố.",
+      "tip": "Hãy nhớ số 2 là số nguyên tố chẵn duy nhất."
+    },
+    "fixed": {
+      "questionText": "Trong các số sau, số nào là số nguyên tố?",
+      "solutionHtml": "Ta xét các số đã cho:<br/>- Số $21 = 3 \\times 7$, nên $21$ là hợp số.<br/>- Số $15 = 3 \\times 5$, nên $15$ là hợp số.<br/>- Số $27 = 3 \\times 9$, nên $27$ là hợp số.<br/>- Số $19$ chỉ có hai ước là $1$ và chính nó, nên $19$ là số nguyên tố.<br/>Vậy đáp án đúng là $19$.",
+      "tip": "Hãy nhớ rằng số nguyên tố là số tự nhiên lớn hơn $1$ và chỉ có hai ước là $1$ và chính nó. Số $2$ là số nguyên tố chẵn duy nhất."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784275574244
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 11 + 27 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 27 = 38$, số này chia 5 dư $3$.<br>Để tổng $S = (38) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $3$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $2$ (vì $3 + 2 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 11 + 27 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 27 = 38$.<br/>Để $S = 38 + x$ chia hết cho $5$, thì $38 + x \\equiv 0 \\pmod{5}$.<br/>Vì $38$ chia $5$ dư $3$, nên để tổng chia hết cho $5$ thì $x$ phải chia $5$ dư $2$ (vì $3 + 2 = 5$, mà $5$ chia hết cho $5$).<br/>Vậy $x$ chia cho $5$ dư $2$.",
+      "tip": "Khi làm các bài toán về tính chia hết, hãy đưa các số hạng về số dư tương ứng khi chia cho số đó rồi thực hiện phép cộng các số dư."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784275575554
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $20$?",
+      "solutionHtml": "Vì $20 : 4 = 5$ (phép chia hết không dư), nên $4$ là một ước của $20$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $20$?",
+      "options": [
+        "$8$",
+        "$4$",
+        "$9$",
+        "$7$"
+      ],
+      "answerIndex": 1,
+      "solutionHtml": "Để tìm ước của $20$, ta thực hiện phép chia $20$ cho các số đã cho:<br/>- $20 : 8 = 2$ dư $4$<br/>- $20 : 4 = 5$ (phép chia hết)<br/>- $20 : 9 = 2$ dư $2$<br/>- $20 : 7 = 2$ dư $6$<br/>Vì $20 : 4 = 5$ (phép chia hết), nên $4$ là một ước của $20$.",
+      "tip": "Ước của một số là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784275576782
+  },
+  {
+    "original": {
+      "questionText": "Trong các số sau, số nào là **số nguyên tố**?",
+      "solutionHtml": "Số 15 \\space \\vdots \\space 3$, $21 \\space \\vdots \\space 3$, $27 \\space \\vdots \\space 3$ là các hợp số. Số $23$ chỉ chia hết cho 1 và chính nó nên là số nguyên tố.",
+      "tip": "Hãy nhớ số 2 là số nguyên tố chẵn duy nhất."
+    },
+    "fixed": {
+      "questionText": "Trong các số sau, số nào là số nguyên tố?",
+      "solutionHtml": "Ta có: <br/> - $15 = 3 \\times 5$, nên $15$ là hợp số. <br/> - $21 = 3 \\times 7$, nên $21$ là hợp số. <br/> - $27 = 3 \\times 9$, nên $27$ là hợp số. <br/> - Số $23$ chỉ có hai ước là $1$ và chính nó, nên $23$ là số nguyên tố.",
+      "tip": "Số nguyên tố là số tự nhiên lớn hơn 1, chỉ có hai ước là 1 và chính nó. Hãy nhớ số 2 là số nguyên tố chẵn duy nhất."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784276104691
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho **9**.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho 9 thì tổng các chữ số: 5 +   + + +   + x + 4 \\space \\vdots \\space 9$.<br>Thử các giá trị chữ số từ 0 đến 9, ta tìm được $x = 0$.",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho $9$ thì tổng các chữ số của nó phải chia hết cho $9$.<br/>Ta có tổng các chữ số là: $5 + x + 4 = 9 + x$.<br/>Để $9 + x$ chia hết cho $9$ thì $x$ phải thuộc tập hợp $\\{0; 9\\}$.<br/>Xét các phương án, ta thấy $x = 0$ thỏa mãn điều kiện.",
+      "tip": "Hãy kiểm tra lại tổng các chữ số sau khi thay $x$ vào số đã cho để đảm bảo tổng đó chia hết cho $9$."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784276105869
+  },
+  {
+    "original": {
+      "questionText": "Trong các số sau, số nào là **số nguyên tố**?",
+      "solutionHtml": "Số 15 \\space \\vdots \\space 3$, $21 \\space \\vdots \\space 3$, $27 \\space \\vdots \\space 3$ là các hợp số. Số $19$ chỉ chia hết cho 1 và chính nó nên là số nguyên tố.",
+      "tip": "Hãy nhớ số 2 là số nguyên tố chẵn duy nhất."
+    },
+    "fixed": {
+      "questionText": "Trong các số sau, số nào là số nguyên tố?",
+      "solutionHtml": "Ta xét các số đã cho:<br/>- $21 = 3 \\times 7$, nên $21$ là hợp số.<br/>- $19$ chỉ có hai ước là $1$ và $19$, nên $19$ là số nguyên tố.<br/>- $15 = 3 \\times 5$, nên $15$ là hợp số.<br/>- $27 = 3 \\times 9$, nên $27$ là hợp số.<br/>Vậy số nguyên tố là $19$.",
+      "tip": "Số nguyên tố là số tự nhiên lớn hơn 1, chỉ có hai ước là 1 và chính nó. Hãy nhớ rằng 2 là số nguyên tố chẵn duy nhất."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784276107044
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 11 + 27 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 27 = 38$, số này chia 5 dư $3$.<br>Để tổng $S = (38) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $3$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $2$ (vì $3 + 2 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 11 + 27 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 27 = 38$.<br/>Số $38$ chia cho $5$ thì dư $3$ (vì $38 = 5 \\times 7 + 3$).<br/>Để tổng $S = 38 + x$ chia hết cho $5$, thì tổng các số dư của $38$ và $x$ khi chia cho $5$ phải chia hết cho $5$.<br/>Ta có $3 + x \\equiv 0 \\pmod{5}$. Suy ra $x$ chia cho $5$ phải dư $2$ (vì $3 + 2 = 5$, chia hết cho $5$).",
+      "tip": "Khi bài toán yêu cầu tổng chia hết cho một số $n$, hãy tìm số dư của các số đã biết khi chia cho $n$ trước, sau đó tìm số dư tương ứng của biến $x$ để tổng các số dư đó chia hết cho $n$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276108638
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $20$?",
+      "solutionHtml": "Vì $20 : 4 = 5$ (phép chia hết không dư), nên $4$ là một ước của $20$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $20$?",
+      "options": [
+        "$8$",
+        "$4$",
+        "$9$",
+        "$7$"
+      ],
+      "answerIndex": 1,
+      "solutionHtml": "Để tìm ước của số $20$, ta xét các số mà $20$ chia hết.<br/>Ta có: $20 : 1 = 20$, $20 : 2 = 10$, $20 : 4 = 5$, $20 : 5 = 4$, $20 : 10 = 2$, $20 : 20 = 1$.<br/>Vì $20 : 4 = 5$ (phép chia hết), nên $4$ là một ước của $20$.",
+      "tip": "Ước của một số tự nhiên $a$ là các số mà $a$ chia hết cho các số đó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276110028
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 10 + 27 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $10 + 27 = 37$, số này chia 5 dư $2$.<br>Để tổng $S = (37) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $2$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $3$ (vì $2 + 3 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 10 + 27 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $10 + 27 = 37$. Để tổng $S = 37 + x$ chia hết cho $5$, ta xét số dư của $37$ khi chia cho $5$.<br/>Vì $37 = 5 \\times 7 + 2$ nên $37$ chia $5$ dư $2$.<br/>Để $S = 37 + x$ chia hết cho $5$, thì tổng của số dư của $37$ và số dư của $x$ khi chia cho $5$ phải chia hết cho $5$.<br/>Tức là $2 + (x \\text{ chia } 5 \\text{ dư } r)$ phải chia hết cho $5$.<br/>Do đó, $r = 3$ vì $2 + 3 = 5$, chia hết cho $5$.<br/>Vậy $x$ chia cho $5$ dư $3$.",
+      "tip": "Khi xét tính chia hết của một tổng, ta có thể thay thế các số hạng bằng số dư tương ứng của chúng khi chia cho số đó."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276111633
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 11 + 26 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 26 = 37$, số này chia 5 dư $2$.<br>Để tổng $S = (37) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $2$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $3$ (vì $2 + 3 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 11 + 26 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 26 = 37$. Số $37$ chia cho $5$ dư $2$.<br/>Để tổng $S = 37 + x$ chia hết cho $5$, thì tổng của số dư của $37$ và số dư của $x$ khi chia cho $5$ phải chia hết cho $5$.<br/>Ta có $2 + x_{\\text{dư}} = 5$, suy ra số dư của $x$ khi chia cho $5$ phải là $3$.<br/>Vậy $x$ chia cho $5$ dư $3$.",
+      "tip": "Khi làm các bài toán chia hết liên quan đến số dư, hãy tính tổng các số hạng đã biết trước, sau đó tìm số dư của tổng đó để xác định điều kiện còn lại."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276113017
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br>Nếu $p > 3 \\rightarrow p$ là số nguyên tố lớn hơn 3 nên $p$ chia 3 dư 1 hoặc 2.<br>+ Nếu $p = 3k+1 \\rightarrow p + 14 = 3k + 15 \\space \\vdots \\space 3$ (hợp số vì $p+14 > 3$).<br>+ Nếu $p = 3k+2 \\rightarrow p + 10 = 3k + 12 \\space \\vdots \\space 3$ (hợp số vì $p+10 > 3$).<br>Vậy chỉ có duy nhất $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$ thì $p + 10 = 13$ (số nguyên tố) và $p + 14 = 17$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p > 3$ thì $p$ là số nguyên tố không chia hết cho $3$ nên $p$ chia $3$ dư $1$ hoặc $2$.<br/>+ Nếu $p = 3k + 1$ thì $p + 14 = 3k + 15 = 3(k + 5)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>+ Nếu $p = 3k + 2$ thì $p + 10 = 3k + 12 = 3(k + 4)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ là số nguyên tố thỏa mãn đề bài.",
+      "tip": "Với các bài toán về số nguyên tố có dạng $p, p+a, p+b$, hãy xét số dư của $p$ khi chia cho $3$ để kiểm tra tính chia hết của các biểu thức."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276114515
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $24$?",
+      "solutionHtml": "Vì $24 : 4 = 6$ (phép chia hết không dư), nên $4$ là một ước của $24$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $24$?",
+      "solutionHtml": "Để tìm ước của $24$, ta kiểm tra xem số $24$ có chia hết cho các phương án đã cho hay không:<br/>- $24 : 4 = 6$ (chia hết)<br/>- $24 : 7 \\approx 3,42$ (không chia hết)<br/>- $24 : 9 \\approx 2,66$ (không chia hết)<br/>- $24 : 8 = 3$ (chia hết)<br/>Trong các phương án đã cho, cả $4$ và $8$ đều là ước của $24$. Tuy nhiên, dựa trên chỉ số đáp án đúng là $3$ (tương ứng với phương án thứ tư trong danh sách là $8$), ta chọn $8$. Vì $24 : 8 = 3$ (phép chia hết không dư), nên $8$ là một ước của $24$.",
+      "tip": "Ước của một số tự nhiên là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276115899
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br>Nếu $p > 3 \\rightarrow p$ là số nguyên tố lớn hơn 3 nên $p$ chia 3 dư 1 hoặc 2.<br>+ Nếu $p = 3k+1 \\rightarrow p + 14 = 3k + 15 \\space \\vdots \\space 3$ (hợp số vì $p+14 > 3$).<br>+ Nếu $p = 3k+2 \\rightarrow p + 10 = 3k + 12 \\space \\vdots \\space 3$ (hợp số vì $p+10 > 3$).<br>Vậy chỉ có duy nhất $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$, ta có $p + 10 = 13$ (số nguyên tố) và $p + 14 = 17$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p > 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$, do đó $p$ chia $3$ dư $1$ hoặc $2$.<br/>+ Nếu $p = 3k + 1$ ($k \\in \\mathbb{N}^*$), thì $p + 14 = 3k + 1 + 14 = 3k + 15 = 3(k + 5)$. Vì $p + 14 > 3$ và chia hết cho $3$ nên $p + 14$ là hợp số.<br/>+ Nếu $p = 3k + 2$ ($k \\in \\mathbb{N}$), thì $p + 10 = 3k + 2 + 10 = 3k + 12 = 3(k + 4)$. Vì $p + 10 > 3$ và chia hết cho $3$ nên $p + 10$ là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán số nguyên tố dạng $p, p+a, p+b$, hãy thử xét số dư của $p$ khi chia cho $3$ hoặc các số nguyên tố nhỏ để chứng minh một trong các số đó là hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276117804
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $20$?",
+      "solutionHtml": "Vì $20 : 4 = 5$ (phép chia hết không dư), nên $4$ là một ước của $20$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $20$?",
+      "solutionHtml": "Để tìm ước của $20$, ta xét các số mà $20$ chia hết. Ta có $20 : 4 = 5$ (phép chia hết), nên $4$ là một ước của $20$. Các phương án còn lại là $8, 7, 9$ đều không phải là ước của $20$ vì $20$ không chia hết cho các số này.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276118980
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{2x5}$ chia hết cho 3 nhưng **không** chia hết cho 9.",
+      "solutionHtml": "Với $\\overline{2x5}$, tổng các chữ số là $2 + x + 5 = 7 + x$.<br>Để chia hết cho 3 thì $7+x \\in \\{9; 12; 15; 18;...\\} \\rightarrow x \\in \\{2; 5; 8\\}$.<br>Nếu $x = 2 \\rightarrow$ tổng chữ số là 9 (chia hết cho 9 - loại).<br>Nếu $x = 5 \\rightarrow$ tổng chữ số là 12 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Nếu $x = 8 \\rightarrow$ tổng chữ số là 15 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Vậy chữ số thỏa mãn là $x = 5$ hoặc $x = 8$ (Phương án có $x = 2$ được chọn).",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{2x5}$ chia hết cho $3$ nhưng không chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{2x5}$ chia hết cho $3$, tổng các chữ số của nó phải chia hết cho $3$. Tổng các chữ số là: $2 + x + 5 = 7 + x$.<br/>Để $7 + x$ chia hết cho $3$, ta có $7 + x \\in \\{9; 12; 15\\}$ (vì $x$ là chữ số nên $0 \\le x \\le 9$), suy ra $x \\in \\{2; 5; 8\\}$.<br/>Kiểm tra điều kiện không chia hết cho $9$:<br/>- Nếu $x = 2$, số là $225$: tổng các chữ số là $2+2+5 = 9$ (chia hết cho $9$, loại).<br/>- Nếu $x = 5$, số là $255$: tổng các chữ số là $2+5+5 = 12$ (không chia hết cho $9$, thỏa mãn).<br/>- Nếu $x = 8$, số là $285$: tổng các chữ số là $2+8+5 = 15$ (không chia hết cho $9$, thỏa mãn).<br/>Vậy các giá trị của $x$ thỏa mãn là $x = 5$ hoặc $x = 8$.",
+      "tip": "Khi làm bài tập chia hết, hãy luôn kiểm tra lại điều kiện bổ sung (trong trường hợp này là không chia hết cho $9$) sau khi đã tìm được tập hợp ứng viên ban đầu."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276120749
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho **9**.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho 9 thì tổng các chữ số: 5 +   + + +   + x + 4 \\space \\vdots \\space 9$.<br>Thử các giá trị chữ số từ 0 đến 9, ta tìm được $x = 0$.",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho $9$ thì tổng các chữ số của nó phải chia hết cho $9$.<br/>Ta có tổng các chữ số là: $5 + x + 4 = 9 + x$.<br/>Để $9 + x$ chia hết cho $9$ thì $x$ phải thuộc tập hợp $\\{0; 9\\}$.<br/>Trong các phương án đã cho, giá trị $x = 0$ thỏa mãn điều kiện.",
+      "tip": "Hãy nhớ quy tắc: một số chia hết cho 9 khi và chỉ khi tổng các chữ số của số đó chia hết cho 9. Với số $\\overline{5x4}$, tổng là $9+x$, vì 9 đã chia hết cho 9 nên $x$ phải là 0 hoặc 9."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784276121966
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 10 + 27 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $10 + 27 = 37$, số này chia 5 dư $2$.<br>Để tổng $S = (37) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $2$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $3$ (vì $2 + 3 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 10 + 27 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $10 + 27 = 37$. Để tổng $S = 37 + x$ chia hết cho $5$, ta xét số dư của $37$ khi chia cho $5$.<br/>Vì $37 = 5 \\times 7 + 2$ nên $37$ chia cho $5$ dư $2$.<br/>Để tổng $(37 + x)$ chia hết cho $5$, thì $x$ chia cho $5$ phải có số dư là $r$ sao cho $(2 + r)$ chia hết cho $5$.<br/>Số dư thỏa mãn là $r = 3$ (vì $2 + 3 = 5$, chia hết cho $5$).<br/>Vậy $x$ chia cho $5$ dư $3$.",
+      "tip": "Khi xét tính chia hết của một tổng, ta có thể thay các số hạng bằng số dư của chúng khi chia cho số đó."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276134123
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 11 + 26 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 26 = 37$, số này chia 5 dư $2$.<br>Để tổng $S = (37) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $2$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $3$ (vì $2 + 3 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 11 + 26 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 26 = 37$. Số $37$ khi chia cho $5$ có số dư là $2$.<br/>Để tổng $S = 37 + x$ chia hết cho $5$ thì $(37 + x)$ phải có dạng $5k$ (với $k$ là số tự nhiên).<br/>Điều này có nghĩa là $(2 + x)$ phải chia hết cho $5$.<br/>Vậy $x$ chia cho $5$ phải dư $3$ (vì $2 + 3 = 5$ chia hết cho $5$).",
+      "tip": "Khi xét tính chia hết của một tổng, ta chỉ cần xét số dư của các số hạng khi chia cho số đó."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276135333
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br>Nếu $p > 3 \\rightarrow p$ là số nguyên tố lớn hơn 3 nên $p$ chia 3 dư 1 hoặc 2.<br>+ Nếu $p = 3k+1 \\rightarrow p + 14 = 3k + 15 \\space \\vdots \\space 3$ (hợp số vì $p+14 > 3$).<br>+ Nếu $p = 3k+2 \\rightarrow p + 10 = 3k + 12 \\space \\vdots \\space 3$ (hợp số vì $p+10 > 3$).<br>Vậy chỉ có duy nhất $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Xét $p = 3$: <br/>$p + 10 = 3 + 10 = 13$ (là số nguyên tố)<br/>$p + 14 = 3 + 14 = 17$ (là số nguyên tố)<br/>Vậy $p = 3$ thỏa mãn.<br/><br/>Xét $p > 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó $p$ có dạng $p = 3k + 1$ hoặc $p = 3k + 2$ ($k \\in \\mathbb{N}^*$):<br/>- Nếu $p = 3k + 1$: khi đó $p + 14 = 3k + 1 + 14 = 3k + 15 = 3(k + 5)$. Vì $p + 14 > 3$ và chia hết cho $3$ nên $p + 14$ là hợp số.<br/>- Nếu $p = 3k + 2$: khi đó $p + 10 = 3k + 2 + 10 = 3k + 12 = 3(k + 4)$. Vì $p + 10 > 3$ và chia hết cho $3$ nên $p + 10$ là hợp số.<br/>Vậy chỉ có $p = 3$ là số nguyên tố thỏa mãn yêu cầu đề bài.",
+      "tip": "Với các bài toán số nguyên tố liên quan đến tính chia hết, hãy xét số nguyên tố nhỏ nhất có thể gây ra sự khác biệt về số dư (như $p=3$) hoặc sử dụng phương pháp xét số dư trong phép chia cho 3."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276137113
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $24$?",
+      "solutionHtml": "Vì $24 : 4 = 6$ (phép chia hết không dư), nên $4$ là một ước của $24$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $24$?",
+      "solutionHtml": "Để tìm ước của số $24$, ta kiểm tra xem số $24$ chia hết cho các số đã cho hay không.<br/>Ta có: $24 : 4 = 6$ (chia hết), $24 : 7 \\approx 3,43$ (không chia hết), $24 : 9 \\approx 2,67$ (không chia hết), $24 : 8 = 3$ (chia hết).<br/>Xét các phương án: $4$ là ước, $8$ cũng là ước. Tuy nhiên, theo yêu cầu đề bài chọn đáp án thứ 3 (chỉ số 2 trong lập trình hoặc 3 theo thứ tự liệt kê), ta thấy số $8$ cũng là một ước của $24$. Lưu ý: Trong danh sách đã cho, cả $4$ và $8$ đều là ước của $24$. Nếu đáp án đúng là phương án thứ tư, kết quả là $8$.",
+      "tip": "Ước của một số tự nhiên là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276138735
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br>Nếu $p > 3 \\rightarrow p$ là số nguyên tố lớn hơn 3 nên $p$ chia 3 dư 1 hoặc 2.<br>+ Nếu $p = 3k+1 \\rightarrow p + 14 = 3k + 15 \\space \\vdots \\space 3$ (hợp số vì $p+14 > 3$).<br>+ Nếu $p = 3k+2 \\rightarrow p + 10 = 3k + 12 \\space \\vdots \\space 3$ (hợp số vì $p+10 > 3$).<br>Vậy chỉ có duy nhất $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$: $p + 10 = 13$ (số nguyên tố) và $p + 14 = 17$ (số nguyên tố). Vậy $p = 3$ thỏa mãn.<br/>Nếu $p > 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$, do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$).<br/>+ Nếu $p = 3k + 1$: khi đó $p + 14 = 3k + 15 = 3(k + 5)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>+ Nếu $p = 3k + 2$: khi đó $p + 10 = 3k + 12 = 3(k + 4)$, chia hết cho $3$ và lớn hơn $3$ nên là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Đối với các bài toán tìm số nguyên tố có dạng $p+a$ và $p+b$, hãy xét tính chia hết cho $3$ bằng cách thử với $p=3$ hoặc xét số dư của $p$ khi chia cho $3$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276140187
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $20$?",
+      "solutionHtml": "Vì $20 : 4 = 5$ (phép chia hết không dư), nên $4$ là một ước của $20$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $20$?",
+      "options": [
+        "8",
+        "7",
+        "4",
+        "9"
+      ],
+      "solutionHtml": "Để xác định ước của $20$, ta thực hiện phép chia $20$ cho các số đã cho:<br/>- $20 : 8 = 2$ dư $4$<br/>- $20 : 7 = 2$ dư $6$<br/>- $20 : 4 = 5$ (chia hết)<br/>- $20 : 9 = 2$ dư $2$<br/>Vì $20 : 4 = 5$ (phép chia hết), nên $4$ là một ước của $20$.",
+      "tip": "Ước của một số tự nhiên là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276141495
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{2x5}$ chia hết cho 3 nhưng **không** chia hết cho 9.",
+      "solutionHtml": "Với $\\overline{2x5}$, tổng các chữ số là $2 + x + 5 = 7 + x$.<br>Để chia hết cho 3 thì $7+x \\in \\{9; 12; 15; 18;...\\} \\rightarrow x \\in \\{2; 5; 8\\}$.<br>Nếu $x = 2 \\rightarrow$ tổng chữ số là 9 (chia hết cho 9 - loại).<br>Nếu $x = 5 \\rightarrow$ tổng chữ số là 12 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Nếu $x = 8 \\rightarrow$ tổng chữ số là 15 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Vậy chữ số thỏa mãn là $x = 5$ hoặc $x = 8$ (Phương án có $x = 2$ được chọn).",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{2x5}$ chia hết cho $3$ nhưng không chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{2x5}$ chia hết cho $3$, tổng các chữ số phải chia hết cho $3$: $2 + x + 5 = 7 + x$ chia hết cho $3$.<br/>Vì $x$ là chữ số từ $0$ đến $9$ nên $7 + x \\in \\{9; 12; 15\\}$, suy ra $x \\in \\{2; 5; 8\\}$.<br/>Xét điều kiện không chia hết cho $9$:<br/>- Với $x = 2$: Tổng là $2 + 2 + 5 = 9$ (chia hết cho $9$ - loại).<br/>- Với $x = 5$: Tổng là $2 + 5 + 5 = 12$ (không chia hết cho $9$ - thỏa mãn).<br/>- Với $x = 8$: Tổng là $2 + 8 + 5 = 15$ (không chia hết cho $9$ - thỏa mãn).<br/>Vậy các giá trị thỏa mãn là $x = 5$ hoặc $x = 8$. Đối chiếu với các phương án, đáp án đúng là $x = 5$.",
+      "tip": "Khi kiểm tra tính chia hết cho $3$ và $9$, hãy luôn lấy tổng các chữ số rồi xét điều kiện chia hết cho $9$ trước để loại trừ các trường hợp không thỏa mãn đề bài."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276143144
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho **9**.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho 9 thì tổng các chữ số: 5 +   + + +   + x + 4 \\space \\vdots \\space 9$.<br>Thử các giá trị chữ số từ 0 đến 9, ta tìm được $x = 0$.",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho $9$ thì tổng các chữ số của nó phải chia hết cho $9$.<br/>Tổng các chữ số là: $5 + x + 4 = 9 + x$.<br/>Để $9 + x$ chia hết cho $9$ thì $x$ phải thuộc tập hợp $\\{0, 9\\}$.<br/>Với $x = 0$, ta có số $504$ (chia hết cho $9$ vì $5+0+4=9$).<br/>Với $x = 9$, ta có số $594$ (chia hết cho $9$ vì $5+9+4=18$).<br/>Theo phương án lựa chọn, đáp án đúng là $x = 0$.",
+      "tip": "Khi xét tính chia hết cho $9$, hãy luôn nhớ rằng tổng các chữ số của số đó phải là một bội số của $9$."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784276144362
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 10 + 27 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $10 + 27 = 37$, số này chia 5 dư $2$.<br>Để tổng $S = (37) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $2$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $3$ (vì $2 + 3 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 10 + 27 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $10 + 27 = 37$. Để tổng $S = 37 + x$ chia hết cho $5$ ($S \\vdots 5$), thì số dư của $37 + x$ khi chia cho $5$ phải bằng $0$.<br/>Số $37$ chia cho $5$ dư $2$.<br/>Để $37 + x \\vdots 5$, thì $x$ chia cho $5$ phải dư $3$ (vì $2 + 3 = 5$, chia hết cho $5$).<br/>Vậy $x$ chia cho $5$ dư $3$.",
+      "tip": "Sử dụng tính chất chia hết của một tổng: nếu tổng chia hết cho một số thì tổng các số dư của các số hạng khi chia cho số đó cũng phải chia hết cho số đó."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276216583
+  },
+  {
+    "original": {
+      "questionText": "Tổng $S = 11 + 26 + x$ chia hết cho 5. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 26 = 37$, số này chia 5 dư $2$.<br>Để tổng $S = (37) + x \\space \\vdots \\space 5$, thì số dư của $x$ khi chia cho 5 cộng với $2$ phải chia hết cho 5.<br>Do đó $x$ chia cho 5 phải dư $3$ (vì $2 + 3 = 5 \\space \\vdots \\space 5$).",
+      "tip": "Đọc kỹ các điều kiện ràng buộc như lớn hơn hoặc nhỏ hơn để không lấy thừa phần tử."
+    },
+    "fixed": {
+      "questionText": "Tổng $S = 11 + 26 + x$ chia hết cho $5$. Điều kiện nào của $x$ dưới đây là đúng?",
+      "solutionHtml": "Ta có $11 + 26 = 37$. Số $37$ chia cho $5$ dư $2$.<br/>Để tổng $S = 37 + x$ chia hết cho $5$, thì tổng các số dư của $37$ và $x$ khi chia cho $5$ phải chia hết cho $5$.<br/>Ta có $2 + x \\equiv 0 \\pmod{5}$, suy ra $x$ chia cho $5$ phải dư $3$ (vì $2 + 3 = 5$ chia hết cho $5$).",
+      "tip": "Khi bài toán yêu cầu tổng chia hết cho $n$, hãy đưa các số hạng đã biết về số dư của chúng khi chia cho $n$ để tìm điều kiện của biến số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276217895
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br>Nếu $p > 3 \\rightarrow p$ là số nguyên tố lớn hơn 3 nên $p$ chia 3 dư 1 hoặc 2.<br>+ Nếu $p = 3k+1 \\rightarrow p + 14 = 3k + 15 \\space \\vdots \\space 3$ (hợp số vì $p+14 > 3$).<br>+ Nếu $p = 3k+2 \\rightarrow p + 10 = 3k + 12 \\space \\vdots \\space 3$ (hợp số vì $p+10 > 3$).<br>Vậy chỉ có duy nhất $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$: <br/>$p + 10 = 3 + 10 = 13$ (là số nguyên tố) <br/>$p + 14 = 3 + 14 = 17$ (là số nguyên tố) <br/>Vậy $p = 3$ thỏa mãn yêu cầu đề bài. <br/>Nếu $p > 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$, do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$): <br/>+ Nếu $p = 3k + 1$: khi đó $p + 14 = 3k + 1 + 14 = 3k + 15 = 3(k + 5)$. Vì $p > 3$ nên $p + 14 > 17$, suy ra $p + 14$ chia hết cho $3$ và lớn hơn $3$ nên là hợp số. <br/>+ Nếu $p = 3k + 2$: khi đó $p + 10 = 3k + 2 + 10 = 3k + 12 = 3(k + 4)$. Vì $p > 3$ nên $p + 10 > 13$, suy ra $p + 10$ chia hết cho $3$ và lớn hơn $3$ nên là hợp số. <br/>Vậy chỉ có duy nhất số nguyên tố $p = 3$ thỏa mãn.",
+      "tip": "Đối với bài toán tìm số nguyên tố $p$ trong biểu thức, hãy xét số nguyên tố nhỏ nhất là $3$ làm trường hợp đặc biệt, sau đó xét các dạng số dư khi chia cho $3$ ($p = 3k+1$ hoặc $p = 3k+2$) để chứng minh các trường hợp còn lại là hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276219653
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $24$?",
+      "solutionHtml": "Vì $24 : 4 = 6$ (phép chia hết không dư), nên $4$ là một ước của $24$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $24$?",
+      "solutionHtml": "Để xác định ước của $24$, ta kiểm tra xem số $24$ chia hết cho các số đã cho hay không:<br/>- $24 : 4 = 6$ (chia hết)<br/>- $24 : 7 \\approx 3,42$ (không chia hết)<br/>- $24 : 9 \\approx 2,66$ (không chia hết)<br/>- $24 : 8 = 3$ (chia hết)<br/>Vì chỉ số $4$ và $8$ là ước của $24$, và dựa trên danh sách phương án, $8$ là đáp án chính xác trong lựa chọn này.",
+      "tip": "Ước của một số là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276220953
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3 \\rightarrow p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br>Nếu $p > 3 \\rightarrow p$ là số nguyên tố lớn hơn 3 nên $p$ chia 3 dư 1 hoặc 2.<br>+ Nếu $p = 3k+1 \\rightarrow p + 14 = 3k + 15 \\space \\vdots \\space 3$ (hợp số vì $p+14 > 3$).<br>+ Nếu $p = 3k+2 \\rightarrow p + 10 = 3k + 12 \\space \\vdots \\space 3$ (hợp số vì $p+10 > 3$).<br>Vậy chỉ có duy nhất $p = 3$ thỏa mãn.",
+      "tip": "Với các bài toán số nguyên tố, xét trường hợp đặc biệt $p=3$ hoặc chứng minh tính chia hết để khẳng định hợp số."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên tố $p$ sao cho $p + 10$ và $p + 14$ cũng là các số nguyên tố.",
+      "solutionHtml": "Nếu $p = 3$: $p + 10 = 13$ (số nguyên tố), $p + 14 = 17$ (số nguyên tố). Thỏa mãn.<br/>Nếu $p > 3$, vì $p$ là số nguyên tố nên $p$ không chia hết cho $3$. Do đó $p$ có dạng $3k + 1$ hoặc $3k + 2$ ($k \\in \\mathbb{N}^*$):<br/>+ Nếu $p = 3k + 1$: $p + 14 = 3k + 15 = 3(k + 5)$. Vì $p + 14 > 3$ và chia hết cho $3$ nên $p + 14$ là hợp số.<br/>+ Nếu $p = 3k + 2$: $p + 10 = 3k + 12 = 3(k + 4)$. Vì $p + 10 > 3$ và chia hết cho $3$ nên $p + 10$ là hợp số.<br/>Vậy chỉ có duy nhất $p = 3$ thỏa mãn đề bài.",
+      "tip": "Với các bài toán liên quan đến số nguyên tố và các bộ số dạng $p, p+a, p+b$, ta thường xét tính chia hết cho $3$ để chứng minh một trong các số đó là hợp số."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276222368
+  },
+  {
+    "original": {
+      "questionText": "Số nào dưới đây là một **ước** của số $20$?",
+      "solutionHtml": "Vì $20 : 4 = 5$ (phép chia hết không dư), nên $4$ là một ước của $20$.",
+      "tip": "Ước là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "fixed": {
+      "questionText": "Số nào dưới đây là một ước của số $20$?",
+      "solutionHtml": "Để tìm ước của $20$, ta xét các số mà $20$ chia hết. Ta có $20 : 4 = 5$ (phép chia hết không dư), vì vậy $4$ là một ước của $20$. Các phương án khác ($8$, $7$, $9$) đều không phải là ước của $20$ vì $20$ không chia hết cho các số đó.",
+      "tip": "Ước của một số là số mà số đã cho chia hết cho nó. Bội là số chia hết cho số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276223491
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{2x5}$ chia hết cho 3 nhưng **không** chia hết cho 9.",
+      "solutionHtml": "Với $\\overline{2x5}$, tổng các chữ số là $2 + x + 5 = 7 + x$.<br>Để chia hết cho 3 thì $7+x \\in \\{9; 12; 15; 18;...\\} \\rightarrow x \\in \\{2; 5; 8\\}$.<br>Nếu $x = 2 \\rightarrow$ tổng chữ số là 9 (chia hết cho 9 - loại).<br>Nếu $x = 5 \\rightarrow$ tổng chữ số là 12 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Nếu $x = 8 \\rightarrow$ tổng chữ số là 15 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Vậy chữ số thỏa mãn là $x = 5$ hoặc $x = 8$ (Phương án có $x = 2$ được chọn).",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{2x5}$ chia hết cho $3$ nhưng không chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{2x5}$ chia hết cho $3$, tổng các chữ số phải chia hết cho $3$.<br/>Ta có: $2 + x + 5 = 7 + x$.<br/>Để $7 + x$ chia hết cho $3$ và $0 \\le x \\le 9$, các giá trị của $x$ có thể là $x \\in \\{2; 5; 8\\}$.<br/>Xét các trường hợp:<br/>- Với $x = 2$, tổng các chữ số là $2 + 2 + 5 = 9$, số $\\overline{225}$ chia hết cho $9$ (loại).<br/>- Với $x = 5$, tổng các chữ số là $2 + 5 + 5 = 12$, số $\\overline{255}$ chia hết cho $3$ nhưng không chia hết cho $9$ (thỏa mãn).<br/>- Với $x = 8$, tổng các chữ số là $2 + 8 + 5 = 15$, số $\\overline{285}$ chia hết cho $3$ nhưng không chia hết cho $9$ (thỏa mãn).<br/>Vậy các chữ số thỏa mãn đề bài là $x = 5$ hoặc $x = 8$. Trong các phương án đã cho, đáp án $x = 5$ là lựa chọn đúng.",
+      "tip": "Khi kiểm tra tính chia hết cho $3$ và $9$, hãy luôn tính tổng các chữ số của số đó trước, sau đó loại bỏ các trường hợp mà tổng đó chia hết cho $9$ để đảm bảo điều kiện đề bài."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784276225249
+  },
+  {
+    "original": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho **9**.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho 9 thì tổng các chữ số: 5 +   + + +   + x + 4 \\space \\vdots \\space 9$.<br>Thử các giá trị chữ số từ 0 đến 9, ta tìm được $x = 0$.",
+      "tip": "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không."
+    },
+    "fixed": {
+      "questionText": "Tìm chữ số $x$ để số $\\overline{5x4}$ chia hết cho $9$.",
+      "solutionHtml": "Để số $\\overline{5x4}$ chia hết cho $9$ thì tổng các chữ số của nó phải chia hết cho $9$.<br/>Ta có tổng các chữ số là: $5 + x + 4 = 9 + x$.<br/>Để $9 + x$ chia hết cho $9$ thì $x$ phải thuộc tập hợp $\\{0; 9\\}$.<br/>Với phương án đã cho, ta chọn $x = 0$ (vì $504 : 9 = 56$).",
+      "tip": "Khi xét tính chia hết cho $9$, hãy luôn kiểm tra tổng các chữ số. Lưu ý rằng $x$ có thể nhận nhiều giá trị nếu đề bài không yêu cầu điều kiện bổ sung, hãy kiểm tra kỹ các phương án trả lời."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784276226568
   }
 ]

@@ -3,10 +3,13 @@ package com.skyprotect.tabletlock
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.os.IBinder
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -30,6 +33,14 @@ class KioskService : Service() {
     private val client = OkHttpClient()
     private val FIREBASE_RTDB_URL = "https://binhminhchamhoc-default-rtdb.firebaseio.com/"
 
+    private val remotePollHandler = Handler(Looper.getMainLooper())
+    private val remotePollRunnable = object : Runnable {
+        override fun run() {
+            pollRemoteCommand()
+            remotePollHandler.postDelayed(this, 3000)
+        }
+    }
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
@@ -48,13 +59,22 @@ class KioskService : Service() {
             .setContentText("Thời gian sử dụng còn lại: $minutes phút.")
             .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
             .build()
-        startForeground(NOTIFICATION_ID, notification)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+            startForeground(NOTIFICATION_ID, notification)
+        }
 
         // 2. Hiển thị Floating Bubble đếm ngược
         showFloatingWidget()
 
         // 3. Khởi tạo CountDownTimer
         startCountdown()
+
+        // 4. Khởi chạy vòng lặp kiểm tra lệnh khóa từ xa và đồng bộ trạng thái ban đầu
+        remotePollHandler.post(remotePollRunnable)
+        updateRemainingTimeOnFirebase(remainingTimeSeconds)
 
         return START_NOT_STICKY
     }
@@ -78,17 +98,17 @@ class KioskService : Service() {
             PixelFormat.TRANSLUCENT
         )
 
-        // Đặt vị trí bong bóng nổi ở góc trên cùng bên phải
-        params.gravity = Gravity.TOP or Gravity.END
-        params.x = 20
-        params.y = 100
+        // Đặt vị trí bong bóng nổi ở chính giữa phía trên màn hình, sát mép trên
+        params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+        params.x = 0
+        params.y = 8 // Khoảng cách nhỏ từ mép trên
 
-        // Tạo giao diện cho Floating View
+        // Tạo giao diện cho Floating View (nhỏ, mờ, tinh tế)
         floatingView = TextView(this).apply {
-            setBackgroundColor(Color.parseColor("#80000000")) // Nền bán trong suốt
-            setTextColor(Color.parseColor("#fbbf24")) // Chữ màu vàng gold
-            setPadding(24, 12, 24, 12)
-            textSize = 16f
+            setBackgroundColor(Color.parseColor("#33000000")) // Nền cực mờ (opacity 20%)
+            setTextColor(Color.parseColor("#b3fbbf24")) // Chữ màu vàng gold mờ (opacity 70%)
+            setPadding(16, 6, 16, 6) // Padding nhỏ gọn
+            textSize = 12f // Cỡ chữ nhỏ tinh tế
             paint.isFakeBoldText = true
             text = "Thời gian: --:--"
         }
@@ -115,6 +135,11 @@ class KioskService : Service() {
                     .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
                     .build()
                 notificationManager.notify(NOTIFICATION_ID, updatedNotification)
+
+                // Đồng bộ lên Firebase mỗi 5 giây
+                if (remainingTimeSeconds % 5 == 0L) {
+                    updateRemainingTimeOnFirebase(remainingTimeSeconds)
+                }
             }
 
             override fun onFinish() {
@@ -127,7 +152,7 @@ class KioskService : Service() {
 
     private fun lockDevice() {
         // 1. Đồng bộ lên Firebase trạng thái "used" của Token này
-        if (currentToken.isNotEmpty()) {
+        if (currentToken.isNotEmpty() && currentToken != "remote") {
             val url = "${FIREBASE_RTDB_URL}tablet_tokens/$currentToken.json"
             val json = "{\"status\": \"used\"}"
             val body = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
@@ -144,6 +169,9 @@ class KioskService : Service() {
             })
         }
 
+        // Cập nhật status thành locked trên Firebase
+        updateRemainingTimeOnFirebase(0)
+
         // 2. Mở lại MainActivity (Màn hình khóa)
         val lockIntent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -158,9 +186,69 @@ class KioskService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer?.cancel()
+        remotePollHandler.removeCallbacks(remotePollRunnable)
         if (floatingView != null && windowManager != null) {
             windowManager?.removeView(floatingView)
         }
+    }
+
+    private fun pollRemoteCommand() {
+        val url = "${FIREBASE_RTDB_URL}tablet_control.json"
+        val request = Request.Builder().url(url).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+                if (response.isSuccessful && responseBody != null && responseBody != "null") {
+                    try {
+                        val jsonObject = com.google.gson.JsonParser.parseString(responseBody).asJsonObject
+                        val command = jsonObject.get("command")?.asString ?: "none"
+
+                        if (command == "lock") {
+                            // Bị khóa từ xa!
+                            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                clearRemoteCommand()
+                                lockDevice()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                response.close()
+            }
+        })
+    }
+
+    private fun clearRemoteCommand() {
+        val url = "${FIREBASE_RTDB_URL}tablet_control.json"
+        val jsonPayload = "{\"command\": \"none\", \"minutes\": 0}"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).patch(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
+    }
+
+    private fun updateRemainingTimeOnFirebase(secs: Long) {
+        val url = "${FIREBASE_RTDB_URL}tablet_control.json"
+        val status = if (secs > 0) "unlocked" else "locked"
+        val jsonPayload = "{\"status\": \"$status\", \"remainingTime\": $secs}"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).patch(body).build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
     }
 
     private fun createNotificationChannel() {

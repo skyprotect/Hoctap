@@ -10100,7 +10100,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Chưa có thẻ mạ vàng! 🌟',
-                html: `Con cần có ít nhất 1 thẻ năng lực <b>Mạ Vàng</b> để đổi lấy 7 phút chơi game.<br/><br/>Hãy tích lũy điểm <b>XP</b> và vào mục <b>Cửa Hàng (Shop)</b> ở phần Tiếng Anh để mạ vàng các thẻ năng lực đã đạt được nhé!`,
+                html: `Con cần có ít nhất 1 thẻ năng lực <b>Mạ Vàng</b> để đổi lấy 15 phút chơi game.<br/><br/>Hãy tích lũy điểm <b>XP</b> và vào mục <b>Cửa Hàng (Shop)</b> ở phần Tiếng Anh để mạ vàng các thẻ năng lực đã đạt được nhé!`,
                 confirmButtonText: 'Đã hiểu',
                 confirmButtonColor: '#eab308'
             });
@@ -10158,7 +10158,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         Swal.fire({
             title: 'Đổi thẻ chơi trên PC 💻🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng của con để đổi lấy <b>7 phút chơi game</b> trên máy tính này:</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng của con để đổi lấy <b>15 phút chơi game</b> trên máy tính này:</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
@@ -10184,12 +10184,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
                 Swal.fire({
                     title: 'Đổi thẻ thành công! 🎉',
-                    html: `Đã đổi thẻ <b>"${cardName}"</b> lấy <b>7 phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
+                    html: `Đã đổi thẻ <b>"${cardName}"</b> lấy <b>15 phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
                     icon: 'success',
                     confirmButtonText: 'Vào chơi ngay 🚀',
                     confirmButtonColor: '#10b981'
                 }).then(() => {
-                    this.startFreePlayGame(420); // 7 phút = 420 giây
+                    this.startFreePlayGame(900); // 15 phút = 900 giây
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
                 this.openStudentGameExchange();
@@ -10221,7 +10221,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         Swal.fire({
             title: 'Đổi thẻ chơi trên Tablet 📱🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng để đổi lấy <b>mã số bảo mật sử dụng Tablet trong 7 phút</b>:</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng để đổi lấy <b>mã số bảo mật sử dụng Tablet trong 15 phút</b>:</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
@@ -10250,7 +10250,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     const response = await fetch(this.getApiUrl('/api/tablet/generate-token'), {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ studentId, minutes: 7 })
+                        body: JSON.stringify({ studentId, minutes: 15 })
                     });
                     
                     if (response.ok) {
@@ -10503,9 +10503,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             if (timerVal) timerVal.style.display = 'none';
             if (titleVal) titleVal.innerHTML = 'CHẾ ĐỘ PHỤ HUYNH (VÔ HẠN THỜI GIAN)';
         } else {
-            // Chế độ Học sinh: 7 phút
+            // Chế độ Học sinh: 15 phút
             if (timerVal) timerVal.style.display = 'inline-block';
-            if (titleVal) titleVal.innerHTML = 'CHẾ ĐỘ HỌC SINH (GIỚI HẠN 7 PHÚT)';
+            if (titleVal) titleVal.innerHTML = 'CHẾ ĐỘ HỌC SINH (GIỚI HẠN 15 PHÚT)';
 
             this.freePlayTimeRemaining = duration;
             const updateTimerDisplay = () => {
@@ -10531,7 +10531,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     Swal.fire({
                         icon: 'info',
                         title: 'Hết giờ chơi game! ⏰',
-                        text: 'Thời gian 7 phút chơi game của con đã hết. Hãy tiếp tục học tập để tích lũy thêm thẻ mạ vàng nhé!',
+                        text: 'Thời gian 15 phút chơi game của con đã hết. Hãy tiếp tục học tập để tích lũy thêm thẻ mạ vàng nhé!',
                         confirmButtonColor: '#10b981',
                         confirmButtonText: 'Đồng ý'
                     });

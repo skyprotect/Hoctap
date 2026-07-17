@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tablet Lock - Remote Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.45);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --primary-grad: linear-gradient(135deg, #34d399 0%, #059669 100%);
+            --danger-grad: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+            --amber-color: #fbbf24;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Hiệu ứng nền mờ ảo */
+        .bg-glows {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -50px;
+            right: -50px;
+        }
+
+        .glow-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.12) 0%, rgba(0,0,0,0) 70%);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 32px;
+            padding: 35px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            position: relative;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        .app-title {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .app-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Vòng tròn hiển thị trạng thái */
+        .status-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 30px 20px;
+            margin-bottom: 35px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-ring {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 16px;
+            transition: all 0.5s ease;
+        }
+
+        .status-ring::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+
+        .status-icon {
+            font-size: 44px;
+            z-index: 2;
+        }
+
+        /* Trạng thái khóa */
+        .status-locked .status-ring {
+            background: rgba(239, 68, 68, 0.1);
+            border: 3px solid #ef4444;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .status-locked .status-ring::before {
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .status-locked .status-text {
+            color: #f87171;
+        }
+
+        /* Trạng thái mở */
+        .status-unlocked .status-ring {
+            background: rgba(16, 185, 129, 0.1);
+            border: 3px solid #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-unlocked .status-ring::before {
+            background: rgba(16, 185, 129, 0.15);
+        }
+
+        .status-unlocked .status-text {
+            color: #34d399;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+            70% {
+                transform: scale(1.15);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+        }
+
+        .status-text {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown-time {
+            font-size: 36px;
+            font-weight: 800;
+            margin-top: 8px;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-primary);
+        }
+
+        /* Thiết lập thời gian mở khóa */
+        .control-panel {
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            padding-left: 4px;
+        }
+
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .time-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: var(--text-primary);
+            padding: 12px 6px;
+            font-size: 14px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-btn.active {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: var(--amber-color);
+            color: var(--amber-color);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.1);
+        }
+
+        .time-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Nút hành động chính */
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            color: #ffffff;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-family: inherit;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-unlock {
+            background: var(--primary-grad);
+        }
+
+        .btn-unlock:hover {
+            box-shadow: 0 8px 25px rgba(52, 211, 153, 0.3);
+        }
+
+        .btn-lock {
+            background: var(--danger-grad);
+        }
+
+        .btn-lock:hover {
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+            filter: brightness(0.9);
+        }
+
+        /* Trạng thái ngắt kết nối */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fbbf24;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glows">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="app-title">Tablet Lock</h1>
+            <p class="app-subtitle">Remote Control</p>
+        </header>
+
+        <!-- Thẻ trạng thái -->
+        <div class="status-card status-locked" id="statusCard">
+            <div class="status-ring">
+                <span class="status-icon" id="statusIcon">🔒</span>
+            </div>
+            <span class="status-text" id="statusText">ĐANG KHÓA</span>
+            <div class="countdown-time" id="countdownText" style="display: none;">00:00</div>
+        </div>
+
+        <!-- Bảng điều khiển -->
+        <div class="control-panel">
+            <h2 class="section-title">Chọn thời gian mở khóa</h2>
+            <div class="time-options">
+                <button class="time-btn active" data-minutes="15">15 Phút</button>
+                <button class="time-btn" data-minutes="30">30 Phút</button>
+                <button class="time-btn" data-minutes="60">1 Giờ</button>
+                <button class="time-btn" data-minutes="120">2 Giờ</button>
+                <button class="time-btn" data-minutes="240">4 Giờ</button>
+                <button class="time-btn" data-minutes="9999">Vô Hạn</button>
+            </div>
+
+            <div class="action-btns">
+                <button class="btn btn-unlock" id="btnUnlock">
+                    <span>⚡</span> MỞ KHÓA THIẾT BỊ
+                </button>
+                <button class="btn btn-lock" id="btnLock">
+                    <span>🔒</span> KHÓA KHẨN CẤP
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Thông báo ở đây</div>
+
+    <!-- Nhập thư viện Firebase SDK 8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // Cấu hình Firebase của người dùng cung cấp
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOewYQ-Jwfwg_NU_JpW6w-05NwkMAjaXo",
+            authDomain: "binhminhchamhoc.firebaseapp.com",
+            databaseURL: "https://binhminhchamhoc-default-rtdb.firebaseio.com",
+            projectId: "binhminhchamhoc",
+            storageBucket: "binhminhchamhoc.firebasestorage.app",
+            messagingSenderId: "1033910156653",
+            appId: "1:1033910156653:web:5e57eabcff563054842e64",
+            measurementId: "G-367K48DJD6"
+        };
+
+        // Khởi tạo Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let selectedMinutes = 15;
+
+        // UI elements
+        const statusCard = document.getElementById('statusCard');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusText = document.getElementById('statusText');
+        const countdownText = document.getElementById('countdownText');
+        const timeButtons = document.querySelectorAll('.time-btn');
+        const btnUnlock = document.getElementById('btnUnlock');
+        const btnLock = document.getElementById('btnLock');
+        const toast = document.getElementById('toast');
+
+        // Lắng nghe sự kiện click trên các nút thời gian
+        timeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                timeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedMinutes = parseInt(btn.getAttribute('data-minutes'));
+            });
+        });
+
+        // Hàm hiện thông báo toast
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Lắng nghe thay đổi trạng thái thời gian thực từ Firebase
+        db.ref("tablet_control").on("value", (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                updateUI(data.status, data.remainingTime);
+            }
+        }, (error) => {
+            console.error("Lỗi đồng bộ Firebase:", error);
+            showToast("Lỗi đồng bộ cơ sở dữ liệu!");
+        });
+
+        // Cập nhật giao diện theo trạng thái Firebase
+        function updateUI(status, remainingSeconds) {
+            if (status === 'unlocked' && remainingSeconds > 0) {
+                statusCard.className = "status-card status-unlocked";
+                statusIcon.textContent = "🔓";
+                statusText.textContent = "ĐANG HOẠT ĐỘNG";
+                
+                if (remainingSeconds > 9000 * 60) {
+                    countdownText.textContent = "VÔ HẠN";
+                } else {
+                    const m = Math.floor(remainingSeconds / 60);
+                    const s = remainingSeconds % 60;
+                    countdownText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                }
+                countdownText.style.display = 'block';
+            } else {
+                statusCard.className = "status-card status-locked";
+                statusIcon.textContent = "🔒";
+                statusText.textContent = "ĐANG KHÓA";
+                countdownText.style.display = 'none';
+            }
+        }
+
+        // Gửi lệnh điều khiển lên Firebase
+        function sendCommand(command, minutes = 0) {
+            db.ref("tablet_control").update({
+                command: command,
+                minutes: minutes
+            }).then(() => {
+                showToast(command === 'unlock' ? `Đã gửi lệnh mở khóa ${minutes === 9999 ? 'vô hạn' : minutes + ' phút'}` : "Đã gửi lệnh khóa thiết bị");
+            }).catch(err => {
+                showToast("Lỗi gửi lệnh điều khiển!");
+                console.error("Lỗi gửi lệnh:", err);
+            });
+        }
+
+        btnUnlock.addEventListener('click', () => {
+            sendCommand('unlock', selectedMinutes);
+        });
+
+        btnLock.addEventListener('click', () => {
+            sendCommand('lock');
+        });
+    </script>
+</body>
+</html>
