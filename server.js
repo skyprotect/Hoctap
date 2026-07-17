@@ -1563,7 +1563,7 @@ app.post('/api/save-api-keys', authenticateAdminToken, async (req, res) => {
   try {
     const config = await dbGetConfig();
     const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
-    if (parentPin !== correctPin && parentPin !== "Haidang89") {
+    if (parentPin !== correctPin && parentPin !== "haidangppk") {
       return res.status(403).json({ error: "Mã PIN Phụ huynh không chính xác! Vui lòng thử lại." });
     }
   } catch (e) {
@@ -3169,7 +3169,7 @@ app.post('/api/admin/login', async (req, res) => {
   try {
     const config = await dbGetConfig();
     const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
-    if (password === correctPin || password === "Haidang89") {
+    if (password === correctPin || password === "haidangppk") {
       const token = jwt.sign({ role: 'admin' }, JWT_SECRET, { expiresIn: '30m' });
       return res.json({ success: true, token });
     } else {
@@ -3189,7 +3189,7 @@ app.post('/api/verify-pin', async (req, res) => {
   try {
     const config = await dbGetConfig();
     const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
-    if (pin === correctPin || pin === "Haidang89") {
+    if (pin === correctPin || pin === "haidangppk") {
       return res.json({ success: true });
     } else {
       return res.status(403).json({ success: false, error: "Mã PIN Phụ huynh không chính xác!" });
@@ -3377,7 +3377,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.90';
+const APP_VERSION = '10.91';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

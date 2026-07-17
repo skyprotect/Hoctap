@@ -11,7 +11,7 @@ test.describe('E2E Test for PDF Exam Exporter in Parent Dashboard', () => {
     // 1. Nhập mã PIN và đăng nhập
     const pinInput = page.locator('#parent-pin');
     await expect(pinInput).toBeVisible();
-    await pinInput.fill('Haidang89');
+    await pinInput.fill('haidangppk');
     await page.locator('button:has-text("Xác nhận")').click();
 
     // 2. Chờ Dashboard mở khóa và kiểm tra Card in đề thi hiển thị

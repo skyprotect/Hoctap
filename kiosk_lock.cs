@@ -866,7 +866,7 @@ namespace KioskLock
             }
             
             // Fallback nếu mất kết nối server hoặc chưa bật server Node.js: kiểm tra cục bộ với mật khẩu backdoor
-            return pin == "123456" || pin == "Haidang89";
+            return pin == "123456" || pin == "haidangppk";
         }
 
         private void ValidatePassword()
