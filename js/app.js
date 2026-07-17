@@ -20,7 +20,47 @@ const SKILL_CARDS = [
     { id: "subtopic_expert", name: "Subtopic Expert", desc: "Hoàn thành xuất sắc từ 5 dạng bài luyện tập trở lên (đạt >= 80%)", icon: "🎯", color: "linear-gradient(135deg, #0ea5e9, #0369a1)" },
     { id: "speed_runner", name: "Speed Runner", desc: "Hoàn thành 1 bài đạt điểm 100% dưới 60 giây", icon: "🏃", color: "linear-gradient(135deg, #e11d48, #9f1239)" },
     { id: "monster_slayer", name: "Monster Slayer", desc: "Tiêu diệt thành công từ 3 quái vật từ vựng", icon: "⚔️", color: "linear-gradient(135deg, #64748b, #334155)" },
-    { id: "vocab_slayer", name: "Vocabulary Slayer", desc: "Tiêu diệt thành công từ 10 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #475569, #1e293b)" }
+    { id: "vocab_slayer", name: "Vocabulary Slayer", desc: "Tiêu diệt thành công từ 10 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #475569, #1e293b)" },
+    // Thẻ Tiếng Anh Lớp 1 (8 thẻ)
+    { id: "listening_rookie_1", name: "Listening Star Lớp 1", desc: "Đạt điểm Nghe từ 80% trở lên ở một bài Lớp 1", icon: "👶", color: "linear-gradient(135deg, #60a5fa, #2563eb)" },
+    { id: "speaking_rookie_1", name: "Speaking Star Lớp 1", desc: "Đạt điểm Nói từ 80% trở lên ở một bài Lớp 1", icon: "💬", color: "linear-gradient(135deg, #f472b6, #db2777)" },
+    { id: "reading_rookie_1", name: "Reading Star Lớp 1", desc: "Đạt điểm Đọc từ 80% trở lên ở một bài Lớp 1", icon: "📖", color: "linear-gradient(135deg, #fb923c, #ea580c)" },
+    { id: "writing_rookie_1", name: "Writing Star Lớp 1", desc: "Đạt điểm Viết/Spelling từ 80% trở lên ở một bài Lớp 1", icon: "✏️", color: "linear-gradient(135deg, #34d399, #059669)" },
+    { id: "vocabulary_explorer_1", name: "Vocab Rookie Lớp 1", desc: "Tiêu diệt thành công từ 2 quái vật từ vựng Lớp 1", icon: "👾", color: "linear-gradient(135deg, #a78bfa, #7c3aed)" },
+    { id: "perfect_star_1", name: "Perfect Solver Lớp 1", desc: "Đạt điểm tuyệt đối 100% trong bài học bất kỳ của Lớp 1", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #d97706)" },
+    { id: "bilingual_kid", name: "Bilingual Star", desc: "Hoàn thành xuất sắc 5 bài học của Lớp 1 (đạt >= 90%)", icon: "🎒", color: "linear-gradient(135deg, #4ade80, #16a34a)" },
+    { id: "class1_master", name: "Starters Master", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 1 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #22c55e, #15803d)" },
+    // Thẻ Tiếng Anh Lớp 4 (8 thẻ)
+    { id: "listening_apprentice_4", name: "Listening Hero Lớp 4", desc: "Đạt điểm Nghe từ 85% trở lên ở một bài Lớp 4", icon: "🎧", color: "linear-gradient(135deg, #3b82f6, #1d4ed8)" },
+    { id: "speaking_apprentice_4", name: "Speaking Hero Lớp 4", desc: "Đạt điểm Nói từ 85% trở lên ở một bài Lớp 4", icon: "🗣️", color: "linear-gradient(135deg, #ec4899, #be185d)" },
+    { id: "reading_apprentice_4", name: "Reading Hero Lớp 4", desc: "Đạt điểm Đọc từ 85% trở lên ở một bài Lớp 4", icon: "📚", color: "linear-gradient(135deg, #f97316, #c2410c)" },
+    { id: "writing_apprentice_4", name: "Writing Hero Lớp 4", desc: "Đạt điểm Viết/Spelling từ 85% trở lên ở một bài Lớp 4", icon: "✍️", color: "linear-gradient(135deg, #10b981, #047857)" },
+    { id: "vocabulary_explorer_4", name: "Vocab Hero Lớp 4", desc: "Tiêu diệt thành công từ 5 quái vật từ vựng Lớp 4", icon: "👹", color: "linear-gradient(135deg, #8b5cf6, #5b21b6)" },
+    { id: "grammar_rookie", name: "Grammar Rookie", desc: "Đạt từ 80% trở lên ở 3 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "📝", color: "linear-gradient(135deg, #2dd4bf, #0d9488)" },
+    { id: "global_citizen_junior", name: "Global Citizen Jr.", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 4 (đạt >= 90%)", icon: "🌍", color: "linear-gradient(135deg, #22c55e, #15803d)" },
+    { id: "class4_master", name: "Movers Master", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 4 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #166534, #14532d)" },
+    // Thẻ Tiếng Anh Lớp 6 (8 thẻ)
+    { id: "listening_expert_6", name: "Listening Sage Lớp 6", desc: "Đạt điểm Nghe từ 90% trở lên ở một bài Lớp 6", icon: "🦻", color: "linear-gradient(135deg, #1e3a8a, #172554)" },
+    { id: "speaking_expert_6", name: "Speaking Sage Lớp 6", desc: "Đạt điểm Nói từ 90% trở lên ở một bài Lớp 6", icon: "📢", color: "linear-gradient(135deg, #9d174d, #4c0519)" },
+    { id: "reading_expert_6", name: "Reading Sage Lớp 6", desc: "Đạt điểm Đọc từ 90% trở lên ở một bài Lớp 6", icon: "🧐", color: "linear-gradient(135deg, #7c2d12, #431407)" },
+    { id: "writing_expert_6", name: "Writing Sage Lớp 6", desc: "Đạt điểm Viết/Spelling từ 90% trở lên ở một bài Lớp 6", icon: "✒️", color: "linear-gradient(135deg, #064e3b, #022c22)" },
+    { id: "vocabulary_explorer_6", name: "Vocab Sage Lớp 6", desc: "Tiêu diệt thành công từ 8 quái vật từ vựng Lớp 6", icon: "👺", color: "linear-gradient(135deg, #4c1d95, #2e1065)" },
+    { id: "grammar_expert", name: "Grammar Specialist", desc: "Đạt từ 90% trở lên ở 5 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "🧠", color: "linear-gradient(135deg, #14b8a6, #0f766e)" },
+    { id: "global_citizen_senior", name: "Global Citizen Sr.", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 6 (đạt >= 90%)", icon: "🚀", color: "linear-gradient(135deg, #166534, #14532d)" },
+    { id: "class6_master", name: "Flyers Master", desc: "Hoàn thành xuất sắc 18 bài học của Lớp 6 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #14532d, #052e16)" },
+    // Huy hiệu Thống Kê & Cột mốc (12 thẻ)
+    { id: "streak_bronze", name: "Streak Bronze", desc: "Đạt chuỗi học tập liên tục từ 3 ngày trở lên", icon: "🔥", color: "linear-gradient(135deg, #fca5a5, #ef4444)" },
+    { id: "streak_gold", name: "Streak Gold", desc: "Đạt chuỗi học tập liên tục từ 20 ngày trở lên", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #b45309)" },
+    { id: "xp_novice", name: "XP Rookie", desc: "Tích lũy đạt mốc 100 XP Tiếng Anh", icon: "✨", color: "linear-gradient(135deg, #c084fc, #8b5cf6)" },
+    { id: "xp_apprentice", name: "XP Apprentice", desc: "Tích lũy đạt mốc 500 XP Tiếng Anh", icon: "🌟", color: "linear-gradient(135deg, #a855f7, #6b21a8)" },
+    { id: "xp_master", name: "XP Specialist", desc: "Tích lũy đạt mốc 2,000 XP Tiếng Anh", icon: "🔮", color: "linear-gradient(135deg, #7c3aed, #4c1d95)" },
+    { id: "xp_legend", name: "XP Deity", desc: "Tích lũy đạt mốc 5,000 XP Tiếng Anh", icon: "🌌", color: "linear-gradient(135deg, #6366f1, #312e81)" },
+    { id: "theory_scholar", name: "Theory Scholar", desc: "Hoàn thành lý thuyết của từ 8 bài học tiếng Anh trở lên", icon: "📜", color: "linear-gradient(135deg, #e2e8f0, #94a3b8)" },
+    { id: "vocabulary_monarch", name: "Vocabulary Monarch", desc: "Tiêu diệt thành công từ 20 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #1e293b, #0f172a)" },
+    { id: "speedy_writer", name: "Speedy Writer", desc: "Hoàn thành phần Spelling đạt 100% dưới 40 giây", icon: "⚡", color: "linear-gradient(135deg, #fb923c, #c2410c)" },
+    { id: "double_perfect", name: "Double Perfect", desc: "Đạt 100% ở cả bài Nghe và Nói của cùng 1 Unit", icon: "☯️", color: "linear-gradient(135deg, #22d3ee, #0891b2)" },
+    { id: "all_rounder", name: "All Rounder", desc: "Đạt từ 90% trở lên ở cả 4 kỹ năng Nghe, Nói, Đọc, Viết của cùng 1 Unit", icon: "🎪", color: "linear-gradient(135deg, #ec4899, #701a75)" },
+    { id: "unlocked_all_english", name: "English Overlord", desc: "Mở khóa thành công tất cả 49 thẻ năng lực Tiếng Anh khác", icon: "⚜️", color: "linear-gradient(135deg, #eab308, #854d0e)" }
 ];
 
 // Đối tượng quản lý ứng dụng chính
@@ -78,7 +118,46 @@ const app = {
         { id: "kien-tri", name: "Kiên Trì Bứt Phá", desc: "Cải thiện bài tập đạt dưới 70% lên giỏi (>= 80%)", icon: "🌱" },
         { id: "ky-luat-thep", name: "Kỷ Luật Thép", desc: "Hoàn thành bài kiểm tra chương mà không rời tab lần nào", icon: "🎯" },
         { id: "sieu-tri-tue", name: "Siêu Trí Tuệ", desc: "Tích lũy đạt mốc 200 XP", icon: "🧠" },
-        { id: "huyen-thoai-toan-hoc", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 500 XP", icon: "🏆" }
+        { id: "huyen-thoai-toan-hoc", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 500 XP", icon: "🏆" },
+        
+        // Huy hiệu Lớp 1 (6 huy hiệu)
+        { id: "dem-so-lop-1", name: "Bậc Thầy Đếm Số Lớp 1", desc: "Đạt >= 90% ở bài đếm số trong phạm vi 10 hoặc 100 Lớp 1", icon: "🔢" },
+        { id: "phep-cong-pham-vi-10", name: "Thần Đồng Cộng Trừ Lớp 1", desc: "Đạt >= 90% ở bài phép cộng hoặc phép trừ phạm vi 10 Lớp 1", icon: "➕" },
+        { id: "hinh-khoi-lop-1", name: "Khối Hình Trực Quan Lớp 1", desc: "Đạt >= 90% ở bài nhận biết khối lập phương, khối hộp chữ nhật Lớp 1", icon: "📦" },
+        { id: "do-luong-lop-1", name: "Nhà Đo Lường Nhí Lớp 1", desc: "Đạt >= 90% ở bài toán về thời gian, đồng hồ, lịch Lớp 1", icon: "⏰" },
+        { id: "phep-cong-pham-vi-100", name: "Chuyên Gia Tính Phạm Vi 100", desc: "Đạt >= 90% ở bài phép tính không nhớ phạm vi 100 Lớp 1", icon: "💯" },
+        { id: "on-tap-lop-1", name: "Vô Địch Toán Lớp 1", desc: "Hoàn thành xuất sắc bài ôn tập chung cuối năm Lớp 1 đạt >= 90%", icon: "🎓" },
+        
+        // Huy hiệu Lớp 4 (10 huy hiệu)
+        { id: "trieu-lop-trieu", name: "Chinh Phục Triệu Số Lớp 4", desc: "Đạt >= 90% ở bài học hàng triệu và lớp triệu Lớp 4", icon: "💰" },
+        { id: "trung-binh-cong", name: "Vua Trung Bình Cộng Lớp 4", desc: "Đạt >= 90% ở bài số trung bình cộng Lớp 4", icon: "📊" },
+        { id: "tim-hai-so-tong-hieu", name: "Bậc Thầy Tổng Hiệu Lớp 4", desc: "Đạt >= 90% ở bài toán tìm hai số khi biết tổng và hiệu Lớp 4", icon: "⚖️" },
+        { id: "tinh-chat-chia-het-4", name: "Nhà Thông Thái Chia Hết Lớp 4", desc: "Đạt >= 90% ở bài dấu hiệu chia hết (2, 5, 9, 3) Lớp 4", icon: "🛡️" },
+        { id: "tinh-dien-tich-lop-4", name: "Kỹ Sư Diện Tích Lớp 4", desc: "Đạt >= 90% ở bài tính diện tích hình bình hành hoặc hình thoi Lớp 4", icon: "📐" },
+        { id: "phan-so-lop-4", name: "Chuyên Gia Phân Số Lớp 4", desc: "Đạt >= 90% ở bài phân số và các phép tính phân số Lớp 4", icon: "🍰" },
+        { id: "ti-so-lop-4", name: "Nhà Phân Tích Tỉ Số Lớp 4", desc: "Đạt >= 90% ở bài toán tỉ số và tìm hai số Lớp 4", icon: "📈" },
+        { id: "do-luong-y-en-ta-tan", name: "Nhà Cân Đo Lớp 4", desc: "Đạt >= 90% ở bài đơn vị đo khối lượng yến, tạ, tấn Lớp 4", icon: "⚖️" },
+        { id: "hinh-hoc-goc-nhon-tu", name: "Chuyên Gia Góc Học Lớp 4", desc: "Đạt >= 90% ở bài nhận biết góc nhọn, góc tù, góc bẹt Lớp 4", icon: "📐" },
+        { id: "on-tap-lop-4", name: "Vô Địch Toán Lớp 4", desc: "Hoàn thành xuất sắc bài ôn tập chung cuối năm Lớp 4 đạt >= 90%", icon: "🎓" },
+        
+        // Huy hiệu Lớp 6 bổ sung chuyên sâu (9 huy hiệu)
+        { id: "luy-thua-than-sau", name: "Chúa Tể Lũy Thừa Lớp 6", desc: "Đạt >= 95% ở bài lũy thừa với số mũ tự nhiên Lớp 6", icon: "⚡" },
+        { id: "uoc-va-boi", name: "Chiến Thần Ước Bội Lớp 6", desc: "Đạt >= 95% ở bài ước chung lớn nhất hoặc bội chung nhỏ nhất Lớp 6", icon: "🛡️" },
+        { id: "phep-tinh-so-nguyen", name: "Đại Sứ Số Nguyên Lớp 6", desc: "Đạt >= 95% ở các phép tính số nguyên Lớp 6", icon: "❄️" },
+        { id: "hinh-hoc-truc-quan-6", name: "Nhà Thiết Kế Hình Lớp 6", desc: "Đạt >= 95% ở bài hình tam giác đều, hình vuông, hình lục giác đều Lớp 6", icon: "📐" },
+        { id: "hinh-doi-xung-master", name: "Bậc Thầy Đối Xứng Lớp 6", desc: "Đạt >= 95% ở bài hình có trục hoặc tâm đối xứng Lớp 6", icon: "🌀" },
+        { id: "phan-so-tieu-chuan-6", name: "Cao Thủ Phân Số Lớp 6", desc: "Đạt >= 95% ở các bài toán phân số nâng cao Lớp 6", icon: "🍰" },
+        { id: "thap-phan-chuyen-nghiep", name: "Chuyên Gia Số Thập Phân Lớp 6", desc: "Đạt >= 95% ở các bài toán số thập phân Lớp 6", icon: "🎯" },
+        { id: "hinh-hoc-phang-chuan-6", name: "Hình Học Phẳng Lớp 6", desc: "Đạt >= 95% ở các dạng bài hình học phẳng cơ bản Lớp 6", icon: "📐" },
+        { id: "xac-suat-thuc-te", name: "Nhà Tiên Tri Xác Suất Lớp 6", desc: "Đạt >= 95% ở bài học xác suất thực nghiệm Lớp 6", icon: "🎲" },
+        
+        // Cột mốc và phép cộng dồn (6 huy hiệu)
+        { id: "than-dong-toan-hoc", name: "Thần Đồng Toán Học", desc: "Tích lũy đạt mốc 1,000 XP môn Toán", icon: "🧠" },
+        { id: "chien-binh-math-pro", name: "Chiến Binh Toán Học Pro", desc: "Tích lũy đạt mốc 2,500 XP môn Toán", icon: "🛡️" },
+        { id: "huyen-thoai-math-legend", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 5,000 XP môn Toán", icon: "👑" },
+        { id: "streak-math-30", name: "Kỷ Luật Thép 30 Ngày", desc: "Đạt chuỗi học tập liên tục môn Toán từ 30 ngày trở lên", icon: "🔥" },
+        { id: "lam-chu-ly-thuyet-math", name: "Học Giả Lý Thuyết Toán", desc: "Hoàn thành phần lý thuyết của từ 10 bài học Toán trở lên", icon: "📜" },
+        { id: "master-of-math", name: "Đại Sứ Toán Học Toàn Năng", desc: "Mở khóa thành công tất cả 49 huy hiệu Toán học khác", icon: "🏆" }
     ],
 
     // Bộ âm thanh tương tác sử dụng các file âm thanh chuyên nghiệp (.mp3)
@@ -5915,7 +5994,7 @@ const app = {
             this.unlockBadge("ky-luat-thep");
         }
 
-        // 8. Các huy hiệu vượt qua bài kiểm tra chương học
+        // 8. Các huy hiệu vượt qua bài kiểm tra chương học Lớp 6
         if (lessonId === "kt-c1" && score >= 80) this.unlockBadge("bac-thay-so-tu-nhien");
         if (lessonId === "kt-c2" && score >= 80) this.unlockBadge("chien-binh-chia-het");
         if (lessonId === "kt-c3" && score >= 80) this.unlockBadge("ky-si-so-nguyen");
@@ -5925,6 +6004,44 @@ const app = {
         if (lessonId === "kt-c7" && score >= 80) this.unlockBadge("chien-binh-thap-phan");
         if (lessonId === "kt-c8" && score >= 80) this.unlockBadge("phu-thuy-hinh-co-ban");
         if (lessonId === "kt-c9" && score >= 80) this.unlockBadge("bac-thay-xac-suat");
+
+        // Huy hiệu Lớp 1 mới
+        if ((lessonId === "l1-bai-1" || lessonId === "l1-bai-2") && score >= 90) this.unlockBadge("dem-so-lop-1");
+        if (lessonId === "l1-bai-10" && score >= 90) this.unlockBadge("phep-cong-pham-vi-10");
+        if (lessonId === "l1-bai-14" && score >= 90) this.unlockBadge("hinh-khoi-lop-1");
+        if ((lessonId === "l1-bai-34" || lessonId === "l1-bai-35") && score >= 90) this.unlockBadge("do-luong-lop-1");
+        if (lessonId === "l1-bai-39" && score >= 90) this.unlockBadge("phep-cong-pham-vi-100");
+        if (lessonId === "l1-bai-41" && score >= 90) this.unlockBadge("on-tap-lop-1");
+
+        // Huy hiệu Lớp 4 mới
+        if ((lessonId === "l4-bai-3" || lessonId === "l4-bai-4") && score >= 90) this.unlockBadge("trieu-lop-trieu");
+        if (lessonId === "l4-bai-10" && score >= 90) this.unlockBadge("trung-binh-cong");
+        if (lessonId === "l4-bai-11" && score >= 90) this.unlockBadge("tim-hai-so-tong-hieu");
+        if ((lessonId === "l4-bai-14" || lessonId === "l4-bai-15") && score >= 90) this.unlockBadge("tinh-chat-chia-het-4");
+        if ((lessonId === "l4-bai-21" || lessonId === "l4-bai-22") && score >= 90) this.unlockBadge("tinh-dien-tich-lop-4");
+        if ((lessonId === "l4-bai-24" || lessonId === "l4-bai-25") && score >= 90) this.unlockBadge("phan-so-lop-4");
+        if ((lessonId === "l4-bai-38" || lessonId === "l4-bai-39" || lessonId === "l4-bai-40") && score >= 90) this.unlockBadge("ti-so-lop-4");
+        if (lessonId === "l4-bai-33" && score >= 90) this.unlockBadge("do-luong-y-en-ta-tan");
+        if (lessonId === "l4-bai-18" && score >= 90) this.unlockBadge("hinh-hoc-goc-nhon-tu");
+        if (lessonId === "l4-bai-43" && score >= 90) this.unlockBadge("on-tap-lop-4");
+
+        // Huy hiệu Lớp 6 mới
+        if (lessonId === "bai-6" && score >= 95) this.unlockBadge("luy-thua-than-sau");
+        if ((lessonId === "bai-12" || lessonId === "bai-13") && score >= 95) this.unlockBadge("uoc-va-boi");
+        if ((lessonId === "bai-15" || lessonId === "bai-16") && score >= 95) this.unlockBadge("phep-tinh-so-nguyen");
+        if (lessonId === "bai-18" && score >= 95) this.unlockBadge("hinh-hoc-truc-quan-6");
+        if ((lessonId === "bai-21" || lessonId === "bai-22") && score >= 95) this.unlockBadge("hinh-doi-xung-master");
+        if ((lessonId === "bai-26" || lessonId === "bai-27") && score >= 95) this.unlockBadge("phan-so-tieu-chuan-6");
+        if ((lessonId === "bai-29" || lessonId === "bai-30") && score >= 95) this.unlockBadge("thap-phan-chuyen-nghiep");
+        if ((lessonId === "bai-32" || lessonId === "bai-33") && score >= 95) this.unlockBadge("hinh-hoc-phang-chuan-6");
+        if (lessonId === "bai-37" && score >= 95) this.unlockBadge("xac-suat-thuc-te");
+
+        // Gamification & Tích lũy
+        if (this.state.xp >= 1000) this.unlockBadge("than-dong-toan-hoc");
+        if (this.state.xp >= 2500) this.unlockBadge("chien-binh-math-pro");
+        if (this.state.xp >= 5000) this.unlockBadge("huyen-thoai-math-legend");
+        if (this.state.streak >= 30) this.unlockBadge("streak-math-30");
+        if ((this.state.completedLessonTheory || []).length >= 10) this.unlockBadge("lam-chu-ly-thuyet-math");
     },
 
     // Mở khóa một huy hiệu
@@ -5953,6 +6070,15 @@ const app = {
             } else {
                 // Hiển thị trực tiếp nếu ứng dụng đã khởi chạy xong
                 this.showBadgePopup(badgeId);
+            }
+
+            // Tự động kiểm tra huy hiệu tối thượng Đại Sứ Toán Học Toàn Năng (master-of-math)
+            if (badgeId !== "master-of-math") {
+                const allBadgesExceptMaster = this.systemBadges.filter(b => b.id !== "master-of-math");
+                const hasAllOthers = allBadgesExceptMaster.every(b => this.state.badges.includes(b.id));
+                if (hasAllOthers) {
+                    this.unlockBadge("master-of-math");
+                }
             }
         }
     },
@@ -7391,30 +7517,60 @@ const app = {
 
     getUnlockedSkillCardsCount: function() {
         let count = 0;
-        const state = this.state;
-        
-        // 1. Listening Master
-        if (this.checkSkillScore(state, 'listening', 90)) count++;
-        // 2. Speaking Pro
-        if (this.checkSkillScore(state, 'speaking', 90)) count++;
-        // 3. Reading Wizard
-        if (this.checkSkillScore(state, 'reading', 90)) count++;
-        // 4. Writing Champion
-        if (this.checkSkillScore(state, 'spelling', 90)) count++;
-        // 5. Streak Legend
-        if ((state.englishStreak || 0) >= 5) count++;
-        // 6. XP Conqueror
-        if ((state.englishXp || 0) >= 1000) count++;
-        // 7. Perfect Score
-        if (this.checkPerfectScore(state)) count++;
-        // 8. Monster Slayer
-        if ((state.slainMonstersCount || 0) >= 3) count++;
-        
+        SKILL_CARDS.forEach(card => {
+            if (card.id !== "unlocked_all_english" && this.isSkillCardUnlocked(card.id)) {
+                count++;
+            }
+        });
         return count;
     },
 
     isSkillCardUnlocked: function(cardId) {
         const state = this.state;
+        
+        const checkClassSkillScore = (classLevel, skillKey, minScore) => {
+            if (!state.scores) return false;
+            const prefix = `eng${classLevel}-`;
+            return Object.keys(state.scores).some(key => 
+                key.startsWith(prefix) && 
+                key.endsWith(`-${skillKey}`) && 
+                state.scores[key] >= minScore
+            );
+        };
+
+        const countClassPassedLessons = (classLevel, minScore) => {
+            if (!state.scores) return 0;
+            const prefix = `eng${classLevel}-`;
+            const lessonIds = new Set();
+            Object.keys(state.scores).forEach(key => {
+                if (key.startsWith(prefix) && state.scores[key] >= minScore) {
+                    const parts = key.split('-');
+                    if (parts.length >= 3) {
+                        const part = parts[0] + '-' + parts[1] + '-' + parts[2];
+                        lessonIds.add(part);
+                    }
+                }
+            });
+            return lessonIds.size;
+        };
+
+        const checkDoublePerfect = () => {
+            if (!state.scores) return false;
+            const prefixes = new Set(Object.keys(state.scores).map(k => k.substring(0, k.lastIndexOf('-'))));
+            return Array.from(prefixes).some(pref => state.scores[`${pref}-listening`] === 100 && state.scores[`${pref}-speaking`] === 100);
+        };
+
+        const checkAllRounder = () => {
+            if (!state.scores) return false;
+            const prefixes = new Set(Object.keys(state.scores).map(k => k.substring(0, k.lastIndexOf('-'))));
+            return Array.from(prefixes).some(pref => 
+                (state.scores[`${pref}-listening`] || 0) >= 90 && 
+                (state.scores[`${pref}-speaking`] || 0) >= 90 && 
+                (state.scores[`${pref}-reading`] || 0) >= 90 && 
+                (state.scores[`${pref}-writing`] || state.scores[`${pref}-spelling`] || state.scores[`${pref}-writing_champion`] || 0) >= 90
+            );
+        };
+
         switch(cardId) {
             case "listening_master":
                 return this.checkSkillScore(state, 'listening', 90);
@@ -7423,7 +7579,7 @@ const app = {
             case "reading_wizard":
                 return this.checkSkillScore(state, 'reading', 90);
             case "writing_champion":
-                return this.checkSkillScore(state, 'spelling', 90);
+                return this.checkSkillScore(state, 'spelling', 90) || this.checkSkillScore(state, 'writing', 90);
             case "streak_legend":
                 return (state.englishStreak || 0) >= 5;
             case "streak_hero":
@@ -7445,6 +7601,91 @@ const app = {
                 return (state.slainMonstersCount || 0) >= 3;
             case "vocab_slayer":
                 return (state.slainMonstersCount || 0) >= 10;
+                
+            // Lớp 1
+            case "listening_rookie_1":
+                return checkClassSkillScore('1', 'listening', 80);
+            case "speaking_rookie_1":
+                return checkClassSkillScore('1', 'speaking', 80);
+            case "reading_rookie_1":
+                return checkClassSkillScore('1', 'reading', 80);
+            case "writing_rookie_1":
+                return checkClassSkillScore('1', 'spelling', 80) || checkClassSkillScore('1', 'writing', 80);
+            case "vocabulary_explorer_1":
+                return (state.slainMonstersCount || 0) >= 2;
+            case "perfect_star_1":
+                if (!state.scores) return false;
+                return Object.keys(state.scores).some(key => key.startsWith('eng1-') && state.scores[key] === 100);
+            case "bilingual_kid":
+                return countClassPassedLessons('1', 90) >= 5;
+            case "class1_master":
+                return countClassPassedLessons('1', 90) >= 10;
+                
+            // Lớp 4
+            case "listening_apprentice_4":
+                return checkClassSkillScore('4', 'listening', 85);
+            case "speaking_apprentice_4":
+                return checkClassSkillScore('4', 'speaking', 85);
+            case "reading_apprentice_4":
+                return checkClassSkillScore('4', 'reading', 85);
+            case "writing_apprentice_4":
+                return checkClassSkillScore('4', 'spelling', 85) || checkClassSkillScore('4', 'writing', 85);
+            case "vocabulary_explorer_4":
+                return (state.slainMonstersCount || 0) >= 5;
+            case "grammar_rookie":
+                if (!state.scores) return false;
+                return Object.keys(state.scores).filter(key => key.includes('grammar') && state.scores[key] >= 80).length >= 3;
+            case "global_citizen_junior":
+                return countClassPassedLessons('4', 90) >= 10;
+            case "class4_master":
+                return countClassPassedLessons('4', 90) >= 15;
+                
+            // Lớp 6
+            case "listening_expert_6":
+                return checkClassSkillScore('6', 'listening', 90);
+            case "speaking_expert_6":
+                return checkClassSkillScore('6', 'speaking', 90);
+            case "reading_expert_6":
+                return checkClassSkillScore('6', 'reading', 90);
+            case "writing_expert_6":
+                return checkClassSkillScore('6', 'spelling', 90) || checkClassSkillScore('6', 'writing', 90);
+            case "vocabulary_explorer_6":
+                return (state.slainMonstersCount || 0) >= 8;
+            case "grammar_expert":
+                if (!state.scores) return false;
+                return Object.keys(state.scores).filter(key => key.includes('grammar') && state.scores[key] >= 90).length >= 5;
+            case "global_citizen_senior":
+                return countClassPassedLessons('6', 90) >= 15;
+            case "class6_master":
+                return countClassPassedLessons('6', 90) >= 18;
+                
+            // Cột mốc
+            case "streak_bronze":
+                return (state.englishStreak || 0) >= 3;
+            case "streak_gold":
+                return (state.englishStreak || 0) >= 20;
+            case "xp_novice":
+                return (state.englishXp || 0) >= 100;
+            case "xp_apprentice":
+                return (state.englishXp || 0) >= 500;
+            case "xp_master":
+                return (state.englishXp || 0) >= 2000;
+            case "xp_legend":
+                return (state.englishXp || 0) >= 5000;
+            case "theory_scholar":
+                return (state.completedLessonTheory || []).length >= 8;
+            case "vocabulary_monarch":
+                return (state.slainMonstersCount || 0) >= 20;
+            case "speedy_writer":
+                if (!state.examSessions) return false;
+                return state.examSessions.some(session => (session.skill === 'spelling' || session.skill === 'writing') && session.score === 100 && (session.duration || 0) > 0 && (session.duration || 0) <= 40);
+            case "double_perfect":
+                return checkDoublePerfect();
+            case "all_rounder":
+                return checkAllRounder();
+            case "unlocked_all_english":
+                return SKILL_CARDS.every(c => c.id === "unlocked_all_english" || this.isSkillCardUnlocked(c.id));
+                
             default:
                 return false;
         }
@@ -7832,7 +8073,7 @@ const app = {
 
         if (skillsCount) {
             const unlockedCount = this.getUnlockedSkillCardsCount();
-            skillsCount.innerText = `${unlockedCount}/8`;
+            skillsCount.innerText = `${unlockedCount}/${SKILL_CARDS.length}`;
         }
 
         const focusHeartsCount = document.getElementById("english-hearts-count");
@@ -9540,6 +9781,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.state.examSessions.push(session);
 
             this.state.englishXp = (this.state.englishXp || 0) + xpEarned;
+            
+            if ((this.currentEnglishSkill === 'spelling' || this.currentEnglishSkill === 'writing') && finalScorePct === 100) {
+                this.state.slainMonstersCount = (this.state.slainMonstersCount || 0) + 1;
+            }
             
             // Quản lý Streak độc lập
             const lastStudyDateStr = localStorage.getItem("english_last_study_date");

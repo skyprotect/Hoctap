@@ -408,6 +408,11 @@
             font-weight: 700;
             color: var(--amber-color);
         }
+
+        #customMinutesInput:focus {
+            border-color: var(--amber-color);
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.15);
+        }
     </style>
 </head>
 <body>
@@ -434,13 +439,20 @@
         <!-- Bảng điều khiển -->
         <div class="control-panel">
             <h2 class="section-title">Chọn thời gian mở khóa</h2>
-            <div class="time-options">
+            <div class="time-options" style="margin-bottom: 12px;">
                 <button class="time-btn active" data-minutes="15">15 Phút</button>
                 <button class="time-btn" data-minutes="30">30 Phút</button>
                 <button class="time-btn" data-minutes="60">1 Giờ</button>
                 <button class="time-btn" data-minutes="120">2 Giờ</button>
                 <button class="time-btn" data-minutes="240">4 Giờ</button>
                 <button class="time-btn" data-minutes="9999">Vô Hạn</button>
+            </div>
+
+            <!-- Ô nhập số phút tùy chỉnh phục vụ kiểm thử và linh hoạt -->
+            <div class="custom-time-container" style="margin-bottom: 25px; display: flex; gap: 10px; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 8px 12px; border-radius: 16px;">
+                <span style="font-size: 13px; color: var(--text-secondary); font-weight: 600; white-space: nowrap;">Hoặc số phút tùy chọn:</span>
+                <input type="number" id="customMinutesInput" min="1" max="1440" placeholder="..." style="flex: 1; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; color: var(--text-primary); padding: 8px 12px; font-size: 14px; font-family: inherit; font-weight: 600; outline: none; transition: all 0.2s;" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                <button id="btnApplyCustomTime" style="background: rgba(251, 191, 36, 0.15); border: 1px solid var(--amber-color); color: var(--amber-color); padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap;">Áp dụng</button>
             </div>
 
             <div class="action-btns">
@@ -500,13 +512,29 @@
         const btnLock = document.getElementById('btnLock');
         const toast = document.getElementById('toast');
 
+        const customMinutesInput = document.getElementById('customMinutesInput');
+        const btnApplyCustomTime = document.getElementById('btnApplyCustomTime');
+
         // Lắng nghe sự kiện click trên các nút thời gian
         timeButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 timeButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 selectedMinutes = parseInt(btn.getAttribute('data-minutes'));
+                customMinutesInput.value = ''; // clear custom input
             });
+        });
+
+        // Áp dụng thời gian tùy chỉnh
+        btnApplyCustomTime.addEventListener('click', () => {
+            const val = parseInt(customMinutesInput.value);
+            if (isNaN(val) || val <= 0) {
+                showToast("Vui lòng nhập số phút hợp lệ!");
+                return;
+            }
+            timeButtons.forEach(b => b.classList.remove('active'));
+            selectedMinutes = val;
+            showToast(`Đã chọn thời gian tùy chỉnh: ${val} phút`);
         });
 
         // Hàm hiện thông báo toast
