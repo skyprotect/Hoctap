@@ -12,9 +12,15 @@ const SKILL_CARDS = [
     { id: "reading_wizard", name: "Reading Sage", desc: "Đạt điểm Đọc từ 90% trở lên ở một bài bất kỳ", icon: "📖", color: "linear-gradient(135deg, #f97316, #c2410c)" },
     { id: "writing_champion", name: "Writing Master", desc: "Đạt điểm Viết/Spelling từ 90% trở lên ở một bài bất kỳ", icon: "✍️", color: "linear-gradient(135deg, #10b981, #047857)" },
     { id: "streak_legend", name: "Streak Legend", desc: "Đạt chuỗi học tập liên tục từ 5 ngày trở lên", icon: "🔥", color: "linear-gradient(135deg, #ef4444, #b91c1c)" },
+    { id: "streak_hero", name: "Streak Emperor", desc: "Đạt chuỗi học tập liên tục từ 10 ngày trở lên", icon: "⚡", color: "linear-gradient(135deg, #f59e0b, #d97706)" },
     { id: "xp_conqueror", name: "XP Champion", desc: "Tích lũy đạt mốc 1,000 XP tổng cộng", icon: "⭐", color: "linear-gradient(135deg, #eab308, #a16207)" },
     { id: "perfect_score", name: "Perfect Solver", desc: "Đạt điểm tuyệt đối 100% trong một bài học bất kỳ", icon: "🏆", color: "linear-gradient(135deg, #8b5cf6, #5b21b6)" },
-    { id: "monster_slayer", name: "Monster Slayer", desc: "Tiêu diệt thành công từ 3 quái vật từ vựng", icon: "⚔️", color: "linear-gradient(135deg, #64748b, #334155)" }
+    { id: "theory_explorer", name: "Theory Explorer", desc: "Hoàn thành phần lý thuyết của từ 3 bài học trở lên", icon: "📜", color: "linear-gradient(135deg, #a855f7, #6b21a8)" },
+    { id: "gold_collector", name: "Gold Collector", desc: "Nâng cấp mạ vàng thành công từ 3 thẻ năng lực trở lên", icon: "👑", color: "linear-gradient(135deg, #10b981, #065f46)" },
+    { id: "subtopic_expert", name: "Subtopic Expert", desc: "Hoàn thành xuất sắc từ 5 dạng bài luyện tập trở lên (đạt >= 80%)", icon: "🎯", color: "linear-gradient(135deg, #0ea5e9, #0369a1)" },
+    { id: "speed_runner", name: "Speed Runner", desc: "Hoàn thành 1 bài đạt điểm 100% dưới 60 giây", icon: "🏃", color: "linear-gradient(135deg, #e11d48, #9f1239)" },
+    { id: "monster_slayer", name: "Monster Slayer", desc: "Tiêu diệt thành công từ 3 quái vật từ vựng", icon: "⚔️", color: "linear-gradient(135deg, #64748b, #334155)" },
+    { id: "vocab_slayer", name: "Vocabulary Slayer", desc: "Tiêu diệt thành công từ 10 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #475569, #1e293b)" }
 ];
 
 // Đối tượng quản lý ứng dụng chính
@@ -7420,12 +7426,25 @@ const app = {
                 return this.checkSkillScore(state, 'spelling', 90);
             case "streak_legend":
                 return (state.englishStreak || 0) >= 5;
+            case "streak_hero":
+                return (state.englishStreak || 0) >= 10;
             case "xp_conqueror":
                 return (state.englishXp || 0) >= 1000;
             case "perfect_score":
                 return this.checkPerfectScore(state);
+            case "theory_explorer":
+                return (state.completedLessonTheory || []).length >= 3;
+            case "gold_collector":
+                return (state.goldSkills || []).length >= 3;
+            case "subtopic_expert":
+                return (state.completedSubtopics || []).length >= 5;
+            case "speed_runner":
+                if (!state.examSessions) return false;
+                return state.examSessions.some(session => session.score === 100 && (session.duration || 0) > 0 && (session.duration || 0) <= 60);
             case "monster_slayer":
                 return (state.slainMonstersCount || 0) >= 3;
+            case "vocab_slayer":
+                return (state.slainMonstersCount || 0) >= 10;
             default:
                 return false;
         }
@@ -9954,7 +9973,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             
             if (isGold) {
                 statusText = `<span style="color:#eab308; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-star"></i> ĐÃ MẠ VÀNG LẤP LÁNH</span>`;
-                btnHtml = `<button class="btn-primary" disabled style="background:#64748b; opacity:0.6; cursor:not-allowed; border:none; padding:8px 20px; border-radius:10px; font-weight:800; width:100%;">Tối Đa Cấp Độ</button>`;
+                btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
                 statusText = `<span style="color:#10b981; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock-open"></i> Đã mở khóa thẻ gốc</span>`;
                 btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (300 XP)</button>`;
