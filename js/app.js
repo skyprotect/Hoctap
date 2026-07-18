@@ -10451,6 +10451,17 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     openStudentGameExchange: function() {
+        const studentId = this.config.defaultStudentId || '';
+        if (studentId === 'std_xf9e2lvgv') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Quy đổi thẻ tạm khóa! 🔒',
+                html: 'Phụ huynh đã tạm khóa tính năng quy đổi thẻ lấy giờ chơi game đối với tài khoản của con.<br/>Con hãy tập trung học tập thật tốt nhé!',
+                confirmButtonText: 'Đã hiểu và tiếp tục học',
+                confirmButtonColor: '#7c3aed'
+            });
+            return;
+        }
         if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
         const unredeemedGoldSkills = (this.state.goldSkills || []).filter(id => !this.state.redeemedSkills.includes(id));
         
