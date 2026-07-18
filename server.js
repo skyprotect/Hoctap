@@ -3619,6 +3619,126 @@ Yêu cầu sửa lỗi:
   res.json({ session });
 });
 
+/**
+ * Hàm tìm kiếm và sửa câu hỏi bị lỗi trong file pregen tương ứng trên đĩa (server-side)
+ */
+async function healPregenFileQuestion(lessonId, qType, fixed, classLevel) {
+  const fs = require('fs');
+  const path = require('path');
+  const examsDir = path.join(__dirname, 'exams');
+  if (!fs.existsSync(examsDir)) return;
+
+  const files = fs.readdirSync(examsDir);
+  // Tìm các file JSON pregen có chứa lessonId trong tên (ví dụ pregen-kt-c2.json, pregen-std_xxx-kt-c2.json)
+  const targetFiles = files.filter(f => f.endsWith('.json') && f.includes(lessonId));
+
+  for (const file of targetFiles) {
+    const filePath = path.join(examsDir, file);
+    try {
+      const dataStr = fs.readFileSync(filePath, 'utf8');
+      const data = JSON.parse(dataStr);
+      let changed = false;
+
+      const updateList = (list) => {
+        if (!Array.isArray(list)) return;
+        list.forEach(q => {
+          if (q.type === qType) {
+            q.questionText = fixed.questionText || q.questionText;
+            if (Array.isArray(fixed.options) && fixed.options.length > 0) {
+              q.options = fixed.options;
+            }
+            if (fixed.correctIndex !== undefined) {
+              q.correctIndex = fixed.correctIndex;
+            }
+            q.solutionHtml = fixed.solutionHtml || q.solutionHtml;
+            if (Array.isArray(fixed.hints)) {
+              q.hints = fixed.hints;
+            }
+            q.tip = fixed.tip || q.tip;
+            changed = true;
+          }
+        });
+      };
+
+      if (Array.isArray(data)) {
+        updateList(data);
+      } else if (data.questions && Array.isArray(data.questions)) {
+        updateList(data.questions);
+      }
+
+      if (changed) {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+        console.log(`[Troubleshoot] Đã tự động cập nhật câu hỏi lỗi vào file pregen: ${file}`);
+      }
+    } catch (e) {
+      console.error(`[Troubleshoot] Lỗi khi xử lý file ${file}:`, e);
+    }
+  }
+}
+
+/**
+ * API tự động kiểm tra và khắc phục sự cố đề thi và đáp án bằng AI ngay lập tức
+ */
+app.post('/api/ai-troubleshoot-question', async (req, res) => {
+  const { question, classLevel, subject, lessonId } = req.body;
+  if (!question) {
+    return res.status(400).json({ error: 'Thiếu dữ liệu câu hỏi' });
+  }
+
+  const prompt = `Bạn là một chuyên gia thẩm định và sửa lỗi sư phạm môn ${subject === 'english' ? 'Tiếng Anh' : 'Toán'} lớp ${classLevel || '6'}.
+Dưới đây là một câu hỏi trắc nghiệm hoặc điền đáp án đang bị lỗi (có thể lỗi logic toán, trùng đáp án, thiếu dữ liệu, sai đáp án đúng hoặc lỗi chính tả/LaTeX).
+Hãy phân tích, tính toán lại thật kỹ và sửa đổi toàn bộ các phần bị lỗi.
+
+Thông tin câu hỏi hiện tại:
+- Đề bài: ${question.questionText}
+- Các phương án lựa chọn: ${JSON.stringify(question.options || [])}
+- Chỉ số đáp án đúng (0-indexed): ${question.correctIndex}
+- Lời giải chi tiết hiện tại: ${question.solutionHtml || ''}
+- Gợi ý: ${JSON.stringify(question.hints || [])}
+- Mẹo làm bài: ${question.tip || ''}
+- Loại câu hỏi: ${question.isShortAnswer ? 'Tự luận điền khuyết ngắn (Short Answer)' : 'Trắc nghiệm lựa chọn (MCQ)'}
+
+Yêu cầu sửa đổi nghiêm ngặt:
+1. Đảm bảo câu hỏi tuyệt đối chính xác về mặt kiến thức, logic toán học và ngữ pháp.
+2. Tuyệt đối không được trùng lặp đáp án. Nếu là trắc nghiệm MCQ (options có từ 2 phần tử trở lên), thì chỉ có DUY NHẤT một phương án đúng, các phương án còn lại phải sai hoàn toàn. Chỉ số correctIndex phải trỏ chính xác vào phương án đúng duy nhất.
+3. Nếu là câu hỏi tự luận ngắn điền đáp án (isShortAnswer = true), hãy chắc chắn đáp án đúng của hệ thống và giải thích là duy nhất và rõ ràng. Đối với các đáp án so khớp, nếu có các biến như x=9;y=0, hãy định dạng chuẩn và thống nhất bằng dấu chấm phẩy (;) phân tách, không chứa khoảng trắng thừa (ví dụ "x=9;y=0" hoặc "a=18;b=20").
+4. Mọi công thức Toán phải được bọc trong cặp dấu $ thích hợp (ví dụ: $a = 18; b = 20$). Không dùng ký tự $ lộn xộn hay đặt dấu $ cô đơn.
+5. Trả về kết quả sửa đổi dưới dạng JSON sau (không chứa các thẻ Markdown hay văn bản khác):
+{
+  "questionText": "Đề bài đã sửa hoàn chỉnh",
+  "options": ["Phương án A", "Phương án B", "Phương án C", "Phương án D"],
+  "correctIndex": 0,
+  "solutionHtml": "Lời giải chi tiết sau khi sửa (dùng thẻ <br/> để xuống dòng)",
+  "hints": ["Gợi ý 1", "Gợi ý 2"],
+  "tip": "Mẹo làm bài"
+}`;
+
+  try {
+    const aiData = await callGeminiAPI({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { responseMimeType: 'application/json' }
+    }, 'AI sửa lỗi câu hỏi');
+
+    let textResponse = aiData.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!textResponse) {
+      throw new Error('Không nhận được câu trả lời từ AI');
+    }
+
+    const fixed = JSON.parse(cleanJsonString(textResponse));
+    
+    // Nếu có lessonId và type của câu hỏi, chạy ngầm cập nhật file pregen
+    if (lessonId && question.type) {
+      healPregenFileQuestion(lessonId, question.type, fixed, classLevel || '6')
+        .catch(err => console.error('[Troubleshoot] Lỗi sửa file pregen:', err));
+    }
+
+    res.json({ success: true, fixed });
+  } catch (error) {
+    console.error('[Troubleshoot API] Lỗi:', error);
+    res.status(500).json({ error: error.message || 'Lỗi không xác định khi gọi AI' });
+  }
+});
+
 // ==========================================
 // TÍNH NĂNG TỰ NẠP TỪ VỰNG & ÔN TẬP TIẾNG ANH
 // ==========================================
@@ -3694,7 +3814,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '11.9';
+const APP_VERSION = '12.1';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

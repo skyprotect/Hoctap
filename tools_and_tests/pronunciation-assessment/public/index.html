@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI English Pronunciation Lab - Đánh giá Phát âm chuẩn Quốc tế</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>AI Pronunciation <span>Lab</span></h1>
+                    <p>Phân tích & sửa lỗi phát âm cấp độ âm vị (Phoneme Assessment)</p>
+                </div>
+            </div>
+            <div class="app-version">
+                <span class="badge">Version 1.0</span>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- Left Column: Practice & Record -->
+            <section class="control-panel">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <h2>Luyện tập phát âm câu mẫu</h2>
+                    </div>
+                    
+                    <div class="sentence-selection">
+                        <label for="sentence-select">Chọn câu mẫu có sẵn:</label>
+                        <select id="sentence-select" class="form-select">
+                            <option value="The quick brown fox jumps over the lazy dog.">The quick brown fox jumps over the lazy dog. (Đầy đủ bảng chữ cái)</option>
+                            <option value="Hello, how are you doing today?">Hello, how are you doing today? (Chào hỏi giao tiếp)</option>
+                            <option value="Practice makes perfect, so keep speaking English every day.">Practice makes perfect, so keep speaking English every day. (Lời khuyên)</option>
+                            <option value="She sells seashells by the seashore.">She sells seashells by the seashore. (Câu líu lưỡi /ʃ/ và /s/)</option>
+                            <option value="I think that they should think of their father first.">I think that they should think of their father first. (Luyện âm /θ/ và /ð/)</option>
+                            <option value="custom">-- Nhập câu tùy chọn của bạn --</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-sentence-area hidden" id="custom-sentence-container">
+                        <label for="custom-sentence-input">Nhập câu tiếng Anh tùy chỉnh của bạn:</label>
+                        <textarea id="custom-sentence-input" placeholder="Nhập câu tiếng Anh bạn muốn luyện phát âm ở đây..." rows="3" class="form-textarea"></textarea>
+                    </div>
+
+                    <div class="target-display">
+                        <h3>Văn bản đích đối chiếu:</h3>
+                        <div class="sentence-text" id="target-sentence-text">The quick brown fox jumps over the lazy dog.</div>
+                    </div>
+
+                    <!-- Record Controls -->
+                    <div class="record-section">
+                        <div class="voice-wave-container">
+                            <div class="voice-wave" id="voice-wave">
+                                <span></span><span></span><span></span><span></span><span></span>
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="record-btn-wrapper">
+                            <button class="btn-record" id="btn-record">
+                                <i class="fa-solid fa-microphone"></i>
+                            </button>
+                            <div class="record-tip" id="record-tip">Bấm nút để bắt đầu ghi âm</div>
+                        </div>
+
+                        <div class="audio-playback-area hidden" id="audio-playback-container">
+                            <span class="playback-label"><i class="fa-solid fa-volume-high"></i> Nghe lại giọng của bạn:</span>
+                            <audio id="audio-playback" controls></audio>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Results & Feedback -->
+            <section class="result-panel">
+                <!-- Loading State -->
+                <div class="card card-loading hidden" id="loading-card">
+                    <div class="loader-spinner"></div>
+                    <h3>AI đang chấm điểm phát âm của bạn...</h3>
+                    <p>Hệ thống đang gửi file ghi âm tới Microsoft Azure Speech AI để phân tích từng âm vị và từ vựng.</p>
+                </div>
+
+                <!-- Initial State (Welcome) -->
+                <div class="card card-welcome" id="welcome-card">
+                    <div class="welcome-icon">
+                        <i class="fa-solid fa-wave-square"></i>
+                    </div>
+                    <h2>Chào mừng bạn đến với AI Pronunciation Lab</h2>
+                    <p>Hãy chọn một câu mẫu, bấm vào biểu tượng Micro để ghi âm giọng đọc của bạn. Trí tuệ nhân tạo sẽ phân tích:</p>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-circle-check text-green-icon"></i> <strong>Độ chính xác (Accuracy):</strong> Chấm điểm từng nguyên âm, phụ âm.</li>
+                        <li><i class="fa-solid fa-circle-check text-green-icon"></i> <strong>Độ trôi chảy (Fluency):</strong> Đo lường tốc độ, ngắt nghỉ hợp lý.</li>
+                        <li><i class="fa-solid fa-circle-check text-green-icon"></i> <strong>Độ đầy đủ (Completeness):</strong> Phát hiện từ bị đọc thiếu hoặc chèn thêm.</li>
+                        <li><i class="fa-solid fa-circle-check text-green-icon"></i> <strong>Gợi ý khẩu hình (Articulatory Cues):</strong> Hướng dẫn chi tiết cách sửa đổi môi, răng, lưỡi khi phát âm sai.</li>
+                    </ul>
+                </div>
+
+                <!-- Main Results Card -->
+                <div class="card card-results hidden" id="results-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-chart-simple"></i>
+                        <h2>Kết quả đánh giá từ AI</h2>
+                    </div>
+
+                    <!-- Score Overview Dashboard -->
+                    <div class="scores-grid">
+                        <div class="score-circle-wrapper">
+                            <div class="score-circle" id="circle-pron">
+                                <span class="score-value" id="score-pron-val">0</span>
+                                <span class="score-label">Điểm chung</span>
+                            </div>
+                        </div>
+                        <div class="sub-scores">
+                            <div class="sub-score-item">
+                                <div class="sub-score-header">
+                                    <span>Độ chính xác (Accuracy)</span>
+                                    <span id="score-accuracy-val">0%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" id="fill-accuracy"></div></div>
+                            </div>
+                            <div class="sub-score-item">
+                                <div class="sub-score-header">
+                                    <span>Độ trôi chảy (Fluency)</span>
+                                    <span id="score-fluency-val">0%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" id="fill-fluency"></div></div>
+                            </div>
+                            <div class="sub-score-item">
+                                <div class="sub-score-header">
+                                    <span>Độ đầy đủ (Completeness)</span>
+                                    <span id="score-completeness-val">0%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" id="fill-completeness"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colored Visual Sentence Feedback -->
+                    <div class="sentence-feedback-section">
+                        <h3>Văn bản đã phân tích (Bấm vào từ màu <span class="text-yellow-bold">Vàng</span> hoặc <span class="text-red-bold">Đỏ</span> để xem chi tiết âm vị):</h3>
+                        <div class="interactive-sentence" id="interactive-sentence-result">
+                            <!-- Sẽ render các span từ ở đây -->
+                        </div>
+                        <div class="color-legend">
+                            <span class="legend-item"><span class="dot dot-green"></span> Xuất sắc (>= 80)</span>
+                            <span class="legend-item"><span class="dot dot-yellow"></span> Cần cải thiện (60-79)</span>
+                            <span class="legend-item"><span class="dot dot-red"></span> Sai/Thiếu (< 60)</span>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Phoneme & Articulatory Cues Card -->
+                    <div class="phoneme-detail-card hidden" id="phoneme-detail-container">
+                        <div class="phoneme-detail-header">
+                            <h4>Chi tiết từ vựng: <span id="selected-word-title">word</span></h4>
+                            <button class="btn-close" id="btn-close-phoneme"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        
+                        <div class="phonemes-list-container">
+                            <h5>Cơ cấu âm vị (Nhấp vào từng âm vị để xem hướng dẫn sửa đổi):</h5>
+                            <div class="phonemes-flex" id="phonemes-flex-container">
+                                <!-- Render âm vị tại đây -->
+                            </div>
+                        </div>
+
+                        <!-- Articulatory Cue Instruction Panel -->
+                        <div class="articulatory-cue-panel hidden" id="articulatory-cue-panel">
+                            <div class="cue-icon">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                            <div class="cue-content">
+                                <h6>Hướng dẫn khẩu hình phát âm (<span id="cue-phoneme-symbol">/θ/</span>):</h6>
+                                <p id="cue-text-instruction">Đặt đầu lưỡi nhẹ giữa hai răng cửa trên và dưới. Thổi luồng hơi nhẹ qua khe giữa lưỡi và răng cửa trên (không rung dây thanh quản).</p>
+                                
+                                <!-- Articulatory Animation Placeholder -->
+                                <div class="animation-container">
+                                    <div class="animation-placeholder">
+                                        <div class="placeholder-graphic">
+                                            <i class="fa-solid fa-video"></i>
+                                            <span>Mô phỏng khẩu hình miệng</span>
+                                        </div>
+                                        <p class="animation-subtext">Vị trí lưỡi chạm nhẹ răng cửa để đẩy luồng khí ma sát ngoài răng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="app-footer">
+            <p>Hệ thống Học tập & Kiểm tra Phát âm Tiếng Anh Cục bộ. Tích hợp AI Azure Cognitive Services Speech SDK.</p>
+        </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

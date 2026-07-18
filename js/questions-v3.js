@@ -3538,7 +3538,15 @@ const questions = {
                     } else {
                         const correctVal = [12, 24, 36, 48][this.randomInt(0, 3)];
                         questionText = `Số nào dưới đây chia hết cho **4**? (Gợi ý: hai chữ số tận cùng chia hết cho 4)`;
-                        options = [`$${correctVal}$`, `$18$`, `$22$`, `$30$`].map(x => `$${parseInt(x.replace(/\$/g,'')) * 10 + this.randomInt(1, 9)}$`);
+                        options = [`$${correctVal}$`, `$18$`, `$22$`, `$30$`].map((x, idx) => {
+                            if (idx === 0) return `$${x}$`;
+                            const base = parseInt(x.replace(/\$/g,'')) * 10;
+                            let d;
+                            do {
+                                d = this.randomInt(1, 9);
+                            } while ((base + d) % 4 === 0);
+                            return `$${base + d}$`;
+                        });
                         options[0] = `$1${correctVal}$`; // tạo số đúng
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$1${correctVal}$`);
@@ -3591,20 +3599,40 @@ const questions = {
                         solutionHtml = `Để số $\\overline{${choice.num}}$ chia hết cho 3 thì tổng các chữ số phải chia hết cho 3.<br>Với số $\\overline{7x2}$, ta có tổng các chữ số là: $7 + x + 2 = 9 + x \\space \\vdots \\space 3$.<br>Vì $9 \\space \\vdots \\space 3$ nên $x \\space \\vdots \\space 3 \\rightarrow x \\in \\{0; 3; 6; 9\\}$.`;
                     } else {
                         const list = [
-                            {num: "4x5", xVal: 0},
-                            {num: "2x5", xVal: 2},
-                            {num: "7x0", xVal: 2}
+                            {num: "4x5", correct: [3, 6], wrong: [0, 9, 1, 2, 4, 5, 7, 8]},
+                            {num: "2x5", correct: [5, 8], wrong: [2, 0, 1, 3, 4, 6, 7, 9]},
+                            {num: "7x0", correct: [5, 8], wrong: [2, 0, 1, 3, 4, 6, 7, 9]}
                         ];
                         const choice = list[this.randomInt(0, list.length - 1)];
+                        const correctVal = choice.correct[this.randomInt(0, choice.correct.length - 1)];
+                        const shuffledWrong = [...choice.wrong];
+                        this.shuffle(shuffledWrong);
+                        
                         questionText = `Tìm chữ số $x$ để số $\\overline{${choice.num}}$ chia hết cho 3 nhưng **không** chia hết cho 9.`;
-                        options = [`$x = ${choice.xVal}$`, `$x = ${choice.xVal + 3}$`, `$x = ${choice.xVal + 1}$`, `$x = 9$`];
+                        options = [
+                            `$x = ${correctVal}$`,
+                            `$x = ${shuffledWrong[0]}$`,
+                            `$x = ${shuffledWrong[1]}$`,
+                            `$x = ${shuffledWrong[2]}$`
+                        ];
                         this.shuffle(options);
-                        correctIndex = options.indexOf(`$x = ${choice.xVal}$`);
+                        correctIndex = options.indexOf(`$x = ${correctVal}$`);
                         hints = [
                             `Tổng các chữ số phải chia hết cho 3 nhưng không được chia hết cho 9.`,
-                            `Ví dụ $\\overline{2x5}$ có tổng chữ số là $7+x$. Lần lượt thử các chữ số $x$.`
+                            `Lần lượt thử các chữ số $x$ từ 0 đến 9 và kiểm tra tổng các chữ số.`
                         ];
-                        solutionHtml = `Với $\\overline{2x5}$, tổng các chữ số là $2 + x + 5 = 7 + x$.<br>Để chia hết cho 3 thì $7+x \\in \\{9; 12; 15; 18;...\\} \\rightarrow x \\in \\{2; 5; 8\\}$.<br>Nếu $x = 2 \\rightarrow$ tổng chữ số là 9 (chia hết cho 9 - loại).<br>Nếu $x = 5 \\rightarrow$ tổng chữ số là 12 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Nếu $x = 8 \\rightarrow$ tổng chữ số là 15 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).<br>Vậy chữ số thỏa mãn là $x = 5$ hoặc $x = 8$ (Phương án có $x = ${choice.xVal}$ được chọn).`;
+                        
+                        const firstDigit = parseInt(choice.num[0]);
+                        const lastDigit = parseInt(choice.num[2]);
+                        const sumBase = firstDigit + lastDigit;
+                        
+                        solutionHtml = `Với số $\\overline{${choice.num}}$, tổng các chữ số là $${firstDigit} + x + ${lastDigit} = ${sumBase} + x$.<br/>` +
+                                       `Để chia hết cho 3 thì tổng các chữ số phải chia hết cho 3 $\\rightarrow ${sumBase} + x \\in \\{9; 12; 15; 18;...\\} \\rightarrow x \\in \\{${sumBase === 9 ? '0; 3; 6; 9' : '2; 5; 8'}\\}$.<br/>` +
+                                       `Kiểm tra điều kiện không chia hết cho 9:<br/>` +
+                                       (choice.num === "4x5" ? 
+                                       `- Nếu $x = 0$ hoặc $x = 9 \\rightarrow$ tổng chữ số là 9 hoặc 18 (chia hết cho 9 - loại).<br/>- Nếu $x = 3$ hoặc $x = 6 \\rightarrow$ tổng chữ số là 12 hoặc 15 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).` :
+                                       `- Nếu $x = 2 \\rightarrow$ tổng chữ số là 9 (chia hết cho 9 - loại).<br/>- Nếu $x = 5$ hoặc $x = 8 \\rightarrow$ tổng chữ số là 12 hoặc 15 (chia hết cho 3, không chia hết cho 9 - thỏa mãn).`) +
+                                       `<br/>Vậy chữ số thỏa mãn là $x \\in \\{${choice.correct.join('; ')}\\}$. Trong các phương án lựa chọn, chỉ có $x = ${correctVal}$ là đáp án đúng duy nhất.`;
                     }
                     tip = "Hãy kiểm tra lại xem chữ số vừa tìm được có vi phạm điều kiện phụ (không chia hết cho 9) hay không.";
                 } else { // kho
@@ -3656,7 +3684,7 @@ const questions = {
                 if (level === "co-ban") {
                     if (variant === 1) {
                         const correctVal = [13, 17, 19, 23][this.randomInt(0, 3)];
-                        questionText = `Trong các số sau, số nào là **số nguyên tố**?`;
+                        questionText = `Trong các số sau: $15$, $21$, $27$ và $${correctVal}$, số nào là **số nguyên tố**?`;
                         options = [`$${correctVal}$`, `$15$`, `$21$`, `$27$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}$`);
@@ -3664,10 +3692,10 @@ const questions = {
                             `Số nguyên tố là số tự nhiên lớn hơn 1, chỉ có hai ước là 1 và chính nó.`,
                             `Hợp số là số chia hết cho các số khác ngoài 1 và chính nó (ví dụ chia hết cho 3, 5).`
                         ];
-                        solutionHtml = `Số 15 \\space \\vdots \\space 3$, $21 \\space \\vdots \\space 3$, $27 \\space \\vdots \\space 3$ là các hợp số. Số $${correctVal}$ chỉ chia hết cho 1 và chính nó nên là số nguyên tố.`;
+                        solutionHtml = `Số $15 \\space \\vdots \\space 3$, $21 \\space \\vdots \\space 3$, $27 \\space \\vdots \\space 3$ là các hợp số. Số $${correctVal}$ chỉ chia hết cho 1 và chính nó nên là số nguyên tố.`;
                     } else if (variant === 2) {
                         const correctVal = [14, 25, 33, 39][this.randomInt(0, 3)];
-                        questionText = `Trong các số sau, số nào là **hợp số**?`;
+                        questionText = `Trong các số sau: $11$, $13$, $17$ và $${correctVal}$, số nào là **hợp số**?`;
                         options = [`$${correctVal}$`, `$11$`, `$13$`, `$17$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}$`);
@@ -3675,7 +3703,7 @@ const questions = {
                             `Hợp số là số tự nhiên lớn hơn 1 và có nhiều hơn 2 ước.`,
                             `Tìm số trong 4 đáp án chia hết cho một số nguyên tố nhỏ (như 2, 3, 5).`
                         ];
-                        solutionHtml = `Các số 11, 13, 17 chỉ chia hết cho 1 và chính nó nên là các số nguyên tố. Số $${correctVal}$ chia hết cho ${correctVal === 14 ? '2' : (correctVal === 25 ? '5' : '3')} nên là hợp số.`;
+                        solutionHtml = `Các số $11, 13, 17$ chỉ chia hết cho 1 và chính nó nên là các số nguyên tố. Số $${correctVal}$ chia hết cho ${correctVal === 14 ? '2' : (correctVal === 25 ? '5' : '3')} nên là hợp số.`;
                     } else {
                         questionText = `Khẳng định nào dưới đây về số nguyên tố là **sai**?`;
                         const correctStr = `Tất cả các số nguyên tố đều là số lẻ.`;
@@ -4124,8 +4152,8 @@ const questions = {
                         // UCLN(x,y) = 1. a < b -> x < y.
                         // Cặp x, y: (1, 90), (2, 45), (5, 18), (9, 10).
                         // Cặp a, b: (2, 180), (4, 90), (10, 36), (18, 20).
-                        const correctStr = `$a = 18; b = 20$ (hoặc các cặp khác thỏa mãn)`;
-                        questionText = `Tìm hai số tự nhiên $a$ và $b$ ($a < b$) biết rằng $\\text{BCNN}(a, b) = 180$ và tích $a \\cdot b = 360$.`;
+                        const correctStr = `$a = 18; b = 20$`;
+                        questionText = `Tìm hai số tự nhiên $a$ và $b$ ($a < b$) biết rằng $\\text{BCNN}(a, b) = 180$, tích $a \\cdot b = 360$ và hiệu $b - a = 2$.`;
                         const ansStr = `$a = 18; b = 20$`;
                         options = [ansStr, `$a = 2; b = 180$`, `$a = 10; b = 36$`, `$a = 4; b = 90$`];
                         this.shuffle(options);
@@ -4133,9 +4161,9 @@ const questions = {
                         hints = [
                             `Sử dụng công thức liên hệ giữa ƯCLN và BCNN của hai số: $a \\cdot b = \\text{ƯCLN}(a, b) \\cdot \\text{BCNN}(a, b)$.`,
                             `Tính $\\text{ƯCLN}(a, b) = 360 : 180 = 2$.`,
-                            `Đưa về bài toán đặt $a = 2x, b = 2y$ với $\\text{ƯCLN}(x, y) = 1$ và $xy = 90$.`
+                            `Đưa về bài toán đặt $a = 2x, b = 2y$ với $\\text{ƯCLN}(x, y) = 1$ và $xy = 90$, kết hợp hiệu $b - a = 2$.`
                         ];
-                        solutionHtml = `Ta áp dụng công thức: $a \\cdot b = \\text{ƯCLN}(a, b) \\cdot \\text{BCNN}(a, b)$.<br>Suy ra $\\text{ƯCLN}(a, b) = (a \\cdot b) : \\text{BCNN}(a, b) = 360 : 180 = 2$.<br>Đặt $a = 2x, b = 2y$ với $\\text{ƯCLN}(x, y) = 1$ và $x < y$.<br>Ta có $a \\cdot b = 4xy = 360 \\rightarrow xy = 90$.<br>Các cặp số $(x, y)$ nguyên tố cùng nhau có tích bằng 90 là: $(1; 90), (2; 45), (5; 18), (9; 10)$.<br>Các cặp số $(a, b)$ tương ứng là: $(2; 180), (4; 90), (10; 36), (18; 20)$. Phương án có chứa $a=18, b=20$ là đáp án đúng duy nhất trong các lựa chọn.`;
+                        solutionHtml = `Ta áp dụng công thức: $a \\cdot b = \\text{ƯCLN}(a, b) \\cdot \\text{BCNN}(a, b)$.<br>Suy ra $\\text{ƯCLN}(a, b) = (a \\cdot b) : \\text{BCNN}(a, b) = 360 : 180 = 2$.<br>Đặt $a = 2x, b = 2y$ với $\\text{ƯCLN}(x, y) = 1$ và $x < y$.<br>Ta có $a \\cdot b = 4xy = 360 \\rightarrow xy = 90$.<br>Các cặp số $(x, y)$ nguyên tố cùng nhau có tích bằng 90 là: $(1; 90), (2; 45), (5; 18), (9; 10)$.<br>Các cặp số $(a, b)$ tương ứng là: $(2; 180), (4; 90), (10; 36), (18; 20)$.<br>Kết hợp thêm điều kiện hiệu $b - a = 2$, ta chọn được cặp duy nhất thỏa mãn là $a = 18, b = 20$.`;
                     }
                     tip = "Gọi ẩn số, đưa về bài toán bội chung bằng cách bớt đi phần dư hoặc cộng thêm phần thiếu. Sử dụng công thức tích để giải các bài toán ƯCLN và BCNN phối hợp.";
                 }
@@ -8356,6 +8384,88 @@ const questions = {
         }
     },
 
+    aiTroubleshoot: async function() {
+        const q = this.currentQuestions[this.currentQuestionIndex];
+        if (!q) return;
+
+        const btn = document.getElementById("ai-troubleshoot-btn");
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> AI đang sửa...`;
+            btn.style.opacity = "0.7";
+            btn.style.cursor = "not-allowed";
+        }
+
+        try {
+            const classLevel = (window.app && app.state && app.state.classLevel) || (window.app && app.config && app.config.currentClass) || '6';
+            const subject = (window.app && app.currentSubject) || 'math';
+            const lessonId = (window.app && app.currentLesson && app.currentLesson.id) || '';
+
+            const response = await fetch(window.app ? app.getApiUrl('/api/ai-troubleshoot-question') : '/api/ai-troubleshoot-question', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question: q,
+                    classLevel: classLevel,
+                    subject: subject,
+                    lessonId: lessonId
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Lỗi kết nối máy chủ");
+            }
+
+            const data = await response.json();
+            if (data && data.success && data.fixed) {
+                // Cập nhật câu hỏi hiện tại
+                q.questionText = data.fixed.questionText || q.questionText;
+                if (Array.isArray(data.fixed.options) && data.fixed.options.length > 0) {
+                    q.options = data.fixed.options;
+                }
+                q.correctIndex = data.fixed.correctIndex !== undefined ? data.fixed.correctIndex : q.correctIndex;
+                q.solutionHtml = data.fixed.solutionHtml || q.solutionHtml;
+                if (Array.isArray(data.fixed.hints)) {
+                    q.hints = data.fixed.hints;
+                }
+                q.tip = data.fixed.tip || q.tip;
+
+                // Re-render
+                this.showQuestion();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '🤖 AI Đã Khắc Phục Xong!',
+                    html: '<p style="color:white">Sự cố của đề thi và đáp án lựa chọn đã được sửa đổi và cập nhật trực tiếp thành công!</p>',
+                    confirmButtonText: 'Làm bài tiếp',
+                    confirmButtonColor: '#10b981',
+                    background: '#1e293b'
+                });
+            } else {
+                throw new Error(data.error || "Không thể tự động sửa");
+            }
+        } catch (error) {
+            console.error("AI Troubleshoot error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Thất bại',
+                html: `<p style="color:white">Không thể kết nối với AI: ${error.message || 'Lỗi không xác định'}. Vui lòng kiểm tra API Key hoặc kết nối mạng.</p>`,
+                confirmButtonText: 'Đóng',
+                confirmButtonColor: '#ef4444',
+                background: '#1e293b'
+            });
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = `🤖 AI Khắc Phục Sự Cố Đề`;
+                btn.style.opacity = "1";
+                btn.style.cursor = "pointer";
+            }
+        }
+    },
+
     selectOption: function(index) {
         if (this.isGraded) return;
 
@@ -9051,6 +9161,10 @@ const questions = {
         let s = ans.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
         // Loại bỏ ký tự đặc biệt LaTeX $
         s = s.replace(/\$/g, '').trim();
+        // Thay thế dấu phẩy phân cách thành dấu chấm phẩy để đồng bộ (tránh số thập phân dạng d,d)
+        s = s.replace(/,\s+/g, ';');
+        s = s.replace(/([a-zA-Z=])\s*,\s*/g, '$1;');
+        s = s.replace(/\s*,\s*([a-zA-Z=])/g, ';$1');
         // Loại bỏ các chữ cái đơn vị phổ biến trong tiếng Việt của lớp 6
         s = s.replace(/(chiếc kẹo|kẹo|hộp sữa|sữa|hộp|quả|bông hoa|hoa|quyển sách|sách|vở|bút|học sinh|bạn|khối rubik|khối|rubik|phần tử|ước|bội|dm|cm|m|kg|g|giờ|phút|giây|lít|l|độ c|độ|c)/g, '').trim();
         // Loại bỏ khoảng trắng và viết thường

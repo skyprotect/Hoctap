@@ -1,4 +1,4 @@
-◇ injected env (7) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+◇ injected env (7) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
 🔥 Chế độ Firebase Web Client đã được kích hoạt.
 ==================================================
   Ứng dụng Toán Lớp 6 (AI Enabled) đang chạy tại:
@@ -9,7 +9,11 @@
 [FirebaseSync] Bắt đầu đồng bộ tất cả học sinh lên Firebase...
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bảo Ngọc (std_xf9e2lvgv)
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
 [FirebaseSync] Hoàn thành đồng bộ toàn bộ học sinh lên Firebase!
-[AI Log - 09:21:36] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 10:53:40] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 10:54:06] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.

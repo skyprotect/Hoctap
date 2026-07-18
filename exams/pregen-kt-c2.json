@@ -425,7 +425,7 @@
         "w2": "length + width",
         "w3": "side_length * side_length"
       },
-      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {length} mét và chiều rộng {width} mét. Người ta muốn chia mảnh vườn này thành các ô đất hình vuông nhỏ bằng nhau để trồng rau, sao cho không còn phần đất thừa. Hỏi có thể chia được nhiều nhất bao nhiêu ô vuông như vậy?",
+      "questionText": "Một mảnh vườn hình chữ nhật có chiều dài {length} mét và chiều rộng {width} mét. Người ta muốn chia mảnh vườn này thành các ô đất hình vuông nhỏ bằng nhau với kích thước lớn nhất có thể để trồng rau, sao cho không còn phần đất thừa. Hỏi có thể chia được bao nhiêu ô vuông như vậy?",
       "options": [
         "A. {w1} ô vuông",
         "B. {ans} ô vuông",
@@ -435,10 +435,10 @@
       "correctIndex": 1,
       "hints": [
         "Để chia mảnh vườn thành các ô vuông bằng nhau mà không có đất thừa, cạnh của mỗi ô vuông phải là ước chung của cả chiều dài và chiều rộng.",
-        "Để số ô vuông là nhiều nhất, cạnh của mỗi ô vuông phải có độ dài lớn nhất. Điều này có nghĩa là cạnh ô vuông chính là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng.",
+        "Để chia mảnh vườn thành các ô vuông bằng nhau lớn nhất có thể, cạnh của mỗi ô vuông phải có độ dài lớn nhất. Điều này có nghĩa là cạnh ô vuông chính là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng.",
         "Sau khi tìm được cạnh của ô vuông, hãy tính diện tích của mảnh vườn và diện tích của một ô vuông để tìm số ô vuông."
       ],
-      "solutionHtml": "Để chia mảnh vườn hình chữ nhật thành các ô vuông nhỏ bằng nhau mà không còn phần đất thừa, độ dài cạnh của mỗi ô vuông phải là Ước chung của chiều dài và chiều rộng của mảnh vườn.<br/>Để chia được nhiều nhất số ô vuông, độ dài cạnh của mỗi ô vuông phải là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng.<br/>Chiều dài mảnh vườn là {length} mét.<br/>Chiều rộng mảnh vườn là {width} mét.<br/>Bước 1: Tìm UCLN của \\${length}\\$ và \\${width}\\$.<br/>UCLN(\\${length}\\$, \\${width}\\$) = \\${side_length}\\$ mét. Đây chính là độ dài cạnh của mỗi ô vuông nhỏ.<br/>Bước 2: Tính số ô vuông.<br/>Số ô vuông theo chiều dài là: \\${length} \\div {side_length} = ${length / side_length}\\$ (ô).<br/>Số ô vuông theo chiều rộng là: \\${width} \\div {side_length} = ${width / side_length}\\$ (ô).<br/>Tổng số ô vuông có thể chia được là: \\$(${length / side_length}$) \\times (${width / side_length}$) = {ans}\\$ (ô vuông).<br/>Đáp án đúng là B.",
+      "solutionHtml": "Để chia mảnh vườn hình chữ nhật thành các ô vuông nhỏ bằng nhau với kích thước lớn nhất có thể mà không còn phần đất thừa, độ dài cạnh của mỗi ô vuông phải là Ước chung lớn nhất (UCLN) của chiều dài và chiều rộng.<br/>Chiều dài mảnh vườn là {length} mét.<br/>Chiều rộng mảnh vườn là {width} mét.<br/>Bước 1: Tìm UCLN của \\${length}\\$ và \\${width}\\$.<br/>UCLN(\\${length}\\$, \\${width}\\$) = \\${side_length}\\$ mét. Đây chính là độ dài cạnh của mỗi ô vuông nhỏ.<br/>Bước 2: Tính số ô vuông.<br/>Số ô vuông theo chiều dài là: \\${length} \\div {side_length} = ${length / side_length}\\$ (ô).<br/>Số ô vuông theo chiều rộng là: \\${width} \\div {side_length} = ${width / side_length}\\$ (ô).<br/>Tổng số ô vuông có thể chia được là: \\$(${length / side_length}$) \\times (${width / side_length}$) = {ans}\\$ (ô vuông).<br/>Đáp án đúng là B.",
       "tip": "Khi bài toán yêu cầu 'chia thành các hình vuông bằng nhau' hoặc 'kích thước lớn nhất có thể', hãy tìm UCLN. Số lượng hình nhỏ sẽ là kết quả của việc chia tổng diện tích (hoặc số lượng đơn vị) cho diện tích (hoặc số đơn vị) của một hình nhỏ.",
       "level": "chat-luong-cao",
       "type": "kt-c2-d4"
