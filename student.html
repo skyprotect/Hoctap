@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=12.1">
+    <link rel="stylesheet" href="css/style.css?v=12.3">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -811,7 +811,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v12.1 (Cập nhật: 18/07/2026 18:34)</div>
+            <div class="splash-version-tag">Phiên bản: v12.3 (Cập nhật: 18/07/2026 22:04)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1440,15 +1440,14 @@
                                         </div>
  
                                         <div class="practice-footer" style="margin-top:1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1rem;">
-                                            <!-- Nút chơi thử Đấu trường (Dành cho Developer/Giáo viên test game) -->
-                                            <!--
-                                            <button class="btn-danger hidden" id="test-game-btn" onclick="questions.skipToTestGame()" style="padding:0.6rem 1.5rem; font-size:1rem; border-radius:8px; background-color: var(--danger); border-color: var(--danger); color: white; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                                                ⚙️ Chơi Thử Game (Test)
-                                            </button>
-                                            -->
-                                            <button class="btn-warning" id="ai-troubleshoot-btn" onclick="questions.aiTroubleshoot()" style="padding:0.6rem 1.2rem; font-size:0.95rem; border-radius:8px; display:flex; align-items:center; gap:6px; background-color:#d97706; border-color:#d97706; color:white; cursor:pointer; font-weight:700; transition: all 0.2s ease;">
-                                                🤖 AI Khắc Phục Sự Cố Đề
-                                            </button>
+                                            <div style="display:flex; align-items:center; gap:10px;">
+                                                <button class="btn-warning" id="ai-troubleshoot-btn" onclick="questions.aiTroubleshoot()" style="padding:0.6rem 1.2rem; font-size:0.95rem; border-radius:8px; display:flex; align-items:center; gap:6px; background-color:#d97706; border-color:#d97706; color:white; cursor:pointer; font-weight:700; transition: all 0.2s ease; white-space:nowrap;">
+                                                    🤖 AI Khắc Phục Sự Cố Đề
+                                                </button>
+                                                <span id="ai-troubleshoot-hint" style="font-size:0.8rem; color:#f59e0b; font-style:italic; max-width:280px; line-height:1.2;">
+                                                    (Nếu đề hoặc đáp án có vấn đề hãy nhấn vào nút này để hiệu chỉnh, khắc phục sự cố)
+                                                </span>
+                                            </div>
                                             <button class="btn-primary hidden" id="next-question-btn" onclick="questions.nextQuestion()" style="padding:0.6rem 1.5rem; font-size:1rem; border-radius:8px; margin-left: auto;">
                                                 Tiếp theo <i class="fa-solid fa-arrow-right"></i>
                                             </button>
@@ -1956,19 +1955,19 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=12.1"></script>
-    <script src="js/lessons.js?v=12.1"></script>
-    <script src="js/questions-v1.js?v=12.1"></script>
-    <script src="js/questions-v4.js?v=12.1"></script>
-    <script src="js/questions-v3.js?v=12.1"></script>
-    <script src="js/game.js?v=12.1"></script>
+    <script src="js/english_data.js?v=12.3"></script>
+    <script src="js/lessons.js?v=12.3"></script>
+    <script src="js/questions-v1.js?v=12.3"></script>
+    <script src="js/questions-v4.js?v=12.3"></script>
+    <script src="js/questions-v3.js?v=12.3"></script>
+    <script src="js/game.js?v=12.3"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
-    <script src="js/app.js?v=12.1"></script>
+    <script src="js/app.js?v=12.3"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2944,7 +2943,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v12.1 (Cập nhật: 18/07/2026 18:34)
+        Phiên bản: v12.3 (Cập nhật: 18/07/2026 22:04)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

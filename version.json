@@ -1,5 +1,5 @@
 {
-  "version": "12.1",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.1/ToanHocKiosk_Setup_v12.1.exe",
-  "changelog": "- Sửa đổi các lỗi bài tập Toán lớp 6 (chia hết cho 4, số nguyên tố, tìm x, chia mảnh vườn, BCNN và tích).\n- Tích hợp nút AI giải quyết sự cố đề thi (AI Troubleshooter) ngay lập tức trên UI và server."
+  "version": "12.3",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.3/ToanHocKiosk_Setup_v12.3.exe",
+  "changelog": "- Đồng bộ tự động chấm lại điểm bị sai cho học sinh trong cơ sở dữ liệu cũ.\n- Tối ưu hóa tính năng AI Troubleshoot ở chế độ xem lại bài (Review): Tự động chuyển SAI thành ĐÚNG nếu học sinh làm đúng và lưu điểm mới.\n- Thêm dòng chữ hướng dẫn chi tiết cạnh nút AI Khắc Phục Sự Cố Đề."
 }

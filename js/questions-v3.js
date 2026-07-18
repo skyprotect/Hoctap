@@ -8432,17 +8432,84 @@ const questions = {
                 }
                 q.tip = data.fixed.tip || q.tip;
 
+                // Kiểm tra xem đáp án của học sinh có khớp với đáp án đúng mới của AI không
+                let isNowCorrect = false;
+                if (q.isShortAnswer) {
+                    if (q.userShortAnswer) {
+                        isNowCorrect = this.checkShortAnswer(q.userShortAnswer || '', q.options[q.correctIndex]);
+                    }
+                } else {
+                    if (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null) {
+                        isNowCorrect = q.userSelectedIndex === q.correctIndex;
+                    }
+                }
+
+                const wasCorrect = q.isCorrect;
+                q.isCorrect = isNowCorrect;
+
                 // Re-render
                 this.showQuestion();
 
-                Swal.fire({
-                    icon: 'success',
-                    title: '🤖 AI Đã Khắc Phục Xong!',
-                    html: '<p style="color:white">Sự cố của đề thi và đáp án lựa chọn đã được sửa đổi và cập nhật trực tiếp thành công!</p>',
-                    confirmButtonText: 'Làm bài tiếp',
-                    confirmButtonColor: '#10b981',
-                    background: '#1e293b'
-                });
+                if (isNowCorrect && !wasCorrect) {
+                    // Tính lại điểm số của lượt làm bài hiện tại
+                    let newCorrectCount = 0;
+                    this.currentQuestions.forEach(question => {
+                        if (question.isCorrect) newCorrectCount++;
+                    });
+                    this.correctCount = newCorrectCount;
+                    
+                    const scorePercent = Math.round((newCorrectCount / this.currentQuestions.length) * 100);
+                    
+                    // Hiển thị thông báo chúc mừng
+                    Swal.fire({
+                        icon: 'success',
+                        title: '🤖 AI Đã Sửa Đề & Cập Nhật Điểm!',
+                        html: `<p style="color:white">AI đã giải lại chính xác. Đáp án con đã chọn thực tế là <b>ĐÚNG</b>!<br/>Điểm mới của con là: <b style="color:#10b981; font-size:1.2rem;">${scorePercent}%</b></p>`,
+                        confirmButtonText: 'Đồng ý',
+                        confirmButtonColor: '#10b981',
+                        background: '#1e293b'
+                    });
+
+                    // Cập nhật lại trong progress trên client và lưu lên server
+                    if (window.app && app.state) {
+                        // Sửa trong scores của app
+                        if (app.state.scores && this.currentLesson) {
+                            app.state.scores[this.currentLesson.id] = Math.max(app.state.scores[this.currentLesson.id] || 0, scorePercent);
+                        }
+                        
+                        // Tìm session hiện tại trong app.state.examSessions để sửa đổi trực tiếp điểm lưu trữ
+                        if (app.state.examSessions && Array.isArray(app.state.examSessions)) {
+                            const activeSession = app.state.examSessions.find(s => s.lessonId === this.currentLesson.id && s.scorePercent < scorePercent);
+                            if (activeSession) {
+                                activeSession.scorePercent = scorePercent;
+                                if (activeSession.score !== undefined) {
+                                    activeSession.score = newCorrectCount;
+                                }
+                                // Đồng bộ lại isCorrect của câu hỏi này trong session lưu trong DB
+                                const savedQ = activeSession.questions?.[this.currentQuestionIndex];
+                                if (savedQ) {
+                                    savedQ.isCorrect = true;
+                                    savedQ.questionText = q.questionText;
+                                    savedQ.options = q.options;
+                                    savedQ.correctIndex = q.correctIndex;
+                                    savedQ.solutionHtml = q.solutionHtml;
+                                    savedQ.tip = q.tip;
+                                }
+                            }
+                        }
+
+                        app.saveProgress();
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '🤖 AI Đã Khắc Phục Lời Giải!',
+                        html: '<p style="color:white">Lời giải chi tiết và đáp án đã được AI chuẩn hóa, hiển thị chính xác không lỗi KaTeX/NaN.</p>',
+                        confirmButtonText: 'Xem lại',
+                        confirmButtonColor: '#3b82f6',
+                        background: '#1e293b'
+                    });
+                }
             } else {
                 throw new Error(data.error || "Không thể tự động sửa");
             }

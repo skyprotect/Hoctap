@@ -266,6 +266,145 @@ function createTables() {
         expires_at TEXT
       )
     `);
+    
+    // Khởi chạy ngầm cơ chế di trú sửa điểm cũ bị lỗi toán học cho học sinh
+    setTimeout(() => {
+      migrateFixMathBugsV12().catch(e => console.error("[Migration V12] Lỗi chạy ngầm:", e));
+    }, 1000);
+  });
+}
+
+/**
+ * Hàm di trú SQLite: Tự động sửa lại những chỗ học sinh đã làm đúng mà bị hệ thống đánh giá sai
+ */
+async function migrateFixMathBugsV12() {
+  db.all("SELECT student_id, state_json FROM student_progress", [], async (err, rows) => {
+    if (err) {
+      console.error("[Migration V12] Lỗi truy vấn database:", err);
+      return;
+    }
+    if (!rows || rows.length === 0) return;
+
+    let updatedCount = 0;
+
+    for (const row of rows) {
+      try {
+        const state = JSON.parse(row.state_json);
+        let studentChanged = false;
+
+        if (state.examSessions && Array.isArray(state.examSessions)) {
+          state.examSessions.forEach(session => {
+            let sessionChanged = false;
+            let correctCount = 0;
+
+            if (session.questions && Array.isArray(session.questions)) {
+              session.questions.forEach(q => {
+                const wasCorrect = q.isCorrect;
+
+                // 1. Dạng chia hết cho 4
+                if (q.questionText && q.questionText.includes("chia hết cho **4**") && !q.isShortAnswer) {
+                  if (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null) {
+                    const optSelected = q.options[q.userSelectedIndex];
+                    if (optSelected) {
+                      const val = parseInt(optSelected.replace(/[^0-9]/g, ''));
+                      if (!isNaN(val) && val % 4 === 0) {
+                        q.isCorrect = true;
+                      }
+                    }
+                  }
+                }
+
+                // 2. Dạng tìm x chia hết cho 3 không chia hết cho 9
+                if (q.questionText && q.questionText.includes("chia hết cho 3") && q.questionText.includes("không") && q.questionText.includes("chia hết cho 9") && !q.isShortAnswer) {
+                  if (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null) {
+                    const optSelected = q.options[q.userSelectedIndex];
+                    if (optSelected) {
+                      const xMatch = optSelected.match(/x\s*=\s*(\d+)/);
+                      if (xMatch) {
+                        const xVal = parseInt(xMatch[1]);
+                        if (q.questionText.includes("2x5") || q.questionText.includes("7x0")) {
+                          if (xVal === 5 || xVal === 8) {
+                            q.isCorrect = true;
+                          }
+                        } else if (q.questionText.includes("4x5")) {
+                          if (xVal === 3 || xVal === 6) {
+                            q.isCorrect = true;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                // 3. Dạng BCNN và tích
+                if (q.questionText && q.questionText.includes("BCNN") && q.questionText.includes("tích") && q.isShortAnswer) {
+                  if (q.userShortAnswer) {
+                    let cleanAns = q.userShortAnswer.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
+                    cleanAns = cleanAns.replace(/\$/g, '').trim();
+                    cleanAns = cleanAns.replace(/,\s+/g, ';');
+                    cleanAns = cleanAns.replace(/([a-zA-Z=])\s*,\s*/g, '$1;');
+                    cleanAns = cleanAns.replace(/\s*,\s*([a-zA-Z=])/g, ';$1');
+                    cleanAns = cleanAns.replace(/(chiếc kẹo|kẹo|hộp sữa|sữa|hộp|quả|bông hoa|hoa|quyển sách|sách|vở|bút|học sinh|bạn|khối rubik|khối|rubik|phần tử|ước|bội|dm|cm|m|kg|g|giờ|phút|giây|lít|l|độ c|độ|c)/g, '').trim();
+                    cleanAns = cleanAns.replace(/\s+/g, '').toLowerCase();
+
+                    const hasPair18_20 = cleanAns.includes("18") && cleanAns.includes("20");
+                    const hasPair10_36 = cleanAns.includes("10") && cleanAns.includes("36");
+                    const hasPair4_90 = cleanAns.includes("4") && cleanAns.includes("90");
+                    const hasPair2_180 = cleanAns.includes("2") && cleanAns.includes("180");
+                    
+                    if (hasPair18_20 || hasPair10_36 || hasPair4_90 || hasPair2_180) {
+                      q.isCorrect = true;
+                    }
+                  }
+                }
+
+                if (q.isCorrect) {
+                  correctCount++;
+                }
+
+                if (q.isCorrect !== wasCorrect) {
+                  sessionChanged = true;
+                }
+              });
+            }
+
+            if (sessionChanged) {
+              const totalQ = session.questions.length;
+              const newScorePercent = Math.round((correctCount / totalQ) * 100);
+              console.log(`[Migration V12] Cập nhật session "${session.lessonTitle}" của ${row.student_id}: ${session.scorePercent}% -> ${newScorePercent}%`);
+              session.scorePercent = newScorePercent;
+              if (session.score !== undefined) {
+                session.score = correctCount;
+              }
+              if (state.scores && state.scores[session.lessonId] !== undefined) {
+                state.scores[session.lessonId] = Math.max(state.scores[session.lessonId], newScorePercent);
+              }
+              studentChanged = true;
+            }
+          });
+        }
+
+        if (studentChanged) {
+          await new Promise((resolve, reject) => {
+            db.run(
+              "UPDATE student_progress SET state_json = ? WHERE student_id = ?",
+              [JSON.stringify(state), row.student_id],
+              (updateErr) => {
+                if (updateErr) reject(updateErr);
+                else resolve();
+              }
+            );
+          });
+          updatedCount++;
+        }
+      } catch (parseErr) {
+        console.error(`[Migration V12] Lỗi parse JSON của student ${row.student_id}:`, parseErr);
+      }
+    }
+
+    if (updatedCount > 0) {
+      console.log(`[Migration V12] Đã di trú và sửa lỗi chấm điểm cho ${updatedCount} học sinh thành công.`);
+    }
   });
 }
 
@@ -3814,7 +3953,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.1';
+const APP_VERSION = '12.3';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
