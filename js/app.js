@@ -10539,7 +10539,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     exchangeGoldCardForPcPlay: function() {
-        app.selectedExchangeCardId = null;
+        app.selectedExchangeCardIds = [];
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
         
         if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
@@ -10565,7 +10565,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         Swal.fire({
             title: 'Đổi thẻ chơi trên PC 💻🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng của con để đổi lấy <b>15 phút chơi game</b> trên máy tính này:</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600; color: #e2e8f0;">Chọn một hoặc nhiều thẻ mạ vàng của con để đổi lấy giờ chơi (mỗi thẻ đổi được 15 phút):</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
@@ -10579,43 +10579,46 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (confirmBtn) confirmBtn.setAttribute('disabled', 'true');
             }
         }).then((result) => {
-            if (result.isConfirmed && app.selectedExchangeCardId) {
-                const cardId = app.selectedExchangeCardId;
+            if (result.isConfirmed && app.selectedExchangeCardIds && app.selectedExchangeCardIds.length > 0) {
+                const count = app.selectedExchangeCardIds.length;
+                const minutes = count * 15;
                 
                 if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
-                if (!this.state.redeemedSkills.includes(cardId)) {
-                    this.state.redeemedSkills.push(cardId);
-                }
-
                 if (!this.state.cardExchangeHistory) this.state.cardExchangeHistory = [];
-                const card = SKILL_CARDS.find(c => c.id === cardId);
-                const cardName = card ? card.name : "Thẻ năng lực";
-                this.state.cardExchangeHistory.push({
-                    cardId: cardId,
-                    cardName: cardName,
-                    device: "Máy tính này (PC)",
-                    redeemedAt: new Date().toISOString()
+
+                app.selectedExchangeCardIds.forEach(cardId => {
+                    if (!this.state.redeemedSkills.includes(cardId)) {
+                        this.state.redeemedSkills.push(cardId);
+                    }
+                    const card = SKILL_CARDS.find(c => c.id === cardId);
+                    const cardName = card ? card.name : "Thẻ năng lực";
+                    this.state.cardExchangeHistory.push({
+                        cardId: cardId,
+                        cardName: cardName,
+                        device: "Máy tính này (PC)",
+                        redeemedAt: new Date().toISOString()
+                    });
                 });
 
                 this.saveEnglishState();
 
                 Swal.fire({
                     title: 'Đổi thẻ thành công! 🎉',
-                    html: `Đã đổi thẻ <b>"${cardName}"</b> lấy <b>15 phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
+                    html: `Đã đổi thành công <b>${count} thẻ năng lực</b> lấy <b>${minutes} phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
                     icon: 'success',
                     confirmButtonText: 'Vào chơi ngay 🚀',
                     confirmButtonColor: '#10b981'
                 }).then(() => {
-                    this.startFreePlayGame(900);
+                    this.startFreePlayGame(minutes * 60);
                 });
-            } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
+            } else {
                 this.openStudentGameExchange();
             }
         });
     },
 
     exchangeGoldCardForTabletPlay: function() {
-        app.selectedExchangeCardId = null;
+        app.selectedExchangeCardIds = [];
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
         
         if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
@@ -10641,7 +10644,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         Swal.fire({
             title: 'Đổi thẻ chơi trên Tablet 📱🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 thẻ mạ vàng để đổi lấy <b>mã số bảo mật sử dụng Tablet trong 15 phút</b>:</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600; color: #e2e8f0;">Chọn một hoặc nhiều thẻ mạ vàng để đổi lấy mã số bảo mật sử dụng Tablet (mỗi thẻ được 15 phút):</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
@@ -10655,8 +10658,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (confirmBtn) confirmBtn.setAttribute('disabled', 'true');
             }
         }).then(async (result) => {
-            if (result.isConfirmed && app.selectedExchangeCardId) {
-                const cardId = app.selectedExchangeCardId;
+            if (result.isConfirmed && app.selectedExchangeCardIds && app.selectedExchangeCardIds.length > 0) {
+                const count = app.selectedExchangeCardIds.length;
+                const minutes = count * 15;
                 const studentId = this.config.defaultStudentId || '';
                 
                 Swal.fire({
@@ -10670,25 +10674,27 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     const response = await fetch(this.getApiUrl('/api/tablet/generate-token'), {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ studentId, minutes: 15 })
+                        body: JSON.stringify({ studentId, minutes: minutes })
                     });
                     
                     if (response.ok) {
                         const data = await response.json();
                         
                         if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
-                        if (!this.state.redeemedSkills.includes(cardId)) {
-                            this.state.redeemedSkills.push(cardId);
-                        }
-
                         if (!this.state.cardExchangeHistory) this.state.cardExchangeHistory = [];
-                        const card = SKILL_CARDS.find(c => c.id === cardId);
-                        const cardName = card ? card.name : "Thẻ năng lực";
-                        this.state.cardExchangeHistory.push({
-                            cardId: cardId,
-                            cardName: cardName,
-                            device: "Máy tính bảng (Tablet)",
-                            redeemedAt: new Date().toISOString()
+
+                        app.selectedExchangeCardIds.forEach(cardId => {
+                            if (!this.state.redeemedSkills.includes(cardId)) {
+                                this.state.redeemedSkills.push(cardId);
+                            }
+                            const card = SKILL_CARDS.find(c => c.id === cardId);
+                            const cardName = card ? card.name : "Thẻ năng lực";
+                            this.state.cardExchangeHistory.push({
+                                cardId: cardId,
+                                cardName: cardName,
+                                device: "Máy tính bảng (Tablet)",
+                                redeemedAt: new Date().toISOString()
+                            });
                         });
 
                         this.saveEnglishState();
@@ -10714,14 +10720,14 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     console.error("Lỗi quy đổi thẻ lấy mã tablet:", err);
                     Swal.fire("Lỗi quy đổi ❌", "Có lỗi xảy ra: " + err.message, "error");
                 }
-            } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
+            } else {
                 this.openStudentGameExchange();
             }
         });
     },
 
     exchangeGoldBadgeForPcPlay: function() {
-        app.selectedExchangeCardId = null;
+        app.selectedExchangeCardIds = [];
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
         this.state.goldBadges.forEach(badgeId => {
             const badge = this.systemBadges.find(b => b.id === badgeId);
@@ -10743,7 +10749,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         Swal.fire({
             title: 'Đổi huy hiệu chơi trên PC 💻🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 huy hiệu mạ vàng của con để đổi lấy <b>15 phút chơi game</b> trên máy tính này:</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600; color: #e2e8f0;">Chọn một hoặc nhiều huy hiệu mạ vàng của con để đổi lấy giờ chơi (mỗi huy hiệu đổi được 15 phút):</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
@@ -10757,31 +10763,31 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (confirmBtn) confirmBtn.setAttribute('disabled', 'true');
             }
         }).then((result) => {
-            if (result.isConfirmed && app.selectedExchangeCardId) {
-                const badgeId = app.selectedExchangeCardId;
-                this.state.goldBadges = this.state.goldBadges.filter(id => id !== badgeId);
-                this.saveProgress();
+            if (result.isConfirmed && app.selectedExchangeCardIds && app.selectedExchangeCardIds.length > 0) {
+                const count = app.selectedExchangeCardIds.length;
+                const minutes = count * 15;
 
-                const badge = this.systemBadges.find(b => b.id === badgeId);
-                const badgeName = badge ? badge.name : "Huy hiệu";
+                // Xóa các huy hiệu đã quy đổi khỏi goldBadges
+                this.state.goldBadges = this.state.goldBadges.filter(id => !app.selectedExchangeCardIds.includes(id));
+                this.saveProgress();
 
                 Swal.fire({
                     title: 'Đổi huy hiệu thành công! 🎉',
-                    html: `Đã đổi huy hiệu <b>"${badgeName}"</b> lấy <b>15 phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
+                    html: `Đã đổi thành công <b>${count} huy hiệu</b> lấy <b>${minutes} phút</b> chơi game giải trí tự do. Chúc con chơi game thật vui vẻ!`,
                     icon: 'success',
                     confirmButtonText: 'Vào chơi ngay 🚀',
                     confirmButtonColor: '#10b981'
                 }).then(() => {
-                    this.startFreePlayGame(900);
+                    this.startFreePlayGame(minutes * 60);
                 });
-            } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
+            } else {
                 this.openStudentGameExchange();
             }
         });
     },
 
     exchangeGoldBadgeForTabletPlay: function() {
-        app.selectedExchangeCardId = null;
+        app.selectedExchangeCardIds = [];
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
         this.state.goldBadges.forEach(badgeId => {
             const badge = this.systemBadges.find(b => b.id === badgeId);
@@ -10803,7 +10809,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         Swal.fire({
             title: 'Đổi huy hiệu chơi trên Tablet 📱🔄',
             html: `
-                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600;">Chọn 1 huy hiệu mạ vàng để đổi lấy <b>mã số bảo mật sử dụng Tablet trong 15 phút</b>:</p>
+                <p style="font-size:0.95rem; margin-bottom:1rem; font-weight:600; color: #e2e8f0;">Chọn một hoặc nhiều huy hiệu mạ vàng để đổi lấy mã số bảo mật sử dụng Tablet (mỗi huy hiệu được 15 phút):</p>
                 ${optionsHtml}
             `,
             showCancelButton: true,
@@ -10817,8 +10823,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (confirmBtn) confirmBtn.setAttribute('disabled', 'true');
             }
         }).then(async (result) => {
-            if (result.isConfirmed && app.selectedExchangeCardId) {
-                const badgeId = app.selectedExchangeCardId;
+            if (result.isConfirmed && app.selectedExchangeCardIds && app.selectedExchangeCardIds.length > 0) {
+                const count = app.selectedExchangeCardIds.length;
+                const minutes = count * 15;
                 const studentId = this.config.defaultStudentId || '';
                 
                 Swal.fire({
@@ -10832,12 +10839,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     const response = await fetch(this.getApiUrl('/api/tablet/generate-token'), {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ studentId, minutes: 15 })
+                        body: JSON.stringify({ studentId, minutes: minutes })
                     });
                     
                     if (response.ok) {
                         const data = await response.json();
-                        this.state.goldBadges = this.state.goldBadges.filter(id => id !== badgeId);
+                        this.state.goldBadges = this.state.goldBadges.filter(id => !app.selectedExchangeCardIds.includes(id));
                         this.saveProgress();
 
                         Swal.fire({
@@ -10861,7 +10868,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     console.error("Lỗi quy đổi huy hiệu lấy mã tablet:", err);
                     Swal.fire("Lỗi quy đổi ❌", "Có lỗi xảy ra: " + err.message, "error");
                 }
-            } else if (result.dismiss === Swal.DismissReason.cancel || !app.selectedExchangeCardId) {
+            } else {
                 this.openStudentGameExchange();
             }
         });
@@ -10994,9 +11001,14 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     selectGoldCardToExchange: function(cardId) {
-        if (!this.state.goldSkills) return;
-        this.state.goldSkills.forEach(id => {
-            const el = document.getElementById(`opt-${id}`);
+        if (!app.selectedExchangeCardIds) app.selectedExchangeCardIds = [];
+        
+        const index = app.selectedExchangeCardIds.indexOf(cardId);
+        const el = document.getElementById(`opt-${cardId}`);
+        
+        if (index > -1) {
+            // Đã chọn rồi -> Bỏ chọn
+            app.selectedExchangeCardIds.splice(index, 1);
             if (el) {
                 el.classList.remove('selected');
                 const indicator = el.querySelector('.checkbox-indicator');
@@ -11006,24 +11018,33 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     indicator.innerHTML = '';
                 }
             }
-        });
-        
-        const el = document.getElementById(`opt-${cardId}`);
-        if (el) {
-            el.classList.add('selected');
-            const indicator = el.querySelector('.checkbox-indicator');
-            if (indicator) {
-                indicator.style.borderColor = '#fbbf24';
-                indicator.style.background = '#fbbf24';
-                indicator.innerHTML = '✓';
-                indicator.style.color = '#111827';
-                indicator.style.fontWeight = 'bold';
-                indicator.style.fontSize = '0.8rem';
+        } else {
+            // Chưa chọn -> Chọn thêm
+            app.selectedExchangeCardIds.push(cardId);
+            if (el) {
+                el.classList.add('selected');
+                const indicator = el.querySelector('.checkbox-indicator');
+                if (indicator) {
+                    indicator.style.borderColor = '#fbbf24';
+                    indicator.style.background = '#fbbf24';
+                    indicator.innerHTML = '✓';
+                    indicator.style.color = '#111827';
+                    indicator.style.fontWeight = 'bold';
+                    indicator.style.fontSize = '0.8rem';
+                }
             }
         }
-        app.selectedExchangeCardId = cardId;
+        
         const confirmBtn = Swal.getConfirmButton();
-        if (confirmBtn) confirmBtn.removeAttribute('disabled');
+        if (confirmBtn) {
+            if (app.selectedExchangeCardIds.length > 0) {
+                confirmBtn.removeAttribute('disabled');
+                confirmBtn.innerHTML = `Xác nhận đổi (${app.selectedExchangeCardIds.length * 15} phút)`;
+            } else {
+                confirmBtn.setAttribute('disabled', 'true');
+                confirmBtn.innerHTML = 'Xác nhận đổi';
+            }
+        }
     },
 
     openParentGameVerification: function() {
