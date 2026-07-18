@@ -1,0 +1,597 @@
+==================================================
+AI GENERATION ERROR REPORT
+Time: 2026-07-17T14:32:10.567Z
+Lesson ID: l1-bai-4
+Lesson Title: Bài 4: So sánh số
+==================================================
+
+[ERROR DETAILS]
+Unexpected non-whitespace character after JSON at position 7872 (line 272 column 3)
+SyntaxError: Unexpected non-whitespace character after JSON at position 7872 (line 272 column 3)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:2583:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+[JSON DIAGNOSTICS]
+Error Position: 7872 (Line: 272, Column: 3)
+Character causing error: "]"
+
+Context:
+...  là số bé nhất.",
+      "tip": "Số bé nhất là số đứng đầu tiên khi đếm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q10"
+    }
+  ]
+}
+  >>>[LỖI TẠI ĐÂY]<<<]
+}
+}
+}
+}
+  ]
+}
+} ...
+
+[CLEANED JSON TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong vườn nhà An có {a} cây hoa hồng, nhà Bình có {b} cây hoa hồng. Số cây hoa hồng nhà An nhiều hơn nhà Bình là bao nhiêu? So sánh hai số {a} và {b}.",
+      "options": [
+        "{a} > {b}",
+        "{a} < {b}",
+        "{a} = {b}",
+        "{b} > {a}"
+      ],
+      "correctIndex": 0,
+      "hints": ["Để so sánh hai số, ta đếm số lượng rồi so sánh xem số nào lớn hơn."],
+      "solutionHtml": "Vì {a} lớn hơn {b}, nên ta có: $ {a} > {b} $.<br/>Vậy số cây hoa hồng nhà An nhiều hơn nhà Bình.",
+      "tip": "Khi so sánh hai số, số nào có giá trị lớn hơn thì số đó đứng trước dấu lớn hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 1, "max": 9 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 2",
+        "w3": "b + 10"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng có {b} viên bi. Biết rằng số bi của Lan lớn hơn số bi của Hùng. Hãy chọn biểu thức đúng.",
+      "options": [
+        "{a} > {b}",
+        "{a} < {b}",
+        "{a} = {b}",
+        "{b} > {a}"
+      ],
+      "correctIndex": 0,
+      "hints": ["Số bi của Lan là {a}, số bi của Hùng là {b}. Vì {a} lớn hơn {b} nên {a} > {b}."],
+      "solutionHtml": "Lan có {a} viên bi, Hùng có {b} viên bi. Vì $ {a} > {b} $ nên số bi của Lan nhiều hơn số bi của Hùng.",
+      "tip": "Số lớn đứng trước, dấu > quay miệng về số lớn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 8 },
+        "b": { "min": 2, "max": 8 }
+      },
+      "constraints": ["a === b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "b + 2"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. So sánh số bạn của hai tổ.",
+      "options": [
+        "{a} > {b}",
+        "{a} < {b}",
+        "{a} = {b}",
+        "{b} > {a}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Vì {a} bằng {b} nên số bạn hai tổ bằng nhau."],
+      "solutionHtml": "Cả hai tổ đều có {a} bạn, nên $ {a} = {b} $.",
+      "tip": "Khi hai số bằng nhau, ta dùng dấu bằng (=).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 7, "max": 9 }
+      },
+      "constraints": ["b > a"],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "b + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong hộp có {a} chiếc bút đỏ và {b} chiếc bút xanh. Số bút nào ít hơn?",
+      "options": [
+        "Số bút đỏ",
+        "Số bút xanh",
+        "Hai loại bằng nhau",
+        "Không so sánh được"
+      ],
+      "correctIndex": 0,
+      "hints": ["So sánh {a} và {b}. Số nào nhỏ hơn thì số bút đó ít hơn."],
+      "solutionHtml": "Vì $ {a} < {b} $ nên số bút đỏ ít hơn số bút xanh.",
+      "tip": "Số ít hơn là số có giá trị nhỏ hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a + 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Số nào lớn hơn {a} và nhỏ hơn {a+2}?",
+      "options": [
+        "{w3}",
+        "{ans}",
+        "{w1}",
+        "{w2}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số nằm giữa {a} và {a+2} là số liền sau của {a}."],
+      "solutionHtml": "Số lớn hơn {a} và nhỏ hơn {a+2} là {ans}, vì $ {a} < {ans} < {a+2} $.",
+      "tip": "Số nằm giữa hai số cách nhau 2 đơn vị chính là số ở giữa.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5 },
+        "b": { "min": 6, "max": 9 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "b - 1"
+      },
+      "questionText": "Bạn Hoa có {a} viên kẹo, bạn Mai có {b} viên kẹo. Ai có nhiều kẹo hơn?",
+      "options": [
+        "Hoa",
+        "Mai",
+        "Cả hai bằng nhau",
+        "Không có ai"
+      ],
+      "correctIndex": 1,
+      "hints": ["So sánh {a} và {b}. Số nào lớn hơn thì bạn đó nhiều kẹo hơn."],
+      "solutionHtml": "Vì $ {b} > {a} $ nên bạn Mai có nhiều kẹo hơn bạn Hoa.",
+      "tip": "So sánh số lượng để tìm người có nhiều hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 8 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a",
+        "w2": "a + 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Số nào là số liền sau của {a}?",
+      "options": [
+        "{w1}",
+        "{ans}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số liền sau của một số là số đó cộng thêm 1."],
+      "solutionHtml": "Số liền sau của {a} là $ {a} + 1 = {ans} $.",
+      "tip": "Số liền sau luôn lớn hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a - 2"
+      },
+      "questionText": "Số nào là số liền trước của {a}?",
+      "options": [
+        "{w1}",
+        "{ans}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số liền trước của một số là số đó bớt đi 1."],
+      "solutionHtml": "Số liền trước của {a} là $ {a} - 1 = {ans} $.",
+      "tip": "Số liền trước luôn nhỏ hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 4 },
+        "b": { "min": 5, "max": 9 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "b + 1",
+        "w3": "a + 1"
+      },
+      "questionText": "Trong các số sau: {a}, {b}, {a+1}. Số nào là số lớn nhất?",
+      "options": [
+        "{a}",
+        "{b}",
+        "{a+1}",
+        "Không có số nào"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hãy so sánh ba số rồi chọn số có giá trị lớn nhất."],
+      "solutionHtml": "Ta có: $ {a} < {a+1} < {b} $. Vậy {b} là số lớn nhất.",
+      "tip": "Số lớn nhất là số đứng sau cùng khi đếm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong các số sau: {a}, {b}, {a-1}. Số nào là số bé nhất?",
+      "options": [
+        "{a}",
+        "{b}",
+        "{a-1}",
+        "Không có số nào"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hãy so sánh ba số rồi chọn số có giá trị bé nhất."],
+      "solutionHtml": "Ta có: $ {b} < {a-1} < {a} $. Vậy {b} là số bé nhất.",
+      "tip": "Số bé nhất là số đứng đầu tiên khi đếm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q10"
+    }
+  ]
+}
+  ]
+}
+}
+}
+}
+  ]
+}
+}
+
+[RAW AI RESPONSE TEXT]
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong vườn nhà An có {a} cây hoa hồng, nhà Bình có {b} cây hoa hồng. Số cây hoa hồng nhà An nhiều hơn nhà Bình là bao nhiêu? So sánh hai số {a} và {b}.",
+      "options": [
+        "{a} > {b}",
+        "{a} < {b}",
+        "{a} = {b}",
+        "{b} > {a}"
+      ],
+      "correctIndex": 0,
+      "hints": ["Để so sánh hai số, ta đếm số lượng rồi so sánh xem số nào lớn hơn."],
+      "solutionHtml": "Vì {a} lớn hơn {b}, nên ta có: $ {a} > {b} $.<br/>Vậy số cây hoa hồng nhà An nhiều hơn nhà Bình.",
+      "tip": "Khi so sánh hai số, số nào có giá trị lớn hơn thì số đó đứng trước dấu lớn hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 10, "max": 20 },
+        "b": { "min": 1, "max": 9 }
+      },
+      "constraints": ["a > b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 2",
+        "w3": "b + 10"
+      },
+      "questionText": "Lan có {a} viên bi, Hùng có {b} viên bi. Biết rằng số bi của Lan lớn hơn số bi của Hùng. Hãy chọn biểu thức đúng.",
+      "options": [
+        "{a} > {b}",
+        "{a} < {b}",
+        "{a} = {b}",
+        "{b} > {a}"
+      ],
+      "correctIndex": 0,
+      "hints": ["Số bi của Lan là {a}, số bi của Hùng là {b}. Vì {a} lớn hơn {b} nên {a} > {b}."],
+      "solutionHtml": "Lan có {a} viên bi, Hùng có {b} viên bi. Vì $ {a} > {b} $ nên số bi của Lan nhiều hơn số bi của Hùng.",
+      "tip": "Số lớn đứng trước, dấu > quay miệng về số lớn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 8 },
+        "b": { "min": 2, "max": 8 }
+      },
+      "constraints": ["a === b"],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "b + 2"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn. So sánh số bạn của hai tổ.",
+      "options": [
+        "{a} > {b}",
+        "{a} < {b}",
+        "{a} = {b}",
+        "{b} > {a}"
+      ],
+      "correctIndex": 2,
+      "hints": ["Vì {a} bằng {b} nên số bạn hai tổ bằng nhau."],
+      "solutionHtml": "Cả hai tổ đều có {a} bạn, nên $ {a} = {b} $.",
+      "tip": "Khi hai số bằng nhau, ta dùng dấu bằng (=).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 3, "max": 6 },
+        "b": { "min": 7, "max": 9 }
+      },
+      "constraints": ["b > a"],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "b + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong hộp có {a} chiếc bút đỏ và {b} chiếc bút xanh. Số bút nào ít hơn?",
+      "options": [
+        "Số bút đỏ",
+        "Số bút xanh",
+        "Hai loại bằng nhau",
+        "Không so sánh được"
+      ],
+      "correctIndex": 0,
+      "hints": ["So sánh {a} và {b}. Số nào nhỏ hơn thì số bút đó ít hơn."],
+      "solutionHtml": "Vì $ {a} < {b} $ nên số bút đỏ ít hơn số bút xanh.",
+      "tip": "Số ít hơn là số có giá trị nhỏ hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 4, "max": 8 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a + 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Số nào lớn hơn {a} và nhỏ hơn {a+2}?",
+      "options": [
+        "{w3}",
+        "{ans}",
+        "{w1}",
+        "{w2}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số nằm giữa {a} và {a+2} là số liền sau của {a}."],
+      "solutionHtml": "Số lớn hơn {a} và nhỏ hơn {a+2} là {ans}, vì $ {a} < {ans} < {a+2} $.",
+      "tip": "Số nằm giữa hai số cách nhau 2 đơn vị chính là số ở giữa.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 5 },
+        "b": { "min": 6, "max": 9 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "b - 1"
+      },
+      "questionText": "Bạn Hoa có {a} viên kẹo, bạn Mai có {b} viên kẹo. Ai có nhiều kẹo hơn?",
+      "options": [
+        "Hoa",
+        "Mai",
+        "Cả hai bằng nhau",
+        "Không có ai"
+      ],
+      "correctIndex": 1,
+      "hints": ["So sánh {a} và {b}. Số nào lớn hơn thì bạn đó nhiều kẹo hơn."],
+      "solutionHtml": "Vì $ {b} > {a} $ nên bạn Mai có nhiều kẹo hơn bạn Hoa.",
+      "tip": "So sánh số lượng để tìm người có nhiều hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 8 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a",
+        "w2": "a + 2",
+        "w3": "a - 1"
+      },
+      "questionText": "Số nào là số liền sau của {a}?",
+      "options": [
+        "{w1}",
+        "{ans}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số liền sau của một số là số đó cộng thêm 1."],
+      "solutionHtml": "Số liền sau của {a} là $ {a} + 1 = {ans} $.",
+      "tip": "Số liền sau luôn lớn hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 2, "max": 9 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a - 2"
+      },
+      "questionText": "Số nào là số liền trước của {a}?",
+      "options": [
+        "{w1}",
+        "{ans}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 1,
+      "hints": ["Số liền trước của một số là số đó bớt đi 1."],
+      "solutionHtml": "Số liền trước của {a} là $ {a} - 1 = {ans} $.",
+      "tip": "Số liền trước luôn nhỏ hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 1, "max": 4 },
+        "b": { "min": 5, "max": 9 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "b + 1",
+        "w3": "a + 1"
+      },
+      "questionText": "Trong các số sau: {a}, {b}, {a+1}. Số nào là số lớn nhất?",
+      "options": [
+        "{a}",
+        "{b}",
+        "{a+1}",
+        "Không có số nào"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hãy so sánh ba số rồi chọn số có giá trị lớn nhất."],
+      "solutionHtml": "Ta có: $ {a} < {a+1} < {b} $. Vậy {b} là số lớn nhất.",
+      "tip": "Số lớn nhất là số đứng sau cùng khi đếm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": { "min": 5, "max": 9 },
+        "b": { "min": 1, "max": 4 }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Trong các số sau: {a}, {b}, {a-1}. Số nào là số bé nhất?",
+      "options": [
+        "{a}",
+        "{b}",
+        "{a-1}",
+        "Không có số nào"
+      ],
+      "correctIndex": 1,
+      "hints": ["Hãy so sánh ba số rồi chọn số có giá trị bé nhất."],
+      "solutionHtml": "Ta có: $ {b} < {a-1} < {a} $. Vậy {b} là số bé nhất.",
+      "tip": "Số bé nhất là số đứng đầu tiên khi đếm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-q10"
+    }
+  ]
+}
+  ]
+}
+}
+}
+}
+  ]
+}
+}
+

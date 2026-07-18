@@ -371,6 +371,28 @@ async function syncStudentProgressToFirebase(studentId, state, studentNameFromCl
     } else {
       console.log(`[FirebaseSync] Đồng bộ thành công cho học sinh ${payload.studentName} (${studentId})`);
     }
+
+    // Đồng bộ lịch sử quy đổi thẻ năng lực lên Firebase Realtime Database
+    if (state.cardExchangeHistory && Array.isArray(state.cardExchangeHistory)) {
+      const historyPayload = state.cardExchangeHistory.map(h => ({
+        ...h,
+        studentId: studentId,
+        studentName: studentName
+      }));
+      const historyUrl = `${FIREBASE_RTDB_URL}card_exchange_history/${studentId}.json`;
+      const historyRes = await fetch(historyUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(historyPayload)
+      });
+      if (!historyRes.ok) {
+        console.warn(`[FirebaseSync] Gửi lịch sử quy đổi thẻ lên Firebase thất bại: ${historyRes.status}`);
+      } else {
+        console.log(`[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh ${studentName}`);
+      }
+    }
   } catch (err) {
     console.error("[FirebaseSync] Không thể đồng bộ lên Firebase:", err.message);
   }
@@ -3672,7 +3694,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '10.99';
+const APP_VERSION = '11.1';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

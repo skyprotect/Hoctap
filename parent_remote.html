@@ -475,6 +475,16 @@
                 <div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px 0;">Đang tải lịch sử...</div>
             </div>
         </div>
+
+        <!-- Phần Lịch sử Quy đổi Thẻ Năng Lực -->
+        <div class="card-exchange-section" style="margin-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 25px; text-align: left;">
+            <h2 class="section-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span>🎁 Lịch sử quy đổi thẻ năng lực</span>
+            </h2>
+            <div id="cardExchangeList" style="max-height: 250px; overflow-y: auto; padding-right: 4px; margin-top: 10px;">
+                <div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px 0;">Đang tải lịch sử quy đổi...</div>
+            </div>
+        </div>
     </div>
 
     <div class="toast" id="toast">Thông báo ở đây</div>
@@ -675,6 +685,62 @@
             } else {
                 totalUnlockTime.textContent = `Tổng: ${totalMinutes} phút`;
             }
+        });
+
+        // Lắng nghe lịch sử quy đổi thẻ năng lực từ Firebase
+        db.ref("card_exchange_history").on("value", (snapshot) => {
+            const cardExchangeList = document.getElementById('cardExchangeList');
+            if (!cardExchangeList) return;
+            cardExchangeList.innerHTML = '';
+            
+            const data = snapshot.val();
+            if (!data) {
+                cardExchangeList.innerHTML = `<div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px 0;">Chưa có lịch sử quy đổi thẻ.</div>`;
+                return;
+            }
+
+            // Gộp lịch sử của tất cả học sinh thành một danh sách phẳng
+            let allHistory = [];
+            Object.keys(data).forEach(studentId => {
+                const studentHistory = data[studentId];
+                if (Array.isArray(studentHistory)) {
+                    studentHistory.forEach(h => {
+                        allHistory.push(h);
+                    });
+                } else if (typeof studentHistory === 'object') {
+                    Object.keys(studentHistory).forEach(key => {
+                        allHistory.push(studentHistory[key]);
+                    });
+                }
+            });
+
+            if (allHistory.length === 0) {
+                cardExchangeList.innerHTML = `<div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px 0;">Chưa có lịch sử quy đổi thẻ.</div>`;
+                return;
+            }
+
+            // Sắp xếp theo thời gian quy đổi mới nhất lên đầu
+            allHistory.sort((a, b) => new Date(b.redeemedAt) - new Date(a.redeemedAt));
+
+            allHistory.forEach(item => {
+                const dateVal = new Date(item.redeemedAt);
+                const timeString = dateVal.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                const dateString = dateVal.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+                
+                const itemHtml = `
+                    <div class="history-item" style="border-left: 3px solid #fbbf24;">
+                        <div class="history-left">
+                            <span class="history-title" style="font-weight: 800; color: #fbbf24; font-size: 13px;">${item.studentName || 'Học sinh'}</span>
+                            <span class="history-time" style="color: var(--text-primary); font-size: 12px; margin-top: 2px;">Đã đổi: ${item.cardName || 'Thẻ năng lực'}</span>
+                            <span class="history-time" style="font-size: 10px; color: var(--text-secondary);">Thời gian: ${timeString} ${dateString}</span>
+                        </div>
+                        <div class="history-right" style="justify-content: center;">
+                            <span class="history-badge badge-active" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2); font-size: 10px;">${item.device || 'Thiết bị'}</span>
+                        </div>
+                    </div>
+                `;
+                cardExchangeList.insertAdjacentHTML('beforeend', itemHtml);
+            });
         });
     </script>
 </body>

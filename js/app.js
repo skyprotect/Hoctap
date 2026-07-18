@@ -10306,15 +10306,20 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const currentXp = this.state.englishXp || 0;
         
         if (!this.state.goldSkills) this.state.goldSkills = [];
+        if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
 
         const shopCardsHtml = SKILL_CARDS.map(card => {
             const isUnlocked = this.isSkillCardUnlocked(card.id);
             const isGold = this.state.goldSkills.includes(card.id);
+            const isRedeemed = this.state.redeemedSkills.includes(card.id);
             
             let statusText = "";
             let btnHtml = "";
             
-            if (isGold) {
+            if (isGold && isRedeemed) {
+                statusText = `<span style="color:#ef4444; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-check-double"></i> ĐÃ QUY ĐỔI GIỜ CHƠI</span>`;
+                btnHtml = `<button class="btn-primary" disabled style="background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid rgba(239,68,68,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Đã Quy Đổi</button>`;
+            } else if (isGold) {
                 statusText = `<span style="color:#eab308; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-star"></i> ĐÃ MẠ VÀNG LẤP LÁNH</span>`;
                 btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
@@ -10326,11 +10331,16 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
 
             return `
-                <div class="eng-shop-card ${isGold ? 'gold-card-royal gold-card-royal-shine' : ''}" style="background:var(--bg-card); border: 2px solid ${isGold ? 'transparent' : 'var(--border-color)'}; border-radius:20px; padding:1.5rem; text-align:center; display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:240px; height:100%;">
+                <div class="eng-shop-card ${isGold ? 'gold-card-royal gold-card-royal-shine' : ''}" style="position: relative; overflow: hidden; background:var(--bg-card); border: 2px solid ${isGold ? 'transparent' : 'var(--border-color)'}; border-radius:20px; padding:1.5rem; text-align:center; display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:240px; height:100%; ${isRedeemed ? 'opacity: 0.85;' : ''}">
+                    ${isGold && isRedeemed ? `
+                    <div style="position: absolute; top: 15px; right: 15px; border: 3px double #ef4444; color: #ef4444; background: rgba(254,226,226,0.9); font-size: 0.7rem; font-weight: 900; padding: 4px 8px; border-radius: 6px; transform: rotate(15deg); z-index: 10; letter-spacing: 1px; box-shadow: 0 0 6px rgba(239,68,68,0.2);">
+                        ĐÃ QUY ĐỔI
+                    </div>
+                    ` : ''}
                     <div>
                         <div style="font-size:2.8rem; margin-bottom:0.4rem; filter: ${isUnlocked ? 'none' : 'grayscale(1) opacity(0.5)'};">${card.icon}</div>
                         <div style="font-weight:900; font-size:1.1rem; color:var(--text-main); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;" class="${isGold ? 'gold-title-glow' : ''}">${card.name}</div>
-                        <div style="font-size:0.8rem; color:${isGold ? '#a7f3d0' : '#64748b'}; margin-bottom:0.5rem; min-height:36px; display:flex; align-items:center; justify-content:center; line-height:1.3;">${card.desc}</div>
+                        <div style="font-size:0.8rem; color:${isGold ? (isRedeemed ? '#fca5a5' : '#a7f3d0') : '#64748b'}; margin-bottom:0.5rem; min-height:36px; display:flex; align-items:center; justify-content:center; line-height:1.3;">${card.desc}</div>
                     </div>
                     <div style="width:100%;">
                         <div style="margin-bottom:0.6rem;">${statusText}</div>
@@ -10439,14 +10449,17 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     openStudentGameExchange: function() {
-        const hasEnglishGold = this.state.goldSkills && this.state.goldSkills.length > 0;
+        if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
+        const unredeemedGoldSkills = (this.state.goldSkills || []).filter(id => !this.state.redeemedSkills.includes(id));
+        
+        const hasEnglishGold = unredeemedGoldSkills.length > 0;
         const hasMathGold = this.state.goldBadges && this.state.goldBadges.length > 0;
 
         if (!hasEnglishGold && !hasMathGold) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Chưa có thẻ mạ vàng! 🌟',
-                html: `Con cần có ít nhất 1 thẻ năng lực Tiếng Anh hoặc 1 huy hiệu Toán học <b>Mạ Vàng</b> để đổi lấy 15 phút chơi game.<br/><br/>Hãy tích lũy điểm <b>XP</b> và vào mục <b>Cửa Hàng (Shop)</b> của môn học để mạ vàng các thẻ/huy hiệu đã đạt được nhé!`,
+                title: 'Chưa có thẻ mạ vàng chưa quy đổi! 🌟',
+                html: `Con cần có ít nhất 1 thẻ năng lực Tiếng Anh hoặc 1 huy hiệu Toán học <b>Mạ Vàng (chưa dùng)</b> để đổi lấy 15 phút chơi game.<br/><br/>Hãy tích lũy điểm <b>XP</b> và vào mục <b>Cửa Hàng (Shop)</b> của môn học để mạ vàng các thẻ/huy hiệu đã đạt được nhé!`,
                 confirmButtonText: 'Đã hiểu',
                 confirmButtonColor: '#eab308'
             });
@@ -10457,9 +10470,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             title: 'Chọn thiết bị chơi game 🎮',
             html: `
                 <p style="font-size:0.95rem; margin-bottom:1.5rem; font-weight:600; color:#475569;">Con muốn đổi thẻ mạ vàng lấy giờ chơi trên thiết bị nào?</p>
-                <div style="margin-top: 15px; font-size: 0.9rem;">
+                <div style="margin-top: 15px; font-size: 0.88rem; display: flex; flex-direction: column; gap: 10px; align-items: center;">
                     <a href="#" onclick="Swal.close(); app.showTabletTokensList(); return false;" style="color: #0ea5e9; font-weight: 800; text-decoration: none; border-bottom: 2px dashed #0ea5e9; padding-bottom: 2px;">
                         📋 Xem lịch sử các mã bảo mật đã đổi
+                    </a>
+                    <a href="#" onclick="Swal.close(); app.showCardExchangeHistory(); return false;" style="color: #a855f7; font-weight: 800; text-decoration: none; border-bottom: 2px dashed #a855f7; padding-bottom: 2px;">
+                        📜 Xem lịch sử quy đổi thẻ năng lực
                     </a>
                 </div>
             `,
@@ -10512,7 +10528,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     exchangeGoldCardForPcPlay: function() {
         app.selectedExchangeCardId = null;
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
-        this.state.goldSkills.forEach(cardId => {
+        
+        if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
+        const unredeemedGoldSkills = (this.state.goldSkills || []).filter(id => !this.state.redeemedSkills.includes(id));
+
+        unredeemedGoldSkills.forEach(cardId => {
             const card = SKILL_CARDS.find(c => c.id === cardId);
             if (card) {
                 optionsHtml += `
@@ -10548,11 +10568,23 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }).then((result) => {
             if (result.isConfirmed && app.selectedExchangeCardId) {
                 const cardId = app.selectedExchangeCardId;
-                this.state.goldSkills = this.state.goldSkills.filter(id => id !== cardId);
-                this.saveEnglishState();
+                
+                if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
+                if (!this.state.redeemedSkills.includes(cardId)) {
+                    this.state.redeemedSkills.push(cardId);
+                }
 
+                if (!this.state.cardExchangeHistory) this.state.cardExchangeHistory = [];
                 const card = SKILL_CARDS.find(c => c.id === cardId);
                 const cardName = card ? card.name : "Thẻ năng lực";
+                this.state.cardExchangeHistory.push({
+                    cardId: cardId,
+                    cardName: cardName,
+                    device: "Máy tính này (PC)",
+                    redeemedAt: new Date().toISOString()
+                });
+
+                this.saveEnglishState();
 
                 Swal.fire({
                     title: 'Đổi thẻ thành công! 🎉',
@@ -10572,7 +10604,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     exchangeGoldCardForTabletPlay: function() {
         app.selectedExchangeCardId = null;
         let optionsHtml = '<div style="max-height: 300px; overflow-y: auto; padding: 5px;">';
-        this.state.goldSkills.forEach(cardId => {
+        
+        if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
+        const unredeemedGoldSkills = (this.state.goldSkills || []).filter(id => !this.state.redeemedSkills.includes(id));
+
+        unredeemedGoldSkills.forEach(cardId => {
             const card = SKILL_CARDS.find(c => c.id === cardId);
             if (card) {
                 optionsHtml += `
@@ -10626,7 +10662,22 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     
                     if (response.ok) {
                         const data = await response.json();
-                        this.state.goldSkills = this.state.goldSkills.filter(id => id !== cardId);
+                        
+                        if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
+                        if (!this.state.redeemedSkills.includes(cardId)) {
+                            this.state.redeemedSkills.push(cardId);
+                        }
+
+                        if (!this.state.cardExchangeHistory) this.state.cardExchangeHistory = [];
+                        const card = SKILL_CARDS.find(c => c.id === cardId);
+                        const cardName = card ? card.name : "Thẻ năng lực";
+                        this.state.cardExchangeHistory.push({
+                            cardId: cardId,
+                            cardName: cardName,
+                            device: "Máy tính bảng (Tablet)",
+                            redeemedAt: new Date().toISOString()
+                        });
+
                         this.saveEnglishState();
 
                         Swal.fire({
@@ -10883,6 +10934,52 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
     },
 
+    showCardExchangeHistory: function() {
+        if (!this.state.cardExchangeHistory) this.state.cardExchangeHistory = [];
+        
+        if (this.state.cardExchangeHistory.length === 0) {
+            Swal.fire({
+                title: 'Lịch sử quy đổi thẻ 📜',
+                text: 'Con chưa quy đổi thẻ năng lực nào lấy giờ chơi cả!',
+                icon: 'info',
+                confirmButtonText: 'Đã hiểu',
+                confirmButtonColor: '#7c3aed'
+            }).then(() => {
+                this.openStudentGameExchange();
+            });
+            return;
+        }
+
+        let listHtml = '<div style="max-height: 350px; overflow-y: auto; text-align: left; padding: 5px;">';
+        const sortedHistory = [...this.state.cardExchangeHistory].sort((a, b) => new Date(b.redeemedAt) - new Date(a.redeemedAt));
+        sortedHistory.forEach(h => {
+            const card = SKILL_CARDS.find(c => c.id === h.cardId);
+            const cardIcon = card ? card.icon : '🌟';
+            const dateStr = new Date(h.redeemedAt).toLocaleString('vi-VN');
+            
+            listHtml += `
+                <div style="border: 2px solid #e2e8f0; background: var(--bg-card); padding: 12px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;">
+                    <div style="font-size: 2rem; filter: drop-shadow(0 0 4px gold);">${cardIcon}</div>
+                    <div style="flex: 1;">
+                        <div style="font-size: 0.95rem; font-weight: 900; color: var(--text-main);">${h.cardName}</div>
+                        <div style="font-size: 0.8rem; color: #64748b; font-weight: 600; margin-top: 2px;">Thiết bị: ${h.device}</div>
+                        <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 500; margin-top: 2px;">Thời gian: ${dateStr}</div>
+                    </div>
+                </div>
+            `;
+        });
+        listHtml += '</div>';
+
+        Swal.fire({
+            title: 'Lịch sử dùng thẻ năng lực 📜🥇',
+            html: listHtml,
+            confirmButtonText: 'Quay lại',
+            confirmButtonColor: '#7c3aed'
+        }).then(() => {
+            this.openStudentGameExchange();
+        });
+    },
+
     selectGoldCardToExchange: function(cardId) {
         if (!this.state.goldSkills) return;
         this.state.goldSkills.forEach(id => {
@@ -11115,10 +11212,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const totalCount = topics.length;
 
         if (!this.state.goldSkills) this.state.goldSkills = [];
+        if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
 
         const skillCardsHtml = SKILL_CARDS.map(card => {
             const isUnlocked = this.isSkillCardUnlocked(card.id);
             const isGold = this.state.goldSkills.includes(card.id);
+            const isRedeemed = this.state.redeemedSkills.includes(card.id);
             
             let cardStyle = "";
             let cardClass = "skill-card-3d";
@@ -11127,7 +11226,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             if (isGold) {
                 cardClass += " gold-card-royal gold-card-royal-shine";
                 borderStyle = "2px solid transparent";
-                cardStyle = `transform: translate3d(0,0,0); position: relative;`;
+                cardStyle = `transform: translate3d(0,0,0); position: relative; overflow: hidden;`;
             } else if (isUnlocked) {
                 cardStyle = `background: ${card.color}; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);`;
             } else {
@@ -11136,9 +11235,18 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 cardStyle = `background: ${inactiveBg}; color: var(--text-muted); border-style: dashed; opacity: 0.8;`;
                 borderStyle = "2px dashed var(--border-color)";
             }
+
+            const labelText = (isGold && isRedeemed) ? 'ĐÃ QUY ĐỔI' : isGold ? 'CỰC PHẨM' : isUnlocked ? 'ĐÃ ĐẠT' : 'CHƯA ĐẠT';
+            const labelBg = (isGold && isRedeemed) ? 'rgba(239,68,68,0.2)' : isGold ? 'rgba(245,158,11,0.2)' : isUnlocked ? 'rgba(255,255,255,0.2)' : 'var(--primary-bg)';
+            const labelColor = (isGold && isRedeemed) ? '#ef4444' : isGold ? '#fbbf24' : isUnlocked ? 'white' : 'var(--primary)';
             
             return `
-                <div class="${cardClass}" style="border: ${borderStyle}; border-radius: 16px; padding: 1.2rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 215px; height: 100%; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); ${cardStyle}">
+                <div class="${cardClass}" style="border: ${borderStyle}; border-radius: 16px; padding: 1.2rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 215px; height: 100%; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); ${cardStyle} ${isRedeemed ? 'opacity: 0.85;' : ''}">
+                    ${isGold && isRedeemed ? `
+                    <div style="position: absolute; top: 10px; right: 10px; border: 2px double #ef4444; color: #ef4444; background: rgba(254,226,226,0.9); font-size: 0.65rem; font-weight: 900; padding: 2px 6px; border-radius: 4px; transform: rotate(15deg); z-index: 10; letter-spacing: 0.5px;">
+                        ĐÃ QUY ĐỔI
+                    </div>
+                    ` : ''}
                     <div style="font-size: 3rem; margin-bottom: 0.2rem; filter: ${isUnlocked ? 'none' : 'grayscale(1) contrast(0.5)'};">
                         ${isUnlocked ? card.icon : '🔒'}
                     </div>
@@ -11146,12 +11254,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         <div style="font-weight: 900; font-size: 0.95rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; color: ${isUnlocked ? 'white' : 'var(--text-main)'};" class="${isGold ? 'gold-title-glow' : ''}">
                             ${card.name}
                         </div>
-                        <div style="font-size: 0.72rem; line-height: 1.3; color: ${isGold ? '#a7f3d0' : isUnlocked ? 'rgba(255,255,255,0.85)' : 'var(--text-muted)'};">
+                        <div style="font-size: 0.72rem; line-height: 1.3; color: ${isGold ? (isRedeemed ? '#fca5a5' : '#a7f3d0') : isUnlocked ? 'rgba(255,255,255,0.85)' : 'var(--text-muted)'};">
                             ${card.desc}
                         </div>
                     </div>
-                    <div style="font-size: 0.7rem; font-weight: 800; margin-top: 6px; padding: 2px 8px; border-radius: 99px; background: ${isGold ? 'rgba(245,158,11,0.2)' : isUnlocked ? 'rgba(255,255,255,0.2)' : 'var(--primary-bg)'}; color: ${isGold ? '#fbbf24' : isUnlocked ? 'white' : 'var(--primary)'};">
-                        ${isGold ? 'CỰC PHẨM' : isUnlocked ? 'ĐÃ ĐẠT' : 'CHƯA ĐẠT'}
+                    <div style="font-size: 0.7rem; font-weight: 800; margin-top: 6px; padding: 2px 8px; border-radius: 99px; background: ${labelBg}; color: ${labelColor};">
+                        ${labelText}
                     </div>
                 </div>
             `;
@@ -11183,7 +11291,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     <div class="eng-right-card-lbl" style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">Chủ đề hoàn thành 4 kỹ năng</div>
                 </div>
             </div>
-
+ 
             <!-- Hệ thống Thẻ Năng Lực 3D -->
             <div style="margin-top:2rem; border-top:1px solid var(--border-color); padding-top:1.5rem;">
                 <h5 style="margin:0 0 1.2rem 0; font-weight:800; font-size:1.1rem; color:var(--text-main); display:flex; align-items:center; gap:0.5rem;"><i class="fa-solid fa-address-card" style="color:#a855f7;"></i> Bộ sưu tập Thẻ Năng Lực Anh Ngữ 3D</h5>
@@ -11191,12 +11299,60 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     ${skillCardsHtml}
                 </div>
             </div>
+
+            <!-- Lịch sử quy đổi thẻ lấy giờ chơi game -->
+            <div style="margin-top:2rem; border-top:1px solid var(--border-color); padding-top:1.5rem;">
+                <h5 style="margin:0 0 1.2rem 0; font-weight:800; font-size:1.1rem; color:var(--text-main); display:flex; align-items:center; gap:0.5rem;">
+                    <i class="fa-solid fa-clock-rotate-left" style="color:#10b981;"></i> Lịch sử quy đổi thẻ năng lực
+                </h5>
+                ${this.renderCardExchangeHistoryHtml()}
+            </div>
             
             <div style="margin-top:2rem; text-align:center; border-top:1px solid var(--border-color); padding-top:1.5rem;">
                 <h5 style="margin:0 0 1rem 0; font-weight:800; font-size:1.1rem; color:var(--text-main);">Biểu đồ Năng lực Kỹ năng (Radar Chart)</h5>
                 <div style="display:flex; justify-content:center;">
                     <canvas id="english-skills-radar-chart" width="450" height="360" style="max-width: 100%; height: auto;"></canvas>
                 </div>
+            </div>
+        `;
+    },
+
+    renderCardExchangeHistoryHtml: function() {
+        if (!this.state.cardExchangeHistory || this.state.cardExchangeHistory.length === 0) {
+            return `
+                <div style="text-align:center; padding:1.5rem; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:12px; color:var(--text-muted); font-size:0.88rem; font-weight:700;">
+                    Chưa có lịch sử quy đổi thẻ năng lực.
+                </div>
+            `;
+        }
+
+        const sortedHistory = [...this.state.cardExchangeHistory].sort((a, b) => new Date(b.redeemedAt) - new Date(a.redeemedAt));
+        let rowsHtml = '';
+        sortedHistory.forEach(h => {
+            const card = SKILL_CARDS.find(c => c.id === h.cardId);
+            const cardIcon = card ? card.icon : '🌟';
+            const dateStr = new Date(h.redeemedAt).toLocaleString('vi-VN');
+            rowsHtml += `
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid var(--border-color); font-size:0.88rem;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:1.4rem; filter: drop-shadow(0 0 4px gold);">${cardIcon}</span>
+                        <div>
+                            <div style="font-weight:800; color:var(--text-main);">${h.cardName}</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${dateStr}</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <span style="background:rgba(14,165,233,0.1); color:#0ea5e9; border:1px solid rgba(14,165,233,0.2); padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:800;">
+                            ${h.device}
+                        </span>
+                    </div>
+                </div>
+            `;
+        });
+
+        return `
+            <div style="max-height: 250px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); padding: 5px;">
+                ${rowsHtml}
             </div>
         `;
 
