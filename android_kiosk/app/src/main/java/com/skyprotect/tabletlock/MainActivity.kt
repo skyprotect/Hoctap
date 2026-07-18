@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
         setupLockBehavior()
         checkOverlayPermission()
+        checkBatteryOptimization()
 
         // Khởi chạy vòng lặp kiểm tra lệnh từ xa
         remotePollHandler.post(remotePollRunnable)
@@ -69,6 +70,23 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         remotePollHandler.removeCallbacks(remotePollRunnable)
+    }
+
+    private fun checkBatteryOptimization() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val pm = getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                try {
+                    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                        data = Uri.parse("package:$packageName")
+                    }
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Vui lòng tắt tối ưu hóa pin cho ứng dụng trong Cài đặt để tránh bị tắt ngầm!", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun initViews() {
@@ -154,15 +172,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string()
-                if (!response.isSuccessful || responseBody == null || responseBody == "null") {
-                    runOnUiThread {
-                        showError("Mã bảo mật không tồn tại!")
-                    }
-                    return
-                }
-
                 try {
+                    val responseBody = response.body?.string()
+                    if (!response.isSuccessful || responseBody == null || responseBody == "null") {
+                        runOnUiThread {
+                            showError("Mã bảo mật không tồn tại!")
+                        }
+                        return
+                    }
+
                     val jsonObject = JsonParser.parseString(responseBody).asJsonObject
                     val status = jsonObject.get("status").asString
                     val minutes = jsonObject.get("minutes").asInt
@@ -212,10 +230,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                response.close()
-                runOnUiThread {
-                    // Mở khóa Kiosk Mode thành công
-                    unlockTabletForPlay(minutes, pin)
+                try {
+                    runOnUiThread {
+                        // Mở khóa Kiosk Mode thành công
+                        unlockTabletForPlay(minutes, pin)
+                    }
+                } finally {
+                    response.close()
                 }
             }
         })
@@ -285,9 +306,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string()
-                if (response.isSuccessful && responseBody != null && responseBody != "null") {
-                    try {
+                try {
+                    val responseBody = response.body?.string()
+                    if (response.isSuccessful && responseBody != null && responseBody != "null") {
                         val jsonObject = JsonParser.parseString(responseBody).asJsonObject
                         val command = jsonObject.get("command")?.asString ?: "none"
                         val minutes = jsonObject.get("minutes")?.asInt ?: 0
@@ -298,11 +319,12 @@ class MainActivity : AppCompatActivity() {
                                 unlockTabletForPlay(minutes, "remote")
                             }
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    response.close()
                 }
-                response.close()
             }
         })
     }

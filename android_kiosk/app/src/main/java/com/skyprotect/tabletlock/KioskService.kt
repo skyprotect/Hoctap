@@ -52,10 +52,6 @@ class KioskService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val minutes = intent?.getIntExtra("minutes", 7) ?: 7
-        currentToken = intent?.getStringExtra("token") ?: ""
-        remainingTimeSeconds = minutes * 60L
-        initialMinutes = minutes
         isHistoryUpdated = false
 
         // 0. Dọn dẹp Widget và Timer cũ trước khi bắt đầu chu kỳ mới (Tránh đè view/timer)
@@ -71,10 +67,40 @@ class KioskService : Service() {
             floatingView = null
         }
 
+        if (intent == null || !intent.hasExtra("minutes")) {
+            // Hồi sinh Service sau khi bị hệ thống kill hoặc do khởi động lại thiết bị (Reboot)
+            val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+            remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+            currentToken = sharedPref.getString("currentToken", "") ?: ""
+            currentHistoryId = sharedPref.getString("currentHistoryId", "") ?: ""
+            initialMinutes = sharedPref.getInt("initialMinutes", 7)
+
+            if (remainingTimeSeconds <= 0) {
+                lockDevice()
+                return START_STICKY
+            }
+        } else {
+            val minutes = intent.getIntExtra("minutes", 7)
+            currentToken = intent.getStringExtra("token") ?: ""
+            remainingTimeSeconds = minutes * 60L
+            initialMinutes = minutes
+
+            // Lưu trạng thái ban đầu vào SharedPreferences
+            val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+            with(sharedPref.edit()) {
+                putLong("remainingTimeSeconds", remainingTimeSeconds)
+                putString("currentToken", currentToken)
+                putString("currentHistoryId", "")
+                putInt("initialMinutes", initialMinutes)
+                apply()
+            }
+        }
+
         // 1. Chạy Foreground Service với Notification để tránh bị Android kill
+        val displayMinutes = (remainingTimeSeconds / 60).toInt()
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Tablet Lock đang hoạt động")
-            .setContentText("Thời gian sử dụng còn lại: $minutes phút.")
+            .setContentText("Thời gian sử dụng còn lại: $displayMinutes phút.")
             .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
             .build()
 
@@ -94,10 +120,23 @@ class KioskService : Service() {
         remotePollHandler.post(remotePollRunnable)
         updateRemainingTimeOnFirebase(remainingTimeSeconds)
 
-        // 5. Ghi nhận lịch sử mở khóa lên Firebase
-        createHistoryEntry(minutes)
+        // 5. Ghi nhận lịch sử mở khóa lên Firebase nếu khởi động mới hoàn toàn
+        if (intent != null && intent.hasExtra("minutes")) {
+            createHistoryEntry(initialMinutes)
+        }
 
-        return START_NOT_STICKY
+        return START_STICKY
+    }
+
+    private fun clearStateInPreferences() {
+        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putLong("remainingTimeSeconds", 0L)
+            putString("currentToken", "")
+            putString("currentHistoryId", "")
+            putInt("initialMinutes", 0)
+            apply()
+        }
     }
 
     private fun showFloatingWidget() {
@@ -171,8 +210,10 @@ class KioskService : Service() {
                     .build()
                 notificationManager.notify(NOTIFICATION_ID, updatedNotification)
 
-                // Đồng bộ lên Firebase mỗi 5 giây
+                // Đồng bộ lên Firebase và SharedPreferences mỗi 5 giây
                 if (remainingTimeSeconds % 5 == 0L) {
+                    val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+                    sharedPref.edit().putLong("remainingTimeSeconds", remainingTimeSeconds).apply()
                     updateRemainingTimeOnFirebase(remainingTimeSeconds)
                 }
             }
@@ -209,6 +250,9 @@ class KioskService : Service() {
 
         // Cập nhật status thành locked trên Firebase
         updateRemainingTimeOnFirebase(0)
+
+        // Reset trạng thái preferences trước khi khóa hẳn
+        clearStateInPreferences()
 
         // 2. Mở lại MainActivity (Màn hình khóa)
         val lockIntent = Intent(this, MainActivity::class.java).apply {
@@ -247,9 +291,9 @@ class KioskService : Service() {
             override fun onFailure(call: Call, e: IOException) {}
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string()
-                if (response.isSuccessful && responseBody != null && responseBody != "null") {
-                    try {
+                try {
+                    val responseBody = response.body?.string()
+                    if (response.isSuccessful && responseBody != null && responseBody != "null") {
                         val jsonObject = com.google.gson.JsonParser.parseString(responseBody).asJsonObject
                         val command = jsonObject.get("command")?.asString ?: "none"
 
@@ -260,11 +304,12 @@ class KioskService : Service() {
                                 lockDevice()
                             }
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    response.close()
                 }
-                response.close()
             }
         })
     }
@@ -325,16 +370,20 @@ class KioskService : Service() {
                 e.printStackTrace()
             }
             override fun onResponse(call: Call, response: Response) {
-                val resBody = response.body?.string()
-                if (response.isSuccessful && resBody != null) {
-                    try {
+                try {
+                    val resBody = response.body?.string()
+                    if (response.isSuccessful && resBody != null) {
                         val jsonObject = com.google.gson.JsonParser.parseString(resBody).asJsonObject
                         currentHistoryId = jsonObject.get("name")?.asString ?: ""
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                        // Lưu lịch sử ID vào preferences
+                        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+                        sharedPref.edit().putString("currentHistoryId", currentHistoryId).apply()
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    response.close()
                 }
-                response.close()
             }
         })
     }
