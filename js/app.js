@@ -5959,6 +5959,85 @@ const app = {
         this.updateHeaderStats();
     },
 
+    checkAndReward100PercentLesson: function(lessonId, subject = 'math') {
+        this.state.rewarded100PercentLessons = this.state.rewarded100PercentLessons || [];
+        if (this.state.rewarded100PercentLessons.includes(lessonId)) return;
+
+        if (subject === 'math') {
+            let lesson = null;
+            if (typeof COURSE_DATA !== 'undefined') {
+                for (const chapter of COURSE_DATA) {
+                    const found = chapter.lessons.find(l => l.id === lessonId);
+                    if (found) {
+                        lesson = found;
+                        break;
+                    }
+                }
+            }
+            if (!lesson) return;
+
+            const subtopics = lesson.subtopics || [];
+            if (subtopics.length > 0) {
+                const all100Percent = subtopics.every(sub => (this.state.subtopicScores && this.state.subtopicScores[sub.id]) === 100);
+                if (all100Percent) {
+                    this.state.rewarded100PercentLessons.push(lessonId);
+                    this.state.xp = (this.state.xp || 0) + 100;
+                    this.saveProgress();
+                    Swal.fire({
+                        title: "Tuyệt Đỉnh Toán Học! 🏆✨",
+                        html: `Chúc mừng con đã hoàn thành xuất sắc 100% điểm ở tất cả các dạng bài của bài học <b>"${lesson.title}"</b>!<br/>Con được thưởng thêm <b>+100 XP</b>!`,
+                        icon: "success",
+                        confirmButtonColor: "#eab308"
+                    });
+                }
+            } else {
+                const has100Percent = (this.state.scores && this.state.scores[lessonId]) === 100;
+                if (has100Percent) {
+                    this.state.rewarded100PercentLessons.push(lessonId);
+                    this.state.xp = (this.state.xp || 0) + 100;
+                    this.saveProgress();
+                    Swal.fire({
+                        title: "Tuyệt Đỉnh Toán Học! 🏆✨",
+                        html: `Chúc mừng con đã hoàn thành xuất sắc 100% điểm bài học <b>"${lesson.title}"</b>!<br/>Con được thưởng thêm <b>+100 XP</b>!`,
+                        icon: "success",
+                        confirmButtonColor: "#eab308"
+                    });
+                }
+            }
+        } else if (subject === 'english') {
+            const skills = ['listening', 'speaking', 'reading', 'writing'];
+            const all100Percent = skills.every(skill => (this.state.scores && this.state.scores[`${lessonId}-${skill}`]) === 100);
+            if (all100Percent) {
+                this.state.rewarded100PercentLessons.push(lessonId);
+                this.state.englishXp = (this.state.englishXp || 0) + 100;
+                this.saveEnglishState();
+
+                let lessonTitle = "Bài học Tiếng Anh";
+                if (typeof ENGLISH_COURSE_DATA !== 'undefined') {
+                    for (const grade in ENGLISH_COURSE_DATA) {
+                        const gradeData = ENGLISH_COURSE_DATA[grade];
+                        if (gradeData && gradeData.chapters) {
+                            for (const chapter of gradeData.chapters) {
+                                const found = chapter.lessons.find(l => l.id === lessonId);
+                                if (found) {
+                                    lessonTitle = found.title;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Swal.fire({
+                    title: "Tuyệt Đỉnh Tiếng Anh! 🏆🇬🇧",
+                    html: `Chúc mừng con đã hoàn thành xuất sắc 100% điểm ở tất cả các kỹ năng của bài <b>"${lessonTitle}"</b>!<br/>Con được thưởng thêm <b>+100 XP Tiếng Anh</b>!`,
+                    icon: "success",
+                    confirmButtonColor: "#2563eb"
+                });
+            }
+        }
+    },
+
     // Kiểm tra điều kiện mở khóa các loại huy hiệu
     checkAndUnlockBadges: function(lessonId, score, timeSpent = 9999, oldScore = 0, distractions = 0) {
         // 1. Nhập môn (hoàn thành bất kỳ bài nào >= 80%)
@@ -6239,7 +6318,7 @@ const app = {
                 btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
                 statusText = `<span style="color:#10b981; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock-open"></i> Đã mở khóa huy hiệu</span>`;
-                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldBadge('${badge.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (500 XP)</button>`;
+                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldBadge('${badge.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (350 XP)</button>`;
             } else {
                 statusText = `<span style="color:#ef4444; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Chưa mở khóa huy hiệu</span>`;
                 btnHtml = `<button class="btn-primary" disabled style="background:#cbd5e1; color:#94a3b8; border:none; padding:8px 20px; border-radius:10px; font-weight:800; width:100%; cursor:not-allowed;">Cần mở khóa trước</button>`;
@@ -6274,7 +6353,7 @@ const app = {
 
     upgradeGoldBadge: function(badgeId) {
         const currentXp = this.state.xp || 0;
-        const cost = 500;
+        const cost = 350;
         if (currentXp < cost) {
             Swal.fire("Không đủ XP ❌", `Con cần tích lũy thêm ${cost - currentXp} XP để mạ vàng huy hiệu này!`, "error");
             return;
@@ -9879,6 +9958,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.state.examSessions.push(session);
 
             this.state.englishXp = (this.state.englishXp || 0) + xpEarned;
+            this.checkAndReward100PercentLesson(lessonId, 'english');
             
             if ((this.currentEnglishSkill === 'spelling' || this.currentEnglishSkill === 'writing') && finalScorePct === 100) {
                 this.state.slainMonstersCount = (this.state.slainMonstersCount || 0) + 1;
@@ -10326,7 +10406,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
                 statusText = `<span style="color:#10b981; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock-open"></i> Đã mở khóa thẻ gốc</span>`;
-                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (300 XP)</button>`;
+                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (350 XP)</button>`;
             } else {
                 statusText = `<span style="color:#ef4444; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Chưa mở khóa thẻ</span>`;
                 btnHtml = `<button class="btn-primary" disabled style="background:#cbd5e1; color:#94a3b8; border:none; padding:8px 20px; border-radius:10px; font-weight:800; width:100%; cursor:not-allowed;">Cần mở khóa trước</button>`;
@@ -10366,7 +10446,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     upgradeGoldSkill: function(cardId) {
         const currentXp = this.state.englishXp || 0;
-        const cost = 300;
+        const cost = 350;
         if (currentXp < cost) {
             Swal.fire("Không đủ XP ❌", `Con cần tích lũy thêm ${cost - currentXp} XP để mạ vàng thẻ này!`, "error");
             return;

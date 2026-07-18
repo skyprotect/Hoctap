@@ -8741,35 +8741,45 @@ const questions = {
         const _pn = (app && app.config && app.config.parentName) || 'Bố';
 
         // Phân loại 6 mức độ nhận thức với mốc đạt >= 80% (Loại Giỏi trở lên)
+        let baseXp = 50;
+        if (this.isExamMode || this.isLessonExamMode) {
+            baseXp = 100;
+        } else {
+            if (this.currentLevel === 'co-ban') baseXp = 50;
+            else if (this.currentLevel === 'nang-cao') baseXp = 70;
+            else if (this.currentLevel === 'kho') baseXp = 100;
+            else if (this.currentLevel === 'chat-luong-cao') baseXp = 150;
+        }
+
         if (scorePercent >= 95) {
             rank = "Xuất sắc";
             desc = (this.isExamMode || this.isLessonExamMode) ? `${_pn} chúc mừng ${_sn} nhé! Con đã vượt qua bài kiểm tra một cách xuất sắc. ${_pn} tự hào về con lắm!` : `Tuyệt vời ${_sn}! Con đã làm đúng hết các câu hỏi của dạng bài này. ${_pn} thưởng cho con nhé!`;
             emoji = "👑";
-            xpEarned = (this.isExamMode || this.isLessonExamMode) ? 100 : 50;
+            xpEarned = baseXp;
             isPassed = true;
         } else if (scorePercent >= 80) {
             rank = "Giỏi";
             desc = (this.isExamMode || this.isLessonExamMode) ? `Chúc mừng ${_sn}! Con đã đỗ bài kiểm tra và mở khóa bài tiếp theo. ${_pn} rất vui!` : `${_sn} học giỏi lắm! Con đã vượt qua dạng bài luyện tập này rồi. Tiếp tục phát huy con nhé!`;
             emoji = "🎉";
-            xpEarned = (this.isExamMode || this.isLessonExamMode) ? 80 : 40;
+            xpEarned = Math.round(baseXp * 0.8);
             isPassed = true;
         } else if (scorePercent >= 70) {
             rank = "Khá";
             desc = `${_sn} làm khá tốt rồi! Tuy nhiên, con cần đạt từ 80% trở lên để vượt qua. Luyện tập lại một chút, ${_pn} tin con sẽ đạt điểm tuyệt đối!`;
             emoji = "👍";
-            xpEarned = (this.isExamMode || this.isLessonExamMode) ? 40 : 25;
+            xpEarned = Math.round(baseXp * 0.5);
             isPassed = false;
         } else if (scorePercent >= 50) {
             rank = "Đạt";
             desc = `${_sn} đã có tiến bộ rồi! Con hãy xem kỹ lời giải chi tiết của ${_pn} biên soạn ở dưới và làm lại để nâng cao điểm số nhé.`;
             emoji = "✍️";
-            xpEarned = (this.isExamMode || this.isLessonExamMode) ? 20 : 15;
+            xpEarned = Math.round(baseXp * 0.3);
             isPassed = false;
         } else if (scorePercent >= 35) {
             rank = "Yếu";
             desc = `${_sn} cố lên nào! Phần này hơi khó, con hãy đọc lại phần Lý thuyết rồi thử sức lại nhé. ${_pn} luôn đồng hành cùng con!`;
             emoji = "📚";
-            xpEarned = (this.isExamMode || this.isLessonExamMode) ? 10 : 5;
+            xpEarned = Math.round(baseXp * 0.1);
             isPassed = false;
         } else {
             rank = "Không đạt";
@@ -8825,10 +8835,12 @@ const questions = {
             // Kiểm tra và mở khóa huy hiệu
             app.checkAndUnlockBadges(this.currentLesson.id, scorePercent, timeSpent, 0, this.practiceDistractions);
             app.saveProgress();
+            app.checkAndReward100PercentLesson(this.currentLesson.id, 'math');
             app.updateHeaderStats();
         } else {
             // Kiểm tra tổng thể bài học, Luyện tập chung hoặc Kiểm tra chương
             app.saveLessonScore(this.currentLesson.id, scorePercent, xpEarned, isPassed, timeSpent, this.practiceDistractions);
+            app.checkAndReward100PercentLesson(this.currentLesson.id, 'math');
             
             // Lưu điểm số cao nhất của cấp độ nếu không phải là bài thi/kiểm tra tổng thể
             if (!this.isExamMode && !this.isLessonExamMode) {
