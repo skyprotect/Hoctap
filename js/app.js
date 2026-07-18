@@ -22,32 +22,32 @@ const SKILL_CARDS = [
     { id: "monster_slayer", name: "Monster Slayer", desc: "Tiêu diệt thành công từ 3 quái vật từ vựng", icon: "⚔️", color: "linear-gradient(135deg, #64748b, #334155)" },
     { id: "vocab_slayer", name: "Vocabulary Slayer", desc: "Tiêu diệt thành công từ 10 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #475569, #1e293b)" },
     // Thẻ Tiếng Anh Lớp 1 (8 thẻ)
-    { id: "listening_rookie_1", name: "Listening Star Lớp 1", desc: "Đạt điểm Nghe từ 80% trở lên ở một bài Lớp 1", icon: "👶", color: "linear-gradient(135deg, #60a5fa, #2563eb)" },
-    { id: "speaking_rookie_1", name: "Speaking Star Lớp 1", desc: "Đạt điểm Nói từ 80% trở lên ở một bài Lớp 1", icon: "💬", color: "linear-gradient(135deg, #f472b6, #db2777)" },
-    { id: "reading_rookie_1", name: "Reading Star Lớp 1", desc: "Đạt điểm Đọc từ 80% trở lên ở một bài Lớp 1", icon: "📖", color: "linear-gradient(135deg, #fb923c, #ea580c)" },
-    { id: "writing_rookie_1", name: "Writing Star Lớp 1", desc: "Đạt điểm Viết/Spelling từ 80% trở lên ở một bài Lớp 1", icon: "✏️", color: "linear-gradient(135deg, #34d399, #059669)" },
-    { id: "vocabulary_explorer_1", name: "Vocab Rookie Lớp 1", desc: "Tiêu diệt thành công từ 2 quái vật từ vựng Lớp 1", icon: "👾", color: "linear-gradient(135deg, #a78bfa, #7c3aed)" },
-    { id: "perfect_star_1", name: "Perfect Solver Lớp 1", desc: "Đạt điểm tuyệt đối 100% trong bài học bất kỳ của Lớp 1", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #d97706)" },
-    { id: "bilingual_kid", name: "Bilingual Star", desc: "Hoàn thành xuất sắc 5 bài học của Lớp 1 (đạt >= 90%)", icon: "🎒", color: "linear-gradient(135deg, #4ade80, #16a34a)" },
-    { id: "class1_master", name: "Starters Master", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 1 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #22c55e, #15803d)" },
+    { id: "listening_rookie_1", name: "Listening Star Lớp 1", desc: "Đạt điểm Nghe từ 80% trở lên ở một bài Lớp 1", icon: "👶", color: "linear-gradient(135deg, #60a5fa, #2563eb)", classLevel: "1" },
+    { id: "speaking_rookie_1", name: "Speaking Star Lớp 1", desc: "Đạt điểm Nói từ 80% trở lên ở một bài Lớp 1", icon: "💬", color: "linear-gradient(135deg, #f472b6, #db2777)", classLevel: "1" },
+    { id: "reading_rookie_1", name: "Reading Star Lớp 1", desc: "Đạt điểm Đọc từ 80% trở lên ở một bài Lớp 1", icon: "📖", color: "linear-gradient(135deg, #fb923c, #ea580c)", classLevel: "1" },
+    { id: "writing_rookie_1", name: "Writing Star Lớp 1", desc: "Đạt điểm Viết/Spelling từ 80% trở lên ở một bài Lớp 1", icon: "✏️", color: "linear-gradient(135deg, #34d399, #059669)", classLevel: "1" },
+    { id: "vocabulary_explorer_1", name: "Vocab Rookie Lớp 1", desc: "Tiêu diệt thành công từ 2 quái vật từ vựng Lớp 1", icon: "👾", color: "linear-gradient(135deg, #a78bfa, #7c3aed)", classLevel: "1" },
+    { id: "perfect_star_1", name: "Perfect Solver Lớp 1", desc: "Đạt điểm tuyệt đối 100% trong bài học bất kỳ của Lớp 1", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #d97706)", classLevel: "1" },
+    { id: "bilingual_kid", name: "Bilingual Star", desc: "Hoàn thành xuất sắc 5 bài học của Lớp 1 (đạt >= 90%)", icon: "🎒", color: "linear-gradient(135deg, #4ade80, #16a34a)", classLevel: "1" },
+    { id: "class1_master", name: "Starters Master", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 1 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #22c55e, #15803d)", classLevel: "1" },
     // Thẻ Tiếng Anh Lớp 4 (8 thẻ)
-    { id: "listening_apprentice_4", name: "Listening Hero Lớp 4", desc: "Đạt điểm Nghe từ 85% trở lên ở một bài Lớp 4", icon: "🎧", color: "linear-gradient(135deg, #3b82f6, #1d4ed8)" },
-    { id: "speaking_apprentice_4", name: "Speaking Hero Lớp 4", desc: "Đạt điểm Nói từ 85% trở lên ở một bài Lớp 4", icon: "🗣️", color: "linear-gradient(135deg, #ec4899, #be185d)" },
-    { id: "reading_apprentice_4", name: "Reading Hero Lớp 4", desc: "Đạt điểm Đọc từ 85% trở lên ở một bài Lớp 4", icon: "📚", color: "linear-gradient(135deg, #f97316, #c2410c)" },
-    { id: "writing_apprentice_4", name: "Writing Hero Lớp 4", desc: "Đạt điểm Viết/Spelling từ 85% trở lên ở một bài Lớp 4", icon: "✍️", color: "linear-gradient(135deg, #10b981, #047857)" },
-    { id: "vocabulary_explorer_4", name: "Vocab Hero Lớp 4", desc: "Tiêu diệt thành công từ 5 quái vật từ vựng Lớp 4", icon: "👹", color: "linear-gradient(135deg, #8b5cf6, #5b21b6)" },
-    { id: "grammar_rookie", name: "Grammar Rookie", desc: "Đạt từ 80% trở lên ở 3 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "📝", color: "linear-gradient(135deg, #2dd4bf, #0d9488)" },
-    { id: "global_citizen_junior", name: "Global Citizen Jr.", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 4 (đạt >= 90%)", icon: "🌍", color: "linear-gradient(135deg, #22c55e, #15803d)" },
-    { id: "class4_master", name: "Movers Master", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 4 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #166534, #14532d)" },
+    { id: "listening_apprentice_4", name: "Listening Hero Lớp 4", desc: "Đạt điểm Nghe từ 85% trở lên ở một bài Lớp 4", icon: "🎧", color: "linear-gradient(135deg, #3b82f6, #1d4ed8)", classLevel: "4" },
+    { id: "speaking_apprentice_4", name: "Speaking Hero Lớp 4", desc: "Đạt điểm Nói từ 85% trở lên ở một bài Lớp 4", icon: "🗣️", color: "linear-gradient(135deg, #ec4899, #be185d)", classLevel: "4" },
+    { id: "reading_apprentice_4", name: "Reading Hero Lớp 4", desc: "Đạt điểm Đọc từ 85% trở lên ở một bài Lớp 4", icon: "📚", color: "linear-gradient(135deg, #f97316, #c2410c)", classLevel: "4" },
+    { id: "writing_apprentice_4", name: "Writing Hero Lớp 4", desc: "Đạt điểm Viết/Spelling từ 85% trở lên ở một bài Lớp 4", icon: "✍️", color: "linear-gradient(135deg, #10b981, #047857)", classLevel: "4" },
+    { id: "vocabulary_explorer_4", name: "Vocab Hero Lớp 4", desc: "Tiêu diệt thành công từ 5 quái vật từ vựng Lớp 4", icon: "👹", color: "linear-gradient(135deg, #8b5cf6, #5b21b6)", classLevel: "4" },
+    { id: "grammar_rookie", name: "Grammar Rookie", desc: "Đạt từ 80% trở lên ở 3 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "📝", color: "linear-gradient(135deg, #2dd4bf, #0d9488)", classLevel: "4" },
+    { id: "global_citizen_junior", name: "Global Citizen Jr.", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 4 (đạt >= 90%)", icon: "🌍", color: "linear-gradient(135deg, #22c55e, #15803d)", classLevel: "4" },
+    { id: "class4_master", name: "Movers Master", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 4 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #166534, #14532d)", classLevel: "4" },
     // Thẻ Tiếng Anh Lớp 6 (8 thẻ)
-    { id: "listening_expert_6", name: "Listening Sage Lớp 6", desc: "Đạt điểm Nghe từ 90% trở lên ở một bài Lớp 6", icon: "🦻", color: "linear-gradient(135deg, #1e3a8a, #172554)" },
-    { id: "speaking_expert_6", name: "Speaking Sage Lớp 6", desc: "Đạt điểm Nói từ 90% trở lên ở một bài Lớp 6", icon: "📢", color: "linear-gradient(135deg, #9d174d, #4c0519)" },
-    { id: "reading_expert_6", name: "Reading Sage Lớp 6", desc: "Đạt điểm Đọc từ 90% trở lên ở một bài Lớp 6", icon: "🧐", color: "linear-gradient(135deg, #7c2d12, #431407)" },
-    { id: "writing_expert_6", name: "Writing Sage Lớp 6", desc: "Đạt điểm Viết/Spelling từ 90% trở lên ở một bài Lớp 6", icon: "✒️", color: "linear-gradient(135deg, #064e3b, #022c22)" },
-    { id: "vocabulary_explorer_6", name: "Vocab Sage Lớp 6", desc: "Tiêu diệt thành công từ 8 quái vật từ vựng Lớp 6", icon: "👺", color: "linear-gradient(135deg, #4c1d95, #2e1065)" },
-    { id: "grammar_expert", name: "Grammar Specialist", desc: "Đạt từ 90% trở lên ở 5 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "🧠", color: "linear-gradient(135deg, #14b8a6, #0f766e)" },
-    { id: "global_citizen_senior", name: "Global Citizen Sr.", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 6 (đạt >= 90%)", icon: "🚀", color: "linear-gradient(135deg, #166534, #14532d)" },
-    { id: "class6_master", name: "Flyers Master", desc: "Hoàn thành xuất sắc 18 bài học của Lớp 6 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #14532d, #052e16)" },
+    { id: "listening_expert_6", name: "Listening Sage Lớp 6", desc: "Đạt điểm Nghe từ 90% trở lên ở một bài Lớp 6", icon: "🦻", color: "linear-gradient(135deg, #1e3a8a, #172554)", classLevel: "6" },
+    { id: "speaking_expert_6", name: "Speaking Sage Lớp 6", desc: "Đạt điểm Nói từ 90% trở lên ở một bài Lớp 6", icon: "📢", color: "linear-gradient(135deg, #9d174d, #4c0519)", classLevel: "6" },
+    { id: "reading_expert_6", name: "Reading Sage Lớp 6", desc: "Đạt điểm Đọc từ 90% trở lên ở một bài Lớp 6", icon: "🧐", color: "linear-gradient(135deg, #7c2d12, #431407)", classLevel: "6" },
+    { id: "writing_expert_6", name: "Writing Sage Lớp 6", desc: "Đạt điểm Viết/Spelling từ 90% trở lên ở một bài Lớp 6", icon: "✒️", color: "linear-gradient(135deg, #064e3b, #022c22)", classLevel: "6" },
+    { id: "vocabulary_explorer_6", name: "Vocab Sage Lớp 6", desc: "Tiêu diệt thành công từ 8 quái vật từ vựng Lớp 6", icon: "👺", color: "linear-gradient(135deg, #4c1d95, #2e1065)", classLevel: "6" },
+    { id: "grammar_expert", name: "Grammar Specialist", desc: "Đạt từ 90% trở lên ở 5 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "🧠", color: "linear-gradient(135deg, #14b8a6, #0f766e)", classLevel: "6" },
+    { id: "global_citizen_senior", name: "Global Citizen Sr.", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 6 (đạt >= 90%)", icon: "🚀", color: "linear-gradient(135deg, #166534, #14532d)", classLevel: "6" },
+    { id: "class6_master", name: "Flyers Master", desc: "Hoàn thành xuất sắc 18 bài học của Lớp 6 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #14532d, #052e16)", classLevel: "6" },
     // Huy hiệu Thống Kê & Cột mốc (12 thẻ)
     { id: "streak_bronze", name: "Streak Bronze", desc: "Đạt chuỗi học tập liên tục từ 3 ngày trở lên", icon: "🔥", color: "linear-gradient(135deg, #fca5a5, #ef4444)" },
     { id: "streak_gold", name: "Streak Gold", desc: "Đạt chuỗi học tập liên tục từ 20 ngày trở lên", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #b45309)" },
@@ -10308,7 +10308,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (!this.state.goldSkills) this.state.goldSkills = [];
         if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
 
-        const shopCardsHtml = SKILL_CARDS.map(card => {
+        const currentClass = this.config.currentClass || "6";
+        const filteredCards = SKILL_CARDS.filter(card => !card.classLevel || card.classLevel === currentClass);
+        const shopCardsHtml = filteredCards.map(card => {
             const isUnlocked = this.isSkillCardUnlocked(card.id);
             const isGold = this.state.goldSkills.includes(card.id);
             const isRedeemed = this.state.redeemedSkills.includes(card.id);
@@ -11214,7 +11216,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (!this.state.goldSkills) this.state.goldSkills = [];
         if (!this.state.redeemedSkills) this.state.redeemedSkills = [];
 
-        const skillCardsHtml = SKILL_CARDS.map(card => {
+        const filteredCards = SKILL_CARDS.filter(card => {
+            return !card.classLevel || card.classLevel === currentClass || this.isSkillCardUnlocked(card.id) || this.state.goldSkills.includes(card.id);
+        });
+
+        const skillCardsHtml = filteredCards.map(card => {
             const isUnlocked = this.isSkillCardUnlocked(card.id);
             const isGold = this.state.goldSkills.includes(card.id);
             const isRedeemed = this.state.redeemedSkills.includes(card.id);
