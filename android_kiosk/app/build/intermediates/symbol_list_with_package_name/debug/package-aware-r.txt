@@ -2904,6 +2904,7 @@ id btn8
 id btn9
 id btnConfirm
 id btnDelete
+id btnUpdateApk
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3275,6 +3276,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id txtAppVersion
 id txtInstruction
 id txtPinDisplay
 id txtStatus

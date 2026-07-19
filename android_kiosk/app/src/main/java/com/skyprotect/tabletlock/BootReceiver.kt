@@ -3,10 +3,28 @@ package com.skyprotect.tabletlock
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInstaller
+import android.widget.Toast
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
+        if ("com.skyprotect.tabletlock.INSTALL_COMPLETE" == intent.action) {
+            val status = intent.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE)
+            if (status == PackageInstaller.STATUS_SUCCESS) {
+                Toast.makeText(context, "Cập nhật ứng dụng thành công!", Toast.LENGTH_LONG).show()
+                // Khởi chạy màn hình khóa MainActivity ngay lập tức để khóa cứng lại
+                val i = Intent(context, MainActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
+                context.startActivity(i)
+            } else {
+                val msg = intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE) ?: "Lỗi không xác định"
+                Toast.makeText(context, "Cập nhật thất bại: $msg", Toast.LENGTH_LONG).show()
+            }
+            return
+        }
+
+        if (Intent.ACTION_BOOT_COMPLETED == intent.action || Intent.ACTION_MY_PACKAGE_REPLACED == intent.action) {
             val sharedPref = context.getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
             val remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
             val currentToken = sharedPref.getString("currentToken", "") ?: ""
