@@ -85,6 +85,22 @@ class MainActivity : AppCompatActivity() {
             try {
                 if (dpm.isDeviceOwnerApp(packageName)) {
                     dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+                    
+                    val launcherComponent = getSystemLauncherComponent()
+                    if (launcherComponent != null) {
+                        val filter = IntentFilter(Intent.ACTION_MAIN).apply {
+                            addCategory(Intent.CATEGORY_HOME)
+                            addCategory(Intent.CATEGORY_DEFAULT)
+                        }
+                        dpm.addPersistentPreferredActivity(adminComponent, filter, launcherComponent)
+                    }
+                    
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        dpm.clearUserRestriction(adminComponent, android.os.UserManager.DISALLOW_APPS_CONTROL)
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        dpm.setAutoTimeRequired(adminComponent, false)
+                    }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -223,7 +239,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v2.1 (Cập nhật: 19/07/2026 11:10)"
+            txtVersion.text = "Phiên bản: v2.2 (Cập nhật: 19/07/2026 11:20)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -259,6 +275,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (dpm.isDeviceOwnerApp(packageName)) {
+                // Thiết lập các hạn chế bảo mật Device Owner khi ở chế độ Kiosk khóa cứng
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_SAFE_BOOT)
+                    dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_FACTORY_RESET)
+                    dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_APPS_CONTROL)
+                    dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_DEBUGGING_FEATURES)
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    dpm.setAutoTimeRequired(adminComponent, true)
+                }
+
+                // Xóa cấu hình phím Home cũ để tránh xung đột trước khi đặt Launcher mới
+                dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+
                 // Đặt ứng dụng này làm Launcher mặc định của máy tính bảng
                 val filter = IntentFilter(Intent.ACTION_MAIN).apply {
                     addCategory(Intent.CATEGORY_HOME)
@@ -268,7 +298,9 @@ class MainActivity : AppCompatActivity() {
                 dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
 
                 // Cho phép mở các ứng dụng cơ bản khác khi được mở khóa (phải đặt trước khi startLockTask)
-                dpm.setLockTaskPackages(adminComponent, arrayOf(packageName, "com.android.launcher3", "com.android.chrome"))
+                val launcherComponent = getSystemLauncherComponent()
+                val launcherPkg = launcherComponent?.packageName ?: "com.android.launcher3"
+                dpm.setLockTaskPackages(adminComponent, arrayOf(packageName, launcherPkg, "com.android.chrome"))
                 
                 // Khóa cứng thiết bị, học sinh không thể thoát ra ngoài
                 startLockTask()
@@ -383,6 +415,14 @@ class MainActivity : AppCompatActivity() {
                         addCategory(Intent.CATEGORY_DEFAULT)
                     }
                     dpm.addPersistentPreferredActivity(adminComponent, filter, launcherComponent)
+                }
+
+                // Gỡ bỏ các hạn chế kiểm soát ứng dụng khi mở khóa chơi
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    dpm.clearUserRestriction(adminComponent, android.os.UserManager.DISALLOW_APPS_CONTROL)
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    dpm.setAutoTimeRequired(adminComponent, false)
                 }
             }
         } catch (e: Exception) {

@@ -73,7 +73,8 @@ class KioskService : Service() {
         if (intent == null || !intent.hasExtra("minutes")) {
             // Hồi sinh Service sau khi bị hệ thống kill hoặc do khởi động lại thiết bị (Reboot)
             val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-            remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+            val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
+            remainingTimeSeconds = (expiresTimeMillis - System.currentTimeMillis()) / 1000
             currentToken = sharedPref.getString("currentToken", "") ?: ""
             currentHistoryId = sharedPref.getString("currentHistoryId", "") ?: ""
             initialMinutes = sharedPref.getInt("initialMinutes", 7)
@@ -90,12 +91,14 @@ class KioskService : Service() {
             currentToken = intent.getStringExtra("token") ?: ""
             remainingTimeSeconds = minutes * 60L
             initialMinutes = minutes
+            val expiresTimeMillis = System.currentTimeMillis() + minutes * 60L * 1000L
 
             // Lưu trạng thái ban đầu vào SharedPreferences
             val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
             val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
             with(sharedPref.edit()) {
                 putLong("remainingTimeSeconds", remainingTimeSeconds)
+                putLong("expiresTimeMillis", expiresTimeMillis)
                 putString("currentToken", currentToken)
                 putString("currentHistoryId", "")
                 putInt("initialMinutes", initialMinutes)
@@ -164,6 +167,7 @@ class KioskService : Service() {
         val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
             putLong("remainingTimeSeconds", 0L)
+            putLong("expiresTimeMillis", 0L)
             putString("currentToken", "")
             putString("currentHistoryId", "")
             putInt("initialMinutes", 0)
@@ -217,7 +221,9 @@ class KioskService : Service() {
         }
 
         try {
-            windowManager?.addView(floatingView, params)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || android.provider.Settings.canDrawOverlays(this)) {
+                windowManager?.addView(floatingView, params)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -296,6 +302,9 @@ class KioskService : Service() {
         val adminComponent = ComponentName(this, AdminReceiver::class.java)
         if (dpm.isDeviceOwnerApp(packageName)) {
             try {
+                // Xóa cấu hình cũ trước khi đặt Launcher mới để tránh xung đột phím Home
+                dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+
                 val filter = IntentFilter(Intent.ACTION_MAIN).apply {
                     addCategory(Intent.CATEGORY_HOME)
                     addCategory(Intent.CATEGORY_DEFAULT)

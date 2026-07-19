@@ -10,7 +10,8 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if ("com.skyprotect.tabletlock.RESTART_SERVICE" == intent.action) {
             val sharedPref = context.getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-            val remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+            val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
+            val remainingTimeSeconds = (expiresTimeMillis - System.currentTimeMillis()) / 1000
             val currentToken = sharedPref.getString("currentToken", "") ?: ""
             val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
             val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
@@ -46,7 +47,8 @@ class BootReceiver : BroadcastReceiver() {
 
         if (Intent.ACTION_BOOT_COMPLETED == intent.action || Intent.ACTION_MY_PACKAGE_REPLACED == intent.action) {
             val sharedPref = context.getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-            val remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+            val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
+            val remainingTimeSeconds = (expiresTimeMillis - System.currentTimeMillis()) / 1000
             val currentToken = sharedPref.getString("currentToken", "") ?: ""
             val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
 
@@ -57,6 +59,7 @@ class BootReceiver : BroadcastReceiver() {
                 // Đã qua ngày mới! Đặt lại trạng thái trong preferences bằng commit()
                 with(sharedPref.edit()) {
                     putLong("remainingTimeSeconds", 0L)
+                    putLong("expiresTimeMillis", 0L)
                     putString("currentToken", "")
                     putString("currentHistoryId", "")
                     putInt("initialMinutes", 0)
