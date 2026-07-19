@@ -74,8 +74,11 @@ class KioskService : Service() {
             currentToken = sharedPref.getString("currentToken", "") ?: ""
             currentHistoryId = sharedPref.getString("currentHistoryId", "") ?: ""
             initialMinutes = sharedPref.getInt("initialMinutes", 7)
+            val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
 
-            if (remainingTimeSeconds <= 0) {
+            val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+
+            if (remainingTimeSeconds <= 0 || (lastActiveDate.isNotEmpty() && lastActiveDate != todayStr)) {
                 lockDevice()
                 return START_STICKY
             }
@@ -87,12 +90,14 @@ class KioskService : Service() {
 
             // Lưu trạng thái ban đầu vào SharedPreferences
             val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+            val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
             with(sharedPref.edit()) {
                 putLong("remainingTimeSeconds", remainingTimeSeconds)
                 putString("currentToken", currentToken)
                 putString("currentHistoryId", "")
                 putInt("initialMinutes", initialMinutes)
-                apply()
+                putString("lastActiveDate", todayStr)
+                commit()
             }
         }
 
@@ -135,7 +140,8 @@ class KioskService : Service() {
             putString("currentToken", "")
             putString("currentHistoryId", "")
             putInt("initialMinutes", 0)
-            apply()
+            putString("lastActiveDate", "")
+            commit()
         }
     }
 
@@ -213,7 +219,11 @@ class KioskService : Service() {
                 // Đồng bộ lên Firebase và SharedPreferences mỗi 5 giây
                 if (remainingTimeSeconds % 5 == 0L) {
                     val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-                    sharedPref.edit().putLong("remainingTimeSeconds", remainingTimeSeconds).apply()
+                    val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+                    sharedPref.edit()
+                        .putLong("remainingTimeSeconds", remainingTimeSeconds)
+                        .putString("lastActiveDate", todayStr)
+                        .apply()
                     updateRemainingTimeOnFirebase(remainingTimeSeconds)
                 }
             }
@@ -377,7 +387,7 @@ class KioskService : Service() {
                         currentHistoryId = jsonObject.get("name")?.asString ?: ""
                         // Lưu lịch sử ID vào preferences
                         val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-                        sharedPref.edit().putString("currentHistoryId", currentHistoryId).apply()
+                        sharedPref.edit().putString("currentHistoryId", currentHistoryId).commit()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
