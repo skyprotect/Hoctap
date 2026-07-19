@@ -92,11 +92,13 @@ class KioskService : Service() {
                 putString("lastActiveDate", todayStr)
                 commit()
             }
+            logToFirebase("KioskService", "onStartCommand: Mở khóa mới, minutes = $initialMinutes")
             scheduleNextHeartbeat()
         } else {
             // Đây là trường hợp hồi sinh Service sau khi bị kill hoặc do hệ thống start lại để duy trì.
             // Nếu timer đang chạy rồi thì KHÔNG làm gì cả để tránh nhấp nháy giao diện và trùng lặp timer.
             if (countDownTimer != null) {
+                logToFirebase("KioskService", "onStartCommand: Nhịp tim đến nhưng Service đang chạy tốt, gia hạn")
                 scheduleNextHeartbeat()
                 return START_STICKY
             }
@@ -112,9 +114,11 @@ class KioskService : Service() {
             val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
 
             if (remainingTimeSeconds <= 0 || (lastActiveDate.isNotEmpty() && lastActiveDate != todayStr)) {
+                logToFirebase("KioskService", "onStartCommand: Thời gian chơi hết hoặc qua ngày mới, chuyển khóa")
                 lockDevice()
                 return START_STICKY
             }
+            logToFirebase("KioskService", "onStartCommand: Service Hồi Sinh, remainingTimeSeconds = $remainingTimeSeconds")
             scheduleNextHeartbeat()
         }
 
@@ -154,6 +158,7 @@ class KioskService : Service() {
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
+        logToFirebase("KioskService", "onTaskRemoved: Ứng dụng bị vuốt tắt khỏi Recent Apps")
         // Lên lịch khởi chạy lại service qua BootReceiver khi ứng dụng bị vuốt tắt từ Recents
         val restartServiceIntent = Intent(applicationContext, BootReceiver::class.java).apply {
             action = "com.skyprotect.tabletlock.RESTART_SERVICE"
@@ -286,6 +291,7 @@ class KioskService : Service() {
     private fun lockDevice() {
         // Hủy nhịp tim sinh tồn ngay khi bắt đầu khóa máy
         cancelHeartbeat()
+        logToFirebase("KioskService", "lockDevice: Thực hiện khóa máy tính bảng")
 
         // 0. Cập nhật lịch sử mở khóa trên Firebase
         updateHistoryEntryOnLock()
@@ -380,6 +386,7 @@ class KioskService : Service() {
     override fun onDestroy() {
         // Hủy nhịp tim khi Service bị tắt hợp lệ
         cancelHeartbeat()
+        logToFirebase("KioskService", "onDestroy: KioskService bị hủy")
         super.onDestroy()
         countDownTimer?.cancel()
         remotePollHandler.removeCallbacks(remotePollRunnable)
@@ -556,13 +563,16 @@ class KioskService : Service() {
             } else {
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
             }
+            logToFirebase("KioskService", "scheduleNextHeartbeat: Đã đặt lịch Alarm 20 giây tiếp theo")
         } catch (e: SecurityException) {
             e.printStackTrace()
             // Fallback an toàn về set thông thường để tránh crash app nếu thiếu quyền SCHEDULE_EXACT_ALARM
             try {
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
+                logToFirebase("KioskService", "scheduleNextHeartbeat: Fallback đặt lịch Alarm 20s (không chính xác)")
             } catch (ex: Exception) {
                 ex.printStackTrace()
+                logToFirebase("KioskService", "scheduleNextHeartbeat: Lỗi nghiêm trọng khi đặt Alarm fallback")
             }
         }
     }
@@ -580,9 +590,32 @@ class KioskService : Service() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
             )
             alarmManager.cancel(pendingIntent)
+            logToFirebase("KioskService", "cancelHeartbeat: Đã hủy Alarm nhịp tim")
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun logToFirebase(tag: String, message: String) {
+        val df = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US)
+        val timeStr = df.format(java.util.Date())
+        val jsonPayload = """
+            {
+                "time": "$timeStr",
+                "tag": "$tag",
+                "message": "$message"
+            }
+        """.trimIndent()
+        
+        val url = "${FIREBASE_RTDB_URL}tablet_debug_logs.json"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).post(body).build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
     }
 
     private fun createNotificationChannel() {

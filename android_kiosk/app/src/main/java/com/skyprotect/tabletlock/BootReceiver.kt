@@ -5,8 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.widget.Toast
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.IOException
 
 class BootReceiver : BroadcastReceiver() {
+    private val client = OkHttpClient()
     override fun onReceive(context: Context, intent: Intent) {
         if ("com.skyprotect.tabletlock.RESTART_SERVICE" == intent.action) {
             val sharedPref = context.getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
@@ -18,13 +23,18 @@ class BootReceiver : BroadcastReceiver() {
 
             val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
 
+            logToFirebase("BootReceiver", "Nhận được RESTART_SERVICE, isTimeValid = $isTimeValid, remainingTimeSeconds = $remainingTimeSeconds")
+
             if (isTimeValid) {
                 val serviceIntent = Intent(context, KioskService::class.java)
+                logToFirebase("BootReceiver", "Đang gọi startForegroundService...")
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     context.startForegroundService(serviceIntent)
                 } else {
                     context.startService(serviceIntent)
                 }
+            } else {
+                logToFirebase("BootReceiver", "isTimeValid = false, bỏ qua RESTART_SERVICE")
             }
             return
         }
@@ -85,5 +95,27 @@ class BootReceiver : BroadcastReceiver() {
                 context.startActivity(i)
             }
         }
+    }
+
+    private fun logToFirebase(tag: String, message: String) {
+        val df = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US)
+        val timeStr = df.format(java.util.Date())
+        val jsonPayload = """
+            {
+                "time": "$timeStr",
+                "tag": "$tag",
+                "message": "$message"
+            }
+        """.trimIndent()
+        
+        val url = "https://binhminhchamhoc-default-rtdb.firebaseio.com/tablet_debug_logs.json"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).post(body).build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
     }
 }
