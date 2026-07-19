@@ -92,10 +92,12 @@ class KioskService : Service() {
                 putString("lastActiveDate", todayStr)
                 commit()
             }
+            scheduleNextHeartbeat()
         } else {
             // Đây là trường hợp hồi sinh Service sau khi bị kill hoặc do hệ thống start lại để duy trì.
             // Nếu timer đang chạy rồi thì KHÔNG làm gì cả để tránh nhấp nháy giao diện và trùng lặp timer.
             if (countDownTimer != null) {
+                scheduleNextHeartbeat()
                 return START_STICKY
             }
 
@@ -113,6 +115,7 @@ class KioskService : Service() {
                 lockDevice()
                 return START_STICKY
             }
+            scheduleNextHeartbeat()
         }
 
         // Khởi tạo các thành phần nếu chưa có (khi khởi động mới hoặc sau khi bị kill hồi sinh)
@@ -281,6 +284,9 @@ class KioskService : Service() {
     }
 
     private fun lockDevice() {
+        // Hủy nhịp tim sinh tồn ngay khi bắt đầu khóa máy
+        cancelHeartbeat()
+
         // 0. Cập nhật lịch sử mở khóa trên Firebase
         updateHistoryEntryOnLock()
 
@@ -372,6 +378,8 @@ class KioskService : Service() {
     }
 
     override fun onDestroy() {
+        // Hủy nhịp tim khi Service bị tắt hợp lệ
+        cancelHeartbeat()
         super.onDestroy()
         countDownTimer?.cancel()
         remotePollHandler.removeCallbacks(remotePollRunnable)
@@ -526,6 +534,55 @@ class KioskService : Service() {
                 response.close()
             }
         })
+    }
+
+    private fun scheduleNextHeartbeat() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, BootReceiver::class.java).apply {
+            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            1001, // ID riêng biệt cho nhịp tim sinh tồn
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val timeToWakeUp = android.os.SystemClock.elapsedRealtime() + 20000 // 20 giây
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
+            } else {
+                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
+            }
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+            // Fallback an toàn về set thông thường để tránh crash app nếu thiếu quyền SCHEDULE_EXACT_ALARM
+            try {
+                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
+        }
+    }
+
+    private fun cancelHeartbeat() {
+        try {
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(this, BootReceiver::class.java).apply {
+                action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+            }
+            val pendingIntent = PendingIntent.getBroadcast(
+                this,
+                1001, // ID nhịp tim sinh tồn cần hủy
+                intent,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            alarmManager.cancel(pendingIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun createNotificationChannel() {
