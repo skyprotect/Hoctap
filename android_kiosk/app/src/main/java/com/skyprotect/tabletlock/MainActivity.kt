@@ -80,7 +80,15 @@ class MainActivity : AppCompatActivity() {
         val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
         
         if (isTimeValid) {
-            // Đang trong giờ chơi, phím Home bấm nhầm đưa trẻ vào đây, đưa trẻ ra màn hình Launcher gốc của máy
+            // Nếu chẳng may app bị khởi động lại trong giờ chơi (do crash hoặc update), 
+            // đảm bảo giải phóng phím Home và đưa trẻ ra launcher gốc
+            try {
+                if (dpm.isDeviceOwnerApp(packageName)) {
+                    dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             launchSystemLauncher()
         } else {
             // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt lại Kiosk Mode để khóa cứng
@@ -206,7 +214,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:30)"
+            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:35)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -354,6 +362,9 @@ class MainActivity : AppCompatActivity() {
         try {
             if (dpm.isDeviceOwnerApp(packageName)) {
                 stopLockTask()
+                
+                // Xóa tư cách Launcher mặc định của app Kiosk để phím Home hoạt động bình thường cho launcher gốc
+                dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -370,8 +381,8 @@ class MainActivity : AppCompatActivity() {
             startService(serviceIntent)
         }
 
-        // 3. Đưa MainActivity về chế độ chạy ngầm (Home screen sẽ hiển thị để trẻ chơi)
-        moveTaskToBack(true)
+        // 3. Chủ động đưa trẻ ra màn hình Launcher gốc của máy
+        launchSystemLauncher()
         
         // Reset mã PIN
         currentPin = ""

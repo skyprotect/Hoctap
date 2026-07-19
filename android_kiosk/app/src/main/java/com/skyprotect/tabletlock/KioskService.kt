@@ -21,6 +21,9 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
+import android.content.ComponentName
+import android.content.IntentFilter
+import android.app.admin.DevicePolicyManager
 
 class KioskService : Service() {
 
@@ -264,14 +267,40 @@ class KioskService : Service() {
         // Reset trạng thái preferences trước khi khóa hẳn
         clearStateInPreferences()
 
-        // 2. Mở lại MainActivity (Màn hình khóa)
-        val lockIntent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            putExtra("force_lock", true)
+        // 2. Thiết lập lại app Kiosk làm Launcher mặc định để chiếm quyền phím Home
+        val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val adminComponent = ComponentName(this, AdminReceiver::class.java)
+        if (dpm.isDeviceOwnerApp(packageName)) {
+            try {
+                val filter = IntentFilter(Intent.ACTION_MAIN).apply {
+                    addCategory(Intent.CATEGORY_HOME)
+                    addCategory(Intent.CATEGORY_DEFAULT)
+                }
+                val activityComponent = ComponentName(packageName, MainActivity::class.java.name)
+                dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
-        startActivity(lockIntent)
 
-        // 3. Tự hủy Service
+        // 3. Giả lập bấm phím Home để Android tự động mở MainActivity lên foreground
+        try {
+            val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            startActivity(homeIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Dự phòng: cố gắng mở MainActivity trực tiếp
+            val lockIntent = Intent(this, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                putExtra("force_lock", true)
+            }
+            startActivity(lockIntent)
+        }
+
+        // 4. Tự hủy Service
         stopSelf()
     }
 
