@@ -69,14 +69,54 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Kích hoạt lại Kiosk Mode khi học sinh quay lại màn hình khóa
-        // Thử khóa ngay lập tức
-        startKioskMode()
-        // Thử lại sau 1.5 giây để đảm bảo hệ thống Android nhận dạng xong Device Owner khi app vừa cập nhật
-        Handler(Looper.getMainLooper()).postDelayed({
+        
+        // Kiểm tra thời gian chơi còn hiệu lực hay không
+        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+        val remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+        val currentToken = sharedPref.getString("currentToken", "") ?: ""
+        val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
+        val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        
+        val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
+        
+        if (isTimeValid) {
+            // Đang trong giờ chơi, phím Home bấm nhầm đưa trẻ vào đây, đưa trẻ ra màn hình Launcher gốc của máy
+            launchSystemLauncher()
+        } else {
+            // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt lại Kiosk Mode để khóa cứng
+            // Thử khóa ngay lập tức
             startKioskMode()
-        }, 1500)
-        updateStatusOnFirebase("locked")
+            // Thử lại sau 1.5 giây để đảm bảo hệ thống Android nhận dạng xong Device Owner khi app vừa cập nhật
+            Handler(Looper.getMainLooper()).postDelayed({
+                startKioskMode()
+            }, 1500)
+            updateStatusOnFirebase("locked")
+        }
+    }
+
+    private fun launchSystemLauncher() {
+        try {
+            val intent = Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+            }
+            val pm = packageManager
+            val resolveInfos = pm.queryIntentActivities(intent, 0)
+            for (resolveInfo in resolveInfos) {
+                val pkgName = resolveInfo.activityInfo.packageName
+                if (pkgName != packageName) {
+                    val launchIntent = pm.getLaunchIntentForPackage(pkgName)
+                    if (launchIntent != null) {
+                        startActivity(launchIntent)
+                        return
+                    }
+                }
+            }
+            // Dự phòng: đưa app về background nếu không tìm thấy launcher nào khác
+            moveTaskToBack(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            moveTaskToBack(true)
+        }
     }
 
     override fun onDestroy() {
@@ -144,7 +184,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:20)"
+            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:25)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
