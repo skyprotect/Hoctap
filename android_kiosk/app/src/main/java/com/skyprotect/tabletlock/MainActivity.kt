@@ -124,25 +124,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getSystemLauncherComponent(): ComponentName? {
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+        }
+        val pm = packageManager
+        val resolveInfos = pm.queryIntentActivities(intent, 0)
+        for (resolveInfo in resolveInfos) {
+            val pkgName = resolveInfo.activityInfo.packageName
+            if (pkgName != packageName) {
+                return ComponentName(pkgName, resolveInfo.activityInfo.name)
+            }
+        }
+        return null
+    }
+
     private fun launchSystemLauncher() {
         try {
-            val intent = Intent(Intent.ACTION_MAIN).apply {
-                addCategory(Intent.CATEGORY_HOME)
-            }
-            val pm = packageManager
-            val resolveInfos = pm.queryIntentActivities(intent, 0)
-            for (resolveInfo in resolveInfos) {
-                val pkgName = resolveInfo.activityInfo.packageName
-                if (pkgName != packageName) {
-                    val launchIntent = pm.getLaunchIntentForPackage(pkgName)
-                    if (launchIntent != null) {
-                        startActivity(launchIntent)
-                        return
-                    }
+            val launcherComponent = getSystemLauncherComponent()
+            if (launcherComponent != null) {
+                val intent = Intent(Intent.ACTION_MAIN).apply {
+                    addCategory(Intent.CATEGORY_HOME)
+                    component = launcherComponent
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
+                startActivity(intent)
+            } else {
+                moveTaskToBack(true)
             }
-            // Dự phòng: đưa app về background nếu không tìm thấy launcher nào khác
-            moveTaskToBack(true)
         } catch (e: Exception) {
             e.printStackTrace()
             moveTaskToBack(true)
@@ -214,7 +223,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:35)"
+            txtVersion.text = "Phiên bản: v2.0 (Cập nhật: 19/07/2026 10:45)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -363,8 +372,18 @@ class MainActivity : AppCompatActivity() {
             if (dpm.isDeviceOwnerApp(packageName)) {
                 stopLockTask()
                 
-                // Xóa tư cách Launcher mặc định của app Kiosk để phím Home hoạt động bình thường cho launcher gốc
+                // Xóa tư cách preferred cũ để tránh xung đột
                 dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+                
+                // Thiết lập Launcher gốc của máy làm Launcher mặc định khi mở khóa chơi
+                val launcherComponent = getSystemLauncherComponent()
+                if (launcherComponent != null) {
+                    val filter = IntentFilter(Intent.ACTION_MAIN).apply {
+                        addCategory(Intent.CATEGORY_HOME)
+                        addCategory(Intent.CATEGORY_DEFAULT)
+                    }
+                    dpm.addPersistentPreferredActivity(adminComponent, filter, launcherComponent)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
