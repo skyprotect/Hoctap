@@ -23,3 +23,7 @@ node_modules/
 .port.tmp
 .write_test.tmp
 HocTap_Clean/
+build_tools/
+android_kiosk/app/build/
+android_kiosk/.gradle/
+android_kiosk/local.properties
