@@ -80,20 +80,17 @@ class MainActivity : AppCompatActivity() {
         val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
         
         if (isTimeValid) {
-            // Nếu chẳng may app bị khởi động lại trong giờ chơi (do crash hoặc update), 
-            // đảm bảo giải phóng phím Home và đưa trẻ ra launcher gốc
+            // Đảm bảo duy trì MainActivity làm Launcher mặc định để có thể hồi sinh khi bị kill.
+            // Chỉ cần gỡ bỏ các hạn chế kiểm soát ứng dụng để trẻ chơi bình thường.
             try {
                 if (dpm.isDeviceOwnerApp(packageName)) {
-                    dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
-                    
-                    val launcherComponent = getSystemLauncherComponent()
-                    if (launcherComponent != null) {
-                        val filter = IntentFilter(Intent.ACTION_MAIN).apply {
-                            addCategory(Intent.CATEGORY_HOME)
-                            addCategory(Intent.CATEGORY_DEFAULT)
-                        }
-                        dpm.addPersistentPreferredActivity(adminComponent, filter, launcherComponent)
+                    val filter = IntentFilter(Intent.ACTION_MAIN).apply {
+                        addCategory(Intent.CATEGORY_HOME)
+                        addCategory(Intent.CATEGORY_DEFAULT)
                     }
+                    val activityComponent = ComponentName(packageName, MainActivity::class.java.name)
+                    dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+                    dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
                     
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         dpm.clearUserRestriction(adminComponent, android.os.UserManager.DISALLOW_APPS_CONTROL)
@@ -251,7 +248,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v2.3 (Cập nhật: 19/07/2026 11:25)"
+            txtVersion.text = "Phiên bản: v2.4 (Cập nhật: 19/07/2026 11:35)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -416,18 +413,15 @@ class MainActivity : AppCompatActivity() {
             if (dpm.isDeviceOwnerApp(packageName)) {
                 stopLockTask()
                 
-                // Xóa tư cách preferred cũ để tránh xung đột
-                dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
-                
-                // Thiết lập Launcher gốc của máy làm Launcher mặc định khi mở khóa chơi
-                val launcherComponent = getSystemLauncherComponent()
-                if (launcherComponent != null) {
-                    val filter = IntentFilter(Intent.ACTION_MAIN).apply {
-                        addCategory(Intent.CATEGORY_HOME)
-                        addCategory(Intent.CATEGORY_DEFAULT)
-                    }
-                    dpm.addPersistentPreferredActivity(adminComponent, filter, launcherComponent)
+                // Giữ nguyên MainActivity làm Launcher mặc định để hồi sinh khi bấm phím Home.
+                // Thiết lập lại preferred activity của MainActivity để đảm bảo an toàn.
+                val filter = IntentFilter(Intent.ACTION_MAIN).apply {
+                    addCategory(Intent.CATEGORY_HOME)
+                    addCategory(Intent.CATEGORY_DEFAULT)
                 }
+                val activityComponent = ComponentName(packageName, MainActivity::class.java.name)
+                dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
+                dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
 
                 // Gỡ bỏ các hạn chế kiểm soát ứng dụng khi mở khóa chơi
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
