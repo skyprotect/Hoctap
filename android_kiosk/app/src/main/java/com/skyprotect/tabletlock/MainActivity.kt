@@ -223,7 +223,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v2.0 (Cập nhật: 19/07/2026 10:45)"
+            txtVersion.text = "Phiên bản: v2.1 (Cập nhật: 19/07/2026 11:10)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -406,6 +406,9 @@ class MainActivity : AppCompatActivity() {
         // Reset mã PIN
         currentPin = ""
         updatePinDisplay()
+
+        // Kết thúc MainActivity để ẩn hoàn toàn khỏi danh sách ứng dụng gần đây (Recent Tasks)
+        finish()
     }
 
     private fun checkOverlayPermission() {

@@ -8,6 +8,26 @@ import android.widget.Toast
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        if ("com.skyprotect.tabletlock.RESTART_SERVICE" == intent.action) {
+            val sharedPref = context.getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+            val remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+            val currentToken = sharedPref.getString("currentToken", "") ?: ""
+            val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
+            val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+
+            val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
+
+            if (isTimeValid) {
+                val serviceIntent = Intent(context, KioskService::class.java)
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    context.startForegroundService(serviceIntent)
+                } else {
+                    context.startService(serviceIntent)
+                }
+            }
+            return
+        }
+
         if ("com.skyprotect.tabletlock.INSTALL_COMPLETE" == intent.action) {
             val status = intent.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE)
             if (status == PackageInstaller.STATUS_SUCCESS) {

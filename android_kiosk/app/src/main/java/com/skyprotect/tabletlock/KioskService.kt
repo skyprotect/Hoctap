@@ -136,6 +136,30 @@ class KioskService : Service() {
         return START_STICKY
     }
 
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        // Lên lịch khởi chạy lại service qua BootReceiver khi ứng dụng bị vuốt tắt từ Recents
+        val restartServiceIntent = Intent(applicationContext, BootReceiver::class.java).apply {
+            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+        }
+        val restartServicePendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            2,
+            restartServiceIntent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_ONE_SHOT
+        )
+        val alarmService = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        try {
+            alarmService.set(
+                AlarmManager.ELAPSED_REALTIME,
+                android.os.SystemClock.elapsedRealtime() + 1000,
+                restartServicePendingIntent
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        super.onTaskRemoved(rootIntent)
+    }
+
     private fun clearStateInPreferences() {
         val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
