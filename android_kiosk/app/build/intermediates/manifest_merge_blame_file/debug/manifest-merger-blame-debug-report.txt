@@ -26,143 +26,146 @@
 16    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 16-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:9:5-95
 16-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:9:22-92
-17
-18    <permission
-18-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
-19        android:name="com.skyprotect.tabletlock.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-19-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
-20        android:protectionLevel="signature" />
-20-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
-21
-22    <uses-permission android:name="com.skyprotect.tabletlock.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-22-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-22-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
-23
-24    <application
-24-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:11:5-62:19
-25        android:allowBackup="true"
-25-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:12:9-35
-26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-26-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
-27        android:debuggable="true"
-28        android:extractNativeLibs="true"
-29        android:icon="@android:drawable/sym_def_app_icon"
-29-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:13:9-58
-30        android:label="Tablet Lock"
-30-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:14:9-36
-31        android:persistent="true"
-31-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:17:9-34
-32        android:supportsRtl="true"
-32-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:15:9-35
-33        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-33-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:16:9-65
-34        <activity
-34-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:19:9-31:20
-35            android:name="com.skyprotect.tabletlock.MainActivity"
-35-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:20:13-41
-36            android:excludeFromRecents="true"
-36-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:24:13-46
-37            android:exported="true"
-37-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:21:13-36
-38            android:launchMode="singleInstance"
-38-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:22:13-48
-39            android:stateNotNeeded="true" >
-39-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:23:13-42
-40            <intent-filter>
-40-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:25:13-30:29
-41                <action android:name="android.intent.action.MAIN" />
-41-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:26:17-69
-41-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:26:25-66
-42
-43                <category android:name="android.intent.category.LAUNCHER" />
-43-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:17-77
-43-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:27-74
-44                <category android:name="android.intent.category.HOME" />
-44-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:17-73
-44-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:27-70
-45                <category android:name="android.intent.category.DEFAULT" />
-45-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:17-76
-45-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:27-73
-46            </intent-filter>
-47        </activity>
-48
-49        <service
-49-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:33:9-37:56
-50            android:name="com.skyprotect.tabletlock.KioskService"
-50-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:34:13-41
-51            android:enabled="true"
-51-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:35:13-35
-52            android:exported="false"
-52-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:36:13-37
-53            android:foregroundServiceType="dataSync" />
-53-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:37:13-53
-54
-55        <receiver
-55-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:39:9-51:20
-56            android:name="com.skyprotect.tabletlock.AdminReceiver"
-56-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:40:13-42
-57            android:description="@string/device_admin_description"
-57-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:41:13-67
-58            android:exported="true"
-58-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:44:13-36
-59            android:label="Tablet Lock Admin"
-59-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:42:13-46
-60            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-60-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:43:13-70
-61            <meta-data
-61-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:45:13-47:65
-62                android:name="android.app.device_admin"
-62-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:46:17-56
-63                android:resource="@xml/device_admin_receiver" />
-63-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:47:17-62
-64
-65            <intent-filter>
-65-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:48:13-50:29
-66                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-66-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:49:17-82
-66-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:49:25-79
-67            </intent-filter>
-68        </receiver>
-69        <receiver
-69-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:53:9-61:20
-70            android:name="com.skyprotect.tabletlock.BootReceiver"
-70-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:54:13-41
-71            android:enabled="true"
-71-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:55:13-35
-72            android:exported="true" >
-72-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:56:13-36
-73            <intent-filter>
-73-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:57:13-60:29
-74                <action android:name="android.intent.action.BOOT_COMPLETED" />
-74-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:58:17-79
-74-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:58:25-76
-75                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-75-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:17-84
-75-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:25-81
-76            </intent-filter>
-77        </receiver>
-78
-79        <provider
-79-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-80            android:name="androidx.startup.InitializationProvider"
-80-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-81            android:authorities="com.skyprotect.tabletlock.androidx-startup"
-81-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-82            android:exported="false" >
-82-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-83            <meta-data
-83-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-84                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-84-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-85                android:value="androidx.startup" />
-85-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-86            <meta-data
-86-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\192d0ef9f111a0e44fe6baf29ac08552\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-87                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-87-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\192d0ef9f111a0e44fe6baf29ac08552\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-88                android:value="androidx.startup" />
-88-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\192d0ef9f111a0e44fe6baf29ac08552\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-89        </provider>
-90    </application>
-91
-92</manifest>
+17    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+17-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:10:5-81
+17-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:10:22-78
+18
+19    <permission
+19-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+20        android:name="com.skyprotect.tabletlock.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+21        android:protectionLevel="signature" />
+21-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+22
+23    <uses-permission android:name="com.skyprotect.tabletlock.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+24
+25    <application
+25-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:12:5-63:19
+26        android:allowBackup="true"
+26-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:13:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+28        android:debuggable="true"
+29        android:extractNativeLibs="true"
+30        android:icon="@android:drawable/sym_def_app_icon"
+30-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:14:9-58
+31        android:label="Tablet Lock"
+31-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:15:9-36
+32        android:persistent="true"
+32-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:18:9-34
+33        android:supportsRtl="true"
+33-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:16:9-35
+34        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+34-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:17:9-65
+35        <activity
+35-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:20:9-32:20
+36            android:name="com.skyprotect.tabletlock.MainActivity"
+36-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:21:13-41
+37            android:excludeFromRecents="true"
+37-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:25:13-46
+38            android:exported="true"
+38-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:22:13-36
+39            android:launchMode="singleInstance"
+39-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:23:13-48
+40            android:stateNotNeeded="true" >
+40-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:24:13-42
+41            <intent-filter>
+41-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:26:13-31:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:17-69
+42-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:25-66
+43
+44                <category android:name="android.intent.category.LAUNCHER" />
+44-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:17-77
+44-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:27-74
+45                <category android:name="android.intent.category.HOME" />
+45-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:17-73
+45-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:27-70
+46                <category android:name="android.intent.category.DEFAULT" />
+46-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:30:17-76
+46-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:30:27-73
+47            </intent-filter>
+48        </activity>
+49
+50        <service
+50-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:34:9-38:56
+51            android:name="com.skyprotect.tabletlock.KioskService"
+51-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:35:13-41
+52            android:enabled="true"
+52-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:36:13-35
+53            android:exported="false"
+53-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:37:13-37
+54            android:foregroundServiceType="dataSync" />
+54-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:38:13-53
+55
+56        <receiver
+56-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:40:9-52:20
+57            android:name="com.skyprotect.tabletlock.AdminReceiver"
+57-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:41:13-42
+58            android:description="@string/device_admin_description"
+58-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:42:13-67
+59            android:exported="true"
+59-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:45:13-36
+60            android:label="Tablet Lock Admin"
+60-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:43:13-46
+61            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+61-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:44:13-70
+62            <meta-data
+62-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:46:13-48:65
+63                android:name="android.app.device_admin"
+63-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:47:17-56
+64                android:resource="@xml/device_admin_receiver" />
+64-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:48:17-62
+65
+66            <intent-filter>
+66-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:49:13-51:29
+67                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+67-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:50:17-82
+67-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:50:25-79
+68            </intent-filter>
+69        </receiver>
+70        <receiver
+70-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:54:9-62:20
+71            android:name="com.skyprotect.tabletlock.BootReceiver"
+71-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:55:13-41
+72            android:enabled="true"
+72-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:56:13-35
+73            android:exported="true" >
+73-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:57:13-36
+74            <intent-filter>
+74-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:58:13-61:29
+75                <action android:name="android.intent.action.BOOT_COMPLETED" />
+75-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:17-79
+75-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:25-76
+76                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+76-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:60:17-84
+76-->F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:60:25-81
+77            </intent-filter>
+78        </receiver>
+79
+80        <provider
+80-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+81            android:name="androidx.startup.InitializationProvider"
+81-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+82            android:authorities="com.skyprotect.tabletlock.androidx-startup"
+82-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+83            android:exported="false" >
+83-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+84            <meta-data
+84-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+85                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+85-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+86                android:value="androidx.startup" />
+86-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\1aefda88cf80338e23636c260d7d548c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+87            <meta-data
+87-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\192d0ef9f111a0e44fe6baf29ac08552\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+88                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+88-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\192d0ef9f111a0e44fe6baf29ac08552\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+89                android:value="androidx.startup" />
+89-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\192d0ef9f111a0e44fe6baf29ac08552\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+90        </provider>
+91    </application>
+92
+93</manifest>

@@ -316,21 +316,41 @@ class KioskService : Service() {
             }
         }
 
-        // 3. Giả lập bấm phím Home để Android tự động mở MainActivity lên foreground
+        // 3. Sử dụng Full Screen Intent qua Notification để buộc Android mở MainActivity lên foreground từ background (vượt rào cản Android 10+)
         try {
-            val homeIntent = Intent(Intent.ACTION_MAIN).apply {
-                addCategory(Intent.CATEGORY_HOME)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
-            startActivity(homeIntent)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            // Dự phòng: cố gắng mở MainActivity trực tiếp
             val lockIntent = Intent(this, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 putExtra("force_lock", true)
             }
-            startActivity(lockIntent)
+            val pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                lockIntent,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+            val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+                .setContentTitle("Tablet Lock")
+                .setContentText("Thiết bị đã bị khóa.")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setFullScreenIntent(pendingIntent, true)
+                .setAutoCancel(true)
+
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(NOTIFICATION_ID, builder.build())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Dự phòng: cố gắng mở MainActivity trực tiếp
+            try {
+                val lockIntentDirect = Intent(this, MainActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
+                startActivity(lockIntentDirect)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
         }
 
         // 4. Tự hủy Service

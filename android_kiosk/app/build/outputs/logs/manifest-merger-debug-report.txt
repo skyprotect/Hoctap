@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-64:12
-INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-64:12
-INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-64:12
-INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-64:12
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-65:12
+INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-65:12
+INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-65:12
+INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:2:1-65:12
 MERGED from [com.google.android.material:material:1.8.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\b26d9eb25a41cc8b1547a176b0b3aa99\transformed\material-1.8.0\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Binh Minh\.gradle\caches\transforms-3\bbfe3f692000fd3e59db24933e2e9168\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Binh Minh\.gradle\caches\transforms-3\062821261ed070ed0593d3a9970e1b12\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
@@ -76,9 +76,13 @@ uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:9:5-95
 	android:name
 		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:9:22-92
+uses-permission#android.permission.USE_FULL_SCREEN_INTENT
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:10:22-78
 application
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:11:5-62:19
-INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:11:5-62:19
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:12:5-63:19
+INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:12:5-63:19
 MERGED from [com.google.android.material:material:1.8.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\b26d9eb25a41cc8b1547a176b0b3aa99\transformed\material-1.8.0\AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.8.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\b26d9eb25a41cc8b1547a176b0b3aa99\transformed\material-1.8.0\AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Binh Minh\.gradle\caches\transforms-3\bbfe3f692000fd3e59db24933e2e9168\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -98,99 +102,99 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Binh Minh\.gradle\
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.9.0] C:\Users\Binh Minh\.gradle\caches\transforms-3\0234fc80b394b6a910527005c0983f56\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:16:9-35
 	android:label
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:14:9-36
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:15:9-36
 	android:persistent
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:17:9-34
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:18:9-34
 	android:icon
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:13:9-58
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:14:9-58
 	android:allowBackup
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:12:9-35
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:13:9-35
 	android:theme
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:16:9-65
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:17:9-65
 activity#com.skyprotect.tabletlock.MainActivity
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:19:9-31:20
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:20:9-32:20
 	android:stateNotNeeded
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:23:13-42
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:24:13-42
 	android:excludeFromRecents
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:24:13-46
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:25:13-46
 	android:launchMode
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:22:13-48
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:23:13-48
 	android:exported
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:21:13-36
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:22:13-36
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:20:13-41
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:21:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.HOME+category:name:android.intent.category.LAUNCHER
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:25:13-30:29
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:26:13-31:29
 action#android.intent.action.MAIN
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:26:17-69
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:17-69
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:26:25-66
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:25-66
 category#android.intent.category.LAUNCHER
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:17-77
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:27:27-74
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:27-74
 category#android.intent.category.HOME
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:17-73
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:17-73
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:28:27-70
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:27-70
 category#android.intent.category.DEFAULT
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:17-76
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:30:17-76
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:29:27-73
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:30:27-73
 service#com.skyprotect.tabletlock.KioskService
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:33:9-37:56
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:34:9-38:56
 	android:enabled
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:35:13-35
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:36:13-35
 	android:exported
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:36:13-37
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:37:13-37
 	android:foregroundServiceType
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:37:13-53
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:38:13-53
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:34:13-41
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:35:13-41
 receiver#com.skyprotect.tabletlock.AdminReceiver
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:39:9-51:20
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:40:9-52:20
 	android:label
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:42:13-46
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:43:13-46
 	android:exported
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:44:13-36
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:45:13-36
 	android:permission
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:43:13-70
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:44:13-70
 	android:description
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:41:13-67
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:42:13-67
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:40:13-42
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:41:13-42
 meta-data#android.app.device_admin
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:45:13-47:65
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:46:13-48:65
 	android:resource
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:47:17-62
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:48:17-62
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:46:17-56
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:47:17-56
 intent-filter#action:name:android.app.action.DEVICE_ADMIN_ENABLED
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:48:13-50:29
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:49:13-51:29
 action#android.app.action.DEVICE_ADMIN_ENABLED
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:49:17-82
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:50:17-82
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:49:25-79
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:50:25-79
 receiver#com.skyprotect.tabletlock.BootReceiver
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:53:9-61:20
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:54:9-62:20
 	android:enabled
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:55:13-35
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:56:13-35
 	android:exported
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:56:13-36
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:57:13-36
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:54:13-41
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:55:13-41
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:57:13-60:29
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:58:13-61:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:58:17-79
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:17-79
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:58:25-76
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:25-76
 action#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:17-84
+ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:60:17-84
 	android:name
-		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:59:25-81
+		ADDED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml:60:25-81
 uses-sdk
 INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from F:\KHQS\AntiGravity\HocTap\android_kiosk\app\src\main\AndroidManifest.xml
