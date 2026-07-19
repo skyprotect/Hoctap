@@ -57,37 +57,24 @@ class KioskService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         isHistoryUpdated = false
 
-        // 0. Dọn dẹp Widget và Timer cũ trước khi bắt đầu chu kỳ mới (Tránh đè view/timer)
-        countDownTimer?.cancel()
-        countDownTimer = null
-        remotePollHandler.removeCallbacks(remotePollRunnable)
-        floatingView?.let {
-            try {
-                windowManager?.removeView(it)
-            } catch (e: Exception) {
-                e.printStackTrace()
+        val isNewUnlock = intent != null && intent.hasExtra("minutes")
+
+        if (isNewUnlock) {
+            // Đây là yêu cầu mở khóa mới từ màn hình PIN hoặc từ xa
+            // Cần dọn dẹp Widget và Timer cũ (nếu có) để bắt đầu chu kỳ mới
+            countDownTimer?.cancel()
+            countDownTimer = null
+            remotePollHandler.removeCallbacks(remotePollRunnable)
+            floatingView?.let {
+                try {
+                    windowManager?.removeView(it)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                floatingView = null
             }
-            floatingView = null
-        }
 
-        if (intent == null || !intent.hasExtra("minutes")) {
-            // Hồi sinh Service sau khi bị hệ thống kill hoặc do khởi động lại thiết bị (Reboot)
-            val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-            val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
-            remainingTimeSeconds = (expiresTimeMillis - System.currentTimeMillis()) / 1000
-            currentToken = sharedPref.getString("currentToken", "") ?: ""
-            currentHistoryId = sharedPref.getString("currentHistoryId", "") ?: ""
-            initialMinutes = sharedPref.getInt("initialMinutes", 7)
-            val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
-
-            val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
-
-            if (remainingTimeSeconds <= 0 || (lastActiveDate.isNotEmpty() && lastActiveDate != todayStr)) {
-                lockDevice()
-                return START_STICKY
-            }
-        } else {
-            val minutes = intent.getIntExtra("minutes", 7)
+            val minutes = intent!!.getIntExtra("minutes", 7)
             currentToken = intent.getStringExtra("token") ?: ""
             remainingTimeSeconds = minutes * 60L
             initialMinutes = minutes
@@ -105,7 +92,30 @@ class KioskService : Service() {
                 putString("lastActiveDate", todayStr)
                 commit()
             }
+        } else {
+            // Đây là trường hợp hồi sinh Service sau khi bị kill hoặc do hệ thống start lại để duy trì.
+            // Nếu timer đang chạy rồi thì KHÔNG làm gì cả để tránh nhấp nháy giao diện và trùng lặp timer.
+            if (countDownTimer != null) {
+                return START_STICKY
+            }
+
+            val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+            val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
+            remainingTimeSeconds = (expiresTimeMillis - System.currentTimeMillis()) / 1000
+            currentToken = sharedPref.getString("currentToken", "") ?: ""
+            currentHistoryId = sharedPref.getString("currentHistoryId", "") ?: ""
+            initialMinutes = sharedPref.getInt("initialMinutes", 7)
+            val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
+
+            val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+
+            if (remainingTimeSeconds <= 0 || (lastActiveDate.isNotEmpty() && lastActiveDate != todayStr)) {
+                lockDevice()
+                return START_STICKY
+            }
         }
+
+        // Khởi tạo các thành phần nếu chưa có (khi khởi động mới hoặc sau khi bị kill hồi sinh)
 
         // 1. Chạy Foreground Service với Notification để tránh bị Android kill
         val displayMinutes = (remainingTimeSeconds / 60).toInt()
@@ -128,11 +138,12 @@ class KioskService : Service() {
         startCountdown()
 
         // 4. Khởi chạy vòng lặp kiểm tra lệnh khóa từ xa và đồng bộ trạng thái ban đầu
+        remotePollHandler.removeCallbacks(remotePollRunnable)
         remotePollHandler.post(remotePollRunnable)
         updateRemainingTimeOnFirebase(remainingTimeSeconds)
 
         // 5. Ghi nhận lịch sử mở khóa lên Firebase nếu khởi động mới hoàn toàn
-        if (intent != null && intent.hasExtra("minutes")) {
+        if (isNewUnlock) {
             createHistoryEntry(initialMinutes)
         }
 
