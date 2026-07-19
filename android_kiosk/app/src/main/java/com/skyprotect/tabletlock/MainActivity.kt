@@ -105,6 +105,18 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            // Chủ động khởi chạy lại Foreground Service để tiếp tục đếm ngược thời gian chơi còn lại
+            try {
+                val serviceIntent = Intent(this, KioskService::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(serviceIntent)
+                } else {
+                    startService(serviceIntent)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
             launchSystemLauncher()
         } else {
             // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt lại Kiosk Mode để khóa cứng
@@ -239,7 +251,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v2.2 (Cập nhật: 19/07/2026 11:20)"
+            txtVersion.text = "Phiên bản: v2.3 (Cập nhật: 19/07/2026 11:25)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
