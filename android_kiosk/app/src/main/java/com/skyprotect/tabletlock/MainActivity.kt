@@ -671,6 +671,13 @@ class MainActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         showStatus("Đang cài đặt phiên bản v$versionName...", false)
+                        try {
+                            if (dpm.isDeviceOwnerApp(packageName)) {
+                                stopLockTask()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                         installApk(updateFile)
                     }
                 } catch (e: Exception) {
