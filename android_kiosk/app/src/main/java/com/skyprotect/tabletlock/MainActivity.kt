@@ -84,6 +84,28 @@ class MainActivity : AppCompatActivity() {
             launchSystemLauncher()
         } else {
             // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt lại Kiosk Mode để khóa cứng
+            
+            // Đồng bộ trạng thái: Chủ động dừng KioskService và xóa bong bóng nổi
+            try {
+                val serviceIntent = Intent(this, KioskService::class.java)
+                stopService(serviceIntent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            
+            // Xóa sạch trạng thái preferences để đồng bộ tuyệt đối
+            try {
+                val sharedPrefEdit = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE).edit()
+                sharedPrefEdit.putLong("remainingTimeSeconds", 0L)
+                sharedPrefEdit.putString("currentToken", "")
+                sharedPrefEdit.putString("currentHistoryId", "")
+                sharedPrefEdit.putInt("initialMinutes", 0)
+                sharedPrefEdit.putString("lastActiveDate", "")
+                sharedPrefEdit.commit()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
             // Thử khóa ngay lập tức
             startKioskMode()
             // Thử lại sau 1.5 giây để đảm bảo hệ thống Android nhận dạng xong Device Owner khi app vừa cập nhật
@@ -184,7 +206,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:25)"
+            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:30)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -211,6 +233,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun startKioskMode() {
         try {
+            // Chủ động dừng KioskService để đảm bảo bong bóng đếm ngược biến mất khi khóa cứng
+            try {
+                val serviceIntent = Intent(this, KioskService::class.java)
+                stopService(serviceIntent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
             if (dpm.isDeviceOwnerApp(packageName)) {
                 // Đặt ứng dụng này làm Launcher mặc định của máy tính bảng
                 val filter = IntentFilter(Intent.ACTION_MAIN).apply {
