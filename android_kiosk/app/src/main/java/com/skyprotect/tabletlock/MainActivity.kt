@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:15)"
+            txtVersion.text = "Phiên bản: v$version (Cập nhật: 19/07/2026 10:20)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -413,7 +413,7 @@ class MainActivity : AppCompatActivity() {
         btnUpdate.isEnabled = false
         showStatus("Đang kiểm tra phiên bản...", false)
 
-        val versionUrl = "https://raw.githubusercontent.com/skyprotect/Hoctap/main/version.json"
+        val versionUrl = "https://raw.githubusercontent.com/skyprotect/Hoctap/main/version.json?t=${System.currentTimeMillis()}"
         val request = Request.Builder().url(versionUrl).build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -470,7 +470,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startDownloadApk(versionName: String) {
         val btnUpdate = findViewById<Button>(R.id.btnUpdateApk)
-        val apkUrl = "https://raw.githubusercontent.com/skyprotect/Hoctap/main/TabletLock_Kiosk.apk"
+        val apkUrl = "https://raw.githubusercontent.com/skyprotect/Hoctap/main/TabletLock_Kiosk.apk?t=${System.currentTimeMillis()}"
         val request = Request.Builder().url(apkUrl).build()
 
         client.newCall(request).enqueue(object : Callback {
