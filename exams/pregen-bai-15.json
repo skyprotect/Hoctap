@@ -299,10 +299,10 @@
       },
       "constraints": [],
       "formulas": {
-        "ans_expr": "${A} - ${B} - ${C} + ${D}",
-        "w1_expr": "${A} - ${B} + ${C} - ${D}",
-        "w2_expr": "${A} + ${B} - ${C} + ${D}",
-        "w3_expr": "${A} - ${B} - ${C} - ${D}"
+        "ans_expr": "{A} - {B} - {C} + {D}",
+        "w1_expr": "{A} - {B} + {C} - {D}",
+        "w2_expr": "{A} + {B} - {C} + {D}",
+        "w3_expr": "{A} - {B} - {C} - {D}"
       },
       "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
       "options": [

@@ -4568,5 +4568,318 @@
     },
     "reason": "Unpaired Dollar",
     "timestamp": 1784276226568
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "lessonId": "bai-15",
+    "lessonTitle": "Bài 15: Quy tắc dấu ngoặc",
+    "errorMessage": "Lỗi tại câu số 6: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.",
+    "failedQuestion": {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "B": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "C": {
+          "min": 5,
+          "max": 20,
+          "step": 5
+        },
+        "D": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans_expr": "${A} - ${B} - ${C} + ${D}",
+        "w1_expr": "${A} - ${B} + ${C} - ${D}",
+        "w2_expr": "${A} + ${B} - ${C} + ${D}",
+        "w3_expr": "${A} - ${B} - ${C} - ${D}"
+      },
+      "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
+      "options": [
+        "A. $P = {w1_expr}$",
+        "B. $P = {ans_expr}$",
+        "C. $P = {w2_expr}$",
+        "D. $P = {w3_expr}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Áp dụng quy tắc dấu ngoặc: khi bỏ dấu ngoặc có dấu trừ phía trước, ta phải đổi dấu tất cả các số hạng bên trong ngoặc."
+      ],
+      "solutionHtml": "Biểu thức ban đầu là: $P = {A} - ({B} + {C} - {D})$<br/>Áp dụng quy tắc dấu ngoặc, khi bỏ dấu ngoặc tròn có dấu trừ phía trước, ta đổi dấu tất cả các số hạng bên trong ngoặc:<br/>Số hạng {B} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {C} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {D} đang là âm (-) sẽ thành dương (+).<br/>Vậy, biểu thức sau khi khai triển là: $P = {A} - {B} - {C} + {D}$<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ quy tắc: 'trước ngoặc là dấu trừ, bên trong đổi dấu y như rằng!'"
+    },
+    "timestamp": 1784453787002
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "lessonId": "bai-15",
+    "lessonTitle": "Bài 15: Quy tắc dấu ngoặc",
+    "errorMessage": "Lỗi tại câu số 6: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.",
+    "failedQuestion": {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "B": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "C": {
+          "min": 5,
+          "max": 20,
+          "step": 5
+        },
+        "D": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans_expr": "${A} - ${B} - ${C} + ${D}",
+        "w1_expr": "${A} - ${B} + ${C} - ${D}",
+        "w2_expr": "${A} + ${B} - ${C} + ${D}",
+        "w3_expr": "${A} - ${B} - ${C} - ${D}"
+      },
+      "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
+      "options": [
+        "A. $P = {w1_expr}$",
+        "B. $P = {ans_expr}$",
+        "C. $P = {w2_expr}$",
+        "D. $P = {w3_expr}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Áp dụng quy tắc dấu ngoặc: khi bỏ dấu ngoặc có dấu trừ phía trước, ta phải đổi dấu tất cả các số hạng bên trong ngoặc."
+      ],
+      "solutionHtml": "Biểu thức ban đầu là: $P = {A} - ({B} + {C} - {D})$<br/>Áp dụng quy tắc dấu ngoặc, khi bỏ dấu ngoặc tròn có dấu trừ phía trước, ta đổi dấu tất cả các số hạng bên trong ngoặc:<br/>Số hạng {B} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {C} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {D} đang là âm (-) sẽ thành dương (+).<br/>Vậy, biểu thức sau khi khai triển là: $P = {A} - {B} - {C} + {D}$<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ quy tắc: 'trước ngoặc là dấu trừ, bên trong đổi dấu y như rằng!'"
+    },
+    "timestamp": 1784453809208
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "lessonId": "bai-15",
+    "lessonTitle": "Bài 15: Quy tắc dấu ngoặc",
+    "errorMessage": "Lỗi tại câu số 6: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.",
+    "failedQuestion": {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "B": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "C": {
+          "min": 5,
+          "max": 20,
+          "step": 5
+        },
+        "D": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans_expr": "${A} - ${B} - ${C} + ${D}",
+        "w1_expr": "${A} - ${B} + ${C} - ${D}",
+        "w2_expr": "${A} + ${B} - ${C} + ${D}",
+        "w3_expr": "${A} - ${B} - ${C} - ${D}"
+      },
+      "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
+      "options": [
+        "A. $P = {w1_expr}$",
+        "B. $P = {ans_expr}$",
+        "C. $P = {w2_expr}$",
+        "D. $P = {w3_expr}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Áp dụng quy tắc dấu ngoặc: khi bỏ dấu ngoặc có dấu trừ phía trước, ta phải đổi dấu tất cả các số hạng bên trong ngoặc."
+      ],
+      "solutionHtml": "Biểu thức ban đầu là: $P = {A} - ({B} + {C} - {D})$<br/>Áp dụng quy tắc dấu ngoặc, khi bỏ dấu ngoặc tròn có dấu trừ phía trước, ta đổi dấu tất cả các số hạng bên trong ngoặc:<br/>Số hạng {B} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {C} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {D} đang là âm (-) sẽ thành dương (+).<br/>Vậy, biểu thức sau khi khai triển là: $P = {A} - {B} - {C} + {D}$<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ quy tắc: 'trước ngoặc là dấu trừ, bên trong đổi dấu y như rằng!'"
+    },
+    "timestamp": 1784453821220
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "lessonId": "bai-15",
+    "lessonTitle": "Bài 15: Quy tắc dấu ngoặc",
+    "errorMessage": "Lỗi tại câu số 6: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.",
+    "failedQuestion": {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "B": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "C": {
+          "min": 5,
+          "max": 20,
+          "step": 5
+        },
+        "D": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans_expr": "${A} - ${B} - ${C} + ${D}",
+        "w1_expr": "${A} - ${B} + ${C} - ${D}",
+        "w2_expr": "${A} + ${B} - ${C} + ${D}",
+        "w3_expr": "${A} - ${B} - ${C} - ${D}"
+      },
+      "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
+      "options": [
+        "A. $P = {w1_expr}$",
+        "B. $P = {ans_expr}$",
+        "C. $P = {w2_expr}$",
+        "D. $P = {w3_expr}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Áp dụng quy tắc dấu ngoặc: khi bỏ dấu ngoặc có dấu trừ phía trước, ta phải đổi dấu tất cả các số hạng bên trong ngoặc."
+      ],
+      "solutionHtml": "Biểu thức ban đầu là: $P = {A} - ({B} + {C} - {D})$<br/>Áp dụng quy tắc dấu ngoặc, khi bỏ dấu ngoặc tròn có dấu trừ phía trước, ta đổi dấu tất cả các số hạng bên trong ngoặc:<br/>Số hạng {B} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {C} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {D} đang là âm (-) sẽ thành dương (+).<br/>Vậy, biểu thức sau khi khai triển là: $P = {A} - {B} - {C} + {D}$<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ quy tắc: 'trước ngoặc là dấu trừ, bên trong đổi dấu y như rằng!'"
+    },
+    "timestamp": 1784453913736
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "lessonId": "lt-c3-1",
+    "lessonTitle": "Luyện tập chung (Phép cộng & trừ số nguyên)",
+    "errorMessage": "Lỗi tại câu số 9: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.",
+    "failedQuestion": {
+      "isTemplate": true,
+      "variables": {
+        "temp_city_a": {
+          "min": -10,
+          "max": 15,
+          "step": 1
+        },
+        "temp_city_b": {
+          "min": -5,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "temp_city_a !== temp_city_b"
+      ],
+      "formulas": {
+        "diff_temp": "Math.abs(temp_city_a - temp_city_b)",
+        "w1": "temp_city_a + temp_city_b",
+        "w2": "Math.abs(temp_city_a) + Math.abs(temp_city_b)",
+        "w3": "temp_city_a - temp_city_b"
+      },
+      "questionText": "Nhiệt độ vào buổi sáng ở thành phố A là {temp_city_a}°C và ở thành phố B là {temp_city_b}°C. Hỏi độ chênh lệch nhiệt độ giữa hai thành phố này là bao nhiêu?",
+      "options": [
+        "A. {w1}°C",
+        "B. {diff_temp}°C",
+        "C. {w2}°C",
+        "D. {w3}°C"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Độ chênh lệch giữa hai giá trị được tính bằng giá trị tuyệt đối của hiệu hai giá trị đó.",
+        "Ví dụ: Chênh lệch giữa 5°C và -2°C là $|5 - (-2)| = |5+2| = 7$°C."
+      ],
+      "solutionHtml": "Để tìm độ chênh lệch nhiệt độ giữa hai thành phố, ta lấy giá trị tuyệt đối của hiệu nhiệt độ hai thành phố đó.<br/>Nhiệt độ ở thành phố A là {temp_city_a}°C.<br/>Nhiệt độ ở thành phố B là {temp_city_b}°C.<br/>Độ chênh lệch nhiệt độ là: <br/>$|{temp_city_a} - {temp_city_b}| = {diff_temp}$°C.<br/>Đáp án đúng là B.",
+      "tip": "Độ chênh lệch luôn là một giá trị không âm. Hãy nhớ sử dụng giá trị tuyệt đối khi tính độ chênh lệch giữa hai số nguyên.",
+      "level": "chat-luong-cao",
+      "type": "lt-c3-1-d9"
+    },
+    "timestamp": 1784453940707
+  },
+  {
+    "type": "client_generation_error",
+    "studentId": "std_htsj4gbmo",
+    "lessonId": "bai-15",
+    "lessonTitle": "Bài 15: Quy tắc dấu ngoặc",
+    "errorMessage": "Lỗi tại câu số 6: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.",
+    "failedQuestion": {
+      "isTemplate": true,
+      "variables": {
+        "A": {
+          "min": 50,
+          "max": 100,
+          "step": 5
+        },
+        "B": {
+          "min": 10,
+          "max": 30,
+          "step": 5
+        },
+        "C": {
+          "min": 5,
+          "max": 20,
+          "step": 5
+        },
+        "D": {
+          "min": 5,
+          "max": 15,
+          "step": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans_expr": "${A} - ${B} - ${C} + ${D}",
+        "w1_expr": "${A} - ${B} + ${C} - ${D}",
+        "w2_expr": "${A} + ${B} - ${C} + ${D}",
+        "w3_expr": "${A} - ${B} - ${C} - ${D}"
+      },
+      "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
+      "options": [
+        "A. $P = {w1_expr}$",
+        "B. $P = {ans_expr}$",
+        "C. $P = {w2_expr}$",
+        "D. $P = {w3_expr}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Áp dụng quy tắc dấu ngoặc: khi bỏ dấu ngoặc có dấu trừ phía trước, ta phải đổi dấu tất cả các số hạng bên trong ngoặc."
+      ],
+      "solutionHtml": "Biểu thức ban đầu là: $P = {A} - ({B} + {C} - {D})$<br/>Áp dụng quy tắc dấu ngoặc, khi bỏ dấu ngoặc tròn có dấu trừ phía trước, ta đổi dấu tất cả các số hạng bên trong ngoặc:<br/>Số hạng {B} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {C} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {D} đang là âm (-) sẽ thành dương (+).<br/>Vậy, biểu thức sau khi khai triển là: $P = {A} - {B} - {C} + {D}$<br/>Đáp án đúng là B.",
+      "tip": "Ghi nhớ quy tắc: 'trước ngoặc là dấu trừ, bên trong đổi dấu y như rằng!'"
+    },
+    "timestamp": 1784456094529
   }
 ]

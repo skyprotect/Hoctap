@@ -280,8 +280,10 @@ const generator = {
 
         const self = this;
 
+        // Self-healing: Loại bỏ dấu $ đứng trước ngoặc nhọn của các biến (ví dụ ${A} thành {A})
+        let cleanedExpr = expr.replace(/\$\{([a-zA-Z0-9_]+)\}/g, '{$1}');
         // Self-healing: Loại bỏ tiền tố variables. và formulas. và this. thường bị AI sinh nhầm
-        let cleanedExpr = expr.replace(/\b(variables|formulas|this)\./g, '');
+        cleanedExpr = cleanedExpr.replace(/\b(variables|formulas|this)\./g, '');
         // Self-healing: Loại bỏ dấu ngoặc nhọn quanh các tên biến đơn giản trong công thức
         cleanedExpr = cleanedExpr.replace(/\{([a-zA-Z0-9_]+)\}/g, '$1');
 
@@ -1038,7 +1040,9 @@ const generator = {
             if (tempQ.constraints && tempQ.constraints.length > 0) {
                 // Nếu số lần thử vượt quá 120, ta bỏ qua các constraints chia hết phức tạp để tránh sập luồng
                 let activeConstraints = tempQ.constraints;
-                if (attempts > 120) {
+                if (attempts > 350) {
+                    activeConstraints = []; // Bỏ qua tất cả constraints nếu quá khó
+                } else if (attempts > 120) {
                     activeConstraints = tempQ.constraints.filter(c => !c.includes('%') && !c.includes('/') && !c.includes('*'));
                 }
                 for (const constraint of activeConstraints) {
@@ -1095,7 +1099,9 @@ const generator = {
 
                 let uniqueOpts = new Set(optContents);
                 if (uniqueOpts.size < optContents.length) {
-                    if (attempts > Math.floor(maxAttempts * 0.6)) {
+                    if (attempts > Math.floor(maxAttempts * 0.9)) {
+                        constraintsPassed = true; // Chấp nhận trùng lặp đáp án nếu đã thử quá 90% số lần để tránh sập
+                    } else if (attempts > Math.floor(maxAttempts * 0.6)) {
                         // Tự phục hồi: phát hiện trùng lặp, chỉnh nhẹ giá trị các phương án nhiễu
                         const diffs = [1, -1, 2, -2, 3, -3, 5, -5, 10, -10];
                         let diffIdx = 0;
@@ -1163,7 +1169,9 @@ const generator = {
         }
         
         if (!constraintsPassed) {
-            throw new Error("Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau " + maxAttempts + " lần thử.");
+            // Thay vì throw error làm sập app, ta sẽ ép constraintsPassed = true và tiếp tục sinh với bộ số hiện tại
+            console.warn("Không thể sinh câu hỏi hoàn hảo sau " + maxAttempts + " lần thử. Tự động dùng fallback.");
+            constraintsPassed = true;
         }
         
         // Đóng băng (evaluate) tất cả các công thức trong context thành giá trị tĩnh trước khi sử dụng

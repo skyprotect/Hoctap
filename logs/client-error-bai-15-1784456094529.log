@@ -1,0 +1,60 @@
+==================================================
+CLIENT AI GENERATION ERROR REPORT (TELEMETRY)
+Time: 2026-07-19T10:14:54.529Z
+Student ID: std_htsj4gbmo
+Lesson ID: bai-15
+Lesson Title: Bài 15: Quy tắc dấu ngoặc
+==================================================
+
+[ERROR DETAILS]
+Lỗi tại câu số 6: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+Error: Không thể sinh câu hỏi thỏa mãn các ràng buộc hoặc loại bỏ trùng lặp đáp án sau 500 lần thử.
+    at Object.generateQuestionFromTemplate (http://localhost:3000/js/question-generator-worker.js:1166:19)
+    at self.onmessage (http://localhost:3000/js/question-generator-worker.js:1274:40)
+
+[FAILED TEMPLATE QUESTION (INDEX: 5)]
+{
+  "isTemplate": true,
+  "variables": {
+    "A": {
+      "min": 50,
+      "max": 100,
+      "step": 5
+    },
+    "B": {
+      "min": 10,
+      "max": 30,
+      "step": 5
+    },
+    "C": {
+      "min": 5,
+      "max": 20,
+      "step": 5
+    },
+    "D": {
+      "min": 5,
+      "max": 15,
+      "step": 5
+    }
+  },
+  "constraints": [],
+  "formulas": {
+    "ans_expr": "${A} - ${B} - ${C} + ${D}",
+    "w1_expr": "${A} - ${B} + ${C} - ${D}",
+    "w2_expr": "${A} + ${B} - ${C} + ${D}",
+    "w3_expr": "${A} - ${B} - ${C} - ${D}"
+  },
+  "questionText": "Biểu thức nào dưới đây tương đương với biểu thức $P = {A} - ({B} + {C} - {D})$?",
+  "options": [
+    "A. $P = {w1_expr}$",
+    "B. $P = {ans_expr}$",
+    "C. $P = {w2_expr}$",
+    "D. $P = {w3_expr}$"
+  ],
+  "correctIndex": 1,
+  "hints": [
+    "Áp dụng quy tắc dấu ngoặc: khi bỏ dấu ngoặc có dấu trừ phía trước, ta phải đổi dấu tất cả các số hạng bên trong ngoặc."
+  ],
+  "solutionHtml": "Biểu thức ban đầu là: $P = {A} - ({B} + {C} - {D})$<br/>Áp dụng quy tắc dấu ngoặc, khi bỏ dấu ngoặc tròn có dấu trừ phía trước, ta đổi dấu tất cả các số hạng bên trong ngoặc:<br/>Số hạng {B} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {C} đang là dương (+) sẽ thành âm (-).<br/>Số hạng {D} đang là âm (-) sẽ thành dương (+).<br/>Vậy, biểu thức sau khi khai triển là: $P = {A} - {B} - {C} + {D}$<br/>Đáp án đúng là B.",
+  "tip": "Ghi nhớ quy tắc: 'trước ngoặc là dấu trừ, bên trong đổi dấu y như rằng!'"
+}
