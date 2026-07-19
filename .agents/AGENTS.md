@@ -68,3 +68,6 @@
 - **Tuyệt đối cấm** xảy ra các trường hợp sai chính tả (bao gồm cả tiếng Việt và tiếng Anh) và lỗi hiển thị font chữ (như lỗi mã hóa UTF-8 thành ký tự lạ dạng `ToÃ¡n Há»c`) trong toàn bộ dự án, bao gồm mã nguồn, giao diện người dùng, tài liệu hướng dẫn, các file script khởi chạy và phím tắt/lối tắt hệ thống.
 - Mọi chuỗi ký tự hiển thị phải được kiểm tra kỹ lưỡng về định dạng mã hóa và lỗi chính tả trước khi phát hành.
 
+## 13. Quy tắc phát hành khi chỉ thay đổi mã nguồn Android (APK)
+- Khi chỉ thực hiện sửa đổi, vá lỗi hoặc nâng cấp phần mềm Android (mã nguồn trong `android_kiosk`), **chỉ thực hiện biên dịch tệp APK cục bộ**, copy đè tệp APK mới ra thư mục gốc thành `TabletLock_Kiosk.apk`, chạy kịch bản đồng bộ bản sạch `node sync_clean.js`, sau đó commit và push trực tiếp các thay đổi lên GitHub.
+- **Tuyệt đối không chạy lệnh `npm run release`** (lệnh này sẽ đóng gói lại bộ cài Windows `.exe` nặng 134MB và tạo GitHub Release mới) trừ khi người dùng yêu cầu rõ ràng việc phát hành phiên bản Windows. Việc này giúp tiết kiệm thời gian biên dịch và băng thông mạng.
