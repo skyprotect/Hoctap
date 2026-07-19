@@ -327,24 +327,34 @@ class KioskService : Service() {
             }
         }
 
-        // 3. Sử dụng Full Screen Intent qua Notification để buộc Android mở MainActivity lên foreground từ background (vượt rào cản Android 10+)
+        // 3. Chủ động mở MainActivity trực tiếp ngay lập tức
+        val lockIntent = Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            putExtra("force_lock", true)
+        }
         try {
-            val lockIntent = Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                putExtra("force_lock", true)
-            }
+            startActivity(lockIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // 3b. Gửi thêm Full Screen Intent Notification để dự phòng đa tầng
+        try {
             val pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
                 lockIntent,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) 
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE 
+                else 
+                    PendingIntent.FLAG_UPDATE_CURRENT
             )
 
             val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
-                .setContentTitle("Tablet Lock")
-                .setContentText("Thiết bị đã bị khóa.")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentTitle("Thiết bị đã khóa")
+                .setContentText("Kiosk đang được bảo vệ.")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setFullScreenIntent(pendingIntent, true)
                 .setAutoCancel(true)
@@ -353,19 +363,12 @@ class KioskService : Service() {
             notificationManager.notify(NOTIFICATION_ID, builder.build())
         } catch (e: Exception) {
             e.printStackTrace()
-            // Dự phòng: cố gắng mở MainActivity trực tiếp
-            try {
-                val lockIntentDirect = Intent(this, MainActivity::class.java).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                }
-                startActivity(lockIntentDirect)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-            }
         }
 
-        // 4. Tự hủy Service
-        stopSelf()
+        // 4. Trì hoãn tự hủy Service 1 giây để bảo toàn process và chuyển tiếp mượt mà
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+            stopSelf()
+        }, 1000)
     }
 
     override fun onDestroy() {

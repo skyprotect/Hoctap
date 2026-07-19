@@ -1,6 +1,6 @@
 {
-  "version": "12.14",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.14/ToanHocKiosk_Setup_v12.14.exe",
+  "version": "12.15",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.15/ToanHocKiosk_Setup_v12.15.exe",
   "changelog": "- Đồng bộ tự động chấm lại điểm bị sai cho học sinh trong cơ sở dữ liệu cũ.\n- Tối ưu hóa tính năng AI Troubleshoot ở chế độ xem lại bài (Review): Tự động chuyển SAI thành ĐÚNG nếu học sinh làm đúng và lưu điểm mới.\n- Thêm dòng chữ hướng dẫn chi tiết cạnh nút AI Khắc Phục Sự Cố Đề.",
-  "androidVersion": "2.6"
+  "androidVersion": "2.7"
 }
