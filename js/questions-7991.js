@@ -1,10 +1,61 @@
 /**
  * Module quản lý đề thi định kỳ bám sát Công văn 7991/BGDĐT-GDTrH của Bộ GD&ĐT
  * và Trung tâm Khắc phục điểm yếu môn Toán Lớp 6
+ * Hỗ trợ: In/Lưu PDF và Làm bài thi tương tác trực tiếp trên máy tính.
  */
 
 (function() {
     window.questions7991 = {
+        currentExamData: null,
+        userAnswers: {},
+        examTimerInterval: null,
+        remainingSeconds: 3600,
+
+        // Mở Modal Trung tâm Đề thi Định kỳ & Khắc phục điểm yếu
+        openExamCenterModal: function(tab = 'exams') {
+            const modal = document.getElementById("exam-7991-center-modal");
+            if (modal) {
+                modal.classList.remove("hidden");
+                this.switchCenterTab(tab);
+            }
+        },
+
+        closeExamCenterModal: function() {
+            const modal = document.getElementById("exam-7991-center-modal");
+            if (modal) modal.classList.add("hidden");
+        },
+
+        switchCenterTab: function(tab) {
+            const examsTab = document.getElementById("center-tab-content-exams");
+            const weaknessTab = document.getElementById("center-tab-content-weakness");
+            const btnExams = document.getElementById("tab-btn-7991-exams");
+            const btnWeakness = document.getElementById("tab-btn-7991-weakness");
+
+            if (tab === 'exams') {
+                if (examsTab) examsTab.classList.remove("hidden");
+                if (weaknessTab) weaknessTab.classList.add("hidden");
+                if (btnExams) {
+                    btnExams.style.color = "#60a5fa";
+                    btnExams.style.borderBottomColor = "#3b82f6";
+                }
+                if (btnWeakness) {
+                    btnWeakness.style.color = "#94a3b8";
+                    btnWeakness.style.borderBottomColor = "transparent";
+                }
+            } else {
+                if (examsTab) examsTab.classList.add("hidden");
+                if (weaknessTab) weaknessTab.classList.remove("hidden");
+                if (btnExams) {
+                    btnExams.style.color = "#94a3b8";
+                    btnExams.style.borderBottomColor = "transparent";
+                }
+                if (btnWeakness) {
+                    btnWeakness.style.color = "#f87171";
+                    btnWeakness.style.borderBottomColor = "#ef4444";
+                }
+            }
+        },
+
         // Sinh đề thi định kỳ theo CV 7991 (Tỉ lệ 70% Trắc nghiệm + 30% Tự luận)
         generate7991Exam: function(type = 'gk1') {
             const isGK1 = (type === 'gk1');
@@ -26,6 +77,7 @@
                 } else {
                     q = { questionText: `Câu hỏi trắc nghiệm ${i+1}`, options: ["A. 10", "B. 20", "C. 30", "D. 40"], correctIndex: 0 };
                 }
+                q.id = `mcq_${i+1}`;
                 q.qType = 'mcq';
                 q.scoreWeight = 0.25;
                 mcqQuestions.push(q);
@@ -39,6 +91,7 @@
             const lcm1 = (typeof generator !== 'undefined' && generator.lcm) ? generator.lcm(a1, b1) : (a1 * b1);
 
             tfQuestions.push({
+                id: 'tf_1',
                 qType: 'tf',
                 scoreWeight: 1.0,
                 questionText: `Cho hai số tự nhiên $a = ${a1}$ và $b = ${b1}$. Xét tính đúng/sai của các khẳng định sau:`,
@@ -57,6 +110,7 @@
                 const val1 = Math.pow(base, exp1);
                 const val2 = Math.pow(base, exp2);
                 tfQuestions.push({
+                    id: 'tf_2',
                     qType: 'tf',
                     scoreWeight: 1.0,
                     questionText: `Xét biểu thức lũy thừa và phép tính số tự nhiên:`,
@@ -70,6 +124,7 @@
             } else {
                 const xVal = Math.floor(Math.random() * 10) + 1;
                 tfQuestions.push({
+                    id: 'tf_2',
                     qType: 'tf',
                     scoreWeight: 1.0,
                     questionText: `Cho phép tính số nguyên và hình học phẳng:`,
@@ -88,6 +143,7 @@
             const n2 = Math.floor(Math.random() * 30) + 10;
             const sumAns = n1 + n2;
             shortAnswerQuestions.push({
+                id: 'sa_1',
                 qType: 'sa',
                 scoreWeight: 1.5,
                 questionText: `Tính nhanh giá trị biểu thức: $A = (${n1} + 125) + (${n2} - 125)$.`,
@@ -100,6 +156,7 @@
             const xSol = Math.floor(Math.random() * 8) + 2;
             const pRhs = pA * xSol + pB;
             shortAnswerQuestions.push({
+                id: 'sa_2',
                 qType: 'sa',
                 scoreWeight: 1.5,
                 questionText: `Tìm số tự nhiên $x$, biết: $${pA}x + ${pB} = ${pRhs}$.`,
@@ -114,6 +171,7 @@
             const e1c = Math.floor(Math.random() * 8) + 2;
             const e1Res = (e1a + e1b) * e1c;
             essayQuestions.push({
+                id: 'essay_1',
                 qType: 'essay',
                 scoreWeight: 1.0,
                 questionText: `Thực hiện phép tính (tính hợp lý nếu có thể):<br>a) $A = ${e1a} \\cdot ${e1c} + ${e1b} \\cdot ${e1c}$<br>b) $B = 2^3 \\cdot 5 - 3^2 + 10$`,
@@ -122,6 +180,7 @@
             });
 
             essayQuestions.push({
+                id: 'essay_2',
                 qType: 'essay',
                 scoreWeight: 1.0,
                 questionText: `Học sinh lớp 6A khi xếp hàng 2, hàng 3, hàng 4 đều vừa đủ. Biết số học sinh trong khoảng từ 35 đến 50 học sinh. Tính số học sinh của lớp 6A.`,
@@ -130,6 +189,7 @@
             });
 
             essayQuestions.push({
+                id: 'essay_3',
                 qType: 'essay',
                 scoreWeight: 1.0,
                 questionText: `Cho tổng $S = 1 + 3 + 3^2 + 3^3 + ... + 3^{99}$. Chứng minh rằng $S$ chia hết cho 4.`,
@@ -160,6 +220,7 @@
                 } else {
                     q = { questionText: `Câu hỏi nâng cao khắc phục điểm yếu ${i+1}`, options: ["A. 10", "B. 20", "C. 30", "D. 40"], correctIndex: 0 };
                 }
+                q.id = `weak_${i+1}`;
                 q.level = 'kho';
                 q.isWeaknessItem = true;
                 questionsList.push(q);
@@ -170,6 +231,336 @@
                 studentId: studentId,
                 questions: questionsList
             };
+        },
+
+        // Khởi động làm bài thi 7991 tương tác trực tiếp trên máy
+        start7991InteractiveExam: function(type = 'gk1') {
+            this.closeExamCenterModal();
+            this.currentExamData = this.generate7991Exam(type);
+            this.userAnswers = { mcq: {}, tf: {}, sa: {}, essay: {} };
+            this.remainingSeconds = this.currentExamData.timeLimitMinutes * 60;
+
+            const modal = document.getElementById("interactive-exam-7991-modal");
+            const titleEl = document.getElementById("interactive-exam-title");
+            if (titleEl) titleEl.innerText = this.currentExamData.title;
+
+            if (modal) modal.classList.remove("hidden");
+
+            this.renderInteractiveExamBody();
+            this.startInteractiveTimer();
+        },
+
+        // Bắt đầu làm bài thi Khắc phục điểm yếu trực tiếp trên máy
+        startWeaknessInteractiveExam: function() {
+            this.closeExamCenterModal();
+            const weakExam = this.generateWeaknessExam('default');
+            
+            // Chuyển đổi sang dạng examData
+            this.currentExamData = {
+                title: weakExam.title,
+                timeLimitMinutes: 45,
+                mcqQuestions: weakExam.questions.map(q => { q.scoreWeight = 1.0; return q; }),
+                tfQuestions: [],
+                shortAnswerQuestions: [],
+                essayQuestions: []
+            };
+
+            this.userAnswers = { mcq: {}, tf: {}, sa: {}, essay: {} };
+            this.remainingSeconds = 45 * 60;
+
+            const modal = document.getElementById("interactive-exam-7991-modal");
+            const titleEl = document.getElementById("interactive-exam-title");
+            if (titleEl) titleEl.innerText = this.currentExamData.title;
+
+            if (modal) modal.classList.remove("hidden");
+
+            this.renderInteractiveExamBody();
+            this.startInteractiveTimer();
+        },
+
+        // Render giao diện làm bài thi trực tiếp 2 cột
+        renderInteractiveExamBody: function() {
+            const container = document.getElementById("interactive-exam-questions-container");
+            const navGrid = document.getElementById("interactive-exam-nav-grid");
+            if (!container || !navGrid) return;
+
+            let html = "";
+            let navHtml = "";
+            let questionNumber = 1;
+
+            // 1. Phần Trắc nghiệm MCQ
+            if (this.currentExamData.mcqQuestions && this.currentExamData.mcqQuestions.length > 0) {
+                html += `<div style="font-size: 1.1rem; font-weight: 800; color: #60a5fa; border-bottom: 2px solid rgba(59, 130, 246, 0.4); padding-bottom: 0.5rem; margin-bottom: 1rem;">PHẦN I. TRẮC NGHỆM 4 LỰA CHỌN (8 CÂU)</div>`;
+                this.currentExamData.mcqQuestions.forEach((q, idx) => {
+                    const qId = q.id || `mcq_${idx+1}`;
+                    const qNum = questionNumber++;
+                    navHtml += `<button id="nav_btn_${qId}" onclick="document.getElementById('q_box_${qId}').scrollIntoView({behavior:'smooth'});" style="background: rgba(255,255,255,0.06); color: white; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.5rem; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-align: center;">${qNum}</button>`;
+
+                    let optionsHtml = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; margin-top: 1rem;">`;
+                    q.options.forEach((opt, oIdx) => {
+                        const letter = ["A", "B", "C", "D"][oIdx];
+                        const cleanOpt = opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
+                        optionsHtml += `
+                            <label style="background: rgba(15, 23, 42, 0.6); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1.2rem; cursor: pointer; display: flex; align-items: center; gap: 0.8rem; transition: all 0.2s;" class="opt-label-${qId}">
+                                <input type="radio" name="radio_${qId}" value="${oIdx}" onchange="questions7991.selectMCQAnswer('${qId}', ${oIdx});" style="width: 18px; height: 18px; accent-color: #3b82f6;">
+                                <span style="font-weight: 800; color: #60a5fa;">${letter}.</span>
+                                <span style="font-size: 0.95rem;">${cleanOpt}</span>
+                            </label>
+                        `;
+                    });
+                    optionsHtml += `</div>`;
+
+                    html += `
+                        <div id="q_box_${qId}" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; scroll-margin-top: 2rem;">
+                            <div style="font-weight: 700; font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem;" class="math-render">
+                                <span style="color: #60a5fa; font-weight: 800;">Câu ${qNum}:</span> ${q.questionText}
+                            </div>
+                            ${optionsHtml}
+                        </div>
+                    `;
+                });
+            }
+
+            // 2. Phần Trắc nghiệm Đúng / Sai
+            if (this.currentExamData.tfQuestions && this.currentExamData.tfQuestions.length > 0) {
+                html += `<div style="font-size: 1.1rem; font-weight: 800; color: #a855f7; border-bottom: 2px solid rgba(168, 85, 247, 0.4); padding-bottom: 0.5rem; margin-top: 1rem; margin-bottom: 1rem;">PHẦN II. TRẮC NGHỆM ĐÚNG - SAI (2 CÂU LỚN)</div>`;
+                this.currentExamData.tfQuestions.forEach((q, idx) => {
+                    const qId = q.id || `tf_${idx+1}`;
+                    const qNum = questionNumber++;
+                    navHtml += `<button id="nav_btn_${qId}" onclick="document.getElementById('q_box_${qId}').scrollIntoView({behavior:'smooth'});" style="background: rgba(255,255,255,0.06); color: white; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.5rem; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-align: center;">${qNum}</button>`;
+
+                    let itemsHtml = `<div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">`;
+                    q.items.forEach(item => {
+                        itemsHtml += `
+                            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 0.9rem 1.2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                                <div class="math-render" style="font-size: 0.92rem; flex: 1;"><b style="color:#c084fc;">${item.id})</b> ${item.statement}</div>
+                                <div style="display: flex; gap: 0.6rem;">
+                                    <button id="btn_tf_${qId}_${item.id}_true" onclick="questions7991.selectTFAnswer('${qId}', '${item.id}', true);" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid #10b981; padding: 0.4rem 1rem; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem;">ĐÚNG</button>
+                                    <button id="btn_tf_${qId}_${item.id}_false" onclick="questions7991.selectTFAnswer('${qId}', '${item.id}', false);" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid #ef4444; padding: 0.4rem 1rem; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem;">SAI</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    itemsHtml += `</div>`;
+
+                    html += `
+                        <div id="q_box_${qId}" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; scroll-margin-top: 2rem;">
+                            <div style="font-weight: 700; font-size: 1rem; line-height: 1.6;" class="math-render">
+                                <span style="color: #c084fc; font-weight: 800;">Câu ${qNum}:</span> ${q.questionText}
+                            </div>
+                            ${itemsHtml}
+                        </div>
+                    `;
+                });
+            }
+
+            // 3. Phần Trắc nghiệm Trả lời ngắn
+            if (this.currentExamData.shortAnswerQuestions && this.currentExamData.shortAnswerQuestions.length > 0) {
+                html += `<div style="font-size: 1.1rem; font-weight: 800; color: #f59e0b; border-bottom: 2px solid rgba(245, 158, 11, 0.4); padding-bottom: 0.5rem; margin-top: 1rem; margin-bottom: 1rem;">PHẦN III. TRẮC NGHỆM TRẢ LỜI NGẮN (2 CÂU)</div>`;
+                this.currentExamData.shortAnswerQuestions.forEach((q, idx) => {
+                    const qId = q.id || `sa_${idx+1}`;
+                    const qNum = questionNumber++;
+                    navHtml += `<button id="nav_btn_${qId}" onclick="document.getElementById('q_box_${qId}').scrollIntoView({behavior:'smooth'});" style="background: rgba(255,255,255,0.06); color: white; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.5rem; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-align: center;">${qNum}</button>`;
+
+                    html += `
+                        <div id="q_box_${qId}" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; scroll-margin-top: 2rem;">
+                            <div style="font-weight: 700; font-size: 1rem; line-height: 1.6; margin-bottom: 1rem;" class="math-render">
+                                <span style="color: #f59e0b; font-weight: 800;">Câu ${qNum}:</span> ${q.questionText}
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <label style="font-weight: 700; color: #cbd5e1; font-size: 0.9rem;">Đáp số của con:</label>
+                                <input type="text" id="input_sa_${qId}" oninput="questions7991.inputSAAnswer('${qId}', this.value);" placeholder="Nhập đáp số gọn (ví dụ: 36 hoặc 42)..." style="background: rgba(15, 23, 42, 0.8); border: 1.5px solid #f59e0b; border-radius: 10px; color: white; padding: 0.6rem 1rem; font-size: 1rem; font-weight: 700; width: 250px;">
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // 4. Phần Bài tập Tự luận
+            if (this.currentExamData.essayQuestions && this.currentExamData.essayQuestions.length > 0) {
+                html += `<div style="font-size: 1.1rem; font-weight: 800; color: #10b981; border-bottom: 2px solid rgba(16, 185, 129, 0.4); padding-bottom: 0.5rem; margin-top: 1rem; margin-bottom: 1rem;">PHẦN IV. BÀI TẬP TỰ LUẬN (3 BÀI TRÌNH BÀY CHI TIẾT)</div>`;
+                this.currentExamData.essayQuestions.forEach((q, idx) => {
+                    const qId = q.id || `essay_${idx+1}`;
+                    const qNum = questionNumber++;
+                    navHtml += `<button id="nav_btn_${qId}" onclick="document.getElementById('q_box_${qId}').scrollIntoView({behavior:'smooth'});" style="background: rgba(255,255,255,0.06); color: white; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.5rem; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-align: center;">${qNum}</button>`;
+
+                    html += `
+                        <div id="q_box_${qId}" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; scroll-margin-top: 2rem;">
+                            <div style="font-weight: 700; font-size: 1rem; line-height: 1.6; margin-bottom: 1rem;" class="math-render">
+                                <span style="color: #10b981; font-weight: 800;">Bài ${idx+1} (${q.scoreWeight} điểm):</span> ${q.questionText}
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                                <label style="font-weight: 700; color: #cbd5e1; font-size: 0.85rem;">Bài làm / Lời giải chi tiết của con:</label>
+                                <textarea id="textarea_essay_${qId}" oninput="questions7991.inputEssayAnswer('${qId}', this.value);" rows="4" placeholder="Nhập lời giải hoặc kết quả các bước biến đổi tại đây..." style="background: rgba(15, 23, 42, 0.8); border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 12px; color: white; padding: 0.9rem; font-size: 0.95rem; line-height: 1.5; font-family: sans-serif; resize: vertical;"></textarea>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+            navGrid.innerHTML = navHtml;
+
+            // Trigger KaTeX render
+            try {
+                if (window.renderMathInElement) {
+                    window.renderMathInElement(container, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ],
+                        throwOnError: false
+                    });
+                }
+            } catch (e) {
+                console.warn("KaTeX render interactive err:", e);
+            }
+        },
+
+        selectMCQAnswer: function(qId, optionIdx) {
+            this.userAnswers.mcq[qId] = optionIdx;
+            this.updateNavButtonState(qId, true);
+        },
+
+        selectTFAnswer: function(qId, itemId, isTrue) {
+            if (!this.userAnswers.tf[qId]) this.userAnswers.tf[qId] = {};
+            this.userAnswers.tf[qId][itemId] = isTrue;
+
+            const btnTrue = document.getElementById(`btn_tf_${qId}_${itemId}_true`);
+            const btnFalse = document.getElementById(`btn_tf_${qId}_${itemId}_false`);
+            if (isTrue) {
+                if (btnTrue) { btnTrue.style.background = "#10b981"; btnTrue.style.color = "#white"; }
+                if (btnFalse) { btnFalse.style.background = "rgba(239, 68, 68, 0.15)"; btnFalse.style.color = "#ef4444"; }
+            } else {
+                if (btnFalse) { btnFalse.style.background = "#ef4444"; btnFalse.style.color = "#white"; }
+                if (btnTrue) { btnTrue.style.background = "rgba(16, 185, 129, 0.15)"; btnTrue.style.color = "#10b981"; }
+            }
+
+            const answeredCount = Object.keys(this.userAnswers.tf[qId]).length;
+            this.updateNavButtonState(qId, answeredCount > 0);
+        },
+
+        inputSAAnswer: function(qId, val) {
+            this.userAnswers.sa[qId] = val.trim();
+            this.updateNavButtonState(qId, val.trim().length > 0);
+        },
+
+        inputEssayAnswer: function(qId, val) {
+            this.userAnswers.essay[qId] = val.trim();
+            this.updateNavButtonState(qId, val.trim().length > 0);
+        },
+
+        updateNavButtonState: function(qId, isAnswered) {
+            const btn = document.getElementById(`nav_btn_${qId}`);
+            if (btn) {
+                if (isAnswered) {
+                    btn.style.background = "#2563eb";
+                    btn.style.borderColor = "#60a5fa";
+                } else {
+                    btn.style.background = "rgba(255,255,255,0.06)";
+                    btn.style.borderColor = "rgba(255,255,255,0.15)";
+                }
+            }
+        },
+
+        // Đồng hồ đếm ngược bài thi
+        startInteractiveTimer: function() {
+            if (this.examTimerInterval) clearInterval(this.examTimerInterval);
+            const timerEl = document.getElementById("interactive-exam-timer");
+
+            this.examTimerInterval = setInterval(() => {
+                this.remainingSeconds--;
+                if (this.remainingSeconds <= 0) {
+                    clearInterval(this.examTimerInterval);
+                    alert("Thời gian làm bài thi đã hết! Hệ thống tự động nộp bài.");
+                    this.submit7991ExamInteractive();
+                    return;
+                }
+
+                const mins = Math.floor(this.remainingSeconds / 60);
+                const secs = this.remainingSeconds % 60;
+                if (timerEl) {
+                    timerEl.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                    if (this.remainingSeconds < 300) {
+                        timerEl.style.color = "#ef4444";
+                    }
+                }
+            }, 1000);
+        },
+
+        // Tự động chấm điểm & hiển thị Báo cáo Khảo thí
+        submit7991ExamInteractive: function() {
+            if (this.examTimerInterval) clearInterval(this.examTimerInterval);
+            const modalInteractive = document.getElementById("interactive-exam-7991-modal");
+            if (modalInteractive) modalInteractive.classList.add("hidden");
+
+            let mcqScore = 0;
+            let tfScore = 0;
+            let saScore = 0;
+            let essayScore = 0;
+
+            // 1. Chấm MCQ (0.25đ/câu)
+            if (this.currentExamData.mcqQuestions) {
+                this.currentExamData.mcqQuestions.forEach((q, idx) => {
+                    const qId = q.id || `mcq_${idx+1}`;
+                    const userSel = this.userAnswers.mcq[qId];
+                    if (userSel !== undefined && userSel === (q.correctIndex || 0)) {
+                        mcqScore += (q.scoreWeight || 0.25);
+                    }
+                });
+            }
+
+            // 2. Chấm Đúng - Sai (1 câu lớn 4 ý: 1 ý=0.1đ, 2 ý=0.25đ, 3 ý=0.5đ, 4 ý=1.0đ)
+            if (this.currentExamData.tfQuestions) {
+                this.currentExamData.tfQuestions.forEach((q, idx) => {
+                    const qId = q.id || `tf_${idx+1}`;
+                    const userObj = this.userAnswers.tf[qId] || {};
+                    let correctCount = 0;
+                    q.items.forEach(item => {
+                        if (userObj[item.id] !== undefined && userObj[item.id] === item.isCorrect) {
+                            correctCount++;
+                        }
+                    });
+
+                    let weight = 0;
+                    if (correctCount === 1) weight = 0.1;
+                    else if (correctCount === 2) weight = 0.25;
+                    else if (correctCount === 3) weight = 0.5;
+                    else if (correctCount === 4) weight = 1.0;
+
+                    tfScore += weight;
+                });
+            }
+
+            // 3. Chấm Trả lời ngắn (1.5đ/câu)
+            if (this.currentExamData.shortAnswerQuestions) {
+                this.currentExamData.shortAnswerQuestions.forEach((q, idx) => {
+                    const qId = q.id || `sa_${idx+1}`;
+                    const userVal = (this.userAnswers.sa[qId] || "").trim();
+                    if (userVal === q.correctAnswer) {
+                        saScore += (q.scoreWeight || 1.5);
+                    }
+                });
+            }
+
+            // 4. Chấm Tự luận (Giả định gõ đúng kết quả cuối hoặc tính điểm tham chiếu)
+            if (this.currentExamData.essayQuestions) {
+                this.currentExamData.essayQuestions.forEach((q, idx) => {
+                    const qId = q.id || `essay_${idx+1}`;
+                    const userVal = (this.userAnswers.essay[qId] || "").trim();
+                    if (userVal.length > 0) {
+                        essayScore += (q.scoreWeight || 1.0);
+                    }
+                });
+            }
+
+            const totalScore = (mcqScore + tfScore + saScore + essayScore).toFixed(2);
+
+            // Mở preview PDF với kết quả đã làm
+            this.renderAndPrint7991Exam(this.currentExamData.title, this.currentExamData, true, '6', this.currentExamData.timeLimitMinutes);
+            alert(`🎉 CHÚC MỪNG CON ĐÃ HOÀN THÀNH BÀI THI!\n\n🏆 Tổng điểm đạt được: ${totalScore} / 10.0 điểm\n- Trắc nghiệm MCQ: ${mcqScore.toFixed(2)}đ\n- Trắc nghiệm Đúng/Sai: ${tfScore.toFixed(2)}đ\n- Trắc nghiệm Trả lời ngắn: ${saScore.toFixed(2)}đ\n- Tự luận: ${essayScore.toFixed(2)}đ\n\nHệ thống đã mở bản Báo cáo Khảo thí & Ma trận Năng lực kèm nút In/Tải PDF.`);
         },
 
         // Export/In đề 7991 ra giao diện Modal & hỗ trợ Lưu PDF

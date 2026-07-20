@@ -1,6 +1,6 @@
 {
-  "version": "12.50",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.50/ToanHocKiosk_Setup_v12.50.exe",
-  "changelog": "- Bổ sung đề thi Giữa kỳ I và Cuối kỳ I môn Toán Lớp 6 bám sát ma trận Công văn 7991/BGDĐT-GDTrH (Trắc nghiệm 4 lựa chọn, Trắc nghiệm Đúng/Sai, Trắc nghiệm trả lời ngắn và Tự luận).\n- Bổ sung Trung tâm Khắc phục điểm yếu môn Toán tự động nhận diện dạng toán sai nhiều để tạo đề thi nâng cao chuyên sâu.\n- Tích hợp tính năng In và xuất file PDF chuẩn kiểm định chất lượng & khảo thí của Bộ GD&ĐT.",
+  "version": "12.51",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.51/ToanHocKiosk_Setup_v12.51.exe",
+  "changelog": "- Bổ sung tính năng LÀM BÀI TRỰC TIẾP TRÊN MÁY TÍNH cho Đề kiểm tra Giữa kỳ I & Cuối kỳ I bám sát Công văn 7991/BGDĐT-GDTrH.\n- Bổ sung tính năng LÀM BÀI TRỰC TIẾP TRÊN MÁY TÍNH cho Trung tâm Khắc phục điểm yếu môn Toán Lớp 6.\n- Tái thiết kế giao diện TRUNG TÂM KHẢO THÍ & ĐÁNH GIÁ NĂNG LỰC sang trọng, đẳng cấp với 2 Tab riêng biệt, tách bạch chức năng Làm bài trên máy và In/Xuất PDF Đề thi giấy.",
   "androidVersion": "2.9"
 }
