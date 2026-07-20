@@ -1,6 +1,6 @@
 {
-  "version": "12.53",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.53/ToanHocKiosk_Setup_v12.53.exe",
-  "changelog": "- Khắc phục triệt để sự cố phát 2 file âm thanh giọng nói châm ngôn đồng thời khi khởi động phần mềm.\n- Tối ưu hóa bộ dọn dẹp âm thanh ngầm và cờ mở khóa Autoplay trên màn hình chào mừng.",
+  "version": "12.55",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.55/ToanHocKiosk_Setup_v12.55.exe",
+  "changelog": "- Bổ sung js/questions-7991.js vào kịch bản đồng bộ sync_clean.js để khắc phục triệt để lỗi Unexpected token '<' trên bản sạch HocTap_Clean.",
   "androidVersion": "2.9"
 }

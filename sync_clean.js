@@ -17,6 +17,7 @@ const filesToSync = [
   'js/questions-v1.js',
   'js/questions-v3.js',
   'js/questions-v4.js',
+  'js/questions-7991.js',
   'js/game.js',
   'js/question-generator-worker.js',
   'js/remove-bg-worker.js',
