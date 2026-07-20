@@ -1,6 +1,6 @@
 {
-  "version": "12.21",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.21/ToanHocKiosk_Setup_v12.21.exe",
-  "changelog": "- Đồng bộ tự động chấm lại điểm bị sai cho học sinh trong cơ sở dữ liệu cũ.\n- Tối ưu hóa tính năng AI Troubleshoot ở chế độ xem lại bài (Review): Tự động chuyển SAI thành ĐÚNG nếu học sinh làm đúng và lưu điểm mới.\n- Thêm dòng chữ hướng dẫn chi tiết cạnh nút AI Khắc Phục Sự Cố Đề.",
+  "version": "12.23",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.23/ToanHocKiosk_Setup_v12.23.exe",
+  "changelog": "- Hợp nhất điểm XP Toán và Tiếng Anh làm một nguồn XP tổng thể dùng chung.\n- Học sinh gửi 1 tin nhắn chat sẽ bị trừ 50 XP (yêu cầu tối thiểu 50 XP để gửi).\n- Thêm hiệu ứng trừ XP sinh động dạng damage popup kèm âm thanh kiếm chém vui nhộn.",
   "androidVersion": "2.9"
 }

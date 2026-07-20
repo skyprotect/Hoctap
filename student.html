@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=12.21">
+    <link rel="stylesheet" href="css/style.css?v=12.23">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -811,7 +811,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v12.21 (Cập nhật: 19/07/2026 19:14)</div>
+            <div class="splash-version-tag">Phiên bản: v12.23 (Cập nhật: 20/07/2026 11:34)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1955,19 +1955,19 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=12.21"></script>
-    <script src="js/lessons.js?v=12.21"></script>
-    <script src="js/questions-v1.js?v=12.21"></script>
-    <script src="js/questions-v4.js?v=12.21"></script>
-    <script src="js/questions-v3.js?v=12.21"></script>
-    <script src="js/game.js?v=12.21"></script>
+    <script src="js/english_data.js?v=12.23"></script>
+    <script src="js/lessons.js?v=12.23"></script>
+    <script src="js/questions-v1.js?v=12.23"></script>
+    <script src="js/questions-v4.js?v=12.23"></script>
+    <script src="js/questions-v3.js?v=12.23"></script>
+    <script src="js/game.js?v=12.23"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
-    <script src="js/app.js?v=12.21"></script>
+    <script src="js/app.js?v=12.23"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2515,6 +2515,48 @@
         .floating-chat-window.hidden {
             display: none !important;
         }
+
+        /* Hiệu ứng trừ XP kiểu sát thương / trừ máu trong game */
+        @keyframes damageFloat {
+            0% {
+                transform: translate(-50%, 0) scale(0.3);
+                opacity: 0;
+            }
+            15% {
+                transform: translate(-50%, -40px) scale(1.5) rotate(-8deg);
+                opacity: 1;
+            }
+            30% {
+                transform: translate(-50%, -50px) scale(1) rotate(5deg);
+            }
+            50% {
+                transform: translate(-50%, -60px) scale(1.2) rotate(-5deg);
+            }
+            80% {
+                transform: translate(-50%, -80px) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -120px) scale(0.8);
+                opacity: 0;
+            }
+        }
+        .xp-damage-popup {
+            position: fixed;
+            z-index: 100000;
+            font-family: 'Outfit', 'Inter', 'Arial Black', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #ff3b30;
+            text-shadow: 
+                -3px -3px 0 #000,  
+                 3px -3px 0 #000,
+                -3px  3px 0 #000,
+                 3px  3px 0 #000,
+                 0px  5px 10px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            animation: damageFloat 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
         .chat-window-header {
             padding: 12px 16px;
             background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(124, 58, 237, 0.1));
@@ -2943,7 +2985,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v12.21 (Cập nhật: 19/07/2026 19:14)
+        Phiên bản: v12.23 (Cập nhật: 20/07/2026 11:34)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

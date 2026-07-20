@@ -2348,17 +2348,34 @@ app.post('/api/chat/send', async (req, res) => {
     return res.status(400).json({ error: "Thiếu senderId, receiverId hoặc nội dung text" });
   }
   try {
-    const roomId = [senderId, receiverId].sort().join("_");
-    
     // Thu thập thông tin người gửi nếu chưa có tên
     let actualSenderName = senderName;
+    const config = await dbGetSetting('config').catch(() => null);
+    const studentsList = (config && config.students) || [];
+    const studentConf = studentsList.find(s => s.id === senderId);
     if (!actualSenderName) {
-      const config = await dbGetSetting('config').catch(() => null);
-      const studentsList = (config && config.students) || [];
-      const studentConf = studentsList.find(s => s.id === senderId);
       actualSenderName = studentConf ? studentConf.name : "Học sinh";
     }
 
+    // 1. Kiểm tra số dư XP trước khi cho phép gửi tin nhắn
+    let state = await dbGetStudentProgress(senderId);
+    if (state) {
+      if (!state.xpMerged) {
+        const mathXp = parseInt(state.xp) || 0;
+        const engXp = parseInt(state.englishXp) || 0;
+        state._sharedXp = mathXp + engXp;
+        state.xpMerged = true;
+      } else if (typeof state._sharedXp === 'undefined') {
+        state._sharedXp = parseInt(state.englishXp) || parseInt(state.xp) || 0;
+      }
+
+      if ((state._sharedXp || 0) < 50) {
+        return res.status(400).json({ error: "not_enough_xp", message: "Con không đủ XP để gửi tin nhắn. Hãy học tập thêm nhé!" });
+      }
+    }
+
+    // 2. Gửi tin nhắn lên Firebase
+    const roomId = [senderId, receiverId].sort().join("_");
     const payload = {
       senderId,
       senderName: actualSenderName,
@@ -2379,6 +2396,20 @@ app.post('/api/chat/send', async (req, res) => {
     }
     const resultData = await response.json();
 
+    // 3. Trừ 50 XP (dùng chung nguồn XP tổng thể)
+    let newEnglishXp = 0;
+    if (state) {
+      state._sharedXp = Math.max(0, (state._sharedXp || 0) - 50);
+      state.xp = state._sharedXp;
+      state.englishXp = state._sharedXp;
+      newEnglishXp = state.englishXp;
+
+      await dbSaveStudentProgress(senderId, state, actualSenderName);
+      syncStudentProgressToFirebase(senderId, state, actualSenderName).catch(err => {
+        console.error("[FirebaseSync] Lỗi chạy ngầm đồng bộ sau chat:", err);
+      });
+    }
+
     // Đồng thời lưu thông báo tin nhắn chưa đọc cho người nhận
     try {
       const notifyUrl = `${FIREBASE_RTDB_URL}notifications/${receiverId}/${senderId}.json`;
@@ -2398,7 +2429,7 @@ app.post('/api/chat/send', async (req, res) => {
       console.error("Lỗi khi ghi thông báo tin nhắn mới lên Firebase:", notifyErr);
     }
 
-    res.json({ success: true, messageId: resultData.name, payload });
+    res.json({ success: true, messageId: resultData.name, payload, newEnglishXp });
   } catch (e) {
     console.error("Lỗi gửi tin nhắn chat:", e);
     res.status(500).json({ error: e.message });
@@ -3953,7 +3984,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.21';
+const APP_VERSION = '12.23';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

@@ -1386,6 +1386,65 @@ const app = {
                 configurable: true
             });
         });
+        this.syncXpGettersSetters();
+    },
+
+    syncXpGettersSetters: function() {
+        if (!this.state) return;
+        if (this._syncingXp) return;
+        this._syncingXp = true;
+
+        try {
+            if (!this.state.xpMerged) {
+                const mathXp = parseInt(this.state.xp) || 0;
+                const engXp = parseInt(this.state.englishXp) || 0;
+                this.state._sharedXp = mathXp + engXp;
+                this.state.xpMerged = true;
+            } else if (typeof this.state._sharedXp === 'undefined') {
+                this.state._sharedXp = parseInt(this.state.englishXp) || parseInt(this.state.xp) || 0;
+            }
+
+            let currentSharedXp = parseInt(this.state._sharedXp) || 0;
+
+            delete this.state.xp;
+            delete this.state.englishXp;
+
+            Object.defineProperty(this.state, 'xp', {
+                get: () => currentSharedXp,
+                set: (val) => {
+                    const intVal = parseInt(val) || 0;
+                    currentSharedXp = intVal;
+                    this.state._sharedXp = intVal;
+                    const xpVal = document.getElementById("eng-xp-val");
+                    if (xpVal) xpVal.innerText = intVal;
+                    const mainXpVal = document.getElementById("xp-val");
+                    if (mainXpVal) mainXpVal.innerText = intVal;
+                    const heroXp = document.getElementById("hero-xp");
+                    if (heroXp) heroXp.innerText = intVal;
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            Object.defineProperty(this.state, 'englishXp', {
+                get: () => currentSharedXp,
+                set: (val) => {
+                    const intVal = parseInt(val) || 0;
+                    currentSharedXp = intVal;
+                    this.state._sharedXp = intVal;
+                    const xpVal = document.getElementById("eng-xp-val");
+                    if (xpVal) xpVal.innerText = intVal;
+                    const mainXpVal = document.getElementById("xp-val");
+                    if (mainXpVal) mainXpVal.innerText = intVal;
+                    const heroXp = document.getElementById("hero-xp");
+                    if (heroXp) heroXp.innerText = intVal;
+                },
+                enumerable: true,
+                configurable: true
+            });
+        } finally {
+            this._syncingXp = false;
+        }
     },
 
     switchClass: async function(newClass) {
@@ -2768,6 +2827,22 @@ const app = {
         const text = input.value.trim();
         if (!text) return;
 
+        // 1. Kiểm tra XP trước khi cho phép gửi tin nhắn
+        const currentXp = this.state.englishXp || 0;
+        if (currentXp < 50) {
+            if (this.audio && typeof this.audio.playSound === 'function') {
+                this.audio.playSound('wrong');
+            }
+            Swal.fire({
+                title: "Không đủ XP 💥",
+                html: `Mỗi tin nhắn gửi đi tiêu tốn <b>50 XP</b>.<br/>Số dư hiện tại của con là <b>${currentXp} XP</b>.<br/>Con cần học tập thêm để có đủ XP gửi tin nhắn nhé!`,
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Đồng ý"
+            });
+            return;
+        }
+
         const senderId = this.config.defaultStudentId || 'default';
         const senderName = this.config.studentName || 'Học sinh';
         const receiverId = this.currentChatReceiverId;
@@ -2783,14 +2858,79 @@ const app = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ senderId, senderName, receiverId, text })
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(errData => {
+                    throw new Error(errData.error || "Gửi tin nhắn thất bại");
+                });
+            }
+            return res.json();
+        })
         .then(resData => {
             if (resData.success) {
                 this.lastReadMessageCount++;
                 this.loadChatMessages();
+
+                // Cập nhật XP mới từ server
+                if (typeof resData.newEnglishXp !== 'undefined') {
+                    this.state.englishXp = resData.newEnglishXp;
+                    // Lưu tiến trình vào localStorage
+                    const localKey = this.getLocalStorageKey();
+                    try {
+                        localStorage.setItem(localKey, JSON.stringify(this.state));
+                    } catch (e) {
+                        console.warn("Không thể lưu localStorage:", e);
+                    }
+                }
+
+                // Kích hoạt hiệu ứng trừ XP sinh động kiểu trò chơi
+                const sendBtn = document.querySelector(".btn-send-message");
+                if (sendBtn) {
+                    this.showXpMinusAnimation(sendBtn);
+                }
             }
         })
-        .catch(err => console.warn("[Chat] Lỗi gửi tin nhắn:", err));
+        .catch(err => {
+            console.warn("[Chat] Lỗi gửi tin nhắn:", err);
+            if (err.message === "not_enough_xp") {
+                Swal.fire({
+                    title: "Không đủ XP 💥",
+                    html: `Tài khoản của con không đủ 50 XP để thực hiện gửi tin nhắn.<br/>Vui lòng học tập thêm để tích lũy XP!`,
+                    icon: "warning",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Đồng ý"
+                });
+            } else {
+                Swal.fire("Lỗi", "Không thể gửi tin nhắn chat. Vui lòng thử lại sau!", "error");
+            }
+        });
+    },
+
+    showXpMinusAnimation: function(targetElement) {
+        if (!targetElement) return;
+        try {
+            const rect = targetElement.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top;
+
+            const popup = document.createElement("div");
+            popup.className = "xp-damage-popup";
+            popup.innerHTML = "💥 -50 XP";
+            popup.style.left = `${x}px`;
+            popup.style.top = `${y}px`;
+
+            document.body.appendChild(popup);
+
+            if (this.audio && typeof this.audio.playSwordHit === 'function') {
+                this.audio.playSwordHit();
+            }
+
+            setTimeout(() => {
+                popup.remove();
+            }, 1200);
+        } catch (e) {
+            console.error("Lỗi tạo hiệu ứng trừ XP:", e);
+        }
     },
 
     loadChatMessages: function() {
