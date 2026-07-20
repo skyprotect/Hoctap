@@ -1,6 +1,6 @@
 {
-  "version": "12.33",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.33/ToanHocKiosk_Setup_v12.33.exe",
-  "changelog": "- Cập nhật dữ liệu quy đổi thẻ Trần Bình Minh (3 thẻ) & Trần Đức Phúc (100XP, 1 thẻ).\n- Nâng cấp cơ chế đồng bộ 2 chiều thông minh giữa SQLite và Firestore.",
+  "version": "12.35",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.35/ToanHocKiosk_Setup_v12.35.exe",
+  "changelog": "- Tự động chuyển đổi sang chế độ Offline khi chưa đăng nhập Google, đảm bảo khởi chạy mượt mà 100% trên mọi thiết bị.",
   "androidVersion": "2.9"
 }

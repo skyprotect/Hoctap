@@ -2111,7 +2111,7 @@ const app = {
                 if (sessionData.loggedIn) {
                     console.log("✅ Phụ huynh đã đăng nhập Google:", sessionData.session.email);
                     
-                    // Nếu Firebase Auth chưa có currentUser, hoặc email không khớp, ta lắng nghe sự kiện khôi phục đăng nhập
+                    // Nếu Firebase Auth chưa có currentUser, ta lắng nghe sự kiện khôi phục đăng nhập
                     if (fb && fb.auth) {
                         fb.auth.onAuthStateChanged((user) => {
                             if (user) {
@@ -2128,31 +2128,29 @@ const app = {
                     return true;
                 }
             }
-            
-            // 3. Nếu người dùng đã từng chọn "Học ngoại tuyến (Offline)", tự động bỏ qua màn hình Google Login
-            if (localStorage.getItem('skipGoogleLogin') === 'true') {
-                console.log("ℹ️ Người dùng đã chọn chế độ Học ngoại tuyến (Offline) trước đó. Bỏ qua màn hình Đăng nhập Google.");
-                const googleLoginScreen = document.getElementById("google-login-screen");
-                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
-                await this.initAppAfterLogin();
-                return true;
-            }
-            
-            // 4. Nếu chưa đăng nhập và chưa từng chọn Skip, hiện màn hình đăng nhập Google
-            const googleLoginScreen = document.getElementById("google-login-screen");
-            if (googleLoginScreen) {
-                googleLoginScreen.classList.remove("hidden");
-                this.pushHistory('google-login');
-            }
-            this.updateNavigationButtons();
-            
-            // Lấy Google Client ID từ Server
+            return false;
+        } catch (e) {
+            console.error("Lỗi khi kiểm tra Google Session:", e);
+            return false;
+        }
+    },
+
+    // Mở màn hình đăng nhập Google đồng bộ đám mây khi phụ huynh chủ động yêu cầu
+    openGoogleLoginModal: async function() {
+        const googleLoginScreen = document.getElementById("google-login-screen");
+        if (googleLoginScreen) {
+            googleLoginScreen.classList.remove("hidden");
+            this.pushHistory('google-login');
+        }
+        this.updateNavigationButtons();
+        
+        try {
+            const fb = await this.initFirebaseClient();
             const configRes = await fetch(this.getApiUrl('/api/auth/google-client-id'));
             if (configRes.ok) {
                 const configData = await configRes.json();
                 const clientId = configData.clientId;
                 if (!clientId) {
-                    // Chưa cấu hình Client ID, hiện thông báo hướng dẫn
                     const warning = document.getElementById("google-config-warning");
                     const container = document.getElementById("google-signin-btn-container");
                     if (warning) warning.classList.remove("hidden");
@@ -2163,7 +2161,6 @@ const app = {
                     if (warning) warning.classList.add("hidden");
                     if (container) container.style.display = "flex";
                     
-                    // Khởi tạo Google GIS button một cách an toàn
                     if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
                         google.accounts.id.initialize({
                             client_id: clientId,
@@ -2182,13 +2179,10 @@ const app = {
                                         throw new Error("Không thể kết nối Firebase. Máy tính có thể đang offline hoặc cấu hình Firebase bị lỗi.");
                                     }
 
-                                    // A. Đăng nhập Firebase Auth trên Client bằng Google ID Token
                                     const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
                                     const userCredential = await fb.auth.signInWithCredential(credential);
                                     const firebaseUid = userCredential.user.uid;
-                                    console.log("🔥 Đã đăng nhập Firebase Auth Client thành công, UID:", firebaseUid);
 
-                                    // B. Gửi Google ID Token và Firebase UID về Local Server để tạo session
                                     const loginRes = await fetch(this.getApiUrl('/api/auth/google-login'), {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
@@ -2197,16 +2191,13 @@ const app = {
                                     
                                     if (loginRes.ok) {
                                         localStorage.removeItem('skipGoogleLogin');
-                                        // C. Kiểm tra xem trên Firestore đã có bất kỳ học sinh nào thuộc parentUid này chưa
                                         const studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
                                         let syncMessage = "";
                                         
                                         if (studentsSnap.empty) {
-                                            // Chưa có học sinh nào -> Chạy luồng DI TRÚ tự động lên Firebase
                                             await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
                                             syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
                                         } else {
-                                            // Đã có học sinh trên đám mây -> Kéo dữ liệu về ghi đè SQLite cục bộ
                                             await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
                                             syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
                                         }
@@ -2219,7 +2210,6 @@ const app = {
                                             showConfirmButton: false
                                         });
                                         if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
-                                        // Tải lại trang để áp dụng session mới
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
@@ -2244,7 +2234,6 @@ const app = {
                             { theme: "filled_blue", size: "large", text: "signin_with" }
                         );
                     } else {
-                        console.warn("[Google GIS] Không thể tải thư viện đăng nhập của Google (máy tính có thể đang offline).");
                         const container = document.getElementById("google-signin-btn-container");
                         if (container) {
                             container.innerHTML = "<p style='color: #94a3b8; font-size: 13px; font-style: italic;'><i class='fa-solid fa-triangle-exclamation text-amber-500'></i> Không có mạng để hiển thị nút Google. Bạn có thể sử dụng chế độ Offline dưới đây.</p>";
@@ -2252,26 +2241,8 @@ const app = {
                     }
                 }
             }
-            return false;
         } catch (e) {
-            console.error("Lỗi khi kiểm tra Google Session:", e);
-            
-            // Nếu có lỗi server nhưng người dùng chọn skip trước đó, vẫn cho vào học offline
-            if (localStorage.getItem('skipGoogleLogin') === 'true') {
-                const googleLoginScreen = document.getElementById("google-login-screen");
-                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
-                await this.initAppAfterLogin();
-                return true;
-            }
-
-            const googleLoginScreen = document.getElementById("google-login-screen");
-            if (googleLoginScreen) googleLoginScreen.classList.remove("hidden");
-            
-            const container = document.getElementById("google-signin-btn-container");
-            if (container) {
-                container.innerHTML = "<p style='color: #f87171; font-size: 13px; font-weight: bold;'><i class='fa-solid fa-triangle-exclamation'></i> Không thể kết nối với máy chủ Node.js cục bộ.</p><p style='color: #cbd5e1; font-size: 11px; margin-top: 4px; line-height: 1.4;'>Vui lòng kiểm tra xem bạn đã khởi chạy file <b>🚀 Bắt đầu học.vbs</b> chưa.</p>";
-            }
-            return false;
+            console.error("Lỗi khi mở màn hình đăng nhập Google:", e);
         }
     },
 
@@ -2308,14 +2279,16 @@ const app = {
 
     // Khởi chạy ứng dụng
     init: async function() {
-        // 1. Kiểm tra session Google trước tiên
-        const isLoggedIn = await this.checkGoogleSession();
-        if (!isLoggedIn) {
-            // Dừng tại đây, chờ phụ huynh đăng nhập Google thành công
-            return;
+        // 1. Kiểm tra session Google nếu đã đăng nhập trước đó
+        try {
+            await this.checkGoogleSession();
+        } catch (err) {
+            console.warn("⚠️ Kiểm tra session Google thất bại:", err);
         }
 
-        await this.loadConfig();
+        // 2. Khởi chạy các thành phần giao diện ứng dụng tự động (chế độ offline/local mặc định)
+        await this.initAppAfterLogin();
+
         this.audio.init(); // Preload tất cả âm thanh
         this.checkUpdateAuto(); // Tự động kiểm tra bản cập nhật
 
@@ -5365,8 +5338,7 @@ const app = {
 
         // Hiển thị màn hình đích
         if (screenName === 'google-login') {
-            const el = document.getElementById('google-login-screen');
-            if (el) el.classList.remove("hidden");
+            this.openGoogleLoginModal();
         } else if (screenName === 'setup-initial') {
             const el = document.getElementById('setup-initial-screen');
             if (el) el.classList.remove("hidden");
