@@ -1,6 +1,6 @@
 {
-  "version": "12.51",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.51/ToanHocKiosk_Setup_v12.51.exe",
-  "changelog": "- Bổ sung tính năng LÀM BÀI TRỰC TIẾP TRÊN MÁY TÍNH cho Đề kiểm tra Giữa kỳ I & Cuối kỳ I bám sát Công văn 7991/BGDĐT-GDTrH.\n- Bổ sung tính năng LÀM BÀI TRỰC TIẾP TRÊN MÁY TÍNH cho Trung tâm Khắc phục điểm yếu môn Toán Lớp 6.\n- Tái thiết kế giao diện TRUNG TÂM KHẢO THÍ & ĐÁNH GIÁ NĂNG LỰC sang trọng, đẳng cấp với 2 Tab riêng biệt, tách bạch chức năng Làm bài trên máy và In/Xuất PDF Đề thi giấy.",
+  "version": "12.53",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.53/ToanHocKiosk_Setup_v12.53.exe",
+  "changelog": "- Khắc phục triệt để sự cố phát 2 file âm thanh giọng nói châm ngôn đồng thời khi khởi động phần mềm.\n- Tối ưu hóa bộ dọn dẹp âm thanh ngầm và cờ mở khóa Autoplay trên màn hình chào mừng.",
   "androidVersion": "2.9"
 }

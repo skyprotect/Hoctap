@@ -624,12 +624,17 @@ const app = {
 
     // Quản lý phát âm thanh nhắc nhở tiếng Việt ngẫu nhiên khi ở màn hình chào mừng
     initSplashGreeting: function() {
+        // Dọn dẹp triệt để bất kỳ phiên chào mừng cũ nào đang chạy ngầm
+        if (typeof this.stopSplashGreeting === 'function') {
+            try { this.stopSplashGreeting(); } catch(e) {}
+        }
+
         const sentencesCount = 14;
         let isMuted = localStorage.getItem("splash_greeting_muted") === "true";
         let greetingInterval = null;
         let greetingAudios = [];
         let currentlyPlaying = null;
-        let hasPlayedOnce = false; // Theo dõi xem âm thanh đã được phát thành công lần nào chưa
+        let hasPlayedOnce = false; // Theo dõi xem âm thanh đã được phát thành công hoặc đăng ký phát chưa
 
         // Tải nhạc nền dạo đầu /sounds/nen.mp3
         const bgNen = new Audio('/sounds/nen.mp3');
@@ -714,6 +719,9 @@ const app = {
             if (isMuted) {
                 clearActiveTimeouts();
                 if (fadeRequestFrame) cancelAnimationFrame(fadeRequestFrame);
+                greetingAudios.forEach(a => {
+                    try { a.pause(); a.currentTime = 0; } catch (err) {}
+                });
                 if (currentlyPlaying) {
                     try {
                         currentlyPlaying.pause();
@@ -740,7 +748,13 @@ const app = {
             if (!splashScreen || splashScreen.style.display === "none") return;
             if (isMuted) return;
 
-            // Dừng mọi âm thanh cũ và dọn dẹp timeout cũ
+            // Đặt cờ ngay lập tức để ngăn chặn lượt phát trùng từ unlockAndPlay hoặc listener khác trong thời gian chờ 2.5s
+            hasPlayedOnce = true;
+
+            // Dừng triệt để tất cả các file âm thanh châm ngôn cũ
+            greetingAudios.forEach(a => {
+                try { a.pause(); a.currentTime = 0; } catch (e) {}
+            });
             if (currentlyPlaying) {
                 try {
                     currentlyPlaying.pause();
@@ -790,7 +804,6 @@ const app = {
                     const playPromise = currentlyPlaying.play();
                     if (playPromise !== undefined) {
                         playPromise.then(() => {
-                            hasPlayedOnce = true; 
                             if (autoplayHint) autoplayHint.classList.add("hidden");
                             
                             // Giảm nhỏ nhạc nền xuống 0.11 làm nhạc đệm ngầm lúc phát tiếng nói
@@ -801,6 +814,9 @@ const app = {
                             console.log("Autoplay châm ngôn bị trình duyệt chặn, hiển thị gợi ý click:", err.message);
                             if (autoplayHint) autoplayHint.classList.remove("hidden");
                             
+                            // Nếu châm ngôn bị chặn phát, cho phép thử lại khi chạm
+                            hasPlayedOnce = false;
+
                             // Nếu châm ngôn bị chặn phát, tắt nhạc nền đi ngay
                             if (hasBgMusic) {
                                 fadeAudio(bgNen, 0, 1000, () => {
