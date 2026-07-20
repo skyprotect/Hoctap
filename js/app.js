@@ -2823,6 +2823,7 @@ const app = {
                         <div class="presence-name" style="display:flex; align-items:center; gap:5px;">
                             ${s.studentName}
                             ${isSelf ? '<span style="font-size:0.65rem; background:#a855f7; color:white; padding:1px 4px; border-radius:4px; font-weight:800;">Bạn</span>' : ''}
+                            <span class="version-tag" style="font-size:0.7rem; background:rgba(99, 102, 241, 0.12); color:#6366f1; border:1px solid rgba(99, 102, 241, 0.3); padding:0px 5px; border-radius:6px; font-weight:700; font-family:monospace;">${s.appVersion || s.version || 'v12.46'}</span>
                         </div>
                         <div class="presence-meta">
                             Lớp ${s.classLevel || '6'} &bull; ${isOnline ? '<span style="color:#10b981; font-weight:700;">Đang hoạt động</span>' : getFriendlyTime(s.lastHeartbeat)}
@@ -3007,7 +3008,11 @@ const app = {
 
         if (!chatWindow) return;
 
-        if (chatName) chatName.innerText = receiverName;
+        if (chatName) {
+            const receiverObj = this.presenceDataCache.find(s => s.studentId === receiverId);
+            const receiverVer = receiverObj && (receiverObj.appVersion || receiverObj.version) ? (receiverObj.appVersion || receiverObj.version) : '';
+            chatName.innerHTML = `${receiverName} ${receiverVer ? `<span class="chat-header-version-badge" style="font-size:0.75rem; background:rgba(99, 102, 241, 0.15); color:#6366f1; border:1px solid rgba(99, 102, 241, 0.35); padding:1px 6px; border-radius:8px; font-weight:700; font-family:monospace; margin-left:6px;">${receiverVer}</span>` : ''}`;
+        }
         
         let initials = "HS";
         if (receiverName) {
@@ -3329,12 +3334,17 @@ const app = {
         container.innerHTML = messages.map((msg, index) => {
             const isOutgoing = msg.senderId === selfId;
             const timeStr = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+            const msgVer = msg.appVersion ? msg.appVersion : '';
 
             // Chỉ hiển thị -50 XP cho tin nhắn outgoing cuối cùng khi vừa gửi thành công
             const showXpBadge = isOutgoing && (index === messages.length - 1) && this.justSentMessage;
 
             return `
                 <div class="chat-message-bubble-wrapper ${isOutgoing ? 'outgoing' : 'incoming'}">
+                    <div style="font-size: 0.72rem; opacity: 0.85; margin-bottom: 2px; font-weight: 600; display:flex; align-items:center; gap:5px; ${isOutgoing ? 'justify-content: flex-end;' : 'justify-content: flex-start;'}">
+                        <span>${isOutgoing ? 'Con' : msg.senderName || 'Bạn học'}</span>
+                        ${msgVer ? `<span style="font-size:0.65rem; background:rgba(99, 102, 241, 0.15); color:#6366f1; border:1px solid rgba(99, 102, 241, 0.3); padding:0px 5px; border-radius:5px; font-family:monospace; font-weight:700;">${msgVer}</span>` : ''}
+                    </div>
                     <div class="chat-message-bubble">
                         ${showXpBadge ? '<div class="chat-xp-deduction-fade">-50 XP</div>' : ''}
                         ${msg.text}

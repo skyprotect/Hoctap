@@ -2491,7 +2491,8 @@ app.post('/api/heartbeat', async (req, res) => {
       studentId: studentId,
       studentName: studentName,
       classLevel: actualClassLevel,
-      lastHeartbeat: new Date().toISOString()
+      lastHeartbeat: new Date().toISOString(),
+      appVersion: `v${APP_VERSION}`
     };
 
     const url = `${FIREBASE_RTDB_URL}leaderboard/${studentId}.json`;
@@ -2553,7 +2554,8 @@ app.post('/api/chat/send', async (req, res) => {
       senderId,
       senderName: actualSenderName,
       text,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      appVersion: `v${APP_VERSION}`
     };
 
     const url = `${FIREBASE_RTDB_URL}chats/${roomId}.json`;
@@ -4157,7 +4159,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.46';
+const APP_VERSION = '12.47';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
