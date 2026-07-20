@@ -2119,11 +2119,30 @@ const app = {
 
         const merged = { ...cloudState, ...localState };
 
-        merged.xp = Math.max(localState.xp || 0, cloudState.xp || 0);
-        merged.englishXp = Math.max(localState.englishXp || 0, cloudState.englishXp || 0);
+        const localTime = new Date(localState.lastUpdated || 0).getTime();
+        const cloudTime = new Date(cloudState.lastUpdated || 0).getTime();
+
+        // 1. Số dư XP (Shared Currency Balance): Ưu tiên mốc thời gian mới nhất (lastUpdated) để giữ đúng số XP bị trừ khi mua đồ/đổi thẻ/nhắn tin AI
+        if (localTime > cloudTime) {
+            merged._sharedXp = (localState._sharedXp !== undefined) ? localState._sharedXp : (localState.xp || 0);
+            merged.xp = localState.xp !== undefined ? localState.xp : (localState._sharedXp || 0);
+            merged.englishXp = localState.englishXp !== undefined ? localState.englishXp : (localState._sharedXp || 0);
+        } else if (cloudTime > localTime) {
+            merged._sharedXp = (cloudState._sharedXp !== undefined) ? cloudState._sharedXp : (cloudState.xp || 0);
+            merged.xp = cloudState.xp !== undefined ? cloudState.xp : (cloudState._sharedXp || 0);
+            merged.englishXp = cloudState.englishXp !== undefined ? cloudState.englishXp : (cloudState._sharedXp || 0);
+        } else {
+            const maxXp = Math.max(localState._sharedXp || localState.xp || 0, cloudState._sharedXp || cloudState.xp || 0);
+            merged._sharedXp = maxXp;
+            merged.xp = maxXp;
+            merged.englishXp = maxXp;
+        }
+
+        // 2. Chuỗi học tập (Streak) và số lần xao nhãng: Giữ kỷ lục tối đa
         merged.streak = Math.max(localState.streak || 0, cloudState.streak || 0);
         merged.distractions = Math.max(localState.distractions || 0, cloudState.distractions || 0);
 
+        // 3. Danh hiệu, Thẻ năng lực, Vật phẩm mua & Bài học đã hoàn thành: Hợp nhất (Union Set) bảo toàn 100% tài sản
         const unionArray = (a1, a2) => Array.from(new Set([...(a1 || []), ...(a2 || [])]));
         merged.badges = unionArray(localState.badges, cloudState.badges);
         merged.goldBadges = unionArray(localState.goldBadges, cloudState.goldBadges);
@@ -2133,6 +2152,19 @@ const app = {
         merged.redeemedSkills = unionArray(localState.redeemedSkills, cloudState.redeemedSkills);
         merged.rewarded100PercentLessons = unionArray(localState.rewarded100PercentLessons, cloudState.rewarded100PercentLessons);
 
+        // Hợp nhất lịch sử quy đổi thẻ / mua đồ
+        if (localState.cardExchangeHistory || cloudState.cardExchangeHistory) {
+            const combinedHistory = [...(cloudState.cardExchangeHistory || []), ...(localState.cardExchangeHistory || [])];
+            const seenHistory = new Set();
+            merged.cardExchangeHistory = combinedHistory.filter(item => {
+                const key = (item.cardId || '') + '_' + (item.redeemedAt || '');
+                if (seenHistory.has(key)) return false;
+                seenHistory.add(key);
+                return true;
+            });
+        }
+
+        // 4. Điểm số các dạng bài & bài thi: Lấy điểm cao nhất
         const mergeMaxObject = (o1, o2) => {
             const res = { ...(o1 || {}), ...(o2 || {}) };
             const allKeys = new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})]);
@@ -4440,6 +4472,7 @@ const app = {
         }
         this.isSavingProgress = true;
         this.hasPendingSave = false;
+        this.state.lastUpdated = new Date().toISOString();
         
         const localKey = this.getLocalStorageKey();
         const classLevel = this.config.currentClass || '6';
