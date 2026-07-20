@@ -1,6 +1,6 @@
 {
-  "version": "12.23",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.23/ToanHocKiosk_Setup_v12.23.exe",
-  "changelog": "- Hợp nhất điểm XP Toán và Tiếng Anh làm một nguồn XP tổng thể dùng chung.\n- Học sinh gửi 1 tin nhắn chat sẽ bị trừ 50 XP (yêu cầu tối thiểu 50 XP để gửi).\n- Thêm hiệu ứng trừ XP sinh động dạng damage popup kèm âm thanh kiếm chém vui nhộn.",
+  "version": "12.30",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.30/ToanHocKiosk_Setup_v12.30.exe",
+  "changelog": "- Khắc phục xô lệch Header trong chế độ Kiosk.\n- Sửa nút Đổi môn tiếng Anh bị đè bởi bong bóng chat.\n- Cải tiến hiệu ứng trừ XP nhắn tin (chữ -50 XP mờ dần, bỏ âm thanh kiếm chém).",
   "androidVersion": "2.9"
 }

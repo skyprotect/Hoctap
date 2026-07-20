@@ -94,6 +94,7 @@ const app = {
     isDarkMode: true,
     pendingBadges: [],       // Hàng đợi huy hiệu chưa hiển thị khi đang ở màn hình Splash
     navHistory: [],          // Ngăn xếp lịch sử điều hướng
+    justSentMessage: false,  // Cờ hiệu ứng trừ XP nhắn tin
 
     // Huy hiệu có sẵn trong hệ thống (15 huy hiệu chuẩn tâm lý học & gamification)
     systemBadges: [
@@ -2883,11 +2884,8 @@ const app = {
                     }
                 }
 
-                // Kích hoạt hiệu ứng trừ XP sinh động kiểu trò chơi
-                const sendBtn = document.querySelector(".btn-send-message");
-                if (sendBtn) {
-                    this.showXpMinusAnimation(sendBtn);
-                }
+                // Thiết lập cờ để hiển thị hiệu ứng trừ XP ngay cạnh tin nhắn vừa gửi
+                this.justSentMessage = true;
             }
         })
         .catch(err => {
@@ -2994,19 +2992,26 @@ const app = {
         const selfId = this.config.defaultStudentId || 'default';
         const isAtBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 30;
 
-        container.innerHTML = messages.map(msg => {
+        container.innerHTML = messages.map((msg, index) => {
             const isOutgoing = msg.senderId === selfId;
             const timeStr = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+
+            // Chỉ hiển thị -50 XP cho tin nhắn outgoing cuối cùng khi vừa gửi thành công
+            const showXpBadge = isOutgoing && (index === messages.length - 1) && this.justSentMessage;
 
             return `
                 <div class="chat-message-bubble-wrapper ${isOutgoing ? 'outgoing' : 'incoming'}">
                     <div class="chat-message-bubble">
+                        ${showXpBadge ? '<div class="chat-xp-deduction-fade">-50 XP</div>' : ''}
                         ${msg.text}
                     </div>
                     <div class="chat-message-time">${timeStr}</div>
                 </div>
             `;
         }).join("");
+
+        // Reset cờ sau khi render xong
+        this.justSentMessage = false;
 
         if (isAtBottom || container.scrollTop === 0) {
             container.scrollTop = container.scrollHeight;

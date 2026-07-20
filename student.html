@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=12.23">
+    <link rel="stylesheet" href="css/style.css?v=12.30">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -811,7 +811,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v12.23 (Cập nhật: 20/07/2026 11:34)</div>
+            <div class="splash-version-tag">Phiên bản: v12.30 (Cập nhật: 20/07/2026 11:51)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -878,25 +878,25 @@
         
         <div class="header-right">
             <!-- Nút Bảng Xếp Hạng -->
-            <button id="btn-global-leaderboard" class="btn-parent" onclick="app.openLeaderboardModal('math')" style="background: linear-gradient(135deg, #a855f7, #7c3aed) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Bảng Xếp Hạng">
+            <button id="btn-global-leaderboard" class="btn-parent" onclick="app.openLeaderboardModal('math')" title="Bảng Xếp Hạng">
                 <i class="fa-solid fa-ranking-star"></i>
                 <span>Xếp Hạng</span>
             </button>
 
             <!-- Nút Thẻ Chiến Binh -->
-            <button id="btn-hero-profile" class="btn-parent" onclick="app.renderHeroProfile()" style="background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Hồ Sơ Năng Lực">
+            <button id="btn-hero-profile" class="btn-parent" onclick="app.renderHeroProfile()" title="Hồ Sơ Năng Lực">
                 <i class="fa-solid fa-trophy"></i>
                 <span>Năng Lực</span>
             </button>
 
             <!-- Nút Cửa Hàng Toán -->
-            <button id="btn-math-shop" class="btn-parent" onclick="app.openMathShopModal()" style="background: linear-gradient(135deg, #10b981, #059669) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Cửa Hàng Mạ Vàng Huy Hiệu">
+            <button id="btn-math-shop" class="btn-parent" onclick="app.openMathShopModal()" title="Cửa Hàng Mạ Vàng Huy Hiệu">
                 <i class="fa-solid fa-store"></i>
                 <span>Cửa Hàng</span>
             </button>
 
             <!-- Nút Chọn môn học -->
-            <button id="header-select-subject-btn" class="btn-parent" onclick="app.checkSubjectSelection()" style="background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.15); margin-right: 0.5rem;" title="Chọn Môn Học Khác">
+            <button id="header-select-subject-btn" class="btn-parent" onclick="app.checkSubjectSelection()" title="Đổi Môn Học">
                 <i class="fa-solid fa-shapes"></i>
                 <span>Đổi Môn</span>
             </button>
@@ -907,19 +907,19 @@
             </button>
             
             <!-- Nút Đánh giá chất lượng (Xem nhanh) -->
-            <button class="btn-parent" onclick="app.requestEvaluation()" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6) !important; color: white !important; margin-right: 0.5rem; border: none !important;">
+            <button id="btn-evaluation" class="btn-parent" onclick="app.requestEvaluation()" title="Đánh Giá Năng Lực AI">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Đánh Giá</span>
             </button>
             
             <!-- Nút Chơi Game giải trí tự do -->
-            <button id="btn-free-play-game" class="btn-parent" onclick="app.openFreePlayGameSelection()" style="background: linear-gradient(135deg, #06b6d4, #0891b2) !important; color: white !important; margin-right: 0.5rem; border: none !important;" title="Chơi Game Giải Trí Tự Do">
+            <button id="btn-free-play-game" class="btn-parent" onclick="app.openFreePlayGameSelection()" title="Chơi Game Giải Trí Tự Do">
                 <i class="fa-solid fa-gamepad"></i>
                 <span>Chơi Game</span>
             </button>
 
             <!-- Nút Dashboard Phụ huynh -->
-            <button class="btn-parent" onclick="window.location.href='/admin'">
+            <button id="btn-parent-dashboard" class="btn-parent" onclick="window.location.href='/admin'" title="Trang Quản Trị Phụ Huynh">
                 <i class="fa-solid fa-user-shield"></i>
                 <span>Phụ Huynh</span>
             </button>
@@ -1955,19 +1955,19 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=12.23"></script>
-    <script src="js/lessons.js?v=12.23"></script>
-    <script src="js/questions-v1.js?v=12.23"></script>
-    <script src="js/questions-v4.js?v=12.23"></script>
-    <script src="js/questions-v3.js?v=12.23"></script>
-    <script src="js/game.js?v=12.23"></script>
+    <script src="js/english_data.js?v=12.30"></script>
+    <script src="js/lessons.js?v=12.30"></script>
+    <script src="js/questions-v1.js?v=12.30"></script>
+    <script src="js/questions-v4.js?v=12.30"></script>
+    <script src="js/questions-v3.js?v=12.30"></script>
+    <script src="js/game.js?v=12.30"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
-    <script src="js/app.js?v=12.23"></script>
+    <script src="js/app.js?v=12.30"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2651,6 +2651,7 @@
             align-items: flex-start;
         }
         .chat-message-bubble {
+            position: relative;
             max-width: 80%;
             padding: 8px 12px;
             border-radius: 14px;
@@ -2658,6 +2659,51 @@
             line-height: 1.4;
             word-break: break-word;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .chat-xp-deduction-fade {
+            position: absolute;
+            right: 105%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 1px 5px;
+            border-radius: 4px;
+            pointer-events: none;
+            white-space: nowrap;
+            animation: chatXpFadeOut 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            z-index: 10;
+        }
+        .dark-mode .chat-xp-deduction-fade {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+        @keyframes chatXpFadeOut {
+            0% {
+                opacity: 0;
+                transform: translateY(-50%) scale(0.7);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1.1);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-120%) scale(0.85);
+                display: none;
+            }
         }
         .chat-message-bubble-wrapper.outgoing .chat-message-bubble {
             background: linear-gradient(135deg, #a855f7, #7c3aed);
@@ -2985,7 +3031,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v12.23 (Cập nhật: 20/07/2026 11:34)
+        Phiên bản: v12.30 (Cập nhật: 20/07/2026 11:51)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

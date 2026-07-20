@@ -273,10 +273,20 @@ button {
     top: 0;
     z-index: 100;
     transition: all var(--transition-speed);
+    gap: 1rem;
 }
 
 body.light-mode .app-header {
     background-color: rgba(8, 33, 14, 0.85); /* Xanh lục đậm trong suốt cho Night Mode */
+}
+
+/* Khối trái Header */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    min-width: max-content;
 }
 
 /* Nút quay lại trên Header */
@@ -294,6 +304,7 @@ body.light-mode .app-header {
     box-shadow: var(--shadow-sm);
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     margin-right: 1.2rem;
+    white-space: nowrap;
 }
 
 .btn-back-header:hover {
@@ -311,14 +322,62 @@ body.light-mode .app-header {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
     cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.logo span {
+    white-space: nowrap;
 }
 
 .logo i {
     font-size: 1.8rem;
+}
+
+/* Định nghĩa màu sắc các nút chức năng trên Header */
+#btn-global-leaderboard {
+    background: linear-gradient(135deg, #a855f7, #7c3aed) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-hero-profile {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-math-shop {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    border: none !important;
+}
+#header-select-subject-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+body.light-mode #header-select-subject-btn {
+    background: rgba(0, 0, 0, 0.06) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+#btn-evaluation {
+    background: linear-gradient(135deg, #8b5cf6, #3b82f6) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-free-play-game {
+    background: linear-gradient(135deg, #06b6d4, #0891b2) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-parent-dashboard {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
 }
 
 /* Gamification Badges in Header */
@@ -6967,5 +7026,69 @@ body.free-play-mode-active .btn-skill {
     border-color: #fbbf24 !important;
     background: rgba(245, 158, 11, 0.05) !important;
     box-shadow: 0 0 15px rgba(251, 191, 36, 0.3) !important;
+}
+
+/* ==========================================================================
+   TỐI ƯU HÓA RESPONSIVE HEADER VÀ BONG BÓNG CHAT TIẾNG ANH
+   ========================================================================== */
+
+/* 1. Tránh chèn ép trên Kiosk và màn hình laptop trung bình */
+@media (max-width: 1400px) {
+    .header-right {
+        gap: 0.5rem !important;
+    }
+    
+    .header-right .btn-parent {
+        padding: 0 !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        margin-right: 0.2rem !important;
+    }
+    
+    .header-right .btn-parent span {
+        display: none !important; /* Ẩn chữ */
+    }
+    
+    .header-right .btn-parent i {
+        margin: 0 !important;
+        font-size: 1.05rem !important;
+    }
+}
+
+/* 2. Tinh chỉnh các badges Gamification khi màn hình nhỏ hơn */
+@media (max-width: 1100px) {
+    .header-center {
+        gap: 0.6rem !important;
+    }
+    
+    .stat-badge {
+        font-size: 0 !important; /* Ẩn chữ " XP" thừa */
+        padding: 0.4rem 0.6rem !important;
+        gap: 0.3rem !important;
+    }
+    
+    .stat-badge .stat-icon {
+        font-size: 1rem !important;
+    }
+    
+    .stat-badge .stat-val {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* 3. Ẩn badges ở giữa khi màn hình cực nhỏ (như thiết bị di động dọc) */
+@media (max-width: 768px) {
+    .header-center {
+        display: none !important;
+    }
+}
+
+/* 4. Dịch chuyển bong bóng chat trực tuyến bạn học để tránh chèn ép nút Đổi môn tiếng Anh */
+body.english-mode .online-presence-widget {
+    left: 280px !important; /* Cách sidebar tiếng anh rộng 260px */
 }
 
