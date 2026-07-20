@@ -2169,11 +2169,11 @@ app.post('/api/auth/google-login', async (req, res) => {
         ]
       };
       await dbSaveSetting('config', configSky);
-      await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+      await runQuery("INSERT OR IGNORE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
         'std_htsj4gbmo',
         JSON.stringify({ student: 'Trần Bình Minh', classLevel: '6' })
       ]).catch(() => {});
-      await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+      await runQuery("INSERT OR IGNORE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
         'std_baongoc',
         JSON.stringify({ student: 'Trần Bảo Ngọc', classLevel: '1' })
       ]).catch(() => {});
@@ -2190,7 +2190,7 @@ app.post('/api/auth/google-login', async (req, res) => {
         ]
       };
       await dbSaveSetting('config', configNhem);
-      await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+      await runQuery("INSERT OR IGNORE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
         'std_tyc0gfnkz',
         JSON.stringify({ student: 'Trần Đức Phúc', classLevel: '4' })
       ]).catch(() => {});
@@ -4159,7 +4159,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.47';
+const APP_VERSION = '12.48';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
