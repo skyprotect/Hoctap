@@ -1,4 +1,4 @@
-◇ injected env (7) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (7) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
 🔥 Chế độ Firebase Web Client đã được kích hoạt.
 ==================================================
   Ứng dụng Toán Lớp 6 (AI Enabled) đang chạy tại:
@@ -12,24 +12,27 @@
 [Migration V12] Cập nhật session "Bài 9: Dấu hiệu chia hết" của std_htsj4gbmo: 30% -> 50%
 [Migration V12] Đã di trú và sửa lỗi chấm điểm cho 1 học sinh thành công.
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh (std_tyc0gfnkz)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Học sinh
 [FirebaseSync] Hoàn thành đồng bộ toàn bộ học sinh lên Firebase!
 [Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
-[AI Log - 12:15:26] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 12:15:26] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
-[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
-[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
-[AI Log - 12:15:28] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 12:15:29] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 12:15:31] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
-[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
-[AI Log - 12:15:34] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 13:27:10] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:11] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:13] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:14] Gửi request với API Key thứ 1 (AIzaSyBm...)
 [Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
-[AI Log - 12:15:38] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 12:15:39] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 12:15:41] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 12:15:42] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:16] Gửi request với API Key thứ 1 (AIzaSyBm...)
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 13:27:17] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:19] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:20] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 13:27:21] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:21] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 13:27:21] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 13:27:23] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:27:24] Gửi request với API Key thứ 1 (AIzaSyBm...)
+Tắt hoàn toàn Node.js server theo yêu cầu shutdown...

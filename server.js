@@ -1905,6 +1905,39 @@ app.get('/api/load-config', async (req, res) => {
       }
     }
     
+    // Kiểm tra an toàn: Nếu config.students bị rỗng nhưng trong student_progress lại có dữ liệu học sinh
+    if (!config || !config.students || !Array.isArray(config.students) || config.students.length === 0) {
+      const localProgressRows = await allQuery("SELECT student_id, state_json FROM student_progress").catch(() => []);
+      if (localProgressRows && localProgressRows.length > 0) {
+        console.log("🛠️ [/api/load-config] Phát hiện student_progress trong SQLite nhưng config.students rỗng. Đang tự động tái tạo config...");
+        const reconstructedStudents = [];
+        for (const row of localProgressRows) {
+          let name = "Học sinh";
+          let classLevel = "1";
+          try {
+            const state = JSON.parse(row.state_json);
+            name = state.student || name;
+            classLevel = state.classLevel || classLevel;
+          } catch(e){}
+          reconstructedStudents.push({
+            id: row.student_id,
+            name: name,
+            classLevel: classLevel
+          });
+        }
+        if (reconstructedStudents.length > 0) {
+          if (!config) config = {};
+          config.students = reconstructedStudents;
+          if (!config.studentName) config.studentName = reconstructedStudents[0].name;
+          if (!config.currentClass) config.currentClass = reconstructedStudents[0].classLevel;
+          if (!config.defaultStudentId) config.defaultStudentId = reconstructedStudents[0].id;
+          if (!config.parentName) config.parentName = "Phụ huynh";
+          if (!config.parentPin) config.parentPin = "123456";
+          await dbSaveConfig(config);
+        }
+      }
+    }
+
     // Tự động khởi tạo cấu hình mặc định nếu chưa tồn tại
     if (!config || Object.keys(config).length === 0) {
       config = {
@@ -2135,12 +2168,7 @@ app.get('/api/sync/local-data', async (req, res) => {
 app.post('/api/sync/save-pulled-data', async (req, res) => {
   const { config, students, vocabularies, topics } = req.body;
   try {
-    // 1. Ghi đè config
-    if (config) {
-      await dbSaveSetting('config', typeof config === 'string' ? config : JSON.stringify(config));
-    }
-
-    // 2. Ghi đè tiến trình học sinh
+    // 1. Ghi đè tiến trình học sinh
     if (students && Array.isArray(students)) {
       for (const s of students) {
         await runQuery(
@@ -2150,9 +2178,76 @@ app.post('/api/sync/save-pulled-data', async (req, res) => {
       }
     }
 
+    // 2. Xử lý & tự động tái tạo config nếu thiếu danh sách học sinh
+    let currentConfig = await dbGetSetting('config').catch(() => null);
+    let configObj = null;
+    if (typeof config === 'string') {
+      try { configObj = JSON.parse(config); } catch(e){}
+    } else if (config && typeof config === 'object') {
+      configObj = config;
+    }
+
+    if (!configObj) {
+      configObj = currentConfig || {};
+    }
+
+    // Nếu configObj thiếu mảng students hoặc students rỗng, tự động tái tạo từ mảng students kéo về
+    if (!configObj.students || !Array.isArray(configObj.students) || configObj.students.length === 0) {
+      const reconstructedStudents = [];
+      if (students && Array.isArray(students) && students.length > 0) {
+        for (const s of students) {
+          let name = s.name;
+          let classLevel = s.classLevel;
+          if (!name || !classLevel) {
+            try {
+              const parsedState = JSON.parse(s.state_json);
+              name = name || parsedState.student || "Học sinh";
+              classLevel = classLevel || parsedState.classLevel || "1";
+            } catch(e){}
+          }
+          reconstructedStudents.push({
+            id: s.studentId,
+            name: name || "Học sinh",
+            classLevel: classLevel || "1"
+          });
+        }
+      }
+
+      if (reconstructedStudents.length > 0) {
+        configObj.students = reconstructedStudents;
+        if (!configObj.studentName) configObj.studentName = reconstructedStudents[0].name;
+        if (!configObj.currentClass) configObj.currentClass = reconstructedStudents[0].classLevel;
+        if (!configObj.defaultStudentId) configObj.defaultStudentId = reconstructedStudents[0].id;
+        if (!configObj.parentName) configObj.parentName = "Phụ huynh";
+        if (!configObj.parentPin) configObj.parentPin = "123456";
+        console.log("🛠️ [/api/sync/save-pulled-data] Tự động tái tạo danh sách học sinh cho config:", reconstructedStudents);
+      }
+    }
+
+    // Lưu configObj vào SQLite
+    if (configObj && configObj.students && configObj.students.length > 0) {
+      await dbSaveSetting('config', configObj);
+
+      // Nếu phụ huynh đã đăng nhập Session, vá ngược config lên Firestore
+      const sessionSetting = await dbGetSetting('parent_session').catch(() => null);
+      if (sessionSetting && sessionSetting.parentUid && firebaseInitialized) {
+        try {
+          await dbFirestore.collection('settings').doc(`config_${sessionSetting.parentUid}`).set({
+            parentUid: sessionSetting.parentUid,
+            value: JSON.stringify(configObj),
+            lastUpdated: new Date().toISOString()
+          }, { merge: true });
+          console.log("☁️ [/api/sync/save-pulled-data] Đã đồng bộ ngược config đã tái tạo lên Firestore");
+        } catch(err) {
+          console.error("⚠️ Lỗi đồng bộ ngược config lên Firestore:", err.message);
+        }
+      }
+    } else if (config) {
+      await dbSaveSetting('config', typeof config === 'string' ? config : JSON.stringify(config));
+    }
+
     // 3. Ghi đè từ vựng tự tạo
     if (vocabularies && Array.isArray(vocabularies)) {
-      // Xóa từ vựng cũ để tránh trùng lặp nếu cần, hoặc ghi đè trực tiếp
       for (const v of vocabularies) {
         await runQuery(
           "INSERT OR REPLACE INTO custom_vocabulary (id, topic_id, word, meaning, type, pronunciation, example, image_path, audio_path, parentUid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -3984,7 +4079,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.35';
+const APP_VERSION = '12.37';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

@@ -2038,6 +2038,8 @@ const app = {
 
                     finalStudents.push({
                         studentId: localStd.student_id,
+                        name: name,
+                        classLevel: classLevel,
                         state_json: localStd.state_json
                     });
                     cloudStudentsMap.delete(localStd.student_id);
@@ -2066,6 +2068,8 @@ const app = {
                 } catch(e){}
                 finalStudents.push({
                     studentId: localStd.student_id,
+                    name: name,
+                    classLevel: classLevel,
                     state_json: localStd.state_json
                 });
             }
@@ -2128,6 +2132,17 @@ const app = {
                     return true;
                 }
             }
+            
+            // 3. Nếu chưa đăng nhập: Kiểm tra xem đã từng chọn "Học ngoại tuyến (Offline)" chưa
+            if (localStorage.getItem('skipGoogleLogin') === 'true') {
+                console.log("ℹ️ Người dùng đã chọn chế độ Học ngoại tuyến (Offline) trước đó.");
+                const googleLoginScreen = document.getElementById("google-login-screen");
+                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+                return false;
+            }
+
+            // 4. Nếu là lần đầu khởi chạy (chưa đăng nhập & chưa chọn Skip): Hiển thị màn hình cho phép lựa chọn Đăng nhập Google hoặc Học Offline
+            await this.openGoogleLoginModal();
             return false;
         } catch (e) {
             console.error("Lỗi khi kiểm tra Google Session:", e);
@@ -2279,15 +2294,13 @@ const app = {
 
     // Khởi chạy ứng dụng
     init: async function() {
-        // 1. Kiểm tra session Google nếu đã đăng nhập trước đó
-        try {
-            await this.checkGoogleSession();
-        } catch (err) {
-            console.warn("⚠️ Kiểm tra session Google thất bại:", err);
+        // 1. Kiểm tra session Google trước tiên
+        const isLoggedIn = await this.checkGoogleSession();
+        
+        // 2. Nếu đã đăng nhập hoặc đã từng chọn Offline -> Vào ứng dụng ngay
+        if (isLoggedIn || localStorage.getItem('skipGoogleLogin') === 'true') {
+            await this.initAppAfterLogin();
         }
-
-        // 2. Khởi chạy các thành phần giao diện ứng dụng tự động (chế độ offline/local mặc định)
-        await this.initAppAfterLogin();
 
         this.audio.init(); // Preload tất cả âm thanh
         this.checkUpdateAuto(); // Tự động kiểm tra bản cập nhật

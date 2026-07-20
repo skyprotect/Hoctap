@@ -1,6 +1,6 @@
 {
-  "version": "12.35",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.35/ToanHocKiosk_Setup_v12.35.exe",
-  "changelog": "- Tự động chuyển đổi sang chế độ Offline khi chưa đăng nhập Google, đảm bảo khởi chạy mượt mà 100% trên mọi thiết bị.",
+  "version": "12.37",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.37/ToanHocKiosk_Setup_v12.37.exe",
+  "changelog": "- Tự động phục hồi danh sách học sinh từ Firestore và SQLite sau khi đăng nhập Google, chuyển thẳng tới màn hình bài học hoặc chọn học sinh.",
   "androidVersion": "2.9"
 }
