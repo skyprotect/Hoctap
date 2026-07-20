@@ -1974,8 +1974,20 @@ const app = {
     },
 
     pullDataFromFirestoreClient: async function(db, parentUid) {
-        console.log("📥 [Client Sync] Bắt đầu kéo dữ liệu từ Firestore...");
+        console.log("📥 [Client Sync] Bắt đầu đồng bộ dữ liệu thông minh giữa Firestore và SQLite...");
         
+        // Đọc dữ liệu local trước
+        let localData = null;
+        try {
+            const localRes = await fetch(this.getApiUrl('/api/sync/local-data'));
+            if (localRes.ok) {
+                const json = await localRes.json();
+                localData = json.data;
+            }
+        } catch (e) {
+            console.warn("⚠️ Lỗi đọc dữ liệu local:", e);
+        }
+
         // 1. Kéo config
         const configDoc = await db.collection('settings').doc(`config_${parentUid}`).get();
         let config = null;
@@ -1983,10 +1995,86 @@ const app = {
             config = configDoc.data().value;
         }
 
-        // 2. Kéo học sinh
+        // 2. Kéo học sinh từ Cloud
         const studentsSnap = await db.collection('students').where('parentUid', '==', parentUid).get();
-        const students = [];
-        studentsSnap.forEach(doc => students.push(doc.data()));
+        const cloudStudentsMap = new Map();
+        studentsSnap.forEach(doc => {
+            const data = doc.data();
+            cloudStudentsMap.set(data.studentId, data);
+        });
+
+        const localStudents = (localData && localData.studentProgress) || [];
+        const finalStudents = [];
+
+        // So sánh từng học sinh local vs cloud
+        for (const localStd of localStudents) {
+            const cloudStd = cloudStudentsMap.get(localStd.student_id);
+            if (cloudStd) {
+                const cloudTime = new Date(cloudStd.lastUpdated || 0).getTime();
+                let localTime = 0;
+                try {
+                    const parsedState = JSON.parse(localStd.state_json);
+                    localTime = new Date(parsedState.lastUpdated || 0).getTime();
+                } catch(e){}
+
+                // Nếu local mới hơn hoặc chưa bao giờ sync, đẩy local lên Firestore!
+                if (localTime > cloudTime || localTime === 0) {
+                    console.log(`⚡ [Client Sync] SQLite cục bộ học sinh ${localStd.student_id} mới hơn Cloud. Đang đẩy lên Firestore...`);
+                    const configObj = localData.config ? JSON.parse(localData.config) : null;
+                    const stdConf = (configObj && configObj.students || []).find(s => s.id === localStd.student_id);
+                    const name = stdConf ? stdConf.name : "Học sinh";
+                    const classLevel = stdConf ? stdConf.classLevel : "1";
+
+                    try {
+                        await db.collection('students').doc(localStd.student_id).set({
+                            studentId: localStd.student_id,
+                            parentUid: parentUid,
+                            name: name,
+                            classLevel: classLevel,
+                            state_json: localStd.state_json,
+                            lastUpdated: new Date().toISOString()
+                        }, { merge: true });
+                    } catch(e){}
+
+                    finalStudents.push({
+                        studentId: localStd.student_id,
+                        state_json: localStd.state_json
+                    });
+                    cloudStudentsMap.delete(localStd.student_id);
+                    continue;
+                }
+            }
+            if (cloudStd) {
+                finalStudents.push(cloudStd);
+                cloudStudentsMap.delete(localStd.student_id);
+            } else {
+                // SQLite có học sinh mà Cloud chưa có -> Đẩy lên Cloud
+                try {
+                    const configObj = localData.config ? JSON.parse(localData.config) : null;
+                    const stdConf = (configObj && configObj.students || []).find(s => s.id === localStd.student_id);
+                    const name = stdConf ? stdConf.name : "Học sinh";
+                    const classLevel = stdConf ? stdConf.classLevel : "1";
+
+                    await db.collection('students').doc(localStd.student_id).set({
+                        studentId: localStd.student_id,
+                        parentUid: parentUid,
+                        name: name,
+                        classLevel: classLevel,
+                        state_json: localStd.state_json,
+                        lastUpdated: new Date().toISOString()
+                    }, { merge: true });
+                } catch(e){}
+                finalStudents.push({
+                    studentId: localStd.student_id,
+                    state_json: localStd.state_json
+                });
+            }
+        }
+
+        // Thêm các học sinh chỉ có trên Cloud mà không có ở SQLite local
+        for (const [sId, cloudStd] of cloudStudentsMap.entries()) {
+            finalStudents.push(cloudStd);
+        }
 
         // 3. Kéo từ vựng
         const vocabSnap = await db.collection('custom_vocabulary').where('parentUid', '==', parentUid).get();
@@ -1998,11 +2086,11 @@ const app = {
         const topics = [];
         topicsSnap.forEach(doc => topics.push(doc.data()));
 
-        // Gửi về Server để ghi đè SQLite cục bộ
+        // Gửi về Server để ghi đè/cập nhật SQLite cục bộ
         const syncRes = await fetch(this.getApiUrl('/api/sync/save-pulled-data'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ config, students, vocabularies, topics })
+            body: JSON.stringify({ config, students: finalStudents, vocabularies, topics })
         });
 
         if (!syncRes.ok) {

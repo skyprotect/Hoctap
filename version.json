@@ -1,6 +1,6 @@
 {
-  "version": "12.30",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.30/ToanHocKiosk_Setup_v12.30.exe",
-  "changelog": "- Khắc phục xô lệch Header trong chế độ Kiosk.\n- Sửa nút Đổi môn tiếng Anh bị đè bởi bong bóng chat.\n- Cải tiến hiệu ứng trừ XP nhắn tin (chữ -50 XP mờ dần, bỏ âm thanh kiếm chém).",
+  "version": "12.32",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.32/ToanHocKiosk_Setup_v12.32.exe",
+  "changelog": "- Cập nhật dữ liệu quy đổi thẻ Trần Bình Minh (3 thẻ) & Trần Đức Phúc (100XP, 1 thẻ).\n- Nâng cấp cơ chế đồng bộ 2 chiều thông minh giữa SQLite và Firestore.",
   "androidVersion": "2.9"
 }

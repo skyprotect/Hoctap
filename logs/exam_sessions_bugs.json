@@ -6267,5 +6267,341 @@
     },
     "reason": "Formatting Error",
     "timestamp": 1784522437246
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1; 1; 2; 3; 4; 6; 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -12; -6; -4; -3; -2; -1 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ bao gồm: $\\{ -12; -6; -3 \\}$.<br/>Theo điều kiện bài toán, ta có $x < 0$ và $x \\neq -3$, do đó $x \\in \\{ -12; -6 \\}$.<br/>Đối chiếu với các phương án đã cho, đáp án đúng là $-6$.",
+      "tip": "Để tìm số nguyên $x$ là ước của $a$ và là bội của $b$, ta liệt kê các ước của $a$ rồi kiểm tra xem số nào chia hết cho $b$ và thỏa mãn các điều kiện về bất đẳng thức hoặc điều kiện khác kèm theo."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523382814
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong đó, các số là bội của $3$ là: $\\{ -3; -6; -12 \\}$.<br/>Vì $x < 0$ và $x \\neq -3$, nên $x$ có thể là $-6$ hoặc $-12$. Đối chiếu với các phương án lựa chọn, đáp án đúng là $-6$.",
+      "tip": "Để tìm bội của một số nguyên $a$ trong tập hợp các ước của một số khác, ta có thể liệt kê các ước của số đó rồi kiểm tra tính chia hết cho $a$ của từng ước đó."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523384072
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tập hợp các ước của $-12$ là $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Bước 2: Tìm các số trong tập ước vừa tìm được là bội của $3$: $\\{ -12; -9; -6; -3; 3; 6; 9; 12 \\} \\cap \\{ \\dots; -6; -3; 0; 3; 6; \\dots \\} = \\{ -12; -6; -3; 3; 6; 12 \\}$.<br/>Bước 3: Lọc các số là ước nguyên âm của $-12$ và là bội của $3$: $\\{ -12; -6; -3 \\}$.<br/>Bước 4: Theo điều kiện $x < 0$ và $x \\neq -3$, ta có $x \\in \\{ -12; -6 \\}$. Vì đáp án yêu cầu chọn phương án đúng, ta thấy $-6$ thỏa mãn điều kiện và nằm trong các phương án được đưa ra.",
+      "tip": "Khi tìm số vừa là ước, vừa là bội, bạn nên liệt kê các phần tử của từng tập hợp rồi tìm phần giao (các phần tử chung) giữa chúng, sau đó áp dụng các điều kiện ràng buộc như $x < 0$ hoặc $x \\neq k$ để loại trừ đáp án."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523385807
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1; 1; 2; 3; 4; 6; 12 \\}$.<br/>Các ước là bội của $3$ bao gồm: $\\{ -12; -6; -3; 3; 6; 12 \\}$.<br/>Điều kiện $x < 0$ nên ta loại các giá trị dương, còn lại: $\\{ -12; -6; -3 \\}$.<br/>Theo đề bài $x \\neq -3$, vậy $x \\in \\{ -12; -6 \\}$. Trong các phương án cho trước, phương án $-6$ là đáp án đúng.",
+      "tip": "Để tìm số nguyên $x$ là ước của $a$ và là bội của $b$, ta liệt kê các ước của $a$ sau đó kiểm tra điều kiện chia hết cho $b$ và các điều kiện ràng buộc khác của đề bài."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523387119
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong đó, các số là bội của $3$ là: $\\{ -3; -6; -12 \\}$.<br/>Vì đề bài yêu cầu $x \\neq -3$ nên $x \\in \\{ -6; -12 \\}$.<br/>Đối chiếu với các phương án đã cho, đáp án phù hợp là $-6$.",
+      "tip": "Để tìm các số thỏa mãn đồng thời nhiều điều kiện, hãy liệt kê tập hợp các giá trị thỏa mãn điều kiện đầu tiên, sau đó lọc dần theo các điều kiện tiếp theo."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523388372
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong đó, các số là bội của $3$ là: $\\{ -3; -6; -12 \\}$.<br/>Vì đề bài yêu cầu $x \\neq -3$ nên $x \\in \\{ -6; -12 \\}$.<br/>Kiểm tra các phương án: phương án $-6$ thỏa mãn điều kiện đề bài.",
+      "tip": "Để tìm các số vừa là ước vừa là bội, ta liệt kê tập hợp ước của số đó trước, sau đó lọc lại theo điều kiện là bội của số kia và các điều kiện phụ khác."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523389679
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tìm các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Bước 2: Tìm các ước nguyên âm của $-12$: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Bước 3: Trong các ước này, số nào là bội của $3$: $\\{ -3; -6; -12 \\}$.<br/>Bước 4: Điều kiện bài toán cho $x < 0$ và $x \\neq -3$, do đó $x \\in \\{ -6; -12 \\}$.<br/>Đối chiếu với các phương án, giá trị $-6$ là đáp án thỏa mãn.",
+      "tip": "Khi tìm $x$ là ước của $a$ và là bội của $b$, ta liệt kê các ước của $a$ trước, sau đó kiểm tra xem số nào chia hết cho $b$ và thỏa mãn các điều kiện phụ khác."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523390979
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tìm tập hợp các ước của $-12$ là: $\\{1; -1; 2; -2; 3; -3; 4; -4; 6; -6; 12; -12\\}$.<br/>Bước 2: Tìm các ước nguyên âm của $-12$ là: $\\{-1; -2; -3; -4; -6; -12\\}$.<br/>Bước 3: Trong các ước nguyên âm này, chọn ra những số là bội của $3$: $\\{-3; -6; -12\\}$.<br/>Bước 4: Theo điều kiện bài toán $x < 0$ và $x \\neq -3$, ta loại giá trị $-3$. Vậy $x \\in \\{-6; -12\\}$.<br/>Đối chiếu với các phương án, giá trị $-6$ thỏa mãn.",
+      "tip": "Để tìm bội của một số nguyên $a$ trong một tập hợp cho trước, ta kiểm tra xem các phần tử trong tập hợp đó có chia hết cho $a$ hay không."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523392328
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1; 1; 2; 3; 4; 6; 12 \\}$.<br/>Các ước là số nguyên âm của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1 \\}$.<br/>Trong đó, các số là bội của $3$ là: $\\{ -12; -6; -3 \\}$.<br/>Vì đề bài yêu cầu $x \\neq -3$ và $x < 0$, ta loại $-3$. Các giá trị thỏa mãn còn lại là $\\{ -12; -6 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm các số vừa là ước, vừa là bội, bạn nên liệt kê tập hợp các ước trước, sau đó lọc ra những số chia hết cho 3, cuối cùng áp dụng các điều kiện ràng buộc như $x < 0$ và $x \\neq -3$ để tìm giá trị cần tìm."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523643618
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ là: $\\{ -3; -6; -12 \\}$.<br/>Theo đề bài, ta cần tìm $x$ sao cho $x < 0$, $x$ là ước của $-12$, $x$ là bội của $3$ và $x \\neq -3$.<br/>Vậy $x \\in \\{ -6; -12 \\}$. Trong các phương án đã cho, đáp án đúng là $-6$.",
+      "tip": "Để tìm các số vừa là ước, vừa là bội, ta liệt kê tập hợp các ước của số đó trước, sau đó lọc ra các phần tử thỏa mãn điều kiện là bội của số đã cho và các điều kiện phụ khác."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523645057
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tìm tập hợp các ước nguyên của $-12$. Ta có $Ư(-12) = \\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Bước 2: Tìm tập hợp các bội của $3$. Ta có $B(3) = \\{ 0; \\pm 3; \\pm 6; \\pm 9; \\pm 12; \\dots \\}$.<br/>Bước 3: Xác định các số vừa là ước của $-12$ vừa là bội của $3$: $\\{ -12; -6; -3; 3; 6; 12 \\}$.<br/>Bước 4: Xét điều kiện $x < 0$ và $x \\neq -3$, ta được tập giá trị thỏa mãn là $\\{ -12; -6 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm số nguyên $x$ thỏa mãn nhiều điều kiện, hãy liệt kê các tập hợp phần tử dựa trên từng điều kiện, sau đó tìm giao của các tập hợp đó và loại bỏ các giá trị không thỏa mãn điều kiện phụ."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523646516
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -1, -2, -3, -4, -6, -12, 1, 2, 3, 4, 6, 12 \\}$.<br/>Các ước là bội của $3$ là: $\\{ -12, -6, -3, 3, 6, 12 \\}$.<br/>Điều kiện $x < 0$ nên $x \\in \\{ -12, -6, -3 \\}$.<br/>Kết hợp với điều kiện $x \\neq -3$, ta có $x \\in \\{ -12, -6 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Khi tìm số nguyên thỏa mãn nhiều điều kiện, hãy liệt kê tập hợp các số thỏa mãn điều kiện đầu tiên, sau đó lần lượt loại trừ theo các điều kiện tiếp theo để tìm ra kết quả chính xác."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523647873
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Các ước của $-12$ là: $\\{1; -1; 2; -2; 3; -3; 4; -4; 6; -6; 12; -12\\}$.<br/>Các số là bội của $3$ trong tập các ước trên là: $\\{3; -3; 6; -6; 12; -12\\}$.<br/>Vì $x < 0$ nên ta có: $\\{-3; -6; -12\\}$.<br/>Vì $x \\neq -3$, nên giá trị thỏa mãn là $x \\in \\{-6; -12\\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm các số thỏa mãn đồng thời nhiều điều kiện, hãy liệt kê tập hợp các ước trước, sau đó lọc dần theo các điều kiện bội số, dấu của số nguyên và cuối cùng là các điều kiện loại trừ."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523858877
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong đó, các số là bội của $3$ là: $\\{ -3; -6; -12 \\}$.<br/>Theo đề bài $x < 0$ và $x \\neq -3$, do đó $x$ có thể nhận các giá trị là $-6$ hoặc $-12$.<br/>Đối chiếu với các phương án lựa chọn, giá trị thỏa mãn là $-6$.",
+      "tip": "Bội của một số nguyên $a$ là các số có dạng $a \\cdot k$ (với $k$ là số nguyên). Để tìm các số vừa là ước, vừa là bội, ta nên liệt kê tập hợp ước trước, sau đó lọc ra các phần tử thỏa mãn điều kiện là bội của số đã cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523860138
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tìm các ước nguyên của $-12$. Tập các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Bước 2: Xác định các bội của $3$ trong tập các ước nguyên trên. Các số chia hết cho $3$ là: $\\{ -12; -6; -3; 3; 6; 12 \\}$.<br/>Bước 3: Kết hợp các điều kiện $x < 0$ và $x \\neq -3$. Các số nguyên âm là $\\{ -12; -6; -4; -3; -2; -1 \\}$.<br/>Bước 4: Số vừa là ước của $-12$ vừa là bội của $3$ và nhỏ hơn $0$ là $\\{ -12; -6; -3 \\}$.<br/>Bước 5: Vì $x \\neq -3$ nên $x \\in \\{ -12; -6 \\}$. Dựa vào các phương án cho trước, đáp án đúng là $-6$.",
+      "tip": "Để tìm số nguyên $x$ vừa là ước của $a$ vừa là bội của $b$ ($b \\neq 0$), ta liệt kê các ước của $a$ rồi kiểm tra xem số nào chia hết cho $b$ và thỏa mãn các điều kiện phụ đề bài cho."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523861706
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1; 1; 2; 3; 4; 6; 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -12; -6; -4; -3; -2; -1 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ là: $\\{ -12; -6; -3 \\}$.<br/>Theo đề bài, ta có $x < 0$ và $x \\neq -3$.<br/>Vậy $x$ có thể là $-12$ hoặc $-6$. Trong các phương án đã cho, chỉ có $-6$ là đáp án thỏa mãn yêu cầu.",
+      "tip": "Để tìm số nguyên $x$ thỏa mãn nhiều điều kiện, ta nên liệt kê tập hợp các ước trước, sau đó lọc theo các điều kiện bổ sung như là bội của một số khác, điều kiện về dấu ($<0$ hay $>0$) và điều kiện loại trừ ($x \\neq -3$)."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784523862974
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -1, -2, -3, -4, -6, -12, 1, 2, 3, 4, 6, 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1, -2, -3, -4, -6, -12 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ bao gồm: $\\{ -3, -6, -12 \\}$.<br/>Theo điều kiện bài toán $x < 0$ và $x \\neq -3$, ta có tập giá trị thỏa mãn là: $\\{ -6, -12 \\}$.<br/>Đối chiếu với các phương án đã cho, đáp án đúng là $-6$.",
+      "tip": "Để tìm các số thỏa mãn điều kiện, ta liệt kê các ước của số đó trước, sau đó lọc lại các giá trị thỏa mãn đồng thời các điều kiện về bội số, dấu của số nguyên và các điều kiện loại trừ."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524528501
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1; 1; 2; 3; 4; 6; 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -12; -6; -4; -3; -2; -1 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ (chia hết cho $3$) là: $\\{ -12; -6; -3 \\}$.<br/>Theo đề bài, ta có điều kiện $x < 0$ và $x \\neq -3$.<br/>Vậy các giá trị thỏa mãn là $x \\in \\{ -12; -6 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm số vừa là ước, vừa là bội, bạn nên liệt kê tập hợp các ước của số đó trước, sau đó lọc ra những số thỏa mãn điều kiện là bội của số kia."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524529990
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ là: $\\{ -3; -6; -12 \\}$.<br/>Theo điều kiện bài toán $x < 0$ và $x \\neq -3$, ta có $x \\in \\{ -6; -12 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm số nguyên vừa là ước của số này vừa là bội của số kia, ta liệt kê tập hợp các ước của số thứ nhất, sau đó lọc ra những giá trị thỏa mãn điều kiện là bội của số thứ hai và các điều kiện ràng buộc khác của đề bài."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524531321
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tìm các ước nguyên của $-12$. Tập hợp các ước của $-12$ là: $\\{1; -1; 2; -2; 3; -3; 4; -4; 6; -6; 12; -12\\}$.<br/>Bước 2: Tìm các bội của $3$ trong tập hợp các ước trên. Các số là bội của $3$ bao gồm: $\\{-3; 3; -6; 6; -12; 12\\}$.<br/>Bước 3: Lọc các số thỏa mãn điều kiện $x < 0$. Các số thỏa mãn là: $\\{-3; -6; -12\\}$.<br/>Bước 4: Loại bỏ trường hợp $x \\neq -3$. Ta còn lại các giá trị: $\\{-6; -12\\}$.<br/>So sánh với các phương án, đáp án $-6$ thỏa mãn yêu cầu đề bài.",
+      "tip": "Khi tìm số nguyên thỏa mãn đồng thời hai tính chất là ước và bội, hãy liệt kê tập hợp các ước trước, sau đó kiểm tra điều kiện bội và các điều kiện ràng buộc khác ($x < 0$, $x \\neq -3$) để thu hẹp kết quả."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524532818
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ -12; -6; -4; -3; -2; -1; 1; 2; 3; 4; 6; 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -12; -6; -4; -3; -2; -1 \\}$.<br/>Trong số các ước nguyên âm này, các số là bội của $3$ bao gồm: $\\{ -12; -6; -3 \\}$.<br/>Theo điều kiện bài toán $x < 0$ và $x \\neq -3$, ta còn lại các giá trị $x \\in \\{ -12; -6 \\}$.<br/>Xét các phương án: $\\{ -12; -6; -3; -9 \\}$, phương án thỏa mãn đề bài và có trong danh sách là $-6$. Vậy đáp án đúng là $-6$.",
+      "tip": "Để tìm bội của một số nguyên $a$ thuộc tập hợp các ước của số nguyên $b$, ta liệt kê các ước của $b$ rồi kiểm tra xem số nào chia hết cho $a$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524539928
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập hợp các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong đó, các số là bội của $3$ (chia hết cho $3$) là: $\\{ -3; -6; -12 \\}$.<br/>Vì đề bài cho điều kiện $x \\neq -3$ nên $x$ có thể nhận giá trị là $-6$ hoặc $-12$. Đối chiếu với các phương án lựa chọn, giá trị phù hợp là $-6$.",
+      "tip": "Để tìm bội của một số nguyên $a$ trong một tập hợp cho trước, ta có thể kiểm tra xem từng phần tử trong tập hợp đó có chia hết cho $a$ hay không bằng phép chia."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524541172
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Bước 1: Tìm tập hợp các ước của $-12$ là $Ư(-12) = \\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Bước 2: Tìm tập hợp các ước nguyên âm của $-12$ là $A = \\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Bước 3: Tìm các bội của $3$ trong tập $A$. Các số chia hết cho $3$ trong tập hợp này là $\\{ -3; -6; -12 \\}$.<br/>Bước 4: Theo điều kiện đề bài cho là $x < 0$ và $x \\neq -3$, ta loại giá trị $-3$. Vậy $x \\in \\{ -6; -12 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm bội của một số nguyên $a$ thỏa mãn điều kiện nhất định, ta có thể liệt kê các giá trị của $a \\times k$ (với $k \\in \\mathbb{Z}$) rồi kiểm tra xem các giá trị đó có thuộc tập hợp các ước của số đã cho hay không."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524542681
+  },
+  {
+    "original": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{\\pm 1;\\space \\pm 2;\\space \\pm 3;\\space \\pm 4;\\space \\pm 6;\\space \\pm 12\\}$.<br>Các ước nguyên âm là: $\\{-1;\\space -2;\\space -3;\\space -4;\\space -6;\\space -12\\}$.<br>Trong đó, các số chia hết cho $3$ (bội của 3) là: $\\{-3;\\space -6;\\space -12\\}$.<br>Vì $x \\neq -3$ nên $x \\in \\{-6;\\space -12\\}$. Khớp với phương án có chứa $-6$.",
+      "tip": "Bội của số nguyên a lớn hơn b và nhỏ hơn c được xác định bằng cách nhân a với các số nguyên k sao cho kết quả nằm trong khoảng (b, c)."
+    },
+    "fixed": {
+      "questionText": "Tìm số nguyên $x$ biết rằng $x$ vừa là ước của $-12$ vừa là bội của $3$, đồng thời $x < 0$ và $x \\neq -3$.",
+      "solutionHtml": "Tập các ước nguyên của $-12$ là: $\\{ \\pm 1; \\pm 2; \\pm 3; \\pm 4; \\pm 6; \\pm 12 \\}$.<br/>Các ước nguyên âm là: $\\{ -1; -2; -3; -4; -6; -12 \\}$.<br/>Trong đó, các số là bội của $3$ (chia hết cho $3$) là: $\\{ -3; -6; -12 \\}$.<br/>Theo đề bài $x < 0$ và $x \\neq -3$, nên $x \\in \\{ -6; -12 \\}$.<br/>Đối chiếu với các phương án, đáp án đúng là $-6$.",
+      "tip": "Để tìm số nguyên $x$ là ước của $a$ và là bội của $b$, ta liệt kê các ước của $a$ sau đó kiểm tra xem số nào chia hết cho $b$ và thỏa mãn các điều kiện còn lại."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784524543917
   }
 ]
