@@ -5391,6 +5391,55 @@ const app = {
         const container = document.getElementById("skill-tree-container");
         container.innerHTML = "";
 
+        // Bổ sung khối Đề thi Định kỳ chuẩn CV 7991 và Khắc phục điểm yếu cho môn Toán Lớp 6
+        if ((this.currentSubject || "math") === "math" && (this.config.currentClass || "6") === "6") {
+            const exam7991Card = document.createElement("div");
+            exam7991Card.className = "card math-7991-card";
+            exam7991Card.style.cssText = "background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 2px solid #3b82f6; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);";
+            exam7991Card.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:0.6rem;">
+                            <span style="font-size:1.8rem;">📜</span>
+                            <h3 style="margin:0; font-size:1.3rem; color:#60a5fa; font-weight:800;">ĐỀ KIỂM TRA GIỮA KỲ & CUỐI KỲ I (CÔNG VĂN 7991/BGDĐT)</h3>
+                        </div>
+                        <p style="margin:0.4rem 0 0 0; color:#cbd5e1; font-size:0.88rem;">Cấu trúc 70% Trắc nghiệm (4 lựa chọn, Đúng/Sai, Trả lời ngắn) + 30% Tự luận bám sát khung ma trận tả đặc tả của Bộ GD&ĐT.</p>
+                    </div>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+                        <button onclick="if(window.questions7991) questions7991.renderAndPrint7991Exam('ĐỀ KIỂM TRA GIỮA HỌC KỲ I - MÔN TOÁN LỚP 6', questions7991.generate7991Exam('gk1'), true, '6', 60);" style="background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; border:none; padding:0.6rem 1.2rem; border-radius:10px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:0.4rem; font-size:0.9rem; box-shadow:0 4px 10px rgba(37,99,235,0.3);">
+                            <i class="fa-solid fa-print"></i> In/Lưu PDF Đề Giữa Kỳ I 🖨️
+                        </button>
+                        <button onclick="if(window.questions7991) questions7991.renderAndPrint7991Exam('ĐỀ KIỂM TRA CUỐI HỌC KỲ I - MÔN TOÁN LỚP 6', questions7991.generate7991Exam('ck1'), true, '6', 90);" style="background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; border:none; padding:0.6rem 1.2rem; border-radius:10px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:0.4rem; font-size:0.9rem; box-shadow:0 4px 10px rgba(124,58,237,0.3);">
+                            <i class="fa-solid fa-file-pdf"></i> In/Lưu PDF Đề Cuối Kỳ I 🖨️
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(exam7991Card);
+
+            // Khối Khắc phục điểm yếu môn Toán
+            const weaknessCard = document.createElement("div");
+            weaknessCard.className = "card math-weakness-card";
+            weaknessCard.style.cssText = "background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(24, 24, 27, 0.95)); border: 2px solid #ef4444; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.25);";
+            weaknessCard.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:0.6rem;">
+                            <span style="font-size:1.8rem;">🎯</span>
+                            <h3 style="margin:0; font-size:1.3rem; color:#f87171; font-weight:800;">TRUNG TÂM KHẮC PHỤC ĐIỂM YẾU MÔN TOÁN (WEAKNESS BOOSTER)</h3>
+                        </div>
+                        <p style="margin:0.4rem 0 0 0; color:#cbd5e1; font-size:0.88rem;">Hệ thống AI tự động phân tích lịch sử làm bài để sinh các câu hỏi độ khó cao cho các dạng toán học sinh hay làm sai.</p>
+                    </div>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+                        <button onclick="if(window.questions7991 && window.questions) questions.renderAndPrintStudentExam('BÀI THI CHUYÊN SÂU KHẮC PHỤC ĐIỂM YẾU MÔN TOÁN', questions7991.generateWeaknessExam('default').questions, true, '6', 'kho');" style="background:linear-gradient(135deg, #dc2626, #b91c1c); color:white; border:none; padding:0.6rem 1.2rem; border-radius:10px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:0.4rem; font-size:0.9rem; box-shadow:0 4px 10px rgba(220,38,38,0.3);">
+                            <i class="fa-solid fa-print"></i> In/Lưu PDF Đề Khắc Phục Điểm Yếu 🖨️
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(weaknessCard);
+        }
+
         // Lọc các chương thuộc học kỳ hiện tại
         const chapters = COURSE_DATA.filter(chapter => chapter.semester === this.currentSemester && (chapter.class || "6") === this.config.currentClass && (chapter.subject || "math") === (this.currentSubject || "math"));
 
