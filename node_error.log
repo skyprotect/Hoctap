@@ -1,4 +1,4 @@
-◇ injected env (7) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+◇ injected env (7) from .env // tip: ⌁ auth for agents [www.vestauth.com]
 🔥 Chế độ Firebase Web Client đã được kích hoạt.
 ==================================================
   Ứng dụng Toán Lớp 6 (AI Enabled) đang chạy tại:
@@ -8,31 +8,325 @@
 [Migration] Không cần di chuyển dữ liệu (đã hoàn thành hoặc không có dữ liệu cũ).
 [FirebaseSync] Bắt đầu đồng bộ tất cả học sinh lên Firebase...
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bảo Ngọc (std_xf9e2lvgv)
-[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh (std_tyc0gfnkz)
 [Migration V12] Cập nhật session "Bài 9: Dấu hiệu chia hết" của std_htsj4gbmo: 30% -> 50%
 [Migration V12] Đã di trú và sửa lỗi chấm điểm cho 1 học sinh thành công.
-[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
-[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh (std_tyc0gfnkz)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Học sinh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
 [FirebaseSync] Hoàn thành đồng bộ toàn bộ học sinh lên Firebase!
 [Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
-[AI Log - 13:27:10] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:11] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:13] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:14] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
-[AI Log - 13:27:16] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:35:11] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:35:11] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 13:35:11] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
-[AI Log - 13:27:17] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:19] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:20] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
-[AI Log - 13:27:21] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:21] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
-[AI Log - 13:27:21] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 13:35:12] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:35:14] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 13:35:15] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
-[AI Log - 13:27:23] Gửi request với API Key thứ 1 (AIzaSyBm...)
-[AI Log - 13:27:24] Gửi request với API Key thứ 1 (AIzaSyBm...)
-Tắt hoàn toàn Node.js server theo yêu cầu shutdown...
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 13:35:20] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Bài 1 - Bài 5)
+[AI Log - 14:24:44] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Bài 1 - Bài 5)
+[AI Log - 14:31:50] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Bài 1 - Bài 5)
+[AI Log - 14:33:17] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:33:18] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:33:19] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:33:21] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:33:22] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:33:24] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:34:10] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:34:12] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:34:13] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:34:15] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:34:16] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:34:18] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:34:19] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:34:21] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:35:45] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:35:47] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:35:48] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:35:50] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:35:51] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:36:56] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:36:57] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:36:59] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:37:00] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:37:02] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:37:03] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:37:05] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:37:06] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:38:40] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:42] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:43] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:44] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:46] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:47] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:38:48] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:38:50] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:51] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:38:53] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:40:04] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:40:06] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:40:08] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:40:09] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:40:11] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:40:12] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:40:14] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:40:28] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 14:41:17] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:41:20] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:41:21] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:41:23] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:41:33] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:41:35] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:41:36] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài 17: Phép chia hết. Ước và bội của một số nguyên
+[AI Log - 14:42:06] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:42:08] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:42:09] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:42:47] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:43:07] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Troubleshoot API] Lỗi: SyntaxError: Unterminated string in JSON at position 736 (line 7 column 69)
+    at JSON.parse (<anonymous>)
+    at F:\KHQS\AntiGravity\HocTap\server.js:3992:24
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:43:50] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:43:52] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:43:53] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:44:23] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:44:24] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:46:13] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:46:49] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:46:50] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:46:51] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:47:36] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:47:38] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:47:39] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:48:29] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:48:31] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:49:22] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:50:26] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:50:28] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:51:27] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[AI Log - 14:51:28] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:51:30] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:51:58] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:52:00] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:52:19] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: undefined
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:52:47] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:52:49] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Luyện tập chung (Nhân chia & Ước bội số nguyên)
+[AI Log - 14:56:05] Gửi request với API Key thứ 1 (AIzaSyBm...)
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài tập cuối chương III
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài tập cuối chương III
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 14:57:16] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 14:57:22] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+🔑 Sinh mã bảo mật chơi Tablet thành công: Token=375743, Student=std_htsj4gbmo, Số phút=30
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài tập cuối chương III
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 16:30:10] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[AI Log - 16:30:15] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài tập cuối chương III
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài tập cuối chương III
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[Auto-Audit] Tiến hành làm sạch lời giải cho bài: Bài tập cuối chương III
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[AI Log - 17:04:54] [Worker] Kích hoạt sinh đề cho HS: std_htsj4gbmo (Lớp 6). Tổng: 89 bài, đã xong: 89 bài, cần sinh thêm: 0 bài.

@@ -1765,7 +1765,6 @@ const app = {
         selectList.innerHTML = "";
 
         const students = this.config.students || [];
-
         if (students.length === 0) {
             selectList.innerHTML = `
                 <div class="p-4 text-center text-white/70 bg-white/5 border border-white/10 rounded-2xl" style="grid-column: 1 / -1;">
@@ -1889,7 +1888,83 @@ const app = {
         }
     },
 
-    pushLocalDataToFirestoreClient: async function(db, parentUid) {
+    autoMigrateParentUidByEmail: async function(db, email, newParentUid) {
+        if (!db || !email || !newParentUid) return;
+        console.log(`🔄 [Client Sync] Kiểm tra tự động chuyển đổi parentUid cho email ${email} sang UID mới ${newParentUid}...`);
+        try {
+            const batch = db.batch();
+            let hasChanges = false;
+
+            // 1. Quét học sinh có email == email
+            const stdByEmail = await db.collection('students').where('email', '==', email).get();
+            stdByEmail.forEach(doc => {
+                const data = doc.data();
+                if (data.parentUid !== newParentUid) {
+                    batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
+                    hasChanges = true;
+                    console.log(`  - Đã vá parentUid cho học sinh: ${doc.id}`);
+                }
+            });
+
+            // 2. Quét từ vựng theo email
+            const vocabByEmail = await db.collection('custom_vocabulary').where('email', '==', email).get();
+            vocabByEmail.forEach(doc => {
+                const data = doc.data();
+                if (data.parentUid !== newParentUid) {
+                    batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
+                    hasChanges = true;
+                }
+            });
+
+            // 3. Quét chủ đề theo email
+            const topicsByEmail = await db.collection('custom_topics').where('email', '==', email).get();
+            topicsByEmail.forEach(doc => {
+                const data = doc.data();
+                if (data.parentUid !== newParentUid) {
+                    batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
+                    hasChanges = true;
+                }
+            });
+
+            // 4. Trường hợp đặc biệt: Dữ liệu Firestore cũ chưa có trường email
+            if (stdByEmail.empty) {
+                console.log("ℹ️ Không tìm thấy học sinh theo email, quét toàn bộ học sinh trên Firestore để liên kết dữ liệu cũ...");
+                const allStudents = await db.collection('students').get();
+                allStudents.forEach(doc => {
+                    const data = doc.data();
+                    if (!data.email || data.email === email) {
+                        batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
+                        hasChanges = true;
+                        console.log(`  - Tự động liên kết học sinh cũ: ${data.name || doc.id} với email ${email}`);
+                    }
+                });
+            }
+
+            // 5. Đồng bộ cấu hình config trong collection settings
+            const settingsSnap = await db.collection('settings').get();
+            settingsSnap.forEach(doc => {
+                const data = doc.data();
+                if (doc.id.startsWith('config_') || data.email === email) {
+                    batch.set(db.collection('settings').doc(`config_${newParentUid}`), {
+                        parentUid: newParentUid,
+                        email: email,
+                        value: data.value,
+                        lastUpdated: new Date().toISOString()
+                    }, { merge: true });
+                    hasChanges = true;
+                }
+            });
+
+            if (hasChanges) {
+                await batch.commit();
+                console.log("✅ [Client Sync] Hoàn thành cập nhật tự động parentUid trên Firestore!");
+            }
+        } catch (e) {
+            console.error("⚠️ Lỗi autoMigrateParentUidByEmail:", e);
+        }
+    },
+
+    pushLocalDataToFirestoreClient: async function(db, parentUid, email = "") {
         console.log("📤 [Client Sync] Bắt đầu di trú dữ liệu SQLite lên Firestore...");
         const res = await fetch(this.getApiUrl('/api/sync/local-data'));
         if (!res.ok) throw new Error("Không thể lấy dữ liệu SQLite cục bộ để di trú.");
@@ -1900,9 +1975,10 @@ const app = {
         if (config) {
             await db.collection('settings').doc(`config_${parentUid}`).set({
                 parentUid: parentUid,
+                email: email,
                 value: config,
                 lastUpdated: new Date().toISOString()
-            });
+            }, { merge: true });
             console.log("  - Đã đẩy cấu hình config");
         }
 
@@ -1921,11 +1997,12 @@ const app = {
                     await db.collection('students').doc(s.student_id).set({
                         studentId: s.student_id,
                         parentUid: parentUid,
+                        email: email,
                         name: name,
                         classLevel: classLevel,
                         state_json: s.state_json,
                         lastUpdated: new Date().toISOString()
-                    });
+                    }, { merge: true });
                     console.log(`  - Đã đẩy tiến trình học sinh: ${name}`);
                 } catch (e) {
                     console.error("Lỗi đẩy học sinh:", e);
@@ -1947,8 +2024,9 @@ const app = {
                     image_path: v.image_path || "",
                     audio_path: v.audio_path || "",
                     parentUid: parentUid,
+                    email: email,
                     lastUpdated: new Date().toISOString()
-                });
+                }, { merge: true });
             }
             console.log(`  - Đã đẩy ${customVocabulary.length} từ vựng tự tạo`);
         }
@@ -1962,18 +2040,19 @@ const app = {
                     description: t.description || "",
                     category: t.category || "General",
                     parentUid: parentUid,
+                    email: email,
                     cover_image: t.cover_image || "",
                     is_completed: t.is_completed || 0,
                     created_at: t.created_at || new Date().toISOString(),
                     lastUpdated: new Date().toISOString()
-                });
+                }, { merge: true });
             }
             console.log(`  - Đã đẩy ${customTopics.length} chủ đề tự tạo`);
         }
         console.log("✅ Hoàn thành di trú dữ liệu lên Firestore.");
     },
 
-    pullDataFromFirestoreClient: async function(db, parentUid) {
+    pullDataFromFirestoreClient: async function(db, parentUid, email = "") {
         console.log("📥 [Client Sync] Bắt đầu đồng bộ dữ liệu thông minh giữa Firestore và SQLite...");
         
         // Đọc dữ liệu local trước
@@ -2029,6 +2108,7 @@ const app = {
                         await db.collection('students').doc(localStd.student_id).set({
                             studentId: localStd.student_id,
                             parentUid: parentUid,
+                            email: email,
                             name: name,
                             classLevel: classLevel,
                             state_json: localStd.state_json,
@@ -2060,6 +2140,7 @@ const app = {
                     await db.collection('students').doc(localStd.student_id).set({
                         studentId: localStd.student_id,
                         parentUid: parentUid,
+                        email: email,
                         name: name,
                         classLevel: classLevel,
                         state_json: localStd.state_json,
@@ -2205,8 +2286,16 @@ const app = {
                                     });
                                     
                                     if (loginRes.ok) {
+                                        const loginData = await loginRes.json();
+                                        const userEmail = (loginData.parentSession && loginData.parentSession.email) || userCredential.user.email || "";
+
+                                        // Tự động chuyển đổi và gán parentUid mới cho dữ liệu cũ theo Email
+                                        if (userEmail) {
+                                            await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid);
+                                        }
+
                                         localStorage.removeItem('skipGoogleLogin');
-                                        const studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
+                                        let studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
                                         let syncMessage = "";
                                         
                                         if (studentsSnap.empty) {

@@ -1,6 +1,6 @@
 {
-  "version": "12.37",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.37/ToanHocKiosk_Setup_v12.37.exe",
+  "version": "12.38",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.38/ToanHocKiosk_Setup_v12.38.exe",
   "changelog": "- Tự động phục hồi danh sách học sinh từ Firestore và SQLite sau khi đăng nhập Google, chuyển thẳng tới màn hình bài học hoặc chọn học sinh.",
   "androidVersion": "2.9"
 }
