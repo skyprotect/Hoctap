@@ -2122,13 +2122,23 @@ const app = {
                         });
                     }
 
+                    localStorage.removeItem('skipGoogleLogin');
                     const googleLoginScreen = document.getElementById("google-login-screen");
                     if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
                     return true;
                 }
             }
             
-            // 3. Nếu chưa đăng nhập, hiện màn hình đăng nhập Google
+            // 3. Nếu người dùng đã từng chọn "Học ngoại tuyến (Offline)", tự động bỏ qua màn hình Google Login
+            if (localStorage.getItem('skipGoogleLogin') === 'true') {
+                console.log("ℹ️ Người dùng đã chọn chế độ Học ngoại tuyến (Offline) trước đó. Bỏ qua màn hình Đăng nhập Google.");
+                const googleLoginScreen = document.getElementById("google-login-screen");
+                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+                await this.initAppAfterLogin();
+                return true;
+            }
+            
+            // 4. Nếu chưa đăng nhập và chưa từng chọn Skip, hiện màn hình đăng nhập Google
             const googleLoginScreen = document.getElementById("google-login-screen");
             if (googleLoginScreen) {
                 googleLoginScreen.classList.remove("hidden");
@@ -2186,6 +2196,7 @@ const app = {
                                     });
                                     
                                     if (loginRes.ok) {
+                                        localStorage.removeItem('skipGoogleLogin');
                                         // C. Kiểm tra xem trên Firestore đã có bất kỳ học sinh nào thuộc parentUid này chưa
                                         const studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
                                         let syncMessage = "";
@@ -2244,6 +2255,15 @@ const app = {
             return false;
         } catch (e) {
             console.error("Lỗi khi kiểm tra Google Session:", e);
+            
+            // Nếu có lỗi server nhưng người dùng chọn skip trước đó, vẫn cho vào học offline
+            if (localStorage.getItem('skipGoogleLogin') === 'true') {
+                const googleLoginScreen = document.getElementById("google-login-screen");
+                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+                await this.initAppAfterLogin();
+                return true;
+            }
+
             const googleLoginScreen = document.getElementById("google-login-screen");
             if (googleLoginScreen) googleLoginScreen.classList.remove("hidden");
             
@@ -2257,6 +2277,7 @@ const app = {
 
     // Bỏ qua đăng nhập Google để chạy offline
     skipGoogleLogin: function() {
+        localStorage.setItem('skipGoogleLogin', 'true');
         const googleLoginScreen = document.getElementById("google-login-screen");
         if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
         this.initAppAfterLogin();
