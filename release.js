@@ -273,6 +273,10 @@ async function publishRelease() {
           });
         });
         
+        req.setTimeout(600000); // 10 phút timeout cho file 134MB
+        req.on('timeout', () => {
+          req.destroy(new Error('Tải tệp cài đặt lên GitHub bị quá thời gian (Timeout)'));
+        });
         req.on('error', reject);
         
         // Pipe file stream trực tiếp vào request
