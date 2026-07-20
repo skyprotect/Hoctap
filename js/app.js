@@ -2113,6 +2113,57 @@ const app = {
         console.log("✅ Hoàn thành di trú dữ liệu lên Firestore.");
     },
 
+    mergeStudentState: function(localState, cloudState) {
+        if (!localState) return cloudState || {};
+        if (!cloudState) return localState || {};
+
+        const merged = { ...cloudState, ...localState };
+
+        merged.xp = Math.max(localState.xp || 0, cloudState.xp || 0);
+        merged.englishXp = Math.max(localState.englishXp || 0, cloudState.englishXp || 0);
+        merged.streak = Math.max(localState.streak || 0, cloudState.streak || 0);
+        merged.distractions = Math.max(localState.distractions || 0, cloudState.distractions || 0);
+
+        const unionArray = (a1, a2) => Array.from(new Set([...(a1 || []), ...(a2 || [])]));
+        merged.badges = unionArray(localState.badges, cloudState.badges);
+        merged.goldBadges = unionArray(localState.goldBadges, cloudState.goldBadges);
+        merged.completedSubtopics = unionArray(localState.completedSubtopics, cloudState.completedSubtopics);
+        merged.completedLessonTheory = unionArray(localState.completedLessonTheory, cloudState.completedLessonTheory);
+        merged.goldSkills = unionArray(localState.goldSkills, cloudState.goldSkills);
+        merged.redeemedSkills = unionArray(localState.redeemedSkills, cloudState.redeemedSkills);
+        merged.rewarded100PercentLessons = unionArray(localState.rewarded100PercentLessons, cloudState.rewarded100PercentLessons);
+
+        const mergeMaxObject = (o1, o2) => {
+            const res = { ...(o1 || {}), ...(o2 || {}) };
+            const allKeys = new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})]);
+            for (const k of allKeys) {
+                const v1 = (o1 && o1[k] !== undefined) ? o1[k] : 0;
+                const v2 = (o2 && o2[k] !== undefined) ? o2[k] : 0;
+                if (typeof v1 === 'number' && typeof v2 === 'number') {
+                    res[k] = Math.max(v1, v2);
+                }
+            }
+            return res;
+        };
+
+        merged.scores = mergeMaxObject(localState.scores, cloudState.scores);
+        merged.subtopicScores = mergeMaxObject(localState.subtopicScores, cloudState.subtopicScores);
+        merged.levelScores = mergeMaxObject(localState.levelScores, cloudState.levelScores);
+
+        if (localState.englishState || cloudState.englishState) {
+            const eLocal = localState.englishState || {};
+            const eCloud = cloudState.englishState || {};
+            merged.englishState = {
+                ...eCloud,
+                ...eLocal,
+                skillScores: mergeMaxObject(eLocal.skillScores, eCloud.skillScores)
+            };
+        }
+
+        merged.lastUpdated = new Date().toISOString();
+        return merged;
+    },
+
     pullDataFromFirestoreClient: async function(db, parentUid, email = "") {
         console.log("📥 [Client Sync] Bắt đầu đồng bộ dữ liệu thông minh giữa Firestore và SQLite...");
         
@@ -2146,47 +2197,46 @@ const app = {
         const localStudents = (localData && localData.studentProgress) || [];
         const finalStudents = [];
 
-        // So sánh từng học sinh local vs cloud
+        // Hợp nhất dữ liệu thông minh (Smart Deep Merge) giữa local vs cloud
         for (const localStd of localStudents) {
             const cloudStd = cloudStudentsMap.get(localStd.student_id);
             if (cloudStd) {
-                const cloudTime = new Date(cloudStd.lastUpdated || 0).getTime();
-                let localTime = 0;
+                let localState = {};
+                let cloudState = {};
+                try { localState = JSON.parse(localStd.state_json); } catch(e){}
+                try { cloudState = JSON.parse(cloudStd.state_json); } catch(e){}
+
+                const mergedState = this.mergeStudentState(localState, cloudState);
+                const mergedJson = JSON.stringify(mergedState);
+
+                const configObj = localData.config ? JSON.parse(localData.config) : null;
+                const stdConf = (configObj && configObj.students || []).find(s => s.id === localStd.student_id);
+                const name = stdConf ? stdConf.name : (cloudStd.name || "Học sinh");
+                const classLevel = stdConf ? stdConf.classLevel : (cloudStd.classLevel || "1");
+
+                // Đẩy tiến trình đã gộp thông minh lên đám mây Firestore
                 try {
-                    const parsedState = JSON.parse(localStd.state_json);
-                    localTime = new Date(parsedState.lastUpdated || 0).getTime();
-                } catch(e){}
-
-                // Nếu local mới hơn hoặc chưa bao giờ sync, đẩy local lên Firestore!
-                if (localTime > cloudTime || localTime === 0) {
-                    console.log(`⚡ [Client Sync] SQLite cục bộ học sinh ${localStd.student_id} mới hơn Cloud. Đang đẩy lên Firestore...`);
-                    const configObj = localData.config ? JSON.parse(localData.config) : null;
-                    const stdConf = (configObj && configObj.students || []).find(s => s.id === localStd.student_id);
-                    const name = stdConf ? stdConf.name : "Học sinh";
-                    const classLevel = stdConf ? stdConf.classLevel : "1";
-
-                    try {
-                        await db.collection('students').doc(localStd.student_id).set({
-                            studentId: localStd.student_id,
-                            parentUid: parentUid,
-                            email: email,
-                            name: name,
-                            classLevel: classLevel,
-                            state_json: localStd.state_json,
-                            lastUpdated: new Date().toISOString()
-                        }, { merge: true });
-                    } catch(e){}
-
-                    finalStudents.push({
+                    await db.collection('students').doc(localStd.student_id).set({
                         studentId: localStd.student_id,
+                        parentUid: parentUid,
+                        email: email,
                         name: name,
                         classLevel: classLevel,
-                        state_json: localStd.state_json
-                    });
-                    cloudStudentsMap.delete(localStd.student_id);
-                    continue;
-                }
+                        state_json: mergedJson,
+                        lastUpdated: new Date().toISOString()
+                    }, { merge: true });
+                } catch(e){}
+
+                finalStudents.push({
+                    studentId: localStd.student_id,
+                    name: name,
+                    classLevel: classLevel,
+                    state_json: mergedJson
+                });
+                cloudStudentsMap.delete(localStd.student_id);
+                continue;
             }
+
             if (cloudStd) {
                 finalStudents.push(cloudStd);
                 cloudStudentsMap.delete(localStd.student_id);
