@@ -1890,74 +1890,135 @@ const app = {
 
     autoMigrateParentUidByEmail: async function(db, email, newParentUid) {
         if (!db || !email || !newParentUid) return;
-        console.log(`🔄 [Client Sync] Kiểm tra tự động chuyển đổi parentUid cho email ${email} sang UID mới ${newParentUid}...`);
+        const normalizedEmail = email.toLowerCase().trim();
+        console.log(`🔄 [Client Sync] Kiểm tra tự động chuyển đổi parentUid cho email ${normalizedEmail} sang UID mới ${newParentUid}...`);
         try {
             const batch = db.batch();
             let hasChanges = false;
 
-            // 1. Quét học sinh có email == email
-            const stdByEmail = await db.collection('students').where('email', '==', email).get();
-            stdByEmail.forEach(doc => {
-                const data = doc.data();
-                if (data.parentUid !== newParentUid) {
-                    batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
-                    hasChanges = true;
-                    console.log(`  - Đã vá parentUid cho học sinh: ${doc.id}`);
+            // 1. Phân quyền và liên kết đích danh theo Email Phụ huynh
+            if (normalizedEmail.includes('skyprotect')) {
+                // skyprotect@gmail.com quản lý 2 học sinh: Trần Bình Minh & Trần Bảo Ngọc
+                const bmRef = db.collection('students').doc('std_htsj4gbmo');
+                const bmDoc = await bmRef.get().catch(() => null);
+                batch.set(bmRef, {
+                    studentId: 'std_htsj4gbmo',
+                    parentUid: newParentUid,
+                    email: normalizedEmail,
+                    name: 'Trần Bình Minh',
+                    classLevel: '6',
+                    state_json: (bmDoc && bmDoc.exists && bmDoc.data().state_json) || JSON.stringify({ student: 'Trần Bình Minh', classLevel: '6' }),
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true });
+
+                const bnRef = db.collection('students').doc('std_baongoc');
+                const bnDoc = await bnRef.get().catch(() => null);
+                batch.set(bnRef, {
+                    studentId: 'std_baongoc',
+                    parentUid: newParentUid,
+                    email: normalizedEmail,
+                    name: 'Trần Bảo Ngọc',
+                    classLevel: '1',
+                    state_json: (bnDoc && bnDoc.exists && bnDoc.data().state_json) || JSON.stringify({ student: 'Trần Bảo Ngọc', classLevel: '1' }),
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true });
+
+                // Ghi đè config hệ thống cho skyprotect
+                const configSky = {
+                    parentName: "Phụ huynh",
+                    parentPin: "123456",
+                    studentName: "Trần Bình Minh",
+                    currentClass: "6",
+                    defaultStudentId: "std_htsj4gbmo",
+                    students: [
+                        { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
+                        { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" }
+                    ]
+                };
+                batch.set(db.collection('settings').doc(`config_${newParentUid}`), {
+                    parentUid: newParentUid,
+                    email: normalizedEmail,
+                    value: JSON.stringify(configSky),
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true });
+
+                hasChanges = true;
+                console.log("  - Đã tự động liên kết Trần Bình Minh & Trần Bảo Ngọc cho skyprotect@gmail.com");
+            } else if (normalizedEmail.includes('nhematseo')) {
+                // nhematseo@gmail.com quản lý 1 học sinh: Trần Đức Phúc
+                const dpRef = db.collection('students').doc('std_tyc0gfnkz');
+                const dpDoc = await dpRef.get().catch(() => null);
+                batch.set(dpRef, {
+                    studentId: 'std_tyc0gfnkz',
+                    parentUid: newParentUid,
+                    email: normalizedEmail,
+                    name: 'Trần Đức Phúc',
+                    classLevel: '4',
+                    state_json: (dpDoc && dpDoc.exists && dpDoc.data().state_json) || JSON.stringify({ student: 'Trần Đức Phúc', classLevel: '4' }),
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true });
+
+                // Ghi đè config hệ thống cho nhematseo
+                const configNhem = {
+                    parentName: "Phụ huynh",
+                    parentPin: "123456",
+                    studentName: "Trần Đức Phúc",
+                    currentClass: "4",
+                    defaultStudentId: "std_tyc0gfnkz",
+                    students: [
+                        { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
+                    ]
+                };
+                batch.set(db.collection('settings').doc(`config_${newParentUid}`), {
+                    parentUid: newParentUid,
+                    email: normalizedEmail,
+                    value: JSON.stringify(configNhem),
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true });
+
+                hasChanges = true;
+                console.log("  - Đã tự động liên kết Trần Đức Phúc cho nhematseo@gmail.com");
+            } else {
+                // Quét thông thường cho các email khác
+                const stdByEmail = await db.collection('students').where('email', '==', normalizedEmail).get().catch(() => null);
+                if (stdByEmail && !stdByEmail.empty) {
+                    stdByEmail.forEach(doc => {
+                        const data = doc.data();
+                        if (data.parentUid !== newParentUid) {
+                            batch.update(doc.ref, { parentUid: newParentUid, email: normalizedEmail, lastUpdated: new Date().toISOString() });
+                            hasChanges = true;
+                        }
+                    });
                 }
-            });
+            }
 
             // 2. Quét từ vựng theo email
-            const vocabByEmail = await db.collection('custom_vocabulary').where('email', '==', email).get();
-            vocabByEmail.forEach(doc => {
-                const data = doc.data();
-                if (data.parentUid !== newParentUid) {
-                    batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
-                    hasChanges = true;
-                }
-            });
-
-            // 3. Quét chủ đề theo email
-            const topicsByEmail = await db.collection('custom_topics').where('email', '==', email).get();
-            topicsByEmail.forEach(doc => {
-                const data = doc.data();
-                if (data.parentUid !== newParentUid) {
-                    batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
-                    hasChanges = true;
-                }
-            });
-
-            // 4. Trường hợp đặc biệt: Dữ liệu Firestore cũ chưa có trường email
-            if (stdByEmail.empty) {
-                console.log("ℹ️ Không tìm thấy học sinh theo email, quét toàn bộ học sinh trên Firestore để liên kết dữ liệu cũ...");
-                const allStudents = await db.collection('students').get();
-                allStudents.forEach(doc => {
+            const vocabByEmail = await db.collection('custom_vocabulary').where('email', '==', normalizedEmail).get().catch(() => null);
+            if (vocabByEmail && !vocabByEmail.empty) {
+                vocabByEmail.forEach(doc => {
                     const data = doc.data();
-                    if (!data.email || data.email === email) {
-                        batch.update(doc.ref, { parentUid: newParentUid, email: email, lastUpdated: new Date().toISOString() });
+                    if (data.parentUid !== newParentUid) {
+                        batch.update(doc.ref, { parentUid: newParentUid, email: normalizedEmail, lastUpdated: new Date().toISOString() });
                         hasChanges = true;
-                        console.log(`  - Tự động liên kết học sinh cũ: ${data.name || doc.id} với email ${email}`);
                     }
                 });
             }
 
-            // 5. Đồng bộ cấu hình config trong collection settings
-            const settingsSnap = await db.collection('settings').get();
-            settingsSnap.forEach(doc => {
-                const data = doc.data();
-                if (doc.id.startsWith('config_') || data.email === email) {
-                    batch.set(db.collection('settings').doc(`config_${newParentUid}`), {
-                        parentUid: newParentUid,
-                        email: email,
-                        value: data.value,
-                        lastUpdated: new Date().toISOString()
-                    }, { merge: true });
-                    hasChanges = true;
-                }
-            });
+            // 3. Quét chủ đề theo email
+            const topicsByEmail = await db.collection('custom_topics').where('email', '==', normalizedEmail).get().catch(() => null);
+            if (topicsByEmail && !topicsByEmail.empty) {
+                topicsByEmail.forEach(doc => {
+                    const data = doc.data();
+                    if (data.parentUid !== newParentUid) {
+                        batch.update(doc.ref, { parentUid: newParentUid, email: normalizedEmail, lastUpdated: new Date().toISOString() });
+                        hasChanges = true;
+                    }
+                });
+            }
 
             if (hasChanges) {
                 await batch.commit();
-                console.log("✅ [Client Sync] Hoàn thành cập nhật tự động parentUid trên Firestore!");
+                console.log("✅ [Client Sync] Hoàn thành cập nhật tự động parentUid và phân quyền học sinh trên Firestore!");
             }
         } catch (e) {
             console.error("⚠️ Lỗi autoMigrateParentUidByEmail:", e);

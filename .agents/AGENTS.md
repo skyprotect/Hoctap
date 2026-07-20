@@ -68,6 +68,12 @@
 - **Tuyệt đối cấm** xảy ra các trường hợp sai chính tả (bao gồm cả tiếng Việt và tiếng Anh) và lỗi hiển thị font chữ (như lỗi mã hóa UTF-8 thành ký tự lạ dạng `ToÃ¡n Há»c`) trong toàn bộ dự án, bao gồm mã nguồn, giao diện người dùng, tài liệu hướng dẫn, các file script khởi chạy và phím tắt/lối tắt hệ thống.
 - Mọi chuỗi ký tự hiển thị phải được kiểm tra kỹ lưỡng về định dạng mã hóa và lỗi chính tả trước khi phát hành.
 
-## 13. Quy tắc phát hành khi chỉ thay đổi mã nguồn Android (APK)
-- Khi chỉ thực hiện sửa đổi, vá lỗi hoặc nâng cấp phần mềm Android (mã nguồn trong `android_kiosk`), **chỉ thực hiện biên dịch tệp APK cục bộ**, copy đè tệp APK mới ra thư mục gốc thành `TabletLock_Kiosk.apk`, chạy kịch bản đồng bộ bản sạch `node sync_clean.js`, sau đó commit và push trực tiếp các thay đổi lên GitHub.
-- **Tuyệt đối không chạy lệnh `npm run release`** (lệnh này sẽ đóng gói lại bộ cài Windows `.exe` nặng 134MB và tạo GitHub Release mới) trừ khi người dùng yêu cầu rõ ràng việc phát hành phiên bản Windows. Việc này giúp tiết kiệm thời gian biên dịch và băng thông mạng.
+## 14. Quy tắc tự trị đóng gói phân phối (Zero-Config Distribution) và Phân quyền Học sinh
+- **Tự trị Đóng gói Phân phối (Zero-Config)**: Tất cả mã nguồn ứng dụng (Server, Client Web) phải hoạt động 100% ngay lập tức khi gửi đi phân phối cho người dùng cài đặt ở bất kỳ thư mục hay máy tính nào. Mọi thông số Google Client ID, Firebase Config, API Key nhúng sẵn đều phải có giá trị nhúng dự phòng cố định (hardcode fallback) trong mã nguồn. Tuyệt đối không bao giờ được trả về `""` hay `undefined` hoặc phụ thuộc vào việc phải copy file `.env` thủ công.
+- **Phân quyền Tài khoản Phụ huynh & Học sinh chuẩn xác**:
+  - **Tài khoản `skyprotect@gmail.com`**: Quản lý 2 học sinh riêng biệt độc lập:
+    - 1. **Trần Bình Minh** (ID cố định: `std_htsj4gbmo`, Lớp 6)
+    - 2. **Trần Bảo Ngọc** (ID độc lập mới: `std_baongoc`, Lớp 1)
+  - **Tài khoản `nhematseo@gmail.com`**: Quản lý 1 học sinh riêng biệt:
+    - **Trần Đức Phúc** (ID cố định: `std_tyc0gfnkz`, Lớp 4).
+

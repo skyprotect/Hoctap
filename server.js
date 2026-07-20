@@ -2075,11 +2075,13 @@ app.post('/api/setup-initial', async (req, res) => {
 });
 
 
+const DEFAULT_GOOGLE_CLIENT_ID = "1033910156653-jf5787g1hgbfh9v0onqrs84rl36d2qrl.apps.googleusercontent.com";
+
 /**
- * API trả về Google Client ID cấu hình trong .env
+ * API trả về Google Client ID cấu hình trong .env hoặc mặc định
  */
 app.get('/api/auth/google-client-id', (req, res) => {
-  res.json({ clientId: process.env.GOOGLE_CLIENT_ID || "" });
+  res.json({ clientId: process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID });
 });
 
 /**
@@ -2107,11 +2109,12 @@ app.post('/api/auth/google-login', async (req, res) => {
     return res.status(400).json({ error: "Thiếu idToken hoặc firebaseUid" });
   }
   try {
+    const clientId = process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
     // 1. Xác thực Google ID Token nhận được từ Client bằng google-auth-library
-    const oauthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    const oauthClient = new OAuth2Client(clientId);
     const ticket = await oauthClient.verifyIdToken({
       idToken: idToken,
-      audience: process.env.GOOGLE_CLIENT_ID
+      audience: clientId
     });
     const payload = ticket.getPayload();
     const email = payload.email;
@@ -4079,7 +4082,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.38';
+const APP_VERSION = '12.39';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
