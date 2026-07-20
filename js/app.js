@@ -11066,7 +11066,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     openStudentGameExchange: function() {
         const studentId = this.config.defaultStudentId || '';
-        if (studentId === 'std_xf9e2lvgv') {
+        if (studentId === 'std_baongoc') {
             Swal.fire({
                 icon: 'error',
                 title: 'Quy đổi thẻ tạm khóa! 🔒',

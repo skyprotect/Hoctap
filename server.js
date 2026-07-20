@@ -46,6 +46,12 @@ const firebaseConfig = {
 const firebaseInitialized = true;
 console.log("🔥 Chế độ Firebase Web Client đã được kích hoạt.");
 
+// Danh sách 3 học sinh chuẩn hóa cố định toàn hệ thống theo Quy tắc 14
+const SYSTEM_STUDENTS = [
+  { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
+  { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" },
+  { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
+];
 
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'antigravity_secret_key_123';
@@ -2385,7 +2391,7 @@ app.post('/api/auth/logout', async (req, res) => {
         if (stat.isDirectory()) {
           cleanExamsFiles(filePath);
         } else {
-          if (file.includes('std_htsj4gbmo') || file.includes('std_tyc0gfnkz') || file.includes('std_xf9e2lvgv')) {
+          if (file.includes('std_htsj4gbmo') || file.includes('std_tyc0gfnkz') || file.includes('std_baongoc')) {
             try { fs.unlinkSync(filePath); } catch (e) {}
           }
         }
@@ -2483,9 +2489,10 @@ app.post('/api/heartbeat', async (req, res) => {
     const config = await dbGetSetting('config').catch(() => null);
     const studentsList = (config && config.students) || [];
     const studentConf = studentsList.find(s => s.id === studentId);
+    const sysConf = SYSTEM_STUDENTS.find(s => s.id === studentId);
     
-    const studentName = studentConf ? studentConf.name : "Học sinh";
-    const actualClassLevel = studentConf ? studentConf.classLevel : (classLevel || "6");
+    const studentName = studentConf ? studentConf.name : (sysConf ? sysConf.name : "Học sinh");
+    const actualClassLevel = studentConf ? studentConf.classLevel : (sysConf ? sysConf.classLevel : (classLevel || "6"));
 
     const payload = {
       studentId: studentId,
@@ -2760,8 +2767,9 @@ app.get('/api/leaderboard', async (req, res) => {
           try {
             const state = JSON.parse(row.state_json);
             const studentConf = studentsList.find(s => s.id === row.student_id);
-            const studentName = studentConf ? studentConf.name : ((state.student && state.student.name) || "Học sinh");
-            const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6");
+            const sysConf = SYSTEM_STUDENTS.find(s => s.id === row.student_id);
+            const studentName = studentConf ? studentConf.name : (sysConf ? sysConf.name : ((state.student && state.student.name) || "Học sinh"));
+            const classLevel = studentConf ? studentConf.classLevel : (sysConf ? sysConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6"));
 
             return {
               studentId: row.student_id,
@@ -4159,7 +4167,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.55';
+const APP_VERSION = '12.57';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {
