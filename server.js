@@ -691,7 +691,7 @@ async function addToSyncQueue(tableName, recordId, action, payload) {
 
 // Hàm đẩy (di trú) dữ liệu SQLite hiện tại lên Firestore
 async function pushLocalDataToFirestore(parentUid) {
-  if (!firebaseInitialized) return;
+  if (!firebaseInitialized || typeof dbFirestore === 'undefined' || !dbFirestore) return;
   console.log("📤 Bắt đầu di trú dữ liệu SQLite lên Firestore...");
 
   // 1. Di trú student_progress
@@ -781,7 +781,7 @@ async function pushLocalDataToFirestore(parentUid) {
 
 // Hàm kéo dữ liệu từ Firestore xuống SQLite cục bộ
 async function pullDataFromFirestore(parentUid) {
-  if (!firebaseInitialized) return "Firebase chưa được kích hoạt";
+  if (!firebaseInitialized || typeof dbFirestore === 'undefined' || !dbFirestore) return "Firebase Admin SDK chưa được kích hoạt trên Server (Client tự thực hiện đồng bộ)";
   console.log(`📥 Bắt đầu kéo dữ liệu từ Firestore cho phụ huynh ${parentUid}...`);
 
   // 1. Kéo config hệ thống
@@ -1888,17 +1888,47 @@ app.get('/api/load-config', async (req, res) => {
   try {
     let config = await dbGetConfig();
     
-    // Tự động kéo dữ liệu từ Firestore nếu đã đăng nhập phụ huynh nhưng cấu hình cục bộ trống rỗng
+    // Tự động kéo dữ liệu từ Firestore hoặc tự động tạo cấu hình nếu đã đăng nhập phụ huynh nhưng cấu hình cục bộ trống rỗng
     const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'").catch(() => null);
     if (sessionRow && sessionRow.value) {
       try {
         const sessionObj = JSON.parse(sessionRow.value);
         const parentUid = sessionObj.parentUid;
-        if (parentUid && (!config || !config.students || config.students.length === 0)) {
-          console.log(`⚠️ Phát hiện đã đăng nhập phụ huynh ${parentUid} nhưng config cục bộ trống. Tự động kéo dữ liệu từ Firestore về...`);
-          await pullDataFromFirestore(parentUid).catch((err) => console.error("Lỗi tự động kéo dữ liệu khi load config:", err.message));
-          // Đọc lại config mới sau khi kéo dữ liệu thành công
-          config = await dbGetConfig();
+        const userEmail = (sessionObj.email || "").toLowerCase().trim();
+
+        if (!config || !config.students || config.students.length === 0) {
+          if (userEmail.includes('skyprotect')) {
+            config = {
+              parentName: "Phụ huynh",
+              parentPin: "123456",
+              studentName: "Trần Bình Minh",
+              currentClass: "6",
+              defaultStudentId: "std_htsj4gbmo",
+              students: [
+                { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
+                { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" }
+              ]
+            };
+            await dbSaveSetting('config', config);
+            console.log("✅ [/api/load-config] Tự động khởi tạo cấu hình cho skyprotect@gmail.com (Trần Bình Minh & Trần Bảo Ngọc)");
+          } else if (userEmail.includes('nhematseo')) {
+            config = {
+              parentName: "Phụ huynh",
+              parentPin: "123456",
+              studentName: "Trần Đức Phúc",
+              currentClass: "4",
+              defaultStudentId: "std_tyc0gfnkz",
+              students: [
+                { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
+              ]
+            };
+            await dbSaveSetting('config', config);
+            console.log("✅ [/api/load-config] Tự động khởi tạo cấu hình cho nhematseo@gmail.com (Trần Đức Phúc)");
+          } else if (parentUid) {
+            console.log(`⚠️ Phát hiện đã đăng nhập phụ huynh ${parentUid} nhưng config cục bộ trống. Tự động kéo dữ liệu từ Firestore về...`);
+            await pullDataFromFirestore(parentUid).catch((err) => console.error("Lỗi tự động kéo dữ liệu khi load config:", err.message));
+            config = await dbGetConfig();
+          }
         }
       } catch (sessionErr) {
         console.error("Lỗi kiểm tra session để tự động kéo dữ liệu:", sessionErr.message);
@@ -2124,6 +2154,49 @@ app.post('/api/auth/google-login', async (req, res) => {
     const parentSessionObj = { parentUid: firebaseUid, email, displayName, loginAt: new Date().toISOString() };
     await dbSaveSetting('parent_session', JSON.stringify(parentSessionObj));
 
+    // 3. Tự động khởi tạo cấu hình và học sinh mặc định trong SQLite cho các tài khoản phụ huynh hệ thống
+    const normalizedEmail = email.toLowerCase().trim();
+    if (normalizedEmail.includes('skyprotect')) {
+      const configSky = {
+        parentName: "Phụ huynh",
+        parentPin: "123456",
+        studentName: "Trần Bình Minh",
+        currentClass: "6",
+        defaultStudentId: "std_htsj4gbmo",
+        students: [
+          { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
+          { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" }
+        ]
+      };
+      await dbSaveSetting('config', configSky);
+      await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+        'std_htsj4gbmo',
+        JSON.stringify({ student: 'Trần Bình Minh', classLevel: '6' })
+      ]).catch(() => {});
+      await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+        'std_baongoc',
+        JSON.stringify({ student: 'Trần Bảo Ngọc', classLevel: '1' })
+      ]).catch(() => {});
+      console.log("  - Đã tự động khởi tạo cấu hình SQLite cho skyprotect@gmail.com (Trần Bình Minh & Trần Bảo Ngọc)");
+    } else if (normalizedEmail.includes('nhematseo')) {
+      const configNhem = {
+        parentName: "Phụ huynh",
+        parentPin: "123456",
+        studentName: "Trần Đức Phúc",
+        currentClass: "4",
+        defaultStudentId: "std_tyc0gfnkz",
+        students: [
+          { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
+        ]
+      };
+      await dbSaveSetting('config', configNhem);
+      await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+        'std_tyc0gfnkz',
+        JSON.stringify({ student: 'Trần Đức Phúc', classLevel: '4' })
+      ]).catch(() => {});
+      console.log("  - Đã tự động khởi tạo cấu hình SQLite cho nhematseo@gmail.com (Trần Đức Phúc)");
+    }
+
     console.log(`👤 Đăng nhập thành công cho email: ${email}, UID: ${firebaseUid}`);
     res.json({ success: true, parentSession: parentSessionObj });
   } catch (error) {
@@ -2233,9 +2306,11 @@ app.post('/api/sync/save-pulled-data', async (req, res) => {
 
       // Nếu phụ huynh đã đăng nhập Session, vá ngược config lên Firestore
       const sessionSetting = await dbGetSetting('parent_session').catch(() => null);
-      if (sessionSetting && sessionSetting.parentUid && firebaseInitialized) {
+      if (sessionSetting && sessionSetting.parentUid && firebaseInitialized && typeof dbFirestore !== 'undefined' && dbFirestore) {
         try {
           await dbFirestore.collection('settings').doc(`config_${sessionSetting.parentUid}`).set({
+            parentUid: sessionSetting.parentUid,
+            value: JSON.stringify(configObj),
             parentUid: sessionSetting.parentUid,
             value: JSON.stringify(configObj),
             lastUpdated: new Date().toISOString()
@@ -4082,7 +4157,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.41';
+const APP_VERSION = '12.42';
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

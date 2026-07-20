@@ -2352,25 +2352,32 @@ const app = {
 
                                         // Tự động chuyển đổi và gán parentUid mới cho dữ liệu cũ theo Email
                                         if (userEmail) {
-                                            await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid);
+                                            await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid).catch(e => console.warn("Lỗi autoMigrateParentUidByEmail:", e));
                                         }
 
                                         localStorage.removeItem('skipGoogleLogin');
-                                        let studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
-                                        let syncMessage = "";
                                         
-                                        if (studentsSnap.empty) {
-                                            await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
-                                            syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
-                                        } else {
-                                            await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
-                                            syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
+                                        // Nạp lại cấu hình từ SQLite server ngay lập tức
+                                        await this.loadConfig();
+
+                                        let syncMessage = "Đăng nhập Google thành công!";
+                                        try {
+                                            let studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
+                                            if (studentsSnap.empty) {
+                                                await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
+                                                syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
+                                            } else {
+                                                await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
+                                                syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
+                                            }
+                                        } catch (fsErr) {
+                                            console.warn("⚠️ Lỗi đồng bộ đám mây Firestore (vẫn tiếp tục chế độ cục bộ):", fsErr);
                                         }
 
                                         Swal.fire({
                                             icon: 'success',
                                             title: 'Thành công',
-                                            text: syncMessage || 'Đăng nhập Google thành công!',
+                                            text: syncMessage,
                                             timer: 2500,
                                             showConfirmButton: false
                                         });
