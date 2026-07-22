@@ -424,10 +424,24 @@ class KioskService : Service() {
             putExtra("force_lock", true)
         }
 
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            lockIntent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            else
+                PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         try {
-            startActivity(lockIntent)
+            pendingIntent.send()
         } catch (e: Exception) {
-            e.printStackTrace()
+            try {
+                startActivity(lockIntent)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
         }
 
         // 3b. Gửi thêm Full Screen Intent Notification để dự phòng đa tầng
