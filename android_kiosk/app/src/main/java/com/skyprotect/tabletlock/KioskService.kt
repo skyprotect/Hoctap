@@ -174,73 +174,39 @@ class KioskService : Service() {
         logToFirebase("KioskService", "onTaskRemoved: Ứng dụng bị vuốt tắt khỏi Recent Apps")
         val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
-        val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
-        val isStillValid = (expiresTimeMillis - System.currentTimeMillis()) > 0
-
-        if (isStillValid) {
-            // Trường hợp 1: Đang trong thời gian chơi -> Tự hồi sinh KioskService bằng PendingIntent.getForegroundService
-            val serviceIntent = Intent(applicationContext, KioskService::class.java)
-            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                PendingIntent.getForegroundService(
-                    applicationContext,
-                    2001,
-                    serviceIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        val intent = Intent(applicationContext, BootReceiver::class.java).apply {
+            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            2001,
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    android.os.SystemClock.elapsedRealtime() + 500,
+                    pendingIntent
                 )
             } else {
-                PendingIntent.getService(
-                    applicationContext,
-                    2001,
-                    serviceIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                alarmManager.set(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    android.os.SystemClock.elapsedRealtime() + 500,
+                    pendingIntent
                 )
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        android.os.SystemClock.elapsedRealtime() + 1000,
-                        pendingIntent
-                    )
-                } else {
-                    alarmManager.set(
-                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        android.os.SystemClock.elapsedRealtime() + 1000,
-                        pendingIntent
-                    )
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        } else {
-            // Trường hợp 2: Đang ở trạng thái BỊ KHÓA -> Bật lại MainActivity ngay lập tức để giữ màn hình khóa
-            val lockIntent = Intent(applicationContext, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                putExtra("force_lock", true)
-            }
-            val pendingIntent = PendingIntent.getActivity(
-                applicationContext,
-                2002,
-                lockIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        android.os.SystemClock.elapsedRealtime() + 500,
-                        pendingIntent
-                    )
-                } else {
-                    alarmManager.set(
-                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        android.os.SystemClock.elapsedRealtime() + 500,
-                        pendingIntent
-                    )
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+                alarmManager.set(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    android.os.SystemClock.elapsedRealtime() + 500,
+                    pendingIntent
+                )
+            } catch (ex: Exception) {
+                ex.printStackTrace()
             }
         }
         super.onTaskRemoved(rootIntent)
@@ -614,23 +580,15 @@ class KioskService : Service() {
 
     private fun scheduleNextHeartbeat() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val serviceIntent = Intent(this, KioskService::class.java)
-        
-        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            PendingIntent.getForegroundService(
-                this,
-                1001,
-                serviceIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-        } else {
-            PendingIntent.getService(
-                this,
-                1001,
-                serviceIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
+        val intent = Intent(this, BootReceiver::class.java).apply {
+            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
         }
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            1001,
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         val timeToWakeUp = android.os.SystemClock.elapsedRealtime() + 20000 // 20 giây
 

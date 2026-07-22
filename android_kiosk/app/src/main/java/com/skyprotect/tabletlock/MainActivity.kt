@@ -293,7 +293,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.5 (Cập nhật: 22/07/2026 10:15)"
+            txtVersion.text = "Phiên bản: v3.6 (Cập nhật: 22/07/2026 10:25)"
         } catch (e: Exception) {
             e.printStackTrace()
         }

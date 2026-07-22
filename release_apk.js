@@ -42,7 +42,7 @@ if (!fs.existsSync(apkPath)) {
 const now = new Date();
 const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-const apkVersion = '3.5';
+const apkVersion = '3.6';
 const tagName = `v${apkVersion}-kiosk`;
 
 console.log(`📱 Chuẩn bị phát hành APK TabletLock v${apkVersion} lên GitHub Release...`);
@@ -53,7 +53,7 @@ const versionJsonPath = path.join(__dirname, 'version.json');
 if (fs.existsSync(versionJsonPath)) {
   const versionData = JSON.parse(fs.readFileSync(versionJsonPath, 'utf8'));
   versionData.androidVersion = apkVersion;
-  versionData.androidChangelog = `- Phiên bản v${apkVersion}: Khắc phục triệt để lỗi nhảy ứng dụng khác khi khóa khẩn cấp và vuốt mở màn hình nhờ đồng bộ PendingIntent Heartbeat và ép Foreground Task Stack.`;
+  versionData.androidChangelog = `- Phiên bản v${apkVersion}: Tự động hồi sinh 100% khi ứng dụng bị vuốt tắt khỏi Recent Apps nhờ định tuyến Alarm Broadcast qua BootReceiver theo chuẩn Google Android 12+.`;
   fs.writeFileSync(versionJsonPath, JSON.stringify(versionData, null, 2), 'utf8');
   console.log('✅ Đã cập nhật androidVersion trong version.json');
 }
@@ -110,7 +110,7 @@ async function publishApkRelease() {
     tag_name: tagName,
     target_commitish: 'main',
     name: `TabletLock Kiosk Android v${apkVersion}`,
-    body: `## 📱 Bản cập nhật Kiosk Android TabletLock v${apkVersion}\n- Khắc phục triệt để lỗi tự động mở ứng dụng khác khi khóa khẩn cấp và vuốt mở màn hình.\n- Đồng bộ loại PendingIntent trong Heartbeat AlarmManager để hủy triệt để nhịp tim thừa.\n- Tự động re-enforce KioskMode và ép MainActivity lên top Task Stack khi màn hình bật (SCREEN_ON / USER_PRESENT).\n- Ngày cập nhật: ${formattedDate}`,
+    body: `## 📱 Bản cập nhật Kiosk Android TabletLock v${apkVersion}\n- Khắc phục triệt để lỗi không tự khởi động lại khi bị vuốt tắt khỏi Recent Apps.\n- Định tuyến 100% AlarmManager qua PendingIntent.getBroadcast (BootReceiver) đáp ứng chuẩn Android 12+ Foreground Service restrictions.\n- Tự động hồi sinh Service và khôi phục giao diện Kiosk chỉ trong 0.5 giây sau khi bị kill.\n- Ngày cập nhật: ${formattedDate}`,
     draft: false,
     prerelease: false
   });

@@ -2,6 +2,6 @@
   "version": "12.57",
   "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.57/ToanHocKiosk_Setup_v12.57.exe",
   "changelog": "- Bổ sung js/questions-7991.js vào kịch bản đồng bộ sync_clean.js để khắc phục triệt để lỗi Unexpected token '<' trên bản sạch HocTap_Clean.",
-  "androidVersion": "3.5",
-  "androidChangelog": "- Phiên bản v3.5: Khắc phục triệt để lỗi nhảy ứng dụng khác khi khóa khẩn cấp và vuốt mở màn hình nhờ đồng bộ PendingIntent Heartbeat và ép Foreground Task Stack."
+  "androidVersion": "3.6",
+  "androidChangelog": "- Phiên bản v3.6: Tự động hồi sinh 100% khi ứng dụng bị vuốt tắt khỏi Recent Apps nhờ định tuyến Alarm Broadcast qua BootReceiver theo chuẩn Google Android 12+."
 }
