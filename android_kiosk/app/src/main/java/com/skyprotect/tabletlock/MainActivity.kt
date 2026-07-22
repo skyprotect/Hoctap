@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        setIntent(intent)
     }
 
     override fun onResume() {
@@ -124,8 +125,9 @@ class MainActivity : AppCompatActivity() {
         val currentToken = sharedPref.getString("currentToken", "") ?: ""
         val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
         val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        val forceLock = intent?.getBooleanExtra("force_lock", false) ?: false
         
-        val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
+        val isTimeValid = !forceLock && remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
         
         if (isTimeValid) {
             // Thiết lập Launcher hệ thống gốc làm Launcher mặc định để trẻ chơi bình thường không bị lỗi vòng lặp
@@ -293,7 +295,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v5.0 (Cập nhật: 22/07/2026 11:45)"
+            txtVersion.text = "Phiên bản: v5.1 (Cập nhật: 22/07/2026 11:47)"
         } catch (e: Exception) {
             e.printStackTrace()
         }

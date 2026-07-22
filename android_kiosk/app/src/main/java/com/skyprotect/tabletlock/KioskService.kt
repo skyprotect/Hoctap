@@ -364,6 +364,8 @@ class KioskService : Service() {
     }
 
     private fun lockDevice() {
+        isCurrentlyLockedState = true
+        remainingTimeSeconds = 0L
         // Hủy nhịp tim sinh tồn ngay khi bắt đầu khóa máy
         cancelHeartbeat()
         logToFirebase("KioskService", "lockDevice: Thực hiện khóa máy tính bảng")
