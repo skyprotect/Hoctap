@@ -42,7 +42,7 @@ if (!fs.existsSync(apkPath)) {
 const now = new Date();
 const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-const apkVersion = '3.6';
+const apkVersion = '3.7';
 const tagName = `v${apkVersion}-kiosk`;
 
 console.log(`📱 Chuẩn bị phát hành APK TabletLock v${apkVersion} lên GitHub Release...`);
@@ -53,7 +53,7 @@ const versionJsonPath = path.join(__dirname, 'version.json');
 if (fs.existsSync(versionJsonPath)) {
   const versionData = JSON.parse(fs.readFileSync(versionJsonPath, 'utf8'));
   versionData.androidVersion = apkVersion;
-  versionData.androidChangelog = `- Phiên bản v${apkVersion}: Tự động hồi sinh 100% khi ứng dụng bị vuốt tắt khỏi Recent Apps nhờ định tuyến Alarm Broadcast qua BootReceiver theo chuẩn Google Android 12+.`;
+  versionData.androidChangelog = `- Phiên bản v${apkVersion}: Hồi sinh tức thì (dưới 1 giây) khi bị vuốt tắt khỏi Recent Apps nhờ tích hợp Instant In-Process Broadcast & Backup RTC_WAKEUP.`;
   fs.writeFileSync(versionJsonPath, JSON.stringify(versionData, null, 2), 'utf8');
   console.log('✅ Đã cập nhật androidVersion trong version.json');
 }
@@ -110,7 +110,7 @@ async function publishApkRelease() {
     tag_name: tagName,
     target_commitish: 'main',
     name: `TabletLock Kiosk Android v${apkVersion}`,
-    body: `## 📱 Bản cập nhật Kiosk Android TabletLock v${apkVersion}\n- Khắc phục triệt để lỗi không tự khởi động lại khi bị vuốt tắt khỏi Recent Apps.\n- Định tuyến 100% AlarmManager qua PendingIntent.getBroadcast (BootReceiver) đáp ứng chuẩn Android 12+ Foreground Service restrictions.\n- Tự động hồi sinh Service và khôi phục giao diện Kiosk chỉ trong 0.5 giây sau khi bị kill.\n- Ngày cập nhật: ${formattedDate}`,
+    body: `## 📱 Bản cập nhật Kiosk Android TabletLock v${apkVersion}\n- Khắc phục triệt để lỗi độ trễ khôi phục khi ứng dụng bị vuốt tắt khỏi Recent Apps.\n- Tích hợp Instant In-Process Broadcast ngay tại onTaskRemoved() giúp ứng dụng hồi sinh lập tức dưới 1 giây.\n- Đặt lịch AlarmManager dự phòng RTC_WAKEUP bảo vệ đa tầng.\n- Ngày cập nhật: ${formattedDate}`,
     draft: false,
     prerelease: false
   });

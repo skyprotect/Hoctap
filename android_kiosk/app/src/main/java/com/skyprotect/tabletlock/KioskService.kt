@@ -172,39 +172,45 @@ class KioskService : Service() {
 
     override fun onTaskRemoved(rootIntent: Intent?) {
         logToFirebase("KioskService", "onTaskRemoved: Ứng dụng bị vuốt tắt khỏi Recent Apps")
-        val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(applicationContext, BootReceiver::class.java).apply {
             action = "com.skyprotect.tabletlock.RESTART_SERVICE"
         }
+
+        // 1. Phóng Broadcast ngay lập tức trước khi tiến trình bị OS kill hẳn
+        try {
+            sendBroadcast(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // 2. Đặt lịch AlarmManager dự phòng 1 giây với RTC_WAKEUP
+        val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
             2001,
             intent,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val triggerTime = System.currentTimeMillis() + 1000L
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    android.os.SystemClock.elapsedRealtime() + 500,
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTime,
                     pendingIntent
                 )
             } else {
                 alarmManager.set(
-                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    android.os.SystemClock.elapsedRealtime() + 500,
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTime,
                     pendingIntent
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             try {
-                alarmManager.set(
-                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    android.os.SystemClock.elapsedRealtime() + 500,
-                    pendingIntent
-                )
+                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
