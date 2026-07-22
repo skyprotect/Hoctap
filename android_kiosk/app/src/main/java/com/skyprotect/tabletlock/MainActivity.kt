@@ -293,7 +293,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.8 (Cập nhật: 22/07/2026 10:50)"
+            txtVersion.text = "Phiên bản: v3.9 (Cập nhật: 22/07/2026 11:15)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -339,7 +339,13 @@ class MainActivity : AppCompatActivity() {
                     dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_SAFE_BOOT)
                     dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_FACTORY_RESET)
                     dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_APPS_CONTROL)
-                    dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_DEBUGGING_FEATURES)
+                    dpm.clearUserRestriction(adminComponent, android.os.UserManager.DISALLOW_DEBUGGING_FEATURES)
+                    try {
+                        dpm.setGlobalSetting(adminComponent, android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, "1")
+                        dpm.setGlobalSetting(adminComponent, android.provider.Settings.Global.ADB_ENABLED, "1")
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     dpm.setAutoTimeRequired(adminComponent, true)
