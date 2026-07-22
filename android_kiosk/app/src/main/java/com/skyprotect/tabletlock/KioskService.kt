@@ -51,6 +51,12 @@ class KioskService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            logToFirebase("CRASH_LOGGER", "Lỗi Service Crash chưa xử lý trên thread ${thread.name}: ${throwable.message}\n${throwable.stackTraceToString()}")
+            defaultHandler?.uncaughtException(thread, throwable)
+        }
+        logToFirebase("KioskService", "onCreate được gọi")
         createNotificationChannel()
     }
 

@@ -50,6 +50,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Tích hợp UncaughtExceptionHandler tự động đẩy Crash Log lên Firebase
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            logToFirebase("CRASH_LOGGER", "Lỗi Crash chưa xử lý trên thread ${thread.name}: ${throwable.message}\n${throwable.stackTraceToString()}")
+            defaultHandler?.uncaughtException(thread, throwable)
+        }
+        logToFirebase("MainActivity", "onCreate: Màn hình khóa Kiosk được khởi tạo thành công")
+
         // Khởi tạo Device Policy Manager
         dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         adminComponent = ComponentName(this, AdminReceiver::class.java)
@@ -256,7 +264,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.1 (Cập nhật: 22/07/2026 09:40)"
+            txtVersion.text = "Phiên bản: v3.2 (Cập nhật: 22/07/2026 09:45)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -729,6 +737,43 @@ class MainActivity : AppCompatActivity() {
                 showError("Lỗi cài đặt: ${e.message}")
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        logToFirebase("MainActivity", "onPause: Activity bị tạm dừng (bị app khác đè lên hoặc chuyển trạng thái)")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        logToFirebase("MainActivity", "onStop: Activity đã dừng")
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        logToFirebase("MainActivity", "onWindowFocusChanged: hasFocus = $hasFocus")
+    }
+
+    private fun logToFirebase(tag: String, message: String) {
+        val df = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US)
+        val timeStr = df.format(java.util.Date())
+        val jsonPayload = """
+            {
+                "time": "$timeStr",
+                "tag": "$tag",
+                "message": "$message"
+            }
+        """.trimIndent()
+        
+        val url = "${FIREBASE_RTDB_URL}tablet_debug_logs.json"
+        val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).post(body).build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.close()
+            }
+        })
     }
 
     // Ghi đè sự kiện bấm phím cứng để chặn thoát
