@@ -159,25 +159,76 @@ class KioskService : Service() {
 
     override fun onTaskRemoved(rootIntent: Intent?) {
         logToFirebase("KioskService", "onTaskRemoved: Ứng dụng bị vuốt tắt khỏi Recent Apps")
-        // Lên lịch khởi chạy lại service qua BootReceiver khi ứng dụng bị vuốt tắt từ Recents
-        val restartServiceIntent = Intent(applicationContext, BootReceiver::class.java).apply {
-            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
-        }
-        val restartServicePendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            2,
-            restartServiceIntent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_ONE_SHOT
-        )
-        val alarmService = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        try {
-            alarmService.set(
-                AlarmManager.ELAPSED_REALTIME,
-                android.os.SystemClock.elapsedRealtime() + 1000,
-                restartServicePendingIntent
+        val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+        val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
+        val isStillValid = (expiresTimeMillis - System.currentTimeMillis()) > 0
+
+        if (isStillValid) {
+            // Trường hợp 1: Đang trong thời gian chơi -> Tự hồi sinh KioskService bằng PendingIntent.getForegroundService
+            val serviceIntent = Intent(applicationContext, KioskService::class.java)
+            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                PendingIntent.getForegroundService(
+                    applicationContext,
+                    2001,
+                    serviceIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            } else {
+                PendingIntent.getService(
+                    applicationContext,
+                    2001,
+                    serviceIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            }
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        android.os.SystemClock.elapsedRealtime() + 1000,
+                        pendingIntent
+                    )
+                } else {
+                    alarmManager.set(
+                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        android.os.SystemClock.elapsedRealtime() + 1000,
+                        pendingIntent
+                    )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        } else {
+            // Trường hợp 2: Đang ở trạng thái BỊ KHÓA -> Bật lại MainActivity ngay lập tức để giữ màn hình khóa
+            val lockIntent = Intent(applicationContext, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                putExtra("force_lock", true)
+            }
+            val pendingIntent = PendingIntent.getActivity(
+                applicationContext,
+                2002,
+                lockIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-        } catch (e: Exception) {
-            e.printStackTrace()
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        android.os.SystemClock.elapsedRealtime() + 500,
+                        pendingIntent
+                    )
+                } else {
+                    alarmManager.set(
+                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        android.os.SystemClock.elapsedRealtime() + 500,
+                        pendingIntent
+                    )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
         super.onTaskRemoved(rootIntent)
     }
@@ -545,34 +596,40 @@ class KioskService : Service() {
 
     private fun scheduleNextHeartbeat() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, BootReceiver::class.java).apply {
-            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+        val serviceIntent = Intent(this, KioskService::class.java)
+        
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            PendingIntent.getForegroundService(
+                this,
+                1001,
+                serviceIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            PendingIntent.getService(
+                this,
+                1001,
+                serviceIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
         }
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            1001, // ID riêng biệt cho nhịp tim sinh tồn
-            intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
-        )
 
         val timeToWakeUp = android.os.SystemClock.elapsedRealtime() + 20000 // 20 giây
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
             } else {
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
             }
             logToFirebase("KioskService", "scheduleNextHeartbeat: Đã đặt lịch Alarm 20 giây tiếp theo")
-        } catch (e: SecurityException) {
+        } catch (e: Exception) {
             e.printStackTrace()
-            // Fallback an toàn về set thông thường để tránh crash app nếu thiếu quyền SCHEDULE_EXACT_ALARM
             try {
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent)
-                logToFirebase("KioskService", "scheduleNextHeartbeat: Fallback đặt lịch Alarm 20s (không chính xác)")
+                logToFirebase("KioskService", "scheduleNextHeartbeat: Fallback đặt lịch Alarm 20s")
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                logToFirebase("KioskService", "scheduleNextHeartbeat: Lỗi nghiêm trọng khi đặt Alarm fallback")
             }
         }
     }

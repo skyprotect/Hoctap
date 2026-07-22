@@ -122,10 +122,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt lại Kiosk Mode để khóa cứng
             
-            // Đồng bộ trạng thái: Chủ động dừng KioskService và xóa bong bóng nổi
+            // Đồng bộ trạng thái: Đảm bảo KioskService vẫn duy trì làm Guard Service 24/7
             try {
                 val serviceIntent = Intent(this, KioskService::class.java)
-                stopService(serviceIntent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(serviceIntent)
+                } else {
+                    startService(serviceIntent)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -252,7 +256,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v2.9 (Cập nhật: 19/07/2026 16:00)"
+            txtVersion.text = "Phiên bản: v3.0 (Cập nhật: 22/07/2026 09:20)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -279,14 +283,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun startKioskMode() {
         try {
-            // Chủ động dừng KioskService để đảm bảo bong bóng đếm ngược biến mất khi khóa cứng
-            try {
-                val serviceIntent = Intent(this, KioskService::class.java)
-                stopService(serviceIntent)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
             if (dpm.isDeviceOwnerApp(packageName)) {
                 // Thiết lập các hạn chế bảo mật Device Owner khi ở chế độ Kiosk khóa cứng
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -297,6 +293,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     dpm.setAutoTimeRequired(adminComponent, true)
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    dpm.setLockTaskFeatures(adminComponent, DevicePolicyManager.LOCK_TASK_FEATURE_NONE)
                 }
 
                 // Xóa cấu hình phím Home cũ để tránh xung đột trước khi đặt Launcher mới
