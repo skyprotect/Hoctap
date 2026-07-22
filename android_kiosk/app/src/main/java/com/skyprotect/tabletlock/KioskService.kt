@@ -35,6 +35,7 @@ class KioskService : Service() {
     private var initialMinutes: Int = 0
     private var currentHistoryId: String = ""
     private var isHistoryUpdated = false
+    private var isCurrentlyLockedState = false
 
     private val client = OkHttpClient()
     private val FIREBASE_RTDB_URL = "https://binhminhchamhoc-default-rtdb.firebaseio.com/"
@@ -66,6 +67,7 @@ class KioskService : Service() {
         val isNewUnlock = intent != null && intent.hasExtra("minutes")
 
         if (isNewUnlock) {
+            isCurrentlyLockedState = false
             // Đây là yêu cầu mở khóa mới từ màn hình PIN hoặc từ xa
             // Cần dọn dẹp Widget và Timer cũ (nếu có) để bắt đầu chu kỳ mới
             countDownTimer?.cancel()
@@ -120,8 +122,13 @@ class KioskService : Service() {
             val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
 
             if (remainingTimeSeconds <= 0 || (lastActiveDate.isNotEmpty() && lastActiveDate != todayStr)) {
-                logToFirebase("KioskService", "onStartCommand: Thời gian chơi hết hoặc qua ngày mới, chuyển khóa")
-                lockDevice()
+                if (!isCurrentlyLockedState) {
+                    isCurrentlyLockedState = true
+                    logToFirebase("KioskService", "onStartCommand: Thời gian chơi hết hoặc qua ngày mới, chuyển khóa")
+                    lockDevice()
+                } else {
+                    logToFirebase("KioskService", "onStartCommand: Đã ở trạng thái khóa, duy trì bảo vệ ngầm")
+                }
                 return START_STICKY
             }
             logToFirebase("KioskService", "onStartCommand: Service Hồi Sinh, remainingTimeSeconds = $remainingTimeSeconds")

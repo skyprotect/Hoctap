@@ -128,19 +128,7 @@ class MainActivity : AppCompatActivity() {
             launchSystemLauncher()
             finish() // Đóng màn hình khóa để tránh nó hiển thị đè lên màn hình chính
         } else {
-            // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt lại Kiosk Mode để khóa cứng
-            
-            // Đồng bộ trạng thái: Đảm bảo KioskService vẫn duy trì làm Guard Service 24/7
-            try {
-                val serviceIntent = Intent(this, KioskService::class.java)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(serviceIntent)
-                } else {
-                    startService(serviceIntent)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            // Hết giờ chơi hoặc chưa mở khóa -> Kích hoạt Kiosk Mode để khóa cứng
             
             // Xóa sạch trạng thái preferences để đồng bộ tuyệt đối
             try {
@@ -264,7 +252,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.2 (Cập nhật: 22/07/2026 09:45)"
+            txtVersion.text = "Phiên bản: v3.3 (Cập nhật: 22/07/2026 09:55)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
