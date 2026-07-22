@@ -143,12 +143,8 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
 
-            // Thử khóa ngay lập tức
+            // Kích hoạt Kiosk Mode khóa cứng 1 lần duy nhất
             startKioskMode()
-            // Thử lại sau 1.5 giây để đảm bảo hệ thống Android nhận dạng xong Device Owner khi app vừa cập nhật
-            Handler(Looper.getMainLooper()).postDelayed({
-                startKioskMode()
-            }, 1500)
             updateStatusOnFirebase("locked")
         }
     }
@@ -252,7 +248,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.3 (Cập nhật: 22/07/2026 09:55)"
+            txtVersion.text = "Phiên bản: v3.4 (Cập nhật: 22/07/2026 10:05)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -279,7 +275,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun startKioskMode() {
         try {
+            // 1. Kiểm tra nếu thiết bị ĐÃ Ở TRONG LockTask Mode rồi -> Bỏ qua để tránh làm giật System UI và báo lỗi nhà sản xuất
+            val am = getSystemService(Context.ACTIVITY_SERVICE) as android.app.ActivityManager
+            val isInLockTask = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                am.lockTaskModeState != android.app.ActivityManager.LOCK_TASK_MODE_NONE
+            } else {
+                am.isInLockTaskMode
+            }
+            if (isInLockTask) {
+                logToFirebase("MainActivity", "startKioskMode: Thiết bị đã ở trong LockTaskMode, bảo vệ ổn định")
+                return
+            }
+
             if (dpm.isDeviceOwnerApp(packageName)) {
+                logToFirebase("MainActivity", "startKioskMode: Kích hoạt LockTaskMode cho Kiosk App")
                 // Thiết lập các hạn chế bảo mật Device Owner khi ở chế độ Kiosk khóa cứng
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     dpm.addUserRestriction(adminComponent, android.os.UserManager.DISALLOW_SAFE_BOOT)
@@ -297,7 +306,7 @@ class MainActivity : AppCompatActivity() {
                 // Xóa cấu hình phím Home cũ để tránh xung đột trước khi đặt Launcher mới
                 dpm.clearPackagePersistentPreferredActivities(adminComponent, packageName)
 
-                // Đặt ứng dụng này làm Launcher mặc định của máy tính bảng
+                // Đặt ứng dụng này làm Launcher mặc định của máy tính bảng khi bị khóa
                 val filter = IntentFilter(Intent.ACTION_MAIN).apply {
                     addCategory(Intent.CATEGORY_HOME)
                     addCategory(Intent.CATEGORY_DEFAULT)
@@ -306,7 +315,6 @@ class MainActivity : AppCompatActivity() {
                 dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
 
                 // CỰC KỲ QUAN TRỌNG: Khi bị khóa, chỉ duy nhất app Kiosk (packageName) được phép nằm trong LockTaskPackages!
-                // Không đưa launcherPkg hay ứng dụng khác vào để tránh tranh chấp Home làm nhấp nháy màn hình
                 dpm.setLockTaskPackages(adminComponent, arrayOf(packageName))
                 
                 // Khóa cứng thiết bị, học sinh không thể thoát ra ngoài
@@ -316,6 +324,7 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            logToFirebase("MainActivity", "startKioskMode LỖI: ${e.message}")
         }
     }
 

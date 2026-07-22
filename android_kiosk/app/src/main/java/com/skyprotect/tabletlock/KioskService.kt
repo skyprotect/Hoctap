@@ -407,15 +407,25 @@ class KioskService : Service() {
             }
         }
 
-        // 3. Chủ động mở MainActivity trực tiếp (dùng SINGLE_TOP không dùng CLEAR_TASK để tránh nhấp nháy màn hình)
+        // 3. Chủ động mở MainActivity trực tiếp nếu chưa nằm trong LockTaskMode
         val lockIntent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             putExtra("force_lock", true)
         }
-        try {
-            startActivity(lockIntent)
-        } catch (e: Exception) {
-            e.printStackTrace()
+
+        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val isInLockTask = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            am.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
+        } else {
+            am.isInLockTaskMode
+        }
+
+        if (!isInLockTask) {
+            try {
+                startActivity(lockIntent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         // 3b. Gửi thêm Full Screen Intent Notification để dự phòng đa tầng

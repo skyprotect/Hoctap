@@ -2,6 +2,6 @@
   "version": "12.57",
   "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.57/ToanHocKiosk_Setup_v12.57.exe",
   "changelog": "- Bổ sung js/questions-7991.js vào kịch bản đồng bộ sync_clean.js để khắc phục triệt để lỗi Unexpected token '<' trên bản sạch HocTap_Clean.",
-  "androidVersion": "3.3",
-  "androidChangelog": "- Phiên bản v3.3: Khắc phục triệt để lỗi ứng dụng biến mất khi dọn dẹp Recents Apps. Áp dụng Persistent Guard Service 24/7 và LockTaskFeature NONE."
+  "androidVersion": "3.4",
+  "androidChangelog": "- Phiên bản v3.4: Khắc phục triệt để lỗi ứng dụng biến mất khi dọn dẹp Recents Apps. Áp dụng Persistent Guard Service 24/7 và LockTaskFeature NONE."
 }
