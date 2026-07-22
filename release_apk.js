@@ -42,7 +42,7 @@ if (!fs.existsSync(apkPath)) {
 const now = new Date();
 const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-const apkVersion = '3.0';
+const apkVersion = '3.1';
 const tagName = `v${apkVersion}-kiosk`;
 
 console.log(`📱 Chuẩn bị phát hành APK TabletLock v${apkVersion} lên GitHub Release...`);

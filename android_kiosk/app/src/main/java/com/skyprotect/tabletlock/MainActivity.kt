@@ -256,7 +256,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.0 (Cập nhật: 22/07/2026 09:20)"
+            txtVersion.text = "Phiên bản: v3.1 (Cập nhật: 22/07/2026 09:40)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -309,10 +309,9 @@ class MainActivity : AppCompatActivity() {
                 val activityComponent = ComponentName(packageName, MainActivity::class.java.name)
                 dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
 
-                // Cho phép mở các ứng dụng cơ bản khác khi được mở khóa (phải đặt trước khi startLockTask)
-                val launcherComponent = getSystemLauncherComponent()
-                val launcherPkg = launcherComponent?.packageName ?: "com.android.launcher3"
-                dpm.setLockTaskPackages(adminComponent, arrayOf(packageName, launcherPkg, "com.android.chrome"))
+                // CỰC KỲ QUAN TRỌNG: Khi bị khóa, chỉ duy nhất app Kiosk (packageName) được phép nằm trong LockTaskPackages!
+                // Không đưa launcherPkg hay ứng dụng khác vào để tránh tranh chấp Home làm nhấp nháy màn hình
+                dpm.setLockTaskPackages(adminComponent, arrayOf(packageName))
                 
                 // Khóa cứng thiết bị, học sinh không thể thoát ra ngoài
                 startLockTask()

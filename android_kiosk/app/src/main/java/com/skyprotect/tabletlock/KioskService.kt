@@ -203,7 +203,7 @@ class KioskService : Service() {
         } else {
             // Trường hợp 2: Đang ở trạng thái BỊ KHÓA -> Bật lại MainActivity ngay lập tức để giữ màn hình khóa
             val lockIntent = Intent(applicationContext, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 putExtra("force_lock", true)
             }
             val pendingIntent = PendingIntent.getActivity(
@@ -385,14 +385,18 @@ class KioskService : Service() {
                 }
                 val activityComponent = ComponentName(packageName, MainActivity::class.java.name)
                 dpm.addPersistentPreferredActivity(adminComponent, filter, activityComponent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    dpm.setLockTaskFeatures(adminComponent, DevicePolicyManager.LOCK_TASK_FEATURE_NONE)
+                }
+                dpm.setLockTaskPackages(adminComponent, arrayOf(packageName))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
-        // 3. Chủ động mở MainActivity trực tiếp ngay lập tức
+        // 3. Chủ động mở MainActivity trực tiếp (dùng SINGLE_TOP không dùng CLEAR_TASK để tránh nhấp nháy màn hình)
         val lockIntent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             putExtra("force_lock", true)
         }
         try {
