@@ -59,9 +59,33 @@ class KioskService : Service() {
         }
         logToFirebase("KioskService", "onCreate được gọi")
         createNotificationChannel()
+        promoteForegroundNotification()
+    }
+
+    private fun promoteForegroundNotification() {
+        try {
+            val displayMinutes = (Math.max(0L, remainingTimeSeconds) / 60).toInt()
+            val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Tablet Lock đang hoạt động")
+                .setContentText("Thời gian sử dụng còn lại: $displayMinutes phút.")
+                .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+                .setOngoing(true)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                .build()
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+            } else {
+                startForeground(NOTIFICATION_ID, notification)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        promoteForegroundNotification()
         isHistoryUpdated = false
 
         val isNewUnlock = intent != null && intent.hasExtra("minutes")
