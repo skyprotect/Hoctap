@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=12.57">
+    <link rel="stylesheet" href="css/style.css?v=12.58">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -811,7 +811,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v12.57 (Cập nhật: 20/07/2026 20:26)</div>
+            <div class="splash-version-tag">Phiên bản: v12.58 (Cập nhật: 22/07/2026 22:04)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -2048,6 +2048,38 @@
                             </button>
                         </div>
                     </div>
+
+                    <!-- THẺ ĐỀ THI HỌC SINH GIỎI & TRƯỜNG CHUYÊN CẤP TỈNH -->
+                    <div style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)); border: 1.5px solid rgba(245, 158, 11, 0.4); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.15); transition: transform 0.2s; grid-column: 1 / -1;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                                <div>
+                                    <span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.6rem; border-radius: 20px; text-transform: uppercase;">Nâng Cao Cấp Tỉnh / Thành Phố 🔥</span>
+                                    <h4 style="margin: 0.6rem 0 0.3rem 0; font-size: 1.25rem; font-weight: 800; color: #fef08a;">ĐỀ THI HỌC SINH GIỎI & TRƯỜNG CHUYÊN CẤP TỈNH</h4>
+                                    <p style="margin: 0; color: #cbd5e1; font-size: 0.88rem;">Dạng bài biến thiên phong phú tổng hợp từ các kỳ thi HSG Cấp Huyện/Tỉnh và Tuyển sinh Lớp 6 Trường Chuyên trên toàn quốc (Hà Nội, Nam Định, TP.HCM, Bắc Ninh...)</p>
+                                </div>
+                                <span style="font-size: 2.5rem; filter: drop-shadow(0 0 8px rgba(245,158,11,0.5));">🏆</span>
+                            </div>
+
+                            <!-- Thông số cấu trúc đề thi HSG -->
+                            <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px; padding: 0.9rem; margin-bottom: 1.2rem; font-size: 0.85rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.6rem; color: #f1f5f9;">
+                                <div><i class="fa-solid fa-star" style="color:#fbbf24; margin-right:6px;"></i><b>Số học & Chia hết:</b> Lũy thừa, số tận cùng, $S \vdots k$</div>
+                                <div><i class="fa-solid fa-infinity" style="color:#38bdf8; margin-right:6px;"></i><b>Phân số Quy luật:</b> Dãy phân số $\frac{1}{n(n+k)}$</div>
+                                <div><i class="fa-solid fa-brain" style="color:#a855f7; margin-right:6px;"></i><b>Suy luận Logic:</b> Nguyên lý Dirichlet, Chuyển động</div>
+                                <div><i class="fa-solid fa-shapes" style="color:#4ade80; margin-right:6px;"></i><b>Hình học Nâng cao:</b> Tỉ số diện tích & Phần tô đậm</div>
+                            </div>
+                        </div>
+
+                        <!-- 2 Nút hành động riêng biệt cho Đề thi Nâng cao HSG -->
+                        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                            <button onclick="if(window.questions7991 && window.questionsAdvanced) { questions7991.currentExamData = questionsAdvanced.generateAdvancedExam('all', 90); questions7991.userAnswers = { mcq: {}, tf: {}, sa: {}, essay: {} }; questions7991.remainingSeconds = 90 * 60; questions7991.closeExamCenterModal(); const modal = document.getElementById('interactive-exam-7991-modal'); const titleEl = document.getElementById('interactive-exam-title'); if (titleEl) titleEl.innerText = questions7991.currentExamData.title; if (modal) modal.classList.remove('hidden'); questions7991.renderInteractiveExamBody(); questions7991.startInteractiveTimer(); }" style="flex: 1; min-width: 260px; background: linear-gradient(135deg, #d97706, #b45309); color: white; border: none; padding: 0.85rem 1.2rem; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.6rem; box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4); transition: all 0.2s;">
+                                🚀 BẮT ĐẦU THỬ SỨC ĐỀ HSG TRỰC TIẾP (90 PHÚT)
+                            </button>
+                            <button onclick="if(window.questions7991 && window.questionsAdvanced) { const data = questionsAdvanced.generateAdvancedExam('all', 90); questions7991.renderAndPrint7991Exam('ĐỀ THI HỌC SINH GIỎI MÔN TOÁN LỚP 6 - CẤP TỈNH/THÀNH PHỐ', data, true, '6', 90); }" style="flex: 1; min-width: 240px; background: rgba(245, 158, 11, 0.12); color: #fde68a; border: 1.5px solid rgba(245, 158, 11, 0.35); padding: 0.7rem 1.2rem; border-radius: 12px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                                <i class="fa-solid fa-print" style="color:#fbbf24;"></i> In / Tải PDF Đề Thi HSG & Đáp Án 🖨️
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- TAB 2: TRUNG TÂM KHẮC PHỤC ĐIỂM YẾU AI -->
@@ -2133,14 +2165,14 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=12.57"></script>
-    <script src="js/lessons.js?v=12.57"></script>
-    <script src="js/questions-v1.js?v=12.57"></script>
-    <script src="js/questions-v4.js?v=12.57"></script>
-    <script src="js/questions-v3.js?v=12.57"></script>
-    <script src="js/questions-7991.js?v=12.57"></script>
-    <script src="js/game.js?v=12.57"></script>
-    <script src="js/app.js?v=12.57"></script>
+    <script src="js/english_data.js?v=12.58"></script>
+    <script src="js/lessons.js?v=12.58"></script>
+    <script src="js/questions-v1.js?v=12.58"></script>
+    <script src="js/questions-v4.js?v=12.58"></script>
+    <script src="js/questions-v3.js?v=12.58"></script>
+    <script src="js/questions-7991.js?v=12.58"></script>
+    <script src="js/game.js?v=12.58"></script>
+    <script src="js/app.js?v=12.58"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -3209,7 +3241,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v12.57 (Cập nhật: 20/07/2026 20:26)
+        Phiên bản: v12.58 (Cập nhật: 22/07/2026 22:04)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->
