@@ -56,6 +56,20 @@
             }
         },
 
+        normalizeAnswerStr: function(str) {
+            if (!str) return "";
+            let s = str.toString().toLowerCase();
+            s = s.replace(/\s+/g, '');
+            s = s.replace(/cm2/g, '');
+            s = s.replace(/cm/g, '');
+            s = s.replace(/m2/g, '');
+            s = s.replace(/m/g, '');
+            s = s.replace(/x=/g, '');
+            s = s.replace(/đápsố:/g, '');
+            s = s.replace(/đápsố/g, '');
+            return s;
+        },
+
         // Sinh đề thi định kỳ theo CV 7991 (Tỉ lệ 70% Trắc nghiệm + 30% Tự luận)
         generate7991Exam: function(type = 'gk1') {
             const isGK1 = (type === 'gk1');
@@ -270,11 +284,30 @@
         startAdvancedExam: function() {
             this.closeExamCenterModal();
             if (window.questionsAdvanced) {
-                this.currentExamData = window.questionsAdvanced.generateAdvancedExam('all', 90);
+                this._launchAdvancedExam();
             } else {
-                alert("Đang tải dữ liệu đề thi HSG, vui lòng thử lại sau giây lát.");
-                return;
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'Đang tải bộ dữ liệu Đề thi HSG Nâng cao...',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: () => { Swal.showLoading(); }
+                    });
+                }
+                const script = document.createElement('script');
+                script.src = 'js/questions-advanced.js?v=12.62';
+                script.onload = () => {
+                    this._launchAdvancedExam();
+                };
+                document.body.appendChild(script);
             }
+        },
+
+        _launchAdvancedExam: function() {
+            this.currentExamData = window.questionsAdvanced.generateAdvancedExam('all', 90);
             this.userAnswers = { mcq: {}, tf: {}, sa: {}, essay: {} };
             this.remainingSeconds = (this.currentExamData.timeLimitMinutes || 90) * 60;
 
@@ -290,9 +323,31 @@
         // In đề thi Học sinh giỏi nâng cao
         printAdvancedExam: function() {
             if (window.questionsAdvanced) {
-                const data = window.questionsAdvanced.generateAdvancedExam('all', 90);
-                this.renderAndPrint7991Exam('ĐỀ THI HỌC SINH GIỎI MÔN TOÁN LỚP 6 - CẤP TỈNH/THÀNH PHỐ', data, true, '6', 90);
+                this._printAdvancedExam();
+            } else {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'Đang tải bộ dữ liệu Đề thi HSG Nâng cao...',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: () => { Swal.showLoading(); }
+                    });
+                }
+                const script = document.createElement('script');
+                script.src = 'js/questions-advanced.js?v=12.62';
+                script.onload = () => {
+                    this._printAdvancedExam();
+                };
+                document.body.appendChild(script);
             }
+        },
+
+        _printAdvancedExam: function() {
+            const data = window.questionsAdvanced.generateAdvancedExam('all', 90);
+            this.renderAndPrint7991Exam('ĐỀ THI HỌC SINH GIỎI MÔN TOÁN LỚP 6 - CẤP TỈNH/THÀNH PHỐ', data, true, '6', 90);
         },
 
         // Sinh đề thi Khắc phục điểm yếu môn Toán
@@ -625,8 +680,9 @@
             if (this.currentExamData.shortAnswerQuestions) {
                 this.currentExamData.shortAnswerQuestions.forEach((q, idx) => {
                     const qId = q.id || `sa_${idx+1}`;
-                    const userVal = (this.userAnswers.sa[qId] || "").trim();
-                    if (userVal === q.correctAnswer) {
+                    const userVal = this.normalizeAnswerStr(this.userAnswers.sa[qId] || "");
+                    const correctVal = this.normalizeAnswerStr(q.correctAnswer || "");
+                    if (userVal === correctVal && userVal !== "") {
                         saScore += (q.scoreWeight || 1.5);
                     }
                 });
@@ -645,9 +701,17 @@
 
             const totalScore = (mcqScore + tfScore + saScore + essayScore).toFixed(2);
 
+            if (window.app && typeof window.app.saveExamResult === 'function') {
+                window.app.saveExamResult({
+                    title: this.currentExamData.title,
+                    score: totalScore,
+                    date: new Date().toISOString()
+                });
+            }
+
             // Mở preview PDF với kết quả đã làm
             this.renderAndPrint7991Exam(this.currentExamData.title, this.currentExamData, true, '6', this.currentExamData.timeLimitMinutes);
-            alert(`🎉 CHÚC MỪNG CON ĐÃ HOÀN THÀNH BÀI THI!\n\n🏆 Tổng điểm đạt được: ${totalScore} / 10.0 điểm\n- Trắc nghiệm MCQ: ${mcqScore.toFixed(2)}đ\n- Trắc nghiệm Đúng/Sai: ${tfScore.toFixed(2)}đ\n- Trắc nghiệm Trả lời ngắn: ${saScore.toFixed(2)}đ\n- Tự luận: ${essayScore.toFixed(2)}đ\n\nHệ thống đã mở bản Báo cáo Khảo thí & Ma trận Năng lực kèm nút In/Tải PDF.`);
+            alert(`🎉 CHÚC MỪNG CON ĐÃ HOÀN THÀNH BÀI THI!\n\n🏆 Tổng điểm đạt được: ${totalScore} / 10.0 điểm\n- Trắc nghiệm MCQ: ${mcqScore.toFixed(2)}đ\n- Trắc nghiệm Đúng/Sai: ${tfScore.toFixed(2)}đ\n- Trắc nghiệm Trả lời ngắn: ${saScore.toFixed(2)}đ\n- Tự luận: ${essayScore.toFixed(2)}đ (Điểm tự luận mang tính chất tham khảo, Phụ huynh vui lòng kiểm tra đối chiếu chi tiết bài làm)\n\nHệ thống đã mở bản Báo cáo Khảo thí & Ma trận Năng lực kèm nút In/Tải PDF.`);
         },
 
         // Export/In đề 7991 ra giao diện Modal & hỗ trợ Lưu PDF
@@ -951,6 +1015,10 @@
 
             if (window.questions && typeof window.questions.renderAndPrintStudentExam === 'function') {
                 window.questions.renderAndPrintStudentExam(examTitle, [], includeSolution, classLevel, 'chat-luong-cao');
+            }
+            const modal = document.getElementById("print-preview-modal");
+            if (modal) {
+                modal.style.zIndex = "200000";
             }
             const previewPaper = document.getElementById("print-preview-paper");
             if (previewPaper) {

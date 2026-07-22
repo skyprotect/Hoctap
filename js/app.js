@@ -5407,34 +5407,7 @@ const app = {
         const container = document.getElementById("skill-tree-container");
         container.innerHTML = "";
 
-        // Bổ sung Banner Kiosk Trung tâm Khảo thí & Đánh giá Năng lực 7991 cho môn Toán Lớp 6
-        if ((this.currentSubject || "math") === "math" && (this.config.currentClass || "6") === "6") {
-            const exam7991Card = document.createElement("div");
-            exam7991Card.className = "card math-7991-card";
-            exam7991Card.style.cssText = "background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)); border: 1.5px solid rgba(59, 130, 246, 0.4); border-radius: 20px; padding: 1.4rem 1.8rem; margin-bottom: 2rem; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);";
-            exam7991Card.innerHTML = `
-                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.2rem;">
-                    <div>
-                        <div style="display:flex; align-items:center; gap:0.8rem;">
-                            <span style="font-size:2rem; background:rgba(59, 130, 246, 0.2); width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(59, 130, 246, 0.3);">📜</span>
-                            <div>
-                                <h3 style="margin:0; font-size:1.25rem; color:#60a5fa; font-weight:800;">TRUNG TÂM KHẢO THÍ & ĐÁNH GIÁ NĂNG LỰC TOÁN LỚP 6</h3>
-                                <p style="margin:0.2rem 0 0 0; color:#cbd5e1; font-size:0.85rem;">Đề thi Giữa / Cuối Kỳ I (CV 7991) & Trung tâm Khắc phục Điểm yếu AI (Làm bài trực tiếp / In PDF)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
-                        <button onclick="if(window.questions7991) questions7991.openExamCenterModal('exams');" style="background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; border:none; padding:0.75rem 1.4rem; border-radius:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; box-shadow:0 4px 15px rgba(37,99,235,0.4);">
-                            <i class="fa-solid fa-graduation-cap"></i> Đề thi Định kỳ 7991 🚀
-                        </button>
-                        <button onclick="if(window.questions7991) questions7991.openExamCenterModal('weakness');" style="background:linear-gradient(135deg, #dc2626, #b91c1c); color:white; border:none; padding:0.75rem 1.4rem; border-radius:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; box-shadow:0 4px 15px rgba(220,38,38,0.4);">
-                            <i class="fa-solid fa-bullseye"></i> Khắc phục Điểm yếu AI ⚡
-                        </button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(exam7991Card);
-        }
+        
 
         // Lọc các chương thuộc học kỳ hiện tại
         const chapters = COURSE_DATA.filter(chapter => chapter.semester === this.currentSemester && (chapter.class || "6") === this.config.currentClass && (chapter.subject || "math") === (this.currentSubject || "math"));
