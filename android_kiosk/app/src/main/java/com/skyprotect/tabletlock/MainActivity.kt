@@ -295,7 +295,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v5.1 (Cập nhật: 22/07/2026 11:47)"
+            txtVersion.text = "Phiên bản: v5.2 (Cập nhật: 22/07/2026 11:51)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -467,6 +467,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun unlockTabletForPlay(minutes: Int, token: String) {
         Toast.makeText(this, "Xác thực thành công! Bạn có $minutes phút sử dụng.", Toast.LENGTH_LONG).show()
+
+        // 0. Đồng bộ ngay lập tức trạng thái mở khóa vào SharedPreferences trước khi tắt activity
+        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+        val remainingTimeSecs = minutes * 60L
+        val expiresMillis = System.currentTimeMillis() + minutes * 60L * 1000L
+        val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        with(sharedPref.edit()) {
+            putLong("remainingTimeSeconds", remainingTimeSecs)
+            putLong("expiresTimeMillis", expiresMillis)
+            putString("currentToken", token)
+            putInt("initialMinutes", minutes)
+            putString("lastActiveDate", todayStr)
+            commit()
+        }
 
         // 1. Dừng Lock Task (Tạm thời mở khóa thiết bị Android)
         try {

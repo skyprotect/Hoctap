@@ -42,7 +42,7 @@ if (!fs.existsSync(apkPath)) {
 const now = new Date();
 const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-const apkVersion = '5.1';
+const apkVersion = '5.2';
 const tagName = `v${apkVersion}-kiosk`;
 
 console.log(`📱 Chuẩn bị phát hành APK TabletLock v${apkVersion} lên GitHub Release...`);
@@ -53,7 +53,7 @@ const versionJsonPath = path.join(__dirname, 'version.json');
 if (fs.existsSync(versionJsonPath)) {
   const versionData = JSON.parse(fs.readFileSync(versionJsonPath, 'utf8'));
   versionData.androidVersion = apkVersion;
-  versionData.androidChangelog = `- Phiên bản v${apkVersion}: Khắc phục triệt để hiện tượng màn hình nhấp nháy liên tục bằng việc đồng bộ cờ force_lock và setIntent.`;
+  versionData.androidChangelog = `- Phiên bản v${apkVersion}: Khắc phục triệt để vòng lặp không mở khóa bằng việc đồng bộ bộ nhớ đa tiến trình SharedPreferences và loại bỏ cờ lockIntent dư thừa trong BootReceiver.`;
   fs.writeFileSync(versionJsonPath, JSON.stringify(versionData, null, 2), 'utf8');
   console.log('✅ Đã cập nhật androidVersion trong version.json');
 }
@@ -110,7 +110,7 @@ async function publishApkRelease() {
     tag_name: tagName,
     target_commitish: 'main',
     name: `TabletLock Kiosk Android v${apkVersion}`,
-    body: `## 📱 Bản cập nhật Kiosk Android TabletLock v${apkVersion}\n- Khắc phục triệt để hiện tượng màn hình nhấp nháy / chớp tắt liên tục.\n- Kiểm tra cờ force_lock trong MainActivity.onResume() và cập nhật setIntent() trong onNewIntent().\n- Giữ màn hình khóa tĩnh 100%, không bị vòng lặp mở/đóng activity.\n- Ngày cập nhật: ${formattedDate}`,
+    body: `## 📱 Bản cập nhật Kiosk Android TabletLock v${apkVersion}\n- Sửa triệt để lỗi nhập PIN mở khóa thành công nhưng bị khóa lại ngay tức thì.\n- Đồng bộ bộ nhớ đếm ngược SharedPreferences giữa MainActivity và BootReceiver.\n- Chuyển BootReceiver sang tiến trình ngầm :kiosk_guard và bỏ lệnh khóa ép buộc dư thừa.\n- Ngày cập nhật: ${formattedDate}`,
     draft: false,
     prerelease: false
   });

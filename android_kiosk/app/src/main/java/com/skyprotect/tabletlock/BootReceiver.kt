@@ -33,17 +33,6 @@ class BootReceiver : BroadcastReceiver() {
                 } else {
                     context.startService(serviceIntent)
                 }
-            } else {
-                logToFirebase("BootReceiver", "isTimeValid = false, kích hoạt lại MainActivity bảo vệ màn hình khóa")
-                val lockIntent = Intent(context, MainActivity::class.java).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    putExtra("force_lock", true)
-                }
-                try {
-                    context.startActivity(lockIntent)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
             }
             return
         }
