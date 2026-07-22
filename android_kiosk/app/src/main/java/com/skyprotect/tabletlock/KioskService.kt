@@ -407,25 +407,16 @@ class KioskService : Service() {
             }
         }
 
-        // 3. Chủ động mở MainActivity trực tiếp nếu chưa nằm trong LockTaskMode
+        // 3. Chủ động mở MainActivity trực tiếp lên vị trí ưu tiên cao nhất của Task Stack
         val lockIntent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             putExtra("force_lock", true)
         }
 
-        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val isInLockTask = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            am.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
-        } else {
-            am.isInLockTaskMode
-        }
-
-        if (!isInLockTask) {
-            try {
-                startActivity(lockIntent)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+        try {
+            startActivity(lockIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         // 3b. Gửi thêm Full Screen Intent Notification để dự phòng đa tầng
@@ -664,15 +655,22 @@ class KioskService : Service() {
     private fun cancelHeartbeat() {
         try {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(this, BootReceiver::class.java).apply {
-                action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+            val serviceIntent = Intent(this, KioskService::class.java)
+            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                PendingIntent.getForegroundService(
+                    this,
+                    1001,
+                    serviceIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            } else {
+                PendingIntent.getService(
+                    this,
+                    1001,
+                    serviceIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
             }
-            val pendingIntent = PendingIntent.getBroadcast(
-                this,
-                1001, // ID nhịp tim sinh tồn cần hủy
-                intent,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
-            )
             alarmManager.cancel(pendingIntent)
             logToFirebase("KioskService", "cancelHeartbeat: Đã hủy Alarm nhịp tim")
         } catch (e: Exception) {

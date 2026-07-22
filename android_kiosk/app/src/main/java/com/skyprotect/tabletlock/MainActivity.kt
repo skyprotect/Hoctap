@@ -26,6 +26,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
+import android.content.BroadcastReceiver
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var txtPinDisplay: TextView
@@ -37,6 +39,33 @@ class MainActivity : AppCompatActivity() {
 
     private val client = OkHttpClient()
     private val FIREBASE_RTDB_URL = "https://binhminhchamhoc-default-rtdb.firebaseio.com/"
+
+    private val screenStateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (Intent.ACTION_SCREEN_ON == intent?.action || Intent.ACTION_USER_PRESENT == intent?.action) {
+                val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+                val remainingTimeSeconds = sharedPref.getLong("remainingTimeSeconds", 0L)
+                val currentToken = sharedPref.getString("currentToken", "") ?: ""
+                val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
+                val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+                
+                val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
+                if (!isTimeValid) {
+                    logToFirebase("MainActivity", "screenStateReceiver: Màn hình mở/Bật lại, re-enforce KioskMode")
+                    startKioskMode()
+                    val lockIntent = Intent(this@MainActivity, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                        putExtra("force_lock", true)
+                    }
+                    try {
+                        startActivity(lockIntent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+    }
 
     private val remotePollHandler = Handler(Looper.getMainLooper())
     private val remotePollRunnable = object : Runnable {
@@ -66,6 +95,17 @@ class MainActivity : AppCompatActivity() {
         setupLockBehavior()
         checkOverlayPermission()
         checkBatteryOptimization()
+
+        // Đăng ký BroadcastReceiver theo dõi sự kiện mở màn hình
+        val screenFilter = IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_USER_PRESENT)
+        }
+        try {
+            registerReceiver(screenStateReceiver, screenFilter)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         // Khởi chạy vòng lặp kiểm tra lệnh từ xa
         remotePollHandler.post(remotePollRunnable)
@@ -186,6 +226,11 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         remotePollHandler.removeCallbacks(remotePollRunnable)
+        try {
+            unregisterReceiver(screenStateReceiver)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun checkBatteryOptimization() {
@@ -248,7 +293,7 @@ class MainActivity : AppCompatActivity() {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
             val txtVersion = findViewById<TextView>(R.id.txtAppVersion)
-            txtVersion.text = "Phiên bản: v3.4 (Cập nhật: 22/07/2026 10:05)"
+            txtVersion.text = "Phiên bản: v3.5 (Cập nhật: 22/07/2026 10:15)"
         } catch (e: Exception) {
             e.printStackTrace()
         }
