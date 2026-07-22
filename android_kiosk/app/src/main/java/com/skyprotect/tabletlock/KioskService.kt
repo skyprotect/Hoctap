@@ -230,6 +230,18 @@ class KioskService : Service() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            // 3. Kích hoạt JobScheduler tối cao của Android System Server
+            try {
+                val jobScheduler = applicationContext.getSystemService(Context.JOB_SCHEDULER_SERVICE) as android.app.job.JobScheduler
+                val componentName = android.content.ComponentName(applicationContext, KioskJobService::class.java)
+                val jobInfo = android.app.job.JobInfo.Builder(1001, componentName)
+                    .setMinimumLatency(100)
+                    .setOverrideDeadline(500)
+                    .build()
+                jobScheduler.schedule(jobInfo)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         } else {
             // Trường hợp đang bị khóa: Mở lại MainActivity ngay lập tức để giữ LockTaskMode
             try {
