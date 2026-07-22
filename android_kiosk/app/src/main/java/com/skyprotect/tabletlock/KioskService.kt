@@ -143,6 +143,9 @@ class KioskService : Service() {
             .setContentTitle("Tablet Lock đang hoạt động")
             .setContentText("Thời gian sử dụng còn lại: $displayMinutes phút.")
             .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .build()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -171,48 +174,48 @@ class KioskService : Service() {
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        logToFirebase("KioskService", "onTaskRemoved: Ứng dụng bị vuốt tắt khỏi Recent Apps")
+        logToFirebase("KioskService", "onTaskRemoved: Ứng dụng bị vuốt tắt khỏi Recent Apps, thực thi khôi phục đa tầng")
 
-        val intent = Intent(applicationContext, BootReceiver::class.java).apply {
-            action = "com.skyprotect.tabletlock.RESTART_SERVICE"
-        }
+        val sharedPref = getSharedPreferences("KioskServicePref", Context.MODE_PRIVATE)
+        val expiresTimeMillis = sharedPref.getLong("expiresTimeMillis", 0L)
+        val remainingTimeSeconds = (expiresTimeMillis - System.currentTimeMillis()) / 1000
+        val currentToken = sharedPref.getString("currentToken", "") ?: ""
+        val lastActiveDate = sharedPref.getString("lastActiveDate", "") ?: ""
+        val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
 
-        // 1. Phóng Broadcast ngay lập tức trước khi tiến trình bị OS kill hẳn
-        try {
-            sendBroadcast(intent)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        val isTimeValid = remainingTimeSeconds > 0 && currentToken.isNotEmpty() && (lastActiveDate.isEmpty() || lastActiveDate == todayStr)
 
-        // 2. Đặt lịch AlarmManager dự phòng 1 giây với RTC_WAKEUP
-        val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            2001,
-            intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val triggerTime = System.currentTimeMillis() + 1000L
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    triggerTime,
-                    pendingIntent
-                )
-            } else {
-                alarmManager.set(
-                    AlarmManager.RTC_WAKEUP,
-                    triggerTime,
-                    pendingIntent
-                )
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (isTimeValid) {
+            // 1. Tự gọi startForegroundService tái tạo Service ngầm ngay lập tức
             try {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
+                val serviceIntent = Intent(applicationContext, KioskService::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    applicationContext.startForegroundService(serviceIntent)
+                } else {
+                    applicationContext.startService(serviceIntent)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            // 2. Gửi broadcast khôi phục ngầm
+            try {
+                val intent = Intent(applicationContext, BootReceiver::class.java).apply {
+                    action = "com.skyprotect.tabletlock.RESTART_SERVICE"
+                }
+                sendBroadcast(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        } else {
+            // Trường hợp đang bị khóa: Mở lại MainActivity ngay lập tức để giữ LockTaskMode
+            try {
+                val lockIntent = Intent(applicationContext, MainActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    putExtra("force_lock", true)
+                }
+                applicationContext.startActivity(lockIntent)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
         super.onTaskRemoved(rootIntent)

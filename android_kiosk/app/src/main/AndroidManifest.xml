@@ -23,7 +23,9 @@
             android:exported="true"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="true"
+            android:autoRemoveFromRecents="true"
+            android:taskAffinity="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
