@@ -68,8 +68,9 @@
 
             // 1. Trắc nghiệm 4 lựa chọn (8 câu - 2,0 điểm)
             const mcqQuestions = [];
+            const shuffledTypes = [...activeTypes].sort(() => Math.random() - 0.5);
             for (let i = 0; i < 8; i++) {
-                const randomType = activeTypes[Math.floor(Math.random() * activeTypes.length)];
+                const randomType = shuffledTypes[i % shuffledTypes.length];
                 const level = i < 5 ? 'co-ban' : 'nang-cao';
                 let q = null;
                 if (window.questions && typeof window.questions.generateQuestion === 'function') {
@@ -83,80 +84,101 @@
                 mcqQuestions.push(q);
             }
 
-            // 2. Trắc nghiệm Đúng - Sai (2 câu lớn - 2,0 điểm)
-            const tfQuestions = [];
-            const a1 = Math.floor(Math.random() * 20) + 10;
-            const b1 = Math.floor(Math.random() * 15) + 5;
-            const gcd1 = (typeof generator !== 'undefined' && generator.gcd) ? generator.gcd(a1, b1) : 1;
-            const lcm1 = (typeof generator !== 'undefined' && generator.lcm) ? generator.lcm(a1, b1) : (a1 * b1);
+            // 2. Trắc nghiệm Đúng - Sai (2 câu lớn - 2,0 điểm) - BIẾN THIÊN NGẪU NHIÊN NGUỒN TEMPLATE
+            const tfPool = [];
 
-            tfQuestions.push({
-                id: 'tf_1',
+            // Template TF 1: ƯCLN & BCNN
+            const a1 = (Math.floor(Math.random() * 5) + 2) * 6; // 12, 18, 24, 30, 36
+            const b1 = (Math.floor(Math.random() * 4) + 2) * 4; // 8, 12, 16, 20
+            const gcd1 = (typeof generator !== 'undefined' && generator.gcd) ? generator.gcd(a1, b1) : 4;
+            const lcm1 = (typeof generator !== 'undefined' && generator.lcm) ? generator.lcm(a1, b1) : ((a1 * b1) / gcd1);
+            tfPool.push({
+                id: 'tf_gcd_lcm',
                 qType: 'tf',
                 scoreWeight: 1.0,
                 questionText: `Cho hai số tự nhiên $a = ${a1}$ và $b = ${b1}$. Xét tính đúng/sai của các khẳng định sau:`,
                 items: [
-                    { id: 'a', statement: `Số $a = ${a1}$ chia hết cho 2.`, isCorrect: (a1 % 2 === 0), explanation: `$${a1}$ có chữ số tận cùng là ${a1 % 10} nên ${a1 % 2 === 0 ? 'chia hết' : 'không chia hết'} cho 2.` },
-                    { id: 'b', statement: `Ước chung lớn nhất $\\text{ƯCLN}(${a1}, ${b1}) = ${gcd1}$.`, isCorrect: true, explanation: `Phân tích thừa số nguyên tố ta được $\\text{ƯCLN}(${a1}, ${b1}) = ${gcd1}$.` },
-                    { id: 'c', statement: `Bội chung nhỏ nhất $\\text{BCNN}(${a1}, ${b1}) = ${lcm1 + 5}$.`, isCorrect: false, explanation: `$\\text{BCNN}(${a1}, ${b1}) = ${lcm1}$, khẳng định này ghi ${lcm1 + 5} là Sai.` },
-                    { id: 'd', statement: `Tích $a \\cdot b$ đúng bằng $\\text{ƯCLN}(a, b) \\cdot \\text{BCNN}(a, b) = ${a1 * b1}$.`, isCorrect: true, explanation: `Theo tính chất: với mọi số tự nhiên $a, b$ ta luôn có $a \\cdot b = \\text{ƯCLN}(a, b) \\cdot \\text{BCNN}(a, b)$.` }
+                    { id: 'a', statement: `Số $a = ${a1}$ chia hết cho 2 và 3.`, isCorrect: (a1 % 6 === 0), explanation: `$${a1}$ có tổng các chữ số chia hết cho 3 và chữ số tận cùng chẵn nên chia hết cho 6.` },
+                    { id: 'b', statement: `Ước chung lớn nhất $\\text{ƯCLN}(${a1}, ${b1}) = ${gcd1}$.`, isCorrect: true, explanation: `Phân tích thừa số nguyên tố ta có $\\text{ƯCLN}(${a1}, ${b1}) = ${gcd1}$.` },
+                    { id: 'c', statement: `Bội chung nhỏ nhất $\\text{BCNN}(${a1}, ${b1}) = ${lcm1 + 10}$.`, isCorrect: false, explanation: `$\\text{BCNN}(${a1}, ${b1}) = ${lcm1}$, khẳng định ghi ${lcm1 + 10} là Sai.` },
+                    { id: 'd', statement: `Tích $a \\cdot b = \\text{ƯCLN}(a, b) \\cdot \\text{BCNN}(a, b) = ${a1 * b1}$.`, isCorrect: true, explanation: `Tính chất: tích hai số bằng tích giữa ƯCLN và BCNN của chúng.` }
                 ]
             });
 
-            if (isGK1) {
-                const base = Math.floor(Math.random() * 4) + 2;
-                const exp1 = Math.floor(Math.random() * 3) + 2;
-                const exp2 = Math.floor(Math.random() * 3) + 2;
-                const val1 = Math.pow(base, exp1);
-                const val2 = Math.pow(base, exp2);
-                tfQuestions.push({
-                    id: 'tf_2',
-                    qType: 'tf',
-                    scoreWeight: 1.0,
-                    questionText: `Xét biểu thức lũy thừa và phép tính số tự nhiên:`,
-                    items: [
-                        { id: 'a', statement: `$${base}^{${exp1}} \\cdot ${base}^{${exp2}} = ${base}^{${exp1 + exp2}}$.`, isCorrect: true, explanation: `Áp dụng quy tắc nhân hai lũy thừa cùng cơ số.` },
-                        { id: 'b', statement: `Giá trị của $${base}^{${exp1}} = ${val1}$.`, isCorrect: true, explanation: `$${base}^{${exp1}} = ${val1}$.` },
-                        { id: 'c', statement: `$${val1 + val2}$ là số chia hết cho 5.`, isCorrect: ((val1 + val2) % 5 === 0), explanation: `Tổng $${val1 + val2}$ ${((val1 + val2) % 5 === 0) ? 'chia hết' : 'không chia hết'} cho 5.` },
-                        { id: 'd', statement: `Số $1$ là số nguyên tố nhỏ nhất.`, isCorrect: false, explanation: `Số 1 không phải là số nguyên tố.` }
-                    ]
-                });
-            } else {
-                const xVal = Math.floor(Math.random() * 10) + 1;
-                tfQuestions.push({
-                    id: 'tf_2',
-                    qType: 'tf',
-                    scoreWeight: 1.0,
-                    questionText: `Cho phép tính số nguyên và hình học phẳng:`,
-                    items: [
-                        { id: 'a', statement: `Số đối của $-${xVal + 3}$ là ${xVal + 3}$.`, isCorrect: true, explanation: `Số đối của số âm $-a$ là $a$.` },
-                        { id: 'b', statement: `Giá trị của $(-2) \\cdot (-5) = -10$.`, isCorrect: false, explanation: `Tích hai số nguyên âm là số dương.` },
-                        { id: 'c', statement: `Hình vuông có 4 trục đối xứng.`, isCorrect: true, explanation: `Hình vuông có 4 trục đối xứng.` },
-                        { id: 'd', statement: `Chu vi hình chữ nhật chiều dài $8\\text{ cm}$, chiều rộng $5\\text{ cm}$ là $40\\text{ cm}$.`, isCorrect: false, explanation: `Chu vi bằng $26\\text{ cm}$.` }
-                    ]
-                });
-            }
-
-            // 3. Trắc nghiệm Trả lời ngắn (2 câu - 3,0 điểm)
-            const shortAnswerQuestions = [];
-            const n1 = Math.floor(Math.random() * 50) + 20;
-            const n2 = Math.floor(Math.random() * 30) + 10;
-            const sumAns = n1 + n2;
-            shortAnswerQuestions.push({
-                id: 'sa_1',
-                qType: 'sa',
-                scoreWeight: 1.5,
-                questionText: `Tính nhanh giá trị biểu thức: $A = (${n1} + 125) + (${n2} - 125)$.`,
-                correctAnswer: `${sumAns}`,
-                solutionHtml: `Biến đổi: $A = (${n1} + ${n2}) + (125 - 125) = ${sumAns}$.`
+            // Template TF 2: Lũy thừa & Phép tính
+            const base2 = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+            const expA = Math.floor(Math.random() * 3) + 2;
+            const expB = Math.floor(Math.random() * 3) + 2;
+            const valA = Math.pow(base2, expA);
+            const valB = Math.pow(base2, expB);
+            tfPool.push({
+                id: 'tf_power',
+                qType: 'tf',
+                scoreWeight: 1.0,
+                questionText: `Cho các phép tính về lũy thừa với cơ số $${base2}$:`,
+                items: [
+                    { id: 'a', statement: `$${base2}^{${expA}} \\cdot ${base2}^{${expB}} = ${base2}^{${expA + expB}}$.`, isCorrect: true, explanation: `Nhân hai lũy thừa cùng cơ số: giữ nguyên cơ số và cộng các số mũ.` },
+                    { id: 'b', statement: `Giá trị của $${base2}^{${expA}} = ${valA}$.`, isCorrect: true, explanation: `$${base2}^{${expA}} = ${valA}$.` },
+                    { id: 'c', statement: `Tổng $${valA} + ${valB} = ${valA + valB}$ là một số nguyên tố.`, isCorrect: ((valA + valB) === 3 || (valA + valB) === 5 || (valA + valB) === 7 || (valA + valB) === 11 || (valA + valB) === 13 || (valA + valB) === 17 || (valA + valB) === 19), explanation: `Tổng bằng ${valA + valB}.` },
+                    { id: 'd', statement: `Số $0$ và số $1$ là các số nguyên tố nhỏ nhất.`, isCorrect: false, explanation: `Số 0 và 1 không phải là số nguyên tố (số nguyên tố nhỏ nhất là 2).` }
+                ]
             });
 
-            const pA = Math.floor(Math.random() * 8) + 2;
-            const pB = Math.floor(Math.random() * 5) + 1;
+            // Template TF 3: Số nguyên & Giá trị tuyệt đối
+            const zVal = Math.floor(Math.random() * 10) + 5;
+            tfPool.push({
+                id: 'tf_integer',
+                qType: 'tf',
+                scoreWeight: 1.0,
+                questionText: `Cho số nguyên $x = -${zVal}$. Xét tính đúng/sai của các khẳng định sau:`,
+                items: [
+                    { id: 'a', statement: `Số đối của $-${zVal}$ là $${zVal}$.`, isCorrect: true, explanation: `Số đối của $-a$ là $a$.` },
+                    { id: 'b', statement: `Giá trị tuyệt đối $|-${zVal}| = ${zVal}$.`, isCorrect: true, explanation: `Giá trị tuyệt đối của số âm luôn là một số dương.` },
+                    { id: 'c', statement: `Tích $(-${zVal}) \\cdot (-2) = -${zVal * 2}$.`, isCorrect: false, explanation: `Tích hai số nguyên âm là số dương: $(-${zVal}) \\cdot (-2) = ${zVal * 2}$.` },
+                    { id: 'd', statement: `Tổng $(-${zVal}) + ${zVal - 3} = -3$.`, isCorrect: true, explanation: `$(-${zVal}) + (${zVal - 3}) = -3$.` }
+                ]
+            });
+
+            // Template TF 4: Hình học phẳng & Tính chất đối xứng
+            const edgeA = Math.floor(Math.random() * 5) + 4;
+            const edgeB = Math.floor(Math.random() * 4) + 3;
+            tfPool.push({
+                id: 'tf_geometry',
+                qType: 'tf',
+                scoreWeight: 1.0,
+                questionText: `Xét các hình phẳng trong thực tiễn (hình chữ nhật, hình vuông, tam giác đều):`,
+                items: [
+                    { id: 'a', statement: `Hình vuông cạnh $${edgeA}\\text{ cm}$ có chu vi là $${edgeA * 4}\\text{ cm}$.`, isCorrect: true, explanation: `Chu vi hình vuông $P = 4a = ${edgeA * 4}\\text{ cm}$.` },
+                    { id: 'b', statement: `Hình chữ nhật có chiều dài $${edgeA}\\text{ cm}$, chiều rộng $${edgeB}\\text{ cm}$ có diện tích là $${edgeA * edgeB}\\text{ cm}^2$.`, isCorrect: true, explanation: `Diện tích hình chữ nhật $S = a \\cdot b = ${edgeA * edgeB}\\text{ cm}^2$.` },
+                    { id: 'c', statement: `Tam giác đều có 4 trục đối xứng.`, isCorrect: false, explanation: `Tam giác đều chỉ có 3 trục đối xứng.` },
+                    { id: 'd', statement: `Hình lục giác đều có tâm đối xứng là giao điểm các đường chéo chính.`, isCorrect: true, explanation: `Hình lục giác đều có 1 tâm đối xứng.` }
+                ]
+            });
+
+            // Random chọn 2 template Đúng/Sai
+            const shuffledTF = tfPool.sort(() => Math.random() - 0.5);
+            const tfQuestions = [shuffledTF[0], shuffledTF[1]];
+
+            // 3. Trắc nghiệm Trả lời ngắn (2 câu - 3,0 điểm) - BIẾN THIÊN NGẪU NHIÊN
+            const saPool = [];
+            const n1 = Math.floor(Math.random() * 50) + 20;
+            const n2 = Math.floor(Math.random() * 30) + 10;
+            const constC = [100, 125, 200, 250][Math.floor(Math.random() * 4)];
+            saPool.push({
+                id: 'sa_calc',
+                qType: 'sa',
+                scoreWeight: 1.5,
+                questionText: `Tính nhanh giá trị biểu thức: $A = (${n1} + ${constC}) + (${n2} - ${constC})$.`,
+                correctAnswer: `${n1 + n2}`,
+                solutionHtml: `Biến đổi nhóm hợp lý: $A = (${n1} + ${n2}) + (${constC} - ${constC}) = ${n1 + n2}$.`
+            });
+
+            const pA = Math.floor(Math.random() * 6) + 2;
+            const pB = Math.floor(Math.random() * 8) + 2;
             const xSol = Math.floor(Math.random() * 8) + 2;
             const pRhs = pA * xSol + pB;
-            shortAnswerQuestions.push({
-                id: 'sa_2',
+            saPool.push({
+                id: 'sa_equation',
                 qType: 'sa',
                 scoreWeight: 1.5,
                 questionText: `Tìm số tự nhiên $x$, biết: $${pA}x + ${pB} = ${pRhs}$.`,
@@ -164,38 +186,74 @@
                 solutionHtml: `Ta có: $${pA}x = ${pRhs} - ${pB} = ${pA * xSol} \\Rightarrow x = ${xSol}$.`
             });
 
-            // 4. Bài tập Tự luận (3 câu - 3,0 điểm)
-            const essayQuestions = [];
-            const e1a = Math.floor(Math.random() * 20) + 10;
-            const e1b = Math.floor(Math.random() * 20) + 10;
-            const e1c = Math.floor(Math.random() * 8) + 2;
-            const e1Res = (e1a + e1b) * e1c;
-            essayQuestions.push({
-                id: 'essay_1',
-                qType: 'essay',
-                scoreWeight: 1.0,
-                questionText: `Thực hiện phép tính (tính hợp lý nếu có thể):<br>a) $A = ${e1a} \\cdot ${e1c} + ${e1b} \\cdot ${e1c}$<br>b) $B = 2^3 \\cdot 5 - 3^2 + 10$`,
-                solutionHtml: `a) $A = (${e1a} + ${e1b}) \\cdot ${e1c} = ${e1Res}$.<br>b) $B = 8 \\cdot 5 - 9 + 10 = 41$.`,
-                correctAnswer: `${e1Res}`
+            const sideSquare = Math.floor(Math.random() * 6) + 4;
+            saPool.push({
+                id: 'sa_geo_square',
+                qType: 'sa',
+                scoreWeight: 1.5,
+                questionText: `Tính diện tích hình vuông (tính bằng $\\text{cm}^2$) biết chu vi của nó bằng $${sideSquare * 4}\\text{ cm}$.`,
+                correctAnswer: `${sideSquare * sideSquare}`,
+                solutionHtml: `Độ dài cạnh hình vuông $a = ${sideSquare * 4} : 4 = ${sideSquare}\\text{ cm}$. Diện tích $S = ${sideSquare}^2 = ${sideSquare * sideSquare}\\text{ cm}^2$.`
             });
 
-            essayQuestions.push({
-                id: 'essay_2',
-                qType: 'essay',
-                scoreWeight: 1.0,
-                questionText: `Học sinh lớp 6A khi xếp hàng 2, hàng 3, hàng 4 đều vừa đủ. Biết số học sinh trong khoảng từ 35 đến 50 học sinh. Tính số học sinh của lớp 6A.`,
-                solutionHtml: `Số học sinh $x \\in \\text{BC}(2, 3, 4) = \\text{BC}(12) = \\{12; 24; 36; 48; ...\\}$. Do $35 \\le x \\le 50$ nên $x = 36$ (hoặc 48). Giả sử tổng vừa đủ là 36 học sinh.`,
-                correctAnswer: `36`
+            const zSol = Math.floor(Math.random() * 10) + 5;
+            saPool.push({
+                id: 'sa_integer_abs',
+                qType: 'sa',
+                scoreWeight: 1.5,
+                questionText: `Tìm số nguyên dương $x$, biết: $|x - 2| = ${zSol - 2}$.`,
+                correctAnswer: `${zSol}`,
+                solutionHtml: `Vì $x$ nguyên dương nên $x - 2 = ${zSol - 2} \\Rightarrow x = ${zSol}$.`
             });
 
-            essayQuestions.push({
-                id: 'essay_3',
-                qType: 'essay',
-                scoreWeight: 1.0,
-                questionText: `Cho tổng $S = 1 + 3 + 3^2 + 3^3 + ... + 3^{99}$. Chứng minh rằng $S$ chia hết cho 4.`,
-                solutionHtml: `Nhóm 2 số hạng: $S = (1 + 3) + (3^2 + 3^3) + ... + (3^{98} + 3^{99}) = 4 \\cdot (1 + 3^2 + ... + 3^{98}) \\vdots 4$.`,
-                correctAnswer: `ĐPCM`
-            });
+            const shuffledSA = saPool.sort(() => Math.random() - 0.5);
+            const shortAnswerQuestions = [shuffledSA[0], shuffledSA[1]];
+
+            // 4. Bài tập Tự luận (3 câu - 3,0 điểm) - BIẾN THIÊN NGẪU NHIÊN
+            const essayPool1 = [
+                {
+                    questionText: `Thực hiện phép tính (tính hợp lý nếu có thể):<br>a) $A = ${Math.floor(Math.random()*15)+10} \\cdot ${Math.floor(Math.random()*5)+4} + ${Math.floor(Math.random()*15)+10} \\cdot ${Math.floor(Math.random()*5)+4}$<br>b) $B = 2^3 \\cdot 5 - 3^2 + 15$`,
+                    solutionHtml: `a) Áp dụng tính chất phân phối.<br>b) $B = 8 \\cdot 5 - 9 + 15 = 46$.`,
+                    correctAnswer: `46`
+                },
+                {
+                    questionText: `Thực hiện phép tính số nguyên hợp lý:<br>a) $A = (-125) + 45 + (-75) + 55$<br>b) $B = (-5) \\cdot 8 \\cdot (-2) \\cdot 25$`,
+                    solutionHtml: `a) $A = [(-125) + (-75)] + (45 + 55) = -200 + 100 = -100$.<br>b) $B = [(-5) \\cdot (-2)] \\cdot (8 \\cdot 25) = 10 \\cdot 200 = 2000$.`,
+                    correctAnswer: `2000`
+                }
+            ];
+
+            const essayPool2 = [
+                {
+                    questionText: `Học sinh lớp 6A khi xếp hàng 2, hàng 3, hàng 4 đều vừa đủ. Biết số học sinh trong khoảng từ 35 đến 50 học sinh. Tính số học sinh của lớp 6A.`,
+                    solutionHtml: `Số học sinh $x \\in \\text{BC}(2, 3, 4) = \\text{BC}(12) = \\{12; 24; 36; 48; ...\\}$. Do $35 \\le x \\le 50$ nên $x = 36$ (hoặc 48). Giả sử số học sinh là 36.`,
+                    correctAnswer: `36`
+                },
+                {
+                    questionText: `Cô giáo muốn chia $48$ chiếc bút và $36$ quyển vở thành các phần thưởng sao cho số bút và số vở ở mỗi phần thưởng là như nhau. Hỏi có thể chia được nhiều nhất bao nhiêu phần thưởng?`,
+                    solutionHtml: `Số phần thưởng nhiều nhất là $\\text{ƯCLN}(48, 36) = 12$ phần thưởng. Khi đó mỗi phần gồm 4 bút và 3 vở.`,
+                    correctAnswer: `12`
+                }
+            ];
+
+            const essayPool3 = [
+                {
+                    questionText: `Cho tổng $S = 1 + 3 + 3^2 + 3^3 + ... + 3^{99}$. Chứng minh rằng $S$ chia hết cho 4.`,
+                    solutionHtml: `Nhóm 2 số hạng: $S = (1 + 3) + (3^2 + 3^3) + ... = 4 \\cdot (1 + 3^2 + ...) \\vdots 4$.`,
+                    correctAnswer: `ĐPCM`
+                },
+                {
+                    questionText: `Một khu vườn hình chữ nhật có chiều dài $15\\text{ m}$, chiều rộng $10\\text{ m}$. Người ta làm một lối đi xung quanh vườn rộng $1\\text{ m}$. Tính diện tích phần đất còn lại để trồng hoa.`,
+                    solutionHtml: `Chiều dài phần trồng hoa là $15 - 2 = 13\\text{ m}$. Chiều rộng là $10 - 2 = 8\\text{ m}$. Diện tích trồng hoa $S = 13 \\cdot 8 = 104\\text{ m}^2$.`,
+                    correctAnswer: `104 m2`
+                }
+            ];
+
+            const essayQuestions = [
+                { id: 'essay_1', qType: 'essay', scoreWeight: 1.0, ...essayPool1[Math.floor(Math.random() * essayPool1.length)] },
+                { id: 'essay_2', qType: 'essay', scoreWeight: 1.0, ...essayPool2[Math.floor(Math.random() * essayPool2.length)] },
+                { id: 'essay_3', qType: 'essay', scoreWeight: 1.0, ...essayPool3[Math.floor(Math.random() * essayPool3.length)] }
+            ];
 
             return {
                 title: examTitle,
@@ -206,6 +264,35 @@
                 shortAnswerQuestions: shortAnswerQuestions,
                 essayQuestions: essayQuestions
             };
+        },
+
+        // Mở làm bài thi Học sinh giỏi nâng cao trực tiếp
+        startAdvancedExam: function() {
+            this.closeExamCenterModal();
+            if (window.questionsAdvanced) {
+                this.currentExamData = window.questionsAdvanced.generateAdvancedExam('all', 90);
+            } else {
+                alert("Đang tải dữ liệu đề thi HSG, vui lòng thử lại sau giây lát.");
+                return;
+            }
+            this.userAnswers = { mcq: {}, tf: {}, sa: {}, essay: {} };
+            this.remainingSeconds = (this.currentExamData.timeLimitMinutes || 90) * 60;
+
+            const modal = document.getElementById("interactive-exam-7991-modal");
+            const titleEl = document.getElementById("interactive-exam-title");
+            if (titleEl) titleEl.innerText = this.currentExamData.title;
+            if (modal) modal.classList.remove("hidden");
+
+            this.renderInteractiveExamBody();
+            this.startInteractiveTimer();
+        },
+
+        // In đề thi Học sinh giỏi nâng cao
+        printAdvancedExam: function() {
+            if (window.questionsAdvanced) {
+                const data = window.questionsAdvanced.generateAdvancedExam('all', 90);
+                this.renderAndPrint7991Exam('ĐỀ THI HỌC SINH GIỎI MÔN TOÁN LỚP 6 - CẤP TỈNH/THÀNH PHỐ', data, true, '6', 90);
+            }
         },
 
         // Sinh đề thi Khắc phục điểm yếu môn Toán

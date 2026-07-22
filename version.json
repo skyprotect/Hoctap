@@ -1,6 +1,6 @@
 {
-  "version": "12.58",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.58/ToanHocKiosk_Setup_v12.58.exe",
+  "version": "12.59",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.59/ToanHocKiosk_Setup_v12.59.exe",
   "changelog": "- Bổ sung js/questions-7991.js vào kịch bản đồng bộ sync_clean.js để khắc phục triệt để lỗi Unexpected token '<' trên bản sạch HocTap_Clean.",
   "androidVersion": "5.2",
   "androidChangelog": "- Phiên bản v5.2: Khắc phục triệt để vòng lặp không mở khóa bằng việc đồng bộ bộ nhớ đa tiến trình SharedPreferences và loại bỏ cờ lockIntent dư thừa trong BootReceiver."
