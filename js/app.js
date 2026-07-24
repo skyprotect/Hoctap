@@ -11053,7 +11053,43 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         });
     },
 
+    isExchangeTimeAllowed: function() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        // Khung giờ 1: 10h00 - 12h00
+        const inMorningWindow = (hours >= 10 && hours < 12) || (hours === 12 && minutes === 0);
+        // Khung giờ 2: 16h00 - 18h00 (4h - 6h chiều)
+        const inAfternoonWindow = (hours >= 16 && hours < 18) || (hours === 18 && minutes === 0);
+        
+        return inMorningWindow || inAfternoonWindow;
+    },
+
     openStudentGameExchange: function() {
+        if (!this.isExchangeTimeAllowed()) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Chưa đến giờ quy đổi thẻ! 🔒',
+                html: `
+                    <div style="text-align: left; padding: 10px;">
+                        <p>Tính năng quy đổi thẻ lấy giờ chơi chỉ mở trong các khoảng thời gian sau:</p>
+                        <ul style="list-style-type: disc; padding-left: 20px; font-weight: 600; color: #475569;">
+                            <li>Sáng: <b>10:00 - 12:00</b></li>
+                            <li>Chiều: <b>16:00 - 18:00</b> (4:00 - 6:00 chiều)</li>
+                        </ul>
+                        <p style="margin-top: 15px; text-align: center; color: #ef4444; font-weight: bold;">
+                            Bây giờ là: ${timeStr}. Ngoài giờ quy đổi!
+                        </p>
+                    </div>
+                `,
+                confirmButtonText: 'Đã hiểu và tiếp tục học',
+                confirmButtonColor: '#7c3aed'
+            });
+            return;
+        }
         const studentId = this.config.defaultStudentId || '';
         if (studentId === 'std_baongoc') {
             Swal.fire({
