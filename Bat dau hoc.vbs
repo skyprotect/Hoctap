@@ -71,8 +71,8 @@ Do While Not isReady And attempts < 40
     End If
 Loop
 
-' 3. Tạo thư mục profile Chrome riêng để tránh xung đột
-strProfile = strFolder & "\chrome_profile"
+' 3. Tạo thư mục profile Chrome dùng chung cố định để tránh xung đột
+strProfile = "C:\ChromeKioskToan6"
 If Not objFSO.FolderExists(strProfile) Then
     On Error Resume Next
     objFSO.CreateFolder(strProfile)

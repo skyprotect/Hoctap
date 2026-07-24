@@ -7891,5 +7891,509 @@
     },
     "reason": "Formatting Error",
     "timestamp": 1784534167000
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $ 76 $ m. Mảnh vườn hình chữ nhật có chiều dài là $ 16 $ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $ 76 :$ 4 = 19 $ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $ 19 \\times 19 = 361 $ ($ \\text{m}^2 $)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật (cũng là hình vuông) là: <br/> $ 76 :$ 2 = 38 $ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $$ 38 - 16 = 22 $ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $ 16 \\times 22 = 352 $ ($ \\text{m}^2 $)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $ 361 - 352 = 9 $ ($ \\text{m}^2 $)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $76$ m. Mảnh vườn hình chữ nhật có chiều dài là $16$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $76 : 4 = 19$ (m) <br/> Diện tích của mảnh vườn hình vuông là: <br/> $19 \\times 19 = 361$ (m$^2$) <br/><br/> Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $76 : 2 = 38$ (m) <br/> Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $38 - 16 = 22$ (m) <br/> Diện tích của mảnh vườn hình chữ nhật là: <br/> $16 \\times 22 = 352$ (m$^2$) <br/><br/> Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $361 - 352 = 9$ (m$^2$) <br/> Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy luôn nhớ công thức chu vi $P = (a + b) \\times 2$ (hình chữ nhật), $P = a \\times 4$ (hình vuông) và công thức diện tích $S = a \\times b$ (hình chữ nhật), $S = a \\times a$ (hình vuông)."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898514766
+  },
+  {
+    "original": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $ 140 \\text{cm}^2 $. Độ dài một cạnh đáy là $ 10 $ cm. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $ 8 $ cm. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $ P = 2 \\times (\\text{canh day} + \\text{canh ben}) $. <br/> Độ dài một cạnh đáy là $ 10 $ cm. <br/> Độ dài cạnh bên là $ 8 $ cm. <br/>Chu vi của tấm thảm là: <br/> $$ 2 \\times (10 + 8) = 2 \\times (18) = 36 $ (cm)<br/>Giá trị diện tích $ 140 \\text{cm}^2 $ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đôi khi có những thông tin không dùng đến (dữ kiện nhiễu). Đối với hình bình hành, chu vi không liên quan đến chiều cao hay diện tích."
+    },
+    "fixed": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $140 \\text{ cm}^2$. Độ dài một cạnh đáy là $10 \\text{ cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $8 \\text{ cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (\\text{cạnh đáy} + \\text{cạnh bên})$. <br/> Độ dài cạnh đáy của tấm thảm là $10 \\text{ cm}$. <br/> Độ dài cạnh bên liền kề là $8 \\text{ cm}$. <br/> Chu vi của tấm thảm là: <br/> $P = 2 \\times (10 + 8) = 2 \\times 18 = 36 \\text{ (cm)}$. <br/> Lưu ý: Dữ liệu diện tích $140 \\text{ cm}^2$ là thông tin nhiễu, không cần thiết để tính chu vi. <br/> Vậy đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đối với hình bình hành, chu vi được tính dựa trên độ dài hai cạnh liền kề, diện tích không phải là yếu tố dùng để tính chu vi."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898516433
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $ 40 $ m và chiều rộng $ 15 $ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $ 25 $ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $ 40 \\times 15 = 600 $ ($ \\text{m}^2 $)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $ 600 \\text{m}^2 $.<br/>Công thức tính diện tích hình bình hành là $ S = \\text{day} \\times \\text{chieu cao} $.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $ 600 :$ 25 = 24 $ (m)<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $40$ m và chiều rộng $15$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $25$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là:<br/>$40 \\times 15 = 600$ ($\\text{m}^2$)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $600$ $\\text{m}^2$.<br/>Công thức tính diện tích hình bình hành là $S = a \\times h$ (trong đó $a$ là độ dài đáy, $h$ là chiều cao).<br/>Vậy, chiều cao của bồn hoa hình bình hành là:<br/>$600 : 25 = 24$ (m).<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của hình chữ nhật là $S = \\text{dài} \\times \\text{rộng}$ và diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$ để biến đổi tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898518186
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $ 450 \\text{m}^2 $. Ban đầu, chiều dài của khu đất là $ 25 $ m. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $ 50 $ m nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $ 450 \\text{m}^2 $. <br/>Chiều dài mới của khu đất là $ 50 $ m. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> $ 450 :$ 50 = 9 $ (m)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $450 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $25 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $50 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $450 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $50 \\text{ m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia cho chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> $450 : 50 = 9$ (m). <br/>Vậy đáp án đúng là A.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản $S = a \\times b$ và biến đổi nó thành $b = S : a$ để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898519540
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $ 76 $ m. Mảnh vườn hình chữ nhật có chiều dài là $ 16 $ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $ 76 :$ 4 = 19 $ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $ 19 \\times 19 = 361 $ ($ \\text{m}^2 $)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật (cũng là hình vuông) là: <br/> $ 76 :$ 2 = 38 $ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $$ 38 - 16 = 22 $ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $ 16 \\times 22 = 352 $ ($ \\text{m}^2 $)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $ 361 - 352 = 9 $ ($ \\text{m}^2 $)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $76$ m. Mảnh vườn hình chữ nhật có chiều dài là $16$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là:<br/>$76 : 4 = 19$ (m)<br/>Diện tích của mảnh vườn hình vuông là:<br/>$19 \\times 19 = 361$ ($m^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là:<br/>$76 : 2 = 38$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là:<br/>$38 - 16 = 22$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là:<br/>$16 \\times 22 = 352$ ($m^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là:<br/>$361 - 352 = 9$ ($m^2$)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật có cùng chu vi đó. Hãy nhớ công thức chu vi và diện tích của hình vuông và hình chữ nhật để thực hiện phép tính chính xác."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898561866
+  },
+  {
+    "original": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $ 140 \\text{cm}^2 $. Độ dài một cạnh đáy là $ 10 $ cm. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $ 8 $ cm. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $ P = 2 \\times (\\text{canh day} + \\text{canh ben}) $. <br/> Độ dài một cạnh đáy là $ 10 $ cm. <br/> Độ dài cạnh bên là $ 8 $ cm. <br/>Chu vi của tấm thảm là: <br/> $$ 2 \\times (10 + 8) = 2 \\times (18) = 36 $ (cm)<br/>Giá trị diện tích $ 140 \\text{cm}^2 $ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đôi khi có những thông tin không dùng đến (dữ kiện nhiễu). Đối với hình bình hành, chu vi không liên quan đến chiều cao hay diện tích."
+    },
+    "fixed": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $140 \\text{ cm}^2$. Độ dài một cạnh đáy là $10 \\text{ cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $8 \\text{ cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (\\text{cạnh đáy} + \\text{cạnh bên})$. <br/> Theo đề bài: <br/> - Độ dài cạnh đáy là $10 \\text{ cm}$. <br/> - Độ dài cạnh bên là $8 \\text{ cm}$. <br/> Chu vi của tấm thảm là: <br/> $P = 2 \\times (10 + 8) = 2 \\times 18 = 36 \\text{ (cm)}$. <br/> Lưu ý: Dữ kiện diện tích $140 \\text{ cm}^2$ là thông tin nhiễu, không cần sử dụng để tính chu vi. <br/> Vậy đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đối với hình bình hành, chu vi được tính bằng tổng độ dài hai cạnh kề nhân với 2, không phụ thuộc vào diện tích hay chiều cao."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898563618
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $ 40 $ m và chiều rộng $ 15 $ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $ 25 $ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $ 40 \\times 15 = 600 $ ($ \\text{m}^2 $)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $ 600 \\text{m}^2 $.<br/>Công thức tính diện tích hình bình hành là $ S = \\text{day} \\times \\text{chieu cao} $.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $ 600 :$ 25 = 24 $ (m)<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $40$ m và chiều rộng $15$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $25$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $40 \\times 15 = 600$ ($m^2$)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $600$ $m^2$.<br/>Công thức tính diện tích hình bình hành là $S = a \\times h$ (trong đó $a$ là cạnh đáy, $h$ là chiều cao tương ứng).<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $600 : 25 = 24$ (m)<br/>Đáp án đúng là B.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của hình chữ nhật $S = d \\times r$ và hình bình hành $S = a \\times h$, sau đó biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898565177
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $ 450 \\text{m}^2 $. Ban đầu, chiều dài của khu đất là $ 25 $ m. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $ 50 $ m nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $ 450 \\text{m}^2 $. <br/>Chiều dài mới của khu đất là $ 50 $ m. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> $ 450 :$ 50 = 9 $ (m)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $450 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $25$ m. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $50$ m nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $450 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $50$ m. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/>$450 : 50 = 9$ (m).<br/>Vậy, đáp án đúng là A.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức $S = a \\times b$ và biến đổi thành $b = S : a$ để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898566434
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $ 60 $ m. Mảnh vườn hình chữ nhật có chiều dài là $ 20 $ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $ 60 :$ 4 = 15 $ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $ 15 \\times 15 = 225 $ ($ \\text{m}^2 $)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật (cũng là hình vuông) là: <br/> $ 60 :$ 2 = 30 $ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $$ 30 - 20 = 10 $ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $ 20 \\times 10 = 200 $ ($ \\text{m}^2 $)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $ 225 - 200 = 25 $ ($ \\text{m}^2 $)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $60$ m. Mảnh vườn hình chữ nhật có chiều dài là $20$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $60 : 4 = 15$ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $15 \\times 15 = 225$ (m$^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $60 : 2 = 30$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $30 - 20 = 10$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $20 \\times 10 = 200$ (m$^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $225 - 200 = 25$ (m$^2$)<br/>Vậy đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy luôn nhớ công thức chu vi là $P = (a + b) \\times 2$ (hình chữ nhật) hoặc $P = a \\times 4$ (hình vuông), và diện tích là $S = a \\times b$ (hình chữ nhật) hoặc $S = a \\times a$ (hình vuông)."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898568396
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $ 35 $ m và chiều rộng $ 20 $ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $ 20 $ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $ 35 \\times 20 = 700 $ ($ \\text{m}^2 $)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $ 700 \\text{m}^2 $.<br/>Công thức tính diện tích hình bình hành là $ S = \\text{day} \\times \\text{chieu cao} $.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $ 700 :$ 20 = 35 $ (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $35$ m và chiều rộng $20$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $20$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là:<br/>$35 \\times 20 = 700$ ($m^2$)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $700$ $m^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là:<br/>$700 : 20 = 35$ (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898569882
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 450 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 25 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 50 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 450 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 50 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 450 : 50 = 9 \\text{(m)}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $450 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $25 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $50 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $450 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $50 \\text{ m}$. <br/>Vì diện tích không đổi, ta có công thức: $Diện tích = Chiều dài \\times Chiều rộng$. <br/>Chiều rộng mới của khu đất là: $450 : 50 = 9 \\text{ (m)}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích hình chữ nhật không đổi, nếu chiều dài thay đổi thì chiều rộng sẽ thay đổi theo tỉ lệ nghịch để duy trì diện tích đó. Bạn có thể sử dụng công thức $Chiều rộng = Diện tích : Chiều dài$ để tìm kết quả."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898571215
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $ 60 $ m. Mảnh vườn hình chữ nhật có chiều dài là $ 20 $ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $ 60 :$ 4 = 15 $ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $ 15 \\times 15 = 225 $ ($ \\text{m}^2 $)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật (cũng là hình vuông) là: <br/> $ 60 :$ 2 = 30 $ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $$ 30 - 20 = 10 $ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $ 20 \\times 10 = 200 $ ($ \\text{m}^2 $)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $ 225 - 200 = 25 $ ($ \\text{m}^2 $)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $60$ m. Mảnh vườn hình chữ nhật có chiều dài là $20$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $60 : 4 = 15$ (m) <br/> Diện tích của mảnh vườn hình vuông là: <br/> $15 \\times 15 = 225$ ($m^2$) <br/><br/> Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $60 : 2 = 30$ (m) <br/> Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $30 - 20 = 10$ (m) <br/> Diện tích của mảnh vườn hình chữ nhật là: <br/> $20 \\times 10 = 200$ ($m^2$) <br/><br/> Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $225 - 200 = 25$ ($m^2$) <br/> Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất trong số các hình chữ nhật có cùng chu vi đó. Hãy nhớ công thức chu vi và diện tích của hình vuông ($P = 4 \\times a; S = a \\times a$) và hình chữ nhật ($P = (d + r) \\times 2; S = d \\times r$)."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898596553
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $ 35 $ m và chiều rộng $ 20 $ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $ 20 $ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $ 35 \\times 20 = 700 $ ($ \\text{m}^2 $)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $ 700 \\text{m}^2 $.<br/>Công thức tính diện tích hình bình hành là $ S = \\text{day} \\times \\text{chieu cao} $.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $ 700 :$ 20 = 35 $ (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $35$ m và chiều rộng $20$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $20$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $35 \\times 20 = 700$ ($m^2$).<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $700$ $m^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $700 : 20 = 35$ (m).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của hình chữ nhật $S = \\text{dài} \\times \\text{rộng}$ và hình bình hành $S = \\text{đáy} \\times \\text{chiều cao}$ để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898598134
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 450 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 25 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 50 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 450 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 50 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 450 : 50 = 9 \\text{(m)}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $450 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $25 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $50 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $450 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $50 \\text{ m}$. <br/>Vì diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng ($S = a \\times b$), nên chiều rộng mới bằng diện tích chia cho chiều dài mới. <br/>Chiều rộng mới của khu đất là: <br/>$450 : 50 = 9 \\text{ (m)}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức $b = S : a$ để tìm chiều rộng khi biết diện tích và chiều dài."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898599686
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $ 52 $ m. Mảnh vườn hình chữ nhật có chiều dài là $ 14 $ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $ 52 :$ 4 = 13 $ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $ 13 \\times 13 = 169 $ ($ \\text{m}^2 $)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật (cũng là hình vuông) là: <br/> $ 52 :$ 2 = 26 $ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $$ 26 - 14 = 12 $ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $ 14 \\times 12 = 168 $ ($ \\text{m}^2 $)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $ 169 - 168 = 1 $ ($ \\text{m}^2 $)<br/>Vậy, đáp án đúng là B.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $52$ m. Mảnh vườn hình chữ nhật có chiều dài là $14$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $52 : 4 = 13$ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $13 \\times 13 = 169$ ($\\text{m}^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $52 : 2 = 26$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $26 - 14 = 12$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $14 \\times 12 = 168$ ($\\text{m}^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $169 - 168 = 1$ ($\\text{m}^2$)<br/>Vậy đáp án đúng là B.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của hình vuông ($C = 4 \\times a, S = a \\times a$) và hình chữ nhật ($C = (d + r) \\times 2, S = d \\times r$)."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898601381
+  },
+  {
+    "original": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là 120 \\text{cm}^2$. Độ dài một cạnh đáy là 20 \\text{cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là 13 \\text{cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (\\text{cạnh đáy} + \\text{cạnh bên})$. <br/> Độ dài một cạnh đáy là 20 \\text{cm}$. <br/> Độ dài cạnh bên là 13 \\text{cm}$. <br/>Chu vi của tấm thảm là: <br/> $$2 \\times (20 + 13) = 66 \\text{(cm)}$$ <br/>Giá trị diện tích 120 \\text{cm}^2$ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy, đáp án đúng là A.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đôi khi có những thông tin không dùng đến (dữ kiện nhiễu). Đối với hình bình hành, chu vi không liên quan đến chiều cao hay diện tích."
+    },
+    "fixed": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $120 \\text{ cm}^2$. Độ dài một cạnh đáy là $20 \\text{ cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $13 \\text{ cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (a + b)$, trong đó $a$ là độ dài cạnh đáy và $b$ là độ dài cạnh bên.<br/>Theo đề bài, độ dài cạnh đáy là $20 \\text{ cm}$ và độ dài cạnh bên là $13 \\text{ cm}$.<br/>Chu vi của tấm thảm là: $2 \\times (20 + 13) = 2 \\times 33 = 66 \\text{ (cm)}$.<br/>Giá trị diện tích $120 \\text{ cm}^2$ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy đáp án đúng là A.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đối với hình bình hành, chu vi được tính bằng hai lần tổng độ dài hai cạnh kề, không liên quan đến chiều cao hay diện tích."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898603101
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $ 30 $ m và chiều rộng $ 20 $ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $ 25 $ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $ 30 \\times 20 = 600 $ ($ \\text{m}^2 $)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $ 600 \\text{m}^2 $.<br/>Công thức tính diện tích hình bình hành là $ S = \\text{day} \\times \\text{chieu cao} $.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $ 600 :$ 25 = 24 $ (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $30$ m và chiều rộng $20$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $25$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $30 \\times 20 = 600$ ($m^2$).<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $600$ $m^2$.<br/>Công thức tính diện tích hình bình hành là $S = a \\times h$ (trong đó $a$ là cạnh đáy, $h$ là chiều cao).<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $600 : 25 = 24$ (m).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898604648
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 400 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 25 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 40 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 400 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 40 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 400 : 40 = 10 \\text{(m)}$.<br/>Vậy, đáp án đúng là C.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $400 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $25 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $40 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $400 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $40 \\text{ m}$. <br/>Vì diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng, nên chiều rộng bằng diện tích chia cho chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> $400 : 40 = 10 \\text{ (m)}$.<br/>Vậy, đáp án đúng là C.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức diện tích $S = a \\times b$ để tính toán các thông số còn thiếu."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898606018
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $ 52 $ m. Mảnh vườn hình chữ nhật có chiều dài là $ 14 $ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $ 52 :$ 4 = 13 $ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $ 13 \\times 13 = 169 $ ($ \\text{m}^2 $)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật (cũng là hình vuông) là: <br/> $ 52 :$ 2 = 26 $ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $$ 26 - 14 = 12 $ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $ 14 \\times 12 = 168 $ ($ \\text{m}^2 $)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $ 169 - 168 = 1 $ ($ \\text{m}^2 $)<br/>Vậy, đáp án đúng là B.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $52$ m. Mảnh vườn hình chữ nhật có chiều dài là $14$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là:<br/>$52 : 4 = 13$ (m)<br/>Diện tích của mảnh vườn hình vuông là:<br/>$13 \\times 13 = 169$ ($m^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là:<br/>$52 : 2 = 26$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là:<br/>$26 - 14 = 12$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là:<br/>$14 \\times 12 = 168$ ($m^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là:<br/>$169 - 168 = 1$ ($m^2$)<br/>Vậy đáp án đúng là B.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy luôn nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật để thực hiện các bước tính toán chính xác."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898732116
+  },
+  {
+    "original": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là 120 \\text{cm}^2$. Độ dài một cạnh đáy là 20 \\text{cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là 13 \\text{cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (\\text{cạnh đáy} + \\text{cạnh bên})$. <br/> Độ dài một cạnh đáy là 20 \\text{cm}$. <br/> Độ dài cạnh bên là 13 \\text{cm}$. <br/>Chu vi của tấm thảm là: <br/> $$2 \\times (20 + 13) = 66 \\text{(cm)}$$ <br/>Giá trị diện tích 120 \\text{cm}^2$ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy, đáp án đúng là A.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đôi khi có những thông tin không dùng đến (dữ kiện nhiễu). Đối với hình bình hành, chu vi không liên quan đến chiều cao hay diện tích."
+    },
+    "fixed": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $120 \\text{ cm}^2$. Độ dài một cạnh đáy là $20 \\text{ cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $13 \\text{ cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (a + b)$, trong đó $a$ và $b$ là độ dài hai cạnh liền kề.<br/>Độ dài cạnh đáy là $20 \\text{ cm}$.<br/>Độ dài cạnh bên là $13 \\text{ cm}$.<br/>Chu vi của tấm thảm là:<br/>$P = 2 \\times (20 + 13) = 2 \\times 33 = 66 \\text{ (cm)}$.<br/>Giá trị diện tích $120 \\text{ cm}^2$ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy đáp án đúng là A.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đối với hình bình hành, chu vi được tính bằng tổng độ dài bốn cạnh, không liên quan đến chiều cao hay diện tích."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898733810
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $ 30 $ m và chiều rộng $ 20 $ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $ 25 $ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $ 30 \\times 20 = 600 $ ($ \\text{m}^2 $)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $ 600 \\text{m}^2 $.<br/>Công thức tính diện tích hình bình hành là $ S = \\text{day} \\times \\text{chieu cao} $.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $ 600 :$ 25 = 24 $ (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $30$ m và chiều rộng $20$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $25$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $30 \\times 20 = 600$ ($m^2$). <br/> Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $600$ $m^2$. <br/> Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$. <br/> Vậy, chiều cao tương ứng của bồn hoa hình bình hành là: <br/> $600 : 25 = 24$ (m). <br/> Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898735233
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 400 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 25 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 40 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 400 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 40 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 400 : 40 = 10 \\text{(m)}$.<br/>Vậy, đáp án đúng là C.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $400 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $25 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $40 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $400 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $40 \\text{ m}$. <br/>Vì diện tích hình chữ nhật bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia cho chiều dài. <br/>Chiều rộng mới của khu đất là: <br/>$400 : 40 = 10 \\text{ (m)}$.<br/>Vậy, đáp án đúng là C.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản $S = a \\times b$ và biến đổi nó thành $b = S : a$ để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898736702
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là 56 \\text{m}$. Mảnh vườn hình chữ nhật có chiều dài là 18 \\text{m}$. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> 56 : 4 = 14 \\text{(m)}<br/>Diện tích của mảnh vườn hình vuông là: <br/> 14 \\times 14 = 196 \\text{(m}^2)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> 56 : 2 = 28 \\text{(m)}<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> 28 - 18 = 10 \\text{(m)}<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> 18 \\times 10 = 180 \\text{(m}^2)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> 196 - 180 = 16 \\text{(m}^2)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $56$ m. Mảnh vườn hình chữ nhật có chiều dài là $18$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $56 : 4 = 14$ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $14 \\times 14 = 196$ ($m^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $56 : 2 = 28$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $28 - 18 = 10$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $18 \\times 10 = 180$ ($m^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $196 - 180 = 16$ ($m^2$)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi: $P = (a + b) \\times 2$ (hình chữ nhật) hoặc $P = a \\times 4$ (hình vuông), và diện tích: $S = a \\times b$ (hình chữ nhật) hoặc $S = a \\times a$ (hình vuông)."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784898738363
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài 35 m và chiều rộng 15 m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là 15 m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> 35 \\times 15 = 525 (\\text{m}^2)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là 525 \\text{m}^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> 525 : 15 = 35 (m)<br/>Đáp án đúng là A.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài 35 m và chiều rộng 15 m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là 15 m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là:<br/>$35 \\times 15 = 525$ (m$^2$)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $525$ m$^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là:<br/>$525 : 15 = 35$ (m).<br/>Đáp án đúng là A.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898739776
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 200 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 20 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 25 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 200 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 25 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 200 : 25 = 8 \\text{m}$.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $200 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $20 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $25 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $200 \\text{ m}^2$.<br/>Chiều dài mới của khu đất là $25 \\text{ m}$.<br/>Vì diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng ($S = a \\times b$), nên chiều rộng mới bằng diện tích chia cho chiều dài mới ($b = S : a$).<br/>Chiều rộng mới của khu đất là: $200 : 25 = 8 \\text{ (m)}$.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản $S = a \\times b$ và biến đổi nó thành $b = S : a$ để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898741188
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là 56 \\text{m}$. Mảnh vườn hình chữ nhật có chiều dài là 18 \\text{m}$. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> 56 : 4 = 14 \\text{(m)}<br/>Diện tích của mảnh vườn hình vuông là: <br/> 14 \\times 14 = 196 \\text{(m}^2)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> 56 : 2 = 28 \\text{(m)}<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> 28 - 18 = 10 \\text{(m)}<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> 18 \\times 10 = 180 \\text{(m}^2)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> 196 - 180 = 16 \\text{(m}^2)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $56$ m. Mảnh vườn hình chữ nhật có chiều dài là $18$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $56 : 4 = 14$ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $14 \\times 14 = 196$ ($m^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $56 : 2 = 28$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $28 - 18 = 10$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $18 \\times 10 = 180$ ($m^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $196 - 180 = 16$ ($m^2$)<br/>Vậy, đáp án đúng là A.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông ($P = 4 \\times a$, $S = a \\times a$) và hình chữ nhật ($P = (a + b) \\times 2$, $S = a \\times b$)."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784898846875
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài 35 m và chiều rộng 15 m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là 15 m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> 35 \\times 15 = 525 (\\text{m}^2)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là 525 \\text{m}^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> 525 : 15 = 35 (m)<br/>Đáp án đúng là A.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $35$ m và chiều rộng $15$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $15$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $35 \\times 15 = 525$ (m$^2$) <br/> Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $525$ m$^2$. <br/> Công thức tính diện tích hình bình hành là $S = a \\times h$ (trong đó $a$ là độ dài cạnh đáy, $h$ là chiều cao tương ứng). <br/> Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $525 : 15 = 35$ (m). <br/> Đáp án đúng là A.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của hình chữ nhật ($S = \\text{dài} \\times \\text{rộng}$) và hình bình hành ($S = \\text{đáy} \\times \\text{chiều cao}$), sau đó áp dụng công thức ngược để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898848449
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 200 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 20 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 25 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 200 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 25 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 200 : 25 = 8 \\text{m}$.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $200$ $\\text{m}^2$. Ban đầu, chiều dài của khu đất là $20$ $\\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $25$ $\\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $200$ $\\text{m}^2$. <br/>Chiều dài mới của khu đất là $25$ $\\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng ($S = a \\times b$), nên chiều rộng bằng diện tích chia cho chiều dài ($b = S : a$). <br/>Chiều rộng mới của khu đất là: <br/>$200 : 25 = 8$ ($\\text{m}$).<br/>Vậy đáp án đúng là D.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản $S = a \\times b$ và biến đổi nó thành $b = S : a$ để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898850069
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là 68 \\text{m}$. Mảnh vườn hình chữ nhật có chiều dài là 14 \\text{m}$. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> 68 : 4 = 17 \\text{(m)}<br/>Diện tích của mảnh vườn hình vuông là: <br/> 17 \\times 17 = 289 \\text{(m}^2)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> 68 : 2 = 34 \\text{(m)}<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> 34 - 14 = 20 \\text{(m)}<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> 14 \\times 20 = 280 \\text{(m}^2)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> 289 - 280 = 9 \\text{(m}^2)<br/>Vậy, đáp án đúng là C.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $68$ m. Mảnh vườn hình chữ nhật có chiều dài là $14$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> $68 : 4 = 17$ (m)<br/>Diện tích của mảnh vườn hình vuông là: <br/> $17 \\times 17 = 289$ (m$^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> $68 : 2 = 34$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> $34 - 14 = 20$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> $14 \\times 20 = 280$ (m$^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> $289 - 280 = 9$ (m$^2$)<br/>Vậy đáp án đúng là C.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi là $P = (a + b) \\times 2$ (hình chữ nhật) hoặc $P = a \\times 4$ (hình vuông) và công thức diện tích là $S = a \\times b$ hoặc $S = a \\times a$."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784898851887
+  },
+  {
+    "original": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là 180 \\text{cm}^2$. Độ dài một cạnh đáy là 18 \\text{cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là 11 \\text{cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (\\text{cạnh đáy} + \\text{cạnh bên})$. <br/> Độ dài một cạnh đáy là 18 \\text{cm}$. <br/> Độ dài cạnh bên là 11 \\text{cm}$. <br/>Chu vi của tấm thảm là: <br/> $$2 \\times (18 + 11) = 2 \\times (29) = 58 \\text{cm}$$ <br/>Giá trị diện tích 180 \\text{cm}^2$ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đôi khi có những thông tin không dùng đến (dữ kiện nhiễu). Đối với hình bình hành, chu vi không liên quan đến chiều cao hay diện tích."
+    },
+    "fixed": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $180 \\text{ cm}^2$. Độ dài một cạnh đáy là $18 \\text{ cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $11 \\text{ cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (a + b)$, trong đó $a$ và $b$ là độ dài hai cạnh kề nhau. <br/> Độ dài cạnh đáy là $18 \\text{ cm}$. <br/> Độ dài cạnh bên là $11 \\text{ cm}$. <br/> Chu vi của tấm thảm là: <br/> $P = 2 \\times (18 + 11) = 2 \\times 29 = 58 \\text{ (cm)}$. <br/> Lưu ý: Dữ liệu diện tích $180 \\text{ cm}^2$ là thông tin nhiễu, không cần thiết để tính chu vi hình bình hành. <br/> Vậy đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định các thông tin cần thiết để giải quyết yêu cầu bài toán. Đối với bài toán tính chu vi hình bình hành, bạn chỉ cần độ dài hai cạnh kề nhau. Thông tin về diện tích hoặc chiều cao thường là dữ liệu thừa để kiểm tra khả năng phân tích của học sinh."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898853653
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài 30 m và chiều rộng 10 m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là 15 m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> 30 \\times 10 = 300 (\\text{m}^2)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là 300 \\text{m}^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> 300 : 15 = 20 (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $30$ m và chiều rộng $10$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $15$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $30 \\times 10 = 300$ (m$^2$) <br/> Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $300$ m$^2$. <br/> Công thức tính diện tích hình bình hành là $S = a \\times h$ (trong đó $a$ là cạnh đáy, $h$ là chiều cao tương ứng). <br/> Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $300 : 15 = 20$ (m). <br/> Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898855012
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 200 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 40 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 50 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 200 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 50 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 200 : 50 = 4 \\text{m}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $200 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $40 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $50 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $200 \\text{ m}^2$.<br/>Chiều dài mới của khu đất là $50 \\text{ m}$.<br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài.<br/>Chiều rộng mới của khu đất là:<br/>$200 : 50 = 4 \\text{ m}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản $S = a \\times b$ và biến đổi nó để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898856467
+  },
+  {
+    "original": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là 68 \\text{m}$. Mảnh vườn hình chữ nhật có chiều dài là 14 \\text{m}$. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là: <br/> 68 : 4 = 17 \\text{(m)}<br/>Diện tích của mảnh vườn hình vuông là: <br/> 17 \\times 17 = 289 \\text{(m}^2)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là: <br/> 68 : 2 = 34 \\text{(m)}<br/>Chiều rộng của mảnh vườn hình chữ nhật là: <br/> 34 - 14 = 20 \\text{(m)}<br/>Diện tích của mảnh vườn hình chữ nhật là: <br/> 14 \\times 20 = 280 \\text{(m}^2)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là: <br/> 289 - 280 = 9 \\text{(m}^2)<br/>Vậy, đáp án đúng là C.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi và diện tích của cả hình vuông và hình chữ nhật."
+    },
+    "fixed": {
+      "questionText": "Hai mảnh vườn, một hình vuông và một hình chữ nhật, có cùng chu vi là $68$ m. Mảnh vườn hình chữ nhật có chiều dài là $14$ m. Hỏi diện tích của mảnh vườn hình vuông lớn hơn diện tích của mảnh vườn hình chữ nhật bao nhiêu mét vuông?",
+      "solutionHtml": "Cạnh của mảnh vườn hình vuông là:<br/>$68 : 4 = 17$ (m)<br/>Diện tích của mảnh vườn hình vuông là:<br/>$17 \\times 17 = 289$ (m$^2$)<br/><br/>Nửa chu vi của mảnh vườn hình chữ nhật là:<br/>$68 : 2 = 34$ (m)<br/>Chiều rộng của mảnh vườn hình chữ nhật là:<br/>$34 - 14 = 20$ (m)<br/>Diện tích của mảnh vườn hình chữ nhật là:<br/>$14 \\times 20 = 280$ (m$^2$)<br/><br/>Diện tích mảnh vườn hình vuông lớn hơn diện tích mảnh vườn hình chữ nhật là:<br/>$289 - 280 = 9$ (m$^2$)<br/>Vậy, đáp án đúng là C.",
+      "tip": "Với cùng một chu vi, hình vuông luôn có diện tích lớn nhất so với các hình chữ nhật khác. Hãy nhớ công thức chu vi $P = (a + b) \\times 2$ (hình chữ nhật), $P = a \\times 4$ (hình vuông) và diện tích $S = a \\times b$ (hình chữ nhật), $S = a \\times a$ (hình vuông)."
+    },
+    "reason": "Formatting Error",
+    "timestamp": 1784898958636
+  },
+  {
+    "original": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là 180 \\text{cm}^2$. Độ dài một cạnh đáy là 18 \\text{cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là 11 \\text{cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (\\text{cạnh đáy} + \\text{cạnh bên})$. <br/> Độ dài một cạnh đáy là 18 \\text{cm}$. <br/> Độ dài cạnh bên là 11 \\text{cm}$. <br/>Chu vi của tấm thảm là: <br/> $$2 \\times (18 + 11) = 2 \\times (29) = 58 \\text{cm}$$ <br/>Giá trị diện tích 180 \\text{cm}^2$ là thông tin nhiễu, không cần dùng để tính chu vi.<br/>Vậy, đáp án đúng là D.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết để giải quyết yêu cầu của bài toán. Đôi khi có những thông tin không dùng đến (dữ kiện nhiễu). Đối với hình bình hành, chu vi không liên quan đến chiều cao hay diện tích."
+    },
+    "fixed": {
+      "questionText": "Một tấm thảm hình bình hành có diện tích là $180 \\text{ cm}^2$. Độ dài một cạnh đáy là $18 \\text{ cm}$. Biết rằng độ dài cạnh bên liền kề với cạnh đáy đó là $11 \\text{ cm}$. Hỏi chu vi của tấm thảm đó là bao nhiêu?",
+      "solutionHtml": "Chu vi của hình bình hành được tính bằng công thức: $P = 2 \\times (a + b)$, trong đó $a$ và $b$ là độ dài hai cạnh liền kề.<br/>Độ dài cạnh đáy là $18 \\text{ cm}$.<br/>Độ dài cạnh bên là $11 \\text{ cm}$.<br/>Chu vi của tấm thảm là:<br/>$2 \\times (18 + 11) = 2 \\times 29 = 58 \\text{ (cm)}$.<br/>Giá trị diện tích $180 \\text{ cm}^2$ là thông tin nhiễu, không dùng để tính chu vi.<br/>Vậy đáp án đúng là D: $58 \\text{ cm}$.",
+      "tip": "Hãy đọc kỹ đề bài và xác định rõ ràng những thông tin cần thiết. Đối với hình bình hành, chu vi được tính bằng tổng các cạnh, không phụ thuộc vào diện tích hay chiều cao."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898960107
+  },
+  {
+    "original": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài 30 m và chiều rộng 10 m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là 15 m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> 30 \\times 10 = 300 (\\text{m}^2)<br/>Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là 300 \\text{m}^2$.<br/>Công thức tính diện tích hình bình hành là $S = \\text{đáy} \\times \\text{chiều cao}$.<br/>Vậy, chiều cao của bồn hoa hình bình hành là: <br/> 300 : 15 = 20 (m)<br/>Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "fixed": {
+      "questionText": "Một sân chơi hình chữ nhật có chiều dài $30$ m và chiều rộng $10$ m. Một bồn hoa hình bình hành được thiết kế có cùng diện tích với sân chơi đó. Nếu một cạnh đáy của bồn hoa là $15$ m, hỏi chiều cao tương ứng của bồn hoa hình bình hành là bao nhiêu mét?",
+      "solutionHtml": "Diện tích của sân chơi hình chữ nhật là: <br/> $30 \\times 10 = 300$ (m$^2$) <br/> Vì bồn hoa hình bình hành có diện tích bằng diện tích sân chơi, nên diện tích bồn hoa là $300$ m$^2$. <br/> Công thức tính diện tích hình bình hành là $S = a \\times h$ (trong đó $a$ là cạnh đáy, $h$ là chiều cao tương ứng). <br/> Vậy, chiều cao của bồn hoa hình bình hành là: <br/> $300 : 15 = 20$ (m). <br/> Đáp án đúng là C.",
+      "tip": "Bài toán này yêu cầu liên hệ diện tích giữa hai hình khác nhau. Hãy nhớ công thức diện tích của từng hình và cách biến đổi công thức để tìm kích thước chưa biết."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898961621
+  },
+  {
+    "original": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là 200 \\text{m}^2$. Ban đầu, chiều dài của khu đất là 40 \\text{m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là 50 \\text{m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là 200 \\text{m}^2$. <br/>Chiều dài mới của khu đất là 50 \\text{m}$. <br/>Vì diện tích bằng chiều dài nhân chiều rộng, nên chiều rộng bằng diện tích chia chiều dài. <br/>Chiều rộng mới của khu đất là: <br/> 200 : 50 = 4 \\text{m}$.<br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một chiều của hình chữ nhật thay đổi, chiều còn lại sẽ thay đổi tỉ lệ nghịch để duy trì diện tích. Luôn sử dụng công thức cơ bản và biến đổi nó để tìm ẩn số."
+    },
+    "fixed": {
+      "questionText": "Một khu đất hình chữ nhật có diện tích là $200 \\text{ m}^2$. Ban đầu, chiều dài của khu đất là $40 \\text{ m}$. Sau đó, người ta điều chỉnh để chiều dài mới của khu đất là $50 \\text{ m}$ nhưng diện tích vẫn không đổi. Hỏi chiều rộng mới của khu đất phải là bao nhiêu mét?",
+      "solutionHtml": "Diện tích khu đất hình chữ nhật là $200 \\text{ m}^2$. <br/>Chiều dài mới của khu đất là $50 \\text{ m}$. <br/>Vì diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng, nên chiều rộng bằng diện tích chia cho chiều dài. <br/>Chiều rộng mới của khu đất là: <br/>$200 : 50 = 4 \\text{ (m)}$. <br/>Vậy, đáp án đúng là B.",
+      "tip": "Khi diện tích không đổi mà một cạnh của hình chữ nhật thay đổi, cạnh còn lại sẽ thay đổi theo tỉ lệ nghịch để duy trì diện tích không đổi. Bạn có thể sử dụng công thức $S = a \\times b$, từ đó suy ra $b = S : a$ để tìm ẩn số."
+    },
+    "reason": "Unpaired Dollar",
+    "timestamp": 1784898963020
   }
 ]

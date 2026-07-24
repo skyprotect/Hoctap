@@ -239,16 +239,26 @@ namespace KioskLock
                 return;
             }
 
-            // Cấu hình đường dẫn lưu thông tin Chrome (profile) trong thư mục dự án
-            string profilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chrome_profile");
+            // Cấu hình đường dẫn lưu thông tin Chrome (profile) dùng chung cố định trên Windows
+            string profilePath = @"C:\ChromeKioskToan6";
             
-            // Tự động di chuyển dữ liệu cũ từ C:\ChromeKioskToan6 nếu có và thư mục mới chưa có dữ liệu
-            string oldProfilePath = @"C:\ChromeKioskToan6";
-            if (Directory.Exists(oldProfilePath) && !Directory.Exists(profilePath))
+            // Tự động di trú dữ liệu cũ từ thư mục dự án local sang thư mục dùng chung nếu cần
+            string localProfilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chrome_profile");
+            if (Directory.Exists(localProfilePath) && !Directory.Exists(profilePath))
             {
                 try
                 {
-                    CopyDirectory(oldProfilePath, profilePath);
+                    CopyDirectory(localProfilePath, profilePath);
+                }
+                catch {}
+            }
+
+            // Nếu chưa có thư mục profile dùng chung thì tạo mới
+            if (!Directory.Exists(profilePath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(profilePath);
                 }
                 catch {}
             }
