@@ -1,7 +1,7 @@
 {
-  "version": "12.63",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.63/ToanHocKiosk_Setup_v12.63.exe",
-  "changelog": "- Tối ưu UI/UX: Khắc phục triệt để hiển thị PDF và bổ sung tiến trình nạp ngầm bộ dữ liệu HSG Nâng cao.",
+  "version": "12.65",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.65/ToanHocKiosk_Setup_v12.65.exe",
+  "changelog": "- Sửa lỗi SyntaxError: Unexpected token '<' bằng cách đóng gói đầy đủ tệp tin js/questions-advanced.js lên thư mục cài đặt ổ C.",
   "androidVersion": "5.2",
   "androidChangelog": "- Phiên bản v5.2: Khắc phục triệt để vòng lặp không mở khóa bằng việc đồng bộ bộ nhớ đa tiến trình SharedPreferences và loại bỏ cờ lockIntent dư thừa trong BootReceiver."
 }

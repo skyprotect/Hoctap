@@ -632,6 +632,17 @@
             }, 1000);
         },
 
+        // Hủy bỏ bài thi tương tác
+        cancelInteractiveExam: function() {
+            if (confirm("Con có chắc chắn muốn dừng bài thi đang làm không?")) {
+                if (this.examTimerInterval) clearInterval(this.examTimerInterval);
+                const modalInteractive = document.getElementById("interactive-exam-7991-modal");
+                if (modalInteractive) modalInteractive.classList.add("hidden");
+                const centerModal = document.getElementById("exam-7991-center-modal");
+                if (centerModal) centerModal.classList.remove("hidden");
+            }
+        },
+
         // Tự động chấm điểm & hiển thị Báo cáo Khảo thí
         submit7991ExamInteractive: function() {
             if (this.examTimerInterval) clearInterval(this.examTimerInterval);
@@ -707,6 +718,9 @@
                     score: totalScore,
                     date: new Date().toISOString()
                 });
+                if (typeof app.renderDashboard === 'function') {
+                    app.renderDashboard();
+                }
             }
 
             // Mở preview PDF với kết quả đã làm
@@ -1018,7 +1032,7 @@
             }
             const modal = document.getElementById("print-preview-modal");
             if (modal) {
-                modal.style.zIndex = "200000";
+                modal.style.zIndex = "250000";
             }
             const previewPaper = document.getElementById("print-preview-paper");
             if (previewPaper) {

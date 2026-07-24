@@ -11,6 +11,15 @@ function getQuery(db, sql, params = []) {
   });
 }
 
+function getAllQuery(db, sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) reject(err);
+      else resolve(rows || []);
+    });
+  });
+}
+
 function runQuery(db, sql, params = []) {
   return new Promise((resolve, reject) => {
     db.run(sql, params, function(err) {
@@ -72,59 +81,64 @@ function mergeStudentState(localState, cloudState) {
 }
 
 async function run() {
-  console.log('=== BẮT ĐẦU ĐỒNG BỘ THÔNG MINH GIỮA Ổ F VÀ Ổ C ===');
+  console.log('=== BẮT ĐẦU ĐỒNG BỘ THÔNG MINH GIỮA DỰ ÁN VÀ Ổ C ===');
 
   const fDbPath = path.join(__dirname, 'database.db');
   const cDbPath = 'C:\\Program Files (x86)\\ToanHocKiosk\\database.db';
 
   if (!fs.existsSync(fDbPath)) {
-    console.error('Không tìm thấy database.db ở ổ F');
+    console.error('Không tìm thấy database.db ở thư mục dự án (ổ F)');
     return;
   }
 
   const fDb = new sqlite3.Database(fDbPath);
-  const fRow = await getQuery(fDb, 'SELECT state_json FROM student_progress WHERE student_id = ?', ['std_htsj4gbmo']);
-  fDb.close();
-
-  let cState = null;
+  const fRows = await getAllQuery(fDb, 'SELECT student_id, state_json FROM student_progress');
+  
+  let cRows = [];
   if (fs.existsSync(cDbPath)) {
     const cDb = new sqlite3.Database(cDbPath);
-    const cRow = await getQuery(cDb, 'SELECT state_json FROM student_progress WHERE student_id = ?', ['std_htsj4gbmo']);
-    if (cRow && cRow.state_json) {
-      cState = JSON.parse(cRow.state_json);
-    }
+    cRows = await getAllQuery(cDb, 'SELECT student_id, state_json FROM student_progress');
     cDb.close();
   }
 
-  const fState = fRow && fRow.state_json ? JSON.parse(fRow.state_json) : null;
+  const fMap = {};
+  fRows.forEach(r => { if (r.student_id) fMap[r.student_id] = r.state_json; });
 
-  console.log('F State summary:', fState ? { xp: fState.xp, streak: fState.streak, subtopics: fState.completedSubtopics?.length } : null);
-  console.log('C State summary:', cState ? { xp: cState.xp, streak: cState.streak, subtopics: cState.completedSubtopics?.length } : null);
+  const cMap = {};
+  cRows.forEach(r => { if (r.student_id) cMap[r.student_id] = r.state_json; });
 
-  const merged = mergeStudentState(fState, cState);
-  console.log('🎉 MERGED Result:', {
-    xp: merged.xp,
-    englishXp: merged.englishXp,
-    streak: merged.streak,
-    completedSubtopics: merged.completedSubtopics?.length,
-    levelScoresCount: merged.levelScores ? Object.keys(merged.levelScores).length : 0
-  });
+  const allStudentIds = Array.from(new Set([...Object.keys(fMap), ...Object.keys(cMap)]));
 
-  const mergedJson = JSON.stringify(merged);
+  console.log(`Tìm thấy ${allStudentIds.length} học sinh để đồng bộ:`, allStudentIds);
 
-  // Ghi lại ổ F
-  const fDbWrite = new sqlite3.Database(fDbPath);
-  await runQuery(fDbWrite, 'INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)', ['std_htsj4gbmo', mergedJson]);
-  fDbWrite.close();
-  console.log('✅ Đã ghi dữ liệu gộp vào SQLite ổ F!');
+  for (const studentId of allStudentIds) {
+    const fState = fMap[studentId] ? JSON.parse(fMap[studentId]) : null;
+    const cState = cMap[studentId] ? JSON.parse(cMap[studentId]) : null;
 
-  // Ghi lại ổ C nếu tồn tại
-  if (fs.existsSync(cDbPath)) {
-    const cDbWrite = new sqlite3.Database(cDbPath);
-    await runQuery(cDbWrite, 'INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)', ['std_htsj4gbmo', mergedJson]);
-    cDbWrite.close();
-    console.log('✅ Đã ghi dữ liệu gộp vào SQLite ổ C!');
+    console.log(`\n--- Đồng bộ student: ${studentId} ---`);
+    console.log('  Thư mục dự án subtopics:', fState ? (fState.completedSubtopics || []).length : 0);
+    console.log('  Ổ C subtopics:', cState ? (cState.completedSubtopics || []).length : 0);
+
+    const merged = mergeStudentState(fState, cState);
+    console.log('  🎉 Kết quả gộp subtopics:', (merged.completedSubtopics || []).length);
+
+    const mergedJson = JSON.stringify(merged);
+
+    // Ghi lại thư mục dự án
+    await runQuery(fDb, 'INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)', [studentId, mergedJson]);
+    console.log(`  ✅ Đã cập nhật ${studentId} vào SQLite dự án!`);
+
+    // Ghi lại ổ C nếu tồn tại
+    if (fs.existsSync(cDbPath)) {
+      const cDbWrite = new sqlite3.Database(cDbPath);
+      await runQuery(cDbWrite, 'INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)', [studentId, mergedJson]);
+      cDbWrite.close();
+      console.log(`  ✅ Đã cập nhật ${studentId} vào SQLite ổ C!`);
+    }
   }
+
+  fDb.close();
+  console.log('\n=== ĐÃ HOÀN THÀNH ĐỒNG BỘ CƠ SỞ DỮ LIỆU ===');
 }
 
 run();

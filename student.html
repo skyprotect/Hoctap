@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=12.63">
+    <link rel="stylesheet" href="css/style.css?v=12.65">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -811,7 +811,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v12.63 (Cập nhật: 22/07/2026 22:33)</div>
+            <div class="splash-version-tag">Phiên bản: v12.65 (Cập nhật: 24/07/2026 13:27)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1975,7 +1975,7 @@
     </div>
 
     <!-- Modal Xem trước đề thi giấy trước khi in -->
-    <div id="print-preview-modal" class="modal hidden" style="z-index: 200000; background-color: rgba(0,0,0,0.6); opacity: 1 !important;">
+    <div id="print-preview-modal" class="modal hidden" style="z-index: 250000; background-color: rgba(0,0,0,0.6); opacity: 1 !important;">
         <div class="modal-content" style="max-width: 960px; width: 95%; height: 90vh; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background-color: var(--bg-card); border: 1px solid var(--border-color); animation: zoomIn 0.3s ease;">
             <div class="modal-header" style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-app);">
                 <h3 style="margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); font-weight: 800;">
@@ -2202,6 +2202,7 @@
                 <button onclick="if(window.questions7991) questions7991.submit7991ExamInteractive();" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); display: flex; align-items: center; gap: 0.5rem;">
                     <i class="fa-solid fa-paper-plane"></i> NỘP BÀI THI
                 </button>
+                <button onclick="if(window.questions7991) questions7991.cancelInteractiveExam();" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); padding: 0.5rem 1rem; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;"><i class="fa-solid fa-xmark"></i> Hủy / Đóng</button>
             </div>
         </div>
 
@@ -2228,15 +2229,15 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=12.63"></script>
-    <script src="js/lessons.js?v=12.63"></script>
-    <script src="js/questions-v1.js?v=12.63"></script>
-    <script src="js/questions-v4.js?v=12.63"></script>
-    <script src="js/questions-v3.js?v=12.63"></script>
-    <script src="js/questions-advanced.js?v=12.63"></script>
-    <script src="js/questions-7991.js?v=12.63"></script>
-    <script src="js/game.js?v=12.63"></script>
-    <script src="js/app.js?v=12.63"></script>
+    <script src="js/english_data.js?v=12.65"></script>
+    <script src="js/lessons.js?v=12.65"></script>
+    <script src="js/questions-v1.js?v=12.65"></script>
+    <script src="js/questions-v4.js?v=12.65"></script>
+    <script src="js/questions-v3.js?v=12.65"></script>
+    <script src="js/questions-advanced.js?v=12.65"></script>
+    <script src="js/questions-7991.js?v=12.65"></script>
+    <script src="js/game.js?v=12.65"></script>
+    <script src="js/app.js?v=12.65"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -3300,7 +3301,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v12.63 (Cập nhật: 22/07/2026 22:33)
+        Phiên bản: v12.65 (Cập nhật: 24/07/2026 13:27)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

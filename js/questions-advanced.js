@@ -61,7 +61,7 @@
             const factorSum = 1 + base; // (1 + base) chia hết
             const correctVal = factorSum;
             
-            const qText = `Cho tổng $S = ${base} + ${base}^2 + ${base}^3 + ... + ${base}^{${nTerms}}$. Chứng minh rằng $S$ chia hết cho số nào sau đây?`;
+            const qText = `Cho tổng $S = ${base} + ${base}^2 + ${base}^3 + ... + ${base}^{${nTerms}}$. Trong các số dưới đây, $S$ chia hết cho số nào?`;
             const { options, correctIndex } = this.utils.ensureUniqueOptions(
                 correctVal,
                 correctVal + 1,
@@ -165,23 +165,27 @@
         },
 
         genSpeedWordProblem: function() {
-            const vBoat = Math.floor(Math.random() * 5) + 15; // 15..19 km/h
-            const vStream = Math.floor(Math.random() * 3) + 2; // 2..4 km/h
-            const vDown = vBoat + vStream;
+            const pedagogicalSets = [
+                { dist: 36, tDown: 2, vStream: 3, tUp: 3 },
+                { dist: 48, tDown: 2, vStream: 4, tUp: 3 },
+                { dist: 60, tDown: 3, vStream: 4, tUp: 5 },
+                { dist: 40, tDown: 2, vStream: 5, tUp: 4 },
+                { dist: 72, tDown: 3, vStream: 3, tUp: 4 },
+                { dist: 96, tDown: 4, vStream: 4, tUp: 6 },
+                { dist: 80, tDown: 4, vStream: 2, tUp: 5 }
+            ];
+            const data = pedagogicalSets[Math.floor(Math.random() * pedagogicalSets.length)];
+            const dist = data.dist;
+            const tDown = data.tDown;
+            const vStream = data.vStream;
+            const tUp = data.tUp;
+
+            const vDown = dist / tDown;
+            const vBoat = vDown - vStream;
             const vUp = vBoat - vStream;
-            const timeDown = Math.floor(Math.random() * 2) + 2; // 2..3 giờ
-            const distance = vDown * timeDown;
-            const timeUp = distance / vUp;
-
-            // Đảm bảo chia hết tròn số giờ
-            const validVBoat = (Math.ceil(distance / timeUp) === vUp) ? vBoat : 18;
-            const finalVDown = validVBoat + vStream;
-            const finalVUp = validVBoat - vStream;
-            const finalDist = finalVDown * 2;
-            const finalTimeUp = finalDist / finalVUp;
-
-            const correctVal = finalTimeUp;
-            const qText = `Một ca nô chạy xuôi dòng một khúc sông từ A đến B dài $${finalDist}\\text{ km}$ hết $2\\text{ giờ}$. Biết vận tốc dòng nước là $${vStream}\\text{ km/h}$. Hỏi ca nô đó chạy ngược dòng từ B về A hết bao nhiêu giờ?`;
+            
+            const correctVal = tUp;
+            const qText = `Một ca nô chạy xuôi dòng một khúc sông từ A đến B dài $${dist}\\text{ km}$ hết $${tDown}\\text{ giờ}$. Biết vận tốc dòng nước là $${vStream}\\text{ km/h}$. Hỏi ca nô đó chạy ngược dòng từ B về A hết bao nhiêu giờ?`;
             const { options, correctIndex } = this.utils.ensureUniqueOptions(
                 correctVal,
                 correctVal + 1,
@@ -193,7 +197,7 @@
                 questionText: qText,
                 options: options,
                 correctIndex: correctIndex,
-                explanation: `Vận tốc xuôi dòng $v_{\\text{xuôi}} = \\frac{${finalDist}}{2} = ${finalVDown}\\text{ km/h}$. Vận tốc thực ca nô $v_{\\text{thực}} = ${finalVDown} - ${vStream} = ${validVBoat}\\text{ km/h}$. Vận tốc ngược dòng $v_{\\text{ngược}} = ${validVBoat} - ${vStream} = ${finalVUp}\\text{ km/h}$. Thời gian ngược dòng là $t = \\frac{${finalDist}}{${finalVUp}} = ${correctVal}\\text{ giờ}$.`
+                explanation: `Vận tốc xuôi dòng $v_{\\text{xuôi}} = \\frac{${dist}}{${tDown}} = ${vDown}\\text{ km/h}$. Vận tốc thực ca nô $v_{\\text{thực}} = ${vDown} - ${vStream} = ${vBoat}\\text{ km/h}$. Vận tốc ngược dòng $v_{\\text{ngược}} = ${vBoat} - ${vStream} = ${vUp}\\text{ km/h}$. Thời gian ngược dòng là $t = \\frac{${dist}}{${vUp}} = ${correctVal}\\text{ giờ}$.`
             };
         },
 

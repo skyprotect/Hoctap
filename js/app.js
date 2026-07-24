@@ -6,6 +6,22 @@ function sanitizeHtml(html) {
         .replace(/href\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, '');
 }
 
+const safeStorage = {
+    fallback: {},
+    getItem: function(key) {
+        try { return localStorage.getItem(key); }
+        catch(e) { console.warn("Storage.getItem failed:", e); return this.fallback[key] || null; }
+    },
+    setItem: function(key, value) {
+        try { localStorage.setItem(key, value); }
+        catch(e) { console.warn("Storage.setItem failed:", e); this.fallback[key] = value; }
+    },
+    removeItem: function(key) {
+        try { localStorage.removeItem(key); }
+        catch(e) { console.warn("Storage.removeItem failed:", e); delete this.fallback[key]; }
+    }
+};
+
 const SKILL_CARDS = [
     { id: "listening_master", name: "Listening Wizard", desc: "Đạt điểm Nghe từ 90% trở lên ở một bài bất kỳ", icon: "🎧", color: "linear-gradient(135deg, #3b82f6, #1d4ed8)" },
     { id: "speaking_pro", name: "Speaking Hero", desc: "Đạt điểm Nói từ 90% trở lên ở một bài bất kỳ", icon: "🗣️", color: "linear-gradient(135deg, #ec4899, #be185d)" },
@@ -630,7 +646,7 @@ const app = {
         }
 
         const sentencesCount = 14;
-        let isMuted = localStorage.getItem("splash_greeting_muted") === "true";
+        let isMuted = safeStorage.getItem("splash_greeting_muted") === "true";
         let greetingInterval = null;
         let greetingAudios = [];
         let currentlyPlaying = null;
@@ -713,7 +729,7 @@ const app = {
         const toggleMute = (e) => {
             if (e) e.stopPropagation();
             isMuted = !isMuted;
-            localStorage.setItem("splash_greeting_muted", isMuted ? "true" : "false");
+            safeStorage.setItem("splash_greeting_muted", isMuted ? "true" : "false");
             updateMuteUi();
             
             if (isMuted) {
@@ -2366,7 +2382,7 @@ const app = {
                         });
                     }
 
-                    localStorage.removeItem('skipGoogleLogin');
+                    safeStorage.removeItem('skipGoogleLogin');
                     const googleLoginScreen = document.getElementById("google-login-screen");
                     if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
                     return true;
@@ -2374,7 +2390,7 @@ const app = {
             }
             
             // 3. Nếu chưa đăng nhập: Kiểm tra xem đã từng chọn "Học ngoại tuyến (Offline)" chưa
-            if (localStorage.getItem('skipGoogleLogin') === 'true') {
+            if (safeStorage.getItem('skipGoogleLogin') === 'true') {
                 console.log("ℹ️ Người dùng đã chọn chế độ Học ngoại tuyến (Offline) trước đó.");
                 const googleLoginScreen = document.getElementById("google-login-screen");
                 if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
@@ -2453,7 +2469,7 @@ const app = {
                                             await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid).catch(e => console.warn("Lỗi autoMigrateParentUidByEmail:", e));
                                         }
 
-                                        localStorage.removeItem('skipGoogleLogin');
+                                        safeStorage.removeItem('skipGoogleLogin');
                                         
                                         // Nạp lại cấu hình từ SQLite server ngay lập tức
                                         await this.loadConfig();
@@ -2518,7 +2534,7 @@ const app = {
 
     // Bỏ qua đăng nhập Google để chạy offline
     skipGoogleLogin: function() {
-        localStorage.setItem('skipGoogleLogin', 'true');
+        safeStorage.setItem('skipGoogleLogin', 'true');
         const googleLoginScreen = document.getElementById("google-login-screen");
         if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
         this.initAppAfterLogin();
@@ -2553,7 +2569,7 @@ const app = {
         const isLoggedIn = await this.checkGoogleSession();
         
         // 2. Nếu đã đăng nhập hoặc đã từng chọn Offline -> Vào ứng dụng ngay
-        if (isLoggedIn || localStorage.getItem('skipGoogleLogin') === 'true') {
+        if (isLoggedIn || safeStorage.getItem('skipGoogleLogin') === 'true') {
             await this.initAppAfterLogin();
         }
 
@@ -3233,7 +3249,7 @@ const app = {
                     // Lưu tiến trình vào localStorage
                     const localKey = this.getLocalStorageKey();
                     try {
-                        localStorage.setItem(localKey, JSON.stringify(this.state));
+                        safeStorage.setItem(localKey, JSON.stringify(this.state));
                     } catch (e) {
                         console.warn("Không thể lưu localStorage:", e);
                     }
@@ -4281,9 +4297,9 @@ const app = {
     // Đồng bộ dữ liệu offline lên server SQLite khi mạng phục hồi hoặc khi load lại
     syncOfflineProgress: async function() {
         const localKey = this.getLocalStorageKey();
-        const isDirty = localStorage.getItem(localKey + "_offline_dirty");
+        const isDirty = safeStorage.getItem(localKey + "_offline_dirty");
         if (isDirty === "true") {
-            const rawData = localStorage.getItem(localKey + "_offline_data");
+            const rawData = safeStorage.getItem(localKey + "_offline_data");
             if (rawData) {
                 try {
                     const offlineState = JSON.parse(rawData);
@@ -4297,8 +4313,8 @@ const app = {
                     });
                     if (res.ok) {
                         const data = await res.json();
-                        localStorage.removeItem(localKey + "_offline_dirty");
-                        localStorage.removeItem(localKey + "_offline_data");
+                        safeStorage.removeItem(localKey + "_offline_dirty");
+                        safeStorage.removeItem(localKey + "_offline_data");
                         if (data && data.state) {
                             this.state = { ...this.state, ...data.state };
                         }
@@ -4350,7 +4366,7 @@ const app = {
 
             // Tự động kiểm tra và di chuyển dữ liệu cũ từ LocalStorage nếu có
             const localKey = this.getLocalStorageKey();
-            const localRaw = localStorage.getItem(localKey);
+            const localRaw = safeStorage.getItem(localKey);
             let localData = null;
             if (localRaw) {
                 try {
@@ -4506,7 +4522,7 @@ const app = {
 
         // Luôn lưu trữ cục bộ trước để làm bản sao lưu an toàn
         try {
-            localStorage.setItem(localKey, JSON.stringify(this.state));
+            safeStorage.setItem(localKey, JSON.stringify(this.state));
         } catch (e) {
             console.warn("Không thể lưu bản sao lưu tiến trình vào localStorage:", e);
         }
@@ -4521,8 +4537,8 @@ const app = {
                 const data = await res.json();
                 
                 // Đồng bộ thành công -> Xóa cờ dirty offline
-                localStorage.removeItem(localKey + "_offline_dirty");
-                localStorage.removeItem(localKey + "_offline_data");
+                safeStorage.removeItem(localKey + "_offline_dirty");
+                safeStorage.removeItem(localKey + "_offline_data");
 
                 // Đồng bộ lên Firebase Firestore nếu đã đăng nhập
                 if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
@@ -4572,13 +4588,13 @@ const app = {
             } else {
                 // Server trả về lỗi (ví dụ 500 SQLITE_BUSY) -> Lưu offline dirty
                 console.warn("[Offline Sync] Server không thể lưu dữ liệu, lưu offline để đồng bộ sau.");
-                localStorage.setItem(localKey + "_offline_dirty", "true");
-                localStorage.setItem(localKey + "_offline_data", JSON.stringify(this.state));
+                safeStorage.setItem(localKey + "_offline_dirty", "true");
+                safeStorage.setItem(localKey + "_offline_data", JSON.stringify(this.state));
             }
         } catch (e) {
             console.error("Lỗi lưu progress vào SQLite, chuyển sang chế độ lưu offline:", e);
-            localStorage.setItem(localKey + "_offline_dirty", "true");
-            localStorage.setItem(localKey + "_offline_data", JSON.stringify(this.state));
+            safeStorage.setItem(localKey + "_offline_dirty", "true");
+            safeStorage.setItem(localKey + "_offline_data", JSON.stringify(this.state));
         } finally {
             this.isSavingProgress = false;
             if (this.hasPendingSave) {
@@ -6719,7 +6735,7 @@ const app = {
 
     // Theme (Light/Green mode)
     initTheme: function() {
-        const savedTheme = localStorage.getItem("toan6_theme");
+        const savedTheme = safeStorage.getItem("toan6_theme");
         // Mặc định là xanh lá (green) nếu chưa lưu cấu hình, hoặc nếu lưu là green
         if (savedTheme === 'light') {
             document.body.classList.add("light-mode");
@@ -6738,11 +6754,11 @@ const app = {
         if (this.isDarkMode) {
             document.body.classList.add("green-mode");
             document.body.classList.remove("light-mode");
-            localStorage.setItem("toan6_theme", "green");
+            safeStorage.setItem("toan6_theme", "green");
         } else {
             document.body.classList.add("light-mode");
             document.body.classList.remove("green-mode");
-            localStorage.setItem("toan6_theme", "light");
+            safeStorage.setItem("toan6_theme", "light");
         }
         this.updateThemeIcon();
         
@@ -10472,7 +10488,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
             
             // Quản lý Streak độc lập
-            const lastStudyDateStr = localStorage.getItem("english_last_study_date");
+            const lastStudyDateStr = safeStorage.getItem("english_last_study_date");
             const todayStr = new Date().toDateString();
             if (lastStudyDateStr !== todayStr) {
                 const yesterday = new Date();
@@ -10482,7 +10498,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 } else {
                     this.state.englishStreak = 1;
                 }
-                localStorage.setItem("english_last_study_date", todayStr);
+                safeStorage.setItem("english_last_study_date", todayStr);
             }
 
             this.saveEnglishState();
