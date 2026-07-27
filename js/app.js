@@ -10416,9 +10416,18 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 this.currentEnglishWrongCount = (this.currentEnglishWrongCount || 0) + 1;
                 this.updateEnglishLiveStats();
 
+                // Trừ 10 XP khi làm sai
+                let currentXp = this.state.englishXp || 0;
+                currentXp = Math.max(0, currentXp - 10);
+                this.state.englishXp = currentXp;
+                this.syncCloud();
+                if (typeof this.updateEnglishHeaderStats === 'function') {
+                    this.updateEnglishHeaderStats();
+                }
+
                 banner.classList.add("feedback-wrong");
                 if (duoChar) duoChar.innerText = "😭";
-                if (feedbackTitle) feedbackTitle.innerText = "Chưa chính xác rồi con ơi!";
+                if (feedbackTitle) feedbackTitle.innerHTML = "Chưa chính xác rồi con ơi! <span style='color: #ef4444; font-weight: bold; background: white; padding: 2px 6px; border-radius: 4px; margin-left: 8px;'>-10 XP</span>";
                 let feedbackHtml = explanation;
                 if (q.solutionHtml) {
                     feedbackHtml += `<div class="feedback-solution" style="margin-top:0.8rem; padding:0.8rem; background:rgba(255,255,255,0.4); border-radius:12px; font-size:0.95rem; text-align:left; line-height:1.5; color:#7f1d1d; border-left:4px solid #ef4444;">`;
@@ -12760,6 +12769,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.currentIoeWrongCount++;
             document.getElementById("ioe-wrong-count").innerText = this.currentIoeWrongCount;
 
+            // Trừ 10 XP khi làm sai
+            let currentXp = this.state.englishXp || 0;
+            currentXp = Math.max(0, currentXp - 10);
+            this.state.englishXp = currentXp;
+            this.syncCloud();
+            if (typeof this.updateEnglishHeaderStats === 'function') {
+                this.updateEnglishHeaderStats();
+            }
+
             const wrongSound = new Audio("sounds/wrong.mp3");
             wrongSound.play().catch(e => {});
 
@@ -12770,7 +12788,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
 
             Swal.fire({
-                title: "Chưa chính xác rồi con ơi! 😢",
+                title: "Chưa chính xác! 😢 <br><span style='color: #ef4444; font-size: 0.8em;'>-10 XP</span>",
                 html: explanation,
                 icon: "error",
                 confirmButtonText: "Tiếp tục"
