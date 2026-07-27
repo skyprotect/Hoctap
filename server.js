@@ -3738,7 +3738,14 @@ app.post('/api/tablet/verify-token', async (req, res) => {
       return res.status(404).json({ success: false, error: "Mã số bảo mật không tồn tại!" });
     }
 
-    if (tokenInfo.status === "used") {
+    if (tokenInfo.status === "unused") {
+      const createdTime = new Date(tokenInfo.created_at).getTime();
+      const nowTime = new Date().getTime();
+      const diffMinutes = (nowTime - createdTime) / (1000 * 60);
+      if (diffMinutes > 10) {
+        return res.status(400).json({ success: false, error: "Mã bảo mật này đã hết hạn do quá 10 phút không nhập!" });
+      }
+    } else if (tokenInfo.status === "used") {
       return res.status(400).json({ success: false, error: "Mã số bảo mật này đã được sử dụng hết thời gian!" });
     }
 

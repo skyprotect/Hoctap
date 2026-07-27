@@ -10418,7 +10418,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
                 // Trừ 10 XP khi làm sai
                 let currentXp = this.state.englishXp || 0;
-                currentXp = Math.max(0, currentXp - 10);
+                currentXp = currentXp - 10;
                 this.state.englishXp = currentXp;
                 this.syncCloud();
                 if (typeof this.updateEnglishHeaderStats === 'function') {
@@ -12771,7 +12771,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
             // Trừ 10 XP khi làm sai
             let currentXp = this.state.englishXp || 0;
-            currentXp = Math.max(0, currentXp - 10);
+            currentXp = currentXp - 10;
             this.state.englishXp = currentXp;
             this.syncCloud();
             if (typeof this.updateEnglishHeaderStats === 'function') {

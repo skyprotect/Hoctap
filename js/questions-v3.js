@@ -8910,6 +8910,11 @@ const questions = {
                 q.userSelectedIndex === q.correctIndex;
             if (isCorrect) {
                 this.correctCount++;
+            } else {
+                // Trừ 10 XP môn Toán nếu sai (cho phép âm XP)
+                if (app && app.state) {
+                    app.state.xp = (app.state.xp || 0) - 10;
+                }
             }
             // Lưu kết quả từng câu vào lịch sử cho Phụ huynh (bỏ qua lưu tiến trình từng câu để tránh xung đột)
             app.saveQuestionResult(this.currentLesson.id, q.type, isCorrect, true);
