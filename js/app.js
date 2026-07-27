@@ -2359,6 +2359,75 @@ const app = {
         console.log("✅ Hoàn thành đồng bộ dữ liệu đám mây về SQLite.");
     },
 
+    // Hệ thống tự động đồng bộ đám mây ngầm đa thiết bị chuẩn quốc tế
+    setupCloudAutoSync: function(fb, userEmail) {
+        if (!fb || !fb.auth || !fb.db) return;
+        
+        if (this._isCloudAutoSyncConfigured) return;
+        this._isCloudAutoSyncConfigured = true;
+
+        fb.auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const firebaseUid = user.uid;
+                const email = userEmail || user.email || "";
+                console.log("⚡ [Cloud Auto-Sync] Đã xác thực Firebase Client. Bắt đầu tự động đồng bộ đa thiết bị ngầm...");
+                
+                // 1. Tự động kéo & gộp dữ liệu ngầm khi khởi động ứng dụng
+                try {
+                    await this.pullDataFromFirestoreClient(fb.db, firebaseUid, email);
+                    await this.loadConfig();
+                    console.log("✅ [Cloud Auto-Sync] Đã tự động cập nhật CSDL local từ đám mây khi khởi chạy!");
+                } catch (syncErr) {
+                    console.warn("⚠️ [Cloud Auto-Sync] Lỗi tự động kéo dữ liệu ngầm:", syncErr);
+                }
+
+                // 2. Đăng ký Real-time Listener (Lắng nghe sự kiện từ các thiết bị khác)
+                if (!this._firestoreUnsubscribe) {
+                    try {
+                        this._firestoreUnsubscribe = fb.db.collection('students')
+                            .where('parentUid', '==', firebaseUid)
+                            .onSnapshot(async (snapshot) => {
+                                let hasExternalChanges = false;
+                                snapshot.docChanges().forEach((change) => {
+                                    if (change.type === "modified" || change.type === "added") {
+                                        if (!change.doc.metadata.hasPendingWrites) {
+                                            hasExternalChanges = true;
+                                        }
+                                    }
+                                });
+
+                                if (hasExternalChanges) {
+                                    console.log("🔄 [Realtime Sync] Phát hiện tiến trình mới từ thiết bị khác! Tự động cập nhật...");
+                                    await this.pullDataFromFirestoreClient(fb.db, firebaseUid, email);
+                                    await this.loadConfig();
+                                    if (this.state && this.state.student && this.state.student.id) {
+                                        await this.loadStudentProgress(this.state.student.id);
+                                    }
+                                }
+                            }, (err) => {
+                                console.warn("⚠️ [Realtime Sync] Lỗi listener snapshot:", err);
+                            });
+                        console.log("🌐 [Realtime Sync] Đã kích hoạt bộ lắng nghe thay đổi tiến trình thời gian thực giữa các thiết bị.");
+                    } catch (rtErr) {
+                        console.warn("⚠️ [Realtime Sync] Không thể khởi tạo listener:", rtErr);
+                    }
+                }
+            }
+        });
+
+        // 3. Đăng ký sự kiện tự động đồng bộ khi khôi phục mạng Internet (Network Online Event)
+        if (!this._networkOnlineListenerAdded) {
+            this._networkOnlineListenerAdded = true;
+            window.addEventListener('online', async () => {
+                console.log("🌐 [Network Status] Máy tính đã có lại kết nối Internet. Đang kiểm tra và đẩy dữ liệu lên đám mây...");
+                if (fb.auth.currentUser) {
+                    await this.pushLocalDataToFirestoreClient(fb.db, fb.auth.currentUser.uid, userEmail || fb.auth.currentUser.email || "")
+                        .catch(e => console.warn("Lỗi push data khi online:", e));
+                }
+            });
+        }
+    },
+
     checkGoogleSession: async function() {
         try {
             // 1. Khởi tạo Firebase Client SDK trước tiên
@@ -2371,15 +2440,9 @@ const app = {
                 if (sessionData.loggedIn) {
                     console.log("✅ Phụ huynh đã đăng nhập Google:", sessionData.session.email);
                     
-                    // Nếu Firebase Auth chưa có currentUser, ta lắng nghe sự kiện khôi phục đăng nhập
+                    // Kích hoạt tự động đồng bộ ngầm đa thiết bị & Realtime sync
                     if (fb && fb.auth) {
-                        fb.auth.onAuthStateChanged((user) => {
-                            if (user) {
-                                console.log("🔥 Đã xác thực Firebase Auth Client (Persistence):", user.email);
-                            } else {
-                                console.warn("⚠️ Firebase Auth Client chưa được đăng nhập. Yêu cầu đăng nhập lại ở lần sau.");
-                            }
-                        });
+                        this.setupCloudAutoSync(fb, sessionData.session.email);
                     }
 
                     safeStorage.removeItem('skipGoogleLogin');
