@@ -6469,7 +6469,10 @@ const app = {
             this.state.scores[lessonId] = score;
         }
 
-        // Tích lũy XP
+        // Tích lũy XP (Không cộng XP nếu đã từng làm bài này rồi - prevScore > 0)
+        if (prevScore > 0) {
+            xpEarned = 0;
+        }
         this.state.xp += xpEarned;
 
         // Lưu thông tin học tập của học sinh để phụ huynh theo dõi
@@ -6480,6 +6483,20 @@ const app = {
 
         this.saveProgress();
         this.updateHeaderStats();
+    },
+
+    saveExamResult: function(data) {
+        if (!this.currentLesson) return;
+        const lessonId = this.currentLesson.id;
+        const scorePercent = Math.round(parseFloat(data.score) * 10);
+        const isPassed = scorePercent >= 80;
+        let xpEarned = 0;
+        if (isPassed) {
+            xpEarned = 100;
+        } else if (scorePercent > 0) {
+            xpEarned = Math.round(scorePercent / 2);
+        }
+        this.saveLessonScore(lessonId, scorePercent, xpEarned, isPassed);
     },
 
     checkAndReward100PercentLesson: function(lessonId, subject = 'math') {
@@ -6841,7 +6858,7 @@ const app = {
                 btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
                 statusText = `<span style="color:#10b981; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock-open"></i> Đã mở khóa huy hiệu</span>`;
-                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldBadge('${badge.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (350 XP)</button>`;
+                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldBadge('${badge.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (2000 XP)</button>`;
             } else {
                 statusText = `<span style="color:#ef4444; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Chưa mở khóa huy hiệu</span>`;
                 btnHtml = `<button class="btn-primary" disabled style="background:#cbd5e1; color:#94a3b8; border:none; padding:8px 20px; border-radius:10px; font-weight:800; width:100%; cursor:not-allowed;">Cần mở khóa trước</button>`;
@@ -6876,7 +6893,7 @@ const app = {
 
     upgradeGoldBadge: function(badgeId) {
         const currentXp = this.state.xp || 0;
-        const cost = 350;
+        const cost = 2000;
         if (currentXp < cost) {
             Swal.fire("Không đủ XP ❌", `Con cần tích lũy thêm ${cost - currentXp} XP để mạ vàng huy hiệu này!`, "error");
             return;
@@ -10453,7 +10470,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             if (banner) banner.classList.remove("active");
 
             const lessonId = this.currentEnglishLessonId;
-            const xpEarned = 100; // Nhận 100 XP
+            let xpEarned = 100; // Nhận 100 XP
             
             // Lưu điểm độc lập theo kỹ năng
             const scoreKey = `${lessonId}-${this.currentEnglishSkill}`;
@@ -10461,6 +10478,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             
             if (finalScorePct > currentScore) {
                 this.state.scores[scoreKey] = finalScorePct;
+            }
+
+            // Nếu đã từng làm bài này rồi thì không cộng XP nữa
+            if (currentScore > 0) {
+                xpEarned = 0;
             }
 
             // Lưu lịch sử chi tiết
@@ -10929,7 +10951,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
                 statusText = `<span style="color:#10b981; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock-open"></i> Đã mở khóa thẻ gốc</span>`;
-                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (350 XP)</button>`;
+                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (2000 XP)</button>`;
             } else {
                 statusText = `<span style="color:#ef4444; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Chưa mở khóa thẻ</span>`;
                 btnHtml = `<button class="btn-primary" disabled style="background:#cbd5e1; color:#94a3b8; border:none; padding:8px 20px; border-radius:10px; font-weight:800; width:100%; cursor:not-allowed;">Cần mở khóa trước</button>`;
