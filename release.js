@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const https = require('https');
 const url = require('url');
 
@@ -146,9 +146,9 @@ try {
 
 // 5. Đóng gói bộ cài đặt .exe bằng Inno Setup Compiler (ISCC)
 console.log('\n🛠️ Đang biên dịch bộ cài đặt bằng Inno Setup...');
-const isccPath = '"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe"';
+const isccPath = 'C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe';
 try {
-  execSync(`${isccPath} "${installerPath}"`, { stdio: 'inherit' });
+  execFileSync(isccPath, [installerPath], { stdio: 'inherit' });
   console.log('✅ Biên dịch bộ cài đặt thành công.');
 } catch (error) {
   console.error('❌ LỖI: Biên dịch Inno Setup thất bại. Hãy chắc chắn Inno Setup 6 đã được cài đặt tại Program Files (x86).');
