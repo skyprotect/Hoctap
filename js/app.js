@@ -8823,6 +8823,8 @@ const app = {
             this.renderEnglishProfile();
         } else if (tabName === 'custom-vocab') {
             this.renderCustomVocabTab();
+        } else if (tabName === 'exams') {
+            this.renderStudentEnglishExamCenter();
         }
     },
 
@@ -12398,6 +12400,219 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             </div>
         `;
         placeholder.innerHTML = roundsHtml;
+    },
+
+    renderStudentEnglishExamCenter: function() {
+        const categorySelect = document.getElementById("student-eng-category-select");
+        if (categorySelect && !categorySelect.dataset.initialized) {
+            categorySelect.dataset.initialized = "true";
+            this.onStudentEngCategoryChange();
+        } else if (categorySelect) {
+            this.onStudentEngCategoryChange();
+        }
+    },
+
+    onStudentEngCategoryChange: function() {
+        const catSelect = document.getElementById("student-eng-category-select");
+        const detailLabel = document.getElementById("student-eng-detail-label");
+        const detailSelect = document.getElementById("student-eng-detail-select");
+        const grammarPanel = document.getElementById("student-eng-grammar-panel");
+
+        if (!catSelect || !detailSelect) return;
+        const category = catSelect.value;
+
+        if (category === 'grammar') {
+            if (grammarPanel) grammarPanel.classList.remove("hidden");
+        } else {
+            if (grammarPanel) grammarPanel.classList.add("hidden");
+        }
+
+        const classLevel = this.config.currentClass || "6";
+        const classData = window.ENGLISH_COURSE_DATA[classLevel] || window.ENGLISH_COURSE_DATA["6"];
+        detailSelect.innerHTML = "";
+
+        if (category === "unit") {
+            if (detailLabel) detailLabel.innerText = "Chọn Bài học (Unit):";
+            classData.topics.forEach((t, idx) => {
+                const opt = document.createElement("option");
+                opt.value = t.id;
+                opt.innerText = `Unit ${idx + 1}: ${t.title.replace(/^Unit \d+:\s*/, "")}`;
+                detailSelect.appendChild(opt);
+            });
+        } else if (category === "topic") {
+            if (detailLabel) detailLabel.innerText = "Chọn Chủ đề Tổng hợp:";
+            const topics = [
+                { id: "school", name: "Trường học & Học tập (School Life)" },
+                { id: "house", name: "Ngôi nhà & Đồ đạc (My House & Living)" },
+                { id: "friends", name: "Bạn bè & Tính cách (Friends & Personality)" },
+                { id: "wonders", name: "Kỳ quan Thiên nhiên (Natural Wonders)" },
+                { id: "festivals", name: "Ngày lễ & Tết (Tet Holiday & Celebrations)" },
+                { id: "sports", name: "Thể thao & Giải trí (Sports & Hobbies)" },
+                { id: "cities", name: "Các Thành phố Thế giới (World Cities)" },
+                { id: "environment", name: "Môi trường & Trái đất (Environment & Green Living)" }
+            ];
+            topics.forEach(t => {
+                const opt = document.createElement("option");
+                opt.value = t.id;
+                opt.innerText = t.name;
+                detailSelect.appendChild(opt);
+            });
+        } else if (category === "grammar") {
+            if (detailLabel) detailLabel.innerText = "Kiểu trộn Ngữ pháp:";
+            const optAll = document.createElement("option");
+            optAll.value = "all";
+            optAll.innerText = "✨ Tất cả Ngữ pháp / Ngẫu nhiên";
+            detailSelect.appendChild(optAll);
+
+            const optCustom = document.createElement("option");
+            optCustom.value = "custom";
+            optCustom.innerText = "🎯 Tùy chọn theo Checkbox ở bên dưới";
+            detailSelect.appendChild(optCustom);
+        } else if (category === "semester") {
+            if (detailLabel) detailLabel.innerText = "Chọn Bài kiểm tra Kỳ thi:";
+            const exams = [
+                { id: "midterm1", name: "🏆 Đề Thi Giữa Học Kỳ 1 (4 Kỹ Năng)" },
+                { id: "final1", name: "🥇 Đề Thi Cuối Học Kỳ 1 (4 Kỹ Năng)" },
+                { id: "midterm2", name: "🏆 Đề Thi Giữa Học Kỳ 2 (4 Kỹ Năng)" },
+                { id: "final2", name: "🥇 Đề Thi Cuối Học Kỳ 2 (4 Kỹ Năng)" }
+            ];
+            exams.forEach(e => {
+                const opt = document.createElement("option");
+                opt.value = e.id;
+                opt.innerText = e.name;
+                detailSelect.appendChild(opt);
+            });
+        }
+    },
+
+    toggleAllStudentGrammar: function() {
+        const checkboxes = document.querySelectorAll(".student-eng-grammar-cb");
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+        checkboxes.forEach(cb => cb.checked = !allChecked);
+    },
+
+    startStudentEnglishExamOnline: async function() {
+        const catSelect = document.getElementById("student-eng-category-select");
+        const levelSelect = document.getElementById("student-eng-level-select");
+        const detailSelect = document.getElementById("student-eng-detail-select");
+
+        const category = catSelect ? catSelect.value : "unit";
+        const level = levelSelect ? levelSelect.value : "advanced";
+        const detail = detailSelect ? detailSelect.value : "";
+
+        let selectedGrammars = [];
+        if (category === "grammar") {
+            const checkedCbs = document.querySelectorAll(".student-eng-grammar-cb:checked");
+            selectedGrammars = Array.from(checkedCbs).map(cb => cb.value);
+        }
+
+        Swal.fire({
+            title: 'Đang khởi tạo Đề thi AI... 🤖',
+            text: 'Hệ thống đang biên dịch bài thi 4 kỹ năng ngẫu nhiên chuẩn GDPT 2018...',
+            allowOutsideClick: false,
+            didOpen: () => { Swal.showLoading(); }
+        });
+
+        try {
+            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&skill=full_exam`));
+            const data = await response.json();
+
+            Swal.close();
+
+            let questions = [];
+            if (data && data.questions && data.questions.length > 0) {
+                questions = data.questions;
+            } else {
+                questions = window.generateIoeQuestions("6", detail || "eng6-t1");
+            }
+
+            if (!questions || questions.length === 0) {
+                Swal.fire("Thông báo", "Không thể khởi tạo câu hỏi cho đề thi này. Vui lòng thử lại.", "warning");
+                return;
+            }
+
+            this.currentIoeQuestions = questions;
+            this.currentIoeQuestionIndex = 0;
+            this.currentIoeScore = 0;
+            this.currentIoeCorrectCount = 0;
+            this.currentIoeWrongCount = 0;
+            this.currentIoeTimeRemaining = 1200;
+
+            const corrEl = document.getElementById("ioe-correct-count");
+            if (corrEl) corrEl.innerText = 0;
+            const wrgEl = document.getElementById("ioe-wrong-count");
+            if (wrgEl) wrgEl.innerText = 0;
+            const scrEl = document.getElementById("ioe-current-score");
+            if (scrEl) scrEl.innerText = 0;
+
+            document.body.classList.add("focus-mode-active");
+            const examScreen = document.getElementById("english-ioe-exam-screen");
+            if (examScreen) examScreen.classList.remove("hidden");
+
+            if (this.currentIoeTimer) clearInterval(this.currentIoeTimer);
+            this.currentIoeTimer = setInterval(() => this.updateIoeTimer(), 1000);
+            this.updateIoeTimer();
+
+            this.renderIoeQuestion();
+        } catch (err) {
+            Swal.close();
+            console.error("Lỗi khởi tạo đề thi:", err);
+            const fallbackQuestions = window.generateIoeQuestions("6", detail || "eng6-t1");
+            this.currentIoeQuestions = fallbackQuestions;
+            this.currentIoeQuestionIndex = 0;
+            this.currentIoeScore = 0;
+            this.currentIoeCorrectCount = 0;
+            this.currentIoeWrongCount = 0;
+            this.currentIoeTimeRemaining = 1200;
+            document.body.classList.add("focus-mode-active");
+            const examScreen = document.getElementById("english-ioe-exam-screen");
+            if (examScreen) examScreen.classList.remove("hidden");
+            if (this.currentIoeTimer) clearInterval(this.currentIoeTimer);
+            this.currentIoeTimer = setInterval(() => this.updateIoeTimer(), 1000);
+            this.updateIoeTimer();
+            this.renderIoeQuestion();
+        }
+    },
+
+    exportStudentEnglishPdf: function() {
+        const catSelect = document.getElementById("student-eng-category-select");
+        const levelSelect = document.getElementById("student-eng-level-select");
+        const detailSelect = document.getElementById("student-eng-detail-select");
+
+        const parentSubject = document.getElementById("pdf-subject-select");
+        if (parentSubject) parentSubject.value = "english";
+
+        const parentClass = document.getElementById("pdf-class-select");
+        if (parentClass) parentClass.value = "6";
+
+        const parentCategory = document.getElementById("pdf-exam-category-select");
+        if (parentCategory && catSelect) parentCategory.value = catSelect.value;
+
+        const parentLevel = document.getElementById("pdf-exam-level-select");
+        if (parentLevel && levelSelect) parentLevel.value = levelSelect.value;
+
+        if (typeof parentDashboard !== "undefined" && typeof parentDashboard.onPdfCategoryChange === "function") {
+            parentDashboard.onPdfCategoryChange();
+        }
+
+        const parentLesson = document.getElementById("pdf-lesson-select");
+        if (parentLesson && detailSelect) parentLesson.value = detailSelect.value;
+
+        const studentGrammarCbs = document.querySelectorAll(".student-eng-grammar-cb");
+        const parentGrammarCbs = document.querySelectorAll(".pdf-grammar-cb");
+        if (studentGrammarCbs.length > 0 && parentGrammarCbs.length > 0) {
+            studentGrammarCbs.forEach(scb => {
+                parentGrammarCbs.forEach(pcb => {
+                    if (pcb.value === scb.value) pcb.checked = scb.checked;
+                });
+            });
+        }
+
+        if (typeof parentDashboard !== "undefined" && typeof parentDashboard.generatePdfExamPreview === "function") {
+            parentDashboard.generatePdfExamPreview();
+        } else {
+            Swal.fire("Lỗi", "Bộ tạo PDF chưa được nạp đầy đủ. Vui lòng tải lại trang.", "error");
+        }
     },
 
     startIoeExam: function(topicId) {
