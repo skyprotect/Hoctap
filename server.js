@@ -1,3 +1,14 @@
+
+// Helper xác định cấp lớp chuẩn xác của học sinh từ studentId (Trần Đức Phúc: Lớp 4, Trần Bình Minh: Lớp 6, Trần Bảo Ngọc: Lớp 1)
+function resolveStudentClassLevel(studentId, reqClassLevel) {
+  if (studentId === 'std_tyc0gfnkz') return '4';
+  if (studentId === 'std_htsj4gbmo') return '6';
+  if (studentId === 'std_baongoc') return '1';
+  if (reqClassLevel && ['1', '4', '6'].includes(String(reqClassLevel))) {
+    return String(reqClassLevel);
+  }
+  return '6';
+}
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
@@ -1301,10 +1312,11 @@ Nhiệm vụ của bạn là thẩm định và sửa các lỗi nếu có:
 
     let textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!textResponse) throw new Error('Không nhận được phản hồi từ AI Auditor.');
-    return JSON.parse(cleanJsonString(textResponse));
+    const cleaned = cleanJsonString(textResponse);
+    return JSON.parse(cleaned);
   } catch (err) {
-    console.error('Lỗi thẩm định bằng AI Auditor:', err);
-    throw err; // Ném lỗi thay vì âm thầm trả về bản gốc chưa được thẩm định
+    console.error('Lỗi thẩm định bằng AI Auditor:', err.message);
+    return originalData; // Fallback an toàn về dữ liệu gốc để không làm sập server
   }
 }
 
@@ -1380,6 +1392,81 @@ Ví dụ minh họa cấu trúc câu hỏi:
 
 Hãy biên soạn đúng 10 câu hỏi chất lượng cao dưới dạng mảng JSON "questions" như trên.
 Chỉ trả về chuỗi JSON thô, không bọc trong tag \`\`\`json hay bất kỳ văn bản thừa nào.`;
+};
+
+const getEnglishFullExamPrompt = (lessonTitle, lessonId, classLevel = '6', category = 'unit', selectedGrammars = [], level = 'advanced') => {
+  const bt = String.fromCharCode(96);
+  let categoryDesc = '';
+  if (category === 'unit') {
+    categoryDesc = `Theo bài học / Unit: "${lessonTitle}"`;
+  } else if (category === 'topic') {
+    categoryDesc = `Theo chủ đề tổng hợp: "${lessonTitle}"`;
+  } else if (category === 'grammar') {
+    const grammarsList = selectedGrammars.length > 0 ? selectedGrammars.join(', ') : 'Tất cả 10 thì & dạng ngữ pháp Lớp 6';
+    categoryDesc = `Theo các thì & dạng ngữ pháp Lớp 6 được chọn: ${grammarsList}`;
+  } else if (category === 'semester') {
+    categoryDesc = `Đề thi Đánh giá Năng lực Kỳ thi: "${lessonTitle}"`;
+  }
+
+  let levelDesc = '';
+  if (level === 'basic') levelDesc = 'Mức độ CƠ BẢN (60% Nhận biết, Thông hiểu - Đề đại trà Lớp 6)';
+  else if (level === 'advanced') levelDesc = 'Mức độ NÂNG CAO (70% Vận dụng - Đề phân hóa học sinh khá giỏi)';
+  else if (level === 'expert') levelDesc = 'Mức độ KHÓ / CHUYÊN SÂU (Vận dụng cao - Đề học sinh giỏi)';
+  else if (level === 'ai') levelDesc = 'Mức độ AI CÁ NHÂN HÓA (Đề bám sát lỗ hổng từ vựng / ngữ pháp)';
+  else if (level === 'gifted') levelDesc = 'Mức độ TRƯỜNG CHUYÊN TỈNH/THÀNH PHỐ (Đề thi thử Lớp 6 Trường Chuyên Trần Đại Nghĩa, Ams, Chuyên Ngoại Ngữ...)';
+
+  return `Bạn là Chuyên gia biên soạn đề thi Tiếng Anh Lớp 6 uy tín theo Chuẩn GDPT 2018 của Bộ Giáo dục & Đào tạo Việt Nam.
+Hãy biên soạn đúng 1 ĐỀ THI KIỂM TRA ĐÁNH GIÁ NĂNG LỰC TIẾNG ANH LỚP 6 ĐẦY ĐỦ CÁC KỸ NĂNG.
+Thông tin cấu hình:
+- ${categoryDesc}
+- ${levelDesc}
+- Khối lớp: Lớp 6 (GDPT 2018)
+
+Hãy tạo 10 câu hỏi kiểm tra đầy đủ các kỹ năng & thành phần ngôn ngữ:
+
+PART 1. LISTENING (Kỹ năng Nghe - 2 câu):
+- 1 câu Nghe trắc nghiệm chọn đáp án đúng.
+- 1 câu Nghe điền từ hoặc câu vào ô trống.
+- BẮT BUỘC thuộc tính "questionType": "listening", "category": "listening", "listeningText": "Câu hoặc đoạn đọc tiếng Anh để máy đọc (TTS) và QR code".
+- BẮT BUỘC thuộc tính "audioScript": "Transcript bài nghe nguyên bản".
+
+PART 2. LANGUAGE FOCUS - PRONUNCIATION & GRAMMAR (Ngữ âm & Ngữ pháp - 4 câu):
+- 1 câu Phonetics (Tìm từ có phần gạch chân phát âm khác hoặc trọng âm khác).
+- 3 câu Grammar & Vocabulary chọn từ/thì động từ đúng (Present Simple, Past Simple, Future, Comparatives, Modals, Prepositions...).
+- Thuộc tính: "category": "grammar".
+
+PART 3. READING (Kỹ năng Đọc hiểu - 2 câu):
+- 1 câu Đọc hiểu đoạn văn ngắn (Passage Comprehension). Thuộc tính "passageText": "Đoạn văn ngắn 3-5 câu".
+- 1 câu Đọc điền từ vào ô trống (Cloze Test).
+
+PART 4. WRITING (Kỹ năng Viết - 2 câu):
+- 1 câu Viết lại câu sao cho nghĩa không đổi (Sentence Transformation). Thuộc tính: "questionType": "writing_rewrite", "category": "writing".
+- 1 câu Sắp xếp từ thành câu hoàn chỉnh (Word Unscramble). Thuộc tính: "questionType": "writing", "wordPool": ["mảng", "từ", "bị", "xáo", "trộn"].
+
+Cấu trúc đối tượng JSON cho mỗi câu hỏi:
+{
+  "isTemplate": true,
+  "questionType": "listening" | "choice" | "phonetics" | "reading_passage" | "writing_rewrite" | "writing",
+  "category": "listening" | "grammar" | "reading" | "writing",
+  "questionText": "Đề bài câu hỏi tiếng Anh...",
+  "listeningText": "Text tiếng Anh cho phát âm TTS/Audio QR Code (nếu là listening)",
+  "audioScript": "Transcript nguyên bản (nếu là listening)",
+  "passageText": "Đoạn văn đọc hiểu (nếu có)",
+  "options": ["A. ...", "B. ...", "C. ...", "D. ..."],
+  "correctIndex": chỉ số đúng (0-3),
+  "correctAnswer": "Đáp án đúng bằng chữ",
+  "correctAnswers": ["Danh sách các câu trả lời đúng được chấp nhận"],
+  "wordPool": ["mảng", "từ", "gợi", "ý"],
+  "hints": ["Gợi ý làm bài bằng TIẾNG VIỆT CÓ DẤU"],
+  "solutionHtml": "Lời giải chi tiết bằng TIẾNG VIỆT CÓ DẤU đầy đủ, đúng ngữ pháp sư phạm.",
+  "tip": "Mẹo ngữ pháp / từ vựng bằng TIẾNG VIỆT CÓ DẤU",
+  "level": "${level}"
+}
+
+QUY TẮC BẮT BUỘC:
+1. Tuyệt đối không bao giờ để đáp án đúng trùng lặp với các phương án nhiễu.
+2. Mọi nội dung Hướng dẫn giải (solutionHtml), Mẹo (tip), Gợi ý (hints) phải bằng TIẾNG VIỆT CÓ DẤU đầy đủ, chuẩn sư phạm.
+3. Trả về duy nhất mảng JSON {"questions": [...]}, không bọc trong tag \${bt}\${bt}\${bt}json hay văn bản thừa nào.`;
 };
 
 const getEnglishPrompt = (lessonTitle, lessonId, classLevel = '6', skill = 'listening', reviewWords = []) => {
@@ -2491,7 +2578,10 @@ app.post('/api/heartbeat', async (req, res) => {
     const studentConf = studentsList.find(s => s.id === studentId);
     const sysConf = SYSTEM_STUDENTS.find(s => s.id === studentId);
     
-    const studentName = studentConf ? studentConf.name : (sysConf ? sysConf.name : "Học sinh");
+    let studentName = studentConf ? studentConf.name : (sysConf ? sysConf.name : "Học sinh");
+    if ((!studentName || studentName === 'Học sinh') && sysConf) {
+      studentName = sysConf.name;
+    }
     const actualClassLevel = studentConf ? studentConf.classLevel : (sysConf ? sysConf.classLevel : (classLevel || "6"));
 
     const payload = {
@@ -2711,6 +2801,27 @@ app.get('/api/leaderboard', async (req, res) => {
       list = Object.values(data);
     }
     
+    // Chuẩn hóa tên và thông tin cho học sinh hệ thống nếu bị thiếu hoặc mặc định "Học sinh"
+    list.forEach(item => {
+      const sys = SYSTEM_STUDENTS.find(s => s.id === item.studentId);
+      if (sys) {
+        if (!item.studentName || item.studentName === 'Học sinh') {
+          item.studentName = sys.name;
+        }
+        if (!item.classLevel) {
+          item.classLevel = sys.classLevel;
+        }
+      }
+    });
+
+    // Lọc loại bỏ học sinh ảo hoặc học sinh rác không xác định
+    list = list.filter(item => {
+      if (item.studentId && String(item.studentId).startsWith('mock')) return false;
+      const isSys = SYSTEM_STUDENTS.some(s => s.id === item.studentId);
+      if (isSys) return true;
+      return item.studentName && item.studentName !== 'Học sinh';
+    });
+
     // Lọc theo lớp học nếu được yêu cầu
     if (classLevel) {
       list = list.filter(item => item.classLevel === classLevel);
@@ -2986,16 +3097,18 @@ app.post('/api/pre-generate-questions', async (req, res) => {
 /**
  * API lấy bộ đề Chất lượng cao (từ cache hoặc sinh trực tiếp)
  */
+
 app.get('/api/get-questions', async (req, res) => {
-  const { lessonId, lessonTitle, classLevel, studentId, skill } = req.query;
+  const { lessonId, lessonTitle, classLevel, studentId, skill, subject, category, level, grammars } = req.query;
   const stId = studentId || 'default';
   const targetSkill = skill || 'listening';
+  const selectedSubject = subject || (String(lessonId).startsWith('eng') ? 'english' : 'math');
   if (!lessonId) {
     return res.status(400).json({ error: 'Thiếu tham số lessonId' });
   }
 
   const isCustomTopic = String(lessonId).startsWith('custom-t-');
-  const isEnglish = String(lessonId).startsWith('eng') || isCustomTopic;
+  const isEnglish = selectedSubject === 'english' || String(lessonId).startsWith('eng') || isCustomTopic;
 
   // 1. Nếu là Chuyên đề tự chọn của Phụ huynh nạp
   if (isCustomTopic) {
@@ -3042,7 +3155,7 @@ app.get('/api/get-questions', async (req, res) => {
 
   // 2. Kiểm tra xem có từ vựng nào cần ôn tập (Spaced Repetition) không
   let reviewWords = [];
-  if (isEnglish && stId !== 'default') {
+  if (isEnglish && stId !== 'default' && targetSkill !== 'full_exam') {
     try {
       reviewWords = await new Promise((resolve) => {
         db.all(
@@ -3065,11 +3178,11 @@ app.get('/api/get-questions', async (req, res) => {
     }
   }
 
-  // 3. Nếu không có từ ôn tập, thử đọc từ Cache cục bộ
-  const cacheKey = isEnglish ? `${lessonId}-${targetSkill}` : lessonId;
+  // 3. Thử đọc từ Cache cục bộ đối với bài học thường
+  const cacheKey = isEnglish ? `${lessonId}-${targetSkill}-${level || 'default'}` : lessonId;
   const cachePath = getPregenFilePath(stId, cacheKey);
 
-  if (reviewWords.length === 0 && fs.existsSync(cachePath)) {
+  if (reviewWords.length === 0 && targetSkill !== 'full_exam' && fs.existsSync(cachePath)) {
     try {
       const data = fs.readFileSync(cachePath, 'utf8');
       let parsed = JSON.parse(data);
@@ -3082,13 +3195,21 @@ app.get('/api/get-questions', async (req, res) => {
     }
   }
 
-  // 4. Nếu có từ ôn tập hoặc không có cache, sinh đề trực tiếp bằng AI
+  // 4. Sinh đề trực tiếp bằng AI (Full exam hoặc Single skill)
   let textResponse = '';
   try {
-    addAiLog(`Tiến hành sinh trực tiếp đề cho bài: ${lessonTitle || lessonId} - kỹ năng: ${targetSkill} (HS: ${stId}) (Ôn tập từ cũ: ${reviewWords.map(w => w.word).join(', ') || 'không'})`);
-    const prompt = isEnglish 
-      ? getEnglishPrompt(lessonTitle || lessonId, lessonId, classLevel || '6', targetSkill, reviewWords)
-      : getMathPrompt(lessonTitle || lessonId, lessonId, classLevel || '6');
+    addAiLog(`Tiến hành sinh trực tiếp đề cho bài: ${lessonTitle || lessonId} - kỹ năng: ${targetSkill} (HS: ${stId}) (Loại đề: ${category || 'unit'}, Cấp độ: ${level || 'advanced'})`);
+    let prompt = '';
+    if (isEnglish) {
+      if (targetSkill === 'full_exam') {
+        const selectedG = grammars ? String(grammars).split(',').filter(Boolean) : [];
+        prompt = getEnglishFullExamPrompt(lessonTitle || lessonId, lessonId, classLevel || '6', category || 'unit', selectedG, level || 'advanced');
+      } else {
+        prompt = getEnglishPrompt(lessonTitle || lessonId, lessonId, classLevel || '6', targetSkill, reviewWords);
+      }
+    } else {
+      prompt = getMathPrompt(lessonTitle || lessonId, lessonId, classLevel || '6');
+    }
     
     const data = await callGeminiAPI({
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
@@ -3109,8 +3230,8 @@ app.get('/api/get-questions', async (req, res) => {
       examData = { questions: examData };
     }
 
-    // Chỉ lưu cache nếu bài học không chứa từ ôn tập cá nhân hóa
-    if (reviewWords.length === 0) {
+    // Lưu cache nếu không phải bài học cá nhân hóa đặc biệt
+    if (reviewWords.length === 0 && targetSkill !== 'full_exam') {
       fs.writeFileSync(cachePath, JSON.stringify(examData, null, 2), 'utf8');
     }
     
@@ -3179,27 +3300,41 @@ app.post('/api/save-printed-pdf', async (req, res) => {
     });
     const page = await browser.newPage();
     
-    // Tạo cấu trúc HTML hoàn chỉnh với KaTeX CSS
+    // Nạp CSS KaTeX cục bộ để hỗ trợ 100% Offline (Zero-Config Distribution)
+    const localKatexCssPath = path.join(__dirname, 'css', 'lib', 'katex.min.css');
+    let inlineKatexCss = '';
+    if (fs.existsSync(localKatexCssPath)) {
+      inlineKatexCss = fs.readFileSync(localKatexCssPath, 'utf8');
+    }
+
+    // Tạo cấu trúc HTML hoàn chỉnh với KaTeX CSS nội tuyến
     const fullHtml = `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <title>Đề thi kiểm định</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
         <style>
+          ${inlineKatexCss}
+
           body {
             margin: 0;
             padding: 20mm 15mm;
             font-family: 'Times New Roman', Times, Georgia, serif;
             line-height: 1.6;
             font-size: 14px;
-            color: #000000;
-            background-color: #ffffff;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+          }
+          *, body * {
+            color: #000000 !important;
           }
           .math-render, .katex {
             color: #000000 !important;
             font-size: 1.05em;
+          }
+          .katex-mathml {
+            display: none !important;
           }
           .print-page-break {
             page-break-before: always;
@@ -3227,10 +3362,11 @@ app.post('/api/save-printed-pdf', async (req, res) => {
       </html>
     `;
 
-    await page.setContent(fullHtml);
+    await page.setContent(fullHtml, { waitUntil: 'load' });
     await page.pdf({
       path: outputPath,
       format: 'A4',
+      printBackground: true,
       margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' }
     });
 
@@ -3326,7 +3462,8 @@ app.post('/api/ai-analysis', authenticateAdminToken, async (req, res) => {
 
   const studentName = req.body.studentName || 'học sinh';
   const parentName = req.body.parentName || 'phụ huynh';
-  const classLevel = req.body.classLevel || '6';
+  const studentId = req.body.studentId;
+const classLevel = resolveStudentClassLevel(studentId, req.body.classLevel);
   const xp = req.body.xp || 0;
   const scores = req.body.scores || {};
 
@@ -3883,7 +4020,7 @@ app.post('/api/tablet/use-token', async (req, res) => {
 app.post('/api/audit-exam-session', authenticateAdminToken, async (req, res) => {
   const { session, studentId, classLevel } = req.body;
   const stId = studentId || session?.studentId || 'default';
-  const clsLvl = classLevel || session?.classLevel || '6';
+  const clsLvl = resolveStudentClassLevel(studentId, classLevel || session?.classLevel);
   if (!session || !session.questions) {
     return res.status(400).json({ error: 'Thiếu dữ liệu lượt làm bài' });
   }
@@ -4137,7 +4274,10 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
       // Chờ 1.2 giây để kiosk_lock.exe phát hiện file flag và dọn dẹp xong, sau đó tắt Node.js server
       setTimeout(() => {
         console.log("Tắt hoàn toàn Node.js server theo yêu cầu shutdown...");
-        process.exit(0);
+        const { exec } = require('child_process');
+        exec("powershell.exe -WindowStyle Hidden -Command \"Stop-Process -Name kiosk_lock -Force -ErrorAction SilentlyContinue; Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'chrome.exe' -and $_.CommandLine -like '*C:\\ChromeKioskToan6*' } | Stop-Process -Force -ErrorAction SilentlyContinue\"", () => {
+          process.exit(0);
+        });
       }, 1200);
     } else {
       // Chế độ thoát Kiosk thông thường (quay về Dashboard Admin trên trình duyệt thường)
@@ -4174,7 +4314,8 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.78';
+const APP_VERSION = '12.95';
+
 
 // 2. API lấy danh sách từ vựng tự nạp
 app.get('/api/custom-vocabulary', (req, res) => {

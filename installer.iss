@@ -3,7 +3,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=12.78
+AppVersion=12.95
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -12,7 +12,7 @@ DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=F:\KHQS\AntiGravity
-OutputBaseFilename=ToanHocKiosk_Setup_v12.78
+OutputBaseFilename=ToanHocKiosk_Setup_v12.95
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -43,9 +43,9 @@ Source: "F:\KHQS\AntiGravity\HocTap_Clean\.env.example"; DestName: ".env"; DestD
 ; Không đóng gói database.db để tránh ghi đè dữ liệu học sinh cũ
 
 [Icons]
-Name: "{group}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"
-Name: "{group}\Dừng học"; Filename: "{app}\Dung hoc.vbs"; IconFilename: "{app}\images\app.ico"
-Name: "{userdesktop}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
+Name: "{group}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"
+Name: "{group}\Dừng học"; Filename: "{app}\Dung hoc.vbs"; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"
+Name: "{userdesktop}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; WorkingDir: "{app}"; IconFilename: "{app}\images\app.ico"; Tasks: desktopicon
 
 
 [InstallDelete]

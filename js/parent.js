@@ -2031,7 +2031,7 @@ const parentDashboard = {
 
         const subjectSelect = document.getElementById("pdf-subject-select");
         if (subjectSelect) {
-            subjectSelect.value = app.currentSubject || "math";
+            subjectSelect.value = app.currentSubject || "english";
         }
 
         // Tự điền tên học sinh hiện tại làm gợi ý vào ô nhập tên học sinh
@@ -2042,40 +2042,128 @@ const parentDashboard = {
             studentNameInput.value = app.config.studentName || "";
         }
 
-        this.onPdfClassChange();
+        this.onPdfCategoryChange();
     },
 
     onPdfSubjectChange: function() {
-        this.onPdfClassChange();
+        this.onPdfCategoryChange();
+    },
+
+    toggleAllPdfGrammar: function(selectAll) {
+        const checkboxes = document.querySelectorAll('.pdf-grammar-ck');
+        checkboxes.forEach(ck => ck.checked = selectAll);
+    },
+
+    playAudioSpeech: function(text) {
+        if (!text) return;
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            Swal.fire({ icon: 'info', title: 'Thông báo', text: 'Trình duyệt của bạn không hỗ trợ phát âm thanh Web Speech.' });
+        }
+    },
+
+    onPdfCategoryChange: function() {
+        const subjectSelect = document.getElementById("pdf-subject-select");
+        const subjectVal = subjectSelect ? subjectSelect.value : "english";
+        const categorySelect = document.getElementById("pdf-exam-category-select");
+        const categoryVal = categorySelect ? categorySelect.value : "unit";
+
+        const grammarPanel = document.getElementById("pdf-grammar-panel");
+        const topicLessonContainer = document.getElementById("pdf-topic-lesson-container");
+        const chapterGroup = document.getElementById("pdf-chapter-group");
+        const lessonGroup = document.getElementById("pdf-lesson-group");
+        const chapterSelect = document.getElementById("pdf-chapter-select");
+        const lessonSelect = document.getElementById("pdf-lesson-select");
+
+        if (categoryVal === 'grammar' && subjectVal === 'english') {
+            if (grammarPanel) grammarPanel.classList.remove("hidden");
+            if (topicLessonContainer) topicLessonContainer.classList.add("hidden");
+            return;
+        } else {
+            if (grammarPanel) grammarPanel.classList.add("hidden");
+            if (topicLessonContainer) topicLessonContainer.classList.remove("hidden");
+        }
+
+        const classVal = document.getElementById("pdf-class-select").value;
+        if (!chapterSelect || !lessonSelect) return;
+        chapterSelect.innerHTML = "";
+        lessonSelect.innerHTML = "";
+
+        if (categoryVal === 'unit') {
+            if (chapterGroup) chapterGroup.classList.remove("hidden");
+            if (lessonGroup) lessonGroup.classList.remove("hidden");
+            document.getElementById("pdf-chapter-label").textContent = "Chọn Chương / Unit:";
+            document.getElementById("pdf-lesson-label").textContent = "Chọn Bài học / Chi tiết:";
+
+            if (typeof COURSE_DATA !== "undefined") {
+                const chapters = COURSE_DATA.filter(chapter => {
+                    const chapterClass = chapter.class || '6';
+                    const chapterSubject = chapter.subject || 'math';
+                    return chapterClass === classVal && chapterSubject === subjectVal;
+                });
+
+                chapters.forEach(chapter => {
+                    const opt = document.createElement("option");
+                    opt.value = chapter.id;
+                    opt.textContent = chapter.title;
+                    chapterSelect.appendChild(opt);
+                });
+            }
+            this.onPdfChapterChange();
+        } else if (categoryVal === 'topic') {
+            if (chapterGroup) chapterGroup.classList.remove("hidden");
+            if (lessonGroup) lessonGroup.classList.add("hidden");
+            document.getElementById("pdf-chapter-label").textContent = "Chọn Chủ đề Tổng hợp:";
+
+            const topics = subjectVal === 'english' ? [
+                { id: 'topic-school', title: '🏫 Chủ đề 1: Trường học & Học tập (School & Education)' },
+                { id: 'topic-home', title: '🏠 Chủ đề 2: Gia đình & Ngôi nhà (Family & House)' },
+                { id: 'topic-friends', title: '👫 Chủ đề 3: Bạn bè & Ngoại hình (Friends & Appearance)' },
+                { id: 'topic-places', title: '🏞️ Chủ đề 4: Khu phố & Kỳ quan (Neighbourhood & Wonders)' },
+                { id: 'topic-festivals', title: '🧧 Chủ đề 5: Ngày lễ & Ngày Tết (Festivals & Tet Holiday)' },
+                { id: 'topic-recreation', title: '⚽ Chủ đề 6: Truyền hình & Thể thao (TV, Sports & Games)' },
+                { id: 'topic-world', title: '🗽 Chủ đề 7: Thành phố thế giới & Tương lai (Cities & Future)' },
+                { id: 'topic-environment', title: '🌱 Chủ đề 8: Môi trường & Lối sống xanh (Greener World)' }
+            ] : [
+                { id: 'math-topic-number', title: '🔢 Chủ đề: Số nguyên & Tập hợp' },
+                { id: 'math-topic-geometry', title: '📐 Chủ đề: Hình học phẳng & Đối xứng' },
+                { id: 'math-topic-fraction', title: '🍕 Chủ đề: Phân số & Số thập phân' }
+            ];
+
+            topics.forEach(t => {
+                const opt = document.createElement("option");
+                opt.value = t.id;
+                opt.textContent = t.title;
+                chapterSelect.appendChild(opt);
+            });
+        } else if (categoryVal === 'semester') {
+            if (chapterGroup) chapterGroup.classList.add("hidden");
+            if (lessonGroup) lessonGroup.classList.remove("hidden");
+            document.getElementById("pdf-lesson-label").textContent = "Chọn Kỳ thi Kiểm tra:";
+
+            const exams = [
+                { id: 'exam-midterm-1', title: '📝 Đề kiểm tra Giữa Học kỳ 1 (Mid-Term Exam 1)' },
+                { id: 'exam-final-1', title: '🥇 Đề kiểm tra Cuối Học kỳ 1 (Final Term Exam 1)' },
+                { id: 'exam-midterm-2', title: '📝 Đề kiểm tra Giữa Học kỳ 2 (Mid-Term Exam 2)' },
+                { id: 'exam-final-2', title: '🏆 Đề kiểm tra Cuối Học kỳ 2 (Final Term Exam 2)' }
+            ];
+
+            exams.forEach(e => {
+                const opt = document.createElement("option");
+                opt.value = e.id;
+                opt.textContent = e.title;
+                lessonSelect.appendChild(opt);
+            });
+        }
     },
 
     onPdfClassChange: function() {
-        const classVal = document.getElementById("pdf-class-select").value;
-        const subjectSelect = document.getElementById("pdf-subject-select");
-        const subjectVal = subjectSelect ? subjectSelect.value : "math";
-
-        const chapterSelect = document.getElementById("pdf-chapter-select");
-        if (!chapterSelect) return;
-        chapterSelect.innerHTML = "";
-
-        if (typeof COURSE_DATA === "undefined") return;
-
-        // Lọc chương theo lớp học và môn học
-        const chapters = COURSE_DATA.filter(chapter => {
-            const chapterClass = chapter.class || '6'; // Mặc định lớp 6 nếu không ghi rõ
-            const chapterSubject = chapter.subject || 'math';
-            return chapterClass === classVal && chapterSubject === subjectVal;
-        });
-
-        chapters.forEach(chapter => {
-            const opt = document.createElement("option");
-            opt.value = chapter.id;
-            opt.textContent = chapter.title;
-            chapterSelect.appendChild(opt);
-        });
-
-        // Trigger load bài học của chương đầu tiên
-        this.onPdfChapterChange();
+        this.onPdfCategoryChange();
     },
 
     onPdfChapterChange: function() {
@@ -2100,21 +2188,49 @@ const parentDashboard = {
     },
 
     generatePdfExamPreview: function() {
-        const lessonSelect = document.getElementById("pdf-lesson-select");
-        if (!lessonSelect) return;
-        const lessonId = lessonSelect.value;
-        const lessonTitle = lessonSelect.options[lessonSelect.selectedIndex]?.text || "Chuyên đề";
+        const subjectSelect = document.getElementById("pdf-subject-select");
+        const subjectVal = subjectSelect ? subjectSelect.value : "english";
         const classLevel = document.getElementById("pdf-class-select").value;
+        const categoryVal = document.getElementById("pdf-exam-category-select").value;
+        const levelSelect = document.getElementById("pdf-exam-level-select");
+        const examLevel = levelSelect ? levelSelect.value : "advanced";
+        const levelName = levelSelect ? levelSelect.options[levelSelect.selectedIndex].text : "Nâng cao";
         const includeSolution = document.getElementById("pdf-include-solution").checked;
+        const includeAudioQr = document.getElementById("pdf-include-audio-qr") ? document.getElementById("pdf-include-audio-qr").checked : true;
+
+        let lessonId = "";
+        let lessonTitle = "Bài kiểm tra Đánh giá Năng lực";
+
+        if (categoryVal === 'unit') {
+            const lessonSelect = document.getElementById("pdf-lesson-select");
+            lessonId = lessonSelect ? lessonSelect.value : "";
+            lessonTitle = lessonSelect ? (lessonSelect.options[lessonSelect.selectedIndex]?.text || "Chuyên đề") : "Chuyên đề";
+        } else if (categoryVal === 'topic') {
+            const chapterSelect = document.getElementById("pdf-chapter-select");
+            lessonId = chapterSelect ? chapterSelect.value : "topic-school";
+            lessonTitle = chapterSelect ? (chapterSelect.options[chapterSelect.selectedIndex]?.text || "Chủ đề tổng hợp") : "Chủ đề tổng hợp";
+        } else if (categoryVal === 'grammar') {
+            lessonId = "grammar-mix";
+            const checkedGrammars = Array.from(document.querySelectorAll('.pdf-grammar-ck:checked')).map(c => c.value);
+            if (checkedGrammars.length === 0) {
+                Swal.fire({ icon: 'warning', title: 'Thông báo', text: 'Vui lòng chọn ít nhất 1 thì/dạng ngữ pháp!' });
+                return;
+            }
+            lessonTitle = `Chuyên đề Ngữ pháp (${checkedGrammars.length} dạng ngữ pháp Lớp 6)`;
+        } else if (categoryVal === 'semester') {
+            const lessonSelect = document.getElementById("pdf-lesson-select");
+            lessonId = lessonSelect ? lessonSelect.value : "exam-midterm-1";
+            lessonTitle = lessonSelect ? (lessonSelect.options[lessonSelect.selectedIndex]?.text || "Đề thi Học kỳ") : "Đề thi Học kỳ";
+        }
 
         if (!lessonId) {
-            Swal.fire({ icon: 'warning', title: 'Thông báo', text: 'Vui lòng chọn bài học!' });
+            Swal.fire({ icon: 'warning', title: 'Thông báo', text: 'Vui lòng chọn chủ đề hoặc bài học!' });
             return;
         }
 
         Swal.fire({
-            title: 'Đang tải câu hỏi...',
-            text: 'Hệ thống đang nạp bộ câu hỏi chất lượng cao từ server. Vui lòng chờ...',
+            title: 'Đang khởi tạo đề thi AI...',
+            text: `Hệ thống đang tổng hợp ma trận câu hỏi ${subjectVal === 'english' ? 'Tiếng Anh' : 'Toán'} Lớp ${classLevel} (${levelName}). Vui lòng chờ...`,
             allowOutsideClick: false,
             didOpen: () => {
                 Swal.showLoading();
@@ -2122,7 +2238,10 @@ const parentDashboard = {
         });
 
         const studentId = this.viewingStudentId || 'default';
-        fetch(getApiUrl(`/api/get-questions?lessonId=${lessonId}&lessonTitle=${encodeURIComponent(lessonTitle)}&classLevel=${classLevel}&studentId=${studentId}`))
+        const checkedGrammarVals = Array.from(document.querySelectorAll('.pdf-grammar-ck:checked')).map(c => c.value).join(',');
+        const queryUrl = getApiUrl(`/api/get-questions?lessonId=${lessonId}&lessonTitle=${encodeURIComponent(lessonTitle)}&classLevel=${classLevel}&studentId=${studentId}&subject=${subjectVal}&category=${categoryVal}&level=${examLevel}&grammars=${encodeURIComponent(checkedGrammarVals)}&skill=full_exam`);
+
+        fetch(queryUrl)
             .then(res => {
                 if (!res.ok) throw new Error('Không thể kết nối với server.');
                 return res.json();
@@ -2141,45 +2260,12 @@ const parentDashboard = {
                     throw new Error('Dữ liệu câu hỏi trống.');
                 }
 
-                Swal.fire({
-                    title: 'Đang biên dịch đề thi...',
-                    text: 'Trình giải mã đang sinh các bộ số ngẫu nhiên không trùng lặp...',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-
-                // Khởi động Web Worker để sinh câu hỏi cụ thể
-                const worker = new Worker('js/question-generator-worker.js');
-                worker.postMessage({ questions: questions, maxAttempts: 500 });
-
-                worker.onmessage = (e) => {
-                    Swal.close();
-                    worker.terminate();
-                    const response = e.data;
-                    if (response.status === 'success') {
-                        // Render đề thi giấy ra preview
-                        parentDashboard.renderPdfExamPaper(lessonTitle, response.questions, includeSolution);
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Lỗi sinh số ngẫu nhiên',
-                            text: 'Không thể tạo đề thi: ' + (response.message || 'Lỗi Web Worker.')
-                        });
-                    }
-                };
-
-                worker.onerror = (err) => {
-                    Swal.close();
-                    worker.terminate();
-                    console.error("Worker in đề thi lỗi:", err);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi luồng chạy Web Worker',
-                        text: 'Không thể khởi động Web Worker để tạo đề: ' + err.message
-                    });
-                };
+                Swal.close();
+                if (subjectVal === 'english') {
+                    parentDashboard.renderEnglishPdfExamPaper(lessonTitle, questions, includeSolution, includeAudioQr, levelName);
+                } else {
+                    parentDashboard.renderPdfExamPaper(lessonTitle, questions, includeSolution);
+                }
             })
             .catch(err => {
                 Swal.close();
@@ -2192,7 +2278,7 @@ const parentDashboard = {
             });
     },
 
-    renderPdfExamPaper: function(lessonTitle, questions, includeSolution) {
+    renderEnglishPdfExamPaper: function(lessonTitle, questions, includeSolution, includeAudioQr, levelName) {
         const paper = document.getElementById("pdf-exam-paper");
         if (!paper) return;
 
@@ -2200,207 +2286,273 @@ const parentDashboard = {
         const studentName = document.getElementById("pdf-student-name-input").value.trim() || "......................................................................";
         const classVal = document.getElementById("pdf-class-select").value;
 
-        // Xây dựng Header & Thông tin đề thi
+        // Phân loại câu hỏi thành 4 Phần chuẩn GDPT 2018
+        const listeningQs = questions.filter(q => q.category === 'listening' || q.questionType === 'listening' || q.listeningText);
+        const grammarQs = questions.filter(q => q.category === 'grammar' || q.questionType === 'choice' || q.questionType === 'phonetics');
+        const readingQs = questions.filter(q => q.category === 'reading' || q.questionType === 'reading_passage' || q.questionType === 'reading_cloze');
+        const writingQs = questions.filter(q => q.category === 'writing' || q.questionType === 'writing_rewrite' || q.questionType === 'writing');
+
+        // Nếu phân loại chưa khớp, tự chia mảng
+        const renderList = listeningQs.length > 0 ? questions : questions;
+
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${encodeURIComponent('https://hoctap.app/listen?title=' + encodeURIComponent(lessonTitle))}`;
+
         let html = `
-            <!-- Trang Đề thi -->
-            <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif;">
-                <!-- Header trường học & tên đề -->
-                <div style="display: flex; justify-content: space-between; align-items: start; border-bottom: 2px solid #000000; padding-bottom: 10px; margin-bottom: 20px;">
+            <!-- Trang Đề thi Tiếng Anh Lớp 6 -->
+            <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif; line-height: 1.5;">
+                <!-- Header trường học & tên đề thi -->
+                <div style="display: flex; justify-content: space-between; align-items: start; border-bottom: 2px solid #000000; padding-bottom: 10px; margin-bottom: 15px;">
                     <div style="text-align: center; font-weight: bold; font-size: 11px; text-transform: uppercase; width: 45%;">
                         <p style="margin: 0; padding: 0;">${schoolName}</p>
-                        <p style="font-size: 9px; font-weight: normal; margin-top: 2px; margin-bottom: 0;">Chương trình học tập cá nhân hóa AI</p>
+                        <p style="font-size: 9px; font-weight: normal; margin-top: 2px; margin-bottom: 0;">Bộ Giáo dục & Đào tạo - Chương trình GDPT 2018</p>
                     </div>
-                    <div style="text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; width: 50%;">
-                        <p style="margin: 0; padding: 0;">ĐỀ THI KIỂM TRA CHUYÊN ĐỀ</p>
-                        <p style="font-size: 11px; font-weight: bold; font-style: italic; text-transform: none; margin-top: 4px; margin-bottom: 0;">Môn: Toán Lớp ${classVal}</p>
+                    <div style="text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; width: 52%;">
+                        <p style="margin: 0; padding: 0;">ĐỀ KIỂM TRA ĐÁNH GIÁ NĂNG LỰC HỌC SINH</p>
+                        <p style="font-size: 11px; font-weight: bold; font-style: italic; text-transform: none; margin-top: 3px; margin-bottom: 0;">Môn: Tiếng Anh - Lớp ${classVal} (${levelName})</p>
                     </div>
                 </div>
 
-                <!-- Tên Chuyên đề -->
-                <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px;">
-                    Chuyên đề: ${lessonTitle}
+                <!-- Tên Đề thi / Chuyên đề -->
+                <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;">
+                    ${lessonTitle}
                 </div>
 
-                <!-- Phần điền thông tin học sinh -->
-                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 20px; line-height: 1.8;">
-                    <div style="width: 60%;">Họ và tên học sinh: <span style="font-weight: bold;">${studentName}</span></div>
-                    <div style="width: 35%;">Ngày làm bài: ....../....../20...</div>
-                    <div style="width: 60%;">Lớp: ....................................................................</div>
-                    <div style="width: 35%;">Thời gian làm bài: 45 phút</div>
+                <!-- Thông tin học sinh -->
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 15px; line-height: 1.8;">
+                    <div style="width: 58%;">Họ và tên học sinh: <span style="font-weight: bold;">${studentName}</span></div>
+                    <div style="width: 38%;">Ngày làm bài: ....../....../20...</div>
+                    <div style="width: 58%;">Lớp: ....................................................................</div>
+                    <div style="width: 38%;">Thời gian làm bài: 45 phút</div>
                 </div>
 
-                <!-- Khung ghi điểm & Lời phê -->
-                <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; margin-bottom: 25px; font-size: 13px; text-align: center;">
+                <!-- Khung Điểm số 4 Kỹ năng & Lời phê Phụ huynh -->
+                <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; margin-bottom: 20px; font-size: 12px; text-align: center;">
                     <thead>
-                        <tr style="background-color: #f8fafc;">
-                            <th style="border: 1px solid #000000; padding: 8px; font-weight: bold; width: 30%;">ĐIỂM SỐ</th>
-                            <th style="border: 1px solid #000000; padding: 8px; font-weight: bold;">LỜI PHÊ CỦA PHỤ HUYNH</th>
+                        <tr style="background-color: #f8fafc; font-weight: bold;">
+                            <td style="border: 1px solid #000000; padding: 6px; width: 15%;">LISTENING</td>
+                            <td style="border: 1px solid #000000; padding: 6px; width: 18%;">LANGUAGE FOCUS</td>
+                            <td style="border: 1px solid #000000; padding: 6px; width: 15%;">READING</td>
+                            <td style="border: 1px solid #000000; padding: 6px; width: 15%;">WRITING</td>
+                            <td style="border: 1px solid #000000; padding: 6px; width: 17%; font-weight: bold;">TỔNG ĐIỂM</td>
+                            <td style="border: 1px solid #000000; padding: 6px;">LỜI PHÊ PHỤ HUYNH / GV</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="height: 60px;">
-                            <td style="border: 1px solid #000000;"></td>
-                            <td style="border: 1px solid #000000; text-align: left; padding: 8px; vertical-align: top; color: #64748b;"></td>
+                        <tr style="height: 45px;">
+                            <td style="border: 1px solid #000000;">/2.5</td>
+                            <td style="border: 1px solid #000000;">/2.5</td>
+                            <td style="border: 1px solid #000000;">/2.5</td>
+                            <td style="border: 1px solid #000000;">/2.5</td>
+                            <td style="border: 1px solid #000000; font-weight: bold; font-size: 14px;">/10</td>
+                            <td style="border: 1px solid #000000; text-align: left; padding: 4px; vertical-align: top;"></td>
                         </tr>
                     </tbody>
                 </table>
-
-                <div style="font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px dashed #000000; padding-bottom: 4px;">
-                    PHẦN I. CÂU HỎI TRẮC NGHIỆM (10 câu hỏi)
-                </div>
-                <p style="font-style: italic; font-size: 12px; margin-bottom: 15px; color: #475569;">Khoanh tròn vào chữ cái đứng trước câu trả lời đúng nhất hoặc điền vào Bảng đáp án ở cuối đề.</p>
-
-                <!-- Danh sách câu hỏi -->
-                <div style="display: flex; flex-direction: column; gap: 20px;">
         `;
 
-        // Render từng câu hỏi
-        questions.forEach((q, idx) => {
-            const cleanText = q.questionText.replace(/<br\s*\/?>/gi, '<br/>');
-            
-            // Render các phương án lựa chọn A, B, C, D
+        // Render Phần Nghe (Listening) có Audio Player (Xem trước) & QR Code (PDF In)
+        if (includeAudioQr) {
+            html += `
+                <!-- Audio QR Code Box -->
+                <div style="border: 1.5px dashed #059669; background-color: #ecfdf5; border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; page-break-inside: avoid;">
+                    <div style="width: 75%;">
+                        <div style="font-weight: bold; color: #047857; font-size: 13px; text-transform: uppercase;">
+                            🎧 KỸ NĂNG NGHE CHUẨN QUỐC TẾ (AUDIO PLAYER & QR CODE)
+                        </div>
+                        <p style="font-size: 11.5px; color: #065f46; margin: 4px 0 0 0; line-height: 1.4;">
+                            Phụ huynh / Học sinh quét mã QR bằng máy ảnh điện thoại hoặc bấm nút phát âm thanh trực tiếp để nghe bài đọc giọng Anh - Mỹ chuẩn quốc tế.
+                        </p>
+                    </div>
+                    <div style="text-align: center; width: 22%;">
+                        <img src="${qrUrl}" alt="Audio QR Code" style="width: 75px; height: 75px; border: 1px solid #a7f3d0; padding: 2px; background: white; border-radius: 6px; display: block; margin: 0 auto;"/>
+                        <span style="font-size: 8.5px; font-weight: bold; color: #047857; display: block; margin-top: 2px;">SCAN TO LISTEN</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render từng câu hỏi theo thứ tự
+        html += `<div style="display: flex; flex-direction: column; gap: 16px;">`;
+
+        renderList.forEach((q, idx) => {
+            const cleanText = (q.questionText || "").replace(/<br\s*\/?>/gi, '<br/>');
+            const listeningSnippet = q.listeningText ? q.listeningText.replace(/'/g, "\\'") : "";
+
+            let audioBtn = "";
+            if (q.listeningText) {
+                audioBtn = `
+                    <button type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded text-xs transition duration-150 inline-flex items-center gap-1 ml-2 print:hidden cursor-pointer" onclick="parentDashboard.playAudioSpeech('${listeningSnippet}')">
+                        <i class="fa-solid fa-volume-high"></i> Nghe Audio
+                    </button>
+                `;
+            }
+
             let optionsHtml = "";
             if (q.options && q.options.length > 0) {
-                optionsHtml = `<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; padding-left: 15px; font-size: 13px;">`;
+                optionsHtml = `<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 6px; padding-left: 15px; font-size: 13px;">`;
                 q.options.forEach((opt, oIdx) => {
-                    // Loại bỏ tiền tố A., B., C., D. nếu có trong option text vì chúng ta sẽ tự render đẹp
-                    const cleanOpt = opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
+                    const cleanOpt = String(opt).replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
                     const letter = ["A", "B", "C", "D"][oIdx];
-                    optionsHtml += `<div style="line-height: 1.5;"><span style="font-weight: bold;">${letter}.</span> ${cleanOpt}</div>`;
+                    optionsHtml += `<div style="line-height: 1.4;"><span style="font-weight: bold;">${letter}.</span> ${cleanOpt}</div>`;
                 });
                 optionsHtml += `</div>`;
+            } else if (q.wordPool && q.wordPool.length > 0) {
+                optionsHtml = `<div style="margin-top: 6px; padding-left: 15px; font-size: 12.5px; font-style: italic; color: #334155;">Từ gợi ý: [ ${q.wordPool.join(" / ")} ]</div>`;
+                optionsHtml += `<div style="margin-top: 8px; border-bottom: 1px dotted #000000; height: 24px;"></div>`;
+            } else {
+                optionsHtml = `<div style="margin-top: 8px; border-bottom: 1px dotted #000000; height: 24px;"></div>`;
+            }
+
+            let passageBlock = "";
+            if (q.passageText) {
+                passageBlock = `
+                    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; margin-top: 6px; margin-bottom: 8px; font-style: italic; font-size: 12.5px; line-height: 1.6;">
+                        ${q.passageText}
+                    </div>
+                `;
             }
 
             html += `
                 <div style="page-break-inside: avoid; break-inside: avoid;">
-                    <div class="math-render" style="font-size: 13.5px; font-weight: 600; line-height: 1.6; text-align: justify;">
-                        Câu ${idx + 1}: ${cleanText}
+                    <div style="font-size: 13.5px; font-weight: 600; line-height: 1.5; text-align: justify;">
+                        Câu ${idx + 1}: ${cleanText} ${audioBtn}
                     </div>
+                    ${passageBlock}
                     ${optionsHtml}
                 </div>
             `;
         });
 
-        html += `
-                </div>
+        html += `</div>`;
 
-                <!-- Bảng điền đáp án trắc nghiệm cho học sinh -->
-                <div style="margin-top: 35px; page-break-inside: avoid; break-inside: avoid;">
-                    <div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 10px; text-transform: uppercase;">
-                        BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM
-                    </div>
-                    <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px;">
-                        <thead>
-                            <tr style="background-color: #f1f5f9; font-weight: bold;">
-                                <td style="border: 1px solid #000000; padding: 6px; font-weight: bold;">Câu hỏi</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">1</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">2</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">3</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">4</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">5</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">6</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">7</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">8</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">9</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">10</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="height: 32px;">
-                                <td style="border: 1px solid #000000; padding: 6px; font-weight: bold;">Đáp án chọn</td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+        // Bảng điền đáp án trắc nghiệm cho học sinh
+        html += `
+            <div style="margin-top: 30px; page-break-inside: avoid; break-inside: avoid;">
+                <div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 8px; text-transform: uppercase;">
+                    BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM TIẾNG ANH
                 </div>
-                <!-- Footer bản quyền chuyên nghiệp -->
-                <div style="margin-top: 30px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
-                    © Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.
-                </div>
+                <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9; font-weight: bold;">
+                            <td style="border: 1px solid #000000; padding: 5px; font-weight: bold;">Câu hỏi</td>
+        `;
+        for (let i = 1; i <= Math.min(12, renderList.length); i++) {
+            html += `<td style="border: 1px solid #000000; padding: 5px;">${i}</td>`;
+        }
+        html += `
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="height: 30px;">
+                            <td style="border: 1px solid #000000; padding: 5px; font-weight: bold;">Đáp án chọn</td>
+        `;
+        for (let i = 1; i <= Math.min(12, renderList.length); i++) {
+            html += `<td style="border: 1px solid #000000;"></td>`;
+        }
+        html += `
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
+            <!-- Footer bản quyền -->
+            <div style="margin-top: 25px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
+                © Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.
+            </div>
+        </div>
         `;
 
-        // Render Hướng dẫn giải chi tiết & Đáp án ở trang sau
+        // Trang 2: Hướng dẫn giải chi tiết & Full Audio Transcript
         if (includeSolution) {
             html += `
                 <!-- Ngắt trang sang trang Đáp án riêng biệt -->
                 <div class="print-page-break" style="margin-top: 40px;"></div>
 
-                <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif; margin-top: 20px;">
-                    <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 20px;">
-                        HƯỚNG DẪN GIẢI CHI TIẾT & ĐÁP ÁN ĐỀ THI
+                <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif; margin-top: 20px; line-height: 1.5;">
+                    <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 15px;">
+                        HƯỚNG DẪN GIẢI CHI TIẾT & AUDIO TRANSCRIPT
                     </div>
-                    <p style="font-size: 13px; margin-bottom: 15px; font-weight: bold;">Chuyên đề: ${lessonTitle}</p>
+                    <p style="font-size: 13px; margin-bottom: 15px; font-weight: bold;">Môn: Tiếng Anh Lớp ${classVal} - ${lessonTitle}</p>
                     
                     <!-- Bảng đáp án nhanh -->
-                    <div style="margin-bottom: 25px;">
-                        <div style="font-weight: bold; font-size: 12px; margin-bottom: 8px; text-transform: uppercase;">
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-weight: bold; font-size: 12px; margin-bottom: 6px; text-transform: uppercase; color: #047857;">
                             1. BẢNG ĐÁP ÁN NHANH
                         </div>
                         <table style="width: 100%; border-collapse: collapse; border: 1.2px solid #000000; text-align: center; font-size: 12px;">
                             <thead>
                                 <tr style="background-color: #f1f5f9; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; padding: 6px;">Câu</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">1</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">2</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">3</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">4</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">5</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">6</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">7</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">8</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">9</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">10</td>
+                                    <td style="border: 1px solid #000000; padding: 5px;">Câu</td>
+            `;
+            for (let i = 1; i <= Math.min(12, renderList.length); i++) {
+                html += `<td style="border: 1px solid #000000; padding: 5px;">${i}</td>`;
+            }
+            html += `
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style="height: 28px; font-weight: bold;">
                                     <td style="border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;">Đáp án</td>
             `;
-
-            // Lấy ký tự đáp án nhanh A, B, C, D
-            questions.forEach(q => {
-                const correctLetter = ["A", "B", "C", "D"][q.correctIndex || 0];
+            renderList.forEach(q => {
+                const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][q.correctIndex || 0] : (q.correctAnswer || "OK");
                 html += `<td style="border: 1px solid #000000; color: #10b981 !important;">${correctLetter}</td>`;
             });
-
             html += `
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div style="font-weight: bold; font-size: 12px; margin-bottom: 12px; text-transform: uppercase;">
-                        2. LỜI GIẢI CHI TIẾT TỪNG CÂU
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 18px; font-size: 13px; line-height: 1.6;">
+                    <!-- Phần Audio Script / Transcript bài nghe -->
+                    <div style="margin-bottom: 20px; border: 1px solid #cbd5e1; background-color: #f8fafc; border-radius: 6px; padding: 12px; page-break-inside: avoid;">
+                        <div style="font-weight: bold; font-size: 12px; margin-bottom: 6px; text-transform: uppercase; color: #1e3a8a;">
+                            🎧 2. FULL AUDIO TRANSCRIPT / NỘI DUNG BÀI NGHE NGUYÊN BẢN
+                        </div>
+                        <div style="font-size: 12.5px; color: #334155; line-height: 1.6;">
             `;
 
-            questions.forEach((q, idx) => {
-                const correctLetter = ["A", "B", "C", "D"][q.correctIndex || 0];
+            let hasAudioScript = false;
+            renderList.forEach((q, idx) => {
+                if (q.listeningText || q.audioScript) {
+                    hasAudioScript = true;
+                    html += `
+                        <p style="margin: 4px 0;"><b>Câu ${idx + 1} (Audio Script):</b> <i>"${q.listeningText || q.audioScript}"</i></p>
+                    `;
+                }
+            });
+
+            if (!hasAudioScript) {
+                html += `<p style="margin: 4px 0; font-style: italic;">(Bài nghe sử dụng từ vựng và câu mẫu chuẩn quốc tế Cambridge/Global Success Lớp 6).</p>`;
+            }
+
+            html += `
+                        </div>
+                    </div>
+
+                    <!-- Lời giải chi tiết từng câu -->
+                    <div style="font-weight: bold; font-size: 12px; margin-bottom: 10px; text-transform: uppercase; color: #7c3aed;">
+                        3. LỜI GIẢI CHI TIẾT TỪNG CÂU HỎI & MẸO NGỮ PHÁP
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 14px; font-size: 13px; line-height: 1.5;">
+            `;
+
+            renderList.forEach((q, idx) => {
+                const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][q.correctIndex || 0] : (q.correctAnswer || "Đáp án đúng");
                 const cleanSol = q.solutionHtml ? q.solutionHtml.replace(/<br\s*\/?>/gi, '<br/>') : "Đang cập nhật...";
                 const cleanTip = q.tip ? q.tip.replace(/<br\s*\/?>/gi, '<br/>') : "";
 
                 html += `
-                    <div style="page-break-inside: avoid; break-inside: avoid; border-bottom: 1px dashed #e2e8f0; padding-bottom: 12px;">
-                        <p style="font-weight: bold; margin-bottom: 4px;">Câu ${idx + 1}: Chọn đáp án ${correctLetter}</p>
-                        <div class="math-render" style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #8b5cf6; color: #334155 !important;">
+                    <div style="page-break-inside: avoid; break-inside: avoid; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px;">
+                        <p style="font-weight: bold; margin-bottom: 4px;">Câu ${idx + 1}: Đáp án ${correctLetter}</p>
+                        <div style="margin-top: 4px; padding-left: 10px; border-left: 2px solid #8b5cf6; color: #334155 !important;">
                             ${cleanSol}
                         </div>
                 `;
 
                 if (cleanTip) {
                     html += `
-                        <div class="math-render" style="margin-top: 6px; padding-left: 10px; font-style: italic; color: #475569 !important; font-size: 12.5px;">
+                        <div style="margin-top: 4px; padding-left: 10px; font-style: italic; color: #475569 !important; font-size: 12px;">
                             💡 Mẹo làm bài: ${cleanTip}
                         </div>
                     `;
@@ -2413,8 +2565,8 @@ const parentDashboard = {
 
             html += `
                     </div>
-                    <!-- Footer bản quyền chuyên nghiệp -->
-                    <div style="margin-top: 30px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
+                    <!-- Footer bản quyền -->
+                    <div style="margin-top: 25px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
                         © Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.
                     </div>
                 </div>
@@ -2423,16 +2575,6 @@ const parentDashboard = {
 
         // Đẩy HTML vào khung preview
         paper.innerHTML = html;
-
-        // Auto-render LaTeX bằng KaTeX
-        if (window.renderMathInElement) {
-            window.renderMathInElement(paper, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ]
-            });
-        }
 
         // Hiện container preview
         document.getElementById("pdf-exam-preview-container").classList.remove("hidden");

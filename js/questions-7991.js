@@ -6,6 +6,15 @@
 
 (function() {
     window.questions7991 = {
+    getCurrentClassLevel: function() {
+        if (window.app && window.app.config && window.app.config.currentClass) {
+            return String(window.app.config.currentClass);
+        }
+        if (window.app && window.app.state && window.app.state.classLevel) {
+            return String(window.app.state.classLevel);
+        }
+        return '6';
+    },
         currentExamData: null,
         userAnswers: {},
         examTimerInterval: null,
@@ -71,10 +80,23 @@
         },
 
         // Sinh đề thi định kỳ theo CV 7991 (Tỉ lệ 70% Trắc nghiệm + 30% Tự luận)
-        generate7991Exam: function(type = 'gk1') {
+        generate7991Exam: function(type = 'gk1', classLevel) {
+            const targetClass = String(classLevel || (this.getCurrentClassLevel ? this.getCurrentClassLevel() : '6'));
             const isGK1 = (type === 'gk1');
-            const examTitle = isGK1 ? "ĐỀ KIỂM TRA GIỮA HỌC KỲ I - MÔN TOÁN LỚP 6" : "ĐỀ KIỂM TRA CUỐI HỌC KỲ I - MÔN TOÁN LỚP 6";
-            const timeLimit = isGK1 ? 60 : 90;
+            const isGK2 = (type === 'gk2');
+            const isCK1 = (type === 'ck1');
+            const examTitle = isGK1 
+                ? `ĐỀ KIỂM TRA GIỮA HỌC KỲ I - MÔN TOÁN LỚP ${targetClass}`
+                : (isCK1 ? `ĐỀ KIỂM TRA CUỐI HỌC KỲ I - MÔN TOÁN LỚP ${targetClass}`
+                : (isGK2 ? `ĐỀ KIỂM TRA GIỮA HỌC KỲ II - MÔN TOÁN LỚP ${targetClass}`
+                : `ĐỀ KIỂM TRA CUỐI HỌC KỲ II - MÔN TOÁN LỚP ${targetClass}`));
+            const timeLimit = (isGK1 || isGK2) ? 60 : 90;
+
+            if (targetClass === '4') {
+                return this.generateGrade4Exam7991(examTitle, type, timeLimit);
+            } else if (targetClass === '1') {
+                return this.generateGrade1Exam7991(examTitle, type, timeLimit);
+            }
 
             const gk1Types = ["tap-hop", "ghi-so-tu-nhien", "tap-hop-thu-tu", "cong-tru-so-tu-nhien", "nhan-chia-so-tu-nhien", "luy-thua", "thu-tu-phep-tinh", "quan-he-chia-het", "dau-hieu-chia-het", "so-nguyen-to", "ucln", "bcnn"];
             const ck1Types = [...gk1Types, "tap-hop-so-nguyen", "cong-tru-so-nguyen", "dau-ngoac", "nhan-so-nguyen", "chia-het-uoc-boi-so-nguyen", "hinh-hoc-chuong-4", "hinh-hoc-2-chuong-4", "chu-vi-dien-tich", "truc-doi-xung", "tam-doi-xung"];
@@ -281,6 +303,144 @@
         },
 
         // Mở làm bài thi Học sinh giỏi nâng cao trực tiếp
+generateGrade4Exam7991: function(examTitle, type, timeLimit) {
+        const mcqQuestions = [];
+        const l4LessonIds = ['l4-kt-c1', 'l4-kt-c2', 'l4-kt-c3', 'l4-kt-c4', 'l4-kt-c5', 'l4-kt-c6', 'l4-kt-c8', 'l4-kt-c9', 'l4-kt-c10', 'l4-kt-c11', 'l4-kt-c12'];
+        
+        for (let i = 0; i < 4; i++) {
+            const randomLesson = l4LessonIds[i % l4LessonIds.length];
+            let q = null;
+            if (window.questions && typeof window.questions.generateQuestion === 'function') {
+                q = window.questions.generateQuestion(randomLesson, 'nang-cao');
+            }
+            if (q) {
+                q.id = 'mcq_l4_' + (i + 1);
+                q.qType = 'mcq';
+                q.scoreWeight = 0.5;
+                mcqQuestions.push(q);
+            }
+        }
+
+        const tfQuestions = [
+            {
+                id: 'tf_l4_1',
+                qType: 'tf',
+                scoreWeight: 1.5,
+                questionText: 'Cho hình chữ nhật có chiều dài 15 cm và chiều rộng 10 cm. Xét tính đúng/sai của các phát biểu:',
+                items: [
+                    { id: 'a', statement: 'Chu vi của hình chữ nhật là 50 cm.', isCorrect: true, explanation: 'Chu vi = (15 + 10) x 2 = 50 cm.' },
+                    { id: 'b', statement: 'Diện tích của hình chữ nhật là 150 cm2.', isCorrect: true, explanation: 'Diện tích = 15 x 10 = 150 cm2.' },
+                    { id: 'c', statement: 'Nếu chiều dài giảm 5 cm thì hình trở thành hình vuông.', isCorrect: true, explanation: 'Chiều dài mới = 15 - 5 = 10 cm = chiều rộng.' },
+                    { id: 'd', statement: 'Nửa chu vi hình chữ nhật là 30 cm.', isCorrect: false, explanation: 'Nửa chu vi = 50 : 2 = 25 cm.' }
+                ]
+            },
+            {
+                id: 'tf_l4_2',
+                qType: 'tf',
+                scoreWeight: 1.5,
+                questionText: 'Một lớp học có 35 học sinh, trong đó số học sinh nữ nhiều hơn số học sinh nam 5 bạn:',
+                items: [
+                    { id: 'a', statement: 'Số học sinh nữ của lớp là 20 bạn.', isCorrect: true, explanation: 'Số nữ = (35 + 5) : 2 = 20 bạn.' },
+                    { id: 'b', statement: 'Số học sinh nam của lớp là 15 bạn.', isCorrect: true, explanation: 'Số nam = 20 - 5 = 15 bạn.' },
+                    { id: 'c', statement: 'Số học sinh nam gấp đôi số học sinh nữ.', isCorrect: false, explanation: 'Số nữ (20) không gấp đôi số nam (15).' },
+                    { id: 'd', statement: 'Tỉ số học sinh nữ và nam là 4/3.', isCorrect: true, explanation: '20/15 = 4/3.' }
+                ]
+            }
+        ];
+
+        const shortAnswerQuestions = [
+            {
+                id: 'sa_l4_1',
+                qType: 'sa',
+                scoreWeight: 1.5,
+                questionText: 'Tính nhanh giá trị biểu thức: $A = 125 \\times 8 + 250 \\times 4$.',
+                correctAnswer: '2000',
+                solutionHtml: '$A = 1000 + 1000 = 2000$.'
+            },
+            {
+                id: 'sa_l4_2',
+                qType: 'sa',
+                scoreWeight: 1.5,
+                questionText: 'Tìm $x$, biết: $x \\times 5 + 120 = 420$.',
+                correctAnswer: '60',
+                solutionHtml: '$x \\times 5 = 300 \\Rightarrow x = 60$.'
+            }
+        ];
+
+        const essayQuestions = [
+            {
+                id: 'essay_l4_1',
+                qType: 'essay',
+                scoreWeight: 1.0,
+                questionText: 'Thực hiện phép tính hợp lý: $A = 3560 + 1440 : 12$',
+                solutionHtml: '$A = 3560 + 120 = 3680$.',
+                correctAnswer: '3680'
+            },
+            {
+                id: 'essay_l4_2',
+                qType: 'essay',
+                scoreWeight: 1.0,
+                questionText: 'Hai kho chứa tất cả 250 tấn thóc. Kho A chứa nhiều hơn kho B 30 tấn. Hỏi mỗi kho chứa bao nhiêu tấn thóc?',
+                solutionHtml: 'Kho A chứa: (250 + 30) : 2 = 140 tấn.<br>Kho B chứa: 140 - 30 = 110 tấn.',
+                correctAnswer: 'Kho A: 140 tấn, Kho B: 110 tấn'
+            },
+            {
+                id: 'essay_l4_3',
+                qType: 'essay',
+                scoreWeight: 1.0,
+                questionText: 'Một khu vườn hình chữ nhật có chu vi 100 m, chiều dài hơn chiều rộng 10 m. Tính diện tích khu vườn đó.',
+                solutionHtml: 'Nửa chu vi = 50 m. Chiều dài = (50 + 10) : 2 = 30 m. Chiều rộng = 20 m. Diện tích = $30 \\times 20 = 600\\text{ m}^2$.',
+                correctAnswer: '600 m2'
+            }
+        ];
+
+        return {
+            title: examTitle,
+            type: type,
+            timeLimitMinutes: timeLimit,
+            mcqQuestions: mcqQuestions,
+            tfQuestions: tfQuestions,
+            shortAnswerQuestions: shortAnswerQuestions,
+            essayQuestions: essayQuestions
+        };
+    },
+
+    generateGrade1Exam7991: function(examTitle, type, timeLimit) {
+        const mcqQuestions = [];
+        for (let i = 0; i < 4; i++) {
+            const a = Math.floor(Math.random() * 5) + 5;
+            const b = Math.floor(Math.random() * 4) + 1;
+            const ans = a + b;
+            mcqQuestions.push({
+                id: 'mcq_l1_' + (i + 1),
+                qType: 'mcq',
+                scoreWeight: 1.0,
+                questionText: 'Phép tính $' + a + ' + ' + b + '$ có kết quả là bao nhiêu?',
+                options: ['' + ans, '' + (ans + 1), '' + (ans - 1), '' + (ans + 2)],
+                correctIndex: 0,
+                explanation: '$' + a + ' + ' + b + ' = ' + ans + '$.'
+            });
+        }
+        return {
+            title: examTitle,
+            type: type,
+            timeLimitMinutes: timeLimit,
+            mcqQuestions: mcqQuestions,
+            tfQuestions: [],
+            shortAnswerQuestions: [],
+            essayQuestions: [
+                {
+                    id: 'essay_l1_1',
+                    qType: 'essay',
+                    scoreWeight: 6.0,
+                    questionText: 'Điền số thích hợp vào chỗ trống: $10 - 4 = ...$',
+                    solutionHtml: '$10 - 4 = 6$.',
+                    correctAnswer: '6'
+                }
+            ]
+        };
+    },
+
         startAdvancedExam: function() {
             this.closeExamCenterModal();
             if (window.questionsAdvanced) {
@@ -307,7 +467,7 @@
         },
 
         _launchAdvancedExam: function() {
-            this.currentExamData = window.questionsAdvanced.generateAdvancedExam('all', 90);
+            this.currentExamData = window.questionsAdvanced.generateAdvancedExam('all', 90, this.getCurrentClassLevel());
             this.userAnswers = { mcq: {}, tf: {}, sa: {}, essay: {} };
             this.remainingSeconds = (this.currentExamData.timeLimitMinutes || 90) * 60;
 
@@ -346,8 +506,8 @@
         },
 
         _printAdvancedExam: function() {
-            const data = window.questionsAdvanced.generateAdvancedExam('all', 90);
-            this.renderAndPrint7991Exam('ĐỀ THI HỌC SINH GIỎI MÔN TOÁN LỚP 6 - CẤP TỈNH/THÀNH PHỐ', data, true, '6', 90);
+            const data = window.questionsAdvanced.generateAdvancedExam('all', 90, this.getCurrentClassLevel());
+            const cLvl = this.getCurrentClassLevel(); this.renderAndPrint7991Exam(`ĐỀ THI HỌC SINH GIỎI MÔN TOÁN LỚP ${cLvl} - CẤP TỈNH/THÀNH PHỐ`, data, true, cLvl, 90);
         },
 
         // Sinh đề thi Khắc phục điểm yếu môn Toán
@@ -1027,12 +1187,10 @@
                 `;
             }
 
-            if (window.questions && typeof window.questions.renderAndPrintStudentExam === 'function') {
-                window.questions.renderAndPrintStudentExam(examTitle, [], includeSolution, classLevel, 'chat-luong-cao');
-            }
             const modal = document.getElementById("print-preview-modal");
             if (modal) {
                 modal.style.zIndex = "250000";
+                modal.classList.remove("hidden");
             }
             const previewPaper = document.getElementById("print-preview-paper");
             if (previewPaper) {

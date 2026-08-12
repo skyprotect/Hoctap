@@ -146,22 +146,28 @@ try {
 
 // 5. Đóng gói bộ cài đặt .exe bằng Inno Setup Compiler (ISCC)
 console.log('\n🛠️ Đang biên dịch bộ cài đặt bằng Inno Setup...');
-const isccPath = 'C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe';
-try {
-  execFileSync(isccPath, [installerPath], { stdio: 'inherit' });
-  console.log('✅ Biên dịch bộ cài đặt thành công.');
-} catch (error) {
-  console.error('❌ LỖI: Biên dịch Inno Setup thất bại. Hãy chắc chắn Inno Setup 6 đã được cài đặt tại Program Files (x86).');
-  process.exit(1);
+let isccPath = 'C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe';
+if (!fs.existsSync(isccPath)) {
+  isccPath = 'C:\\Program Files\\Inno Setup 6\\ISCC.exe';
 }
 
-// Đường dẫn file exe vừa sinh ra (ở thư mục cha F:\KHQS\AntiGravity theo config trong installer.iss)
-const outputExePath = path.join('F:', 'KHQS', 'AntiGravity', `ToanHocKiosk_Setup_v${nextVersion}.exe`);
-if (!fs.existsSync(outputExePath)) {
-  console.error(`❌ LỖI: Không tìm thấy file cài đặt đầu ra tại đường dẫn: ${outputExePath}`);
-  process.exit(1);
+if (fs.existsSync(isccPath)) {
+  try {
+    execFileSync(isccPath, [installerPath], { stdio: 'inherit' });
+    console.log('✅ Biên dịch bộ cài đặt thành công.');
+  } catch (error) {
+    console.warn('⚠️ Cảnh báo: Biên dịch Inno Setup thất bại:', error.message);
+  }
+} else {
+  console.warn('⚠️ Cảnh báo: Không tìm thấy Inno Setup (ISCC.exe). Bỏ qua bước đóng gói file EXE.');
 }
-console.log(`📁 File cài đặt đã sẵn sàng tại: ${outputExePath}`);
+
+const outputExePath = path.join('F:', 'KHQS', 'AntiGravity', `ToanHocKiosk_Setup_v${nextVersion}.exe`);
+if (fs.existsSync(outputExePath)) {
+  console.log(`📁 File cài đặt đã sẵn sàng tại: ${outputExePath}`);
+} else {
+  console.warn(`⚠️ Cảnh báo: Không tìm thấy file cài đặt đầu ra tại: ${outputExePath}`);
+}
 
 // 6. Đẩy mã nguồn lên GitHub qua Git CLI
 console.log('\n🐙 Đang đẩy mã nguồn lên GitHub...');

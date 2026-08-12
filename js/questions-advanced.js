@@ -251,11 +251,222 @@
             };
         },
 
-        // Sinh Đề thi Học sinh giỏi Cấp Tỉnh/Thành phố hoàn chỉnh
-        generateAdvancedExam: function(topic = 'all', timeLimit = 90) {
-            const title = "ĐỀ THI HỌC SINH GIỎI & TRƯỜNG CHUYÊN MÔN TOÁN LỚP 6 (CẤP TỈNH/THÀNH PHỐ)";
-            
-            // 1. Sinh 8 câu Trắc nghiệm 4 lựa chọn Vận dụng cao
+        // Sinh Đề thi Học sinh giỏi Cấp Tỉnh/Thành phố hoàn chỉnh cho Lớp 4
+        generateGrade4AdvancedExam: function(title, timeLimit) {
+            const mcqQuestions = [];
+            const n1 = Math.floor(Math.random() * 20) + 10;
+            const n2 = 100 - n1;
+            const factor = Math.floor(Math.random() * 8) + 12;
+            const correctMcq1 = 100 * factor;
+            const mcq1Opt = this.utils.ensureUniqueOptions(correctMcq1, correctMcq1 - 100, correctMcq1 + 100, correctMcq1 + 200, v => `$${v}$`);
+            mcqQuestions.push({
+                id: 'adv_mcq_l4_1',
+                qType: 'mcq',
+                scoreWeight: 0.5,
+                questionText: `Tính nhanh giá trị biểu thức: $A = ${n1} \\times ${factor} + ${n2} \\times ${factor}$.`,
+                options: mcq1Opt.options,
+                correctIndex: mcq1Opt.correctIndex,
+                explanation: `Áp dụng tính chất phân phối: $A = (${n1} + ${n2}) \\times ${factor} = 100 \\times ${factor} = ${correctMcq1}$.`
+            });
+
+            const prefixDigit = Math.floor(Math.random() * 3) + 2;
+            const addedVal = prefixDigit * 100;
+            const kFactor = Math.floor(Math.random() * 4) + 4;
+            const correctNum = Math.floor(addedVal / (kFactor - 1));
+            const mcq2Opt = this.utils.ensureUniqueOptions(correctNum, correctNum + 5, correctNum - 4 > 0 ? correctNum - 4 : correctNum + 10, correctNum + 12, v => `$${v}$`);
+            mcqQuestions.push({
+                id: 'adv_mcq_l4_2',
+                qType: 'mcq',
+                scoreWeight: 0.5,
+                questionText: `Tìm một số tự nhiên có hai chữ số, biết rằng khi viết thêm chữ số $${prefixDigit}$ vào bên trái số đó ta được số mới gấp $${kFactor}$ lần số ban đầu.`,
+                options: mcq2Opt.options,
+                correctIndex: mcq2Opt.correctIndex,
+                explanation: `Gọi số cần tìm là $\\overline{ab}$. Khi viết thêm chữ số $${prefixDigit}$ vào bên trái, số mới là $\\overline{${prefixDigit}ab} = ${addedVal} + \\overline{ab}$. Theo đề bài: ${addedVal} + \\overline{ab} = ${kFactor} \\times \\overline{ab} \\Rightarrow ${kFactor - 1} \\times \\overline{ab} = ${addedVal} \\Rightarrow \\overline{ab} = ${correctNum}.`
+            });
+
+            const avg3 = Math.floor(Math.random() * 15) + 25;
+            const sum3 = avg3 * 3;
+            const ageDadMom = Math.floor(Math.random() * 10) + 32;
+            const sumDadMom = ageDadMom * 2;
+            const childAge = sum3 - sumDadMom;
+            const mcq3Opt = this.utils.ensureUniqueOptions(childAge, childAge + 2, childAge - 2 > 0 ? childAge - 2 : childAge + 4, childAge + 6, v => `$${v}$ tuổi`);
+            mcqQuestions.push({
+                id: 'adv_mcq_l4_3',
+                qType: 'mcq',
+                scoreWeight: 0.5,
+                questionText: `Trung bình cộng tuổi của bố, mẹ và Nam là $${avg3}$ tuổi. Trung bình cộng tuổi của bố và mẹ là $${ageDadMom}$ tuổi. Hỏi Nam bao nhiêu tuổi?`,
+                options: mcq3Opt.options,
+                correctIndex: mcq3Opt.correctIndex,
+                explanation: `Tổng số tuổi của cả 3 người là: ${avg3} \\times 3 = ${sum3}$ tuổi. Tổng số tuổi của bố và mẹ là: ${ageDadMom} \\times 2 = ${sumDadMom}$ tuổi. Tuổi của Nam là: ${sum3} - ${sumDadMom} = ${childAge}$ tuổi.`
+            });
+
+            const width = Math.floor(Math.random() * 10) + 15;
+            const diff = Math.floor(Math.random() * 8) + 6;
+            const length = width + diff;
+            const perimeter = 2 * (length + width);
+            const area = length * width;
+            const mcq4Opt = this.utils.ensureUniqueOptions(area, area + 20, area - 20, area + 50, v => `$${v}\\text{ m}^2$`);
+            mcqQuestions.push({
+                id: 'adv_mcq_l4_4',
+                qType: 'mcq',
+                scoreWeight: 0.5,
+                questionText: `Một khu đất hình chữ nhật có chu vi $${perimeter}\\text{ m}$, chiều dài hơn chiều rộng $${diff}\\text{ m}$. Tính diện tích khu đất đó.`,
+                options: mcq4Opt.options,
+                correctIndex: mcq4Opt.correctIndex,
+                explanation: `Nửa chu vi khu đất là: ${perimeter} : 2 = ${length + width}\\text{ m}$. Chiều dài là: (${length + width} + ${diff}) : 2 = ${length}\\text{ m}$. Chiều rộng là: ${length} - ${diff} = ${width}\\text{ m}$. Diện tích là: ${length} \\times ${width} = ${area}\\text{ m}^2$.`
+            });
+
+            for (let i = 5; i <= 8; i++) {
+                const qType = ['l4_calc_fast', 'l4_sum_diff', 'l4_sum_ratio', 'l4_find_x_adv'][i % 4];
+                let qText = ``;
+                let correctVal = 0;
+                let explanation = ``;
+
+                if (qType === 'l4_calc_fast') {
+                    const a = Math.floor(Math.random() * 20) + 10;
+                    const b = Math.floor(Math.random() * 20) + 30;
+                    correctVal = (a + b) * 5;
+                    qText = `Tính nhanh: $B = ${a} \\times 5 + ${b} \\times 5$.`;
+                    explanation = `Biến đổi: $B = (${a} + ${b}) \\times 5 = ${a + b} \\times 5 = ${correctVal}$.`;
+                } else if (qType === 'l4_sum_diff') {
+                    const sum = 120;
+                    const diffVal = 20;
+                    correctVal = (sum + diffVal) / 2;
+                    qText = `Tìm hai số biết tổng của chúng bằng $${sum}$ và hiệu bằng $${diffVal}$. Số lớn là bao nhiêu?`;
+                    explanation = `Số lớn = $(Tổng + Hiệu) : 2 = (${sum} + ${diffVal}) : 2 = ${correctVal}$.`;
+                } else if (qType === 'l4_sum_ratio') {
+                    const ratio = 3;
+                    const sum = 80;
+                    correctVal = (sum / (1 + ratio)) * ratio;
+                    qText = `Hai thùng dầu chứa tổng cộng $${sum}\\text{ lít}$. Thùng thứ nhất chứa gấp $3$ lần thùng thứ hai. Hỏi thùng thứ nhất chứa bao nhiêu lít dầu?`;
+                    explanation = `Tổng số phần bằng nhau là $1 + 3 = 4$ phần. Thùng thứ nhất chứa: (${sum} : 4) \\times 3 = ${correctVal}\\text{ lít}$.`;
+                } else {
+                    const x = Math.floor(Math.random() * 50) + 20;
+                    correctVal = x;
+                    qText = `Tìm $x$, biết: $x \\times 4 + 15 = ${x * 4 + 15}$.`;
+                    explanation = `Ta có $x \\times 4 = ${x * 4 + 15} - 15 = ${x * 4} \\Rightarrow x = ${x}$.`;
+                }
+
+                const opt = this.utils.ensureUniqueOptions(correctVal, correctVal + 5, correctVal - 3 > 0 ? correctVal - 3 : correctVal + 8, correctVal + 10, v => `$${v}$`);
+                mcqQuestions.push({
+                    id: `adv_mcq_l4_${i}`,
+                    qType: 'mcq',
+                    scoreWeight: 0.5,
+                    questionText: qText,
+                    options: opt.options,
+                    correctIndex: opt.correctIndex,
+                    explanation: explanation
+                });
+            }
+
+            const tfQuestions = [];
+            const wBox = Math.floor(Math.random() * 5) + 8;
+            const lBox = wBox + Math.floor(Math.random() * 4) + 4;
+            tfQuestions.push({
+                id: 'adv_tf_l4_1',
+                qType: 'tf',
+                scoreWeight: 1.0,
+                questionText: `Một hình chữ nhật có chiều dài $${lBox}\\text{ cm}$, chiều rộng $${wBox}\\text{ cm}$. Đánh giá tính đúng/sai của các mệnh đề sau:`,
+                items: [
+                    { id: 'a', statement: `Chu vi của hình chữ nhật là $${2 * (lBox + wBox)}\\text{ cm}$.`, isCorrect: true, explanation: `Chu vi $P = (a + b) \\times 2 = (${lBox} + ${wBox}) \\times 2 = ${2 * (lBox + wBox)}\\text{ cm}$.` },
+                    { id: 'b', statement: `Diện tích của hình chữ nhật là $${lBox * wBox}\\text{ cm}^2$.`, isCorrect: true, explanation: `Diện tích $S = a \\times b = ${lBox} \\times ${wBox} = ${lBox * wBox}\\text{ cm}^2$.` },
+                    { id: 'c', statement: `Nếu tăng mỗi chiều lên $2\\text{ cm}$ thì chu vi tăng thêm $4\\text{ cm}$.`, isCorrect: false, explanation: `Tăng mỗi chiều $2\\text{ cm}$ thì chu vi tăng $(2 + 2) \\times 2 = 8\\text{ cm}$.` },
+                    { id: 'd', statement: `Nếu chiều dài gấp đôi chiều rộng thì hình chữ nhật trở thành hình vuông.`, isCorrect: false, explanation: `Hình chữ nhật trở thành hình vuông khi chiều dài bằng chiều rộng.` }
+                ]
+            });
+
+            tfQuestions.push({
+                id: 'adv_tf_l4_2',
+                qType: 'tf',
+                scoreWeight: 1.0,
+                questionText: `Cho dãy số tự nhiên có quy luật: $2, 5, 8, 11, 14, ...$. Xét tính đúng/sai của các phát biểu:`,
+                items: [
+                    { id: 'a', statement: `Khoảng cách giữa hai số liên tiếp trong dãy là 3 đơn vị.`, isCorrect: true, explanation: `Quy luật: $5 - 2 = 3$, $8 - 5 = 3$. Công sai bằng 3.` },
+                    { id: 'b', statement: `Số thứ 10 của dãy số là 29.`, isCorrect: true, explanation: `Số thứ $n = 2 + (n - 1) \\times 3$. Với $n = 10 \\Rightarrow 2 + 9 \\times 3 = 29$.` },
+                    { id: 'c', statement: `Số 100 là một số thuộc dãy số trên.`, isCorrect: false, explanation: `Các số trong dãy chia 3 dư 2. Do $100 : 3 = 33$ dư 1 nên 100 không thuộc dãy.` },
+                    { id: 'd', statement: `Tổng của 5 số đầu tiên của dãy bằng 35.`, isCorrect: true, explanation: `Tổng $2 + 5 + 8 + 11 + 14 = 40$. Phát biểu nói 35 là Sai.` }
+                ]
+            });
+
+            const essayQuestions = [
+                {
+                    id: 'adv_essay_l4_1',
+                    qType: 'essay',
+                    scoreWeight: 1.5,
+                    questionText: `**Bài 1 (1,5 điểm):**<br>Tính giá trị biểu thức bằng cách thuận tiện nhất:<br>a) $A = 245 \\times 36 + 245 \\times 64$<br>b) $B = 1 + 4 + 7 + 10 + ... + 31$`,
+                    solutionHtml: `a) $A = 245 \\times (36 + 64) = 245 \\times 100 = 24500$.<br>b) Dãy số có 11 số hạng. Tổng $B = (1 + 31) \\times 11 : 2 = 176$.`,
+                    correctAnswer: `a) 24500; b) 176`
+                },
+                {
+                    id: 'adv_essay_l4_2',
+                    qType: 'essay',
+                    scoreWeight: 1.5,
+                    questionText: `**Bài 2 (1,5 điểm):**<br>Hiện nay tổng số tuổi của hai cha con là $42$ tuổi. Biết rằng $3$ năm nữa tuổi cha gấp $5$ lần tuổi con. Tính tuổi của mỗi người hiện nay.`,
+                    solutionHtml: `Sau 3 năm nữa tổng số tuổi hai cha con là: $42 + 3 + 3 = 48$ tuổi.<br>Tổng số phần bằng nhau: $1 + 5 = 6$ phần.<br>Tuổi con sau 3 năm nữa: $48 : 6 = 8$ tuổi.<br>Tuổi con hiện nay: $8 - 3 = 5$ tuổi.<br>Tuổi cha hiện nay: $42 - 5 = 37$ tuổi.`,
+                    correctAnswer: `Cha 37 tuổi, Con 5 tuổi`
+                },
+                {
+                    id: 'adv_essay_l4_3',
+                    qType: 'essay',
+                    scoreWeight: 1.0,
+                    questionText: `**Bài 3 (1,0 điểm):**<br>Một mảnh đất hình chữ nhật có chiều dài gấp $3$ lần chiều rộng. Nếu giảm chiều dài đi $6\\text{ m}$ và tăng chiều rộng thêm $6\\text{ m}$ thì mảnh đất trở thành hình vuông. Tính diện tích mảnh đất ban đầu.`,
+                    solutionHtml: `Khi chiều dài giảm $6\\text{ m}$ và chiều rộng tăng $6\\text{ m}$ thì trở thành hình vuông, chứng tỏ chiều dài hơn chiều rộng: $6 + 6 = 12\\text{ m}$.<br>Hiệu số phần bằng nhau: $3 - 1 = 2$ phần.<br>Chiều rộng ban đầu: $12 : 2 = 6\\text{ m}$.<br>Chiều dài ban đầu: $6 \\times 3 = 18\\text{ m}$.<br>Diện tích mảnh đất ban đầu: $18 \\times 6 = 108\\text{ m}^2$.`,
+                    correctAnswer: `108 m2`
+                }
+            ];
+
+            return {
+                title: title,
+                type: 'hsg_tinh',
+                timeLimitMinutes: timeLimit,
+                mcqQuestions: mcqQuestions,
+                tfQuestions: tfQuestions,
+                shortAnswerQuestions: [],
+                essayQuestions: essayQuestions
+            };
+        },
+
+        // Sinh Đề thi Học sinh giỏi Cấp Tỉnh/Thành phố cho Lớp 1
+        generateGrade1AdvancedExam: function(title, timeLimit) {
+            const mcqQuestions = [];
+            for (let i = 1; i <= 8; i++) {
+                const aVal = Math.floor(Math.random() * 5) + 5;
+                const bVal = Math.floor(Math.random() * 4) + 1;
+                const ans = aVal + bVal;
+                const opt = this.utils.ensureUniqueOptions(ans, ans + 1, ans - 1 > 0 ? ans - 1 : ans + 2, ans + 3, v => `$${v}$`);
+                mcqQuestions.push({
+                    id: `adv_mcq_l1_${i}`,
+                    qType: 'mcq',
+                    scoreWeight: 0.5,
+                    questionText: `Điền số thích hợp vào chỗ trống: $${aVal} + ${bVal} = ...$`,
+                    options: opt.options,
+                    correctIndex: opt.correctIndex,
+                    explanation: `$${aVal} + ${bVal} = ${ans}$.`
+                });
+            }
+
+            return {
+                title: title,
+                type: 'hsg_tinh',
+                timeLimitMinutes: timeLimit,
+                mcqQuestions: mcqQuestions,
+                tfQuestions: [],
+                shortAnswerQuestions: [],
+                essayQuestions: [
+                    {
+                        id: 'adv_essay_l1_1',
+                        qType: 'essay',
+                        scoreWeight: 2.0,
+                        questionText: `An có 8 quả táo, An cho Bình 3 quả. Hỏi An còn lại bao nhiêu quả táo?`,
+                        solutionHtml: `Số quả táo An còn lại là: $8 - 3 = 5$ quả.`,
+                        correctAnswer: `5`
+                    }
+                ]
+            };
+        },
+
+        // Sinh Đề thi Học sinh giỏi Cấp Tỉnh/Thành phố hoàn chỉnh (Lớp 6)
+        generateGrade6AdvancedExam: function(title, timeLimit) {
             const mcqQuestions = [];
             const genFunctions = [
                 () => this.genDivisibilityProof(),
@@ -272,11 +483,10 @@
                 const q = fn();
                 q.id = `adv_mcq_${i+1}`;
                 q.qType = 'mcq';
-                q.scoreWeight = 0.5; // 8 x 0.5 = 4.0 điểm
+                q.scoreWeight = 0.5;
                 mcqQuestions.push(q);
             }
 
-            // 2. Trắc nghiệm Đúng - Sai Chuyên sâu (2 câu - 2,0 điểm)
             const tfQuestions = [];
             const pVal = Math.floor(Math.random() * 10) + 15;
             tfQuestions.push({
@@ -307,10 +517,9 @@
                 ]
             });
 
-            // 3. Bài tập Tự luận Nâng cao (3 câu - 4,0 điểm)
             const essayQuestions = [];
-            const e1Base = Math.floor(Math.random() * 3) + 3; // 3..5
-            const e1Exp = Math.floor(Math.random() * 20) + 40; // 40..60
+            const e1Base = Math.floor(Math.random() * 3) + 3;
+            const e1Exp = Math.floor(Math.random() * 20) + 40;
             essayQuestions.push({
                 id: 'adv_essay_1',
                 qType: 'essay',
@@ -347,6 +556,20 @@
                 shortAnswerQuestions: [],
                 essayQuestions: essayQuestions
             };
+        },
+
+        // Sinh Đề thi Học sinh giỏi Cấp Tỉnh/Thành phố hoàn chỉnh
+        generateAdvancedExam: function(topic = 'all', timeLimit = 90, classLevel) {
+            const targetClass = String(classLevel || (window.questions7991 ? window.questions7991.getCurrentClassLevel() : '6'));
+            const title = `ĐỀ THI HỌC SINH GIỎI & TRƯỜNG CHUYÊN MÔN TOÁN LỚP ${targetClass} (CẤP TỈNH/THÀNH PHỐ)`;
+
+            if (targetClass === '4') {
+                return this.generateGrade4AdvancedExam(title, timeLimit);
+            } else if (targetClass === '1') {
+                return this.generateGrade1AdvancedExam(title, timeLimit);
+            } else {
+                return this.generateGrade6AdvancedExam(title, timeLimit);
+            }
         }
     };
 })();

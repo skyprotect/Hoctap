@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=12.78">
+    <link rel="stylesheet" href="css/style.css?v=12.95">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -484,6 +484,37 @@
             overflow: hidden;
         }
 
+        /* CSS cho Preview Đề thi và In ấn PDF từ trang Học sinh */
+        #student-print-paper {
+            display: none;
+            font-family: "Times New Roman", Times, Georgia, serif;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+            line-height: 1.6;
+            padding: 2.5rem;
+        }
+        
+        #student-print-paper *,
+        #print-preview-paper * {
+            color: #000000 !important;
+        }
+
+        #student-print-paper .math-render,
+        #student-print-paper .katex,
+        #print-preview-paper .math-render,
+        #print-preview-paper .katex {
+            color: #000000 !important;
+            font-size: 1.05em;
+        }
+
+        /* Định nghĩa ngắt trang */
+        .print-page-break {
+            page-break-before: always;
+            break-before: page;
+            height: 0;
+            overflow: hidden;
+        }
+
         /* CSS khi in ấn thực tế từ trang học sinh */
         @media print {
             @page {
@@ -505,7 +536,6 @@
             .app-content,
             .swal2-container,
             #confetti-canvas,
-            #student-print-paper,
             .version-tag-fixed,
             #bottom-feedback-banner,
             .online-presence-widget,
@@ -563,9 +593,20 @@
                 display: block !important;
                 visibility: visible !important;
             }
-            #print-preview-paper, #print-preview-paper * {
+            #student-print-paper {
+                display: block !important;
+                visibility: visible !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+            #print-preview-paper, #print-preview-paper *,
+            #student-print-paper, #student-print-paper * {
                 color: #000000 !important;
                 text-shadow: none !important;
+            }
+            .katex-mathml {
+                display: none !important;
             }
             .print-page-break {
                 display: block !important;
@@ -811,7 +852,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v12.78 (Cập nhật: 05/08/2026 08:31)</div>
+            <div class="splash-version-tag">Phiên bản: v12.95 (Cập nhật: 12/08/2026 08:36)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -2229,15 +2270,15 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=12.78"></script>
-    <script src="js/lessons.js?v=12.78"></script>
-    <script src="js/questions-v1.js?v=12.78"></script>
-    <script src="js/questions-v4.js?v=12.78"></script>
-    <script src="js/questions-v3.js?v=12.78"></script>
-    <script src="js/questions-advanced.js?v=12.78"></script>
-    <script src="js/questions-7991.js?v=12.78"></script>
-    <script src="js/game.js?v=12.78"></script>
-    <script src="js/app.js?v=12.78"></script>
+    <script src="js/english_data.js?v=12.95"></script>
+    <script src="js/lessons.js?v=12.95"></script>
+    <script src="js/questions-v1.js?v=12.95"></script>
+    <script src="js/questions-v4.js?v=12.95"></script>
+    <script src="js/questions-v3.js?v=12.95"></script>
+    <script src="js/questions-advanced.js?v=12.95"></script>
+    <script src="js/questions-7991.js?v=12.95"></script>
+    <script src="js/game.js?v=12.95"></script>
+    <script src="js/app.js?v=12.95"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -3301,7 +3342,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v12.78 (Cập nhật: 05/08/2026 08:31)
+        Phiên bản: v12.95 (Cập nhật: 12/08/2026 08:36)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

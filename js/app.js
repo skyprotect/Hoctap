@@ -1933,27 +1933,33 @@ const app = {
                 // skyprotect@gmail.com quản lý 2 học sinh: Trần Bình Minh & Trần Bảo Ngọc
                 const bmRef = db.collection('students').doc('std_htsj4gbmo');
                 const bmDoc = await bmRef.get().catch(() => null);
-                batch.set(bmRef, {
+                const bmData = {
                     studentId: 'std_htsj4gbmo',
                     parentUid: newParentUid,
                     email: normalizedEmail,
                     name: 'Trần Bình Minh',
                     classLevel: '6',
-                    state_json: (bmDoc && bmDoc.exists && bmDoc.data().state_json) || JSON.stringify({ student: 'Trần Bình Minh', classLevel: '6' }),
                     lastUpdated: new Date().toISOString()
-                }, { merge: true });
+                };
+                if (bmDoc && bmDoc.exists && bmDoc.data() && bmDoc.data().state_json) {
+                    bmData.state_json = bmDoc.data().state_json;
+                }
+                batch.set(bmRef, bmData, { merge: true });
 
                 const bnRef = db.collection('students').doc('std_baongoc');
                 const bnDoc = await bnRef.get().catch(() => null);
-                batch.set(bnRef, {
+                const bnData = {
                     studentId: 'std_baongoc',
                     parentUid: newParentUid,
                     email: normalizedEmail,
                     name: 'Trần Bảo Ngọc',
                     classLevel: '1',
-                    state_json: (bnDoc && bnDoc.exists && bnDoc.data().state_json) || JSON.stringify({ student: 'Trần Bảo Ngọc', classLevel: '1' }),
                     lastUpdated: new Date().toISOString()
-                }, { merge: true });
+                };
+                if (bnDoc && bnDoc.exists && bnDoc.data() && bnDoc.data().state_json) {
+                    bnData.state_json = bnDoc.data().state_json;
+                }
+                batch.set(bnRef, bnData, { merge: true });
 
                 // Ghi đè config hệ thống cho skyprotect
                 const configSky = {
@@ -1980,15 +1986,18 @@ const app = {
                 // nhematseo@gmail.com quản lý 1 học sinh: Trần Đức Phúc
                 const dpRef = db.collection('students').doc('std_tyc0gfnkz');
                 const dpDoc = await dpRef.get().catch(() => null);
-                batch.set(dpRef, {
+                const dpData = {
                     studentId: 'std_tyc0gfnkz',
                     parentUid: newParentUid,
                     email: normalizedEmail,
                     name: 'Trần Đức Phúc',
                     classLevel: '4',
-                    state_json: (dpDoc && dpDoc.exists && dpDoc.data().state_json) || JSON.stringify({ student: 'Trần Đức Phúc', classLevel: '4' }),
                     lastUpdated: new Date().toISOString()
-                }, { merge: true });
+                };
+                if (dpDoc && dpDoc.exists && dpDoc.data() && dpDoc.data().state_json) {
+                    dpData.state_json = dpDoc.data().state_json;
+                }
+                batch.set(dpRef, dpData, { merge: true });
 
                 // Ghi đè config hệ thống cho nhematseo
                 const configNhem = {
@@ -2297,12 +2306,6 @@ const app = {
                     classLevel: classLevel,
                     state_json: mergedJson
                 });
-                cloudStudentsMap.delete(localStd.student_id);
-                continue;
-            }
-
-            if (cloudStd) {
-                finalStudents.push(cloudStd);
                 cloudStudentsMap.delete(localStd.student_id);
             } else {
                 // SQLite có học sinh mà Cloud chưa có -> Đẩy lên Cloud

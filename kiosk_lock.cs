@@ -299,13 +299,14 @@ namespace KioskLock
                 // Luồng giám sát file cờ thoát Kiosk Mode
                 Thread exitWatcherThread = new Thread(() =>
                 {
-                    string flagPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "kiosk_exit_flag.tmp");
+                    string flagPath1 = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "kiosk_exit_flag.tmp");
+                    string flagPath2 = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "kiosk_exit_flag.tmp");
                     while (!_restored)
                     {
                         Thread.Sleep(500); // Kiểm tra mỗi 500ms
                         if (_restored) break;
 
-                        if (System.IO.File.Exists(flagPath))
+                        if (System.IO.File.Exists(flagPath1) || System.IO.File.Exists(flagPath2))
                         {
                             WriteLog("Phát hiện file flag thoát Kiosk Mode từ Node.js server. Tiến hành thoát...");
                             Cleanup();
@@ -369,23 +370,28 @@ namespace KioskLock
             SetTaskManager(true);
 
             // Kiểm tra xem có file flag yêu cầu giữ Node Server hay không
-            string flagPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "kiosk_exit_flag.tmp");
-            if (System.IO.File.Exists(flagPath))
+            string flagPath1 = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "kiosk_exit_flag.tmp");
+            string flagPath2 = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "kiosk_exit_flag.tmp");
+            bool flagExists = System.IO.File.Exists(flagPath1) || System.IO.File.Exists(flagPath2);
+
+            if (flagExists)
             {
                 try
                 {
-                    System.IO.File.Delete(flagPath);
+                    if (System.IO.File.Exists(flagPath1)) System.IO.File.Delete(flagPath1);
+                    if (System.IO.File.Exists(flagPath2)) System.IO.File.Delete(flagPath2);
                 }
                 catch {}
             }
             else
             {
-                // Tắt server Node.js đang chạy cổng 3000
+                // Tắt server Node.js đang chạy
                 WriteLog("Đang tắt Node.js server...");
                 KillNodeServer();
             }
 
             WriteLog("Cleanup hoàn tất.");
+
         }
 
         private static void OnProcessExit(object sender, EventArgs e)
@@ -425,10 +431,11 @@ namespace KioskLock
             try
             {
                 int port = GetPortFromEnv();
+                string psCmd = string.Format("$conn = Get-NetTCPConnection -LocalPort {0} -ErrorAction SilentlyContinue; if ($conn) {{ Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue }}; Get-CimInstance Win32_Process | Where-Object {{ $_.Name -eq 'node.exe' -and $_.CommandLine -like '*server.js*' }} | Stop-Process -Force -ErrorAction SilentlyContinue", port);
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "powershell.exe",
-                    Arguments = string.Format("-WindowStyle Hidden -Command \"$conn = Get-NetTCPConnection -LocalPort {0} -ErrorAction SilentlyContinue; if ($conn) {{ Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue }}\"", port),
+                    Arguments = string.Format("-WindowStyle Hidden -Command \"{0}\"", psCmd),
                     CreateNoWindow = true,
                     UseShellExecute = false
                 };
@@ -436,6 +443,7 @@ namespace KioskLock
             }
             catch {}
         }
+
 
         private static IntPtr SetHook(LowLevelKeyboardProc proc)
         {

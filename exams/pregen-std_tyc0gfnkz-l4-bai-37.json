@@ -1,0 +1,429 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 200,
+          "max": 500,
+          "step": 10
+        },
+        "b": {
+          "min": 5,
+          "max": 20,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a / (b / 5)",
+        "w2": "a / (b + 5)",
+        "w3": "a / (b * 2)",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} quyển vở, người ta xếp đều vào {b} thùng. Hỏi mỗi thùng có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1_final} quyển",
+        "B. {ans} quyển",
+        "C. {w2_final} quyển",
+        "D. {w3_final} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số vở trong mỗi thùng, ta lấy tổng số vở chia cho số thùng."
+      ],
+      "solutionHtml": "Số quyển vở trong mỗi thùng là:<br/>${a} : {b} = {ans}$ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Phép chia số có nhiều chữ số cho số có một hoặc hai chữ số cần thực hiện cẩn thận từng lượt chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 50,
+          "max": 150,
+          "step": 5
+        },
+        "y": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "(x * y) + x",
+        "w2": "(x * y) - x",
+        "w3": "x * (y + 1)",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Một xe tải chở {x} thùng hàng, mỗi thùng chứa {y} hộp bánh. Hỏi xe tải đó chở tất cả bao nhiêu hộp bánh?",
+      "options": [
+        "A. {w1_final} hộp",
+        "B. {w2_final} hộp",
+        "C. {ans} hộp",
+        "D. {w3_final} hộp"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số hộp bánh bằng cách lấy số thùng nhân với số hộp mỗi thùng."
+      ],
+      "solutionHtml": "Tổng số hộp bánh trên xe tải là:<br/>${x} \\times {y} = {ans}$ (hộp).<br/>Đáp án đúng là C.",
+      "tip": "Đọc đề kỹ để phân biệt bài toán rút về đơn vị và bài toán nhân số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 100,
+          "max": 300,
+          "step": 10
+        },
+        "b": {
+          "min": 20,
+          "max": 50,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a / 2",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Tổ một trồng được {a} cây xanh, tổ hai trồng được ít hơn tổ một {b} cây xanh. Hỏi tổ hai trồng được bao nhiêu cây xanh?",
+      "options": [
+        "A. {w1_final} cây",
+        "B. {ans} cây",
+        "C. {w2_final} cây",
+        "D. {w3_final} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổ hai ít hơn tổ một nên ta làm phép tính trừ."
+      ],
+      "solutionHtml": "Số cây tổ hai trồng được là:<br/>${a} - {b} = {ans}$ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'ít hơn' chỉ phép tính trừ, 'nhiều hơn' chỉ phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "n": {
+          "min": 4,
+          "max": 10,
+          "step": 1
+        },
+        "v": {
+          "min": 1000,
+          "max": 5000,
+          "step": 1000
+        }
+      },
+      "constraints": [
+        "(n * v) % 100 === 0"
+      ],
+      "formulas": {
+        "ans": "n * v",
+        "w1": "(n + 1) * v",
+        "w2": "n * (v + 500)",
+        "w3": "n * (v / 2)",
+        "w1_final": "(w1 === ans) ? ans + 1000 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 2000 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 3000 : w3"
+      },
+      "questionText": "Mẹ mua {n} kg gạo, mỗi kg giá {v} đồng. Hỏi mẹ phải trả tổng cộng bao nhiêu tiền?",
+      "options": [
+        "A. {w1_final} đồng",
+        "B. {w2_final} đồng",
+        "C. {ans} đồng",
+        "D. {w3_final} đồng"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số tiền bằng giá tiền mỗi kg nhân với số kg."
+      ],
+      "solutionHtml": "Số tiền mẹ phải trả là:<br/>${n} \\times {v} = {ans}$ (đồng).<br/>Đáp án đúng là C.",
+      "tip": "Đơn vị tính trong toán học lớp 4 cần thống nhất trước khi tính toán.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "c": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "(a + b) * c",
+        "sum_ab": "a + b",
+        "w1": "(a + b + c)",
+        "w2": "(a * b * c)",
+        "w3": "(a * c) + b",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Một cửa hàng có {a} bao gạo nếp và {b} bao gạo tẻ, mỗi bao nặng {c} kg. Hỏi cửa hàng có tất cả bao nhiêu ki-lô-gam gạo?",
+      "options": [
+        "A. {w1_final} kg",
+        "B. {ans} kg",
+        "C. {w2_final} kg",
+        "D. {w3_final} kg"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có hai cách tính: tính tổng số bao rồi nhân với số kg, hoặc tính số kg mỗi loại rồi cộng lại."
+      ],
+      "solutionHtml": "Số gạo cửa hàng có là:<br/>$({a} + {b}) \\times {c} = {sum_ab} \\times {c} = {ans}$ (kg).<br/>Đáp án đúng là B.",
+      "tip": "Vận dụng tính chất nhân một số với một tổng sẽ giúp tính nhanh hơn.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "s": {
+          "min": 40,
+          "max": 80,
+          "step": 5
+        }
+      },
+      "constraints": [
+        "(t * s) % 100 !== 0"
+      ],
+      "formulas": {
+        "total": "t * s",
+        "div_res": "Math.floor(total / 100)",
+        "ans": "div_res + 1",
+        "w1": "total / 100",
+        "w2": "total - 100",
+        "w3": "total + 100",
+        "w1_final": "(w1 === ans) ? ans + 2 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 3 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 4 : w3"
+      },
+      "questionText": "Một thư viện có {t} kệ sách, mỗi kệ chứa {s} quyển sách. Người ta xếp số sách này vào các tủ, mỗi tủ chứa được 100 quyển. Hỏi cần ít nhất bao nhiêu tủ để chứa hết số sách đó?",
+      "options": [
+        "A. {w1_final}",
+        "B. {w2_final}",
+        "C. {ans}",
+        "D. {w3_final}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng số sách trước, sau đó chia cho 100 và làm tròn lên vì số dư vẫn cần một tủ."
+      ],
+      "solutionHtml": "Tổng số sách là: ${t} \\times {s} = {total}$ (quyển).<br/>Số tủ cần dùng là: ${total} : 100 = {div_res}$ (dư ${total % 100}$ quyển).<br/>Vậy cần ${div_res} + 1 = {ans}$ tủ.",
+      "tip": "Với các bài toán thực tế về số thùng/tủ, nếu còn dư số lượng thì cần thêm 1 đơn vị chứa.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 20,
+          "max": 40,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "x > 5"
+      ],
+      "formulas": {
+        "ans": "x * 4",
+        "w1": "x * 2",
+        "w2": "x + 4",
+        "w3": "x * 3",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Một hình vuông có cạnh là {x} cm. Hỏi chu vi của hình vuông đó là bao nhiêu?",
+      "options": [
+        "A. {w1_final} cm",
+        "B. {ans} cm",
+        "C. {w2_final} cm",
+        "D. {w3_final} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chu vi hình vuông bằng cạnh nhân với 4."
+      ],
+      "solutionHtml": "Chu vi hình vuông là:<br/>${x} \\times 4 = {ans}$ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Nhớ công thức: P = a x 4.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "2 * (a + b)",
+        "sum_ab": "a + b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "2 * a + b",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Một hình chữ nhật có chiều dài là {a} cm, chiều rộng là {b} cm. Tính chu vi của hình chữ nhật đó.",
+      "options": [
+        "A. {w1_final} cm",
+        "B. {w2_final} cm",
+        "C. {ans} cm",
+        "D. {w3_final} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chu vi hình chữ nhật bằng tổng chiều dài và chiều rộng nhân với 2."
+      ],
+      "solutionHtml": "Chu vi hình chữ nhật là:<br/>$({a} + {b}) \\times 2 = {sum_ab} \\times 2 = {ans}$ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Công thức chu vi: P = (dài + rộng) x 2.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 50,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a * b",
+        "w2": "a + b",
+        "w3": "a - b",
+        "w1_final": "(w1 === ans) ? ans + 10 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 20 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 30 : w3"
+      },
+      "questionText": "Trong một buổi biểu diễn, {a} bạn học sinh được chia đều vào {b} nhóm múa. Hỏi mỗi nhóm có bao nhiêu bạn?",
+      "options": [
+        "A. {w1_final} bạn",
+        "B. {ans} bạn",
+        "C. {w2_final} bạn",
+        "D. {w3_final} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều số học sinh vào các nhóm thì dùng phép chia."
+      ],
+      "solutionHtml": "Số học sinh mỗi nhóm là:<br/>${a} : {b} = {ans}$ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Cụm từ 'chia đều' là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 100,
+          "max": 200,
+          "step": 10
+        },
+        "b": {
+          "min": 50,
+          "max": 90,
+          "step": 10
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "to_hai": "a + b",
+        "ans": "a + (a + b)",
+        "w1": "a + b",
+        "w2": "a + a",
+        "w3": "a + b + 10",
+        "w1_final": "(w1 === ans) ? ans + 5 : w1",
+        "w2_final": "(w2 === ans || w2 === w1_final) ? ans + 15 : w2",
+        "w3_final": "(w3 === ans || w3 === w1_final || w3 === w2_final) ? ans + 25 : w3"
+      },
+      "questionText": "Tổ một gấp được {a} con hạc giấy, tổ hai gấp được nhiều hơn tổ một {b} con hạc giấy. Hỏi cả hai tổ gấp được tất cả bao nhiêu con hạc giấy?",
+      "options": [
+        "A. {w1_final} con",
+        "B. {w2_final} con",
+        "C. {ans} con",
+        "D. {w3_final} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Bước 1: Tính số hạc của tổ hai = tổ một + {b}. Bước 2: Tính tổng = tổ một + tổ hai."
+      ],
+      "solutionHtml": "Số hạc tổ hai gấp được là: ${a} + {b} = {to_hai}$ (con).<br/>Cả hai tổ gấp được là: ${a} + {to_hai} = {ans}$ (con).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài yêu cầu tìm 'cả hai tổ' chứ không chỉ riêng tổ hai.",
+      "level": "chat-luong-cao",
+      "type": "l4-bai-37-d10"
+    }
+  ]
+}

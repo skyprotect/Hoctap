@@ -71,6 +71,33 @@ Do While Not isReady And attempts < 40
     End If
 Loop
 
+' Hàm giải mã Unicode để đảm bảo hiển thị tiếng Việt hoàn hảo 100% trên mọi phiên bản Windows
+Function U(txt)
+    Dim res, i, hexVal
+    res = ""
+    i = 1
+    Do While i <= Len(txt)
+        If Mid(txt, i, 2) = "\u" And i + 5 <= Len(txt) Then
+            hexVal = Mid(txt, i + 2, 4)
+            res = res & ChrW(CLng("&H" & hexVal))
+            i = i + 6
+        Else
+            res = res & Mid(txt, i, 1)
+            i = i + 1
+        End If
+    Loop
+    U = res
+End Function
+
+If Not isReady Then
+    ' Nếu server không sẵn sàng sau 40 lần thử, dọn dẹp tiến trình node lỗi và báo lỗi
+    WshShell.Run "powershell.exe -WindowStyle Hidden -Command ""Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'node.exe' -and $_.CommandLine -like '*server.js*' } | Stop-Process -Force -ErrorAction SilentlyContinue""", 0, True
+    MsgBox U("Kh\u00F4ng th\u1EC3 kh\u1EDFi \u0111\u1ED9ng m\u00E1y ch\u1EE7 Node.js!") & vbCrLf & _
+           U("Vui l\u00F2ng ki\u1EC3m tra l\u1EA1i h\u1EC7 th\u1ED1ng ho\u1EB7c xem chi ti\u1EBFt l\u1ED7i trong t\u1EC7p node_error.log."), _
+           16, U("To\u00E1n & Ti\u1EBFng Anh - L\u1ED7i kh\u1EDFi \u0111\u1ED9ng")
+    WScript.Quit
+End If
+
 ' 3. Tạo thư mục profile Chrome dùng chung cố định để tránh xung đột
 strProfile = "C:\ChromeKioskToan6"
 If Not objFSO.FolderExists(strProfile) Then
@@ -82,3 +109,4 @@ End If
 ' 4. Chạy kiosk_lock.exe: khóa bàn phím, ẩn Task Manager, mở Chrome Kiosk
 '    kiosk_lock.exe sẽ tự tắt Node Server khi thoát
 WshShell.Run "kiosk_lock.exe", 0, False
+
