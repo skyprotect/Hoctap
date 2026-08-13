@@ -9212,7 +9212,21 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
     const classData = ENGLISH_COURSE_DATA[classLevel] || ENGLISH_COURSE_DATA["6"];
     if (!classData) return [];
     
-    const topic = classData.topics.find(t => t.id === topicId);
+    let topic = classData ? classData.topics.find(t => t.id === topicId) : null;
+    if (!topic && window.app && window.app.customTopics && Array.isArray(window.app.customTopics)) {
+        const foundCustom = window.app.customTopics.find(t => String(t.id) === String(topicId));
+        if (foundCustom) {
+            topic = {
+                id: foundCustom.id,
+                title: foundCustom.title || "Chủ đề tự chọn",
+                vocab: (foundCustom.words || []).map(w => ({ word: typeof w === 'string' ? w : (w.word || w), translation: typeof w === 'object' ? (w.translation || w.word) : w })),
+                sentencePatterns: [
+                    { pattern: "I love learning {word}.", vietnamese: "Tôi thích học {word}." },
+                    { pattern: "This is my favorite {word}.", vietnamese: "Đây là {word} yêu thích của tôi." }
+                ]
+            };
+        }
+    }
     if (!topic) {
         return generateEnglishFullExam({ classLevel: classLevel, detail: topicId, category: skill || "topic" });
     }

@@ -2425,34 +2425,57 @@ const parentDashboard = {
 
         html += `</div>`;
 
+        const buildPdfAnswerTable = (list, isFillable = false) => {
+            let resHtml = '';
+            const chunkSize = 10;
+            for (let chunkStart = 0; chunkStart < list.length; chunkStart += chunkSize) {
+                const chunk = list.slice(chunkStart, chunkStart + chunkSize);
+                resHtml += `
+                    <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px; margin-bottom: 8px;">
+                        <thead>
+                            <tr style="background-color: #f1f5f9; font-weight: bold;">
+                                <td style="border: 1px solid #000000; padding: 5px; width: 14%;">Câu hỏi</td>
+                `;
+                chunk.forEach((_, cIdx) => {
+                    resHtml += `<td style="border: 1px solid #000000; padding: 5px;">${chunkStart + cIdx + 1}</td>`;
+                });
+                resHtml += `
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height: 30px; font-weight: bold;">
+                                <td style="border: 1px solid #000000; padding: 5px; background-color: #f1f5f9;">Đáp án</td>
+                `;
+                chunk.forEach(q => {
+                    if (isFillable) {
+                        resHtml += `<td style="border: 1px solid #000000;"></td>`;
+                    } else {
+                        let correctIdx = q.correctIndex;
+                        if ((correctIdx === undefined || correctIdx === null || correctIdx < 0) && q.options && q.options.length > 0 && q.correctAnswer) {
+                            const normAns = typeof app !== 'undefined' && app.normalizeAnswerToken ? app.normalizeAnswerToken(q.correctAnswer) : q.correctAnswer;
+                            const foundIdx = q.options.findIndex(opt => (typeof app !== 'undefined' && app.normalizeAnswerToken ? app.normalizeAnswerToken(opt) : opt) === normAns);
+                            if (foundIdx !== -1) correctIdx = foundIdx;
+                        }
+                        const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][correctIdx !== undefined && correctIdx >= 0 ? correctIdx : 0] : (q.correctAnswer || "OK");
+                        resHtml += `<td style="border: 1px solid #000000; color: #10b981 !important;">${correctLetter}</td>`;
+                    }
+                });
+                resHtml += `
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+            }
+            return resHtml;
+        };
+
         // Bảng điền đáp án trắc nghiệm cho học sinh
         html += `
             <div style="margin-top: 30px; page-break-inside: avoid; break-inside: avoid;">
                 <div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 8px; text-transform: uppercase;">
                     BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM TIẾNG ANH
                 </div>
-                <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px;">
-                    <thead>
-                        <tr style="background-color: #f1f5f9; font-weight: bold;">
-                            <td style="border: 1px solid #000000; padding: 5px; font-weight: bold;">Câu hỏi</td>
-        `;
-        for (let i = 1; i <= Math.min(12, renderList.length); i++) {
-            html += `<td style="border: 1px solid #000000; padding: 5px;">${i}</td>`;
-        }
-        html += `
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="height: 30px;">
-                            <td style="border: 1px solid #000000; padding: 5px; font-weight: bold;">Đáp án chọn</td>
-        `;
-        for (let i = 1; i <= Math.min(12, renderList.length); i++) {
-            html += `<td style="border: 1px solid #000000;"></td>`;
-        }
-        html += `
-                        </tr>
-                    </tbody>
-                </table>
+                ${buildPdfAnswerTable(renderList, true)}
             </div>
 
             <!-- Footer bản quyền -->
@@ -2479,29 +2502,7 @@ const parentDashboard = {
                         <div style="font-weight: bold; font-size: 12px; margin-bottom: 6px; text-transform: uppercase; color: #047857;">
                             1. BẢNG ĐÁP ÁN NHANH
                         </div>
-                        <table style="width: 100%; border-collapse: collapse; border: 1.2px solid #000000; text-align: center; font-size: 12px;">
-                            <thead>
-                                <tr style="background-color: #f1f5f9; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; padding: 5px;">Câu</td>
-            `;
-            for (let i = 1; i <= Math.min(12, renderList.length); i++) {
-                html += `<td style="border: 1px solid #000000; padding: 5px;">${i}</td>`;
-            }
-            html += `
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="height: 28px; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;">Đáp án</td>
-            `;
-            renderList.forEach(q => {
-                const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][q.correctIndex || 0] : (q.correctAnswer || "OK");
-                html += `<td style="border: 1px solid #000000; color: #10b981 !important;">${correctLetter}</td>`;
-            });
-            html += `
-                                </tr>
-                            </tbody>
-                        </table>
+                        ${buildPdfAnswerTable(renderList, false)}
                     </div>
 
                     <!-- Phần Audio Script / Transcript bài nghe -->

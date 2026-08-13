@@ -1613,7 +1613,7 @@ Chỉ trả về chuỗi JSON thô, không bọc trong tag ${bt}${bt}${bt}json h
 
 async function auditEnglishQuestions(examData, classLevel = '6', geminiModel = null) {
   const bt = String.fromCharCode(96);
-  const auditPrompt = `Bạn là chuyên gia thẩm định đề thi Tiếng Anh lớp \${classLevel} chất lượng cao theo chuẩn Global Success.
+  const auditPrompt = `Bạn là chuyên gia thẩm định đề thi Tiếng Anh lớp ${classLevel} chất lượng cao theo chuẩn Global Success.
 Dưới đây là đề thi dạng JSON chứa các câu hỏi Tiếng Anh tương tác:
 \${bt}\${bt}\${bt}json
 \${JSON.stringify(examData, null, 2)}
@@ -1622,7 +1622,7 @@ Dưới đây là đề thi dạng JSON chứa các câu hỏi Tiếng Anh tươ
 Nhiệm vụ của bạn là thẩm định và sửa các lỗi nếu có:
 1. Đảm bảo toàn bộ các phương án nhiễu (options) không bị trùng lặp với đáp án đúng và không trùng chéo nhau.
 2. Kiểm tra phần gợi ý (hints), lời giải (solutionHtml), và mẹo (tip) phải được viết bằng TIẾNG VIỆT CÓ DẤU đầy đủ, đúng ngữ pháp sư phạm Việt Nam.
-3. Kiểm tra tính đúng đắn của ngữ pháp và từ vựng Tiếng Anh trong đề bài, đảm bảo bám sát chương trình Global Success lớp \${classLevel}.
+3. Kiểm tra tính đúng đắn của ngữ pháp và từ vựng Tiếng Anh trong đề bài, đảm bảo bám sát chương trình Global Success lớp ${classLevel}.
 4. Đảm bảo các thuộc tính đặc trưng cho Nghe - Nói - Đọc - Viết gồm "questionType", "listeningText", "speakingPhrases", và "spellingWords" được định nghĩa đầy đủ và đúng định dạng.
 5. Trả về đúng cấu trúc JSON, không thêm bất kỳ văn bản giải thích nào ngoài JSON.`;
 
@@ -4315,7 +4315,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.99';
+const APP_VERSION = '13.2';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

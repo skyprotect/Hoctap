@@ -1,7 +1,7 @@
 {
-  "version": "12.99",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v12.99/ToanHocKiosk_Setup_v12.99.exe",
-  "changelog": "- Tích hợp trực tiếp Trung tâm Đề thi & Khảo thí Tiếng Anh 4 kỹ năng vào Giao diện Học sinh (Làm bài trực tuyến & In PDF A4).",
+  "version": "13.2",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.2/ToanHocKiosk_Setup_v13.2.exe",
+  "changelog": "- Phiên bản v13.1: Nâng cấp và khắc phục 20+ lỗi dứt điểm hệ thống Tiếng Anh (Audio IOE Player, PDF print CSS, đồng bộ 100% không trùng đáp án, xử lý an toàn SpeechSynthesis và khôi phục nạp tiến trình Splash).",
   "androidVersion": "5.2",
   "androidChangelog": "- Phiên bản v5.2: Khắc phục triệt để vòng lặp không mở khóa bằng việc đồng bộ bộ nhớ đa tiến trình SharedPreferences và loại bỏ cờ lockIntent dư thừa trong BootReceiver."
 }

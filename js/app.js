@@ -1397,7 +1397,7 @@ const app = {
             }
         }
 
-        const fields = ['scores', 'completedSubtopics', 'subtopicScores', 'completedLessonTheory', 'examSessions'];
+        const fields = ['scores', 'completedSubtopics', 'subtopicScores', 'completedLessonTheory', 'examSessions', 'slainMonstersCount', 'englishStreak', 'goldSkills', 'redeemedSkills', 'skillScores', 'weakVocabulary', 'cardExchangeHistory'];
         fields.forEach(field => {
             Object.defineProperty(this.state, field, {
                 get: () => {
@@ -1406,7 +1406,7 @@ const app = {
                         this.state.subjects[subj] = {};
                     }
                     if (!this.state.subjects[subj][field]) {
-                        this.state.subjects[subj][field] = (field === 'scores' || field === 'subtopicScores') ? {} : [];
+                        this.state.subjects[subj][field] = (field === 'scores' || field === 'subtopicScores' || field === 'skillScores') ? {} : [];
                     }
                     return this.state.subjects[subj][field];
                 },
@@ -2432,6 +2432,46 @@ const app = {
         }
     },
 
+    syncCloud: function() {
+        if (typeof this.saveEnglishState === 'function') {
+            this.saveEnglishState();
+        }
+        if (this._syncCloudDebounceTimer) clearTimeout(this._syncCloudDebounceTimer);
+        this._syncCloudDebounceTimer = setTimeout(async () => {
+            try {
+                if (window.firebaseApp && window.firebaseApp.auth && window.firebaseApp.auth.currentUser) {
+                    const fb = window.firebaseApp;
+                    const user = fb.auth.currentUser;
+                    if (user && user.uid && typeof this.pushLocalDataToFirestoreClient === 'function') {
+                        await this.pushLocalDataToFirestoreClient(fb.db, user.uid, user.email || "");
+                    }
+                }
+            } catch (err) {
+                console.warn("[Cloud Sync] Tự động đồng bộ ngầm gặp lỗi nhẹ:", err);
+            }
+        }, 500);
+    },
+
+    escapeJsString: function(str) {
+        if (!str) return "";
+        return String(str)
+            .replace(/\\/g, "\\\\")
+            .replace(/'/g, "\\'")
+            .replace(/"/g, "&quot;")
+            .replace(/\r?\n/g, " ");
+    },
+
+    normalizeAnswerToken: function(str) {
+        if (!str) return "";
+        return String(str)
+            .replace(/^[A-D][\.\)\:\-\s]+/i, "")
+            .replace(/<[^>]*>/g, "")
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
+            .replace(/[\u00a0]/g, " ")
+            .toLowerCase()
+            .trim();
+    },
+
     checkGoogleSession: async function() {
         try {
             // 1. Khởi tạo Firebase Client SDK trước tiên
@@ -2678,6 +2718,9 @@ const app = {
 
     // Khởi chạy ứng dụng
     init: async function() {
+        // Tải cấu hình ứng dụng từ SQLite trước tiên để luôn sẵn sàng dữ liệu
+        await this.loadConfig();
+
         // 1. Kiểm tra session Google trước tiên
         const isLoggedIn = await this.checkGoogleSession();
         
@@ -4524,7 +4567,7 @@ const app = {
 
                 // Migration: Xóa sạch toàn bộ video cũ ở phần kiến thức chung (chạy 1 lần)
                 if (!this.state.cleanedOldTheoryVideos) {
-                    if (this.state.customVideos) {
+                    if (this.state.customVideos && typeof COURSE_DATA !== 'undefined') {
                         COURSE_DATA.forEach(chapter => {
                             chapter.lessons.forEach(lesson => {
                                 // Nếu bài học có chia dạng bài
@@ -6669,13 +6712,11 @@ const app = {
                 if (typeof ENGLISH_COURSE_DATA !== 'undefined') {
                     for (const grade in ENGLISH_COURSE_DATA) {
                         const gradeData = ENGLISH_COURSE_DATA[grade];
-                        if (gradeData && gradeData.chapters) {
-                            for (const chapter of gradeData.chapters) {
-                                const found = chapter.lessons.find(l => l.id === lessonId);
-                                if (found) {
-                                    lessonTitle = found.title;
-                                    break;
-                                }
+                        if (gradeData && gradeData.topics) {
+                            const found = gradeData.topics.find(t => t.id === lessonId);
+                            if (found) {
+                                lessonTitle = found.title;
+                                break;
                             }
                         }
                     }
@@ -8411,9 +8452,9 @@ const app = {
             case "writing_champion":
                 return this.checkSkillScore(state, 'spelling', 90) || this.checkSkillScore(state, 'writing', 90);
             case "streak_legend":
-                return (state.englishStreak || 0) >= 5;
+                return (state.englishStreak || state.streak || 0) >= 5;
             case "streak_hero":
-                return (state.englishStreak || 0) >= 10;
+                return (state.englishStreak || state.streak || 0) >= 10;
             case "xp_conqueror":
                 return (state.englishXp || 0) >= 1000;
             case "perfect_score":
@@ -8766,7 +8807,7 @@ const app = {
     },
 
     calculateEnglishSkillScores: function(engState) {
-        const stateToUse = engState || this.state || {};
+        const stateToUse = engState || (this.state && this.state.subjects && this.state.subjects.english ? this.state.subjects.english : this.state) || {};
         const sessions = stateToUse.examSessions || [];
         const scores = { listening: 70, speaking: 70, reading: 70, writing: 70, vocabulary: 70, grammar: 70 };
         
@@ -8813,10 +8854,13 @@ const app = {
             color: 'var(--text-main)'
         }).then(result => {
             if (result.isConfirmed) {
-                document.getElementById("hero-profile-modal").classList.add("hidden");
-                const matchedLesson = COURSE_DATA.flatMap(chap => chap.lessons).find(l => l.spellingWords && l.spellingWords.includes(word));
-                if (matchedLesson) {
-                    this.startLesson(matchedLesson.id);
+                const modal = document.getElementById("hero-profile-modal");
+                if (modal) modal.classList.add("hidden");
+                const engData = typeof ENGLISH_COURSE_DATA !== 'undefined' ? ENGLISH_COURSE_DATA : {};
+                const allTopics = Object.values(engData).flatMap(cls => cls.topics || []);
+                const matchedTopic = allTopics.find(t => t.vocab && t.vocab.some(v => v.word.toLowerCase() === word.toLowerCase()));
+                if (matchedTopic) {
+                    this.startEnglishLesson(matchedTopic.id);
                 } else {
                     Swal.fire('Thông báo', 'Không tìm thấy bài học tương ứng cho từ vựng này!', 'info');
                 }
@@ -9259,7 +9303,10 @@ showEnglishGrammarModal: function(topicId) {
 startEnglishLesson: function(lessonId, skipIntro = false) {
         const classLevel = this.config.currentClass || '6';
         const classData = window.ENGLISH_COURSE_DATA[classLevel];
-        const topic = classData ? classData.topics.find(t => t.id === lessonId) : null;
+        let topic = classData ? classData.topics.find(t => t.id === lessonId) : null;
+        if (!topic && this.customTopics && Array.isArray(this.customTopics)) {
+            topic = this.customTopics.find(t => String(t.id) === String(lessonId));
+        }
 
         // Nếu chưa bỏ qua màn hình giới thiệu, hiển thị thông tin bài luyện tập/kiểm tra chi tiết
         if (!skipIntro) {
@@ -9608,14 +9655,20 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     speakEnglish: function(text, isFallback = false) {
         if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.95;
-            utterance.onstart = () => {
-                this.updateAudioSourceLabel(isFallback ? "Trình duyệt máy tính (Dự phòng)" : "Google Translate API (Chuẩn Mỹ)");
-            };
-            window.speechSynthesis.speak(utterance);
+            try {
+                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                utterance.onstart = () => {
+                    this.updateAudioSourceLabel(isFallback ? "Trình duyệt máy tính (Dự phòng)" : "Google Translate API (Chuẩn Mỹ)");
+                };
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {
+                console.warn("Lỗi Web Speech API:", e);
+                this.updateAudioSourceLabel("Lỗi phát âm thanh");
+            }
         } else {
             this.updateAudioSourceLabel("Không hỗ trợ phát âm");
         }
@@ -9903,39 +9956,61 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (!container) return;
         
         const words = passageText.split(/\s+/);
-        container.innerHTML = words.map((w, idx) => `<span id="read-word-${idx}" style="font-size:1.4rem; transition: background 0.2s; border-radius: 4px; padding: 2px; margin-right: 4px; display:inline-block; color:var(--text-main); font-weight:600;">${w}</span>`).join("");
+        container.innerHTML = words.map((w, idx) => `<span id="read-word-${idx}" class="read-along-word" style="font-size:1.4rem; transition: background 0.2s; border-radius: 4px; padding: 2px; margin-right: 4px; display:inline-block; color:var(--text-main); font-weight:600;">${w}</span>`).join("");
 
         if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(passageText);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.8;
+            try {
+                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+                window.speechSynthesis.cancel();
+                
+                // Clear any existing yellow highlights
+                container.querySelectorAll('.read-along-word').forEach(el => {
+                    el.style.backgroundColor = 'transparent';
+                    el.style.color = 'var(--text-main)';
+                });
 
-            let currentWordIndex = 0;
-            utterance.onboundary = (event) => {
-                if (event.name === 'word') {
-                    const oldEl = document.getElementById(`read-word-${currentWordIndex - 1}`);
-                    if (oldEl) oldEl.style.backgroundColor = 'transparent';
-                    
-                    const el = document.getElementById(`read-word-${currentWordIndex}`);
-                    if (el) {
-                        el.style.backgroundColor = '#fef08a';
-                        el.style.color = '#000000';
+                const utterance = new SpeechSynthesisUtterance(passageText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+
+                utterance.onboundary = (event) => {
+                    if (event.name === 'word' || typeof event.charIndex === 'number') {
+                        const charIdx = event.charIndex || 0;
+                        let runningLength = 0;
+                        let matchedIdx = 0;
+                        for (let i = 0; i < words.length; i++) {
+                            runningLength += words[i].length + 1;
+                            if (runningLength > charIdx) {
+                                matchedIdx = i;
+                                break;
+                            }
+                        }
+                        
+                        container.querySelectorAll('.read-along-word').forEach((el, idx) => {
+                            if (idx === matchedIdx) {
+                                el.style.backgroundColor = '#fef08a';
+                                el.style.color = '#000000';
+                            } else {
+                                el.style.backgroundColor = 'transparent';
+                                el.style.color = 'var(--text-main)';
+                            }
+                        });
                     }
-                    currentWordIndex++;
-                }
-            };
+                };
 
-            utterance.onend = () => {
-                const lastEl = document.getElementById(`read-word-${words.length - 1}`);
-                if (lastEl) {
-                    lastEl.style.backgroundColor = 'transparent';
-                    lastEl.style.color = 'var(--text-main)';
-                }
-            };
+                utterance.onend = () => {
+                    container.querySelectorAll('.read-along-word').forEach(el => {
+                        el.style.backgroundColor = 'transparent';
+                        el.style.color = 'var(--text-main)';
+                    });
+                };
 
-            window.speechSynthesis.speak(utterance);
-        } else {
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {
+                console.warn("Lỗi Read-Along:", e);
+            }
+        }
+    }, else {
             let idx = 0;
             const timer = setInterval(() => {
                 if (idx > 0) {
@@ -10390,11 +10465,16 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (qType === "listening" && (!q.options || q.options.length === 0)) {
             // dictation
             const inputVal = document.getElementById("eng-dictation-input").value.trim().toLowerCase();
-            const correctVal = q.correctAnswer.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
             const cleanInput = inputVal.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
-            isCorrect = (cleanInput === correctVal);
+            
+            if (q.correctAnswers && Array.isArray(q.correctAnswers) && q.correctAnswers.length > 0) {
+                isCorrect = q.correctAnswers.map(x => x.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")).includes(cleanInput);
+            } else {
+                const correctVal = (q.correctAnswer || "").toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+                isCorrect = (cleanInput === correctVal);
+            }
             studentAnsStr = inputVal;
-            explanation = `Đáp án đúng: <b>${q.correctAnswer}</b>`;
+            explanation = `Đáp án đúng: <b>${q.correctAnswer || (q.correctAnswers ? q.correctAnswers.join(" | ") : "")}</b>`;
         } 
         else if (qType === "speaking" || qType === "speaking_roleplay") {
             if (this.currentEnglishStudentAnswer) {
@@ -10480,7 +10560,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const chosenAnswer = q.options[this.currentEnglishStudentAnswer] || "";
             const correctText = q.correctAnswer || (typeof q.correctIndex !== 'undefined' && q.options[q.correctIndex] ? q.options[q.correctIndex] : "");
             
-            isCorrect = (chosenAnswer.toLowerCase().trim() === correctText.toLowerCase().trim());
+            const cleanChosen = this.normalizeAnswerToken(chosenAnswer);
+            const cleanCorrect = this.normalizeAnswerToken(correctText);
+            isCorrect = (cleanChosen === cleanCorrect || (q.correctIndex !== undefined && this.currentEnglishStudentAnswer === q.correctIndex));
             studentAnsStr = chosenAnswer;
             explanation = `Đáp án đúng: <b>${correctText}</b>`;
         }
@@ -10531,9 +10613,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 this.currentEnglishWrongCount = (this.currentEnglishWrongCount || 0) + 1;
                 this.updateEnglishLiveStats();
 
-                // Trừ 10 XP khi làm sai
+                // Trừ 10 XP khi làm sai (ràng buộc XP không âm)
                 let currentXp = this.state.englishXp || 0;
-                currentXp = currentXp - 10;
+                currentXp = Math.max(0, currentXp - 10);
                 this.state.englishXp = currentXp;
                 this.syncCloud();
                 if (typeof this.updateEnglishHeaderStats === 'function') {
@@ -11075,7 +11157,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 btnHtml = `<button class="btn-primary" disabled style="background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:8px 20px; border-radius:10px; font-weight:900; width:100%; cursor:not-allowed; opacity:1;">Tối Đa Cấp Độ</button>`;
             } else if (isUnlocked) {
                 statusText = `<span style="color:#10b981; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock-open"></i> Đã mở khóa thẻ gốc</span>`;
-                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (2000 XP)</button>`;
+                btnHtml = `<button class="btn-primary" onclick="app.upgradeGoldSkill('${card.id}')" style="background:linear-gradient(135deg, #eab308, #d97706); border:none; padding:8px 20px; border-radius:10px; color:white; font-weight:800; cursor:pointer; width:100%; box-shadow:0 4px 6px rgba(234,179,8,0.2);">Mạ vàng (350 XP)</button>`;
             } else {
                 statusText = `<span style="color:#ef4444; font-weight:800; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Chưa mở khóa thẻ</span>`;
                 btnHtml = `<button class="btn-primary" disabled style="background:#cbd5e1; color:#94a3b8; border:none; padding:8px 20px; border-radius:10px; font-weight:800; width:100%; cursor:not-allowed;">Cần mở khóa trước</button>`;
@@ -12546,6 +12628,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const category = catSelect ? catSelect.value : "unit";
         const level = levelSelect ? levelSelect.value : "advanced";
         const detail = detailSelect ? detailSelect.value : "";
+        const classLevel = (this.config && this.config.currentClass) || "6";
 
         let selectedGrammars = [];
         if (category === "grammar") {
@@ -12565,7 +12648,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         });
 
         try {
-            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
+            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=${classLevel}&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
             let data = null;
             if (response.ok) {
                 data = await response.json();
@@ -12580,9 +12663,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 questions = data;
             } else {
                 if (typeof window.generateEnglishFullExam === "function") {
-                    questions = window.generateEnglishFullExam({ classLevel: "6", category, level, grammars: selectedGrammars, detail });
+                    questions = window.generateEnglishFullExam({ classLevel: classLevel, category, level, grammars: selectedGrammars, detail });
                 } else if (typeof window.generateIoeQuestions === "function") {
-                    questions = window.generateIoeQuestions("6", detail || "eng6-t1");
+                    questions = window.generateIoeQuestions(classLevel, detail || "eng6-t1");
                 }
             }
 
@@ -12619,9 +12702,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             console.error("Lỗi khởi tạo đề thi:", err);
             let fallbackQuestions = [];
             if (typeof window.generateEnglishFullExam === "function") {
-                fallbackQuestions = window.generateEnglishFullExam({ classLevel: "6", category, level, grammars: selectedGrammars, detail });
+                fallbackQuestions = window.generateEnglishFullExam({ classLevel: classLevel, category, level, grammars: selectedGrammars, detail });
             } else if (typeof window.generateIoeQuestions === "function") {
-                fallbackQuestions = window.generateIoeQuestions("6", detail || "eng6-t1");
+                fallbackQuestions = window.generateIoeQuestions(classLevel, detail || "eng6-t1");
             }
             this.currentIoeQuestions = fallbackQuestions;
             this.currentIoeQuestionIndex = 0;
@@ -12647,6 +12730,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const category = catSelect ? catSelect.value : "unit";
         const level = levelSelect ? levelSelect.value : "advanced";
         const detail = detailSelect ? detailSelect.value : "";
+        const classLevel = (this.config && this.config.currentClass) || "6";
         const levelName = levelSelect && levelSelect.options[levelSelect.selectedIndex] ? levelSelect.options[levelSelect.selectedIndex].text : "Nâng cao";
         const detailTitle = detailSelect && detailSelect.options[detailSelect.selectedIndex] ? detailSelect.options[detailSelect.selectedIndex].text : "Bài kiểm tra Đánh giá Năng lực";
 
@@ -12666,7 +12750,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             if (parentSubject) parentSubject.value = "english";
 
             const parentClass = document.getElementById("pdf-class-select");
-            if (parentClass) parentClass.value = "6";
+            if (parentClass) parentClass.value = classLevel;
 
             const parentCategory = document.getElementById("pdf-exam-category-select");
             if (parentCategory && catSelect) parentCategory.value = catSelect.value;
@@ -12706,7 +12790,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         try {
             let questions = [];
             try {
-                const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
+                const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=${classLevel}&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
                 if (response.ok) {
                     const data = await response.json();
                     if (data && data.questions && data.questions.length > 0) {
@@ -12721,9 +12805,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
             if (!questions || questions.length === 0) {
                 if (typeof window.generateEnglishFullExam === "function") {
-                    questions = window.generateEnglishFullExam({ classLevel: "6", category, level, grammars: selectedGrammars, detail });
+                    questions = window.generateEnglishFullExam({ classLevel: classLevel, category, level, grammars: selectedGrammars, detail });
                 } else if (typeof window.generateIoeQuestions === "function") {
-                    questions = window.generateIoeQuestions("6", detail || "eng6-t1");
+                    questions = window.generateIoeQuestions(classLevel, detail || "eng6-t1");
                 }
             }
 
@@ -12753,7 +12837,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
         const schoolName = (this.config && this.config.schoolName) || "HỆ THỐNG GIÁO DỤC CÁ NHÂN HÓA AI";
         const studentName = (this.config && this.config.studentName) || "......................................................................";
-        const classVal = "6";
+        const classVal = (this.config && this.config.currentClass) || "6";
 
         const renderList = questions;
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${encodeURIComponent('https://hoctap.app/listen?title=' + encodeURIComponent(lessonTitle))}`;
@@ -12867,33 +12951,56 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
         html += `</div>`;
 
+        const buildPdfAnswerTable = (list, isFillable = false) => {
+            let resHtml = '';
+            const chunkSize = 10;
+            for (let chunkStart = 0; chunkStart < list.length; chunkStart += chunkSize) {
+                const chunk = list.slice(chunkStart, chunkStart + chunkSize);
+                resHtml += `
+                    <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px; margin-bottom: 8px;">
+                        <thead>
+                            <tr style="background-color: #f1f5f9; font-weight: bold;">
+                                <td style="border: 1px solid #000000; padding: 5px; width: 14%;">Câu hỏi</td>
+                `;
+                chunk.forEach((_, cIdx) => {
+                    resHtml += `<td style="border: 1px solid #000000; padding: 5px;">${chunkStart + cIdx + 1}</td>`;
+                });
+                resHtml += `
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height: 30px; font-weight: bold;">
+                                <td style="border: 1px solid #000000; padding: 5px; background-color: #f1f5f9;">Đáp án</td>
+                `;
+                chunk.forEach(q => {
+                    if (isFillable) {
+                        resHtml += `<td style="border: 1px solid #000000;"></td>`;
+                    } else {
+                        let correctIdx = q.correctIndex;
+                        if ((correctIdx === undefined || correctIdx === null || correctIdx < 0) && q.options && q.options.length > 0 && q.correctAnswer) {
+                            const normAns = this.normalizeAnswerToken(q.correctAnswer);
+                            const foundIdx = q.options.findIndex(opt => this.normalizeAnswerToken(opt) === normAns);
+                            if (foundIdx !== -1) correctIdx = foundIdx;
+                        }
+                        const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][correctIdx !== undefined && correctIdx >= 0 ? correctIdx : 0] : (q.correctAnswer || "OK");
+                        resHtml += `<td style="border: 1px solid #000000; color: #10b981 !important;">${correctLetter}</td>`;
+                    }
+                });
+                resHtml += `
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+            }
+            return resHtml;
+        };
+
         html += `
             <div style="margin-top: 30px; page-break-inside: avoid; break-inside: avoid;">
                 <div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 8px; text-transform: uppercase;">
                     BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM TIẾNG ANH
                 </div>
-                <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px;">
-                    <thead>
-                        <tr style="background-color: #f1f5f9; font-weight: bold;">
-                            <td style="border: 1px solid #000000; padding: 5px; font-weight: bold;">Câu hỏi</td>
-        `;
-        for (let i = 1; i <= Math.min(12, renderList.length); i++) {
-            html += `<td style="border: 1px solid #000000; padding: 5px;">${i}</td>`;
-        }
-        html += `
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="height: 30px;">
-                            <td style="border: 1px solid #000000; padding: 5px; font-weight: bold;">Đáp án chọn</td>
-        `;
-        for (let i = 1; i <= Math.min(12, renderList.length); i++) {
-            html += `<td style="border: 1px solid #000000;"></td>`;
-        }
-        html += `
-                        </tr>
-                    </tbody>
-                </table>
+                ${buildPdfAnswerTable(renderList, true)}
             </div>
 
             <div style="margin-top: 25px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
@@ -12916,29 +13023,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         <div style="font-weight: bold; font-size: 12px; margin-bottom: 6px; text-transform: uppercase; color: #047857;">
                             1. BẢNG ĐÁP ÁN NHANH
                         </div>
-                        <table style="width: 100%; border-collapse: collapse; border: 1.2px solid #000000; text-align: center; font-size: 12px;">
-                            <thead>
-                                <tr style="background-color: #f1f5f9; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; padding: 5px;">Câu</td>
-            `;
-            for (let i = 1; i <= Math.min(12, renderList.length); i++) {
-                html += `<td style="border: 1px solid #000000; padding: 5px;">${i}</td>`;
-            }
-            html += `
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="height: 28px; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;">Đáp án</td>
-            `;
-            renderList.forEach(q => {
-                const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][q.correctIndex || 0] : (q.correctAnswer || "OK");
-                html += `<td style="border: 1px solid #000000; color: #10b981 !important;">${correctLetter}</td>`;
-            });
-            html += `
-                                </tr>
-                            </tbody>
-                        </table>
+                        ${buildPdfAnswerTable(renderList, false)}
                     </div>
 
                     <div style="margin-bottom: 20px; border: 1px solid #cbd5e1; background-color: #f8fafc; border-radius: 6px; padding: 12px; page-break-inside: avoid;">
@@ -12957,7 +13042,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             });
 
             if (!hasAudioScript) {
-                html += `<p style="margin: 4px 0; font-style: italic;">(Bài nghe sử dụng từ vựng và câu mẫu chuẩn quốc tế Cambridge/Global Success Lớp 6).</p>`;
+                html += `<p style="margin: 4px 0; font-style: italic;">(Bài nghe sử dụng từ vựng và câu mẫu chuẩn quốc tế Cambridge/Global Success Lớp ${classVal}).</p>`;
             }
 
             html += `
@@ -12971,7 +13056,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             `;
 
             renderList.forEach((q, idx) => {
-                const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][q.correctIndex || 0] : (q.correctAnswer || "Đáp án đúng");
+                let correctIdx = q.correctIndex;
+                if ((correctIdx === undefined || correctIdx === null || correctIdx < 0) && q.options && q.options.length > 0 && q.correctAnswer) {
+                    const normAns = this.normalizeAnswerToken(q.correctAnswer);
+                    const foundIdx = q.options.findIndex(opt => this.normalizeAnswerToken(opt) === normAns);
+                    if (foundIdx !== -1) correctIdx = foundIdx;
+                }
+                const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][correctIdx !== undefined && correctIdx >= 0 ? correctIdx : 0] : (q.correctAnswer || "Đáp án đúng");
                 const cleanSol = q.solutionHtml ? q.solutionHtml.replace(/<br\s*\/?>/gi, '<br/>') : "Đang cập nhật...";
                 const cleanTip = q.tip ? q.tip.replace(/<br\s*\/?>/gi, '<br/>') : "";
 
@@ -13151,15 +13242,17 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 <div style="display:flex; gap:2.5rem; width:100%; justify-content:center; align-items:stretch; margin:1.5rem 0;">
                     <div style="display:flex; flex-direction:column; gap:0.8rem; flex:1; max-width:240px;">
                         <div style="text-align:center; font-weight:900; color:#2563eb; font-size:0.95rem; margin-bottom:4px; text-transform:uppercase;">Tiếng Anh</div>
-                        ${shufEng.map((eng, i) => `
-                            <button class="ioe-matching-btn eng" id="ioe-match-eng-${eng.replace(/\s+/g, "_")}" onclick="app.handleIoeMatchingClick('eng', '${eng.replace(/\s+/g, "_")}', '${eng.replace(/'/g, "\\'")}')" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${eng}</button>
-                        `).join("")}
+                        ${shufEng.map((eng, i) => {
+                            const safeId = "m_" + String(eng).toLowerCase().replace(/[^a-z0-9]/g, "_");
+                            return `<button class="ioe-matching-btn eng" id="ioe-match-eng-${safeId}" onclick="app.handleIoeMatchingClick('eng', '${safeId}', '${app.escapeJsString(eng)}')" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${eng}</button>`;
+                        }).join("")}
                     </div>
                     <div style="display:flex; flex-direction:column; gap:0.8rem; flex:1; max-width:240px;">
                         <div style="text-align:center; font-weight:900; color:#10b981; font-size:0.95rem; margin-bottom:4px; text-transform:uppercase;">Nghĩa Tiếng Việt</div>
-                        ${shufVi.map((vi, i) => `
-                            <button class="ioe-matching-btn vi" id="ioe-match-vi-${vi.replace(/\s+/g, "_")}" onclick="app.handleIoeMatchingClick('vi', '${vi.replace(/\s+/g, "_")}', '${vi.replace(/'/g, "\\'")}')" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${vi}</button>
-                        `).join("")}
+                        ${shufVi.map((vi, i) => {
+                            const safeId = "m_" + String(vi).toLowerCase().replace(/[^a-z0-9]/g, "_");
+                            return `<button class="ioe-matching-btn vi" id="ioe-match-vi-${safeId}" onclick="app.handleIoeMatchingClick('vi', '${safeId}', '${app.escapeJsString(vi)}')" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${vi}</button>`;
+                        }).join("")}
                     </div>
                 </div>
             `;
@@ -13185,9 +13278,25 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 </div>
             `;
         }
+        let audioBox = "";
+        if (q.listeningText || q.audioScript || q.category === 'listening' || q.questionType === 'listening' || (q.questionText || '').toLowerCase().includes('listen')) {
+            const speechText = q.listeningText || q.audioScript || q.correctAnswer || "";
+            const audioKey = q.listeningText || q.correctAnswer || "";
+            audioBox = `
+                <div style="background:linear-gradient(135deg, #ecfdf5, #d1fae5); border:2px solid #10b981; border-radius:20px; padding:1.2rem; margin:1rem auto 1.5rem auto; max-width:480px; text-align:center; box-shadow:0 4px 12px rgba(16,185,129,0.15);">
+                    <button class="btn-audio-speak-large" type="button" onclick="app.playEnglishVoice('${speechText.replace(/'/g, "\\'")}', '${audioKey.replace(/'/g, "\\'")}')" style="width:75px; height:75px; border-radius:50%; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 14px rgba(16,185,129,0.35); transition:all 0.15s ease;">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <div style="font-weight:800; color:#047857; font-size:1.05rem; margin-top:0.6rem;">🎧 Bấm nút để nghe đoạn đọc / bài nghe IOE</div>
+                    <div style="font-size:0.85rem; color:#065f46; font-style:italic; margin-top:0.2rem;">(Con hãy lắng nghe thật kỹ để chọn từ/câu đúng nhé)</div>
+                </div>
+            `;
+        }
+
         else {
             innerHtml = `
                 <div style="display:flex; flex-direction:column; align-items:center; width:100%;">
+                    ${audioBox}
                     <div style="display:flex; align-items:center; gap:2rem; margin:1rem 0 2rem 0; width:100%; justify-content:center;">
                         <div style="font-size:5.5rem; filter:drop-shadow(0 8px 12px rgba(0,0,0,0.15));" class="ioe-monkey-animate">🐒</div>
                         <div style="background:#dcfce7; border:2px solid #22c55e; padding:1rem; border-radius:16px; position:relative; max-width:400px; color:#166534; font-weight:700; font-size:0.95rem; line-height:1.5; box-shadow:0 4px 6px rgba(0,0,0,0.02);">
@@ -13297,8 +13406,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (this.currentIoeMatchingSelected.eng && this.currentIoeMatchingSelected.vi) {
             const correctPair = q.pairs.find(p => p.eng.toLowerCase().trim() === this.currentIoeMatchingSelected.eng.toLowerCase().trim() && p.vi.toLowerCase().trim() === this.currentIoeMatchingSelected.vi.toLowerCase().trim());
             
-            const engId = this.currentIoeMatchingSelected.eng.replace(/\s+/g, "_");
-            const viId = this.currentIoeMatchingSelected.vi.replace(/\s+/g, "_");
+            const toSafeId = (str) => "m_" + String(str).toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const engId = toSafeId(this.currentIoeMatchingSelected.eng);
+            const viId = toSafeId(this.currentIoeMatchingSelected.vi);
             
             const engBtn = document.getElementById(`ioe-match-eng-${engId}`);
             const viBtn = document.getElementById(`ioe-match-vi-${viId}`);
@@ -13404,16 +13514,20 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             explanation = q.solutionHtml;
         }
         else if (q.type === "ioe_fill_blank") {
-            isCorrect = (this.currentIoeSelectedAnswer.toLowerCase() === q.missingChar.toLowerCase());
+            const sel = (this.currentIoeSelectedAnswer || "").toString().toLowerCase();
+            const target = (q.missingChar || "").toString().toLowerCase();
+            isCorrect = (sel === target);
             explanation = q.solutionHtml;
         }
         else if (q.type === "ioe_pair_matching") {
-            isCorrect = (this.currentIoeMatchingPairsDone.length === q.pairs.length);
+            isCorrect = (this.currentIoeMatchingPairsDone && this.currentIoeMatchingPairsDone.length === q.pairs.length);
             explanation = q.solutionHtml;
         }
         else {
-            const chosenAnswer = q.options[this.currentIoeSelectedAnswer] || "";
-            isCorrect = (chosenAnswer.toLowerCase().trim() === q.correctAnswer.toLowerCase().trim());
+            const chosenAnswer = (q.options && q.options[this.currentIoeSelectedAnswer]) ? q.options[this.currentIoeSelectedAnswer] : (this.currentIoeSelectedAnswer || "");
+            const cleanChosen = this.normalizeAnswerToken(chosenAnswer);
+            const cleanCorrect = this.normalizeAnswerToken(q.correctAnswer || "");
+            isCorrect = (cleanChosen === cleanCorrect || (q.correctIndex !== undefined && this.currentIoeSelectedAnswer === q.correctIndex));
             explanation = q.solutionHtml;
         }
 
@@ -13453,9 +13567,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.currentIoeWrongCount++;
             document.getElementById("ioe-wrong-count").innerText = this.currentIoeWrongCount;
 
-            // Trừ 10 XP khi làm sai
+            // Trừ 10 XP khi làm sai (ràng buộc XP không âm)
             let currentXp = this.state.englishXp || 0;
-            currentXp = currentXp - 10;
+            currentXp = Math.max(0, currentXp - 10);
             this.state.englishXp = currentXp;
             this.syncCloud();
             if (typeof this.updateEnglishHeaderStats === 'function') {
