@@ -3099,16 +3099,17 @@ app.post('/api/pre-generate-questions', async (req, res) => {
  */
 
 app.get('/api/get-questions', async (req, res) => {
-  const { lessonId, lessonTitle, classLevel, studentId, skill, subject, category, level, grammars } = req.query;
+  const { lessonId: rawLessonId, lessonTitle, classLevel, studentId, skill, subject, category, level, grammars, detail } = req.query;
+  const lessonId = rawLessonId || detail || (category ? `eng6-${category}` : 'eng6-full');
   const stId = studentId || 'default';
   const targetSkill = skill || 'listening';
-  const selectedSubject = subject || (String(lessonId).startsWith('eng') ? 'english' : 'math');
+  const selectedSubject = subject || (String(lessonId).startsWith('eng') || category ? 'english' : 'math');
   if (!lessonId) {
     return res.status(400).json({ error: 'Thiếu tham số lessonId' });
   }
 
   const isCustomTopic = String(lessonId).startsWith('custom-t-');
-  const isEnglish = selectedSubject === 'english' || String(lessonId).startsWith('eng') || isCustomTopic;
+  const isEnglish = selectedSubject === 'english' || String(lessonId).startsWith('eng') || isCustomTopic || !!category;
 
   // 1. Nếu là Chuyên đề tự chọn của Phụ huynh nạp
   if (isCustomTopic) {
@@ -4314,7 +4315,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '12.97';
+const APP_VERSION = '12.98';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

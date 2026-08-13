@@ -9206,11 +9206,16 @@ function getGrammarTopicByUnitId(unitId) {
 }
 
 function generateEnglishQuestions(classLevel, topicId, skill) {
-    const classData = ENGLISH_COURSE_DATA[classLevel];
+    if (skill === 'full_exam') {
+        return generateEnglishFullExam({ classLevel: classLevel, detail: topicId, category: "topic" });
+    }
+    const classData = ENGLISH_COURSE_DATA[classLevel] || ENGLISH_COURSE_DATA["6"];
     if (!classData) return [];
     
     const topic = classData.topics.find(t => t.id === topicId);
-    if (!topic) return [];
+    if (!topic) {
+        return generateEnglishFullExam({ classLevel: classLevel, detail: topicId, category: skill || "topic" });
+    }
 
     const questions = [];
     const vocabList = topic.vocab; // 5 từ vựng của bài học
@@ -9598,13 +9603,199 @@ const IOE_STATIC_QUESTIONS = {
 };
 // ==========================================================================
 
+function generateEnglishFullExam(config) {
+    const classLevel = (typeof config === 'object' && config.classLevel) ? config.classLevel : (typeof config === 'string' ? config : "6");
+    const category = (typeof config === 'object' && config.category) ? config.category : "unit";
+    const level = (typeof config === 'object' && config.level) ? config.level : "advanced";
+    const detail = (typeof config === 'object' && config.detail) ? config.detail : "eng6-t1";
+    let selectedGrammars = (typeof config === 'object' && config.grammars) ? config.grammars : [];
+    if (typeof selectedGrammars === 'string') {
+        selectedGrammars = selectedGrammars.split(',').filter(Boolean);
+    }
+
+    const classData = ENGLISH_COURSE_DATA[classLevel] || ENGLISH_COURSE_DATA["6"];
+    if (!classData) return [];
+
+    const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
+
+    let targetTopics = classData.topics;
+    if (category === "unit" && detail) {
+        const found = classData.topics.find(t => t.id === detail);
+        if (found) targetTopics = [found];
+    }
+
+    const allVocab = targetTopics.flatMap(t => t.vocab || []);
+    const questions = [];
+
+    // PART 1. LISTENING (2 questions)
+    const sampleV1 = shuffle(allVocab)[0] || { word: "school", translation: "trường học" };
+    const distractorsL = shuffle(allVocab.filter(v => v.word !== sampleV1.word).map(v => v.word)).slice(0, 3);
+    while (distractorsL.length < 3) distractorsL.push("book", "pen", "ruler");
+    const optionsL1 = shuffle([sampleV1.word, ...distractorsL.slice(0, 3)]);
+
+    questions.push({
+        isTemplate: true,
+        questionType: "listening",
+        category: "listening",
+        questionText: "Listen to the audio recording and choose the correct word: (Nghe đoạn băng và chọn từ đúng)",
+        listeningText: `Welcome to our school. My name is Phong and I am in class 6A. I love my ${sampleV1.word} because it is very modern.`,
+        audioScript: `Welcome to our school. My name is Phong and I am in class 6A. I love my ${sampleV1.word} because it is very modern.`,
+        options: optionsL1.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`),
+        correctAnswer: `${String.fromCharCode(65 + optionsL1.indexOf(sampleV1.word))}. ${sampleV1.word}`,
+        correctIndex: optionsL1.indexOf(sampleV1.word),
+        solutionHtml: `Đoạn nghe nhắc đến từ: <b>'${sampleV1.word}'</b> (${sampleV1.translation}).`
+    });
+
+    questions.push({
+        isTemplate: true,
+        questionType: "listening",
+        category: "listening",
+        questionText: `Listen and complete the blank with ONE word: (Nghe và điền 1 từ còn thiếu vào chỗ trống)<br/><i>"Every morning, students go to the _______ to read books."</i>`,
+        listeningText: "Every morning, students go to the library to read books.",
+        audioScript: "Every morning, students go to the library to read books.",
+        options: null,
+        correctAnswer: "library",
+        correctAnswers: ["library", "Library"],
+        solutionHtml: "Từ còn thiếu trong đoạn nghe là: <b>library</b> (thư viện)."
+    });
+
+    // PART 2. LANGUAGE FOCUS (4 questions)
+    const phoneticsBank = [
+        { q: "Choose the word whose underlined part is pronounced differently from the others:", opts: ["A. c<u>a</u>t", "B. b<u>a</u>g", "C. f<u>a</u>ther", "D. m<u>a</u>p"], ans: "C. f<u>a</u>ther", sol: "'father' phát âm âm /ɑː/, các từ còn lại phát âm âm /æ/." },
+        { q: "Choose the word whose underlined part is pronounced differently from the others:", opts: ["A. l<u>i</u>ve", "B. n<u>i</u>ce", "C. f<u>i</u>ne", "D. l<u>i</u>ke"], ans: "A. l<u>i</u>ve", sol: "'live' phát âm âm /ɪ/, các từ còn lại phát âm âm /aɪ/." },
+        { q: "Choose the word with a different stress pattern:", opts: ["A. 'student", "B. 'teacher", "C. 'compass", "D. be'tween"], ans: "D. be'tween", sol: "'between' trọng âm 2, các từ còn lại trọng âm 1." }
+    ];
+    const pickedPhonetics = shuffle(phoneticsBank)[0];
+    questions.push({
+        isTemplate: true,
+        questionType: "phonetics",
+        category: "grammar",
+        questionText: pickedPhonetics.q,
+        options: pickedPhonetics.opts,
+        correctAnswer: pickedPhonetics.ans,
+        correctIndex: pickedPhonetics.opts.indexOf(pickedPhonetics.ans),
+        solutionHtml: pickedPhonetics.sol
+    });
+
+    const grammarBank = [
+        { key: "pres_simple", q: "Look! Nga _______ football with her classmates in the playground right now.", opts: ["A. plays", "B. is playing", "C. played", "D. play"], ans: "B. is playing", sol: "Có 'right now' dùng thì Hiện tại tiếp diễn: is + V-ing." },
+        { key: "pres_simple", q: "My father _______ to work by car every morning.", opts: ["A. go", "B. goes", "C. is going", "D. went"], ans: "B. goes", sol: "Thì Hiện tại đơn với chủ ngữ số ít 'My father' -> 'goes'." },
+        { key: "modals", q: "You _______ keep quiet when the teacher is explaining the lesson.", opts: ["A. must", "B. mustn't", "C. can't", "D. shouldn't"], ans: "A. must", sol: "Cần giữ trật tự trong lớp -> dùng 'must' (bắt buộc)." },
+        { key: "modals", q: "Students _______ drop litter on the school yard. It is against the rule.", opts: ["A. must", "B. mustn't", "C. can", "D. should"], ans: "B. mustn't", sol: "Cấm vứt rác bẩn -> dùng 'mustn't'." },
+        { key: "comparatives", q: "Ha Noi is _______ than Da Nang.", opts: ["A. big", "B. bigger", "C. more big", "D. biggest"], ans: "B. bigger", sol: "So sánh hơn của tính từ ngắn 'big' -> 'bigger'." },
+        { key: "superlatives", q: "Mount Everest is the _______ mountain in the world.", opts: ["A. high", "B. higher", "C. highest", "D. most high"], ans: "C. highest", sol: "So sánh nhất 'the highest'." },
+        { key: "prepositions_place", q: "There is a colorful poster _______ the wall in my bedroom.", opts: ["A. in", "B. on", "C. at", "D. under"], ans: "B. on", sol: "Giới từ chỉ vị trí trên tường là 'on the wall'." },
+        { key: "quantifiers", q: "How _______ milk do you want for breakfast?", opts: ["A. many", "B. much", "C. any", "D. some"], ans: "B. much", sol: "'milk' là danh từ không đếm được -> dùng 'How much'." }
+    ];
+
+    let filteredGrammar = grammarBank;
+    if (selectedGrammars && selectedGrammars.length > 0 && !selectedGrammars.includes("all")) {
+        const matches = grammarBank.filter(g => selectedGrammars.includes(g.key));
+        if (matches.length > 0) filteredGrammar = matches;
+    }
+
+    const pickedGrammar = shuffle(filteredGrammar).slice(0, 3);
+    pickedGrammar.forEach(g => {
+        questions.push({
+            isTemplate: true,
+            questionType: "choice",
+            category: "grammar",
+            questionText: g.q,
+            options: g.opts,
+            correctAnswer: g.ans,
+            correctIndex: g.opts.indexOf(g.ans),
+            solutionHtml: g.sol
+        });
+    });
+
+    // PART 3. READING (2 questions)
+    const readingPassages = [
+        {
+            passage: "My name is Mai. I live in a quiet village near Da Nang. My house has six rooms: a living room, a kitchen, two bedrooms, and two bathrooms. In front of my house, there is a small garden with many green trees and red flowers. I usually play badminton with my friends in the yard every afternoon.",
+            q: "Where does Mai live?",
+            opts: ["A. In a big city", "B. In a quiet village near Da Nang", "C. On a high mountain", "D. Near a noisy market"],
+            ans: "B. In a quiet village near Da Nang",
+            sol: "Theo đoạn văn: 'I live in a quiet village near Da Nang.'"
+        },
+        {
+            passage: "Tokyo is the capital city of Japan. It is one of the most exciting and modern cities in the world. Visitors can enjoy delicious traditional sushi, visit peaceful ancient temples, and see high-tech robots in shopping centers.",
+            q: "What is Tokyo famous for?",
+            opts: ["A. Beautiful beaches only", "B. Delicious sushi and high-tech robots", "C. Quiet small villages", "D. Cold snowy weather"],
+            ans: "B. Delicious sushi and high-tech robots",
+            sol: "Theo đoạn văn: 'traditional sushi... high-tech robots'."
+        }
+    ];
+    const pickedReading = shuffle(readingPassages)[0];
+    questions.push({
+        isTemplate: true,
+        questionType: "reading_passage",
+        category: "reading",
+        passageText: pickedReading.passage,
+        questionText: pickedReading.q,
+        options: pickedReading.opts,
+        correctAnswer: pickedReading.ans,
+        correctIndex: pickedReading.opts.indexOf(pickedReading.ans),
+        solutionHtml: pickedReading.sol
+    });
+
+    questions.push({
+        isTemplate: true,
+        questionType: "choice",
+        category: "reading",
+        passageText: "Living in a green house is very good for our health. We should (1) _______ off the lights when leaving a room and recycle plastic bottles.",
+        questionText: "Choose the best option for blank (1):",
+        options: ["A. turn", "B. take", "C. put", "D. get"],
+        correctAnswer: "A. turn",
+        correctIndex: 0,
+        solutionHtml: "Cụm từ 'turn off the lights' nghĩa là tắt đèn."
+    });
+
+    // PART 4. WRITING (2 questions)
+    const rewriteBank = [
+        { q: "Rewrite the following sentence with the same meaning:<br/><b>There are five rooms in my house.</b>", ans: "My house has five rooms.", sol: "Cấu trúc 'There are + N(số nhiều)' tương đương 'S + has/have + N'." },
+        { q: "Rewrite the following sentence with the same meaning:<br/><b>My school has 800 students.</b>", ans: "There are 800 students in my school.", sol: "Cấu trúc 'S + has + N' tương đương 'There are + N'." },
+        { q: "Rewrite the following sentence with the same meaning:<br/><b>No one in my class is taller than Nam.</b>", ans: "Nam is the tallest student in my class.", sol: "So sánh không ai bằng tương đương so sánh nhất 'the tallest'." }
+    ];
+    const pickedRewrite = shuffle(rewriteBank)[0];
+    questions.push({
+        isTemplate: true,
+        questionType: "writing_rewrite",
+        category: "writing",
+        questionText: pickedRewrite.q,
+        correctAnswer: pickedRewrite.ans,
+        correctAnswers: [pickedRewrite.ans, pickedRewrite.ans.toLowerCase(), pickedRewrite.ans.replace(/\.$/, "")],
+        solutionHtml: pickedRewrite.sol
+    });
+
+    const unscrambleBank = [
+        { pool: ["Phong", "usually", "plays", "football", "after", "school."], ans: "Phong usually plays football after school.", sol: "Trật tự câu: Chủ ngữ + trạng từ tần suất + động từ + tân ngữ + trạng ngữ." },
+        { pool: ["We", "must", "keep", "our", "classroom", "clean."], ans: "We must keep our classroom clean.", sol: "Trật tự câu với Modal verb: S + must + V-bare + O + Adj." },
+        { pool: ["Is", "there", "a", "garden", "in", "front", "of", "your", "house?"], ans: "Is there a garden in front of your house?", sol: "Câu hỏi nghi vấn với Is there: Is there + a/an + N + prep?" }
+    ];
+    const pickedUnscramble = shuffle(unscrambleBank)[0];
+    questions.push({
+        isTemplate: true,
+        questionType: "writing",
+        category: "writing",
+        questionText: "Rearrange the words to make a complete and correct sentence: (Sắp xếp từ thành câu hoàn chỉnh)",
+        wordPool: shuffle(pickedUnscramble.pool),
+        correctAnswer: pickedUnscramble.ans,
+        correctAnswers: [pickedUnscramble.ans, pickedUnscramble.ans.toLowerCase()],
+        solutionHtml: pickedUnscramble.sol
+    });
+
+    return questions;
+}
+
 function generateIoeQuestions(classLevel, topicId) {
-    const classData = ENGLISH_COURSE_DATA[classLevel];
+    const classData = ENGLISH_COURSE_DATA[classLevel] || ENGLISH_COURSE_DATA["6"];
     if (!classData) return [];
 
     const allTopics = classData.topics;
     const topicIndex = allTopics.findIndex(t => t.id === topicId);
-    if (topicIndex === -1) return [];
+    if (topicIndex === -1) {
+        return generateEnglishFullExam({ classLevel: classLevel, detail: topicId, category: "topic" });
+    }
 
     // Gom từ vựng và mẫu câu tích lũy đến bài hiện tại
     const cumulativeVocab = [];
@@ -9623,7 +9814,6 @@ function generateIoeQuestions(classLevel, topicId) {
     const selectedVocab1 = shufVocab1.slice(0, Math.min(4, shufVocab1.length));
     selectedVocab1.forEach(v => {
         const word = v.word.toLowerCase();
-        // Chọn một chữ cái ngẫu nhiên khác với các chữ trong từ để chèn vào
         const chars = "abcdefghijklmnopqrstuvwxyz";
         let extraChar = "x";
         for (let i = 0; i < 20; i++) {
@@ -9633,7 +9823,6 @@ function generateIoeQuestions(classLevel, topicId) {
                 break;
             }
         }
-        // Chèn vào vị trí ngẫu nhiên ở giữa từ (index 1 đến length-1)
         const insertIndex = Math.floor(Math.random() * (word.length - 1)) + 1;
         const scrambled = word.slice(0, insertIndex) + extraChar + word.slice(insertIndex);
 
@@ -9653,7 +9842,6 @@ function generateIoeQuestions(classLevel, topicId) {
     const selectedVocab2 = shufVocab2.slice(0, Math.min(4, shufVocab2.length));
     selectedVocab2.forEach(v => {
         const word = v.word.toLowerCase();
-        // Chọn 1 index ngẫu nhiên để ẩn đi (tránh chữ đầu tiên)
         const hideIndex = Math.floor(Math.random() * (word.length - 1)) + 1;
         const missingChar = word[hideIndex];
         const template = word.slice(0, hideIndex) + "_" + word.slice(hideIndex + 1);
@@ -9727,11 +9915,13 @@ if (typeof module !== 'undefined' && module.exports) {
         ENGLISH_COURSE_DATA,
         getWordEmoji,
         generateEnglishQuestions,
-        generateIoeQuestions
+        generateIoeQuestions,
+        generateEnglishFullExam
     };
 } else {
     window.ENGLISH_COURSE_DATA = ENGLISH_COURSE_DATA;
     window.getWordEmoji = getWordEmoji;
     window.generateEnglishQuestions = generateEnglishQuestions;
     window.generateIoeQuestions = generateIoeQuestions;
+    window.generateEnglishFullExam = generateEnglishFullExam;
 }

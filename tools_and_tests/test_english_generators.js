@@ -6,7 +6,7 @@ console.log("BẮT ĐẦU KIỂM ĐỊNH TỰ ĐỘNG BỘ SINH CÂU HỎI TIẾ
 console.log("====================================================\n");
 
 // Tải dữ liệu và hàm sinh câu hỏi tiếng Anh
-const englishDataPath = path.join(__dirname, 'js/english_data.js');
+const englishDataPath = path.join(__dirname, '../js/english_data.js');
 let englishModule;
 
 try {
@@ -34,7 +34,7 @@ try {
     englishModule = sandbox.window;
 }
 
-const { ENGLISH_COURSE_DATA, generateEnglishQuestions, generateIoeQuestions } = englishModule;
+const { ENGLISH_COURSE_DATA, generateEnglishQuestions, generateIoeQuestions, generateEnglishFullExam } = englishModule;
 
 if (!ENGLISH_COURSE_DATA) {
     console.error("❌ Lỗi: Không tìm thấy dữ liệu ENGLISH_COURSE_DATA.");
@@ -166,6 +166,51 @@ for (const classLevel in ENGLISH_COURSE_DATA) {
         }
     });
 }
+
+// 3. Kiểm tra Bộ sinh Đề thi 4 Kỹ năng Tổng hợp GDPT 2018 (generateEnglishFullExam)
+console.log("\n📚 Đang kiểm tra Bộ sinh Đề thi 4 Kỹ năng GDPT 2018 (generateEnglishFullExam):");
+const fullExamConfigs = [
+    { name: "Grammar Custom (Present Simple + Modals)", config: { classLevel: "6", category: "grammar", level: "advanced", grammars: ["pres_simple", "modals"], detail: "custom" } },
+    { name: "Topic General (School Life)", config: { classLevel: "6", category: "topic", level: "advanced", detail: "school" } },
+    { name: "Semester Exam (Midterm 1)", config: { classLevel: "6", category: "semester", level: "gifted", detail: "midterm1" } },
+    { name: "Unit Exam (Unit 1)", config: { classLevel: "6", category: "unit", level: "basic", detail: "eng6-t1" } }
+];
+
+fullExamConfigs.forEach(item => {
+    totalTests++;
+    try {
+        const questions = generateEnglishFullExam(item.config);
+        if (!questions || !Array.isArray(questions) || questions.length === 0) {
+            throw new Error(`Đề thi '${item.name}' không sinh ra câu hỏi nào.`);
+        }
+        if (questions.length < 8) {
+            throw new Error(`Số lượng câu hỏi '${item.name}' không đủ (chỉ có ${questions.length} câu).`);
+        }
+        
+        // Kiểm tra tính hợp lệ của từng câu hỏi 4 kỹ năng
+        questions.forEach((q, idx) => {
+            if (!q.category) throw new Error(`Câu hỏi ${idx + 1} của '${item.name}' thiếu 'category'.`);
+            if (!q.questionText) throw new Error(`Câu hỏi ${idx + 1} của '${item.name}' thiếu 'questionText'.`);
+            if (q.options && Array.isArray(q.options)) {
+                if (q.options.length < 2) throw new Error(`Câu hỏi ${idx + 1} có ít hơn 2 lựa chọn.`);
+                const uniqueOpts = new Set(q.options.map(o => o.toString().toLowerCase().trim()));
+                if (uniqueOpts.size !== q.options.length) {
+                    throw new Error(`Phát hiện trùng lặp đáp án trong '${item.name}' câu ${idx + 1}: ${JSON.stringify(q.options)}`);
+                }
+            }
+        });
+        console.log(`  ✓ Đề thi 4 kỹ năng '${item.name}': Tự sinh ${questions.length} câu thành công!`);
+    } catch (err) {
+        failedTests++;
+        errors.push({
+            classLevel: "6",
+            topicId: item.config.detail,
+            topicTitle: item.name,
+            type: "Đề thi 4 Kỹ năng GDPT 2018",
+            message: err.message
+        });
+    }
+});
 
 console.log("\n====================================================");
 console.log("KẾT QUẢ KIỂM ĐỊNH BỘ SINH CÂU HỎI TIẾNG ANH");

@@ -12519,16 +12519,25 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         });
 
         try {
-            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&skill=full_exam`));
-            const data = await response.json();
+            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
+            let data = null;
+            if (response.ok) {
+                data = await response.json();
+            }
 
             Swal.close();
 
             let questions = [];
             if (data && data.questions && data.questions.length > 0) {
                 questions = data.questions;
+            } else if (Array.isArray(data) && data.length > 0) {
+                questions = data;
             } else {
-                questions = window.generateIoeQuestions("6", detail || "eng6-t1");
+                if (typeof window.generateEnglishFullExam === "function") {
+                    questions = window.generateEnglishFullExam({ classLevel: "6", category, level, grammars: selectedGrammars, detail });
+                } else if (typeof window.generateIoeQuestions === "function") {
+                    questions = window.generateIoeQuestions("6", detail || "eng6-t1");
+                }
             }
 
             if (!questions || questions.length === 0) {
@@ -12562,7 +12571,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         } catch (err) {
             Swal.close();
             console.error("Lỗi khởi tạo đề thi:", err);
-            const fallbackQuestions = window.generateIoeQuestions("6", detail || "eng6-t1");
+            let fallbackQuestions = [];
+            if (typeof window.generateEnglishFullExam === "function") {
+                fallbackQuestions = window.generateEnglishFullExam({ classLevel: "6", category, level, grammars: selectedGrammars, detail });
+            } else if (typeof window.generateIoeQuestions === "function") {
+                fallbackQuestions = window.generateIoeQuestions("6", detail || "eng6-t1");
+            }
             this.currentIoeQuestions = fallbackQuestions;
             this.currentIoeQuestionIndex = 0;
             this.currentIoeScore = 0;
@@ -12646,7 +12660,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         try {
             let questions = [];
             try {
-                const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&skill=full_exam`));
+                const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=6&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
                 if (response.ok) {
                     const data = await response.json();
                     if (data && data.questions && data.questions.length > 0) {
@@ -12660,7 +12674,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
 
             if (!questions || questions.length === 0) {
-                if (typeof window.generateIoeQuestions === "function") {
+                if (typeof window.generateEnglishFullExam === "function") {
+                    questions = window.generateEnglishFullExam({ classLevel: "6", category, level, grammars: selectedGrammars, detail });
+                } else if (typeof window.generateIoeQuestions === "function") {
                     questions = window.generateIoeQuestions("6", detail || "eng6-t1");
                 }
             }
