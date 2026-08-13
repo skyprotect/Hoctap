@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=13.4">
+    <link rel="stylesheet" href="css/style.css?v=13.6">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -854,7 +854,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v13.4 (Cập nhật: 13/08/2026 21:43)</div>
+            <div class="splash-version-tag">Phiên bản: v13.6 (Cập nhật: 13/08/2026 21:58)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -997,6 +997,25 @@
                 <div id="english-slots-pool" class="english-slots-pool"></div>
                 <div id="english-drag-pool" class="english-drag-pool"></div>
                 <div id="eng-practice-vocab-grid" class="eng-practice-vocab-grid"></div>
+                
+                <!-- Additional Fallback DOM Nodes for English Engine -->
+                <button id="btn-eng-check-answer" class="btn-primary">Kiểm tra</button>
+                <div id="cloze-passage-display" class="cloze-passage-display"></div>
+                <input type="text" id="ioe-fb-input" class="ioe-input" />
+                <button id="btn-ioe-check-answer" class="btn-primary">Gửi đáp án</button>
+                <select id="pdf-subject-select"><option value="english" selected>Tiếng Anh</option></select>
+                <select id="pdf-class-select"><option value="6" selected>Lớp 6</option></select>
+                <select id="pdf-exam-category-select"><option value="unit" selected>Theo Unit</option></select>
+                <select id="pdf-exam-level-select"><option value="basic" selected>Cơ bản</option></select>
+                <select id="pdf-lesson-select"><option value="all" selected>Tất cả</option></select>
+                <span id="infinite-hearts-badge" class="badge">∞ Tim</span>
+                <button id="toggle-infinite-hearts" class="btn-toggle"></button>
+                <div id="eng-speaking-waves" class="speaking-waves"></div>
+                <div id="eng-speaking-transcript" class="speaking-transcript"></div>
+                <svg id="eng-matching-svg-layer" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></svg>
+                <div id="eng-reorder-container" class="reorder-container"></div>
+                <div id="eng-card-detail-modal" class="modal-overlay hidden"></div>
+                <div id="eng-shop-toast" class="toast-notification hidden"></div>
             </div>
 
         </section>
@@ -2370,15 +2389,15 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=13.4"></script>
-    <script src="js/lessons.js?v=13.4"></script>
-    <script src="js/questions-v1.js?v=13.4"></script>
-    <script src="js/questions-v4.js?v=13.4"></script>
-    <script src="js/questions-v3.js?v=13.4"></script>
-    <script src="js/questions-advanced.js?v=13.4"></script>
-    <script src="js/questions-7991.js?v=13.4"></script>
-    <script src="js/game.js?v=13.4"></script>
-    <script src="js/app.js?v=13.4"></script>
+    <script src="js/english_data.js?v=13.6"></script>
+    <script src="js/lessons.js?v=13.6"></script>
+    <script src="js/questions-v1.js?v=13.6"></script>
+    <script src="js/questions-v4.js?v=13.6"></script>
+    <script src="js/questions-v3.js?v=13.6"></script>
+    <script src="js/questions-advanced.js?v=13.6"></script>
+    <script src="js/questions-7991.js?v=13.6"></script>
+    <script src="js/game.js?v=13.6"></script>
+    <script src="js/app.js?v=13.6"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -3342,6 +3361,7 @@
             cursor: pointer;
             transition: transform 0.2s;
             padding: 0;
+        }
         .btn-emoji-trigger:hover {
             transform: scale(1.15);
         }
@@ -3442,7 +3462,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v13.4 (Cập nhật: 13/08/2026 21:43)
+        Phiên bản: v13.6 (Cập nhật: 13/08/2026 21:58)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

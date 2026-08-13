@@ -13661,3 +13661,44 @@ window.app = app;
 window.onload = async function() {
     await app.init();
 };
+
+
+// Added missing Quick Study Modal Handler
+app.closeQuickStudyModal = function() {
+    const modal = document.getElementById('quick-study-modal');
+    if (modal) modal.classList.add('hidden');
+};
+
+
+// Regex Escape Helper for Vocab Search
+app.escapeRegex = function(str) {
+    return String(str).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+
+// SpeechSynthesis Voices Listener
+if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window._speechVoices = [];
+    const updateVoices = () => {
+        try { window._speechVoices = window.speechSynthesis.getVoices(); } catch(e){}
+    };
+    updateVoices();
+    window.speechSynthesis.onvoiceschanged = updateVoices;
+}
+
+
+// Stop all active English audio and SpeechSynthesis
+app.stopAllEnglishAudio = function() {
+    try {
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        if (app.currentAudioTrack) {
+            app.currentAudioTrack.pause();
+            app.currentAudioTrack.currentTime = 0;
+            app.currentAudioTrack = null;
+        }
+        if (app.currentRecognition) {
+            app.currentRecognition.abort();
+            app.currentRecognition = null;
+        }
+    } catch(e) {}
+};
