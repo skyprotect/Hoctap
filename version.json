@@ -1,7 +1,8 @@
 {
-  "version": "13.2",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.2/ToanHocKiosk_Setup_v13.2.exe",
-  "changelog": "- Phiên bản v13.1: Nâng cấp và khắc phục 20+ lỗi dứt điểm hệ thống Tiếng Anh (Audio IOE Player, PDF print CSS, đồng bộ 100% không trùng đáp án, xử lý an toàn SpeechSynthesis và khôi phục nạp tiến trình Splash).",
-  "androidVersion": "5.2",
-  "androidChangelog": "- Phiên bản v5.2: Khắc phục triệt để vòng lặp không mở khóa bằng việc đồng bộ bộ nhớ đa tiến trình SharedPreferences và loại bỏ cờ lockIntent dư thừa trong BootReceiver."
+  "version": "13.4",
+  "lastUpdated": "13/08/2026 21:39",
+  "build": 1330,
+  "releaseNotes": "Sửa toàn bộ 22 lỗi module Tiếng Anh theo tiêu chuẩn quốc tế, loại bỏ mã trùng lặp, tối ưu hóa Web Speech API, cô lập dữ liệu môn học.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.4/ToanHocKiosk_Setup_v13.4.exe",
+  "changelog": "- Cập nhật tự động phiên bản v13.4\n- Đồng bộ bản sạch và nâng cấp hệ thống ngày 13/08/2026 21:43."
 }

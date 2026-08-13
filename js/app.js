@@ -4273,22 +4273,42 @@ const app = {
     },
 
     // Helper phát âm Tiếng Anh chuẩn (en-US) offline sử dụng SpeechSynthesis
-    speakEnglish: function(text) {
-        if ('speechSynthesis' in window) {
+    speakEnglish: function(text, isFallback = false) {
+        if (!text) return;
+        if (!('speechSynthesis' in window)) {
+            this.updateAudioSourceLabel("Không hỗ trợ phát âm");
+            return;
+        }
+        try {
+            if (window.speechSynthesis.paused) window.speechSynthesis.resume();
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
+            const utterance = new SpeechSynthesisUtterance(text.toString());
             utterance.lang = 'en-US';
-            
-            const voices = window.speechSynthesis.getVoices();
-            const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('US') || v.name.includes('Natural'))) ||
-                                  voices.find(v => v.lang.startsWith('en'));
-            if (preferredVoice) {
-                utterance.voice = preferredVoice;
+            utterance.rate = 0.90;
+            const selectVoice = () => {
+                const voices = window.speechSynthesis.getVoices() || [];
+                if (voices.length > 0) {
+                    const preferredVoice = voices.find(v => v.lang.startsWith('en') && (
+                        v.name.includes('Google') || v.name.includes('US') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Zira')
+                    )) || voices.find(v => v.lang.startsWith('en'));
+                    if (preferredVoice) utterance.voice = preferredVoice;
+                }
+            };
+            selectVoice();
+            if (window.speechSynthesis.onvoiceschanged === undefined) {
+                window.speechSynthesis.onvoiceschanged = selectVoice;
             }
-            utterance.rate = 0.85;
+            utterance.onstart = () => {
+                this.updateAudioSourceLabel(isFallback ? "Trình duyệt máy tính (Dự phòng)" : "Google Translate API (Chuẩn Mỹ)");
+            };
+            utterance.onerror = (e) => {
+                console.warn("[Web Speech Error]", e);
+                this.updateAudioSourceLabel("Lỗi phát âm thanh");
+            };
             window.speechSynthesis.speak(utterance);
-        } else {
-            console.warn("SpeechSynthesis không được hỗ trợ!");
+        } catch (e) {
+            console.warn("Lỗi Web Speech API:", e);
+            this.updateAudioSourceLabel("Lỗi phát âm thanh");
         }
     },
 
@@ -8881,7 +8901,29 @@ const app = {
     currentEnglishSkill: 'listening', // Kỹ năng mặc định đang học
 
     // Chuyển đổi tab chính Tiếng Anh (Bản đồ, Ôn tập, BXH, Cửa hàng, Hồ sơ)
+    
+    normalizeTextForComparison: function(text) {
+        if (!text) return "";
+        return text.toString()
+            .toLowerCase()
+            .trim()
+            .replace(/[\.\?\!\,\;\:\'\"\’\“”]/g, '')
+            .replace(/\s+/g, ' ');
+    },
+
+    clearEnglishExamTimer: function() {
+        if (this.englishExamTimer) {
+            clearInterval(this.englishExamTimer);
+            this.englishExamTimer = null;
+        }
+        if (this.ioeExamTimer) {
+            clearInterval(this.ioeExamTimer);
+            this.ioeExamTimer = null;
+        }
+    },
+
     switchEnglishTab: function(tabName) {
+        this.clearEnglishExamTimer();
         const navItems = document.querySelectorAll(".eng-nav-item");
         navItems.forEach(item => {
             if (item.id === `eng-nav-${tabName}`) {
@@ -9591,23 +9633,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     // Hàm lấy emoji tương đương để dự phòng khi thiếu ảnh
-    getWordEmoji: function(word) {
-        if (window.getWordEmoji) {
-            return window.getWordEmoji(word);
-        }
-        const map = {
-            "book": "📖", "ball": "⚽", "bike": "🚲", "bill": "👦",
-            "cat": "🐱", "car": "🚗", "cup": "🥛", "cake": "🍰",
-            "mother": "👩", "father": "👨", "sister": "👧", "brother": "👦",
-            "apple": "🍎", "banana": "🍌", "orange": "🍊", "pear": "🍐",
-            "dog": "🐶", "bird": "🐦", "fish": "🐟", "rabbit": "🐰",
-            "circle": "🔴", "square": "🟩", "triangle": "🔺",
-            "pen": "🖊️", "pencil": "✏️", "ruler": "📏", "rubber": "🧽",
-            "uniform": "👕", "calculator": "🧮", "compass": "🧭",
-            "fridge": "🧊", "kitchen": "🍳", "bedroom": "🛏️", "wardrobe": "👚"
-        };
-        return map[word.toLowerCase().trim()] || "⭐️";
-    },
+    _getWordEmojiDup: null,
+
 
     // Hàm cập nhật chú thích nguồn âm thanh trên UI
     updateAudioSourceLabel: function(sourceName) {
@@ -9653,26 +9680,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             });
     },
 
-    speakEnglish: function(text, isFallback = false) {
-        if ('speechSynthesis' in window) {
-            try {
-                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.95;
-                utterance.onstart = () => {
-                    this.updateAudioSourceLabel(isFallback ? "Trình duyệt máy tính (Dự phòng)" : "Google Translate API (Chuẩn Mỹ)");
-                };
-                window.speechSynthesis.speak(utterance);
-            } catch (e) {
-                console.warn("Lỗi Web Speech API:", e);
-                this.updateAudioSourceLabel("Lỗi phát âm thanh");
-            }
-        } else {
-            this.updateAudioSourceLabel("Không hỗ trợ phát âm");
-        }
-    },
+    _speakEnglishDup: null,
+
 
     startSpeechRecognition: function(targetText) {
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -10009,8 +10018,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             } catch (e) {
                 console.warn("Lỗi Read-Along:", e);
             }
-        }
-    }, else {
+        } else {
             let idx = 0;
             const timer = setInterval(() => {
                 if (idx > 0) {

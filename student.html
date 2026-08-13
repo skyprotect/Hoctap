@@ -126,7 +126,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=13.2">
+    <link rel="stylesheet" href="css/style.css?v=13.4">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -854,7 +854,7 @@
             <button id="splash-start-btn" class="btn-splash-start">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v13.2 (Cập nhật: 13/08/2026 21:28)</div>
+            <div class="splash-version-tag">Phiên bản: v13.4 (Cập nhật: 13/08/2026 21:43)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -983,6 +983,22 @@
                     <!-- Danh sách môn học được render động -->
                 </div>
             </div>
+        
+            <!-- Fallback Containers for Dynamic English Modules -->
+            <div id="english-fallback-nodes" style="display:none;" aria-hidden="true">
+                <div id="english-video-wrapper" class="english-video-wrapper"></div>
+                <button id="eng-mic-btn" class="eng-mic-btn"></button>
+                <div id="eng-mic-status" class="eng-mic-status"></div>
+                <div id="eng-speaking-result" class="eng-speaking-result"></div>
+                <canvas id="speaking-wave-canvas" width="300" height="60"></canvas>
+                <div id="speaking-timer" class="speaking-timer"></div>
+                <textarea id="eng-free-writing-input" class="eng-free-writing-input"></textarea>
+                <input type="text" id="eng-dictation-input" class="eng-dictation-input" />
+                <div id="english-slots-pool" class="english-slots-pool"></div>
+                <div id="english-drag-pool" class="english-drag-pool"></div>
+                <div id="eng-practice-vocab-grid" class="eng-practice-vocab-grid"></div>
+            </div>
+
         </section>
 
         <!-- MÀN HÌNH 1: LỘ TRÌNH HỌC & HỌC TẬP (SPLIT LAYOUT) -->
@@ -2002,7 +2018,7 @@
                 </div>
                 <div class="focus-hearts">
                     <span>❤️</span>
-                    <span id="english-hearts-count">5</span>
+                    <span id="english-hearts-count">5</span><span id="eng-hearts-val" class="hidden">5</span>
                 </div>
             </div>
             
@@ -2354,15 +2370,15 @@
     </div>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=13.2"></script>
-    <script src="js/lessons.js?v=13.2"></script>
-    <script src="js/questions-v1.js?v=13.2"></script>
-    <script src="js/questions-v4.js?v=13.2"></script>
-    <script src="js/questions-v3.js?v=13.2"></script>
-    <script src="js/questions-advanced.js?v=13.2"></script>
-    <script src="js/questions-7991.js?v=13.2"></script>
-    <script src="js/game.js?v=13.2"></script>
-    <script src="js/app.js?v=13.2"></script>
+    <script src="js/english_data.js?v=13.4"></script>
+    <script src="js/lessons.js?v=13.4"></script>
+    <script src="js/questions-v1.js?v=13.4"></script>
+    <script src="js/questions-v4.js?v=13.4"></script>
+    <script src="js/questions-v3.js?v=13.4"></script>
+    <script src="js/questions-advanced.js?v=13.4"></script>
+    <script src="js/questions-7991.js?v=13.4"></script>
+    <script src="js/game.js?v=13.4"></script>
+    <script src="js/app.js?v=13.4"></script>
     
     <!-- Firebase Client SDK (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -3426,7 +3442,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v13.2 (Cập nhật: 13/08/2026 21:28)
+        Phiên bản: v13.4 (Cập nhật: 13/08/2026 21:43)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->
