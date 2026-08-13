@@ -2482,116 +2482,162 @@ const app = {
         }
         this.updateNavigationButtons();
         
+        const container = document.getElementById("google-signin-btn-container");
+        if (container) {
+            container.style.display = "flex";
+            container.innerHTML = `
+                <div id="g_id_signin"></div>
+                <div id="g_id_loading" style="color: #94a3b8; font-size: 13px; display: flex; align-items: center; gap: 8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="10"></circle></svg>
+                    <span>Đang kết nối dịch vụ Google Sign-In...</span>
+                </div>
+            `;
+        }
+
         try {
-            const fb = await this.initFirebaseClient();
-            const configRes = await fetch(this.getApiUrl('/api/auth/google-client-id'));
-            if (configRes.ok) {
-                const configData = await configRes.json();
-                const clientId = configData.clientId;
-                if (!clientId) {
-                    const warning = document.getElementById("google-config-warning");
-                    const container = document.getElementById("google-signin-btn-container");
-                    if (warning) warning.classList.remove("hidden");
-                    if (container) container.style.display = "none";
-                } else {
-                    const warning = document.getElementById("google-config-warning");
-                    const container = document.getElementById("google-signin-btn-container");
-                    if (warning) warning.classList.add("hidden");
-                    if (container) container.style.display = "flex";
-                    
-                    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-                        google.accounts.id.initialize({
-                            client_id: clientId,
-                            callback: async (response) => {
-                                Swal.fire({
-                                    title: 'Đang xử lý đồng bộ...',
-                                    text: 'Vui lòng chờ trong giây lát.',
-                                    allowOutsideClick: false,
-                                    didOpen: () => {
-                                        Swal.showLoading();
-                                    }
-                                });
-                                
-                                try {
-                                    if (!fb || !fb.auth || !fb.db) {
-                                        throw new Error("Không thể kết nối Firebase. Máy tính có thể đang offline hoặc cấu hình Firebase bị lỗi.");
-                                    }
+            const fb = await this.initFirebaseClient().catch(e => console.warn("Lỗi nạp Firebase client:", e));
+            let clientId = "1033910156653-jf5787g1hgbfh9v0onqrs84rl36d2qrl.apps.googleusercontent.com";
+            
+            try {
+                const configRes = await fetch(this.getApiUrl('/api/auth/google-client-id'));
+                if (configRes.ok) {
+                    const configData = await configRes.json();
+                    if (configData && configData.clientId) {
+                        clientId = configData.clientId;
+                    }
+                }
+            } catch (fetchErr) {
+                console.warn("Không thể lấy Client ID từ API server, dùng mặc định:", fetchErr);
+            }
 
-                                    const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
-                                    const userCredential = await fb.auth.signInWithCredential(credential);
-                                    const firebaseUid = userCredential.user.uid;
+            const warning = document.getElementById("google-config-warning");
+            if (!clientId) {
+                if (warning) warning.classList.remove("hidden");
+                if (container) container.style.display = "none";
+                return;
+            } else {
+                if (warning) warning.classList.add("hidden");
+            }
 
-                                    const loginRes = await fetch(this.getApiUrl('/api/auth/google-login'), {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ idToken: response.credential, firebaseUid: firebaseUid })
-                                    });
-                                    
-                                    if (loginRes.ok) {
-                                        const loginData = await loginRes.json();
-                                        const userEmail = (loginData.parentSession && loginData.parentSession.email) || userCredential.user.email || "";
+            // Hàm bất đồng bộ chờ thư viện Google GIS SDK (google.accounts.id) nạp xong (tối đa 6 giây)
+            const waitForGoogleGsi = () => {
+                return new Promise((resolve) => {
+                    if (typeof google !== 'undefined' && google && google.accounts && google.accounts.id) {
+                        return resolve(true);
+                    }
+                    let attempts = 0;
+                    const interval = setInterval(() => {
+                        attempts++;
+                        if (typeof google !== 'undefined' && google && google.accounts && google.accounts.id) {
+                            clearInterval(interval);
+                            resolve(true);
+                        } else if (attempts >= 60) {
+                            clearInterval(interval);
+                            resolve(false);
+                        }
+                    }, 100);
+                });
+            };
 
-                                        // Tự động chuyển đổi và gán parentUid mới cho dữ liệu cũ theo Email
-                                        if (userEmail) {
-                                            await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid).catch(e => console.warn("Lỗi autoMigrateParentUidByEmail:", e));
-                                        }
+            const isGsiLoaded = await waitForGoogleGsi();
 
-                                        safeStorage.removeItem('skipGoogleLogin');
-                                        
-                                        // Nạp lại cấu hình từ SQLite server ngay lập tức
-                                        await this.loadConfig();
+            if (isGsiLoaded) {
+                const loadingEl = document.getElementById("g_id_loading");
+                if (loadingEl) loadingEl.remove();
 
-                                        let syncMessage = "Đăng nhập Google thành công!";
-                                        try {
-                                            let studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
-                                            if (studentsSnap.empty) {
-                                                await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
-                                                syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
-                                            } else {
-                                                await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
-                                                syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
-                                            }
-                                        } catch (fsErr) {
-                                            console.warn("⚠️ Lỗi đồng bộ đám mây Firestore (vẫn tiếp tục chế độ cục bộ):", fsErr);
-                                        }
+                let signinDiv = document.getElementById("g_id_signin");
+                if (!signinDiv && container) {
+                    signinDiv = document.createElement("div");
+                    signinDiv.id = "g_id_signin";
+                    container.appendChild(signinDiv);
+                }
 
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Thành công',
-                                            text: syncMessage,
-                                            timer: 2500,
-                                            showConfirmButton: false
-                                        });
-                                        if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
-                                    } else {
-                                        const errorData = await loginRes.json();
-                                        throw new Error(errorData.error || 'Lỗi không xác định khi đăng nhập');
-                                    }
-                                } catch (err) {
-                                    console.error("Lỗi đăng nhập Google / Firebase:", err);
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Lỗi đăng nhập',
-                                        text: err.message,
-                                        confirmButtonColor: '#ef4444'
-                                    });
-                                }
-                            }
+                google.accounts.id.initialize({
+                    client_id: clientId,
+                    callback: async (response) => {
+                        Swal.fire({
+                            title: 'Đang xử lý đồng bộ...',
+                            text: 'Vui lòng chờ trong giây lát.',
+                            allowOutsideClick: false,
+                            didOpen: () => { Swal.showLoading(); }
                         });
                         
-                        google.accounts.id.renderButton(
-                            document.getElementById("g_id_signin"),
-                            { theme: "filled_blue", size: "large", text: "signin_with" }
-                        );
-                    } else {
-                        const container = document.getElementById("google-signin-btn-container");
-                        if (container) {
-                            container.innerHTML = "<p style='color: #94a3b8; font-size: 13px; font-style: italic;'><i class='fa-solid fa-triangle-exclamation text-amber-500'></i> Không có mạng để hiển thị nút Google. Bạn có thể sử dụng chế độ Offline dưới đây.</p>";
+                        try {
+                            if (!fb || !fb.auth || !fb.db) {
+                                throw new Error("Không thể kết nối Firebase. Máy tính có thể đang offline hoặc cấu hình Firebase bị lỗi.");
+                            }
+
+                            const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
+                            const userCredential = await fb.auth.signInWithCredential(credential);
+                            const firebaseUid = userCredential.user.uid;
+
+                            const loginRes = await fetch(this.getApiUrl('/api/auth/google-login'), {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ idToken: response.credential, firebaseUid: firebaseUid })
+                            });
+                            
+                            if (loginRes.ok) {
+                                const loginData = await loginRes.json();
+                                const userEmail = (loginData.parentSession && loginData.parentSession.email) || userCredential.user.email || "";
+
+                                if (userEmail) {
+                                    await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid).catch(e => console.warn("Lỗi autoMigrateParentUidByEmail:", e));
+                                }
+
+                                safeStorage.removeItem('skipGoogleLogin');
+                                await this.loadConfig();
+
+                                let syncMessage = "Đăng nhập Google thành công!";
+                                try {
+                                    let studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
+                                    if (studentsSnap.empty) {
+                                        await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
+                                        syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
+                                    } else {
+                                        await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
+                                        syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
+                                    }
+                                } catch (fsErr) {
+                                    console.warn("⚠️ Lỗi đồng bộ đám mây Firestore (vẫn tiếp tục chế độ cục bộ):", fsErr);
+                                }
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công',
+                                    text: syncMessage,
+                                    timer: 2500,
+                                    showConfirmButton: false
+                                });
+                                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            } else {
+                                const errorData = await loginRes.json();
+                                throw new Error(errorData.error || 'Lỗi không xác định khi đăng nhập');
+                            }
+                        } catch (err) {
+                            console.error("Lỗi đăng nhập Google / Firebase:", err);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi đăng nhập',
+                                text: err.message,
+                                confirmButtonColor: '#ef4444'
+                            });
                         }
                     }
+                });
+
+                if (signinDiv) {
+                    google.accounts.id.renderButton(
+                        signinDiv,
+                        { theme: "filled_blue", size: "large", text: "signin_with", width: 280 }
+                    );
+                }
+            } else {
+                if (container) {
+                    container.innerHTML = "<p style='color: #94a3b8; font-size: 13px; font-style: italic;'><i class='fa-solid fa-triangle-exclamation text-amber-500'></i> Không thể nạp nút Google. Vui lòng kiểm tra kết nối mạng hoặc chọn Học ngoại tuyến (Offline) ở bên dưới.</p>";
                 }
             }
         } catch (e) {
