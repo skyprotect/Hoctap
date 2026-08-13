@@ -1,4 +1,4 @@
-// Changelog: Nâng cấp và hoàn thiện bộ tạo đề thi PDF Tiếng Anh 4 kỹ năng chuẩn GDPT 2018 trực tiếp trên giao diện Học sinh
+// Changelog: Kiểm tra và tối ưu hóa tính năng làm đề thi Tiếng Anh 4 kỹ năng trực tuyến (Focus Mode IOE) cho Học sinh
 function sanitizeHtml(html) {
     if (typeof html !== 'string') return html;
     return html
@@ -12505,6 +12505,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (category === "grammar") {
             const checkedCbs = document.querySelectorAll(".student-eng-grammar-cb:checked");
             selectedGrammars = Array.from(checkedCbs).map(cb => cb.value);
+            if (selectedGrammars.length === 0) {
+                Swal.fire("Thông báo", "Vui lòng chọn ít nhất 1 thì/dạng ngữ pháp để bắt đầu làm bài!", "warning");
+                return;
+            }
         }
 
         Swal.fire({
