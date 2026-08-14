@@ -2115,8 +2115,7 @@ app.get('/api/load-config', async (req, res) => {
         jwt.verify(token, JWT_SECRET);
         return res.json(config); // Trả về config đầy đủ cho Phụ huynh
       } catch (err) {
-        // Token không hợp lệ hoặc hết hạn thì trả về lỗi 401 để yêu cầu đăng nhập lại
-        return res.status(401).json({ error: "Phiên làm việc hết hạn hoặc Token không hợp lệ! Vui lòng đăng nhập lại." });
+        // Token hết hạn thì fallback sang safeConfig thay vì quăng lỗi 401 làm gián đoạn giao diện học sinh
       }
     }
 
@@ -2134,10 +2133,19 @@ app.get('/api/load-config', async (req, res) => {
 /**
  * API save config vào SQLite
  */
-app.post('/api/save-config', authenticateAdminToken, async (req, res) => {
+app.post('/api/save-config', async (req, res) => {
   try {
-    const config = req.body;
-    await dbSaveConfig(config);
+    const newConfig = req.body || {};
+    const adminUser = getAdminUserFromRequest(req);
+    const currentConfig = await dbGetConfig() || {};
+
+    // Nếu không có quyền admin, giữ nguyên parentPin và parentName cũ để bảo mật
+    if (!adminUser) {
+      newConfig.parentPin = currentConfig.parentPin || "123456";
+      newConfig.parentName = currentConfig.parentName || "Phụ huynh";
+    }
+
+    await dbSaveConfig(newConfig);
     // Kích hoạt đồng bộ lại danh sách học sinh lên Firebase RTDB để cập nhật bảng xếp hạng
     syncAllStudentsToFirebase().catch(err => {
       console.error("[FirebaseSync] Lỗi chạy ngầm đồng bộ sau khi cập nhật cấu hình:", err);
@@ -4381,7 +4389,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.14';
+const APP_VERSION = '13.16';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

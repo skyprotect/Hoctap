@@ -82,12 +82,18 @@ const SKILL_CARDS = [
 
 // Đối tượng quản lý ứng dụng chính
 const app = {
-    // Trạng thái mặc định của người dùng
+    // Trạng thái mặc định của người dùng (Tự trị Zero-Config Seeding)
     config: {
-        studentName: "",
-        parentName: "",
-        currentClass: "4",
-        parentPin: "123456"
+        parentName: "Phụ huynh",
+        parentPin: "123456",
+        studentName: "Trần Bình Minh",
+        currentClass: "6",
+        defaultStudentId: "std_htsj4gbmo",
+        students: [
+            { id: "std_htsj4gbmo", name: "Trần Bình Minh", parentName: "Phụ huynh", classLevel: "6" },
+            { id: "std_baongoc", name: "Trần Bảo Ngọc", parentName: "Phụ huynh", classLevel: "1" },
+            { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", parentName: "Phụ huynh", classLevel: "4" }
+        ]
     },
     state: {
         xp: 0,
@@ -2777,24 +2783,46 @@ const app = {
     // Khởi chạy các màn hình sau khi bỏ qua/login
     initAppAfterLogin: async function() {
         await this.loadConfig();
-        // Kiểm tra xem hệ thống đã thiết lập cấu hình ban đầu chưa
-        if (!this.config.students || this.config.students.length === 0) {
-            this.showSetupInitialScreen();
-        } else if (this.config.defaultStudentId && this.config.students && this.config.students.some(s => s.id === this.config.defaultStudentId)) {
-            const selectScreen = document.getElementById("student-select-screen");
-            const setupScreen = document.getElementById("setup-initial-screen");
-            const splashScreen = document.getElementById("splash-screen");
-            if (selectScreen) selectScreen.classList.add("hidden");
-            if (setupScreen) setupScreen.classList.add("hidden");
-            if (splashScreen) {
-                splashScreen.classList.remove("hidden");
-                this.pushHistory('splash');
-            }
-
-            await this.initStudentWorkspace();
-        } else {
-            this.showStudentSelectionScreen();
+        
+        // Đảm bảo luôn luôn có danh sách học sinh chuẩn hóa (Zero-Config Fallback)
+        if (!this.config.students || !Array.isArray(this.config.students) || this.config.students.length === 0) {
+            this.config.students = [
+                { id: "std_htsj4gbmo", name: "Trần Bình Minh", parentName: "Phụ huynh", classLevel: "6" },
+                { id: "std_baongoc", name: "Trần Bảo Ngọc", parentName: "Phụ huynh", classLevel: "1" },
+                { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", parentName: "Phụ huynh", classLevel: "4" }
+            ];
+            this.config.defaultStudentId = "std_htsj4gbmo";
+            this.config.studentName = "Trần Bình Minh";
+            this.config.currentClass = "6";
+            this.saveConfig().catch(() => {});
         }
+
+        // Tự động gán học sinh mặc định nếu chưa được chọn
+        if (!this.config.defaultStudentId || !this.config.students.some(s => s.id === this.config.defaultStudentId)) {
+            this.config.defaultStudentId = this.config.students[0].id;
+        }
+
+        const currentStudent = this.config.students.find(s => s.id === this.config.defaultStudentId) || this.config.students[0];
+        this.config.studentName = currentStudent.name;
+        this.config.currentClass = currentStudent.classLevel;
+
+        const selectScreen = document.getElementById("student-select-screen");
+        const setupScreen = document.getElementById("setup-initial-screen");
+        const googleLoginScreen = document.getElementById("google-login-screen");
+        const splashScreen = document.getElementById("splash-screen");
+
+        if (selectScreen) selectScreen.classList.add("hidden");
+        if (setupScreen) setupScreen.classList.add("hidden");
+        if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+        
+        if (splashScreen) {
+            splashScreen.style.display = "";
+            splashScreen.classList.remove("hidden");
+            splashScreen.classList.remove("fade-out");
+            this.pushHistory('splash');
+        }
+
+        await this.initStudentWorkspace();
     },
 
     // Khởi chạy ứng dụng

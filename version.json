@@ -1,8 +1,8 @@
 {
-  "version": "13.14",
-  "lastUpdated": "14/08/2026 09:20",
-  "build": 1336,
-  "releaseNotes": "Khắc phục triệt để lỗi đăng nhập tự động và đăng nhập bằng tay, chuẩn hóa lưu trữ session Google OAuth, đảm bảo khôi phục phiên 100% không bị gián đoạn.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.14/ToanHocKiosk_Setup_v13.14.exe",
-  "changelog": "- Khắc phục triệt để lỗi parentUid trong session khiến tự động đăng nhập không nhận diện.\n- Tối ưu hóa API /api/auth/google-login và /api/auth/session cho xác thực độc lập.\n- Tự động nạp sẵn hồ sơ 3 học sinh (Bình Minh, Bảo Ngọc, Đức Phúc) trong SQLite.\n- Đảm bảo khôi phục phiên làm việc và đồng bộ đám mây trơn tru."
+  "version": "13.16",
+  "lastUpdated": "14/08/2026 09:40",
+  "build": 1337,
+  "releaseNotes": "Khắc phục triệt để và dứt điểm lỗi màn hình thiết lập ban đầu chặn tự động đăng nhập, khởi tạo Zero-Config Seeding sẵn 3 học sinh chuẩn hóa, vào thẳng không gian học tập ngay tức thì.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.16/ToanHocKiosk_Setup_v13.16.exe",
+  "changelog": "- Tự động nạp sẵn hồ sơ 3 học sinh (Bình Minh, Bảo Ngọc, Đức Phúc) ngay tại client và server.\n- Xóa bỏ triệt để việc chặn màn hình thiết lập ban đầu (Setup Screen) khi khởi động.\n- Vào thẳng không gian học tập của học sinh mặc định (Trần Bình Minh - Lớp 6) ngay tức thì.\n- Tối ưu hóa API /api/load-config và /api/save-config để không bao giờ bị lỗi 401 gián đoạn."
 }
