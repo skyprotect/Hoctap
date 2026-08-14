@@ -1226,9 +1226,10 @@ const app = {
 
     saveConfig: async function(token) {
         try {
+            const authToken = token || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('adminToken') : null);
             const headers = { 'Content-Type': 'application/json' };
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
+            if (authToken) {
+                headers['Authorization'] = `Bearer ${authToken}`;
             }
             await fetch(this.getApiUrl('/api/save-config'), {
                 method: 'POST',
@@ -1579,7 +1580,11 @@ const app = {
     // Khởi chạy không gian làm việc cho học sinh hiện tại
     initStudentWorkspace: async function() {
         // 1. Tải thông tin học sinh hiện tại từ config và hiển thị tức thì lên Splash Screen
-        const student = this.config.students ? this.config.students.find(s => s.id === this.config.defaultStudentId) : null;
+        let student = this.config.students ? this.config.students.find(s => s.id === this.config.defaultStudentId) : null;
+        if (!student && this.config.students && this.config.students.length > 0) {
+            student = this.config.students[0];
+            this.config.defaultStudentId = student.id;
+        }
         if (student) {
             this.config.studentName = student.name;
             this.config.parentName = student.parentName || "Phụ huynh";
@@ -1911,10 +1916,13 @@ const app = {
             if (!firebase.apps.length) {
                 firebase.initializeApp(fbConfig);
             }
-            return {
+            const fbApp = {
                 auth: firebase.auth(),
                 db: firebase.firestore()
             };
+            window.firebaseApp = fbApp;
+            this.firebaseApp = fbApp;
+            return fbApp;
         } catch (e) {
             console.error("Lỗi khởi tạo Firebase Client:", e);
             return null;
@@ -2224,6 +2232,37 @@ const app = {
         merged.subtopicScores = mergeMaxObject(localState.subtopicScores, cloudState.subtopicScores);
         merged.levelScores = mergeMaxObject(localState.levelScores, cloudState.levelScores);
 
+        // 4.1: Hợp nhất cấu trúc môn học subjects (Toán & Tiếng Anh) chuẩn xác theo quốc tế
+        if (localState.subjects || cloudState.subjects) {
+            const sLocal = localState.subjects || {};
+            const sCloud = cloudState.subjects || {};
+            if (!merged.subjects) merged.subjects = {};
+
+            // Môn Toán
+            const mLocal = sLocal.math || {};
+            const mCloud = sCloud.math || {};
+            merged.subjects.math = {
+                scores: mergeMaxObject(mLocal.scores, mCloud.scores),
+                subtopicScores: mergeMaxObject(mLocal.subtopicScores, mCloud.subtopicScores),
+                completedSubtopics: unionArray(mLocal.completedSubtopics, mCloud.completedSubtopics),
+                completedLessonTheory: unionArray(mLocal.completedLessonTheory, mCloud.completedLessonTheory),
+                examSessions: [...(mLocal.examSessions || []), ...(mCloud.examSessions || [])].slice(-50)
+            };
+
+            // Môn Tiếng Anh
+            const eLocal = sLocal.english || {};
+            const eCloud = sCloud.english || {};
+            merged.subjects.english = {
+                scores: mergeMaxObject(eLocal.scores, eCloud.scores),
+                subtopicScores: mergeMaxObject(eLocal.subtopicScores, eCloud.subtopicScores),
+                completedSubtopics: unionArray(eLocal.completedSubtopics, eCloud.completedSubtopics),
+                completedLessonTheory: unionArray(eLocal.completedLessonTheory, eCloud.completedLessonTheory),
+                examSessions: [...(eLocal.examSessions || []), ...(eCloud.examSessions || [])].slice(-50),
+                skillScores: mergeMaxObject(eLocal.skillScores, eCloud.skillScores),
+                weakVocabulary: unionArray(eLocal.weakVocabulary, eCloud.weakVocabulary)
+            };
+        }
+
         if (localState.englishState || cloudState.englishState) {
             const eLocal = localState.englishState || {};
             const eCloud = cloudState.englishState || {};
@@ -2404,9 +2443,7 @@ const app = {
                                     console.log("🔄 [Realtime Sync] Phát hiện tiến trình mới từ thiết bị khác! Tự động cập nhật...");
                                     await this.pullDataFromFirestoreClient(fb.db, firebaseUid, email);
                                     await this.loadConfig();
-                                    if (this.state && this.state.student && this.state.student.id) {
-                                        await this.loadStudentProgress(this.state.student.id);
-                                    }
+                                    await this.loadProgress();
                                 }
                             }, (err) => {
                                 console.warn("⚠️ [Realtime Sync] Lỗi listener snapshot:", err);
@@ -2481,7 +2518,7 @@ const app = {
             const sessionRes = await fetch(this.getApiUrl('/api/auth/session'));
             if (sessionRes.ok) {
                 const sessionData = await sessionRes.json();
-                if (sessionData.loggedIn) {
+                if (sessionData.loggedIn && sessionData.session && sessionData.session.parentUid) {
                     console.log("✅ Phụ huynh đã đăng nhập Google:", sessionData.session.email);
                     
                     // Kích hoạt tự động đồng bộ ngầm đa thiết bị & Realtime sync
@@ -2495,6 +2532,48 @@ const app = {
                     return true;
                 }
             }
+
+            // 2.5: Phục hồi phiên tự động nếu trình duyệt đã lưu trữ phiên Firebase Auth trong IndexedDB
+            if (fb && fb.auth) {
+                const checkFirebaseStoredAuth = () => {
+                    return new Promise((resolve) => {
+                        if (fb.auth.currentUser) return resolve(fb.auth.currentUser);
+                        const unsubscribe = fb.auth.onAuthStateChanged((user) => {
+                            unsubscribe();
+                            resolve(user);
+                        }, () => resolve(null));
+                        setTimeout(() => resolve(null), 1500); // Chờ tối đa 1.5s
+                    });
+                };
+
+                const fbUser = await checkFirebaseStoredAuth();
+                if (fbUser && fbUser.uid) {
+                    console.log("🔄 Phát hiện phiên Firebase Auth lưu trữ sẵn cho:", fbUser.email);
+                    try {
+                        const token = await fbUser.getIdToken();
+                        const loginRes = await fetch(this.getApiUrl('/api/auth/google-login'), {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                idToken: token, 
+                                firebaseUid: fbUser.uid, 
+                                email: fbUser.email || "", 
+                                displayName: fbUser.displayName || "" 
+                            })
+                        });
+                        if (loginRes.ok) {
+                            this.setupCloudAutoSync(fb, fbUser.email);
+                            safeStorage.removeItem('skipGoogleLogin');
+                            await this.loadConfig();
+                            const googleLoginScreen = document.getElementById("google-login-screen");
+                            if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+                            return true;
+                        }
+                    } catch (syncErr) {
+                        console.warn("Không thể đồng bộ tự động session từ Firebase Auth client:", syncErr);
+                    }
+                }
+            }
             
             // 3. Nếu chưa đăng nhập: Kiểm tra xem đã từng chọn "Học ngoại tuyến (Offline)" chưa
             if (safeStorage.getItem('skipGoogleLogin') === 'true') {
@@ -2504,8 +2583,6 @@ const app = {
                 return false;
             }
 
-            // 4. Nếu là lần đầu khởi chạy (chưa đăng nhập & chưa chọn Skip): Hiển thị màn hình cho phép lựa chọn Đăng nhập Google hoặc Học Offline
-            await this.openGoogleLoginModal();
             return false;
         } catch (e) {
             console.error("Lỗi khi kiểm tra Google Session:", e);
@@ -2516,6 +2593,9 @@ const app = {
     // Mở màn hình đăng nhập Google đồng bộ đám mây khi phụ huynh chủ động yêu cầu
     openGoogleLoginModal: async function() {
         const googleLoginScreen = document.getElementById("google-login-screen");
+        const setupScreen = document.getElementById("setup-initial-screen");
+        if (setupScreen) setupScreen.classList.add("hidden");
+        
         if (googleLoginScreen) {
             googleLoginScreen.classList.remove("hidden");
             this.pushHistory('google-login');
@@ -2594,6 +2674,7 @@ const app = {
 
                 google.accounts.id.initialize({
                     client_id: clientId,
+                    auto_select: true,
                     callback: async (response) => {
                         Swal.fire({
                             title: 'Đang xử lý đồng bộ...',
@@ -2675,6 +2756,9 @@ const app = {
                         { theme: "filled_blue", size: "large", text: "signin_with", width: 280 }
                     );
                 }
+                try {
+                    google.accounts.id.prompt();
+                } catch(e){}
             } else {
                 if (container) {
                     container.innerHTML = "<p style='color: #94a3b8; font-size: 13px; font-style: italic;'><i class='fa-solid fa-triangle-exclamation text-amber-500'></i> Không thể nạp nút Google. Vui lòng kiểm tra kết nối mạng hoặc chọn Học ngoại tuyến (Offline) ở bên dưới.</p>";
@@ -2721,14 +2805,6 @@ const app = {
         // Tải cấu hình ứng dụng từ SQLite trước tiên để luôn sẵn sàng dữ liệu
         await this.loadConfig();
 
-        // 1. Kiểm tra session Google trước tiên
-        const isLoggedIn = await this.checkGoogleSession();
-        
-        // 2. Nếu đã đăng nhập hoặc đã từng chọn Offline -> Vào ứng dụng ngay
-        if (isLoggedIn || safeStorage.getItem('skipGoogleLogin') === 'true') {
-            await this.initAppAfterLogin();
-        }
-
         this.audio.init(); // Preload tất cả âm thanh
         this.checkUpdateAuto(); // Tự động kiểm tra bản cập nhật
 
@@ -2760,27 +2836,18 @@ const app = {
             this.syncOfflineProgress();
         });
 
-        // Kiểm tra xem hệ thống đã thiết lập cấu hình ban đầu chưa
-        if (!this.config.students || this.config.students.length === 0) {
-            // Hiển thị màn hình thiết lập ban đầu
-            this.showSetupInitialScreen();
-        } else if (this.config.defaultStudentId && this.config.students && this.config.students.some(s => s.id === this.config.defaultStudentId)) {
-            // Ẩn màn hình chọn và màn hình thiết lập
-            const selectScreen = document.getElementById("student-select-screen");
-            const setupScreen = document.getElementById("setup-initial-screen");
-            const splashScreen = document.getElementById("splash-screen");
-            if (selectScreen) selectScreen.classList.add("hidden");
-            if (setupScreen) setupScreen.classList.add("hidden");
-            if (splashScreen) {
-                splashScreen.classList.remove("hidden");
-                this.pushHistory('splash');
-            }
-
-            await this.initStudentWorkspace();
+        // 1. Kiểm tra session Google trước tiên
+        const isLoggedIn = await this.checkGoogleSession();
+        
+        // 2. Nếu đã đăng nhập hoặc đã từng chọn Offline -> Vào ứng dụng ngay
+        if (isLoggedIn || safeStorage.getItem('skipGoogleLogin') === 'true') {
+            await this.initAppAfterLogin();
         } else {
-            // Hiển thị màn hình chọn con ban đầu
-            this.showStudentSelectionScreen();
+            // Lần đầu chạy chưa đăng nhập và chưa chọn Offline: Mở màn hình đăng nhập Google và dừng lại, KHÔNG mở màn hình setup
+            await this.openGoogleLoginModal();
+            return;
         }
+
         this.updateNavigationButtons();
 
         // Sự kiện kích hoạt âm thanh và đóng màn hình chào mừng (Splash Screen)
@@ -4727,11 +4794,12 @@ const app = {
                             db.collection('students').doc(studentId).set({
                                 studentId: studentId,
                                 parentUid: parentUid,
+                                email: (auth.currentUser && auth.currentUser.email) || "",
                                 name: name,
                                 classLevel: classLevel,
                                 state_json: JSON.stringify(this.state),
                                 lastUpdated: new Date().toISOString()
-                            }).then(() => {
+                            }, { merge: true }).then(() => {
                                 console.log(`⚡ [Firestore Client Sync] Đã đồng bộ tiến trình học sinh ${name} (${studentId}) lên đám mây.`);
                             }).catch(err => {
                                 console.warn("⚠️ [Firestore Client Sync] Lỗi ghi Firestore:", err.message);

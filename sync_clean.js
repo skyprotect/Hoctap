@@ -37,7 +37,9 @@ const dirsToSync = [
   'js/lib',
   'css/lib',
   'images',
-  'sounds'
+  'sounds',
+  'dataEnglish',
+  'chibi'
 ];
 
 const filesToDeleteInDest = [

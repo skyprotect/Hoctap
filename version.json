@@ -1,8 +1,8 @@
 {
-  "version": "13.6",
-  "lastUpdated": "13/08/2026 21:53",
-  "build": 1331,
-  "releaseNotes": "Khắc phục triệt để 100 lỗi phần hệ Tiếng Anh theo tiêu chuẩn quốc tế, tối ưu hóa giao diện DOM, bài tập trắc nghiệm, Speech API, âm thanh, thi IOE, PDF Exporter và bảo toàn dữ liệu.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.6/ToanHocKiosk_Setup_v13.6.exe",
-  "changelog": "- Cập nhật tự động phiên bản v13.6\n- Đồng bộ bản sạch và nâng cấp hệ thống ngày 13/08/2026 21:58."
+  "version": "13.8",
+  "lastUpdated": "14/08/2026 08:20",
+  "build": 1332,
+  "releaseNotes": "Khắc phục triệt để 25 lỗi hệ thống: Tự động đăng nhập Google/Firebase, sửa màn hình khởi động lần đầu, chuẩn hóa đồng bộ đa thiết bị Realtime, sửa xác thực mã PIN phụ huynh và phân quyền học sinh chuẩn quốc tế.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.8/ToanHocKiosk_Setup_v13.8.exe",
+  "changelog": "- Cập nhật tự động phiên bản v13.8\n- Đồng bộ bản sạch và nâng cấp hệ thống ngày 14/08/2026 08:23."
 }

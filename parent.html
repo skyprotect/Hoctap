@@ -1223,7 +1223,7 @@
                 
                 // Tự động di chuyển dữ liệu học sinh cũ (nếu có) sang danh sách mới để tránh mất mát dữ liệu
                 if (app.config.students.length === 0 && app.config.studentName) {
-                    const defaultId = 'std_' + Math.random().toString(36).substr(2, 9);
+                    const defaultId = 'std_' + Math.random().toString(36).substring(2, 11);
                     app.config.students.push({
                         id: defaultId,
                         name: app.config.studentName,
@@ -1313,7 +1313,7 @@
                     // Máy chủ chưa chạy, hiển thị thông báo hướng dẫn rõ ràng
                     Swal.fire({
                         title: 'Chưa bật Máy chủ học tập!',
-                        text: 'Vui lòng kích đúp vào file "🚀 Bắt đầu học.vbs" ở thư mục chính để khởi động máy chủ trước khi truy cập chế độ phụ huynh.',
+                        text: 'Vui lòng kích đúp vào file "Bat dau hoc.vbs" ở thư mục chính để khởi động máy chủ trước khi truy cập chế độ phụ huynh.',
                         icon: 'warning',
                         confirmButtonText: 'Tôi đã hiểu',
                         confirmButtonColor: '#8b5cf6',
@@ -1389,7 +1389,7 @@
     </script>
 
     <!-- Scripts nạp động -->
-    <script src="js/lessons.js?v=9.1"></script>
-    <script src="js/parent.js?v=9.1"></script>
+    <script src="js/lessons.js?v=13.7"></script>
+    <script src="js/parent.js?v=13.7"></script>
 </body>
 </html>

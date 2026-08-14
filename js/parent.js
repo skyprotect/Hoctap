@@ -107,64 +107,85 @@ const parentDashboard = {
     },
 
     // Xác thực mã PIN để vào Dashboard
-    verifyPin: function() {
-        const pinVal = document.getElementById("parent-pin").value;
+    verifyPin: async function() {
+        const pinInput = document.getElementById("parent-pin");
+        const pinVal = pinInput ? pinInput.value.trim() : "";
         const errorText = document.getElementById("pin-error");
 
-        if (pinVal === (app.config ? app.config.parentPin : app.state.parentPin)) {
-            errorText.classList.add("hidden");
-            
-            const token = sessionStorage.getItem('adminToken');
-            // Kiểm tra Kiosk Mode trước khi mở khóa Dashboard
-            fetch(getApiUrl("/api/is-kiosk-mode"))
-                .then(res => res.json())
-                .then(data => {
-                    if (data.isKiosk) {
-                        // Hiển thị thông báo thoát Kiosk Mode
-                        Swal.fire({
-                            title: "Đang thoát Kiosk Mode",
-                            text: "Hệ thống đang tắt chế độ bảo vệ và mở trang Dashboard trên trình duyệt thông thường...",
-                            icon: "info",
-                            showConfirmButton: false,
-                            allowOutsideClick: false,
-                            target: document.getElementById('screen-parent') || 'body'
-                        });
-                        
-                        // Gọi API thoát Kiosk
-                        fetch(getApiUrl("/api/exit-kiosk"), { 
-                            method: "POST",
-                            headers: { 'Authorization': `Bearer ${token}` }
-                        })
-                            .catch(err => console.error("Lỗi khi thoát Kiosk:", err));
-                    } else {
-                        // Không ở Kiosk mode, mở Dashboard như bình thường
-                        document.getElementById("parent-auth-box").classList.add("hidden");
-                        document.getElementById("parent-dashboard-content").classList.remove("hidden");
-                        
-                        // Tự động thoát chế độ toàn màn hình khi phụ huynh đăng nhập thành công
-                        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
-                            const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
-                            if (exitFS) {
-                                exitFS.call(document).catch(err => console.log("Không thể thoát fullscreen:", err));
+        try {
+            const res = await fetch(getApiUrl('/api/admin/login'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: pinVal })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                const token = data.token;
+                sessionStorage.setItem('adminToken', token);
+                if (errorText) errorText.classList.add("hidden");
+                
+                // Kiểm tra Kiosk Mode trước khi mở khóa Dashboard
+                fetch(getApiUrl("/api/is-kiosk-mode"))
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.isKiosk) {
+                            Swal.fire({
+                                title: "Đang thoát Kiosk Mode",
+                                text: "Hệ thống đang tắt chế độ bảo vệ và mở trang Dashboard trên trình duyệt thông thường...",
+                                icon: "info",
+                                showConfirmButton: false,
+                                allowOutsideClick: false,
+                                target: document.getElementById('screen-parent') || 'body'
+                            });
+                            
+                            fetch(getApiUrl("/api/exit-kiosk"), { 
+                                method: "POST",
+                                headers: { 
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}` 
+                                }
+                            }).catch(err => console.error("Lỗi khi thoát Kiosk:", err));
+                        } else {
+                            const authBox = document.getElementById("parent-auth-box");
+                            const dashContent = document.getElementById("parent-dashboard-content");
+                            if (authBox) authBox.classList.add("hidden");
+                            if (dashContent) dashContent.classList.remove("hidden");
+                            
+                            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                                const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+                                if (exitFS) exitFS.call(document).catch(() => {});
                             }
+                            
+                            this.onDashboardUnlocked();
                         }
-                        
+                    })
+                    .catch(err => {
+                        console.error("Lỗi kiểm tra Kiosk:", err);
+                        const authBox = document.getElementById("parent-auth-box");
+                        const dashContent = document.getElementById("parent-dashboard-content");
+                        if (authBox) authBox.classList.add("hidden");
+                        if (dashContent) dashContent.classList.remove("hidden");
                         this.onDashboardUnlocked();
-                    }
-                })
-                .catch(err => {
-                    console.error("Lỗi kiểm tra Kiosk:", err);
-                    // Dự phòng mở Dashboard trực tiếp nếu API lỗi
-                    document.getElementById("parent-auth-box").classList.add("hidden");
-                    document.getElementById("parent-dashboard-content").classList.remove("hidden");
-                    this.onDashboardUnlocked();
-                });
-        } else {
-            errorText.classList.remove("hidden");
-            // Rung lắc nhẹ ô nhập pin khi gõ sai (hiệu ứng UX)
-            const pinGroup = document.querySelector(".pin-input-group");
-            pinGroup.classList.add("animate-shake");
-            setTimeout(() => pinGroup.classList.remove("animate-shake"), 500);
+                    });
+            } else {
+                const errData = await res.json().catch(() => ({}));
+                if (errorText) {
+                    errorText.textContent = errData.error || "Mã PIN phụ huynh không chính xác!";
+                    errorText.classList.remove("hidden");
+                }
+                const pinGroup = document.querySelector(".pin-input-group");
+                if (pinGroup) {
+                    pinGroup.classList.add("animate-shake");
+                    setTimeout(() => pinGroup.classList.remove("animate-shake"), 500);
+                }
+            }
+        } catch (e) {
+            console.error("Lỗi kết nối xác thực PIN:", e);
+            if (errorText) {
+                errorText.textContent = "Không thể kết nối máy chủ để xác thực PIN!";
+                errorText.classList.remove("hidden");
+            }
         }
     },
 

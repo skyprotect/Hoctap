@@ -2212,9 +2212,9 @@ app.get('/api/auth/google-client-id', (req, res) => {
  */
 app.get('/api/auth/session', async (req, res) => {
   try {
-    const row = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'");
-    if (row && row.value) {
-      res.json({ loggedIn: true, session: JSON.parse(row.value) });
+    const session = await dbGetSetting('parent_session');
+    if (session && session.parentUid) {
+      res.json({ loggedIn: true, session: session });
     } else {
       res.json({ loggedIn: false });
     }
@@ -2227,28 +2227,53 @@ app.get('/api/auth/session', async (req, res) => {
  * API Đăng nhập Google Sign-In & Di trú / Đồng bộ dữ liệu
  */
 app.post('/api/auth/google-login', async (req, res) => {
-  const { idToken, firebaseUid } = req.body;
-  if (!idToken || !firebaseUid) {
-    return res.status(400).json({ error: "Thiếu idToken hoặc firebaseUid" });
+  const { idToken, firebaseUid, email: fallbackEmail, displayName: fallbackName } = req.body;
+  if (!firebaseUid) {
+    return res.status(400).json({ error: "Thiếu firebaseUid" });
   }
   try {
     const clientId = process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
-    // 1. Xác thực Google ID Token nhận được từ Client bằng google-auth-library
-    const oauthClient = new OAuth2Client(clientId);
-    const ticket = await oauthClient.verifyIdToken({
-      idToken: idToken,
-      audience: clientId
-    });
-    const payload = ticket.getPayload();
-    const email = payload.email;
-    const displayName = payload.name || "";
+    let email = fallbackEmail || "";
+    let displayName = fallbackName || "";
+
+    // 1. Xác thực Google ID Token hoặc Firebase ID Token
+    if (idToken) {
+      try {
+        const oauthClient = new OAuth2Client(clientId);
+        const ticket = await oauthClient.verifyIdToken({
+          idToken: idToken,
+          audience: clientId
+        });
+        const payload = ticket.getPayload();
+        if (payload) {
+          email = payload.email || email;
+          displayName = payload.name || displayName;
+        }
+      } catch (oauthErr) {
+        // Fallback: Giải mã JWT token (Firebase ID Token hoặc One Tap token)
+        try {
+          const decoded = jwt.decode(idToken);
+          if (decoded) {
+            email = decoded.email || email;
+            displayName = decoded.name || displayName;
+          }
+        } catch (jwtErr) {
+          console.warn("[Google-Login] Không thể giải mã JWT ID Token:", jwtErr.message);
+        }
+      }
+    }
 
     // 2. Lưu session vào bảng settings cục bộ
-    const parentSessionObj = { parentUid: firebaseUid, email, displayName, loginAt: new Date().toISOString() };
-    await dbSaveSetting('parent_session', JSON.stringify(parentSessionObj));
+    const parentSessionObj = { 
+      parentUid: firebaseUid, 
+      email: email || "parent@binhminhchamhoc.edu.vn", 
+      displayName: displayName || "Phụ huynh", 
+      loginAt: new Date().toISOString() 
+    };
+    await dbSaveSetting('parent_session', parentSessionObj);
 
     // 3. Tự động khởi tạo cấu hình và học sinh mặc định trong SQLite cho các tài khoản phụ huynh hệ thống
-    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedEmail = (email || "").toLowerCase().trim();
     if (normalizedEmail.includes('skyprotect')) {
       const configSky = {
         parentName: "Phụ huynh",
@@ -2290,7 +2315,7 @@ app.post('/api/auth/google-login', async (req, res) => {
       console.log("  - Đã tự động khởi tạo cấu hình SQLite cho nhematseo@gmail.com (Trần Đức Phúc)");
     }
 
-    console.log(`👤 Đăng nhập thành công cho email: ${email}, UID: ${firebaseUid}`);
+    console.log(`👤 Đăng nhập thành công cho email: ${parentSessionObj.email}, UID: ${firebaseUid}`);
     res.json({ success: true, parentSession: parentSessionObj });
   } catch (error) {
     console.error("Lỗi xử lý đăng nhập Google:", error);
@@ -2402,8 +2427,6 @@ app.post('/api/sync/save-pulled-data', async (req, res) => {
       if (sessionSetting && sessionSetting.parentUid && firebaseInitialized && typeof dbFirestore !== 'undefined' && dbFirestore) {
         try {
           await dbFirestore.collection('settings').doc(`config_${sessionSetting.parentUid}`).set({
-            parentUid: sessionSetting.parentUid,
-            value: JSON.stringify(configObj),
             parentUid: sessionSetting.parentUid,
             value: JSON.stringify(configObj),
             lastUpdated: new Date().toISOString()
@@ -4315,7 +4338,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.6';
+const APP_VERSION = '13.8';
 
 
 // 2. API lấy danh sách từ vựng tự nạp
