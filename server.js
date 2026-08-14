@@ -2247,7 +2247,7 @@ app.get('/api/auth/google-client-id', (req, res) => {
 app.get('/api/auth/session', async (req, res) => {
   try {
     const session = await dbGetSetting('parent_session');
-    if (session && session.parentUid) {
+    if (session && (session.parentUid || session.email)) {
       res.json({ loggedIn: true, session: session });
     } else {
       res.json({ loggedIn: false });
@@ -2262,13 +2262,11 @@ app.get('/api/auth/session', async (req, res) => {
  */
 app.post('/api/auth/google-login', async (req, res) => {
   const { idToken, firebaseUid, email: fallbackEmail, displayName: fallbackName } = req.body || {};
-  let email = fallbackEmail || "";
-  let displayName = fallbackName || "";
-  let parentUid = firebaseUid || "";
+  let email = (fallbackEmail || "").trim();
+  let displayName = (fallbackName || "").trim();
+  let parentUid = (firebaseUid || "").trim();
   try {
     const clientId = process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
-    let email = fallbackEmail || "";
-    let displayName = fallbackName || "";
 
     // 1. Xác thực Google ID Token hoặc Firebase ID Token
     if (idToken) {
@@ -2299,9 +2297,18 @@ app.post('/api/auth/google-login', async (req, res) => {
       }
     }
 
+    // Đảm bảo parentUid luôn có giá trị hợp lệ, không bao giờ bị undefined/rỗng
+    if (!parentUid) {
+      if (email) {
+        parentUid = "uid_" + Buffer.from(email).toString('hex').slice(0, 24);
+      } else {
+        parentUid = "uid_parent_" + Date.now();
+      }
+    }
+
     // 2. Lưu session vào bảng settings cục bộ
     const parentSessionObj = { 
-      parentUid: firebaseUid, 
+      parentUid: parentUid, 
       email: email || "parent@binhminhchamhoc.edu.vn", 
       displayName: displayName || "Phụ huynh", 
       loginAt: new Date().toISOString() 
@@ -2351,7 +2358,7 @@ app.post('/api/auth/google-login', async (req, res) => {
       console.log("  - Đã tự động khởi tạo cấu hình SQLite cho nhematseo@gmail.com (Trần Đức Phúc)");
     }
 
-    console.log(`👤 Đăng nhập thành công cho email: ${parentSessionObj.email}, UID: ${firebaseUid}`);
+    console.log(`👤 Đăng nhập thành công cho email: ${parentSessionObj.email}, UID: ${parentUid}`);
     res.json({ success: true, parentSession: parentSessionObj });
   } catch (error) {
     console.error("Lỗi xử lý đăng nhập Google:", error);
@@ -4374,7 +4381,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.12';
+const APP_VERSION = '13.14';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

@@ -2523,7 +2523,7 @@ const app = {
             const sessionRes = await fetch(this.getApiUrl('/api/auth/session'));
             if (sessionRes.ok) {
                 const sessionData = await sessionRes.json();
-                if (sessionData.loggedIn && sessionData.session && sessionData.session.parentUid) {
+                if (sessionData.loggedIn && sessionData.session && (sessionData.session.parentUid || sessionData.session.email)) {
                     console.log("✅ Phụ huynh đã đăng nhập Google:", sessionData.session.email);
                     
                     // Kích hoạt tự động đồng bộ ngầm đa thiết bị & Realtime sync

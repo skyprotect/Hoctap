@@ -1,8 +1,8 @@
 {
-  "version": "13.12",
-  "lastUpdated": "14/08/2026 08:55",
-  "build": 1335,
-  "releaseNotes": "Khắc phục triệt để lỗi 'Failed to fetch' khi đăng nhập, kích hoạt chế độ vào học tức thì (Instant Learning Workspace), đồng bộ tự động 3 học sinh chuẩn hóa và tối ưu hóa hệ thống chuẩn quốc tế.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.12/ToanHocKiosk_Setup_v13.12.exe",
-  "changelog": "- Tự động đăng nhập và vào ngay không gian học tập mà không làm gián đoạn học sinh.\n- Khắc phục triệt để lỗi 'Failed to fetch' và tối ưu hóa endpoint /api/auth/google-login.\n- Bổ sung /api/health và chuẩn hóa MIME types cho webfonts.\n- Tự động nạp sẵn hồ sơ 3 học sinh (Bình Minh, Bảo Ngọc, Đức Phúc) trong CSDL SQLite."
+  "version": "13.14",
+  "lastUpdated": "14/08/2026 09:20",
+  "build": 1336,
+  "releaseNotes": "Khắc phục triệt để lỗi đăng nhập tự động và đăng nhập bằng tay, chuẩn hóa lưu trữ session Google OAuth, đảm bảo khôi phục phiên 100% không bị gián đoạn.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.14/ToanHocKiosk_Setup_v13.14.exe",
+  "changelog": "- Khắc phục triệt để lỗi parentUid trong session khiến tự động đăng nhập không nhận diện.\n- Tối ưu hóa API /api/auth/google-login và /api/auth/session cho xác thực độc lập.\n- Tự động nạp sẵn hồ sơ 3 học sinh (Bình Minh, Bảo Ngọc, Đức Phúc) trong SQLite.\n- Đảm bảo khôi phục phiên làm việc và đồng bộ đám mây trơn tru."
 }
