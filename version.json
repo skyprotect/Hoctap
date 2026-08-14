@@ -1,8 +1,8 @@
 {
-  "version": "13.16",
-  "lastUpdated": "14/08/2026 09:40",
-  "build": 1337,
-  "releaseNotes": "Khắc phục triệt để và dứt điểm lỗi màn hình thiết lập ban đầu chặn tự động đăng nhập, khởi tạo Zero-Config Seeding sẵn 3 học sinh chuẩn hóa, vào thẳng không gian học tập ngay tức thì.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.16/ToanHocKiosk_Setup_v13.16.exe",
-  "changelog": "- Tự động nạp sẵn hồ sơ 3 học sinh (Bình Minh, Bảo Ngọc, Đức Phúc) ngay tại client và server.\n- Xóa bỏ triệt để việc chặn màn hình thiết lập ban đầu (Setup Screen) khi khởi động.\n- Vào thẳng không gian học tập của học sinh mặc định (Trần Bình Minh - Lớp 6) ngay tức thì.\n- Tối ưu hóa API /api/load-config và /api/save-config để không bao giờ bị lỗi 401 gián đoạn."
+  "version": "13.18",
+  "lastUpdated": "14/08/2026 11:05",
+  "build": 1338,
+  "releaseNotes": "Tối ưu hóa kiến trúc khởi tạo tức thì, sửa triệt để lỗi nút 'Bắt đầu học tập' bị đơ và tự động kéo/gộp điểm số học tập thực tế từ Firebase Realtime Database về SQLite.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.18/ToanHocKiosk_Setup_v13.18.exe",
+  "changelog": "- Gắn trực tiếp sự kiện app.enterApp() trên nút 'BẮT ĐẦU HỌC TẬP' và kích hoạt tức thì ngay tại DOMContentLoaded.\n- Tự động kéo và hydrate điểm số (XP, Streak) từ Firebase Realtime Database Leaderboard về SQLite khi khởi động.\n- Chuẩn hóa cấu hình CSDL SQLite và gieo sẵn (seed) hồ sơ 3 học sinh chuẩn (Bình Minh, Bảo Ngọc, Đức Phúc).\n- Tách rời toàn bộ logic giao diện khỏi các cuộc gọi mạng I/O bất đồng bộ."
 }

@@ -2825,16 +2825,123 @@ const app = {
         await this.initStudentWorkspace();
     },
 
+    // Cập nhật các chỉ số Gamification lên Màn hình chào mừng (Splash Screen)
+    updateSplashStats: function() {
+        try {
+            const splashStreak = document.getElementById("splash-streak-val");
+            const splashXp = document.getElementById("splash-xp-val");
+            const splashBadge = document.getElementById("splash-badge-count");
+            if (splashStreak) splashStreak.innerText = (this.state && this.state.streak) ? this.state.streak : 0;
+            if (splashXp) splashXp.innerText = (this.state && (this.state.xp !== undefined ? this.state.xp : this.state._sharedXp)) || 0;
+            if (splashBadge) splashBadge.innerText = (this.state && this.state.badges && Array.isArray(this.state.badges)) ? this.state.badges.length : 0;
+        } catch(e) {
+            console.warn("Lỗi updateSplashStats:", e);
+        }
+    },
+
+    // Sự kiện kích hoạt âm thanh và đóng màn hình chào mừng (Splash Screen) để vào học ngay
+    enterApp: function() {
+        if (this._isEntering) return;
+        this._isEntering = true;
+
+        const splashScreen = document.getElementById("splash-screen");
+        
+        // Dừng âm thanh nhắc nhở của Splash Screen
+        if (typeof this.stopSplashGreeting === 'function') {
+            try { this.stopSplashGreeting(); } catch(e){}
+        }
+
+        try {
+            if (this.audio) {
+                this.audio.init();
+                this.audio.isUnlocked = true;
+                this.audio.playStartup();
+                this.audio.tempMuteClick = true;
+                setTimeout(() => {
+                    this.audio.tempMuteClick = false;
+                }, 150);
+            }
+        } catch(e){}
+
+        if (splashScreen) {
+            splashScreen.classList.add("fade-out");
+            // Giải phóng bộ nhớ hiển thị sau khi hiệu ứng hoàn thành (0.6 giây)
+            setTimeout(() => {
+                splashScreen.style.display = "none";
+                this._isEntering = false; // Reset cờ trạng thái để bấm được tiếp khi Splash Screen hiển thị lại
+                
+                try { this.checkSubjectSelection(); } catch(e){}
+                try { this.startHeartbeat(); } catch(e){}
+
+                // Kích hoạt hiển thị các huy hiệu trong hàng đợi (nếu có)
+                if (this.pendingBadges && this.pendingBadges.length > 0) {
+                    const nextBadgeId = this.pendingBadges.shift();
+                    try { this.showBadgePopup(nextBadgeId); } catch(e){}
+                }
+            }, 600);
+        } else {
+            this._isEntering = false;
+        }
+    },
+
+    // Khởi tạo tức thì các thành phần giao diện không cần chờ mạng I/O
+    initInstantUI: function() {
+        try { this.initSplashClock(); } catch(e) {}
+        try { this.displayRandomSplashQuote(); } catch(e) {}
+        try { this.updateWelcomeViewerPanelText(); } catch(e) {}
+        try { this.initTheme(); } catch(e) {}
+        try { this.updateSplashStats(); } catch(e) {}
+
+        // Gắn sự kiện click/touchstart cho nút Bắt đầu học tập ngay tức khắc
+        const splashStartBtn = document.getElementById("splash-start-btn");
+        if (splashStartBtn && !this._splashStartBtnBound) {
+            this._splashStartBtnBound = true;
+            splashStartBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                this.enterApp();
+            });
+            splashStartBtn.addEventListener("touchstart", (e) => {
+                e.preventDefault();
+                this.enterApp();
+            }, { passive: false });
+        }
+
+        // Lắng nghe sự kiện click toàn cục để phát âm thanh click nhẹ chuyên nghiệp
+        if (!this._globalClickListenerBound) {
+            this._globalClickListenerBound = true;
+            document.addEventListener("click", (e) => {
+                const target = e.target.closest("button, a, [role='button'], .option-btn, .nav-item, .lesson-card, .btn, .btn-primary, .btn-secondary, .btn-splash-start, .btn-parent, .btn-icon, .sem-tab-btn, .tab-btn, .btn-level-select, .btn-mode-select, .btn-game-tower, .btn-game-action, .btn-exit-practice, .sidebar-toggle-container, .btn-collapse-sidebar, [onclick], input[type='submit'], input[type='button'], .timeline-node");
+                if (target) {
+                    if (this.audio && this.audio.isUnlocked && !this.audio.tempMuteClick) {
+                        this.audio.playClick();
+                    }
+                }
+            });
+
+            // Tự động thu gọn Sidebar trực tuyến khi click ra ngoài
+            document.addEventListener("click", (e) => {
+                const sidebar = document.getElementById("online-presence-sidebar");
+                const widget = document.getElementById("online-presence-widget");
+                if (sidebar && !sidebar.classList.contains("hidden")) {
+                    if (!sidebar.contains(e.target) && !widget.contains(e.target)) {
+                        this.toggleOnlinePresenceSidebar();
+                    }
+                }
+            });
+        }
+    },
+
     // Khởi chạy ứng dụng
     init: async function() {
-        // Khởi tạo tức thì các thành phần Màn hình chào mừng (Splash Screen) ngay lập tức
-        try { this.initSplashClock(); } catch(e) { console.error("Lỗi initSplashClock:", e); }
-        try { this.displayRandomSplashQuote(); } catch(e) { console.error("Lỗi displayRandomSplashQuote:", e); }
-        try { this.updateWelcomeViewerPanelText(); } catch(e) { console.error("Lỗi updateWelcomeViewerPanelText:", e); }
-        try { this.initTheme(); } catch(e) { console.error("Lỗi initTheme:", e); }
+        // 1. Khởi tạo giao diện tức thì
+        this.initInstantUI();
 
-        // Tải cấu hình ứng dụng từ SQLite trước tiên để luôn sẵn sàng dữ liệu
-        await this.loadConfig();
+        // 2. Tải cấu hình ứng dụng từ SQLite trước tiên để luôn sẵn sàng dữ liệu
+        try {
+            await this.loadConfig();
+        } catch (err) {
+            console.warn("Lỗi loadConfig ban đầu:", err);
+        }
 
         // Tự động gán thông tin học sinh hiện tại lên Splash Screen ngay khi nạp xong config
         let initialStudent = this.config.students ? this.config.students.find(s => s.id === this.config.defaultStudentId) : null;
@@ -2848,8 +2955,8 @@ const app = {
             this.config.currentClass = initialStudent.classLevel;
         }
 
-        this.audio.init(); // Preload tất cả âm thanh
-        this.checkUpdateAuto(); // Tự động kiểm tra bản cập nhật
+        try { this.audio.init(); } catch(e){}
+        this.checkUpdateAuto();
 
         // Tự động kiểm tra bản cập nhật định kỳ mỗi 15 phút
         setInterval(() => {
@@ -2879,89 +2986,17 @@ const app = {
             this.syncOfflineProgress();
         });
 
-        // 1. Luôn tự động vào không gian học tập ngay lập tức để học sinh không bị gián đoạn
-        await this.initAppAfterLogin();
+        // 3. Tự động vào không gian học tập ngầm (khởi tạo workspace)
+        try {
+            await this.initAppAfterLogin();
+        } catch(e) {
+            console.error("Lỗi initAppAfterLogin:", e);
+        }
 
-        // 2. Kiểm tra phiên Google Sign-In & Đám mây ngầm (không chặn giao diện học sinh)
+        // 4. Kiểm tra phiên Google Sign-In & Đám mây ngầm (không chặn giao diện học sinh)
         this.checkGoogleSession().catch(e => console.warn("Kiểm tra Google session ngầm:", e));
 
         this.updateNavigationButtons();
-
-        // Sự kiện kích hoạt âm thanh và đóng màn hình chào mừng (Splash Screen)
-        let isEntering = false;
-        const enterApp = () => {
-            if (isEntering) return;
-            isEntering = true;
-
-            const splashScreen = document.getElementById("splash-screen");
-            
-            // Dừng âm thanh nhắc nhở của Splash Screen
-            if (typeof this.stopSplashGreeting === 'function') {
-                this.stopSplashGreeting();
-            }
-
-            this.audio.init();
-            this.audio.isUnlocked = true;
-            this.audio.playStartup();
-            
-            // Tạm thời tắt tiếng click trong vòng 150ms để tránh âm click phát chồng lên âm startup
-            this.audio.tempMuteClick = true;
-            setTimeout(() => {
-                this.audio.tempMuteClick = false;
-            }, 150);
-
-            if (splashScreen) {
-                splashScreen.classList.add("fade-out");
-                // Giải phóng bộ nhớ hiển thị sau khi hiệu ứng hoàn thành (0.6 giây)
-                setTimeout(() => {
-                    splashScreen.style.display = "none";
-                    isEntering = false; // Reset cờ trạng thái để bấm được tiếp khi Splash Screen hiển thị lại
-                    // Lựa chọn môn học ban đầu
-                    this.checkSubjectSelection();
-
-                    // Tối ưu hiệu năng: Khởi chạy heartbeat và notification polling khi bé vào học
-                    this.startHeartbeat();
-
-                    // Kích hoạt hiển thị các huy hiệu trong hàng đợi (nếu có)
-                    if (this.pendingBadges && this.pendingBadges.length > 0) {
-                        const nextBadgeId = this.pendingBadges.shift();
-                        this.showBadgePopup(nextBadgeId);
-                    }
-                }, 600);
-            }
-        };
-
-        const splashStartBtn = document.getElementById("splash-start-btn");
-        if (splashStartBtn) {
-            splashStartBtn.addEventListener("click", enterApp);
-            splashStartBtn.addEventListener("touchstart", (e) => {
-                e.preventDefault();
-                enterApp();
-            });
-        }
-
-        // Lắng nghe sự kiện click toàn cục để phát âm thanh click nhẹ chuyên nghiệp
-        document.addEventListener("click", (e) => {
-            const target = e.target.closest("button, a, [role='button'], .option-btn, .nav-item, .lesson-card, .btn, .btn-primary, .btn-secondary, .btn-splash-start, .btn-parent, .btn-icon, .sem-tab-btn, .tab-btn, .btn-level-select, .btn-mode-select, .btn-game-tower, .btn-game-action, .btn-exit-practice, .sidebar-toggle-container, .btn-collapse-sidebar, [onclick], input[type='submit'], input[type='button'], .timeline-node");
-            if (target) {
-                if (this.audio.isUnlocked && !this.audio.tempMuteClick) {
-                    this.audio.playClick();
-                }
-            }
-        });
-
-        // Tự động thu gọn Sidebar trực tuyến khi click ra ngoài
-        document.addEventListener("click", (e) => {
-            const sidebar = document.getElementById("online-presence-sidebar");
-            const widget = document.getElementById("online-presence-widget");
-            if (sidebar && !sidebar.classList.contains("hidden")) {
-                if (!sidebar.contains(e.target) && !widget.contains(e.target)) {
-                    this.toggleOnlinePresenceSidebar();
-                }
-            }
-        });
-
-        // Cuộn ngầm ban đầu lúc khởi chạy
         this.scrollToActiveLesson();
     },
 
@@ -4674,10 +4709,30 @@ const app = {
                 }
                 
                 await this.saveProgress();
-            } else if (serverData && Object.keys(serverData).length > 0) {
+            } else if (serverData && Object.keys(serverData).length > 0 && (serverData.xp > 0 || (serverData.scores && Object.keys(serverData.scores).length > 0))) {
                 dataToUse = serverData;
                 this.state = { ...this.state, ...serverData };
             } else {
+                // Thử hydrate ngầm từ Firebase Realtime Database Leaderboard công khai nếu local/server chưa có điểm
+                try {
+                    const rtdbRes = await fetch(`https://binhminhchamhoc-default-rtdb.firebaseio.com/leaderboard/${studentId}.json`);
+                    if (rtdbRes.ok) {
+                        const rtdbData = await rtdbRes.json();
+                        if (rtdbData && (rtdbData.mathXp > 0 || rtdbData.englishXp > 0 || rtdbData.mathStreak > 0)) {
+                            const cloudXp = Math.max(rtdbData.mathXp || 0, rtdbData.englishXp || 0);
+                            const cloudStreak = Math.max(rtdbData.mathStreak || 0, rtdbData.englishStreak || 0);
+                            this.state.xp = cloudXp;
+                            this.state._sharedXp = cloudXp;
+                            this.state.englishXp = cloudXp;
+                            this.state.streak = cloudStreak;
+                            if (rtdbData.lastActiveDate) this.state.lastActiveDate = rtdbData.lastActiveDate;
+                            console.log(`⚡ [Client Hydrate] Đã tự động kéo tiến trình học tập từ RTDB cho ${studentId}: XP=${cloudXp}, Streak=${cloudStreak}`);
+                        }
+                    }
+                } catch (rtdbErr) {
+                    console.warn("[Client Hydrate] Không thể kết nối Firebase RTDB:", rtdbErr.message);
+                }
+
                 await this.saveProgress();
             }
 
@@ -13762,7 +13817,16 @@ function closeBadgePopup() {
 
 window.app = app;
 
-// Khởi chạy khi tài nguyên trang đã sẵn sàng
+// Khởi chạy giao diện tức thì ngay khi cấu trúc DOM sẵn sàng (không chờ mạng I/O)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        try { app.initInstantUI(); } catch(e){}
+    });
+} else {
+    try { app.initInstantUI(); } catch(e){}
+}
+
+// Khởi chạy toàn bộ hệ thống
 window.onload = async function() {
     await app.init();
 };

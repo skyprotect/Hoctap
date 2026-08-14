@@ -285,24 +285,71 @@ function createTables() {
       )
     `);
     
-    // Tự động nạp sẵn cấu hình mặc định 3 học sinh chuẩn hóa trong CSDL SQLite
-    db.get("SELECT value FROM settings WHERE key = 'config'", (err, row) => {
-      if (!row || !row.value) {
-        const defaultSeedConfig = {
-          parentName: "Phụ huynh",
-          parentPin: "123456",
+    // Tự động nạp sẵn và chuẩn hóa cấu hình mặc định 3 học sinh trong CSDL SQLite
+    db.get("SELECT value FROM settings WHERE key = 'config'", async (err, row) => {
+      let currentConfig = null;
+      if (row && row.value) {
+        try {
+          currentConfig = JSON.parse(row.value);
+        } catch (e) {
+          currentConfig = null;
+        }
+      }
+
+      const defaultStudents = [
+        { id: "std_htsj4gbmo", name: "Trần Bình Minh", parentName: "Phụ huynh", classLevel: "6" },
+        { id: "std_baongoc", name: "Trần Bảo Ngọc", parentName: "Phụ huynh", classLevel: "1" },
+        { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", parentName: "Phụ huynh", classLevel: "4" }
+      ];
+
+      // Nếu chưa có config hoặc config thiếu danh sách học sinh hợp lệ
+      if (!currentConfig || !Array.isArray(currentConfig.students) || currentConfig.students.length === 0 || !currentConfig.studentName) {
+        currentConfig = {
+          parentName: (currentConfig && currentConfig.parentName) || "Phụ huynh",
+          parentPin: (currentConfig && currentConfig.parentPin) || "123456",
           studentName: "Trần Bình Minh",
           currentClass: "6",
           defaultStudentId: "std_htsj4gbmo",
-          students: [
-            { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
-            { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" },
-            { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
-          ]
+          students: defaultStudents
         };
-        db.run("INSERT OR REPLACE INTO settings (key, value) VALUES ('config', ?)", [JSON.stringify(defaultSeedConfig)]);
-        console.log("✅ [createTables] Đã nạp sẵn cấu hình 3 học sinh chuẩn hóa trong CSDL SQLite.");
+        db.run("INSERT OR REPLACE INTO settings (key, value) VALUES ('config', ?)", [JSON.stringify(currentConfig)]);
+        console.log("✅ [createTables] Đã nạp sẵn/chuẩn hóa cấu hình 3 học sinh chuẩn hóa trong CSDL SQLite.");
       }
+
+      // Đảm bảo cả 3 học sinh đều có bản ghi trong bảng student_progress
+      for (const std of defaultStudents) {
+        const existing = await getQuery("SELECT student_id FROM student_progress WHERE student_id = ?", [std.id]).catch(() => null);
+        if (!existing) {
+          const initialState = {
+            student: std.name,
+            classLevel: std.classLevel,
+            xp: 0,
+            streak: 0,
+            lastActiveDate: null,
+            scores: {},
+            badges: [],
+            goldBadges: [],
+            history: [],
+            distractions: 0,
+            customVideos: {},
+            parentPin: "123456",
+            examSessions: [],
+            completedSubtopics: [],
+            subtopicScores: {},
+            completedLessonTheory: [],
+            subjects: {
+              math: { scores: {}, completedSubtopics: [], subtopicScores: {}, completedLessonTheory: [], examSessions: [] },
+              english: { scores: {}, completedSubtopics: [], subtopicScores: {}, completedLessonTheory: [], examSessions: [], skillScores: { listening: 0, speaking: 0, reading: 0, spelling: 0 }, weakVocabulary: [] }
+            },
+            lastUpdated: new Date().toISOString()
+          };
+          await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [std.id, JSON.stringify(initialState)]).catch(() => {});
+          console.log(`✅ [createTables] Đã khởi tạo bản ghi tiến trình rỗng cho học sinh: ${std.name} (${std.id})`);
+        }
+      }
+
+      // Tự động đồng bộ/hydrate điểm số và chuỗi học tập từ Firebase RTDB vào SQLite nếu có
+      hydrateStudentProgressFromFirebaseRTDB().catch(e => console.warn("[RTDB Hydrate] Lỗi:", e.message));
     });
 
     // Khởi chạy ngầm cơ chế di trú sửa điểm cũ bị lỗi toán học cho học sinh
@@ -597,6 +644,58 @@ async function syncAllStudentsToFirebase() {
     });
   } catch (e) {
     console.error("[FirebaseSync] Lỗi trong hàm syncAllStudentsToFirebase:", e.message);
+  }
+}
+
+/**
+ * Tự động kéo dữ liệu tổng kết từ Firebase Realtime Database (Leaderboard) để nạp vào SQLite
+ * trong trường hợp máy tính cài mới hoặc SQLite chưa có điểm số nhưng Cloud đã có
+ */
+async function hydrateStudentProgressFromFirebaseRTDB() {
+  try {
+    const res = await fetch(`${FIREBASE_RTDB_URL}leaderboard.json`);
+    if (!res.ok) return;
+    const leaderboard = await res.json();
+    if (!leaderboard || typeof leaderboard !== 'object') return;
+
+    for (const [studentId, cloudData] of Object.entries(leaderboard)) {
+      if (!cloudData || !studentId) continue;
+      const row = await getQuery("SELECT state_json FROM student_progress WHERE student_id = ?", [studentId]).catch(() => null);
+      let localState = {};
+      if (row && row.state_json) {
+        try { localState = JSON.parse(row.state_json); } catch (e) { localState = {}; }
+      }
+
+      const cloudXp = Math.max(cloudData.mathXp || 0, cloudData.englishXp || 0);
+      const cloudStreak = Math.max(cloudData.mathStreak || 0, cloudData.englishStreak || 0);
+      const localXp = localState.xp || 0;
+
+      // Nếu Cloud có điểm cao hơn hoặc local chưa có điểm
+      if (cloudXp > localXp || (!localState.streak && cloudStreak > 0)) {
+        localState.xp = Math.max(localState.xp || 0, cloudXp);
+        localState._sharedXp = localState.xp;
+        localState.englishXp = localState.xp;
+        localState.streak = Math.max(localState.streak || 0, cloudStreak);
+        if (cloudData.lastActiveDate && !localState.lastActiveDate) {
+          localState.lastActiveDate = cloudData.lastActiveDate;
+        }
+        if (cloudData.studentName && (!localState.student || typeof localState.student !== 'string')) {
+          localState.student = cloudData.studentName;
+        }
+        if (cloudData.classLevel) {
+          localState.classLevel = cloudData.classLevel;
+        }
+        localState.lastUpdated = new Date().toISOString();
+
+        await runQuery("INSERT OR REPLACE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
+          studentId,
+          JSON.stringify(localState)
+        ]).catch(() => {});
+        console.log(`⚡ [RTDB Hydrate] Đã đồng bộ tiến trình học tập từ Cloud cho ${cloudData.studentName || studentId}: XP=${localState.xp}, Streak=${localState.streak}`);
+      }
+    }
+  } catch (err) {
+    console.warn("[RTDB Hydrate] Lỗi đồng bộ đám mây:", err.message);
   }
 }
 
@@ -4389,7 +4488,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.16';
+const APP_VERSION = '13.18';
 
 
 // 2. API lấy danh sách từ vựng tự nạp
