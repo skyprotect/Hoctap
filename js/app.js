@@ -2677,69 +2677,61 @@ const app = {
                     auto_select: true,
                     callback: async (response) => {
                         Swal.fire({
-                            title: 'Đang xử lý đồng bộ...',
+                            title: 'Đang xử lý đăng nhập...',
                             text: 'Vui lòng chờ trong giây lát.',
                             allowOutsideClick: false,
                             didOpen: () => { Swal.showLoading(); }
                         });
                         
                         try {
-                            if (!fb || !fb.auth || !fb.db) {
-                                throw new Error("Không thể kết nối Firebase. Máy tính có thể đang offline hoặc cấu hình Firebase bị lỗi.");
-                            }
-
-                            const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
-                            const userCredential = await fb.auth.signInWithCredential(credential);
-                            const firebaseUid = userCredential.user.uid;
-
+                            // 1. Gửi trực tiếp ID Token lên Server để xác thực độc lập qua Google OAuth2Client
                             const loginRes = await fetch(this.getApiUrl('/api/auth/google-login'), {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ idToken: response.credential, firebaseUid: firebaseUid })
+                                body: JSON.stringify({ idToken: response.credential })
                             });
                             
-                            if (loginRes.ok) {
-                                const loginData = await loginRes.json();
-                                const userEmail = (loginData.parentSession && loginData.parentSession.email) || userCredential.user.email || "";
-
-                                if (userEmail) {
-                                    await this.autoMigrateParentUidByEmail(fb.db, userEmail, firebaseUid).catch(e => console.warn("Lỗi autoMigrateParentUidByEmail:", e));
-                                }
-
-                                safeStorage.removeItem('skipGoogleLogin');
-                                await this.loadConfig();
-
-                                let syncMessage = "Đăng nhập Google thành công!";
-                                try {
-                                    let studentsSnap = await fb.db.collection('students').where('parentUid', '==', firebaseUid).get();
-                                    if (studentsSnap.empty) {
-                                        await this.pushLocalDataToFirestoreClient(fb.db, firebaseUid);
-                                        syncMessage = "Đã di trú dữ liệu thiết bị cục bộ hiện tại lên tài khoản Google của bạn thành công!";
-                                    } else {
-                                        await this.pullDataFromFirestoreClient(fb.db, firebaseUid);
-                                        syncMessage = "Đã tải thành công dữ liệu học tập từ tài khoản Google của bạn về thiết bị!";
-                                    }
-                                } catch (fsErr) {
-                                    console.warn("⚠️ Lỗi đồng bộ đám mây Firestore (vẫn tiếp tục chế độ cục bộ):", fsErr);
-                                }
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Thành công',
-                                    text: syncMessage,
-                                    timer: 2500,
-                                    showConfirmButton: false
-                                });
-                                if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
-                            } else {
-                                const errorData = await loginRes.json();
-                                throw new Error(errorData.error || 'Lỗi không xác định khi đăng nhập');
+                            if (!loginRes.ok) {
+                                const errorData = await loginRes.json().catch(() => ({}));
+                                throw new Error(errorData.error || 'Xác thực tài khoản Google với máy chủ thất bại.');
                             }
+
+                            const loginData = await loginRes.json();
+                            const userEmail = (loginData.parentSession && loginData.parentSession.email) || "";
+                            const parentUid = (loginData.parentSession && loginData.parentSession.parentUid) || "";
+
+                            safeStorage.removeItem('skipGoogleLogin');
+                            await this.loadConfig();
+
+                            // 2. Chạy đồng bộ đám mây Firebase ngầm phụ trợ nếu Firebase SDK khả dụng
+                            if (fb && fb.auth && typeof firebase !== 'undefined') {
+                                try {
+                                    const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
+                                    await fb.auth.signInWithCredential(credential).catch(e => console.warn("Firebase sign-in ngầm:", e));
+                                    if (userEmail && parentUid) {
+                                        await this.autoMigrateParentUidByEmail(fb.db, userEmail, parentUid).catch(e => console.warn("autoMigrate:", e));
+                                    }
+                                    this.setupCloudAutoSync(fb, userEmail);
+                                } catch (fbErr) {
+                                    console.warn("⚠️ Firebase Client phụ trợ gặp lỗi nhẹ (vẫn tiếp tục đăng nhập thành công):", fbErr);
+                                }
+                            }
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đăng nhập thành công',
+                                text: `Chào mừng ${userEmail || 'Phụ huynh'}! Đang tải dữ liệu...`,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+
+                            if (googleLoginScreen) googleLoginScreen.classList.add("hidden");
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1200);
+
                         } catch (err) {
-                            console.error("Lỗi đăng nhập Google / Firebase:", err);
+                            console.error("Lỗi đăng nhập Google:", err);
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Lỗi đăng nhập',
@@ -2802,8 +2794,26 @@ const app = {
 
     // Khởi chạy ứng dụng
     init: async function() {
+        // Khởi tạo tức thì các thành phần Màn hình chào mừng (Splash Screen) ngay lập tức
+        try { this.initSplashClock(); } catch(e) { console.error("Lỗi initSplashClock:", e); }
+        try { this.displayRandomSplashQuote(); } catch(e) { console.error("Lỗi displayRandomSplashQuote:", e); }
+        try { this.updateWelcomeViewerPanelText(); } catch(e) { console.error("Lỗi updateWelcomeViewerPanelText:", e); }
+        try { this.initTheme(); } catch(e) { console.error("Lỗi initTheme:", e); }
+
         // Tải cấu hình ứng dụng từ SQLite trước tiên để luôn sẵn sàng dữ liệu
         await this.loadConfig();
+
+        // Tự động gán thông tin học sinh hiện tại lên Splash Screen ngay khi nạp xong config
+        let initialStudent = this.config.students ? this.config.students.find(s => s.id === this.config.defaultStudentId) : null;
+        if (!initialStudent && this.config.students && this.config.students.length > 0) {
+            initialStudent = this.config.students[0];
+            this.config.defaultStudentId = initialStudent.id;
+        }
+        if (initialStudent) {
+            this.config.studentName = initialStudent.name;
+            this.config.parentName = initialStudent.parentName || "Phụ huynh";
+            this.config.currentClass = initialStudent.classLevel;
+        }
 
         this.audio.init(); // Preload tất cả âm thanh
         this.checkUpdateAuto(); // Tự động kiểm tra bản cập nhật

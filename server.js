@@ -227,6 +227,7 @@ function createTables() {
         state_json TEXT
       )
     `);
+    db.run(`CREATE INDEX IF NOT EXISTS idx_student_progress_id ON student_progress(student_id);`);
 
     // Bảng custom_vocabulary lưu từ vựng tự nạp để ôn tập
     db.run(`
@@ -2061,15 +2062,22 @@ app.get('/api/load-config', async (req, res) => {
       }
     }
 
-    // Tự động khởi tạo cấu hình mặc định nếu chưa tồn tại
-    if (!config || Object.keys(config).length === 0) {
+    // Tự động khởi tạo cấu hình mặc định chuẩn hóa theo Quy tắc 14 (Zero-Config Seeding)
+    if (!config || Object.keys(config).length === 0 || !config.students || !Array.isArray(config.students) || config.students.length === 0) {
       config = {
-        studentName: "",
-        parentName: "",
+        parentName: "Phụ huynh",
         parentPin: "123456",
-        currentClass: "4"
+        studentName: "Trần Bình Minh",
+        currentClass: "6",
+        defaultStudentId: "std_htsj4gbmo",
+        students: [
+          { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
+          { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" },
+          { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
+        ]
       };
       await dbSaveConfig(config);
+      console.log("✅ Đã khởi tạo cấu hình mặc định 3 học sinh chuẩn hóa (Zero-Config Seeding).");
     }
 
     // Kiểm tra token JWT trong headers để quyết định trả về config đầy đủ hay rút gọn
@@ -4338,7 +4346,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.8';
+const APP_VERSION = '13.10';
 
 
 // 2. API lấy danh sách từ vựng tự nạp
