@@ -285,6 +285,26 @@ function createTables() {
       )
     `);
     
+    // Tự động nạp sẵn cấu hình mặc định 3 học sinh chuẩn hóa trong CSDL SQLite
+    db.get("SELECT value FROM settings WHERE key = 'config'", (err, row) => {
+      if (!row || !row.value) {
+        const defaultSeedConfig = {
+          parentName: "Phụ huynh",
+          parentPin: "123456",
+          studentName: "Trần Bình Minh",
+          currentClass: "6",
+          defaultStudentId: "std_htsj4gbmo",
+          students: [
+            { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
+            { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" },
+            { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
+          ]
+        };
+        db.run("INSERT OR REPLACE INTO settings (key, value) VALUES ('config', ?)", [JSON.stringify(defaultSeedConfig)]);
+        console.log("✅ [createTables] Đã nạp sẵn cấu hình 3 học sinh chuẩn hóa trong CSDL SQLite.");
+      }
+    });
+
     // Khởi chạy ngầm cơ chế di trú sửa điểm cũ bị lỗi toán học cho học sinh
     setTimeout(() => {
       migrateFixMathBugsV12().catch(e => console.error("[Migration V12] Lỗi chạy ngầm:", e));
@@ -914,7 +934,13 @@ app.use((req, res, next) => {
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.woff2')) res.setHeader('Content-Type', 'font/woff2');
+    else if (filePath.endsWith('.woff')) res.setHeader('Content-Type', 'font/woff');
+    else if (filePath.endsWith('.ttf')) res.setHeader('Content-Type', 'font/ttf');
+  }
+}));
 
 // Trạng thái AI phục vụ Dashboard được mở rộng thêm thông tin tiến trình
 const aiStatus = {
@@ -2235,10 +2261,10 @@ app.get('/api/auth/session', async (req, res) => {
  * API Đăng nhập Google Sign-In & Di trú / Đồng bộ dữ liệu
  */
 app.post('/api/auth/google-login', async (req, res) => {
-  const { idToken, firebaseUid, email: fallbackEmail, displayName: fallbackName } = req.body;
-  if (!firebaseUid) {
-    return res.status(400).json({ error: "Thiếu firebaseUid" });
-  }
+  const { idToken, firebaseUid, email: fallbackEmail, displayName: fallbackName } = req.body || {};
+  let email = fallbackEmail || "";
+  let displayName = fallbackName || "";
+  let parentUid = firebaseUid || "";
   try {
     const clientId = process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
     let email = fallbackEmail || "";
@@ -2256,6 +2282,7 @@ app.post('/api/auth/google-login', async (req, res) => {
         if (payload) {
           email = payload.email || email;
           displayName = payload.name || displayName;
+          parentUid = parentUid || payload.sub;
         }
       } catch (oauthErr) {
         // Fallback: Giải mã JWT token (Firebase ID Token hoặc One Tap token)
@@ -2264,6 +2291,7 @@ app.post('/api/auth/google-login', async (req, res) => {
           if (decoded) {
             email = decoded.email || email;
             displayName = decoded.name || displayName;
+            parentUid = parentUid || decoded.sub || decoded.user_id;
           }
         } catch (jwtErr) {
           console.warn("[Google-Login] Không thể giải mã JWT ID Token:", jwtErr.message);
@@ -4346,7 +4374,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.10';
+const APP_VERSION = '13.12';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

@@ -1,8 +1,8 @@
 {
-  "version": "13.10",
-  "lastUpdated": "14/08/2026 08:35",
-  "build": 1334,
-  "releaseNotes": "Khắc phục triệt để 25 lỗi nguy cấp: Tách rời xác thực Google độc lập, sửa lỗi treo màn hình Splash Screen, khắc phục font icon ô vuông, nạp sẵn Zero-Config Seeding và tối ưu hóa hệ thống chuẩn quốc tế.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.10/ToanHocKiosk_Setup_v13.10.exe",
-  "changelog": "- Tách rời xác thực Google OAuth2 độc lập khỏi Firebase Client SDK.\n- Khởi chạy tức thì đồng hồ số, châm ngôn và giao diện Splash Screen.\n- Sửa lỗi toàn bộ icon ô vuông FontAwesome và sao chép fa-v4compatibility.woff2.\n- Tự động nạp sẵn 3 học sinh chuẩn hóa (Zero-Config Seeding) cho mọi máy tính cài đặt mới."
+  "version": "13.12",
+  "lastUpdated": "14/08/2026 08:55",
+  "build": 1335,
+  "releaseNotes": "Khắc phục triệt để lỗi 'Failed to fetch' khi đăng nhập, kích hoạt chế độ vào học tức thì (Instant Learning Workspace), đồng bộ tự động 3 học sinh chuẩn hóa và tối ưu hóa hệ thống chuẩn quốc tế.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.12/ToanHocKiosk_Setup_v13.12.exe",
+  "changelog": "- Tự động đăng nhập và vào ngay không gian học tập mà không làm gián đoạn học sinh.\n- Khắc phục triệt để lỗi 'Failed to fetch' và tối ưu hóa endpoint /api/auth/google-login.\n- Bổ sung /api/health và chuẩn hóa MIME types cho webfonts.\n- Tự động nạp sẵn hồ sơ 3 học sinh (Bình Minh, Bảo Ngọc, Đức Phúc) trong CSDL SQLite."
 }

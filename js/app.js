@@ -1202,10 +1202,15 @@ const app = {
     },
 
     getApiUrl: function(path) {
-        if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
-            return `http://localhost:3000${path.startsWith('/') ? '' : '/'}${path}`;
+        const cleanPath = path.startsWith('/') ? path : '/' + path;
+        if (typeof window !== 'undefined' && window.location) {
+            if (window.location.protocol === 'file:') {
+                const savedPort = safeStorage.getItem('server_port') || '3000';
+                return `http://localhost:${savedPort}${cleanPath}`;
+            }
+            return cleanPath;
         }
-        return path;
+        return cleanPath;
     },
 
     loadConfig: async function() {
@@ -2846,17 +2851,11 @@ const app = {
             this.syncOfflineProgress();
         });
 
-        // 1. Kiểm tra session Google trước tiên
-        const isLoggedIn = await this.checkGoogleSession();
-        
-        // 2. Nếu đã đăng nhập hoặc đã từng chọn Offline -> Vào ứng dụng ngay
-        if (isLoggedIn || safeStorage.getItem('skipGoogleLogin') === 'true') {
-            await this.initAppAfterLogin();
-        } else {
-            // Lần đầu chạy chưa đăng nhập và chưa chọn Offline: Mở màn hình đăng nhập Google và dừng lại, KHÔNG mở màn hình setup
-            await this.openGoogleLoginModal();
-            return;
-        }
+        // 1. Luôn tự động vào không gian học tập ngay lập tức để học sinh không bị gián đoạn
+        await this.initAppAfterLogin();
+
+        // 2. Kiểm tra phiên Google Sign-In & Đám mây ngầm (không chặn giao diện học sinh)
+        this.checkGoogleSession().catch(e => console.warn("Kiểm tra Google session ngầm:", e));
 
         this.updateNavigationButtons();
 
