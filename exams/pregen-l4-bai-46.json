@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $18$, $37$ và $56$.",
+      "options": [
+        "$39$",
+        "$35$",
+        "$111$",
+        "$37$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 18 + 37 + 56$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $18 + 37 + 56 = 111$.<br/>Trung bình cộng của ba số là: $111 : 3 = 37$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $21$, $40$ và $68$.",
+      "options": [
+        "$43$",
+        "$45$",
+        "$41$",
+        "$129$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 21 + 40 + 68$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $21 + 40 + 68 = 129$.<br/>Trung bình cộng của ba số là: $129 : 3 = 43$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $28$, $39$ và $53$.",
+      "options": [
+        "$42$",
+        "$40$",
+        "$38$",
+        "$120$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 28 + 39 + 53$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $28 + 39 + 53 = 120$.<br/>Trung bình cộng của ba số là: $120 : 3 = 40$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $14$, $30$ và $55$.",
+      "options": [
+        "$35$",
+        "$99$",
+        "$33$",
+        "$31$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 14 + 30 + 55$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $14 + 30 + 55 = 99$.<br/>Trung bình cộng của ba số là: $99 : 3 = 33$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $25$, $38$ và $63$.",
+      "options": [
+        "$126$",
+        "$42$",
+        "$44$",
+        "$40$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 25 + 38 + 63$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $25 + 38 + 63 = 126$.<br/>Trung bình cộng của ba số là: $126 : 3 = 42$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $25$, $38$ và $69$.",
+      "options": [
+        "$132$",
+        "$46$",
+        "$44$",
+        "$42$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 25 + 38 + 69$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $25 + 38 + 69 = 132$.<br/>Trung bình cộng của ba số là: $132 : 3 = 44$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $27$, $37$ và $68$.",
+      "options": [
+        "$44$",
+        "$132$",
+        "$46$",
+        "$42$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 27 + 37 + 68$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $27 + 37 + 68 = 132$.<br/>Trung bình cộng của ba số là: $132 : 3 = 44$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $19$, $30$ và $50$.",
+      "options": [
+        "$35$",
+        "$33$",
+        "$99$",
+        "$31$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 19 + 30 + 50$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $19 + 30 + 50 = 99$.<br/>Trung bình cộng của ba số là: $99 : 3 = 33$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $10$, $34$ và $61$.",
+      "options": [
+        "$105$",
+        "$33$",
+        "$37$",
+        "$35$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 10 + 34 + 61$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $10 + 34 + 61 = 105$.<br/>Trung bình cộng của ba số là: $105 : 3 = 35$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số trung bình cộng của ba số: $13$, $34$ và $70$.",
+      "options": [
+        "$37$",
+        "$39$",
+        "$41$",
+        "$117$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng của ba số trước: $S = 13 + 34 + 70$.",
+        "Chia tổng đó cho số lượng các số (ở đây là 3)."
+      ],
+      "solutionHtml": "Tổng của ba số là: $13 + 34 + 70 = 117$.<br/>Trung bình cộng của ba số là: $117 : 3 = 39$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-trung-binh-cong",
+      "forceMCQ": false
+    }
+  ]
+}

@@ -1,0 +1,404 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + b <= 15"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 2",
+        "w2": "a + b - 1",
+        "w3": "a + b + 3"
+      },
+      "questionText": "Trong công viên có {a} bạn đang chơi cầu trượt và {b} bạn đang chơi xích đu. Hỏi có tất cả bao nhiêu bạn đang chơi ở hai khu vực đó?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm tổng số bạn, ta thực hiện phép tính cộng.",
+        "Lấy số bạn chơi cầu trượt cộng với số bạn chơi xích đu."
+      ],
+      "solutionHtml": "Số bạn đang chơi ở hai khu vực là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', chúng ta thường sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b - 1",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Trên bãi cỏ có {a} con chim đang bay lượn, sau đó có {b} con chim bay đi chỗ khác. Hỏi trên bãi cỏ còn lại bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số chim còn lại, ta lấy số chim ban đầu trừ đi số chim đã bay đi.",
+        "Thực hiện phép tính $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số con chim còn lại là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Khi có một nhóm rời đi, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 2",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Trong công viên có {a} hàng cây, mỗi hàng có {b} cây xanh. Hỏi trong công viên có tất cả bao nhiêu cây xanh?",
+      "options": [
+        "A. {w1} cây",
+        "B. {ans} cây",
+        "C. {w2} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi hàng có {b} cây, có {a} hàng như thế.",
+        "Ta lấy {b} cộng với chính nó {a} lần, hoặc dùng phép nhân $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Số cây xanh trong công viên là:<br/>$ {a} \\times {b} = {ans} $ (cây).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số lượng nhóm và số lượng mỗi nhóm, ta dùng phép nhân để tìm tổng số.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 12,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 2,
+          "step": 0
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a / b + 1",
+        "w3": "a / b - 1"
+      },
+      "questionText": "Có {a} quả bóng được chia đều cho {b} bạn nhỏ. Hỏi mỗi bạn nhận được bao nhiêu quả bóng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều nghĩa là ta sử dụng phép tính chia.",
+        "Lấy tổng số bóng {a} chia cho số bạn {b}."
+      ],
+      "solutionHtml": "Số bóng mỗi bạn nhận được là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'chia đều' là dấu hiệu nhận biết của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + a + b + b",
+        "w1": "a + b",
+        "w2": "a + a + b",
+        "w3": "a + b + b"
+      },
+      "questionText": "Bác bảo vệ đi dạo quanh vườn hoa. Bác đi qua {a} bông hồng đỏ và {b} bông hồng trắng ở cổng trước, sau đó lại đi qua {a} bông hồng đỏ và {b} bông hồng trắng ở cổng sau. Hỏi bác đã đi qua tổng cộng bao nhiêu bông hồng?",
+      "options": [
+        "A. {w1} bông",
+        "B. {ans} bông",
+        "C. {w2} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính số bông hồng ở mỗi cổng rồi cộng lại.",
+        "Cổng trước có $ {a} + {b} $ bông, cổng sau có $ {a} + {b} $ bông."
+      ],
+      "solutionHtml": "Tổng số bông hồng bác đã đi qua là:<br/>$ ({a} + {b}) + ({a} + {b}) = {ans} $ (bông).<br/>Đáp án đúng là B.",
+      "tip": "Hãy liệt kê số lượng của từng loại rồi cộng tổng lại.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b - 2",
+        "w3": "a - b + 2"
+      },
+      "questionText": "Trong công viên có {a} chiếc ghế đá. Sáng nay, có {b} chiếc ghế đang được người ngồi. Hỏi có bao nhiêu chiếc ghế đá hiện đang trống?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm số ghế trống, lấy tổng số ghế trừ đi số ghế đang có người ngồi.",
+        "Thực hiện phép tính $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số ghế đá đang trống là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Số ghế trống bằng tổng số ghế trừ đi số ghế đã dùng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 3",
+        "w3": "a * b - 2"
+      },
+      "questionText": "Ở khu vui chơi có {a} nhóm bạn, mỗi nhóm gồm {b} bạn đang chơi trốn tìm. Hỏi có tất cả bao nhiêu bạn đang chơi?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta có {a} nhóm, mỗi nhóm {b} bạn.",
+        "Ta thực hiện phép nhân $ {a} \\times {b} = {ans} $."
+      ],
+      "solutionHtml": "Số bạn đang chơi trốn tìm là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Khi các nhóm có số lượng bằng nhau, dùng phép nhân là nhanh nhất.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Lan mang {a} quả táo vào công viên, Lan cho bạn {b} quả táo. Hỏi Lan còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lan cho bạn, tức là số táo của Lan giảm đi.",
+        "Thực hiện phép tính trừ $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số táo còn lại của Lan là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'cho' nghĩa là ta phải bớt đi (phép trừ).",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a * b",
+        "w2": "a + b + 1",
+        "w3": "a + b - 1"
+      },
+      "questionText": "Trong công viên, có {a} bạn nam và {b} bạn nữ đang đạp xe. Hỏi có tất cả bao nhiêu bạn đang đạp xe?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm tổng số bạn, ta lấy số bạn nam cộng với số bạn nữ.",
+        "Thực hiện phép tính $ {a} + {b} = {ans} $."
+      ],
+      "solutionHtml": "Số bạn đang đạp xe là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Đề bài hỏi 'tất cả bao nhiêu' thì ta làm phép cộng nhé.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Có {a} con vịt đang bơi dưới hồ, sau đó có {b} con vịt lên bờ. Hỏi dưới hồ còn lại bao nhiêu con vịt?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lúc đầu có {a} con, bớt đi {b} con lên bờ.",
+        "Số vịt còn lại dưới hồ là $ {a} - {b} = {ans} $."
+      ],
+      "solutionHtml": "Số con vịt còn lại dưới hồ là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Rời đi hoặc lên bờ nghĩa là số lượng giảm đi, dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t8-d10"
+    }
+  ]
+}

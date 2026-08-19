@@ -1776,13 +1776,37 @@ if (!fs.existsSync(EXAMS_DIR)) {
  * Helper lấy đường dẫn tệp đề thi sinh sẵn, hỗ trợ dự phòng đề thi mẫu (Fallback Cache)
  */
 function getPregenFilePath(studentId, lessonId) {
+  // 1. Kiểm tra theo studentId cụ thể
   const specificPath = path.join(EXAMS_DIR, `pregen-${studentId}-${lessonId}.json`);
   if (fs.existsSync(specificPath)) {
     return specificPath;
   }
+  // 2. Kiểm tra theo lessonId chung
   const genericPath = path.join(EXAMS_DIR, `pregen-${lessonId}.json`);
   if (fs.existsSync(genericPath)) {
     return genericPath;
+  }
+  // 3. Kiểm tra theo default prefix
+  const defaultPath = path.join(EXAMS_DIR, `pregen-default-${lessonId}.json`);
+  if (fs.existsSync(defaultPath)) {
+    return defaultPath;
+  }
+  // 4. Dự phòng cho Bảo Ngọc (mã cũ std_xf9e2lvgv)
+  if (studentId === 'std_baongoc' || studentId === 'default') {
+    const oldBaoNgocPath = path.join(EXAMS_DIR, `pregen-std_xf9e2lvgv-${lessonId}.json`);
+    if (fs.existsSync(oldBaoNgocPath)) {
+      return oldBaoNgocPath;
+    }
+  }
+  // 5. Dự phòng cho Bình Minh (mã std_htsj4gbmo)
+  const bmPath = path.join(EXAMS_DIR, `pregen-std_htsj4gbmo-${lessonId}.json`);
+  if (fs.existsSync(bmPath)) {
+    return bmPath;
+  }
+  // 6. Dự phòng cho Đức Phúc (mã std_tyc0gfnkz)
+  const dpPath = path.join(EXAMS_DIR, `pregen-std_tyc0gfnkz-${lessonId}.json`);
+  if (fs.existsSync(dpPath)) {
+    return dpPath;
   }
   return specificPath; // Dự phòng trả về đường dẫn cụ thể để ghi mới nếu cần
 }
@@ -3413,6 +3437,22 @@ app.get('/api/get-questions', async (req, res) => {
   } catch (err) {
     console.error('Lỗi sinh đề trực tiếp:', err);
     writeErrorLog(lessonId, lessonTitle || lessonId, err, textResponse, textResponse ? cleanJsonString(textResponse) : '');
+    
+    // Tự động tìm lại bất kỳ file cache fallback nào trên đĩa trước khi trả về lỗi
+    try {
+      const fallbackCache = getPregenFilePath('default', lessonId);
+      if (fs.existsSync(fallbackCache)) {
+        const fallbackData = JSON.parse(fs.readFileSync(fallbackCache, 'utf8'));
+        const normalized = Array.isArray(fallbackData) ? { questions: fallbackData } : fallbackData;
+        if (normalized.questions && normalized.questions.length > 0) {
+          console.log(`[get-questions] Đã phục hồi từ cache dự phòng: ${path.basename(fallbackCache)}`);
+          return res.json(normalized);
+        }
+      }
+    } catch (fbErr) {
+      console.error('Lỗi nạp cache dự phòng:', fbErr);
+    }
+    
     res.status(500).json({ error: 'Lỗi nạp đề từ AI: ' + err.message });
   }
 });
@@ -4488,7 +4528,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.18';
+const APP_VERSION = '13.21';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

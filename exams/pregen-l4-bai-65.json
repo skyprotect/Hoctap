@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{4}{5}$ của số $35$.",
+      "options": [
+        "$140$",
+        "$39$",
+        "$7$",
+        "$28$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $35 \\cdot \\frac{4}{5}$ (hoặc lấy $35 : 5$ trước rồi nhân với $4$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$35 \\cdot \\frac{4}{5} = (35 : 5) \\cdot 4 = 7 \\cdot 4 = 28$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{2}{4}$ của số $20$.",
+      "options": [
+        "$5$",
+        "$10$",
+        "$22$",
+        "$40$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $20 \\cdot \\frac{2}{4}$ (hoặc lấy $20 : 4$ trước rồi nhân với $2$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$20 \\cdot \\frac{2}{4} = (20 : 4) \\cdot 2 = 5 \\cdot 2 = 10$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{1}{4}$ của số $16$.",
+      "options": [
+        "$7$",
+        "$4$",
+        "$16$",
+        "$17$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $16 \\cdot \\frac{1}{4}$ (hoặc lấy $16 : 4$ trước rồi nhân với $1$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$16 \\cdot \\frac{1}{4} = (16 : 4) \\cdot 1 = 4 \\cdot 1 = 4$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{1}{6}$ của số $42$.",
+      "options": [
+        "$43$",
+        "$42$",
+        "$11$",
+        "$7$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $42 \\cdot \\frac{1}{6}$ (hoặc lấy $42 : 6$ trước rồi nhân với $1$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$42 \\cdot \\frac{1}{6} = (42 : 6) \\cdot 1 = 7 \\cdot 1 = 7$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{3}{4}$ của số $36$.",
+      "options": [
+        "$9$",
+        "$27$",
+        "$39$",
+        "$108$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $36 \\cdot \\frac{3}{4}$ (hoặc lấy $36 : 4$ trước rồi nhân với $3$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$36 \\cdot \\frac{3}{4} = (36 : 4) \\cdot 3 = 9 \\cdot 3 = 27$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{2}{3}$ của số $21$.",
+      "options": [
+        "$42$",
+        "$7$",
+        "$14$",
+        "$23$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $21 \\cdot \\frac{2}{3}$ (hoặc lấy $21 : 3$ trước rồi nhân với $2$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$21 \\cdot \\frac{2}{3} = (21 : 3) \\cdot 2 = 7 \\cdot 2 = 14$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{2}{5}$ của số $35$.",
+      "options": [
+        "$14$",
+        "$37$",
+        "$70$",
+        "$7$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $35 \\cdot \\frac{2}{5}$ (hoặc lấy $35 : 5$ trước rồi nhân với $2$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$35 \\cdot \\frac{2}{5} = (35 : 5) \\cdot 2 = 7 \\cdot 2 = 14$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{3}{6}$ của số $48$.",
+      "options": [
+        "$144$",
+        "$24$",
+        "$8$",
+        "$51$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $48 \\cdot \\frac{3}{6}$ (hoặc lấy $48 : 6$ trước rồi nhân với $3$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$48 \\cdot \\frac{3}{6} = (48 : 6) \\cdot 3 = 8 \\cdot 3 = 24$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{2}{5}$ của số $20$.",
+      "options": [
+        "$4$",
+        "$22$",
+        "$40$",
+        "$8$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $20 \\cdot \\frac{2}{5}$ (hoặc lấy $20 : 5$ trước rồi nhân với $2$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$20 \\cdot \\frac{2}{5} = (20 : 5) \\cdot 2 = 4 \\cdot 2 = 8$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm $\\frac{3}{4}$ của số $20$.",
+      "options": [
+        "$5$",
+        "$60$",
+        "$15$",
+        "$23$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm phân số của một số, ta lấy số đó nhân với phân số.",
+        "Thực hiện phép tính: $20 \\cdot \\frac{3}{4}$ (hoặc lấy $20 : 4$ trước rồi nhân với $3$)."
+      ],
+      "solutionHtml": "Giá trị cần tìm là:<br/>$20 \\cdot \\frac{3}{4} = (20 : 4) \\cdot 3 = 5 \\cdot 3 = 15$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-tim-phan-so-cua-so",
+      "forceMCQ": false
+    }
+  ]
+}

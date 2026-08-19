@@ -1,0 +1,364 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Lan có {a} viên bi, Mai có {b} viên bi. Hỏi ai có nhiều viên bi hơn?",
+      "options": [
+        "A. Mai",
+        "B. Lan",
+        "C. Cả hai bằng nhau",
+        "D. Không ai có viên bi nào"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "So sánh số {a} và số {b}.",
+        "Số {a} lớn hơn số {b}."
+      ],
+      "solutionHtml": "Vì {a} lớn hơn {b} ($ {a} > {b} $) nên Lan có nhiều viên bi hơn.<br/>Đáp án đúng là B.",
+      "tip": "Khi so sánh hai số, số nào có giá trị lớn hơn thì đại diện cho lượng nhiều hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-so-sanh"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "x + 1",
+        "w1": "x",
+        "w2": "x + 2",
+        "w3": "x - 1"
+      },
+      "questionText": "Số nào lớn hơn {x} nhưng lại nhỏ hơn {x+2}?",
+      "options": [
+        "A. {ans}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {x+3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số nằm giữa {x} và {x+2} là số liền sau của {x}."
+      ],
+      "solutionHtml": "Số lớn hơn {x} và nhỏ hơn {x+2} chính là số {ans}.<br/>Đáp án đúng là A.",
+      "tip": "Hãy đếm số theo thứ tự: {x}, {ans}, {x+2}.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-day-so"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "b + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Có {a} con mèo trắng và {b} con mèo đen. Số con mèo nào lớn hơn?",
+      "options": [
+        "A. Số mèo trắng",
+        "B. Số mèo đen",
+        "C. Hai số bằng nhau",
+        "D. Không có con mèo nào"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "So sánh số {a} và số {b}.",
+        "Ta thấy {b} lớn hơn {a}."
+      ],
+      "solutionHtml": "Vì {b} lớn hơn {a} ($ {b} > {a} $) nên số mèo đen nhiều hơn số mèo trắng.<br/>Đáp án đúng là B.",
+      "tip": "Số có giá trị lớn hơn thì lượng tương ứng sẽ nhiều hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-so-sanh-thuc-te"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a - 2"
+      },
+      "questionText": "Số nào nhỏ hơn {a} đúng 1 đơn vị?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số nhỏ hơn {a} 1 đơn vị là số liền trước của {a}.",
+        "Thực hiện phép tính {a} trừ 1."
+      ],
+      "solutionHtml": "Số liền trước của {a} là: $ {a} - 1 = {ans} $.<br/>Đáp án đúng là B.",
+      "tip": "Số liền trước luôn nhỏ hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-lien-truoc"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 6,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "b - 1"
+      },
+      "questionText": "Trong các số {a}, {b}, {a+1}, số nào là số lớn nhất?",
+      "options": [
+        "A. {a}",
+        "B. {ans}",
+        "C. {a+1}",
+        "D. Không có số nào"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "So sánh các số {a}, {b}, và {a+1}.",
+        "Số {b} là số lớn nhất trong các số trên."
+      ],
+      "solutionHtml": "Khi so sánh {a}, {b} và {a+1}, ta thấy {b} là số có giá trị lớn nhất.<br/>Đáp án đúng là B.",
+      "tip": "Sắp xếp các số theo thứ tự từ bé đến lớn để tìm số lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-tim-max"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        "b": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        },
+        "c": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "b",
+        "w2": "c",
+        "w3": "a + 1"
+      },
+      "questionText": "Số nào bé nhất trong ba số: {a}, {b}, {c}?",
+      "options": [
+        "A. {ans}",
+        "B. {w1}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Số {a} đứng trước số {b} và {c} trong dãy số từ 1 đến 9."
+      ],
+      "solutionHtml": "Vì {a} < {b} < {c}, nên {a} là số bé nhất.<br/>Đáp án đúng là A.",
+      "tip": "Số nào đứng trước trong dãy số tự nhiên thì số đó bé hơn.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-tim-min"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a - 1",
+        "w2": "a",
+        "w3": "a + 2"
+      },
+      "questionText": "Số nào liền sau số {a}?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số liền sau số {a} là số lớn hơn {a} đúng 1 đơn vị.",
+        "Thực hiện phép tính {a} cộng 1."
+      ],
+      "solutionHtml": "Số liền sau của {a} là: $ {a} + 1 = {ans} $.<br/>Đáp án đúng là C.",
+      "tip": "Số liền sau luôn lớn hơn số đã cho 1 đơn vị.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-lien-sau"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "2*a",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a - 1"
+      },
+      "questionText": "Bạn Hoa có {a} cái bút, bạn Lan có nhiều hơn Hoa {a} cái bút. Hỏi Lan có mấy cái bút?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lan có nhiều hơn Hoa, ta dùng phép cộng.",
+        "Lấy {a} cộng {a}."
+      ],
+      "solutionHtml": "Số bút Lan có là: $ {a} + {a} = {ans} $ (cái bút).<br/>Đáp án đúng là B.",
+      "tip": "Nhiều hơn thì làm phép cộng, ít hơn thì làm phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-bai-toan-do"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - 2",
+        "w1": "a",
+        "w2": "a + 2",
+        "w3": "a + 1"
+      },
+      "questionText": "Có {a} quả táo trên bàn. Nếu ăn bớt đi 2 quả, trên bàn còn lại bao nhiêu quả?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ăn bớt đi có nghĩa là ta làm phép trừ.",
+        "Lấy {a} trừ 2."
+      ],
+      "solutionHtml": "Số quả táo còn lại là: $ {a} - 2 = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Dùng phép trừ khi số lượng giảm đi.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-giam-di"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "b - a",
+        "w1": "b + a",
+        "w2": "b",
+        "w3": "a"
+      },
+      "questionText": "Đội A có {a} bạn, đội B có {b} bạn. Đội B nhiều hơn đội A bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết đội B nhiều hơn đội A bao nhiêu, ta lấy số bạn đội B trừ số bạn đội A.",
+        "Thực hiện phép tính {b} trừ {a}."
+      ],
+      "solutionHtml": "Số bạn đội B nhiều hơn đội A là:<br/>$ {b} - {a} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Để so sánh hơn kém, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-4-so-sanh-hon-kem"
+    }
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "sun": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "cloud": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "sun % cloud === 0",
+        "sun > cloud * 2"
+      ],
+      "formulas": {
+        "ans": "sun / cloud",
+        "w1_goc": "sun - cloud",
+        "w2_goc": "sun + cloud",
+        "w3_goc": "cloud * 3",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Trong một ngày nắng, có {sun} chú chim bay trên bầu trời. Nếu chúng chia đều thành {cloud} nhóm, mỗi nhóm có bao nhiêu chú chim?",
+      "options": [
+        "A. {w1} chú chim",
+        "B. {ans} chú chim",
+        "C. {w2} chú chim",
+        "D. {w3} chú chim"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn chia đều số chim vào các nhóm, ta thực hiện phép tính chia.",
+        "Lấy tổng số chim chia cho số nhóm."
+      ],
+      "solutionHtml": "Số chim trong mỗi nhóm là:<br/>$ {sun} : {cloud} = {ans} $ (chú chim).<br/>Đáp án đúng là B.",
+      "tip": "Khi thấy từ 'chia đều', các con hãy nhớ ngay đến phép tính chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "rain": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "day": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "rain % day === 0"
+      ],
+      "formulas": {
+        "ans": "rain * day",
+        "w1_goc": "rain + day",
+        "w2_goc": "rain - day",
+        "w3_goc": "rain * 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Mỗi ngày có {rain} cơn mưa nhỏ. Hỏi trong {day} ngày thì có bao nhiêu cơn mưa?",
+      "options": [
+        "A. {w1} cơn mưa",
+        "B. {w2} cơn mưa",
+        "C. {ans} cơn mưa",
+        "D. {w3} cơn mưa"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi ngày có {rain} cơn mưa, vậy {day} ngày sẽ gấp {day} lần lên.",
+        "Ta cần thực hiện phép nhân $ {rain} \\times {day} $."
+      ],
+      "solutionHtml": "Tổng số cơn mưa trong {day} ngày là:<br/>$ {rain} \\times {day} = {ans} $ (cơn mưa).<br/>Đáp án đúng là C.",
+      "tip": "Dạng toán 'mỗi ngày' là dấu hiệu của phép nhân đấy!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1_goc": "a + b",
+        "w2_goc": "b",
+        "w3_goc": "a - b + 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 4 : w3_goc"
+      },
+      "questionText": "Bầu trời sáng có {a} đám mây, nhưng sau đó có {b} đám mây bay đi mất. Hỏi trên bầu trời còn lại bao nhiêu đám mây?",
+      "options": [
+        "A. {w1} đám mây",
+        "B. {ans} đám mây",
+        "C. {w2} đám mây",
+        "D. {w3} đám mây"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ban đầu có {a} đám mây, bay đi mất {b} đám nghĩa là bớt đi {b} đám.",
+        "Ta thực hiện phép tính trừ."
+      ],
+      "solutionHtml": "Số đám mây còn lại là:<br/>$ {a} - {b} = {ans} $ (đám mây).<br/>Đáp án đúng là B.",
+      "tip": "Bay đi mất nghĩa là phép trừ nhé các em!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b !== 0",
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a - b",
+        "w2_goc": "a * b",
+        "w3_goc": "a + b + 1",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Sáng nay có {a} ngôi sao xuất hiện, tối nay có thêm {b} ngôi sao nữa. Hỏi tất cả có bao nhiêu ngôi sao?",
+      "options": [
+        "A. {w1} ngôi sao",
+        "B. {w2} ngôi sao",
+        "C. {ans} ngôi sao",
+        "D. {w3} ngôi sao"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có thêm nghĩa là cộng vào.",
+        "Thực hiện phép tính $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số ngôi sao là:<br/>$ {a} + {b} = {ans} $ (ngôi sao).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'có thêm' là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "part": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total > part",
+        "(total - part) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "total - part",
+        "w1_goc": "total + part",
+        "w2_goc": "total / 2",
+        "w3_goc": "part * 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Bầu trời có tổng cộng {total} vật thể bao gồm mây và chim. Biết rằng có {part} đám mây. Hỏi có bao nhiêu chú chim?",
+      "options": [
+        "A. {w1} chú chim",
+        "B. {ans} chú chim",
+        "C. {w2} chú chim",
+        "D. {w3} chú chim"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm số chim, ta lấy tổng số vật thể trừ đi số mây.",
+        "Thực hiện $ {total} - {part} $."
+      ],
+      "solutionHtml": "Số chú chim là:<br/>$ {total} - {part} = {ans} $ (chú chim).<br/>Đáp án đúng là B.",
+      "tip": "Biết tổng và một phần, ta lấy tổng trừ phần đã biết.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "y": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "x * y",
+        "w1_goc": "x + y",
+        "w2_goc": "x * y + 2",
+        "w3_goc": "y * 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Mỗi chiếc dù cầu vồng có {x} màu sắc. Hỏi {y} chiếc dù như vậy có tổng cộng bao nhiêu màu?",
+      "options": [
+        "A. {w1} màu",
+        "B. {w2} màu",
+        "C. {w3} màu",
+        "D. {ans} màu"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Có {y} chiếc dù, mỗi chiếc có {x} màu.",
+        "Ta thực hiện phép nhân $ {x} \\times {y} $."
+      ],
+      "solutionHtml": "Tổng số màu là:<br/>$ {x} \\times {y} = {ans} $ (màu).<br/>Đáp án đúng là D.",
+      "tip": "Gấp nhiều lần lên thì dùng phép nhân nhé!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        },
+        "sub": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "h * 2",
+        "w1_goc": "h - 2",
+        "w2_goc": "h + 2",
+        "w3_goc": "h / 2",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 3 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 5 : w3_goc"
+      },
+      "questionText": "Có {h} đôi giày đi mưa. Hỏi có bao nhiêu chiếc giày lẻ?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {w3} chiếc",
+        "D. {ans} chiếc"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Một đôi giày gồm 2 chiếc.",
+        "{h} đôi giày thì có $ {h} \\times 2 $ chiếc."
+      ],
+      "solutionHtml": "Số chiếc giày là:<br/>$ {h} \\times 2 = {ans} $ (chiếc).<br/>Vậy đáp án đúng là D.",
+      "tip": "Chú ý đơn vị: 'đôi' và 'chiếc' là khác nhau!",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * 2",
+        "w1_goc": "a + b",
+        "w2_goc": "a * 4",
+        "w3_goc": "b * 2",
+        "w1": "(w1_goc === ans) ? ans + 10 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 5 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 2 : w3_goc"
+      },
+      "questionText": "Trên bầu trời có {a} con chim (mỗi con có 2 cánh) và {b} đám mây (không có cánh). Hỏi tổng số cánh chim là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chỉ chim mới có cánh.",
+        "Mỗi con chim có 2 cánh, vậy {a} con chim có $ {a} \\times 2 $ cánh."
+      ],
+      "solutionHtml": "Số cánh chim là:<br/>$ {a} \\times 2 = {ans} $ (cánh).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để loại bỏ những dữ kiện không liên quan (đám mây không có cánh).",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "add": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "start + add",
+        "w1_goc": "start - add",
+        "w2_goc": "start * add",
+        "w3_goc": "start + 1",
+        "w1": "(w1_goc === ans) ? ans + 1 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 3 : w3_goc"
+      },
+      "questionText": "Buổi sáng có {start} cầu vồng xuất hiện. Buổi chiều, do mưa tạnh, có thêm {add} cầu vồng nữa. Hỏi cả ngày có bao nhiêu cầu vồng?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Có thêm là ta thực hiện phép cộng.",
+        "Lấy $ {start} + {add} $."
+      ],
+      "solutionHtml": "Tổng số cầu vồng là:<br/>$ {start} + {add} = {ans} $ (cầu vồng).<br/>Đáp án đúng là D.",
+      "tip": "Cộng dồn các khoảng thời gian lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "t1": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "t2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "t1 + t2",
+        "w1_goc": "t1 - t2",
+        "w2_goc": "t1 * t2",
+        "w3_goc": "t1 + t2 + 1",
+        "w1": "(w1_goc === ans) ? ans + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1) ? ans + 4 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1 || w3_goc === w2) ? ans + 6 : w3_goc"
+      },
+      "questionText": "Bé đếm được {t1} tia chớp màu vàng và {t2} tia chớp màu trắng. Hỏi có tất cả bao nhiêu tia chớp?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Gộp hai loại tia chớp lại ta dùng phép cộng.",
+        "$ {t1} + {t2} $."
+      ],
+      "solutionHtml": "Số tia chớp tất cả là:<br/>$ {t1} + {t2} = {ans} $ (tia chớp).<br/>Đáp án đúng là B.",
+      "tip": "Tìm 'tất cả' là thực hiện phép cộng các nhóm.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t18-d10"
+    }
+  ]
+}

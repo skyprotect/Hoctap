@@ -1,0 +1,410 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "a * b <= 20"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "a * b + 1",
+        "w1_f": "(w1 === ans) ? w1 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? w2 + 5 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? w3 + 2 : w3"
+      },
+      "questionText": "Bạn An xếp các viên bi thành {a} hàng, mỗi hàng có {b} viên bi. Hỏi bạn An có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1_f} viên bi",
+        "B. {ans} viên bi",
+        "C. {w2_f} viên bi",
+        "D. {w3_f} viên bi"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số bi được xếp thành {a} nhóm bằng nhau, mỗi nhóm {b} viên.",
+        "Ta thực hiện phép tính nhân ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Số viên bi bạn An có là:<br/>${a} \\times {b} = {ans}$ (viên bi).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số nhóm và số phần tử mỗi nhóm, ta dùng phép nhân để tìm tổng số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 10,
+          "max": 18
+        },
+        "part": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "total % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "total / 2",
+        "w1": "total - 2",
+        "w2": "total + 2",
+        "w3": "total - 1",
+        "w1_f": "(w1 === ans) ? total + 1 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? total + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? total + 4 : w3"
+      },
+      "questionText": "Một băng giấy dài {total} cm. Bình cắt băng giấy đó thành 2 đoạn bằng nhau. Hỏi mỗi đoạn dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1_f} cm",
+        "B. {ans} cm",
+        "C. {w2_f} cm",
+        "D. {w3_f} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia băng giấy thành 2 đoạn bằng nhau tức là thực hiện phép chia cho 2.",
+        "Tính ${total} : 2$."
+      ],
+      "solutionHtml": "Độ dài mỗi đoạn băng giấy là:<br/>${total} : 2 = {ans}$ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'bằng nhau' là dấu hiệu của phép chia đều.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 3,
+          "max": 6
+        },
+        "y": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x - y",
+        "w2": "x * y",
+        "w3": "x + y + 1",
+        "w1_f": "(w1 === ans) ? x + y + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? x + y + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? x + y + 4 : w3"
+      },
+      "questionText": "Hình thứ nhất có {x} cạnh. Hình thứ hai có {y} cạnh. Hỏi cả hai hình có tất cả bao nhiêu cạnh?",
+      "options": [
+        "A. {w1_f} cạnh",
+        "B. {ans} cạnh",
+        "C. {w2_f} cạnh",
+        "D. {w3_f} cạnh"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cả hai hình có tổng số cạnh là tổng của số cạnh mỗi hình.",
+        "Tính ${x} + {y}$."
+      ],
+      "solutionHtml": "Số cạnh của cả hai hình là:<br/>${x} + {y} = {ans}$ (cạnh).<br/>Đáp án đúng là B.",
+      "tip": "Để tìm tổng, ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 9
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b + 2",
+        "w1_f": "(w1 === ans) ? a - b + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? a - b + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? a - b + 5 : w3"
+      },
+      "questionText": "Một hình vuông có {a} cạnh, một hình tam giác có {b} cạnh. Hỏi hình vuông có nhiều hơn hình tam giác bao nhiêu cạnh?",
+      "options": [
+        "A. {w1_f} cạnh",
+        "B. {w2_f} cạnh",
+        "C. {ans} cạnh",
+        "D. {w3_f} cạnh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết nhiều hơn bao nhiêu, ta lấy số cạnh của hình vuông trừ đi số cạnh của hình tam giác.",
+        "Tính ${a} - {b}$."
+      ],
+      "solutionHtml": "Số cạnh hình vuông nhiều hơn hình tam giác là:<br/>${a} - {b} = {ans}$ (cạnh).<br/>Đáp án đúng là C.",
+      "tip": "Bài toán hỏi 'nhiều hơn bao nhiêu' thường là phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 4
+        },
+        "y": {
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "x * y <= 15"
+      ],
+      "formulas": {
+        "ans": "x * y",
+        "w1": "x + y",
+        "w2": "x * y - 1",
+        "w3": "x * y + 2",
+        "w1_f": "(w1 === ans) ? x * y + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? x * y + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? x * y + 5 : w3"
+      },
+      "questionText": "Mỗi hàng trong vườn có {x} cây hoa. Có tất cả {y} hàng như thế. Hỏi vườn hoa có bao nhiêu cây?",
+      "options": [
+        "A. {w1_f} cây",
+        "B. {w2_f} cây",
+        "C. {w3_f} cây",
+        "D. {ans} cây"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Mỗi hàng có {x} cây, {y} hàng như vậy nên ta nhân lên.",
+        "Tính ${x} \\times {y}$."
+      ],
+      "solutionHtml": "Số cây trong vườn là:<br/>${x} \\times {y} = {ans}$ (cây).<br/>Đáp án đúng là D.",
+      "tip": "Đây là bài toán gấp lên nhiều lần (theo hàng).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        }
+      },
+      "constraints": [
+        "a % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a / 2 + 1",
+        "w2": "a / 2 - 1",
+        "w3": "a / 2 + 2",
+        "w1_f": "(w1 === ans) ? a / 2 + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? a / 2 + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? a / 2 + 5 : w3"
+      },
+      "questionText": "Một túi bi có {a} viên. Mẹ chia đều cho 2 anh em. Hỏi mỗi người nhận được bao nhiêu viên bi?",
+      "options": [
+        "A. {ans} viên",
+        "B. {w1_f} viên",
+        "C. {w2_f} viên",
+        "D. {w3_f} viên"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Chia đều cho 2 người thì ta lấy tổng số bi chia cho 2.",
+        "Tính ${a} : 2$."
+      ],
+      "solutionHtml": "Mỗi người nhận được số bi là:<br/>${a} : 2 = {ans}$ (viên).<br/>Đáp án đúng là A.",
+      "tip": "Chia đều là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a * b",
+        "w1_f": "(w1 === ans) ? a + b + 2 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? a + b + 3 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? a + b + 4 : w3"
+      },
+      "questionText": "Tấm vải xanh dài {a} mét. Tấm vải đỏ dài hơn tấm vải xanh {b} mét. Hỏi tấm vải đỏ dài bao nhiêu mét?",
+      "options": [
+        "A. {w1_f} mét",
+        "B. {ans} mét",
+        "C. {w2_f} mét",
+        "D. {w3_f} mét"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tấm vải đỏ dài hơn tấm vải xanh nên ta dùng phép cộng.",
+        "Tính ${a} + {b}$."
+      ],
+      "solutionHtml": "Độ dài tấm vải đỏ là:<br/>${a} + {b} = {ans}$ (mét).<br/>Đáp án đúng là B.",
+      "tip": "Cẩn thận với từ 'dài hơn', đây là phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 1",
+        "w1_f": "(w1 === ans) ? a - b + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? a - b + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? a - b + 5 : w3"
+      },
+      "questionText": "Lớp 1A có {a} bạn nữ, số bạn nam ít hơn số bạn nữ là {b} bạn. Hỏi lớp 1A có bao nhiêu bạn nam?",
+      "options": [
+        "A. {w1_f} bạn",
+        "B. {w2_f} bạn",
+        "C. {ans} bạn",
+        "D. {w3_f} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số bạn nam ít hơn số bạn nữ nên ta dùng phép trừ.",
+        "Tính ${a} - {b}$."
+      ],
+      "solutionHtml": "Số bạn nam trong lớp 1A là:<br/>${a} - {b} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'ít hơn' gợi ý phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a * b <= 12"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b + 2",
+        "w1_f": "(w1 === ans) ? a * b + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? a * b + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? a * b + 5 : w3"
+      },
+      "questionText": "Có {a} bàn học, mỗi bàn có {b} bạn ngồi. Hỏi có tất cả bao nhiêu bạn đang ngồi học?",
+      "options": [
+        "A. {w1_f} bạn",
+        "B. {ans} bạn",
+        "C. {w2_f} bạn",
+        "D. {w3_f} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi bàn có {b} bạn, có {a} bàn thì ta nhân lên.",
+        "Tính ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Số bạn đang ngồi học là:<br/>${a} \\times {b} = {ans}$ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Số lần lặp lại một giá trị bằng nhau là phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a + b + 2",
+        "w1_f": "(w1 === ans) ? a + b + 3 : w1",
+        "w2_f": "(w2 === ans || w2 === w1_f) ? a + b + 4 : w2",
+        "w3_f": "(w3 === ans || w3 === w1_f || w3 === w2_f) ? a + b + 5 : w3"
+      },
+      "questionText": "Hôm nay cửa hàng bán được {a} cái bánh. Ngày hôm qua bán được nhiều hơn hôm nay {b} cái bánh. Hỏi ngày hôm qua cửa hàng bán được bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1_f} cái",
+        "B. {w2_f} cái",
+        "C. {ans} cái",
+        "D. {w3_f} cái"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ngày hôm qua bán được nhiều hơn hôm nay, ta dùng phép cộng.",
+        "Tính ${a} + {b}$."
+      ],
+      "solutionHtml": "Số bánh bán được ngày hôm qua là:<br/>${a} + {b} = {ans}$ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Khi đại lượng sau lớn hơn đại lượng trước, ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-19-d10"
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{18}{42}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{6}{14}$",
+        "$\\frac{3}{7}$",
+        "$\\frac{3}{8}$",
+        "$\\frac{17}{41}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $6$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $6$:<br/>$\\frac{18 : 6}{42 : 6} = \\frac{3}{7}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{14}{49}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{4}{14}$",
+        "$\\frac{13}{48}$",
+        "$\\frac{2}{8}$",
+        "$\\frac{2}{7}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $7$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $7$:<br/>$\\frac{14 : 7}{49 : 7} = \\frac{2}{7}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{24}{42}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{4}{8}$",
+        "$\\frac{23}{41}$",
+        "$\\frac{8}{14}$",
+        "$\\frac{4}{7}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $6$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $6$:<br/>$\\frac{24 : 6}{42 : 6} = \\frac{4}{7}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{30}{54}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{5}{10}$",
+        "$\\frac{29}{53}$",
+        "$\\frac{10}{18}$",
+        "$\\frac{5}{9}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $6$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $6$:<br/>$\\frac{30 : 6}{54 : 6} = \\frac{5}{9}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{14}{35}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{2}{5}$",
+        "$\\frac{13}{34}$",
+        "$\\frac{4}{10}$",
+        "$\\frac{2}{6}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $7$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $7$:<br/>$\\frac{14 : 7}{35 : 7} = \\frac{2}{5}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{35}{49}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{5}{7}$",
+        "$\\frac{34}{48}$",
+        "$\\frac{5}{8}$",
+        "$\\frac{10}{14}$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $7$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $7$:<br/>$\\frac{35 : 7}{49 : 7} = \\frac{5}{7}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{12}{16}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{3}{5}$",
+        "$\\frac{3}{4}$",
+        "$\\frac{6}{8}$",
+        "$\\frac{11}{15}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $4$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $4$:<br/>$\\frac{12 : 4}{16 : 4} = \\frac{3}{4}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{18}{42}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{17}{41}$",
+        "$\\frac{6}{14}$",
+        "$\\frac{3}{8}$",
+        "$\\frac{3}{7}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $6$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $6$:<br/>$\\frac{18 : 6}{42 : 6} = \\frac{3}{7}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{10}{15}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{2}{4}$",
+        "$\\frac{4}{6}$",
+        "$\\frac{2}{3}$",
+        "$\\frac{9}{14}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $5$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $5$:<br/>$\\frac{10 : 5}{15 : 5} = \\frac{2}{3}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Rút gọn phân số $\\frac{21}{49}$ về phân số tối giản.",
+      "options": [
+        "$\\frac{3}{8}$",
+        "$\\frac{20}{48}$",
+        "$\\frac{3}{7}$",
+        "$\\frac{6}{14}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm xem cả tử số và mẫu số cùng chia hết cho số tự nhiên nào lớn hơn 1.",
+        "Cả tử và mẫu đều chia hết cho $7$."
+      ],
+      "solutionHtml": "Ta chia cả tử số và mẫu số cho $7$:<br/>$\\frac{21 : 7}{49 : 7} = \\frac{3}{7}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-gon-phan-so",
+      "forceMCQ": false
+    }
+  ]
+}

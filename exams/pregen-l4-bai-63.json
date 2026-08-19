@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{1}{4} \\cdot \\frac{1}{6}$.",
+      "options": [
+        "$\\frac{6}{4}$",
+        "$\\frac{1}{24}$",
+        "$\\frac{1}{26}$",
+        "$\\frac{2}{10}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{1}{4} \\cdot \\frac{1}{6} = \\frac{1 \\cdot 1}{4 \\cdot 6} = \\frac{1}{24}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{2}{5} \\cdot \\frac{2}{7}$.",
+      "options": [
+        "$\\frac{4}{37}$",
+        "$\\frac{4}{12}$",
+        "$\\frac{14}{10}$",
+        "$\\frac{4}{35}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{2}{5} \\cdot \\frac{2}{7} = \\frac{2 \\cdot 2}{5 \\cdot 7} = \\frac{4}{35}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{2}{5} \\cdot \\frac{2}{7}$.",
+      "options": [
+        "$\\frac{4}{37}$",
+        "$\\frac{14}{10}$",
+        "$\\frac{4}{35}$",
+        "$\\frac{4}{12}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{2}{5} \\cdot \\frac{2}{7} = \\frac{2 \\cdot 2}{5 \\cdot 7} = \\frac{4}{35}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{3}{5} \\cdot \\frac{2}{6}$.",
+      "options": [
+        "$\\frac{18}{10}$",
+        "$\\frac{5}{11}$",
+        "$\\frac{1}{5}$",
+        "$\\frac{6}{32}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{3}{5} \\cdot \\frac{2}{6} = \\frac{3 \\cdot 2}{5 \\cdot 6} = \\frac{6}{30} = \\frac{1}{5}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{2}{5} \\cdot \\frac{1}{6}$.",
+      "options": [
+        "$\\frac{2}{32}$",
+        "$\\frac{3}{11}$",
+        "$\\frac{12}{5}$",
+        "$\\frac{1}{15}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{2}{5} \\cdot \\frac{1}{6} = \\frac{2 \\cdot 1}{5 \\cdot 6} = \\frac{2}{30} = \\frac{1}{15}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{1}{4} \\cdot \\frac{2}{7}$.",
+      "options": [
+        "$\\frac{3}{11}$",
+        "$\\frac{2}{30}$",
+        "$\\frac{7}{8}$",
+        "$\\frac{1}{14}$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{1}{4} \\cdot \\frac{2}{7} = \\frac{1 \\cdot 2}{4 \\cdot 7} = \\frac{2}{28} = \\frac{1}{14}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{2}{5} \\cdot \\frac{3}{7}$.",
+      "options": [
+        "$\\frac{6}{37}$",
+        "$\\frac{6}{35}$",
+        "$\\frac{14}{15}$",
+        "$\\frac{5}{12}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{2}{5} \\cdot \\frac{3}{7} = \\frac{2 \\cdot 3}{5 \\cdot 7} = \\frac{6}{35}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{1}{4} \\cdot \\frac{3}{7}$.",
+      "options": [
+        "$\\frac{4}{11}$",
+        "$\\frac{3}{30}$",
+        "$\\frac{3}{28}$",
+        "$\\frac{7}{12}$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{1}{4} \\cdot \\frac{3}{7} = \\frac{1 \\cdot 3}{4 \\cdot 7} = \\frac{3}{28}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{1}{5} \\cdot \\frac{1}{6}$.",
+      "options": [
+        "$\\frac{6}{5}$",
+        "$\\frac{1}{30}$",
+        "$\\frac{1}{32}$",
+        "$\\frac{2}{11}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{1}{5} \\cdot \\frac{1}{6} = \\frac{1 \\cdot 1}{5 \\cdot 6} = \\frac{1}{30}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính kết quả phép nhân: $\\frac{3}{5} \\cdot \\frac{3}{6}$.",
+      "options": [
+        "$\\frac{9}{32}$",
+        "$\\frac{3}{10}$",
+        "$\\frac{18}{15}$",
+        "$\\frac{6}{11}$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tử số nhân tử số, mẫu số nhân mẫu số.",
+        "Rút gọn phân số kết quả về tối giản."
+      ],
+      "solutionHtml": "$\\frac{3}{5} \\cdot \\frac{3}{6} = \\frac{3 \\cdot 3}{5 \\cdot 6} = \\frac{9}{30} = \\frac{3}{10}$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-phan-so",
+      "forceMCQ": false
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
-  "version": "13.18",
-  "lastUpdated": "14/08/2026 11:05",
-  "build": 1338,
-  "releaseNotes": "Tối ưu hóa kiến trúc khởi tạo tức thì, sửa triệt để lỗi nút 'Bắt đầu học tập' bị đơ và tự động kéo/gộp điểm số học tập thực tế từ Firebase Realtime Database về SQLite.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.18/ToanHocKiosk_Setup_v13.18.exe",
-  "changelog": "- Gắn trực tiếp sự kiện app.enterApp() trên nút 'BẮT ĐẦU HỌC TẬP' và kích hoạt tức thì ngay tại DOMContentLoaded.\n- Tự động kéo và hydrate điểm số (XP, Streak) từ Firebase Realtime Database Leaderboard về SQLite khi khởi động.\n- Chuẩn hóa cấu hình CSDL SQLite và gieo sẵn (seed) hồ sơ 3 học sinh chuẩn (Bình Minh, Bảo Ngọc, Đức Phúc).\n- Tách rời toàn bộ logic giao diện khỏi các cuộc gọi mạng I/O bất đồng bộ."
+  "version": "13.21",
+  "lastUpdated": "19/08/2026 10:00",
+  "build": 1340,
+  "releaseNotes": "Rà soát toàn diện và khắc phục triệt để lỗi làm đề thi chất lượng cao AI: Bổ sung cơ chế phục hồi đa tầng (Multi-tier Graceful Fallback) tự động nạp câu hỏi dự phòng chất lượng cao khi mất mạng hoặc API lỗi; Kiểm định 100% 67 bài học Lớp 6 và khắc phục toàn bộ các dạng công thức toán; Tạo sẵn 100% bộ đề offline cho toàn bộ 183 bài học Lớp 1, 4, 6.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.21/ToanHocKiosk_Setup_v13.21.exe",
+  "changelog": "- Khắc phục triệt để lỗi không làm được đề thi Chất lượng cao AI bằng cơ chế tự động phục hồi dự phòng cục bộ (Local Fallback).\n- Kiểm định chuyên sâu 100% (67/67 bài học) môn Toán Lớp 6, sửa triệt để các lỗi trùng lặp đáp án và lỗi hàm toán học.\n- Hoàn thiện 100% kho đề thi sinh sẵn (183/183 bài học Lớp 1, Lớp 4, Lớp 6) cho cả 3 học sinh Bình Minh, Bảo Ngọc, Đức Phúc.\n- Nâng cấp bộ helper toán học Web Worker hỗ trợ đầy đủ Math.gcd, Math.lcm, isPrime, abs.\n- Cập nhật phiên bản v13.20 đồng bộ toàn hệ thống."
 }

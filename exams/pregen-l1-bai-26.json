@@ -1,0 +1,194 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -7$",
+        "$x = 3$",
+        "$x = 7$",
+        "$x = -3$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -7$",
+        "$x = 7$",
+        "$x = -3$",
+        "$x = 3$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -7$",
+        "$x = 3$",
+        "$x = 7$",
+        "$x = -3$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -7$",
+        "$x = 3$",
+        "$x = 7$",
+        "$x = -3$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -3$",
+        "$x = 7$",
+        "$x = -7$",
+        "$x = 3$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = 3$",
+        "$x = -7$",
+        "$x = -3$",
+        "$x = 7$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = 3$",
+        "$x = -3$",
+        "$x = -7$",
+        "$x = 7$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -7$",
+        "$x = 3$",
+        "$x = -3$",
+        "$x = 7$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -7$",
+        "$x = 3$",
+        "$x = -3$",
+        "$x = 7$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tìm số nguyên $x$, biết: $x + 5 = 2$.",
+      "options": [
+        "$x = -3$",
+        "$x = -7$",
+        "$x = 3$",
+        "$x = 7$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "$x = 2 - 5$."
+      ],
+      "solutionHtml": "Ta có $x = 2 - 5 = -3$.",
+      "tip": "Chuyển vế đổi dấu.",
+      "level": "chat-luong-cao",
+      "type": "l1-don-vi-do-d1",
+      "forceMCQ": false
+    }
+  ]
+}

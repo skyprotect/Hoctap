@@ -601,12 +601,17 @@ const questions = {
             // Sử dụng Object.create để tránh kích hoạt sớm các Getter trong context
             const ctx = Object.create(context || {});
             // Định nghĩa các helper toán học trực tiếp trên ctx che đi prototype
+            Math.gcd = (a, b) => self.gcd(a, b);
+            Math.lcm = (a, b) => self.lcm(a, b);
+            Math.isPrime = (n) => self.isPrime(n);
+            Math.sumDigits = (n) => self.sumDigits(n);
             const helpers = {
                 this: context,
                 Math: Math,
                 parseInt: parseInt,
                 parseFloat: parseFloat,
                 isNaN: isNaN,
+                abs: (n) => Math.abs(n),
                 gcd: (a, b) => self.gcd(a, b),
                 lcm: (a, b) => self.lcm(a, b),
                 ƯCLN: (a, b) => self.gcd(a, b),
@@ -1814,6 +1819,36 @@ const questions = {
             });
 
             const studentId = app.config.defaultStudentId || 'default';
+            const fallbackToLocalGenerators = (reason) => {
+                console.warn(`[Chất lượng cao AI] Kích hoạt bộ sinh đề chất lượng cao dự phòng cục bộ: ${reason}`);
+                const fallbackQuestions = [];
+                const types = (chapterTypes && chapterTypes[chapterId]) || [lesson.questionType || "tap-hop"];
+                const numQs = 10;
+                for (let i = 0; i < numQs; i++) {
+                    const randomType = types[Math.floor(Math.random() * types.length)];
+                    const q = this.generateQuestion(randomType, 'kho');
+                    q.isSpacedRepetition = false;
+                    q.level = 'chat-luong-cao';
+                    q.type = randomType;
+                    fallbackQuestions.push(q);
+                }
+                let saCount = 0;
+                for (let i = fallbackQuestions.length - 1; i >= 0; i--) {
+                    const q = fallbackQuestions[i];
+                    if (saCount < 4 && !q.forceMCQ) {
+                        q.isShortAnswer = true;
+                        saCount++;
+                    } else {
+                        q.isShortAnswer = false;
+                    }
+                }
+                this.currentQuestions = fallbackQuestions;
+                this.currentQuestionIndex = 0;
+                Swal.close();
+                document.getElementById("practice-active-box").classList.add("hidden");
+                document.getElementById("practice-mode-select-box").classList.remove("hidden");
+            };
+
             fetch(this.getApiUrl(`/api/get-questions?lessonId=${lesson.id}&lessonTitle=${encodeURIComponent(lesson.title)}&classLevel=${app.config.currentClass || '6'}&studentId=${studentId}`))
                 .then(res => {
                     if (!res.ok) throw new Error('Không thể kết nối với server.');
@@ -1850,7 +1885,6 @@ const questions = {
                             const response = e.data;
                             if (response.status === 'success') {
                                 this.currentQuestions = response.questions;
-                                // Thay thế showQuestion() để chuyển sang giao diện lựa chọn chế độ thực hành trước
                                 document.getElementById("practice-active-box").classList.add("hidden");
                                 document.getElementById("practice-mode-select-box").classList.remove("hidden");
                             } else {
@@ -1872,15 +1906,8 @@ const questions = {
                                     })
                                 }).catch(telemetryErr => console.error('Lỗi gửi telemetry:', telemetryErr));
 
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Lỗi biên dịch đề AI',
-                                    text: 'Không thể nạp đề thi Chất lượng cao lúc này. Chi tiết: ' + errorMsg,
-                                    target: document.getElementById('tab-practice') || 'body',
-                                    confirmButtonText: 'Quay lại'
-                                }).then(() => {
-                                    this.exitPractice();
-                                });
+                                // Tự động phục hồi sang bộ sinh đề dự phòng
+                                fallbackToLocalGenerators(errorMsg);
                             }
                         };
 
@@ -1902,18 +1929,11 @@ const questions = {
                                 })
                             }).catch(telemetryErr => console.error('Lỗi gửi telemetry:', telemetryErr));
 
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Lỗi luồng chạy Web Worker',
-                                text: 'Không thể khởi động Web Worker sinh đề AI: ' + err.message,
-                                target: document.getElementById('tab-practice') || 'body',
-                                confirmButtonText: 'Quay lại'
-                            }).then(() => {
-                                this.exitPractice();
-                            });
+                            // Tự động phục hồi sang bộ sinh đề dự phòng
+                            fallbackToLocalGenerators(err.message || 'Lỗi Web Worker');
                         };
                     } else {
-                        throw new Error('Dữ liệu đề thi AI không hợp lệ.');
+                        fallbackToLocalGenerators('Dữ liệu trả về không có câu hỏi');
                     }
                 })
                 .catch(err => {
@@ -1932,15 +1952,8 @@ const questions = {
                         })
                     }).catch(telemetryErr => console.error('Lỗi gửi telemetry:', telemetryErr));
 
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi tải đề thi AI',
-                        text: 'Không thể nạp đề thi Chất lượng cao lúc này. Chi tiết: ' + err.message,
-                        target: document.getElementById('tab-practice') || 'body',
-                        confirmButtonText: 'Quay lại'
-                    }).then(() => {
-                        this.exitPractice();
-                    });
+                    // Tự động phục hồi sang bộ sinh đề dự phòng
+                    fallbackToLocalGenerators(err.message || 'Lỗi kết nối API');
                 });
             return; // Dừng luồng xử lý đồng bộ
         } else {
@@ -2087,18 +2100,35 @@ const questions = {
                 }
             })
             .catch(err => {
-                console.error('Lỗi tải đề thi chất lượng cao:', err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi tải đề thi AI',
-                    text: 'Không thể nạp đề thi Chất lượng cao lúc này. Hệ thống sẽ tự động dùng bộ sinh đề dự phòng mức độ Nâng cao.',
-                    target: document.getElementById('tab-practice') || 'body',
-                    confirmButtonText: 'Đồng ý'
-                }).then(() => {
-                    // Dự phòng: Sinh đề Nâng cao thường
-                    this.currentLevel = 'nang-cao';
-                    this.initPractice(lesson, 'nang-cao', true);
-                });
+                console.warn('Lỗi tải đề thi chất lượng cao (Thi chương), tự động kích hoạt bộ sinh đề cục bộ:', err);
+                Swal.close();
+                
+                const fallbackQuestions = [];
+                const diffDistribution = ['kho', 'kho', 'kho', 'kho', 'kho', 'kho', 'kho', 'kho', 'nang-cao', 'nang-cao', 'nang-cao', 'nang-cao', 'kho', 'kho', 'kho', 'kho'];
+                for (let i = 0; i < 16; i++) {
+                    const randomType = types[Math.floor(Math.random() * types.length)];
+                    const q = this.generateQuestion(randomType, diffDistribution[i]);
+                    q.isSpacedRepetition = false;
+                    q.level = 'chat-luong-cao';
+                    q.type = randomType;
+                    fallbackQuestions.push(q);
+                }
+                let saCount = 0;
+                for (let i = fallbackQuestions.length - 1; i >= 0; i--) {
+                    const q = fallbackQuestions[i];
+                    if (saCount < 6 && !q.forceMCQ) {
+                        q.isShortAnswer = true;
+                        saCount++;
+                    } else {
+                        q.isShortAnswer = false;
+                    }
+                }
+                this.currentQuestions = fallbackQuestions;
+                this.currentQuestionIndex = 0;
+                this.practiceMode = 'standard';
+                document.getElementById("practice-mode-select-box").classList.add("hidden");
+                document.getElementById("practice-active-box").classList.remove("hidden");
+                this.showQuestion();
             });
     },
 

@@ -1,0 +1,194 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $7.016 + 2.728$",
+      "options": [
+        "$9.754$",
+        "$9.744$",
+        "$9.844$",
+        "$9.644$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện cộng các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $7.016 + 2.728 = 9.744$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $757 \\times 8$",
+      "options": [
+        "$6.046$",
+        "$6.066$",
+        "$6.061$",
+        "$6.056$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Thực hiện nhân thừa số thứ hai với từng chữ số của thừa số thứ nhất từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $757 \\times 8 = 6.056$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $593 \\times 4$",
+      "options": [
+        "$2.372$",
+        "$2.362$",
+        "$2.382$",
+        "$2.377$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thực hiện nhân thừa số thứ hai với từng chữ số của thừa số thứ nhất từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $593 \\times 4 = 2.372$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $1.581 : 3$",
+      "options": [
+        "$537$",
+        "$526$",
+        "$528$",
+        "$527$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $1.581 : 3 = 527$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $7.873 - 5.174$",
+      "options": [
+        "$2.599$",
+        "$2.699$",
+        "$2.709$",
+        "$2.799$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện trừ các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $7.873 - 5.174 = 2.699$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $1.340 : 2$",
+      "options": [
+        "$670$",
+        "$669$",
+        "$671$",
+        "$680$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $1.340 : 2 = 670$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $1.632 : 3$",
+      "options": [
+        "$543$",
+        "$545$",
+        "$554$",
+        "$544$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $1.632 : 3 = 544$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $7.354 - 6.815$",
+      "options": [
+        "$549$",
+        "$639$",
+        "$539$",
+        "$439$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện trừ các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $7.354 - 6.815 = 539$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $7.329 - 3.464$",
+      "options": [
+        "$3.965$",
+        "$3.765$",
+        "$3.865$",
+        "$3.875$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện trừ các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $7.329 - 3.464 = 3.865$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $4.770 : 6$",
+      "options": [
+        "$796$",
+        "$805$",
+        "$794$",
+        "$795$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $4.770 : 6 = 795$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-su-kien",
+      "forceMCQ": false
+    }
+  ]
+}

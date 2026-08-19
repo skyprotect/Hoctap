@@ -1,0 +1,376 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 20,
+          "max": 80,
+          "step": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b - 1",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Trong vườn có {a} cây ăn quả. Sau khi bác làm vườn tỉa cành, có {b} cây bị hỏng và cần thay thế. Hỏi trong vườn còn lại bao nhiêu cây tốt?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm số cây còn lại, ta thực hiện phép trừ $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số cây tốt còn lại là:<br/>$ {a} - {b} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Khi thực hiện phép trừ số có hai chữ số cho số có một chữ số, ta trừ hàng đơn vị trước rồi giữ nguyên hàng chục.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-31-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 35,
+          "max": 59,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 2"
+      },
+      "questionText": "Một cửa hàng có {a} chiếc bánh. Bạn Lan mua hết {b} chiếc. Hỏi cửa hàng còn lại bao nhiêu chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Cửa hàng bớt đi {b} chiếc bánh, ta thực hiện phép tính $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số bánh còn lại là:<br/>$ {a} - {b} = {ans} $ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Đừng quên lấy hàng đơn vị trừ đi hàng đơn vị nhé!"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 40,
+          "max": 90,
+          "step": 10
+        },
+        "b": {
+          "min": 1,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 5",
+        "w3": "a - b - 5"
+      },
+      "questionText": "Thư viện có {a} cuốn sách. Bạn Nam mượn về nhà {b} cuốn. Hỏi trên kệ còn lại bao nhiêu cuốn sách?",
+      "options": [
+        "A. {w1} cuốn",
+        "B. {w2} cuốn",
+        "C. {w3} cuốn",
+        "D. {ans} cuốn"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Ta có phép tính $ {a} - {b} $ để tìm số sách còn lại."
+      ],
+      "solutionHtml": "Số sách còn lại là:<br/>$ {a} - {b} = {ans} $ (cuốn).<br/>Đáp án đúng là D.",
+      "tip": "Lưu ý đây là số tròn chục trừ đi số đơn vị, kết quả sẽ là số có hai chữ số."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 25,
+          "max": 48,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 1",
+        "w2": "a - b - 1",
+        "w3": "a + b"
+      },
+      "questionText": "Có {a} con chim đang đậu trên cành. Có {b} con chim bay đi mất. Hỏi còn lại bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số chim bay đi làm số chim trên cành giảm đi, ta dùng phép tính trừ."
+      ],
+      "solutionHtml": "Số con chim còn lại là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài để xác định phép tính phù hợp."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 2"
+      },
+      "questionText": "Trong hộp bút có {a} cái bút chì. Cô giáo lấy ra {b} cái để thưởng cho học sinh. Hỏi trong hộp còn lại bao nhiêu cái bút?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {ans} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy đi nghĩa là trừ đi."
+      ],
+      "solutionHtml": "Số bút còn lại là:<br/>$ {a} - {b} = {ans} $ (cái).<br/>Đáp án đúng là C.",
+      "tip": "Khi trừ số có hai chữ số cho số có một chữ số, chúng ta lấy hàng đơn vị trừ hàng đơn vị trước."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 50,
+          "max": 90,
+          "step": 10
+        },
+        "b": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Bác nông dân có {a} quả táo, bác đã bán đi {b} quả. Hỏi bác còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta thực hiện phép tính $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số táo còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Số tròn chục trừ đi số đơn vị sẽ có hàng đơn vị là 10 trừ đi số đơn vị đó."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 26,
+          "max": 39,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 3",
+        "w3": "a - b - 3"
+      },
+      "questionText": "Một đàn gà có {a} con. Có {b} con đang ngủ trong chuồng. Hỏi có bao nhiêu con gà không ngủ trong chuồng?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {ans} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn tìm số con gà không ngủ, ta lấy tổng số gà trừ đi số con đang ngủ."
+      ],
+      "solutionHtml": "Số con gà không ngủ trong chuồng là:<br/>$ {a} - {b} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra kỹ các chữ số hàng đơn vị."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 60,
+          "max": 99,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 4",
+        "w3": "a - b - 4"
+      },
+      "questionText": "Bạn Hoa có {a} viên bi, bạn cho bạn thân {b} viên. Hỏi bạn Hoa còn lại bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {w3} viên",
+        "D. {ans} viên"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Phép tính cần thực hiện là $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số viên bi còn lại là:<br/>$ {a} - {b} = {ans} $ (viên).<br/>Đáp án đúng là D.",
+      "tip": "Hãy chú ý sự thay đổi của chữ số hàng đơn vị."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 22,
+          "max": 50,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "(a % 10) > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 2",
+        "w3": "a - b - 2"
+      },
+      "questionText": "Một đoàn tàu có {a} toa. Có {b} toa đang được bảo trì. Hỏi có bao nhiêu toa đang hoạt động bình thường?",
+      "options": [
+        "A. {w1} toa",
+        "B. {ans} toa",
+        "C. {w2} toa",
+        "D. {w3} toa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số toa trừ đi số toa bảo trì."
+      ],
+      "solutionHtml": "Số toa hoạt động là:<br/>$ {a} - {b} = {ans} $ (toa).<br/>Đáp án đúng là B.",
+      "tip": "Giữ nguyên hàng chục, chỉ trừ hàng đơn vị."
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a - b + 1",
+        "w3": "a - b - 1"
+      },
+      "questionText": "Mẹ mua {a} quả trứng, trong đó có {b} quả bị vỡ. Hỏi mẹ còn bao nhiêu quả trứng nguyên vẹn?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tính hiệu số $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số quả trứng còn nguyên là:<br/>$ {a} - {b} = {ans} $ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Đây là bài toán trừ trong phạm vi 20, hãy cẩn thận khi tính toán."
+    }
+  ]
+}

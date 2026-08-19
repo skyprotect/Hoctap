@@ -1,0 +1,334 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "x > y"
+      ],
+      "formulas": {
+        "ans": "6",
+        "w1": "8",
+        "w2": "4",
+        "w3": "12"
+      },
+      "questionText": "Một khối lập phương có bao nhiêu mặt phẳng giống nhau?",
+      "options": [
+        "A. {w1} mặt",
+        "B. {ans} mặt",
+        "C. {w2} mặt",
+        "D. {w3} mặt"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khối lập phương là khối hình có 6 mặt đều là hình vuông.",
+        "Hãy đếm các mặt trên dưới, trái phải, trước sau."
+      ],
+      "solutionHtml": "Khối lập phương có tất cả 6 mặt phẳng bằng nhau. Đáp án đúng là B.",
+      "tip": "Ghi nhớ: Khối lập phương có 6 mặt, khối hộp chữ nhật cũng có 6 mặt.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "8",
+        "w1": "6",
+        "w2": "10",
+        "w3": "12"
+      },
+      "questionText": "Khối lập phương có bao nhiêu đỉnh?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đỉnh là các điểm góc của khối hình.",
+        "Mỗi mặt có 4 đỉnh, ta có 2 mặt đáy và 4 góc cạnh nối giữa."
+      ],
+      "solutionHtml": "Khối lập phương có 8 đỉnh. Đáp án đúng là C.",
+      "tip": "Đếm các góc nhọn của hình vẽ khối lập phương để tìm số đỉnh.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "12",
+        "w1": "8",
+        "w2": "6",
+        "w3": "10"
+      },
+      "questionText": "Khối lập phương có bao nhiêu cạnh?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Cạnh là các đường thẳng nối giữa hai đỉnh.",
+        "Đếm số đường viền quanh khối lập phương."
+      ],
+      "solutionHtml": "Khối lập phương có 12 cạnh. Đáp án đúng là D.",
+      "tip": "Số cạnh = 4 (đáy dưới) + 4 (đáy trên) + 4 (đường nối dọc) = 12.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        },
+        "b": {
+          "min": 6,
+          "max": 9
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "6",
+        "w1": "4",
+        "w2": "8",
+        "w3": "12"
+      },
+      "questionText": "Một khối hộp chữ nhật có bao nhiêu mặt phẳng?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khối hộp chữ nhật có số mặt bằng với số mặt của khối lập phương.",
+        "Đếm mặt trước, sau, trên, dưới, trái, phải."
+      ],
+      "solutionHtml": "Khối hộp chữ nhật có 6 mặt phẳng. Đáp án đúng là B.",
+      "tip": "Khối hộp chữ nhật và khối lập phương đều có 6 mặt.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "vuông",
+        "w1": "tròn",
+        "w2": "tam giác",
+        "w3": "chữ nhật"
+      },
+      "questionText": "Các mặt của khối lập phương đều là hình gì?",
+      "options": [
+        "A. Hình {w1}",
+        "B. Hình {w2}",
+        "C. Hình {ans}",
+        "D. Hình {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khối lập phương được tạo bởi các mặt phẳng giống hệt nhau.",
+        "Đó là các hình bốn cạnh bằng nhau."
+      ],
+      "solutionHtml": "Các mặt của khối lập phương là các hình vuông bằng nhau. Đáp án đúng là C.",
+      "tip": "Khối lập phương có các mặt là hình vuông, khối hộp chữ nhật có các mặt là hình chữ nhật (hoặc hình vuông).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "hộp sữa",
+        "w1": "quả bóng",
+        "w2": "viên bi",
+        "w3": "cái mũ"
+      },
+      "questionText": "Vật nào dưới đây có dạng khối hộp chữ nhật?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm vật có 6 mặt là hình chữ nhật.",
+        "Hộp sữa thường có dạng hình khối chữ nhật."
+      ],
+      "solutionHtml": "Hộp sữa có dạng khối hộp chữ nhật. Đáp án đúng là B.",
+      "tip": "Quan sát các đồ vật trong bếp, hộp sữa hoặc hộp bánh thường có dạng khối hộp chữ nhật.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "xúc xắc",
+        "w1": "lon nước ngọt",
+        "w2": "quả cam",
+        "w3": "cái thớt"
+      },
+      "questionText": "Vật nào dưới đây có dạng khối lập phương?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khối lập phương là khối có các cạnh bằng nhau.",
+        "Xúc xắc thường là vật hình lập phương."
+      ],
+      "solutionHtml": "Viên xúc xắc có dạng khối lập phương. Đáp án đúng là C.",
+      "tip": "Xúc xắc là ví dụ điển hình nhất cho khối lập phương.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "giống nhau",
+        "w1": "khác nhau hoàn toàn",
+        "w2": "không liên quan",
+        "w3": "chỉ có 1 mặt"
+      },
+      "questionText": "Số mặt của khối lập phương và khối hộp chữ nhật là:",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khối lập phương có 6 mặt.",
+        "Khối hộp chữ nhật cũng có 6 mặt."
+      ],
+      "solutionHtml": "Cả hai khối đều có 6 mặt, nên số mặt là giống nhau. Đáp án đúng là B.",
+      "tip": "Số mặt của khối lập phương và khối hộp chữ nhật đều là 6.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "4",
+        "w1": "6",
+        "w2": "8",
+        "w3": "2"
+      },
+      "questionText": "Một khối hộp chữ nhật có 2 đáy. Mỗi đáy có bao nhiêu cạnh?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Đáy là hình chữ nhật hoặc hình vuông.",
+        "Hình chữ nhật có 4 cạnh."
+      ],
+      "solutionHtml": "Mỗi mặt đáy là hình chữ nhật nên có 4 cạnh. Đáp án đúng là B.",
+      "tip": "Mỗi mặt của khối hộp chữ nhật là hình chữ nhật, mà hình chữ nhật có 4 cạnh.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "12",
+        "w1": "6",
+        "w2": "8",
+        "w3": "10"
+      },
+      "questionText": "Tổng số cạnh của khối hộp chữ nhật là bao nhiêu?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Khối hộp chữ nhật có số cạnh bằng với khối lập phương.",
+        "Hãy nhớ lại số cạnh là 12."
+      ],
+      "solutionHtml": "Khối hộp chữ nhật có 12 cạnh. Đáp án đúng là D.",
+      "tip": "Khối lập phương và khối hộp chữ nhật đều có 8 đỉnh và 12 cạnh.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-14-d10"
+    }
+  ]
+}

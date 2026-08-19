@@ -1,0 +1,404 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === a / b) ? a + b + 1 : a + b",
+        "w2": "(a - b === a / b) ? a - b - 1 : a - b",
+        "w3": "(a * b === a / b) ? a * b + 1 : a * b"
+      },
+      "questionText": "Trong vườn có {a} bông hoa. Mẹ chia đều số hoa đó vào {b} bình. Hỏi mỗi bình có bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông hoa",
+        "B. {w2} bông hoa",
+        "C. {ans} bông hoa",
+        "D. {w3} bông hoa"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số hoa vào số bình, ta dùng phép tính chia.",
+        "Thực hiện phép tính ${a} : {b}$."
+      ],
+      "solutionHtml": "Số bông hoa trong mỗi bình là:<br/>${a} : {b} = {ans}$ (bông hoa).<br/>Đáp án đúng là C.",
+      "tip": "Khi nghe từ 'chia đều', các em hãy nghĩ ngay đến phép tính chia nhé!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === a * b) ? a + b + 1 : a + b",
+        "w2": "(a * b + 2 === a * b) ? a * b + 3 : a * b + 2",
+        "w3": "(b - a === a * b || b - a <= 0) ? b + a + 1 : b - a"
+      },
+      "questionText": "Mỗi hộp bút có {a} chiếc bút chì. Bạn Lan mua {b} hộp như thế. Hỏi Lan có tất cả bao nhiêu chiếc bút chì?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lan mua {b} lần mỗi lần là {a} chiếc bút.",
+        "Ta làm phép tính nhân ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Tổng số bút chì Lan có là:<br/>${a} \\times {b} = {ans}$ (chiếc bút).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân là phép cộng các số hạng bằng nhau đấy!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 18,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === a / b) ? a + b + 1 : a + b",
+        "w2": "(a - b === a / b || a - b <= 0) ? a - b + 5 : a - b",
+        "w3": "(a + 2 === a / b) ? a + 3 : a + 2"
+      },
+      "questionText": "Có {a} quả cam, xếp vào các đĩa, mỗi đĩa {b} quả. Hỏi xếp được bao nhiêu đĩa cam?",
+      "options": [
+        "A. {w1} đĩa",
+        "B. {w2} đĩa",
+        "C. {ans} đĩa",
+        "D. {w3} đĩa"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số đĩa cam tức là tìm xem {a} chia được thành bao nhiêu nhóm mỗi nhóm {b} quả.",
+        "Ta thực hiện ${a} : {b}$."
+      ],
+      "solutionHtml": "Số đĩa cam xếp được là:<br/>${a} : {b} = {ans}$ (đĩa).<br/>Đáp án đúng là C.",
+      "tip": "Chia nhóm bằng nhau chính là phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === a * b) ? a + b + 1 : a + b",
+        "w2": "(a + b + 2 === a * b) ? a + b + 3 : a + b + 2",
+        "w3": "(a * b + 1 === a * b) ? a * b + 2 : a * b + 1"
+      },
+      "questionText": "Một đàn gà có {a} con. Mỗi con gà có {b} cái chân. Hỏi cả đàn gà có tất cả bao nhiêu cái chân?",
+      "options": [
+        "A. {w1} chân",
+        "B. {w2} chân",
+        "C. {ans} chân",
+        "D. {w3} chân"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi con có {b} chân, có {a} con như vậy.",
+        "Ta thực hiện ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Tổng số chân gà là:<br/>${a} \\times {b} = {ans}$ (chân).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề bài để xác định xem mỗi phần tử có bao nhiêu đơn vị nhỏ hơn nhé!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === a * b) ? a + b + 1 : a + b",
+        "w2": "(a * b - 1 === a * b || a * b - 1 <= 0) ? a * b + 1 : a * b - 1",
+        "w3": "(a + b + 5 === a * b) ? a + b + 6 : a + b + 5"
+      },
+      "questionText": "Có {b} túi bi, mỗi túi có {a} viên bi. Hỏi có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Số bi được chia đều vào {b} túi, mỗi túi {a} viên.",
+        "Ta lấy ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Tổng số viên bi là:<br/>${a} \\times {b} = {ans}$ (viên bi).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số nhóm và số lượng mỗi nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 12,
+          "max": 20,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a - b === a / b || a - b <= 0) ? a - b + 5 : a - b",
+        "w2": "(a + b === a / b) ? a + b + 1 : a + b",
+        "w3": "(a / 2 === a / b) ? a / 2 + 1 : a / 2"
+      },
+      "questionText": "Mẹ có {a} chiếc bánh, mẹ chia cho {b} anh em. Hỏi mỗi người được bao nhiêu chiếc bánh?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia cho {b} người, ta lấy tổng số bánh chia cho {b}.",
+        "Phép tính: ${a} : {b}$."
+      ],
+      "solutionHtml": "Số bánh mỗi người nhận được là:<br/>${a} : {b} = {ans}$ (chiếc).<br/>Đáp án đúng là C.",
+      "tip": "Chia đều tức là mỗi phần bằng nhau, dùng phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === a * b) ? a + b + 1 : a + b",
+        "w2": "(a * b + 3 === a * b) ? a * b + 4 : a * b + 3",
+        "w3": "(a * b - 1 === a * b || a * b - 1 <= 0) ? a * b + 1 : a * b - 1"
+      },
+      "questionText": "Một hàng cây có {a} cây, mỗi cây có {b} con chim đậu. Hỏi có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {ans} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có {a} cây, mỗi cây {b} con, ta làm phép nhân.",
+        "Phép tính: ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Tổng số con chim là:<br/>${a} \\times {b} = {ans}$ (con).<br/>Đáp án đúng là C.",
+      "tip": "Cẩn thận với các số liệu đề bài đưa ra nhé!",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === a / b) ? a + b + 1 : a + b",
+        "w2": "(a - b === a / b || a - b <= 0) ? a - b + 5 : a - b",
+        "w3": "(a * b === a / b) ? a * b + 1 : a * b"
+      },
+      "questionText": "Có {a} quyển vở, xếp đều vào {b} ngăn tủ. Hỏi mỗi ngăn có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {ans} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Xếp đều vào {b} ngăn nghĩa là chia cho {b}.",
+        "Phép tính: ${a} : {b}$."
+      ],
+      "solutionHtml": "Số quyển vở trong mỗi ngăn là:<br/>${a} : {b} = {ans}$ (quyển).<br/>Đáp án đúng là C.",
+      "tip": "Đọc đề thật kỹ để phân biệt bài toán nhân hay chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "true"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "(a + b === a * b) ? a + b + 1 : a + b",
+        "w2": "(a * b + 2 === a * b) ? a * b + 3 : a * b + 2",
+        "w3": "(a + b + 4 === a * b) ? a + b + 5 : a + b + 4"
+      },
+      "questionText": "Một chiếc xe đạp có {a} bánh xe. Hỏi {b} chiếc xe đạp như thế có bao nhiêu bánh xe?",
+      "options": [
+        "A. {w1} bánh",
+        "B. {w2} bánh",
+        "C. {ans} bánh",
+        "D. {w3} bánh"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Mỗi chiếc {a} bánh, có {b} chiếc thì ta lấy {a} nhân với {b}.",
+        "Phép tính: ${a} \\times {b}$."
+      ],
+      "solutionHtml": "Tổng số bánh xe là:<br/>${a} \\times {b} = {ans}$ (bánh).<br/>Đáp án đúng là C.",
+      "tip": "Các bài toán thực tế thường dùng phép nhân để tính tổng khi biết các phần bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 16,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "(a + b === a / b) ? a + b + 1 : a + b",
+        "w2": "(a - b === a / b || a - b <= 0) ? a - b + 5 : a - b",
+        "w3": "(a + 1 === a / b) ? a + 2 : a + 1"
+      },
+      "questionText": "Có {a} viên kẹo được chia đều vào {b} túi. Hỏi mỗi túi có bao nhiêu viên kẹo?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia {a} viên kẹo vào {b} túi là thực hiện phép chia.",
+        "Phép tính: ${a} : {b}$."
+      ],
+      "solutionHtml": "Số kẹo trong mỗi túi là:<br/>${a} : {b} = {ans}$ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Ghi nhớ các từ khóa như 'chia đều', 'mỗi' để nhận diện phép tính.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-6-d4"
+    }
+  ]
+}

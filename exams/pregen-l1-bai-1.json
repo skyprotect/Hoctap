@@ -1,0 +1,348 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "(a + b) <= 5"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b === 1) ? 2 : 1",
+        "w2": "(a + b === 4) ? 5 : 4",
+        "w3": "(a + b === 3) ? 5 : 3"
+      },
+      "questionText": "Lan có {a} chiếc bút đỏ và {b} chiếc bút xanh. Hỏi Lan có tất cả bao nhiêu chiếc bút?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lan có bút đỏ và bút xanh, để tìm tổng số bút ta dùng phép cộng."
+      ],
+      "solutionHtml": "Số bút Lan có là:<br/>$ {a} + {b} = {ans} $ (chiếc bút).",
+      "tip": "Khi muốn tìm tổng số lượng, ta cộng các nhóm lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "(a - b === 2) ? 4 : 2",
+        "w2": "(a - b === 1) ? 3 : 1",
+        "w3": "a + b"
+      },
+      "questionText": "Trên cành cây có {a} quả táo, chim bay đến ăn mất {b} quả. Hỏi trên cành còn lại bao nhiêu quả táo?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có {a} quả, ăn mất {b} quả tức là bớt đi {b} quả."
+      ],
+      "solutionHtml": "Số quả táo còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).",
+      "tip": "Khi vật phẩm bị mất đi hoặc ăn đi, ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 0,
+          "max": 2
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "(a + b) <= 5"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a",
+        "w3": "b"
+      },
+      "questionText": "Trong giỏ không có quả nào, mẹ bỏ thêm vào {a} quả cam, sau đó bố lại bỏ thêm vào {b} quả cam nữa. Hỏi trong giỏ có tất cả mấy quả cam?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số 0 nghĩa là không có gì. Ta cộng số quả mẹ bỏ vào và số quả bố bỏ vào."
+      ],
+      "solutionHtml": "Số quả cam có trong giỏ là:<br/>$ {a} + {b} = {ans} $ (quả).",
+      "tip": "Số 0 cộng với bất kỳ số nào cũng bằng chính số đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "0"
+      },
+      "questionText": "Bạn An có {a} quyển vở. Bạn Bình cũng có số quyển vở bằng số quyển vở của An. Hỏi bạn Bình có bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Hai bạn có số vở bằng nhau nghĩa là số lượng là như nhau."
+      ],
+      "solutionHtml": "Vì số vở của hai bạn bằng nhau, nên Bình cũng có {ans} quyển vở.",
+      "tip": "Từ 'bằng nhau' trong toán học chỉ sự cân bằng về số lượng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "0",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "1"
+      },
+      "questionText": "Trên đĩa có {a} cái bánh, bạn Minh ăn hết sạch cả {a} cái bánh. Hỏi trên đĩa còn lại bao nhiêu cái bánh?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Ăn hết sạch nghĩa là số bánh còn lại là không còn cái nào."
+      ],
+      "solutionHtml": "Số bánh còn lại là:<br/>$ {a} - {a} = {ans} $ (cái).",
+      "tip": "Một số trừ đi chính nó luôn bằng 0.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 2
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        },
+        "c": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      "constraints": [
+        "(a + b + c) <= 5"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "a + c",
+        "w3": "b + c"
+      },
+      "questionText": "Tổ một có {a} bạn, tổ hai có {b} bạn, tổ ba có {c} bạn. Hỏi cả ba tổ có tất cả bao nhiêu bạn?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {w3}",
+        "D. {ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn tìm tổng số bạn của cả ba tổ, ta lấy số bạn của từng tổ cộng lại."
+      ],
+      "solutionHtml": "Số bạn của cả ba tổ là:<br/>$ {a} + {b} + {c} = {ans} $ (bạn).",
+      "tip": "Khi có nhiều nhóm, ta lần lượt cộng các nhóm vào với nhau.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b"
+      },
+      "questionText": "Mẹ mua {a} quả cam, mẹ biếu bà {b} quả. Hỏi mẹ còn lại bao nhiêu quả cam?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Biếu đi nghĩa là mình bớt đi số lượng quả cam đã có."
+      ],
+      "solutionHtml": "Số quả cam mẹ còn lại là:<br/>$ {a} - {b} = {ans} $ (quả).",
+      "tip": "Từ 'biếu', 'tặng', 'ăn' đều chỉ sự giảm đi (phép trừ).",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + 1",
+        "w1": "a",
+        "w2": "a - 1",
+        "w3": "a + 2"
+      },
+      "questionText": "Bạn Nam có {a} viên bi, bạn Nam được tặng thêm 1 viên bi nữa. Hỏi bây giờ Nam có tất cả bao nhiêu viên bi?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Được tặng thêm 1 nghĩa là số lượng tăng thêm 1 đơn vị."
+      ],
+      "solutionHtml": "Số viên bi Nam có bây giờ là:<br/>$ {a} + 1 = {ans} $ (viên bi).",
+      "tip": "Thêm 1 đơn vị tương ứng với số liền sau của số đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - 1",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "1"
+      },
+      "questionText": "Trên sân có {a} con gà, có 1 con chạy vào trong nhà. Hỏi trên sân còn lại bao nhiêu con gà?",
+      "options": [
+        "A. {w1}",
+        "B. {w2}",
+        "C. {ans}",
+        "D. {w3}"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chạy đi mất 1 con nghĩa là giảm đi 1 đơn vị."
+      ],
+      "solutionHtml": "Số con gà còn lại trên sân là:<br/>$ {a} - 1 = {ans} $ (con gà).",
+      "tip": "Bớt đi 1 đơn vị tương ứng với số liền trước của số đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + 0",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "0"
+      },
+      "questionText": "Trong hộp có {a} cái kẹo, mẹ không cho thêm cái nào cũng không lấy đi cái nào. Hỏi trong hộp còn lại bao nhiêu cái kẹo?",
+      "options": [
+        "A. {w1}",
+        "B. {ans}",
+        "C. {w2}",
+        "D. {w3}"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Không thêm, không bớt nghĩa là số lượng không thay đổi."
+      ],
+      "solutionHtml": "Số kẹo vẫn giữ nguyên là: $ {a} $ (cái).",
+      "tip": "Cộng hay trừ với 0 thì giá trị vẫn giữ nguyên.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-1-d10"
+    }
+  ]
+}

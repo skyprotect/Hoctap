@@ -338,12 +338,17 @@ const generator = {
             // Sử dụng Object.create để tránh kích hoạt sớm các Getter trong context
             const ctx = Object.create(context || {});
             // Định nghĩa các helper toán học trực tiếp trên ctx che đi prototype
+            Math.gcd = (a, b) => self.gcd(a, b);
+            Math.lcm = (a, b) => self.lcm(a, b);
+            Math.isPrime = (n) => self.isPrime(n);
+            Math.sumDigits = (n) => self.sumDigits(n);
             const helpers = {
                 this: context,
                 Math: Math,
                 parseInt: parseInt,
                 parseFloat: parseFloat,
                 isNaN: isNaN,
+                abs: (n) => Math.abs(n),
                 gcd: (a, b) => self.gcd(a, b),
                 lcm: (a, b) => self.lcm(a, b),
                 ƯCLN: (a, b) => self.gcd(a, b),

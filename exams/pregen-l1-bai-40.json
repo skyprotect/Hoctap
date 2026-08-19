@@ -1,0 +1,372 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "c": {
+          "min": 2,
+          "max": 5
+        },
+        "s": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "c * s <= 20"
+      ],
+      "formulas": {
+        "ans": "c + s",
+        "w1": "(c + s + 2 === c + s) ? c + s + 5 : c + s + 2",
+        "w2": "(c + s - 1 === c + s) ? c + s + 5 : c + s - 1",
+        "w3": "(c + s + 3 === c + s) ? c + s + 6 : c + s + 3"
+      },
+      "questionText": "Một hình chữ nhật có chiều rộng là {c} cm, chiều dài là {s} cm. Tổng độ dài của hai cạnh này là bao nhiêu?",
+      "options": [
+        "A. {w1} cm",
+        "B. {ans} cm",
+        "C. {w2} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tổng độ dài hai cạnh là phép cộng: chiều rộng cộng chiều dài.",
+        "Ta thực hiện: ${c} + {s} = ?$"
+      ],
+      "solutionHtml": "Tổng độ dài của hai cạnh là:<br/>${c} + {s} = {ans}$ (cm).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề bài yêu cầu tìm 'tổng độ dài', không phải tính chu vi.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 5,
+          "max": 10
+        },
+        "d": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "h > d"
+      ],
+      "formulas": {
+        "ans": "h - d",
+        "w1": "h + d",
+        "w2": "h + 1",
+        "w3": "d + 2"
+      },
+      "questionText": "Sợi dây thứ nhất dài {h} cm, sợi dây thứ hai ngắn hơn sợi dây thứ nhất {d} cm. Hỏi sợi dây thứ hai dài bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {ans} cm",
+        "D. {w3} cm"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Vì sợi dây thứ hai ngắn hơn, ta dùng phép tính trừ.",
+        "Ta thực hiện: ${h} - {d} = ?$"
+      ],
+      "solutionHtml": "Độ dài sợi dây thứ hai là:<br/>${h} - {d} = {ans}$ (cm).<br/>Đáp án đúng là C.",
+      "tip": "Khi đề bài nói 'ngắn hơn', ta luôn dùng phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "v": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "v > 2"
+      ],
+      "formulas": {
+        "ans": "v * 4",
+        "w1": "v + 4",
+        "w2": "v * 3",
+        "w3": "v + 8"
+      },
+      "questionText": "Một hình vuông có cạnh dài {v} cm. Hỏi chu vi của hình vuông đó là bao nhiêu xăng-ti-mét?",
+      "options": [
+        "A. {w1} cm",
+        "B. {w2} cm",
+        "C. {w3} cm",
+        "D. {ans} cm"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Chu vi hình vuông bằng độ dài một cạnh nhân với 4.",
+        "Ta thực hiện: ${v} \\times 4 = ?$"
+      ],
+      "solutionHtml": "Chu vi hình vuông là:<br/>${v} \\times 4 = {ans}$ (cm).<br/>Đáp án đúng là D.",
+      "tip": "Hình vuông có 4 cạnh bằng nhau, chu vi là tổng độ dài 4 cạnh.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20
+        },
+        "b": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "b * b"
+      },
+      "questionText": "Bạn An có {a} viên bi, bạn ấy chia đều vào {b} chiếc hộp. Hỏi mỗi chiếc hộp có bao nhiêu viên bi?",
+      "options": [
+        "A. {w1} viên",
+        "B. {w2} viên",
+        "C. {ans} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chia đều số lượng vào các nhóm, ta dùng phép tính chia.",
+        "Ta thực hiện: ${a} : {b} = ?$"
+      ],
+      "solutionHtml": "Số viên bi trong mỗi hộp là:<br/>${a} : {b} = {ans}$ (viên).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'chia đều' là dấu hiệu của phép tính chia.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 10,
+          "max": 15
+        },
+        "n": {
+          "min": 5,
+          "max": 8
+        }
+      },
+      "constraints": [
+        "h > n"
+      ],
+      "formulas": {
+        "ans": "h - n",
+        "w1": "h + n",
+        "w2": "n + 2",
+        "w3": "h - 1"
+      },
+      "questionText": "Trên cành có {h} con chim, sau đó có {n} con chim bay đi. Hỏi trên cành còn lại bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {w3} con",
+        "D. {ans} con"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Bay đi nghĩa là số lượng giảm bớt, ta dùng phép tính trừ.",
+        "Ta thực hiện: ${h} - {n} = ?$"
+      ],
+      "solutionHtml": "Số chim còn lại trên cành là:<br/>${h} - {n} = {ans}$ (con).<br/>Đáp án đúng là D.",
+      "tip": "Bay đi hoặc mất đi đều là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "x": {
+          "min": 2,
+          "max": 5
+        },
+        "y": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "x !== y"
+      ],
+      "formulas": {
+        "ans": "x + y",
+        "w1": "x + y + 1",
+        "w2": "x * y",
+        "w3": "x + y - 1"
+      },
+      "questionText": "Mai có {x} quyển vở, mẹ mua thêm cho Mai {y} quyển vở nữa. Hỏi Mai có tất cả bao nhiêu quyển vở?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {ans} quyển",
+        "C. {w2} quyển",
+        "D. {w3} quyển"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mua thêm nghĩa là số lượng tăng lên, ta dùng phép cộng.",
+        "Ta thực hiện: ${x} + {y} = ?$"
+      ],
+      "solutionHtml": "Tổng số quyển vở Mai có là:<br/>${x} + {y} = {ans}$ (quyển).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'thêm' hoặc 'tất cả' là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [
+        "a > 0"
+      ],
+      "formulas": {
+        "ans": "a * 2",
+        "w1": "a + 2",
+        "w2": "a * 3",
+        "w3": "a + 1"
+      },
+      "questionText": "Trong vườn có {a} cây cam, số cây táo gấp đôi số cây cam. Hỏi trong vườn có bao nhiêu cây táo?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Gấp đôi nghĩa là nhân với 2.",
+        "Ta thực hiện: ${a} \\times 2 = ?$"
+      ],
+      "solutionHtml": "Số cây táo trong vườn là:<br/>${a} \\times 2 = {ans}$ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Gấp đôi chính là lấy số đó cộng với chính nó hoặc nhân 2.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "b + 1",
+        "w3": "a + 1"
+      },
+      "questionText": "Lan có {a} cái bút chì, Huệ có ít hơn Lan {b} cái bút chì. Hỏi Huệ có bao nhiêu cái bút chì?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {w3} cái",
+        "D. {ans} cái"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Ít hơn nghĩa là làm phép tính trừ.",
+        "Ta thực hiện: ${a} - {b} = ?$"
+      ],
+      "solutionHtml": "Số bút chì Huệ có là:<br/>${a} - {b} = {ans}$ (cái).<br/>Đáp án đúng là D.",
+      "tip": "Cẩn thận với cụm từ 'ít hơn', ta cần lấy số lớn trừ số bé.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "d": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "d > 1"
+      ],
+      "formulas": {
+        "ans": "d * 3",
+        "w1": "d + 3",
+        "w2": "d * 2",
+        "w3": "d + 6"
+      },
+      "questionText": "Mỗi cái bàn có 3 chiếc chân. Hỏi {d} cái bàn như thế có tất cả bao nhiêu chiếc chân?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Ta có {d} nhóm, mỗi nhóm có 3 cái chân, nên ta làm phép nhân.",
+        "Ta thực hiện: $3 \\times {d} = ?$"
+      ],
+      "solutionHtml": "Số chân bàn là:<br/>$3 \\times {d} = {ans}$ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số lượng của một đơn vị, muốn tìm tổng số của nhiều đơn vị giống nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 6,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + 1",
+        "w3": "b + 5"
+      },
+      "questionText": "Hôm qua mẹ mua {a} quả táo, hôm nay mẹ mua thêm {b} quả nữa. Hỏi cả hai ngày mẹ mua bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả",
+        "B. {w2} quả",
+        "C. {ans} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cả hai ngày nghĩa là tổng cộng, ta làm phép cộng.",
+        "Ta thực hiện: ${a} + {b} = ?$"
+      ],
+      "solutionHtml": "Tổng số táo mẹ mua là:<br/>${a} + {b} = {ans}$ (quả).<br/>Đáp án đúng là C.",
+      "tip": "Đề bài hỏi 'cả hai ngày' thì ta lấy số lượng ngày thứ nhất cộng ngày thứ hai.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-40-d4"
+    }
+  ]
+}

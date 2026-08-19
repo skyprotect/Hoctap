@@ -1,0 +1,194 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $8100 : 10$.",
+      "options": [
+        "$8100$",
+        "$81000$",
+        "$8090$",
+        "$810$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi chia một số tròn chục cho $10$, ta bỏ đi một chữ số $0$ ở bên phải số đó: $8100 : 10 = 810$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $1200 : 10$.",
+      "options": [
+        "$1200$",
+        "$1190$",
+        "$120$",
+        "$12000$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi chia một số tròn chục cho $10$, ta bỏ đi một chữ số $0$ ở bên phải số đó: $1200 : 10 = 120$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $230 \\cdot 100$.",
+      "options": [
+        "$230000$",
+        "$2300$",
+        "$23000$",
+        "$330$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi nhân số tự nhiên với $100$, ta viết thêm hai chữ số $0$ vào bên phải số đó: $230 \\cdot 100 = 23000$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $3800 : 10$.",
+      "options": [
+        "$380$",
+        "$3790$",
+        "$38000$",
+        "$3800$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi chia một số tròn chục cho $10$, ta bỏ đi một chữ số $0$ ở bên phải số đó: $3800 : 10 = 380$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $270 \\cdot 100$.",
+      "options": [
+        "$2700$",
+        "$270000$",
+        "$370$",
+        "$27000$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi nhân số tự nhiên với $100$, ta viết thêm hai chữ số $0$ vào bên phải số đó: $270 \\cdot 100 = 27000$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $5100 : 10$.",
+      "options": [
+        "$51000$",
+        "$510$",
+        "$5090$",
+        "$5100$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi chia một số tròn chục cho $10$, ta bỏ đi một chữ số $0$ ở bên phải số đó: $5100 : 10 = 510$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $910 \\cdot 100$.",
+      "options": [
+        "$1010$",
+        "$9100$",
+        "$91000$",
+        "$910000$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi nhân số tự nhiên với $100$, ta viết thêm hai chữ số $0$ vào bên phải số đó: $910 \\cdot 100 = 91000$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $900 \\cdot 100$.",
+      "options": [
+        "$1000$",
+        "$9000$",
+        "$90000$",
+        "$900000$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi nhân số tự nhiên với $100$, ta viết thêm hai chữ số $0$ vào bên phải số đó: $900 \\cdot 100 = 90000$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $9800 : 10$.",
+      "options": [
+        "$98000$",
+        "$9790$",
+        "$9800$",
+        "$980$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi chia một số tròn chục cho $10$, ta bỏ đi một chữ số $0$ ở bên phải số đó: $9800 : 10 = 980$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính nhẩm: $9300 : 10$.",
+      "options": [
+        "$9290$",
+        "$930$",
+        "$93000$",
+        "$9300$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Quy tắc thêm hoặc bớt các chữ số 0 ở bên phải số tự nhiên khi nhân/chia với 10, 100."
+      ],
+      "solutionHtml": "Khi chia một số tròn chục cho $10$, ta bỏ đi một chữ số $0$ ở bên phải số đó: $9300 : 10 = 930$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-nhan-chia-10-100",
+      "forceMCQ": false
+    }
+  ]
+}

@@ -417,9 +417,12 @@
       ],
       "formulas": {
         "diff_temp": "Math.abs(temp_city_a - temp_city_b)",
-        "w1": "temp_city_a + temp_city_b",
-        "w2": "Math.abs(temp_city_a) + Math.abs(temp_city_b)",
-        "w3": "temp_city_a - temp_city_b"
+        "w1_raw": "temp_city_a + temp_city_b",
+        "w2_raw": "Math.abs(temp_city_a) + Math.abs(temp_city_b)",
+        "w3_raw": "temp_city_a - temp_city_b",
+        "w1": "(w1_raw === diff_temp) ? w1_raw + 4 : w1_raw",
+        "w2": "(w2_raw === diff_temp || w2_raw === w1) ? (((diff_temp + 6) === w1) ? diff_temp + 8 : diff_temp + 6) : w2_raw",
+        "w3": "(w3_raw === diff_temp || w3_raw === w1 || w3_raw === w2) ? diff_temp + 12 : w3_raw"
       },
       "questionText": "Nhiệt độ vào buổi sáng ở thành phố A là {temp_city_a}°C và ở thành phố B là {temp_city_b}°C. Hỏi độ chênh lệch nhiệt độ giữa hai thành phố này là bao nhiêu?",
       "options": [

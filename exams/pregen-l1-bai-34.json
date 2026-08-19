@@ -1,0 +1,372 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "gio": {
+          "min": 1,
+          "max": 11,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "gio > 0"
+      ],
+      "formulas": {
+        "ans": "gio",
+        "w1": "(gio + 1 > 12) ? 1 : gio + 1",
+        "w2": "(gio + 2 > 12) ? 2 : gio + 2",
+        "w3": "(gio + 3 > 12) ? 3 : gio + 3"
+      },
+      "questionText": "Đồng hồ đang chỉ giờ đúng. Kim dài chỉ số 12, kim ngắn chỉ đúng số {gio}. Hỏi bây giờ là mấy giờ?",
+      "options": [
+        "{gio} giờ",
+        "{w1} giờ",
+        "{w2} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Khi kim dài chỉ số 12, kim ngắn chỉ số nào thì đó chính là giờ đúng.",
+        "Ở đây kim ngắn chỉ số {gio}."
+      ],
+      "solutionHtml": "Khi kim dài chỉ số 12, kim ngắn chỉ vào số {gio}, đồng hồ báo hiệu đúng {gio} giờ.<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Hãy nhớ: Kim dài ở số 12, kim ngắn chỉ ở đâu thì đó là giờ đó.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 1,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h > 0"
+      ],
+      "formulas": {
+        "ans": "h",
+        "w1": "(h + 2 > 12) ? 1 : h + 2",
+        "w2": "(h + 3 > 12) ? 2 : h + 3",
+        "w3": "(h + 4 > 12) ? 3 : h + 4"
+      },
+      "questionText": "Bé Lan đi học lúc 7 giờ sáng. Sau khi tan học về nhà, kim dài chỉ số 12 và kim ngắn chỉ số {h}. Hỏi Lan về nhà lúc mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{ans} giờ",
+        "{w2} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Kim dài chỉ số 12 là biểu hiện của giờ đúng.",
+        "Kim ngắn chỉ số {h} nghĩa là {h} giờ."
+      ],
+      "solutionHtml": "Vì kim dài chỉ số 12 và kim ngắn chỉ số {h}, nên thời điểm đó là {h} giờ.<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Đồng hồ chỉ giờ đúng luôn có kim dài ở vị trí số 12.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + 2 <= 12"
+      ],
+      "formulas": {
+        "ans": "a + 2",
+        "w1": "a",
+        "w2": "a + 1",
+        "w3": "a + 3"
+      },
+      "questionText": "Bây giờ là {a} giờ. Hỏi 2 giờ nữa sẽ là mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{w2} giờ",
+        "{ans} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết 2 giờ nữa là mấy giờ, ta lấy số giờ hiện tại cộng thêm 2.",
+        "Phép tính: ${a} + 2$."
+      ],
+      "solutionHtml": "2 giờ nữa là: ${a} + 2 = {ans}$ (giờ).<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Cộng thêm số giờ cần tìm vào giờ hiện tại.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 12,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a - 3 > 0"
+      ],
+      "formulas": {
+        "ans": "a - 3",
+        "w1": "a - 1",
+        "w2": "a - 2",
+        "w3": "a + 1"
+      },
+      "questionText": "Bây giờ là {a} giờ. Hỏi 3 giờ trước là mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{w2} giờ",
+        "{w3} giờ",
+        "{ans} giờ"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Muốn biết 3 giờ trước là mấy giờ, ta lấy số giờ hiện tại trừ đi 3.",
+        "Phép tính: ${a} - 3$."
+      ],
+      "solutionHtml": "3 giờ trước là: ${a} - 3 = {ans}$ (giờ).<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Tìm thời gian trong quá khứ ta thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h1": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "h2": {
+          "min": 6,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h2 > h1"
+      ],
+      "formulas": {
+        "ans": "h2 - h1",
+        "w1": "h2 + h1",
+        "w2": "h2 - h1 + 1",
+        "w3": "h2 - h1 - 1"
+      },
+      "questionText": "Bạn An bắt đầu làm bài tập lúc {h1} giờ và làm xong lúc {h2} giờ. Hỏi bạn An làm bài trong mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{ans} giờ",
+        "{w2} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm khoảng thời gian, ta lấy giờ kết thúc trừ đi giờ bắt đầu.",
+        "Phép tính: ${h2} - {h1}$."
+      ],
+      "solutionHtml": "Thời gian An làm bài là: ${h2} - {h1} = {ans}$ (giờ).<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Khoảng cách thời gian là hiệu của hai thời điểm.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 7,
+          "max": 9,
+          "step": 1
+        },
+        "duration": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "start + duration <= 12"
+      ],
+      "formulas": {
+        "ans": "start + duration",
+        "w1": "start - duration",
+        "w2": "start + duration + 1",
+        "w3": "start + duration - 1"
+      },
+      "questionText": "Một bộ phim bắt đầu chiếu lúc {start} giờ và kéo dài trong {duration} giờ. Hỏi bộ phim kết thúc lúc mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{w2} giờ",
+        "{ans} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Thời gian kết thúc bằng thời gian bắt đầu cộng với thời gian kéo dài.",
+        "Phép tính: ${start} + {duration}$."
+      ],
+      "solutionHtml": "Bộ phim kết thúc lúc: ${start} + {duration} = {ans}$ (giờ).<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Cộng thời gian kéo dài vào giờ bắt đầu để ra giờ kết thúc.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 2,
+          "max": 11,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h > 0"
+      ],
+      "formulas": {
+        "ans": "h",
+        "w1": "h + 1",
+        "w2": "h - 1",
+        "w3": "12"
+      },
+      "questionText": "Trên mặt đồng hồ, kim ngắn chỉ vào số {h}, kim dài chỉ thẳng vào số 12. Hỏi đồng hồ chỉ mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{w2} giờ",
+        "{ans} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khi kim dài chỉ số 12, số giờ được xác định bởi vị trí kim ngắn."
+      ],
+      "solutionHtml": "Kim dài ở số 12 và kim ngắn ở số {h} có nghĩa là đúng {h} giờ.<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Đừng nhầm lẫn giữa vị trí hai kim.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + b <= 12"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a + b + 1",
+        "w2": "a + b - 1",
+        "w3": "a"
+      },
+      "questionText": "Bé Nam đi ngủ lúc {a} giờ, bé ngủ được {b} giờ thì dậy. Hỏi bé dậy lúc mấy giờ?",
+      "options": [
+        "{w1} giờ",
+        "{ans} giờ",
+        "{w2} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Giờ thức dậy = giờ đi ngủ + thời gian ngủ.",
+        "Phép tính: ${a} + {b}$."
+      ],
+      "solutionHtml": "Bé Nam dậy lúc: ${a} + {b} = {ans}$ (giờ).<br/>Đáp án đúng là: {ans} giờ.",
+      "tip": "Cộng thời gian ngủ vào thời điểm đi ngủ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "h": {
+          "min": 3,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "h > 1"
+      ],
+      "formulas": {
+        "ans": "12",
+        "w1": "3",
+        "w2": "6",
+        "w3": "9"
+      },
+      "questionText": "Nếu bây giờ là {h} giờ đúng, thì kim dài của đồng hồ đang chỉ vào số nào?",
+      "options": [
+        "{w1}",
+        "{w2}",
+        "{w3}",
+        "{ans}"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Trong tất cả các giờ đúng (như 1 giờ, 2 giờ, 3 giờ...), kim dài luôn chỉ vào một số cố định."
+      ],
+      "solutionHtml": "Với mọi giờ đúng trên đồng hồ, kim dài luôn luôn chỉ vào số 12.<br/>Đáp án đúng là: 12.",
+      "tip": "Hãy nhớ: Giờ đúng thì kim dài luôn ở số 12.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a + b <= 12"
+      ],
+      "formulas": {
+        "ans": "b",
+        "w1": "a",
+        "w2": "a + b",
+        "w3": "b + 1"
+      },
+      "questionText": "Từ lúc {a} giờ đến lúc {a+b} giờ là mấy giờ? (Chọn đáp án đúng về khoảng thời gian)",
+      "options": [
+        "{w1} giờ",
+        "{ans} giờ",
+        "{w2} giờ",
+        "{w3} giờ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Khoảng thời gian = Thời điểm kết thúc - Thời điểm bắt đầu.",
+        "Phép tính: ${a+b} - {a}$."
+      ],
+      "solutionHtml": "Khoảng thời gian là: ${a+b} - {a} = {b}$ (giờ).<br/>Đáp án đúng là: {b} giờ.",
+      "tip": "Đọc kỹ câu hỏi để xác định đó là tính thời điểm hay khoảng thời gian.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-34-d10"
+    }
+  ]
+}

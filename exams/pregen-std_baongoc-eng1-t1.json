@@ -1,0 +1,372 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 2",
+        "w3": "b + b"
+      },
+      "questionText": "Trên sân chơi có {a} bạn đang chơi bóng và {b} bạn đang nhảy dây. Hỏi có tất cả bao nhiêu bạn đang ở trên sân chơi?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {ans} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để biết tổng số bạn, ta thực hiện phép tính cộng.",
+        "Ta lấy số bạn chơi bóng cộng với số bạn nhảy dây."
+      ],
+      "solutionHtml": "Số bạn trên sân chơi là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'có tất cả bao nhiêu', ta thường dùng phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 10,
+          "max": 15
+        },
+        "leave": {
+          "min": 2,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "total > leave"
+      ],
+      "formulas": {
+        "ans": "total - leave",
+        "w1": "total + leave",
+        "w2": "total - leave + 1",
+        "w3": "total - 1"
+      },
+      "questionText": "Sân trường đang có {total} bạn chơi trốn tìm. Có {leave} bạn phải về lớp học bài. Hỏi trên sân còn lại bao nhiêu bạn?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Vì có các bạn rời đi, ta thực hiện phép tính trừ.",
+        "Lấy tổng số bạn trừ đi số bạn đã về lớp."
+      ],
+      "solutionHtml": "Số bạn còn lại trên sân là:<br/>$ {total} - {leave} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi có số lượng bớt đi, ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "boys": {
+          "min": 4,
+          "max": 7
+        },
+        "girls": {
+          "min": 4,
+          "max": 7
+        }
+      },
+      "constraints": [
+        "boys !== girls"
+      ],
+      "formulas": {
+        "ans": "boys + girls",
+        "w1": "boys > girls ? (boys - girls) : (girls - boys)",
+        "w2": "boys + girls + 1",
+        "w3": "boys + girls - 1"
+      },
+      "questionText": "Trong giờ ra chơi, nhóm bạn nam có {boys} bạn và nhóm bạn nữ có {girls} bạn cùng chơi đuổi bắt. Tổng số bạn trong trò chơi này là bao nhiêu?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm tổng số bạn của hai nhóm, ta lấy số bạn nam cộng với số bạn nữ.",
+        "Phép tính là $ {boys} + {girls} $."
+      ],
+      "solutionHtml": "Tổng số bạn tham gia là:<br/>$ {boys} + {girls} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ đề để xác định nhóm nào và phép tính cần dùng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 12
+        }
+      },
+      "constraints": [
+        "a % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a / 2",
+        "w1": "a + 2",
+        "w2": "a - 2",
+        "w3": "a * 2"
+      },
+      "questionText": "Có {a} quả bóng được chia đều cho 2 nhóm bạn đá bóng trên sân. Hỏi mỗi nhóm nhận được bao nhiêu quả bóng?",
+      "options": [
+        "A. {ans} quả bóng",
+        "B. {w1} quả bóng",
+        "C. {w2} quả bóng",
+        "D. {w3} quả bóng"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Chia đều cho 2 nhóm, ta dùng phép chia.",
+        "Số bóng mỗi nhóm là $ {a} : 2 $."
+      ],
+      "solutionHtml": "Mỗi nhóm nhận được số bóng là:<br/>$ {a} : 2 = {ans} $ (quả bóng).<br/>Đáp án đúng là A.",
+      "tip": "Cụm từ 'chia đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "birds": {
+          "min": 3,
+          "max": 6
+        },
+        "cats": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "birds + cats",
+        "w1": "birds * cats",
+        "w2": "birds - cats + 1",
+        "w3": "birds + cats + 3"
+      },
+      "questionText": "Trên sân chơi có {birds} con chim đang kiếm ăn và {cats} con mèo đang nằm sưởi nắng. Hỏi có tất cả bao nhiêu con vật ở đó?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Số con vật tổng cộng là tổng của số chim và số mèo.",
+        "Thực hiện phép tính $ {birds} + {cats} $."
+      ],
+      "solutionHtml": "Số con vật là:<br/>$ {birds} + {cats} = {ans} $ (con).<br/>Đáp án đúng là B.",
+      "tip": "Đếm tất cả các đối tượng có trong đề bài.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "books": {
+          "min": 6,
+          "max": 9
+        },
+        "taken": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "books > taken"
+      ],
+      "formulas": {
+        "ans": "books - taken",
+        "w1": "books + taken",
+        "w2": "books - taken + 2",
+        "w3": "books - 1"
+      },
+      "questionText": "Trên băng ghế đá có {books} quyển truyện tranh. Nam đã lấy đi {taken} quyển để đọc. Hỏi trên ghế còn lại bao nhiêu quyển truyện?",
+      "options": [
+        "A. {w1} quyển",
+        "B. {w2} quyển",
+        "C. {w3} quyển",
+        "D. {ans} quyển"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lấy đi nghĩa là số lượng giảm đi.",
+        "Phép tính là $ {books} - {taken} $."
+      ],
+      "solutionHtml": "Số truyện còn lại trên ghế là:<br/>$ {books} - {taken} = {ans} $ (quyển).<br/>Đáp án đúng là D.",
+      "tip": "Cẩn thận với từ 'lấy đi' hoặc 'còn lại'.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "flowers": {
+          "min": 5,
+          "max": 8
+        },
+        "added": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "flowers + added",
+        "w1": "flowers - added",
+        "w2": "flowers + added + 1",
+        "w3": "flowers + 1"
+      },
+      "questionText": "Ở bồn hoa của trường có {flowers} bông hoa. Các bạn học sinh vừa trồng thêm {added} bông hoa nữa. Hỏi hiện tại có bao nhiêu bông hoa?",
+      "options": [
+        "A. {w1} bông",
+        "B. {ans} bông",
+        "C. {w2} bông",
+        "D. {w3} bông"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Trồng thêm nghĩa là số lượng tăng lên.",
+        "Phép tính là $ {flowers} + {added} $."
+      ],
+      "solutionHtml": "Tổng số bông hoa là:<br/>$ {flowers} + {added} = {ans} $ (bông).<br/>Đáp án đúng là B.",
+      "tip": "Khi có từ 'thêm', ta thực hiện phép tính cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a * b + 1",
+        "w3": "a * b - 1"
+      },
+      "questionText": "Mỗi chiếc xích đu có {a} bạn ngồi. Có {b} chiếc xích đu như vậy. Hỏi có tất cả bao nhiêu bạn đang chơi xích đu?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Vì mỗi chiếc có {a} bạn và có {b} chiếc, ta lấy {a} nhân với {b}.",
+        "Phép tính là $ {a} \\times {b} $."
+      ],
+      "solutionHtml": "Số bạn đang chơi xích đu là:<br/>$ {a} \\times {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết số lượng trong mỗi nhóm và số nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 8,
+          "max": 10
+        },
+        "lost": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "total - lost",
+        "w1": "total + lost",
+        "w2": "total - lost - 1",
+        "w3": "total - 1"
+      },
+      "questionText": "Bạn Hoa có {total} viên phấn để vẽ lên sân. Bạn ấy đã dùng hết {lost} viên. Hỏi Hoa còn lại bao nhiêu viên phấn?",
+      "options": [
+        "A. {w1} viên",
+        "B. {ans} viên",
+        "C. {w2} viên",
+        "D. {w3} viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Dùng hết nghĩa là số lượng viên phấn giảm đi.",
+        "Phép tính là $ {total} - {lost} $."
+      ],
+      "solutionHtml": "Số phấn còn lại là:<br/>$ {total} - {lost} = {ans} $ (viên).<br/>Đáp án đúng là B.",
+      "tip": "Đọc kỹ đề để không nhầm lẫn giữa tổng số ban đầu và số đã mất đi.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 6
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a + b + 1",
+        "w3": "a * b"
+      },
+      "questionText": "Trong sân, nhóm bạn chơi nhảy bao bố có {a} bạn nam và {b} bạn nữ. Hỏi có tất cả bao nhiêu bạn trong trò chơi này?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số bạn trong trò chơi là tổng số bạn nam và bạn nữ.",
+        "Phép tính: $ {a} + {b} $."
+      ],
+      "solutionHtml": "Số bạn trong trò chơi là:<br/>$ {a} + {b} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Luôn kiểm tra xem đề bài yêu cầu tìm tổng hay tìm sự chênh lệch.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t1-d10"
+    }
+  ]
+}

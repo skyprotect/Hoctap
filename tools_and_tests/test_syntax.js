@@ -23,9 +23,9 @@ global.localStorage = {
 };
 
 // Chạy load file để khởi tạo trên window
-require('./js/questions-v3.js');
-require('./js/questions-v4.js');
-require('./js/questions-v1.js');
+require('../js/questions-v3.js');
+require('../js/questions-v4.js');
+require('../js/questions-v1.js');
 
 const questionsL6 = global.window.questions;
 const questionsL4 = global.window.questionsL4;

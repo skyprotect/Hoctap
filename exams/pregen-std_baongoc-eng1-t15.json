@@ -1,0 +1,404 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0",
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a - b",
+        "w2": "a + b",
+        "w3": "a * b"
+      },
+      "questionText": "Trong một trận đấu bóng đá, có {a} cầu thủ được chia đều vào {b} đội. Hỏi mỗi đội có bao nhiêu cầu thủ?",
+      "options": [
+        "A. {w1} cầu thủ",
+        "B. {ans} cầu thủ",
+        "C. {w2} cầu thủ",
+        "D. {w3} cầu thủ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm số cầu thủ mỗi đội, ta thực hiện phép chia tổng số cầu thủ cho số đội.",
+        "Phép tính cần thực hiện là {a} chia cho {b}."
+      ],
+      "solutionHtml": "Số cầu thủ mỗi đội là:<br/>$ {a} : {b} = {ans} $ (cầu thủ).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài cho biết 'chia đều', chúng ta luôn sử dụng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 8,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Trên sân vận động, đội X có {a} người, đội Y có {b} người. Hỏi cả hai đội có tất cả bao nhiêu người?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số người, ta thực hiện phép cộng số người của hai đội.",
+        "Phép tính là {a} cộng {b}."
+      ],
+      "solutionHtml": "Tổng số người của cả hai đội là:<br/>$ {a} + {b} = {ans} $ (người).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi về 'tất cả' hoặc 'cả hai', ta dùng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 15,
+          "max": 25,
+          "step": 1
+        },
+        "b": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 2",
+        "w3": "b + 2"
+      },
+      "questionText": "Đội bóng A có {a} thành viên, đội bóng B có {b} thành viên. Hỏi đội A nhiều hơn đội B bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn biết đội này hơn đội kia bao nhiêu, ta lấy số lớn trừ đi số bé.",
+        "Phép tính là {a} trừ {b}."
+      ],
+      "solutionHtml": "Đội A nhiều hơn đội B số thành viên là:<br/>$ {a} - {b} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Dạng toán 'nhiều hơn bao nhiêu' luôn sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        },
+        "b": {
+          "min": 4,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a < b"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "b * 2"
+      },
+      "questionText": "Có {a} hàng ghế, mỗi hàng có {b} khán giả. Hỏi có tất cả bao nhiêu khán giả trên các hàng ghế đó?",
+      "options": [
+        "A. {w1} khán giả",
+        "B. {ans} khán giả",
+        "C. {w2} khán giả",
+        "D. {w3} khán giả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {a} hàng, mỗi hàng {b} người, ta dùng phép nhân.",
+        "Phép tính là {a} nhân {b}."
+      ],
+      "solutionHtml": "Tổng số khán giả là:<br/>$ {a} \\times {b} = {ans} $ (khán giả).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số nhóm và số lượng mỗi nhóm bằng nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 20,
+          "step": 2
+        },
+        "b": {
+          "min": 2,
+          "max": 2,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b"
+      },
+      "questionText": "Huấn luyện viên có {a} quả bóng, chia cho 2 đội chơi. Mỗi đội nhận được một nửa số bóng. Hỏi mỗi đội nhận được bao nhiêu quả bóng?",
+      "options": [
+        "A. {w1} quả",
+        "B. {ans} quả",
+        "C. {w2} quả",
+        "D. {w3} quả"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Một nửa nghĩa là chia cho 2.",
+        "Ta thực hiện phép tính {a} chia cho {b}."
+      ],
+      "solutionHtml": "Số bóng mỗi đội nhận được là:<br/>$ {a} : {b} = {ans} $ (quả).<br/>Đáp án đúng là B.",
+      "tip": "Tìm một nửa của một số chính là lấy số đó chia cho 2.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a - b",
+        "w2": "a * b",
+        "w3": "a + b + 1"
+      },
+      "questionText": "Trận bóng có {a} cầu thủ đá chính và {b} cầu thủ dự bị. Hỏi tổng số cầu thủ là bao nhiêu?",
+      "options": [
+        "A. {w1} cầu thủ",
+        "B. {ans} cầu thủ",
+        "C. {w2} cầu thủ",
+        "D. {w3} cầu thủ"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tính tổng số cầu thủ ta lấy số cầu thủ đá chính cộng số cầu thủ dự bị.",
+        "Phép tính là {a} cộng {b}."
+      ],
+      "solutionHtml": "Tổng số cầu thủ là:<br/>$ {a} + {b} = {ans} $ (cầu thủ).<br/>Đáp án đúng là B.",
+      "tip": "Tổng là kết quả của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a % b === 0"
+      ],
+      "formulas": {
+        "ans": "a / b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a + 1"
+      },
+      "questionText": "Tại sân vận động có {a} chai nước. Nếu xếp đều vào {b} thùng, mỗi thùng có bao nhiêu chai nước?",
+      "options": [
+        "A. {w1} chai",
+        "B. {ans} chai",
+        "C. {w2} chai",
+        "D. {w3} chai"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Chia đều {a} chai vào {b} thùng.",
+        "Phép tính là {a} chia cho {b}."
+      ],
+      "solutionHtml": "Số chai nước mỗi thùng là:<br/>$ {a} : {b} = {ans} $ (chai).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'xếp đều' là dấu hiệu của phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 4,
+          "max": 7,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a - b",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Mỗi đội bóng có {a} thành viên. Hỏi {b} đội bóng như vậy có bao nhiêu thành viên?",
+      "options": [
+        "A. {w1} thành viên",
+        "B. {ans} thành viên",
+        "C. {w2} thành viên",
+        "D. {w3} thành viên"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {b} đội, mỗi đội {a} người, ta thực hiện phép nhân.",
+        "Phép tính là {a} nhân {b}."
+      ],
+      "solutionHtml": "Số thành viên của {b} đội bóng là:<br/>$ {a} \\times {b} = {ans} $ (thành viên).<br/>Đáp án đúng là B.",
+      "tip": "Khi biết số thành viên mỗi nhóm, muốn tìm tổng số thành viên của nhiều nhóm, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a * b",
+        "w3": "a - b + 1"
+      },
+      "questionText": "Sân vận động có {a} cửa vào, đội quản lý đã mở {b} cửa. Hỏi còn bao nhiêu cửa chưa mở?",
+      "options": [
+        "A. {w1} cửa",
+        "B. {ans} cửa",
+        "C. {w2} cửa",
+        "D. {w3} cửa"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm số cửa chưa mở, ta lấy tổng số cửa trừ đi số cửa đã mở.",
+        "Phép tính là {a} trừ {b}."
+      ],
+      "solutionHtml": "Số cửa chưa mở là:<br/>$ {a} - {b} = {ans} $ (cửa).<br/>Đáp án đúng là B.",
+      "tip": "Từ 'còn lại' hoặc 'chưa' gợi ý ta sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a * b <= 20"
+      ],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a + b",
+        "w2": "a + b + 2",
+        "w3": "a * b + 2"
+      },
+      "questionText": "Trong trận bóng, mỗi cầu thủ ghi {a} bàn thắng. Hỏi {b} cầu thủ ghi được tất cả bao nhiêu bàn thắng?",
+      "options": [
+        "A. {w1} bàn",
+        "B. {ans} bàn",
+        "C. {w2} bàn",
+        "D. {w3} bàn"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Mỗi bạn {a} bàn, có {b} bạn, ta lấy {a} nhân với {b}."
+      ],
+      "solutionHtml": "Tổng số bàn thắng là:<br/>$ {a} \\times {b} = {ans} $ (bàn).<br/>Đáp án đúng là B.",
+      "tip": "Phép nhân giúp chúng ta tính nhanh tổng của các nhóm bằng nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t15-d4"
+    }
+  ]
+}

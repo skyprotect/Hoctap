@@ -174,12 +174,15 @@
       "formulas": {
         "count_A": "Math.floor(num_cards / multiple_of_A)",
         "count_B": "Math.floor(num_cards / multiple_of_B)",
-        "lcm_AB": "(multiple_of_A * multiple_of_B) / Math.gcd(multiple_of_A, multiple_of_B)",
+        "lcm_AB": "lcm(multiple_of_A, multiple_of_B)",
         "count_AB": "Math.floor(num_cards / lcm_AB)",
         "ans": "count_A + count_B - count_AB",
-        "w1": "count_A + count_B",
-        "w2": "count_AB",
-        "w3": "num_cards - (count_A + count_B - count_AB)"
+        "w1_raw": "count_A + count_B",
+        "w2_raw": "count_AB > 0 ? count_AB : 1",
+        "w3_raw": "num_cards - (count_A + count_B - count_AB)",
+        "w1": "(w1_raw === ans) ? w1_raw + 2 : w1_raw",
+        "w2": "(w2_raw === ans || w2_raw === w1) ? (((ans + 3) === w1) ? ans + 5 : ans + 3) : w2_raw",
+        "w3": "(w3_raw === ans || w3_raw === w1 || w3_raw === w2) ? ans + 7 : w3_raw"
       },
       "questionText": "Trong một trò chơi, người chơi rút ngẫu nhiên một lá bài từ bộ {num_cards} lá bài được đánh số từ $1$ đến {num_cards}. Hỏi có bao nhiêu kết quả có thể xảy ra để sự kiện \"rút được lá bài có số là bội của {multiple_of_A} HOẶC là bội của {multiple_of_B}\" xảy ra?",
       "options": [

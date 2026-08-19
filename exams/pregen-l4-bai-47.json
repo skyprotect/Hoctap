@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Có $7$ thùng chứa được tất cả $42.000$ lít dầu. Hỏi $9$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "60.000 lít",
+        "42.000 lít",
+        "48.000 lít",
+        "54.000 lít"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $9$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $42000 : 7 = 6000$ (lít).<br/>Số lít dầu trong $9$ thùng là: $6000 \\cdot 9 = 54000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $8$ thùng chứa được tất cả $48.000$ lít dầu. Hỏi $12$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "66.000 lít",
+        "72.000 lít",
+        "78.000 lít",
+        "48.000 lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $12$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $48000 : 8 = 6000$ (lít).<br/>Số lít dầu trong $12$ thùng là: $6000 \\cdot 12 = 72000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $8$ thùng chứa được tất cả $40.000$ lít dầu. Hỏi $11$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "55.000 lít",
+        "50.000 lít",
+        "60.000 lít",
+        "40.000 lít"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $11$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $40000 : 8 = 5000$ (lít).<br/>Số lít dầu trong $11$ thùng là: $5000 \\cdot 11 = 55000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $6$ thùng chứa được tất cả $24.000$ lít dầu. Hỏi $10$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "44.000 lít",
+        "36.000 lít",
+        "24.000 lít",
+        "40.000 lít"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $10$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $24000 : 6 = 4000$ (lít).<br/>Số lít dầu trong $10$ thùng là: $4000 \\cdot 10 = 40000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $6$ thùng chứa được tất cả $18.000$ lít dầu. Hỏi $9$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "18.000 lít",
+        "27.000 lít",
+        "30.000 lít",
+        "24.000 lít"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $9$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $18000 : 6 = 3000$ (lít).<br/>Số lít dầu trong $9$ thùng là: $3000 \\cdot 9 = 27000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $5$ thùng chứa được tất cả $25.000$ lít dầu. Hỏi $8$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "40.000 lít",
+        "45.000 lít",
+        "25.000 lít",
+        "35.000 lít"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $8$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $25000 : 5 = 5000$ (lít).<br/>Số lít dầu trong $8$ thùng là: $5000 \\cdot 8 = 40000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $5$ thùng chứa được tất cả $20.000$ lít dầu. Hỏi $9$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "36.000 lít",
+        "32.000 lít",
+        "40.000 lít",
+        "20.000 lít"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $9$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $20000 : 5 = 4000$ (lít).<br/>Số lít dầu trong $9$ thùng là: $4000 \\cdot 9 = 36000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $7$ thùng chứa được tất cả $49.000$ lít dầu. Hỏi $9$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "49.000 lít",
+        "70.000 lít",
+        "63.000 lít",
+        "56.000 lít"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $9$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $49000 : 7 = 7000$ (lít).<br/>Số lít dầu trong $9$ thùng là: $7000 \\cdot 9 = 63000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $8$ thùng chứa được tất cả $56.000$ lít dầu. Hỏi $11$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "56.000 lít",
+        "84.000 lít",
+        "70.000 lít",
+        "77.000 lít"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $11$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $56000 : 8 = 7000$ (lít).<br/>Số lít dầu trong $11$ thùng là: $7000 \\cdot 11 = 77000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Có $6$ thùng chứa được tất cả $18.000$ lít dầu. Hỏi $8$ thùng như thế chứa được bao nhiêu lít dầu?",
+      "options": [
+        "24.000 lít",
+        "27.000 lít",
+        "21.000 lít",
+        "18.000 lít"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tìm số lít dầu chứa trong 1 thùng (rút về đơn vị bằng phép chia).",
+        "Nhân số lít dầu của 1 thùng với số thùng mục tiêu là $8$."
+      ],
+      "solutionHtml": "Số lít dầu trong 1 thùng là: $18000 : 6 = 3000$ (lít).<br/>Số lít dầu trong $8$ thùng là: $3000 \\cdot 8 = 24000$ (lít).",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-rut-ve-don-vi",
+      "forceMCQ": false
+    }
+  ]
+}

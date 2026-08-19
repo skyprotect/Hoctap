@@ -521,9 +521,12 @@
         "areaRec": "recLength * recWidth",
         "areaTrap": "((trapBase1 + trapBase2) * trapHeight) / 2",
         "areaRemaining": "areaRec - areaTrap",
-        "w1": "areaRec + areaTrap",
-        "w2": "areaTrap - areaRec",
-        "w3": "(recLength * recWidth) / 2"
+        "w1_raw": "areaRec + areaTrap",
+        "w2_raw": "Math.abs(areaRec - areaTrap * 2)",
+        "w3_raw": "Math.floor(recLength * recWidth / 2)",
+        "w1": "(w1_raw === areaRemaining) ? w1_raw + 100 : w1_raw",
+        "w2": "(w2_raw === areaRemaining || w2_raw === w1) ? (((areaRemaining + 150) === w1) ? areaRemaining + 200 : areaRemaining + 150) : w2_raw",
+        "w3": "(w3_raw === areaRemaining || w3_raw === w1 || w3_raw === w2) ? areaRemaining - 150 : w3_raw"
       },
       "questionText": "Một khu đất hình chữ nhật có chiều dài {recLength} m và chiều rộng {recWidth} m. Người chủ quyết định đào một cái ao hình thang cân ở giữa khu đất để nuôi cá. Cái ao có đáy lớn {trapBase1} m, đáy bé {trapBase2} m và chiều cao {trapHeight} m. Hỏi diện tích phần đất còn lại (không đào ao) là bao nhiêu mét vuông?",
       "options": [

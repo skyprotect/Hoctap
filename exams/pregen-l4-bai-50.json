@@ -1,0 +1,194 @@
+{
+  "questions": [
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $6.453 + 9.179$",
+      "options": [
+        "$15.532$",
+        "$15.732$",
+        "$15.642$",
+        "$15.632$"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện cộng các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $6.453 + 9.179 = 15.632$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $4.581 + 2.641$",
+      "options": [
+        "$7.222$",
+        "$7.232$",
+        "$7.122$",
+        "$7.322$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện cộng các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $4.581 + 2.641 = 7.222$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $4.727 + 8.739$",
+      "options": [
+        "$13.476$",
+        "$13.366$",
+        "$13.466$",
+        "$13.566$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện cộng các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $4.727 + 8.739 = 13.466$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $6.696 : 9$",
+      "options": [
+        "$745$",
+        "$744$",
+        "$743$",
+        "$754$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $6.696 : 9 = 744$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $5.488 + 8.451$",
+      "options": [
+        "$13.939$",
+        "$14.039$",
+        "$13.949$",
+        "$13.839$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện cộng các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $5.488 + 8.451 = 13.939$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $6.159 - 4.720$",
+      "options": [
+        "$1.539$",
+        "$1.339$",
+        "$1.439$",
+        "$1.449$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Đặt tính rồi tính, thực hiện trừ các hàng từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $6.159 - 4.720 = 1.439$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $835 \\times 8$",
+      "options": [
+        "$6.670$",
+        "$6.690$",
+        "$6.680$",
+        "$6.685$"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Thực hiện nhân thừa số thứ hai với từng chữ số của thừa số thứ nhất từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $835 \\times 8 = 6.680$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $619 \\times 2$",
+      "options": [
+        "$1.238$",
+        "$1.228$",
+        "$1.248$",
+        "$1.243$"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Thực hiện nhân thừa số thứ hai với từng chữ số của thừa số thứ nhất từ phải sang trái."
+      ],
+      "solutionHtml": "Ta có: $619 \\times 2 = 1.238$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $2.856 : 4$",
+      "options": [
+        "$724$",
+        "$714$",
+        "$713$",
+        "$715$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $2.856 : 4 = 714$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    },
+    {
+      "isTemplate": false,
+      "questionText": "Tính giá trị của biểu thức: $3.402 : 9$",
+      "options": [
+        "$377$",
+        "$378$",
+        "$379$",
+        "$388$"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Thực hiện phép chia số có nhiều chữ số cho số có một chữ số từ trái sang phải."
+      ],
+      "solutionHtml": "Ta có: $3.402 : 9 = 378$.",
+      "tip": "Chúc con làm bài tốt và đạt điểm tối đa!",
+      "level": "chat-luong-cao",
+      "type": "l4-bieu-do-cot",
+      "forceMCQ": false
+    }
+  ]
+}

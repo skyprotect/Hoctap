@@ -26,9 +26,12 @@
       "formulas": {
         "totalChange": "variables.changePerHour * variables.numHours",
         "finalTemp": "variables.initialTemp + formulas.totalChange",
-        "w1": "variables.initialTemp + Math.abs(variables.changePerHour * variables.numHours)",
-        "w2": "variables.initialTemp - Math.abs(variables.changePerHour * variables.numHours)",
-        "w3": "variables.initialTemp + variables.changePerHour"
+        "w1_raw": "variables.initialTemp + Math.abs(variables.changePerHour * variables.numHours)",
+        "w2_raw": "variables.initialTemp - Math.abs(variables.changePerHour * variables.numHours)",
+        "w3_raw": "variables.initialTemp + variables.changePerHour",
+        "w1": "(w1_raw === finalTemp) ? w1_raw + 4 : w1_raw",
+        "w2": "(w2_raw === finalTemp || w2_raw === w1) ? (((finalTemp + 6) === w1) ? finalTemp + 8 : finalTemp + 6) : w2_raw",
+        "w3": "(w3_raw === finalTemp || w3_raw === w1 || w3_raw === w2) ? finalTemp + 10 : w3_raw"
       },
       "questionText": "Vào buổi sáng, nhiệt độ tại một thành phố là {initialTemp}°C. Sau đó, nhiệt độ thay đổi trung bình {changePerHour}°C mỗi giờ trong {numHours} giờ liên tiếp. Hỏi nhiệt độ của thành phố đó sau {numHours} giờ là bao nhiêu?",
       "options": [
@@ -121,9 +124,12 @@
       "formulas": {
         "totalChange": "variables.changePerMinute * variables.numMinutes",
         "finalPosition": "variables.initialDepth + formulas.totalChange",
-        "w1": "Math.abs(variables.initialDepth + formulas.totalChange)",
-        "w2": "variables.initialDepth - formulas.totalChange",
-        "w3": "variables.changePerMinute * variables.numMinutes"
+        "w1_raw": "Math.abs(variables.initialDepth + formulas.totalChange)",
+        "w2_raw": "variables.initialDepth - formulas.totalChange",
+        "w3_raw": "variables.changePerMinute * variables.numMinutes",
+        "w1": "(w1_raw === finalPosition) ? w1_raw + 15 : w1_raw",
+        "w2": "(w2_raw === finalPosition || w2_raw === w1) ? (((finalPosition + 25) === w1) ? finalPosition + 35 : finalPosition + 25) : w2_raw",
+        "w3": "(w3_raw === finalPosition || w3_raw === w1 || w3_raw === w2) ? finalPosition - 20 : w3_raw"
       },
       "questionText": "Một tàu ngầm đang ở độ sâu {initialDepth} mét so với mực nước biển. Sau đó, nó thực hiện một chuyến di chuyển với tốc độ thay đổi vị trí là {changePerMinute} mét mỗi phút (số dương nếu nổi lên, số âm nếu lặn xuống) trong {numMinutes} phút. Hỏi vị trí mới của tàu ngầm là bao nhiêu mét so với mực nước biển?",
       "options": [

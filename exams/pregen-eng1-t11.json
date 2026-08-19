@@ -1,0 +1,400 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 5,
+          "max": 10,
+          "step": 1
+        },
+        "b": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "a > b",
+        "(a + b) % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1_goc": "a + b + 1",
+        "w2_goc": "a + b - 1",
+        "w3_goc": "a + b + 3",
+        "w1": "(w1_goc === ans) ? w1_goc + 2 : w1_goc",
+        "w2": "(w2_goc === ans || w2_goc === w1_goc) ? w2_goc + 2 : w2_goc",
+        "w3": "(w3_goc === ans || w3_goc === w1_goc || w3_goc === w2_goc) ? w3_goc + 2 : w3_goc"
+      },
+      "questionText": "Tại bến xe buýt, lúc đầu có {a} người đang chờ. Sau đó có thêm {b} người nữa đi đến. Hỏi lúc này có tất cả bao nhiêu người tại bến xe buýt?",
+      "options": [
+        "A. {w1} người",
+        "B. {ans} người",
+        "C. {w2} người",
+        "D. {w3} người"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Muốn tìm tổng số người, ta lấy số người lúc đầu cộng với số người đến thêm.",
+        "Thực hiện phép tính: ${a} + {b} = {ans}$."
+      ],
+      "solutionHtml": "Số người tại bến xe buýt lúc này là:<br/>${a} + {b} = {ans}$ (người).<br/>Đáp án đúng là B.",
+      "tip": "Để tìm tổng số, ta thực hiện phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 10,
+          "max": 20,
+          "step": 1
+        },
+        "left": {
+          "min": 3,
+          "max": 8,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total > left"
+      ],
+      "formulas": {
+        "ans": "total - left",
+        "w1": "total - left + 1",
+        "w2": "total - left + 2",
+        "w3": "total - left - 1"
+      },
+      "questionText": "Có {total} chiếc xe buýt ở bãi đỗ. Sau khi {left} chiếc xe rời đi, hỏi trong bãi còn lại bao nhiêu chiếc xe buýt?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {w2} chiếc",
+        "C. {ans} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khi xe rời đi, số xe sẽ giảm xuống, ta thực hiện phép trừ.",
+        "Thực hiện phép tính: ${total} - {left} = {ans}$."
+      ],
+      "solutionHtml": "Số xe buýt còn lại là:<br/>${total} - {left} = {ans}$ (chiếc xe).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'rời đi' gợi ý chúng ta thực hiện phép tính trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "group1": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "group2": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "group1 !== group2"
+      ],
+      "formulas": {
+        "ans": "group1 + group2",
+        "w1": "group1 + group2 + 1",
+        "w2": "group1 + group2 - 1",
+        "w3": "group1 + group2 + 2"
+      },
+      "questionText": "Có {group1} bạn nam và {group2} bạn nữ đang xếp hàng lên xe buýt. Hỏi có tất cả bao nhiêu bạn đang xếp hàng?",
+      "options": [
+        "A. {ans} bạn",
+        "B. {w1} bạn",
+        "C. {w2} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Ta cộng số bạn nam và số bạn nữ lại với nhau.",
+        "Thực hiện: ${group1} + {group2} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số bạn đang xếp hàng là:<br/>${group1} + {group2} = {ans}$ (bạn).<br/>Đáp án đúng là A.",
+      "tip": "Từ 'tất cả' là dấu hiệu của phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "seats": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "people": {
+          "min": 5,
+          "max": 9,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "seats > people"
+      ],
+      "formulas": {
+        "ans": "seats - people",
+        "w1": "seats - people + 2",
+        "w2": "seats - people + 1",
+        "w3": "seats - people - 1"
+      },
+      "questionText": "Một chiếc xe buýt có {seats} ghế ngồi. Hiện tại đã có {people} hành khách ngồi vào ghế. Hỏi còn bao nhiêu ghế trống?",
+      "options": [
+        "A. {w1} ghế",
+        "B. {ans} ghế",
+        "C. {w2} ghế",
+        "D. {w3} ghế"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Lấy tổng số ghế trừ đi số người đã ngồi.",
+        "Thực hiện: ${seats} - {people} = {ans}$."
+      ],
+      "solutionHtml": "Số ghế trống còn lại là:<br/>${seats} - {people} = {ans}$ (ghế).<br/>Đáp án đúng là B.",
+      "tip": "Muốn tìm phần còn lại, ta thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "busA": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "busB": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "busA + busB",
+        "w1": "busA + busB + 2",
+        "w2": "busA + busB - 1",
+        "w3": "busA + busB + 3"
+      },
+      "questionText": "Bến xe buýt buổi sáng có {busA} chuyến xe, buổi chiều có thêm {busB} chuyến xe nữa. Hỏi cả ngày hôm đó có tất cả bao nhiêu chuyến xe buýt?",
+      "options": [
+        "A. {w1} chuyến",
+        "B. {w2} chuyến",
+        "C. {ans} chuyến",
+        "D. {w3} chuyến"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Cộng số chuyến xe buổi sáng và buổi chiều lại.",
+        "Thực hiện: ${busA} + {busB} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số chuyến xe trong ngày là:<br/>${busA} + {busB} = {ans}$ (chuyến).<br/>Đáp án đúng là C.",
+      "tip": "Cụm từ 'cả ngày' gợi ý cộng hai thời điểm lại với nhau.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 12,
+          "max": 18,
+          "step": 2
+        },
+        "sub": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total % sub === 0"
+      ],
+      "formulas": {
+        "ans": "total / sub",
+        "w1": "total / sub + 1",
+        "w2": "total / sub + 2",
+        "w3": "total / sub - 1"
+      },
+      "questionText": "Có {total} bạn học sinh muốn đi xe buýt. Nếu mỗi chiếc xe chở được {sub} bạn, thì cần bao nhiêu chiếc xe để chở hết số bạn đó?",
+      "options": [
+        "A. {w1} chiếc",
+        "B. {ans} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để chia đều số học sinh lên các xe, ta thực hiện phép chia.",
+        "Thực hiện: ${total} \\div {sub} = {ans}$."
+      ],
+      "solutionHtml": "Số xe cần dùng là:<br/>${total} \\div {sub} = {ans}$ (chiếc).<br/>Đáp án đúng là B.",
+      "tip": "Chia đều một nhóm người vào các nhóm nhỏ dùng phép chia.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 10,
+          "max": 15,
+          "step": 1
+        },
+        "b": {
+          "min": 1,
+          "max": 4,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a - b + 2",
+        "w2": "a - b - 1",
+        "w3": "a - b + 3"
+      },
+      "questionText": "Tại trạm xe buýt, có {a} hành khách đang đợi. Một lúc sau, có {b} hành khách đã lên xe và đi mất. Hỏi còn bao nhiêu hành khách đang đợi tại trạm?",
+      "options": [
+        "A. {w1} hành khách",
+        "B. {w2} hành khách",
+        "C. {ans} hành khách",
+        "D. {w3} hành khách"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Khi có người rời đi, ta lấy tổng số ban đầu trừ đi số người đã đi.",
+        "Thực hiện: ${a} - {b} = {ans}$."
+      ],
+      "solutionHtml": "Số hành khách còn lại là:<br/>${a} - {b} = {ans}$ (hành khách).<br/>Đáp án đúng là C.",
+      "tip": "Từ 'đi mất' là dấu hiệu của phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "red": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        },
+        "blue": {
+          "min": 3,
+          "max": 6,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "red + blue",
+        "w1": "red + blue + 2",
+        "w2": "red + blue - 1",
+        "w3": "red + blue + 1"
+      },
+      "questionText": "Ở bến xe, có {red} chiếc xe màu đỏ và {blue} chiếc xe màu xanh. Hỏi có tất cả bao nhiêu chiếc xe tại bến?",
+      "options": [
+        "A. {ans} chiếc",
+        "B. {w1} chiếc",
+        "C. {w2} chiếc",
+        "D. {w3} chiếc"
+      ],
+      "correctIndex": 0,
+      "hints": [
+        "Tổng số xe bằng số xe đỏ cộng số xe xanh.",
+        "Thực hiện: ${red} + {blue} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số xe tại bến là:<br/>${red} + {blue} = {ans}$ (chiếc xe).<br/>Đáp án đúng là A.",
+      "tip": "Phép cộng được dùng khi gộp các nhóm lại.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 8,
+          "max": 12,
+          "step": 1
+        },
+        "boys": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [
+        "total > boys"
+      ],
+      "formulas": {
+        "ans": "total - boys",
+        "w1": "total - boys + 2",
+        "w2": "total - boys - 1",
+        "w3": "total - boys + 1"
+      },
+      "questionText": "Trên xe buýt có {total} bạn nhỏ, trong đó có {boys} bạn nam. Hỏi trên xe có bao nhiêu bạn nữ?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Lấy tổng số bạn trừ đi số bạn nam sẽ ra số bạn nữ.",
+        "Thực hiện: ${total} - {boys} = {ans}$."
+      ],
+      "solutionHtml": "Số bạn nữ trên xe là:<br/>${total} - {boys} = {ans}$ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Để tìm một phần của nhóm, ta thực hiện phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4,
+          "step": 1
+        },
+        "b": {
+          "min": 3,
+          "max": 5,
+          "step": 1
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a * b",
+        "w1": "a * b + 2",
+        "w2": "a * b - 1",
+        "w3": "a * b + 1"
+      },
+      "questionText": "Có {a} hàng ghế trên xe buýt, mỗi hàng có {b} ghế. Hỏi trên xe có tất cả bao nhiêu ghế?",
+      "options": [
+        "A. {w1} ghế",
+        "B. {w2} ghế",
+        "C. {ans} ghế",
+        "D. {w3} ghế"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Có {a} hàng, mỗi hàng {b} ghế, ta dùng phép nhân.",
+        "Thực hiện: ${a} \\times {b} = {ans}$."
+      ],
+      "solutionHtml": "Tổng số ghế trên xe là:<br/>${a} \\times {b} = {ans}$ (ghế).<br/>Đáp án đúng là C.",
+      "tip": "Khi các nhóm có số lượng bằng nhau, ta dùng phép nhân.",
+      "level": "chat-luong-cao",
+      "type": "eng1-t11-logic"
+    }
+  ]
+}

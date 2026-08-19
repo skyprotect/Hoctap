@@ -1,0 +1,392 @@
+{
+  "questions": [
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 3,
+          "max": 6
+        },
+        "b": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "(a + b) <= 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a + b + 1 === a + b) ? (a + b + 2) : (a + b + 1)",
+        "w2": "(a + b - 1 === a + b) ? (a + b + 2) : (a + b - 1)",
+        "w3": "(a === a + b) ? (a + 5) : (a + 1)"
+      },
+      "questionText": "Mẹ có {a} quả táo đỏ và {b} quả táo xanh. Hỏi mẹ có tất cả bao nhiêu quả táo?",
+      "options": [
+        "A. {w1} quả táo",
+        "B. {ans} quả táo",
+        "C. {w2} quả táo",
+        "D. {w3} quả táo"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Để tìm tổng số táo, ta thực hiện phép tính cộng số táo đỏ và số táo xanh.",
+        "Ta lấy {a} cộng với {b}."
+      ],
+      "solutionHtml": "Số táo mẹ có tất cả là:<br/>$ {a} + {b} = {ans} $ (quả táo).<br/>Đáp án đúng là B.",
+      "tip": "Khi đề bài hỏi 'tất cả bao nhiêu', ta dùng phép cộng để gộp các nhóm lại.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d1"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 6,
+          "max": 9
+        },
+        "part1": {
+          "min": 1,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "total > part1"
+      ],
+      "formulas": {
+        "ans": "total - part1",
+        "w1": "(part1 === total - part1) ? (part1 + 1) : (part1)",
+        "w2": "(total === total - part1) ? (total + 1) : (total)",
+        "w3": "(total + part1 === total - part1) ? (total + part1 + 1) : (total + part1)"
+      },
+      "questionText": "Lớp em có {total} bạn, trong đó có {part1} bạn nam. Hỏi lớp em có bao nhiêu bạn nữ?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm số bạn nữ, ta lấy tổng số bạn trừ đi số bạn nam.",
+        "Phép tính cần thực hiện là {total} trừ đi {part1}."
+      ],
+      "solutionHtml": "Số bạn nữ của lớp là:<br/>$ {total} - {part1} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Khi biết tổng và một phần, muốn tìm phần còn lại ta dùng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d2"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "(a + b) <= 7"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "(a === a + b) ? (a + 1) : (a)",
+        "w2": "(b === a + b) ? (b + 1) : (b)",
+        "w3": "a + b + 2"
+      },
+      "questionText": "Trên cành cây có {a} con chim đang đậu, sau đó có thêm {b} con chim bay đến. Hỏi trên cành cây có tất cả bao nhiêu con chim?",
+      "options": [
+        "A. {w1} con",
+        "B. {ans} con",
+        "C. {w2} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "Có {a} con, lại thêm {b} con nữa, ta dùng phép cộng.",
+        "Tính $ {a} + {b} $."
+      ],
+      "solutionHtml": "Số con chim trên cành là:<br/>$ {a} + {b} = {ans} $ (con chim).<br/>Đáp án đúng là B.",
+      "tip": "Từ khóa 'thêm' gợi ý cho chúng ta sử dụng phép cộng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d3"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 5,
+          "max": 8
+        },
+        "removed": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "total > removed"
+      ],
+      "formulas": {
+        "ans": "total - removed",
+        "w1": "total + 1",
+        "w2": "total",
+        "w3": "removed"
+      },
+      "questionText": "Tổ em có {total} bạn, hôm nay có {removed} bạn bị ốm nghỉ học. Hỏi hôm nay tổ em có bao nhiêu bạn đi học?",
+      "options": [
+        "A. {w1} bạn",
+        "B. {w2} bạn",
+        "C. {ans} bạn",
+        "D. {w3} bạn"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để tìm số bạn đi học, ta lấy tổng số bạn trừ đi số bạn nghỉ.",
+        "Phép tính là $ {total} - {removed} $."
+      ],
+      "solutionHtml": "Số bạn đi học hôm nay là:<br/>$ {total} - {removed} = {ans} $ (bạn).<br/>Đáp án đúng là C.",
+      "tip": "Từ khóa 'nghỉ' hoặc 'rời đi' gợi ý cho chúng ta sử dụng phép trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d4"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "a > b"
+      ],
+      "formulas": {
+        "ans": "a - b",
+        "w1": "a + b",
+        "w2": "a + 1",
+        "w3": "b + 1"
+      },
+      "questionText": "Lan có {a} cái bút chì, Lan cho Mai {b} cái. Hỏi Lan còn lại bao nhiêu cái bút chì?",
+      "options": [
+        "A. {w1} cái",
+        "B. {w2} cái",
+        "C. {w3} cái",
+        "D. {ans} cái"
+      ],
+      "correctIndex": 3,
+      "hints": [
+        "Lan cho bớt đi, tức là số bút của Lan giảm xuống.",
+        "Ta lấy $ {a} - {b} $."
+      ],
+      "solutionHtml": "Số bút chì Lan còn lại là:<br/>$ {a} - {b} = {ans} $ (cái).<br/>Đáp án đúng là D.",
+      "tip": "Cụm từ 'cho' hoặc 'tặng' nghĩa là số lượng vật phẩm bị giảm đi.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d5"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 3
+        },
+        "b": {
+          "min": 1,
+          "max": 3
+        },
+        "c": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "(a + b + c) <= 9"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "b + c",
+        "w3": "a + c"
+      },
+      "questionText": "Vườn nhà em có {a} cây cam, {b} cây xoài và {c} cây ổi. Hỏi vườn nhà em có tất cả bao nhiêu cây?",
+      "options": [
+        "A. {w1} cây",
+        "B. {w2} cây",
+        "C. {ans} cây",
+        "D. {w3} cây"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Muốn biết tất cả có bao nhiêu cây, ta cộng số lượng từng loại lại với nhau.",
+        "Phép tính: $ {a} + {b} + {c} $."
+      ],
+      "solutionHtml": "Tổng số cây trong vườn là:<br/>$ {a} + {b} + {c} = {ans} $ (cây).<br/>Đáp án đúng là C.",
+      "tip": "Khi cộng ba số, hãy cộng hai số đầu trước rồi lấy kết quả cộng với số thứ ba.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d6"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "total": {
+          "min": 7,
+          "max": 9
+        },
+        "eaten": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "total > eaten"
+      ],
+      "formulas": {
+        "ans": "total - eaten",
+        "w1": "total - 1",
+        "w2": "eaten",
+        "w3": "total + eaten"
+      },
+      "questionText": "Trong đĩa có {total} cái bánh, An ăn mất {eaten} cái. Hỏi trong đĩa còn lại mấy cái bánh?",
+      "options": [
+        "A. {w1} cái",
+        "B. {ans} cái",
+        "C. {w2} cái",
+        "D. {w3} cái"
+      ],
+      "correctIndex": 1,
+      "hints": [
+        "'Ăn mất' nghĩa là bớt đi.",
+        "Ta thực hiện phép trừ $ {total} - {eaten} $."
+      ],
+      "solutionHtml": "Số bánh còn lại là:<br/>$ {total} - {eaten} = {ans} $ (cái).<br/>Đáp án đúng là B.",
+      "tip": "Luôn kiểm tra kỹ câu hỏi xem là 'có tất cả' hay 'còn lại'.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d7"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 2,
+          "max": 4
+        },
+        "b": {
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "(a + b) <= 9"
+      ],
+      "formulas": {
+        "ans": "a + b",
+        "w1": "a",
+        "w2": "b",
+        "w3": "a + b + 1"
+      },
+      "questionText": "Hôm nay em học {a} tiết Toán và {b} tiết Tiếng Việt. Hỏi hôm nay em học tất cả bao nhiêu tiết?",
+      "options": [
+        "A. {w1} tiết",
+        "B. {w2} tiết",
+        "C. {ans} tiết",
+        "D. {w3} tiết"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Tổng số tiết học là tổng của tiết Toán và Tiếng Việt.",
+        "Tính $ {a} + {b} $."
+      ],
+      "solutionHtml": "Tổng số tiết học là:<br/>$ {a} + {b} = {ans} $ (tiết).<br/>Đáp án đúng là C.",
+      "tip": "Cộng hai số lượng lại để tìm tổng.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d8"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "start": {
+          "min": 5,
+          "max": 8
+        },
+        "down": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "start > down"
+      ],
+      "formulas": {
+        "ans": "start - down",
+        "w1": "start + down",
+        "w2": "start",
+        "w3": "down"
+      },
+      "questionText": "Trên cây có {start} con chim, có {down} con chim bay đi. Hỏi còn lại bao nhiêu con chim trên cây?",
+      "options": [
+        "A. {w1} con",
+        "B. {w2} con",
+        "C. {ans} con",
+        "D. {w3} con"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Chim bay đi làm số lượng giảm xuống.",
+        "Phép tính là $ {start} - {down} $."
+      ],
+      "solutionHtml": "Số chim còn lại trên cây là:<br/>$ {start} - {down} = {ans} $ (con).<br/>Đáp án đúng là C.",
+      "tip": "Đọc kỹ câu hỏi để không bị nhầm giữa cộng và trừ.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d9"
+    },
+    {
+      "isTemplate": true,
+      "variables": {
+        "a": {
+          "min": 1,
+          "max": 3
+        },
+        "b": {
+          "min": 1,
+          "max": 2
+        },
+        "c": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "constraints": [
+        "(a + b + c) <= 7"
+      ],
+      "formulas": {
+        "ans": "a + b + c",
+        "w1": "a + b",
+        "w2": "a + c",
+        "w3": "b + c"
+      },
+      "questionText": "Bàn tay em có {a} ngón đeo nhẫn, {b} ngón đeo vòng và {c} ngón để trống. Hỏi bàn tay đó có tất cả bao nhiêu ngón?",
+      "options": [
+        "A. {w1} ngón",
+        "B. {w2} ngón",
+        "C. {ans} ngón",
+        "D. {w3} ngón"
+      ],
+      "correctIndex": 2,
+      "hints": [
+        "Để biết tổng số ngón, ta cộng tất cả các loại ngón lại.",
+        "Phép tính: $ {a} + {b} + {c} $."
+      ],
+      "solutionHtml": "Tổng số ngón tay là:<br/>$ {a} + {b} + {c} = {ans} $ (ngón).<br/>Đáp án đúng là C.",
+      "tip": "Luôn nhớ cộng hết các nhóm nhỏ để có được tổng lớn nhất.",
+      "level": "chat-luong-cao",
+      "type": "l1-bai-5-d10"
+    }
+  ]
+}
