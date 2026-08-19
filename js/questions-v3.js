@@ -5275,16 +5275,16 @@ const questions = {
                     } else {
                         const a = this.randomInt(4, 8);
                         const p = 8 * a;
-                        questionText = `Người ta ghép 3 miếng bìa hình vuông có cùng cạnh là $${a}\\text{ cm}$ sát nhau thành một hàng ngang để được một hình chữ nhật lớn. Tính chu vi của hình chữ nhật lớn đó.`;
-                        options = [`$${p}\\text{ cm}$`, `$${12 * a}\\text{ cm}$`, `$${6 * a}\\text{ cm}$`, `$${p + 4}\\text{ cm}$`];
+                        questionText = `Người ta ghép 3 miếng bìa hình vuông có cùng cạnh là ${a} cm sát nhau thành một hàng ngang để được một hình chữ nhật lớn. Tính chu vi của hình chữ nhật lớn đó.`;
+                        options = [`${p} cm`, `${12 * a} cm`, `${6 * a} cm`, `${p + 4} cm`];
                         this.shuffle(options);
-                        correctIndex = options.indexOf(`$${p}\\text{ cm}$`);
+                        correctIndex = options.indexOf(`${p} cm`);
                         hints = [
                             `Hình chữ nhật lớn có chiều rộng đúng bằng cạnh của hình vuông: $width = ${a}\\text{ cm}$.`,
                             `Chiều dài của hình chữ nhật bằng tổng độ dài 3 cạnh hình vuông ghép lại: $length = 3 \\cdot ${a} = ${3 * a}\\text{ cm}$.`,
                             `Chu vi hình chữ nhật lớn là: $C = 2 \\cdot (length + width)$.`
                         ];
-                        solutionHtml = `Khi ghép 3 miếng bìa hình vuông cạnh $${a}\\text{ cm}$ kề nhau, ta được hình chữ nhật có:<br>- Chiều rộng bằng cạnh hình vuông: $w = ${a}\\text{ cm}$.<br>- Chiều dài bằng 3 lần cạnh hình vuông: $l = 3 \\cdot ${a} = ${3 * a}\\text{ cm}$.<br>Chu vi của hình chữ nhật lớn là: $C = 2 \\cdot (l + w) = 2 \\cdot (${3 * a} + ${a}) = 2 \\cdot ${4 * a} = ${p}\\text{ cm}$.`;
+                        solutionHtml = `Khi ghép 3 miếng bìa hình vuông cạnh ${a} cm kề nhau, ta được hình chữ nhật có:<br>- Chiều rộng bằng cạnh hình vuông: $w = ${a}\\text{ cm}$.<br>- Chiều dài bằng 3 lần cạnh hình vuông: $l = 3 \\cdot ${a} = ${3 * a}\\text{ cm}$.<br>Chu vi của hình chữ nhật lớn là: $C = 2 \\cdot (l + w) = 2 \\cdot (${3 * a} + ${a}) = 2 \\cdot ${4 * a} = ${p}\\text{ cm}$.`;
                     }
                     tip = "Khi ghép các hình vuông cạnh nhau, hãy xác định kích thước mới của hình chữ nhật rồi áp dụng công thức tính chu vi.";
                 }
