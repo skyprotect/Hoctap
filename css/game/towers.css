@@ -1,0 +1,4 @@
+/* GAME TOWERS & UPGRADE PANEL */
+.tower-selection-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+.tower-card-btn { background: #1e293b; border: 2px solid #334155; border-radius: 10px; padding: 8px; cursor: pointer; transition: all 0.2s ease; }
+.tower-card-btn:hover { border-color: #38bdf8; transform: translateY(-2px); }

@@ -1,0 +1,36 @@
+/* ==========================================================================
+   HỌCTẬP SYSTEM — LAYOUT & GRID ARCHITECTURE
+   ========================================================================== */
+/* ==========================================================================
+   THIẾT LẬP HỆ THỐNG BIẾN MÀU SẮC (CSS VARIABLES) & EYE-CARE TONES
+   ========================================================================== */
+:root {
+    /* Cấu hình Giao diện Xanh lá thực sự (Eye-care Green - Thư giãn, tập trung, bảo vệ mắt) */
+    --bg-app: #C7EDCC;           /* Xanh lá trà dịu mát bảo vệ mắt kinh điển */
+    --bg-card: #EBF5EB;          /* Nền xanh lá non nhạt dịu mát, không bị chói sáng */
+    --text-main: #0B3012;        /* Xanh rừng già đậm nét, độ tương phản dịu nhẹ cho mắt */
+    --text-muted: #3D6D41;       /* Xanh lá trung tính cho phụ đề/chú thích */
+    
+    --primary: #2E7D32;          /* Xanh ngọc lục bảo sẫm 3D nổi bật, dịu mát */
+    --primary-bg: #C8E6C9;       /* Nền xanh lá mạ pastel */
+    --primary-hover: #1B5E20;
+    --primary-shadow: #123E15;   /* Bóng đổ 3D sẫm màu */
+    
+    --blue-app: #1565C0;         /* Xanh dương thẫm học tập dịu mắt */
+    --blue-app-bg: #E3F2FD;
+    --blue-app-hover: #0D47A1;
+    --blue-app-shadow: #0D47A1;
+    
+    --success: #2E7D32;          /* Xanh lá cây tương tác */
+    --success-bg: #E8F5E9;
+    --success-shadow: #1B5E20;
+    
+    --warning: #EF6C00;          /* Vàng cam hổ phách sẫm, tránh chói */
+    --warning-bg: #FFFDE7;
+    --warning-shadow: #E65100;
+    
+    --danger: #C62828;           /* Đỏ sẫm dịu mát cảnh báo */
+    --danger-bg: #FFEBEE;
+    --danger-shadow: #B71C1C;
+    
+    --border-color: #B2D8B7;     /* Đư

@@ -458,7 +458,7 @@ generateGrade4Exam7991: function(examTitle, type, timeLimit) {
                     });
                 }
                 const script = document.createElement('script');
-                script.src = 'js/questions-advanced.js?v=12.62';
+                script.src = 'data/grade_6/math/advanced.js?v=13.38';
                 script.onload = () => {
                     this._launchAdvancedExam();
                 };
@@ -497,7 +497,7 @@ generateGrade4Exam7991: function(examTitle, type, timeLimit) {
                     });
                 }
                 const script = document.createElement('script');
-                script.src = 'js/questions-advanced.js?v=12.62';
+                script.src = 'data/grade_6/math/advanced.js?v=13.38';
                 script.onload = () => {
                     this._printAdvancedExam();
                 };

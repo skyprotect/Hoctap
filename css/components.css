@@ -1,0 +1,642 @@
+/* ==========================================================================
+   HỌCTẬP SYSTEM — 3D HERO PROFILE, BADGES & INTERACTIVE COMPONENTS
+   ========================================================================== */
+/* --- HỒ SƠ CHIẾN BINH: HỆ THỐNG PHẢN QUANG & LAYOUT 3D KHOA HỌC --- */
+
+/* Các màu văn bản động theo Theme hệ thống */
+/* Mặc định (Green Mode - Sáng) */
+.hero-text-light {
+    color: #0b3012 !important; /* Chữ chính màu xanh rừng tối */
+}
+
+.hero-text-highlight {
+    color: #b78103 !important; /* Vàng hổ phách sẫm, tránh lóa trên nền sáng */
+    text-shadow: none !important;
+}
+
+.hero-text-muted {
+    color: #475569 !important; /* Xám đậm trung tính rõ ràng */
+}
+
+.hero-text-accent {
+    color: #7c3aed !important; /* Tím đậm nổi bật tương phản cao */
+}
+
+/* Card tổng quan thông tin Chiến binh */
+.hero-profile-neon-card {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.05) 0%, rgba(46, 125, 50, 0.02) 100%) !important;
+    border: 1px solid rgba(46, 125, 50, 0.18) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px 0 rgba(46, 125, 50, 0.06) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    padding: 1.5rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.hero-profile-neon-card:hover {
+    border-color: rgba(46, 125, 50, 0.35) !important;
+    box-shadow: 0 12px 40px 0 rgba(46, 125, 50, 0.15) !important;
+}
+
+/* Các thẻ con chứa thống kê chi tiết */
+.hero-detail-card {
+    background: rgba(46, 125, 50, 0.03) !important;
+    border: 1px solid rgba(46, 125, 50, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 1.2rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.hero-detail-card:hover {
+    background: rgba(46, 125, 50, 0.06) !important;
+    border-color: rgba(46, 125, 50, 0.18) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.08) !important;
+}
+
+/* Class mới cho các Badge XP & Streak ngày học trong Modal */
+.hero-badge-item {
+    font-size: 1.15rem;
+    color: #0b3012 !important;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    background: rgba(46, 125, 50, 0.06) !important;
+    padding: 8px 16px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(46, 125, 50, 0.12) !important;
+    transition: all 0.25s ease !important;
+}
+
+/* Biến đổi sang Emerald Night Mode (Body .light-mode - Nền tối) */
+body.light-mode .hero-text-light {
+    color: #ffffff !important;
+}
+
+body.light-mode .hero-text-highlight {
+    color: #ffd700 !important; /* Vàng Gold rực rỡ */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4) !important;
+}
+
+body.light-mode .hero-text-muted {
+    color: #cbd5e1 !important; /* Xám sáng */
+}
+
+body.light-mode .hero-text-accent {
+    color: #c084fc !important; /* Tím nhạt */
+}
+
+body.light-mode .hero-profile-neon-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+    border: 1px solid rgba(192, 132, 252, 0.25) !important;
+    box-shadow: 0 8px 32px 0 rgba(192, 132, 252, 0.1) !important;
+}
+
+body.light-mode .hero-profile-neon-card:hover {
+    border-color: rgba(192, 132, 252, 0.45) !important;
+    box-shadow: 0 12px 40px 0 rgba(192, 132, 252, 0.2) !important;
+}
+
+body.light-mode .hero-detail-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+body.light-mode .hero-detail-card:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.15) !important;
+}
+
+body.light-mode .hero-badge-item {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Thẻ tháp canh động */
+.towers-unlocked-card {
+    background: rgba(46, 125, 50, 0.05) !important;
+    border: 1px solid rgba(46, 125, 50, 0.15) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.3rem !important;
+}
+
+.towers-unlocked-card span:first-child {
+    color: #475569 !important;
+}
+
+.towers-unlocked-card span:last-child {
+    color: #2e7d32 !important;
+}
+
+body.light-mode .towers-unlocked-card {
+    background: rgba(16, 185, 129, 0.08) !important;
+    border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+body.light-mode .towers-unlocked-card span:first-child {
+    color: #cbd5e1 !important;
+}
+
+body.light-mode .towers-unlocked-card span:last-child {
+    color: #34d399 !important;
+}
+
+/* Phân tích bảng kỹ năng */
+.hero-analysis-table td {
+    color: #0b3012 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-mode .hero-analysis-table td {
+    color: #cbd5e1 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Quái vật từ vựng */
+.weak-words-section span {
+    color: #b78103 !important;
+}
+
+body.light-mode .weak-words-section span {
+    color: #fca5a5 !important;
+}
+
+
+/* Tải động hiệu ứng mạ vàng lấp lánh nâng cấp */
+.gold-skill-card-shine {
+    animation: goldShinePulse 3s infinite alternate !important;
+}
+
+@keyframes goldShinePulse {
+    0% {
+        box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(251, 191, 36, 0.7);
+    }
+}
+
+/* Đồng bộ hóa toàn bộ Popup SweetAlert2 với theme sáng/tối của hệ thống */
+.swal2-popup {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 24px !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.swal2-title {
+    color: var(--text-main) !important;
+    font-family: var(--font-family) !important;
+    font-weight: 800 !important;
+}
+
+.swal2-html-container {
+    color: var(--text-main) !important;
+    font-family: var(--font-family) !important;
+    font-size: 0.95rem !important;
+    opacity: 0.95;
+}
+
+.swal2-confirm {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    font-weight: 800 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 10px var(--primary-shadow-color) !important;
+}
+
+.swal2-cancel {
+    background: #64748b !important;
+    color: white !important;
+    border-radius: 12px !important;
+    font-weight: 800 !important;
+    padding: 10px 24px !important;
+}
+
+body.light-mode .swal2-cancel {
+    background: #334155 !important;
+}/* --- HIỆU ỨNG CHIẾN BINH 3D ĐỘNG CHO HỒ SƠ --- */
+.warrior-3d-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(46, 125, 50, 0.04) !important;
+    border: 1px solid rgba(46, 125, 50, 0.12) !important;
+    border-radius: 20px !important;
+    padding: 1.5rem !important;
+    height: 100% !important;
+    min-height: 480px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: inset 0 0 20px rgba(46, 125, 50, 0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+body.light-mode .warrior-3d-card {
+    background: rgba(255, 255, 255, 0.01) !important;
+    border: 1px solid rgba(192, 132, 252, 0.15) !important;
+    box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.08) !important;
+}
+
+/* Vòng tròn ma thuật quay tròn */
+.warrior-magic-circle {
+    position: absolute !important;
+    width: 280px !important;
+    height: 280px !important;
+    background: radial-gradient(circle, rgba(46, 125, 50, 0.08) 0%, rgba(46, 125, 50, 0) 70%) !important;
+    border: 2px dashed rgba(46, 125, 50, 0.2) !important;
+    border-radius: 50% !important;
+    top: 25% !important;
+    z-index: 1 !important;
+    animation: rotateMagicCircle 12s linear infinite !important;
+}
+
+body.light-mode .warrior-magic-circle {
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(168, 85, 247, 0) 70%) !important;
+    border: 2px dashed rgba(168, 85, 247, 0.25) !important;
+}
+
+@keyframes rotateMagicCircle {
+    from { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    to { transform: rotate(360deg) scale(0.9); }
+}
+
+/* Khung hiển thị chiến binh */
+.warrior-sprite-wrapper {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 1.5rem !important;
+    perspective: 1000px !important;
+}
+
+.warrior-sprite-img {
+    max-width: 250px !important;
+    height: auto !important;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15)) !important;
+    transform-origin: bottom center !important;
+}
+
+/* Hoạt ảnh lơ lửng */
+.warrior-float {
+    animation: floatAnimation 4s ease-in-out infinite !important;
+}
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* 1. Động tác múa kiếm (Slash) */
+.warrior-slash {
+    animation: floatAnimation 4s ease-in-out infinite, slashAnimation 5s ease-in-out infinite !important;
+}
+
+@keyframes slashAnimation {
+    0%, 70%, 100% { transform: rotate(0deg) scale(1); filter: brightness(1); }
+    75% { transform: rotate(-8deg) translate(-5px, -2px) scale(0.98); filter: brightness(1.1); }
+    80% { transform: rotate(12deg) translate(8px, 4px) scale(1.05); filter: brightness(1.2) drop-shadow(0 0 12px rgba(46, 125, 50, 0.4)); }
+}
+
+/* 2. Kiếm lửa bập bùng */
+.warrior-flame {
+    animation: floatAnimation 4s ease-in-out infinite, flamePulse 2.5s ease-in-out infinite alternate !important;
+}
+
+@keyframes flamePulse {
+    0% { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.3)) brightness(1); }
+    100% { filter: drop-shadow(0 0 22px rgba(239, 68, 68, 0.75)) brightness(1.15) saturate(1.2); }
+}
+
+/* 3. Múa kiếm ánh sáng (Spin/reciprocal vung kiếm) */
+.warrior-spin {
+    animation: floatAnimation 4s ease-in-out infinite, spinSwordAnimation 6s ease-in-out infinite !important;
+}
+
+@keyframes spinSwordAnimation {
+    0%, 80%, 100% { transform: rotate(0deg) scale(1); filter: brightness(1); }
+    84% { transform: rotateY(180deg) scale(0.95); filter: brightness(1.2) drop-shadow(0 0 15px rgba(251, 191, 36, 0.5)); }
+    88% { transform: rotateY(360deg) scale(1.05); filter: brightness(1.2) drop-shadow(0 0 20px rgba(251, 191, 36, 0.7)); }
+}
+
+/* 4. Pháp sư thi triển phép thuật (Spell) */
+.warrior-spell {
+    animation: floatAnimation 4s ease-in-out infinite, spellCastAnimation 7s ease-in-out infinite !important;
+}
+
+@keyframes spellCastAnimation {
+    0%, 65%, 100% { transform: scale(1) translateY(0); filter: brightness(1); }
+    70% { transform: scale(1.08) translateY(-6px); filter: brightness(1.2) drop-shadow(0 0 25px rgba(168, 85, 247, 0.7)); }
+    75% { transform: scale(0.95) translateY(2px); filter: brightness(1); }
+}
+
+/* 5. Bắn súng liên thanh (Recoil súng laser) */
+.warrior-shoot {
+    animation: floatAnimation 4s ease-in-out infinite, shootAnimation 3s ease-in-out infinite !important;
+}
+
+@keyframes shootAnimation {
+    0%, 80%, 100% { transform: translate(0, 0) scale(1); filter: brightness(1); }
+    82% { transform: translate(-2px, 1px) scale(0.99); filter: brightness(1.3) drop-shadow(0 0 15px #38bdf8); }
+    83% { transform: translate(-1px, -1px); }
+    84% { transform: translate(-2px, 0); }
+    85% { transform: translate(-1px, 1px); }
+    86% { transform: translate(0, 0); }
+}
+
+/* ==========================================================================
+   NÂNG CẤP GIAO DIỆN CHƠI GAME TỰ DO (FREE PLAY) & THẺ MẠ VÀNG HOÀNG GIA
+   ========================================================================== */
+
+/* 1. Thẻ mạ vàng hoàng gia siêu đẳng cấp */
+.gold-card-royal {
+    position: relative !important;
+    background: linear-gradient(135deg, #090d16 0%, #201306 40%, #030712 100%) !important;
+    color: #fffbeb !important;
+    border: 2px solid transparent !important;
+    background-image: linear-gradient(#090d16, #030712), linear-gradient(135deg, #ffe066, #f59e0b, #eab308, #ffe066) !important;
+    background-origin: border-box !important;
+    background-clip: padding-box, border-box !important;
+    border-radius: 20px !important;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    animation: goldCardGlowPulse 3s infinite ease-in-out !important;
+}
+
+.gold-card-royal:hover {
+    transform: translateY(-8px) scale(1.03) rotate(0.5deg) !important;
+    box-shadow: 0 25px 50px rgba(234, 179, 8, 0.5), 0 0 40px rgba(234, 179, 8, 0.45), inset 0 0 25px rgba(254, 240, 138, 0.25) !important;
+}
+
+@keyframes goldCardGlowPulse {
+    0%, 100% {
+        box-shadow: 0 12px 25px rgba(234, 179, 8, 0.2), 0 0 20px rgba(234, 179, 8, 0.15), inset 0 0 15px rgba(254, 240, 138, 0.08) !important;
+    }
+    50% {
+        box-shadow: 0 20px 45px rgba(234, 179, 8, 0.55), 0 0 35px rgba(254, 240, 138, 0.4), inset 0 0 25px rgba(254, 240, 138, 0.2) !important;
+    }
+}
+
+/* Thêm huy hiệu hoàng gia lấp lánh ở góc thẻ */
+.gold-card-royal::before {
+    content: '✨ CỰC PHẨM ✨' !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 0.62rem !important;
+    font-weight: 950 !important;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    padding: 3px 8px !important;
+    border-radius: 8px !important;
+    border: 1px solid #fef08a !important;
+    letter-spacing: 0.8px !important;
+    z-index: 10 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.4) !important;
+    animation: goldPulseGlow 2.5s infinite ease-in-out !important;
+}
+
+@keyframes goldPulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(234, 179, 8, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+        filter: brightness(1);
+    }
+    50% {
+        box-shadow: 0 0 18px rgba(254, 240, 138, 0.75), 0 2px 4px rgba(0, 0, 0, 0.3);
+        filter: brightness(1.2);
+    }
+}
+
+/* Hiệu ứng bụi hạt vàng nhấp nháy chìm trong background */
+.gold-card-royal::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: 
+        radial-gradient(circle, rgba(254, 240, 138, 0.3) 1px, transparent 1px),
+        radial-gradient(circle, rgba(245, 158, 11, 0.2) 1.5px, transparent 1.5px) !important;
+    background-size: 24px 24px, 36px 36px !important;
+    background-position: 0 0, 12px 12px !important;
+    opacity: 0.75 !important;
+    animation: goldDustGlow 6s infinite linear !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+@keyframes goldDustGlow {
+    0% { background-position: 0 0, 12px 12px; }
+    100% { background-position: 24px 48px, 48px 24px; }
+}
+
+/* Hiệu ứng quét tia sáng mạ vàng góc chéo siêu mịn và lộng lẫy */
+.gold-card-royal-shine {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.gold-card-royal-shine::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -150% !important;
+    left: -150% !important;
+    width: 400% !important;
+    height: 400% !important;
+    background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.05) 42%,
+        rgba(255, 215, 0, 0.4) 45%,
+        rgba(255, 255, 255, 0.8) 48%,
+        rgba(255, 215, 0, 0.4) 51%,
+        rgba(255, 255, 255, 0.05) 54%,
+        transparent 56%
+    ) !important;
+    transform: rotate(20deg) !important;
+    animation: goldRoyalShine 3.8s infinite cubic-bezier(0.25, 1, 0.5, 1) !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+}
+
+@keyframes goldRoyalShine {
+    0% {
+        top: -150%;
+        left: -150%;
+    }
+    35%, 100% {
+        top: 50%;
+        left: 50%;
+    }
+}
+
+/* Kiểu chữ tiêu đề vàng nhũ trong thẻ bài hoàng gia */
+.gold-card-royal .gold-title-glow {
+    background: linear-gradient(to right, #ffe066 0%, #f59e0b 50%, #ffe066 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)) !important;
+    font-weight: 950 !important;
+}
+
+/* 2. Tối ưu hóa giao diện chơi game tự do (Free Play) */
+
+/* Ẩn widget điều hướng khi đang trong chế độ chơi tự do */
+body.free-play-mode-active .fixed-navigation-widget {
+    display: none !important;
+}
+
+/* Phóng to tối đa container game khi ở chế độ tự do */
+body.free-play-mode-active #td-game-container {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+body.free-play-mode-active .game-main-layout {
+    height: 100% !important;
+    align-items: stretch !important;
+}
+
+/* Mở rộng wrapper và canvas game */
+body.free-play-mode-active .canvas-wrapper {
+    max-width: calc((100vh - 120px) * 1.6) !important;
+    max-height: calc(100vh - 120px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(16, 185, 129, 0.15) !important;
+    border: 2px solid #10b981 !important;
+}
+
+/* Tối ưu hóa thanh HUD và các sidebar trong Free Play */
+body.free-play-mode-active .game-hud-bar {
+    background: rgba(5, 22, 9, 0.85) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.3) !important;
+    border-radius: 12px !important;
+    margin-bottom: 0.6rem !important;
+    padding: 8px 24px !important;
+}
+
+body.free-play-mode-active .game-sidebar-left,
+body.free-play-mode-active .game-sidebar-right {
+    background: rgba(3, 10, 5, 0.85) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.25) !important;
+    border-radius: 14px !important;
+    padding: 0.8rem !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.free-play-mode-active .btn-game-tower {
+    padding: 0.8rem 0.4rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+}
+
+body.free-play-mode-active .btn-skill {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+}
+
+/* Tùy chọn thẻ vàng trong hộp thoại Exchange (SweetAlert) */
+.gold-card-option.royal-exchange {
+    background: linear-gradient(135deg, #111827 0%, #030712 100%) !important;
+    border: 2px solid rgba(245, 158, 11, 0.3) !important;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.1) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.gold-card-option.royal-exchange:hover {
+    border-color: #f59e0b !important;
+    box-shadow: 0 6px 15px rgba(245, 158, 11, 0.2) !important;
+    transform: translateY(-2px) !important;
+}
+
+.gold-card-option.royal-exchange.selected {
+    border-color: #fbbf24 !important;
+    background: rgba(245, 158, 11, 0.05) !important;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.3) !important;
+}
+
+/* ==========================================================================
+   TỐI ƯU HÓA RESPONSIVE HEADER VÀ BONG BÓNG CHAT TIẾNG ANH
+   ========================================================================== */
+
+/* 1. Tránh chèn ép trên Kiosk và màn hình laptop trung bình */
+@media (max-width: 1400px) {
+    .header-right {
+        gap: 0.5rem !important;
+    }
+    
+    .header-right .btn-parent {
+        padding: 0 !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        margin-right: 0.2rem !important;
+    }
+    
+    .header-right .btn-parent span {
+        display: none !important; /* Ẩn chữ */
+    }
+    
+    .header-right .btn-parent i {
+        margin: 0 !important;
+        font-size: 1.05rem !important;
+    }
+}
+
+/* 2. Tinh chỉnh các badges Gamification khi màn hình nhỏ hơn */
+@media (max-width: 1100px) {
+    .header-center {
+        gap: 0.6rem !important;
+    }
+    
+    .stat-badge {
+        font-size: 0 !important; /* Ẩn chữ " XP" thừa */
+        padding: 0.4rem 0.6rem !important;
+        gap: 0.3rem !important;
+    }
+    
+    .stat-badge .stat-icon {
+        font-size: 1rem !important;
+    }
+    
+    .stat-badge .stat-val {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* 3. Ẩn badges ở giữa khi màn hình cực nhỏ (như thiết bị di động dọc) */
+@media (max-width: 768px) {
+    .header-center {
+        display: none !important;
+    }
+}
+
+/* 4. Dịch chuyển bong bóng chat trực tuyến bạn học để tránh chèn ép nút Đổi môn tiếng Anh */
+body.english-mode .online-presence-widget {
+    left: 280px !important; /* Cách sidebar tiếng anh rộng 260px */
+}

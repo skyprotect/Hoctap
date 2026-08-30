@@ -1,0 +1,61 @@
+<!-- KHUNG CHAT NỔI (FLOATING PM CHAT WINDOW) -->
+<div id="floating-chat-window" class="floating-chat-window hidden">
+    <div class="chat-window-header">
+        <div class="chat-header-user">
+            <div class="chat-header-avatar" id="chat-header-avatar">HS</div>
+            <div class="chat-header-info">
+                <div class="chat-header-name" id="chat-header-name">Bạn học</div>
+                <div class="chat-header-status" id="chat-header-status">
+                    <span class="chat-status-dot"></span> <span class="chat-status-text">Ngoại tuyến</span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-header-actions">
+            <button class="btn-minimize-chat" onclick="app.toggleChatMinimize(true)" title="Thu nhỏ trò chuyện"><i class="fa-solid fa-window-minimize" style="font-size: 0.8rem; transform: translateY(-4px);"></i></button>
+            <button class="btn-close-chat" onclick="app.closeChatCompletely()" title="Tắt trò chuyện">&times;</button>
+        </div>
+    </div>
+    <div class="chat-window-messages" id="chat-messages-container">
+        <!-- Render động bằng JS -->
+    </div>
+    <!-- BẢNG CHỌN EMOJI (EMOJI PICKER) -->
+    <div id="chat-emoji-picker" class="chat-emoji-picker hidden">
+        <div class="emoji-list">
+            <span onclick="app.insertEmoji('😀')">😀</span>
+            <span onclick="app.insertEmoji('😂')">😂</span>
+            <span onclick="app.insertEmoji('😊')">😊</span>
+            <span onclick="app.insertEmoji('👍')">👍</span>
+            <span onclick="app.insertEmoji('❤️')">❤️</span>
+            <span onclick="app.insertEmoji('🔥')">🔥</span>
+            <span onclick="app.insertEmoji('🎉')">🎉</span>
+            <span onclick="app.insertEmoji('👏')">👏</span>
+            <span onclick="app.insertEmoji('🌟')">🌟</span>
+            <span onclick="app.insertEmoji('🚀')">🚀</span>
+            <span onclick="app.insertEmoji('💯')">💯</span>
+            <span onclick="app.insertEmoji('✍️')">✍️</span>
+            <span onclick="app.insertEmoji('🎯')">🎯</span>
+            <span onclick="app.insertEmoji('📖')">📖</span>
+            <span onclick="app.insertEmoji('🎧')">🎧</span>
+            <span onclick="app.insertEmoji('🗣️')">🗣️</span>
+            <span onclick="app.insertEmoji('🎮')">🎮</span>
+            <span onclick="app.insertEmoji('👾')">👾</span>
+            <span onclick="app.insertEmoji('👑')">👑</span>
+            <span onclick="app.insertEmoji('🦉')">🦉</span>
+        </div>
+    </div>
+    <form class="chat-window-input-area" onsubmit="event.preventDefault(); app.sendChatMessage();">
+        <button type="button" class="btn-emoji-trigger" onclick="app.toggleEmojiPicker()" title="Chèn biểu tượng cảm xúc">😀</button>
+        <input type="text" id="chat-message-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+        <button type="submit" class="btn-send-message" title="Gửi tin nhắn">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </form>
+</div>
+
+<!-- BONG BÓNG CHAT THU NHỎ (MINIMIZED CHAT BUBBLE) -->
+<div id="chat-minimized-bubble" class="chat-minimized-bubble hidden" onclick="app.toggleChatMinimize(false)" title="Nhấp để mở lại trò chuyện">
+    <div id="chat-minimized-avatar" class="chat-minimized-avatar">HS</div>
+    <span id="chat-minimized-status" class="chat-minimized-status-dot"></span>
+    <span id="chat-unread-badge" class="chat-unread-badge">0</span>
+    <button class="btn-close-chat-completely" onclick="event.stopPropagation(); app.closeChatCompletely()" title="Tắt trò chuyện">&times;</button>
+</div>

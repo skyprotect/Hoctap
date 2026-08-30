@@ -1,0 +1,50 @@
+<!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
+<div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
+    <div class="modal-card evaluation-card animate-bounce-in" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; padding: 0;">
+        <div class="modal-header" style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));">
+            <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fa-solid fa-chart-pie" style="color: var(--primary);"></i> Báo Cáo & Đánh Giá Chất Lượng Học Tập
+            </h3>
+            <button class="btn-close-modal" onclick="app.closeEvaluationModal()" style="background: none; border: none; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; line-height: 1; padding: 0;">&times;</button>
+        </div>
+        
+        <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Grid thống kê -->
+            <div class="evaluation-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; width: 100%;">
+                <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                    <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Thời gian học</span>
+                    <span class="eval-stat-val" id="eval-time" style="font-size: 1.2rem; font-weight: 800; color: #3b82f6;">0 phút</span>
+                </div>
+                <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                    <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Bài đã xong</span>
+                    <span class="eval-stat-val" id="eval-completed" style="font-size: 1.2rem; font-weight: 800; color: #10b981;">0 bài</span>
+                </div>
+                <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                    <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Tỉ lệ làm đúng</span>
+                    <span class="eval-stat-val" id="eval-accuracy" style="font-size: 1.2rem; font-weight: 800; color: #f59e0b;">0%</span>
+                </div>
+                <div class="eval-stat-item" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem;">
+                    <span class="eval-stat-label" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Chuỗi ngày</span>
+                    <span class="eval-stat-val" id="eval-streak" style="font-size: 1.2rem; font-weight: 800; color: #ec4899;">0 ngày</span>
+                </div>
+            </div>
+            
+            <!-- Nhận xét học thuật AI -->
+            <div class="ai-advice-section" style="border: 1px solid var(--border-color); border-radius: 16px; padding: 1.2rem; background: rgba(139, 92, 246, 0.03); display: flex; flex-direction: column; gap: 0.8rem;">
+                <h4 style="margin: 0; font-size: 1rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-brain"></i> Nhận xét & Đề xuất sư phạm (AI Advisor)
+                </h4>
+                <div id="eval-ai-advice" class="ai-advice-content" style="font-size: 0.92rem; line-height: 1.6; color: var(--text-main); min-height: 100px;">
+                    Đang tải đánh giá từ trợ lý AI...
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer" style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.5rem; background: rgba(0,0,0,0.08);">
+            <button class="btn-setup-submit" onclick="app.refreshEvaluationAiAnalysis()" id="btn-eval-refresh-ai" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--primary); border-radius: 8px; width: auto; margin: 0;">
+                <i class="fa-solid fa-arrows-rotate"></i> Cập nhật nhận xét AI
+            </button>
+            <button class="btn-back-header" onclick="app.closeEvaluationModal()" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 8px; margin: 0; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color);">Đóng</button>
+        </div>
+    </div>
+</div>

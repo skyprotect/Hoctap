@@ -22,10 +22,10 @@ global.localStorage = {
     setItem: () => {}
 };
 
-// Chạy load file để khởi tạo trên window
-require('../js/questions-v3.js');
-require('../js/questions-v4.js');
-require('../js/questions-v1.js');
+// Chạy load file canonical để khởi tạo trên window
+require('../../data/grade_6/math/generator.js');
+require('../../data/grade_4/math/generator.js');
+require('../../data/grade_1/math/generator.js');
 
 const questionsL6 = global.window.questions;
 const questionsL4 = global.window.questionsL4;

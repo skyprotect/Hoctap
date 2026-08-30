@@ -1,0 +1,108 @@
+/**
+ * HỌCTẬP SYSTEM — GAME OVERLAY & FEEDBACK BANNER STYLES
+ * Quản lý giao diện Lớp phủ Giải trí tự do & Banner phản hồi Duolingo
+ */
+
+/* 1. Lớp Phủ Chơi Game Tự Do (Free Play Overlay) */
+#free-play-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    background: #030e06;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.free-play-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: #051609;
+    border-bottom: 2px solid #10b981;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+#free-play-game-wrapper {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #020703;
+    position: relative;
+    padding: 1rem;
+}
+
+/* 2. Bottom Feedback Banner Kiểu Duolingo */
+.bottom-feedback-banner {
+    position: fixed;
+    bottom: -150px;
+    left: 0;
+    width: 100%;
+    padding: 1.25rem 2rem;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9000;
+    transition: bottom 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bottom-feedback-banner.show {
+    bottom: 0;
+}
+
+.bottom-feedback-banner.correct {
+    background: rgba(16, 185, 129, 0.95);
+    border-top-color: #34d399;
+}
+
+.bottom-feedback-banner.incorrect {
+    background: rgba(239, 68, 68, 0.95);
+    border-top-color: #f87171;
+}
+
+.bottom-feedback-banner-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.bottom-feedback-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bottom-feedback-duo-character {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.bottom-feedback-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.bottom-feedback-subtitle {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}

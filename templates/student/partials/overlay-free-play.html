@@ -1,0 +1,24 @@
+<!-- OVERLAY CHƠI GAME TỰ DO -->
+<div id="free-play-overlay" class="hidden">
+    <div class="free-play-header">
+        <div style="display: flex; align-items: center; gap: 12px; color: white;">
+            <span style="font-size: 1.8rem; filter: drop-shadow(0 0 4px #10b981);">🎮</span>
+            <div>
+                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #10b981; letter-spacing: 0.5px;" id="free-play-title">CHẾ ĐỘ GIẢI TRÍ TỰ DO</h3>
+                <p style="margin: 2px 0 0 0; font-size: 0.75rem; color: #a7f3d0; font-weight: 500;">Bảo vệ lâu đài bằng các tháp canh chiến thuật!</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <span id="free-play-timer" style="font-weight: 800; color: #f59e0b; background: rgba(245,158,11,0.1); padding: 6px 16px; border-radius: 20px; border: 1.5px solid #f59e0b; font-size: 1.1rem; display: none; box-shadow: 0 0 10px rgba(245,158,11,0.2); letter-spacing: 0.5px;">
+                ⏳ Còn lại: 15:00
+            </span>
+            <button onclick="app.exitFreePlayGame()" style="background: linear-gradient(135deg, #ef4444, #dc2626); border: none; color: white; padding: 8px 18px; border-radius: 10px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 6px rgba(239,68,68,0.2); transition: all 0.2s;">
+                <i class="fa-solid fa-right-from-bracket"></i> Thoát Game
+            </button>
+        </div>
+    </div>
+    <!-- Vùng chứa game container sau khi di chuyển -->
+    <div id="free-play-game-wrapper">
+        <!-- #td-game-container sẽ được append vào đây khi chơi -->
+    </div>
+</div>

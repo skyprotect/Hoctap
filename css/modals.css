@@ -1,0 +1,467 @@
+/**
+ * HỌCTẬP SYSTEM — MODALS, WIDGETS & POPUP DIALOGS STYLES
+ * Quản lý định kiểu Hồ sơ chiến binh, Đấu trường xếp hạng, Báo cáo phụ huynh, Cài đặt & In ấn
+ */
+
+/* 1. Nút Điều Khiển & Cài Đặt Tại Màn Hình Chào Mừng */
+.splash-parent-settings-btn {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: #7c3aed;
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.splash-parent-settings-btn:hover {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: #6d28d9;
+    color: #6d28d9;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
+
+.splash-switch-student-btn {
+    position: absolute;
+    top: 1.5rem;
+    left: 5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: #7c3aed;
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.splash-switch-student-btn:hover {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: #6d28d9;
+    color: #6d28d9;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
+
+.student-select-back-btn {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: #7c3aed;
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.student-select-back-btn:hover {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: #6d28d9;
+    color: #6d28d9;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
+
+/* 2. Màn Hình Thiết Lập Ban Đầu */
+#setup-initial-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+}
+
+#setup-initial-screen .splash-glass-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    color: #1e293b !important;
+    box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+#setup-initial-screen strong {
+    color: #1e293b !important;
+}
+
+#setup-initial-screen span {
+    color: #4b5563 !important;
+}
+
+#setup-initial-screen .setup-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#setup-initial-screen label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e293b !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+#setup-initial-screen input[type="text"],
+#setup-initial-screen input[type="password"] {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: #1e293b !important;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+#setup-initial-screen input[type="text"]:focus,
+#setup-initial-screen input[type="password"]:focus {
+    outline: none;
+    border-color: #8b5cf6 !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
+}
+
+#setup-initial-screen input::placeholder {
+    color: #4b5563 !important;
+}
+
+#setup-initial-screen .class-selector-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+#setup-initial-screen .class-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+#setup-initial-screen .class-card:hover {
+    background: rgba(139, 92, 246, 0.05) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+#setup-initial-screen .class-card input[type="radio"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: #8b5cf6;
+    cursor: pointer;
+    margin: 0;
+}
+
+#setup-initial-screen .class-card strong {
+    display: block;
+    font-size: 0.875rem;
+    color: #1e293b !important;
+}
+
+#setup-initial-screen .class-card span {
+    font-size: 0.75rem;
+    color: rgba(30, 41, 59, 0.7) !important;
+}
+
+#setup-initial-screen .btn-setup-submit {
+    width: 100%;
+    background: #7c3aed;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#setup-initial-screen .btn-setup-submit:hover {
+    background: #6d28d9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+}
+
+#setup-initial-screen .btn-setup-submit:active {
+    transform: translateY(1px);
+}
+
+/* 3. Widget Điều Hướng Cố Định (Quay Lại / Thoát Kiosk) */
+.fixed-navigation-widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+.fixed-navigation-widget .nav-btn {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+.fixed-navigation-widget .btn-back {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #7c3aed !important;
+    border: 1px solid rgba(124, 58, 237, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.1) !important;
+}
+
+.fixed-navigation-widget .btn-back:hover {
+    background: #7c3aed !important;
+    color: #ffffff !important;
+    border-color: #7c3aed !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3) !important;
+}
+
+.fixed-navigation-widget .btn-exit {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #ef4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1) !important;
+}
+
+.fixed-navigation-widget .btn-exit:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* 4. Ghi Đè Giao Diện Sáng Pastel Cho Splash & Login */
+.splash-screen {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+}
+
+.splash-screen .splash-glass-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    color: #1e293b !important;
+    box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+#google-login-screen {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+}
+
+#google-login-screen .splash-glass-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    color: #1e293b !important;
+    box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.splash-screen .splash-glass-card h1,
+.splash-screen .splash-glass-card h2,
+.splash-screen .splash-glass-card h3 {
+    color: #0f172a !important;
+}
+
+.splash-screen .splash-glass-card p,
+.splash-screen .splash-glass-card span:not(.splash-stat-emoji) {
+    color: #334155 !important;
+}
+
+.splash-screen .splash-glass-card input[type="text"],
+.splash-screen .splash-glass-card input[type="password"] {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    color: #1e293b !important;
+}
+
+.splash-screen .splash-glass-card input[type="text"]::placeholder,
+.splash-screen .splash-glass-card input[type="password"]::placeholder {
+    color: #4b5563 !important;
+}
+
+.splash-screen .splash-glass-card label {
+    color: #334155 !important;
+}
+
+/* 5. Định Kiểu Xem Trước & In Ấn PDF */
+#student-print-paper {
+    display: none;
+    font-family: "Times New Roman", Times, Georgia, serif;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    line-height: 1.6;
+    padding: 2.5rem;
+}
+
+#student-print-paper *,
+#print-preview-paper * {
+    color: #000000 !important;
+}
+
+#student-print-paper .math-render,
+#student-print-paper .katex,
+#print-preview-paper .math-render,
+#print-preview-paper .katex {
+    color: #000000 !important;
+    font-size: 1.05em;
+}
+
+.print-page-break {
+    page-break-before: always;
+    break-before: page;
+    height: 0;
+    overflow: hidden;
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 20mm 15mm 20mm 15mm;
+    }
+    html, body {
+        height: auto !important;
+        overflow: visible !important;
+        background: white !important;
+        color: black !important;
+    }
+    #student-select-screen,
+    #splash-screen,
+    #badge-popup,
+    #parent-lock-modal,
+    .app-header,
+    .app-content,
+    .swal2-container,
+    #confetti-canvas,
+    .version-tag-fixed,
+    #bottom-feedback-banner,
+    .online-presence-widget,
+    .online-presence-sidebar,
+    .fixed-navigation-widget,
+    .floating-chat-window,
+    .chat-minimized-bubble {
+        display: none !important;
+    }
+    #print-preview-modal {
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: white !important;
+        display: block !important;
+        visibility: visible !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    #print-preview-modal .modal-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: white !important;
+        box-shadow: none !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    #print-preview-modal .modal-header {
+        display: none !important;
+    }
+    #print-preview-modal .modal-body {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+    #print-preview-paper {
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+    #student-print-paper {
+        display: block !important;
+        visibility: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    #print-preview-paper, #print-preview-paper *,
+    #student-print-paper, #student-print-paper * {
+        color: #000000 !important;
+        text-shadow: none !important;
+    }
+    .katex-mathml {
+        display: none !important;
+    }
+    .print-page-break {
+        display: block !important;
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+}

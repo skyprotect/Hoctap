@@ -2,47 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const questionsV3Path = path.join(__dirname, '../js/questions-v3.js');
+const questionsV3Path = path.join(__dirname, '../data/grade_6/math/generator.js');
 
-describe("Unit Tests for questions-v3.js", () => {
+describe("Unit Tests for Grade 6 Math Generator (data/grade_6/math/generator.js)", () => {
     let questions;
 
     beforeAll(() => {
-        // Đọc mã nguồn và giả lập môi trường browser để nạp
-        const code = fs.readFileSync(questionsV3Path, 'utf8');
-        
-        // Mock các đối tượng DOM/Browser tối thiểu
-        const mockWindow = {
-            Swal: {
-                fire: jest.fn()
-            }
-        };
-        const mockDocument = {
-            addEventListener: jest.fn(),
-            getElementById: jest.fn().mockReturnValue({
-                classList: {
-                    contains: jest.fn().mockReturnValue(true)
-                }
-            })
-        };
-
-        const context = {
-            window: mockWindow,
-            document: mockDocument,
-            console,
-            Math,
-            setInterval: jest.fn(),
-            clearInterval: jest.fn(),
-            setTimeout: jest.fn(),
-            clearTimeout: jest.fn()
-        };
-
-        // Chạy mã nguồn trong context sandbox
         try {
-            vm.runInNewContext(code, context);
-            questions = mockWindow.questions;
+            questions = require('../data/grade_6/math/generators/registry.js');
         } catch (e) {
-            console.error("Lỗi khi load questions-v3.js trong sandbox test:", e);
+            console.error("Lỗi khi load questions trong test:", e);
             throw e;
         }
     });

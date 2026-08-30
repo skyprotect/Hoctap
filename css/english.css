@@ -1,0 +1,628 @@
+/* ==========================================================================
+   HỌCTẬP SYSTEM — ENGLISH PORTAL & VOCABULARY MONSTER ARENA
+   ========================================================================== */
+/* --- ENGLISH PORTAL FONT & LIVE ADDITIONS --- */
+#english-focus-lesson-screen {
+    font-family: 'Nunito', 'Quicksand', 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+.english-app-layout,
+.english-app-layout button,
+.english-app-layout input,
+.english-app-layout select,
+.english-app-layout textarea,
+#english-focus-lesson-screen,
+#english-focus-lesson-screen button,
+#english-focus-lesson-screen input,
+#english-focus-lesson-screen select,
+#english-focus-lesson-screen textarea {
+    font-family: 'Nunito', 'Quicksand', 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Thanh Tab 4 kỹ năng 3D Duolingo */
+.english-skills-tab-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.skill-tab-btn {
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    transform: translateY(0);
+}
+.skill-tab-btn.listening {
+    background: #f1f5f9;
+    color: #475569;
+    border-bottom: 4px solid #cbd5e1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.skill-tab-btn.listening.active {
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    color: white;
+    border-bottom: 4px solid #1d4ed8;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+}
+.skill-tab-btn.speaking {
+    background: #f1f5f9;
+    color: #475569;
+    border-bottom: 4px solid #cbd5e1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.skill-tab-btn.speaking.active {
+    background: linear-gradient(135deg, #34d399, #059669);
+    color: white;
+    border-bottom: 4px solid #047857;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25);
+}
+.skill-tab-btn.reading {
+    background: #f1f5f9;
+    color: #475569;
+    border-bottom: 4px solid #cbd5e1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.skill-tab-btn.reading.active {
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+    color: white;
+    border-bottom: 4px solid #c2410c;
+    box-shadow: 0 4px 6px rgba(234, 88, 12, 0.25);
+}
+.skill-tab-btn.writing {
+    background: #f1f5f9;
+    color: #475569;
+    border-bottom: 4px solid #cbd5e1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.skill-tab-btn.writing.active {
+    background: linear-gradient(135deg, #a78bfa, #7c3aed);
+    color: white;
+    border-bottom: 4px solid #6d28d9;
+    box-shadow: 0 4px 6px rgba(124, 58, 237, 0.25);
+}
+.skill-tab-btn:active {
+    transform: translateY(3px);
+    border-bottom-width: 1px !important;
+    margin-bottom: 3px;
+}
+
+/* Switch Toggle Component */
+.eng-switch {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 22px;
+}
+
+.eng-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.eng-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .3s;
+    border-radius: 22px;
+}
+
+.eng-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+.eng-switch input:checked + .eng-slider {
+    background-color: #a855f7;
+}
+
+.eng-switch input:checked + .eng-slider:before {
+    transform: translateX(16px);
+}
+
+/* English Focus Mode Layout Extensions */
+.english-focus-body {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#english-interaction-area {
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.focus-progress-text {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 4px 12px;
+    border-radius: 99px;
+    white-space: nowrap;
+}
+
+/* Beautiful 3D Scrambled Letters Cards */
+.scrambled-letter-card {
+    background: linear-gradient(135deg, #ffedd5, #fed7aa) !important;
+    border: 2px solid #f97316 !important;
+    border-radius: 12px !important;
+    color: #ea580c !important;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 900;
+    box-shadow: 0 4px 0 #ea580c;
+    user-select: none;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+    transition: transform 0.1s;
+}
+.scrambled-letter-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 3D Drag Block styling */
+.drag-word-block {
+    background: var(--bg-card) !important;
+    border: 2px solid var(--border-color) !important;
+    border-bottom: 4px solid var(--border-color) !important;
+    transition: all 0.1s !important;
+}
+.drag-word-block:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px !important;
+}
+
+/* Blinking Microphone Animation */
+.micro-btn-neon.recording {
+    animation: pulse-recording 1.5s infinite alternate;
+    background-color: #ef4444 !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.6) !important;
+}
+@keyframes pulse-recording {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.8;
+        transform: scale(1.08);
+    }
+}
+
+/* ==========================================================================
+   OLYMPIC IOE STYLES & INTERACTIVE UI
+   ========================================================================== */
+.ioe-round-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.12) !important;
+}
+
+/* 3D letters for Leave Me Alone */
+.ioe-letter-btn:active {
+    transform: translateY(4px) !important;
+    box-shadow: none !important;
+    border-bottom-width: 2px !important;
+}
+.ioe-letter-btn:hover {
+    background: #f1f5f9 !important;
+}
+
+/* Matching columns click effects */
+.ioe-matching-btn {
+    transition: all 0.15s ease;
+}
+.ioe-matching-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 #94a3b8;
+}
+.ioe-matching-btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Animations for Dragon and Monkey */
+.ioe-dragon-animate {
+    animation: float-dragon 3s ease-in-out infinite;
+    display: inline-block;
+}
+@keyframes float-dragon {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
+
+.ioe-monkey-animate {
+    animation: float-monkey 2.5s ease-in-out infinite;
+    display: inline-block;
+}
+@keyframes float-monkey {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-8px) scale(1.03);
+    }
+}
+
+/* Animation shake when wrong */
+.shake-effect {
+    animation: shake 0.4s ease-in-out;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+    20%, 40%, 60%, 80% { transform: translateX(6px); }
+}
+
+/* Ẩn hoàn toàn trái tim trong focus mode */
+.focus-hearts {
+    display: none !important;
+}
+
+/* Hiệu ứng hào quang lấp lánh cho thẻ mạ vàng */
+.gold-skill-card-shine {
+    overflow: hidden;
+}
+.gold-skill-card-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 30%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(30deg);
+    transition: none;
+    animation: goldShine 3.5s infinite linear;
+}
+@keyframes goldShine {
+    0% { left: -60%; }
+    100% { left: 140%; }
+}
+
+/* Hiệu ứng 3D hover nhẹ nhàng */
+.skill-card-3d {
+    cursor: default;
+    user-select: none;
+}
+.skill-card-3d:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================================================
+   GLASS MODAL & MODERN LEADERBOARD/COMPETENCY STYLES (v8.0)
+   ========================================================================== */
+.glass-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(10, 5, 25, 0.8) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10000 !important;
+    animation: glassModalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.glass-modal.hidden {
+    display: none !important;
+}
+
+.glass-modal .modal-content {
+    animation: glassModalContentShow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+#leaderboard-modal .modal-content {
+    max-width: 1000px !important;
+    width: 95% !important;
+    max-height: 90vh !important;
+    background: linear-gradient(135deg, #ffffff, #fcfaff) !important;
+    color: #1e1b4b !important;
+    border: 1px solid rgba(168, 85, 247, 0.25) !important;
+    box-shadow: 0 20px 50px rgba(168, 85, 247, 0.15) !important;
+    border-radius: 24px !important;
+    transition: all 0.3s ease !important;
+}
+
+body.light-mode #leaderboard-modal .modal-content {
+    background: rgba(10, 7, 24, 0.98) !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(168, 85, 247, 0.4) !important;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.25) !important;
+}
+
+
+#hero-profile-modal .modal-content {
+    max-width: 1350px !important;
+    width: 97% !important;
+    max-height: 97vh !important;
+    background: rgba(235, 245, 235, 0.98) !important;
+    color: #0b3012 !important;
+    border: 2px solid rgba(46, 125, 50, 0.35) !important;
+    box-shadow: 0 15px 40px rgba(46, 125, 50, 0.15) !important;
+    border-radius: 24px !important;
+    transition: all 0.3s ease !important;
+}
+
+#hero-profile-modal .modal-header {
+    background: rgba(46, 125, 50, 0.08) !important;
+    border-bottom: 1px solid rgba(46, 125, 50, 0.2) !important;
+    padding: 1.2rem 1.5rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+#hero-profile-modal .modal-header h3 {
+    color: #2e7d32 !important;
+    text-shadow: none !important;
+}
+
+body.light-mode #hero-profile-modal .modal-content {
+    background: rgba(10, 7, 24, 0.98) !important;
+    color: #f8fafc !important;
+    border: 2px solid rgba(192, 132, 252, 0.4) !important;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.25) !important;
+}
+
+body.light-mode #hero-profile-modal .modal-header {
+    background: rgba(192, 132, 252, 0.08) !important;
+    border-bottom: 1px solid rgba(192, 132, 252, 0.25) !important;
+}
+
+body.light-mode #hero-profile-modal .modal-header h3 {
+    color: #d8b4fe !important;
+    text-shadow: 0 0 10px rgba(192, 132, 252, 0.6) !important;
+}
+
+
+@keyframes glassModalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+        background: rgba(10, 5, 25, 0);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(15px);
+        background: rgba(10, 5, 25, 0.8);
+    }
+}
+
+@keyframes glassModalContentShow {
+    from {
+        transform: scale(0.9) translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Phong cách dòng bảng xếp hạng hiện đại */
+#global-leaderboard-tbody tr {
+    transition: all 0.25s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+#global-leaderboard-tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    transform: scale(1.005);
+}
+
+/* Highlight Top 1, 2, 3 */
+#global-leaderboard-tbody tr:nth-child(1) {
+    background: rgba(251, 191, 36, 0.05) !important;
+    border-left: 4px solid #eab308 !important;
+}
+#global-leaderboard-tbody tr:nth-child(2) {
+    background: rgba(148, 163, 184, 0.04) !important;
+    border-left: 4px solid #94a3b8 !important;
+}
+#global-leaderboard-tbody tr:nth-child(3) {
+    background: rgba(180, 83, 9, 0.03) !important;
+    border-left: 4px solid #b45309 !important;
+}
+
+/* Dòng của bản thân */
+#global-leaderboard-tbody tr.self-rank-row {
+    background: rgba(168, 85, 247, 0.08) !important;
+    border: 1px solid rgba(168, 85, 247, 0.3) !important;
+    box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.05) !important;
+}
+
+/* Avatar chữ cái viết tắt của chiến binh */
+.leaderboard-avatar-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.88rem;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+/* Thiết kế lại thẻ quái vật từ vựng */
+.weak-word-item {
+    background: rgba(239, 68, 68, 0.05) !important;
+    border: 1px solid rgba(239, 68, 68, 0.15) !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.8rem !important;
+    transition: all 0.25s ease !important;
+    margin-bottom: 0.25rem;
+}
+
+.weak-word-item:hover {
+    background: rgba(239, 68, 68, 0.08) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+.weak-word-icon {
+    color: #ef4444;
+    font-size: 1.1rem;
+    animation: targetPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes targetPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+.btn-slay-word {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    color: white !important;
+    border: none !important;
+    padding: 6px 12px !important;
+    font-weight: 800 !important;
+    font-size: 0.8rem !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    box-shadow: 0 3px 6px rgba(239, 68, 68, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-slay-word:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35) !important;
+    background: linear-gradient(135deg, #f87171, #ef4444) !important;
+}
+
+/* Nút Đóng trong modal-header và modal-footer */
+.btn-close-modal:hover {
+    color: #ef4444 !important;
+    transform: rotate(90deg);
+}
+
+.btn-close-modal {
+    transition: all 0.25s ease !important;
+}
+
+/* ==========================================================================
+   NÂNG CẤP & ĐỒNG BỘ MÀU SẮC GIAO DIỆN TƯƠNG PHẢN - CHUYÊN NGHIỆP & KHOA HỌC
+   ========================================================================== */
+
+/* Đồng bộ Sidebar Tiếng Anh ở chế độ tối Emerald Night Mode */
+body.light-mode .english-sidebar {
+    background-color: #0b2512 !important;
+    border-right: 2px solid rgba(255, 215, 0, 0.15) !important;
+}
+
+body.light-mode .english-sidebar-logo {
+    color: #ffd700 !important;
+}
+
+body.light-mode .eng-nav-item {
+    color: #a7f3d0 !important; /* Xanh ngọc nhạt tương phản tốt trên nền tối */
+}
+
+body.light-mode .eng-nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffd700 !important;
+}
+
+body.light-mode .eng-nav-item.active {
+    background-color: rgba(255, 215, 0, 0.12) !important;
+    color: #ffd700 !important;
+    border: 2px solid #ffd700 !important;
+}
+
+body.light-mode .btn-eng-change-subject {
+    border-top: 1px solid rgba(255, 215, 0, 0.15) !important;
+    color: #a7f3d0 !important;
+}
+
+body.light-mode .btn-eng-change-subject:hover {
+    color: #ffd700 !important;
+}
+
+/* Đồng bộ Modal Bảng Xếp Hạng với theme của ứng dụng */
+#leaderboard-modal .modal-content {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 2px solid var(--border-color) !important;
+    box-shadow: var(--shadow-lg) !important;
+    transition: all 0.3s ease;
+}
+
+body.light-mode #leaderboard-modal .modal-header {
+    background: linear-gradient(135deg, #0d3815, #111827) !important;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2) !important;
+}
+
+#leaderboard-modal select, 
+#leaderboard-modal table {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+}
+
+#leaderboard-modal th {
+    background: rgba(0,0,0,0.05) !important;
+    color: var(--text-main) !important;
+    font-weight: 800;
+}
+
+body.light-mode #leaderboard-modal th {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+#leaderboard-class-filter {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}

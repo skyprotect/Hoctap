@@ -1,6 +1,6 @@
 /**
  * HỌCTẬP SYSTEM — MASTER APPLICATION FAÇADE & BOOTSTRAP
- * Phiên bản: v13.37 (Cập nhật: 30/08/2026 16:00)
+ * Phiên bản: v13.38 (Cập nhật: 30/08/2026 16:30)
  * Kiến trúc: Modular Monolith / Clean Architecture / Event-Driven SPA
  * 
  * Tệp này đóng vai trò:
@@ -472,6 +472,139 @@
 
         refreshEvaluationAiAnalysis: function() {
             if (window.ParentDashboardModule) window.ParentDashboardModule.refreshAiAnalysis();
+        },
+
+        // ====================================================================
+        // 12. CÁC CẦU NỐI BỔ TRỢ GIAO DIỆN & TƯƠNG TÁC HTML (UI BRIDGES)
+        // ====================================================================
+        skipGoogleLogin: function() {
+            const screen = document.getElementById('google-login-screen');
+            if (screen) screen.classList.add('hidden');
+            if (window.SplashModule) window.SplashModule.show();
+        },
+
+        openGoogleLoginModal: function() {
+            const screen = document.getElementById('google-login-screen');
+            if (screen) screen.classList.remove('hidden');
+        },
+
+        toggleAiProgressDetail: function() {
+            const detailEl = document.getElementById('ai-progress-detail-dropdown');
+            if (detailEl) detailEl.classList.toggle('hidden');
+        },
+
+        showAiErrors: function() {
+            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.showAiErrors === 'function') {
+                window.ParentDashboardModule.showAiErrors();
+            } else if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Nhật ký lỗi AI',
+                    text: 'Hệ thống đang hoạt động bình thường, không phát hiện lỗi sinh đề nghiêm trọng.'
+                });
+            }
+        },
+
+        renderHeroProfile: function() {
+            if (window.SkillCardModule) window.SkillCardModule.openBadgesModal();
+        },
+
+        checkSubjectSelection: function() {
+            if (window.NavigationService) window.NavigationService.showScreen('subject-select-screen');
+        },
+
+        toggleFocusMode: function() {
+            document.body.classList.toggle('super-focus-mode');
+        },
+
+        switchEnglishTab: function(tabName) {
+            const tabButtons = document.querySelectorAll('.eng-nav-item');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            const targetBtn = document.getElementById(`eng-nav-${tabName}`);
+            if (targetBtn) targetBtn.classList.add('active');
+
+            const screens = ['map', 'practice', 'exams', 'ioe', 'custom-vocab', 'leaderboard', 'shop', 'profile'];
+            screens.forEach(s => {
+                const el = document.getElementById(`eng-tab-${s}`);
+                if (el) {
+                    if (s === tabName) el.classList.remove('hidden');
+                    else el.classList.add('hidden');
+                }
+            });
+            if (tabName === 'leaderboard' && window.LeaderboardModule) window.LeaderboardModule.loadData();
+            if (tabName === 'shop' && window.SkillCardModule) window.SkillCardModule.openShopModal();
+            if (tabName === 'profile' && window.SkillCardModule) window.SkillCardModule.openBadgesModal();
+        },
+
+        selectEnglishSkill: function(skill) {
+            const btns = document.querySelectorAll('.skill-tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            const activeBtn = document.querySelector(`.skill-tab-btn.${skill}`);
+            if (activeBtn) activeBtn.classList.add('active');
+            if (window.CurriculumModule && typeof window.CurriculumModule.selectEnglishSkill === 'function') {
+                window.CurriculumModule.selectEnglishSkill(skill);
+            }
+        },
+
+        onStudentEngCategoryChange: function() {
+            const selectEl = document.getElementById('student-eng-category-select');
+            if (selectEl && window.CurriculumModule && typeof window.CurriculumModule.filterEnglishCategory === 'function') {
+                window.CurriculumModule.filterEnglishCategory(selectEl.value);
+            }
+        },
+
+        toggleAllStudentGrammar: function() {
+            const grammarItems = document.querySelectorAll('.grammar-topic-card');
+            grammarItems.forEach(item => item.classList.toggle('expanded'));
+        },
+
+        exportStudentEnglishPdf: function() {
+            if (typeof window.print === 'function') {
+                window.print();
+            }
+        },
+
+        addStudentCustomVocabulary: function() {
+            const wordInput = document.getElementById('custom-vocab-word');
+            const meaningInput = document.getElementById('custom-vocab-meaning');
+            if (!wordInput || !meaningInput || !wordInput.value.trim()) return;
+
+            const word = wordInput.value.trim();
+            const meaning = meaningInput.value.trim();
+            const state = (window.AppState && window.AppState.state) || {};
+            state.customVocabulary = state.customVocabulary || [];
+            state.customVocabulary.push({ word, meaning, date: new Date().toISOString() });
+            
+            wordInput.value = '';
+            meaningInput.value = '';
+            this.saveProgress();
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({ icon: 'success', title: 'Thành công', text: `Đã thêm từ vựng mới: ${word}` });
+            }
+        },
+
+        closeReviewSessionModal: function() {
+            const modal = document.getElementById('review-session-modal') || document.getElementById('history-detail-modal');
+            if (modal) modal.classList.add('hidden');
+        },
+
+        closeQuickStudyModal: function() {
+            const modal = document.getElementById('quick-study-modal');
+            if (modal) modal.classList.add('hidden');
+        },
+
+        filterPresenceList: function() {
+            const searchInput = document.getElementById('presence-search-input');
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            const items = document.querySelectorAll('.presence-user-item');
+            items.forEach(item => {
+                const name = item.textContent.toLowerCase();
+                if (!query || name.includes(query)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
     };
 

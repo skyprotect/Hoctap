@@ -1,0 +1,454 @@
+module.exports = {
+  metadata: {
+    subject: "math",
+    grade: 6,
+    chapter: 4,
+    title: "Một số hình phẳng trong thực tiễn",
+    totalTemplates: 20
+  },
+  templates: [
+    {
+      id: "c4_001",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 4, max: 15 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "3 * a",
+        w1: "a * a",
+        w2: "4 * a",
+        w3: "ans + 3"
+      },
+      question: "Chu vi của một tam giác đều có cạnh bằng {a} cm là:",
+      hint: "Tam giác đều có 3 cạnh bằng nhau, chu vi $P = 3a$.",
+      solution: "Chu vi tam giác đều là: $3 \\times {a} = {ans}$ cm.",
+      options: ["{ans} cm", "{w1} cm", "{w2} cm", "{w3} cm"],
+      correctIndex: 0,
+      tags: ["tam giác đều", "chu vi"]
+    },
+    {
+      id: "c4_002",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 5, max: 20 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "4 * a",
+        w1: "a * a",
+        w2: "2 * a",
+        w3: "ans + 4"
+      },
+      question: "Chu vi của một hình vuông có độ dài cạnh {a} cm là:",
+      hint: "Chu vi hình vuông $P = 4a$.",
+      solution: "Chu vi hình vuông là: $4 \\times {a} = {ans}$ cm.",
+      options: ["{ans} cm", "{w1} cm", "{w2} cm", "{w3} cm"],
+      correctIndex: 0,
+      tags: ["hình vuông", "chu vi"]
+    },
+    {
+      id: "c4_003",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 4, max: 15 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "a * a",
+        w1: "4 * a",
+        w2: "2 * a",
+        w3: "ans + 10"
+      },
+      question: "Diện tích của một hình vuông có cạnh bằng {a} cm là:",
+      hint: "Diện tích hình vuông $S = a^2$.",
+      solution: "Diện tích hình vuông là: ${a} \\times ${a} = {ans} \\text{ cm}^2$.",
+      options: ["{ans} cm²", "{w1} cm²", "{w2} cm²", "{w3} cm²"],
+      correctIndex: 0,
+      tags: ["hình vuông", "diện tích"]
+    },
+    {
+      id: "c4_004",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        cd: { type: "int", min: 8, max: 25 },
+        cr: { type: "int", min: 4, max: 15 }
+      },
+      constraints: ["cd > cr"],
+      formulas: {
+        ans: "2 * (cd + cr)",
+        w1: "cd * cr",
+        w2: "cd + cr",
+        w3: "ans + 2"
+      },
+      question: "Chu vi của hình chữ nhật có chiều dài {cd} cm và chiều rộng {cr} cm là:",
+      hint: "Chu vi hình chữ nhật $P = (a + b) \\times 2$.",
+      solution: "Chu vi hình chữ nhật là: $({cd} + {cr}) \\times 2 = {ans}$ cm.",
+      options: ["{ans} cm", "{w1} cm", "{w2} cm", "{w3} cm"],
+      correctIndex: 0,
+      tags: ["hình chữ nhật", "chu vi"]
+    },
+    {
+      id: "c4_005",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        cd: { type: "int", min: 8, max: 20 },
+        cr: { type: "int", min: 3, max: 10 }
+      },
+      constraints: ["cd > cr"],
+      formulas: {
+        ans: "cd * cr",
+        w1: "2 * (cd + cr)",
+        w2: "cd + cr",
+        w3: "ans + 10"
+      },
+      question: "Diện tích của hình chữ nhật có chiều dài {cd} cm và chiều rộng {cr} cm là:",
+      hint: "Diện tích hình chữ nhật $S = a \\times b$.",
+      solution: "Diện tích hình chữ nhật là: ${cd} \\times ${cr} = {ans} \\text{ cm}^2$.",
+      options: ["{ans} cm²", "{w1} cm²", "{w2} cm²", "{w3} cm²"],
+      correctIndex: 0,
+      tags: ["hình chữ nhật", "diện tích"]
+    },
+    {
+      id: "c4_006",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        d1: { type: "int", min: 6, max: 20 },
+        d2: { type: "int", min: 4, max: 16 }
+      },
+      constraints: ["(d1 * d2) % 2 === 0"],
+      formulas: {
+        ans: "(d1 * d2) / 2",
+        w1: "d1 * d2",
+        w2: "2 * (d1 + d2)",
+        w3: "ans + 6"
+      },
+      question: "Diện tích của một hình thoi có độ dài hai đường chéo là {d1} cm và {d2} cm là:",
+      hint: "Diện tích hình thoi bằng nửa tích hai đường chéo: $S = \\frac{1}{2} m \\cdot n$.",
+      solution: "Diện tích hình thoi là: $\\frac{1}{2} \\times ${d1} \\times ${d2} = {ans} \\text{ cm}^2$.",
+      options: ["{ans} cm²", "{w1} cm²", "{w2} cm²", "{w3} cm²"],
+      correctIndex: 0,
+      tags: ["hình thoi", "diện tích"]
+    },
+    {
+      id: "c4_007",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 5, max: 15 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "4 * a",
+        w1: "a * a",
+        w2: "2 * a",
+        w3: "ans + 4"
+      },
+      question: "Chu vi của một hình thoi có độ dài cạnh {a} cm là:",
+      hint: "Hình thoi có 4 cạnh bằng nhau, chu vi $P = 4a$.",
+      solution: "Chu vi hình thoi là: $4 \\times {a} = {ans}$ cm.",
+      options: ["{ans} cm", "{w1} cm", "{w2} cm", "{w3} cm"],
+      correctIndex: 0,
+      tags: ["hình thoi", "chu vi"]
+    },
+    {
+      id: "c4_008",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 10, max: 25 },
+        h: { type: "int", min: 5, max: 15 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "a * h",
+        w1: "(a * h) / 2",
+        w2: "2 * (a + h)",
+        w3: "ans + 10"
+      },
+      question: "Diện tích của hình bình hành có độ dài đáy {a} cm và chiều cao tương ứng {h} cm là:",
+      hint: "Diện tích hình bình hành $S = a \\times h$.",
+      solution: "Diện tích hình bình hành là: ${a} \\times ${h} = {ans} \\text{ cm}^2$.",
+      options: ["{ans} cm²", "{w1} cm²", "{w2} cm²", "{w3} cm²"],
+      correctIndex: 0,
+      tags: ["hình bình hành", "diện tích"]
+    },
+    {
+      id: "c4_009",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 6, max: 15 },
+        b: { type: "int", min: 10, max: 25 },
+        h: { type: "int", min: 4, max: 12 }
+      },
+      constraints: ["b > a", "((a + b) * h) % 2 === 0"],
+      formulas: {
+        sumBases: "a + b",
+        ans: "(sumBases * h) / 2",
+        w1: "sumBases * h",
+        w2: "a * b",
+        w3: "ans + 8"
+      },
+      question: "Diện tích của hình thang có hai đáy {a} cm, {b} cm và chiều cao {h} cm là:",
+      hint: "Diện tích hình thang $S = \\frac{(a + b) \\cdot h}{2}$.",
+      solution: "Diện tích hình thang là: $\\frac{({a} + {b}) \\times {h}}{2} = {ans} \\text{ cm}^2$.",
+      options: ["{ans} cm²", "{w1} cm²", "{w2} cm²", "{w3} cm²"],
+      correctIndex: 0,
+      tags: ["hình thang", "diện tích"]
+    },
+    {
+      id: "c4_010",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 3, max: 10 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "6 * a",
+        w1: "3 * a",
+        w2: "4 * a",
+        w3: "ans + 6"
+      },
+      question: "Chu vi của một hình lục giác đều có độ dài cạnh {a} cm là:",
+      hint: "Lục giác đều có 6 cạnh bằng nhau, chu vi $P = 6a$.",
+      solution: "Chu vi hình lục giác đều là: $6 \\times ${a} = {ans}$ cm.",
+      options: ["{ans} cm", "{w1} cm", "{w2} cm", "{w3} cm"],
+      correctIndex: 0,
+      tags: ["lục giác đều", "chu vi"]
+    },
+    {
+      id: "c4_011",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        dai: { type: "int", min: 6, max: 12 },
+        rong: { type: "int", min: 4, max: 8 },
+        gach: { type: "int", min: 4, max: 5 }
+      },
+      constraints: ["dai > rong"],
+      formulas: {
+        gachM: "gach * 0.1",
+        sSan: "dai * rong",
+        sGach: "gachM * gachM",
+        ans: "Math.round(sSan / sGach)",
+        w1: "ans + 50",
+        w2: "ans - 50",
+        w3: "sSan * 10"
+      },
+      question: "Một căn phòng hình chữ nhật có chiều dài {dai} m, chiều rộng {rong} m. Người ta lát nền bằng các viên gạch hình vuông cạnh {gach * 10} cm. Cần bao nhiêu viên gạch để lát kín nền phòng?",
+      hint: "Đổi đơn vị rồi lấy diện tích căn phòng chia cho diện tích một viên gạch.",
+      solution: "Diện tích phòng = {sSan} m² = {sSan * 10000} cm². Diện tích 1 viên gạch = {gach * 10 * gach * 10} cm². Số gạch cần = {ans} viên.",
+      options: ["{ans} viên", "{w1} viên", "{w2} viên", "{w3} viên"],
+      correctIndex: 0,
+      tags: ["toán thực tế", "lát gạch"]
+    },
+    {
+      id: "c4_012",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        dai: { type: "int", min: 10, max: 25 },
+        rong: { type: "int", min: 5, max: 15 },
+        gia: { type: "int", min: 30, max: 60 }
+      },
+      constraints: ["dai > rong"],
+      formulas: {
+        p: "2 * (dai + rong)",
+        pTruCong: "p - 2",
+        ans: "pTruCong * gia * 1000",
+        w1: "p * gia * 1000",
+        w2: "ans + 100000",
+        w3: "ans - 100000"
+      },
+      question: "Một mảnh vườn hình chữ nhật dài {dai} m, rộng {rong} m. Người ta làm hàng rào xung quanh vườn, chừa một cổng vào rộng 2 m. Chi phí làm mỗi mét rào là {gia * 1000} đồng. Tổng chi phí làm hàng rào là:",
+      hint: "Chiều dài hàng rào = Chu vi vườn - chiều rộng cổng.",
+      solution: "Chu vi = {p} m. Chiều dài rào = {p} - 2 = {pTruCong} m. Chi phí = {pTruCong} \\times {gia * 1000} = {ans} đồng.",
+      options: ["{ans} đồng", "{w1} đồng", "{w2} đồng", "{w3} đồng"],
+      correctIndex: 0,
+      tags: ["toán thực tế", "làm hàng rào"]
+    },
+    {
+      id: "c4_013",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        name: { type: "choice", options: ["Tam giác đều", "Hình vuông", "Hình lục giác đều", "Hình chữ nhật"] }
+      },
+      constraints: [],
+      formulas: {
+        ans: "name === 'Tam giác đều' ? 'Có 3 cạnh bằng nhau và 3 góc bằng nhau' : name === 'Hình vuông' ? 'Có 4 cạnh bằng nhau và 4 góc vuông' : name === 'Hình lục giác đều' ? 'Có 6 cạnh bằng nhau và 6 góc bằng nhau' : 'Có các cạnh đối bằng nhau và 4 góc vuông'",
+        w1: "Có 2 đường chéo không bằng nhau",
+        w2: "Có 4 góc không bằng nhau",
+        w3: "Có các cạnh không bằng nhau"
+      },
+      question: "Đặc điểm cơ bản của {name} là:",
+      hint: "Nhớ lại định nghĩa hình học về cạnh và góc của {name}.",
+      solution: "{name} {ans}.",
+      options: ["{ans}", "{w1}", "{w2}", "{w3}"],
+      correctIndex: 0,
+      tags: ["tính chất hình học"]
+    },
+    {
+      id: "c4_014",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "choice", options: ["Hình thoi", "Hình bình hành", "Hình thang cân"] }
+      },
+      constraints: [],
+      formulas: {
+        ans: "a === 'Hình thoi' ? 'Hai đường chéo vuông góc với nhau' : a === 'Hình bình hành' ? 'Hai đường chéo cắt nhau tại trung điểm mỗi đường' : 'Hai đường chéo bằng nhau'",
+        w1: "Hai đường chéo luôn vuông góc và bằng nhau",
+        w2: "Không có đường chéo",
+        w3: "Bốn cạnh luôn vuông góc với nhau"
+      },
+      question: "Khẳng định nào ĐÚNG về hai đường chéo của {a}?",
+      hint: "Hình thoi có hai đường chéo vuông góc; hình bình hành cắt nhau tại trung điểm; hình thang cân hai đường chéo bằng nhau.",
+      solution: "Trong {a}: {ans}.",
+      options: ["{ans}", "{w1}", "{w2}", "{w3}"],
+      correctIndex: 0,
+      tags: ["đường chéo", "hình học"]
+    },
+    {
+      id: "c4_015",
+      level: "kho",
+      type: "multiple-choice",
+      variables: {
+        canh: { type: "int", min: 4, max: 10 }
+      },
+      constraints: [],
+      formulas: {
+        sVuong: "canh * canh",
+        sTang: "(canh * 2) * (canh * 2)",
+        ans: "4",
+        w1: "2",
+        w2: "8",
+        w3: "16"
+      },
+      question: "Nếu độ dài cạnh của một hình vuông tăng lên gấp 2 lần thì diện tích của nó tăng lên gấp bao nhiêu lần?",
+      hint: "$S_{mới} = (2a)^2 = 4a^2 = 4S_{cũ}$.",
+      solution: "Khi cạnh tăng gấp 2 lần, diện tích tăng: $2^2 = 4$ lần.",
+      options: ["4 lần", "2 lần", "8 lần", "16 lần"],
+      correctIndex: 0,
+      tags: ["hình vuông", "tỉ lệ diện tích"]
+    },
+    {
+      id: "c4_016",
+      level: "kho",
+      type: "multiple-choice",
+      variables: {
+        cd: { type: "int", min: 10, max: 20 },
+        cr: { type: "int", min: 6, max: 12 }
+      },
+      constraints: ["cd > cr"],
+      formulas: {
+        ans: "4",
+        w1: "2",
+        w2: "6",
+        w3: "8"
+      },
+      question: "Nếu chiều dài và chiều rộng của một hình chữ nhật cùng tăng lên 2 lần thì diện tích hình chữ nhật tăng lên:",
+      hint: "$S' = (2a) \\times (2b) = 4(ab)$.",
+      solution: "Diện tích mới = $2a \\times 2b = 4ab = 4S$. Tăng 4 lần.",
+      options: ["4 lần", "2 lần", "6 lần", "8 lần"],
+      correctIndex: 0,
+      tags: ["hình chữ nhật", "tỉ lệ diện tích"]
+    },
+    {
+      id: "c4_017",
+      level: "co-ban",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 4, max: 12 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "3",
+        w1: "6",
+        w2: "4",
+        w3: "8"
+      },
+      question: "Một hình lục giác đều có tất cả bao nhiêu đường chéo chính?",
+      hint: "Đường chéo chính nối hai đỉnh đối diện của lục giác đều.",
+      solution: "Hình lục giác đều có 3 đường chéo chính cắt nhau tại một điểm.",
+      options: ["3", "6", "4", "8"],
+      correctIndex: 0,
+      tags: ["lục giác đều", "đường chéo"]
+    },
+    {
+      id: "c4_018",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 5, max: 15 },
+        b: { type: "int", min: 3, max: 10 }
+      },
+      constraints: [],
+      formulas: {
+        ans: "2 * (a + b)",
+        w1: "a * b",
+        w2: "4 * a",
+        w3: "ans + 4"
+      },
+      question: "Một hình bình hành có độ dài hai cạnh kề là {a} cm và {b} cm. Chu vi hình bình hành đó là:",
+      hint: "Chu vi hình bình hành $P = 2(a + b)$.",
+      solution: "Chu vi hình bình hành = $2 \\times ({a} + {b}) = {ans}$ cm.",
+      options: ["{ans} cm", "{w1} cm", "{w2} cm", "{w3} cm"],
+      correctIndex: 0,
+      tags: ["hình bình hành", "chu vi"]
+    },
+    {
+      id: "c4_019",
+      level: "nang-cao",
+      type: "multiple-choice",
+      variables: {
+        day: { type: "int", min: 10, max: 20 },
+        cao: { type: "int", min: 6, max: 14 }
+      },
+      constraints: ["(day * cao) % 2 === 0"],
+      formulas: {
+        ans: "(day * cao) / 2",
+        w1: "day * cao",
+        w2: "day + cao",
+        w3: "ans + 10"
+      },
+      question: "Diện tích của một hình tam giác có đáy {day} cm và chiều cao {cao} cm là:",
+      hint: "Diện tích tam giác $S = \\frac{1}{2} a \\cdot h$.",
+      solution: "Diện tích tam giác là: $\\frac{1}{2} \\times ${day} \\times ${cao} = {ans} \\text{ cm}^2$.",
+      options: ["{ans} cm²", "{w1} cm²", "{w2} cm²", "{w3} cm²"],
+      correctIndex: 0,
+      tags: ["tam giác", "diện tích"]
+    },
+    {
+      id: "c4_020",
+      level: "kho",
+      type: "multiple-choice",
+      variables: {
+        a: { type: "int", min: 10, max: 30 }
+      },
+      constraints: [],
+      formulas: {
+        p: "4 * a",
+        s: "a * a",
+        ans: "p === s ? 'Bằng nhau về giá trị số' : (p < s ? 'Diện tích lớn hơn chu vi về giá trị số' : 'Chu vi lớn hơn diện tích về giá trị số')",
+        w1: "Luôn luôn bằng nhau",
+        w2: "Không so sánh được",
+        w3: "Chu vi luôn lớn hơn"
+      },
+      question: "Một hình vuông có cạnh {a} m. Khẳng định nào đúng về mối quan hệ giữa chu vi (m) và diện tích (m²)?",
+      hint: "Chu vi $P = 4 \\times {a} = {p}$. Diện tích $S = {a} \\times {a} = {s}$.",
+      solution: "Chu vi là {p} và diện tích là {s}. Ta có {ans}.",
+      options: ["{ans}", "Luôn luôn bằng nhau", "Không so sánh được vì khác đơn vị", "Chu vi luôn lớn hơn"],
+      correctIndex: 0,
+      tags: ["hình vuông", "tư duy hình học"]
+    }
+  ]
+};;

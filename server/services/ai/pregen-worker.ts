@@ -48,16 +48,15 @@ export interface LessonMeta {
 
 export let allLessons: LessonMeta[] = [];
 try {
-    const englishFilePath = path.join(ROOT_DIR, 'js', 'english_data.js');
-    let englishCode = '';
-    if (fs.existsSync(englishFilePath)) {
-        englishCode = fs.readFileSync(englishFilePath, 'utf8');
+    const jsonPath = path.join(ROOT_DIR, 'data', 'curriculum', 'course_data.json');
+    let courseData: any[] = [];
+    if (fs.existsSync(jsonPath)) {
+        courseData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+    } else {
+        const lessonsFilePath = path.join(ROOT_DIR, 'js', 'lessons.js');
+        const lessons = require(lessonsFilePath);
+        courseData = lessons.COURSE_DATA || [];
     }
-    const lessonsFilePath = path.join(ROOT_DIR, 'js', 'lessons.js');
-    const lessonsCode = fs.readFileSync(lessonsFilePath, 'utf8');
-    const sandbox: any = { window: {}, document: {}, console: console };
-    
-    const courseData: any[] = vm.runInNewContext(englishCode + ";\n" + lessonsCode + ";\nCOURSE_DATA;", sandbox) || [];
     
     courseData.forEach(chapter => {
         if (chapter.lessons && Array.isArray(chapter.lessons)) {
@@ -72,7 +71,7 @@ try {
         }
     });
 } catch (e) {
-    console.error('Lỗi khi phân tích lessons.js và english_data.js để lấy danh sách bài học:', e);
+    console.error('Lỗi khi nạp danh sách bài học:', e);
 }
 
 export const studentAiStatusMap: Record<string, any> = {};

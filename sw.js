@@ -1,9 +1,9 @@
 /**
- * HOCTAP PWA SERVICE WORKER (v13.37)
+ * HOCTAP PWA SERVICE WORKER (v13.38)
  * Cung cấp khả năng chạy Offline thực sự, nạp nhanh và bộ nhớ đệm tối ưu
  */
 
-const CACHE_VERSION = 'v13.37';
+const CACHE_VERSION = 'v13.38';
 const CACHE_NAME = `hoctap-cache-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -11,7 +11,6 @@ const PRECACHE_ASSETS = [
     '/student.html',
     '/parent.html',
     '/css/style.css',
-    '/css/quiz.css',
     '/js/app.js',
     '/js/core/storage.js',
     '/js/core/event-bus.js',

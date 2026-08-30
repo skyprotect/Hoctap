@@ -1,0 +1,65 @@
+<div id="leaderboard-modal" class="glass-modal hidden" onclick="if(event.target === this) this.classList.add('hidden');">
+        <div class="modal-content" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 20px;">
+            <div class="modal-header" style="padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #a855f7, #ec4899); color: #ffffff; border: none;">
+                <h3 style="margin: 0; font-size: 1.4rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 0.6rem; text-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+                    <i class="fa-solid fa-ranking-star"></i> ĐẤU TRƯỜNG CHIẾN BINH 🏆
+                </h3>
+                <button class="btn-close-modal" onclick="document.getElementById('leaderboard-modal').classList.add('hidden')" style="background: none; border: none; color: #ffffff; opacity: 0.8; font-size: 1.5rem; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.2rem;">
+                <!-- Tab môn học dạng Duolingo/Premium -->
+                <div style="display: flex; background: rgba(168, 85, 247, 0.08); padding: 4px; border-radius: 14px; gap: 6px; border: 1px solid rgba(168, 85, 247, 0.12);">
+                    <button id="leaderboard-tab-math" onclick="app.switchLeaderboardSubject('math')" style="flex: 1; border: none; background: none; color: #6b7280; padding: 10px; font-weight: 800; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                        📐 Xếp Hạng Toán học
+                    </button>
+                    <button id="leaderboard-tab-english" onclick="app.switchLeaderboardSubject('english')" style="flex: 1; border: none; background: none; color: #6b7280; padding: 10px; font-weight: 800; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                        🇬🇧 Xếp Hạng Anh ngữ
+                    </button>
+                </div>
+
+                <!-- Lọc lớp học -->
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; color: #4b5563; background: rgba(168, 85, 247, 0.04); padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(168, 85, 247, 0.08);">
+                    <span style="font-weight: 600;"><i class="fa-solid fa-filter" style="color: #a855f7; margin-right: 4px;"></i> Lọc theo khối lớp:</span>
+                    <select id="leaderboard-class-filter" onchange="app.reloadLeaderboardData()" style="background: #ffffff; color: #1e1b4b; border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 8px; padding: 4px 10px; font-weight: bold; cursor: pointer; outline: none; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <option value="">Tất cả các lớp</option>
+                        <option value="4">Chỉ lớp 4</option>
+                        <option value="6">Chỉ lớp 6</option>
+                    </select>
+                </div>
+
+                <!-- Bảng xếp hạng -->
+                <div id="leaderboard-loading" style="text-align: center; padding: 2rem 0; color: #4b5563;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.2rem; color: #a855f7; margin-bottom: 0.8rem;"></i>
+                    <p style="margin: 0; font-size: 0.95rem; font-weight: 600;">Đang kết nối hệ thống xếp hạng...</p>
+                </div>
+
+                <div id="leaderboard-table-wrapper" class="hidden" style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(168, 85, 247, 0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                    <table style="width:100%; border-collapse:collapse; color:#1e1b4b; font-size:0.95rem; background: #ffffff;">
+                        <thead>
+                            <tr style="border-bottom:2px solid rgba(168, 85, 247, 0.15); text-align:left; color:#4b5563; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; background: rgba(168, 85, 247, 0.04);">
+                                <th style="padding:12px 10px; width:70px; text-align:center;">Hạng</th>
+                                <th style="padding:12px 10px;">Chiến binh</th>
+                                <th style="padding:12px 10px; width:80px; text-align:center;">Lớp</th>
+                                <th style="padding:12px 10px; width:100px; text-align:center;">Chuỗi 🔥</th>
+                                <th style="padding:12px 10px; text-align:right; width:110px;">Kinh nghiệm</th>
+                            </tr>
+                        </thead>
+                        <tbody id="global-leaderboard-tbody">
+                            <!-- Chèn động bằng JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="leaderboard-empty" class="hidden" style="text-align: center; padding: 2.5rem 0; color: #6b7280;">
+                    <i class="fa-solid fa-face-frown" style="font-size: 2.5rem; color: #9ca3af; margin-bottom: 0.8rem;"></i>
+                    <p style="margin: 0; font-size: 0.95rem; font-weight: 600;">Chưa có dữ liệu xếp hạng nào.</p>
+                </div>
+            </div>
+            
+            <div class="modal-footer" style="padding: 1rem 1.5rem; border-top: 1px solid rgba(168, 85, 247, 0.12); display: flex; justify-content: space-between; align-items: center; background: rgba(168, 85, 247, 0.02);">
+                <span id="leaderboard-sync-time" style="font-size: 0.8rem; color: #6b7280; font-weight: 600;"><i class="fa-solid fa-rotate"></i> Đồng bộ lúc: --:--:--</span>
+                <button class="btn-back-header" onclick="document.getElementById('leaderboard-modal').classList.add('hidden')" style="padding: 0.5rem 1.5rem; font-size: 0.9rem; border-radius: 10px; margin: 0; background: #ffffff; color: #4b5563; border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">Đóng</button>
+            </div>
+        </div>
+    </div>

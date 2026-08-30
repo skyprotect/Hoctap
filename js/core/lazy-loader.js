@@ -1,6 +1,6 @@
 /**
- * ON-DEMAND LAZY LOADER MODULE (v3.0)
- * Tối ưu hiệu năng Web Vitals (LCP, INP), giảm dung lượng tải ban đầu
+ * ON-DEMAND LAZY LOADER MODULE (v13.40)
+ * Tối ưu hiệu năng Web Vitals (LCP, INP), hỗ trợ nạp Template HTML & JSON on-demand
  */
 
 (function(root) {
@@ -9,6 +9,7 @@
     const _loadedScripts = new Set();
     const _pendingPromises = new Map();
     const _jsonCache = new Map();
+    const _templateCache = new Map();
 
     const LazyLoader = {
         /**
@@ -26,7 +27,6 @@
             }
 
             const promise = new Promise((resolve, reject) => {
-                // Kiểm tra xem thẻ script đã có trong DOM chưa
                 const existing = document.querySelector(`script[src="${src}"]`);
                 if (existing) {
                     _loadedScripts.add(src);
@@ -56,6 +56,67 @@
 
             _pendingPromises.set(src, promise);
             return promise;
+        },
+
+        /**
+         * Nạp tệp JSON với bộ nhớ đệm in-memory
+         * @param {string} path Đường dẫn JSON
+         * @returns {Promise<any>}
+         */
+        loadJSON: async function(path) {
+            if (_jsonCache.has(path)) {
+                return _jsonCache.get(path);
+            }
+            try {
+                const res = await fetch(path);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                _jsonCache.set(path, data);
+                return data;
+            } catch (err) {
+                console.warn(`[LazyLoader] Không thể nạp JSON từ ${path}:`, err.message);
+                return null;
+            }
+        },
+
+        /**
+         * Nạp Template HTML On-Demand và chèn vào DOM
+         * @param {string} templatePath Đường dẫn tệp HTML template (ví dụ: 'templates/student/modals/hero-profile.html')
+         * @param {string|HTMLElement} target Selector hoặc HTMLElement đích để chèn HTML
+         * @returns {Promise<HTMLElement|null>}
+         */
+        loadTemplate: async function(templatePath, target = document.body) {
+            let html = _templateCache.get(templatePath);
+            if (!html) {
+                try {
+                    const res = await fetch(templatePath);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    html = await res.text();
+                    _templateCache.set(templatePath, html);
+                } catch (err) {
+                    console.warn(`[LazyLoader] Lỗi nạp template ${templatePath}:`, err.message);
+                    return null;
+                }
+            }
+
+            const targetEl = typeof target === 'string' ? document.querySelector(target) : target;
+            if (!targetEl) return null;
+
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const element = temp.firstElementChild;
+            if (element) {
+                targetEl.appendChild(element);
+                return element;
+            }
+            return null;
+        },
+
+        /**
+         * Đăng ký sẵn Template HTML vào Cache (Phục vụ Fallback Offline)
+         */
+        registerTemplate: function(templatePath, htmlContent) {
+            _templateCache.set(templatePath, htmlContent);
         },
 
         /**
@@ -90,34 +151,6 @@
             if (typeof window.Chart !== 'undefined') return window.Chart;
             await this.loadScript('js/lib/chart.min.js');
             return window.Chart;
-        },
-
-        /**
-         * Nạp ngân hàng câu hỏi JSON theo khối lớp và chương học
-         * @param {number|string} grade Lớp (ví dụ: 6)
-         * @param {string} chapterName Tên chương (ví dụ: "chapter1_integers")
-         */
-        loadQuestionBank: async function(grade, chapterName) {
-            const path = `data/math/grade${grade}/${chapterName}.json`;
-            if (_jsonCache.has(path)) {
-                return _jsonCache.get(path);
-            }
-
-            try {
-                const res = await fetch(path);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                _jsonCache.set(path, data);
-                
-                // Tự động đăng ký vào QuestionEngine nếu có
-                if (typeof window.QuestionEngine !== 'undefined') {
-                    window.QuestionEngine.registerChapter(chapterName, data);
-                }
-                return data;
-            } catch (err) {
-                console.warn(`[LazyLoader] Lỗi tải ngân hàng câu hỏi ${path}:`, err);
-                return null;
-            }
         }
     };
 

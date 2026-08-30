@@ -55,12 +55,12 @@ function loadScript(filePath) {
     vm.runInNewContext(code, sandbox, { filename: filePath });
 }
 
-// Tải các script generator
-loadScript(path.join(__dirname, 'js/questions-v4.js'));
-loadScript(path.join(__dirname, 'js/questions-v3.js'));
+// Tải các script generator canonical
+loadScript(path.join(__dirname, '../../data/grade_4/math/generator.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generator.js'));
 
 const questionsL4 = sandbox.window.questionsL4;
-const questionsL6 = sandbox.window.questions; // Đối tượng questions trong questions-v3.js được gán vào window.questions
+const questionsL6 = sandbox.window.questions;
 
 console.log("====================================================");
 console.log("BẮT ĐẦU KIỂM ĐỊNH TỰ ĐỘNG CÁC GENERATOR BẰNG JAVASCRIPT");
