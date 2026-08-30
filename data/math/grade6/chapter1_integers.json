@@ -1,0 +1,1059 @@
+{
+  "metadata": {
+    "subject": "math",
+    "grade": 6,
+    "chapter": 1,
+    "title": "Tập hợp các số tự nhiên",
+    "totalTemplates": 25
+  },
+  "templates": [
+    {
+      "id": "c1_001",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 2,
+          "max": 6
+        },
+        "k": {
+          "type": "int",
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [
+        "k >= 3"
+      ],
+      "formulas": {
+        "b": "a + k",
+        "cnt": "b - a",
+        "ans": "cnt",
+        "w1": "(cnt + 1 === ans) ? cnt + 2 : cnt + 1",
+        "w2": "(cnt - 1 === ans || cnt - 1 === w1) ? cnt + 3 : cnt - 1",
+        "w3": "(b - a + 1 === ans || b - a + 1 === w1 || b - a + 1 === w2) ? cnt + 4 : b - a + 1"
+      },
+      "question": "Cho tập hợp $A = \\{x \\in \\mathbb{N} \\mid {a} < x \\le {b}\\}$. Số phần tử của tập hợp $A$ là bao nhiêu?",
+      "hint": "Phần tử của tập hợp $A$ lớn hơn {a} và nhỏ hơn hoặc bằng {b}.",
+      "solution": "Tập hợp $A = \\{{a + 1}; ...; {b}\\}$. Số phần tử là: ${b} - {a} = {ans}$ phần tử.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tập hợp",
+        "số phần tử"
+      ]
+    },
+    {
+      "id": "c1_002",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "start": {
+          "type": "int",
+          "min": 1,
+          "max": 8
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "s1": "start",
+        "s2": "start + 1",
+        "s3": "start + 2",
+        "s4": "start + 3",
+        "ans": "s4 - s1 + 1",
+        "w1": "ans + 1",
+        "w2": "ans - 1",
+        "w3": "ans + 2"
+      },
+      "question": "Tập hợp $B = \\{{s1}; {s2}; {s3}; {s4}\\}$ có bao nhiêu phần tử?",
+      "hint": "Đếm các số được liệt kê trong dấu ngoặc nhọn.",
+      "solution": "Tập hợp $B$ có các phần tử phân biệt là {s1}, {s2}, {s3}, {s4}, tổng cộng có {ans} phần tử.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tập hợp",
+        "đếm phần tử"
+      ]
+    },
+    {
+      "id": "c1_003",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 10,
+          "max": 25
+        },
+        "step": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        },
+        "n": {
+          "type": "int",
+          "min": 15,
+          "max": 30
+        }
+      },
+      "constraints": [
+        "step >= 2"
+      ],
+      "formulas": {
+        "b": "a + (n - 1) * step",
+        "ans": "n",
+        "w1": "n + 1",
+        "w2": "n - 1",
+        "w3": "n + 2"
+      },
+      "question": "Cho tập hợp $C = \\{{a}; {a + step}; {a + 2 * step}; ...; {b}\\}$. Tập hợp $C$ có bao nhiêu phần tử?",
+      "hint": "Công thức tính số phần tử của dãy số cách đều: (Số cuối - Số đầu) : khoảng cách + 1.",
+      "solution": "Số phần tử của tập hợp $C$ là: $({b} - {a}) : {step} + 1 = {ans}$ phần tử.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tập hợp",
+        "dãy số cách đều"
+      ]
+    },
+    {
+      "id": "c1_004",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "tram": {
+          "type": "int",
+          "min": 1,
+          "max": 9
+        },
+        "chuc": {
+          "type": "int",
+          "min": 0,
+          "max": 9
+        },
+        "donvi": {
+          "type": "int",
+          "min": 0,
+          "max": 9
+        }
+      },
+      "constraints": [
+        "tram !== chuc",
+        "chuc !== donvi"
+      ],
+      "formulas": {
+        "num": "tram * 100 + chuc * 10 + donvi",
+        "ans": "tram",
+        "w1": "(chuc === ans) ? ((donvi === ans) ? (tram + 1) % 9 + 1 : donvi) : chuc",
+        "w2": "(donvi === ans || donvi === w1) ? (tram + 2) % 9 + 1 : donvi",
+        "w3": "(tram + 3) % 9 + 1"
+      },
+      "question": "Trong số tự nhiên {num}, chữ số hàng trăm là chữ số nào?",
+      "hint": "Số có 3 chữ số: chữ số đầu tiên bên trái là hàng trăm.",
+      "solution": "Trong số {num}, chữ số hàng trăm là {ans}.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "ghi số tự nhiên",
+        "hàng và lớp"
+      ]
+    },
+    {
+      "id": "c1_005",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "val": {
+          "type": "choice",
+          "options": [
+            4,
+            9,
+            14,
+            19,
+            24,
+            29
+          ]
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "val === 4 ? 'IV' : val === 9 ? 'IX' : val === 14 ? 'XIV' : val === 19 ? 'XIX' : val === 24 ? 'XXIV' : 'XXIX'",
+        "w1": "val === 4 ? 'VI' : val === 9 ? 'XI' : val === 14 ? 'XVI' : val === 19 ? 'XXI' : val === 24 ? 'XXVI' : 'XXXI'",
+        "w2": "val === 4 ? 'IIII' : val === 9 ? 'VIIII' : val === 14 ? 'XIIII' : val === 19 ? 'XVIIII' : val === 24 ? 'XXIIII' : 'XXVIIII'",
+        "w3": "val === 4 ? 'V' : val === 9 ? 'X' : val === 14 ? 'XV' : val === 19 ? 'XX' : val === 24 ? 'XXV' : 'XXX'"
+      },
+      "question": "Số La Mã biểu diễn số tự nhiên {val} là:",
+      "hint": "Số 4 là IV, số 9 là IX, số 10 là X.",
+      "solution": "Số tự nhiên {val} viết dưới dạng số La Mã là {ans}.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "số La Mã"
+      ]
+    },
+    {
+      "id": "c1_006",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "base": {
+          "type": "int",
+          "min": 2,
+          "max": 5
+        },
+        "m": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        },
+        "n": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "sumExp": "m + n",
+        "ans": "base + '^{' + sumExp + '}'",
+        "w1": "base + '^{' + (m * n) + '}'",
+        "w2": "(base * 2) + '^{' + sumExp + '}'",
+        "w3": "base + '^{' + (m + n + 1) + '}'"
+      },
+      "question": "Kết quả của phép nhân hai lũy thừa cùng cơ số: ${base}^{m} \\cdot ${base}^{n}$ là:",
+      "hint": "Khi nhân hai lũy thừa cùng cơ số: $a^m \\cdot a^n = a^{m+n}$.",
+      "solution": "Áp dụng công thức nhân hai lũy thừa cùng cơ số: ${base}^{m} \\cdot ${base}^{n} = ${base}^{m + n} = ${base}^{sumExp}$.",
+      "options": [
+        "${ans}$",
+        "${w1}$",
+        "${w2}$",
+        "${w3}$"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "lũy thừa",
+        "nhân lũy thừa"
+      ]
+    },
+    {
+      "id": "c1_007",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "base": {
+          "type": "int",
+          "min": 3,
+          "max": 7
+        },
+        "m": {
+          "type": "int",
+          "min": 4,
+          "max": 8
+        },
+        "n": {
+          "type": "int",
+          "min": 2,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "m > n"
+      ],
+      "formulas": {
+        "diffExp": "m - n",
+        "ans": "base + '^{' + diffExp + '}'",
+        "w1": "base + '^{' + (m + n) + '}'",
+        "w2": "base + '^{' + Math.floor(m / n) + '}'",
+        "w3": "(base - 1) + '^{' + diffExp + '}'"
+      },
+      "question": "Kết quả của phép chia hai lũy thừa cùng cơ số: ${base}^{m} : ${base}^{n}$ là:",
+      "hint": "Khi chia hai lũy thừa cùng cơ số: $a^m : a^n = a^{m-n}$ (với $a \\ne 0, m \\ge n$).",
+      "solution": "Áp dụng công thức chia hai lũy thừa cùng cơ số: ${base}^{m} : ${base}^{n} = ${base}^{m - n} = ${base}^{diffExp}$.",
+      "options": [
+        "${ans}$",
+        "${w1}$",
+        "${w2}$",
+        "${w3}$"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "lũy thừa",
+        "chia lũy thừa"
+      ]
+    },
+    {
+      "id": "c1_008",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 10,
+          "max": 30
+        },
+        "b": {
+          "type": "int",
+          "min": 2,
+          "max": 5
+        },
+        "c": {
+          "type": "int",
+          "min": 2,
+          "max": 6
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "a + b * c",
+        "w1": "(a + b) * c",
+        "w2": "ans + b",
+        "w3": "(ans - c === w1 || ans - c === w2) ? ans + 2 * b : ans - c"
+      },
+      "question": "Tính giá trị của biểu thức: $A = {a} + {b} \\cdot {c}$",
+      "hint": "Thực hiện phép nhân trước, phép cộng sau.",
+      "solution": "$A = {a} + {b} \\cdot {c} = {a} + {b * c} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "thứ tự phép tính"
+      ]
+    },
+    {
+      "id": "c1_009",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        },
+        "exp": {
+          "type": "int",
+          "min": 2,
+          "max": 3
+        },
+        "b": {
+          "type": "int",
+          "min": 5,
+          "max": 15
+        },
+        "c": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "powVal": "Math.pow(a, exp)",
+        "ans": "powVal * c - b",
+        "w1": "powVal * (c - b > 0 ? c - b : 2)",
+        "w2": "ans + 4",
+        "w3": "(ans - 4 === w1 || ans - 4 === w2) ? ans + 8 : ans - 4"
+      },
+      "question": "Tính giá trị biểu thức: $B = {a}^{exp} \\cdot {c} - {b}$",
+      "hint": "Thực hiện nâng lên lũy thừa trước, sau đó đến nhân chia, cuối cùng là cộng trừ.",
+      "solution": "$B = {a}^{exp} \\cdot {c} - {b} = {powVal} \\cdot {c} - {b} = {powVal * c} - {b} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "thứ tự phép tính",
+        "lũy thừa"
+      ]
+    },
+    {
+      "id": "c1_010",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "x": {
+          "type": "int",
+          "min": 3,
+          "max": 8
+        },
+        "k": {
+          "type": "int",
+          "min": 2,
+          "max": 5
+        },
+        "m": {
+          "type": "int",
+          "min": 10,
+          "max": 30
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "rhs": "m + k * x",
+        "ans": "x",
+        "w1": "x + 1",
+        "w2": "x - 1",
+        "w3": "x + 2"
+      },
+      "question": "Tìm số tự nhiên $x$, biết: ${k} \\cdot x + {m} = {rhs}$",
+      "hint": "Chuyển {m} sang vế phải rồi chia cho {k}.",
+      "solution": "${k} \\cdot x = {rhs} - {m} = {k * x} \\implies x = {k * x} : {k} = {ans}$.",
+      "options": [
+        "$x = {ans}$",
+        "$x = {w1}$",
+        "$x = {w2}$",
+        "$x = {w3}$"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tìm x",
+        "thứ tự phép tính"
+      ]
+    },
+    {
+      "id": "c1_011",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "common": {
+          "type": "int",
+          "min": 15,
+          "max": 45
+        },
+        "a": {
+          "type": "int",
+          "min": 12,
+          "max": 48
+        },
+        "b": {
+          "type": "int",
+          "min": 10,
+          "max": 50
+        }
+      },
+      "constraints": [
+        "(a + b) % 10 === 0"
+      ],
+      "formulas": {
+        "sumAB": "a + b",
+        "ans": "common * sumAB",
+        "w1": "common * (sumAB + 10)",
+        "w2": "ans - common",
+        "w3": "ans + common * 2"
+      },
+      "question": "Tính nhanh: $M = {common} \\cdot {a} + {common} \\cdot {b}$",
+      "hint": "Đặt thừa số chung {common} ra ngoài: $M = {common} \\cdot ({a} + {b})$.",
+      "solution": "$M = {common} \\cdot ({a} + {b}) = {common} \\cdot {sumAB} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tính nhanh",
+        "thừa số chung"
+      ]
+    },
+    {
+      "id": "c1_012",
+      "level": "kho",
+      "type": "multiple-choice",
+      "variables": {
+        "n": {
+          "type": "int",
+          "min": 20,
+          "max": 50
+        }
+      },
+      "constraints": [
+        "n % 2 === 0"
+      ],
+      "formulas": {
+        "ans": "(n * (n + 1)) / 2",
+        "w1": "((n + 1) * (n + 2)) / 2",
+        "w2": "ans + n",
+        "w3": "ans - n"
+      },
+      "question": "Tính tổng dãy số tự nhiên liên tiếp: $S = 1 + 2 + 3 + ... + {n}$",
+      "hint": "Tổng $S = \\frac{n(n+1)}{2}$.",
+      "solution": "Tổng các số tự nhiên liên tiếp từ 1 đến {n} là: $S = \\frac{{n} \\cdot ({n} + 1)}{2} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tổng dãy số",
+        "nâng cao"
+      ]
+    },
+    {
+      "id": "c1_013",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "n": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "Math.pow(2, n)",
+        "w1": "ans + 2",
+        "w2": "ans - 2 > 0 ? ans - 2 : ans + 4",
+        "w3": "2 * n"
+      },
+      "question": "Một tập hợp có {n} phần tử thì có tất cả bao nhiêu tập hợp con?",
+      "hint": "Tập hợp có $n$ phần tử sẽ có $2^n$ tập hợp con (kể cả tập rỗng và chính nó).",
+      "solution": "Số tập hợp con của tập hợp có {n} phần tử là: $2^{n} = {ans}$ tập hợp con.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tập hợp con"
+      ]
+    },
+    {
+      "id": "c1_014",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "books": {
+          "type": "int",
+          "min": 4,
+          "max": 8
+        },
+        "priceBook": {
+          "type": "int",
+          "min": 8,
+          "max": 15
+        },
+        "pens": {
+          "type": "int",
+          "min": 2,
+          "max": 5
+        },
+        "pricePen": {
+          "type": "int",
+          "min": 3,
+          "max": 6
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "pBook": "priceBook * 1000",
+        "pPen": "pricePen * 1000",
+        "total": "books * pBook + pens * pPen",
+        "ans": "total",
+        "w1": "total + 5000",
+        "w2": "total - 5000",
+        "w3": "total + 10000"
+      },
+      "question": "Bạn Minh mua {books} quyển vở giá {pBook} đồng/quyển và {pens} cái bút giá {pPen} đồng/cái. Tổng số tiền Minh phải trả là:",
+      "hint": "Tính tiền vở + tiền bút.",
+      "solution": "Tổng số tiền = ${books} \\times {pBook} + ${pens} \\times {pPen} = {ans}$ đồng.",
+      "options": [
+        "{ans} đồng",
+        "{w1} đồng",
+        "{w2} đồng",
+        "{w3} đồng"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "toán thực tế",
+        "phép tính số tự nhiên"
+      ]
+    },
+    {
+      "id": "c1_015",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 50,
+          "max": 100
+        },
+        "b": {
+          "type": "int",
+          "min": 2,
+          "max": 5
+        },
+        "c": {
+          "type": "int",
+          "min": 3,
+          "max": 6
+        },
+        "d": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        }
+      },
+      "constraints": [
+        "a > b * (c * d + 2)"
+      ],
+      "formulas": {
+        "inner": "c * d",
+        "bracket": "inner + 2",
+        "ans": "a - b * bracket",
+        "w1": "(a - b) * bracket",
+        "w2": "ans + 6",
+        "w3": "ans - 6"
+      },
+      "question": "Thực hiện phép tính: $P = {a} - {b} \\cdot [{c} \\cdot {d} + 2]$",
+      "hint": "Thực hiện phép tính trong ngoặc trước: tính {c} \\cdot {d} rồi cộng 2.",
+      "solution": "$P = {a} - {b} \\cdot [{inner} + 2] = {a} - {b} \\cdot {bracket} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "dấu ngoặc",
+        "thứ tự phép tính"
+      ]
+    },
+    {
+      "id": "c1_016",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "n": {
+          "type": "int",
+          "min": 100,
+          "max": 999
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n + 1",
+        "w1": "n - 1",
+        "w2": "n + 2",
+        "w3": "n + 10"
+      },
+      "question": "Số tự nhiên liền sau của số {n} là:",
+      "hint": "Số liền sau của $a$ là $a + 1$.",
+      "solution": "Số tự nhiên liền sau của {n} là: ${n} + 1 = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "số tự nhiên",
+        "liền trước liền sau"
+      ]
+    },
+    {
+      "id": "c1_017",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "n": {
+          "type": "int",
+          "min": 100,
+          "max": 999
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": "n - 1",
+        "w1": "n + 1",
+        "w2": "n - 2",
+        "w3": "n - 10"
+      },
+      "question": "Số tự nhiên liền trước của số {n} là:",
+      "hint": "Số liền trước của $a$ là $a - 1$.",
+      "solution": "Số tự nhiên liền trước của {n} là: ${n} - 1 = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "số tự nhiên",
+        "liền trước liền sau"
+      ]
+    },
+    {
+      "id": "c1_018",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "q": {
+          "type": "int",
+          "min": 12,
+          "max": 35
+        },
+        "d": {
+          "type": "int",
+          "min": 4,
+          "max": 9
+        },
+        "r": {
+          "type": "int",
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [
+        "r < d"
+      ],
+      "formulas": {
+        "dividend": "q * d + r",
+        "ans": "q",
+        "w1": "q + 1",
+        "w2": "q - 1",
+        "w3": "d"
+      },
+      "question": "Trong phép chia có dư: {dividend} : {d}, thương là bao nhiêu?",
+      "hint": "Lấy {dividend} chia cho {d} ta được thương và số dư là {r}.",
+      "solution": "Ta có: ${dividend} = ${d} \\cdot ${q} + ${r}$. Do đó thương là {ans} và số dư là {r}.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "phép chia có dư"
+      ]
+    },
+    {
+      "id": "c1_019",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 15,
+          "max": 99
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ans": 1,
+        "w1": 0,
+        "w2": "a",
+        "w3": "a + 1"
+      },
+      "question": "Giá trị của lũy thừa ${a}^0$ bằng bao nhiêu?",
+      "hint": "Quy ước: Với mọi số tự nhiên $a \\ne 0$, ta có $a^0 = 1$.",
+      "solution": "Theo quy ước, ${a}^0 = 1$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "lũy thừa",
+        "quy ước"
+      ]
+    },
+    {
+      "id": "c1_020",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 11,
+          "max": 29
+        },
+        "b": {
+          "type": "int",
+          "min": 31,
+          "max": 49
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "ca": "100 - a",
+        "cb": "100 - b",
+        "ans": 200,
+        "w1": 100,
+        "w2": 300,
+        "w3": 190
+      },
+      "question": "Tính hợp lý: $T = ({a} + {ca}) + ({b} + {cb})$",
+      "hint": "Nhóm các cặp số có tổng tròn trăm lại với nhau.",
+      "solution": "$T = ({a} + {ca}) + ({b} + {cb}) = 100 + 100 = 200$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tính nhanh",
+        "tổng tròn trăm"
+      ]
+    },
+    {
+      "id": "c1_021",
+      "level": "co-ban",
+      "type": "multiple-choice",
+      "variables": {
+        "a": {
+          "type": "int",
+          "min": 12,
+          "max": 40
+        },
+        "b": {
+          "type": "int",
+          "min": 3,
+          "max": 8
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "product": "a * b",
+        "ans": "a",
+        "w1": "a + 1",
+        "w2": "a - 1",
+        "w3": "b"
+      },
+      "question": "Tìm $x$, biết: $x \\cdot {b} = {product}$",
+      "hint": "Muốn tìm thừa số chưa biết, ta lấy tích chia cho thừa số đã biết.",
+      "solution": "$x = {product} : {b} = {ans}$.",
+      "options": [
+        "$x = {ans}$",
+        "$x = {w1}$",
+        "$x = {w2}$",
+        "$x = {w3}$"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tìm x",
+        "phép nhân chia"
+      ]
+    },
+    {
+      "id": "c1_022",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "k": {
+          "type": "int",
+          "min": 11,
+          "max": 39
+        },
+        "x": {
+          "type": "int",
+          "min": 105,
+          "max": 195
+        },
+        "y": {
+          "type": "int",
+          "min": 5,
+          "max": 95
+        }
+      },
+      "constraints": [
+        "(x - y) % 100 === 0",
+        "x > y"
+      ],
+      "formulas": {
+        "diff": "x - y",
+        "ans": "k * diff",
+        "w1": "k * (diff + 10)",
+        "w2": "ans - k * 10",
+        "w3": "ans + k * 10"
+      },
+      "question": "Tính nhanh giá trị biểu thức: $H = {k} \\cdot {x} - {k} \\cdot {y}$",
+      "hint": "Áp dụng tính chất phân phối: $a \\cdot b - a \\cdot c = a \\cdot (b - c)$.",
+      "solution": "$H = {k} \\cdot ({x} - {y}) = {k} \\cdot {diff} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tính nhanh",
+        "tính chất phân phối"
+      ]
+    },
+    {
+      "id": "c1_023",
+      "level": "kho",
+      "type": "multiple-choice",
+      "variables": {
+        "base": {
+          "type": "int",
+          "min": 2,
+          "max": 3
+        },
+        "xVal": {
+          "type": "int",
+          "min": 2,
+          "max": 5
+        },
+        "offset": {
+          "type": "int",
+          "min": 1,
+          "max": 3
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "expTotal": "xVal + offset",
+        "rhs": "Math.pow(base, expTotal)",
+        "ans": "xVal",
+        "w1": "xVal + 1",
+        "w2": "xVal - 1 > 0 ? xVal - 1 : xVal + 2",
+        "w3": "xVal + 3"
+      },
+      "question": "Tìm số tự nhiên $x$, biết: ${base}^{x + {offset}} = {rhs}$",
+      "hint": "Đưa vế phải {rhs} về lũy thừa cơ số {base}.",
+      "solution": "Ta có: ${rhs} = ${base}^{expTotal}$. Do đó $x + {offset} = {expTotal} \\implies x = {expTotal} - {offset} = {ans}$.",
+      "options": [
+        "$x = {ans}$",
+        "$x = {w1}$",
+        "$x = {w2}$",
+        "$x = {w3}$"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "tìm x",
+        "lũy thừa",
+        "nâng cao"
+      ]
+    },
+    {
+      "id": "c1_024",
+      "level": "kho",
+      "type": "multiple-choice",
+      "variables": {
+        "m": {
+          "type": "int",
+          "min": 2,
+          "max": 4
+        },
+        "n": {
+          "type": "int",
+          "min": 3,
+          "max": 5
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "inner": "m * n",
+        "mid": "inner + 2",
+        "outer": "mid * 2",
+        "ans": "100 - outer",
+        "w1": "100 - (inner + 2)",
+        "w2": "ans + 10",
+        "w3": "ans - 10"
+      },
+      "question": "Tính giá trị biểu thức: $K = 100 - 2 \\cdot [({m} \\cdot {n} + 2)]$",
+      "hint": "Thực hiện trong ngoặc tròn trước rồi đến ngoặc vuông.",
+      "solution": "$K = 100 - 2 \\cdot [{inner} + 2] = 100 - 2 \\cdot {mid} = 100 - {outer} = {ans}$.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "thứ tự phép tính",
+        "nhiều ngoặc"
+      ]
+    },
+    {
+      "id": "c1_025",
+      "level": "nang-cao",
+      "type": "multiple-choice",
+      "variables": {
+        "n": {
+          "type": "choice",
+          "options": [
+            50,
+            60,
+            70,
+            80,
+            90
+          ]
+        }
+      },
+      "constraints": [],
+      "formulas": {
+        "cnt2": "n - 9",
+        "chuso2": "cnt2 * 2",
+        "ans": "9 + chuso2",
+        "w1": "n * 2",
+        "w2": "ans - 9",
+        "w3": "ans + 10"
+      },
+      "question": "Để đánh số trang một cuốn sách từ trang 1 đến trang {n}, người ta cần dùng tất cả bao nhiêu chữ số?",
+      "hint": "Từ trang 1 đến trang 9 có 9 chữ số. Từ trang 10 đến trang {n} có ({n} - 9) trang có 2 chữ số.",
+      "solution": "Từ trang 1 đến 9: có 9 chữ số. Từ 10 đến {n}: có {cnt2} trang có 2 chữ số, tương ứng {chuso2} chữ số. Tổng cộng: 9 + {chuso2} = {ans} chữ số.",
+      "options": [
+        "{ans}",
+        "{w1}",
+        "{w2}",
+        "{w3}"
+      ],
+      "correctIndex": 0,
+      "tags": [
+        "đánh số trang sách",
+        "toán tư duy"
+      ]
+    }
+  ]
+}

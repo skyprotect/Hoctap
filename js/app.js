@@ -7405,23 +7405,30 @@ const app = (typeof window !== 'undefined' && window.AppState) ? Object.assign(w
             
             adviceEl.innerHTML = parsedHtml;
 
-            // Render sơ đồ Mermaid nếu có
-            if (typeof mermaid !== "undefined") {
-                setTimeout(() => {
+            // Render sơ đồ Mermaid nếu có qua LazyLoader
+            const mermaidBlocks = adviceEl.querySelectorAll(".language-mermaid");
+            if (mermaidBlocks.length > 0) {
+                const renderMermaidBlocks = () => {
                     try {
-                        const mermaidBlocks = adviceEl.querySelectorAll(".language-mermaid");
-                        mermaidBlocks.forEach((block) => {
+                        const blocks = adviceEl.querySelectorAll(".language-mermaid");
+                        blocks.forEach((block) => {
                             const graphDefinition = block.textContent;
                             const container = document.createElement("div");
                             container.className = "mermaid";
                             container.textContent = graphDefinition;
                             block.parentNode.replaceChild(container, block);
                         });
-                        mermaid.run();
+                        if (window.mermaid) window.mermaid.run();
                     } catch(me) {
                         console.warn("Mermaid error in evaluation:", me);
                     }
-                }, 100);
+                };
+
+                if (window.LazyLoader && typeof window.LazyLoader.loadMermaid === 'function') {
+                    window.LazyLoader.loadMermaid().then(renderMermaidBlocks).catch(e => console.warn(e));
+                } else if (typeof mermaid !== "undefined") {
+                    setTimeout(renderMermaidBlocks, 100);
+                }
             }
 
         } catch (err) {
@@ -12166,7 +12173,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         });
     },
 
-    startFreePlayGame: function(duration) {
+    startFreePlayGame: async function(duration) {
+        if (!window.game && window.LazyLoader && typeof window.LazyLoader.loadGameEngine === 'function') {
+            await window.LazyLoader.loadGameEngine();
+        }
         const gameContainer = document.getElementById("td-game-container");
         const wrapper = document.getElementById("free-play-game-wrapper");
         const overlay = document.getElementById("free-play-overlay");
@@ -13901,3 +13911,60 @@ app.stopAllEnglishAudio = function() {
         }
     } catch(e) {}
 };
+
+// ==========================================================================
+// HỆ THỐNG PHÍM TẮT ĐIỀU HƯỚNG TRỢ NĂNG (WCAG 2.1 AA ACCESSIBILITY)
+// ==========================================================================
+(function() {
+    if (typeof window === 'undefined') return;
+
+    window.addEventListener('keydown', (e) => {
+        // Bỏ qua khi người dùng đang nhập văn bản trong ô input / textarea
+        const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+        const isInputActive = activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select' || (document.activeElement && document.activeElement.isContentEditable);
+        if (isInputActive) return;
+
+        const key = e.key.toLowerCase();
+
+        // 1. Phím 1-4 hoặc A-D: Chọn phương án trắc nghiệm
+        let optionIndex = -1;
+        if (key === '1' || key === 'a') optionIndex = 0;
+        else if (key === '2' || key === 'b') optionIndex = 1;
+        else if (key === '3' || key === 'c') optionIndex = 2;
+        else if (key === '4' || key === 'd') optionIndex = 3;
+
+        if (optionIndex >= 0) {
+            // Tìm các lựa chọn đang hiển thị trên màn hình hiện tại
+            const visibleOptions = Array.from(document.querySelectorAll('.option-btn:not(.hidden), .choice-item:not(.hidden), .eng-option-btn:not(.hidden), .quiz-option-card:not(.hidden), .option-card:not(.hidden)'))
+                .filter(el => el.offsetParent !== null);
+            if (visibleOptions.length > optionIndex) {
+                e.preventDefault();
+                visibleOptions[optionIndex].click();
+                visibleOptions[optionIndex].focus();
+                return;
+            }
+        }
+
+        // 2. Phím Enter: Nộp bài / Tiếp tục câu tiếp theo
+        if (key === 'enter') {
+            const checkBtn = document.querySelector('#btn-eng-check-answer:not(.hidden), #btn-ioe-check-answer:not(.hidden), .btn-check-quiz:not(.hidden), #btn-practice-subtopic:not(.hidden), .btn-next-question:not(.hidden)');
+            if (checkBtn && checkBtn.offsetParent !== null) {
+                e.preventDefault();
+                checkBtn.click();
+                return;
+            }
+        }
+
+        // 3. Phím Escape: Đóng modal đang mở hoặc quay lại
+        if (key === 'escape') {
+            const openModal = document.querySelector('.modal-overlay:not(.hidden), .modal:not(.hidden), .swal2-container');
+            if (openModal) {
+                e.preventDefault();
+                const closeBtn = openModal.querySelector('.btn-close-modal, .swal2-cancel, .swal2-close');
+                if (closeBtn) closeBtn.click();
+                else if (typeof Swal !== 'undefined') Swal.close();
+            }
+        }
+    });
+})();
+

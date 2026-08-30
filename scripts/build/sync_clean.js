@@ -6,6 +6,7 @@ const destDir = path.resolve(srcDir, '../HocTap_Clean');
 
 const filesToSync = [
   'server.js',
+  'sw.js',
   'student.html',
   'parent.html',
   'parent_remote.html',
@@ -39,6 +40,7 @@ const filesToSync = [
 const dirsToSync = [
   'js/lib',
   'js/core',
+  'js/engine',
   'js/features',
   'css/lib',
   'images',

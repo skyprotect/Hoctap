@@ -24,7 +24,7 @@ if (!fs.existsSync(envPath)) {
     }
 }
 require('dotenv').config();
-const APP_VERSION = '13.35';
+const APP_VERSION = '13.36';
 
 const { initIntegrityCheck, DatabasePool } = require('./server/db/database');
 const { runDataMigration, migrateFixMathBugsV12 } = require('./server/services/migration.service');
@@ -78,6 +78,15 @@ app.use(express.static(path.join(__dirname), {
 }));
 
 // 3. Mount Routers
+app.use('/data', express.static(path.join(__dirname, 'data')));
+
+app.get('/sw.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.setHeader('Service-Worker-Allowed', '/');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.sendFile(path.join(__dirname, 'sw.js'));
+});
+
 app.use('/api/auth', require('./server/routes/auth.routes'));
 app.use('/api', require('./server/routes/auth.routes'));
 app.use('/api', require('./server/routes/student.routes'));
@@ -91,7 +100,7 @@ app.get('/admin', (req, res) => {
 });
 
 app.get(/.*/, (req, res, next) => {
-    if (req.path.startsWith('/api/')) return next();
+    if (req.path.startsWith('/api/') || req.path.startsWith('/data/')) return next();
     res.sendFile(path.join(__dirname, 'student.html'), (err) => {
         if (err && !res.headersSent) {
             res.status(err.status || 500).send('Trang không tồn tại hoặc lỗi máy chủ.');

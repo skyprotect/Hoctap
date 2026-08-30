@@ -229,6 +229,35 @@ body {
     overflow-x: hidden;
 }
 
+/* ==========================================================================
+   ACCESSIBILITY & KEYBOARD NAVIGATION (WCAG 2.1 AA)
+   ========================================================================== */
+:focus-visible {
+    outline: 3px solid #fbbf24 !important;
+    outline-offset: 2px !important;
+    border-radius: 6px;
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.3) !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.option-btn:focus-visible,
+.choice-item:focus-visible,
+.btn:focus-visible,
+.option-card:focus-visible {
+    outline: 3px solid #fbbf24 !important;
+    outline-offset: 2px !important;
+    transition: outline-offset 0.15s ease;
+}
+
+/* Đảm bảo cỡ chữ đạt chuẩn sư phạm và dễ đọc cho học sinh */
+.question-text, .quiz-question-title, #quiz-question-text, .lesson-question {
+    font-size: clamp(18px, 1.2vw + 14px, 24px) !important;
+    line-height: 1.6 !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     color: var(--text-main);
