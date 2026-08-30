@@ -54,10 +54,7 @@ export async function savePrintedPdf(req: Request, res: Response): Promise<void>
 }
 
 export async function aiAnalysis(req: Request, res: Response): Promise<any> {
-    const { history, examSessions, studentName, parentName, studentId, xp, scores, classLevel } = req.body;
-    if (!history || !examSessions) {
-        return res.status(400).json({ error: 'Thiếu dữ liệu học tập lịch sử' });
-    }
+    const { history = [], examSessions = [], studentName, parentName, studentId, xp, scores, classLevel } = req.body || {};
 
     try {
         const analysis = await quizService.performAiAnalysis({

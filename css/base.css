@@ -215,5 +215,9 @@ body.light-mode {
 }
 
 /* ==========================================================================
-   RESET & PHONG CÁCH CHUNG
+   RESET & PHONG CÁCH CHUNG & TIỆN ÍCH HIỂN THỊ
    ========================================================================== */
+.hidden,
+[hidden] {
+    display: none !important;
+}

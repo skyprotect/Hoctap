@@ -1,8 +1,8 @@
 {
-  "version": "13.46",
-  "lastUpdated": "30/08/2026 17:50",
-  "build": 1350,
-  "releaseNotes": "Hotfix v13.45: Khắc phục triệt để lỗi khởi động EXE (thiếu module ts-node trong production bundle) và sửa lỗi hiển thị modal Đánh giá học tập AI.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.46/ToanHocKiosk_Setup_v13.46.exe",
-  "changelog": "- Khắc phục triệt để lỗi không tìm thấy ts-node/typescript trong production Clean bundle khi cài đặt từ Inno Setup EXE.\n- Bổ sung ts-node và typescript vào dependencies chính thức của ứng dụng.\n- Sửa lỗi lệch DOM ID trong modal Đánh giá chất lượng học tập (AI Advisor) trên giao diện học sinh.\n- Mở quyền truy cập /api/ai-analysis trên máy chủ cục bộ cho giao diện học sinh.\n- Thêm thư mục templates vào kịch bản đồng bộ bản sạch sync_clean.js.\n- Bổ sung bộ kiểm thử hồi quy startup_contract.test.js xác thực 100% hợp đồng khởi động bản sạch."
+  "version": "13.47",
+  "lastUpdated": "30/08/2026 18:15",
+  "build": 1351,
+  "releaseNotes": "Hotfix v13.47: Khắc phục triệt để sự cố kẹt Modal Đánh giá học tập AI (AI Evaluation Modal Freeze), chuẩn hóa CSS Utility .hidden, bổ sung AbortController và chống race condition khi phân tích AI.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.47/ToanHocKiosk_Setup_v13.47.exe",
+  "changelog": "- Khắc phục triệt để sự cố kẹt Modal Đánh giá học tập AI khi gặp lỗi mạng/AI.\n- Bổ sung CSS Utility toàn cục .hidden { display: none !important; }.\n- Bổ sung sự kiện đóng modal khi click backdrop và nâng cấp phím ESC toàn cục.\n- Bổ sung AbortController timeout 20s và cơ chế chống race condition (request ID) cho phân tích AI.\n- Bổ sung bộ kiểm thử hồi quy evaluation_modal_lifecycle.test.js xác thực 100% vòng đời modal."
 }

@@ -135,7 +135,17 @@
             window.addEventListener('keydown', (e) => {
                 // Nhấn ESC để quay lại hoặc đóng modal
                 if (e.key === 'Escape') {
-                    const openModal = document.querySelector('.modal-overlay:not(.hidden)');
+                    const evalModal = document.getElementById('evaluation-modal');
+                    if (evalModal && !evalModal.classList.contains('hidden')) {
+                        if (window.ParentDashboardModule && typeof window.ParentDashboardModule.closeModal === 'function') {
+                            window.ParentDashboardModule.closeModal();
+                        } else {
+                            evalModal.classList.add('hidden');
+                        }
+                        e.preventDefault();
+                        return;
+                    }
+                    const openModal = document.querySelector('.modal-overlay:not(.hidden), .glass-modal:not(.hidden), .modal:not(.hidden)');
                     if (openModal) {
                         openModal.classList.add('hidden');
                         e.preventDefault();

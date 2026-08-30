@@ -14,6 +14,9 @@
             // Lắng nghe sự kiện
         },
 
+        activeRequestId: 0,
+        currentAbortController: null,
+
         requestEvaluation: function() {
             const modal = document.getElementById('evaluation-modal');
             if (modal) {
@@ -26,6 +29,12 @@
         closeModal: function() {
             const modal = document.getElementById('evaluation-modal');
             if (modal) modal.classList.add('hidden');
+            if (this.currentAbortController) {
+                this.currentAbortController.abort();
+                this.currentAbortController = null;
+            }
+            const refreshBtn = document.getElementById('btn-eval-refresh-ai');
+            if (refreshBtn) refreshBtn.disabled = false;
         },
 
         renderStats: function() {
@@ -78,7 +87,18 @@
             const contentBox = document.getElementById('eval-ai-advice') || document.getElementById('evaluation-ai-content');
             if (!contentBox) return;
 
-            contentBox.innerHTML = '<div style="text-align: center; padding: 1.5rem;"><i class="fa-solid fa-spinner fa-spin"></i> AI đang phân tích dữ liệu học tập...</div>';
+            // Hủy request trước đó nếu đang chạy (Chống race condition)
+            if (this.currentAbortController) {
+                this.currentAbortController.abort();
+            }
+            const currentReqId = ++this.activeRequestId;
+            const controller = new AbortController();
+            this.currentAbortController = controller;
+
+            const refreshBtn = document.getElementById('btn-eval-refresh-ai');
+            if (refreshBtn) refreshBtn.disabled = true;
+
+            contentBox.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin" style="margin-right: 0.5rem; color: var(--primary);"></i> AI đang phân tích dữ liệu học tập...</div>';
 
             const state = (window.AppState && window.AppState.state) || {};
             const config = (window.AppState && window.AppState.config) || {};
@@ -99,24 +119,43 @@
             const headers = { 'Content-Type': 'application/json' };
             if (token) headers['Authorization'] = 'Bearer ' + token;
 
+            const timeoutId = setTimeout(() => controller.abort(), 20000);
+
             fetch('/api/ai-analysis', {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
+                signal: controller.signal
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success && data.analysis) {
+            .then(async res => {
+                clearTimeout(timeoutId);
+                const data = await res.json().catch(() => ({ error: 'Không thể đọc phản hồi từ máy chủ' }));
+                if (currentReqId !== this.activeRequestId) return; // Bỏ qua response cũ
+
+                if (refreshBtn) refreshBtn.disabled = false;
+
+                if (res.ok && data.success && data.analysis) {
                     contentBox.innerHTML = `<div class="ai-analysis-text" style="white-space: pre-line; line-height: 1.6;">${data.analysis}</div>`;
-                } else if (data.error) {
-                    contentBox.innerHTML = `<div style="color: #ef4444;">${data.error}</div>`;
+                } else if (data && data.error) {
+                    contentBox.innerHTML = `<div style="color: #ef4444; padding: 0.8rem; background: rgba(239, 68, 68, 0.08); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 0.4rem;"></i> ${data.error}</div>`;
                 } else {
-                    contentBox.innerHTML = '<div style="color: #ef4444;">Không thể lấy phân tích từ AI. Vui lòng thử lại sau.</div>';
+                    contentBox.innerHTML = '<div style="color: #ef4444; padding: 0.8rem; background: rgba(239, 68, 68, 0.08); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 0.4rem;"></i> Không thể lấy phân tích từ AI. Vui lòng thử lại sau.</div>';
                 }
             })
             .catch(err => {
-                console.warn("[ParentDashboard] AI analysis error:", err);
-                contentBox.innerHTML = '<div style="color: #ef4444;">Lỗi kết nối tới máy chủ phân tích AI.</div>';
+                clearTimeout(timeoutId);
+                if (currentReqId !== this.activeRequestId) return; // Bỏ qua nếu đã có request mới
+
+                if (refreshBtn) refreshBtn.disabled = false;
+
+                if (err.name === 'AbortError') {
+                    // Do người dùng đóng modal hoặc timeout
+                    if (document.getElementById('evaluation-modal')?.classList.contains('hidden')) return;
+                    contentBox.innerHTML = '<div style="color: #ef4444; padding: 0.8rem; background: rgba(239, 68, 68, 0.08); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);"><i class="fa-solid fa-clock" style="margin-right: 0.4rem;"></i> Quá thời gian chờ máy chủ phản hồi (Timeout). Vui lòng thử lại.</div>';
+                } else {
+                    console.warn("[ParentDashboard] AI analysis error:", err);
+                    contentBox.innerHTML = '<div style="color: #ef4444; padding: 0.8rem; background: rgba(239, 68, 68, 0.08); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 0.4rem;"></i> Lỗi kết nối tới máy chủ phân tích AI.</div>';
+                }
             });
         },
 
