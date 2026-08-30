@@ -1,8 +1,8 @@
 {
-  "version": "13.24",
-  "lastUpdated": "30/08/2026 07:41",
-  "build": 1342,
-  "releaseNotes": "Khắc phục triệt để lỗi không hiển thị câu hỏi: Chuẩn hóa cấu trúc phân tầng DOM màn hình làm bài, kết nối hoàn thiện Engine Toán lớp 1, bổ sung cơ chế KaTeX an toàn và Fallback UI tự phục hồi.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.24/ToanHocKiosk_Setup_v13.24.exe",
-  "changelog": "- Khắc phục triệt để lỗi màn hình trắng không hiển thị câu hỏi.\n- Chuẩn hóa cấu trúc DOM của practice-active-box và split-container.\n- Kết nối engine câu hỏi Toán Lớp 1 trong questions-v3.js.\n- Bổ sung cơ chế render KaTeX an toàn throwOnError: false và Fallback UI tự phục hồi."
+  "version": "13.26",
+  "lastUpdated": "30/08/2026 07:54",
+  "build": 1343,
+  "releaseNotes": "Khắc phục triệt để và dứt điểm lỗi màn hình làm bài trắng không có câu hỏi: Đóng thẻ practice-levels-dashboard-box đúng chuẩn phân cấp DOM độc lập, ngăn chặn việc xóa nhầm các container làm bài practice-mode-select-box và practice-active-box khi nạp dashboard.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.26/ToanHocKiosk_Setup_v13.26.exe",
+  "changelog": "- Khắc phục triệt để lỗi màn hình làm bài trắng không hiển thị câu hỏi do lỗi lồng thẻ DOM của practice-levels-dashboard-box.\n- Tách biệt hoàn toàn cây DOM của các container: Dashboard cấp độ, Chọn chế độ làm bài, Màn hình làm bài trực tiếp và Kết quả.\n- Đồng bộ hóa toàn diện hệ thống cachebuster v13.25."
 }
