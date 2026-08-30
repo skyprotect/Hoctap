@@ -1,6 +1,7 @@
 /**
  * CENTRALIZED STATE MANAGEMENT
  * Quản lý trạng thái tập trung cho học sinh, môn học và thẻ năng lực
+ * Bridge Pattern: Đồng bộ tuyệt đối window.app === window.AppState
  */
 (function() {
     'use strict';
@@ -21,6 +22,31 @@
         }
     };
 
+    function getDefaultState() {
+        return {
+            xp: 0,
+            streak: 0,
+            lastActiveDate: null,
+            scores: {},
+            badges: [],
+            goldBadges: [],
+            history: [],
+            distractions: 0,
+            customVideos: {},
+            parentPin: "123456",
+            examSessions: [],
+            completedSubtopics: [],
+            subtopicScores: {},
+            completedLessonTheory: [],
+            subjects: {
+                math: { scores: {}, completedSubtopics: [], subtopicScores: {}, completedLessonTheory: [], examSessions: [] },
+                english: { scores: {}, completedSubtopics: [], subtopicScores: {}, completedLessonTheory: [], examSessions: [], skillScores: { listening: 0, speaking: 0, reading: 0, spelling: 0 }, weakVocabulary: [] }
+            },
+            cardExchangeHistory: [],
+            lastUpdated: new Date().toISOString()
+        };
+    }
+
     const AppState = {
         config: {
             parentName: "Phụ huynh",
@@ -34,33 +60,23 @@
                 { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", parentName: "Phụ huynh", classLevel: "4" }
             ]
         },
-        state: {
-            xp: 0,
-            streak: 0,
-            lastActiveDate: null,
-            scores: {},
-            badges: [],
-            history: [],
-            distractions: 0,
-            customVideos: {},
-            parentPin: "123456",
-            examSessions: [],
-            completedSubtopics: [],
-            subtopicScores: {},
-            completedLessonTheory: []
-        },
+        state: getDefaultState(),
         currentLesson: null,
         currentSubject: "math",
         currentSemester: 1,
         isDarkMode: true,
         pendingBadges: [],
         navHistory: [],
-        safeStorage: safeStorage
+        justSentMessage: false,
+        safeStorage: safeStorage,
+        getDefaultState: getDefaultState
     };
 
     if (typeof window !== 'undefined') {
         window.safeStorage = safeStorage;
         window.AppState = AppState;
+        // Bridge Pattern: window.app cùng tham chiếu tới window.AppState
+        window.app = AppState;
     }
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = { safeStorage, AppState };

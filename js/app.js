@@ -80,8 +80,8 @@ const SKILL_CARDS = [
     { id: "unlocked_all_english", name: "English Overlord", desc: "Mở khóa thành công tất cả 49 thẻ năng lực Tiếng Anh khác", icon: "⚜️", color: "linear-gradient(135deg, #eab308, #854d0e)" }
 ];
 
-// Đối tượng quản lý ứng dụng chính
-const app = {
+// Đối tượng quản lý ứng dụng chính (Thống nhất cùng window.AppState)
+const app = (typeof window !== 'undefined' && window.AppState) ? Object.assign(window.AppState, {
     // Trạng thái mặc định của người dùng (Tự trị Zero-Config Seeding)
     config: {
         parentName: "Phụ huynh",
@@ -4650,8 +4650,8 @@ const app = {
             // Đồng bộ dữ liệu offline bẩn lên SQLite trước khi tải dữ liệu mới
             await this.syncOfflineProgress();
 
-            // Đảm bảo state luôn có đầy đủ các trường mặc định từ trước khi load dữ liệu
-            this.state = { ...this.getDefaultState(), ...this.state };
+            // Khởi tạo state sạch từ hàm getDefaultState() tránh rò rỉ dữ liệu giữa các học sinh
+            this.state = this.getDefaultState();
             const classLevel = this.config.currentClass || '6';
             const studentId = this.config.defaultStudentId || '';
             
@@ -13833,7 +13833,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.renderEnglishIoe();
         });
     }
-};
+}) : {};
 
 
 // Hàm đóng popup huy hiệu

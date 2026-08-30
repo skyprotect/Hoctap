@@ -1,8 +1,8 @@
 {
-  "version": "13.29",
-  "lastUpdated": "30/08/2026 07:54",
-  "build": 1343,
-  "releaseNotes": "Khắc phục triệt để và dứt điểm lỗi màn hình làm bài trắng không có câu hỏi: Đóng thẻ practice-levels-dashboard-box đúng chuẩn phân cấp DOM độc lập, ngăn chặn việc xóa nhầm các container làm bài practice-mode-select-box và practice-active-box khi nạp dashboard.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.29/ToanHocKiosk_Setup_v13.29.exe",
-  "changelog": "- Khắc phục triệt để lỗi màn hình làm bài trắng không hiển thị câu hỏi do lỗi lồng thẻ DOM của practice-levels-dashboard-box.\n- Tách biệt hoàn toàn cây DOM của các container: Dashboard cấp độ, Chọn chế độ làm bài, Màn hình làm bài trực tiếp và Kết quả.\n- Đồng bộ hóa toàn diện hệ thống cachebuster v13.25."
+  "version": "13.31",
+  "lastUpdated": "30/08/2026 11:49",
+  "build": 1344,
+  "releaseNotes": "Phase 1 Refactoring: Chuẩn hóa kiến trúc MVC Backend (controllers, routes, services, middleware, DAL DB đơn nhất), viết 27 integration tests API toàn diện, thống nhất State Management (window.app === window.AppState) và mô-đun hóa Frontend Feature Modules.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.31/ToanHocKiosk_Setup_v13.31.exe",
+  "changelog": "- Tái cấu trúc toàn diện Backend server.js sang kiến trúc MVC tiêu chuẩn (Controllers, Routes, Services, Middleware).\n- Tạo bộ kiểm thử tích hợp (Integration Tests) với Jest & Supertest bao phủ 27 kịch bản kiểm thử API quan trọng.\n- Thống nhất cơ chế quản lý trạng thái tập trung (Bridge Pattern AppState = window.app), triệt tiêu hoàn toàn lỗi rò rỉ dữ liệu khi đổi học sinh.\n- Tách biệt các Feature Modules độc lập: Splash, Practice, Leaderboard, Settings, Vocab Monster, Skill Card."
 }

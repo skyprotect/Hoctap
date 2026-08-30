@@ -6,32 +6,21 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'antigravity_secret_key_123';
+const DEFAULT_GOOGLE_CLIENT_ID = "1033910156653-jf5787g1hgbfh9v0onqrs84rl36d2qrl.apps.googleusercontent.com";
 const googleClient = new OAuth2Client();
 
-function authenticateAdminToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    
-    if (!token) {
-        return res.status(401).json({ error: "Yêu cầu đăng nhập!" });
-    }
-    
-    jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) {
-            return res.status(403).json({ error: "Phiên đăng nhập hết hạn hoặc không hợp lệ!" });
-        }
-        req.user = user;
-        next();
-    });
-}
-
-function generateToken(payload, expiresIn = '7d') {
+function generateToken(payload, expiresIn = '30m') {
     return jwt.sign(payload, JWT_SECRET, { expiresIn });
 }
 
+function verifyToken(token) {
+    return jwt.verify(token, JWT_SECRET);
+}
+
 module.exports = {
-    authenticateAdminToken,
     generateToken,
+    verifyToken,
     googleClient,
-    JWT_SECRET
+    JWT_SECRET,
+    DEFAULT_GOOGLE_CLIENT_ID
 };
