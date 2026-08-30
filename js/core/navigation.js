@@ -5,6 +5,16 @@
 (function() {
     'use strict';
 
+    const SCREEN_ALIASES = {
+        'lessons-screen': 'screen-timeline',
+        'timeline': 'screen-timeline',
+        'subject-select-screen': 'screen-subject-select',
+        'subject-select': 'screen-subject-select',
+        'student-select': 'student-select-screen',
+        'english-portal': 'screen-english-portal',
+        'splash': 'splash-screen'
+    };
+
     const NavigationService = {
         navHistory: [],
         currentScreen: 'splash-screen',
@@ -15,32 +25,35 @@
         },
 
         showScreen: function(screenId, pushHistory = true) {
-            const screens = document.querySelectorAll('.screen');
+            const actualId = SCREEN_ALIASES[screenId] || screenId;
+
+            // Ẩn tất cả các màn hình SPA
+            const screens = document.querySelectorAll('.screen, .screen-section, [id$="-screen"], .splash-screen, .student-select-screen');
             screens.forEach(s => s.classList.add('hidden'));
 
-            const target = document.getElementById(screenId);
+            const target = document.getElementById(actualId);
             if (target) {
                 target.classList.remove('hidden');
             } else {
-                console.warn("[Navigation] Không tìm thấy màn hình:", screenId);
+                console.warn("[Navigation] Không tìm thấy màn hình:", actualId);
             }
 
-            if (pushHistory && this.currentScreen && this.currentScreen !== screenId) {
+            if (pushHistory && this.currentScreen && this.currentScreen !== actualId) {
                 this.navHistory.push(this.currentScreen);
                 if (this.navHistory.length > 50) this.navHistory.shift();
             }
 
-            this.currentScreen = screenId;
+            this.currentScreen = actualId;
 
             // Đồng bộ với AppState
             if (window.AppState) {
-                window.AppState.currentScreen = screenId;
+                window.AppState.currentScreen = actualId;
                 window.AppState.navHistory = this.navHistory;
             }
 
             // Kích hoạt sự kiện chuyển màn hình
             if (window.EventBus) {
-                window.EventBus.emit('screen:changed', { screenId, prevScreen: this.navHistory[this.navHistory.length - 1] });
+                window.EventBus.emit('screen:changed', { screenId: actualId, prevScreen: this.navHistory[this.navHistory.length - 1] });
             }
 
             // Tự động cuộn lên đầu trang
@@ -57,13 +70,20 @@
         },
 
         goBackHierarchy: function() {
-            // Lộ trình phân cấp thông minh
             const cur = this.currentScreen;
+
+            // Nếu đang xem chi tiết bài học trong timeline
+            const lessonDetail = document.getElementById('lesson-detail-panel');
+            const welcomePanel = document.getElementById('welcome-viewer-panel');
+            if (cur === 'screen-timeline' && lessonDetail && !lessonDetail.classList.contains('hidden')) {
+                lessonDetail.classList.add('hidden');
+                if (welcomePanel) welcomePanel.classList.remove('hidden');
+                return;
+            }
+
             if (cur === 'practice-screen' || cur === 'theory-screen' || cur === 'english-practice-screen') {
-                this.showScreen('subtopics-screen');
-            } else if (cur === 'subtopics-screen') {
-                this.showScreen('lessons-screen');
-            } else if (cur === 'lessons-screen' || cur === 'skill-cards-screen' || cur === 'custom-vocab-screen') {
+                this.showScreen('screen-timeline');
+            } else if (cur === 'screen-english-portal' || cur === 'screen-timeline' || cur === 'screen-subject-select') {
                 this.showScreen('splash-screen');
             } else {
                 if (!this.goBack()) {
@@ -80,7 +100,17 @@
             if (window.SplashModule && typeof window.SplashModule.hide === 'function') {
                 window.SplashModule.hide();
             }
-            this.showScreen('lessons-screen');
+            this.showScreen('screen-timeline');
+
+            // Render lại lộ trình bài học Toán
+            if (window.CurriculumModule && typeof window.CurriculumModule.renderCurriculum === 'function') {
+                window.CurriculumModule.renderCurriculum();
+            }
+
+            // Cập nhật Header stats
+            if (window.app && typeof window.app.updateHeaderStats === 'function') {
+                window.app.updateHeaderStats();
+            }
         },
 
         toggleFullscreen: function() {
@@ -106,19 +136,19 @@
         },
 
         exitVideoFullscreen: function() {
-            const videoContainer = document.getElementById('lesson-video-container');
+            const videoContainer = document.getElementById('video-wrapper') || document.getElementById('lesson-video-container');
             if (videoContainer) {
                 videoContainer.classList.remove('fullscreen');
             }
         },
 
         collapseSidebar: function() {
-            const sidebar = document.getElementById('app-sidebar');
+            const sidebar = document.getElementById('timeline-sidebar') || document.getElementById('app-sidebar');
             if (sidebar) sidebar.classList.add('collapsed');
         },
 
         expandSidebar: function() {
-            const sidebar = document.getElementById('app-sidebar');
+            const sidebar = document.getElementById('timeline-sidebar') || document.getElementById('app-sidebar');
             if (sidebar) sidebar.classList.remove('collapsed');
         },
 
@@ -133,6 +163,11 @@
 
         bindGlobalShortcuts: function() {
             window.addEventListener('keydown', (e) => {
+                // Bỏ qua khi người dùng đang nhập văn bản trong ô input / textarea
+                const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+                const isInputActive = activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select' || (document.activeElement && document.activeElement.isContentEditable);
+                if (isInputActive) return;
+
                 // Nhấn ESC để quay lại hoặc đóng modal
                 if (e.key === 'Escape') {
                     const evalModal = document.getElementById('evaluation-modal');
@@ -141,7 +176,6 @@
                             window.ParentDashboardModule.closeModal();
                         } else {
                             evalModal.classList.add('hidden');
-                            evalModal.style.setProperty('display', 'none', 'important');
                         }
                         e.preventDefault();
                         return;
@@ -153,7 +187,7 @@
                         return;
                     }
                 }
-                // Nhấn F11 hoặc Ctrl+F để toggle fullscreen
+                // Nhấn F11 để toggle fullscreen
                 if (e.key === 'F11') {
                     e.preventDefault();
                     this.toggleFullscreen();

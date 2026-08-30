@@ -1,6 +1,6 @@
 /**
  * HỌCTẬP SYSTEM — MASTER APPLICATION FAÇADE & BOOTSTRAP
- * Phiên bản: v13.38 (Cập nhật: 30/08/2026 16:30)
+ * Phiên bản: v13.52 (Cập nhật: 30/08/2026 20:15)
  * Kiến trúc: Modular Monolith / Clean Architecture / Event-Driven SPA
  * 
  * Tệp này đóng vai trò:
@@ -68,12 +68,14 @@
         pendingBadges: AppState.pendingBadges,
         navHistory: AppState.navHistory,
         safeStorage: AppState.safeStorage,
+        aiErrors: [],
+        aiTrackerInterval: null,
 
         // ====================================================================
         // 1. BOOTSTRAP & KHỞI TẠO HỆ THỐNG
         // ====================================================================
         init: async function() {
-            console.log("🚀 [HocTap] Khởi động ứng dụng v13.37...");
+            console.log("🚀 [HocTap] Khởi động ứng dụng v13.52...");
 
             // 1.1 Khởi tạo Core Services
             if (window.NavigationService) window.NavigationService.init();
@@ -94,7 +96,14 @@
             await this.loadConfig();
             await this.loadProgress();
 
-            // 1.4 Hiển thị màn hình chào mừng
+            // 1.4 Khởi tạo theo dõi tiến trình AI & kích hoạt sinh đề ngầm
+            this.initAiProgressTracker();
+            this.triggerAiPregen();
+
+            // 1.5 Cập nhật Header stats
+            this.updateHeaderStats();
+
+            // 1.6 Hiển thị màn hình chào mừng
             if (window.NavigationService) {
                 window.NavigationService.showScreen('splash-screen');
             }
@@ -209,6 +218,7 @@
                     if (data && data.students) {
                         this.config = Object.assign(this.config || {}, data);
                         if (window.AppState) window.AppState.config = this.config;
+                        if (window.SplashModule) window.SplashModule.displayGreeting();
                     }
                 }
             } catch (e) {
@@ -227,6 +237,11 @@
                     if (data) {
                         this.state = Object.assign(this.state || {}, data);
                         if (window.AppState) window.AppState.state = this.state;
+                        
+                        if (window.SplashModule) window.SplashModule.updateStats();
+                        if (window.CurriculumModule) window.CurriculumModule.renderCurriculum();
+                        this.updateHeaderStats();
+
                         if (window.EventBus) window.EventBus.emit('progress:loaded', this.state);
                     }
                 }
@@ -254,30 +269,31 @@
                     body: JSON.stringify(payload)
                 });
                 if (res.ok) {
-                    const data = await res.json();
-                    if (window.EventBus) window.EventBus.emit('progress:saved', data);
-                    return data;
+                    if (window.EventBus) window.EventBus.emit('progress:saved', this.state);
                 }
             } catch (e) {
                 console.warn("[App] Save progress error:", e);
             }
         },
 
-        saveConfig: async function(newConfig) {
-            const configToSave = newConfig || this.config;
-            try {
-                await fetch('/api/save-config', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(configToSave)
-                });
-            } catch (e) {
-                console.warn("[App] Save config error:", e);
+        updateHeaderStats: function() {
+            const state = this.state || (window.AppState && window.AppState.state) || {};
+
+            const streakEl = document.getElementById('streak-val');
+            if (streakEl) streakEl.textContent = state.streak || 0;
+
+            const xpEl = document.getElementById('xp-val');
+            if (xpEl) xpEl.textContent = state.xp || 0;
+
+            const badgeEl = document.getElementById('badge-count');
+            if (badgeEl) {
+                const total = (state.badges ? state.badges.length : 0) + (state.goldBadges ? state.goldBadges.length : 0);
+                badgeEl.textContent = total;
             }
         },
 
         // ====================================================================
-        // 5. HỌC SINH & CHUYỂN ĐỔI HỒ SƠ (STUDENT BRIDGES)
+        // 5. HỌC SINH & XÁC THỰC (STUDENT SELECT BRIDGES)
         // ====================================================================
         selectStudent: function(studentId) {
             if (window.StudentSelectModule) {
@@ -306,6 +322,21 @@
             }
         },
 
+        switchSubject: function(subject) {
+            if (window.CurriculumModule) {
+                window.CurriculumModule.switchSubject(subject);
+            }
+        },
+
+        checkSubjectSelection: function() {
+            if (window.NavigationService) {
+                window.NavigationService.showScreen('screen-subject-select');
+            }
+            if (window.CurriculumModule) {
+                window.CurriculumModule.renderSubjectSelection();
+            }
+        },
+
         switchLessonTab: function(tab) {
             if (window.CurriculumModule) {
                 window.CurriculumModule.switchLessonTab(tab);
@@ -321,297 +352,183 @@
         // ====================================================================
         // 7. LUYỆN TẬP & THI THỬ (QUIZ & IOE BRIDGES)
         // ====================================================================
-        startPracticeCurrentSubtopic: function() {
+        startPracticeCurrentSubtopic: function(subtopicId) {
             if (window.PracticeModule && typeof window.PracticeModule.selectLevel === 'function') {
                 window.PracticeModule.selectLevel('co-ban');
             } else if (window.QuizRunnerModule) {
-                // Tải câu hỏi từ QuestionEngine hoặc Cache
                 const lessonId = this.currentLesson ? this.currentLesson.id : 'default';
-                fetch(`/api/get-questions?lessonId=${encodeURIComponent(lessonId)}`)
+                const stId = subtopicId || (window.CurriculumModule && window.CurriculumModule.currentSubtopic ? window.CurriculumModule.currentSubtopic.id : null);
+                
+                let fetchUrl = `/api/get-questions?lessonId=${encodeURIComponent(lessonId)}`;
+                if (stId) fetchUrl += `&subtopicId=${encodeURIComponent(stId)}`;
+
+                fetch(fetchUrl)
                     .then(res => res.json())
                     .then(data => {
-                        const questions = data.questions || (Array.isArray(data) ? data : []);
-                        if (window.QuizRunnerModule) {
-                            window.QuizRunnerModule.startPractice(questions, { lessonId });
+                        const questions = data.questions || [];
+                        window.QuizRunnerModule.startQuiz(questions);
+                    })
+                    .catch(err => {
+                        console.error("[Quiz] Load questions error:", err);
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire('Thông báo', 'Đang tải bộ câu hỏi luyện tập...', 'info');
+                        }
+                    });
+            }
+        },
+
+        selectQuizOption: function(index) {
+            if (window.QuizRunnerModule) window.QuizRunnerModule.selectOption(index);
+        },
+
+        checkQuizAnswer: function() {
+            if (window.QuizRunnerModule) window.QuizRunnerModule.checkAnswer();
+        },
+
+        nextQuizQuestion: function() {
+            if (window.QuizRunnerModule) window.QuizRunnerModule.nextQuestion();
+        },
+
+        finishQuiz: function() {
+            if (window.QuizRunnerModule) window.QuizRunnerModule.finishQuiz();
+        },
+
+        // ====================================================================
+        // 8. TIẾN TRÌNH TỰ ĐỘNG SINH ĐỀ AI NGẦM (AI PRE-GENERATION)
+        // ====================================================================
+        triggerAiPregen: function() {
+            const studentId = (this.config && this.config.defaultStudentId) || 'std_htsj4gbmo';
+            const classLevel = (this.config && this.config.currentClass) || '6';
+            const subject = 'math';
+
+            fetch('/api/start-student-pregen', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId, classLevel, subject })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('[AI Pre-gen Activation]', data.message || 'Started');
+            })
+            .catch(err => console.warn('[AI Pre-gen Activation Error]', err));
+        },
+
+        initAiProgressTracker: function() {
+            const banner = document.getElementById("ai-progress-banner");
+            const bar = document.getElementById("ai-progress-bar");
+            const text = document.getElementById("ai-progress-text");
+            const percent = document.getElementById("ai-progress-percent");
+            const errBtn = document.getElementById("ai-progress-error-btn");
+            const errCount = document.getElementById("ai-error-count");
+
+            if (!banner) return;
+
+            const fetchAiStatus = () => {
+                const studentId = (this.config && this.config.defaultStudentId) || 'std_htsj4gbmo';
+                const classLevel = (this.config && this.config.currentClass) || '6';
+                const subject = 'math';
+
+                fetch(`/api/ai-status?studentId=${encodeURIComponent(studentId)}&classLevel=${encodeURIComponent(classLevel)}&subject=${encodeURIComponent(subject)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.active) {
+                            banner.classList.remove("hidden");
+                            const p = Math.min(100, Math.max(0, Math.round(data.percent || 0)));
+                            if (bar) bar.style.width = `${p}%`;
+                            if (percent) percent.innerText = `${p}%`;
+                            if (text) text.innerText = data.statusText || `AI đang chuẩn bị ngân hàng đề (${p}%)...`;
+
+                            if (data.errors && data.errors.length > 0) {
+                                this.aiErrors = data.errors;
+                                if (errBtn) errBtn.classList.remove("hidden");
+                                if (errCount) errCount.innerText = data.errors.length;
+                            } else {
+                                if (errBtn) errBtn.classList.add("hidden");
+                            }
+
+                            if (p >= 100) {
+                                setTimeout(() => {
+                                    banner.classList.add("hidden");
+                                }, 3000);
+                            }
+                        } else {
+                            banner.classList.add("hidden");
                         }
                     })
-                    .catch(err => console.error("[App] Get questions error:", err));
+                    .catch(() => {});
+            };
+
+            fetchAiStatus();
+            if (this.aiTrackerInterval) clearInterval(this.aiTrackerInterval);
+            this.aiTrackerInterval = setInterval(fetchAiStatus, 5000);
+        },
+
+        toggleAiProgressDetail: function() {
+            const detail = document.getElementById("ai-progress-detail");
+            const icon = document.getElementById("ai-toggle-icon");
+            if (detail) {
+                const isHidden = detail.classList.toggle("hidden");
+                if (icon) icon.style.transform = isHidden ? "rotate(0deg)" : "rotate(180deg)";
             }
         },
 
-        startStudentEnglishExamOnline: function(mode) {
-            const lessonId = this.currentLesson ? this.currentLesson.id : 'eng6-u1';
-            fetch(`/api/get-questions?lessonId=${encodeURIComponent(lessonId)}&skill=full_exam&subject=english`)
-                .then(res => res.json())
-                .then(data => {
-                    const questions = data.questions || (Array.isArray(data) ? data : []);
-                    if (window.QuizRunnerModule) {
-                        window.QuizRunnerModule.startPractice(questions, { lessonId, isIoe: true, subject: 'english' });
-                    }
-                })
-                .catch(err => console.error("[App] Get IOE questions error:", err));
-        },
-
-        checkEnglishAnswer: function(ans) {
-            if (window.QuizRunnerModule) {
-                window.QuizRunnerModule.selectOption(ans);
-            }
-        },
-
-        checkIoeAnswer: function(ans) {
-            if (window.QuizRunnerModule) {
-                window.QuizRunnerModule.selectOption(ans);
-            }
-        },
-
-        exitIoeExam: function() {
-            if (window.QuizRunnerModule) {
-                window.QuizRunnerModule.exitExam();
-            }
-        },
-
-        exitEnglishLesson: function() {
-            if (window.NavigationService) {
-                window.NavigationService.showScreen('subtopics-screen');
-            }
-        },
-
-        retryPractice: function() {
-            if (window.QuizRunnerModule) {
-                window.QuizRunnerModule.retryPractice();
+        showAiErrors: function() {
+            if (this.aiErrors && this.aiErrors.length > 0) {
+                const errorHtml = this.aiErrors.map((e, idx) => `<div style="text-align:left; margin-bottom:0.5rem; font-size:0.85rem;"><b>${idx+1}.</b> ${e.message || JSON.stringify(e)}</div>`).join('');
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'Nhật ký lỗi sinh đề AI',
+                        html: `<div style="max-height:300px; overflow-y:auto;">${errorHtml}</div>`,
+                        icon: 'warning'
+                    });
+                }
+            } else {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire('Thông báo', 'Hệ thống đang hoạt động bình thường, không phát hiện lỗi sinh đề nghiêm trọng.', 'success');
+                }
             }
         },
 
         // ====================================================================
-        // 8. THẺ NĂNG LỰC & HUY HIỆU (SKILL CARDS & BADGES BRIDGES)
+        // 9. MODALS & KHẢO THÍ (EVALUATION, LEADERBOARD, HERO, SHOP)
         // ====================================================================
-        openBadgesModal: function() {
+        renderHeroProfile: function() {
             if (window.SkillCardModule) window.SkillCardModule.openBadgesModal();
         },
 
-        closeBadgesModal: function() {
-            if (window.SkillCardModule) window.SkillCardModule.closeBadgesModal();
+        openBadgesModal: function() {
+            if (window.SkillCardModule) window.SkillCardModule.openBadgesModal();
         },
 
         openMathShopModal: function() {
             if (window.SkillCardModule) window.SkillCardModule.openShopModal();
         },
 
-        closeMathShopModal: function() {
-            if (window.SkillCardModule) window.SkillCardModule.closeShopModal();
+        openLeaderboardModal: function(subject = 'math') {
+            if (window.LeaderboardModule) window.LeaderboardModule.openModal(subject);
         },
 
-        exchangeGoldCardForPcPlay: function(minutes) {
-            if (window.SkillCardModule) window.SkillCardModule.exchangePcPlay(minutes);
+        requestEvaluation: function() {
+            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.openModal === 'function') {
+                window.ParentDashboardModule.openModal();
+            } else {
+                const modal = document.getElementById('evaluation-modal');
+                if (modal) modal.classList.remove('hidden');
+            }
         },
 
-        exchangeGoldCardForTabletPlay: function(minutes) {
-            if (window.SkillCardModule) window.SkillCardModule.exchangeTabletPlay(minutes);
-        },
-
-        // ====================================================================
-        // 9. GAME & DIỆT QUÁI TỪ VỰNG (GAME BRIDGES)
-        // ====================================================================
         openFreePlayGameSelection: function() {
-            if (window.VocabMonsterModule) window.VocabMonsterModule.openFreePlay();
+            const overlay = document.getElementById('free-play-overlay');
+            if (overlay) overlay.classList.remove('hidden');
         },
 
         exitFreePlayGame: function() {
-            if (window.VocabMonsterModule) window.VocabMonsterModule.exitFreePlay();
-        },
-
-        // ====================================================================
-        // 10. BẢNG XẾP HẠNG & TRÒ CHUYỆN (LEADERBOARD & CHAT BRIDGES)
-        // ====================================================================
-        openLeaderboardModal: function() {
-            if (window.LeaderboardModule) window.LeaderboardModule.openModal();
-        },
-
-        reloadLeaderboardData: function() {
-            if (window.LeaderboardModule) window.LeaderboardModule.loadData();
-        },
-
-        switchLeaderboardSubject: function(subj) {
-            if (window.LeaderboardModule) window.LeaderboardModule.switchSubject(subj);
-        },
-
-        toggleOnlinePresenceSidebar: function() {
-            if (window.LeaderboardModule) window.LeaderboardModule.togglePresenceSidebar();
-        },
-
-        sendChatMessage: function() {
-            if (window.ChatModule) window.ChatModule.sendMessage();
-        },
-
-        toggleChatMinimize: function(show) {
-            if (window.ChatModule) window.ChatModule.toggleMinimize(show);
-        },
-
-        closeChatCompletely: function() {
-            if (window.ChatModule) window.ChatModule.closeCompletely();
-        },
-
-        toggleEmojiPicker: function() {
-            if (window.ChatModule) window.ChatModule.toggleEmoji();
-        },
-
-        insertEmoji: function(emoji) {
-            if (window.ChatModule) window.ChatModule.insertEmoji(emoji);
-        },
-
-        // ====================================================================
-        // 11. BẢNG ĐIỀU KHIỂN PHỤ HUYNH & ĐÁNH GIÁ (PARENT DASHBOARD BRIDGES)
-        // ====================================================================
-        requestEvaluation: function() {
-            if (window.ParentDashboardModule) window.ParentDashboardModule.requestEvaluation();
-        },
-
-        closeEvaluationModal: function() {
-            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.closeModal === 'function') {
-                window.ParentDashboardModule.closeModal();
-            }
-            const modal = document.getElementById('evaluation-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.style.setProperty('display', 'none', 'important');
-            }
-        },
-
-        refreshEvaluationAiAnalysis: function() {
-            if (window.ParentDashboardModule) window.ParentDashboardModule.refreshAiAnalysis();
-        },
-
-        // ====================================================================
-        // 12. CÁC CẦU NỐI BỔ TRỢ GIAO DIỆN & TƯƠNG TÁC HTML (UI BRIDGES)
-        // ====================================================================
-        skipGoogleLogin: function() {
-            const screen = document.getElementById('google-login-screen');
-            if (screen) screen.classList.add('hidden');
-            if (window.SplashModule) window.SplashModule.show();
-        },
-
-        openGoogleLoginModal: function() {
-            const screen = document.getElementById('google-login-screen');
-            if (screen) screen.classList.remove('hidden');
-        },
-
-        toggleAiProgressDetail: function() {
-            const detailEl = document.getElementById('ai-progress-detail-dropdown');
-            if (detailEl) detailEl.classList.toggle('hidden');
-        },
-
-        showAiErrors: function() {
-            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.showAiErrors === 'function') {
-                window.ParentDashboardModule.showAiErrors();
-            } else if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Nhật ký lỗi AI',
-                    text: 'Hệ thống đang hoạt động bình thường, không phát hiện lỗi sinh đề nghiêm trọng.'
-                });
-            }
-        },
-
-        renderHeroProfile: function() {
-            if (window.SkillCardModule) window.SkillCardModule.openBadgesModal();
-        },
-
-        checkSubjectSelection: function() {
-            if (window.NavigationService) window.NavigationService.showScreen('subject-select-screen');
+            const overlay = document.getElementById('free-play-overlay');
+            if (overlay) overlay.classList.add('hidden');
         },
 
         toggleFocusMode: function() {
             document.body.classList.toggle('super-focus-mode');
-        },
-
-        switchEnglishTab: function(tabName) {
-            const tabButtons = document.querySelectorAll('.eng-nav-item');
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            const targetBtn = document.getElementById(`eng-nav-${tabName}`);
-            if (targetBtn) targetBtn.classList.add('active');
-
-            const screens = ['map', 'practice', 'exams', 'ioe', 'custom-vocab', 'leaderboard', 'shop', 'profile'];
-            screens.forEach(s => {
-                const el = document.getElementById(`eng-tab-${s}`);
-                if (el) {
-                    if (s === tabName) el.classList.remove('hidden');
-                    else el.classList.add('hidden');
-                }
-            });
-            if (tabName === 'leaderboard' && window.LeaderboardModule) window.LeaderboardModule.loadData();
-            if (tabName === 'shop' && window.SkillCardModule) window.SkillCardModule.openShopModal();
-            if (tabName === 'profile' && window.SkillCardModule) window.SkillCardModule.openBadgesModal();
-        },
-
-        selectEnglishSkill: function(skill) {
-            const btns = document.querySelectorAll('.skill-tab-btn');
-            btns.forEach(b => b.classList.remove('active'));
-            const activeBtn = document.querySelector(`.skill-tab-btn.${skill}`);
-            if (activeBtn) activeBtn.classList.add('active');
-            if (window.CurriculumModule && typeof window.CurriculumModule.selectEnglishSkill === 'function') {
-                window.CurriculumModule.selectEnglishSkill(skill);
-            }
-        },
-
-        onStudentEngCategoryChange: function() {
-            const selectEl = document.getElementById('student-eng-category-select');
-            if (selectEl && window.CurriculumModule && typeof window.CurriculumModule.filterEnglishCategory === 'function') {
-                window.CurriculumModule.filterEnglishCategory(selectEl.value);
-            }
-        },
-
-        toggleAllStudentGrammar: function() {
-            const grammarItems = document.querySelectorAll('.grammar-topic-card');
-            grammarItems.forEach(item => item.classList.toggle('expanded'));
-        },
-
-        exportStudentEnglishPdf: function() {
-            if (typeof window.print === 'function') {
-                window.print();
-            }
-        },
-
-        addStudentCustomVocabulary: function() {
-            const wordInput = document.getElementById('custom-vocab-word');
-            const meaningInput = document.getElementById('custom-vocab-meaning');
-            if (!wordInput || !meaningInput || !wordInput.value.trim()) return;
-
-            const word = wordInput.value.trim();
-            const meaning = meaningInput.value.trim();
-            const state = (window.AppState && window.AppState.state) || {};
-            state.customVocabulary = state.customVocabulary || [];
-            state.customVocabulary.push({ word, meaning, date: new Date().toISOString() });
-            
-            wordInput.value = '';
-            meaningInput.value = '';
-            this.saveProgress();
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({ icon: 'success', title: 'Thành công', text: `Đã thêm từ vựng mới: ${word}` });
-            }
-        },
-
-        closeReviewSessionModal: function() {
-            const modal = document.getElementById('review-session-modal') || document.getElementById('history-detail-modal');
-            if (modal) modal.classList.add('hidden');
-        },
-
-        closeQuickStudyModal: function() {
-            const modal = document.getElementById('quick-study-modal');
-            if (modal) modal.classList.add('hidden');
-        },
-
-        filterPresenceList: function() {
-            const searchInput = document.getElementById('presence-search-input');
-            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-            const items = document.querySelectorAll('.presence-user-item');
-            items.forEach(item => {
-                const name = item.textContent.toLowerCase();
-                if (!query || name.includes(query)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
         }
     };
 

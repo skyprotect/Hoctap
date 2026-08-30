@@ -5,7 +5,7 @@
     <script>
         // 0. Tự động thanh lọc bộ nhớ đệm khi có phiên bản mới (Cache Self-Healing)
         (function() {
-            var CURRENT_VERSION = '13.50';
+            var CURRENT_VERSION = '13.52';
             try {
                 var storedVersion = localStorage.getItem('app_installed_version');
                 if (storedVersion !== CURRENT_VERSION) {
@@ -142,8 +142,8 @@
     <script src="js/lib/marked.min.js"></script>
     
     <!-- Core LazyLoader & QuestionEngine -->
-    <script src="js/core/lazy-loader.js?v=13.51"></script>
-    <script src="js/engine/question-engine.js?v=13.51"></script>
+    <script src="js/core/lazy-loader.js?v=13.53"></script>
+    <script src="js/engine/question-engine.js?v=13.53"></script>
 
     <!-- Đăng ký Service Worker PWA (Offline Engine) -->
     <script>
@@ -161,7 +161,7 @@
     </script>
     
     <!-- Master Stylesheet (Đã đóng gói modular: tokens, base, layout, game, modals, chat, game-overlay, english, components) -->
-    <link rel="stylesheet" href="css/style.css?v=13.51">
+    <link rel="stylesheet" href="css/style.css?v=13.53">
 </head>
 <body class="green-mode">
     <!-- Canvas pháo hoa giấy chúc mừng -->
@@ -400,7 +400,7 @@
             <button id="splash-start-btn" class="btn-splash-start" onclick="app.enterApp()">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v13.51 (Cập nhật: 30/08/2026 20:04)</div>
+            <div class="splash-version-tag">Phiên bản: v13.53 (Cập nhật: 30/08/2026 20:17)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1873,69 +1873,69 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <!-- 1. Dữ liệu Tiếng Anh theo khối lớp -->
-    <script src="data/grade_1/english/lessons.js?v=13.51"></script>
-    <script src="data/grade_4/english/lessons.js?v=13.51"></script>
-    <script src="data/grade_6/english/lessons.js?v=13.51"></script>
-    <script src="js/english_data.js?v=13.51"></script>
+    <script src="data/grade_1/english/lessons.js?v=13.53"></script>
+    <script src="data/grade_4/english/lessons.js?v=13.53"></script>
+    <script src="data/grade_6/english/lessons.js?v=13.53"></script>
+    <script src="js/english_data.js?v=13.53"></script>
 
     <!-- 2. Cấu trúc bài học & Ngân hàng Toán theo khối lớp -->
-    <script src="js/lessons.js?v=13.51"></script>
-    <script src="data/grade_1/math/generator.js?v=13.51"></script>
-    <script src="data/grade_4/math/generator.js?v=13.51"></script>
+    <script src="js/lessons.js?v=13.53"></script>
+    <script src="data/grade_1/math/generator.js?v=13.53"></script>
+    <script src="data/grade_4/math/generator.js?v=13.53"></script>
     <!-- Toán Lớp 6 Micro-Generators & Components -->
-    <script src="data/grade_6/math/hero.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/template_engine.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/ch1_naturals/bai_01_tap_hop.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/ch1_naturals/bai_02_ghi_so.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/ch1_naturals/bai_03_phep_tinh.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/ch1_naturals/bai_04_luy_thua.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/ch1_naturals/bai_05_chia_het_so_nguyen_to.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/ch1_naturals/bai_06_ucln_bcnn.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/chapter1_naturals.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/chapter2_integers.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/chapter3_geometry.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/chapter4_statistics.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/chapter5_fractions.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/chapter6_geometry_plane.js?v=13.51"></script>
-    <script src="data/grade_6/math/generators/registry.js?v=13.51"></script>
-    <script src="data/grade_6/math/runner/practice_ui.js?v=13.51"></script>
-    <script src="data/grade_6/math/runner/print_exam.js?v=13.51"></script>
-    <script src="data/grade_6/math/advanced.js?v=13.51"></script>
-    <script src="data/grade_6/math/exam7991.js?v=13.51"></script>
+    <script src="data/grade_6/math/hero.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/template_engine.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/ch1_naturals/bai_01_tap_hop.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/ch1_naturals/bai_02_ghi_so.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/ch1_naturals/bai_03_phep_tinh.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/ch1_naturals/bai_04_luy_thua.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/ch1_naturals/bai_05_chia_het_so_nguyen_to.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/ch1_naturals/bai_06_ucln_bcnn.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/chapter1_naturals.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/chapter2_integers.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/chapter3_geometry.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/chapter4_statistics.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/chapter5_fractions.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/chapter6_geometry_plane.js?v=13.53"></script>
+    <script src="data/grade_6/math/generators/registry.js?v=13.53"></script>
+    <script src="data/grade_6/math/runner/practice_ui.js?v=13.53"></script>
+    <script src="data/grade_6/math/runner/print_exam.js?v=13.53"></script>
+    <script src="data/grade_6/math/advanced.js?v=13.53"></script>
+    <script src="data/grade_6/math/exam7991.js?v=13.53"></script>
 
     <!-- 4. Core Architecture Modules -->
-    <script src="js/core/storage.js?v=13.51"></script>
-    <script src="js/core/event-bus.js?v=13.51"></script>
-    <script src="js/core/state.js?v=13.51"></script>
-    <script src="js/core/api-client.js?v=13.51"></script>
-    <script src="js/core/navigation.js?v=13.51"></script>
+    <script src="js/core/storage.js?v=13.53"></script>
+    <script src="js/core/event-bus.js?v=13.53"></script>
+    <script src="js/core/state.js?v=13.53"></script>
+    <script src="js/core/api-client.js?v=13.53"></script>
+    <script src="js/core/navigation.js?v=13.53"></script>
 
     <!-- 4.1 Feature Services -->
-    <script src="js/features/katex-service.js?v=13.51"></script>
-    <script src="js/features/audio-service.js?v=13.51"></script>
-    <script src="js/features/speech-service.js?v=13.51"></script>
-    <script src="js/features/scratchpad-service.js?v=13.51"></script>
-    <script src="js/features/srs-service.js?v=13.51"></script>
-    <script src="js/features/gamification-service.js?v=13.51"></script>
-    <script src="js/features/chibi-controller.js?v=13.51"></script>
-    <script src="js/features/ui-renderer.js?v=13.51"></script>
-    <script src="js/features/quiz-manager.js?v=13.51"></script>
+    <script src="js/features/katex-service.js?v=13.53"></script>
+    <script src="js/features/audio-service.js?v=13.53"></script>
+    <script src="js/features/speech-service.js?v=13.53"></script>
+    <script src="js/features/scratchpad-service.js?v=13.53"></script>
+    <script src="js/features/srs-service.js?v=13.53"></script>
+    <script src="js/features/gamification-service.js?v=13.53"></script>
+    <script src="js/features/chibi-controller.js?v=13.53"></script>
+    <script src="js/features/ui-renderer.js?v=13.53"></script>
+    <script src="js/features/quiz-manager.js?v=13.53"></script>
 
     <!-- 4.2 Feature Modules -->
-    <script src="js/modules/splash.module.js?v=13.51"></script>
-    <script src="js/modules/student-select.module.js?v=13.51"></script>
-    <script src="js/modules/curriculum.module.js?v=13.51"></script>
-    <script src="js/modules/quiz-runner.module.js?v=13.51"></script>
-    <script src="js/modules/practice.module.js?v=13.51"></script>
-    <script src="js/modules/leaderboard.module.js?v=13.51"></script>
-    <script src="js/modules/settings.module.js?v=13.51"></script>
-    <script src="js/modules/vocab-monster.module.js?v=13.51"></script>
-    <script src="js/modules/skill-card.module.js?v=13.51"></script>
-    <script src="js/modules/chat.module.js?v=13.51"></script>
-    <script src="js/modules/parent-dashboard.module.js?v=13.51"></script>
+    <script src="js/modules/splash.module.js?v=13.53"></script>
+    <script src="js/modules/student-select.module.js?v=13.53"></script>
+    <script src="js/modules/curriculum.module.js?v=13.53"></script>
+    <script src="js/modules/quiz-runner.module.js?v=13.53"></script>
+    <script src="js/modules/practice.module.js?v=13.53"></script>
+    <script src="js/modules/leaderboard.module.js?v=13.53"></script>
+    <script src="js/modules/settings.module.js?v=13.53"></script>
+    <script src="js/modules/vocab-monster.module.js?v=13.53"></script>
+    <script src="js/modules/skill-card.module.js?v=13.53"></script>
+    <script src="js/modules/chat.module.js?v=13.53"></script>
+    <script src="js/modules/parent-dashboard.module.js?v=13.53"></script>
 
     <!-- 5. App Facade Core -->
-    <script src="js/app.js?v=13.51"></script>
+    <script src="js/app.js?v=13.53"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" onclick="if(event.target === this) { if(window.ParentDashboardModule) window.ParentDashboardModule.closeModal(); else if(window.app) window.app.closeEvaluationModal(); else this.classList.add('hidden'); }">
@@ -2284,7 +2284,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v13.51 (Cập nhật: 30/08/2026 20:04)
+        Phiên bản: v13.53 (Cập nhật: 30/08/2026 20:17)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

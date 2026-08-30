@@ -55,6 +55,10 @@
         activeRequestId: 0,
         currentAbortController: null,
 
+        openModal: function() {
+            this.requestEvaluation();
+        },
+
         requestEvaluation: function() {
             const modal = document.getElementById('evaluation-modal');
             if (modal) {
@@ -69,7 +73,7 @@
             const modal = document.getElementById('evaluation-modal');
             if (modal) {
                 modal.classList.add('hidden');
-                modal.style.setProperty('display', 'none', 'important');
+                modal.style.removeProperty('display');
             }
             if (this.currentAbortController) {
                 this.currentAbortController.abort();

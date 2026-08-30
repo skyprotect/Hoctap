@@ -1,8 +1,9 @@
 {
-  "version": "13.51",
+  "version": "13.53",
   "lastUpdated": "30/08/2026 19:55",
   "build": 1353,
-  "releaseNotes": "Hotfix v13.49: Khôi phục toàn diện hệ thống CSS module (layout.css, modals.css, game.css, components.css) và đóng gói master style.css giải quyết triệt để lỗi tràn/vỡ giao diện Splash và Header.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.51/ToanHocKiosk_Setup_v13.51.exe",
-  "changelog": "- Khôi phục đầy đủ các quy tắc layout cốt lõi (.splash-screen, .app-header, .hidden, .sidebar, .screen.active) trong CSS.\n- Sửa lỗi tệp layout.css và game.css bị cắt cụt trong quá trình chia tách module trước đó.\n- Đóng gói toàn bộ 9 module CSS vào master css/style.css.\n- Nâng cấp đồng bộ phiên bản và cachebuster v13.49 trên toàn bộ ứng dụng."
+  "releaseNotes": "Rà soát và sửa lỗi toàn diện hệ thống: Splash screen, lộ trình bài học Toán HK1 & HK2, chọn môn và kích hoạt tự sinh đề AI ngầm.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.53/ToanHocKiosk_Setup_v13.53.exe",
+  "changelog": "- Khôi phục đầy đủ các quy tắc layout cốt lõi (.splash-screen, .app-header, .hidden, .sidebar, .screen.active) trong CSS.\n- Sửa lỗi tệp layout.css và game.css bị cắt cụt trong quá trình chia tách module trước đó.\n- Đóng gói toàn bộ 9 module CSS vào master css/style.css.\n- Nâng cấp đồng bộ phiên bản và cachebuster v13.49 trên toàn bộ ứng dụng.",
+  "releaseDate": "2026-08-30T20:15:00+07:00"
 }
