@@ -1,8 +1,8 @@
 {
-  "version": "13.31",
-  "lastUpdated": "30/08/2026 11:49",
-  "build": 1344,
-  "releaseNotes": "Phase 1 Refactoring: Chuẩn hóa kiến trúc MVC Backend (controllers, routes, services, middleware, DAL DB đơn nhất), viết 27 integration tests API toàn diện, thống nhất State Management (window.app === window.AppState) và mô-đun hóa Frontend Feature Modules.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.31/ToanHocKiosk_Setup_v13.31.exe",
-  "changelog": "- Tái cấu trúc toàn diện Backend server.js sang kiến trúc MVC tiêu chuẩn (Controllers, Routes, Services, Middleware).\n- Tạo bộ kiểm thử tích hợp (Integration Tests) với Jest & Supertest bao phủ 27 kịch bản kiểm thử API quan trọng.\n- Thống nhất cơ chế quản lý trạng thái tập trung (Bridge Pattern AppState = window.app), triệt tiêu hoàn toàn lỗi rò rỉ dữ liệu khi đổi học sinh.\n- Tách biệt các Feature Modules độc lập: Splash, Practice, Leaderboard, Settings, Vocab Monster, Skill Card."
+  "version": "13.35",
+  "lastUpdated": "30/08/2026 12:00",
+  "build": 1345,
+  "releaseNotes": "Phase 1 & Phase 2: Hoàn thiện Release Pipeline Zero-Config, TypeScript Migration toàn bộ server/, Singleton Database Pool & GitHub Actions CI/CD tự động.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.35/ToanHocKiosk_Setup_v13.35.exe",
+  "changelog": "- Hoàn thiện Release Pipeline: Đảm bảo bộ cài HocTap_Clean sạch sẽ, bảo mật, dùng ngay không cần cấu hình.\n- Di trú toàn bộ Backend server/ sang TypeScript với hệ thống kiểu dữ liệu types/index.ts chặt chẽ.\n- Chuẩn hóa Singleton DatabasePool và cơ chế Graceful Shutdown đóng an toàn kết nối SQLite.\n- Tích hợp GitHub Actions CI (.github/workflows/ci.yml) và Release Pipeline (.github/workflows/release.yml) tự động đóng gói bộ cài khi phát hành tag mới."
 }

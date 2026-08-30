@@ -2,15 +2,16 @@
  * ERROR MIDDLEWARE
  * Global error handlers cho Express application
  */
+import { Request, Response, NextFunction } from 'express';
 
-function notFoundHandler(req, res, next) {
+export function notFoundHandler(req: Request, res: Response, next: NextFunction) {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({ error: `API endpoint ${req.method} ${req.path} không tồn tại` });
     }
     next();
 }
 
-function globalErrorHandler(err, req, res, next) {
+export function globalErrorHandler(err: any, req: Request, res: Response, next: NextFunction) {
     console.error('❌ [Global Error Handler]:', err);
     if (res.headersSent) {
         return next(err);
@@ -20,8 +21,3 @@ function globalErrorHandler(err, req, res, next) {
         stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
     });
 }
-
-module.exports = {
-    notFoundHandler,
-    globalErrorHandler
-};

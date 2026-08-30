@@ -3,17 +3,18 @@
  * Điều phối gọi API Gemini AI với cơ chế xoay vòng Key dự phòng,
  * thẩm định đề thi (AI Auditor), sinh đề ngầm (Pre-generation Worker) và tự phục hồi (Self-Healing).
  */
-const fs = require('fs');
-const path = require('path');
-const vm = require('vm');
+import fs from 'fs';
+import path from 'path';
+import vm from 'vm';
+import { QuizQuestion, ExamSession } from '../types';
 
-const ROOT_DIR = path.resolve(__dirname, '../../');
-const EXAMS_DIR = path.join(ROOT_DIR, 'exams');
+export const ROOT_DIR = path.resolve(__dirname, '../../');
+export const EXAMS_DIR = path.join(ROOT_DIR, 'exams');
 if (!fs.existsSync(EXAMS_DIR)) {
     fs.mkdirSync(EXAMS_DIR, { recursive: true });
 }
 
-const EMBEDDED_API_KEYS = [
+export const EMBEDDED_API_KEYS: string[] = [
     'QUl6YVN5Qm0zZy01Nmdlc0xxNVpSMDVvTF8xdnNQSHBHQ0l0RmFz',
     'QVEuQWI4Uk42SUJpdHE4YV96WWVUb2V0MFp4SXpvOUh1LW1veGhMZjNLZGZrQmJ4S0lRQ2c=',
     'QVEuQWI4Uk42S01SQzBEY3NhX3lCN2JiZEZscnVlT0pNTFlOWkNhd3EzUTh5cDVna0F6bFE=',
@@ -22,7 +23,7 @@ const EMBEDDED_API_KEYS = [
     'QVEuQWI4Uk42S0pEQm5TWGtiVl9SaFB2Q3ZxMHI2QTV0dmZCVUFGY3BMbHp0UllTUDNHRkE='
 ];
 
-function getActiveGeminiApiKeys() {
+export function getActiveGeminiApiKeys(): string[] {
     const envKeys = process.env.GEMINI_API_KEY || '';
     const apiKeys = envKeys.split(/[\s,;]+/).filter(k => k && k !== 'your_gemini_api_key_here');
     
@@ -38,9 +39,26 @@ function getActiveGeminiApiKeys() {
     }
 }
 
-const invalidApiKeys = new Set();
+export const invalidApiKeys = new Set<string>();
 
-const aiStatus = {
+export interface AiStatusState {
+    state: string;
+    message: string;
+    keyIndex: number;
+    totalKeys: number;
+    timestamp: number;
+    totalExams: number;
+    completedExams: number;
+    currentLessonId: string | null;
+    currentLessonTitle: string | null;
+    errors: any[];
+    activeKeyMasked: string;
+    activeKeyAccount: string;
+    pausedUntil: number | null;
+    retryCount: number;
+}
+
+export const aiStatus: AiStatusState = {
     state: 'idle',
     message: 'Hệ thống sẵn sàng',
     keyIndex: 0,
@@ -57,7 +75,7 @@ const aiStatus = {
     retryCount: 0
 };
 
-function maskKey(key) {
+export function maskKey(key: string): string {
     if (!key) return 'Không có';
     const trimmed = key.trim();
     return trimmed.length > 12 
@@ -65,18 +83,18 @@ function maskKey(key) {
         : `${trimmed.substring(0, 3)}...`;
 }
 
-function getActiveKeyAccount(idx) {
+export function getActiveKeyAccount(idx: number): string {
     const rawAccounts = process.env.GEMINI_API_ACCOUNTS || '';
     const accounts = rawAccounts.split(',').map(a => a.trim());
     return accounts[idx] || `Tài khoản ${idx + 1}`;
 }
 
-function addAiLog(msg) {
+export function addAiLog(msg: string): void {
     const time = new Date().toLocaleTimeString();
     console.log(`[AI Log - ${time}] ${msg}`);
 }
 
-function sanitizeHistory(historyArray) {
+export function sanitizeHistory(historyArray: any[]): any[] {
     if (!Array.isArray(historyArray)) return [];
     return historyArray.map(item => {
         const newItem = { ...item };
@@ -89,7 +107,7 @@ function sanitizeHistory(historyArray) {
     });
 }
 
-function cleanJsonString(str) {
+export function cleanJsonString(str: string): string {
     let result = '';
     let inString = false;
     let i = 0;
@@ -165,7 +183,7 @@ function cleanJsonString(str) {
     return result;
 }
 
-function writeErrorLog(lessonId, lessonTitle, error, rawText, cleanedText) {
+export function writeErrorLog(lessonId: string, lessonTitle: string, error: any, rawText?: string, cleanedText?: string): void {
     try {
         const logDir = path.join(ROOT_DIR, 'logs');
         if (!fs.existsSync(logDir)) {
@@ -208,7 +226,7 @@ function writeErrorLog(lessonId, lessonTitle, error, rawText, cleanedText) {
     }
 }
 
-async function callGeminiAPI(body, taskName = 'Đang xử lý', overrideModel = null) {
+export async function callGeminiAPI(body: any, taskName: string = 'Đang xử lý', overrideModel: string | null = null): Promise<any> {
     const apiKeys = getActiveGeminiApiKeys();
     
     aiStatus.totalKeys = apiKeys.length;
@@ -227,7 +245,7 @@ async function callGeminiAPI(body, taskName = 'Đang xử lý', overrideModel = 
 
     const MAX_CYCLE_RETRIES = 2; 
     const MAX_KEY_RETRIES = 3;   
-    let lastError = null;
+    let lastError: any = null;
 
     for (let cycle = 0; cycle <= MAX_CYCLE_RETRIES; cycle++) {
         if (cycle > 0) {
@@ -320,7 +338,7 @@ async function callGeminiAPI(body, taskName = 'Đang xử lý', overrideModel = 
                     aiStatus.message = 'Hệ thống sẵn sàng';
                     return data;
 
-                } catch (err) {
+                } catch (err: any) {
                     clearTimeout(timeoutId);
                     addAiLog(`Lỗi khi gọi API trên Key thứ ${i + 1}: ${err.message}`);
                     lastError = err;
@@ -334,7 +352,7 @@ async function callGeminiAPI(body, taskName = 'Đang xử lý', overrideModel = 
     throw new Error('Toàn bộ API Keys đều gặp sự cố: ' + (lastError ? lastError.message : 'Unknown'));
 }
 
-async function auditMathQuestions(examData, classLevel = '6', geminiModel = null) {
+export async function auditMathQuestions(examData: any, classLevel: string = '6', geminiModel: string | null = null): Promise<any> {
     const auditPrompt = `Bạn là chuyên gia thẩm định đề thi toán lớp ${classLevel} chất lượng cao dạng template.
 Dưới đây là đề thi dạng JSON chứa các câu hỏi template được sinh ra bởi AI:
 \`\`\`json
@@ -364,13 +382,13 @@ Nhiệm vụ của bạn là thẩm định và sửa các lỗi nếu có:
         if (!textResponse) throw new Error('Không nhận được phản hồi từ AI Auditor.');
         const cleaned = cleanJsonString(textResponse);
         return JSON.parse(cleaned);
-    } catch (err) {
+    } catch (err: any) {
         console.error('Lỗi thẩm định bằng AI Auditor:', err.message);
         return examData;
     }
 }
 
-async function auditEnglishQuestions(examData, classLevel = '6', geminiModel = null) {
+export async function auditEnglishQuestions(examData: any, classLevel: string = '6', geminiModel: string | null = null): Promise<any> {
     const bt = String.fromCharCode(96);
     const auditPrompt = `Bạn là chuyên gia thẩm định đề thi Tiếng Anh lớp ${classLevel} chất lượng cao theo chuẩn Global Success.
 Dưới đây là đề thi dạng JSON chứa các câu hỏi Tiếng Anh tương tác:
@@ -400,7 +418,7 @@ Nhiệm vụ của bạn là thẩm định và sửa các lỗi nếu có:
     }
 }
 
-const getMathPrompt = (lessonTitle, lessonId, classLevel = '6') => {
+export const getMathPrompt = (lessonTitle: string, lessonId: string, classLevel: string = '6') => {
     return `Bạn là một giáo viên dạy Toán lớp ${classLevel} chuyên bồi dưỡng học sinh giỏi và luyện thi chất lượng cao tại Việt Nam.
 Hãy biên soạn đúng 10 câu hỏi trắc nghiệm toán học bậc CHẤT LƯỢNG CAO (đòi hỏi tư duy logic sâu sắc, vận dụng cao, giải quyết các bài toán đố thực tế thú vị) liên quan trực tiếp đến bài học: "${lessonTitle}" (ID bài học: ${lessonId}).
 
@@ -414,8 +432,7 @@ Yêu cầu toán học & lập trình quan trọng:
 6. Trả về đúng 10 câu hỏi dưới dạng JSON {"questions": [...]}.`;
 };
 
-const getEnglishFullExamPrompt = (lessonTitle, lessonId, classLevel = '6', category = 'unit', selectedGrammars = [], level = 'advanced') => {
-    const bt = String.fromCharCode(96);
+export const getEnglishFullExamPrompt = (lessonTitle: string, lessonId: string, classLevel: string = '6', category: string = 'unit', selectedGrammars: string[] = [], level: string = 'advanced') => {
     let categoryDesc = category === 'unit' ? `Theo bài học / Unit: "${lessonTitle}"` : `Chủ đề: "${lessonTitle}"`;
     return `Bạn là Chuyên gia biên soạn đề thi Tiếng Anh Lớp ${classLevel} theo Chuẩn GDPT 2018.
 ${categoryDesc}
@@ -423,8 +440,7 @@ Hãy tạo 10 câu hỏi kiểm tra đầy đủ các kỹ năng: LISTENING (2 c
 Trả về duy nhất mảng JSON {"questions": [...]}.`;
 };
 
-const getEnglishPrompt = (lessonTitle, lessonId, classLevel = '6', skill = 'listening', reviewWords = []) => {
-    const bt = String.fromCharCode(96);
+export const getEnglishPrompt = (lessonTitle: string, lessonId: string, classLevel: string = '6', skill: string = 'listening', reviewWords: any[] = []) => {
     let reviewInstruction = "";
     if (reviewWords && reviewWords.length > 0) {
         const wordsStr = reviewWords.map(w => `'${w.word}' (nghĩa: '${w.translation}')`).join(', ');
@@ -436,8 +452,7 @@ ${reviewInstruction}
 Trả về duy nhất mảng JSON {"questions": [...]}.`;
 };
 
-const getEnglishCustomTopicPrompt = (words, topicTitle, skill) => {
-    const bt = String.fromCharCode(96);
+export const getEnglishCustomTopicPrompt = (words: any[], topicTitle: string, skill: string) => {
     const wordsListText = words.map(w => `- ${w.word} (${w.type}): ${w.translation}`).join('\n');
     return `Biên soạn đúng 5 câu hỏi tiếng Anh kỹ năng: "${skill}" dựa trên nhóm từ vựng:
 ${wordsListText}
@@ -445,7 +460,7 @@ Chủ đề: "${topicTitle}"
 Trả về chuỗi JSON {"questions": [...]}.`;
 };
 
-function getPregenFilePath(studentId, lessonId) {
+export function getPregenFilePath(studentId: string, lessonId: string): string {
     const specificPath = path.join(EXAMS_DIR, `pregen-${studentId}-${lessonId}.json`);
     if (fs.existsSync(specificPath)) return specificPath;
 
@@ -468,7 +483,7 @@ function getPregenFilePath(studentId, lessonId) {
     return specificPath;
 }
 
-async function healTemplateFile(studentId, lessonId, questionType, classLevel = '6') {
+export async function healTemplateFile(studentId: string, lessonId: string, questionType: string, classLevel: string = '6'): Promise<void> {
     const stId = studentId || 'default';
     const cachePath = getPregenFilePath(stId, lessonId);
     if (!fs.existsSync(cachePath)) return;
@@ -479,7 +494,7 @@ async function healTemplateFile(studentId, lessonId, questionType, classLevel = 
         const questions = data.questions || (Array.isArray(data) ? data : null);
         if (!questions) return;
 
-        const qIndex = questions.findIndex(q => q.isTemplate && q.type === questionType);
+        const qIndex = questions.findIndex((q: any) => q.isTemplate && q.type === questionType);
         if (qIndex === -1) return;
 
         const targetQ = questions[qIndex];
@@ -514,11 +529,10 @@ Trả về đúng cấu trúc JSON của câu hỏi đã sửa.`;
     }
 }
 
-async function auditExamSessionHelper(session, studentId = 'default', classLevel = '6') {
+export async function auditExamSessionHelper(session: ExamSession, studentId: string = 'default', classLevel: string = '6'): Promise<ExamSession> {
     if (!session || !session.questions) return session;
 
-    let cleanedQuestions = [];
-    let loggedErrors = [];
+    let cleanedQuestions: QuizQuestion[] = [];
 
     for (let i = 0; i < session.questions.length; i++) {
         const q = session.questions[i];
@@ -571,7 +585,14 @@ Sửa triệt để các lỗi NaN/undefined và lỗi dấu $. Trả về JSON:
 }
 
 // Nạp danh sách bài học
-let allLessons = [];
+export interface LessonMeta {
+    id: string;
+    title: string;
+    class: string;
+    subject: string;
+}
+
+export let allLessons: LessonMeta[] = [];
 try {
     const englishFilePath = path.join(ROOT_DIR, 'js', 'english_data.js');
     let englishCode = '';
@@ -580,13 +601,13 @@ try {
     }
     const lessonsFilePath = path.join(ROOT_DIR, 'js', 'lessons.js');
     const lessonsCode = fs.readFileSync(lessonsFilePath, 'utf8');
-    const sandbox = { window: {}, document: {}, console: console };
+    const sandbox: any = { window: {}, document: {}, console: console };
     
-    const courseData = vm.runInNewContext(englishCode + ";\n" + lessonsCode + ";\nCOURSE_DATA;", sandbox) || [];
+    const courseData: any[] = vm.runInNewContext(englishCode + ";\n" + lessonsCode + ";\nCOURSE_DATA;", sandbox) || [];
     
     courseData.forEach(chapter => {
         if (chapter.lessons && Array.isArray(chapter.lessons)) {
-            chapter.lessons.forEach(lesson => {
+            chapter.lessons.forEach((lesson: any) => {
                 allLessons.push({
                     id: lesson.id,
                     title: lesson.title,
@@ -600,12 +621,11 @@ try {
     console.error('Lỗi khi phân tích lessons.js và english_data.js để lấy danh sách bài học:', e);
 }
 
-const studentAiStatusMap = {};
-let preGenQueue = [];
+export const studentAiStatusMap: Record<string, any> = {};
+let preGenQueue: any[] = [];
 let isPreGenRunning = false;
-let pausePreGenUntil = 0;
 
-function loadPregenStatusForStudent(studentId) {
+export function loadPregenStatusForStudent(studentId: string): any {
     const filePath = path.join(EXAMS_DIR, `pregen_status_${studentId}.json`);
     try {
         if (fs.existsSync(filePath)) {
@@ -617,7 +637,7 @@ function loadPregenStatusForStudent(studentId) {
     return null;
 }
 
-function savePregenStatusForStudent(studentId, statusData) {
+export function savePregenStatusForStudent(studentId: string, statusData: any): void {
     const filePath = path.join(EXAMS_DIR, `pregen_status_${studentId}.json`);
     try {
         const tempPath = filePath + '.tmp';
@@ -628,7 +648,7 @@ function savePregenStatusForStudent(studentId, statusData) {
     }
 }
 
-async function startPreGenerationWorkerForStudent(studentId, classLevel) {
+export async function startPreGenerationWorkerForStudent(studentId: string, classLevel?: string): Promise<void> {
     const studentLessons = allLessons.filter(lesson => lesson.class === (classLevel || '6'));
     
     let statusData = loadPregenStatusForStudent(studentId);
@@ -710,7 +730,7 @@ async function startPreGenerationWorkerForStudent(studentId, classLevel) {
                 let stStatus = loadPregenStatusForStudent(taskStudentId) || { completed: [], failed: {} };
                 stStatus.completed.push(task.id);
                 savePregenStatusForStudent(taskStudentId, stStatus);
-            } catch (err) {
+            } catch (err: any) {
                 addAiLog(`[Worker] Lỗi sinh đề bài "${task.title}": ${err.message}`);
                 preGenQueue.shift();
             }
@@ -723,7 +743,7 @@ async function startPreGenerationWorkerForStudent(studentId, classLevel) {
     })();
 }
 
-function updateEnvApiKeysAndAccounts(newKeysString, newAccountsString) {
+export function updateEnvApiKeysAndAccounts(newKeysString: string, newAccountsString: string): void {
     const envPath = path.join(ROOT_DIR, '.env');
     let envContent = '';
     if (fs.existsSync(envPath)) {
@@ -760,33 +780,3 @@ function updateEnvApiKeysAndAccounts(newKeysString, newAccountsString) {
 
     fs.writeFileSync(envPath, updatedLines.join('\n'), 'utf8');
 }
-
-module.exports = {
-    EMBEDDED_API_KEYS,
-    getActiveGeminiApiKeys,
-    maskKey,
-    getActiveKeyAccount,
-    invalidApiKeys,
-    addAiLog,
-    sanitizeHistory,
-    cleanJsonString,
-    writeErrorLog,
-    callGeminiAPI,
-    auditMathQuestions,
-    auditEnglishQuestions,
-    getMathPrompt,
-    getEnglishFullExamPrompt,
-    getEnglishPrompt,
-    getEnglishCustomTopicPrompt,
-    getPregenFilePath,
-    healTemplateFile,
-    auditExamSessionHelper,
-    loadPregenStatusForStudent,
-    savePregenStatusForStudent,
-    startPreGenerationWorkerForStudent,
-    updateEnvApiKeysAndAccounts,
-    aiStatus,
-    studentAiStatusMap,
-    allLessons,
-    EXAMS_DIR
-};

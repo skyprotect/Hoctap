@@ -3,37 +3,38 @@
  * Xử lý phiên bản hệ thống, cấu hình Firebase, kiểm tra sức khỏe hệ thống (Health Check),
  * báo cáo lỗi Client (Telemetry) và cập nhật phần mềm (Auto-Updater).
  */
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
-const { firebaseConfig } = require('../services/firebase.service');
+import { Request, Response } from 'express';
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
+import { firebaseConfig } from '../services/firebase.service';
 
-const ROOT_DIR = path.resolve(__dirname, '../../');
-const VERSION_FILE = path.join(ROOT_DIR, 'version.json');
+export const ROOT_DIR = path.resolve(__dirname, '../../');
+export const VERSION_FILE = path.join(ROOT_DIR, 'version.json');
 
-function getVersionInfo() {
+export function getVersionInfo(): any {
     try {
         if (fs.existsSync(VERSION_FILE)) {
             return JSON.parse(fs.readFileSync(VERSION_FILE, 'utf8'));
         }
     } catch (e) {}
-    return { version: "13.30", build: 1344, lastUpdated: new Date().toISOString() };
+    return { version: "13.31", build: 1344, lastUpdated: new Date().toISOString() };
 }
 
-function getVersion(req, res) {
+export function getVersion(req: Request, res: Response): void {
     res.json(getVersionInfo());
 }
 
-function getFirebaseConfig(req, res) {
+export function getFirebaseConfig(req: Request, res: Response): void {
     res.json(firebaseConfig);
 }
 
-function getHealth(req, res) {
+export function getHealth(req: Request, res: Response): void {
     res.json({ status: "ok", timestamp: Date.now() });
 }
 
-function reportClientError(req, res) {
-    const { studentId, lessonId, lessonTitle, errorMessage, errorStack, failedQuestion, failedIndex } = req.body || {};
+export function reportClientError(req: Request, res: Response): void {
+    const { studentId, lessonId, lessonTitle, errorMessage, errorStack, failedQuestion } = req.body || {};
     try {
         const logDir = path.join(ROOT_DIR, 'logs');
         if (!fs.existsSync(logDir)) {
@@ -48,23 +49,23 @@ function reportClientError(req, res) {
         fs.writeFileSync(logPath, logContent, 'utf8');
 
         res.json({ success: true });
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
 }
 
-function isKioskMode(req, res) {
+export function isKioskMode(req: Request, res: Response): void {
     const { exec } = require('child_process');
-    exec('tasklist /FI "IMAGENAME eq kiosk_lock.exe"', (err, stdout) => {
+    exec('tasklist /FI "IMAGENAME eq kiosk_lock.exe"', (err: any, stdout: string) => {
         if (err) return res.json({ isKiosk: false });
         const isKiosk = stdout.includes('kiosk_lock.exe');
         res.json({ isKiosk });
     });
 }
 
-const UPDATE_CHECK_URL = process.env.UPDATE_CHECK_URL || 'https://raw.githubusercontent.com/binhminh-github/toan-hoc-kiosk/main/version.json';
+export const UPDATE_CHECK_URL = process.env.UPDATE_CHECK_URL || 'https://raw.githubusercontent.com/skyprotect/Hoctap/main/version.json';
 
-function checkUpdate(req, res) {
+export function checkUpdate(req: Request, res: Response): void {
     const currentVersion = getVersionInfo().version;
     https.get(UPDATE_CHECK_URL, { headers: { 'User-Agent': 'NodeJS-Update-Client' } }, (response) => {
         let data = '';
@@ -77,7 +78,7 @@ function checkUpdate(req, res) {
                 const onlineInfo = JSON.parse(data);
                 const latestVersion = onlineInfo.version;
                 
-                const compareVersions = (v1, v2) => {
+                const compareVersions = (v1: string, v2: string) => {
                     const p1 = (v1 || '').split('.').map(Number);
                     const p2 = (v2 || '').split('.').map(Number);
                     for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
@@ -100,7 +101,7 @@ function checkUpdate(req, res) {
                 } else {
                     res.json({ hasUpdate: false, currentVersion });
                 }
-            } catch (e) {
+            } catch (e: any) {
                 res.json({ hasUpdate: false, error: e.message });
             }
         });
@@ -109,23 +110,12 @@ function checkUpdate(req, res) {
     });
 }
 
-let updateStatus = { status: 'idle', progress: 0, downloadedBytes: 0, totalBytes: 0, error: null };
+export const updateStatus = { status: 'idle', progress: 0, downloadedBytes: 0, totalBytes: 0, error: null };
 
-function getUpdateStatus(req, res) {
+export function getUpdateStatus(req: Request, res: Response): void {
     res.json(updateStatus);
 }
 
-function performUpdate(req, res) {
+export function performUpdate(req: Request, res: Response): void {
     res.json({ success: true, message: "Bắt đầu cập nhật" });
 }
-
-module.exports = {
-    getVersion,
-    getFirebaseConfig,
-    getHealth,
-    reportClientError,
-    isKioskMode,
-    checkUpdate,
-    getUpdateStatus,
-    performUpdate
-};

@@ -2,10 +2,10 @@
  * QUIZ CONTROLLER
  * Điều phối sinh đề thi AI, nạp đề từ cache, thẩm định chất lượng câu hỏi và phân tích học lực
  */
-const fs = require('fs');
-const path = require('path');
-const { allQuery, resolveStudentClassLevel } = require('../db/database');
-const { 
+import { Request, Response } from 'express';
+import fs from 'fs';
+import { allQuery, resolveStudentClassLevel } from '../db/database';
+import { 
     callGeminiAPI, 
     auditMathQuestions, 
     auditEnglishQuestions, 
@@ -16,16 +16,15 @@ const {
     getPregenFilePath, 
     writeErrorLog, 
     cleanJsonString, 
-    addAiLog, 
     sanitizeHistory, 
     aiStatus, 
     studentAiStatusMap, 
     startPreGenerationWorkerForStudent,
     auditExamSessionHelper
-} = require('../services/gemini.service');
+} from '../services/gemini.service';
 
-async function getQuestions(req, res) {
-    const { lessonId: rawLessonId, lessonTitle, classLevel, studentId, skill, subject, category, level, grammars, detail } = req.query;
+export async function getQuestions(req: Request, res: Response): Promise<any> {
+    const { lessonId: rawLessonId, lessonTitle, classLevel, studentId, skill, subject, category, level, grammars, detail } = req.query as Record<string, string>;
     const lessonId = (rawLessonId && rawLessonId.trim()) ? rawLessonId.trim() : (detail || (category ? `eng6-${category}` : null));
     const stId = studentId || 'default';
     const targetSkill = skill || 'listening';
@@ -41,7 +40,7 @@ async function getQuestions(req, res) {
     // 1. Nếu là Chuyên đề tự chọn
     if (isCustomTopic) {
         try {
-            const words = await allQuery(
+            const words: any[] = await allQuery(
                 "SELECT * FROM custom_vocabulary WHERE topic_id = ? AND student_id = ?",
                 [lessonId, stId]
             );
@@ -62,7 +61,7 @@ async function getQuestions(req, res) {
             examData = await auditEnglishQuestions(examData, classLevel || '6');
             if (Array.isArray(examData)) examData = { questions: examData };
             return res.json(examData);
-        } catch (err) {
+        } catch (err: any) {
             console.error('Lỗi sinh đề cho chuyên đề custom:', err);
             return res.status(500).json({ error: 'Lỗi nạp đề từ AI: ' + err.message });
         }
@@ -119,7 +118,7 @@ async function getQuestions(req, res) {
             fs.writeFileSync(cachePath, JSON.stringify(examData, null, 2), 'utf8');
         }
         res.json(examData);
-    } catch (err) {
+    } catch (err: any) {
         console.error('Lỗi sinh đề trực tiếp:', err);
         writeErrorLog(lessonId, lessonTitle || lessonId, err, textResponse, textResponse ? cleanJsonString(textResponse) : '');
         
@@ -138,26 +137,26 @@ async function getQuestions(req, res) {
     }
 }
 
-async function startStudentPregen(req, res) {
+export async function startStudentPregen(req: Request, res: Response): Promise<any> {
     const { studentId, classLevel } = req.body;
     if (!studentId) return res.status(400).json({ error: "Thiếu studentId" });
     try {
         startPreGenerationWorkerForStudent(studentId, classLevel);
         res.json({ success: true, message: `Đã khởi chạy tiến trình sinh đề ngầm cho ${studentId}` });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ error: e.message });
     }
 }
 
-async function preGenerateQuestions(req, res) {
+export async function preGenerateQuestions(req: Request, res: Response): Promise<void> {
     res.json({ success: true, message: "Worker sinh đề đã được tiếp nhận" });
 }
 
-async function savePrintedPdf(req, res) {
+export async function savePrintedPdf(req: Request, res: Response): Promise<void> {
     res.json({ success: true, message: "Đã lưu bản in PDF thành công" });
 }
 
-async function aiAnalysis(req, res) {
+export async function aiAnalysis(req: Request, res: Response): Promise<any> {
     const { history, examSessions, studentName, parentName, studentId, xp, scores } = req.body;
     if (!history || !examSessions) {
         return res.status(400).json({ error: 'Thiếu dữ liệu học tập lịch sử' });
@@ -179,41 +178,31 @@ async function aiAnalysis(req, res) {
 
         const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
         res.json({ success: true, analysis: textResponse });
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: 'Lỗi phân tích AI: ' + err.message });
     }
 }
 
-async function auditExamSession(req, res) {
+export async function auditExamSession(req: Request, res: Response): Promise<any> {
     const { session, studentId, classLevel } = req.body;
     if (!session) return res.status(400).json({ error: "Thiếu session" });
     try {
         const auditedSession = await auditExamSessionHelper(session, studentId, classLevel);
         res.json({ success: true, session: auditedSession });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ error: e.message });
     }
 }
 
-async function aiTroubleshootQuestion(req, res) {
+export async function aiTroubleshootQuestion(req: Request, res: Response): Promise<void> {
     res.json({ success: true, message: "Đã tiếp nhận yêu cầu phân tích lỗi câu hỏi" });
 }
 
-function getAiStatus(req, res) {
-    const studentId = req.query.studentId;
+export function getAiStatus(req: Request, res: Response): void {
+    const studentId = req.query.studentId as string;
     if (studentId && studentAiStatusMap[studentId]) {
-        return res.json({ ...aiStatus, ...studentAiStatusMap[studentId] });
+        res.json({ ...aiStatus, ...studentAiStatusMap[studentId] });
+        return;
     }
     res.json(aiStatus);
 }
-
-module.exports = {
-    getQuestions,
-    startStudentPregen,
-    preGenerateQuestions,
-    savePrintedPdf,
-    aiAnalysis,
-    auditExamSession,
-    aiTroubleshootQuestion,
-    getAiStatus
-};

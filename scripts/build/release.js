@@ -37,7 +37,26 @@ if (!GITHUB_TOKEN) {
   process.exit(1);
 }
 
-// 1. Đọc phiên bản hiện tại từ version.json
+// 1. Kéo mã nguồn mới nhất từ main để tránh xung đột
+console.log('🔄 Đang đồng bộ mã nguồn mới nhất (git pull origin main)...');
+try {
+  execSync('git pull origin main', { cwd: ROOT_DIR, stdio: 'inherit' });
+} catch (e) {
+  console.warn('⚠️ Cảnh báo git pull:', e.message);
+}
+
+// 2. Chạy Quality Gate (npm test)
+console.log('\n🧪 Đang chạy Quality Gate kiểm thử tích hợp (npm test)...');
+try {
+  const testCmd = process.platform === 'win32' ? 'npm.cmd test' : 'npm test';
+  execSync(testCmd, { cwd: ROOT_DIR, stdio: 'inherit' });
+  console.log('✅ Quality Gate ĐÃ ĐẠT (All tests passed).');
+} catch (testErr) {
+  console.error('❌ LỖI: Test suite thất bại! Dừng quy trình release để bảo vệ chất lượng phần mềm.');
+  process.exit(1);
+}
+
+// 3. Đọc phiên bản hiện tại từ version.json
 const versionJsonPath = path.join(ROOT_DIR, 'version.json');
 if (!fs.existsSync(versionJsonPath)) {
   console.error('❌ LỖI: Không tìm thấy file version.json.');
@@ -175,10 +194,17 @@ if (fs.existsSync(outputExePath)) {
 // 6. Đẩy mã nguồn lên GitHub qua Git CLI
 console.log('\n🐙 Đang đẩy mã nguồn lên GitHub...');
 try {
-  execSync('git add .', { cwd: ROOT_DIR, stdio: 'inherit' });
-  execSync(`git commit -m "Auto release version v${nextVersion}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+  execSync('git add -A', { cwd: ROOT_DIR, stdio: 'inherit' });
+  execSync(`git commit -m "Release v${nextVersion}" --allow-empty`, { cwd: ROOT_DIR, stdio: 'inherit' });
   execSync('git push origin main', { cwd: ROOT_DIR, stdio: 'inherit' });
-  console.log('✅ Đã đẩy mã nguồn lên GitHub repository thành công.');
+  try {
+    execSync(`git tag v${nextVersion}`, { cwd: ROOT_DIR, stdio: 'inherit' });
+    execSync(`git push origin v${nextVersion}`, { cwd: ROOT_DIR, stdio: 'inherit' });
+    console.log(`✅ Đã tạo và đẩy tag v${nextVersion} lên GitHub.`);
+  } catch (tagErr) {
+    console.warn(`⚠️ Cảnh báo tạo/đẩy tag: ${tagErr.message}`);
+  }
+  console.log('✅ Đã đẩy mã nguồn và tag lên GitHub repository thành công.');
 } catch (error) {
   console.warn('⚠️ Cảnh báo: Lỗi khi chạy git push. Đảm bảo Git đã được lưu mật khẩu trên máy tính.');
   console.error(error.message);

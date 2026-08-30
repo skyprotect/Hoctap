@@ -2,11 +2,12 @@
  * ADMIN ROUTES
  * Các endpoints cấu hình, quản trị, API keys và đồng bộ
  */
-const express = require('express');
-const router = express.Router();
-const adminCtrl = require('../controllers/admin.controller');
-const authCtrl = require('../controllers/auth.controller');
-const { authenticateAdminToken } = require('../middleware/auth.middleware');
+import { Router } from 'express';
+import * as adminCtrl from '../controllers/admin.controller';
+import * as authCtrl from '../controllers/auth.controller';
+import { authenticateAdminToken } from '../middleware/auth.middleware';
+
+const router = Router();
 
 // Xác thực Admin & PIN (hỗ trợ cả đường dẫn /api/admin/login và /api/verify-pin)
 router.post('/admin/login', authCtrl.adminLogin);

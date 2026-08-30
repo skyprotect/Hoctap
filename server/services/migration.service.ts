@@ -2,14 +2,14 @@
  * MIGRATION SERVICE
  * Tự động di trú dữ liệu, sửa lỗi chấm điểm lịch sử và đồng bộ các cấu trúc dữ liệu mới
  */
-const fs = require('fs');
-const path = require('path');
-const { db, allQuery, runQuery } = require('../db/database');
-const { syncAllStudentsToFirebase } = require('./firebase.service');
-const { EXAMS_DIR } = require('./gemini.service');
+import fs from 'fs';
+import path from 'path';
+import { db, allQuery, runQuery } from '../db/database';
+import { syncAllStudentsToFirebase } from './firebase.service';
+import { EXAMS_DIR } from './gemini.service';
 
-async function migrateFixMathBugsV12() {
-    db.all("SELECT student_id, state_json FROM student_progress", [], async (err, rows) => {
+export async function migrateFixMathBugsV12(): Promise<void> {
+    db.all("SELECT student_id, state_json FROM student_progress", [], async (err: Error | null, rows: any[]) => {
         if (err) {
             console.error("[Migration V12] Lỗi truy vấn database:", err);
             return;
@@ -24,12 +24,12 @@ async function migrateFixMathBugsV12() {
                 let studentChanged = false;
 
                 if (state.examSessions && Array.isArray(state.examSessions)) {
-                    state.examSessions.forEach(session => {
+                    state.examSessions.forEach((session: any) => {
                         let sessionChanged = false;
                         let correctCount = 0;
 
                         if (session.questions && Array.isArray(session.questions)) {
-                            session.questions.forEach(q => {
+                            session.questions.forEach((q: any) => {
                                 const wasCorrect = q.isCorrect;
 
                                 // 1. Dạng chia hết cho 4
@@ -133,7 +133,7 @@ async function migrateFixMathBugsV12() {
     });
 }
 
-function runDataMigration() {
+export function runDataMigration(): void {
     const backupStatusFile = path.join(EXAMS_DIR, 'pregen_status_backup.json');
     const mainStatusFile = path.join(EXAMS_DIR, 'pregen_status.json');
     const studentBinhMinh = 'std_htsj4gbmo';
@@ -148,13 +148,13 @@ function runDataMigration() {
             const statusContent = fs.readFileSync(mainStatusFile, 'utf8');
             const oldStatus = JSON.parse(statusContent);
 
-            const completedBinhMinh = [];
-            const failedBinhMinh = {};
-            const completedDucPhuc = [];
-            const failedDucPhuc = {};
+            const completedBinhMinh: string[] = [];
+            const failedBinhMinh: Record<string, any> = {};
+            const completedDucPhuc: string[] = [];
+            const failedDucPhuc: Record<string, any> = {};
 
             if (oldStatus.completed && Array.isArray(oldStatus.completed)) {
-                oldStatus.completed.forEach(id => {
+                oldStatus.completed.forEach((id: string) => {
                     if (id.startsWith('l4-')) {
                         completedDucPhuc.push(id);
                     } else {
@@ -212,8 +212,3 @@ function runDataMigration() {
         });
     }
 }
-
-module.exports = {
-    migrateFixMathBugsV12,
-    runDataMigration
-};

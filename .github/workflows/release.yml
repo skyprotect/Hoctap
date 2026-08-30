@@ -1,0 +1,55 @@
+name: Build & Release Installer
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Quality Gate
+        run: npm test
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci_test_secret_32chars_placeholder
+          PORT: 3001
+
+      - name: Sync Clean Bundle
+        run: node scripts/build/sync_clean.js
+
+      - name: Install Inno Setup
+        run: choco install innosetup --yes
+
+      - name: Build Installer
+        run: iscc installer.iss
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Create GitHub Release & Upload
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "HocTap v${{ steps.get_version.outputs.VERSION }}"
+          body_path: RELEASE_NOTES.md
+          files: |
+            ..\ToanHocKiosk_Setup_v${{ steps.get_version.outputs.VERSION }}.exe
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

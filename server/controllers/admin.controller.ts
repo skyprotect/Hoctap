@@ -2,35 +2,32 @@
  * ADMIN CONTROLLER
  * Xử lý cấu hình hệ thống, quản lý API Keys Gemini, thiết lập ban đầu, đồng bộ và thoát Kiosk
  */
-const { 
+import { Request, Response } from 'express';
+import { 
     dbGetConfig, 
     dbSaveConfig, 
     dbGetSetting, 
     dbSaveSetting, 
     dbSaveStudentProgress, 
-    dbGetProgress, 
-    dbSaveProgress, 
     allQuery, 
     runQuery, 
-    getQuery, 
-    db 
-} = require('../db/database');
-const { 
+    getQuery 
+} from '../db/database';
+import { 
     getActiveGeminiApiKeys, 
     maskKey, 
     updateEnvApiKeysAndAccounts, 
-    callGeminiAPI, 
     addAiLog,
     aiStatus,
     invalidApiKeys
-} = require('../services/gemini.service');
-const { 
-    syncAllStudentsToFirebase, 
-    pullDataFromFirestore 
-} = require('../services/firebase.service');
-const { getAdminUserFromRequest } = require('../middleware/auth.middleware');
+} from '../services/gemini.service';
+import { 
+    syncAllStudentsToFirebase 
+} from '../services/firebase.service';
+import { getAdminUserFromRequest } from '../middleware/auth.middleware';
+import { SystemConfig } from '../types';
 
-function getApiKeys(req, res) {
+export function getApiKeys(req: Request, res: Response): void {
     const rawAccounts = process.env.GEMINI_API_ACCOUNTS || '';
     const apiKeys = getActiveGeminiApiKeys();
     const accounts = rawAccounts.split(',').map(a => a.trim());
@@ -47,7 +44,7 @@ function getApiKeys(req, res) {
     });
 }
 
-async function saveApiKeys(req, res) {
+export async function saveApiKeys(req: Request, res: Response): Promise<any> {
     const { keys, parentPin } = req.body;
     if (!keys || !Array.isArray(keys)) {
         return res.status(400).json({ error: "Thiếu danh sách keys hoặc dữ liệu không hợp lệ." });
@@ -61,8 +58,8 @@ async function saveApiKeys(req, res) {
         }
 
         const oldKeys = getActiveGeminiApiKeys();
-        const resolvedKeys = [];
-        const resolvedAccounts = [];
+        const resolvedKeys: string[] = [];
+        const resolvedAccounts: string[] = [];
 
         for (let i = 0; i < keys.length; i++) {
             const item = keys[i];
@@ -93,20 +90,20 @@ async function saveApiKeys(req, res) {
 
         addAiLog(`Phụ huynh đã cập nhật API Keys mới qua giao diện. Tổng số: ${resolvedKeys.length} keys.`);
         res.json({ success: true, count: resolvedKeys.length });
-    } catch (err) {
+    } catch (err: any) {
         console.error("Lỗi khi lưu API Key:", err);
         res.status(500).json({ error: "Lỗi ghi file cấu hình trên server: " + err.message });
     }
 }
 
-async function testApiKeys(req, res) {
+export async function testApiKeys(req: Request, res: Response): Promise<void> {
     const { keys } = req.body;
-    let apiKeys = [];
-    let accounts = [];
+    let apiKeys: string[] = [];
+    let accounts: string[] = [];
 
     if (keys && Array.isArray(keys)) {
         const oldKeys = getActiveGeminiApiKeys();
-        keys.forEach((item) => {
+        keys.forEach((item: any) => {
             let actualKey = item.key.trim();
             if (actualKey.includes('...') && item.index >= 0 && item.index < oldKeys.length) {
                 actualKey = oldKeys[item.index];
@@ -122,7 +119,7 @@ async function testApiKeys(req, res) {
         accounts = rawAccounts.split(',').map(a => a.trim());
     }
 
-    const results = [];
+    const results: any[] = [];
     for (let i = 0; i < apiKeys.length; i++) {
         const key = apiKeys[i].trim();
         const account = accounts[i] || `Tài khoản ${i + 1}`;
@@ -146,7 +143,7 @@ async function testApiKeys(req, res) {
             } else if (!response.ok) {
                 status = `Lỗi HTTP ${response.status}`;
             }
-        } catch (err) {
+        } catch (err: any) {
             status = `Lỗi kết nối: ${err.message}`;
         }
         results.push({ account, masked, status });
@@ -155,10 +152,10 @@ async function testApiKeys(req, res) {
     res.json({ results });
 }
 
-async function loadConfig(req, res) {
+export async function loadConfig(req: Request, res: Response): Promise<any> {
     try {
-        let config = await dbGetConfig();
-        const sessionRow = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'").catch(() => null);
+        let config: any = await dbGetConfig();
+        const sessionRow: any = await getQuery("SELECT value FROM settings WHERE key = 'parent_session'").catch(() => null);
         
         if (sessionRow && sessionRow.value) {
             try {
@@ -221,16 +218,16 @@ async function loadConfig(req, res) {
         delete safeConfig.parentPin;
         delete safeConfig.parentName;
         res.json(safeConfig);
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ error: e.message });
     }
 }
 
-async function saveConfig(req, res) {
+export async function saveConfig(req: Request, res: Response): Promise<void> {
     try {
         const newConfig = req.body || {};
         const adminUser = getAdminUserFromRequest(req);
-        const currentConfig = await dbGetConfig() || {};
+        const currentConfig: any = await dbGetConfig() || {};
 
         if (!adminUser) {
             newConfig.parentPin = currentConfig.parentPin || "123456";
@@ -240,12 +237,12 @@ async function saveConfig(req, res) {
         await dbSaveConfig(newConfig);
         syncAllStudentsToFirebase().catch(() => {});
         res.json({ success: true });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ error: e.message });
     }
 }
 
-async function setupInitial(req, res) {
+export async function setupInitial(req: Request, res: Response): Promise<any> {
     try {
         const { parentName, parentPin, studentName, classLevel } = req.body;
         if (!parentName || !parentPin || !studentName || !classLevel) {
@@ -253,7 +250,7 @@ async function setupInitial(req, res) {
         }
 
         const studentId = 'std_' + Math.random().toString(36).substring(2, 11);
-        const newConfig = {
+        const newConfig: SystemConfig = {
             studentName: studentName,
             parentName: parentName,
             parentPin: parentPin,
@@ -274,17 +271,17 @@ async function setupInitial(req, res) {
         });
 
         res.json({ success: true, studentId });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ error: e.message });
     }
 }
 
-async function syncLocalData(req, res) {
+export async function syncLocalData(req: Request, res: Response): Promise<void> {
     try {
         const studentProgress = await allQuery("SELECT * FROM student_progress");
         const customVocabulary = await allQuery("SELECT * FROM custom_vocabulary");
         const customTopics = await allQuery("SELECT * FROM custom_topics");
-        const configRow = await getQuery("SELECT value FROM settings WHERE key = 'config'");
+        const configRow: any = await getQuery("SELECT value FROM settings WHERE key = 'config'");
 
         res.json({
             success: true,
@@ -295,13 +292,13 @@ async function syncLocalData(req, res) {
                 config: configRow ? configRow.value : null
             }
         });
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
 }
 
-async function syncSavePulledData(req, res) {
-    const { config, students, vocabularies, topics } = req.body;
+export async function syncSavePulledData(req: Request, res: Response): Promise<void> {
+    const { config, students } = req.body;
     try {
         if (students && Array.isArray(students)) {
             for (const s of students) {
@@ -317,26 +314,14 @@ async function syncSavePulledData(req, res) {
         }
 
         res.json({ success: true, message: "Đã đồng bộ dữ liệu đám mây về thiết bị cục bộ thành công!" });
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
 }
 
-function exitKiosk(req, res) {
+export function exitKiosk(req: Request, res: Response): void {
     const { exec } = require('child_process');
-    exec('taskkill /F /IM kiosk_lock.exe', (err) => {
+    exec('taskkill /F /IM kiosk_lock.exe', () => {
         res.json({ success: true, message: "Đã gửi lệnh tắt Kiosk Mode" });
     });
 }
-
-module.exports = {
-    getApiKeys,
-    saveApiKeys,
-    testApiKeys,
-    loadConfig,
-    saveConfig,
-    setupInitial,
-    syncLocalData,
-    syncSavePulledData,
-    exitKiosk
-};

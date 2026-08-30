@@ -1,15 +1,51 @@
 /**
  * DATABASE ACCESS LAYER (DAL)
- * Kết nối CSDL SQLite cục bộ duy nhất và cung cấp các hàm DAO
+ * Kết nối CSDL SQLite cục bộ duy nhất theo Singleton DatabasePool và cung cấp các hàm DAO
  */
-const path = require('path');
-const fs = require('fs');
-const sqlite3 = require('sqlite3').verbose();
+import path from 'path';
+import fs from 'fs';
+import sqlite3 from 'sqlite3';
+import { Student, SystemConfig, StudentProgress } from '../types';
 
-const DB_PATH = path.resolve(__dirname, '../../database.db');
+const sqlite = sqlite3.verbose();
+export const DB_PATH = path.resolve(__dirname, '../../database.db');
+
+export class DatabasePool {
+    private static instance: sqlite3.Database | null = null;
+
+    static getInstance(): sqlite3.Database {
+        if (!DatabasePool.instance) {
+            DatabasePool.instance = new sqlite.Database(DB_PATH, (err: Error | null) => {
+                if (err) {
+                    console.error('❌ Lỗi kết nối CSDL SQLite:', err.message);
+                } else {
+                    console.log('📦 Đã kết nối thành công CSDL SQLite tại:', DB_PATH);
+                }
+            });
+            DatabasePool.instance.configure('busyTimeout', 10000);
+        }
+        return DatabasePool.instance;
+    }
+
+    static close(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (!DatabasePool.instance) return resolve();
+            DatabasePool.instance.close((err: Error | null) => {
+                DatabasePool.instance = null;
+                err ? reject(err) : resolve();
+            });
+        });
+    }
+
+    static resetInstance(newDb: sqlite3.Database): void {
+        DatabasePool.instance = newDb;
+    }
+}
+
+export const db: sqlite3.Database = DatabasePool.getInstance();
 
 // Helper xác định cấp lớp chuẩn xác của học sinh từ studentId
-function resolveStudentClassLevel(studentId, reqClassLevel) {
+export function resolveStudentClassLevel(studentId: string | undefined, reqClassLevel?: string | number): string {
     if (studentId === 'std_tyc0gfnkz') return '4';
     if (studentId === 'std_htsj4gbmo') return '6';
     if (studentId === 'std_baongoc') return '1';
@@ -20,61 +56,52 @@ function resolveStudentClassLevel(studentId, reqClassLevel) {
 }
 
 // Danh sách 3 học sinh chuẩn hóa cố định toàn hệ thống theo Quy tắc 14
-const SYSTEM_STUDENTS = [
+export const SYSTEM_STUDENTS: Student[] = [
     { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
     { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" },
     { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
 ];
 
-let db = new sqlite3.Database(DB_PATH, (err) => {
-    if (err) {
-        console.error('❌ Lỗi kết nối CSDL SQLite:', err.message);
-    } else {
-        console.log('📦 Đã kết nối thành công CSDL SQLite tại:', DB_PATH);
-    }
-});
-db.configure("busyTimeout", 10000);
-
 // Helper chạy query Promise
-function dbRun(sql, params = []) {
+export function dbRun(sql: string, params: any[] = []): Promise<sqlite3.RunResult> {
     return new Promise((resolve, reject) => {
-        db.run(sql, params, function(err) {
+        DatabasePool.getInstance().run(sql, params, function (this: sqlite3.RunResult, err: Error | null) {
             if (err) reject(err);
             else resolve(this);
         });
     });
 }
 
-function dbAll(sql, params = []) {
+export function dbAll<T = any>(sql: string, params: any[] = []): Promise<T[]> {
     return new Promise((resolve, reject) => {
-        db.all(sql, params, (err, rows) => {
+        DatabasePool.getInstance().all(sql, params, (err: Error | null, rows: T[]) => {
             if (err) reject(err);
             else resolve(rows);
         });
     });
 }
 
-function dbGet(sql, params = []) {
+export function dbGet<T = any>(sql: string, params: any[] = []): Promise<T | undefined> {
     return new Promise((resolve, reject) => {
-        db.get(sql, params, (err, row) => {
+        DatabasePool.getInstance().get(sql, params, (err: Error | null, row: T) => {
             if (err) reject(err);
             else resolve(row);
         });
     });
 }
 
-const runQuery = dbRun;
-const getQuery = dbGet;
-const allQuery = dbAll;
+export const runQuery = dbRun;
+export const getQuery = dbGet;
+export const allQuery = dbAll;
 
-function dbGetConfig() {
+export function dbGetConfig(): Promise<SystemConfig | null> {
     return new Promise((resolve, reject) => {
-        db.get("SELECT value FROM settings WHERE key = 'config'", (err, row) => {
+        DatabasePool.getInstance().get("SELECT value FROM settings WHERE key = 'config'", (err: Error | null, row: any) => {
             if (err) return reject(err);
             if (row && row.value) {
                 try {
                     resolve(JSON.parse(row.value));
-                } catch(e) {
+                } catch (e) {
                     resolve(null);
                 }
             } else {
@@ -84,12 +111,12 @@ function dbGetConfig() {
     });
 }
 
-function dbSaveConfig(configObj) {
+export function dbSaveConfig(configObj: SystemConfig): Promise<number> {
     return new Promise((resolve, reject) => {
-        db.run(
+        DatabasePool.getInstance().run(
             "INSERT OR REPLACE INTO settings (key, value) VALUES ('config', ?)",
             [JSON.stringify(configObj)],
-            function(err) {
+            function (this: sqlite3.RunResult, err: Error | null) {
                 if (err) return reject(err);
                 resolve(this.changes);
             }
@@ -97,14 +124,14 @@ function dbSaveConfig(configObj) {
     });
 }
 
-function dbGetSetting(key) {
+export function dbGetSetting(key: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        db.get("SELECT value FROM settings WHERE key = ?", [key], (err, row) => {
+        DatabasePool.getInstance().get("SELECT value FROM settings WHERE key = ?", [key], (err: Error | null, row: any) => {
             if (err) return reject(err);
             if (row && row.value) {
                 try {
                     resolve(JSON.parse(row.value));
-                } catch(e) {
+                } catch (e) {
                     resolve(row.value);
                 }
             } else {
@@ -114,7 +141,7 @@ function dbGetSetting(key) {
     });
 }
 
-function dbSaveSetting(key, valueObj) {
+export function dbSaveSetting(key: string, valueObj: any): Promise<number> {
     let val = valueObj;
     if (typeof valueObj === 'object' && valueObj !== null) {
         val = JSON.stringify(valueObj);
@@ -130,10 +157,10 @@ function dbSaveSetting(key, valueObj) {
     }
 
     return new Promise((resolve, reject) => {
-        db.run(
+        DatabasePool.getInstance().run(
             "INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)",
             [key, val],
-            function(err) {
+            function (this: sqlite3.RunResult, err: Error | null) {
                 if (err) return reject(err);
                 resolve(this.changes);
             }
@@ -141,14 +168,14 @@ function dbSaveSetting(key, valueObj) {
     });
 }
 
-function dbGetProgress(classLevel) {
+export function dbGetProgress(classLevel: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        db.get("SELECT state_json FROM progress WHERE class_level = ?", [classLevel], (err, row) => {
+        DatabasePool.getInstance().get("SELECT state_json FROM progress WHERE class_level = ?", [classLevel], (err: Error | null, row: any) => {
             if (err) return reject(err);
             if (row && row.state_json) {
                 try {
                     resolve(JSON.parse(row.state_json));
-                } catch(e) {
+                } catch (e) {
                     resolve(null);
                 }
             } else {
@@ -158,12 +185,12 @@ function dbGetProgress(classLevel) {
     });
 }
 
-function dbSaveProgress(classLevel, stateObj) {
+export function dbSaveProgress(classLevel: string, stateObj: any): Promise<number> {
     return new Promise((resolve, reject) => {
-        db.run(
+        DatabasePool.getInstance().run(
             "INSERT OR REPLACE INTO progress (class_level, state_json) VALUES (?, ?)",
             [classLevel, JSON.stringify(stateObj)],
-            function(err) {
+            function (this: sqlite3.RunResult, err: Error | null) {
                 if (err) return reject(err);
                 resolve(this.changes);
             }
@@ -171,14 +198,14 @@ function dbSaveProgress(classLevel, stateObj) {
     });
 }
 
-function dbGetStudentProgress(studentId) {
+export function dbGetStudentProgress(studentId: string): Promise<StudentProgress | null> {
     return new Promise((resolve, reject) => {
-        db.get("SELECT state_json FROM student_progress WHERE student_id = ?", [studentId], (err, row) => {
+        DatabasePool.getInstance().get("SELECT state_json FROM student_progress WHERE student_id = ?", [studentId], (err: Error | null, row: any) => {
             if (err) return reject(err);
             if (row && row.state_json) {
                 try {
                     resolve(JSON.parse(row.state_json));
-                } catch(e) {
+                } catch (e) {
                     resolve(null);
                 }
             } else {
@@ -188,7 +215,7 @@ function dbGetStudentProgress(studentId) {
     });
 }
 
-async function dbSaveStudentProgress(studentId, stateObj, studentName = null) {
+export async function dbSaveStudentProgress(studentId: string, stateObj: any, studentName: string | null = null): Promise<sqlite3.RunResult> {
     const jsonStr = JSON.stringify(stateObj);
     const changes = await runQuery(
         "INSERT INTO student_progress (student_id, state_json) VALUES (?, ?) " +
@@ -198,12 +225,12 @@ async function dbSaveStudentProgress(studentId, stateObj, studentName = null) {
     return changes;
 }
 
-function dbDeleteStudentProgress(studentId) {
+export function dbDeleteStudentProgress(studentId: string): Promise<number> {
     return new Promise((resolve, reject) => {
-        db.run(
+        DatabasePool.getInstance().run(
             "DELETE FROM student_progress WHERE student_id = ?",
             [studentId],
-            function(err) {
+            function (this: sqlite3.RunResult, err: Error | null) {
                 if (err) return reject(err);
                 resolve(this.changes);
             }
@@ -211,25 +238,26 @@ function dbDeleteStudentProgress(studentId) {
     });
 }
 
-async function addToSyncQueue(tableName, recordId, action, payload) {
+export async function addToSyncQueue(tableName: string, recordId: string, action: string, payload: any): Promise<void> {
     try {
         await runQuery(
             "INSERT INTO sync_queue (table_name, record_id, action, payload) VALUES (?, ?, ?, ?)",
             [tableName, recordId, action, payload ? JSON.stringify(payload) : null]
         );
         console.log(`📥 Đã thêm tác vụ sync [${action} -> ${tableName}:${recordId}] vào hàng đợi offline`);
-    } catch (err) {
+    } catch (err: any) {
         console.error("❌ Lỗi thêm vào sync_queue:", err);
     }
 }
 
-function createTables() {
+export function createTables(): Promise<void> {
     return new Promise((resolve, reject) => {
-        db.serialize(() => {
-            db.run("PRAGMA journal_mode=WAL;");
+        const poolDb = DatabasePool.getInstance();
+        poolDb.serialize(() => {
+            poolDb.run("PRAGMA journal_mode=WAL;");
             
             // Bảng settings lưu cấu hình chung
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS settings (
                     key TEXT PRIMARY KEY,
                     value TEXT
@@ -237,7 +265,7 @@ function createTables() {
             `);
             
             // Bảng progress lưu tiến trình học tập của từng lớp
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS progress (
                     class_level TEXT PRIMARY KEY,
                     state_json TEXT
@@ -245,16 +273,16 @@ function createTables() {
             `);
 
             // Bảng student_progress lưu tiến trình học tập của từng học sinh độc lập
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS student_progress (
                     student_id TEXT PRIMARY KEY,
                     state_json TEXT
                 )
             `);
-            db.run(`CREATE INDEX IF NOT EXISTS idx_student_progress_id ON student_progress(student_id);`);
+            poolDb.run(`CREATE INDEX IF NOT EXISTS idx_student_progress_id ON student_progress(student_id);`);
 
             // Bảng custom_vocabulary lưu từ vựng tự nạp để ôn tập
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS custom_vocabulary (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     student_id TEXT NOT NULL,
@@ -275,7 +303,7 @@ function createTables() {
             `);
 
             // Bảng custom_topics lưu thông tin nhóm bài học tự chọn
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS custom_topics (
                     id TEXT PRIMARY KEY,
                     student_id TEXT NOT NULL,
@@ -285,7 +313,7 @@ function createTables() {
             `);
 
             // Bảng sync_queue lưu hàng đợi đồng bộ khi offline
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS sync_queue (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     table_name TEXT NOT NULL,
@@ -297,7 +325,7 @@ function createTables() {
             `);
 
             // Bảng tablet_tokens lưu trữ mã bảo mật để chơi tablet
-            db.run(`
+            poolDb.run(`
                 CREATE TABLE IF NOT EXISTS tablet_tokens (
                     token TEXT PRIMARY KEY,
                     student_id TEXT,
@@ -307,7 +335,7 @@ function createTables() {
                     activated_at TEXT,
                     expires_at TEXT
                 )
-            `, async (err) => {
+            `, async (err: Error | null) => {
                 if (err) {
                     console.error("Lỗi khi tạo các bảng DB:", err);
                     return reject(err);
@@ -315,13 +343,13 @@ function createTables() {
 
                 // Tự động nạp sẵn và chuẩn hóa cấu hình mặc định 3 học sinh trong CSDL SQLite
                 try {
-                    const row = await getQuery("SELECT value FROM settings WHERE key = 'config'").catch(() => null);
-                    let currentConfig = null;
+                    const row: any = await getQuery("SELECT value FROM settings WHERE key = 'config'").catch(() => null);
+                    let currentConfig: any = null;
                     if (row && row.value) {
                         try { currentConfig = JSON.parse(row.value); } catch (e) {}
                     }
 
-                    const defaultStudents = [
+                    const defaultStudents: Student[] = [
                         { id: "std_htsj4gbmo", name: "Trần Bình Minh", parentName: "Phụ huynh", classLevel: "6" },
                         { id: "std_baongoc", name: "Trần Bảo Ngọc", parentName: "Phụ huynh", classLevel: "1" },
                         { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", parentName: "Phụ huynh", classLevel: "4" }
@@ -344,7 +372,7 @@ function createTables() {
                     for (const std of defaultStudents) {
                         const existing = await getQuery("SELECT student_id FROM student_progress WHERE student_id = ?", [std.id]).catch(() => null);
                         if (!existing) {
-                            const initialState = {
+                            const initialState: StudentProgress = {
                                 student: std.name,
                                 classLevel: std.classLevel,
                                 xp: 0,
@@ -381,17 +409,18 @@ function createTables() {
     });
 }
 
-function initIntegrityCheck() {
+export function initIntegrityCheck(): Promise<void> {
     return new Promise((resolve) => {
-        db.serialize(() => {
-            db.get("PRAGMA integrity_check;", (err, row) => {
+        const poolDb = DatabasePool.getInstance();
+        poolDb.serialize(() => {
+            poolDb.get("PRAGMA integrity_check;", (err: Error | null, row: any) => {
                 if (err) {
                     console.error("Lỗi truy vấn PRAGMA integrity_check:", err);
                     return resolve();
                 }
                 if (row && row.integrity_check !== 'ok') {
                     console.error(`❌ PHÁT HIỆN CƠ SỞ DỮ LIỆU BỊ HỎNG (Integrity Check: ${row.integrity_check})!`);
-                    db.close((closeErr) => {
+                    poolDb.close((closeErr: Error | null) => {
                         if (closeErr) {
                             console.error("Không thể đóng database hỏng:", closeErr);
                             return resolve();
@@ -402,8 +431,9 @@ function initIntegrityCheck() {
                             fs.renameSync(DB_PATH, backupPath);
                             console.log(`Đã đổi tên CSDL hỏng thành: ${backupPath}`);
                             
-                            db = new sqlite3.Database(DB_PATH);
-                            db.configure("busyTimeout", 10000);
+                            const newDb = new sqlite.Database(DB_PATH);
+                            newDb.configure("busyTimeout", 10000);
+                            DatabasePool.resetInstance(newDb);
                             createTables().then(() => {
                                 console.log("Đã khởi tạo lại CSDL mới sạch sẽ thành công.");
                                 resolve();
@@ -420,28 +450,3 @@ function initIntegrityCheck() {
         });
     });
 }
-
-module.exports = {
-    db,
-    dbRun,
-    dbAll,
-    dbGet,
-    runQuery,
-    getQuery,
-    allQuery,
-    dbGetConfig,
-    dbSaveConfig,
-    dbGetSetting,
-    dbSaveSetting,
-    dbGetProgress,
-    dbSaveProgress,
-    dbGetStudentProgress,
-    dbSaveStudentProgress,
-    dbDeleteStudentProgress,
-    addToSyncQueue,
-    createTables,
-    initIntegrityCheck,
-    resolveStudentClassLevel,
-    SYSTEM_STUDENTS,
-    DB_PATH
-};

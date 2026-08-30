@@ -2,9 +2,10 @@
  * SYSTEM ROUTES
  * Các endpoints liên quan đến hệ thống, phiên bản, cập nhật và telemetry
  */
-const express = require('express');
-const router = express.Router();
-const systemCtrl = require('../controllers/system.controller');
+import { Router } from 'express';
+import * as systemCtrl from '../controllers/system.controller';
+
+const router = Router();
 
 // Phiên bản & Cấu hình Firebase
 router.get('/version', systemCtrl.getVersion);

@@ -2,9 +2,10 @@
  * AUTH ROUTES
  * Các endpoints xác thực người dùng và phụ huynh
  */
-const express = require('express');
-const router = express.Router();
-const authCtrl = require('../controllers/auth.controller');
+import { Router } from 'express';
+import * as authCtrl from '../controllers/auth.controller';
+
+const router = Router();
 
 // Đăng nhập Google & Quản lý Session
 router.get('/google-client-id', authCtrl.getGoogleClientId);

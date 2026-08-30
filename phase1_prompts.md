@@ -1,453 +1,430 @@
-# 📋 BỘ PROMPT CHUYÊN NGHIỆP — GIAI ĐOẠN 1: TÁI KIẾN TRÚC NỀN TẢNG
-## Dự án: HocTap v13.29 (Build 1343) | Thư mục: `f:\KHQS\AntiGravity\HocTap`
-
-> **Hướng dẫn sử dụng:** Copy từng khối `TASK 1.X` riêng biệt vào một cuộc hội thoại AI Agent mới.
-> Hoàn thành và xác nhận kết quả TASK 1.1 → 1.2 → 1.3 → 1.4 theo thứ tự này.
-> Mỗi Task phải được chạy `npm run release` và `node sync_clean.js` sau khi hoàn thành theo Rule 8, 9, 11.
+# 📋 BỘ PROMPT — GIAI ĐOẠN 2 (REVISED): RELEASE PIPELINE & CHẤT LƯỢNG
+## Mục tiêu: Ai tải installer về → dùng ngay, không cần cấu hình
+## Thư mục: `f:\KHQS\AntiGravity\HocTap` | Tiền đề: Giai đoạn 1 hoàn thành (v13.33)
 
 ---
 
 ## ═══════════════════════════════════════════════════════════
-## TASK 1.1 — TÁCH SERVER.JS THÀNH KIẾN TRÚC MVC CHUẨN
+## TASK 2.1 — HOÀN THIỆN RELEASE PIPELINE (ƯU TIÊN CAO NHẤT)
 ## ═══════════════════════════════════════════════════════════
 
+Bạn là **DevOps & Release Engineer**. Nhiệm vụ: đảm bảo quy trình `npm run release` hoạt động hoàn hảo — từ lúc chạy lệnh đến lúc file `.exe` xuất hiện trên GitHub Releases, bất kỳ ai tải về cài đặt xong là dùng được ngay.
+
+### Bối cảnh
+- **Thư mục:** `f:\KHQS\AntiGravity\HocTap`
+- **Phiên bản:** 13.33 → 13.34
+- **Release script:** `scripts/build/release.js`
+- **Sync script:** `scripts/build/sync_clean.js`
+- **Installer:** `installer.iss` (Inno Setup)
+- **GitHub Repo:** `https://github.com/skyprotect/Hoctap`
+
+### Kiểm tra & Yêu cầu
+
+**Bước 1 — Audit sync_clean.js:**
+Đọc `scripts/build/sync_clean.js` và xác nhận nó đang xóa sạch các file sau trước khi copy sang `HocTap_Clean`:
 ```
-COPY PROMPT NÀY VÀO AI AGENT:
+✅ database.db          ← Dữ liệu học sinh cũ — PHẢI XÓA
+✅ .port.tmp            ← File port tạm — PHẢI XÓA
+✅ *.old                ← Backup cũ — PHẢI XÓA
+✅ logs/                ← Log file — PHẢI XÓA hoặc để trống
+✅ firebase-service-account.json ← PHẢI XÓA (không phân phối)
+✅ .env                 ← PHẢI XÓA (chỉ giữ .env.example)
+✅ chrome_profile/      ← Chrome profile cá nhân — PHẢI XÓA
+✅ backups/             ← Backup cá nhân — PHẢI XÓA
+✅ exported_exams/      ← Đề thi đã xuất — PHẢI XÓA nội dung
 ```
+Nếu thiếu bất kỳ mục nào → bổ sung vào `sync_clean.js`.
 
----
+**Bước 2 — Audit installer.iss:**
+Xác nhận `installer.iss` KHÔNG đóng gói các file nhạy cảm:
+- KHÔNG có dòng `Source:` trỏ đến `database.db`
+- KHÔNG có dòng `Source:` trỏ đến `firebase-service-account.json`
+- KHÔNG có dòng `Source:` trỏ đến `.env` (chỉ `.env.example` được phép)
+- Dòng `Source: "...HocTap_Clean\*"` phải là nguồn duy nhất
 
-Bạn là **Principal Backend Architect** với chuyên môn sâu về Node.js/Express MVC, SQLite và kiến trúc microservice. Nhiệm vụ của bạn là **tái cấu trúc an toàn** (safe refactor) backend của dự án HocTap mà **KHÔNG được làm gián đoạn bất kỳ tính năng nào đang hoạt động**.
-
-### 📁 Bối cảnh Dự án
-- **Thư mục gốc:** `f:\KHQS\AntiGravity\HocTap`
-- **File mục tiêu:** `f:\KHQS\AntiGravity\HocTap\server.js` (4,867 dòng / 223KB — monolithic)
-- **Cấu trúc skeleton đã có** tại `f:\KHQS\AntiGravity\HocTap\server\` nhưng chưa được tích hợp vào `server.js` chính
-- **Phiên bản hiện tại:** 13.29 | **Phiên bản sau khi hoàn thành:** 13.30
-
-### 🎯 Mục tiêu
-Tách `server.js` thành cấu trúc MVC chuẩn **mà không thay đổi bất kỳ API endpoint nào** (URL, request body, response format đều phải giữ nguyên 100%):
-
-```
-server/
-├── middleware/
-│   ├── auth.middleware.js        ← authenticateAdminToken(), getAdminUserFromRequest()
-│   └── error.middleware.js       ← Global error handler
-├── db/
-│   └── database.js              ← ĐÃ CÓ — 1 connection duy nhất, KHÔNG tạo thêm
-├── services/
-│   ├── firebase.service.js      ← syncStudentProgressToFirebase(), hydrateStudentProgressFromFirebase()
-│   ├── gemini.service.js        ← Tất cả Gemini API calls
-│   └── migration.service.js     ← migrateFixMathBugsV12() và các migration khác
-├── routes/
-│   ├── auth.routes.js           ← /api/auth/* endpoints
-│   ├── student.routes.js        ← /api/student-info, /api/save-progress, /api/load-progress
-│   ├── quiz.routes.js           ← /api/get-questions, /api/generate-exam
-│   ├── admin.routes.js          ← /api/admin/* endpoints (yêu cầu authenticateAdminToken)
-│   └── system.routes.js         ← /api/firebase-config, /api/version, /api/report-client-error
-└── controllers/
-    ├── auth.controller.js
-    ├── student.controller.js
-    ├── quiz.controller.js
-    ├── admin.controller.js
-    └── system.controller.js
-```
-
-### ⚠️ QUY TẮC BẮT BUỘC TUYỆT ĐỐI (Không được vi phạm)
-
-1. **KHÔNG ĐƯỢC** xóa hoặc đổi tên bất kỳ API endpoint URL nào. Client `student.html` và `parent.html` gọi các endpoint này trực tiếp.
-2. **KHÔNG ĐƯỢC** tạo thêm kết nối SQLite mới. Toàn bộ hệ thống phải dùng đúng 1 instance `db` được khởi tạo ở `server/db/database.js`.
-3. **KHÔNG ĐƯỢC** xóa `server.js` gốc — chỉ biến nó thành file entry-point gọn (< 100 dòng) dùng `require()` để nạp các module mới.
-4. **PHẢI BẢO TOÀN** toàn bộ logic `SYSTEM_STUDENTS`, `resolveStudentClassLevel()`, và hardcoded fallback Firebase config.
-5. **PHẢI BẢO TOÀN** cơ chế tự sinh `.env` từ `.env.example` khi khởi động.
-6. **PHẢI BẢO TOÀN** cơ chế kiểm tra `PRAGMA integrity_check` và tự phục hồi database khi hỏng.
-7. **PHẢI BẢO TOÀN** `EMBEDDED_API_KEYS` và hàm `getActiveGeminiApiKeys()`.
-8. **KHÔNG ĐƯỢC** chỉnh sửa bất kỳ dòng nào trong `student.html`, `parent.html`, `js/app.js`.
-
-### 📋 Quy trình Thực hiện (Bắt buộc theo thứ tự)
-
-**Bước 1 — Đọc hiểu (Research Only, không chỉnh sửa):**
-- Đọc toàn bộ `server.js` để lập danh sách đầy đủ tất cả các `app.get()`, `app.post()`, `app.delete()` endpoints
-- Đọc `server/db/database.js`, `server/services/auth.service.js`, `server/services/gemini.service.js` hiện có
-- Đọc `server/routes/api.routes.js` và `server/controllers/` hiện có
-- Lập bảng tồn kho: Tên endpoint → File nguồn hiện tại → File đích sau refactor
-
-**Bước 2 — Tạo Middleware Layer:**
-- Tạo `server/middleware/auth.middleware.js`: chứa `authenticateAdminToken` + `getAdminUserFromRequest`
-- Tạo `server/middleware/error.middleware.js`: chứa global error handler 404 + 500
-
-**Bước 3 — Tạo Service Layer:**
-- Tạo `server/services/firebase.service.js`: migrate `syncStudentProgressToFirebase()`, `syncAllStudentsToFirebase()`, `hydrateStudentProgressFromFirebaseRTDB()`
-- Cập nhật `server/services/gemini.service.js`: migrate tất cả Gemini API calls
-- Tạo `server/services/migration.service.js`: migrate `migrateFixMathBugsV12()` và các hàm migration khác
-
-**Bước 4 — Tạo Route + Controller Layer:**
-- Tạo từng cặp `routes/*.routes.js` + `controllers/*.controller.js` theo danh sách ở trên
-- Mỗi controller chỉ được `require` từ `server/db/database.js` và `server/services/`
-
-**Bước 5 — Viết lại server.js thành Entry Point:**
+**Bước 3 — Hoàn thiện release.js:**
+Đọc `scripts/build/release.js`. Bổ sung các bước còn thiếu theo thứ tự:
 ```javascript
-// server.js sau refactor (< 120 dòng)
-// Phần 1: Setup môi trường (giữ nguyên: tự sinh .env, dotenv.config, SYSTEM_STUDENTS, EMBEDDED_API_KEYS...)
-// Phần 2: Khởi tạo DB + PRAGMA + createTables() (giữ nguyên hoàn toàn)
-// Phần 3: Express app + middleware
-// Phần 4: require và mount các router
-app.use('/api/auth', require('./server/routes/auth.routes'));
-app.use('/api', require('./server/routes/student.routes'));
-// ...
-// Phần 5: app.listen()
+// Quy trình chuẩn release.js:
+// 1. Đọc version từ version.json
+// 2. Pull git origin main (tránh conflict)
+// 3. Chạy npm test → nếu FAIL thì dừng, không release
+// 4. Chạy sync_clean.js → tạo bản sạch HocTap_Clean
+// 5. Chạy Inno Setup compiler → tạo file .exe
+// 6. Git add + commit + push (với message "Release v{version}")
+// 7. Tạo git tag v{version} và push tag
+// 8. Upload file .exe lên GitHub Releases qua GitHub API
+// 9. In ra URL download để người dùng copy
 ```
 
-**Bước 6 — Kiểm tra:**
-- Chạy `node server.js` và xác nhận không có lỗi khởi động
-- Dùng curl hoặc browser test 5 endpoints quan trọng nhất: `/api/firebase-config`, `/api/student-info`, `/api/version`, `/api/save-progress` (POST), `/api/get-questions`
+**Bước 4 — Test thực tế:**
+Chạy `npm run release` và xác nhận:
+- File `.exe` được tạo thành công
+- File `.exe` xuất hiện tại `https://github.com/skyprotect/Hoctap/releases`
+- Cài file `.exe` trên máy khác (hoặc máy ảo) → app khởi động được không cần cấu hình
 
-**Bước 7 — Cập nhật phiên bản:**
-- Nâng version từ `13.29` → `13.30` trong `version.json`, `student.html`, `installer.iss`, `css/style.css?v=`
-- Cập nhật `lastUpdated` thành thời gian hiện tại
-- Chạy `node sync_clean.js` để đồng bộ sang `HocTap_Clean`
-- Chạy `npm run release` để đóng gói và phát hành
+**Bước 5 — Thêm version check tự động:**
+Khi `server.js` khởi động, tự động check GitHub Releases có bản mới không:
+```javascript
+// Nếu version trên GitHub > version hiện tại → log thông báo
+// (Đã có UPDATE_CHECK_URL trong .env.example — kết nối lại nếu bị ngắt)
+```
 
-### ✅ Tiêu chí Hoàn thành
-- [ ] `server.js` gốc còn < 150 dòng (chỉ là entry point)
-- [ ] Tất cả API endpoints trả về response giống hệt trước refactor (không thay đổi format)
-- [ ] `node server.js` khởi động thành công, không có lỗi hoặc warning mới
-- [ ] Không có duplicate SQLite connection (chỉ 1 `db` instance toàn hệ thống)
-- [ ] Version đã được nâng lên 13.30
+**Bước 6:** Nâng version 13.33 → 13.34, chạy `npm run release`.
+
+### Tiêu chí Hoàn thành
+- [ ] `HocTap_Clean/` không chứa `database.db`, `.env`, `firebase-service-account.json`
+- [ ] `npm run release` chạy end-to-end không lỗi
+- [ ] File `.exe` xuất hiện trên GitHub Releases
+- [ ] Cài `.exe` trên máy sạch → app chạy ngay lập tức, không cần cấu hình
+- [ ] Version nâng lên 13.34
 
 ---
 
 ## ═══════════════════════════════════════════════════════════
-## TASK 1.2 — VIẾT INTEGRATION TESTS CHO API BACKEND
+## TASK 2.2 — TYPESCRIPT MIGRATION (CHỈ SERVER/)
 ## ═══════════════════════════════════════════════════════════
 
-```
-COPY PROMPT NÀY VÀO AI AGENT (SAU KHI TASK 1.1 HOÀN THÀNH):
-```
+Bạn là **TypeScript Migration Specialist**. Migrate `server/` directory sang TypeScript để code dễ bảo trì, IDE hỗ trợ autocomplete, và phát hiện lỗi sớm hơn.
 
----
+### Bối cảnh
+- **Thư mục:** `f:\KHQS\AntiGravity\HocTap`
+- **Phiên bản:** 13.34 → 13.35
+- **Phạm vi:** CHỈ `server/` — client-side JS (`js/app.js`, `student.html`) giữ nguyên
+- **Tiền đề:** Task 1.1 đã tách `server.js` thành `server/routes/`, `server/controllers/`, `server/services/`
 
-Bạn là **Senior QA Engineer & Test Architect** với chuyên môn về Integration Testing cho Node.js/Express API và SQLite. Nhiệm vụ của bạn là xây dựng bộ integration test đầy đủ cho backend dự án HocTap **đảm bảo mọi thay đổi code trong tương lai không thể âm thầm phá vỡ chức năng**.
+### Quy trình Thực hiện
 
-### 📁 Bối cảnh Dự án
-- **Thư mục gốc:** `f:\KHQS\AntiGravity\HocTap`
-- **Framework test hiện có:** Jest (`package.json` đã có `"test": "jest"`)
-- **Test files hiện có:** `tests/questions.test.js` (unit test cho 3 hàm — quá ít)
-- **Phiên bản hiện tại:** 13.30 (sau Task 1.1) | **Phiên bản sau Task này:** 13.31
-
-### 🎯 Mục tiêu
-Viết bộ integration test hoàn chỉnh bao phủ **10 API endpoints quan trọng nhất**, sử dụng **in-memory SQLite** để test không ảnh hưởng đến `database.db` thật.
-
-### 📋 Danh sách Test Cần Viết
-
-**File: `tests/api/system.test.js`**
-```
-✅ GET /api/version → trả về JSON có field 'version', 'build', 'lastUpdated'
-✅ GET /api/firebase-config → trả về JSON có field 'apiKey', 'projectId', 'appId'
-✅ POST /api/report-client-error → trả về { success: true } và không crash server
+**Bước 1 — Cài đặt:**
+```bash
+npm install --save-dev typescript ts-node @types/node @types/express @types/cors @types/jsonwebtoken @types/sqlite3
 ```
 
-**File: `tests/api/auth.test.js`**
-```
-✅ POST /api/auth/google-login với invalid token → trả về 401 hoặc 400
-✅ POST /api/auth/google-login với missing body → trả về 400
-✅ GET /api/student-info?studentId=std_htsj4gbmo → trả về data học sinh hợp lệ
-✅ GET /api/student-info?studentId=INVALID_ID → trả về 404 hoặc data rỗng hợp lý
-```
-
-**File: `tests/api/progress.test.js`**
-```
-✅ POST /api/save-progress với payload hợp lệ → trả về { success: true }
-✅ POST /api/save-progress với studentId không tồn tại → trả về lỗi có message rõ ràng
-✅ POST /api/save-progress → xác nhận dữ liệu đã được ghi vào DB (đọc lại để kiểm tra)
-✅ POST /api/save-progress nhiều lần liên tiếp → chỉ lưu state mới nhất, không duplicate
-```
-
-**File: `tests/api/questions.test.js`**
-```
-✅ GET /api/get-questions?classLevel=6&lessonId=... → trả về array câu hỏi
-✅ GET /api/get-questions với params thiếu → trả về lỗi rõ ràng (400)
-```
-
-### ⚠️ QUY TẮC BẮT BUỘC
-
-1. **PHẢI dùng in-memory SQLite** (`:memory:`) hoặc tạo `database_test.db` riêng trong `beforeAll()` và xóa trong `afterAll()`. **TUYỆT ĐỐI KHÔNG** test trên `database.db` thật.
-2. **PHẢI mock** các external calls: Google OAuth verification, Gemini API calls, Firebase RTDB calls. Dùng `jest.mock()`.
-3. **PHẢI dùng `supertest`** để test HTTP endpoints — thêm `supertest` vào `devDependencies` nếu chưa có.
-4. **Mỗi test phải độc lập** — không phụ thuộc vào kết quả test trước (dùng `beforeEach` để reset state).
-5. **PHẢI cover cả Happy Path và Error Path** cho mỗi endpoint.
-6. **KHÔNG ĐƯỢC** chỉnh sửa source code chính để test pass. Nếu test fail do bug, báo cáo bug — không sửa test để bypass.
-
-### 📋 Quy trình Thực hiện
-
-**Bước 1:** Cài đặt dependencies cần thiết: `npm install --save-dev supertest`
-
-**Bước 2:** Tạo `tests/helpers/test-db.js` — helper khởi tạo in-memory DB với schema đầy đủ
-
-**Bước 3:** Tạo `tests/helpers/mock-server.js` — tạo Express app test với in-memory DB và mocked externals
-
-**Bước 4:** Viết lần lượt 4 file test theo danh sách trên
-
-**Bước 5:** Chạy `npm test` — xác nhận **tất cả tests PASS**
-
-**Bước 6:** Thêm vào `package.json`:
+**Bước 2 — Tạo `tsconfig.json`:**
 ```json
-"scripts": {
-    "test:coverage": "jest --coverage --coverageReporters=text-summary"
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "./dist-server",
+    "rootDir": "./server",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["server/**/*.ts"],
+  "exclude": ["node_modules"]
 }
 ```
-Chạy `npm run test:coverage` và báo cáo % coverage đạt được.
 
-**Bước 7:** Cập nhật version 13.30 → 13.31, chạy `node sync_clean.js` và `npm run release`.
+**Bước 3 — Tạo `server/types/index.ts` với các interfaces cốt lõi:**
+```typescript
+export interface Student {
+    id: string;
+    name: string;
+    classLevel: '1' | '4' | '6';
+    parentName?: string;
+}
 
-### ✅ Tiêu chí Hoàn thành
-- [ ] `npm test` chạy thành công, **không có test nào FAIL**
-- [ ] Tổng số test cases: **≥ 15 test cases**
-- [ ] Không có test nào động đến `database.db` thật
-- [ ] `npm run test:coverage` chạy được và hiển thị report
-- [ ] Version nâng lên 13.31
+export interface StudentProgress {
+    student: string;
+    classLevel: string;
+    xp: number;
+    streak: number;
+    lastActiveDate: string | null;
+    scores: Record<string, number>;
+    badges: string[];
+    subjects: { math: SubjectData; english: SubjectData; };
+    lastUpdated: string;
+}
 
----
+export interface SubjectData {
+    scores: Record<string, number>;
+    completedSubtopics: string[];
+    subtopicScores: Record<string, number>;
+    completedLessonTheory: string[];
+    examSessions: ExamSession[];
+}
 
-## ═══════════════════════════════════════════════════════════
-## TASK 1.3 — THỐNG NHẤT STATE MANAGEMENT
-## ═══════════════════════════════════════════════════════════
+export interface ExamSession {
+    lessonId: string;
+    lessonTitle: string;
+    scorePercent: number;
+    completedAt: string;
+    questions: QuizQuestion[];
+}
 
-```
-COPY PROMPT NÀY VÀO AI AGENT (SAU KHI TASK 1.2 HOÀN THÀNH):
-```
-
----
-
-Bạn là **Senior Frontend Architect** chuyên về State Management trong Vanilla JavaScript SPA (Single Page Application). Nhiệm vụ của bạn là loại bỏ **dual state object** đang gây ra bug rò rỉ dữ liệu trong dự án HocTap, bằng cách **thống nhất về 1 nguồn sự thật duy nhất**.
-
-### 📁 Bối cảnh Dự án
-- **Thư mục gốc:** `f:\KHQS\AntiGravity\HocTap`
-- **Phiên bản hiện tại:** 13.31 | **Phiên bản sau Task này:** 13.32
-- **Vấn đề cần giải quyết:** Hiện tồn tại 2 state object song song:
-  - `window.AppState` — định nghĩa trong `js/core/state.js` (chuẩn, có cấu trúc)
-  - `window.app` — định nghĩa trong `js/app.js` (~ dòng 80-200, tự xây)
-- Hai object này không đồng bộ với nhau, gây ra bug: khi chuyển học sinh, state cũ từ `window.app` không được reset sạch, rò rỉ điểm số và lịch sử sai.
-
-### 🎯 Mục tiêu
-Đảm bảo `window.app` và `window.AppState` **hoàn toàn thống nhất** — cùng tham chiếu đến 1 object, hoặc `window.app` được loại bỏ hoàn toàn và các chỗ dùng `window.app.xxx` được thay bằng `window.AppState.xxx`.
-
-### 📋 Quy trình Thực hiện
-
-**Bước 1 — Phân tích (Research Only):**
-- Đọc `js/core/state.js` — ghi nhận toàn bộ cấu trúc `AppState`
-- Trong `js/app.js`, tìm tất cả nơi `window.app` hoặc `this` (khi `this` là `window.app`) được đọc/ghi — liệt kê thành bảng so sánh:
-  ```
-  | Property          | AppState path          | window.app path       | Khác nhau? |
-  |---|---|---|---|
-  | studentName       | AppState.config.studentName | app.config.studentName | Không |
-  | xp                | AppState.state.xp      | app.state.xp          | Không |
-  | currentSubject    | AppState.currentSubject | app.currentSubject    | Không |
-  ```
-- Phân tích kỹ các property **CHỈ tồn tại trong `window.app`** mà chưa có trong `AppState` — đây là những property cần migrate sang `state.js` trước.
-
-**Bước 2 — Bổ sung AppState:**
-- Cập nhật `js/core/state.js`: thêm các property còn thiếu từ `window.app` vào `AppState`
-- **Bảo toàn 100%** các property hiện tại của `AppState` — chỉ được thêm, không xóa
-
-**Bước 3 — Bridge Pattern (An toàn nhất):**
-Thêm vào cuối `js/core/state.js` đoạn bridge sau để `window.app` trỏ vào đúng `AppState`:
-```javascript
-// Bridge: window.app → window.AppState để tương thích ngược
-if (typeof window !== 'undefined') {
-    window.app = window.AppState; // Alias, cùng tham chiếu
+export interface QuizQuestion {
+    questionText: string;
+    options: string[];
+    correctIndex: number;
+    userSelectedIndex?: number;
+    isCorrect?: boolean;
 }
 ```
-Sau bước này, mọi code gọi `window.app.state.xp` hay `window.AppState.state.xp` đều trỏ về cùng 1 object.
 
-**Bước 4 — Xóa định nghĩa `window.app` trong app.js:**
-- Tìm đoạn `window.app = { ... }` trong `js/app.js`
-- Xóa dòng khởi tạo đó
-- Xác nhận rằng tất cả các property đã có trong `AppState` (sau Bước 2)
+**Bước 4 — Migrate từng file:** `db/` → `services/` → `middleware/` → `controllers/` → `routes/`
 
-**Bước 5 — Kiểm tra hàm reset state:**
-Tìm và cập nhật hàm `loadProgress()` / `switchStudent()` trong `js/app.js` để đảm bảo:
+Với mỗi file: đổi `.js` → `.ts`, thêm type annotations cơ bản, chạy `npx tsc --noEmit` kiểm tra.
+
+**Bước 5 — Cập nhật server.js để load TS:**
 ```javascript
-// Khi reset state học sinh, PHẢI reset AppState.state (không còn window.app.state riêng)
-AppState.state = { ...AppState.getDefaultState(), ...(serverData || {}) };
+require('ts-node').register({ transpileOnly: true });
 ```
 
-**Bước 6 — Test thủ công:**
-Mở `student.html` trên trình duyệt, thực hiện:
-1. Vào học với học sinh Trần Bình Minh → kiểm tra XP hiển thị đúng
-2. Chuyển sang học sinh Trần Bảo Ngọc → kiểm tra XP mới (không bị rò rỉ từ Minh)
-3. Chuyển lại Trần Bình Minh → XP của Minh vẫn đúng
+**Bước 6:** `npx tsc --noEmit` không có lỗi. `npm test` PASS. Nâng version 13.34 → 13.35, `npm run release`.
 
-**Bước 7:** Nâng version 13.31 → 13.32, chạy `node sync_clean.js` và `npm run release`.
-
-### ⚠️ QUY TẮC BẮT BUỘC
-1. **KHÔNG ĐƯỢC** chỉnh sửa `student.html` trong bước này (chỉ sửa JS files)
-2. **KHÔNG ĐƯỢC** thay đổi tên hoặc cấu trúc của `AppState` — chỉ bổ sung
-3. **PHẢI** kiểm tra `window.safeStorage` vẫn hoạt động sau thay đổi (nó được define trong `state.js`)
-4. **Tuân thủ Rule 10 tuyệt đối:** Dữ liệu môn Toán của Trần Bình Minh và Trần Đức Phúc phải được bảo toàn
-
-### ✅ Tiêu chí Hoàn thành
-- [ ] `window.app === window.AppState` trả về `true` trong console trình duyệt
-- [ ] Không còn 2 chỗ khởi tạo state object riêng biệt
-- [ ] Chuyển học sinh không còn rò rỉ state
-- [ ] `npm test` vẫn PASS tất cả (không regression)
-- [ ] Version nâng lên 13.32
+### Tiêu chí Hoàn thành
+- [ ] Tất cả files trong `server/` là `.ts`
+- [ ] `npx tsc --noEmit` sạch lỗi
+- [ ] `npm start` và `npm test` đều PASS
+- [ ] Version nâng lên 13.35
 
 ---
 
 ## ═══════════════════════════════════════════════════════════
-## TASK 1.4 — TÁCH APP.JS THÀNH FEATURE MODULES
+## TASK 2.3 — SINGLETON SQLITE CONNECTION POOL
 ## ═══════════════════════════════════════════════════════════
 
+Bạn là **Database Engineer**. Nhiệm vụ: đảm bảo toàn hệ thống chỉ dùng đúng **1 kết nối SQLite duy nhất** — loại bỏ nguy cơ busy-lock và race condition.
+
+### Bối cảnh
+- **Thư mục:** `f:\KHQS\AntiGravity\HocTap`
+- **Phiên bản:** 13.35 → 13.36
+- **Vấn đề:** Có thể tồn tại 2 `new sqlite3.Database()` call song song sau quá trình refactor
+
+### Quy trình Thực hiện
+
+**Bước 1 — Audit:**
+```bash
+grep -rn "new sqlite3.Database" f:\KHQS\AntiGravity\HocTap --include="*.js" --include="*.ts" --exclude-dir=node_modules
 ```
-COPY PROMPT NÀY VÀO AI AGENT (SAU KHI TASK 1.3 HOÀN THÀNH):
-```
+Báo cáo đầy đủ kết quả. Mục tiêu: chỉ còn **đúng 1 kết quả** tại `server/db/database.ts`.
 
----
+**Bước 2 — Nâng cấp thành Singleton:**
+```typescript
+// server/db/database.ts
+class DatabasePool {
+    private static instance: sqlite3.Database | null = null;
 
-Bạn là **Principal Frontend Architect** với hơn 10 năm kinh nghiệm tách monolithic Vanilla JavaScript thành module-based architecture **mà không dùng bundler** (không Webpack, không Vite — vì dự án cần hoạt động zero-config). Nhiệm vụ là tách `js/app.js` (12,735 dòng / 734KB) thành các Feature Module độc lập.
-
-### 📁 Bối cảnh Dự án
-- **Thư mục gốc:** `f:\KHQS\AntiGravity\HocTap`
-- **Phiên bản hiện tại:** 13.32 | **Phiên bản sau Task này:** 13.33
-- **Ràng buộc kỹ thuật:** Không được dùng ES Modules `import/export` vì file được serve qua Express static và cần hoạt động với `file://` protocol (Kiosk Mode). Dùng IIFE pattern như `event-bus.js`, `state.js`, `api-client.js` hiện có.
-- **Test coverage:** Tasks 1.2 đã có integration tests bảo vệ backend. Task này tập trung frontend.
-
-### 🎯 Mục tiêu
-Tách `js/app.js` thành tối thiểu **6 Feature Modules** theo nguyên tắc Single Responsibility:
-
-```
-js/
-├── core/                     ← ĐÃ CÓ (giữ nguyên)
-│   ├── state.js
-│   ├── event-bus.js
-│   └── api-client.js
-├── features/                 ← ĐÃ CÓ SKELETON (mở rộng)
-│   ├── katex-service.js      ← ĐÃ CÓ
-│   ├── quiz-manager.js       ← ĐÃ CÓ (mở rộng)
-│   ├── audio-service.js      ← ĐÃ CÓ
-│   ├── ui-renderer.js        ← ĐÃ CÓ (mở rộng)
-│   └── chibi-controller.js   ← ĐÃ CÓ
-├── modules/                  ← TẠO MỚI
-│   ├── splash.module.js      ← Màn hình chào / Splash Screen logic
-│   ├── practice.module.js    ← Màn hình luyện tập (practice-mode)
-│   ├── leaderboard.module.js ← Bảng xếp hạng & đồng bộ Firebase
-│   ├── settings.module.js    ← Cài đặt phụ huynh, đổi PIN, quản lý học sinh
-│   ├── vocab-monster.module.js ← Quái vật từ vựng (Vocab Monster feature)
-│   └── skill-card.module.js  ← Thẻ năng lực (Skill Cards & Badge system)
-└── app.js                    ← CHỈ CÒN: DOMContentLoaded entry point + require modules
-```
-
-### 📋 Quy trình Thực hiện (QUAN TRỌNG — Làm từng module một)
-
-**Bước 0 — Phân tích Trước Khi Viết Code:**
-Đọc `js/app.js` và lập bản đồ function:
-```
-| Hàm / Block code              | Dòng bắt đầu | Dòng kết thúc | Module đích          |
-|---|---|---|---|
-| initSplashClock()             | ???           | ???           | splash.module.js     |
-| displayRandomSplashQuote()    | ???           | ???           | splash.module.js     |
-| renderLeaderboard()           | ???           | ???           | leaderboard.module.js|
-| openParentSettings()          | ???           | ???           | settings.module.js   |
-| ...                           | ...           | ...           | ...                  |
-```
-Trình bày bản đồ này cho người dùng xem và xác nhận trước khi viết code.
-
-**Bước 1 — Tách từng module (theo thứ tự từ ít phụ thuộc → nhiều phụ thuộc):**
-
-Với MỖI module, thực hiện 3 bước nhỏ:
-1. **Tạo file module** với IIFE pattern:
-```javascript
-// js/modules/splash.module.js
-(function() {
-    'use strict';
-    
-    const SplashModule = {
-        init: function() { /* ... */ },
-        initClock: function() { /* ... */ },
-        displayQuote: function() { /* ... */ }
-    };
-    
-    if (typeof window !== 'undefined') {
-        window.SplashModule = SplashModule;
+    static getInstance(): sqlite3.Database {
+        if (!DatabasePool.instance) {
+            DatabasePool.instance = new sqlite3.Database(DB_PATH);
+            DatabasePool.instance.configure('busyTimeout', 10000);
+        }
+        return DatabasePool.instance;
     }
-})();
-```
-2. **Thêm `<script>` tag** vào `student.html` ở đúng vị trí (sau `core/`, trước `app.js`)
-3. **Xóa code tương ứng** khỏi `app.js` và thay bằng lời gọi: `SplashModule.init()`
-4. **Test ngay** sau mỗi module: mở trình duyệt, kiểm tra tính năng vừa tách vẫn hoạt động
 
-**Bước 2 — Sau khi tách xong tất cả:**
-Kiểm tra `app.js` còn lại chỉ nên là entry point:
+    static close(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (!DatabasePool.instance) return resolve();
+            DatabasePool.instance.close(err => {
+                DatabasePool.instance = null;
+                err ? reject(err) : resolve();
+            });
+        });
+    }
+}
+
+export const db = DatabasePool.getInstance();
+```
+
+**Bước 3 — Graceful Shutdown:**
 ```javascript
-// js/app.js sau refactor (mục tiêu < 500 dòng)
-// Chứa: SKILL_CARDS data, DOMContentLoaded handler, và gọi init() của từng module
-document.addEventListener('DOMContentLoaded', function() {
-    SplashModule.init();
-    PracticeModule.init();
-    LeaderboardModule.init();
-    SettingsModule.init();
-    // ...
+// Trong server.js entry point
+process.on('SIGTERM', async () => {
+    await DatabasePool.close();
+    server.close(() => process.exit(0));
+});
+process.on('SIGINT', async () => {
+    await DatabasePool.close();
+    process.exit(0);
 });
 ```
 
-**Bước 3 — Cập nhật `student.html`:**
-Thêm `<script>` tags cho các module mới, ĐẢM BẢO thứ tự load đúng:
-```html
-<!-- Core modules (giữ nguyên) -->
-<script src="js/core/state.js?v=13.33"></script>
-<script src="js/core/event-bus.js?v=13.33"></script>
-<script src="js/core/api-client.js?v=13.33"></script>
+**Bước 4:** Grep lại → xác nhận 1 kết nối duy nhất. `npm test` PASS. Nâng version 13.35 → 13.36, `npm run release`.
 
-<!-- Feature services (giữ nguyên) -->
-<script src="js/features/audio-service.js?v=13.33"></script>
-<!-- ... -->
-
-<!-- NEW: Feature Modules -->
-<script src="js/modules/splash.module.js?v=13.33"></script>
-<script src="js/modules/practice.module.js?v=13.33"></script>
-<!-- ... -->
-
-<!-- Entry point (giảm từ 734KB xuống còn nhỏ hơn nhiều) -->
-<script src="js/app.js?v=13.33"></script>
-```
-
-**Bước 4 — Kiểm tra toàn diện:**
-Test thủ công toàn bộ luồng người dùng:
-1. Màn hình Splash → chào hỏi, đồng hồ, châm ngôn hoạt động
-2. Chọn bài học → hiển thị danh sách bài
-3. Làm bài trắc nghiệm → câu hỏi load, chọn đáp án, tính điểm
-4. Bảng xếp hạng → load và hiển thị
-5. Cài đặt phụ huynh (PIN: 123456) → mở/đóng bình thường
-
-**Bước 5:** Nâng version 13.32 → 13.33, cập nhật tất cả `?v=` cachebuster, chạy `node sync_clean.js` và `npm run release`.
-
-### ⚠️ QUY TẮC BẮT BUỘC
-1. **Tách từng module một** — không tách nhiều module cùng lúc. Test sau mỗi module.
-2. **IIFE pattern bắt buộc** — không được dùng `import/export`
-3. **Cachebuster `?v=13.33`** trên tất cả `<script>` và `<link>` tags trong `student.html`
-4. **Tuân thủ Rule 10** — dữ liệu Toán học của Trần Bình Minh và Trần Đức Phúc không được mất
-5. **`npm test` phải PASS** sau mỗi module được tách
-6. **Báo cáo tiến độ** sau mỗi module: "Đã tách `splash.module.js`, app.js giảm từ 12,735 dòng còn X dòng"
-
-### ✅ Tiêu chí Hoàn thành
-- [ ] `js/app.js` còn < 800 dòng (giảm ít nhất 90% so với ban đầu)
-- [ ] Tối thiểu 6 module files được tạo trong `js/modules/`
-- [ ] Toàn bộ tính năng hiện tại vẫn hoạt động (test thủ công đầy đủ 5 luồng)
-- [ ] `npm test` PASS tất cả
-- [ ] Version nâng lên 13.33
-- [ ] Cachebuster đã cập nhật trên tất cả assets
+### Tiêu chí Hoàn thành
+- [ ] Grep trả về đúng 1 `new sqlite3.Database` call
+- [ ] Graceful shutdown đóng DB trước khi thoát
+- [ ] `npm test` PASS
+- [ ] Version nâng lên 13.36
 
 ---
 
-## 📌 BẢNG THEO DÕI TIẾN ĐỘ GIAI ĐOẠN 1
+## ═══════════════════════════════════════════════════════════
+## TASK 2.4 — GITHUB ACTIONS: AUTO BUILD & UPLOAD RELEASE
+## ═══════════════════════════════════════════════════════════
 
-| Task | Mô tả | Phiên bản | Trạng thái |
+Bạn là **DevOps Engineer**. Nhiệm vụ: thiết lập GitHub Actions tự động build installer `.exe` và upload lên GitHub Releases mỗi khi push tag mới — không cần can thiệp thủ công.
+
+### Bối cảnh
+- **Thư mục:** `f:\KHQS\AntiGravity\HocTap`
+- **Phiên bản:** 13.36 → 13.37
+- **Repo:** `https://github.com/skyprotect/Hoctap`
+- **Build tool:** Inno Setup (Windows only) → phải dùng `windows-latest` runner
+
+### Workflow Files Cần Tạo
+
+**File 1: `.github/workflows/ci.yml` — Chạy khi push lên main**
+```yaml
+name: CI — Quality Gate
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm test
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci_test_secret_32chars_placeholder
+          PORT: 3001
+```
+
+**File 2: `.github/workflows/release.yml` — Chạy khi push tag v***
+```yaml
+name: Build & Release Installer
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Quality Gate
+        run: npm test
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci_test_secret_32chars_placeholder
+          PORT: 3001
+
+      - name: Sync Clean Bundle
+        run: node scripts/build/sync_clean.js
+
+      - name: Install Inno Setup
+        run: choco install innosetup --yes
+
+      - name: Build Installer
+        run: iscc installer.iss
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Create GitHub Release & Upload
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "HocTap v${{ steps.get_version.outputs.VERSION }}"
+          body_path: RELEASE_NOTES.md
+          files: |
+            ..\ToanHocKiosk_Setup_v${{ steps.get_version.outputs.VERSION }}.exe
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+**File 3: `RELEASE_NOTES.md` — Template release notes tự động**
+```markdown
+## Hướng dẫn cài đặt
+
+1. Tải file `ToanHocKiosk_Setup_vX.XX.exe` bên dưới
+2. Chạy với quyền Administrator
+3. Làm theo hướng dẫn cài đặt
+4. Click shortcut **"Toán Học Kiosk"** trên Desktop để bắt đầu
+
+## Yêu cầu hệ thống
+- Windows 10/11 (64-bit)
+- Google Chrome (phiên bản 80 trở lên)
+- RAM: tối thiểu 4GB
+
+## Lưu ý
+- Dữ liệu học tập từ phiên bản cũ được giữ nguyên khi nâng cấp
+- Mã PIN phụ huynh mặc định: **123456**
+```
+
+### Quy trình Thực hiện
+
+**Bước 1:** Tạo thư mục `.github/workflows/`
+
+**Bước 2:** Tạo 2 workflow files theo template trên
+
+**Bước 3:** Tạo `RELEASE_NOTES.md`
+
+**Bước 4 — Cập nhật `scripts/build/release.js`** để tự tạo tag sau khi build:
+```javascript
+// Cuối release.js, sau khi build thành công:
+const { execSync } = require('child_process');
+const version = require('../../version.json').version;
+
+execSync('git add -A');
+execSync(`git commit -m "Release v${version}" --allow-empty`);
+execSync('git push origin main');
+execSync(`git tag v${version}`);
+execSync(`git push origin v${version}`);
+// → GitHub Actions sẽ tự động nhận tag và build installer
+console.log(`✅ Tag v${version} đã được push. GitHub Actions đang build installer...`);
+console.log(`📦 Theo dõi tại: https://github.com/skyprotect/Hoctap/actions`);
+```
+
+**Bước 5:** Push lên GitHub, kiểm tra tab **Actions** — workflow CI phải xanh.
+
+**Bước 6:** Chạy `npm run release` → kiểm tra tab **Releases** — file `.exe` phải xuất hiện tự động.
+
+**Bước 7:** Nâng version 13.36 → 13.37, `npm run release`.
+
+### Tiêu chí Hoàn thành
+- [ ] `.github/workflows/ci.yml` chạy xanh trên nhánh `main`
+- [ ] `.github/workflows/release.yml` tự build và upload `.exe` khi có tag mới
+- [ ] `npm run release` tự push tag → GitHub Actions tự build → file `.exe` xuất hiện trên Releases
+- [ ] Ai vào `https://github.com/skyprotect/Hoctap/releases` đều thấy file `.exe` mới nhất
+- [ ] Version nâng lên 13.37
+
+---
+
+## 📌 BẢNG THEO DÕI GIAI ĐOẠN 2 (REVISED)
+
+| Task | Mô tả | Phiên bản | Mục tiêu chính |
 |---|---|---|---|
-| 1.1 | Tách server.js → MVC | 13.29 → 13.30 | ⏳ Chưa bắt đầu |
-| 1.2 | Viết Integration Tests | 13.30 → 13.31 | ⏳ Chờ 1.1 |
-| 1.3 | Thống nhất State Management | 13.31 → 13.32 | ⏳ Chờ 1.2 |
-| 1.4 | Tách app.js → Feature Modules | 13.32 → 13.33 | ⏳ Chờ 1.3 |
+| **2.1** | Hoàn thiện Release Pipeline | 13.33 → 13.34 | Installer sạch, dùng ngay |
+| **2.2** | TypeScript Migration (server/) | 13.34 → 13.35 | Code quality |
+| **2.3** | Singleton SQLite Pool | 13.35 → 13.36 | Ổn định DB |
+| **2.4** | GitHub Actions CI/CD | 13.36 → 13.37 | Auto publish installer |
 
-> **Kết thúc Giai đoạn 1:** HocTap v13.33 với kiến trúc MVC backend + modular frontend + integration tests.
-> Sau khi hoàn thành, tiến hành đánh giá lại điểm kiến trúc (dự kiến từ 67/100 → 82/100).
+> **Sau Giai đoạn 2:** Chạy `npm run release` → file `.exe` tự động xuất hiện trên GitHub Releases → bất kỳ ai tải về cài đặt xong là dùng được ngay.

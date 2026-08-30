@@ -2,11 +2,16 @@
  * AUTH MIDDLEWARE
  * Middleware xác thực token Admin và trích xuất thông tin người dùng từ request
  */
-const jwt = require('jsonwebtoken');
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'antigravity_secret_key_123';
+export const JWT_SECRET = process.env.JWT_SECRET || 'antigravity_secret_key_123';
 
-function authenticateAdminToken(req, res, next) {
+export interface AuthenticatedRequest extends Request {
+    user?: any;
+}
+
+export function authenticateAdminToken(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
     
@@ -23,7 +28,7 @@ function authenticateAdminToken(req, res, next) {
     });
 }
 
-function getAdminUserFromRequest(req) {
+export function getAdminUserFromRequest(req: Request): any | null {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) return null;
@@ -33,9 +38,3 @@ function getAdminUserFromRequest(req) {
         return null;
     }
 }
-
-module.exports = {
-    authenticateAdminToken,
-    getAdminUserFromRequest,
-    JWT_SECRET
-};

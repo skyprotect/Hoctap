@@ -1,13 +1,16 @@
 /**
  * HOCTAP SERVER ENTRY POINT
- * Kiến trúc MVC chuẩn hóa - v13.30
+ * Kiến trúc MVC chuẩn hóa & TypeScript Runtime Engine - v13.31
  */
+require('ts-node').register({ transpileOnly: true });
+
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const net = require('net');
 const os = require('os');
+const https = require('https');
 
 // 1. Khởi tạo và nạp biến môi trường
 const envPath = path.join(__dirname, '.env');
@@ -16,14 +19,14 @@ if (!fs.existsSync(envPath)) {
     if (fs.existsSync(envExamplePath)) {
         try { fs.copyFileSync(envExamplePath, envPath); } catch (e) {}
     } else {
-        const defaultEnv = `PORT=3000\nGEMINI_MODEL=gemini-1.5-flash\nUPDATE_CHECK_URL=https://raw.githubusercontent.com/binhminh-github/toan-hoc-kiosk/main/version.json\n`;
+        const defaultEnv = `PORT=3000\nGEMINI_MODEL=gemini-1.5-flash\nUPDATE_CHECK_URL=https://raw.githubusercontent.com/skyprotect/Hoctap/main/version.json\n`;
         try { fs.writeFileSync(envPath, defaultEnv, 'utf-8'); } catch (e) {}
     }
 }
 require('dotenv').config();
-const APP_VERSION = '13.31';
+const APP_VERSION = '13.35';
 
-const { initIntegrityCheck } = require('./server/db/database');
+const { initIntegrityCheck, DatabasePool } = require('./server/db/database');
 const { runDataMigration, migrateFixMathBugsV12 } = require('./server/services/migration.service');
 const { notFoundHandler, globalErrorHandler } = require('./server/middleware/error.middleware');
 
@@ -99,10 +102,30 @@ app.get(/.*/, (req, res, next) => {
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
 
+function checkForUpdatesOnStartup(currentVersion) {
+    const updateUrl = process.env.UPDATE_CHECK_URL || 'https://raw.githubusercontent.com/skyprotect/Hoctap/main/version.json';
+    https.get(updateUrl, { headers: { 'User-Agent': 'HocTap-AutoChecker' }, timeout: 5000 }, (res) => {
+        if (res.statusCode !== 200) return;
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+            try {
+                const info = JSON.parse(data);
+                const onlineVersion = info.version;
+                if (onlineVersion && onlineVersion !== currentVersion) {
+                    console.log(`🔔 [AutoUpdate] Đã phát hiện phiên bản mới: v${onlineVersion} (Bản hiện tại: v${currentVersion}). Tải tại: ${info.downloadUrl || 'GitHub Releases'}`);
+                }
+            } catch (e) {}
+        });
+    }).on('error', () => {});
+}
+
+let serverInstance = null;
+
 // 5. Khởi tạo Database và Khởi động Server
 initIntegrityCheck().then(() => {
     findFreePort(PORT).then((freePort) => {
-        app.listen(freePort, () => {
+        serverInstance = app.listen(freePort, () => {
             const localIp = getLocalIpAddress();
             try {
                 fs.writeFileSync(path.join(__dirname, '.port.tmp'), freePort.toString(), 'utf-8');
@@ -117,11 +140,35 @@ initIntegrityCheck().then(() => {
             runDataMigration();
             setTimeout(() => {
                 migrateFixMathBugsV12().catch(() => {});
+                checkForUpdatesOnStartup(APP_VERSION);
             }, 1000);
         });
     });
 }).catch((dbErr) => {
     console.error("❌ Không thể khởi động server do lỗi CSDL:", dbErr);
+});
+
+// 6. Graceful Shutdown
+process.on('SIGTERM', async () => {
+    try {
+        await DatabasePool.close();
+    } catch (e) {}
+    if (serverInstance) {
+        serverInstance.close(() => process.exit(0));
+    } else {
+        process.exit(0);
+    }
+});
+
+process.on('SIGINT', async () => {
+    try {
+        await DatabasePool.close();
+    } catch (e) {}
+    if (serverInstance) {
+        serverInstance.close(() => process.exit(0));
+    } else {
+        process.exit(0);
+    }
 });
 
 module.exports = app;

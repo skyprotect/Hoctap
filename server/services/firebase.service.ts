@@ -2,7 +2,7 @@
  * FIREBASE SERVICE
  * Quản lý đồng bộ Realtime Database và Firestore
  */
-const { 
+import { 
     dbGetSetting, 
     dbSaveSetting, 
     dbSaveStudentProgress, 
@@ -10,11 +10,12 @@ const {
     allQuery, 
     runQuery,
     db
-} = require('../db/database');
+} from '../db/database';
+import { StudentProgress, LeaderboardItem } from '../types';
 
-const FIREBASE_RTDB_URL = process.env.FIREBASE_DATABASE_URL ? (process.env.FIREBASE_DATABASE_URL.endsWith('/') ? process.env.FIREBASE_DATABASE_URL : process.env.FIREBASE_DATABASE_URL + '/') : "https://binhminhchamhoc-default-rtdb.firebaseio.com/";
+export const FIREBASE_RTDB_URL = process.env.FIREBASE_DATABASE_URL ? (process.env.FIREBASE_DATABASE_URL.endsWith('/') ? process.env.FIREBASE_DATABASE_URL : process.env.FIREBASE_DATABASE_URL + '/') : "https://binhminhchamhoc-default-rtdb.firebaseio.com/";
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY || "AIzaSyDOewYQ-Jwfwg_NU_JpW6w-05NwkMAjaXo",
     authDomain: process.env.FIREBASE_AUTH_DOMAIN || "binhminhchamhoc.firebaseapp.com",
     databaseURL: process.env.FIREBASE_DATABASE_URL || "https://binhminhchamhoc-default-rtdb.firebaseio.com",
@@ -25,22 +26,22 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID || "G-367K48DJD6"
 };
 
-const firebaseInitialized = true;
+export const firebaseInitialized = true;
 
-async function syncStudentProgressToFirebase(studentId, state, studentNameFromClient = null) {
+export async function syncStudentProgressToFirebase(studentId: string, state: any, studentNameFromClient: string | null = null): Promise<void> {
     try {
         if (!studentId || !state) return;
         
         // Lấy thông tin học sinh từ config trong bảng settings SQLite
-        const config = await dbGetSetting('config').catch(() => null);
-        const studentsList = (config && config.students) || [];
-        const studentConf = studentsList.find(s => s.id === studentId);
+        const config: any = await dbGetSetting('config').catch(() => null);
+        const studentsList: any[] = (config && config.students) || [];
+        const studentConf = studentsList.find((s: any) => s.id === studentId);
         
         const studentName = studentNameFromClient || (studentConf ? studentConf.name : ((state.student && state.student.name) || (typeof state.student === 'string' ? state.student : "Học sinh")));
         const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6");
 
         // Thu thập các thông số tối giản phục vụ so sánh xếp hạng học sinh
-        const payload = {
+        const payload: LeaderboardItem = {
             studentId: studentId,
             studentName: studentName,
             mathXp: state.xp || 0,
@@ -68,7 +69,7 @@ async function syncStudentProgressToFirebase(studentId, state, studentNameFromCl
 
         // Đồng bộ lịch sử quy đổi thẻ năng lực lên Firebase Realtime Database
         if (state.cardExchangeHistory && Array.isArray(state.cardExchangeHistory)) {
-            const historyPayload = state.cardExchangeHistory.map(h => ({
+            const historyPayload = state.cardExchangeHistory.map((h: any) => ({
                 ...h,
                 studentId: studentId,
                 studentName: studentName
@@ -87,15 +88,15 @@ async function syncStudentProgressToFirebase(studentId, state, studentNameFromCl
                 console.log(`[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh ${studentName}`);
             }
         }
-    } catch (err) {
+    } catch (err: any) {
         console.error("[FirebaseSync] Không thể đồng bộ lên Firebase:", err.message);
     }
 }
 
-async function syncAllStudentsToFirebase() {
+export async function syncAllStudentsToFirebase(): Promise<void> {
     console.log("[FirebaseSync] Bắt đầu đồng bộ tất cả học sinh lên Firebase...");
     try {
-        const rows = await allQuery("SELECT student_id, state_json FROM student_progress").catch(err => {
+        const rows: any[] = await allQuery("SELECT student_id, state_json FROM student_progress").catch(err => {
             console.error("[FirebaseSync] Lỗi đọc dữ liệu học sinh từ SQLite:", err.message);
             return [];
         });
@@ -105,28 +106,28 @@ async function syncAllStudentsToFirebase() {
                 try {
                     const state = JSON.parse(row.state_json);
                     await syncStudentProgressToFirebase(row.student_id, state);
-                } catch (e) {
+                } catch (e: any) {
                     console.error(`[FirebaseSync] Lỗi phân tích JSON cho học sinh ${row.student_id}:`, e.message);
                 }
             }
         }
         console.log("[FirebaseSync] Hoàn thành đồng bộ toàn bộ học sinh lên Firebase!");
-    } catch (e) {
+    } catch (e: any) {
         console.error("[FirebaseSync] Lỗi trong hàm syncAllStudentsToFirebase:", e.message);
     }
 }
 
-async function hydrateStudentProgressFromFirebaseRTDB() {
+export async function hydrateStudentProgressFromFirebaseRTDB(): Promise<void> {
     try {
         const res = await fetch(`${FIREBASE_RTDB_URL}leaderboard.json`);
         if (!res.ok) return;
-        const leaderboard = await res.json();
+        const leaderboard: any = await res.json();
         if (!leaderboard || typeof leaderboard !== 'object') return;
 
-        for (const [studentId, cloudData] of Object.entries(leaderboard)) {
+        for (const [studentId, cloudData] of Object.entries<any>(leaderboard)) {
             if (!cloudData || !studentId) continue;
-            const row = await getQuery("SELECT state_json FROM student_progress WHERE student_id = ?", [studentId]).catch(() => null);
-            let localState = {};
+            const row: any = await getQuery("SELECT state_json FROM student_progress WHERE student_id = ?", [studentId]).catch(() => null);
+            let localState: any = {};
             if (row && row.state_json) {
                 try { localState = JSON.parse(row.state_json); } catch (e) { localState = {}; }
             }
@@ -159,27 +160,16 @@ async function hydrateStudentProgressFromFirebaseRTDB() {
                 console.log(`⚡ [RTDB Hydrate] Đã đồng bộ tiến trình học tập từ Cloud cho ${cloudData.studentName || studentId}: XP=${localState.xp}, Streak=${localState.streak}`);
             }
         }
-    } catch (err) {
+    } catch (err: any) {
         console.warn("[RTDB Hydrate] Lỗi đồng bộ đám mây:", err.message);
     }
 }
 
-async function pushLocalDataToFirestore(parentUid) {
+export async function pushLocalDataToFirestore(parentUid?: string): Promise<{ success: boolean }> {
     console.log("📤 Bắt đầu di trú dữ liệu SQLite lên Firestore...");
     return { success: true };
 }
 
-async function pullDataFromFirestore(parentUid) {
+export async function pullDataFromFirestore(parentUid?: string): Promise<string> {
     return "Đồng bộ thành công";
 }
-
-module.exports = {
-    firebaseConfig,
-    FIREBASE_RTDB_URL,
-    firebaseInitialized,
-    syncStudentProgressToFirebase,
-    syncAllStudentsToFirebase,
-    hydrateStudentProgressFromFirebaseRTDB,
-    pushLocalDataToFirestore,
-    pullDataFromFirestore
-};

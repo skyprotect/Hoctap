@@ -2,27 +2,27 @@
  * AUTH CONTROLLER
  * Xử lý các yêu cầu xác thực Google, xác thực PIN phụ huynh, phiên làm việc và đăng xuất
  */
-const { OAuth2Client } = require('google-auth-library');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const path = require('path');
-const { 
+import { Request, Response } from 'express';
+import { OAuth2Client } from 'google-auth-library';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
+import { 
     dbGetConfig, 
     dbGetSetting, 
     dbSaveSetting, 
     runQuery 
-} = require('../db/database');
-const { 
+} from '../db/database';
+import { 
     generateToken, 
-    JWT_SECRET, 
     DEFAULT_GOOGLE_CLIENT_ID 
-} = require('../services/auth.service');
+} from '../services/auth.service';
 
-function getGoogleClientId(req, res) {
+export function getGoogleClientId(req: Request, res: Response): void {
     res.json({ clientId: process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID });
 }
 
-async function getSession(req, res) {
+export async function getSession(req: Request, res: Response): Promise<void> {
     try {
         const session = await dbGetSetting('parent_session');
         if (session && (session.parentUid || session.email)) {
@@ -30,12 +30,12 @@ async function getSession(req, res) {
         } else {
             res.json({ loggedIn: false });
         }
-    } catch (e) {
+    } catch (e: any) {
         res.json({ loggedIn: false, error: e.message });
     }
 }
 
-async function googleLogin(req, res) {
+export async function googleLogin(req: Request, res: Response): Promise<void> {
     const { idToken, firebaseUid, email: fallbackEmail, displayName: fallbackName } = req.body || {};
     let email = (fallbackEmail || "").trim();
     let displayName = (fallbackName || "").trim();
@@ -59,13 +59,13 @@ async function googleLogin(req, res) {
                 }
             } catch (oauthErr) {
                 try {
-                    const decoded = jwt.decode(idToken);
+                    const decoded: any = jwt.decode(idToken);
                     if (decoded) {
                         email = decoded.email || email;
                         displayName = decoded.name || displayName;
                         parentUid = parentUid || decoded.sub || decoded.user_id;
                     }
-                } catch (jwtErr) {
+                } catch (jwtErr: any) {
                     console.warn("[Google-Login] Không thể giải mã JWT ID Token:", jwtErr.message);
                 }
             }
@@ -131,13 +131,13 @@ async function googleLogin(req, res) {
 
         console.log(`👤 Đăng nhập thành công cho email: ${parentSessionObj.email}, UID: ${parentUid}`);
         res.json({ success: true, parentSession: parentSessionObj });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Lỗi xử lý đăng nhập Google:", error);
         res.status(500).json({ error: "Xử lý đăng nhập thất bại: " + error.message });
     }
 }
 
-async function logout(req, res) {
+export async function logout(req: Request, res: Response): Promise<void> {
     try {
         console.log("⚠️ Bắt đầu xử lý Đăng xuất và Xóa sạch dữ liệu thiết bị...");
         await runQuery("DELETE FROM settings WHERE key = 'parent_session'");
@@ -153,7 +153,7 @@ async function logout(req, res) {
         const examsDir = path.join(rootDir, 'exams');
         const backupDir = path.join(rootDir, 'exams_backup');
 
-        const cleanExamsFiles = (dir) => {
+        const cleanExamsFiles = (dir: string) => {
             if (!fs.existsSync(dir)) return;
             const files = fs.readdirSync(dir);
             for (const file of files) {
@@ -182,17 +182,17 @@ async function logout(req, res) {
 
         console.log("✅ Đã reset thiết bị sạch sẽ.");
         res.json({ success: true, message: "Đã đăng xuất và reset thiết bị thành công" });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Lỗi khi reset thiết bị:", error);
         res.status(500).json({ error: "Lỗi reset thiết bị: " + error.message });
     }
 }
 
-async function adminLogin(req, res) {
+export async function adminLogin(req: Request, res: Response): Promise<any> {
     const { password, pin } = req.body || {};
     const inputPin = password || pin;
     try {
-        const config = await dbGetConfig();
+        const config: any = await dbGetConfig();
         const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
         if (inputPin === correctPin || inputPin === "haidangppk") {
             const token = generateToken({ role: 'admin' }, '30m');
@@ -200,33 +200,24 @@ async function adminLogin(req, res) {
         } else {
             return res.status(401).json({ error: "Mật mã Phụ huynh không chính xác!" });
         }
-    } catch (e) {
+    } catch (e: any) {
         console.error("Lỗi đăng nhập:", e);
         return res.status(500).json({ error: "Lỗi máy chủ khi đăng nhập: " + e.message });
     }
 }
 
-async function verifyPin(req, res) {
+export async function verifyPin(req: Request, res: Response): Promise<any> {
     const { pin } = req.body || {};
     try {
-        const config = await dbGetConfig();
+        const config: any = await dbGetConfig();
         const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
         if (pin === correctPin || pin === "haidangppk") {
             return res.json({ success: true });
         } else {
             return res.status(403).json({ success: false, error: "Mã PIN Phụ huynh không chính xác!" });
         }
-    } catch (e) {
+    } catch (e: any) {
         console.error("Lỗi xác thực PIN:", e);
         return res.status(500).json({ error: "Lỗi máy chủ khi xác thực PIN: " + e.message });
     }
 }
-
-module.exports = {
-    getGoogleClientId,
-    getSession,
-    googleLogin,
-    logout,
-    adminLogin,
-    verifyPin
-};

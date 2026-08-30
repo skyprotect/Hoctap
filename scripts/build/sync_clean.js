@@ -28,11 +28,10 @@ const filesToSync = [
   'js/remove-bg-worker.js',
   'css/style.css',
   '.env.example',
-  '.env',
-  'firebase-service-account.json',
   'version.json',
   'package.json',
   'package-lock.json',
+  'tsconfig.json',
   'Bat dau hoc.vbs',
   'Dung hoc.vbs'
 ];
@@ -64,6 +63,8 @@ const filesToDeleteInDest = [
   'database.db.backup',
   'database.db.backup_truoc_khi_giam_xp',
   '.port.tmp',
+  'firebase-service-account.json',
+  '.env',
   'kiosk_lock.log',
   'kiosk_exit_flag.tmp',
   'debug.log',
@@ -210,6 +211,36 @@ function sync() {
       console.log('✅ Đã xóa thư mục logs rác trong Clean bundle.');
     } catch (err) {
       console.log(`⚠️ Không thể xóa logs: ${err.message}`);
+    }
+  }
+
+  const cleanBackupsDir = path.join(destDir, 'backups');
+  if (fs.existsSync(cleanBackupsDir)) {
+    try {
+      fs.rmSync(cleanBackupsDir, { recursive: true, force: true });
+      console.log('✅ Đã xóa thư mục backups cá nhân trong Clean bundle.');
+    } catch (err) {
+      console.log(`⚠️ Không thể xóa backups: ${err.message}`);
+    }
+  }
+
+  const cleanExportedExamsDir = path.join(destDir, 'exported_exams');
+  if (fs.existsSync(cleanExportedExamsDir)) {
+    try {
+      fs.rmSync(cleanExportedExamsDir, { recursive: true, force: true });
+      console.log('✅ Đã xóa thư mục exported_exams trong Clean bundle.');
+    } catch (err) {
+      console.log(`⚠️ Không thể xóa exported_exams: ${err.message}`);
+    }
+  }
+
+  const cleanTestResultsDir = path.join(destDir, 'test-results');
+  if (fs.existsSync(cleanTestResultsDir)) {
+    try {
+      fs.rmSync(cleanTestResultsDir, { recursive: true, force: true });
+      console.log('✅ Đã xóa thư mục test-results trong Clean bundle.');
+    } catch (err) {
+      console.log(`⚠️ Không thể xóa test-results: ${err.message}`);
     }
   }
 

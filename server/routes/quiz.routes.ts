@@ -2,10 +2,11 @@
  * QUIZ ROUTES
  * Các endpoints liên quan đến đề thi, sinh câu hỏi AI, thẩm định và phân tích học lực
  */
-const express = require('express');
-const router = express.Router();
-const quizCtrl = require('../controllers/quiz.controller');
-const { authenticateAdminToken } = require('../middleware/auth.middleware');
+import { Router } from 'express';
+import * as quizCtrl from '../controllers/quiz.controller';
+import { authenticateAdminToken } from '../middleware/auth.middleware';
+
+const router = Router();
 
 // Lấy câu hỏi và điều khiển sinh đề
 router.get('/get-questions', quizCtrl.getQuestions);

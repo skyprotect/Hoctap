@@ -2,10 +2,11 @@
  * STUDENT ROUTES
  * Các endpoints liên quan đến tiến trình học tập, thông tin học sinh, từ vựng và bảng xếp hạng
  */
-const express = require('express');
-const router = express.Router();
-const studentCtrl = require('../controllers/student.controller');
-const { authenticateAdminToken } = require('../middleware/auth.middleware');
+import { Router } from 'express';
+import * as studentCtrl from '../controllers/student.controller';
+import { authenticateAdminToken } from '../middleware/auth.middleware';
+
+const router = Router();
 
 // Thông tin học sinh & Tiến độ
 router.get('/student-info', studentCtrl.getStudentInfo);
