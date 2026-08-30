@@ -6745,12 +6745,18 @@ const app = {
         if (window.renderMathInElement) {
             const mathElements = modalBody.querySelectorAll(".math-render");
             mathElements.forEach(el => {
-                window.renderMathInElement(el, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ]
-                });
+                try {
+                    window.renderMathInElement(el, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false}
+                        ],
+                        throwOnError: false,
+                        errorColor: '#ef4444'
+                    });
+                } catch (err) {
+                    console.warn("[KaTeX modalBody render error]", err);
+                }
             });
         }
 
@@ -7598,12 +7604,18 @@ const app = {
             this.renderVideoPlayer("video-wrapper", videoId, lesson.id, lesson.id);
 
             if (window.renderMathInElement) {
-                window.renderMathInElement(methodBox, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ]
-                });
+                try {
+                    window.renderMathInElement(methodBox, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false}
+                        ],
+                        throwOnError: false,
+                        errorColor: '#ef4444'
+                    });
+                } catch (err) {
+                    console.warn("[KaTeX methodBox render error]", err);
+                }
             }
             return;
         }
@@ -7891,18 +7903,30 @@ const app = {
         document.getElementById("subtopic-example-html").innerHTML = exampleHtml;
 
         if (window.renderMathInElement) {
-            window.renderMathInElement(document.getElementById("subtopic-method-html"), {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ]
-            });
-            window.renderMathInElement(document.getElementById("subtopic-example-html"), {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ]
-            });
+            try {
+                window.renderMathInElement(document.getElementById("subtopic-method-html"), {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ],
+                    throwOnError: false,
+                    errorColor: '#ef4444'
+                });
+            } catch (err) {
+                console.warn("[KaTeX subtopic-method render error]", err);
+            }
+            try {
+                window.renderMathInElement(document.getElementById("subtopic-example-html"), {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ],
+                    throwOnError: false,
+                    errorColor: '#ef4444'
+                });
+            } catch (err) {
+                console.warn("[KaTeX subtopic-example render error]", err);
+            }
         }
     },
 
@@ -8070,12 +8094,18 @@ const app = {
         }
 
         if (window.renderMathInElement) {
-            window.renderMathInElement(document.getElementById("subtopic-method-html"), {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ]
-            });
+            try {
+                window.renderMathInElement(document.getElementById("subtopic-method-html"), {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ],
+                    throwOnError: false,
+                    errorColor: '#ef4444'
+                });
+            } catch (err) {
+                console.warn("[KaTeX showTheoryDetail render error]", err);
+            }
         }
     },
 

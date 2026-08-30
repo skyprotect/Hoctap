@@ -127,7 +127,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=13.23">
+    <link rel="stylesheet" href="css/style.css?v=13.24">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -855,7 +855,7 @@
             <button id="splash-start-btn" class="btn-splash-start" onclick="app.enterApp()">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v13.23 (Cập nhật: 19/08/2026 10:14)</div>
+            <div class="splash-version-tag">Phiên bản: v13.24 (Cập nhật: 30/08/2026 07:41)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1366,9 +1366,7 @@
                                     <!-- Màn hình Dashboard 3 cấp độ luyện tập và điểm yếu -->
                                     <div id="practice-levels-dashboard-box" class="hidden" style="padding: 1rem 0;">
                                         <!-- Render động bằng JS -->
-                                    </div>
-
-                                    <!-- Màn hình chọn Chế Độ Thực Hành (Standard vs Tower Defense) -->
+                                            <!-- Màn hình chọn Chế Độ Thực Hành (Standard vs Tower Defense) -->
                                     <div id="practice-mode-select-box" class="text-center hidden" style="padding: 1.5rem 0;">
                                         <div style="font-size:3.5rem; margin-bottom:1rem; animation: floatLogo 3s ease-in-out infinite;">🏰</div>
                                         <div id="hero-mini-status-box" class="hidden" style="margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(251, 191, 36, 0.08); border: 1.5px dashed rgba(251, 191, 36, 0.4); padding: 0.4rem 1rem; border-radius: 30px; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">
@@ -1407,170 +1405,6 @@
                                             </div>
                                             <span class="question-counter" id="question-index-counter" style="font-weight:700;">Câu hỏi 1/5</span>
                                             
-                                            <!-- Khung layout chia đôi màn hình cho game thủ thành -->
-                                            <div id="practice-split-container" class="practice-split-container">
-                                                <!-- Bên trái: Câu hỏi -->
-                                                <div class="split-left-question" id="td-question-container">
-                                                    <div class="practice-layout-container" id="practice-layout-container">
-                                                        <!-- Danh sách câu hỏi bên cạnh -->
-                                                        <div id="questions-nav-panel" class="questions-nav-panel">
-                                                            <div class="questions-nav-title" id="questions-nav-title">
-                                                                <i class="fa-solid fa-list-check"></i> Đề bài
-                                                            </div>
-                                                            <div class="questions-nav-grid" id="questions-nav-grid">
-                                                                <!-- Sinh động bằng JS -->
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <!-- Khung câu hỏi chính -->
-                                                        <div class="question-card-wrapper" style="flex: 1; min-width: 0;">
-                                                            <div class="question-card" style="margin-top:0; height: 100%;">
-                                                                <!-- Đề bài -->
-                                                                <div class="question-text" id="question-text-box" style="font-size: 1.15rem; font-weight: 600; line-height: 1.6; margin-bottom: 1.2rem; color: var(--text-main);">
-                                                                    <!-- Đề bài sinh bằng KaTeX -->
-                                                                </div>
-            
-                                                                <!-- Các đáp án lựa chọn -->
-                                                                <div class="options-container" id="options-box" style="margin-bottom:1.5rem;">
-                                                                    <!-- Các button đáp án sinh bằng JS -->
-                                                                </div>
-            
-                                                                <!-- Khu vực gợi ý 3 bước -->
-                                                                <div class="hints-section" style="margin-top:1.2rem;">
-                                                                    <div class="hints-header">
-                                                                        <button class="btn-hint" id="hint-toggle-btn" onclick="questions.showNextHint()">
-                                                                            <i class="fa-solid fa-lightbulb"></i> Gợi ý (Còn <span id="hints-left">3</span> lượt)
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="hints-content-box hidden" id="hints-content-box" style="margin-top:0.8rem;">
-                                                                        <ul class="hint-list" id="hint-list-ul" style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
-                                                                            <!-- Gợi ý hiển thị ở đây -->
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-    
-                                                <!-- Bên phải: Game Canvas (Chỉ hiển thị khi chọn chế độ game) -->
-                                                <div class="split-right-game hidden" id="td-game-container">
-                                                    <div class="game-hud-bar">
-                                                        <div class="hud-item" title="Máu lâu đài">
-                                                            <span class="hud-icon">❤️</span> HP: <span id="game-hp" class="hud-val">10</span>
-                                                        </div>
-                                                        <div class="hud-item" title="Số vàng hiện có">
-                                                            <span class="hud-icon">🪙</span> Vàng: <span id="game-gold" class="hud-val">150</span>
-                                                        </div>
-                                                        <div class="hud-item" title="Đợt quái hiện tại">
-                                                            <span class="hud-icon">👾</span> Đợt: <span id="game-wave" class="hud-val">1/5</span>
-                                                        </div>
-                                                    </div>
-    
-                                                    <!-- Layout chính 3 cột giúp tối ưu hóa không gian bao trọn màn hình -->
-                                                    <div class="game-main-layout">
-                                                        
-                                                        <!-- CỘT TRÁI: Cửa hàng xây tháp (Tower Shop) -->
-                                                        <div class="game-sidebar-left">
-                                                            <div class="sidebar-title">Xây Tháp</div>
-                                                            
-                                                            <div class="gold-shop-display">
-                                                                <span class="hud-icon">🪙</span> <span id="game-gold-shop" class="hud-val">150</span>
-                                                            </div>
-                                                            
-                                                            <div class="tower-buttons-vertical">
-                                                                <button class="btn-game-tower btn-tower-archer active" onclick="game.selectTowerType('archer')" title="Tầm bắn xa, tốc độ bắn nhanh">
-                                                                    <span style="font-size: 1.4rem;">🏹</span>
-                                                                    <span>Cung</span>
-                                                                    <span class="tower-cost">100G</span>
-                                                                </button>
-                                                                <button class="btn-game-tower btn-tower-ice" onclick="game.selectTowerType('ice')" title="Làm chậm tốc độ chạy của quái vật">
-                                                                    <span style="font-size: 1.4rem;">❄️</span>
-                                                                    <span>Băng</span>
-                                                                    <span class="tower-cost">100G</span>
-                                                                </button>
-                                                                <button class="btn-game-tower btn-tower-bomb" onclick="game.selectTowerType('bomb')" title="Sát thương lan diện rộng cực mạnh">
-                                                                    <span style="font-size: 1.4rem;">💣</span>
-                                                                    <span>Pháo</span>
-                                                                    <span class="tower-cost">150G</span>
-                                                                </button>
-                                                                <button class="btn-game-tower btn-tower-soldier" onclick="game.selectTowerType('soldier')" title="Chặn đứng quái vật trên đường đi">
-                                                                    <span style="font-size: 1.4rem;">🛡️</span>
-                                                                    <span>Lính</span>
-                                                                    <span class="tower-cost">120G</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-    
-                                                        <!-- CỘT GIỮA: Canvas chơi game -->
-                                                        <div class="game-center-area">
-                                                            <div class="canvas-wrapper">
-                                                                <canvas id="td-canvas" width="960" height="600"></canvas>
-                                                                
-                                                                <!-- Khay Siêu Kỹ Năng & Thanh Mana của Siêu Anh Hùng -->
-                                                                <div class="game-skills-container" id="game-skills-container">
-                                                                    <div class="mana-bar-wrapper">
-                                                                        <span class="mana-icon">🔮</span>
-                                                                        <div class="mana-bar-track">
-                                                                            <div class="mana-bar-fill" id="hero-mana-fill" style="width: 100%"></div>
-                                                                        </div>
-                                                                        <span class="mana-text" id="hero-mana-text">Mana: 100/100</span>
-                                                                    </div>
-                                                                    <div class="skills-buttons" id="skills-buttons-wrapper">
-                                                                        <button class="btn-skill" id="btn-skill-skill1" onclick="game.castSkill('skill1')" title="Kiếm Khí Càn Khôn (Mana: 35) - Phóng kiếm khí gây 250 sát thương lên tất cả quái vật">
-                                                                            <div class="btn-skill-inner">
-                                                                                <span class="skill-emoji">⚔️</span>
-                                                                            </div>
-                                                                            <span class="skill-cost-badge">35</span>
-                                                                        </button>
-                                                                        <button class="btn-skill" id="btn-skill-skill2" onclick="game.castSkill('skill2')" title="Chiến Thần Hộ Thể (Mana: 40) - Tăng 50% sát thương cho tất cả tháp trong 6 giây">
-                                                                            <div class="btn-skill-inner">
-                                                                                <span class="skill-emoji">🛡️</span>
-                                                                            </div>
-                                                                            <span class="skill-cost-badge">40</span>
-                                                                        </button>
-                                                                        <button class="btn-skill" id="btn-skill-skill3" onclick="game.castSkill('skill3')" title="Quang Minh Phán Quyết (Mana: 50) - Cột sáng quang năng tiêu diệt quái dưới 40% HP hoặc gây 500 sát thương">
-                                                                            <div class="btn-skill-inner">
-                                                                                <span class="skill-emoji">☀️</span>
-                                                                            </div>
-                                                                            <span class="skill-cost-badge">50</span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <!-- Thanh nâng cấp nhanh tháp khi nhấp chọn tháp trên canvas -->
-                                                            <div id="tower-upgrade-panel" class="tower-upgrade-panel hidden">
-                                                                <!-- Điền động bằng JS game.js -->
-                                                            </div>
-                                                        </div>
-    
-                                                        <!-- CỘT PHẢI: Bắt đầu & Thống kê quái vượt qua -->
-                                                        <div class="game-sidebar-right">
-                                                            <div class="start-wave-container">
-                                                                <button id="btn-start-wave" class="btn-start-wave hidden" onclick="game.startWaveByPlayer()">
-                                                                    <span style="font-size: 1.2rem;">🚀</span>
-                                                                    <span style="font-weight: 800;">BẮT ĐẦU</span>
-                                                                </button>
-                                                            </div>
-                                                            
-                                                            <div class="escaped-monsters-container">
-                                                                <div class="sidebar-title" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-size: 0.7rem;">
-                                                                    QUÁI VƯỢT QUA
-                                                                </div>
-                                                                <div id="escaped-monsters-list">
-                                                                    <!-- Điền động bằng JS game.js -->
-                                                                    <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center; font-style: italic; margin-top: 1rem;">
-                                                                        Chưa có quái nào vượt qua
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-    
-                                                    </div>
-                                                </div>
-                                            </div>
- 
                                             <!-- Đồng hồ đếm ngược bài kiểm tra -->
                                             <span id="exam-timer-wrapper" class="hidden" style="font-weight:700; color:var(--danger); display:inline-flex; align-items:center; gap:0.4rem; background-color:var(--danger-bg); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.9rem;">
                                                 <i class="fa-solid fa-stopwatch"></i> <span id="exam-timer-val">15:00</span>
@@ -1578,6 +1412,180 @@
  
                                             <button class="btn-focus" style="font-size: 0.8rem; padding: 0.3rem 0.6rem;" onclick="app.toggleFullscreen()">
                                                 <i class="fa-solid fa-maximize"></i> Toàn màn hình
+                                            </button>
+                                        </div>
+
+                                        <!-- Khung layout chia đôi màn hình cho game thủ thành -->
+                                        <div id="practice-split-container" class="practice-split-container">
+                                            <!-- Bên trái: Câu hỏi -->
+                                            <div class="split-left-question" id="td-question-container">
+                                                <div class="practice-layout-container" id="practice-layout-container">
+                                                    <!-- Danh sách câu hỏi bên cạnh -->
+                                                    <div id="questions-nav-panel" class="questions-nav-panel">
+                                                        <div class="questions-nav-title" id="questions-nav-title">
+                                                            <i class="fa-solid fa-list-check"></i> Đề bài
+                                                        </div>
+                                                        <div class="questions-nav-grid" id="questions-nav-grid">
+                                                            <!-- Sinh động bằng JS -->
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Khung câu hỏi chính -->
+                                                    <div class="question-card-wrapper" style="flex: 1; min-width: 0;">
+                                                        <div class="question-card" style="margin-top:0; height: 100%;">
+                                                            <!-- Đề bài -->
+                                                            <div class="question-text" id="question-text-box" style="font-size: 1.15rem; font-weight: 600; line-height: 1.6; margin-bottom: 1.2rem; color: var(--text-main);">
+                                                                <!-- Đề bài sinh bằng KaTeX -->
+                                                            </div>
+        
+                                                            <!-- Các đáp án lựa chọn -->
+                                                            <div class="options-container" id="options-box" style="margin-bottom:1.5rem;">
+                                                                <!-- Các button đáp án sinh bằng JS -->
+                                                            </div>
+        
+                                                            <!-- Khu vực gợi ý 3 bước -->
+                                                            <div class="hints-section" style="margin-top:1.2rem;">
+                                                                <div class="hints-header">
+                                                                    <button class="btn-hint" id="hint-toggle-btn" onclick="questions.showNextHint()">
+                                                                        <i class="fa-solid fa-lightbulb"></i> Gợi ý (Còn <span id="hints-left">3</span> lượt)
+                                                                    </button>
+                                                                </div>
+                                                                <div class="hints-content-box hidden" id="hints-content-box" style="margin-top:0.8rem;">
+                                                                    <ul class="hint-list" id="hint-list-ul" style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
+                                                                        <!-- Gợi ý hiển thị ở đây -->
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Bên phải: Game Canvas (Chỉ hiển thị khi chọn chế độ game) -->
+                                            <div class="split-right-game hidden" id="td-game-container">
+                                                <div class="game-hud-bar">
+                                                    <div class="hud-item" title="Máu lâu đài">
+                                                        <span class="hud-icon">❤️</span> HP: <span id="game-hp" class="hud-val">10</span>
+                                                    </div>
+                                                    <div class="hud-item" title="Số vàng hiện có">
+                                                        <span class="hud-icon">🪙</span> Vàng: <span id="game-gold" class="hud-val">150</span>
+                                                    </div>
+                                                    <div class="hud-item" title="Đợt quái hiện tại">
+                                                        <span class="hud-icon">👾</span> Đợt: <span id="game-wave" class="hud-val">1/5</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Layout chính 3 cột giúp tối ưu hóa không gian bao trọn màn hình -->
+                                                <div class="game-main-layout">
+                                                    
+                                                    <!-- CỘT TRÁI: Cửa hàng xây tháp (Tower Shop) -->
+                                                    <div class="game-sidebar-left">
+                                                        <div class="sidebar-title">Xây Tháp</div>
+                                                        
+                                                        <div class="gold-shop-display">
+                                                            <span class="hud-icon">🪙</span> <span id="game-gold-shop" class="hud-val">150</span>
+                                                        </div>
+                                                        
+                                                        <div class="tower-buttons-vertical">
+                                                            <button class="btn-game-tower btn-tower-archer active" onclick="game.selectTowerType('archer')" title="Tầm bắn xa, tốc độ bắn nhanh">
+                                                                <span style="font-size: 1.4rem;">🏹</span>
+                                                                <span>Cung</span>
+                                                                <span class="tower-cost">100G</span>
+                                                            </button>
+                                                            <button class="btn-game-tower btn-tower-ice" onclick="game.selectTowerType('ice')" title="Làm chậm tốc độ chạy của quái vật">
+                                                                <span style="font-size: 1.4rem;">❄️</span>
+                                                                <span>Băng</span>
+                                                                <span class="tower-cost">100G</span>
+                                                            </button>
+                                                            <button class="btn-game-tower btn-tower-bomb" onclick="game.selectTowerType('bomb')" title="Sát thương lan diện rộng cực mạnh">
+                                                                <span style="font-size: 1.4rem;">💣</span>
+                                                                <span>Pháo</span>
+                                                                <span class="tower-cost">150G</span>
+                                                            </button>
+                                                            <button class="btn-game-tower btn-tower-soldier" onclick="game.selectTowerType('soldier')" title="Chặn đứng quái vật trên đường đi">
+                                                                <span style="font-size: 1.4rem;">🛡️</span>
+                                                                <span>Lính</span>
+                                                                <span class="tower-cost">120G</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- CỘT GIỮA: Canvas chơi game -->
+                                                    <div class="game-center-area">
+                                                        <div class="canvas-wrapper">
+                                                            <canvas id="td-canvas" width="960" height="600"></canvas>
+                                                            
+                                                            <!-- Khay Siêu Kỹ Năng & Thanh Mana của Siêu Anh Hùng -->
+                                                            <div class="game-skills-container" id="game-skills-container">
+                                                                <div class="mana-bar-wrapper">
+                                                                    <span class="mana-icon">🔮</span>
+                                                                    <div class="mana-bar-track">
+                                                                        <div class="mana-bar-fill" id="hero-mana-fill" style="width: 100%"></div>
+                                                                    </div>
+                                                                    <span class="mana-text" id="hero-mana-text">Mana: 100/100</span>
+                                                                </div>
+                                                                <div class="skills-buttons" id="skills-buttons-wrapper">
+                                                                    <button class="btn-skill" id="btn-skill-skill1" onclick="game.castSkill('skill1')" title="Kiếm Khí Càn Khôn (Mana: 35) - Phóng kiếm khí gây 250 sát thương lên tất cả quái vật">
+                                                                        <div class="btn-skill-inner">
+                                                                            <span class="skill-emoji">⚔️</span>
+                                                                        </div>
+                                                                        <span class="skill-cost-badge">35</span>
+                                                                    </button>
+                                                                    <button class="btn-skill" id="btn-skill-skill2" onclick="game.castSkill('skill2')" title="Chiến Thần Hộ Thể (Mana: 40) - Tăng 50% sát thương cho tất cả tháp trong 6 giây">
+                                                                        <div class="btn-skill-inner">
+                                                                            <span class="skill-emoji">🛡️</span>
+                                                                        </div>
+                                                                        <span class="skill-cost-badge">40</span>
+                                                                    </button>
+                                                                    <button class="btn-skill" id="btn-skill-skill3" onclick="game.castSkill('skill3')" title="Quang Minh Phán Quyết (Mana: 50) - Cột sáng quang năng tiêu diệt quái dưới 40% HP hoặc gây 500 sát thương">
+                                                                        <div class="btn-skill-inner">
+                                                                            <span class="skill-emoji">☀️</span>
+                                                                        </div>
+                                                                        <span class="skill-cost-badge">50</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Thanh nâng cấp nhanh tháp khi nhấp chọn tháp trên canvas -->
+                                                        <div id="tower-upgrade-panel" class="tower-upgrade-panel hidden">
+                                                            <!-- Điền động bằng JS game.js -->
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- CỘT PHẢI: Bắt đầu & Thống kê quái vượt qua -->
+                                                    <div class="game-sidebar-right">
+                                                        <div class="start-wave-container">
+                                                            <button id="btn-start-wave" class="btn-start-wave hidden" onclick="game.startWaveByPlayer()">
+                                                                <span style="font-size: 1.2rem;">🚀</span>
+                                                                <span style="font-weight: 800;">BẮT ĐẦU</span>
+                                                            </button>
+                                                        </div>
+                                                        
+                                                        <div class="escaped-monsters-container">
+                                                            <div class="sidebar-title" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-size: 0.7rem;">
+                                                                QUÁI VƯỢT QUA
+                                                            </div>
+                                                            <div id="escaped-monsters-list">
+                                                                <!-- Điền động bằng JS game.js -->
+                                                                <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center; font-style: italic; margin-top: 1rem;">
+                                                                    Chưa có quái nào vượt qua
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Khung Fallback UI khi nạp câu hỏi gặp sự cố -->
+                                        <div id="practice-error-fallback-box" class="hidden" style="padding: 2.5rem 1.5rem; text-align: center; background: var(--bg-card); border-radius: 20px; border: 2px dashed var(--danger); margin: 1.5rem 0;">
+                                            <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                                            <h3 style="color: var(--danger); font-size: 1.2rem; margin-bottom: 0.5rem;">Không thể nạp nội dung câu hỏi</h3>
+                                            <p id="practice-error-message" style="color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem; font-size: 0.95rem;">Hệ thống đang chuẩn bị lại câu hỏi phù hợp cho bài học này.</p>
+                                            <button class="btn-primary" onclick="questions.retryLoadQuestions()" style="padding: 0.6rem 1.5rem; font-size: 1rem; border-radius: 10px; cursor: pointer; font-weight: 700;">
+                                                <i class="fa-solid fa-rotate-right"></i> Tải lại bài học
                                             </button>
                                         </div>
  
@@ -2395,15 +2403,15 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <!-- Script Scripts -->
-    <script src="js/english_data.js?v=13.23"></script>
-    <script src="js/lessons.js?v=13.23"></script>
-    <script src="js/questions-v1.js?v=13.23"></script>
-    <script src="js/questions-v4.js?v=13.23"></script>
-    <script src="js/questions-v3.js?v=13.23"></script>
-    <script src="js/questions-advanced.js?v=13.23"></script>
-    <script src="js/questions-7991.js?v=13.23"></script>
-    <script src="js/game.js?v=13.23"></script>
-    <script src="js/app.js?v=13.23"></script>
+    <script src="js/english_data.js?v=13.24"></script>
+    <script src="js/lessons.js?v=13.24"></script>
+    <script src="js/questions-v1.js?v=13.24"></script>
+    <script src="js/questions-v4.js?v=13.24"></script>
+    <script src="js/questions-v3.js?v=13.24"></script>
+    <script src="js/questions-advanced.js?v=13.24"></script>
+    <script src="js/questions-7991.js?v=13.24"></script>
+    <script src="js/game.js?v=13.24"></script>
+    <script src="js/app.js?v=13.24"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -3463,7 +3471,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v13.23 (Cập nhật: 19/08/2026 10:14)
+        Phiên bản: v13.24 (Cập nhật: 30/08/2026 07:41)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

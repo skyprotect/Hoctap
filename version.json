@@ -1,8 +1,8 @@
 {
-  "version": "13.23",
-  "lastUpdated": "19/08/2026 10:15",
-  "build": 1341,
-  "releaseNotes": "Tối ưu hóa tính năng 🤖 AI Khắc Phục Sự Cố Đề: Chuẩn hóa hiển thị KaTeX đồng bộ, loại bỏ triệt để lỗi thẻ LaTeX cho đơn vị đo lường thông thường, kết nối và xử lý tự động khắc phục đề thi nhanh chóng và tin cậy.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.23/ToanHocKiosk_Setup_v13.23.exe",
-  "changelog": "- Tối ưu hóa tính năng AI Khắc Phục Sự Cố Đề thi và Lời giải.\n- Chuẩn hóa thư viện KaTeX tải đồng bộ loại bỏ lỗi hiển thị công thức và đơn vị đo lường.\n- Cập nhật phiên bản v13.22 đồng bộ toàn hệ thống."
+  "version": "13.24",
+  "lastUpdated": "30/08/2026 07:41",
+  "build": 1342,
+  "releaseNotes": "Khắc phục triệt để lỗi không hiển thị câu hỏi: Chuẩn hóa cấu trúc phân tầng DOM màn hình làm bài, kết nối hoàn thiện Engine Toán lớp 1, bổ sung cơ chế KaTeX an toàn và Fallback UI tự phục hồi.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.24/ToanHocKiosk_Setup_v13.24.exe",
+  "changelog": "- Khắc phục triệt để lỗi màn hình trắng không hiển thị câu hỏi.\n- Chuẩn hóa cấu trúc DOM của practice-active-box và split-container.\n- Kết nối engine câu hỏi Toán Lớp 1 trong questions-v3.js.\n- Bổ sung cơ chế render KaTeX an toàn throwOnError: false và Fallback UI tự phục hồi."
 }

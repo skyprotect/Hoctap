@@ -2343,6 +2343,9 @@ const questions = {
 
     // Bộ sinh đề chi tiết cho 22 dạng bài với 3 cấp độ
     generateQuestion: function(type, level = "co-ban") {
+        if ((type.startsWith("l1-") || type.startsWith("luyen-tap-chung-l1-")) && typeof questionsL1 !== 'undefined') {
+            return questionsL1.generateQuestion(type, level);
+        }
         if ((type.startsWith("l4-") || type.startsWith("luyen-tap-chung-l4-")) && typeof questionsL4 !== 'undefined') {
             return questionsL4.generateQuestion(type, level);
         }
@@ -8143,282 +8146,359 @@ const questions = {
         return qObj;
     },
 
+    // Tải lại câu hỏi khi gặp sự cố
+    retryLoadQuestions: function() {
+        const fallbackBox = document.getElementById("practice-error-fallback-box");
+        if (fallbackBox) fallbackBox.classList.add("hidden");
+        const splitContainer = document.getElementById("practice-split-container");
+        if (splitContainer) splitContainer.classList.remove("hidden");
+
+        if (this.currentLesson) {
+            this.initPractice(this.currentLesson, this.currentLevel || 'co-ban', this.isExamMode);
+        } else if (window.app && app.currentLesson) {
+            this.initPractice(app.currentLesson, 'co-ban', false);
+        }
+    },
+
     // Hiển thị câu hỏi
     showQuestion: function() {
-        this.selectedOption = null;
-        this.hintsShown = 0;
-        this.hasChecked = false;
+        try {
+            this.selectedOption = null;
+            this.hintsShown = 0;
+            this.hasChecked = false;
 
-        const q = this.currentQuestions[this.currentQuestionIndex];
-        
-        // Khôi phục đáp án trắc nghiệm đã chọn trước đó
-        if (!q.isShortAnswer) {
-            if (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null) {
-                this.selectedOption = q.userSelectedIndex;
-            }
-        }
-        
-        // Cập nhật thanh tiến trình
-        const progressPercent = (this.currentQuestionIndex / this.currentQuestions.length) * 100;
-        document.getElementById("practice-progress").style.width = progressPercent + "%";
-        document.getElementById("question-index-counter").innerText = "Câu hỏi " + (this.currentQuestionIndex + 1) + "/" + this.currentQuestions.length;
+            const fallbackBox = document.getElementById("practice-error-fallback-box");
+            const splitContainer = document.getElementById("practice-split-container");
 
-        // Cập nhật nút Thoát sang Bảng điểm nếu đã chấm điểm
-        const exitBtn = document.querySelector(".btn-exit-practice");
-        if (exitBtn) {
-            if (this.isGraded) {
-                exitBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i> Bảng điểm`;
-                exitBtn.style.backgroundColor = "var(--primary-bg)";
-                exitBtn.style.color = "var(--primary)";
-                exitBtn.style.borderColor = "var(--primary)";
-            } else {
-                exitBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i> Thoát`;
-                exitBtn.style.backgroundColor = "var(--danger-bg)";
-                exitBtn.style.color = "var(--danger)";
-                exitBtn.style.borderColor = "var(--danger)";
-            }
-        }
-
-        // Hiển thị nhãn Spaced Repetition hoặc độ khó
-        let badgeHtml = "";
-        if (q.isSpacedRepetition) {
-            badgeHtml = "<span class=\"badge-rank\" style=\"background-color:var(--warning-bg);color:var(--warning);font-size:0.75rem;margin-bottom:0.5rem;display:inline-block;\"><i class=\"fa-solid fa-clock-rotate-left\"></i> Ôn tập kiến thức cũ</span><br>";
-        } else {
-            let levelLabel = "Cơ bản";
-            let colorBg = "var(--success-bg)";
-            let colorText = "var(--success)";
-            if (q.level === "nang-cao") {
-                levelLabel = "Nâng cao";
-                colorBg = "var(--warning-bg)";
-                colorText = "var(--warning)";
-            } else if (q.level === "kho") {
-                levelLabel = "Khó";
-                colorBg = "var(--danger-bg)";
-                colorText = "var(--danger)";
-            } else if (q.level === "chat-luong-cao") {
-                levelLabel = "Chất lượng cao 💎";
-                colorBg = "rgba(139, 92, 246, 0.1)";
-                colorText = "#8b5cf6";
-            }
-            badgeHtml = "<span class=\"badge-rank\" style=\"background-color:" + colorBg + ";color:" + colorText + ";font-size:0.75rem;margin-bottom:0.5rem;display:inline-block;\">" + (this.isExamMode ? "Bài Thi" : "Cấp độ") + ": " + levelLabel + "</span><br>";
-        }
-
-        document.getElementById("question-text-box").innerHTML = badgeHtml + q.questionText;
-
-        // Render các nút đáp án hoặc ô nhập tự luận điền số
-        const optionsBox = document.getElementById("options-box");
-        optionsBox.innerHTML = "";
-        
-        // Xóa giải thích cũ nếu có
-        const oldReview = document.getElementById("card-solution-box");
-        if (oldReview) oldReview.remove();
-
-        if (q.isShortAnswer) {
-            const inputContainer = document.createElement("div");
-            inputContainer.className = "short-answer-container animate-fade-in";
-            inputContainer.style.marginTop = "1.5rem";
-            inputContainer.style.padding = "1.5rem";
-            inputContainer.style.backgroundColor = "var(--bg-app)";
-            inputContainer.style.border = "1px solid var(--border-color)";
-            inputContainer.style.borderRadius = "16px";
-            inputContainer.style.textAlign = "left";
-
-            const label = document.createElement("label");
-            label.innerHTML = "<b>Nhập đáp án đúng của con vào ô dưới đây (ví dụ: một con số hoặc biểu thức tập hợp):</b>";
-            label.style.display = "block";
-            label.style.marginBottom = "1rem";
-            label.style.fontSize = "0.95rem";
-            label.style.color = "var(--text-main)";
-            inputContainer.appendChild(label);
-
-            const input = document.createElement("input");
-            input.type = "text";
-            input.id = "short-answer-input";
-            input.placeholder = "Nhập đáp án của con tại đây...";
-            input.value = q.userShortAnswer || "";
-            input.style.width = "100%";
-            input.style.padding = "14px 18px";
-            input.style.border = "2px solid var(--border-color)";
-            input.style.borderRadius = "12px";
-            input.style.backgroundColor = "#0f172a";
-            input.style.color = "#ffffff";
-            input.style.fontSize = "1.1rem";
-            input.style.outline = "none";
-            input.style.transition = "all 0.3s ease";
-            
-            if (this.isGraded) {
-                const isCorrect = this.checkShortAnswer(q.userShortAnswer || '', q.options[q.correctIndex]);
-                input.style.borderColor = isCorrect ? "var(--success)" : "var(--danger)";
-                input.disabled = true;
-                input.style.backgroundColor = "var(--border-color)";
-                input.style.cursor = "not-allowed";
-                input.style.opacity = "0.7";
-                
-                if (!isCorrect) {
-                    const _pn = (app && app.config && app.config.parentName) || 'Bố';
-                    const correctAnswerBox = document.createElement("div");
-                    correctAnswerBox.style.marginTop = "0.8rem";
-                    correctAnswerBox.style.color = "var(--success)";
-                    correctAnswerBox.style.fontWeight = "700";
-                    correctAnswerBox.style.fontSize = "0.95rem";
-                    correctAnswerBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đáp án đúng của ${_pn}: <b style="background:var(--success-bg); padding:2px 8px; border-radius:4px;">${q.options[q.correctIndex]}</b>`;
-                    inputContainer.appendChild(correctAnswerBox);
+            // Chốt chặn an toàn: Kiểm tra mảng câu hỏi
+            if (!this.currentQuestions || !Array.isArray(this.currentQuestions) || this.currentQuestions.length === 0) {
+                console.warn("[showQuestion] currentQuestions rỗng hoặc chưa nạp. Đang tự động kích hoạt bộ sinh đề dự phòng...");
+                const targetLesson = this.currentLesson || (window.app && app.currentLesson);
+                if (targetLesson) {
+                    const fallbackQ = this.generateQuestion(targetLesson.questionType || "tap-hop", this.currentLevel || "co-ban");
+                    this.currentQuestions = [fallbackQ];
+                    this.currentQuestionIndex = 0;
+                } else {
+                    if (splitContainer) splitContainer.classList.add("hidden");
+                    if (fallbackBox) {
+                        const errMsgEl = document.getElementById("practice-error-message");
+                        if (errMsgEl) errMsgEl.innerText = "Chưa nạp được danh sách câu hỏi cho bài học này. Vui lòng bấm nút dưới để tải lại.";
+                        fallbackBox.classList.remove("hidden");
+                    }
+                    return;
                 }
             }
 
-            input.oninput = () => {
-                if (this.isGraded) return;
-                const val = input.value.trim();
-                q.userShortAnswer = val;
-                
-                // Cập nhật lại thanh điều hướng câu hỏi bên cạnh
-                this.renderQuestionsNav();
+            if (this.currentQuestionIndex < 0 || this.currentQuestionIndex >= this.currentQuestions.length) {
+                this.currentQuestionIndex = 0;
+            }
 
-                const nextBtn = document.getElementById("next-question-btn");
-                if (val.length > 0) {
+            const q = this.currentQuestions[this.currentQuestionIndex];
+            if (!q) {
+                console.error("[showQuestion] Không tìm thấy dữ liệu câu hỏi tại vị trí", this.currentQuestionIndex);
+                if (splitContainer) splitContainer.classList.add("hidden");
+                if (fallbackBox) fallbackBox.classList.remove("hidden");
+                return;
+            }
+
+            // Đảm bảo hiển thị khung câu hỏi và ẩn fallback box
+            if (fallbackBox) fallbackBox.classList.add("hidden");
+            if (splitContainer) splitContainer.classList.remove("hidden");
+            
+            // Khôi phục đáp án trắc nghiệm đã chọn trước đó
+            if (!q.isShortAnswer) {
+                if (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null) {
+                    this.selectedOption = q.userSelectedIndex;
+                }
+            }
+            
+            // Cập nhật thanh tiến trình
+            const progressPercent = (this.currentQuestionIndex / this.currentQuestions.length) * 100;
+            const progressEl = document.getElementById("practice-progress");
+            if (progressEl) progressEl.style.width = progressPercent + "%";
+            
+            const counterEl = document.getElementById("question-index-counter");
+            if (counterEl) counterEl.innerText = "Câu hỏi " + (this.currentQuestionIndex + 1) + "/" + this.currentQuestions.length;
+
+            // Cập nhật nút Thoát sang Bảng điểm nếu đã chấm điểm
+            const exitBtn = document.querySelector(".btn-exit-practice");
+            if (exitBtn) {
+                if (this.isGraded) {
+                    exitBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i> Bảng điểm`;
+                    exitBtn.style.backgroundColor = "var(--primary-bg)";
+                    exitBtn.style.color = "var(--primary)";
+                    exitBtn.style.borderColor = "var(--primary)";
+                } else {
+                    exitBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i> Thoát`;
+                    exitBtn.style.backgroundColor = "var(--danger-bg)";
+                    exitBtn.style.color = "var(--danger)";
+                    exitBtn.style.borderColor = "var(--danger)";
+                }
+            }
+
+            // Hiển thị nhãn Spaced Repetition hoặc độ khó
+            let badgeHtml = "";
+            if (q.isSpacedRepetition) {
+                badgeHtml = "<span class=\"badge-rank\" style=\"background-color:var(--warning-bg);color:var(--warning);font-size:0.75rem;margin-bottom:0.5rem;display:inline-block;\"><i class=\"fa-solid fa-clock-rotate-left\"></i> Ôn tập kiến thức cũ</span><br>";
+            } else {
+                let levelLabel = "Cơ bản";
+                let colorBg = "var(--success-bg)";
+                let colorText = "var(--success)";
+                if (q.level === "nang-cao") {
+                    levelLabel = "Nâng cao";
+                    colorBg = "var(--warning-bg)";
+                    colorText = "var(--warning)";
+                } else if (q.level === "kho") {
+                    levelLabel = "Khó";
+                    colorBg = "var(--danger-bg)";
+                    colorText = "var(--danger)";
+                } else if (q.level === "chat-luong-cao") {
+                    levelLabel = "Chất lượng cao 💎";
+                    colorBg = "rgba(139, 92, 246, 0.1)";
+                    colorText = "#8b5cf6";
+                }
+                badgeHtml = "<span class=\"badge-rank\" style=\"background-color:" + colorBg + ";color:" + colorText + ";font-size:0.75rem;margin-bottom:0.5rem;display:inline-block;\">" + (this.isExamMode ? "Bài Thi" : "Cấp độ") + ": " + levelLabel + "</span><br>";
+            }
+
+            const textBox = document.getElementById("question-text-box");
+            if (textBox) {
+                textBox.innerHTML = badgeHtml + (q.questionText || "Nội dung câu hỏi đang được cập nhật...");
+            }
+
+            // Render các nút đáp án hoặc ô nhập tự luận điền số
+            const optionsBox = document.getElementById("options-box");
+            if (optionsBox) {
+                optionsBox.innerHTML = "";
+            }
+            
+            // Xóa giải thích cũ nếu có
+            const oldReview = document.getElementById("card-solution-box");
+            if (oldReview) oldReview.remove();
+
+            if (q.isShortAnswer) {
+                const inputContainer = document.createElement("div");
+                inputContainer.className = "short-answer-container animate-fade-in";
+                inputContainer.style.marginTop = "1.5rem";
+                inputContainer.style.padding = "1.5rem";
+                inputContainer.style.backgroundColor = "var(--bg-app)";
+                inputContainer.style.border = "1px solid var(--border-color)";
+                inputContainer.style.borderRadius = "16px";
+                inputContainer.style.textAlign = "left";
+
+                const label = document.createElement("label");
+                label.innerHTML = "<b>Nhập đáp án đúng của con vào ô dưới đây (ví dụ: một con số hoặc biểu thức tập hợp):</b>";
+                label.style.display = "block";
+                label.style.marginBottom = "1rem";
+                label.style.fontSize = "0.95rem";
+                label.style.color = "var(--text-main)";
+                inputContainer.appendChild(label);
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.id = "short-answer-input";
+                input.placeholder = "Nhập đáp án của con tại đây...";
+                input.value = q.userShortAnswer || "";
+                input.style.width = "100%";
+                input.style.padding = "14px 18px";
+                input.style.border = "2px solid var(--border-color)";
+                input.style.borderRadius = "12px";
+                input.style.backgroundColor = "#0f172a";
+                input.style.color = "#ffffff";
+                input.style.fontSize = "1.1rem";
+                input.style.outline = "none";
+                input.style.transition = "all 0.3s ease";
+                
+                if (this.isGraded) {
+                    const isCorrect = this.checkShortAnswer(q.userShortAnswer || '', (q.options && q.options[q.correctIndex]) || '');
+                    input.style.borderColor = isCorrect ? "var(--success)" : "var(--danger)";
+                    input.disabled = true;
+                    input.style.backgroundColor = "var(--border-color)";
+                    input.style.cursor = "not-allowed";
+                    input.style.opacity = "0.7";
+                    
+                    if (!isCorrect) {
+                        const _pn = (window.app && app.config && app.config.parentName) || 'Bố';
+                        const correctAnswerBox = document.createElement("div");
+                        correctAnswerBox.style.marginTop = "0.8rem";
+                        correctAnswerBox.style.color = "var(--success)";
+                        correctAnswerBox.style.fontWeight = "700";
+                        correctAnswerBox.style.fontSize = "0.95rem";
+                        correctAnswerBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đáp án đúng của ${_pn}: <b style="background:var(--success-bg); padding:2px 8px; border-radius:4px;">${(q.options && q.options[q.correctIndex]) || ''}</b>`;
+                        inputContainer.appendChild(correctAnswerBox);
+                    }
+                }
+
+                input.oninput = () => {
+                    if (this.isGraded) return;
+                    const val = input.value.trim();
+                    q.userShortAnswer = val;
+                    
+                    // Cập nhật lại thanh điều hướng câu hỏi bên cạnh
+                    this.renderQuestionsNav();
+
+                    const nextBtn = document.getElementById("next-question-btn");
+                    if (val.length > 0) {
+                        if (nextBtn) nextBtn.classList.remove("hidden");
+                        if (this.currentQuestionIndex === this.currentQuestions.length - 1) {
+                            if (nextBtn) nextBtn.innerHTML = this.practiceMode === 'game' ? "Nộp bài & Chấm điểm &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>" : "Nộp bài &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>";
+                        } else {
+                            if (nextBtn) nextBtn.innerHTML = "Tiếp theo &nbsp; <i class=\"fa-solid fa-arrow-right\"></i>";
+                        }
+                    } else {
+                        if (nextBtn) nextBtn.classList.add("hidden");
+                    }
+                };
+                
+                inputContainer.appendChild(input);
+                if (optionsBox) optionsBox.appendChild(inputContainer);
+
+            } else {
+                const gridDiv = document.createElement("div");
+                gridDiv.className = "options-grid";
+
+                const prefixes = ["A", "B", "C", "D", "E", "F"];
+                const rawOptions = q.options && Array.isArray(q.options) && q.options.length > 0 ? q.options : ["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"];
+                rawOptions.forEach((opt, idx) => {
+                    let cleanOpt = String(opt);
+                    const prefixRegex = /^[A-D]\.\s*/i;
+                    if (prefixRegex.test(cleanOpt)) {
+                        cleanOpt = cleanOpt.replace(prefixRegex, "");
+                    }
+                    const btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    
+                    btn.innerHTML = "<span class=\"option-prefix\">" + (prefixes[idx] || (idx + 1)) + "</span> <span class=\"option-text-content\">" + cleanOpt + "</span>";
+                    
+                    if (this.isGraded) {
+                        // Trong chế độ đã chấm điểm
+                        if (idx === q.correctIndex) {
+                            btn.style.borderColor = "var(--success)";
+                            btn.style.backgroundColor = "var(--success-bg)";
+                            btn.style.color = "var(--success)";
+                            btn.style.fontWeight = "bold";
+                            btn.innerHTML += " <i class=\"fa-solid fa-circle-check\" style=\"margin-left:auto; color:var(--success);\"></i>";
+                        } else if (idx === q.userSelectedIndex) {
+                            btn.style.borderColor = "var(--danger)";
+                            btn.style.backgroundColor = "var(--danger-bg)";
+                            btn.style.color = "var(--danger)";
+                            btn.style.fontWeight = "bold";
+                            btn.innerHTML += " <i class=\"fa-solid fa-circle-xmark\" style=\"margin-left:auto; color:var(--danger);\"></i>";
+                        }
+                        btn.style.cursor = "default";
+                    } else {
+                        if (idx === this.selectedOption) {
+                            btn.classList.add("selected");
+                        }
+                        btn.onclick = () => this.selectOption(idx);
+                    }
+                    gridDiv.appendChild(btn);
+                });
+                if (optionsBox) optionsBox.appendChild(gridDiv);
+            }
+
+            // Tạo hộp giải thích và mẹo thi nếu đã chấm điểm
+            if (this.isGraded && optionsBox) {
+                const solutionBox = document.createElement("div");
+                solutionBox.id = "card-solution-box";
+                solutionBox.className = "animate-fade-in";
+                solutionBox.style.marginTop = "1.5rem";
+                solutionBox.style.display = "flex";
+                solutionBox.style.flexDirection = "column";
+                solutionBox.style.gap = "1rem";
+
+                const isCorrect = q.isShortAnswer ? 
+                    this.checkShortAnswer(q.userShortAnswer || '', (q.options && q.options[q.correctIndex]) || '') :
+                    q.userSelectedIndex === q.correctIndex;
+
+                const statusHtml = isCorrect ? 
+                    `<div style="color:var(--success); font-weight:700; font-size:1.05rem;"><i class="fa-solid fa-circle-check"></i> ${(window.app && app.config && app.config.studentName) || 'Con'} đã làm ĐÚNG câu này!</div>` :
+                    `<div style="color:var(--danger); font-weight:700; font-size:1.05rem;"><i class="fa-solid fa-circle-xmark"></i> ${(window.app && app.config && app.config.studentName) || 'Con'} làm chưa đúng. Hãy đọc giải thích của ${(window.app && app.config && app.config.parentName) || 'bố'} ở dưới để hiểu bài nhé!</div>`;
+
+                solutionBox.innerHTML = `
+                    ${statusHtml}
+                    <div style="font-family: var(--font-family) !important; background-color:var(--primary-bg); padding:1rem; border-radius:12px; font-size:0.95rem; border-left: 4px solid var(--primary);">
+                        <strong style="color:var(--primary);"><i class="fa-solid fa-graduation-cap"></i> Lời giải chi tiết của ${(window.app && app.config && app.config.parentName) || 'Bố'}:</strong>
+                        <div class="math-render" style="margin-top:0.4rem; line-height:1.6; color:var(--text-main);">${q.solutionHtml || "Đang cập nhật..."}</div>
+                    </div>
+                    <div style="font-family: var(--font-family) !important; background-color:var(--warning-bg); padding:1rem; border-radius:12px; font-size:0.95rem; border-left: 4px solid var(--warning);">
+                        <strong style="color:var(--warning);"><i class="fa-solid fa-lightbulb"></i> Mẹo khi làm bài (Exam Tips):</strong>
+                        <div class="math-render" style="margin-top:0.4rem; line-height:1.6; color:var(--text-main);"><i>${q.tip || "Đọc kỹ đề bài và loại trừ phương án sai."}</i></div>
+                    </div>
+                `;
+                optionsBox.parentNode.insertBefore(solutionBox, optionsBox.nextSibling);
+            }
+
+            // Reset gợi ý
+            const hintListUl = document.getElementById("hint-list-ul");
+            if (hintListUl) hintListUl.innerHTML = "";
+            const hintContentBox = document.getElementById("hints-content-box");
+            if (hintContentBox) hintContentBox.classList.add("hidden");
+            const hintsLeftEl = document.getElementById("hints-left");
+            if (hintsLeftEl) hintsLeftEl.innerText = (q.hints && q.hints.length) || 3;
+            const hintToggleBtn = document.getElementById("hint-toggle-btn");
+            if (hintToggleBtn) hintToggleBtn.disabled = false;
+
+            // Cập nhật nút Tiếp theo dựa trên trạng thái đã làm của câu này
+            const nextBtn = document.getElementById("next-question-btn");
+            if (nextBtn) {
+                nextBtn.disabled = false;
+            }
+            if (this.isGraded) {
+                if (nextBtn) {
                     nextBtn.classList.remove("hidden");
                     if (this.currentQuestionIndex === this.currentQuestions.length - 1) {
-                        if (this.practiceMode === 'game') {
-                            nextBtn.innerHTML = "Nộp bài & Chấm điểm &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>";
-                        } else {
-                            nextBtn.innerHTML = "Nộp bài &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>";
-                        }
+                        nextBtn.innerHTML = "Bảng điểm &nbsp; <i class=\"fa-solid fa-square-poll-vertical\"></i>";
                     } else {
                         nextBtn.innerHTML = "Tiếp theo &nbsp; <i class=\"fa-solid fa-arrow-right\"></i>";
                     }
-                } else {
-                    nextBtn.classList.add("hidden");
-                }
-            };
-            
-            inputContainer.appendChild(input);
-            optionsBox.appendChild(inputContainer);
-
-        } else {
-            const gridDiv = document.createElement("div");
-            gridDiv.className = "options-grid";
-
-            const prefixes = ["A", "B", "C", "D"];
-            q.options.forEach((opt, idx) => {
-                let cleanOpt = opt;
-                const prefixRegex = /^[A-D]\.\s*/i;
-                if (prefixRegex.test(cleanOpt)) {
-                    cleanOpt = cleanOpt.replace(prefixRegex, "");
-                }
-                const btn = document.createElement("button");
-                btn.className = "option-btn";
-                
-                btn.innerHTML = "<span class=\"option-prefix\">" + prefixes[idx] + "</span> <span class=\"option-text-content\">" + cleanOpt + "</span>";
-                
-                if (this.isGraded) {
-                    // Trong chế độ đã chấm điểm
-                    if (idx === q.correctIndex) {
-                        btn.style.borderColor = "var(--success)";
-                        btn.style.backgroundColor = "var(--success-bg)";
-                        btn.style.color = "var(--success)";
-                        btn.style.fontWeight = "bold";
-                        btn.innerHTML += " <i class=\"fa-solid fa-circle-check\" style=\"margin-left:auto; color:var(--success);\"></i>";
-                    } else if (idx === q.userSelectedIndex) {
-                        btn.style.borderColor = "var(--danger)";
-                        btn.style.backgroundColor = "var(--danger-bg)";
-                        btn.style.color = "var(--danger)";
-                        btn.style.fontWeight = "bold";
-                        btn.innerHTML += " <i class=\"fa-solid fa-circle-xmark\" style=\"margin-left:auto; color:var(--danger);\"></i>";
-                    }
-                    btn.style.cursor = "default";
-                } else {
-                    if (idx === this.selectedOption) {
-                        btn.classList.add("selected");
-                    }
-                    btn.onclick = () => this.selectOption(idx);
-                }
-                gridDiv.appendChild(btn);
-            });
-            optionsBox.appendChild(gridDiv);
-        }
-
-        // Tạo hộp giải thích và mẹo thi nếu đã chấm điểm
-        if (this.isGraded) {
-            const solutionBox = document.createElement("div");
-            solutionBox.id = "card-solution-box";
-            solutionBox.className = "animate-fade-in";
-            solutionBox.style.marginTop = "1.5rem";
-            solutionBox.style.display = "flex";
-            solutionBox.style.flexDirection = "column";
-            solutionBox.style.gap = "1rem";
-
-            const isCorrect = q.isShortAnswer ? 
-                this.checkShortAnswer(q.userShortAnswer || '', q.options[q.correctIndex]) :
-                q.userSelectedIndex === q.correctIndex;
-
-            const statusHtml = isCorrect ? 
-                `<div style="color:var(--success); font-weight:700; font-size:1.05rem;"><i class="fa-solid fa-circle-check"></i> ${(app && app.config && app.config.studentName) || 'Con'} đã làm ĐÚNG câu này!</div>` :
-                `<div style="color:var(--danger); font-weight:700; font-size:1.05rem;"><i class="fa-solid fa-circle-xmark"></i> ${(app && app.config && app.config.studentName) || 'Con'} làm chưa đúng. Hãy đọc giải thích của ${(app && app.config && app.config.parentName) || 'bố'} ở dưới để hiểu bài nhé!</div>`;
-
-            solutionBox.innerHTML = `
-                ${statusHtml}
-                <div style="font-family: var(--font-family) !important; background-color:var(--primary-bg); padding:1rem; border-radius:12px; font-size:0.95rem; border-left: 4px solid var(--primary);">
-                    <strong style="color:var(--primary);"><i class="fa-solid fa-graduation-cap"></i> Lời giải chi tiết của ${(app && app.config && app.config.parentName) || 'Bố'}:</strong>
-                    <div class="math-render" style="margin-top:0.4rem; line-height:1.6; color:var(--text-main);">${q.solutionHtml || "Đang cập nhật..."}</div>
-                </div>
-                <div style="font-family: var(--font-family) !important; background-color:var(--warning-bg); padding:1rem; border-radius:12px; font-size:0.95rem; border-left: 4px solid var(--warning);">
-                    <strong style="color:var(--warning);"><i class="fa-solid fa-lightbulb"></i> Mẹo khi làm bài (Exam Tips):</strong>
-                    <div class="math-render" style="margin-top:0.4rem; line-height:1.6; color:var(--text-main);"><i>${q.tip || "Đọc kỹ đề bài và loại trừ phương án sai."}</i></div>
-                </div>
-            `;
-            optionsBox.parentNode.insertBefore(solutionBox, optionsBox.nextSibling);
-        }
-
-        // Reset gợi ý
-        document.getElementById("hint-list-ul").innerHTML = "";
-        document.getElementById("hints-content-box").classList.add("hidden");
-        document.getElementById("hints-left").innerText = q.hints.length;
-        document.getElementById("hint-toggle-btn").disabled = false;
-
-        // Cập nhật nút Tiếp theo dựa trên trạng thái đã làm của câu này
-        const nextBtn = document.getElementById("next-question-btn");
-        if (nextBtn) {
-            nextBtn.disabled = false;
-        }
-        if (this.isGraded) {
-            nextBtn.classList.remove("hidden");
-            if (this.currentQuestionIndex === this.currentQuestions.length - 1) {
-                nextBtn.innerHTML = "Bảng điểm &nbsp; <i class=\"fa-solid fa-square-poll-vertical\"></i>";
-            } else {
-                nextBtn.innerHTML = "Tiếp theo &nbsp; <i class=\"fa-solid fa-arrow-right\"></i>";
-            }
-        } else {
-            const hasAnswered = q.isShortAnswer ? 
-                (q.userShortAnswer !== undefined && q.userShortAnswer !== '') :
-                (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null);
-
-            if (hasAnswered) {
-                nextBtn.classList.remove("hidden");
-                if (this.currentQuestionIndex === this.currentQuestions.length - 1) {
-                    if (this.practiceMode === 'game') {
-                        nextBtn.innerHTML = "Nộp bài & Chấm điểm &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>";
-                    } else {
-                        nextBtn.innerHTML = "Nộp bài &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>";
-                    }
-                } else {
-                    nextBtn.innerHTML = "Tiếp theo &nbsp; <i class=\"fa-solid fa-arrow-right\"></i>";
                 }
             } else {
-                nextBtn.classList.add("hidden");
+                const hasAnswered = q.isShortAnswer ? 
+                    (q.userShortAnswer !== undefined && q.userShortAnswer !== '') :
+                    (q.userSelectedIndex !== undefined && q.userSelectedIndex !== null);
+
+                if (hasAnswered) {
+                    if (nextBtn) {
+                        nextBtn.classList.remove("hidden");
+                        if (this.currentQuestionIndex === this.currentQuestions.length - 1) {
+                            nextBtn.innerHTML = this.practiceMode === 'game' ? "Nộp bài & Chấm điểm &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>" : "Nộp bài &nbsp; <i class=\"fa-solid fa-paper-plane\"></i>";
+                        } else {
+                            nextBtn.innerHTML = "Tiếp theo &nbsp; <i class=\"fa-solid fa-arrow-right\"></i>";
+                        }
+                    }
+                } else {
+                    if (nextBtn) nextBtn.classList.add("hidden");
+                }
             }
-        }
 
-        // Vẽ lại bảng điều hướng câu hỏi bên cạnh
-        this.renderQuestionsNav();
+            // Vẽ lại bảng điều hướng câu hỏi bên cạnh
+            this.renderQuestionsNav();
 
-        // Gọi KaTeX render lại toán học
-        if (window.renderMathInElement) {
-            window.renderMathInElement(document.getElementById("tab-practice"), {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ]
-            });
+            // Gọi KaTeX render lại toán học (an toàn, không ngắt luồng nếu có lỗi cú pháp)
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(document.getElementById("tab-practice"), {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false}
+                        ],
+                        throwOnError: false,
+                        errorColor: '#ef4444'
+                    });
+                } catch (katexErr) {
+                    console.warn("[KaTeX Auto-render Warning]", katexErr);
+                }
+            }
+        } catch (e) {
+            console.error("[showQuestion Exception]", e);
+            const fallbackBox = document.getElementById("practice-error-fallback-box");
+            const splitContainer = document.getElementById("practice-split-container");
+            if (splitContainer) splitContainer.classList.add("hidden");
+            if (fallbackBox) {
+                const errMsgEl = document.getElementById("practice-error-message");
+                if (errMsgEl) errMsgEl.innerText = "Lỗi hiển thị câu hỏi: " + e.message;
+                fallbackBox.classList.remove("hidden");
+            }
         }
     },
 
@@ -8739,12 +8819,18 @@ const questions = {
         this.hintsShown++;
         
         if (window.renderMathInElement) {
-            window.renderMathInElement(li, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ]
-            });
+            try {
+                window.renderMathInElement(li, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ],
+                    throwOnError: false,
+                    errorColor: '#ef4444'
+                });
+            } catch (err) {
+                console.warn("[KaTeX Hint render error]", err);
+            }
         }
 
         const hintsLeft = q.hints.length - this.hintsShown;
@@ -9240,12 +9326,18 @@ const questions = {
         if (window.renderMathInElement) {
             const mathElements = reviewList.querySelectorAll(".math-render");
             mathElements.forEach(el => {
-                window.renderMathInElement(el, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ]
-                });
+                try {
+                    window.renderMathInElement(el, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false}
+                        ],
+                        throwOnError: false,
+                        errorColor: '#ef4444'
+                    });
+                } catch (err) {
+                    console.warn("[KaTeX Review render error]", err);
+                }
             });
         }
     },
