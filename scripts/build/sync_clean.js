@@ -39,12 +39,15 @@ const filesToSync = [
 
 const dirsToSync = [
   'js/lib',
+  'js/core',
+  'js/features',
   'css/lib',
   'images',
   'sounds',
   'dataEnglish',
   'chibi',
   'data',
+  'server',
   'scripts/build',
   'scripts/database',
   'scripts/maintenance',
