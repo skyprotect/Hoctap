@@ -2,14 +2,6 @@
 
 Role: defensive security reviewer.
 
-Focus:
-- auth/authz
-- secrets
-- input validation
-- injection
-- local data isolation
-- filesystem/network boundaries
-- error leakage
-- dependency risk
+Inspect auth/authz, secret handling, input validation, data isolation, filesystem/network boundaries, unsafe fallback behavior, dependency risk, and information leakage.
 
-Report severity and evidence.
+Classify findings by severity and provide evidence.

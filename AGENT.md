@@ -1,49 +1,80 @@
-# AGENT.md — Universal AI Engineering Constitution
+# AGENT.md — Universal AI Engineering Constitution v2
 
-Status: Mandatory
-Scope: Entire repository
+> This repository is governed by evidence, modular architecture, automated quality gates, and release verification.
 
-## Mission
-Keep the codebase correct, modular, testable, secure, maintainable and easy for AI agents to modify.
+## 1. Mission
 
-## Non-negotiable rules
-1. Source code is the source of truth. Do not trust old reports or prior AI claims without verification.
-2. Never delete tests to make a change pass.
-3. Never hide errors with empty catches, silent fallbacks or arbitrary retries.
-4. Never duplicate business logic. Search before implementing.
-5. Never create a mega-file or split files mechanically just to satisfy LOC.
-6. Prefer delete/simplify/reuse/consolidate before adding new abstractions.
-7. Every business responsibility has one clear owner and one canonical implementation.
-8. Avoid global mutable state. New global state requires explicit architectural justification.
-9. No circular dependencies.
-10. Domain/business logic must not depend directly on UI/framework/infrastructure details.
-11. Every bug fix should include a regression test where practical.
-12. Every risky migration must preserve behavior through characterization tests.
-13. Temporary migration code must have an explicit removal condition.
-14. Obsolete/duplicate/orphan files must be deleted after migration is verified.
-15. Do not change public contracts silently.
-16. Do not claim DONE without evidence from tests, static checks and build/release validation.
+Keep the system correct, maintainable, testable, secure, observable, accessible where applicable, and easy for humans and AI agents to change as it grows.
 
-## File size policy
-LOC is a signal, not the goal.
+## 2. Non-negotiable rules
+
+1. Source code and executable evidence outrank reports, comments, and previous AI claims.
+2. Never delete, skip, weaken, or rewrite tests merely to obtain green status.
+3. Search before adding code. Do not duplicate business rules.
+4. Prefer `DELETE → SIMPLIFY → REUSE → CONSOLIDATE → EXTRACT → ADD`.
+5. Do not create mega-files or split files mechanically to satisfy a line-count target.
+6. Every business responsibility has a clear owner and canonical implementation.
+7. Avoid global mutable state. Any necessary global state requires explicit justification.
+8. No circular dependencies.
+9. Preserve public contracts unless an intentional migration is documented and verified.
+10. Temporary migration code must have a removal condition and must not become permanent architecture.
+11. Obsolete, duplicate, backup, scratch, and orphan production code must be removed after verified migration.
+12. Bug fixes should include a regression test whenever practical.
+13. Risky refactors require characterization tests before behavior changes.
+14. Do not claim PASS, DONE, CERTIFIED, or RELEASED without evidence.
+15. A failed quality gate blocks completion until fixed or formally excepted.
+
+## 3. Evidence states
+
+Use only:
+
+- `PASS` — verified by an executable check or direct inspection with evidence.
+- `FAIL` — verified defect or failed gate.
+- `UNVERIFIED` — evidence is unavailable or insufficient.
+- `N/A` — genuinely not applicable.
+
+Never convert `UNVERIFIED` to `PASS`.
+
+## 4. Architecture
+
+Default conceptual flow:
+
+`Presentation → Application → Domain → Infrastructure`
+
+The actual project may use a different structure when justified by an ADR. Inner/domain logic must not depend unnecessarily on UI, browser, transport, or infrastructure implementation details.
+
+Favor high cohesion, low coupling, explicit dependencies, one-way dependency flow, clear ownership, and bounded change locality.
+
+## 5. Size and complexity
+
+LOC is an early-warning metric, not a design target.
+
 Typical review bands:
-- Green: 100–250 LOC for JS/TS business modules
-- Yellow: 250–400 LOC: review cohesion and complexity
-- Red: >400 LOC: investigate and normally refactor
-Do not split a cohesive module mechanically just to hit a number.
-Do not keep a fragmented design merely because every file is small.
 
-## Before coding
-- Identify domain, module owner, state owner, dependencies and tests.
-- Search for existing implementations.
-- Read the minimum relevant context.
-- State the smallest safe change.
+- JS/TS: 100–250 green, 250–400 review, >400 investigate/refactor.
+- HTML: 50–200 green, 200–300 review, >300 investigate/refactor.
+- CSS: 50–250 green, 250–350 review, >350 investigate/refactor.
 
-## After coding
-- Run targeted tests.
-- Run relevant static checks.
-- Run full tests before release.
-- Verify no obsolete files, duplicates or unintended API changes remain.
+Do not split a cohesive module simply to hit a number. Conversely, a small file with multiple unrelated responsibilities is still an architecture defect.
 
-## Definition of done
-A task is complete only when behavior is correct, tests pass, architecture rules remain valid, obsolete code is removed and production build/release validation succeeds.
+Always evaluate cohesion, coupling, cyclomatic/cognitive complexity, dependencies, public API surface, change frequency, and testability.
+
+## 6. AI operating protocol
+
+Before changing code:
+
+`READ → DISCOVER → SEARCH → PLAN → CHANGE`
+
+After changing code:
+
+`TEST → STATIC CHECK → INSPECT → CLEAN → RE-TEST → REPORT`
+
+Read the smallest bounded context needed for the task. Do not load the entire repository unless the task genuinely requires it.
+
+## 7. Quality and release
+
+A task is complete only after relevant tests and gates pass. A release is complete only after production build/package and runtime smoke validation pass where applicable.
+
+## 8. Scope discipline
+
+Do not perform unrelated rewrites. When a structural defect blocks correctness, fix the root cause, but preserve existing business behavior unless the task explicitly changes it.

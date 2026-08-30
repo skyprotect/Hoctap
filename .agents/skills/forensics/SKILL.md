@@ -1,17 +1,10 @@
-# Codebase Forensics Skill
+# Repository Forensics Skill
 
-Use when auditing an existing repository.
+Use for repository audits.
 
-Inspect:
-- tracked/untracked source
-- imports/requires/dynamic imports
-- build scripts
-- test references
-- HTML/script references
-- worker references
-- service worker/cache references
-- generated artifacts
-- duplicate files/logic
-- stale migration layers
+Inspect imports/requires/dynamic imports, HTML/script references, worker references, service-worker caches, build scripts, tests, package manifests and runtime loading.
 
-Do not delete files solely from filenames. Verify usage first.
+Classify files:
+KEEP / MIGRATE / ARCHIVE / DELETE
+
+Never delete solely from filenames.

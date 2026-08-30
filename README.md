@@ -1,37 +1,25 @@
-# Universal AI Engineering Standard
+# Universal AI Engineering Standard v2 — Antigravity Edition
 
-Copy this package into a new repository, then customize only the project-specific parts.
+## Use in a new project
 
-## Quick start
+1. Copy `AGENT.md` and `.agents/` into the project root.
+2. Copy `docs/`, `scripts/`, `.github/`, and `release/` when applicable.
+3. Open the project in Google Antigravity.
+4. Run:
 
-1. Copy `.agents/` and `AGENT.md` into the project root.
-2. Add project-specific rules under `.agents/rules/`.
-3. Add the relevant stack checks under `scripts/quality/`.
-4. Create `docs/adr/001-architecture-baseline.md`.
-5. Connect the quality checks to CI.
-6. Use workflows:
-   - `/new-feature`
-   - `/bug-fix`
-   - `/forensic-audit`
-   - `/refactor`
-   - `/release`
+`/bootstrap-engineering`
+
+5. After the baseline is certified, use:
+
+- `/feature`
+- `/bug-fix`
+- `/audit`
+- `/release`
 
 ## Important
 
-Do not treat the LOC thresholds as a mechanical formatting rule.
-Use them as review gates together with cohesion, coupling, complexity, dependency direction, duplication, dead code and change locality.
+This kit is universal. Project-specific rules belong in `.agents/rules/` and project-specific ADRs in `docs/adr/`.
 
-## Antigravity
+Do not treat line-count limits as a mechanical design target. Use them as early-warning/review gates alongside cohesion, coupling, complexity, dependency direction, duplication, dead code, testability, and change locality.
 
-This package is structured around Antigravity workspace conventions:
-- `.agents/rules/`
-- `.agents/workflows/`
-- `.agents/agents/`
-- `.agents/skills/`
-
-Keep global, reusable principles separate from project-specific rules.
-
-## First setup task for a new project
-
-Ask the agent to:
-"Read AGENT.md and `.agents/`. Audit the repository, establish the architecture baseline, create ADR-001, configure quality gates for this stack, and do not change production behavior until the baseline is recorded."
+Do not invent test/build/release commands. The bootstrap workflow must discover the real commands from the repository.

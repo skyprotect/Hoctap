@@ -1,3 +1,268 @@
+/* ==========================================================================
+   PARENT DASHBOARD (BẢNG PHỤ HUYNH)
+   ========================================================================== */
+.parent-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.parent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.parent-header h2 {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* Màn hình PIN */
+.parent-auth {
+    max-width: 450px;
+    margin: 4rem auto;
+    text-align: center;
+}
+
+.parent-auth h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.parent-auth p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.pin-input-group {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.pin-input-group input {
+    background-color: var(--bg-app);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 200px;
+    letter-spacing: 4px;
+    color: var(--text-main);
+}
+
+.pin-input-group input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.error-text {
+    color: var(--danger);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Dashboard content */
+.parent-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+.stat-card-title {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card-val {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.color-success {
+    color: var(--success);
+}
+
+.parent-charts-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 850px) {
+    .parent-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chart-box {
+    padding: 1.5rem;
+}
+
+.chart-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.parent-analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 800px) {
+    .parent-analysis-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.analysis-box {
+    padding: 1.5rem;
+}
+
+.analysis-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.weakness-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.weak-skill-item {
+    background-color: var(--bg-app);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.skill-bar-container {
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.skill-bar-fill.danger { background-color: var(--danger); }
+.skill-bar-fill.warning { background-color: var(--warning); }
+
+.badges-flex-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+/* ==========================================================================
+   BẢNG QUẢN LÝ VIDEO BÀI GIẢNG TRONG DASHBOARD PHỤ HUYNH
+   ========================================================================== */
+.video-manager-table th, .video-manager-table td {
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.video-manager-table tr:hover {
+    background-color: var(--primary-bg);
+}
+
+.video-manager-table input {
+    background-color: var(--bg-app);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+}
+
+.video-manager-table input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.btn-table-save {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.btn-table-save:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Tối ưu hóa hiển thị Kiosk Mode và màn hình lớn chiều dọc */
+@media (min-height: 800px) {
+    .app-content {
+        margin: 6vh auto;
+        min-height: calc(100vh - 190px);
+    }
+    .welcome-box {
+        margin-bottom: 6vh;
+        padding: 3rem 2rem;
+    }
+    .timeline-chapter {
+        margin-bottom: 6vh;
+    }
+}
+@media (min-height: 1000px) {
+    .app-content {
+        margin: 8vh auto;
+    }
+    .welcome-box {
+        margin-bottom: 8vh;
+        padding: 3.5rem 2.5rem;
+    }
+}
+
 /**
  * HỌCTẬP SYSTEM — PARENT PORTAL STYLESHEET
  * Quản lý định kiểu Bảng điều khiển phụ huynh, Glassmorphism, Theme Sáng Hoàng Gia & Xuất PDF
@@ -349,3 +614,4 @@ body.light-mode #btn-exit-kiosk-mode {
         break-before: page !important;
     }
 }
+

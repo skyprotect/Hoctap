@@ -1,8 +1,8 @@
 {
-  "version": "13.48",
-  "lastUpdated": "30/08/2026 18:25",
-  "build": 1352,
-  "releaseNotes": "Hotfix v13.48: Khắc phục triệt để và kiểm định tự động Playwright E2E cho sự cố click nút X / Đóng / Backdrop / ESC trên Modal Đánh giá AI.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.48/ToanHocKiosk_Setup_v13.48.exe",
-  "changelog": "- Khắc phục triệt để lỗi click vật lý nút X, Đóng và click Backdrop trên Modal Đánh giá học tập AI.\n- Bổ sung định kiểu CSS trung tâm và căn giữa chuẩn cho #evaluation-modal trong modals.css.\n- Tối ưu kích thước vùng bấm (touch target) cho nút X (&times;) đạt chuẩn 36x36px với border-radius 10px.\n- Bổ sung trực tiếp event listener DOM và stopPropagation() trên modal card ngăn chặn chặn sự kiện.\n- Bổ sung bộ kiểm thử tự động Playwright E2E (evaluation_modal_e2e.test.js) mô phỏng 100% click vật lý của người dùng thật."
+  "version": "13.50",
+  "lastUpdated": "30/08/2026 19:55",
+  "build": 1353,
+  "releaseNotes": "Hotfix v13.49: Khôi phục toàn diện hệ thống CSS module (layout.css, modals.css, game.css, components.css) và đóng gói master style.css giải quyết triệt để lỗi tràn/vỡ giao diện Splash và Header.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.50/ToanHocKiosk_Setup_v13.50.exe",
+  "changelog": "- Khôi phục đầy đủ các quy tắc layout cốt lõi (.splash-screen, .app-header, .hidden, .sidebar, .screen.active) trong CSS.\n- Sửa lỗi tệp layout.css và game.css bị cắt cụt trong quá trình chia tách module trước đó.\n- Đóng gói toàn bộ 9 module CSS vào master css/style.css.\n- Nâng cấp đồng bộ phiên bản và cachebuster v13.49 trên toàn bộ ứng dụng."
 }

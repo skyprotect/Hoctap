@@ -33,6 +33,9 @@
     "test": "jest --runInBand --forceExit",
     "test:coverage": "jest --runInBand --coverage --coverageReporters=text-summary --forceExit",
     "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "check:growth": "node scripts/quality/check-file-growth.js",
+    "quality": "tsc --noEmit && node scripts/quality/check-file-growth.js && jest --runInBand --forceExit",
     "release": "node scripts/build/release.js",
     "release:apk": "node scripts/build/release_apk.js",
     "sync": "node scripts/build/sync_clean.js"

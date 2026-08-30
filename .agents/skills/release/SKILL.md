@@ -1,15 +1,5 @@
 # Release Verification Skill
 
-Use before declaring a release.
+Use before release certification.
 
-Verify:
-- production build
-- artifact presence
-- runtime paths
-- assets
-- version
-- launch
-- critical smoke test
-- known blockers
-
-Record exact evidence.
+Verify production configuration, build artifact, package/installer, runtime startup, critical user journeys, artifact identity, and evidence.

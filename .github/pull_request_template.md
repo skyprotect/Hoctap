@@ -1,26 +1,28 @@
-## Summary
-What changed and why?
-
-## Ownership
-Which domain/module owns this behavior?
-
-## Verification
-- [ ] Targeted tests
-- [ ] Regression test where applicable
-- [ ] Full relevant test suite
-- [ ] Typecheck/lint
-- [ ] Architecture checks
+## Change
+- Type: Feature / Bug Fix / Refactor / Cleanup / Security / Performance / Accessibility
+- Summary:
+- Owning domain/module:
 
 ## Architecture
-- [ ] No duplicate business logic
-- [ ] No new global mutable state
-- [ ] No circular dependency
+- [ ] Searched for existing implementation
+- [ ] No duplicate business rule
 - [ ] No unnecessary abstraction
-- [ ] No unexplained complexity/file growth
+- [ ] No new unexplained global state
+- [ ] No circular dependency
+- [ ] Dependency direction remains valid
+
+## Tests
+- [ ] Targeted tests
+- [ ] Regression test where applicable
+- [ ] Full relevant suite
+- [ ] Typecheck/lint/static gates
 
 ## Cleanup
-- [ ] Obsolete code/files removed
-- [ ] Temporary code removed or has explicit expiration
+- [ ] Temporary code removed or explicitly tracked
+- [ ] Obsolete files removed after verification
 
-## Security / Accessibility
-- [ ] Reviewed if relevant
+## Evidence
+Commands/results/artifact paths:
+
+## Exceptions
+None / documented ADR reference:

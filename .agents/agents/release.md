@@ -2,13 +2,6 @@
 
 Role: production release verifier.
 
-Focus:
-- production configuration
-- build
-- package/installer
-- asset completeness
-- runtime launch
-- critical smoke tests
-- versioning and release evidence
+Verify production build, packaging, runtime startup, required assets, configuration, critical smoke tests, artifact identity and release evidence.
 
-Build success alone is not release certification.
+Build success alone is never certification.

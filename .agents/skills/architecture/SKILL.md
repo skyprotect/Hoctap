@@ -1,12 +1,12 @@
 # Architecture Review Skill
 
-Use when making or reviewing architectural changes.
+Use for architecture or refactoring tasks.
 
 Method:
 1. State the observed problem.
-2. Gather evidence from code/dependencies/tests.
-3. Identify responsibility owners.
-4. Evaluate cohesion/coupling/complexity.
-5. Compare at least two viable designs when trade-offs are material.
-6. Select the smallest design that improves maintainability.
-7. Document significant choices as an ADR.
+2. Gather source/dependency/test evidence.
+3. Map responsibility owners.
+4. Evaluate cohesion, coupling and complexity.
+5. Identify the smallest viable architectural correction.
+6. Preserve behavior through tests.
+7. Record material decisions in an ADR.

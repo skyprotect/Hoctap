@@ -1,4 +1,4 @@
-name: Quality
+name: Engineering Quality Gates
 
 on:
   push:
@@ -9,24 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-
       - name: Install
         run: npm ci
-
       - name: Typecheck
         run: npm run typecheck --if-present
-
       - name: Lint
         run: npm run lint --if-present
-
       - name: Test
         run: npm test -- --runInBand
-
-      - name: File growth gate
+      - name: File growth
         run: node scripts/quality/check-file-growth.js
+      - name: Build
+        run: npm run build --if-present
