@@ -1,136 +1,24 @@
 /**
  * AUTH CONTROLLER
- * Xử lý các yêu cầu xác thực Google, xác thực PIN phụ huynh, phiên làm việc và đăng xuất
+ * Tầng giao tiếp HTTP cho xác thực: trích xuất params/body, gọi Auth Service và phản hồi JSON
  */
 import { Request, Response } from 'express';
-import { OAuth2Client } from 'google-auth-library';
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
-import { 
-    dbGetConfig, 
-    dbGetSetting, 
-    dbSaveSetting, 
-    runQuery 
-} from '../db/database';
-import { 
-    generateToken, 
-    DEFAULT_GOOGLE_CLIENT_ID 
-} from '../services/auth.service';
+import * as authService from '../services/auth.service';
 
 export function getGoogleClientId(req: Request, res: Response): void {
-    res.json({ clientId: process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID });
+    res.json({ clientId: authService.getGoogleClientId() });
 }
 
 export async function getSession(req: Request, res: Response): Promise<void> {
-    try {
-        const session = await dbGetSetting('parent_session');
-        if (session && (session.parentUid || session.email)) {
-            res.json({ loggedIn: true, session: session });
-        } else {
-            res.json({ loggedIn: false });
-        }
-    } catch (e: any) {
-        res.json({ loggedIn: false, error: e.message });
-    }
+    const result = await authService.getSession();
+    res.json(result);
 }
 
 export async function googleLogin(req: Request, res: Response): Promise<void> {
-    const { idToken, firebaseUid, email: fallbackEmail, displayName: fallbackName } = req.body || {};
-    let email = (fallbackEmail || "").trim();
-    let displayName = (fallbackName || "").trim();
-    let parentUid = (firebaseUid || "").trim();
-
+    const { idToken, firebaseUid, email, displayName } = req.body || {};
     try {
-        const clientId = process.env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
-
-        if (idToken) {
-            try {
-                const oauthClient = new OAuth2Client(clientId);
-                const ticket = await oauthClient.verifyIdToken({
-                    idToken: idToken,
-                    audience: clientId
-                });
-                const payload = ticket.getPayload();
-                if (payload) {
-                    email = payload.email || email;
-                    displayName = payload.name || displayName;
-                    parentUid = parentUid || payload.sub;
-                }
-            } catch (oauthErr) {
-                try {
-                    const decoded: any = jwt.decode(idToken);
-                    if (decoded) {
-                        email = decoded.email || email;
-                        displayName = decoded.name || displayName;
-                        parentUid = parentUid || decoded.sub || decoded.user_id;
-                    }
-                } catch (jwtErr: any) {
-                    console.warn("[Google-Login] Không thể giải mã JWT ID Token:", jwtErr.message);
-                }
-            }
-        }
-
-        if (!parentUid) {
-            if (email) {
-                parentUid = "uid_" + Buffer.from(email).toString('hex').slice(0, 24);
-            } else {
-                parentUid = "uid_parent_" + Date.now();
-            }
-        }
-
-        const parentSessionObj = { 
-            parentUid: parentUid, 
-            email: email || "parent@binhminhchamhoc.edu.vn", 
-            displayName: displayName || "Phụ huynh", 
-            loginAt: new Date().toISOString() 
-        };
-        await dbSaveSetting('parent_session', parentSessionObj);
-
-        const normalizedEmail = (email || "").toLowerCase().trim();
-        if (normalizedEmail.includes('skyprotect')) {
-            const configSky = {
-                parentName: "Phụ huynh",
-                parentPin: "123456",
-                studentName: "Trần Bình Minh",
-                currentClass: "6",
-                defaultStudentId: "std_htsj4gbmo",
-                students: [
-                    { id: "std_htsj4gbmo", name: "Trần Bình Minh", classLevel: "6" },
-                    { id: "std_baongoc", name: "Trần Bảo Ngọc", classLevel: "1" }
-                ]
-            };
-            await dbSaveSetting('config', configSky);
-            await runQuery("INSERT OR IGNORE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
-                'std_htsj4gbmo',
-                JSON.stringify({ student: 'Trần Bình Minh', classLevel: '6' })
-            ]).catch(() => {});
-            await runQuery("INSERT OR IGNORE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
-                'std_baongoc',
-                JSON.stringify({ student: 'Trần Bảo Ngọc', classLevel: '1' })
-            ]).catch(() => {});
-            console.log("  - Đã tự động khởi tạo cấu hình SQLite cho skyprotect@gmail.com (Trần Bình Minh & Trần Bảo Ngọc)");
-        } else if (normalizedEmail.includes('nhematseo')) {
-            const configNhem = {
-                parentName: "Phụ huynh",
-                parentPin: "123456",
-                studentName: "Trần Đức Phúc",
-                currentClass: "4",
-                defaultStudentId: "std_tyc0gfnkz",
-                students: [
-                    { id: "std_tyc0gfnkz", name: "Trần Đức Phúc", classLevel: "4" }
-                ]
-            };
-            await dbSaveSetting('config', configNhem);
-            await runQuery("INSERT OR IGNORE INTO student_progress (student_id, state_json) VALUES (?, ?)", [
-                'std_tyc0gfnkz',
-                JSON.stringify({ student: 'Trần Đức Phúc', classLevel: '4' })
-            ]).catch(() => {});
-            console.log("  - Đã tự động khởi tạo cấu hình SQLite cho nhematseo@gmail.com (Trần Đức Phúc)");
-        }
-
-        console.log(`👤 Đăng nhập thành công cho email: ${parentSessionObj.email}, UID: ${parentUid}`);
-        res.json({ success: true, parentSession: parentSessionObj });
+        const parentSession = await authService.processGoogleLogin({ idToken, firebaseUid, email, displayName });
+        res.json({ success: true, parentSession });
     } catch (error: any) {
         console.error("Lỗi xử lý đăng nhập Google:", error);
         res.status(500).json({ error: "Xử lý đăng nhập thất bại: " + error.message });
@@ -139,48 +27,7 @@ export async function googleLogin(req: Request, res: Response): Promise<void> {
 
 export async function logout(req: Request, res: Response): Promise<void> {
     try {
-        console.log("⚠️ Bắt đầu xử lý Đăng xuất và Xóa sạch dữ liệu thiết bị...");
-        await runQuery("DELETE FROM settings WHERE key = 'parent_session'");
-        await runQuery("DELETE FROM student_progress");
-        await runQuery("DELETE FROM custom_vocabulary");
-        await runQuery("DELETE FROM custom_topics");
-        await runQuery("DELETE FROM progress");
-        await runQuery("DELETE FROM settings WHERE key = 'config'");
-        await runQuery("DELETE FROM settings WHERE key = 'leaderboard_math_cache'");
-        await runQuery("DELETE FROM settings WHERE key = 'leaderboard_english_cache'");
-
-        const rootDir = path.resolve(__dirname, '../../');
-        const examsDir = path.join(rootDir, 'exams');
-        const backupDir = path.join(rootDir, 'exams_backup');
-
-        const cleanExamsFiles = (dir: string) => {
-            if (!fs.existsSync(dir)) return;
-            const files = fs.readdirSync(dir);
-            for (const file of files) {
-                const filePath = path.join(dir, file);
-                const stat = fs.statSync(filePath);
-                if (stat.isDirectory()) {
-                    cleanExamsFiles(filePath);
-                } else {
-                    if (file.includes('std_htsj4gbmo') || file.includes('std_tyc0gfnkz') || file.includes('std_baongoc')) {
-                        try { fs.unlinkSync(filePath); } catch (e) {}
-                    }
-                }
-            }
-        };
-
-        cleanExamsFiles(examsDir);
-        cleanExamsFiles(backupDir);
-
-        const logsDir = path.join(rootDir, 'logs');
-        if (fs.existsSync(logsDir)) {
-            const logFiles = fs.readdirSync(logsDir);
-            for (const f of logFiles) {
-                try { fs.unlinkSync(path.join(logsDir, f)); } catch(e) {}
-            }
-        }
-
-        console.log("✅ Đã reset thiết bị sạch sẽ.");
+        await authService.logoutAndResetDevice();
         res.json({ success: true, message: "Đã đăng xuất và reset thiết bị thành công" });
     } catch (error: any) {
         console.error("Lỗi khi reset thiết bị:", error);
@@ -192,14 +39,11 @@ export async function adminLogin(req: Request, res: Response): Promise<any> {
     const { password, pin } = req.body || {};
     const inputPin = password || pin;
     try {
-        const config: any = await dbGetConfig();
-        const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
-        if (inputPin === correctPin || inputPin === "haidangppk") {
-            const token = generateToken({ role: 'admin' }, '30m');
-            return res.json({ success: true, token });
-        } else {
-            return res.status(401).json({ error: "Mật mã Phụ huynh không chính xác!" });
+        const result = await authService.adminLogin(inputPin);
+        if (!result.success) {
+            return res.status(result.status || 401).json({ error: result.error });
         }
+        return res.json({ success: true, token: result.token });
     } catch (e: any) {
         console.error("Lỗi đăng nhập:", e);
         return res.status(500).json({ error: "Lỗi máy chủ khi đăng nhập: " + e.message });
@@ -209,13 +53,11 @@ export async function adminLogin(req: Request, res: Response): Promise<any> {
 export async function verifyPin(req: Request, res: Response): Promise<any> {
     const { pin } = req.body || {};
     try {
-        const config: any = await dbGetConfig();
-        const correctPin = (config && config.parentPin) ? config.parentPin : "123456";
-        if (pin === correctPin || pin === "haidangppk") {
-            return res.json({ success: true });
-        } else {
-            return res.status(403).json({ success: false, error: "Mã PIN Phụ huynh không chính xác!" });
+        const result = await authService.verifyPin(pin);
+        if (!result.success) {
+            return res.status(result.status || 403).json({ success: false, error: result.error });
         }
+        return res.json({ success: true });
     } catch (e: any) {
         console.error("Lỗi xác thực PIN:", e);
         return res.status(500).json({ error: "Lỗi máy chủ khi xác thực PIN: " + e.message });

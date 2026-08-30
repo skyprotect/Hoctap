@@ -1,8 +1,8 @@
 {
-  "version": "13.36",
+  "version": "13.37",
   "lastUpdated": "30/08/2026 14:55",
   "build": 1346,
   "releaseNotes": "Phase 1 - Giai đoạn 3: Tách ngân hàng đề JSON thuần & QuestionEngine v3.0, Service Worker PWA Offline thực sự, Lazy Loading tài nguyên nặng và Accessibility WCAG 2.1 AA.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.36/ToanHocKiosk_Setup_v13.36.exe",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.37/ToanHocKiosk_Setup_v13.37.exe",
   "changelog": "- Task 3.1: Phân tách ngân hàng đề Toán Lớp 6 thành 5 tệp JSON chuẩn (data/math/grade6/*.json) với 115 templates và xây dựng QuestionEngine v3.0 độc lập, sinh đề ngẫu nhiên chống trùng lặp đáp án.\n- Task 3.2: Tích hợp Service Worker PWA (sw.js) hỗ trợ chạy Offline 100%, bộ nhớ đệm thông minh Cache-First cho assets và Network-First cho API.\n- Task 3.3: Module LazyLoader nạp động theo nhu cầu (Mermaid, Game Engine, Chart.js), tối ưu vượt bậc chỉ số Web Vitals (LCP, INP) và tốc độ mở trang.\n- Task 3.4: Chuẩn hóa Trợ năng Accessibility WCAG 2.1 AA cho học sinh (Focus-visible nổi bật, phím tắt 1-4/Enter/Esc, cỡ chữ chuẩn sư phạm >=14px/18px, ARIA labels).\n- Đóng gói trọn vẹn bộ cài đặt Windows Installer .exe tự động bằng Inno Setup."
 }

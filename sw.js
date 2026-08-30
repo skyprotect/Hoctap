@@ -1,9 +1,9 @@
 /**
- * HOCTAP PWA SERVICE WORKER (v13.35)
+ * HOCTAP PWA SERVICE WORKER (v13.37)
  * Cung cấp khả năng chạy Offline thực sự, nạp nhanh và bộ nhớ đệm tối ưu
  */
 
-const CACHE_VERSION = 'v13.35';
+const CACHE_VERSION = 'v13.37';
 const CACHE_NAME = `hoctap-cache-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -13,17 +13,33 @@ const PRECACHE_ASSETS = [
     '/css/style.css',
     '/css/quiz.css',
     '/js/app.js',
-    '/js/engine/question-engine.js',
-    '/js/questions-v3.js',
+    '/js/core/storage.js',
+    '/js/core/event-bus.js',
+    '/js/core/state.js',
+    '/js/core/api-client.js',
+    '/js/core/navigation.js',
     '/js/core/lazy-loader.js',
-    '/data/math/grade6/chapter1_integers.json',
-    '/data/math/grade6/chapter2_fractions.json',
-    '/data/math/grade6/chapter3_geometry.json',
-    '/data/math/grade6/chapter4_statistics.json',
-    '/data/math/grade6/chapter5_ratios.json',
-    '/lib/katex/katex.min.js',
-    '/lib/katex/katex.min.css',
-    '/lib/canvas-confetti.min.js',
+    '/js/engine/question-engine.js',
+    '/js/features/katex-service.js',
+    '/js/features/audio-service.js',
+    '/js/features/speech-service.js',
+    '/js/features/scratchpad-service.js',
+    '/js/features/srs-service.js',
+    '/js/features/gamification-service.js',
+    '/js/features/chibi-controller.js',
+    '/js/features/ui-renderer.js',
+    '/js/features/quiz-manager.js',
+    '/js/modules/splash.module.js',
+    '/js/modules/student-select.module.js',
+    '/js/modules/curriculum.module.js',
+    '/js/modules/quiz-runner.module.js',
+    '/js/modules/practice.module.js',
+    '/js/modules/leaderboard.module.js',
+    '/js/modules/settings.module.js',
+    '/js/modules/vocab-monster.module.js',
+    '/js/modules/skill-card.module.js',
+    '/js/modules/chat.module.js',
+    '/js/modules/parent-dashboard.module.js',
     '/favicon.ico',
     '/manifest.json'
 ];

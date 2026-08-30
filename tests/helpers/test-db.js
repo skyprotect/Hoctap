@@ -74,6 +74,22 @@ function createTestDatabase() {
                     )
                 `);
 
+                db.run(`
+                    CREATE TABLE IF NOT EXISTS exam_sessions (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        student_id TEXT NOT NULL,
+                        lesson_id TEXT NOT NULL,
+                        subject TEXT NOT NULL DEFAULT 'math',
+                        score_percent REAL,
+                        total_questions INTEGER,
+                        time_spent INTEGER,
+                        is_audited INTEGER DEFAULT 0,
+                        answers_json TEXT,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (student_id) REFERENCES student_progress(student_id)
+                    )
+                `);
+
                 const sampleConfig = {
                     parentName: "Phụ huynh",
                     parentPin: "123456",

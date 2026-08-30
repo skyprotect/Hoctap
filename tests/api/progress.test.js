@@ -76,4 +76,41 @@ describe("Progress & State Management API Integration Tests", () => {
         expect(res.status).toBe(400);
         expect(res.body).toHaveProperty('error');
     });
+
+    test("POST /api/save-progress lưu giữ examSessions và state nguyên vẹn (M03)", async () => {
+        const studentId = "std_test_exam_" + Date.now();
+        const payload = {
+            studentId,
+            classLevel: "6",
+            studentName: "Học sinh Exam Test",
+            state: {
+                xp: 500,
+                streak: 2,
+                scores: { "bai-1": 100 },
+                examSessions: [
+                    {
+                        lessonId: "math-ch1-les1",
+                        lessonTitle: "Tập hợp các số tự nhiên",
+                        scorePercent: 100,
+                        isAudited: true,
+                        questions: [
+                            { questionText: "1 + 1 = ?", options: ["1", "2", "3", "4"], correctIndex: 1 }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        const saveRes = await request(app)
+            .post('/api/save-progress')
+            .send(payload);
+
+        expect(saveRes.status).toBe(200);
+        expect(saveRes.body.success).toBe(true);
+
+        const loadRes = await request(app).get(`/api/load-progress?studentId=${studentId}`);
+        expect(loadRes.status).toBe(200);
+        expect(loadRes.body.examSessions.length).toBe(1);
+        expect(loadRes.body.examSessions[0].lessonId).toBe("math-ch1-les1");
+    });
 });

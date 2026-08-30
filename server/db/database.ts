@@ -20,6 +20,7 @@ export class DatabasePool {
                     console.error('❌ Lỗi kết nối CSDL SQLite:', err.message);
                 } else {
                     console.log('📦 Đã kết nối thành công CSDL SQLite tại:', DB_PATH);
+                    createTables().catch(e => console.warn('createTables warning:', e.message));
                 }
             });
             DatabasePool.instance.configure('busyTimeout', 10000);
@@ -238,6 +239,31 @@ export function dbDeleteStudentProgress(studentId: string): Promise<number> {
     });
 }
 
+export async function dbSaveExamSessionRecord(studentId: string, subject: string, session: any): Promise<sqlite3.RunResult> {
+    const answersJson = JSON.stringify(session.questions || []);
+    return runQuery(
+        "INSERT INTO exam_sessions (student_id, lesson_id, subject, score_percent, total_questions, is_audited, answers_json, created_at) " +
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            studentId,
+            session.lessonId || 'unknown',
+            subject || 'math',
+            session.scorePercent || session.score || 0,
+            (session.questions ? session.questions.length : 0),
+            session.isAudited ? 1 : 0,
+            answersJson,
+            session.completedAt || new Date().toISOString()
+        ]
+    );
+}
+
+export async function dbGetExamSessionRecords(studentId: string, subject?: string): Promise<any[]> {
+    if (subject) {
+        return allQuery("SELECT * FROM exam_sessions WHERE student_id = ? AND subject = ? ORDER BY created_at DESC", [studentId, subject]);
+    }
+    return allQuery("SELECT * FROM exam_sessions WHERE student_id = ? ORDER BY created_at DESC", [studentId]);
+}
+
 export async function addToSyncQueue(tableName: string, recordId: string, action: string, payload: any): Promise<void> {
     try {
         await runQuery(
@@ -335,7 +361,25 @@ export function createTables(): Promise<void> {
                     activated_at TEXT,
                     expires_at TEXT
                 )
-            `, async (err: Error | null) => {
+            `);
+
+            // Bảng exam_sessions lưu trữ lịch sử làm bài thi độc lập (M03)
+            poolDb.run(`
+                CREATE TABLE IF NOT EXISTS exam_sessions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    student_id TEXT NOT NULL,
+                    lesson_id TEXT NOT NULL,
+                    subject TEXT NOT NULL DEFAULT 'math',
+                    score_percent REAL,
+                    total_questions INTEGER,
+                    time_spent INTEGER,
+                    is_audited INTEGER DEFAULT 0,
+                    answers_json TEXT,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (student_id) REFERENCES student_progress(student_id)
+                )
+            `);
+            poolDb.run(`CREATE INDEX IF NOT EXISTS idx_exam_sessions_student ON exam_sessions(student_id);`, async (err: Error | null) => {
                 if (err) {
                     console.error("Lỗi khi tạo các bảng DB:", err);
                     return reject(err);

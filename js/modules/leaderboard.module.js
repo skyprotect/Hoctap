@@ -1,88 +1,103 @@
 /**
  * LEADERBOARD MODULE
- * Quản lý bảng xếp hạng học sinh, đồng bộ realtime và hiển thị thứ hạng theo môn học
+ * Quản lý Bảng Xếp Hạng Tuần/Tháng, Lọc theo môn học (Toán/Tiếng Anh) và Danh sách học sinh trực tuyến
  */
 (function() {
     'use strict';
 
-    const LeaderboardModule = {
-        currentSubject: 'english',
+    let currentSubject = 'english';
 
+    const LeaderboardModule = {
         init: function() {
             this.bindEvents();
         },
 
         bindEvents: function() {
-            const mathTab = document.getElementById('tab-leaderboard-math');
-            const engTab = document.getElementById('tab-leaderboard-eng');
+            // Lắng nghe sự kiện
+        },
 
-            if (mathTab) {
-                mathTab.addEventListener('click', () => {
-                    this.currentSubject = 'math';
-                    this.loadLeaderboard('math');
-                });
-            }
-            if (engTab) {
-                engTab.addEventListener('click', () => {
-                    this.currentSubject = 'english';
-                    this.loadLeaderboard('english');
-                });
+        openModal: function() {
+            const modal = document.getElementById('leaderboard-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                this.loadData();
             }
         },
 
-        loadLeaderboard: async function(subject = 'english') {
-            const container = document.getElementById('leaderboard-list-container');
-            if (!container) return;
-
-            container.innerHTML = '<div class="loading-spinner">Đang tải bảng xếp hạng...</div>';
-
-            try {
-                const res = await fetch(`/api/leaderboard?subject=${subject}`);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                this.render(data.leaderboard || [], subject);
-            } catch (err) {
-                console.error("Lỗi nạp bảng xếp hạng:", err);
-                container.innerHTML = '<div class="error-msg">Không thể tải bảng xếp hạng lúc này. Vui lòng thử lại sau!</div>';
-            }
+        closeModal: function() {
+            const modal = document.getElementById('leaderboard-modal');
+            if (modal) modal.classList.add('hidden');
         },
 
-        render: function(list, subject) {
+        switchSubject: function(subject) {
+            currentSubject = subject || 'english';
+            const btns = document.querySelectorAll('.leaderboard-tab-btn');
+            btns.forEach(btn => {
+                if (btn.getAttribute('data-subject') === currentSubject) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            this.loadData();
+        },
+
+        loadData: function() {
             const container = document.getElementById('leaderboard-list-container');
             if (!container) return;
 
-            if (!list || list.length === 0) {
-                container.innerHTML = '<div class="empty-msg">Chưa có dữ liệu xếp hạng. Hãy là người đầu tiên ghi điểm!</div>';
+            container.innerHTML = '<div style="text-align: center; padding: 2rem;">Đang tải bảng xếp hạng...</div>';
+
+            fetch(`/api/leaderboard?subject=${encodeURIComponent(currentSubject)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && Array.isArray(data.leaderboard)) {
+                        this.renderList(data.leaderboard);
+                    } else {
+                        container.innerHTML = '<div style="text-align: center; padding: 2rem;">Chưa có dữ liệu xếp hạng</div>';
+                    }
+                })
+                .catch(err => {
+                    console.warn("[Leaderboard] Fetch error:", err);
+                    container.innerHTML = '<div style="text-align: center; padding: 2rem;">Lỗi tải dữ liệu bảng xếp hạng</div>';
+                });
+        },
+
+        renderList: function(list) {
+            const container = document.getElementById('leaderboard-list-container');
+            if (!container) return;
+
+            if (list.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 2rem;">Chưa có lượt xếp hạng nào</div>';
                 return;
             }
 
-            let html = '<div class="leaderboard-table">';
-            list.forEach((item, index) => {
+            container.innerHTML = list.map((item, index) => {
                 const rank = index + 1;
-                let rankBadge = `${rank}`;
-                if (rank === 1) rankBadge = '🥇';
-                else if (rank === 2) rankBadge = '🥈';
-                else if (rank === 3) rankBadge = '🥉';
+                let medal = rank;
+                if (rank === 1) medal = '🥇';
+                else if (rank === 2) medal = '🥈';
+                else if (rank === 3) medal = '🥉';
 
-                const xp = subject === 'math' ? (item.mathXp || 0) : (item.englishXp || 0);
-                const streak = subject === 'math' ? (item.mathStreak || 0) : (item.englishStreak || 0);
+                const xpVal = currentSubject === 'math' ? (item.mathXp || 0) : (item.englishXp || item.xp || 0);
 
-                html += `
-                    <div class="leaderboard-row ${rank <= 3 ? 'top-' + rank : ''}">
-                        <div class="rank-badge">${rankBadge}</div>
-                        <div class="student-info">
-                            <span class="student-name">${item.studentName || 'Học sinh'}</span>
-                            <span class="class-badge">Lớp ${item.classLevel || '6'}</span>
+                return `
+                    <div class="leaderboard-item rank-${rank}">
+                        <div class="leaderboard-rank">${medal}</div>
+                        <div class="leaderboard-avatar">${(item.studentName || 'HS').substring(0, 2).toUpperCase()}</div>
+                        <div class="leaderboard-info">
+                            <div class="leaderboard-name">${item.studentName || 'Học sinh'}</div>
+                            <div class="leaderboard-class">Lớp ${item.classLevel || '6'}</div>
                         </div>
-                        <div class="stats">
-                            <span class="xp-val">⚡ ${xp} XP</span>
-                            <span class="streak-val">🔥 ${streak} ngày</span>
-                        </div>
+                        <div class="leaderboard-xp">${xpVal} XP</div>
                     </div>
                 `;
-            });
-            html += '</div>';
-            container.innerHTML = html;
+            }).join('');
+        },
+
+        togglePresenceSidebar: function() {
+            const sidebar = document.getElementById('online-presence-sidebar');
+            if (sidebar) sidebar.classList.toggle('hidden');
         }
     };
 
