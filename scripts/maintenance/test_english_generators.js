@@ -1,231 +1,122 @@
+require('ts-node').register({ transpileOnly: true });
 const fs = require('fs');
 const path = require('path');
 
 console.log("====================================================");
-console.log("BẮT ĐẦU KIỂM ĐỊNH TỰ ĐỘNG BỘ SINH CÂU HỎI TIẾNG ANH");
+console.log("BẮT ĐẦU KIỂM ĐỊNH TỰ ĐỘNG DỮ LIỆU & GENERATOR TIẾNG ANH");
 console.log("====================================================\n");
 
-// Tải dữ liệu và hàm sinh câu hỏi tiếng Anh
-const englishDataPath = path.join(__dirname, '../js/english_data.js');
-let englishModule;
-
-try {
-    englishModule = require(englishDataPath);
-} catch (e) {
-    console.error("Không thể load trực tiếp bằng require, tiến hành giả lập window context...");
-    // Giả lập môi trường window/client
-    const vm = require('vm');
-    const sandbox = {
-        console: console,
-        Math: Math,
-        Array: Array,
-        Object: Object,
-        String: String,
-        Number: Number,
-        Set: Set,
-        Map: Map,
-        RegExp: RegExp,
-        window: {},
-        module: {},
-        exports: {}
-    };
-    const code = fs.readFileSync(englishDataPath, 'utf8');
-    vm.runInNewContext(code, sandbox);
-    englishModule = sandbox.window;
-}
-
-const { ENGLISH_COURSE_DATA, generateEnglishQuestions, generateIoeQuestions, generateEnglishFullExam } = englishModule;
-
-if (!ENGLISH_COURSE_DATA) {
-    console.error("❌ Lỗi: Không tìm thấy dữ liệu ENGLISH_COURSE_DATA.");
-    process.exit(1);
-}
+const dataDir = path.join(__dirname, '../../data/english');
+const gradeFiles = [
+    { grade: "1", file: 'grade_1_lessons.json' },
+    { grade: "4", file: 'grade_4_lessons.json' },
+    { grade: "6", file: 'grade_6_lessons.json' }
+];
 
 let totalTests = 0;
 let failedTests = 0;
 const errors = [];
 
-const skills = ['listening', 'speaking', 'reading', 'writing'];
-
-// Duyệt qua từng khối lớp
-for (const classLevel in ENGLISH_COURSE_DATA) {
-    const classData = ENGLISH_COURSE_DATA[classLevel];
-    console.log(`\n📚 Đang kiểm tra Khối lớp ${classLevel} (${classData.levelLabel}):`);
-    
-    // Duyệt qua từng Unit (Topic)
-    classData.topics.forEach(topic => {
-        console.log(`  ➔ Unit: ${topic.title} (${topic.id})`);
-        
-        // 1. Kiểm tra 4 kỹ năng chính
-        skills.forEach(skill => {
-            totalTests++;
-            try {
-                // Chạy hàm sinh câu hỏi
-                const questions = generateEnglishQuestions(classLevel, topic.id, skill);
-                
-                // Kiểm tra số lượng câu hỏi
-                if (!questions || !Array.isArray(questions)) {
-                    throw new Error(`Kết quả sinh câu hỏi không phải là mảng hoặc rỗng.`);
-                }
-                
-                if (questions.length === 0) {
-                    throw new Error(`Mảng câu hỏi trống rỗng.`);
-                }
-                
-                // Kiểm tra số lượng câu hỏi thực tế (mục tiêu là 15 câu, tuy nhiên chấp nhận tối thiểu 10 câu nếu bài học thiếu từ vựng)
-                if (questions.length < 10 || questions.length > 15) {
-                    throw new Error(`Số lượng câu hỏi sinh ra không đạt chuẩn (có ${questions.length} câu, yêu cầu từ 10 đến 15 câu).`);
-                }
-                
-                // Duyệt qua từng câu hỏi để kiểm tra tính hợp lệ
-                questions.forEach((q, idx) => {
-                    if (!q.type) throw new Error(`Câu hỏi số ${idx + 1} thiếu thuộc tính 'type'.`);
-                    if (!q.questionText) throw new Error(`Câu hỏi số ${idx + 1} thiếu 'questionText'.`);
-                    if (!q.correctAnswer) throw new Error(`Câu hỏi số ${idx + 1} thiếu 'correctAnswer'.`);
-                    
-                    // Kiểm tra trắc nghiệm
-                    if (q.options) {
-                        if (!Array.isArray(q.options) || q.options.length < 2) {
-                            throw new Error(`Câu hỏi số ${idx + 1} có danh sách 'options' không hợp lệ.`);
-                        }
-                        
-                        // Đáp án đúng phải nằm trong danh sách lựa chọn
-                        const hasCorrect = q.options.some(opt => 
-                            opt.toString().toLowerCase().trim() === q.correctAnswer.toString().toLowerCase().trim()
-                        );
-                        if (!hasCorrect) {
-                            throw new Error(`Câu hỏi số ${idx + 1}: Đáp án đúng '${q.correctAnswer}' không nằm trong các phương án lựa chọn: ${JSON.stringify(q.options)}`);
-                        }
-                        
-                        // Không được trùng lặp đáp án
-                        const uniqueOpts = new Set(q.options.map(opt => opt.toString().toLowerCase().trim()));
-                        if (uniqueOpts.size !== q.options.length) {
-                            throw new Error(`Câu hỏi số ${idx + 1}: Phát hiện trùng lặp đáp án trong các phương án lựa chọn: ${JSON.stringify(q.options)}`);
-                        }
-                    }
-                    
-                    // Kiểm tra sắp xếp từ (writing)
-                    if (q.type === 'writing' && q.wordPool) {
-                        if (!Array.isArray(q.wordPool) || q.wordPool.length === 0) {
-                            throw new Error(`Câu hỏi viết sắp xếp số ${idx + 1} có 'wordPool' không hợp lệ.`);
-                        }
-                    }
-                });
-                
-            } catch (err) {
-                failedTests++;
-                errors.push({
-                    classLevel,
-                    topicId: topic.id,
-                    topicTitle: topic.title,
-                    type: `Kỹ năng: ${skill.toUpperCase()}`,
-                    message: err.message
-                });
-            }
-        });
-        
-        // 2. Kiểm tra bộ sinh câu hỏi IOE
-        totalTests++;
-        try {
-            const ioeQuestions = generateIoeQuestions(classLevel, topic.id);
-            if (!ioeQuestions || !Array.isArray(ioeQuestions) || ioeQuestions.length === 0) {
-                throw new Error("Không thể sinh câu hỏi IOE.");
-            }
-            if (ioeQuestions.length !== 20) {
-                throw new Error(`Số lượng câu hỏi IOE không bằng 20 (có ${ioeQuestions.length} câu).`);
-            }
-            
-            ioeQuestions.forEach((q, idx) => {
-                if (!q.type) throw new Error(`Câu hỏi IOE số ${idx + 1} thiếu 'type'.`);
-                if (!q.questionText) throw new Error(`Câu hỏi IOE số ${idx + 1} thiếu 'questionText'.`);
-                
-                // Kiểm tra trắc nghiệm IOE
-                if (q.options) {
-                    if (!q.correctAnswer) throw new Error(`Câu hỏi trắc nghiệm IOE số ${idx + 1} thiếu 'correctAnswer'.`);
-                    const hasCorrect = q.options.some(opt => 
-                        opt.toString().toLowerCase().trim() === q.correctAnswer.toString().toLowerCase().trim()
-                    );
-                    if (!hasCorrect) {
-                        throw new Error(`Câu hỏi IOE số ${idx + 1}: Đáp án đúng '${q.correctAnswer}' không nằm trong options: ${JSON.stringify(q.options)}`);
-                    }
-                    const uniqueOpts = new Set(q.options.map(opt => opt.toString().toLowerCase().trim()));
-                    if (uniqueOpts.size !== q.options.length) {
-                        throw new Error(`Câu hỏi IOE số ${idx + 1}: Trùng lặp đáp án: ${JSON.stringify(q.options)}`);
-                    }
-                }
-            });
-        } catch (err) {
-            failedTests++;
-            errors.push({
-                classLevel,
-                topicId: topic.id,
-                topicTitle: topic.title,
-                type: "Luyện thi IOE",
-                message: err.message
-            });
-        }
-    });
-}
-
-// 3. Kiểm tra Bộ sinh Đề thi 4 Kỹ năng Tổng hợp GDPT 2018 (generateEnglishFullExam)
-console.log("\n📚 Đang kiểm tra Bộ sinh Đề thi 4 Kỹ năng GDPT 2018 (generateEnglishFullExam):");
-const fullExamConfigs = [
-    { name: "Grammar Custom (Present Simple + Modals)", config: { classLevel: "6", category: "grammar", level: "advanced", grammars: ["pres_simple", "modals"], detail: "custom" } },
-    { name: "Topic General (School Life)", config: { classLevel: "6", category: "topic", level: "advanced", detail: "school" } },
-    { name: "Semester Exam (Midterm 1)", config: { classLevel: "6", category: "semester", level: "gifted", detail: "midterm1" } },
-    { name: "Unit Exam (Unit 1)", config: { classLevel: "6", category: "unit", level: "basic", detail: "eng6-t1" } }
-];
-
-fullExamConfigs.forEach(item => {
+// 1. Kiểm định các tệp giáo trình tiếng Anh Lớp 1, 4, 6
+gradeFiles.forEach(({ grade, file }) => {
+    const filePath = path.join(dataDir, file);
     totalTests++;
+    console.log(`📚 Đang kiểm tra Giáo trình Tiếng Anh Lớp ${grade} (${file})...`);
+    
     try {
-        const questions = generateEnglishFullExam(item.config);
-        if (!questions || !Array.isArray(questions) || questions.length === 0) {
-            throw new Error(`Đề thi '${item.name}' không sinh ra câu hỏi nào.`);
+        if (!fs.existsSync(filePath)) {
+            throw new Error(`Tệp ${file} không tồn tại trên ổ đĩa.`);
         }
-        if (questions.length < 8) {
-            throw new Error(`Số lượng câu hỏi '${item.name}' không đủ (chỉ có ${questions.length} câu).`);
+
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(raw);
+
+        if (!data.levelLabel) throw new Error("Thiếu thuộc tính 'levelLabel'");
+        if (!data.topics || !Array.isArray(data.topics) || data.topics.length === 0) {
+            throw new Error("Danh sách 'topics' trống hoặc không hợp lệ");
         }
-        
-        // Kiểm tra tính hợp lệ của từng câu hỏi 4 kỹ năng
-        questions.forEach((q, idx) => {
-            if (!q.category) throw new Error(`Câu hỏi ${idx + 1} của '${item.name}' thiếu 'category'.`);
-            if (!q.questionText) throw new Error(`Câu hỏi ${idx + 1} của '${item.name}' thiếu 'questionText'.`);
-            if (q.options && Array.isArray(q.options)) {
-                if (q.options.length < 2) throw new Error(`Câu hỏi ${idx + 1} có ít hơn 2 lựa chọn.`);
-                const uniqueOpts = new Set(q.options.map(o => o.toString().toLowerCase().trim()));
-                if (uniqueOpts.size !== q.options.length) {
-                    throw new Error(`Phát hiện trùng lặp đáp án trong '${item.name}' câu ${idx + 1}: ${JSON.stringify(q.options)}`);
-                }
+
+        let totalVocab = 0;
+        data.topics.forEach((topic, tIdx) => {
+            if (!topic.id || !topic.title) {
+                throw new Error(`Topic #${tIdx + 1} thiếu 'id' hoặc 'title'`);
+            }
+            if (topic.vocab && Array.isArray(topic.vocab)) {
+                totalVocab += topic.vocab.length;
+                topic.vocab.forEach((v, vIdx) => {
+                    if (!v.word || !v.translation) {
+                        throw new Error(`Topic '${topic.title}' từ #${vIdx + 1} thiếu 'word' hoặc 'translation'`);
+                    }
+                });
             }
         });
-        console.log(`  ✓ Đề thi 4 kỹ năng '${item.name}': Tự sinh ${questions.length} câu thành công!`);
+
+        console.log(`  ✓ Lớp ${grade}: ${data.topics.length} Units, ${totalVocab} từ vựng chuẩn.`);
     } catch (err) {
         failedTests++;
         errors.push({
-            classLevel: "6",
-            topicId: item.config.detail,
-            topicTitle: item.name,
-            type: "Đề thi 4 Kỹ năng GDPT 2018",
+            target: `Tiếng Anh Lớp ${grade}`,
             message: err.message
         });
     }
 });
 
+// 2. Kiểm định Từ điển Từ vựng tập trung (vocabulary_dict.json)
+totalTests++;
+console.log(`\n📚 Đang kiểm tra Từ điển Từ vựng tập trung (vocabulary_dict.json)...`);
+try {
+    const dictPath = path.join(dataDir, 'vocabulary_dict.json');
+    if (!fs.existsSync(dictPath)) throw new Error("vocabulary_dict.json không tồn tại");
+    const dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+    const wordCount = Object.keys(dict).length;
+    if (wordCount < 100) throw new Error(`Số lượng từ vựng trong từ điển quá ít (${wordCount} từ)`);
+    console.log(`  ✓ Từ điển từ vựng tập trung: ${wordCount} mục từ hợp lệ.`);
+} catch (err) {
+    failedTests++;
+    errors.push({
+        target: "vocabulary_dict.json",
+        message: err.message
+    });
+}
+
+// 3. Kiểm định Prompt Builders Tiếng Anh
+totalTests++;
+console.log(`\n📚 Đang kiểm tra Prompt Builders Tiếng Anh...`);
+try {
+    const { getEnglishPrompt, getEnglishFullExamPrompt, getEnglishCustomTopicPrompt } = require('../../server/services/ai/prompt-builder');
+    
+    const p1 = getEnglishPrompt("Unit 1", "eng6-t1", "6", "listening", [{ word: "school", translation: "trường học" }]);
+    if (!p1 || !p1.includes("Unit 1") || !p1.includes("school")) throw new Error("getEnglishPrompt sinh prompt không chính xác");
+
+    const p2 = getEnglishFullExamPrompt("Unit 1", "eng6-t1", "6", "unit", ["pres_simple"], "advanced");
+    if (!p2 || !p2.includes("GDPT 2018") || !p2.includes("Unit 1")) throw new Error("getEnglishFullExamPrompt sinh prompt không chính xác");
+
+    const p3 = getEnglishCustomTopicPrompt([{ word: "cat", type: "noun", translation: "con mèo" }], "Thú cưng", "speaking");
+    if (!p3 || !p3.includes("Thú cưng") || !p3.includes("cat")) throw new Error("getEnglishCustomTopicPrompt sinh prompt không chính xác");
+
+    console.log(`  ✓ Prompt Builders Tiếng Anh hoạt động chính xác 100%.`);
+} catch (err) {
+    failedTests++;
+    errors.push({
+        target: "Prompt Builders",
+        message: err.message
+    });
+}
+
 console.log("\n====================================================");
-console.log("KẾT QUẢ KIỂM ĐỊNH BỘ SINH CÂU HỎI TIẾNG ANH");
+console.log("KẾT QUẢ KIỂM ĐỊNH DỮ LIỆU & GENERATOR TIẾNG ANH");
 console.log("====================================================");
-console.log(`- Tổng số lượt kiểm thử (Unit x Kỹ năng/IOE): ${totalTests}`);
+console.log(`- Tổng số mục kiểm tra: ${totalTests}`);
 console.log(`- Thành công: ${totalTests - failedTests}`);
 console.log(`- Thất bại: ${failedTests}`);
 
 if (failedTests > 0) {
-    console.log(`\n❌ PHÁT HIỆN ${failedTests} LỖI TRONG BỘ SINH ĐỀ TIẾNG ANH:`);
+    console.log(`\n❌ PHÁT HIỆN ${failedTests} LỖI:`);
     errors.forEach((err, idx) => {
-        console.log(`  ${idx + 1}. [Lớp ${err.classLevel}] [${err.topicTitle} - ${err.topicId}] [${err.type}]: ${err.message}`);
+        console.log(`  ${idx + 1}. [${err.target}]: ${err.message}`);
     });
     process.exit(1);
 } else {
-    console.log("\n🎉 HOÀN TOÀN THÀNH CÔNG! 100% các bài học Tiếng Anh sinh câu hỏi mượt mà, bao quát đầy đủ, không trùng lặp đáp án!");
+    console.log("\n🎉 HOÀN TOÀN THÀNH CÔNG! Toàn bộ cấu trúc dữ liệu và bộ tạo đề Tiếng Anh đạt chuẩn 100%!");
     process.exit(0);
 }

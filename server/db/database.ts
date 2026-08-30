@@ -267,3 +267,6 @@ export async function createTables(): Promise<void> {
     await initializeSchema(poolDb);
     await seedDefaultData(dbGet, dbRun);
 }
+
+export const initIntegrityCheck = createTables;
+

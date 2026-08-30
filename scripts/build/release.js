@@ -110,6 +110,18 @@ if (fs.existsSync(serverJsPath)) {
   }
 }
 
+// A.1 Cập nhật server/services/student.service.ts
+const studentServicePath = path.join(ROOT_DIR, 'server/services/student.service.ts');
+if (fs.existsSync(studentServicePath)) {
+  let ssContent = fs.readFileSync(studentServicePath, 'utf8');
+  const ssRegex = /export\s+const\s+APP_VERSION\s*=\s*['"][\d\.]+['"]\s*;/g;
+  if (ssRegex.test(ssContent)) {
+    ssContent = ssContent.replace(ssRegex, `export const APP_VERSION = '${nextVersion}';`);
+    fs.writeFileSync(studentServicePath, ssContent, 'utf8');
+    console.log('✅ Đã cập nhật APP_VERSION trong student.service.ts');
+  }
+}
+
 // B. Cập nhật student.html (Splash tag, Footer tag, cachebuster ?v=)
 const studentHtmlPath = path.join(ROOT_DIR, 'student.html');
 if (fs.existsSync(studentHtmlPath)) {

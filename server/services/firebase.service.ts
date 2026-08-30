@@ -3,12 +3,13 @@
  * Quản lý đồng bộ Realtime Database và Firestore
  */
 import { 
+    dbGetConfig,
     dbGetSetting, 
     dbSaveSetting, 
     dbSaveStudentProgress, 
     getQuery, 
     allQuery, 
-    runQuery,
+    runQuery, 
     db
 } from '../db/database';
 import { StudentProgress, LeaderboardItem } from '../types';
@@ -33,7 +34,7 @@ export async function syncStudentProgressToFirebase(studentId: string, state: an
         if (!studentId || !state) return;
         
         // Lấy thông tin học sinh từ config trong bảng settings SQLite
-        const config: any = await dbGetSetting('config').catch(() => null);
+        const config: any = await dbGetConfig().catch(() => null);
         const studentsList: any[] = (config && config.students) || [];
         const studentConf = studentsList.find((s: any) => s.id === studentId);
         

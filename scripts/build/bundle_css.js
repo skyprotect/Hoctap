@@ -39,4 +39,6 @@ if (require.main === module) {
     bundleCSS();
 }
 
-module.exports = { bundleCSS };
+module.exports = bundleCSS;
+module.exports.bundleCSS = bundleCSS;
+

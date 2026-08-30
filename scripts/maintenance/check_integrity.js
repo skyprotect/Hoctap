@@ -1,11 +1,13 @@
 /**
- * AUTOMATED QUALITY GATE & CODEBASE INTEGRITY CHECKER (v13.41)
+ * AUTOMATED QUALITY GATE & CODEBASE INTEGRITY CHECKER (v13.44)
  * Kiểm tra toàn diện hệ thống HocTap trước khi đóng gói Release:
  * 1. Cấu trúc thư mục & không tồn tại tệp rác (.old, .tmp, database rác)
  * 2. Tính toàn vẹn của các micro-generators, Game Engine, CSS, Database DAL
  * 3. Kiểm tra tính hợp lệ của 121 dạng bài Toán (Lớp 1, 4, 6)
  * 4. Kiểm tra phân quyền học sinh theo Rule 14
  * 5. Cưỡng chế kích thước các Orchestrators (< 100 LOC)
+ * 6. Kiểm định Giáo trình & Bộ sinh Tiếng Anh
+ * 7. Kiểm định TypeScript Type Safety
  */
 const fs = require('fs');
 const path = require('path');
@@ -14,7 +16,7 @@ const { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '../..');
 
 console.log("==================================================================");
-console.log("🛡️  HỌCTẬP QUALITY GATE (v13.41) — BẮT ĐẦU KIỂM TRA TOÀN DIỆN");
+console.log("🛡️  HỌCTẬP QUALITY GATE (v13.44) — BẮT ĐẦU KIỂM TRA TOÀN DIỆN");
 console.log("==================================================================");
 
 let hasError = false;
@@ -96,7 +98,7 @@ try {
 }
 
 // 4. Chạy Jest Test Suites
-console.log("\n[4/5] Chạy Jest Test Suites...");
+console.log("\n[4/6] Chạy Jest Test Suites...");
 try {
     execSync('npx jest --runInBand --forceExit', { stdio: 'pipe', cwd: ROOT });
     console.log("✅ 100% Jest Test Suites PASS (Auth, Progress, System, Question Engine, Characterization).");
@@ -105,12 +107,32 @@ try {
     hasError = true;
 }
 
+// 5. Chạy Kiểm định Tiếng Anh
+console.log("\n[5/6] Chạy kiểm định Giáo trình & Bộ sinh đề Tiếng Anh...");
+try {
+    execSync('node scripts/maintenance/test_english_generators.js', { stdio: 'pipe', cwd: ROOT });
+    console.log("✅ 100% Dữ liệu Tiếng Anh & Prompt Builders đạt chuẩn.");
+} catch (e) {
+    console.error("❌ Kiểm định Tiếng Anh thất bại:", e.message);
+    hasError = true;
+}
+
+// 6. Kiểm tra TypeScript Compilation & Type Safety
+console.log("\n[6/6] Kiểm tra TypeScript Type Safety (tsc --noEmit)...");
+try {
+    execSync('npx tsc --noEmit', { stdio: 'pipe', cwd: ROOT });
+    console.log("✅ Zero TypeScript Errors (Không có bất kỳ lỗi kiểu dữ liệu nào).");
+} catch (e) {
+    console.error("❌ TypeScript type check thất bại:", e.message);
+    hasError = true;
+}
+
 console.log("\n==================================================================");
 if (hasError) {
     console.error("❌ QUALITY GATE THẤT BẠI.");
     process.exit(1);
 } else {
-    console.log("🏆 QUALITY GATE THÀNH CÔNG RỰC RỠ! Sẵn sàng phát hành Release v13.41.");
+    console.log("🏆 QUALITY GATE THÀNH CÔNG RỰC RỠ! Sẵn sàng phát hành Release v13.44.");
     console.log("==================================================================");
     process.exit(0);
 }

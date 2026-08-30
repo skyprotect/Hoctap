@@ -8,6 +8,7 @@ import {
     dbDeleteStudentProgress, 
     dbGetProgress, 
     dbSaveProgress, 
+    dbGetConfig,
     dbGetSetting, 
     dbSaveExamSessionRecord,
     allQuery, 
@@ -22,7 +23,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '13.31';
+export const APP_VERSION = '13.44';
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)
@@ -98,7 +99,7 @@ export async function deleteStudentProgress(studentId: string): Promise<void> {
 }
 
 export async function heartbeat(studentId: string, classLevel?: string): Promise<void> {
-    const config: any = await dbGetSetting('config').catch(() => null);
+    const config: any = await dbGetConfig().catch(() => null);
     const studentsList: any[] = (config && config.students) || [];
     const studentConf = studentsList.find((s: any) => s.id === studentId);
     const sysConf = SYSTEM_STUDENTS.find(s => s.id === studentId);

@@ -1,8 +1,8 @@
 {
-  "version": "13.43",
-  "lastUpdated": "30/08/2026 17:25",
-  "build": 1348,
-  "releaseNotes": "Global Standard Enterprise Architecture Refactor v13.42: Hoàn tất phân rã Monolith CSS thành 9 Modules độc lập, Tách biệt Partials HTML & Clean Portal Layout, Module hóa Ngân hàng Toán Lớp 6 & Math Core Library.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.43/ToanHocKiosk_Setup_v13.43.exe",
-  "changelog": "- Tách toàn bộ 1.000+ dòng inline CSS trong student.html và parent.html thành 9 CSS modules độc lập (modals.css, chat.css, parent.css, game-overlay.css...).\n- Module hóa ngân hàng đề Toán 6 (generate_math_json.js) thành các Chapter template riêng biệt trong scripts/build/math_templates/.\n- Xây dựng thư viện Core Arithmetic & Geometry helpers (js/engine/math-core/).\n- Tinh gọn student.html (giảm 36%) và parent.html (giảm 25%).\n- 100% kiểm định vượt qua (121/121 dạng bài Toán, 7/7 Jest Test Suites, 46/46 Tests PASS)."
+  "version": "13.44",
+  "lastUpdated": "30/08/2026 17:35",
+  "build": 1349,
+  "releaseNotes": "Forensic QA & Zero-Defect Release Certification v13.44: Khắc phục lỗi khởi động server, chuẩn hóa TypeScript, bảo mật PIN không backdoor, hoàn thiện từ điển tiếng Anh và kiểm định 100% 121 dạng bài Toán.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.44/ToanHocKiosk_Setup_v13.44.exe",
+  "changelog": "- Khắc phục lỗi thiếu hàm initIntegrityCheck trong DAL khiến server khởi động mượt mà 100%.\n- Sửa toàn bộ lỗi type TS2339 trong auth.service.ts, firebase.service.ts và student.service.ts.\n- Loại bỏ 3 tệp rác trùng lặp và xóa backdoor PIN fallback trong Parent Portal.\n- Tổng hợp 479 từ vựng vào vocabulary_dict.json và chuẩn hóa kiểm thử bộ sinh đề Tiếng Anh.\n- 100% kiểm định vượt qua (132/132 bộ generator Toán & Tiếng Anh, 7/7 Jest Test Suites PASS)."
 }

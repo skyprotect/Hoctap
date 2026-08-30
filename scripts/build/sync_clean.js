@@ -38,7 +38,7 @@ const dirsToSync = [
   'js/engine',
   'js/features',
   'js/modules',
-  'css/lib',
+  'css',
   'images',
   'sounds',
   'dataEnglish',

@@ -57,7 +57,20 @@ function loadScript(filePath) {
 
 // Tải các script generator canonical
 loadScript(path.join(__dirname, '../../data/grade_4/math/generator.js'));
-loadScript(path.join(__dirname, '../../data/grade_6/math/generator.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/template_engine.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/ch1_naturals/bai_01_tap_hop.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/ch1_naturals/bai_02_ghi_so.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/ch1_naturals/bai_03_phep_tinh.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/ch1_naturals/bai_04_luy_thua.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/ch1_naturals/bai_05_chia_het_so_nguyen_to.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/ch1_naturals/bai_06_ucln_bcnn.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/chapter1_naturals.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/chapter2_integers.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/chapter3_geometry.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/chapter4_statistics.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/chapter5_fractions.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/chapter6_geometry_plane.js'));
+loadScript(path.join(__dirname, '../../data/grade_6/math/generators/registry.js'));
 
 const questionsL4 = sandbox.window.questionsL4;
 const questionsL6 = sandbox.window.questions;

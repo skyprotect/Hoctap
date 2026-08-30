@@ -31,7 +31,14 @@ export function getGoogleClientId(): string {
 
 export async function getSession(): Promise<{ loggedIn: boolean; session?: any; error?: string }> {
     try {
-        const session = await dbGetSetting('parent_session');
+        const raw = await dbGetSetting('parent_session');
+        if (!raw) return { loggedIn: false };
+        let session: any;
+        try {
+            session = typeof raw === 'string' ? JSON.parse(raw) : raw;
+        } catch {
+            session = raw;
+        }
         if (session && (session.parentUid || session.email)) {
             return { loggedIn: true, session };
         } else {

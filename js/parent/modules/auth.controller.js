@@ -16,7 +16,8 @@
                 const data = await res.json();
                 return data.success === true;
             } catch (e) {
-                return enteredPin === '1234' || enteredPin === '0000';
+                console.error("[ParentAuth] Lỗi kết nối xác thực PIN:", e);
+                return false;
             }
         },
         exitKioskGracefully: function() {
