@@ -44,6 +44,7 @@ const dirsToSync = [
   'sounds',
   'dataEnglish',
   'chibi',
+  'data',
   'scripts/build',
   'scripts/database',
   'scripts/maintenance',

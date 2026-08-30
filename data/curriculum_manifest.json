@@ -1,0 +1,64 @@
+{
+  "version": "2.0.0",
+  "updatedAt": "2026-08-30T04:22:41.813Z",
+  "subjects": {
+    "math": {
+      "id": "math",
+      "name": "Toán học",
+      "icon": "fa-calculator",
+      "themeClass": "math-mode",
+      "supportedGrades": [
+        "1",
+        "4",
+        "6"
+      ],
+      "grades": {
+        "1": {
+          "title": "Toán Lớp 1 - Kết nối tri thức với cuộc sống",
+          "studentTarget": "std_baongoc",
+          "generatorModule": "data/grade_1/math/generator.js",
+          "totalChapters": 8
+        },
+        "4": {
+          "title": "Toán Lớp 4 - Kết nối tri thức với cuộc sống",
+          "studentTarget": "std_tyc0gfnkz",
+          "generatorModule": "data/grade_4/math/generator.js",
+          "totalChapters": 13
+        },
+        "6": {
+          "title": "Toán Lớp 6 - Kết nối tri thức với cuộc sống",
+          "studentTarget": "std_htsj4gbmo",
+          "generatorModule": "data/grade_6/math/generator.js",
+          "advancedModule": "data/grade_6/math/advanced.js",
+          "exam7991Module": "data/grade_6/math/exam7991.js",
+          "totalChapters": 9
+        }
+      }
+    },
+    "english": {
+      "id": "english",
+      "name": "Tiếng Anh Pro",
+      "icon": "fa-language",
+      "themeClass": "english-mode",
+      "supportedGrades": [
+        "1",
+        "4",
+        "6"
+      ],
+      "grades": {
+        "1": {
+          "title": "Tiếng Anh Lớp 1 - Global Success",
+          "lessonsModule": "data/grade_1/english/lessons.js"
+        },
+        "4": {
+          "title": "Tiếng Anh Lớp 4 - Global Success",
+          "lessonsModule": "data/grade_4/english/lessons.js"
+        },
+        "6": {
+          "title": "Tiếng Anh Lớp 6 - Global Success",
+          "lessonsModule": "data/grade_6/english/lessons.js"
+        }
+      }
+    }
+  }
+}

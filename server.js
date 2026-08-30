@@ -4528,7 +4528,7 @@ app.post('/api/exit-kiosk', authenticateAdminToken, (req, res) => {
 const https = require('https');
 const { spawn } = require('child_process');
 
-const APP_VERSION = '13.27';
+const APP_VERSION = '13.28';
 
 
 // 2. API lấy danh sách từ vựng tự nạp

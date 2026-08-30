@@ -1,0 +1,2723 @@
+/**
+ * ENGLISH CURRICULUM & QUESTIONS - GRADE 4
+ * Standard Global Success Program
+ */
+
+(function() {
+    'use strict';
+
+    const GRADE_4_DATA = {
+  "levelLabel": "Movers & Lớp 5 Nâng cao",
+  "topics": [
+    {
+      "id": "eng4-t1",
+      "title": "Unit 1: My friends",
+      "subtitle": "Hỏi thăm quê quán và quốc tịch quốc tế",
+      "vocab": [
+        {
+          "word": "america",
+          "translation": "nước Hoa Kì",
+          "phonetics": "/əˈmerɪkə/",
+          "type": "noun",
+          "sentence": "He is from America.",
+          "sentenceTranslation": "Cậu ấy đến từ nước Mỹ."
+        },
+        {
+          "word": "australia",
+          "translation": "nước Ô-xtơ-rây-li-a",
+          "phonetics": "/ɒˈstreɪliə/",
+          "type": "noun",
+          "sentence": "They visit Australia.",
+          "sentenceTranslation": "Họ đi thăm nước Úc."
+        },
+        {
+          "word": "britain",
+          "translation": "nước Anh",
+          "phonetics": "/ˈbrɪtn/",
+          "type": "noun",
+          "sentence": "Britain is a beautiful country.",
+          "sentenceTranslation": "Nước Anh là một quốc gia xinh đẹp."
+        },
+        {
+          "word": "japan",
+          "translation": "nước Nhật",
+          "phonetics": "/dʒəˈpæn/",
+          "type": "noun",
+          "sentence": "Akira is from Japan.",
+          "sentenceTranslation": "Akira đến từ nước Nhật."
+        },
+        {
+          "word": "malaysia",
+          "translation": "nước Ma-lay-xi-a",
+          "phonetics": "/məˈleɪziə/, /məˈleɪʒə/",
+          "type": "noun",
+          "sentence": "Kuala Lumpur is the capital of Malaysia.",
+          "sentenceTranslation": "Kuala Lumpur là thủ đô của Malaysia."
+        },
+        {
+          "word": "singapore",
+          "translation": "nước Xin-ga-po",
+          "phonetics": "/ˌsɪŋəˈpɔː(r)/",
+          "type": "noun",
+          "sentence": "Singapore is clean and green.",
+          "sentenceTranslation": "Singapore sạch và xanh."
+        },
+        {
+          "word": "thailand",
+          "translation": "nước Thái Lan",
+          "phonetics": "/ˈtaɪlænd/",
+          "type": "noun",
+          "sentence": "We travel to Thailand by plane.",
+          "sentenceTranslation": "Chúng tớ đi du lịch đến Thái Lan bằng máy bay."
+        },
+        {
+          "word": "viet nam",
+          "translation": "nước Việt Nam",
+          "phonetics": "/ˌviːetˈnɑːm/",
+          "type": "noun",
+          "sentence": "I live in Viet Nam.",
+          "sentenceTranslation": "Tớ sống ở Việt Nam."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "Where are you from? - I am from Vietnam.",
+          "vietnamese": "Bạn từ đâu đến? - Tớ đến từ Việt Nam."
+        },
+        {
+          "english": "What nationality are you? - I am Vietnamese.",
+          "vietnamese": "Bạn quốc tịch gì? - Tớ là người Việt Nam."
+        }
+      ],
+      "grammar": "Cách hỏi và trả lời về quốc gia (Where are you from?) và quốc tịch (What nationality are you?).",
+      "readingPassageTitle": "My International Friends",
+      "readingPassage": "My name is Linh. I have many friends from different countries. John is from London, England. He is English. Akira is from Tokyo, Japan. He is Japanese. We study English together. We love sharing stories about our countries.",
+      "questions": {
+        "reading": [
+          {
+            "question": "Where is John from?",
+            "options": [
+              "Tokyo, Japan",
+              "London, England",
+              "Washington, America"
+            ],
+            "answer": "London, England"
+          },
+          {
+            "question": "What nationality is Akira?",
+            "options": [
+              "English",
+              "Vietnamese",
+              "Japanese"
+            ],
+            "answer": "Japanese"
+          },
+          {
+            "question": "What language do they study together?",
+            "options": [
+              "Japanese",
+              "Vietnamese",
+              "English"
+            ],
+            "answer": "English"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "HhjYnMJgLr4",
+          "title": "Tiếng Anh lớp 4 Unit 1 - Lesson 1 - Trang 10, 11 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "H3sF4HLX6Sg",
+          "title": "Tiếng Anh lớp 4 Unit 1 - Lesson 2 - Trang 12, 13 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "MjE2catG6wE",
+          "title": "Tiếng Anh lớp 4 Unit 1 - Lesson 3 - Trang 14, 15 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t2",
+      "title": "Unit 2: Time and daily routines",
+      "subtitle": "Nói về thời gian và các thói quen hàng ngày",
+      "vocab": [
+        {
+          "word": "at",
+          "translation": "ở",
+          "phonetics": "/ət/, /æt/",
+          "type": "pre",
+          "sentence": "Look at that nice at.",
+          "sentenceTranslation": "Hãy nhìn cái ở đẹp đẽ kia."
+        },
+        {
+          "word": "fifteen",
+          "translation": "số 15",
+          "phonetics": "/fifˈtiːn/",
+          "type": "noun",
+          "sentence": "Look at that nice fifteen.",
+          "sentenceTranslation": "Hãy nhìn cái số 15 đẹp đẽ kia."
+        },
+        {
+          "word": "forty-five",
+          "translation": "số 45",
+          "phonetics": "/ˌfɔːti ˈfaɪv/",
+          "type": "noun",
+          "sentence": "Look at that nice forty-five.",
+          "sentenceTranslation": "Hãy nhìn cái số 45 đẹp đẽ kia."
+        },
+        {
+          "word": "o’clock",
+          "translation": "giờ (dùng sau giờ chẵn, ví dụ: 8 giờ: eight o’clock)",
+          "phonetics": "/əˈklɒk/",
+          "type": "noun",
+          "sentence": "Look at that nice o’clock.",
+          "sentenceTranslation": "Hãy nhìn cái giờ (dùng sau giờ chẵn, ví dụ: 8 giờ: eight o’clock) đẹp đẽ kia."
+        },
+        {
+          "word": "thirty",
+          "translation": "số 30",
+          "phonetics": "/ˈθɜːti/",
+          "type": "noun",
+          "sentence": "Look at that nice thirty.",
+          "sentenceTranslation": "Hãy nhìn cái số 30 đẹp đẽ kia."
+        },
+        {
+          "word": "get up",
+          "translation": "thức dậy",
+          "phonetics": "/get ˈʌp/",
+          "type": "verb",
+          "sentence": "I can get up well.",
+          "sentenceTranslation": "Tớ có thể thức dậy tốt."
+        },
+        {
+          "word": "go (to bed) (v)",
+          "translation": "đi (ngủ)",
+          "phonetics": "/ˈgəʊ (tə ˈbed)/",
+          "type": "noun",
+          "sentence": "Look at that nice go (to bed) (v).",
+          "sentenceTranslation": "Hãy nhìn cái đi (ngủ) đẹp đẽ kia."
+        },
+        {
+          "word": "go (to school) (v)",
+          "translation": "đi (học)",
+          "phonetics": "/ˈgəʊ (tə ˈskuːl)/",
+          "type": "noun",
+          "sentence": "Look at that nice go (to school) (v).",
+          "sentenceTranslation": "Hãy nhìn cái đi (học) đẹp đẽ kia."
+        },
+        {
+          "word": "have (breakfast) (v)",
+          "translation": "dùng (bữa sáng)",
+          "phonetics": "/hæv (ˈbrekfəst)/",
+          "type": "noun",
+          "sentence": "Look at that nice have (breakfast) (v).",
+          "sentenceTranslation": "Hãy nhìn cái dùng (bữa sáng) đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What time is it? - It's eight o'clock.",
+          "vietnamese": "Mấy giờ rồi? - Bây giờ là 8 giờ."
+        },
+        {
+          "english": "When do you get up? - I get up at six o'clock.",
+          "vietnamese": "Bạn thức dậy khi nào? - Tớ thức dậy lúc 6 giờ."
+        }
+      ],
+      "grammar": "Hỏi giờ bằng \"What time is it?\" và kể các hoạt động hàng ngày kèm theo giới từ chỉ thời gian \"at\".",
+      "readingPassageTitle": "My Day",
+      "readingPassage": "I get up at six o'clock in the morning. I have breakfast at six thirty. Then I go to school at seven o'clock. In the afternoon, I do homework. I go to bed at nine forty-five.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What time does the writer get up?",
+            "options": [
+              "Six o'clock",
+              "Six thirty",
+              "Seven o'clock"
+            ],
+            "answer": "Six o'clock"
+          },
+          {
+            "question": "When does the writer have breakfast?",
+            "options": [
+              "At six o'clock",
+              "At six thirty",
+              "At seven o'clock"
+            ],
+            "answer": "At six thirty"
+          },
+          {
+            "question": "What time does the writer go to bed?",
+            "options": [
+              "At nine o'clock",
+              "At nine thirty",
+              "At nine forty-five"
+            ],
+            "answer": "At nine forty-five"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "V20RlIAy_Jo",
+          "title": "Tiếng Anh lớp 4 Unit 2 - Lesson 1 - Trang 16, 17 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "fe8AQU7txnI",
+          "title": "Tiếng Anh lớp 4 Unit 2 - Lesson 2 - Trang 18, 19 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "d40LbZfEqxA",
+          "title": "Tiếng Anh lớp 4 Unit 2 - Lesson 3 - Trang 20, 21 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t3",
+      "title": "Unit 3: My week",
+      "subtitle": "Các thứ trong tuần và lịch trình học tập",
+      "vocab": [
+        {
+          "word": "monday",
+          "translation": "thứ Hai",
+          "phonetics": "/ˈmʌndeɪ/",
+          "type": "noun",
+          "sentence": "I have Maths on Monday.",
+          "sentenceTranslation": "Tớ học Toán vào Thứ Hai."
+        },
+        {
+          "word": "tuesday",
+          "translation": "thứ Ba",
+          "phonetics": "/ˈtjuːzdeɪ/",
+          "type": "noun",
+          "sentence": "Tuesday is a busy day.",
+          "sentenceTranslation": "Thứ Ba là một ngày bận rộn."
+        },
+        {
+          "word": "wednesday",
+          "translation": "thứ Tư",
+          "phonetics": "/ˈtjuːzdeɪ/",
+          "type": "noun",
+          "sentence": "We study Music on Wednesday.",
+          "sentenceTranslation": "Chúng tớ học Âm nhạc vào thứ Tư."
+        },
+        {
+          "word": "thursday",
+          "translation": "thứ Năm",
+          "phonetics": "/ˈθɜːzdeɪ/",
+          "type": "noun",
+          "sentence": "Thursday is fine.",
+          "sentenceTranslation": "Thứ Năm thật đẹp trời."
+        },
+        {
+          "word": "friday",
+          "translation": "thứ Sáu",
+          "phonetics": "/ˈfraɪdeɪ/",
+          "type": "noun",
+          "sentence": "School ends early on Friday.",
+          "sentenceTranslation": "Trường học tan sớm vào thứ Sáu."
+        },
+        {
+          "word": "saturday",
+          "translation": "thứ Bảy",
+          "phonetics": "/ˈsætədeɪ/",
+          "type": "noun",
+          "sentence": "I listen to music on Saturdays.",
+          "sentenceTranslation": "Tớ nghe nhạc vào các ngày thứ Bảy."
+        },
+        {
+          "word": "sunday",
+          "translation": "Chủ nhật",
+          "phonetics": "/ˈsʌndeɪ/",
+          "type": "noun",
+          "sentence": "We go to the park on Sundays.",
+          "sentenceTranslation": "Chúng tớ đi công viên vào các ngày Chủ nhật."
+        },
+        {
+          "word": "listen to music",
+          "translation": "nghe nhạc",
+          "phonetics": "/ˈlɪsn tə ˈmjuːzɪk/",
+          "type": "verb",
+          "sentence": "I can listen to music well.",
+          "sentenceTranslation": "Tớ có thể nghe nhạc tốt."
+        },
+        {
+          "word": "study at school",
+          "translation": "học, nghiên cứu ở trường",
+          "phonetics": "/ˈstʌdi ət skuːl/",
+          "type": "verb",
+          "sentence": "I can study at school well.",
+          "sentenceTranslation": "Tớ có thể học, nghiên cứu ở trường tốt."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What day is it today? - It's Monday.",
+          "vietnamese": "Hôm nay là thứ mấy? - Hôm nay là thứ Hai."
+        },
+        {
+          "english": "What do you do on Saturdays? - I play football.",
+          "vietnamese": "Bạn làm gì vào thứ Bảy? - Tớ chơi bóng đá."
+        }
+      ],
+      "grammar": "Hỏi thứ trong tuần bằng \"What day is it today?\" và hỏi hoạt động \"What do you do on [day]s?\".",
+      "readingPassageTitle": "My Busy Week",
+      "readingPassage": "Today is Monday. I study at school from Monday to Friday. On Saturday, I do not study. I play football in the afternoon. On Sunday, I stay at home and listen to music.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What day is it today?",
+            "options": [
+              "Monday",
+              "Saturday",
+              "Sunday"
+            ],
+            "answer": "Monday"
+          },
+          {
+            "question": "When does the writer play football?",
+            "options": [
+              "On Monday",
+              "On Friday",
+              "On Saturday"
+            ],
+            "answer": "On Saturday"
+          },
+          {
+            "question": "What does the writer do on Sunday?",
+            "options": [
+              "Study at school",
+              "Listen to music",
+              "Play football"
+            ],
+            "answer": "Listen to music"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "uuVrEd0JrX8",
+          "title": "Tiếng Anh lớp 4 Unit 3 - Lesson 1 - Trang 22, 23 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "Clk0r32wz8w",
+          "title": "Tiếng Anh lớp 4 Unit 3: Lesson 2 - Trang 24, 25 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "UPkdUw2RjwM",
+          "title": "Tiếng Anh lớp 4 Unit 3: Lesson 3 - Trang 26, 27 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t4",
+      "title": "Unit 4: My birthday party",
+      "subtitle": "Cách nói ngày tháng và ngày sinh nhật",
+      "vocab": [
+        {
+          "word": "january",
+          "translation": "tháng Một",
+          "phonetics": "/ˈdʒænjuəri/",
+          "type": "noun",
+          "sentence": "New Year is in January.",
+          "sentenceTranslation": "Năm mới vào Tháng Một."
+        },
+        {
+          "word": "february",
+          "translation": "tháng Hai",
+          "phonetics": "/ˈfebruəri/",
+          "type": "noun",
+          "sentence": "February has 28 days.",
+          "sentenceTranslation": "Tháng Hai có 28 ngày."
+        },
+        {
+          "word": "march",
+          "translation": "tháng Ba",
+          "phonetics": "/mɑːtʃ/",
+          "type": "noun",
+          "sentence": "Spring starts in March.",
+          "sentenceTranslation": "Mùa xuân bắt đầu từ Tháng Ba."
+        },
+        {
+          "word": "april",
+          "translation": "tháng Tư",
+          "phonetics": "/ˈstʌdi/",
+          "type": "noun",
+          "sentence": "April is in spring.",
+          "sentenceTranslation": "Tháng Tư là vào mùa xuân."
+        },
+        {
+          "word": "may",
+          "translation": "tháng Năm",
+          "phonetics": "/meɪ/",
+          "type": "noun",
+          "sentence": "School ends in May.",
+          "sentenceTranslation": "Trường học kết thúc vào tháng Năm."
+        },
+        {
+          "word": "birthday",
+          "translation": "ngày sinh",
+          "phonetics": "/ˈbɜːθdeɪ/",
+          "type": "noun",
+          "sentence": "My birthday is coming.",
+          "sentenceTranslation": "Sinh nhật của tớ đang đến gần."
+        },
+        {
+          "word": "chips",
+          "translation": "khoai tây rán",
+          "phonetics": "/tʃɪps/",
+          "type": "noun",
+          "sentence": "Look at that nice chips.",
+          "sentenceTranslation": "Hãy nhìn cái khoai tây rán đẹp đẽ kia."
+        },
+        {
+          "word": "grape",
+          "translation": "quả nho",
+          "phonetics": "/ɡreɪp/",
+          "type": "noun",
+          "sentence": "Look at that nice grape.",
+          "sentenceTranslation": "Hãy nhìn cái quả nho đẹp đẽ kia."
+        },
+        {
+          "word": "jam",
+          "translation": "mứt",
+          "phonetics": "/dʒæm/",
+          "type": "noun",
+          "sentence": "Look at that nice jam.",
+          "sentenceTranslation": "Hãy nhìn cái mứt đẹp đẽ kia."
+        },
+        {
+          "word": "juice",
+          "translation": "nước ép",
+          "phonetics": "/dʒuːs/",
+          "type": "noun",
+          "sentence": "Look at that nice juice.",
+          "sentenceTranslation": "Hãy nhìn cái nước ép đẹp đẽ kia."
+        },
+        {
+          "word": "lemonade",
+          "translation": "nước chanh",
+          "phonetics": "/ˌleməˈneɪd/",
+          "type": "noun",
+          "sentence": "Look at that nice lemonade.",
+          "sentenceTranslation": "Hãy nhìn cái nước chanh đẹp đẽ kia."
+        },
+        {
+          "word": "party",
+          "translation": "buổi tiệc",
+          "phonetics": "/ˈpɑːti/",
+          "type": "noun",
+          "sentence": "Look at that nice party.",
+          "sentenceTranslation": "Hãy nhìn cái buổi tiệc đẹp đẽ kia."
+        },
+        {
+          "word": "water",
+          "translation": "nước",
+          "phonetics": "/ˈwɔːtə(r)/",
+          "type": "noun",
+          "sentence": "Look at that nice water.",
+          "sentenceTranslation": "Hãy nhìn cái nước đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "When is your birthday? - It's in January.",
+          "vietnamese": "Sinh nhật bạn khi nào? - Vào tháng Giêng."
+        },
+        {
+          "english": "What is the date today? - It's the first of March.",
+          "vietnamese": "Hôm nay là ngày bao nhiêu? - Ngày mùng 1 tháng Ba."
+        }
+      ],
+      "grammar": "Hỏi ngày sinh nhật bằng \"When is your birthday?\" và hỏi ngày tháng hiện tại \"What is the date today?\".",
+      "readingPassageTitle": "Our Birthday Party",
+      "readingPassage": "My birthday is in January, on the first. My brother's birthday is in June, on the second. Today is the third of March, so it is my friend's birthday party. We eat cake and sing.",
+      "questions": {
+        "reading": [
+          {
+            "question": "When is the writer's birthday?",
+            "options": [
+              "In January",
+              "In June",
+              "In March"
+            ],
+            "answer": "In January"
+          },
+          {
+            "question": "What is the date today?",
+            "options": [
+              "The first of January",
+              "The second of June",
+              "The third of March"
+            ],
+            "answer": "The third of March"
+          },
+          {
+            "question": "Whose birthday is in June?",
+            "options": [
+              "The writer's",
+              "The brother's",
+              "The friend's"
+            ],
+            "answer": "The brother's"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "CtvWZ34RUGg",
+          "title": "Tiếng Anh lớp 4 Unit 4 - Lesson 1 - Trang 28, 29 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "7oIUrNRyyZs",
+          "title": "Tiếng Anh lớp 4 Unit 4 - Lesson 2 - Trang 30, 31 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "yAwKm6fDdaE",
+          "title": "Tiếng Anh lớp 4 Unit 4 - Lesson 3 - Trang 32, 33 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t5",
+      "title": "Unit 5: Things we can do",
+      "subtitle": "Các hoạt động thể thao và sở thích cá nhân",
+      "vocab": [
+        {
+          "word": "can",
+          "translation": "có thể, biết (làm gì)",
+          "phonetics": "/kən/, /kæn/",
+          "type": "verb",
+          "sentence": "I can can well.",
+          "sentenceTranslation": "Tớ có thể có thể, biết (làm gì) tốt."
+        },
+        {
+          "word": "cook",
+          "translation": "nấu ăn",
+          "phonetics": "/kʊk/",
+          "type": "verb",
+          "sentence": "I can cook well.",
+          "sentenceTranslation": "Tớ có thể nấu ăn tốt."
+        },
+        {
+          "word": "play the piano",
+          "translation": "chơi đàn piano",
+          "phonetics": "/pleɪ ðə piˈænəʊ/",
+          "type": "verb",
+          "sentence": "I can play the piano well.",
+          "sentenceTranslation": "Tớ có thể chơi đàn piano tốt."
+        },
+        {
+          "word": "play the guitar",
+          "translation": "chơi đàn ghi-ta",
+          "phonetics": "/pleɪ ðə ɡɪˈtɑː/",
+          "type": "verb",
+          "sentence": "I can play the guitar well.",
+          "sentenceTranslation": "Tớ có thể chơi đàn ghi-ta tốt."
+        },
+        {
+          "word": "ride (a bike) (v)",
+          "translation": "đạp xe",
+          "phonetics": "/raɪd (ə baɪk)/",
+          "type": "noun",
+          "sentence": "Look at that nice ride (a bike) (v).",
+          "sentenceTranslation": "Hãy nhìn cái đạp xe đẹp đẽ kia."
+        },
+        {
+          "word": "ride (a horse) (v)",
+          "translation": "cưỡi ngựa",
+          "phonetics": "/raɪd (ə hɔːs)/",
+          "type": "noun",
+          "sentence": "Look at that nice ride (a horse) (v).",
+          "sentenceTranslation": "Hãy nhìn cái cưỡi ngựa đẹp đẽ kia."
+        },
+        {
+          "word": "roller skate",
+          "translation": "trượt pa tanh",
+          "phonetics": "/ˈrəʊlə skeɪt/",
+          "type": "verb",
+          "sentence": "I can roller skate well.",
+          "sentenceTranslation": "Tớ có thể trượt pa tanh tốt."
+        },
+        {
+          "word": "swim",
+          "translation": "bơi",
+          "phonetics": "/swɪm/",
+          "type": "verb",
+          "sentence": "I swim in the pool.",
+          "sentenceTranslation": "Tớ bơi ở hồ bơi."
+        },
+        {
+          "word": "but",
+          "translation": "nhưng",
+          "phonetics": "/bʌt/",
+          "type": "noun",
+          "sentence": "Look at that nice but.",
+          "sentenceTranslation": "Hãy nhìn cái nhưng đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What is your hobby? - I like playing chess.",
+          "vietnamese": "Sở thích của bạn là gì? - Tớ thích chơi cờ."
+        },
+        {
+          "english": "Can you swim? - Yes, I can. / No, I can't.",
+          "vietnamese": "Bạn có biết bơi không? - Có, tớ biết. / Không, tớ không biết."
+        }
+      ],
+      "grammar": "Hỏi sở thích bằng \"What is your hobby?\" và hỏi khả năng bằng \"Can you...?\".",
+      "readingPassageTitle": "Our Hobbies",
+      "readingPassage": "We have different hobbies. My hobby is playing chess. I can play chess very well. My friend Nam likes music. He can play the guitar, but he cannot play the piano. We can both swim and skate.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What is the writer's hobby?",
+            "options": [
+              "Playing chess",
+              "Playing the guitar",
+              "Swimming"
+            ],
+            "answer": "Playing chess"
+          },
+          {
+            "question": "Can Nam play the piano?",
+            "options": [
+              "Yes, he can",
+              "No, he cannot",
+              "We do not know"
+            ],
+            "answer": "No, he cannot"
+          },
+          {
+            "question": "What can they both do?",
+            "options": [
+              "Play chess",
+              "Play the guitar",
+              "Swim and skate"
+            ],
+            "answer": "Swim and skate"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "DFfor4lZp6c",
+          "title": "Tiếng Anh lớp 4 Unit 5 - Lesson 1 - Trang 34, 35 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "YDHFLZDtSwI",
+          "title": "Tiếng Anh lớp 4 Unit 5 - Lesson 2 - Trang 36, 37 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "wNYW0R5nC0Y",
+          "title": "Tiếng Anh lớp 4 Unit 5 - Lesson 3 - Trang 38, 39 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "pPcAiQdsNiM",
+          "title": "Tiếng Anh lớp 4 Review 1 & Extension activities - Trang 40, 43 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t6",
+      "title": "Unit 6: Our school facilities",
+      "subtitle": "Cơ sở vật chất trường học của chúng ta",
+      "vocab": [
+        {
+          "word": "city",
+          "translation": "thành phố",
+          "phonetics": "/ˈsɪti/",
+          "type": "noun",
+          "sentence": "Look at that nice city.",
+          "sentenceTranslation": "Hãy nhìn cái thành phố đẹp đẽ kia."
+        },
+        {
+          "word": "mountains",
+          "translation": "vùng núi",
+          "phonetics": "/ˈmaʊntənz/",
+          "type": "noun",
+          "sentence": "Look at that nice mountains.",
+          "sentenceTranslation": "Hãy nhìn cái vùng núi đẹp đẽ kia."
+        },
+        {
+          "word": "town",
+          "translation": "thị trấn",
+          "phonetics": "/taʊn/",
+          "type": "noun",
+          "sentence": "Look at that nice town.",
+          "sentenceTranslation": "Hãy nhìn cái thị trấn đẹp đẽ kia."
+        },
+        {
+          "word": "village",
+          "translation": "ngôi làng",
+          "phonetics": "/ˈvɪlɪdʒ/",
+          "type": "noun",
+          "sentence": "Look at that nice village.",
+          "sentenceTranslation": "Hãy nhìn cái ngôi làng đẹp đẽ kia."
+        },
+        {
+          "word": "computer room",
+          "translation": "phòng máy tính",
+          "phonetics": "/kəmˈpjuːtə ruːm/",
+          "type": "noun",
+          "sentence": "Look at that nice computer room.",
+          "sentenceTranslation": "Hãy nhìn cái phòng máy tính đẹp đẽ kia."
+        },
+        {
+          "word": "garden",
+          "translation": "vườn",
+          "phonetics": "/ˈɡɑːdn/",
+          "type": "noun",
+          "sentence": "Look at that nice garden.",
+          "sentenceTranslation": "Hãy nhìn cái vườn đẹp đẽ kia."
+        },
+        {
+          "word": "playground",
+          "translation": "sân chơi",
+          "phonetics": "/ˈpleɪɡraʊnd/",
+          "type": "noun",
+          "sentence": "Look at that nice playground.",
+          "sentenceTranslation": "Hãy nhìn cái sân chơi đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "Where is your classroom? - It's on the first floor.",
+          "vietnamese": "Phòng học của bạn ở đâu? - Nó ở tầng một."
+        },
+        {
+          "english": "Is there a gym at your school? - Yes, there is.",
+          "vietnamese": "Có phòng thể chất ở trường bạn không? - Có."
+        }
+      ],
+      "grammar": "Hỏi vị trí phòng học và hỏi sự hiện hữu bằng \"Is there a...?\".",
+      "readingPassageTitle": "My Primary School",
+      "readingPassage": "My school is big and new. My classroom is on the second floor. We have a library next to the classroom. There is a large playground and a modern computer room. I like playing in the school yard.",
+      "questions": {
+        "reading": [
+          {
+            "question": "Where is the writer's classroom?",
+            "options": [
+              "On the first floor",
+              "On the second floor",
+              "In the gym"
+            ],
+            "answer": "On the second floor"
+          },
+          {
+            "question": "Where is the library?",
+            "options": [
+              "Next to the classroom",
+              "In the computer room",
+              "On the playground"
+            ],
+            "answer": "Next to the classroom"
+          },
+          {
+            "question": "Is there a computer room?",
+            "options": [
+              "Yes, there is",
+              "No, there isn't",
+              "We do not know"
+            ],
+            "answer": "Yes, there is"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "UKqGM0EKQUw",
+          "title": "Tiếng Anh lớp 4 Unit 6 - Lesson 1 - Trang 44, 45 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "JZYMXNVsJOo",
+          "title": "Tiếng Anh lớp 4 Unit 6 - Lesson 2 - Trang 46 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "zINiociIUJk",
+          "title": "Tiếng Anh lớp 4 Unit 6 - Lesson 3 - Trang 47, 49 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t7",
+      "title": "Unit 7: Our timetable",
+      "subtitle": "Thời khóa biểu và các môn học ở trường",
+      "vocab": [
+        {
+          "word": "art",
+          "translation": "môn Mĩ thuật",
+          "phonetics": "/ɑːt/",
+          "type": "noun",
+          "sentence": "Look at that nice art.",
+          "sentenceTranslation": "Hãy nhìn cái môn mĩ thuật đẹp đẽ kia."
+        },
+        {
+          "word": "english",
+          "translation": "môn Tiếng Anh",
+          "phonetics": "/ˈɪŋɡlɪʃ/",
+          "type": "noun",
+          "sentence": "Look at that nice english.",
+          "sentenceTranslation": "Hãy nhìn cái môn tiếng anh đẹp đẽ kia."
+        },
+        {
+          "word": "historyand geography",
+          "translation": "môn Lịch sử và Địa lí",
+          "phonetics": "/ˈhɪstri ænd dʒiˈɒɡrəfi /",
+          "type": "noun",
+          "sentence": "Look at that nice historyand geography.",
+          "sentenceTranslation": "Hãy nhìn cái môn lịch sử và địa lí đẹp đẽ kia."
+        },
+        {
+          "word": "maths",
+          "translation": "môn Toán, toán học",
+          "phonetics": "/mæθs/",
+          "type": "noun",
+          "sentence": "Look at that nice maths.",
+          "sentenceTranslation": "Hãy nhìn cái môn toán, toán học đẹp đẽ kia."
+        },
+        {
+          "word": "music",
+          "translation": "môn Âm nhạc",
+          "phonetics": "/ˈmjuːzɪk/",
+          "type": "noun",
+          "sentence": "Look at that nice music.",
+          "sentenceTranslation": "Hãy nhìn cái môn âm nhạc đẹp đẽ kia."
+        },
+        {
+          "word": "science",
+          "translation": "môn Khoa học",
+          "phonetics": "/ˈsaɪəns/",
+          "type": "noun",
+          "sentence": "Look at that nice science.",
+          "sentenceTranslation": "Hãy nhìn cái môn khoa học đẹp đẽ kia."
+        },
+        {
+          "word": "vietnamese",
+          "translation": "môn Tiếng Việt",
+          "phonetics": "/ˌviːetnəˈmiːz/",
+          "type": "noun",
+          "sentence": "Look at that nice vietnamese.",
+          "sentenceTranslation": "Hãy nhìn cái môn tiếng việt đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What subjects do you have today? - I have maths and art.",
+          "vietnamese": "Hôm nay bạn có những môn học gì? - Tớ có môn toán và mỹ thuật."
+        },
+        {
+          "english": "When do you have English? - I have it on Mondays.",
+          "vietnamese": "Khi nào bạn có môn Tiếng Anh? - Tớ có vào các ngày thứ Hai."
+        }
+      ],
+      "grammar": "Hỏi môn học bằng \"What subjects do you have today?\" và hỏi ngày có môn học bằng \"When do you have...?\".",
+      "readingPassageTitle": "School Timetable",
+      "readingPassage": "I look at my timetable. Today is Monday, so I have Vietnamese, maths, and IT. On Tuesday, I have science, history, and PE. I have my favorite subject, English, on Wednesdays.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What subjects does the writer have on Monday?",
+            "options": [
+              "Science and PE",
+              "Vietnamese, maths, and IT",
+              "English and art"
+            ],
+            "answer": "Vietnamese, maths, and IT"
+          },
+          {
+            "question": "When does the writer have English?",
+            "options": [
+              "On Mondays",
+              "On Tuesdays",
+              "On Wednesdays"
+            ],
+            "answer": "On Wednesdays"
+          },
+          {
+            "question": "What is the writer's favorite subject?",
+            "options": [
+              "Maths",
+              "English",
+              "Vietnamese"
+            ],
+            "answer": "English"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "emtG5xmDeIQ",
+          "title": "Tiếng Anh lớp 4 Unit 7 - Lesson 1 - Trang 50, 51 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "KROKzRWfdII",
+          "title": "Tiếng Anh lớp 4 Unit 7 - Lesson 2 - Trang 52, 53 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "TgvInlEWoDo",
+          "title": "Tiếng Anh lớp 4 Unit 7 - Lesson 3 - Trang 54, 55 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t8",
+      "title": "Unit 8: My favourite subjects",
+      "subtitle": "Các môn học yêu thích và lý do yêu thích",
+      "vocab": [
+        {
+          "word": "it (information technology) (n)",
+          "translation": "môn Tin học, môn Công nghệthông tin",
+          "phonetics": "/aɪ ˈtiː/(/ˌɪnfəˌmeɪʃn tekˈnɒlədʒi/)",
+          "type": "noun",
+          "sentence": "Look at that nice it (information technology) (n).",
+          "sentenceTranslation": "Hãy nhìn cái môn tin học, môn công nghệthông tin đẹp đẽ kia."
+        },
+        {
+          "word": "pe (physical education)(n)",
+          "translation": "môn Thể dục, môn Giáo dụcthể chất",
+          "phonetics": "/ˌpiː ˈiː/(/ˌfɪzɪkl edʒuˈkeɪʃn/)",
+          "type": "noun",
+          "sentence": "Look at that nice pe (physical education)(n).",
+          "sentenceTranslation": "Hãy nhìn cái môn thể dục, môn giáo dụcthể chất đẹp đẽ kia."
+        },
+        {
+          "word": "english teacher",
+          "translation": "giáo viên (dạy Tiếng Anh)",
+          "phonetics": "/(ˈɪŋɡlɪʃ) ˈtiːtʃə/",
+          "type": "noun",
+          "sentence": "Look at that nice english teacher.",
+          "sentenceTranslation": "Hãy nhìn cái giáo viên (dạy tiếng anh) đẹp đẽ kia."
+        },
+        {
+          "word": "maths teacher",
+          "translation": "giáo viên (dạy Toán)",
+          "phonetics": "/(mæθs) ˈtiːtʃə/",
+          "type": "noun",
+          "sentence": "Look at that nice maths teacher.",
+          "sentenceTranslation": "Hãy nhìn cái giáo viên (dạy toán) đẹp đẽ kia."
+        },
+        {
+          "word": "because",
+          "translation": "bởi vì",
+          "phonetics": "/bɪˈkɒz/",
+          "type": "noun",
+          "sentence": "Look at that nice because.",
+          "sentenceTranslation": "Hãy nhìn cái bởi vì đẹp đẽ kia."
+        },
+        {
+          "word": "why",
+          "translation": "tại sao",
+          "phonetics": "/waɪ/",
+          "type": "verb",
+          "sentence": "I can why well.",
+          "sentenceTranslation": "Tớ có thể tại sao tốt."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What is your favorite subject? - It's music.",
+          "vietnamese": "Môn học yêu thích của bạn là gì? - Môn âm nhạc."
+        },
+        {
+          "english": "Why do you like it? - Because it is fun.",
+          "vietnamese": "Tại sao bạn thích nó? - Bởi vì nó vui."
+        }
+      ],
+      "grammar": "Hỏi môn học yêu thích bằng \"What is your favorite subject?\" và hỏi lý do bằng \"Why...?\" - \"Because...\".",
+      "readingPassageTitle": "Why I Love Music",
+      "readingPassage": "My name is Nam. My favorite subject is music. I like it because it is very fun and easy. My friend Hoa likes science because it is interesting. We do not like history because it is difficult.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What is Nam's favorite subject?",
+            "options": [
+              "Music",
+              "Science",
+              "History"
+            ],
+            "answer": "Music"
+          },
+          {
+            "question": "Why does Nam like music?",
+            "options": [
+              "Because it is difficult",
+              "Because it is interesting",
+              "Because it is fun and easy"
+            ],
+            "answer": "Because it is fun and easy"
+          },
+          {
+            "question": "Why does Hoa like science?",
+            "options": [
+              "Because it is fun",
+              "Because it is interesting",
+              "Because it is easy"
+            ],
+            "answer": "Because it is interesting"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "tsulX6_B8iQ",
+          "title": "Tiếng Anh lớp 4 Unit 8 - Lesson 1 - Trang 56, 57 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "r1UK_v4aSbA",
+          "title": "Tiếng Anh lớp 4 Unit 8 - Lesson 2 - Trang 58, 59 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "pSklMEEqgGw",
+          "title": "Tiếng Anh lớp 4 Unit 8 - Lesson 3 - Trang 60, 61 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t9",
+      "title": "Unit 9: Our sports day",
+      "subtitle": "Ngày hội thể thao của trường em",
+      "vocab": [
+        {
+          "word": "june",
+          "translation": "tháng Sáu",
+          "phonetics": "/dʒuːn/",
+          "type": "noun",
+          "sentence": "We have summer holiday in June.",
+          "sentenceTranslation": "Chúng tớ có kỳ nghỉ hè vào tháng Sáu."
+        },
+        {
+          "word": "july",
+          "translation": "tháng Bảy",
+          "phonetics": "/dʒuˈlaɪ/",
+          "type": "noun",
+          "sentence": "It is hot in July.",
+          "sentenceTranslation": "Trời rất nóng vào tháng Bảy."
+        },
+        {
+          "word": "august",
+          "translation": "tháng Tám",
+          "phonetics": "/ɔːˈɡʌst/",
+          "type": "noun",
+          "sentence": "We go back to school in August.",
+          "sentenceTranslation": "Chúng tớ tựu trường vào tháng Tám."
+        },
+        {
+          "word": "september",
+          "translation": "tháng Chín",
+          "phonetics": "/sepˈtembə/",
+          "type": "noun",
+          "sentence": "September is the start of autumn.",
+          "sentenceTranslation": "Tháng Chín là khởi đầu của mùa thu."
+        },
+        {
+          "word": "october",
+          "translation": "tháng Mười",
+          "phonetics": "/ɒkˈtəʊbə/",
+          "type": "noun",
+          "sentence": "October is my favorite month.",
+          "sentenceTranslation": "Tháng Mười là tháng yêu thích của tớ."
+        },
+        {
+          "word": "november",
+          "translation": "tháng Mười Một",
+          "phonetics": "/nəʊˈvembə/",
+          "type": "noun",
+          "sentence": "The weather is cool in November.",
+          "sentenceTranslation": "Thời tiết mát mẻ vào tháng Mười Một."
+        },
+        {
+          "word": "december",
+          "translation": "tháng Mười hai",
+          "phonetics": "/dɪˈsembə/",
+          "type": "noun",
+          "sentence": "Christmas is in December.",
+          "sentenceTranslation": "Giáng sinh là vào tháng Mười Hai."
+        },
+        {
+          "word": "sports day",
+          "translation": "ngày hội thể thao",
+          "phonetics": "/ˈspɔːts deɪ/",
+          "type": "noun",
+          "sentence": "Look at that nice sports day.",
+          "sentenceTranslation": "Hãy nhìn cái ngày hội thể thao đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What are they doing? - They are playing football.",
+          "vietnamese": "Họ đang làm gì vậy? - Họ đang chơi bóng đá."
+        },
+        {
+          "english": "When is your sports day? - It's in October.",
+          "vietnamese": "Khi nào là ngày hội thể thao của bạn? - Vào tháng Mười."
+        }
+      ],
+      "grammar": "Hỏi hoạt động đang diễn ra bằng \"What are they doing?\" và hỏi thời gian sự kiện \"When is...?\".",
+      "readingPassageTitle": "Sports Day at School",
+      "readingPassage": "Our sports day is in October. It is very exciting. Many boys are playing football in the playground. Some girls are playing badminton. I am playing table tennis. We want to win!",
+      "questions": {
+        "reading": [
+          {
+            "question": "When is the sports day?",
+            "options": [
+              "In September",
+              "In October",
+              "In November"
+            ],
+            "answer": "In October"
+          },
+          {
+            "question": "What are the boys doing in the playground?",
+            "options": [
+              "Playing badminton",
+              "Playing football",
+              "Playing table tennis"
+            ],
+            "answer": "Playing football"
+          },
+          {
+            "question": "What is the writer doing?",
+            "options": [
+              "Playing football",
+              "Playing badminton",
+              "Playing table tennis"
+            ],
+            "answer": "Playing table tennis"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "mPs0bpGsu3Q",
+          "title": "Tiếng Anh lớp 4 Unit 9 - Lesson 1 - Trang 62, 63 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "Y7IeGZZtBOs",
+          "title": "Tiếng Anh lớp 4 Unit 9 - Lesson 2 - Trang 64, 65 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "gbogn6lK4LA",
+          "title": "Tiếng Anh lớp 4 Unit 9 - Lesson 3 - Trang 66, 67 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t10",
+      "title": "Unit 10: Our summer camp",
+      "subtitle": "Chuyến đi cắm trại hè vui vẻ",
+      "vocab": [
+        {
+          "word": "beach",
+          "translation": "bãi biển",
+          "phonetics": "/biːtʃ/",
+          "type": "noun",
+          "sentence": "Play with sand on the beach.",
+          "sentenceTranslation": "Chơi với cát trên bãi biển."
+        },
+        {
+          "word": "campsite",
+          "translation": "địa điểm cắm trại",
+          "phonetics": "/ˈkæmpsaɪt/",
+          "type": "noun",
+          "sentence": "Look at that nice campsite.",
+          "sentenceTranslation": "Hãy nhìn cái địa điểm cắm trại đẹp đẽ kia."
+        },
+        {
+          "word": "countryside",
+          "translation": "nông thôn, vùng quê",
+          "phonetics": "/ˈkʌntrisaɪd/",
+          "type": "noun",
+          "sentence": "Look at that nice countryside.",
+          "sentenceTranslation": "Hãy nhìn cái nông thôn, vùng quê đẹp đẽ kia."
+        },
+        {
+          "word": "bangkok",
+          "translation": "Băng Cốc (thủ đô của nướcThái Lan)",
+          "phonetics": "/bæŋˈkɒk/",
+          "type": "noun",
+          "sentence": "Look at that nice bangkok.",
+          "sentenceTranslation": "Hãy nhìn cái băng cốc (thủ đô của nướcthái lan) đẹp đẽ kia."
+        },
+        {
+          "word": "sydney",
+          "translation": "Xít-ni (thành phố của nướcÔ-xtơ-rây-li-a)",
+          "phonetics": "/ˈsɪdni/",
+          "type": "noun",
+          "sentence": "Look at that nice sydney.",
+          "sentenceTranslation": "Hãy nhìn cái xít-ni (thành phố của nướcô-xtơ-rây-li-a) đẹp đẽ kia."
+        },
+        {
+          "word": "tokyo",
+          "translation": "Tô-ki-ô (thủ đô của nước Nhật)",
+          "phonetics": "/ˈtəʊkiəʊ/",
+          "type": "noun",
+          "sentence": "Look at that nice tokyo.",
+          "sentenceTranslation": "Hãy nhìn cái tô-ki-ô (thủ đô của nước nhật) đẹp đẽ kia."
+        },
+        {
+          "word": "last",
+          "translation": "trước, lần trước",
+          "phonetics": "/lɑːst/",
+          "type": "adjective",
+          "sentence": "This book is very last.",
+          "sentenceTranslation": "Cuốn sách này rất trước, lần trước."
+        },
+        {
+          "word": "yesterday",
+          "translation": "ngày hôm qua",
+          "phonetics": "/ˈjestədeɪ/",
+          "type": "verb",
+          "sentence": "Where were you yesterday?",
+          "sentenceTranslation": "Hôm qua cậu ở đâu?"
+        },
+        {
+          "word": "at, on, in (+ place) (pre)",
+          "translation": "ở (+ địa điểm)",
+          "phonetics": "/ət/, /ɒn/, /ɪn/ (+/pleɪs/)",
+          "type": "noun",
+          "sentence": "Look at that nice at, on, in (+ place) (pre).",
+          "sentenceTranslation": "Hãy nhìn cái ở (+ địa điểm) đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "Where were you yesterday? - I was at the summer camp.",
+          "vietnamese": "Hôm qua bạn ở đâu? - Tớ đã ở trại hè."
+        },
+        {
+          "english": "What did you do there? - We built a tent.",
+          "vietnamese": "Bạn đã làm gì ở đó? - Chúng tớ đã dựng một cái lều."
+        }
+      ],
+      "grammar": "Hỏi vị trí trong quá khứ bằng \"Where were you...?\" và hoạt động \"What did you do...?\".",
+      "readingPassageTitle": "Fun at Summer Camp",
+      "readingPassage": "Yesterday, my class was at the summer camp in the forest. We built a big tent. In the evening, we had a campfire. We sang songs, danced, and played exciting games. It was so much fun!",
+      "questions": {
+        "reading": [
+          {
+            "question": "Where was the class yesterday?",
+            "options": [
+              "At the beach",
+              "At the school library",
+              "At the summer camp"
+            ],
+            "answer": "At the summer camp"
+          },
+          {
+            "question": "What did they do in the evening?",
+            "options": [
+              "Built a tent",
+              "Had a campfire, sang, and danced",
+              "Went home"
+            ],
+            "answer": "Had a campfire, sang, and danced"
+          },
+          {
+            "question": "How was the summer camp?",
+            "options": [
+              "Boring",
+              "Hot",
+              "Fun"
+            ],
+            "answer": "Fun"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "9iF5fadvgl0",
+          "title": "Tiếng Anh lớp 4 Unit 10 - Lesson 1 - Trang 68, 69 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "fkH9jQ5XkK0",
+          "title": "Tiếng Anh lớp 4 Unit 10 - Lesson 2 - Trang 68, 69 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "zNzgtlOFpjM",
+          "title": "Tiếng Anh lớp 4 Unit 10 - Lesson 3 - Trang 68, 69 | Global Success (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "huQ_DRvuaZM",
+          "title": "Tiếng Anh lớp 4 Review 2 & Extension activities - Trang 74, 75 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t11",
+      "title": "Unit 11: Our food and drink",
+      "subtitle": "Đồ ăn thức uống và sở thích ẩm thực",
+      "vocab": [
+        {
+          "word": "road",
+          "translation": "con đường, đường phố",
+          "phonetics": "/rəʊd/",
+          "type": "noun",
+          "sentence": "Look at that nice road.",
+          "sentenceTranslation": "Hãy nhìn cái con đường, đường phố đẹp đẽ kia."
+        },
+        {
+          "word": "street",
+          "translation": "phố, đường phố",
+          "phonetics": "/striːt/",
+          "type": "noun",
+          "sentence": "Look at that nice street.",
+          "sentenceTranslation": "Hãy nhìn cái phố, đường phố đẹp đẽ kia."
+        },
+        {
+          "word": "big",
+          "translation": "to, lớn (kích thước)",
+          "phonetics": "/bɪɡ/",
+          "type": "adjective",
+          "sentence": "This book is very big.",
+          "sentenceTranslation": "Cuốn sách này rất to, lớn (kích thước)."
+        },
+        {
+          "word": "busy",
+          "translation": "bận rộn, nhộn nhịp",
+          "phonetics": "/ˈbɪzi/",
+          "type": "adjective",
+          "sentence": "This book is very busy.",
+          "sentenceTranslation": "Cuốn sách này rất bận rộn, nhộn nhịp."
+        },
+        {
+          "word": "live",
+          "translation": "sống",
+          "phonetics": "/lɪv/",
+          "type": "verb",
+          "sentence": "I can live well.",
+          "sentenceTranslation": "Tớ có thể sống tốt."
+        },
+        {
+          "word": "noisy",
+          "translation": "ồn ào, om sòm, huyên náo",
+          "phonetics": "/ˈnɔɪzi/",
+          "type": "adjective",
+          "sentence": "This book is very noisy.",
+          "sentenceTranslation": "Cuốn sách này rất ồn ào, om sòm, huyên náo."
+        },
+        {
+          "word": "quiet",
+          "translation": "yên tĩnh, tĩnh mịch",
+          "phonetics": "/ˈkwaɪət/",
+          "type": "adjective",
+          "sentence": "This book is very quiet.",
+          "sentenceTranslation": "Cuốn sách này rất yên tĩnh, tĩnh mịch."
+        },
+        {
+          "word": "at, in (+ name of the street / road) (pre)",
+          "translation": "ở, tại",
+          "phonetics": "/ət/, /ɪn/",
+          "type": "noun",
+          "sentence": "Look at that nice at, in (+ name of the street / road) (pre).",
+          "sentenceTranslation": "Hãy nhìn cái ở, tại đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What is your hometown like? - It's quiet and beautiful.",
+          "vietnamese": "Quê hương bạn trông như thế nào? - Nó yên tĩnh và xinh đẹp."
+        },
+        {
+          "english": "Would you like some noodles? - Yes, please.",
+          "vietnamese": "Bạn có muốn dùng một chút mì không? - Có chứ, cảm ơn."
+        }
+      ],
+      "grammar": "Mô tả địa điểm bằng \"What is [nơi chốn] like?\" và mời ăn uống bằng \"Would you like...?\".",
+      "readingPassageTitle": "My Village Hometown",
+      "readingPassage": "I live in a big city, but my hometown is a small village near a beautiful island. The village is very quiet and clean. The air is fresh. I love visiting my hometown in the summer.",
+      "questions": {
+        "reading": [
+          {
+            "question": "Where is the writer's hometown?",
+            "options": [
+              "In a big city",
+              "In a small village near an island",
+              "In a noisy town"
+            ],
+            "answer": "In a small village near an island"
+          },
+          {
+            "question": "What is the village like?",
+            "options": [
+              "Noisy and crowded",
+              "Quiet, clean, and beautiful",
+              "Boring and hot"
+            ],
+            "answer": "Quiet, clean, and beautiful"
+          },
+          {
+            "question": "How is the air in the village?",
+            "options": [
+              "Noisy",
+              "Crowded",
+              "Fresh"
+            ],
+            "answer": "Fresh"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "INVMQry3Oi8",
+          "title": "Tiếng Anh lớp 4 Unit 11 - Lesson 1 - Trang 6, 7 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "EmYy3aZwBMU",
+          "title": "Tiếng Anh lớp 4 Unit 11 - Lesson 2 - Trang 8, 9 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "doDDlElXLWw",
+          "title": "Tiếng Anh lớp 4 Unit 11 - Lesson 3 - Trang 10, 11 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t12",
+      "title": "Unit 12: Jobs",
+      "subtitle": "Các nghề nghiệp của thành viên gia đình",
+      "vocab": [
+        {
+          "word": "actor",
+          "translation": "diễn viên (nam)",
+          "phonetics": "/ˈæktə/",
+          "type": "noun",
+          "sentence": "Look at that nice actor.",
+          "sentenceTranslation": "Hãy nhìn cái diễn viên (nam) đẹp đẽ kia."
+        },
+        {
+          "word": "farmer",
+          "translation": "nông dân",
+          "phonetics": "/ˈfɑːmə/",
+          "type": "noun",
+          "sentence": "Look at that nice farmer.",
+          "sentenceTranslation": "Hãy nhìn cái nông dân đẹp đẽ kia."
+        },
+        {
+          "word": "nurse",
+          "translation": "y tá, điều dưỡng viên",
+          "phonetics": "/nɜːs/",
+          "type": "noun",
+          "sentence": "Look at that nice nurse.",
+          "sentenceTranslation": "Hãy nhìn cái y tá, điều dưỡng viên đẹp đẽ kia."
+        },
+        {
+          "word": "office worker",
+          "translation": "nhân viên văn phòng",
+          "phonetics": "/ˈɒfɪs wɜːkə/",
+          "type": "noun",
+          "sentence": "Look at that nice office worker.",
+          "sentenceTranslation": "Hãy nhìn cái nhân viên văn phòng đẹp đẽ kia."
+        },
+        {
+          "word": "policeman",
+          "translation": "cảnh sát (nam)",
+          "phonetics": "/pəˈliːsmən/",
+          "type": "noun",
+          "sentence": "Look at that nice policeman.",
+          "sentenceTranslation": "Hãy nhìn cái cảnh sát (nam) đẹp đẽ kia."
+        },
+        {
+          "word": "factory",
+          "translation": "nhà máy",
+          "phonetics": "/ˈfæktri/",
+          "type": "noun",
+          "sentence": "Look at that nice factory.",
+          "sentenceTranslation": "Hãy nhìn cái nhà máy đẹp đẽ kia."
+        },
+        {
+          "word": "farm",
+          "translation": "trang trại",
+          "phonetics": "/fɑːm/",
+          "type": "noun",
+          "sentence": "Look at that nice farm.",
+          "sentenceTranslation": "Hãy nhìn cái trang trại đẹp đẽ kia."
+        },
+        {
+          "word": "hospital",
+          "translation": "bệnh viện",
+          "phonetics": "/ˈhɒspɪtl/",
+          "type": "noun",
+          "sentence": "Look at that nice hospital.",
+          "sentenceTranslation": "Hãy nhìn cái bệnh viện đẹp đẽ kia."
+        },
+        {
+          "word": "nursing home",
+          "translation": "viện điều dưỡng",
+          "phonetics": "/ˈnɜːsɪŋ həʊm/",
+          "type": "noun",
+          "sentence": "Look at that nice nursing home.",
+          "sentenceTranslation": "Hãy nhìn cái viện điều dưỡng đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What does your father do? - He is a doctor.",
+          "vietnamese": "Bố của bạn làm nghề gì? - Bố tớ là bác sĩ."
+        },
+        {
+          "english": "Where does he work? - He works in a hospital.",
+          "vietnamese": "Bố bạn làm việc ở đâu? - Bố làm ở một bệnh viện."
+        }
+      ],
+      "grammar": "Hỏi nghề nghiệp \"What does [ai đó] do?\" và nơi làm việc \"Where does [ai đó] work?\".",
+      "readingPassageTitle": "My Family's Jobs",
+      "readingPassage": "My father is a driver. He drives a taxi. My mother is a nurse. She works in a big hospital. My older brother is a worker in a factory. I want to be a teacher like my mother.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What does the father do?",
+            "options": [
+              "He is a driver",
+              "He is a worker",
+              "He is a doctor"
+            ],
+            "answer": "He is a driver"
+          },
+          {
+            "question": "Where does the mother work?",
+            "options": [
+              "In a factory",
+              "In a taxi",
+              "In a hospital"
+            ],
+            "answer": "In a hospital"
+          },
+          {
+            "question": "What does the brother do?",
+            "options": [
+              "He is a driver",
+              "He is a worker",
+              "He is a teacher"
+            ],
+            "answer": "He is a worker"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "cGO1kCGPn18",
+          "title": "Tiếng Anh lớp 4 Unit 12 - Lesson 1 - Trang 12, 13 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "cl8kqJskk14",
+          "title": "Tiếng Anh lớp 4 Unit 12 - Lesson 2 - Trang 14, 15 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "iJ-0PBaGtik",
+          "title": "Tiếng Anh lớp 4 Unit 12 - Lesson 3 - Trang 16, 17 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t13",
+      "title": "Unit 13: Appearance",
+      "subtitle": "Mô tả ngoại hình của mọi người xung quanh",
+      "vocab": [
+        {
+          "word": "big",
+          "translation": "to, lớn (kích thước)",
+          "phonetics": "/bɪɡ/",
+          "type": "adjective",
+          "sentence": "This book is very big.",
+          "sentenceTranslation": "Cuốn sách này rất to, lớn (kích thước)."
+        },
+        {
+          "word": "short",
+          "translation": "thấp, ngắn",
+          "phonetics": "/ʃɔːt/",
+          "type": "adjective",
+          "sentence": "This book is very short.",
+          "sentenceTranslation": "Cuốn sách này rất thấp, ngắn."
+        },
+        {
+          "word": "slim",
+          "translation": "mảnh mai",
+          "phonetics": "/slɪm/",
+          "type": "adjective",
+          "sentence": "This book is very slim.",
+          "sentenceTranslation": "Cuốn sách này rất mảnh mai."
+        },
+        {
+          "word": "tall",
+          "translation": "cao",
+          "phonetics": "/tɔːl/",
+          "type": "adjective",
+          "sentence": "This book is very tall.",
+          "sentenceTranslation": "Cuốn sách này rất cao."
+        },
+        {
+          "word": "eyes",
+          "translation": "mắt",
+          "phonetics": "/aɪ/",
+          "type": "noun",
+          "sentence": "Look at that nice eyes.",
+          "sentenceTranslation": "Hãy nhìn cái mắt đẹp đẽ kia."
+        },
+        {
+          "word": "face",
+          "translation": "khuôn mặt",
+          "phonetics": "/feɪs/",
+          "type": "noun",
+          "sentence": "Look at that nice face.",
+          "sentenceTranslation": "Hãy nhìn cái khuôn mặt đẹp đẽ kia."
+        },
+        {
+          "word": "hair",
+          "translation": "tóc",
+          "phonetics": "/heə/",
+          "type": "noun",
+          "sentence": "Look at that nice hair.",
+          "sentenceTranslation": "Hãy nhìn cái tóc đẹp đẽ kia."
+        },
+        {
+          "word": "long",
+          "translation": "dài",
+          "phonetics": "/lɒŋ/",
+          "type": "adjective",
+          "sentence": "This book is very long.",
+          "sentenceTranslation": "Cuốn sách này rất dài."
+        },
+        {
+          "word": "round",
+          "translation": "tròn",
+          "phonetics": "/raʊnd/",
+          "type": "adjective",
+          "sentence": "This book is very round.",
+          "sentenceTranslation": "Cuốn sách này rất tròn."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What does he look like? - He is tall and slim.",
+          "vietnamese": "Cậu ấy trông như thế nào? - Cậu ấy cao và mảnh khảnh."
+        },
+        {
+          "english": "Who is taller? - My brother is taller than me.",
+          "vietnamese": "Ai cao hơn? - Anh trai tớ cao hơn tớ."
+        }
+      ],
+      "grammar": "Mô tả ngoại hình \"What does [ai đó] look like?\" và so sánh hơn \"[ai đó] is [tính từ-er] than...\".",
+      "readingPassageTitle": "My Family Members",
+      "readingPassage": "I look at my family photo. My father is tall and strong. My mother is slim and very beautiful. My brother is young and tall. He is taller than me, but I am slimmer than him.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What does the father look like?",
+            "options": [
+              "Slim and young",
+              "Tall and strong",
+              "Short and old"
+            ],
+            "answer": "Tall and strong"
+          },
+          {
+            "question": "Who is taller than the writer?",
+            "options": [
+              "The father only",
+              "The mother",
+              "The brother"
+            ],
+            "answer": "The brother"
+          },
+          {
+            "question": "Who is slimmer?",
+            "options": [
+              "The brother",
+              "The writer",
+              "The father"
+            ],
+            "answer": "The writer"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "uNvE7QzUIHs",
+          "title": "Tiếng Anh lớp 4 Unit 13 - Lesson 1 - Trang 18, 19 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "ttDc75fVxek",
+          "title": "Tiếng Anh lớp 4 Unit 13 - Lesson 2 - Trang 20, 21 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "ktHznyO6W6g",
+          "title": "Tiếng Anh lớp 4 Unit 13 - Lesson 3 - Trang 22, 23 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t14",
+      "title": "Unit 14: My favourite food and drink",
+      "subtitle": "Món ăn đồ uống yêu thích và sức khỏe",
+      "vocab": [
+        {
+          "word": "afternoon",
+          "translation": "buổi chiều",
+          "phonetics": "/ˌɑːftəˈnuːn/",
+          "type": "noun",
+          "sentence": "Look at that nice afternoon.",
+          "sentenceTranslation": "Hãy nhìn cái buổi chiều đẹp đẽ kia."
+        },
+        {
+          "word": "evening",
+          "translation": "buổi tối",
+          "phonetics": "/ˈi:vnɪŋ/",
+          "type": "noun",
+          "sentence": "Look at that nice evening.",
+          "sentenceTranslation": "Hãy nhìn cái buổi tối đẹp đẽ kia."
+        },
+        {
+          "word": "morning",
+          "translation": "buổi sáng",
+          "phonetics": "/ˈmɔ:nɪŋ/",
+          "type": "noun",
+          "sentence": "Look at that nice morning.",
+          "sentenceTranslation": "Hãy nhìn cái buổi sáng đẹp đẽ kia."
+        },
+        {
+          "word": "noon",
+          "translation": "buổi trưa",
+          "phonetics": "/nu:n/",
+          "type": "noun",
+          "sentence": "Look at that nice noon.",
+          "sentenceTranslation": "Hãy nhìn cái buổi trưa đẹp đẽ kia."
+        },
+        {
+          "word": "clean (the floor) (v)",
+          "translation": "lau (sàn nhà)",
+          "phonetics": "/kli:n (ðə flɔː)/",
+          "type": "noun",
+          "sentence": "Look at that nice clean (the floor) (v).",
+          "sentenceTranslation": "Hãy nhìn cái lau (sàn nhà) đẹp đẽ kia."
+        },
+        {
+          "word": "help with the cooking",
+          "translation": "giúp đỡ việc nấu ăn",
+          "phonetics": "/help wɪð ðə ˈkʊkɪŋ/",
+          "type": "verb",
+          "sentence": "I can help with the cooking well.",
+          "sentenceTranslation": "Tớ có thể giúp đỡ việc nấu ăn tốt."
+        },
+        {
+          "word": "wash (the clothes) (v)",
+          "translation": "giặt (quần áo)",
+          "phonetics": "/wɒʃ (ðə ˈkləʊðz) /",
+          "type": "noun",
+          "sentence": "Look at that nice wash (the clothes) (v).",
+          "sentenceTranslation": "Hãy nhìn cái giặt (quần áo) đẹp đẽ kia."
+        },
+        {
+          "word": "wash (the dishes) (v)",
+          "translation": "rửa (bát đĩa)",
+          "phonetics": "/wɒʃ (ðə ˈdɪʃɪz)/",
+          "type": "noun",
+          "sentence": "Look at that nice wash (the dishes) (v).",
+          "sentenceTranslation": "Hãy nhìn cái rửa (bát đĩa) đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What is your favorite food? - It's chicken.",
+          "vietnamese": "Món ăn yêu thích của bạn là gì? - Đó là thịt gà."
+        },
+        {
+          "english": "What is your favorite drink? - It's orange juice.",
+          "vietnamese": "Đồ uống yêu thích của bạn là gì? - Đó là nước cam."
+        }
+      ],
+      "grammar": "Hỏi về đồ ăn yêu thích \"What is your favorite food/drink?\" và diễn tả sự lựa chọn.",
+      "readingPassageTitle": "My Favorite Meal",
+      "readingPassage": "For lunch, I like eating rice with beef and fish. My favorite food is beef. My sister likes chicken and bread. We always drink orange juice and fresh milk after meals. We like drinking water too.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What is the writer's favorite food?",
+            "options": [
+              "Beef",
+              "Chicken",
+              "Fish"
+            ],
+            "answer": "Beef"
+          },
+          {
+            "question": "What does the sister like?",
+            "options": [
+              "Beef and rice",
+              "Chicken and bread",
+              "Orange juice"
+            ],
+            "answer": "Chicken and bread"
+          },
+          {
+            "question": "What do they drink after meals?",
+            "options": [
+              "Water only",
+              "Orange juice and fresh milk",
+              "Tea"
+            ],
+            "answer": "Orange juice and fresh milk"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "SsWM5_Xx6TQ",
+          "title": "Tiếng Anh lớp 4 Unit 14 - Lesson 1 - Trang 24, 25 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "E3mX8mlahQc",
+          "title": "Tiếng Anh lớp 4 Unit 14 - Lesson 2 - Trang 26, 27 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "gOHP_hbkL0Y",
+          "title": "Tiếng Anh lớp 4 Unit 14 - Lesson 3 - Trang 28, 29 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t15",
+      "title": "Unit 15: My family",
+      "subtitle": "Các thành viên trong gia đình lớn của em",
+      "vocab": [
+        {
+          "word": "cinema",
+          "translation": "rạp chiếu phim",
+          "phonetics": "/ˈsɪnəmə/, /ˈsɪnəmɑː/",
+          "type": "noun",
+          "sentence": "Look at that nice cinema.",
+          "sentenceTranslation": "Hãy nhìn cái rạp chiếu phim đẹp đẽ kia."
+        },
+        {
+          "word": "shopping centre",
+          "translation": "trung tâm mua sắm",
+          "phonetics": "/ˈʃɒpɪŋ sentə/",
+          "type": "noun",
+          "sentence": "Look at that nice shopping centre.",
+          "sentenceTranslation": "Hãy nhìn cái trung tâm mua sắm đẹp đẽ kia."
+        },
+        {
+          "word": "sports centre",
+          "translation": "trung tâm thể thao",
+          "phonetics": "/ˈspɔːts sentə/",
+          "type": "noun",
+          "sentence": "Look at that nice sports centre.",
+          "sentenceTranslation": "Hãy nhìn cái trung tâm thể thao đẹp đẽ kia."
+        },
+        {
+          "word": "swimming pool",
+          "translation": "bể bơi",
+          "phonetics": "/ˈswɪmɪŋ puːl/",
+          "type": "noun",
+          "sentence": "Look at that nice swimming pool.",
+          "sentenceTranslation": "Hãy nhìn cái bể bơi đẹp đẽ kia."
+        },
+        {
+          "word": "cook meals",
+          "translation": "nấu ăn",
+          "phonetics": "/ˈkʊk miːls/",
+          "type": "verb",
+          "sentence": "I can cook meals well.",
+          "sentenceTranslation": "Tớ có thể nấu ăn tốt."
+        },
+        {
+          "word": "do yoga",
+          "translation": "tập yoga",
+          "phonetics": "/duː ˈjəʊɡə/",
+          "type": "verb",
+          "sentence": "I can do yoga well.",
+          "sentenceTranslation": "Tớ có thể tập yoga tốt."
+        },
+        {
+          "word": "play tennis",
+          "translation": "chơi quần vợt",
+          "phonetics": "/pleɪ ˈtenɪs/",
+          "type": "verb",
+          "sentence": "I can play tennis well.",
+          "sentenceTranslation": "Tớ có thể chơi quần vợt tốt."
+        },
+        {
+          "word": "watch films",
+          "translation": "xem phim",
+          "phonetics": "/wɒtʃ fɪlms/",
+          "type": "verb",
+          "sentence": "I can watch films well.",
+          "sentenceTranslation": "Tớ có thể xem phim tốt."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "How many people are there in your family? - There are six people.",
+          "vietnamese": "Có bao nhiêu người trong gia đình bạn? - Có 6 người."
+        },
+        {
+          "english": "What do you do together? - We watch TV.",
+          "vietnamese": "Các bạn làm gì cùng nhau? - Chúng tớ xem tivi."
+        }
+      ],
+      "grammar": "Hỏi số lượng người bằng \"How many people are there...?\" và diễn tả hoạt động chung.",
+      "readingPassageTitle": "My Big Family",
+      "readingPassage": "There are six people in my family. They are my grandfather, grandmother, father, mother, sister, and me. We live together. In the evening, we always eat dinner and watch TV together. We love each other.",
+      "questions": {
+        "reading": [
+          {
+            "question": "How many people are there in the family?",
+            "options": [
+              "Four",
+              "Five",
+              "Six"
+            ],
+            "answer": "Six"
+          },
+          {
+            "question": "Who is in the family?",
+            "options": [
+              "Grandfather, grandmother, father, mother, sister, and the writer",
+              "Uncle and aunt",
+              "Friends"
+            ],
+            "answer": "Grandfather, grandmother, father, mother, sister, and the writer"
+          },
+          {
+            "question": "What do they do together in the evening?",
+            "options": [
+              "Go shopping",
+              "Eat dinner and watch TV",
+              "Play football"
+            ],
+            "answer": "Eat dinner and watch TV"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "FQ_AS8nfk4s",
+          "title": "Tiếng Anh lớp 4 Unit 15 - Lesson 1 - Trang 30, 31 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "8mFH0hColBA",
+          "title": "Tiếng Anh lớp 4 Unit 15 - Lesson 2 - Trang 32, 33 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "wn_E5qV2bwQ",
+          "title": "Tiếng Anh lớp 4 Unit 15 - Lesson 3 - Trang 34, 35 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "EOqo765kZMM",
+          "title": "Tiếng Anh lớp 4 Review 3 & Extension activities - Trang 36, 37 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t16",
+      "title": "Unit 16: Weather",
+      "subtitle": "Các mùa trong năm và thời tiết tương ứng",
+      "vocab": [
+        {
+          "word": "cloudy",
+          "translation": "có mây, nhiều mây",
+          "phonetics": "/ˈklaʊdi/",
+          "type": "adjective",
+          "sentence": "This book is very cloudy.",
+          "sentenceTranslation": "Cuốn sách này rất có mây, nhiều mây."
+        },
+        {
+          "word": "rainy",
+          "translation": "có mưa",
+          "phonetics": "/ˈreɪni/",
+          "type": "adjective",
+          "sentence": "This book is very rainy.",
+          "sentenceTranslation": "Cuốn sách này rất có mưa."
+        },
+        {
+          "word": "sunny",
+          "translation": "có nắng",
+          "phonetics": "/ˈsʌni/",
+          "type": "adjective",
+          "sentence": "This book is very sunny.",
+          "sentenceTranslation": "Cuốn sách này rất có nắng."
+        },
+        {
+          "word": "weather",
+          "translation": "thời tiết",
+          "phonetics": "/ˈweðə/",
+          "type": "noun",
+          "sentence": "Look at that nice weather.",
+          "sentenceTranslation": "Hãy nhìn cái thời tiết đẹp đẽ kia."
+        },
+        {
+          "word": "windy",
+          "translation": "có gió",
+          "phonetics": "/ˈwɪndi/",
+          "type": "adjective",
+          "sentence": "This book is very windy.",
+          "sentenceTranslation": "Cuốn sách này rất có gió."
+        },
+        {
+          "word": "bakery",
+          "translation": "hiệu bánh mì",
+          "phonetics": "/ˈbeɪkəri/",
+          "type": "noun",
+          "sentence": "Look at that nice bakery.",
+          "sentenceTranslation": "Hãy nhìn cái hiệu bánh mì đẹp đẽ kia."
+        },
+        {
+          "word": "bookshop",
+          "translation": "hiệu sách",
+          "phonetics": "/ˈbʊkʃɒp/",
+          "type": "noun",
+          "sentence": "Look at that nice bookshop.",
+          "sentenceTranslation": "Hãy nhìn cái hiệu sách đẹp đẽ kia."
+        },
+        {
+          "word": "food stall",
+          "translation": "quầy hàng thực phẩm",
+          "phonetics": "/fuːd stɔːl/",
+          "type": "noun",
+          "sentence": "Look at that nice food stall.",
+          "sentenceTranslation": "Hãy nhìn cái quầy hàng thực phẩm đẹp đẽ kia."
+        },
+        {
+          "word": "water park",
+          "translation": "công viên nước",
+          "phonetics": "/ˈwɔːtə pɑːk/",
+          "type": "noun",
+          "sentence": "Look at that nice water park.",
+          "sentenceTranslation": "Hãy nhìn cái công viên nước đẹp đẽ kia."
+        },
+        {
+          "word": "supermarket",
+          "translation": "siêu thị",
+          "phonetics": "/ˈsuːpəmɑːkɪt/",
+          "type": "noun",
+          "sentence": "Look at that nice supermarket.",
+          "sentenceTranslation": "Hãy nhìn cái siêu thị đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What is the weather like in summer? - It is hot.",
+          "vietnamese": "Thời tiết vào mùa hè như thế nào? - Trời nóng."
+        },
+        {
+          "english": "What do you do in winter? - I stay at home.",
+          "vietnamese": "Bạn làm gì vào mùa đông? - Tớ ở nhà."
+        }
+      ],
+      "grammar": "Hỏi thời tiết theo mùa \"What is the weather like in [mùa]?\" và hoạt động theo thời tiết.",
+      "readingPassageTitle": "Four Seasons",
+      "readingPassage": "There are four seasons in Vietnam. In spring, the weather is warm. In summer, it is hot and we go swimming. In autumn, the weather is cool. In winter, it is very cold and we wear coats.",
+      "questions": {
+        "reading": [
+          {
+            "question": "How is the weather in spring?",
+            "options": [
+              "Hot",
+              "Warm",
+              "Cold"
+            ],
+            "answer": "Warm"
+          },
+          {
+            "question": "What do they do in summer?",
+            "options": [
+              "Go swimming",
+              "Wear coats",
+              "Stay at home"
+            ],
+            "answer": "Go swimming"
+          },
+          {
+            "question": "How is the weather in autumn?",
+            "options": [
+              "Warm",
+              "Hot",
+              "Cool"
+            ],
+            "answer": "Cool"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "StFSCjI2QiQ",
+          "title": "Tiếng Anh lớp 4 Unit 16 - Lesson 1 - Trang 40, 41 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "sEazm6Im8U8",
+          "title": "Tiếng Anh lớp 4 Unit 16 - Lesson 2 - Trang 42, 43 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "7hCrNH_LEVU",
+          "title": "Tiếng Anh lớp 4 Unit 16 - Lesson 3 - Trang 44, 45 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t17",
+      "title": "Unit 17: In the toy shop",
+      "subtitle": "Cửa hàng đồ chơi và mô tả động vật",
+      "vocab": [
+        {
+          "word": "get (to) (v)",
+          "translation": "đến (địa điểm)",
+          "phonetics": "/ɡet (tə)/",
+          "type": "noun",
+          "sentence": "Look at that nice get (to) (v).",
+          "sentenceTranslation": "Hãy nhìn cái đến (địa điểm) đẹp đẽ kia."
+        },
+        {
+          "word": "go straight",
+          "translation": "đi thẳng",
+          "phonetics": "/ɡəʊ streɪt/",
+          "type": "verb",
+          "sentence": "I can go straight well.",
+          "sentenceTranslation": "Tớ có thể đi thẳng tốt."
+        },
+        {
+          "word": "left",
+          "translation": "bên trái",
+          "phonetics": "/left/",
+          "type": "noun",
+          "sentence": "Look at that nice left.",
+          "sentenceTranslation": "Hãy nhìn cái bên trái đẹp đẽ kia."
+        },
+        {
+          "word": "right",
+          "translation": "bên phải",
+          "phonetics": "/raɪt/",
+          "type": "noun",
+          "sentence": "Look at that nice right.",
+          "sentenceTranslation": "Hãy nhìn cái bên phải đẹp đẽ kia."
+        },
+        {
+          "word": "stop",
+          "translation": "dừng lại",
+          "phonetics": "/stɒp/",
+          "type": "verb",
+          "sentence": "I can stop well.",
+          "sentenceTranslation": "Tớ có thể dừng lại tốt."
+        },
+        {
+          "word": "turn",
+          "translation": "rẽ",
+          "phonetics": "/tɜːn/",
+          "type": "verb",
+          "sentence": "I can turn well.",
+          "sentenceTranslation": "Tớ có thể rẽ tốt."
+        },
+        {
+          "word": "turn left",
+          "translation": "rẽ trái",
+          "phonetics": "/tɜːn ˈleft/",
+          "type": "verb",
+          "sentence": "I can turn left well.",
+          "sentenceTranslation": "Tớ có thể rẽ trái tốt."
+        },
+        {
+          "word": "turn right",
+          "translation": "rẽ phải",
+          "phonetics": "/tɜːn ˈraɪt/",
+          "type": "verb",
+          "sentence": "I can turn right well.",
+          "sentenceTranslation": "Tớ có thể rẽ phải tốt."
+        },
+        {
+          "word": "turn round",
+          "translation": "quay lại, đổi hướng ngược lại",
+          "phonetics": "/tɜːn ˈraʊnd/",
+          "type": "verb",
+          "sentence": "I can turn round well.",
+          "sentenceTranslation": "Tớ có thể quay lại, đổi hướng ngược lại tốt."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What is that animal like? - It is big and scary.",
+          "vietnamese": "Con vật đó trông như thế nào? - Nó to và đáng sợ."
+        },
+        {
+          "english": "Does it have wings? - Yes, it does.",
+          "vietnamese": "Nó có cánh không? - Có, nó có."
+        }
+      ],
+      "grammar": "Mô tả con vật bằng cấu trúc \"What is [con vật] like?\" và sở hữu bộ phận \"Does it have...?\".",
+      "readingPassageTitle": "Animals at Zoo",
+      "readingPassage": "I like watching animals. The elephant is big and has a long tail. The tiger is fast and scary. The bird is small and has beautiful wings. The monkey is funny. They are all wonderful.",
+      "questions": {
+        "reading": [
+          {
+            "question": "Which animal is big and has a long tail?",
+            "options": [
+              "The bird",
+              "The monkey",
+              "The elephant"
+            ],
+            "answer": "The elephant"
+          },
+          {
+            "question": "Which animal is fast and scary?",
+            "options": [
+              "The tiger",
+              "The monkey",
+              "The bird"
+            ],
+            "answer": "The tiger"
+          },
+          {
+            "question": "What does the bird have?",
+            "options": [
+              "A long tail",
+              "Beautiful wings",
+              "Big ears"
+            ],
+            "answer": "Beautiful wings"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "NuQ4Ljkl8O8",
+          "title": "Tiếng Anh lớp 4 Unit 17 - Lesson 1 - Trang 46, 47 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "ISuI5df8oYU",
+          "title": "Tiếng Anh lớp 4 Unit 17 - Lesson 2 - Trang 48, 49 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "2VmpLYGSDoo",
+          "title": "Tiếng Anh lớp 4 Unit 17 - Lesson 3 - Trang 50, 51 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t18",
+      "title": "Unit 18: At the shopping mall",
+      "subtitle": "Trung tâm mua sắm và trang phục",
+      "vocab": [
+        {
+          "word": "behind",
+          "translation": "đằng sau",
+          "phonetics": "/bɪˈhaɪnd/",
+          "type": "pre",
+          "sentence": "Look at that nice behind.",
+          "sentenceTranslation": "Hãy nhìn cái đằng sau đẹp đẽ kia."
+        },
+        {
+          "word": "between",
+          "translation": "ở giữa",
+          "phonetics": "/bɪˈtwiːn/",
+          "type": "pre",
+          "sentence": "Look at that nice between.",
+          "sentenceTranslation": "Hãy nhìn cái ở giữa đẹp đẽ kia."
+        },
+        {
+          "word": "near",
+          "translation": "ở gần",
+          "phonetics": "/nɪə/",
+          "type": "pre",
+          "sentence": "Look at that nice near.",
+          "sentenceTranslation": "Hãy nhìn cái ở gần đẹp đẽ kia."
+        },
+        {
+          "word": "opposite",
+          "translation": "đối diện",
+          "phonetics": "/ˈɒpəzɪt/",
+          "type": "pre",
+          "sentence": "Look at that nice opposite.",
+          "sentenceTranslation": "Hãy nhìn cái đối diện đẹp đẽ kia."
+        },
+        {
+          "word": "gift shop",
+          "translation": "cửa hàng quà tặng",
+          "phonetics": "/ˈɡɪft ʃɒp/",
+          "type": "noun",
+          "sentence": "Look at that nice gift shop.",
+          "sentenceTranslation": "Hãy nhìn cái cửa hàng quà tặng đẹp đẽ kia."
+        },
+        {
+          "word": "skirt",
+          "translation": "váy",
+          "phonetics": "/skɜːt/",
+          "type": "noun",
+          "sentence": "Look at that nice skirt.",
+          "sentenceTranslation": "Hãy nhìn cái váy đẹp đẽ kia."
+        },
+        {
+          "word": "dong",
+          "translation": "đồng (đơn vị tiền tệ của Việt Nam)",
+          "phonetics": "/dɒŋ/",
+          "type": "noun",
+          "sentence": "Look at that nice dong.",
+          "sentenceTranslation": "Hãy nhìn cái đồng (đơn vị tiền tệ của việt nam) đẹp đẽ kia."
+        },
+        {
+          "word": "thousand",
+          "translation": "nghìn",
+          "phonetics": "/ˈθaʊznd/",
+          "type": "noun",
+          "sentence": "Look at that nice thousand.",
+          "sentenceTranslation": "Hãy nhìn cái nghìn đẹp đẽ kia."
+        },
+        {
+          "word": "t-shirt",
+          "translation": "áo thun",
+          "phonetics": "/ˈtiː ʃɜːt/",
+          "type": "noun",
+          "sentence": "Look at that nice t-shirt.",
+          "sentenceTranslation": "Hãy nhìn cái áo thun đẹp đẽ kia."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What are you wearing? - I am wearing a blue jacket.",
+          "vietnamese": "Bạn đang mặc gì vậy? - Tớ đang mặc một chiếc áo khoác màu xanh."
+        },
+        {
+          "english": "How much is this t-shirt? - It's fifty thousand dong.",
+          "vietnamese": "Chiếc áo thun này giá bao nhiêu? - 50.000 đồng."
+        }
+      ],
+      "grammar": "Mô tả trang phục đang mặc bằng \"I am wearing...\" và hỏi giá cả bằng \"How much is/are...?\".",
+      "readingPassageTitle": "My New Clothes",
+      "readingPassage": "Today is cold. I am wearing a red coat, black trousers, and warm shoes. My sister is wearing a pink dress and white socks. She wants to buy a new skirt. It costs sixty thousand dong.",
+      "questions": {
+        "reading": [
+          {
+            "question": "What is the writer wearing today?",
+            "options": [
+              "A t-shirt and shorts",
+              "A red coat, black trousers, and shoes",
+              "A pink dress"
+            ],
+            "answer": "A red coat, black trousers, and shoes"
+          },
+          {
+            "question": "Who is wearing a pink dress?",
+            "options": [
+              "The writer",
+              "The sister",
+              "The mother"
+            ],
+            "answer": "The sister"
+          },
+          {
+            "question": "How much does the sister's skirt cost?",
+            "options": [
+              "Fifty thousand dong",
+              "Sixty thousand dong",
+              "Seventy thousand dong"
+            ],
+            "answer": "Sixty thousand dong"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "a9TTu-gu4Ss",
+          "title": "Tiếng Anh lớp 4 Unit 18 - Lesson 1 - Trang 52, 53 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "XPy2HwNbGkg",
+          "title": "Tiếng Anh lớp 4 Unit 18 - Lesson 2 - Trang 54, 55 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "-JDkvDf7efo",
+          "title": "Tiếng Anh lớp 4 Unit 18 - Lesson 3 - Trang 56, 57 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t19",
+      "title": "Unit 19: Animal world",
+      "subtitle": "Thế giới động vật và hành động của loài vật",
+      "vocab": [
+        {
+          "word": "beautifully",
+          "translation": "đẹp đẽ",
+          "phonetics": "/ˈbjuːtɪfli/",
+          "type": "verb",
+          "sentence": "I can beautifully well.",
+          "sentenceTranslation": "Tớ có thể đẹp đẽ tốt."
+        },
+        {
+          "word": "crocodile",
+          "translation": "cá sấu Châu Phi, cá sấu",
+          "phonetics": "/ˈkrɒkədaɪl/",
+          "type": "noun",
+          "sentence": "Look at that nice crocodile.",
+          "sentenceTranslation": "Hãy nhìn cái cá sấu châu phi, cá sấu đẹp đẽ kia."
+        },
+        {
+          "word": "dance",
+          "translation": "nhảy, múa",
+          "phonetics": "/dɑːns /",
+          "type": "noun",
+          "sentence": "Look at that nice dance.",
+          "sentenceTranslation": "Hãy nhìn cái nhảy, múa đẹp đẽ kia."
+        },
+        {
+          "word": "giraffe",
+          "translation": "hươu cao cổ",
+          "phonetics": "/dʒəˈrɑːf/",
+          "type": "noun",
+          "sentence": "Look at that nice giraffe.",
+          "sentenceTranslation": "Hãy nhìn cái hươu cao cổ đẹp đẽ kia."
+        },
+        {
+          "word": "hippo",
+          "translation": "hà mã, lợn nước",
+          "phonetics": "/ˈhɪpəʊ/",
+          "type": "noun",
+          "sentence": "Look at that nice hippo.",
+          "sentenceTranslation": "Hãy nhìn cái hà mã, lợn nước đẹp đẽ kia."
+        },
+        {
+          "word": "lion",
+          "translation": "con sư tử",
+          "phonetics": "/ˈlaɪən/",
+          "type": "noun",
+          "sentence": "Look at that nice lion.",
+          "sentenceTranslation": "Hãy nhìn cái con sư tử đẹp đẽ kia."
+        },
+        {
+          "word": "loudly",
+          "translation": "ầm ĩ, inh ỏi",
+          "phonetics": "/ˈlaʊdli/",
+          "type": "verb",
+          "sentence": "I can loudly well.",
+          "sentenceTranslation": "Tớ có thể ầm ĩ, inh ỏi tốt."
+        },
+        {
+          "word": "merrily",
+          "translation": "vui, vui vẻ",
+          "phonetics": "/ˈmerəli/",
+          "type": "verb",
+          "sentence": "I can merrily well.",
+          "sentenceTranslation": "Tớ có thể vui, vui vẻ tốt."
+        },
+        {
+          "word": "quickly",
+          "translation": "nhanh",
+          "phonetics": "/ˈkwɪkli/",
+          "type": "verb",
+          "sentence": "I can quickly well.",
+          "sentenceTranslation": "Tớ có thể nhanh tốt."
+        },
+        {
+          "word": "roar",
+          "translation": "gầm, rống lên (hổ, sư tử …)",
+          "phonetics": "/rɔː/",
+          "type": "verb",
+          "sentence": "I can roar well.",
+          "sentenceTranslation": "Tớ có thể gầm, rống lên (hổ, sư tử …) tốt."
+        },
+        {
+          "word": "run",
+          "translation": "chạy",
+          "phonetics": "/rʌn/",
+          "type": "verb",
+          "sentence": "I can run well.",
+          "sentenceTranslation": "Tớ có thể chạy tốt."
+        },
+        {
+          "word": "sing",
+          "translation": "hát",
+          "phonetics": "/sɪŋ",
+          "type": "verb",
+          "sentence": "I can sing well.",
+          "sentenceTranslation": "Tớ có thể hát tốt."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What did the monkeys do when you were there? - They swung.",
+          "vietnamese": "Lũ khỉ đã làm gì khi bạn ở đó? - Chúng đu dây."
+        },
+        {
+          "english": "I heard the python slide.",
+          "vietnamese": "Tớ đã nghe thấy con trăn trườn."
+        }
+      ],
+      "grammar": "Mô tả hành động của con vật trong quá khứ bằng thì quá khứ đơn (swung, roared, walked, slid).",
+      "readingPassageTitle": "A Trip to the Zoo",
+      "readingPassage": "Last weekend, we went to the zoo. We saw many animals. The monkeys swung from tree to tree. The pythons slid quietly on the grass. The tigers roared loudly. We had a great time watching them.",
+      "questions": {
+        "reading": [
+          {
+            "question": "When did they go to the zoo?",
+            "options": [
+              "Yesterday",
+              "Last weekend",
+              "Last month"
+            ],
+            "answer": "Last weekend"
+          },
+          {
+            "question": "What did the monkeys do?",
+            "options": [
+              "Roared loudly",
+              "Slid quietly",
+              "Swung from tree to tree"
+            ],
+            "answer": "Swung from tree to tree"
+          },
+          {
+            "question": "How did the pythons move?",
+            "options": [
+              "They jumped",
+              "They slid quietly",
+              "They walked"
+            ],
+            "answer": "They slid quietly"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "_9ZSjzQQb_0",
+          "title": "Tiếng Anh lớp 4 Unit 19 - Lesson 1 - Trang 58, 59 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "wnn8UUYWCgQ",
+          "title": "Tiếng Anh lớp 4 Unit 19 - Lesson 2 - Trang 60, 61 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "LsnGIA08v8s",
+          "title": "Tiếng Anh lớp 4 Unit 19 - Lesson 3 - Trang 62, 63 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        }
+      ]
+    },
+    {
+      "id": "eng4-t20",
+      "title": "Unit 20: At summer camp",
+      "subtitle": "Hoạt động cắm trại hè và kế hoạch tương lai",
+      "vocab": [
+        {
+          "word": "build a campfire",
+          "translation": "đốt lửa trại",
+          "phonetics": "/bɪld ə ˈkæmpfaɪə/",
+          "type": "verb",
+          "sentence": "I can build a campfire well.",
+          "sentenceTranslation": "Tớ có thể đốt lửa trại tốt."
+        },
+        {
+          "word": "play card games",
+          "translation": "chơi bài",
+          "phonetics": "/pleɪ ˈkɑːd ɡeɪmz/",
+          "type": "verb",
+          "sentence": "I can play card games well.",
+          "sentenceTranslation": "Tớ có thể chơi bài tốt."
+        },
+        {
+          "word": "put up a tent",
+          "translation": "dựng, cắm trại, lều",
+          "phonetics": "/pʊt ʌp ə ˈtent/",
+          "type": "verb",
+          "sentence": "I can put up a tent well.",
+          "sentenceTranslation": "Tớ có thể dựng, cắm trại, lều tốt."
+        },
+        {
+          "word": "sing songs",
+          "translation": "hát",
+          "phonetics": "/sɪŋ sɒŋz/",
+          "type": "verb",
+          "sentence": "I can sing songs well.",
+          "sentenceTranslation": "Tớ có thể hát tốt."
+        },
+        {
+          "word": "take a photo",
+          "translation": "chụp ảnh",
+          "phonetics": "/teɪk ə ˈfəʊtəʊ/",
+          "type": "verb",
+          "sentence": "I can take a photo well.",
+          "sentenceTranslation": "Tớ có thể chụp ảnh tốt."
+        },
+        {
+          "word": "tell a story",
+          "translation": "kể chuyện",
+          "phonetics": "/tel ə ˈstɔːri/",
+          "type": "verb",
+          "sentence": "I can tell a story well.",
+          "sentenceTranslation": "Tớ có thể kể chuyện tốt."
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "english": "What are you going to do this summer? - I am going to visit Phu Quoc.",
+          "vietnamese": "Hè này bạn định làm gì? - Tớ định đi thăm Phú Quốc."
+        },
+        {
+          "english": "Where are you going to stay? - In a hotel.",
+          "vietnamese": "Bạn định ở đâu? - Ở trong một khách sạn."
+        }
+      ],
+      "grammar": "Diễn đạt kế hoạch tương lai bằng cấu trúc \"be going to + V\" (am/is/are going to).",
+      "readingPassageTitle": "My Summer Plan",
+      "readingPassage": "This summer, my family is going to visit Ha Long Bay. We are going to stay in a hotel near the sea. We are going to go on a boat cruise, eat fresh seafood, and build sandcastles. It will be exciting!",
+      "questions": {
+        "reading": [
+          {
+            "question": "Where is the family going to go this summer?",
+            "options": [
+              "To Phu Quoc",
+              "To Ha Long Bay",
+              "To Nha Trang"
+            ],
+            "answer": "To Ha Long Bay"
+          },
+          {
+            "question": "Where are they going to stay?",
+            "options": [
+              "In a camp",
+              "In a hotel near the sea",
+              "In a village"
+            ],
+            "answer": "In a hotel near the sea"
+          },
+          {
+            "question": "What activities are they going to do?",
+            "options": [
+              "Go on a boat cruise, eat seafood, and build sandcastles",
+              "Play chess and study",
+              "Ride bikes"
+            ],
+            "answer": "Go on a boat cruise, eat seafood, and build sandcastles"
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "7cWkEf-MgPg",
+          "title": "Tiếng Anh lớp 4 Unit 20 - Lesson 1 - Trang 64, 65 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "Qg1XcSXKvpQ",
+          "title": "Tiếng Anh lớp 4 Unit 20 - Lesson 2 - Trang 66, 67 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "x1iZdDlYoG8",
+          "title": "Tiếng Anh lớp 4 Unit 20 - Lesson 3 - Trang 68, 69 | Global Success | Tập 2 (DỄ HIỂU NHẤT)"
+        },
+        {
+          "id": "lwHAtlou8yo",
+          "title": "Tiếng Anh lớp 4 Review 4 & Extension activities - Trang 70, 73 | Global Success (DỄ HIỂU NHẤT)"
+        }
+      ]
+    }
+  ]
+};
+
+    if (typeof window !== 'undefined') {
+        window.ENGLISH_COURSE_DATA = window.ENGLISH_COURSE_DATA || {};
+        window.ENGLISH_COURSE_DATA["4"] = GRADE_4_DATA;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = GRADE_4_DATA;
+    }
+})();
