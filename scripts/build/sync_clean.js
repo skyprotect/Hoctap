@@ -45,6 +45,7 @@ const dirsToSync = [
   'chibi',
   'data',
   'server',
+  'templates',
   'scripts/build',
   'scripts/database',
   'scripts/maintenance',
@@ -107,7 +108,12 @@ function copyFileSync(src, dest) {
   fs.copyFileSync(src, dest);
 }
 
-function copyDirSync(src, dest) {
+function copyDirSync(src, dest, cleanBefore = false) {
+  if (cleanBefore && fs.existsSync(dest)) {
+    try {
+      fs.rmSync(dest, { recursive: true, force: true });
+    } catch (e) {}
+  }
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
   }
@@ -116,7 +122,7 @@ function copyDirSync(src, dest) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
-      copyDirSync(srcPath, destPath);
+      copyDirSync(srcPath, destPath, false);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
@@ -139,7 +145,7 @@ function sync() {
     const srcPath = path.join(srcDir, dir);
     const destPath = path.join(destDir, dir);
     if (fs.existsSync(srcPath)) {
-      copyDirSync(srcPath, destPath);
+      copyDirSync(srcPath, destPath, true);
       console.log(`Synced directory: ${dir}`);
     }
   }
@@ -260,9 +266,18 @@ function sync() {
   try {
     const { execSync } = require('child_process');
     execSync('npm install --omit=dev', { cwd: destDir, stdio: 'inherit' });
+    const cleanTsNode = path.join(destDir, 'node_modules', 'ts-node');
+    const cleanTypescript = path.join(destDir, 'node_modules', 'typescript');
+    if (fs.existsSync(cleanTsNode) && fs.existsSync(cleanTypescript)) {
+      console.log('✅ Đã xác thực ts-node và typescript có mặt trong Clean bundle.');
+    } else {
+      console.error('❌ LỖI: ts-node hoặc typescript chưa được cài đặt trong Clean bundle!');
+      throw new Error('Thiếu ts-node/typescript trong Clean bundle');
+    }
     console.log('✅ Đã hoàn tất cài đặt production dependencies trong Clean bundle.');
   } catch (err) {
-    console.log(`⚠️ Cảnh báo: Lỗi khi chạy npm install ở Clean bundle: ${err.message}`);
+    console.error(`❌ Lỗi khi chạy npm install ở Clean bundle: ${err.message}`);
+    throw err;
   }
   
   console.log('--- SYNC COMPLETED SUCCESSFULLY ---');

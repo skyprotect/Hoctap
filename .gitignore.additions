@@ -1,0 +1,14 @@
+# Add these patterns to the project's .gitignore as appropriate
+node_modules/
+dist/
+build/
+coverage/
+*.log
+*.tmp
+*.bak
+*.old
+*.backup
+.DS_Store
+.env
+.env.*
+!.env.example

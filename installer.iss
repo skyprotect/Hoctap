@@ -3,7 +3,7 @@
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
 AppName=Toan Hoc Kiosk
-AppVersion=13.44
+AppVersion=13.46
 AppPublisher=Binh Minh
 AppPublisherURL=https://github.com/skyprotect/Hoctap
 AppSupportURL=https://github.com/skyprotect/Hoctap
@@ -12,7 +12,7 @@ DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=..
-OutputBaseFilename=ToanHocKiosk_Setup_v13.44
+OutputBaseFilename=ToanHocKiosk_Setup_v13.46
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
@@ -52,6 +52,10 @@ Name: "{userdesktop}\Toán Học Kiosk"; Filename: "{app}\Bat dau hoc.vbs"; Work
 ; Dọn dẹp các tệp tạm thời cũ khi nâng cấp nhưng KHÔNG xóa database.db và .env
 Type: files; Name: "{app}\*.tmp"
 Type: files; Name: "{app}\*.log"
+; Xóa bỏ toàn bộ tệp .js cũ trong {app}\server để tránh nạp nhầm tệp stale thay vì .ts
+Type: files; Name: "{app}\server\*.js"
+Type: files; Name: "{app}\server\*\*.js"
+Type: files; Name: "{app}\server\*\*\*.js"
 ; Xóa bỏ các shortcut cũ bị hỏng từ các phiên bản trước để tránh nhầm lẫn
 Type: files; Name: "{userdesktop}\Toán Học Kiosk.lnk"
 Type: files; Name: "{userdesktop}\Toan Hoc Kiosk.lnk"

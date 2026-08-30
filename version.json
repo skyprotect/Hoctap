@@ -1,8 +1,8 @@
 {
-  "version": "13.44",
-  "lastUpdated": "30/08/2026 17:35",
-  "build": 1349,
-  "releaseNotes": "Forensic QA & Zero-Defect Release Certification v13.44: Khắc phục lỗi khởi động server, chuẩn hóa TypeScript, bảo mật PIN không backdoor, hoàn thiện từ điển tiếng Anh và kiểm định 100% 121 dạng bài Toán.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.44/ToanHocKiosk_Setup_v13.44.exe",
-  "changelog": "- Khắc phục lỗi thiếu hàm initIntegrityCheck trong DAL khiến server khởi động mượt mà 100%.\n- Sửa toàn bộ lỗi type TS2339 trong auth.service.ts, firebase.service.ts và student.service.ts.\n- Loại bỏ 3 tệp rác trùng lặp và xóa backdoor PIN fallback trong Parent Portal.\n- Tổng hợp 479 từ vựng vào vocabulary_dict.json và chuẩn hóa kiểm thử bộ sinh đề Tiếng Anh.\n- 100% kiểm định vượt qua (132/132 bộ generator Toán & Tiếng Anh, 7/7 Jest Test Suites PASS)."
+  "version": "13.46",
+  "lastUpdated": "30/08/2026 17:50",
+  "build": 1350,
+  "releaseNotes": "Hotfix v13.45: Khắc phục triệt để lỗi khởi động EXE (thiếu module ts-node trong production bundle) và sửa lỗi hiển thị modal Đánh giá học tập AI.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.46/ToanHocKiosk_Setup_v13.46.exe",
+  "changelog": "- Khắc phục triệt để lỗi không tìm thấy ts-node/typescript trong production Clean bundle khi cài đặt từ Inno Setup EXE.\n- Bổ sung ts-node và typescript vào dependencies chính thức của ứng dụng.\n- Sửa lỗi lệch DOM ID trong modal Đánh giá chất lượng học tập (AI Advisor) trên giao diện học sinh.\n- Mở quyền truy cập /api/ai-analysis trên máy chủ cục bộ cho giao diện học sinh.\n- Thêm thư mục templates vào kịch bản đồng bộ bản sạch sync_clean.js.\n- Bổ sung bộ kiểm thử hồi quy startup_contract.test.js xác thực 100% hợp đồng khởi động bản sạch."
 }

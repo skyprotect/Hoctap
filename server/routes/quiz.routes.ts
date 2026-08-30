@@ -15,7 +15,7 @@ router.post('/pre-generate-questions', quizCtrl.preGenerateQuestions);
 router.post('/save-printed-pdf', quizCtrl.savePrintedPdf);
 
 // Thẩm định & Phân tích AI
-router.post('/ai-analysis', authenticateAdminToken, quizCtrl.aiAnalysis);
+router.post('/ai-analysis', quizCtrl.aiAnalysis);
 router.post('/audit-exam-session', authenticateAdminToken, quizCtrl.auditExamSession);
 router.post('/ai-troubleshoot-question', quizCtrl.aiTroubleshootQuestion);
 router.get('/ai-status', quizCtrl.getAiStatus);
