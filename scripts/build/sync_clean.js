@@ -1,15 +1,19 @@
 const fs = require('fs');
 const path = require('path');
 
-const srcDir = 'F:/KHQS/AntiGravity/HocTap';
-const destDir = 'F:/KHQS/AntiGravity/HocTap_Clean';
+const srcDir = path.resolve(__dirname, '../..');
+const destDir = path.resolve(srcDir, '../HocTap_Clean');
 
 const filesToSync = [
   'server.js',
   'student.html',
   'parent.html',
+  'parent_remote.html',
   'kiosk_lock.cs',
   'kiosk_lock.exe',
+  'installer.iss',
+  'README.md',
+  'MASTER_SYSTEM_ARCHITECTURE.md',
   'js/app.js',
   'js/lessons.js',
   'js/english_data.js',
@@ -39,7 +43,11 @@ const dirsToSync = [
   'images',
   'sounds',
   'dataEnglish',
-  'chibi'
+  'chibi',
+  'scripts/build',
+  'scripts/database',
+  'scripts/maintenance',
+  'dist/apk'
 ];
 
 const filesToDeleteInDest = [
@@ -49,11 +57,43 @@ const filesToDeleteInDest = [
   'database.db.old',
   'database.db-wal.old',
   'database.db-shm.old',
+  'database.db.backup',
+  'database.db.backup_truoc_khi_giam_xp',
   '.port.tmp',
   'kiosk_lock.log',
   'kiosk_exit_flag.tmp',
+  'debug.log',
+  'node_error.log',
   '🚀 Bắt đầu học.vbs',
-  '⏹ Dừng học.vbs'
+  '⏹ Dừng học.vbs',
+  'TabletLock_Kiosk.apk',
+  'TabletLock_Kiosk_Downloaded.apk',
+  'release.js',
+  'release_apk.js',
+  'sync_clean.js',
+  'convert_icon.js',
+  'check_bm_history.js',
+  'check_card_history.js',
+  'check_progress.js',
+  'check_state_json.js',
+  'check_students.js',
+  'dump_db.js',
+  'inspect_cards.js',
+  'test_inspect_cloud.js',
+  'verify_293003.js',
+  'convert_gold_cards.js',
+  'get_firebase_tokens.js',
+  'push_to_firestore_admin.js',
+  'query_firebase.js',
+  'restore_binhminh_cloud.js',
+  'smart_merge_db.js',
+  'sync_to_firestore_rest.js',
+  'temp_sync_firestore.js',
+  'update_ducphuc.js',
+  'update_gold.js',
+  'scratch.js', 'scratch2.js', 'scratch3.js', 'scratch4.js',
+  'scratch5.js', 'scratch6.js', 'scratch7.js', 'scratch8.js',
+  'fix_app.js', 'search_db_temp.js', 'test_start.vbs'
 ];
 
 function copyFileSync(src, dest) {

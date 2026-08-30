@@ -4,9 +4,11 @@ const { execSync, execFileSync } = require('child_process');
 const https = require('https');
 const url = require('url');
 
+const ROOT_DIR = path.resolve(__dirname, '../..');
+
 // Nạp biến môi trường từ .env
 function loadEnv() {
-  const envPath = path.join(__dirname, '.env');
+  const envPath = path.join(ROOT_DIR, '.env');
   if (!fs.existsSync(envPath)) return {};
   const content = fs.readFileSync(envPath, 'utf8');
   const env = {};
@@ -36,7 +38,7 @@ if (!GITHUB_TOKEN) {
 }
 
 // 1. Đọc phiên bản hiện tại từ version.json
-const versionJsonPath = path.join(__dirname, 'version.json');
+const versionJsonPath = path.join(ROOT_DIR, 'version.json');
 if (!fs.existsSync(versionJsonPath)) {
   console.error('❌ LỖI: Không tìm thấy file version.json.');
   process.exit(1);
@@ -75,7 +77,7 @@ const changelogText = `- Cập nhật tự động phiên bản v${nextVersion}\
 console.log('\n✏️ Đang cập nhật số phiên bản trong các tệp tin nguồn...');
 
 // A. Cập nhật server.js (const APP_VERSION = 'X.X';)
-const serverJsPath = path.join(__dirname, 'server.js');
+const serverJsPath = path.join(ROOT_DIR, 'server.js');
 if (fs.existsSync(serverJsPath)) {
   let serverContent = fs.readFileSync(serverJsPath, 'utf8');
   // Thay thế const APP_VERSION = '...';
@@ -90,7 +92,7 @@ if (fs.existsSync(serverJsPath)) {
 }
 
 // B. Cập nhật student.html (Splash tag, Footer tag, cachebuster ?v=)
-const studentHtmlPath = path.join(__dirname, 'student.html');
+const studentHtmlPath = path.join(ROOT_DIR, 'student.html');
 if (fs.existsSync(studentHtmlPath)) {
   let htmlContent = fs.readFileSync(studentHtmlPath, 'utf8');
   
@@ -121,7 +123,7 @@ fs.writeFileSync(versionJsonPath, JSON.stringify(versionData, null, 2), 'utf8');
 console.log('✅ Đã cập nhật version.json');
 
 // D. Cập nhật installer.iss (AppVersion=X.X và OutputBaseFilename=ToanHocKiosk_Setup_vX.X)
-const installerPath = path.join(__dirname, 'installer.iss');
+const installerPath = path.join(ROOT_DIR, 'installer.iss');
 if (fs.existsSync(installerPath)) {
   let installerContent = fs.readFileSync(installerPath, 'utf8');
   
@@ -137,7 +139,8 @@ if (fs.existsSync(installerPath)) {
 // 4. Đồng bộ bản sạch (Clean Bundle)
 console.log('\n🧹 Đang chạy kịch bản đồng bộ bản sạch (sync_clean.js)...');
 try {
-  execSync('node sync_clean.js', { stdio: 'inherit' });
+  const syncCleanPath = path.join(__dirname, 'sync_clean.js');
+  execSync(`node "${syncCleanPath}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
   console.log('✅ Đồng bộ bản sạch thành công.');
 } catch (error) {
   console.error('❌ LỖI: Quá trình chạy sync_clean.js thất bại.', error.message);
@@ -172,9 +175,9 @@ if (fs.existsSync(outputExePath)) {
 // 6. Đẩy mã nguồn lên GitHub qua Git CLI
 console.log('\n🐙 Đang đẩy mã nguồn lên GitHub...');
 try {
-  execSync('git add .', { stdio: 'inherit' });
-  execSync(`git commit -m "Auto release version v${nextVersion}"`, { stdio: 'inherit' });
-  execSync('git push origin main', { stdio: 'inherit' });
+  execSync('git add .', { cwd: ROOT_DIR, stdio: 'inherit' });
+  execSync(`git commit -m "Auto release version v${nextVersion}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+  execSync('git push origin main', { cwd: ROOT_DIR, stdio: 'inherit' });
   console.log('✅ Đã đẩy mã nguồn lên GitHub repository thành công.');
 } catch (error) {
   console.warn('⚠️ Cảnh báo: Lỗi khi chạy git push. Đảm bảo Git đã được lưu mật khẩu trên máy tính.');

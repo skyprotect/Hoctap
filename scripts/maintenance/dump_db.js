@@ -1,7 +1,7 @@
 const path = require('path');
-const sqlite3 = require(path.join(__dirname, 'node_modules', 'sqlite3')).verbose();
+const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database(path.join(__dirname, 'database.db'));
+const db = new sqlite3.Database(path.resolve(__dirname, '../../database.db'));
 
 db.all("SELECT name FROM sqlite_master WHERE type='table'", [], (err, tables) => {
   if (err) return console.error(err);

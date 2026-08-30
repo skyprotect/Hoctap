@@ -1,6 +1,6 @@
 const path = require('path');
-const sqlite3 = require(path.join(__dirname, 'node_modules', 'sqlite3')).verbose();
-const db = new sqlite3.Database(path.join(__dirname, 'database.db'));
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database(path.resolve(__dirname, '../../database.db'));
 
 const students = ['std_htsj4gbmo', 'std_tyc0gfnkz'];
 

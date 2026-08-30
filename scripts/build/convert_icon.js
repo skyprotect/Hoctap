@@ -2,12 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+const ROOT_DIR = path.resolve(__dirname, '../..');
+
 // Đường dẫn ảnh gốc sinh bởi AI
 const aiPngPath = "C:/Users/Binh Minh/.gemini/antigravity/brain/4ba90cba-758c-4c97-8203-55d4c83a80f2/new_app_icon_1784114022386.png";
 
 // Đường dẫn lưu trữ trong dự án
-const targetPngPath = path.join(__dirname, 'images', 'app_icon.png');
-const targetIcoPath = path.join(__dirname, 'images', 'app.ico');
+const targetPngPath = path.join(ROOT_DIR, 'images', 'app_icon.png');
+const targetIcoPath = path.join(ROOT_DIR, 'images', 'app.ico');
 
 function pngToIco(pngPath, icoPath) {
   const pngData = fs.readFileSync(pngPath);

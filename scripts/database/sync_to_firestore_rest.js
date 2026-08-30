@@ -19,7 +19,7 @@ function getQuery(db, sql, params = []) {
 async function run() {
   console.log('=== ĐỌC THÔNG TIN TỪ SQLITE VÀ GỬI LÊN FIRESTORE REST API ===');
   
-  const fDbPath = path.join(__dirname, 'database.db');
+  const fDbPath = path.resolve(__dirname, '../../database.db');
   const db = new sqlite3.Database(fDbPath);
 
   // 1. Đọc state của Bình Minh & Đức Phúc từ SQLite

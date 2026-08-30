@@ -33,7 +33,7 @@ function getQuery(db, sql, params = []) {
 async function run() {
   console.log('=== ĐẨY DỮ LIỆU TỪ SQLITE LÊN FIRESTORE (ADMIN SDK) ===');
   
-  const fDbPath = path.join(__dirname, 'database.db');
+  const fDbPath = path.resolve(__dirname, '../../database.db');
   const db = new sqlite3.Database(fDbPath);
 
   // 1. Đọc dữ liệu từ SQLite

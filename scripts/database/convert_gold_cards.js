@@ -91,7 +91,7 @@ async function processDb(dbPath) {
 }
 
 async function run() {
-  await processDb(path.join(__dirname, 'database.db'));
+  await processDb(path.resolve(__dirname, '../../database.db'));
   await processDb('C:\\Program Files (x86)\\ToanHocKiosk\\database.db');
   await processDb('F:\\KHQS\\AntiGravity\\HocTap_Clean\\database.db');
   console.log("\n🎉 HOÀN THÀNH QUY ĐỔI TOÀN BỘ THẺ MẠ VÀNG CHO TRẦN BÌNH MINH VÀ TRẦN ĐỨC PHÚC!");

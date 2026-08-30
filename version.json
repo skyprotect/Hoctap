@@ -1,8 +1,8 @@
 {
-  "version": "13.26",
+  "version": "13.27",
   "lastUpdated": "30/08/2026 07:54",
   "build": 1343,
   "releaseNotes": "Khắc phục triệt để và dứt điểm lỗi màn hình làm bài trắng không có câu hỏi: Đóng thẻ practice-levels-dashboard-box đúng chuẩn phân cấp DOM độc lập, ngăn chặn việc xóa nhầm các container làm bài practice-mode-select-box và practice-active-box khi nạp dashboard.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.26/ToanHocKiosk_Setup_v13.26.exe",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.27/ToanHocKiosk_Setup_v13.27.exe",
   "changelog": "- Khắc phục triệt để lỗi màn hình làm bài trắng không hiển thị câu hỏi do lỗi lồng thẻ DOM của practice-levels-dashboard-box.\n- Tách biệt hoàn toàn cây DOM của các container: Dashboard cấp độ, Chọn chế độ làm bài, Màn hình làm bài trực tiếp và Kết quả.\n- Đồng bộ hóa toàn diện hệ thống cachebuster v13.25."
 }

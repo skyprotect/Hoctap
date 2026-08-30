@@ -83,7 +83,7 @@ function mergeStudentState(localState, cloudState) {
 async function run() {
   console.log('=== BẮT ĐẦU ĐỒNG BỘ THÔNG MINH GIỮA DỰ ÁN VÀ Ổ C ===');
 
-  const fDbPath = path.join(__dirname, 'database.db');
+  const fDbPath = path.resolve(__dirname, '../../database.db');
   const cDbPath = 'C:\\Program Files (x86)\\ToanHocKiosk\\database.db';
 
   if (!fs.existsSync(fDbPath)) {

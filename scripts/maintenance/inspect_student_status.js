@@ -13,7 +13,7 @@ const { COURSE_DATA } = require(tempFilePath);
 fs.unlinkSync(tempFilePath);
 
 // 2. Fetch student state from database
-const dbPath = 'f:/KHQS/AntiGravity/HocTap/database.db';
+const dbPath = path.resolve(__dirname, '../../database.db');
 const db = new sqlite3.Database(dbPath);
 
 const studentId = 'std_tyc0gfnkz'; // Trần Đức Phúc

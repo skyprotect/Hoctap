@@ -90,7 +90,7 @@ async function updateStudent(dbPath) {
 
 async function main() {
   console.log('=== CẬP NHẬT TÀI KHOẢN TRẦN ĐỨC PHÚC (300 XP, 2 THẺ CHƯA QUY ĐỔI) ===');
-  await updateStudent(path.join(__dirname, 'database.db'));
+  await updateStudent(path.resolve(__dirname, '../../database.db'));
   await updateStudent('C:\\Program Files (x86)\\ToanHocKiosk\\database.db');
 }
 

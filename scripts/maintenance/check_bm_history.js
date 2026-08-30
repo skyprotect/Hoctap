@@ -1,6 +1,6 @@
 const path = require('path');
-const sqlite3 = require(path.join(__dirname, 'node_modules', 'sqlite3')).verbose();
-const db = new sqlite3.Database(path.join(__dirname, 'database.db'));
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database(path.resolve(__dirname, '../../database.db'));
 
 db.get("SELECT state_json FROM student_progress WHERE student_id = 'std_htsj4gbmo'", [], (err, row) => {
     if (err) return console.error(err);

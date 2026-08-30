@@ -5,6 +5,8 @@ database.db-shm
 database.db.old
 database.db-wal.old
 database.db-shm.old
+backups/
+logs/
 .env
 chrome_profile/
 temp_update/

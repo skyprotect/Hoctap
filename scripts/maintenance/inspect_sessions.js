@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const dbPath = 'f:/KHQS/AntiGravity/HocTap/database.db';
+const dbPath = path.resolve(__dirname, '../../database.db');
 const db = new sqlite3.Database(dbPath);
 
 db.get("SELECT state_json FROM student_progress WHERE student_id = 'std_htsj4gbmo'", [], (err, row) => {

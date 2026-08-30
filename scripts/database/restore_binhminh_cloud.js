@@ -45,7 +45,7 @@ function runQuery(db, sql, params = []) {
 async function run() {
   console.log('=== BẮT ĐẦU KHÔI PHỤC DỮ LIỆU TRẦN BÌNH MINH LÊN FIRESTORE CLOUD ===');
 
-  const fDbPath = path.join(__dirname, 'database.db');
+  const fDbPath = path.resolve(__dirname, '../../database.db');
   const db = new sqlite3.Database(fDbPath);
 
   // Đọc dữ liệu tiến trình từ SQLite gốc ở ổ F

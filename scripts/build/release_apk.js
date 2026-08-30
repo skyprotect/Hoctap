@@ -4,8 +4,10 @@ const { execSync } = require('child_process');
 const https = require('https');
 const url = require('url');
 
+const ROOT_DIR = path.resolve(__dirname, '../..');
+
 function loadEnv() {
-  const envPath = path.join(__dirname, '.env');
+  const envPath = path.join(ROOT_DIR, '.env');
   if (!fs.existsSync(envPath)) return {};
   const content = fs.readFileSync(envPath, 'utf8');
   const env = {};
@@ -33,7 +35,7 @@ if (!GITHUB_TOKEN) {
   process.exit(1);
 }
 
-const apkPath = path.join(__dirname, 'TabletLock_Kiosk.apk');
+const apkPath = path.join(ROOT_DIR, 'dist', 'apk', 'TabletLock_Kiosk.apk');
 if (!fs.existsSync(apkPath)) {
   console.error(`❌ LỖI: Không tìm thấy tệp APK tại: ${apkPath}`);
   process.exit(1);
@@ -49,7 +51,7 @@ console.log(`📱 Chuẩn bị phát hành APK TabletLock v${apkVersion} lên Gi
 console.log(`⏰ Thời gian: ${formattedDate}`);
 
 // Cập nhật version.json
-const versionJsonPath = path.join(__dirname, 'version.json');
+const versionJsonPath = path.join(ROOT_DIR, 'version.json');
 if (fs.existsSync(versionJsonPath)) {
   const versionData = JSON.parse(fs.readFileSync(versionJsonPath, 'utf8'));
   versionData.androidVersion = apkVersion;
@@ -60,9 +62,9 @@ if (fs.existsSync(versionJsonPath)) {
 
 // Git commit & push
 try {
-  execSync('git add .', { stdio: 'inherit' });
-  execSync(`git commit -m "Release TabletLock Kiosk APK v${apkVersion}"`, { stdio: 'inherit' });
-  execSync('git push origin main', { stdio: 'inherit' });
+  execSync('git add .', { cwd: ROOT_DIR, stdio: 'inherit' });
+  execSync(`git commit -m "Release TabletLock Kiosk APK v${apkVersion}"`, { cwd: ROOT_DIR, stdio: 'inherit' });
+  execSync('git push origin main', { cwd: ROOT_DIR, stdio: 'inherit' });
   console.log('✅ Đã push mã nguồn cập nhật lên GitHub.');
 } catch (e) {
   console.warn('⚠️ Git commit/push warning:', e.message);
