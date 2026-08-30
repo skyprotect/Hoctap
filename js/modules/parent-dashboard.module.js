@@ -11,7 +11,45 @@
         },
 
         bindEvents: function() {
-            // Lắng nghe sự kiện
+            const modal = document.getElementById('evaluation-modal');
+            if (!modal) return;
+
+            // Nút X đóng modal
+            const closeX = modal.querySelector('.btn-close-modal') || document.getElementById('btn-eval-close-x');
+            if (closeX) {
+                closeX.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeModal();
+                });
+            }
+
+            // Nút Đóng trong footer
+            const closeBtn = document.getElementById('btn-eval-close') || Array.from(modal.querySelectorAll('button')).find(b => b.textContent.trim() === 'Đóng');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeModal();
+                });
+            }
+
+            // Nút Cập nhật nhận xét AI
+            const refreshBtn = document.getElementById('btn-eval-refresh-ai');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.refreshAiAnalysis();
+                });
+            }
+
+            // Click vùng Backdrop
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    this.closeModal();
+                }
+            });
         },
 
         activeRequestId: 0,
@@ -20,6 +58,7 @@
         requestEvaluation: function() {
             const modal = document.getElementById('evaluation-modal');
             if (modal) {
+                modal.style.removeProperty('display');
                 modal.classList.remove('hidden');
                 this.renderStats();
                 this.loadAiAnalysis();
@@ -28,7 +67,10 @@
 
         closeModal: function() {
             const modal = document.getElementById('evaluation-modal');
-            if (modal) modal.classList.add('hidden');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.setProperty('display', 'none', 'important');
+            }
             if (this.currentAbortController) {
                 this.currentAbortController.abort();
                 this.currentAbortController = null;

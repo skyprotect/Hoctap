@@ -467,7 +467,14 @@
         },
 
         closeEvaluationModal: function() {
-            if (window.ParentDashboardModule) window.ParentDashboardModule.closeModal();
+            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.closeModal === 'function') {
+                window.ParentDashboardModule.closeModal();
+            }
+            const modal = document.getElementById('evaluation-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.setProperty('display', 'none', 'important');
+            }
         },
 
         refreshEvaluationAiAnalysis: function() {

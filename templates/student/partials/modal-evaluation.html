@@ -1,11 +1,11 @@
 <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
-<div id="evaluation-modal" class="modal-overlay hidden" onclick="if(event.target === this) app.closeEvaluationModal();" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
-    <div class="modal-card evaluation-card animate-bounce-in" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; padding: 0;">
+<div id="evaluation-modal" class="modal-overlay hidden" onclick="if(event.target === this) { if(window.ParentDashboardModule) window.ParentDashboardModule.closeModal(); else if(window.app) window.app.closeEvaluationModal(); else this.classList.add('hidden'); }">
+    <div class="modal-card evaluation-card animate-bounce-in" onclick="event.stopPropagation();" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; padding: 0;">
         <div class="modal-header" style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));">
             <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 0.6rem;">
                 <i class="fa-solid fa-chart-pie" style="color: var(--primary);"></i> Báo Cáo & Đánh Giá Chất Lượng Học Tập
             </h3>
-            <button class="btn-close-modal" onclick="app.closeEvaluationModal()" style="background: none; border: none; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; line-height: 1; padding: 0;">&times;</button>
+            <button class="btn-close-modal" id="btn-eval-close-x" onclick="if(window.ParentDashboardModule) window.ParentDashboardModule.closeModal(); else if(window.app) window.app.closeEvaluationModal(); else document.getElementById('evaluation-modal').classList.add('hidden');" style="background: rgba(255,255,255,0.08); border: 1px solid var(--border-color); border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; line-height: 1; padding: 0; transition: all 0.2s ease;">&times;</button>
         </div>
         
         <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.5rem;">
@@ -41,10 +41,10 @@
         </div>
         
         <div class="modal-footer" style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.5rem; background: rgba(0,0,0,0.08);">
-            <button class="btn-setup-submit" onclick="app.refreshEvaluationAiAnalysis()" id="btn-eval-refresh-ai" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--primary); border-radius: 8px; width: auto; margin: 0;">
+            <button class="btn-setup-submit" onclick="if(window.ParentDashboardModule) window.ParentDashboardModule.refreshAiAnalysis(); else if(window.app) window.app.refreshEvaluationAiAnalysis();" id="btn-eval-refresh-ai" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--primary); border-radius: 8px; width: auto; margin: 0; cursor: pointer;">
                 <i class="fa-solid fa-arrows-rotate"></i> Cập nhật nhận xét AI
             </button>
-            <button class="btn-back-header" onclick="app.closeEvaluationModal()" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 8px; margin: 0; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color);">Đóng</button>
+            <button class="btn-back-header" id="btn-eval-close" onclick="if(window.ParentDashboardModule) window.ParentDashboardModule.closeModal(); else if(window.app) window.app.closeEvaluationModal(); else document.getElementById('evaluation-modal').classList.add('hidden');" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 8px; margin: 0; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color); cursor: pointer;">Đóng</button>
         </div>
     </div>
 </div>

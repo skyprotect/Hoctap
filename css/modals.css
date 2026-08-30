@@ -465,3 +465,27 @@
         break-before: page !important;
     }
 }
+
+/* ==========================================================================
+   MODAL ĐÁNH GIÁ CHẤT LƯỢNG HỌC TẬP (AI ADVISOR)
+   ========================================================================== */
+#evaluation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000000;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#evaluation-modal.hidden,
+#evaluation-modal[hidden] {
+    display: none !important;
+}
+

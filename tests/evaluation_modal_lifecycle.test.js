@@ -50,7 +50,7 @@ describe("KIỂM THỬ HỒI QUY VÒNG ĐỜI MODAL ĐÁNH GIÁ AI (HocTap v13.4
 
         expect(htmlContent).toContain('id="evaluation-modal"');
         expect(htmlContent).toContain('class="modal-overlay hidden"');
-        expect(htmlContent).toContain('onclick="if(event.target === this) app.closeEvaluationModal();"');
+        expect(htmlContent).toContain('onclick="if(event.target === this)');
         expect(htmlContent).toContain('id="eval-time"');
         expect(htmlContent).toContain('id="eval-completed"');
         expect(htmlContent).toContain('id="eval-accuracy"');
@@ -65,7 +65,7 @@ describe("KIỂM THỬ HỒI QUY VÒNG ĐỜI MODAL ĐÁNH GIÁ AI (HocTap v13.4
 
         expect(partialContent).toContain('id="evaluation-modal"');
         expect(partialContent).toContain('class="modal-overlay hidden"');
-        expect(partialContent).toContain('onclick="if(event.target === this) app.closeEvaluationModal();"');
+        expect(partialContent).toContain('onclick="if(event.target === this)');
     });
 
     // =========================================================================

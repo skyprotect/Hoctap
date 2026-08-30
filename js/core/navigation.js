@@ -141,6 +141,7 @@
                             window.ParentDashboardModule.closeModal();
                         } else {
                             evalModal.classList.add('hidden');
+                            evalModal.style.setProperty('display', 'none', 'important');
                         }
                         e.preventDefault();
                         return;
