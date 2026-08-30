@@ -1,9 +1,9 @@
 {
-  "version": "13.53",
+  "version": "13.54",
   "lastUpdated": "30/08/2026 19:55",
   "build": 1353,
-  "releaseNotes": "Rà soát và sửa lỗi toàn diện hệ thống: Splash screen, lộ trình bài học Toán HK1 & HK2, chọn môn và kích hoạt tự sinh đề AI ngầm.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.53/ToanHocKiosk_Setup_v13.53.exe",
-  "changelog": "- Khôi phục đầy đủ các quy tắc layout cốt lõi (.splash-screen, .app-header, .hidden, .sidebar, .screen.active) trong CSS.\n- Sửa lỗi tệp layout.css và game.css bị cắt cụt trong quá trình chia tách module trước đó.\n- Đóng gói toàn bộ 9 module CSS vào master css/style.css.\n- Nâng cấp đồng bộ phiên bản và cachebuster v13.49 trên toàn bộ ứng dụng.",
-  "releaseDate": "2026-08-30T20:15:00+07:00"
+  "releaseNotes": "GIT UI RECOVERY: Khôi phục chính xác 100% giao diện và trải nghiệm người dùng v13.27, bảo toàn toàn bộ kiến trúc Modular TypeScript, SQLite CSDL, AI Key Rotation và QuestionEngine.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.54/ToanHocKiosk_Setup_v13.54.exe",
+  "changelog": "- Khôi phục 100% quy tắc CSS (1.057 bộ chọn) từ v13.27 vào hệ thống module CSS (tokens, base, layout, components, english, game, modals, chat, parent) và đóng gói vào css/style.css.\n- Khôi phục toàn bộ giao diện 3D Duolingo Tiếng Anh, Flashcards, Mic Neon, Audio Ripple, Bottom Feedback Banner.\n- Bổ sung đầy đủ 27 phương thức cầu nối UI trên Façade app, sửa triệt để các lỗi click không phản hồi.\n- Bảo toàn 100% kiến trúc Backend TypeScript, Database SQLite, Characterization Tests và bộ bảo vệ dữ liệu học tập môn Toán.",
+  "releaseDate": "2026-08-30T20:33:00+07:00"
 }

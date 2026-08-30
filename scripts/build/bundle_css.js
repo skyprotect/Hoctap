@@ -13,7 +13,8 @@ function bundleCSS() {
         'css/chat.css',
         'css/game-overlay.css',
         'css/english.css',
-        'css/components.css'
+        'css/components.css',
+        'css/parent.css'
     ];
 
     let combined = `/**

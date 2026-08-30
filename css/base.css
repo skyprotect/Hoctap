@@ -1,3 +1,6 @@
+/**
+ * BASE RESETS, TYPOGRAPHY & ANIMATIONS (v13.27 restored)
+ */
 /* ==========================================================================
    RESET & PHONG CÁCH CHUNG
    ========================================================================== */
@@ -42,6 +45,28 @@ button {
     cursor: pointer;
 }
 
+
+/* ==========================================================================
+   NỘI DUNG SPA CHUNG
+   ========================================================================== */
+.app-content {
+    max-width: var(--content-max-width);
+    margin: 4vh auto;
+    padding: 0 1.5rem;
+    min-height: calc(100vh - 160px);
+    transition: all 0.3s ease;
+}
+
+.card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+
 /* ==========================================================================
    MICRO-ANIMATIONS & TRANSITIONS
    ========================================================================== */
@@ -68,4 +93,136 @@ button {
 
 .animate-zoom-in {
     animation: fade-in 0.25s ease-out, scale-up-bounce 0.25s ease-out;
+}
+
+
+/* TỐI ƯU GIAO DIỆN CHO MÀN HÌNH NHỎ 1366x768 (TRÁNH THANH CUỘN DỌC) */
+@media (max-width: 1370px) or (max-height: 800px) {
+    html {
+        font-size: 13.5px !important;
+    }
+    
+    :root {
+        --header-height: 55px !important;
+    }
+    
+    .app-content {
+        margin: 1.5vh auto !important;
+    }
+    
+    body.super-focus-active .app-content {
+        margin-top: 0.5rem !important;
+    }
+    
+    body.super-focus-active .question-card {
+        padding: 1.5rem 1.5rem !important;
+        border-radius: 16px !important;
+        border-width: 2px !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    body.super-focus-active .question-text {
+        font-size: 1.15rem !important;
+        margin-bottom: 1.2rem !important;
+    }
+    
+    .options-grid {
+        gap: 0.6rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .option-btn {
+        padding: 0.65rem 1rem !important;
+        font-size: 0.95rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 0 var(--border-color), var(--shadow-md) !important;
+        transform: translateY(-3px) !important;
+    }
+    
+    .option-btn:hover:not(:disabled) {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 5px 0 var(--blue-app-shadow), var(--shadow-lg) !important;
+    }
+    
+    .option-btn:active:not(:disabled) {
+        transform: translateY(1px) !important;
+        box-shadow: 0 1px 0 var(--blue-app-shadow), var(--shadow-sm) !important;
+    }
+    
+    .option-btn.selected {
+        box-shadow: 0 4px 0 var(--primary-shadow), var(--shadow-md) !important;
+        transform: translateY(-3px) !important;
+    }
+    
+    .option-btn.correct {
+        box-shadow: 0 4px 0 var(--success-shadow), var(--shadow-md) !important;
+        transform: translateY(-3px) !important;
+    }
+    
+    .option-btn.wrong {
+        box-shadow: 0 4px 0 var(--danger-shadow), var(--shadow-md) !important;
+        transform: translateY(-3px) !important;
+    }
+    
+    .option-prefix {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .hints-section {
+        margin-top: 0.8rem !important;
+    }
+    
+    .btn-hint {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .hint-list {
+        font-size: 0.85rem !important;
+        gap: 0.4rem !important;
+    }
+
+    #next-question-btn {
+        padding: 0.5rem 1.2rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Đè cấu hình Fullscreen trên màn hình nhỏ */
+    #tab-practice:fullscreen {
+        padding: 1rem !important;
+    }
+    
+    #tab-practice:fullscreen .practice-header {
+        padding: 0.8rem 1.5rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    #tab-practice:fullscreen .question-card {
+        padding: 1.5rem 1.5rem !important;
+        border-radius: 16px !important;
+        border-width: 2px !important;
+    }
+    
+    #tab-practice:fullscreen .question-text {
+        font-size: 1.15rem !important;
+        margin-bottom: 1.2rem !important;
+    }
+    
+    #tab-practice:fullscreen .options-grid {
+        gap: 0.6rem !important;
+    }
+    
+    #tab-practice:fullscreen .option-btn {
+        padding: 0.65rem 1rem !important;
+        font-size: 0.95rem !important;
+        border-radius: 12px !important;
+    }
+}
+
+
+/* CSS INVARIANTS FOR MODAL & DISPLAY FIXES */
+.hidden, [hidden] {
+    display: none !important;
 }

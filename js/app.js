@@ -529,6 +529,225 @@
 
         toggleFocusMode: function() {
             document.body.classList.toggle('super-focus-mode');
+        },
+
+        // ====================================================================
+        // 10. BỔ SUNG ĐẦY ĐỦ CÁC HÀM CẦU NỐI GIAO DIỆN (UI INTERACTION BRIDGES)
+        // ====================================================================
+        skipGoogleLogin: function() {
+            if (window.SplashModule && typeof window.SplashModule.skipGoogleLogin === 'function') {
+                window.SplashModule.skipGoogleLogin();
+            } else {
+                const modal = document.getElementById('google-login-modal');
+                if (modal) modal.classList.add('hidden');
+                this.enterApp();
+            }
+        },
+
+        openGoogleLoginModal: function() {
+            if (window.SplashModule && typeof window.SplashModule.openGoogleLoginModal === 'function') {
+                window.SplashModule.openGoogleLoginModal();
+            } else {
+                const modal = document.getElementById('google-login-modal');
+                if (modal) modal.classList.remove('hidden');
+            }
+        },
+
+        retryPractice: function() {
+            if (window.QuizRunnerModule && typeof window.QuizRunnerModule.retryPractice === 'function') {
+                window.QuizRunnerModule.retryPractice();
+            } else if (this.currentLesson) {
+                this.startPracticeCurrentSubtopic();
+            }
+        },
+
+        switchEnglishTab: function(tabId) {
+            if (window.CurriculumModule && typeof window.CurriculumModule.switchEnglishTab === 'function') {
+                window.CurriculumModule.switchEnglishTab(tabId);
+            } else {
+                const tabs = ['map', 'grammar', 'ioe', 'vocab'];
+                tabs.forEach(t => {
+                    const el = document.getElementById(`english-${t}-view`);
+                    const btn = document.getElementById(`eng-tab-${t}`);
+                    if (el) el.classList.toggle('hidden', t !== tabId);
+                    if (btn) btn.classList.toggle('active', t === tabId);
+                });
+            }
+        },
+
+        selectEnglishSkill: function(skillName) {
+            this.currentEnglishSkill = skillName;
+            if (window.CurriculumModule && typeof window.CurriculumModule.selectEnglishSkill === 'function') {
+                window.CurriculumModule.selectEnglishSkill(skillName);
+            } else {
+                document.querySelectorAll('.skill-tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.classList.contains(skillName));
+                });
+                if (this.renderEnglishMap) this.renderEnglishMap();
+            }
+        },
+
+        onStudentEngCategoryChange: function() {
+            if (window.CurriculumModule && typeof window.CurriculumModule.onStudentEngCategoryChange === 'function') {
+                window.CurriculumModule.onStudentEngCategoryChange();
+            }
+        },
+
+        toggleAllStudentGrammar: function() {
+            if (window.CurriculumModule && typeof window.CurriculumModule.toggleAllStudentGrammar === 'function') {
+                window.CurriculumModule.toggleAllStudentGrammar();
+            }
+        },
+
+        startStudentEnglishExamOnline: function(examId) {
+            if (window.QuizRunnerModule && typeof window.QuizRunnerModule.startStudentEnglishExamOnline === 'function') {
+                window.QuizRunnerModule.startStudentEnglishExamOnline(examId);
+            }
+        },
+
+        exportStudentEnglishPdf: function(examId) {
+            if (window.CurriculumModule && typeof window.CurriculumModule.exportStudentEnglishPdf === 'function') {
+                window.CurriculumModule.exportStudentEnglishPdf(examId);
+            }
+        },
+
+        addStudentCustomVocabulary: function() {
+            if (window.CurriculumModule && typeof window.CurriculumModule.addStudentCustomVocabulary === 'function') {
+                window.CurriculumModule.addStudentCustomVocabulary();
+            }
+        },
+
+        exitEnglishLesson: function() {
+            if (window.NavigationService && typeof window.NavigationService.exitEnglishLesson === 'function') {
+                window.NavigationService.exitEnglishLesson();
+            } else {
+                this.showScreen('english-map');
+            }
+        },
+
+        exitIoeExam: function() {
+            if (window.NavigationService && typeof window.NavigationService.exitIoeExam === 'function') {
+                window.NavigationService.exitIoeExam();
+            } else {
+                this.showScreen('english-map');
+            }
+        },
+
+        closeBadgesModal: function() {
+            const modal = document.getElementById('badges-modal');
+            if (modal) modal.classList.add('hidden');
+        },
+
+        closeMathShopModal: function() {
+            const modal = document.getElementById('math-shop-modal');
+            if (modal) modal.classList.add('hidden');
+        },
+
+        closeReviewSessionModal: function() {
+            const modal = document.getElementById('review-session-modal');
+            if (modal) modal.classList.add('hidden');
+        },
+
+        closeQuickStudyModal: function() {
+            const modal = document.getElementById('quick-study-modal');
+            if (modal) modal.classList.add('hidden');
+        },
+
+        closeEvaluationModal: function() {
+            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.closeModal === 'function') {
+                window.ParentDashboardModule.closeModal();
+            } else {
+                const modal = document.getElementById('evaluation-modal');
+                if (modal) modal.classList.add('hidden');
+            }
+        },
+
+        refreshEvaluationAiAnalysis: function() {
+            if (window.ParentDashboardModule && typeof window.ParentDashboardModule.refreshAiAnalysis === 'function') {
+                window.ParentDashboardModule.refreshAiAnalysis();
+            }
+        },
+
+        switchLeaderboardSubject: function(subject) {
+            if (window.LeaderboardModule && typeof window.LeaderboardModule.switchSubject === 'function') {
+                window.LeaderboardModule.switchSubject(subject);
+            }
+        },
+
+        reloadLeaderboardData: function() {
+            if (window.LeaderboardModule && typeof window.LeaderboardModule.loadData === 'function') {
+                window.LeaderboardModule.loadData();
+            }
+        },
+
+        toggleOnlinePresenceSidebar: function() {
+            const sidebar = document.getElementById('online-presence-sidebar');
+            if (!sidebar) return;
+            const isHidden = sidebar.classList.contains('hidden');
+            if (isHidden) {
+                sidebar.classList.remove('hidden');
+                if (window.ChatModule && typeof window.ChatModule.loadOnlinePresenceData === 'function') {
+                    window.ChatModule.loadOnlinePresenceData();
+                }
+            } else {
+                sidebar.classList.add('hidden');
+            }
+        },
+
+        filterPresenceList: function(query) {
+            if (window.ChatModule && typeof window.ChatModule.filterPresenceList === 'function') {
+                window.ChatModule.filterPresenceList(query);
+            } else {
+                const items = document.querySelectorAll('.online-student-item');
+                const q = (query || '').toLowerCase();
+                items.forEach(item => {
+                    const name = (item.textContent || '').toLowerCase();
+                    item.style.display = name.includes(q) ? 'flex' : 'none';
+                });
+            }
+        },
+
+        toggleChatMinimize: function(show) {
+            if (window.ChatModule && typeof window.ChatModule.toggleMinimize === 'function') {
+                window.ChatModule.toggleMinimize(show);
+            } else {
+                const chatWindow = document.getElementById('chat-main-window');
+                const chatBubble = document.getElementById('chat-minimized-bubble');
+                if (chatWindow) chatWindow.classList.toggle('hidden', show !== false);
+                if (chatBubble) chatBubble.classList.toggle('hidden', show === false);
+            }
+        },
+
+        closeChatCompletely: function() {
+            if (window.ChatModule && typeof window.ChatModule.closeCompletely === 'function') {
+                window.ChatModule.closeCompletely();
+            } else {
+                const chatWindow = document.getElementById('chat-main-window');
+                const chatBubble = document.getElementById('chat-minimized-bubble');
+                if (chatWindow) chatWindow.classList.add('hidden');
+                if (chatBubble) chatBubble.classList.add('hidden');
+            }
+        },
+
+        insertEmoji: function(emoji) {
+            if (window.ChatModule && typeof window.ChatModule.insertEmoji === 'function') {
+                window.ChatModule.insertEmoji(emoji);
+            }
+        },
+
+        sendChatMessage: function() {
+            if (window.ChatModule && typeof window.ChatModule.sendMessage === 'function') {
+                window.ChatModule.sendMessage();
+            }
+        },
+
+        toggleEmojiPicker: function() {
+            if (window.ChatModule && typeof window.ChatModule.toggleEmoji === 'function') {
+                window.ChatModule.toggleEmoji();
+            } else {
+                const picker = document.getElementById('emoji-picker-container');
+                if (picker) picker.classList.toggle('hidden');
+            }
         }
     };
 

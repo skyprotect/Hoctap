@@ -1,260 +1,6 @@
-/* ==========================================================================
-   MÀN HÌNH LỘ TRÌNH (TIMELINE - SKILL TREE)
-   ========================================================================== */
-.welcome-box {
-    background-color: var(--bg-card);
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: center;
-    margin-bottom: 3rem;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.welcome-box h2 {
-    margin-bottom: 0.5rem;
-    font-size: 1.8rem;
-}
-
-.welcome-box p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Skill Tree container */
-.skill-tree {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding-bottom: 4rem;
-}
-
-/* Nhóm chương */
-.timeline-chapter {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 4rem;
-    position: relative;
-}
-
-.chapter-header {
-    background-color: var(--warning-bg);
-    border: 1px solid var(--warning);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 2.5rem;
-    box-shadow: var(--shadow-sm);
-    text-align: center;
-}
-
-.chapter-header h3 {
-    color: var(--text-main);
-    font-size: 1.15rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.chapter-header p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-top: 0.2rem;
-}
-
-/* Danh sách bài học node trong chương */
-.chapter-nodes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3.5rem;
-    position: relative;
-}
-
-/* Đường nối đứt nét dọc */
-.chapter-nodes::before {
-    content: "";
-    position: absolute;
-    top: 30px;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    border-left: 6px dashed var(--step-line);
-    z-index: 1;
-}
-
-/* Node bài học */
-.lesson-node-wrapper {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Dịch chuyển ziczac */
-    width: 100%;
-}
-
-/* Tạo so le trái phải */
-.lesson-node-wrapper:nth-child(even) .node-anchor {
-    transform: translateX(45px);
-}
-
-.lesson-node-wrapper:nth-child(odd) .node-anchor {
-    transform: translateX(-45px);
-}
-
-/* Điểm trung tâm */
-.node-anchor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    transition: transform 0.2s ease;
-}
-
-.node-btn {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: var(--bg-card);
-    border: 5px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 0 var(--border-color), var(--shadow-lg);
-    cursor: pointer;
-    font-size: 1.8rem;
-    color: var(--text-muted);
-    position: relative;
-    transform: translateY(-4px);
-    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.node-btn:hover:not(.locked) {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 0 var(--border-color), 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.node-btn:active:not(.locked) {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--border-color), 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Node đang học (được mở khóa) */
-.node-btn.active {
-    background-color: var(--step-active-bg);
-    border-color: var(--step-active-border);
-    color: var(--step-active-text);
-    box-shadow: 0 8px 0 var(--step-active-shadow), 0 10px 20px var(--primary-shadow-color);
-    animation: node-pulse 2.5s infinite;
-}
-
-.node-btn.active::before,
-.node-btn.active::after {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border: 3px solid var(--step-active-border);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: -1;
-    animation: sonar-ripple 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
-    opacity: 0;
-}
-
-.node-btn.active::after {
-    animation-delay: 1s;
-}
-
-@keyframes sonar-ripple {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1.8);
-        opacity: 0;
-    }
-}
-
-.node-btn.active:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 0 var(--step-active-shadow), 0 14px 28px var(--primary-shadow-color-hover);
-}
-
-.node-btn.active:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--step-active-shadow), 0 4px 8px var(--primary-shadow-color-active);
-}
-
-@keyframes node-pulse {
-    0% { filter: drop-shadow(0 0 0px var(--step-active-pulse-0)); }
-    50% { filter: drop-shadow(0 0 12px var(--step-active-pulse-50)); }
-    100% { filter: drop-shadow(0 0 0px var(--step-active-pulse-0)); }
-}
-
-/* Node đã hoàn thành */
-.node-btn.completed {
-    background-color: var(--step-completed-bg);
-    border-color: var(--step-completed-border);
-    color: var(--step-completed-text);
-    box-shadow: 0 8px 0 var(--step-completed-shadow), 0 10px 20px var(--step-completed-shadow-color);
-}
-
-.node-btn.completed:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 0 var(--step-completed-shadow), 0 14px 28px var(--step-completed-shadow-color-hover);
-}
-
-.node-btn.completed:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--step-completed-shadow), 0 4px 8px var(--step-completed-shadow-color-active);
-}
-
-/* Node bị khóa */
-.node-btn.locked {
-    background-color: #E2E8F0;
-    border-color: var(--node-locked);
-    color: var(--node-locked);
-    box-shadow: 0 6px 0 var(--node-locked);
-    cursor: not-allowed;
-    transform: translateY(0);
-}
-
-/* Label tiêu đề bài học bên dưới node */
-.node-label {
-    margin-top: 0.8rem;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--text-main);
-    text-align: center;
-    background-color: var(--bg-card);
-    padding: 0.3rem 0.8rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    max-width: 180px;
-    white-space: normal;
-}
-
-/* Huy hiệu hoàn thành nhỏ gắn bên trên */
-.completed-crown {
-    position: absolute;
-    top: -12px;
-    right: -6px;
-    font-size: 1.1rem;
-    color: var(--warning);
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
-}
-
+/**
+ * UI COMPONENTS, PRACTICE, LESSON VIEWER & SPLASH (v13.27 restored)
+ */
 /* ==========================================================================
    MÀN HÌNH BÀI HỌC (LESSON INTERFACE)
    ========================================================================== */
@@ -486,6 +232,7 @@ body.focus-mode-active .btn-focus {
     border-radius: 0 8px 8px 0;
     margin: 1rem 0;
 }
+
 
 /* ==========================================================================
    TAB LUYỆN TẬP (PRACTICE)
@@ -781,6 +528,7 @@ body.focus-mode-active .btn-focus {
     box-shadow: 0 2px 0 var(--border-color), var(--shadow-sm);
 }
 
+
 /* ==========================================================================
    HỘP KẾT QUẢ BÀI TẬP (RESULT SCREEN)
    ========================================================================== */
@@ -864,6 +612,7 @@ body.focus-mode-active .btn-focus {
     }
 }
 
+
 /* ==========================================================================
    SUPER FOCUS MODE - CHỐNG XAO NHÃNG KHI LÀM BÀI
    ========================================================================== */
@@ -928,6 +677,7 @@ body.super-focus-active .question-text {
     text-align: center;
     margin-bottom: 2.5rem;
 }
+
 
 /* ==========================================================================
    YOUTUBE VIDEO THUMBNAIL OVERLAY & FULLSCREEN
@@ -1025,7 +775,7 @@ body.super-focus-active .question-text {
 }
 
 /* CSS khi video ở fullscreen */
-#video-wrapper:fullscreen {
+#global-fullscreen-video-wrapper:fullscreen, #english-video-wrapper:fullscreen {
     width: 100vw !important;
     height: 100vh !important;
     max-width: 100vw !important;
@@ -1035,16 +785,41 @@ body.super-focus-active .question-text {
     background-color: #000;
 }
 
-#video-wrapper:fullscreen iframe {
+#global-fullscreen-video-wrapper:fullscreen iframe, #english-video-wrapper:fullscreen iframe {
     width: 100vw !important;
     height: 100vh !important;
     border: 0 !important;
 }
 
-#video-wrapper:fullscreen .yt-mask {
+#global-fullscreen-video-wrapper:fullscreen .yt-mask, #english-video-wrapper:fullscreen .yt-mask {
     /* Đảm bảo mặt nạ chặn click vẫn hoạt động trên fullscreen */
     z-index: 2147483646;
 }
+
+/* LỚP BẢO HIỂM: Giả lập Fullscreen khi browser chặn requestFullscreen trong Kiosk */
+body.video-fullscreen-active #global-fullscreen-video-wrapper,
+body.video-fullscreen-active #english-video-wrapper {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    z-index: 2147483647 !important;
+    background-color: #000 !important;
+    padding-bottom: 0 !important;
+    border-radius: 0 !important;
+}
+
+body.video-fullscreen-active #global-fullscreen-video-wrapper iframe,
+body.video-fullscreen-active #english-video-wrapper iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+}
+
 
 /* ==========================================================================
    FULLSCREEN LÀM BÀI TẬP & KIỂM TRA
@@ -1328,6 +1103,7 @@ body.super-focus-active .question-text {
     transform: scale(1.15) rotate(5deg);
 }
 
+
 /* ==========================================================================
    AI PROGRESS BANNER SYSTEM (Sinh Đề Ngầm)
    ========================================================================== */
@@ -1515,6 +1291,9 @@ body.super-focus-active .question-text {
     font-family: monospace;
     word-break: break-all;
 }
+
+
+
 
 /* ==========================================================================
    DETAIL AI PROGRESS DROPDOWN SYSTEM
@@ -1769,6 +1548,433 @@ body.light-mode .ai-lesson-node.pending {
     color: #94a3b8;
 }
 
+
+/* ==========================================================================
+   MÀN HÌNH CHÀO MỪNG (SPLASH SCREEN) CHUYÊN NGHIỆP
+   ========================================================================== */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+    overflow: hidden;
+}
+
+.splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Quả cầu màu sắc chuyển động mờ ảo phía sau */
+.splash-bg-blobs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.splash-bg-blobs .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+}
+
+.splash-bg-blobs .blob-1 {
+    width: 450px;
+    height: 450px;
+    background: #22c55e;
+    top: -100px;
+    left: -100px;
+    animation: floatBlob1 25s infinite alternate ease-in-out;
+}
+
+.splash-bg-blobs .blob-2 {
+    width: 500px;
+    height: 500px;
+    background: #eab308;
+    bottom: -150px;
+    right: -100px;
+    animation: floatBlob2 30s infinite alternate ease-in-out;
+}
+
+.splash-bg-blobs .blob-3 {
+    width: 350px;
+    height: 350px;
+    background: #10b981;
+    top: 40%;
+    left: 65%;
+    animation: floatBlob3 20s infinite alternate ease-in-out;
+}
+
+@keyframes floatBlob1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, 50px) scale(1.1); }
+    100% { transform: translate(-40px, 90px) scale(0.95); }
+}
+
+@keyframes floatBlob2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-100px, -60px) scale(0.9); }
+    100% { transform: translate(50px, 40px) scale(1.15); }
+}
+
+@keyframes floatBlob3 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, 80px) scale(1.1); }
+    100% { transform: translate(60px, -30px) scale(0.9); }
+}
+
+.splash-glass-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 32px;
+    padding: 3.5rem 3rem 3rem 3rem;
+    max-width: 620px;
+    width: 90%;
+    box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    text-align: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: #1e293b;
+    transform: scale(0.92);
+    animation: splashCardEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    z-index: 2;
+}
+
+@keyframes splashCardEntry {
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Nút bật tắt âm thanh nhắc nhở */
+.splash-mute-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7c3aed;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+.splash-mute-btn:hover {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: #6d28d9;
+    color: #6d28d9;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
+
+.splash-mute-btn.muted {
+    color: #94a3b8;
+    border-color: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* Nút làm mới cưỡng bức cực mạnh */
+.splash-refresh-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 5rem;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7c3aed;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+.splash-refresh-btn:hover {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: #6d28d9;
+    color: #6d28d9;
+    transform: scale(1.08) rotate(180deg);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
+
+/* Thẻ hiển thị số phiên bản ở chân trang */
+.splash-version-tag {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 1.2rem;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Đồng hồ thời gian lớn */
+.splash-clock {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.splash-clock-time {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: #0f766e;
+    letter-spacing: 2px;
+    line-height: 1;
+    text-shadow: 0 4px 15px rgba(15, 118, 110, 0.15);
+    margin-bottom: 0.4rem;
+}
+
+.splash-clock-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #0284c7;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.95;
+}
+
+.splash-autoplay-hint {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px dashed rgba(255, 215, 0, 0.3);
+    color: #FFD700;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0.8rem auto 1.5rem auto;
+    max-width: 90%;
+    width: fit-content;
+    animation: pulseAutoplayHint 2s infinite ease-in-out;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.splash-autoplay-hint:hover {
+    background: rgba(255, 215, 0, 0.15);
+    transform: scale(1.03);
+}
+
+.splash-autoplay-hint.hidden {
+    display: none !important;
+}
+
+@keyframes pulseAutoplayHint {
+    0%, 100% {
+        opacity: 0.8;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
+    }
+}
+
+.splash-logo {
+    width: 84px;
+    height: 84px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1.5rem auto;
+    font-size: 2.5rem;
+    color: #0b3012;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.splash-welcome-user {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    color: #1e293b;
+}
+
+.splash-welcome-user .user-highlight {
+    color: #7c3aed;
+    font-weight: 800;
+}
+
+.splash-quote-box {
+    background: rgba(241, 245, 249, 0.6);
+    border-left: 4px solid #7c3aed;
+    border-radius: 12px;
+    padding: 1.3rem 1.6rem;
+    margin: 1.2rem auto 2rem auto;
+    position: relative;
+    max-width: 480px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+}
+
+.splash-quote-icon-left, .splash-quote-icon-right {
+    font-size: 1.1rem;
+    color: rgba(124, 58, 237, 0.4);
+}
+
+.splash-quote-icon-right {
+    align-self: flex-end;
+}
+
+.splash-quote-content {
+    flex-grow: 1;
+}
+
+.splash-quote-text {
+    font-family: var(--font-family);
+    font-size: 1.02rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.splash-quote-author {
+    font-family: var(--font-family);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #7c3aed;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.splash-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.splash-stat-item {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 18px;
+    padding: 1.2rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s, background 0.3s, border-color 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.splash-stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(124, 58, 237, 0.3);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.08);
+}
+
+.splash-stat-emoji {
+    font-size: 2.2rem;
+}
+
+.splash-stat-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.splash-stat-val {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.splash-stat-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.2rem;
+}
+
+.btn-splash-start {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 1.1rem 3.5rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.35), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    animation: pulseStartBtn 2.2s infinite;
+}
+
+.btn-splash-start:hover {
+    transform: scale(1.06);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-splash-start:active {
+    transform: scale(0.98);
+}
+
+@keyframes pulseStartBtn {
+    0%, 100% {
+        box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 45px rgba(255, 215, 0, 0.75);
+    }
+}
+
+
 /* ==========================================================================
    STYLING CHO TRÌNH TẠO ĐỀ KIỂM TRA 45 PHÚT VÀ CÂU HỎI ĐIỀN ĐÁP ÁN
    ========================================================================== */
@@ -1797,134 +2003,81 @@ body.light-mode .ai-lesson-node.pending {
     background-color: #1e293b !important;
 }
 
-/* TỐI ƯU GIAO DIỆN CHO MÀN HÌNH NHỎ 1366x768 (TRÁNH THANH CUỘN DỌC) */
-@media (max-width: 1370px) or (max-height: 800px) {
-    html {
-        font-size: 13.5px !important;
-    }
-    
-    :root {
-        --header-height: 55px !important;
-    }
-    
-    .app-content {
-        margin: 1.5vh auto !important;
-    }
-    
-    body.super-focus-active .app-content {
-        margin-top: 0.5rem !important;
-    }
-    
-    body.super-focus-active .question-card {
-        padding: 1.5rem 1.5rem !important;
-        border-radius: 16px !important;
-        border-width: 2px !important;
-        margin-bottom: 0.8rem !important;
-    }
-    
-    body.super-focus-active .question-text {
-        font-size: 1.15rem !important;
-        margin-bottom: 1.2rem !important;
-    }
-    
-    .options-grid {
-        gap: 0.6rem !important;
-        margin-bottom: 0.8rem !important;
-    }
-    
-    .option-btn {
-        padding: 0.65rem 1rem !important;
-        font-size: 0.95rem !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 0 var(--border-color), var(--shadow-md) !important;
-        transform: translateY(-3px) !important;
-    }
-    
-    .option-btn:hover:not(:disabled) {
-        transform: translateY(-4px) !important;
-        box-shadow: 0 5px 0 var(--blue-app-shadow), var(--shadow-lg) !important;
-    }
-    
-    .option-btn:active:not(:disabled) {
-        transform: translateY(1px) !important;
-        box-shadow: 0 1px 0 var(--blue-app-shadow), var(--shadow-sm) !important;
-    }
-    
-    .option-btn.selected {
-        box-shadow: 0 4px 0 var(--primary-shadow), var(--shadow-md) !important;
-        transform: translateY(-3px) !important;
-    }
-    
-    .option-btn.correct {
-        box-shadow: 0 4px 0 var(--success-shadow), var(--shadow-md) !important;
-        transform: translateY(-3px) !important;
-    }
-    
-    .option-btn.wrong {
-        box-shadow: 0 4px 0 var(--danger-shadow), var(--shadow-md) !important;
-        transform: translateY(-3px) !important;
-    }
-    
-    .option-prefix {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 0.85rem !important;
-    }
-    
-    .hints-section {
-        margin-top: 0.8rem !important;
-    }
-    
-    .btn-hint {
-        padding: 0.4rem 0.8rem !important;
-        font-size: 0.85rem !important;
-    }
-    
-    .hint-list {
-        font-size: 0.85rem !important;
-        gap: 0.4rem !important;
-    }
-
-    #next-question-btn {
-        padding: 0.5rem 1.2rem !important;
-        font-size: 0.9rem !important;
-    }
-    
-    /* Đè cấu hình Fullscreen trên màn hình nhỏ */
-    #tab-practice:fullscreen {
-        padding: 1rem !important;
-    }
-    
-    #tab-practice:fullscreen .practice-header {
-        padding: 0.8rem 1.5rem !important;
-        margin-bottom: 0.8rem !important;
-    }
-    
-    #tab-practice:fullscreen .question-card {
-        padding: 1.5rem 1.5rem !important;
-        border-radius: 16px !important;
-        border-width: 2px !important;
-    }
-    
-    #tab-practice:fullscreen .question-text {
-        font-size: 1.15rem !important;
-        margin-bottom: 1.2rem !important;
-    }
-    
-    #tab-practice:fullscreen .options-grid {
-        gap: 0.6rem !important;
-    }
-    
-    #tab-practice:fullscreen .option-btn {
-        padding: 0.65rem 1rem !important;
-        font-size: 0.95rem !important;
-        border-radius: 12px !important;
-    }
-}
 
 /* ==========================================================================
-   HỌCTẬP SYSTEM — 3D HERO PROFILE, BADGES & INTERACTIVE COMPONENTS
+   NÂNG CẤP & ĐỒNG BỘ MÀU SẮC GIAO DIỆN TƯƠNG PHẢN - CHUYÊN NGHIỆP & KHOA HỌC
    ========================================================================== */
+
+/* Đồng bộ Sidebar Tiếng Anh ở chế độ tối Emerald Night Mode */
+body.light-mode .english-sidebar {
+    background-color: #0b2512 !important;
+    border-right: 2px solid rgba(255, 215, 0, 0.15) !important;
+}
+
+body.light-mode .english-sidebar-logo {
+    color: #ffd700 !important;
+}
+
+body.light-mode .eng-nav-item {
+    color: #a7f3d0 !important; /* Xanh ngọc nhạt tương phản tốt trên nền tối */
+}
+
+body.light-mode .eng-nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffd700 !important;
+}
+
+body.light-mode .eng-nav-item.active {
+    background-color: rgba(255, 215, 0, 0.12) !important;
+    color: #ffd700 !important;
+    border: 2px solid #ffd700 !important;
+}
+
+body.light-mode .btn-eng-change-subject {
+    border-top: 1px solid rgba(255, 215, 0, 0.15) !important;
+    color: #a7f3d0 !important;
+}
+
+body.light-mode .btn-eng-change-subject:hover {
+    color: #ffd700 !important;
+}
+
+/* Đồng bộ Modal Bảng Xếp Hạng với theme của ứng dụng */
+#leaderboard-modal .modal-content {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 2px solid var(--border-color) !important;
+    box-shadow: var(--shadow-lg) !important;
+    transition: all 0.3s ease;
+}
+
+body.light-mode #leaderboard-modal .modal-header {
+    background: linear-gradient(135deg, #0d3815, #111827) !important;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2) !important;
+}
+
+#leaderboard-modal select, 
+#leaderboard-modal table {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+}
+
+#leaderboard-modal th {
+    background: rgba(0,0,0,0.05) !important;
+    color: var(--text-main) !important;
+    font-weight: 800;
+}
+
+body.light-mode #leaderboard-modal th {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+#leaderboard-class-filter {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
 /* --- HỒ SƠ CHIẾN BINH: HỆ THỐNG PHẢN QUANG & LAYOUT 3D KHOA HỌC --- */
 
 /* Các màu văn bản động theo Theme hệ thống */
@@ -2287,280 +2440,490 @@ body.light-mode .warrior-magic-circle {
     86% { transform: translate(0, 0); }
 }
 
-/* ==========================================================================
-   NÂNG CẤP GIAO DIỆN CHƠI GAME TỰ DO (FREE PLAY) & THẺ MẠ VÀNG HOÀNG GIA
-   ========================================================================== */
 
-/* 1. Thẻ mạ vàng hoàng gia siêu đẳng cấp */
-.gold-card-royal {
-    position: relative !important;
-    background: linear-gradient(135deg, #090d16 0%, #201306 40%, #030712 100%) !important;
-    color: #fffbeb !important;
-    border: 2px solid transparent !important;
-    background-image: linear-gradient(#090d16, #030712), linear-gradient(135deg, #ffe066, #f59e0b, #eab308, #ffe066) !important;
-    background-origin: border-box !important;
-    background-clip: padding-box, border-box !important;
-    border-radius: 20px !important;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-    animation: goldCardGlowPulse 3s infinite ease-in-out !important;
-}
 
-.gold-card-royal:hover {
-    transform: translateY(-8px) scale(1.03) rotate(0.5deg) !important;
-    box-shadow: 0 25px 50px rgba(234, 179, 8, 0.5), 0 0 40px rgba(234, 179, 8, 0.45), inset 0 0 25px rgba(254, 240, 138, 0.25) !important;
-}
+        .splash-parent-settings-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7c3aed;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .splash-parent-settings-btn:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #6d28d9;
+            color: #6d28d9;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+        .splash-switch-student-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7c3aed;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .splash-switch-student-btn:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #6d28d9;
+            color: #6d28d9;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+        .student-select-back-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7c3aed;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .student-select-back-btn:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #6d28d9;
+            color: #6d28d9;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+        .hidden {
+            display: none !important;
+        }
 
-@keyframes goldCardGlowPulse {
-    0%, 100% {
-        box-shadow: 0 12px 25px rgba(234, 179, 8, 0.2), 0 0 20px rgba(234, 179, 8, 0.15), inset 0 0 15px rgba(254, 240, 138, 0.08) !important;
-    }
-    50% {
-        box-shadow: 0 20px 45px rgba(234, 179, 8, 0.55), 0 0 35px rgba(254, 240, 138, 0.4), inset 0 0 25px rgba(254, 240, 138, 0.2) !important;
-    }
-}
+        /* Style bổ sung cho màn hình thiết lập ban đầu */
+        #setup-initial-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        #setup-initial-screen .setup-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        #setup-initial-screen label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1e293b !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: left;
+        }
+        #setup-initial-screen input::placeholder {
+            color: #4b5563 !important;
+        }
+        .fixed-navigation-widget {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999999;
+            pointer-events: none;
+        }
+        .fixed-navigation-widget .nav-btn {
+            pointer-events: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        }
+        .fixed-navigation-widget .btn-back {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: #7c3aed !important;
+            border: 1px solid rgba(124, 58, 237, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.1) !important;
+        }
+        .fixed-navigation-widget .btn-back:hover {
+            background: #7c3aed !important;
+            color: #ffffff !important;
+            border-color: #7c3aed !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3) !important;
+        }
+        .fixed-navigation-widget .btn-exit {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: #ef4444 !important;
+            border: 1px solid rgba(239, 68, 68, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1) !important;
+        }
+        .fixed-navigation-widget .btn-exit:hover {
+            background: #ef4444 !important;
+            color: #ffffff !important;
+            border-color: #ef4444 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3) !important;
+        }
 
-/* Thêm huy hiệu hoàng gia lấp lánh ở góc thẻ */
-.gold-card-royal::before {
-    content: '✨ CỰC PHẨM ✨' !important;
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
-    font-size: 0.62rem !important;
-    font-weight: 950 !important;
-    color: #ffffff !important;
-    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-    padding: 3px 8px !important;
-    border-radius: 8px !important;
-    border: 1px solid #fef08a !important;
-    letter-spacing: 0.8px !important;
-    z-index: 10 !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
-    box-shadow: 0 0 10px rgba(234, 179, 8, 0.4) !important;
-    animation: goldPulseGlow 2.5s infinite ease-in-out !important;
-}
+        /* Ghi đè giao diện sáng pastel cho các màn hình khởi động */
+        .splash-screen {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+        }
+        .splash-screen .splash-glass-card {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #1e293b !important;
+            box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        }
+        #google-login-screen {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+        }
+        #google-login-screen .splash-glass-card {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #1e293b !important;
+            box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        }
+        #setup-initial-screen {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%) !important;
+        }
+        #setup-initial-screen .splash-glass-card {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #1e293b !important;
+            box-shadow: 0 25px 60px rgba(103, 116, 142, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        }
+        #setup-initial-screen strong {
+            color: #1e293b !important;
+        }
+        #setup-initial-screen span {
+            color: #4b5563 !important;
+        }
+        .splash-screen .splash-glass-card h1,
+        .splash-screen .splash-glass-card h2,
+        .splash-screen .splash-glass-card h3 {
+            color: #0f172a !important;
+        }
+        .splash-screen .splash-glass-card p,
+        .splash-screen .splash-glass-card span:not(.splash-stat-emoji) {
+            color: #334155 !important;
+        }
+        .splash-screen .splash-glass-card input[type="text"],
+        .splash-screen .splash-glass-card input[type="password"] {
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important;
+            color: #1e293b !important;
+        }
+        .splash-screen .splash-glass-card input[type="text"]::placeholder,
+        .splash-screen .splash-glass-card input[type="password"]::placeholder {
+            color: #4b5563 !important;
+        }
+        .splash-screen .splash-glass-card label {
+            color: #334155 !important;
+        }
+        .splash-screen .splash-glass-card .w-full.border-t.border-white\/10 {
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        .splash-screen .splash-glass-card .text-xs.text-slate-300 {
+            color: #4b5563 !important;
+        }
+        .splash-screen .splash-glass-card button.bg-white\/10 {
+            background: rgba(124, 58, 237, 0.08) !important;
+            border-color: rgba(124, 58, 237, 0.2) !important;
+            color: #7c3aed !important;
+        }
+        .splash-screen .splash-glass-card button.bg-white\/10:hover {
+            background: rgba(124, 58, 237, 0.15) !important;
+        }
+        .splash-screen .splash-glass-card #google-config-warning {
+            background: rgba(239, 68, 68, 0.08) !important;
+            border-color: rgba(239, 68, 68, 0.2) !important;
+        }
+        .splash-screen .splash-glass-card #google-config-warning p {
+            color: #ef4444 !important;
+        }
+        #setup-initial-screen input[type="text"],
+        #setup-initial-screen input[type="password"] {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: #1e293b !important;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        #setup-initial-screen input[type="text"]:focus,
+        #setup-initial-screen input[type="password"]:focus {
+            outline: none;
+            border-color: #8b5cf6 !important;
+            background: rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
+        }
+        #setup-initial-screen .class-selector-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        #setup-initial-screen .class-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        #setup-initial-screen .class-card:hover {
+            background: rgba(139, 92, 246, 0.05) !important;
+            border-color: rgba(139, 92, 246, 0.4) !important;
+        }
+        #setup-initial-screen .class-card input[type="radio"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #8b5cf6;
+            cursor: pointer;
+            margin: 0;
+        }
+        #setup-initial-screen .class-card strong {
+            display: block;
+            font-size: 0.875rem;
+            color: #1e293b !important;
+        }
+        #setup-initial-screen .class-card span {
+            font-size: 0.75rem;
+            color: rgba(30, 41, 59, 0.7) !important;
+        }
+        #setup-initial-screen .btn-setup-submit {
+            width: 100%;
+            background: #7c3aed;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        #setup-initial-screen .btn-setup-submit:hover {
+            background: #6d28d9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+        }
+        #setup-initial-screen .btn-setup-submit:active {
+            transform: translateY(1px);
+        }
 
-@keyframes goldPulseGlow {
-    0%, 100% {
-        box-shadow: 0 0 8px rgba(234, 179, 8, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
-        filter: brightness(1);
-    }
-    50% {
-        box-shadow: 0 0 18px rgba(254, 240, 138, 0.75), 0 2px 4px rgba(0, 0, 0, 0.3);
-        filter: brightness(1.2);
-    }
-}
+        /* CSS cho Preview Đề thi và In ấn PDF từ trang Học sinh */
+        #student-print-paper {
+            display: none; /* Mặc định ẩn trên UI thường */
+            font-family: "Times New Roman", Times, Georgia, serif;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+            line-height: 1.6;
+            padding: 2.5rem;
+        }
+        
+        #student-print-paper * {
+            color: #000000 !important;
+        }
 
-/* Hiệu ứng bụi hạt vàng nhấp nháy chìm trong background */
-.gold-card-royal::after {
-    content: '' !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background-image: 
-        radial-gradient(circle, rgba(254, 240, 138, 0.3) 1px, transparent 1px),
-        radial-gradient(circle, rgba(245, 158, 11, 0.2) 1.5px, transparent 1.5px) !important;
-    background-size: 24px 24px, 36px 36px !important;
-    background-position: 0 0, 12px 12px !important;
-    opacity: 0.75 !important;
-    animation: goldDustGlow 6s infinite linear !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
-}
+        #student-print-paper .math-render,
+        #student-print-paper .katex {
+            color: #000000 !important;
+            font-size: 1.05em;
+        }
 
-@keyframes goldDustGlow {
-    0% { background-position: 0 0, 12px 12px; }
-    100% { background-position: 24px 48px, 48px 24px; }
-}
+        /* Định nghĩa ngắt trang */
+        .print-page-break {
+            page-break-before: always;
+            break-before: page;
+            height: 0;
+            overflow: hidden;
+        }
 
-/* Hiệu ứng quét tia sáng mạ vàng góc chéo siêu mịn và lộng lẫy */
-.gold-card-royal-shine {
-    position: relative !important;
-    overflow: hidden !important;
-}
+        /* CSS cho Preview Đề thi và In ấn PDF từ trang Học sinh */
+        #student-print-paper {
+            display: none;
+            font-family: "Times New Roman", Times, Georgia, serif;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+            line-height: 1.6;
+            padding: 2.5rem;
+        }
+        
+        #student-print-paper *,
+        #print-preview-paper * {
+            color: #000000 !important;
+        }
 
-.gold-card-royal-shine::after {
-    content: '' !important;
-    position: absolute !important;
-    top: -150% !important;
-    left: -150% !important;
-    width: 400% !important;
-    height: 400% !important;
-    background: linear-gradient(
-        45deg,
-        transparent 40%,
-        rgba(255, 255, 255, 0.05) 42%,
-        rgba(255, 215, 0, 0.4) 45%,
-        rgba(255, 255, 255, 0.8) 48%,
-        rgba(255, 215, 0, 0.4) 51%,
-        rgba(255, 255, 255, 0.05) 54%,
-        transparent 56%
-    ) !important;
-    transform: rotate(20deg) !important;
-    animation: goldRoyalShine 3.8s infinite cubic-bezier(0.25, 1, 0.5, 1) !important;
-    pointer-events: none !important;
-    z-index: 5 !important;
-}
+        #student-print-paper .math-render,
+        #student-print-paper .katex,
+        #print-preview-paper .math-render,
+        #print-preview-paper .katex {
+            color: #000000 !important;
+            font-size: 1.05em;
+        }
 
-@keyframes goldRoyalShine {
-    0% {
-        top: -150%;
-        left: -150%;
-    }
-    35%, 100% {
-        top: 50%;
-        left: 50%;
-    }
-}
+        /* Định nghĩa ngắt trang */
+        .print-page-break {
+            page-break-before: always;
+            break-before: page;
+            height: 0;
+            overflow: hidden;
+        }
 
-/* Kiểu chữ tiêu đề vàng nhũ trong thẻ bài hoàng gia */
-.gold-card-royal .gold-title-glow {
-    background: linear-gradient(to right, #ffe066 0%, #f59e0b 50%, #ffe066 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)) !important;
-    font-weight: 950 !important;
-}
-
-/* 2. Tối ưu hóa giao diện chơi game tự do (Free Play) */
-
-/* Ẩn widget điều hướng khi đang trong chế độ chơi tự do */
-body.free-play-mode-active .fixed-navigation-widget {
-    display: none !important;
-}
-
-/* Phóng to tối đa container game khi ở chế độ tự do */
-body.free-play-mode-active #td-game-container {
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
-    background: transparent !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-}
-
-body.free-play-mode-active .game-main-layout {
-    height: 100% !important;
-    align-items: stretch !important;
-}
-
-/* Mở rộng wrapper và canvas game */
-body.free-play-mode-active .canvas-wrapper {
-    max-width: calc((100vh - 120px) * 1.6) !important;
-    max-height: calc(100vh - 120px) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(16, 185, 129, 0.15) !important;
-    border: 2px solid #10b981 !important;
-}
-
-/* Tối ưu hóa thanh HUD và các sidebar trong Free Play */
-body.free-play-mode-active .game-hud-bar {
-    background: rgba(5, 22, 9, 0.85) !important;
-    border: 1.5px solid rgba(16, 185, 129, 0.3) !important;
-    border-radius: 12px !important;
-    margin-bottom: 0.6rem !important;
-    padding: 8px 24px !important;
-}
-
-body.free-play-mode-active .game-sidebar-left,
-body.free-play-mode-active .game-sidebar-right {
-    background: rgba(3, 10, 5, 0.85) !important;
-    border: 1.5px solid rgba(16, 185, 129, 0.25) !important;
-    border-radius: 14px !important;
-    padding: 0.8rem !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
-}
-
-body.free-play-mode-active .btn-game-tower {
-    padding: 0.8rem 0.4rem !important;
-    font-size: 0.85rem !important;
-    border-radius: 10px !important;
-}
-
-body.free-play-mode-active .btn-skill {
-    padding: 0.6rem 0.8rem !important;
-    font-size: 0.85rem !important;
-    border-radius: 10px !important;
-}
-
-/* Tùy chọn thẻ vàng trong hộp thoại Exchange (SweetAlert) */
-.gold-card-option.royal-exchange {
-    background: linear-gradient(135deg, #111827 0%, #030712 100%) !important;
-    border: 2px solid rgba(245, 158, 11, 0.3) !important;
-    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.1) !important;
-    transition: all 0.2s ease-in-out !important;
-}
-
-.gold-card-option.royal-exchange:hover {
-    border-color: #f59e0b !important;
-    box-shadow: 0 6px 15px rgba(245, 158, 11, 0.2) !important;
-    transform: translateY(-2px) !important;
-}
-
-.gold-card-option.royal-exchange.selected {
-    border-color: #fbbf24 !important;
-    background: rgba(245, 158, 11, 0.05) !important;
-    box-shadow: 0 0 15px rgba(251, 191, 36, 0.3) !important;
-}
-
-/* ==========================================================================
-   TỐI ƯU HÓA RESPONSIVE HEADER VÀ BONG BÓNG CHAT TIẾNG ANH
-   ========================================================================== */
-
-/* 1. Tránh chèn ép trên Kiosk và màn hình laptop trung bình */
-@media (max-width: 1400px) {
-    .header-right {
-        gap: 0.5rem !important;
-    }
+        /* CSS khi in ấn thực tế từ trang học sinh */
+        @media print {
+            @page {
+                size: A4;
+                margin: 20mm 15mm 20mm 15mm;
+            }
+            html, body {
+                height: auto !important;
+                overflow: visible !important;
+                background: white !important;
+                color: black !important;
+            }
+            /* Ẩn toàn bộ giao diện màn hình chính */
+            #student-select-screen,
+            #splash-screen,
+            #badge-popup,
+            #parent-lock-modal,
+            .app-header,
+            .app-content,
+            .swal2-container,
+            #confetti-canvas,
+            .version-tag-fixed,
+            #bottom-feedback-banner,
+            .online-presence-widget,
+            .online-presence-sidebar,
+            .fixed-navigation-widget,
+            .floating-chat-window,
+            .chat-minimized-bubble {
+                display: none !important;
+            }
+            /* Định cấu hình hiển thị cho Modal Preview khi in */
+            #print-preview-modal {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                background: white !important;
+                display: block !important;
+                visibility: visible !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #print-preview-modal .modal-content {
+                max-width: 100% !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+                border: none !important;
+                border-radius: 0 !important;
+                background: white !important;
+                box-shadow: none !important;
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            /* Ẩn header của modal và các nút bấm điều khiển */
+            #print-preview-modal .modal-header {
+                display: none !important;
+            }
+            #print-preview-modal .modal-body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+            /* Đảm bảo trang giấy preview hiển thị chiếm trọn khổ in */
+            #print-preview-paper {
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                display: block !important;
+                visibility: visible !important;
+            }
+            #student-print-paper {
+                display: block !important;
+                visibility: visible !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+            #print-preview-paper, #print-preview-paper *,
+            #student-print-paper, #student-print-paper * {
+                color: #000000 !important;
+                text-shadow: none !important;
+            }
+            .katex-mathml {
+                display: none !important;
+            }
+            .print-page-break {
+                display: block !important;
+                page-break-before: always !important;
+                break-before: page !important;
+            }
+        }
     
-    .header-right .btn-parent {
-        padding: 0 !important;
-        width: 38px !important;
-        height: 38px !important;
-        border-radius: 50% !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-shrink: 0 !important;
-        margin-right: 0.2rem !important;
-    }
-    
-    .header-right .btn-parent span {
-        display: none !important; /* Ẩn chữ */
-    }
-    
-    .header-right .btn-parent i {
-        margin: 0 !important;
-        font-size: 1.05rem !important;
-    }
-}
-
-/* 2. Tinh chỉnh các badges Gamification khi màn hình nhỏ hơn */
-@media (max-width: 1100px) {
-    .header-center {
-        gap: 0.6rem !important;
-    }
-    
-    .stat-badge {
-        font-size: 0 !important; /* Ẩn chữ " XP" thừa */
-        padding: 0.4rem 0.6rem !important;
-        gap: 0.3rem !important;
-    }
-    
-    .stat-badge .stat-icon {
-        font-size: 1rem !important;
-    }
-    
-    .stat-badge .stat-val {
-        font-size: 0.9rem !important;
-    }
-}
-
-/* 3. Ẩn badges ở giữa khi màn hình cực nhỏ (như thiết bị di động dọc) */
-@media (max-width: 768px) {
-    .header-center {
-        display: none !important;
-    }
-}
-
-/* 4. Dịch chuyển bong bóng chat trực tuyến bạn học để tránh chèn ép nút Đổi môn tiếng Anh */
-body.english-mode .online-presence-widget {
-    left: 280px !important; /* Cách sidebar tiếng anh rộng 260px */
-}

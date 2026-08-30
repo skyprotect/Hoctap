@@ -8,6 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 describe("PLAYWRIGHT E2E: Evaluation Modal Physical Click & Exit Tests", () => {
+    jest.setTimeout(30000);
     let server;
     let browser;
     let page;

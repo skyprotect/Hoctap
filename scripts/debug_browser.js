@@ -9,10 +9,16 @@ async function debugBrowser() {
     await new Promise(r => setTimeout(r, 2000));
     
     let browser;
+    const chromePath = 'C:\\Users\\skypr\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe';
     try {
-        browser = await chromium.launch({
-            headless: true
-        });
+        const launchOptions = {
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        };
+        if (fs.existsSync(chromePath)) {
+            launchOptions.executablePath = chromePath;
+        }
+        browser = await chromium.launch(launchOptions);
 
         const context = await browser.newContext({
             viewport: { width: 1280, height: 800 }
@@ -40,7 +46,7 @@ async function debugBrowser() {
         } catch (e) {}
 
         console.log(`\n1. Điều hướng tới http://localhost:${port}/ ...`);
-        await page.goto(`http://localhost:${port}/`, { waitUntil: 'networkidle', timeout: 20000 });
+        await page.goto(`http://localhost:${port}/`, { waitUntil: 'domcontentloaded', timeout: 20000 });
         await page.waitForTimeout(2000);
 
         // --- BƯỚC 1: KIỂM TRA MÀN HÌNH SPLASH ---

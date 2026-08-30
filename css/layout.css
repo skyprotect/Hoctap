@@ -1,3 +1,6 @@
+/**
+ * APP LAYOUT, HEADER, NAVIGATION & TIMELINE (v13.27 restored)
+ */
 /* ==========================================================================
    HEADER ỨNG DỤNG
    ========================================================================== */
@@ -16,10 +19,20 @@
     top: 0;
     z-index: 100;
     transition: all var(--transition-speed);
+    gap: 1rem;
 }
 
 body.light-mode .app-header {
     background-color: rgba(8, 33, 14, 0.85); /* Xanh lục đậm trong suốt cho Night Mode */
+}
+
+/* Khối trái Header */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    min-width: max-content;
 }
 
 /* Nút quay lại trên Header */
@@ -37,6 +50,7 @@ body.light-mode .app-header {
     box-shadow: var(--shadow-sm);
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     margin-right: 1.2rem;
+    white-space: nowrap;
 }
 
 .btn-back-header:hover {
@@ -54,14 +68,62 @@ body.light-mode .app-header {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
     cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.logo span {
+    white-space: nowrap;
 }
 
 .logo i {
     font-size: 1.8rem;
+}
+
+/* Định nghĩa màu sắc các nút chức năng trên Header */
+#btn-global-leaderboard {
+    background: linear-gradient(135deg, #a855f7, #7c3aed) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-hero-profile {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-math-shop {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    border: none !important;
+}
+#header-select-subject-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+body.light-mode #header-select-subject-btn {
+    background: rgba(0, 0, 0, 0.06) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+#btn-evaluation {
+    background: linear-gradient(135deg, #8b5cf6, #3b82f6) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-free-play-game {
+    background: linear-gradient(135deg, #06b6d4, #0891b2) !important;
+    color: white !important;
+    border: none !important;
+}
+#btn-parent-dashboard {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
 }
 
 /* Gamification Badges in Header */
@@ -145,25 +207,264 @@ body.light-mode .app-header {
     box-shadow: var(--shadow-sm);
 }
 
-/* ==========================================================================
-   NỘI DUNG SPA CHUNG
-   ========================================================================== */
-.app-content {
-    max-width: var(--content-max-width);
-    margin: 4vh auto;
-    padding: 0 1.5rem;
-    min-height: calc(100vh - 160px);
-    transition: all 0.3s ease;
-}
 
-.card {
+/* ==========================================================================
+   MÀN HÌNH LỘ TRÌNH (TIMELINE - SKILL TREE)
+   ========================================================================== */
+.welcome-box {
     background-color: var(--bg-card);
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: var(--shadow-md);
+    text-align: center;
+    margin-bottom: 3rem;
     border: 1px solid var(--border-color);
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    box-shadow: var(--shadow-sm);
 }
+
+.welcome-box h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.welcome-box p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Skill Tree container */
+.skill-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 4rem;
+}
+
+/* Nhóm chương */
+.timeline-chapter {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.chapter-header {
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.chapter-header h3 {
+    color: var(--text-main);
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chapter-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.2rem;
+}
+
+/* Danh sách bài học node trong chương */
+.chapter-nodes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;
+    position: relative;
+}
+
+/* Đường nối đứt nét dọc */
+.chapter-nodes::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    border-left: 6px dashed var(--step-line);
+    z-index: 1;
+}
+
+/* Node bài học */
+.lesson-node-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Dịch chuyển ziczac */
+    width: 100%;
+}
+
+/* Tạo so le trái phải */
+.lesson-node-wrapper:nth-child(even) .node-anchor {
+    transform: translateX(45px);
+}
+
+.lesson-node-wrapper:nth-child(odd) .node-anchor {
+    transform: translateX(-45px);
+}
+
+/* Điểm trung tâm */
+.node-anchor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.node-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--bg-card);
+    border: 5px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 var(--border-color), var(--shadow-lg);
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    position: relative;
+    transform: translateY(-4px);
+    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.node-btn:hover:not(.locked) {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 0 var(--border-color), 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.node-btn:active:not(.locked) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--border-color), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Node đang học (được mở khóa) */
+.node-btn.active {
+    background-color: var(--step-active-bg);
+    border-color: var(--step-active-border);
+    color: var(--step-active-text);
+    box-shadow: 0 8px 0 var(--step-active-shadow), 0 10px 20px var(--primary-shadow-color);
+    animation: node-pulse 2.5s infinite;
+}
+
+.node-btn.active::before,
+.node-btn.active::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 3px solid var(--step-active-border);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    animation: sonar-ripple 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+    opacity: 0;
+}
+
+.node-btn.active::after {
+    animation-delay: 1s;
+}
+
+@keyframes sonar-ripple {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.node-btn.active:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 0 var(--step-active-shadow), 0 14px 28px var(--primary-shadow-color-hover);
+}
+
+.node-btn.active:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--step-active-shadow), 0 4px 8px var(--primary-shadow-color-active);
+}
+
+@keyframes node-pulse {
+    0% { filter: drop-shadow(0 0 0px var(--step-active-pulse-0)); }
+    50% { filter: drop-shadow(0 0 12px var(--step-active-pulse-50)); }
+    100% { filter: drop-shadow(0 0 0px var(--step-active-pulse-0)); }
+}
+
+/* Node đã hoàn thành */
+.node-btn.completed {
+    background-color: var(--step-completed-bg);
+    border-color: var(--step-completed-border);
+    color: var(--step-completed-text);
+    box-shadow: 0 8px 0 var(--step-completed-shadow), 0 10px 20px var(--step-completed-shadow-color);
+}
+
+.node-btn.completed:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 0 var(--step-completed-shadow), 0 14px 28px var(--step-completed-shadow-color-hover);
+}
+
+.node-btn.completed:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--step-completed-shadow), 0 4px 8px var(--step-completed-shadow-color-active);
+}
+
+/* Node bị khóa */
+.node-btn.locked {
+    background-color: #E2E8F0;
+    border-color: var(--node-locked);
+    color: var(--node-locked);
+    box-shadow: 0 6px 0 var(--node-locked);
+    cursor: not-allowed;
+    transform: translateY(0);
+}
+
+/* Label tiêu đề bài học bên dưới node */
+.node-label {
+    margin-top: 0.8rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    text-align: center;
+    background-color: var(--bg-card);
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    max-width: 180px;
+    white-space: normal;
+}
+
+/* Huy hiệu hoàn thành nhỏ gắn bên trên */
+.completed-crown {
+    position: absolute;
+    top: -12px;
+    right: -6px;
+    font-size: 1.1rem;
+    color: var(--warning);
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
 
 /* ==========================================================================
    GIAO DIỆN SPLIT LAYOUT TRANG CHỦ & TIMELINE DỌC VIOEDU STYLE
@@ -635,6 +936,7 @@ body.light-mode .app-header {
     }
 }
 
+
 /* ==========================================================================
    SIDEBAR CO GIÃN DỌC (COLLAPSIBLE SIDEBAR)
    ========================================================================== */
@@ -741,6 +1043,7 @@ body.light-mode .app-header {
     100% { box-shadow: 0 0 0 0px var(--primary-pulse-color-0); }
 }
 
+
 /* ==========================================================================
    TỐI ƯU HÓA RESPONSIVE & WIDESCREEN (1920x1080 & LỚN HƠN)
    ========================================================================== */
@@ -775,4 +1078,154 @@ body.light-mode .app-header {
     html {
         font-size: 18px;
     }
+}
+
+
+/* ==========================================================================
+   CSS CHO MÀN HÌNH CHỌN MÔN HỌC (SUBJECT SELECT SCREEN)
+   ========================================================================== */
+.subject-select-container {
+    max-width: 900px;
+    margin: 5% auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.subject-select-header h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.subject-select-header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.subject-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    justify-content: center;
+}
+
+.subject-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+}
+
+.subject-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.subject-card:hover::before {
+    opacity: 1;
+}
+
+.subject-card:hover {
+    transform: translateY(-10px) scale(1.03);
+}
+
+.math-card:hover {
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15);
+}
+
+.english-card:hover {
+    border-color: rgba(192, 132, 252, 0.35);
+    box-shadow: 0 15px 35px rgba(192, 132, 252, 0.15);
+}
+
+.subject-icon-wrapper {
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    transition: transform 0.3s ease;
+}
+
+.math-card .subject-icon-wrapper {
+    background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.25) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+}
+
+.english-card .subject-icon-wrapper {
+    background: radial-gradient(circle, rgba(192,132,252,0.1) 0%, rgba(192,132,252,0.25) 100%);
+    border: 1px solid rgba(192, 132, 252, 0.3);
+    color: #c084fc;
+}
+
+.subject-card:hover .subject-icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.subject-icon {
+    font-size: 2.5rem;
+}
+
+.subject-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    color: #ffffff;
+}
+
+.subject-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    min-height: 40px;
+}
+
+.btn-select-subj {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    color: white;
+    transition: all 0.3s;
+}
+
+.math-card .btn-select-subj {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+.english-card .btn-select-subj {
+    background: linear-gradient(135deg, #c084fc, #8b5cf6);
+    box-shadow: 0 4px 10px rgba(192, 132, 252, 0.2);
+}
+
+.subject-card:hover .btn-select-subj {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
