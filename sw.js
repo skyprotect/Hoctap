@@ -1,9 +1,10 @@
 /**
- * HOCTAP PWA SERVICE WORKER (v13.38)
- * Cung cấp khả năng chạy Offline thực sự, nạp nhanh và bộ nhớ đệm tối ưu
+ * HOCTAP PWA SERVICE WORKER (v13.50)
+ * Network-First cho Local-First / Kiosk Server (luôn lấy mã nguồn mới nhất từ disk)
+ * Tự động Fallback về Cache khi hoàn toàn mất kết nối mạng.
  */
 
-const CACHE_VERSION = 'v13.38';
+const CACHE_VERSION = 'v13.50';
 const CACHE_NAME = `hoctap-cache-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -11,59 +12,29 @@ const PRECACHE_ASSETS = [
     '/student.html',
     '/parent.html',
     '/css/style.css',
-    '/js/app.js',
-    '/js/core/storage.js',
-    '/js/core/event-bus.js',
-    '/js/core/state.js',
-    '/js/core/api-client.js',
-    '/js/core/navigation.js',
-    '/js/core/lazy-loader.js',
-    '/js/engine/question-engine.js',
-    '/js/features/katex-service.js',
-    '/js/features/audio-service.js',
-    '/js/features/speech-service.js',
-    '/js/features/scratchpad-service.js',
-    '/js/features/srs-service.js',
-    '/js/features/gamification-service.js',
-    '/js/features/chibi-controller.js',
-    '/js/features/ui-renderer.js',
-    '/js/features/quiz-manager.js',
-    '/js/modules/splash.module.js',
-    '/js/modules/student-select.module.js',
-    '/js/modules/curriculum.module.js',
-    '/js/modules/quiz-runner.module.js',
-    '/js/modules/practice.module.js',
-    '/js/modules/leaderboard.module.js',
-    '/js/modules/settings.module.js',
-    '/js/modules/vocab-monster.module.js',
-    '/js/modules/skill-card.module.js',
-    '/js/modules/chat.module.js',
-    '/js/modules/parent-dashboard.module.js',
-    '/favicon.ico',
-    '/manifest.json'
+    '/js/app.js'
 ];
 
-// 1. Install Event: Nạp trước các static assets cốt lõi
+// 1. Install Event: Nạp trước các static assets cốt lõi và bỏ qua chờ
 self.addEventListener('install', (event) => {
+    self.skipWaiting();
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then((cache) => {
-                return cache.addAll(PRECACHE_ASSETS).catch((err) => {
-                    console.warn('[SW] Precache incomplete (some resources optional):', err);
-                });
-            })
-            .then(() => self.skipWaiting())
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(PRECACHE_ASSETS).catch((err) => {
+                console.warn('[SW] Precache optional warning:', err);
+            });
+        })
     );
 });
 
-// 2. Activate Event: Xóa sạch các phiên bản cache cũ
+// 2. Activate Event: Xóa sạch 100% các phiên bản cache cũ
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keys) => {
             return Promise.all(
                 keys.map((key) => {
                     if (key !== CACHE_NAME) {
-                        console.log('[SW] Deleting legacy cache:', key);
+                        console.log('[SW] Xóa cache cũ:', key);
                         return caches.delete(key);
                     }
                 })
@@ -72,7 +43,7 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// 3. Fetch Event: Chiến lược Cache First cho assets & Network First cho APIs
+// 3. Fetch Event: Chiến lược Network-First (ưu tiên mạng/máy chủ cục bộ, fallback cache khi offline)
 self.addEventListener('fetch', (event) => {
     const request = event.request;
     const url = new URL(request.url);
@@ -82,20 +53,21 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // A. API Requests: Network-First với fallback cache
-    if (url.pathname.startsWith('/api/')) {
-        event.respondWith(
-            fetch(request)
-                .then((response) => {
-                    if (response && response.status === 200) {
-                        const clone = response.clone();
-                        caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-                    }
-                    return response;
-                })
-                .catch(() => {
-                    return caches.match(request).then((cached) => {
-                        if (cached) return cached;
+    // Network-First cho TẤT CẢ requests để đảm bảo luôn nhận được HTML/CSS/JS mới nhất từ disk cục bộ
+    event.respondWith(
+        fetch(request)
+            .then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
+                    const clone = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+                }
+                return networkResponse;
+            })
+            .catch(() => {
+                // Khi mất kết nối (Offline thực sự), lấy từ Cache
+                return caches.match(request).then((cachedResponse) => {
+                    if (cachedResponse) return cachedResponse;
+                    if (url.pathname.startsWith('/api/')) {
                         return new Response(JSON.stringify({ 
                             success: false, 
                             error: 'Offline Mode: Kết nối máy chủ gián đoạn.',
@@ -103,25 +75,12 @@ self.addEventListener('fetch', (event) => {
                         }), {
                             headers: { 'Content-Type': 'application/json' }
                         });
-                    });
-                })
-        );
-        return;
-    }
-
-    // B. Static Assets, Scripts & JSON Data: Stale-While-Revalidate / Cache First
-    event.respondWith(
-        caches.match(request).then((cached) => {
-            const fetchPromise = fetch(request).then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200) {
-                    const clone = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-                }
-                return networkResponse;
-            }).catch(() => null);
-
-            // Trả về bản cache ngay lập tức nếu có, đồng thời cập nhật cache từ network ở chế độ nền
-            return cached || fetchPromise || caches.match('/student.html');
-        })
+                    }
+                    if (request.mode === 'navigate') {
+                        return caches.match('/student.html');
+                    }
+                    return null;
+                });
+            })
     );
 });
