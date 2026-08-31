@@ -196,7 +196,10 @@ if (fs.existsSync(isccPath)) {
   console.warn('⚠️ Cảnh báo: Không tìm thấy Inno Setup (ISCC.exe). Bỏ qua bước đóng gói file EXE.');
 }
 
-const outputExePath = path.join('F:', 'KHQS', 'AntiGravity', `ToanHocKiosk_Setup_v${nextVersion}.exe`);
+let outputExePath = path.join(ROOT_DIR, `ToanHocKiosk_Setup_v${nextVersion}.exe`);
+if (!fs.existsSync(outputExePath)) {
+  outputExePath = path.join(ROOT_DIR, '..', `ToanHocKiosk_Setup_v${nextVersion}.exe`);
+}
 if (fs.existsSync(outputExePath)) {
   console.log(`📁 File cài đặt đã sẵn sàng tại: ${outputExePath}`);
 } else {
