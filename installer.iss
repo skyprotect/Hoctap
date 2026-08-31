@@ -1,4 +1,4 @@
-#pragma codepage 65001
+﻿#pragma codepage 65001
 #define MyAppName "Toan Hoc Kiosk"
 #define MyAppVersion "13.56"
 #define MyAppPublisher "Binh Minh"
@@ -17,7 +17,7 @@ DefaultDirName={commonpf}\ToanHocKiosk
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=..
-OutputBaseFilename=ToanHocKiosk_Setup_v13.55
+OutputBaseFilename=ToanHocKiosk_Setup_v13.59
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern
