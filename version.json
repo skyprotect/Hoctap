@@ -1,9 +1,9 @@
 {
-  "version": "13.59",
-  "lastUpdated": "31/08/2026 08:30",
-  "build": 1357,
-  "releaseNotes": "REFACTOR SEAM #1: Tách safeStorage thành module độc lập js/core/safe-storage.js với 100% backward compatibility và in-memory fallback.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.59/ToanHocKiosk_Setup_v13.59.exe",
-  "changelog": "- Tách safeStorage thành module độc lập js/core/safe-storage.js.\n- Bảo toàn 100% public contract và tương thích ngược với mọi consumer.\n- Bổ sung bộ kiểm thử đơn vị toàn diện tests/core/safe-storage.test.js.",
-  "releaseDate": "2026-08-31T08:30:00+07:00"
+  "version": "13.88",
+  "lastUpdated": "31/08/2026 18:30",
+  "build": 1387,
+  "releaseNotes": "AUTONOMOUS CONTROLLED BATCH REFACTOR: Thiết lập Course Data Boundary (v13.87) & Hoàn thành English Exit Gate.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.88/ToanHocKiosk_Setup_v13.88.exe",
+  "changelog": "- Trích xuất toàn bộ dữ liệu giáo trình tiếng Anh (ENGLISH_COURSE_DATA ~8.000 dòng) từ js/english_data.js sang module dữ liệu chuyên trách js/core/english-course-data.js (Canonical Course Data Boundary).\n- Tinh gọn js/english_data.js từ 8.848 dòng xuống 861 dòng (-90.3% LOC), triệt tiêu monolith lớn nhất phía Tiếng Anh.\n- Bảo toàn 100% SHA-256 hash của dữ liệu bài học Lớp 1, 4, 6 và 100% tương thích ngược cho tất cả consumers.\n- Bổ sung test suite tests/core/english-course-data.test.js, nâng tổng số kiểm thử lên 37 suites / 677 tests PASS 100%.\n- Đạt chuẩn nghiệm thu English Exit Gate, chính thức đóng giai đoạn môn Tiếng Anh và chuẩn bị chuyển giao sang môn Toán.\n- Nâng cấp phiên bản hệ thống lên v13.87.",
+  "releaseDate": "2026-08-31T18:30:00+07:00"
 }

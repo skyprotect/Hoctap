@@ -1,11 +1,4 @@
 // Changelog: Kiểm tra và tối ưu hóa tính năng làm đề thi Tiếng Anh 4 kỹ năng trực tuyến (Focus Mode IOE) cho Học sinh
-function sanitizeHtml(html) {
-    if (typeof html !== 'string') return html;
-    return html
-        .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '')
-        .replace(/\son[a-z]+\s*=\s*(['"][^'"]*['"]|[^\s>]+)/gi, '')
-        .replace(/href\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, '');
-}
 
 const safeStorage = (typeof window !== 'undefined' && window.safeStorage) ? window.safeStorage : {
     fallback: {},
@@ -23,62 +16,11 @@ const safeStorage = (typeof window !== 'undefined' && window.safeStorage) ? wind
     }
 };
 
-const SKILL_CARDS = [
-    { id: "listening_master", name: "Listening Wizard", desc: "Đạt điểm Nghe từ 90% trở lên ở một bài bất kỳ", icon: "🎧", color: "linear-gradient(135deg, #3b82f6, #1d4ed8)" },
-    { id: "speaking_pro", name: "Speaking Hero", desc: "Đạt điểm Nói từ 90% trở lên ở một bài bất kỳ", icon: "🗣️", color: "linear-gradient(135deg, #ec4899, #be185d)" },
-    { id: "reading_wizard", name: "Reading Sage", desc: "Đạt điểm Đọc từ 90% trở lên ở một bài bất kỳ", icon: "📖", color: "linear-gradient(135deg, #f97316, #c2410c)" },
-    { id: "writing_champion", name: "Writing Master", desc: "Đạt điểm Viết/Spelling từ 90% trở lên ở một bài bất kỳ", icon: "✍️", color: "linear-gradient(135deg, #10b981, #047857)" },
-    { id: "streak_legend", name: "Streak Legend", desc: "Đạt chuỗi học tập liên tục từ 5 ngày trở lên", icon: "🔥", color: "linear-gradient(135deg, #ef4444, #b91c1c)" },
-    { id: "streak_hero", name: "Streak Emperor", desc: "Đạt chuỗi học tập liên tục từ 10 ngày trở lên", icon: "⚡", color: "linear-gradient(135deg, #f59e0b, #d97706)" },
-    { id: "xp_conqueror", name: "XP Champion", desc: "Tích lũy đạt mốc 1,000 XP tổng cộng", icon: "⭐", color: "linear-gradient(135deg, #eab308, #a16207)" },
-    { id: "perfect_score", name: "Perfect Solver", desc: "Đạt điểm tuyệt đối 100% trong một bài học bất kỳ", icon: "🏆", color: "linear-gradient(135deg, #8b5cf6, #5b21b6)" },
-    { id: "theory_explorer", name: "Theory Explorer", desc: "Hoàn thành phần lý thuyết của từ 3 bài học trở lên", icon: "📜", color: "linear-gradient(135deg, #a855f7, #6b21a8)" },
-    { id: "gold_collector", name: "Gold Collector", desc: "Nâng cấp mạ vàng thành công từ 3 thẻ năng lực trở lên", icon: "👑", color: "linear-gradient(135deg, #10b981, #065f46)" },
-    { id: "subtopic_expert", name: "Subtopic Expert", desc: "Hoàn thành xuất sắc từ 5 dạng bài luyện tập trở lên (đạt >= 80%)", icon: "🎯", color: "linear-gradient(135deg, #0ea5e9, #0369a1)" },
-    { id: "speed_runner", name: "Speed Runner", desc: "Hoàn thành 1 bài đạt điểm 100% dưới 60 giây", icon: "🏃", color: "linear-gradient(135deg, #e11d48, #9f1239)" },
-    { id: "monster_slayer", name: "Monster Slayer", desc: "Tiêu diệt thành công từ 3 quái vật từ vựng", icon: "⚔️", color: "linear-gradient(135deg, #64748b, #334155)" },
-    { id: "vocab_slayer", name: "Vocabulary Slayer", desc: "Tiêu diệt thành công từ 10 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #475569, #1e293b)" },
-    // Thẻ Tiếng Anh Lớp 1 (8 thẻ)
-    { id: "listening_rookie_1", name: "Listening Star Lớp 1", desc: "Đạt điểm Nghe từ 80% trở lên ở một bài Lớp 1", icon: "👶", color: "linear-gradient(135deg, #60a5fa, #2563eb)", classLevel: "1" },
-    { id: "speaking_rookie_1", name: "Speaking Star Lớp 1", desc: "Đạt điểm Nói từ 80% trở lên ở một bài Lớp 1", icon: "💬", color: "linear-gradient(135deg, #f472b6, #db2777)", classLevel: "1" },
-    { id: "reading_rookie_1", name: "Reading Star Lớp 1", desc: "Đạt điểm Đọc từ 80% trở lên ở một bài Lớp 1", icon: "📖", color: "linear-gradient(135deg, #fb923c, #ea580c)", classLevel: "1" },
-    { id: "writing_rookie_1", name: "Writing Star Lớp 1", desc: "Đạt điểm Viết/Spelling từ 80% trở lên ở một bài Lớp 1", icon: "✏️", color: "linear-gradient(135deg, #34d399, #059669)", classLevel: "1" },
-    { id: "vocabulary_explorer_1", name: "Vocab Rookie Lớp 1", desc: "Tiêu diệt thành công từ 2 quái vật từ vựng Lớp 1", icon: "👾", color: "linear-gradient(135deg, #a78bfa, #7c3aed)", classLevel: "1" },
-    { id: "perfect_star_1", name: "Perfect Solver Lớp 1", desc: "Đạt điểm tuyệt đối 100% trong bài học bất kỳ của Lớp 1", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #d97706)", classLevel: "1" },
-    { id: "bilingual_kid", name: "Bilingual Star", desc: "Hoàn thành xuất sắc 5 bài học của Lớp 1 (đạt >= 90%)", icon: "🎒", color: "linear-gradient(135deg, #4ade80, #16a34a)", classLevel: "1" },
-    { id: "class1_master", name: "Starters Master", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 1 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #22c55e, #15803d)", classLevel: "1" },
-    // Thẻ Tiếng Anh Lớp 4 (8 thẻ)
-    { id: "listening_apprentice_4", name: "Listening Hero Lớp 4", desc: "Đạt điểm Nghe từ 85% trở lên ở một bài Lớp 4", icon: "🎧", color: "linear-gradient(135deg, #3b82f6, #1d4ed8)", classLevel: "4" },
-    { id: "speaking_apprentice_4", name: "Speaking Hero Lớp 4", desc: "Đạt điểm Nói từ 85% trở lên ở một bài Lớp 4", icon: "🗣️", color: "linear-gradient(135deg, #ec4899, #be185d)", classLevel: "4" },
-    { id: "reading_apprentice_4", name: "Reading Hero Lớp 4", desc: "Đạt điểm Đọc từ 85% trở lên ở một bài Lớp 4", icon: "📚", color: "linear-gradient(135deg, #f97316, #c2410c)", classLevel: "4" },
-    { id: "writing_apprentice_4", name: "Writing Hero Lớp 4", desc: "Đạt điểm Viết/Spelling từ 85% trở lên ở một bài Lớp 4", icon: "✍️", color: "linear-gradient(135deg, #10b981, #047857)", classLevel: "4" },
-    { id: "vocabulary_explorer_4", name: "Vocab Hero Lớp 4", desc: "Tiêu diệt thành công từ 5 quái vật từ vựng Lớp 4", icon: "👹", color: "linear-gradient(135deg, #8b5cf6, #5b21b6)", classLevel: "4" },
-    { id: "grammar_rookie", name: "Grammar Rookie", desc: "Đạt từ 80% trở lên ở 3 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "📝", color: "linear-gradient(135deg, #2dd4bf, #0d9488)", classLevel: "4" },
-    { id: "global_citizen_junior", name: "Global Citizen Jr.", desc: "Hoàn thành xuất sắc 10 bài học của Lớp 4 (đạt >= 90%)", icon: "🌍", color: "linear-gradient(135deg, #22c55e, #15803d)", classLevel: "4" },
-    { id: "class4_master", name: "Movers Master", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 4 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #166534, #14532d)", classLevel: "4" },
-    // Thẻ Tiếng Anh Lớp 6 (8 thẻ)
-    { id: "listening_expert_6", name: "Listening Sage Lớp 6", desc: "Đạt điểm Nghe từ 90% trở lên ở một bài Lớp 6", icon: "🦻", color: "linear-gradient(135deg, #1e3a8a, #172554)", classLevel: "6" },
-    { id: "speaking_expert_6", name: "Speaking Sage Lớp 6", desc: "Đạt điểm Nói từ 90% trở lên ở một bài Lớp 6", icon: "📢", color: "linear-gradient(135deg, #9d174d, #4c0519)", classLevel: "6" },
-    { id: "reading_expert_6", name: "Reading Sage Lớp 6", desc: "Đạt điểm Đọc từ 90% trở lên ở một bài Lớp 6", icon: "🧐", color: "linear-gradient(135deg, #7c2d12, #431407)", classLevel: "6" },
-    { id: "writing_expert_6", name: "Writing Sage Lớp 6", desc: "Đạt điểm Viết/Spelling từ 90% trở lên ở một bài Lớp 6", icon: "✒️", color: "linear-gradient(135deg, #064e3b, #022c22)", classLevel: "6" },
-    { id: "vocabulary_explorer_6", name: "Vocab Sage Lớp 6", desc: "Tiêu diệt thành công từ 8 quái vật từ vựng Lớp 6", icon: "👺", color: "linear-gradient(135deg, #4c1d95, #2e1065)", classLevel: "6" },
-    { id: "grammar_expert", name: "Grammar Specialist", desc: "Đạt từ 90% trở lên ở 5 bài ngữ pháp/hoàn thành câu bất kỳ", icon: "🧠", color: "linear-gradient(135deg, #14b8a6, #0f766e)", classLevel: "6" },
-    { id: "global_citizen_senior", name: "Global Citizen Sr.", desc: "Hoàn thành xuất sắc 15 bài học của Lớp 6 (đạt >= 90%)", icon: "🚀", color: "linear-gradient(135deg, #166534, #14532d)", classLevel: "6" },
-    { id: "class6_master", name: "Flyers Master", desc: "Hoàn thành xuất sắc 18 bài học của Lớp 6 (đạt >= 90%)", icon: "🎓", color: "linear-gradient(135deg, #14532d, #052e16)", classLevel: "6" },
-    // Huy hiệu Thống Kê & Cột mốc (12 thẻ)
-    { id: "streak_bronze", name: "Streak Bronze", desc: "Đạt chuỗi học tập liên tục từ 3 ngày trở lên", icon: "🔥", color: "linear-gradient(135deg, #fca5a5, #ef4444)" },
-    { id: "streak_gold", name: "Streak Gold", desc: "Đạt chuỗi học tập liên tục từ 20 ngày trở lên", icon: "👑", color: "linear-gradient(135deg, #f59e0b, #b45309)" },
-    { id: "xp_novice", name: "XP Rookie", desc: "Tích lũy đạt mốc 100 XP Tiếng Anh", icon: "✨", color: "linear-gradient(135deg, #c084fc, #8b5cf6)" },
-    { id: "xp_apprentice", name: "XP Apprentice", desc: "Tích lũy đạt mốc 500 XP Tiếng Anh", icon: "🌟", color: "linear-gradient(135deg, #a855f7, #6b21a8)" },
-    { id: "xp_master", name: "XP Specialist", desc: "Tích lũy đạt mốc 2,000 XP Tiếng Anh", icon: "🔮", color: "linear-gradient(135deg, #7c3aed, #4c1d95)" },
-    { id: "xp_legend", name: "XP Deity", desc: "Tích lũy đạt mốc 5,000 XP Tiếng Anh", icon: "🌌", color: "linear-gradient(135deg, #6366f1, #312e81)" },
-    { id: "theory_scholar", name: "Theory Scholar", desc: "Hoàn thành lý thuyết của từ 8 bài học tiếng Anh trở lên", icon: "📜", color: "linear-gradient(135deg, #e2e8f0, #94a3b8)" },
-    { id: "vocabulary_monarch", name: "Vocabulary Monarch", desc: "Tiêu diệt thành công từ 20 quái vật từ vựng", icon: "🐉", color: "linear-gradient(135deg, #1e293b, #0f172a)" },
-    { id: "speedy_writer", name: "Speedy Writer", desc: "Hoàn thành phần Spelling đạt 100% dưới 40 giây", icon: "⚡", color: "linear-gradient(135deg, #fb923c, #c2410c)" },
-    { id: "double_perfect", name: "Double Perfect", desc: "Đạt 100% ở cả bài Nghe và Nói của cùng 1 Unit", icon: "☯️", color: "linear-gradient(135deg, #22d3ee, #0891b2)" },
-    { id: "all_rounder", name: "All Rounder", desc: "Đạt từ 90% trở lên ở cả 4 kỹ năng Nghe, Nói, Đọc, Viết của cùng 1 Unit", icon: "🎪", color: "linear-gradient(135deg, #ec4899, #701a75)" },
-    { id: "unlocked_all_english", name: "English Overlord", desc: "Mở khóa thành công tất cả 49 thẻ năng lực Tiếng Anh khác", icon: "⚜️", color: "linear-gradient(135deg, #eab308, #854d0e)" }
-];
+const SKILL_CARDS = (typeof SkillCardsData !== 'undefined' && SkillCardsData.SKILL_CARDS)
+    ? SkillCardsData.SKILL_CARDS
+    : (typeof window !== 'undefined' && window.SKILL_CARDS)
+        ? window.SKILL_CARDS
+        : (typeof require !== 'undefined' ? require('./core/skill-cards-data').SKILL_CARDS : []);
 
 // Đối tượng quản lý ứng dụng chính
 const app = {
@@ -119,501 +61,39 @@ const app = {
     navHistory: [],          // Ngăn xếp lịch sử điều hướng
     justSentMessage: false,  // Cờ hiệu ứng trừ XP nhắn tin
 
-    // Huy hiệu có sẵn trong hệ thống (15 huy hiệu chuẩn tâm lý học & gamification)
-    systemBadges: [
-        { id: "nhap-mon", name: "Nhập Môn Toán 6", desc: "Hoàn thành bài học đầu tiên đạt từ 80%", icon: "🚀" },
-        { id: "khoi-dau-vung-vang", name: "Khởi Đầu Vững Vàng", desc: "Đạt điểm tối đa (100%) một bài học bất kỳ", icon: "🌟" },
-        { id: "streak-3", name: "Bền Bỉ 3 Ngày", desc: "Đạt chuỗi học tập liên tục 3 ngày", icon: "🔥" },
-        { id: "streak-7", name: "Siêu Sao Chuyên Cần", desc: "Đạt chuỗi học tập liên tục 7 ngày", icon: "⚡" },
-        { id: "streak-15", name: "Kỷ Lục Gia Học Tập", desc: "Đạt chuỗi học tập liên tục 15 ngày", icon: "👑" },
-        
-        { id: "bac-thay-so-tu-nhien", name: "Bậc Thầy Số Tự Nhiên", desc: "Vượt qua bài kiểm tra cuối Chương I (>= 80%)", icon: "🔢" },
-        { id: "chien-binh-chia-het", name: "Chiến Binh Chia Hết", desc: "Vượt qua bài kiểm tra cuối Chương II (>= 80%)", icon: "🛡️" },
-        { id: "ky-si-so-nguyen", name: "Kỵ Sĩ Số Nguyên", desc: "Vượt qua bài kiểm tra cuối Chương III (>= 80%)", icon: "❄️" },
-        { id: "phu-thuy-hinh-hoc", name: "Phù Thủy Hình Học", desc: "Vượt qua bài kiểm tra cuối Chương IV (>= 80%)", icon: "📐" },
-        { id: "bac-thay-doi-xung", name: "Bậc Thầy Đối Xứng", desc: "Vượt qua bài kiểm tra cuối Chương V (>= 80%)", icon: "🌀" },
-        
-        { id: "bac-thay-phan-so", name: "Bậc Thầy Phân Số", desc: "Vượt qua bài kiểm tra cuối Chương VI (>= 80%)", icon: "🍰" },
-        { id: "chien-binh-thap-phan", name: "Chiến Binh Thập Phân", desc: "Vượt qua bài kiểm tra cuối Chương VII (>= 80%)", icon: "🎯" },
-        { id: "phu-thuy-hinh-co-ban", name: "Phù Thủy Hình Học Cơ Bản", desc: "Vượt qua bài kiểm tra cuối Chương VIII (>= 80%)", icon: "📐" },
-        { id: "bac-thay-xac-suat", name: "Bậc Thầy Xác Suất", desc: "Vượt qua bài kiểm tra cuối Chương IX (>= 80%)", icon: "🎲" },
-        
-        { id: "tia-chop", name: "Thần Tốc", desc: "Đạt điểm 100% bài luyện tập dưới 45 giây", icon: "⚡" },
-        { id: "kien-tri", name: "Kiên Trì Bứt Phá", desc: "Cải thiện bài tập đạt dưới 70% lên giỏi (>= 80%)", icon: "🌱" },
-        { id: "ky-luat-thep", name: "Kỷ Luật Thép", desc: "Hoàn thành bài kiểm tra chương mà không rời tab lần nào", icon: "🎯" },
-        { id: "sieu-tri-tue", name: "Siêu Trí Tuệ", desc: "Tích lũy đạt mốc 200 XP", icon: "🧠" },
-        { id: "huyen-thoai-toan-hoc", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 500 XP", icon: "🏆" },
-        
-        // Huy hiệu Lớp 1 (6 huy hiệu)
-        { id: "dem-so-lop-1", name: "Bậc Thầy Đếm Số Lớp 1", desc: "Đạt >= 90% ở bài đếm số trong phạm vi 10 hoặc 100 Lớp 1", icon: "🔢" },
-        { id: "phep-cong-pham-vi-10", name: "Thần Đồng Cộng Trừ Lớp 1", desc: "Đạt >= 90% ở bài phép cộng hoặc phép trừ phạm vi 10 Lớp 1", icon: "➕" },
-        { id: "hinh-khoi-lop-1", name: "Khối Hình Trực Quan Lớp 1", desc: "Đạt >= 90% ở bài nhận biết khối lập phương, khối hộp chữ nhật Lớp 1", icon: "📦" },
-        { id: "do-luong-lop-1", name: "Nhà Đo Lường Nhí Lớp 1", desc: "Đạt >= 90% ở bài toán về thời gian, đồng hồ, lịch Lớp 1", icon: "⏰" },
-        { id: "phep-cong-pham-vi-100", name: "Chuyên Gia Tính Phạm Vi 100", desc: "Đạt >= 90% ở bài phép tính không nhớ phạm vi 100 Lớp 1", icon: "💯" },
-        { id: "on-tap-lop-1", name: "Vô Địch Toán Lớp 1", desc: "Hoàn thành xuất sắc bài ôn tập chung cuối năm Lớp 1 đạt >= 90%", icon: "🎓" },
-        
-        // Huy hiệu Lớp 4 (10 huy hiệu)
-        { id: "trieu-lop-trieu", name: "Chinh Phục Triệu Số Lớp 4", desc: "Đạt >= 90% ở bài học hàng triệu và lớp triệu Lớp 4", icon: "💰" },
-        { id: "trung-binh-cong", name: "Vua Trung Bình Cộng Lớp 4", desc: "Đạt >= 90% ở bài số trung bình cộng Lớp 4", icon: "📊" },
-        { id: "tim-hai-so-tong-hieu", name: "Bậc Thầy Tổng Hiệu Lớp 4", desc: "Đạt >= 90% ở bài toán tìm hai số khi biết tổng và hiệu Lớp 4", icon: "⚖️" },
-        { id: "tinh-chat-chia-het-4", name: "Nhà Thông Thái Chia Hết Lớp 4", desc: "Đạt >= 90% ở bài dấu hiệu chia hết (2, 5, 9, 3) Lớp 4", icon: "🛡️" },
-        { id: "tinh-dien-tich-lop-4", name: "Kỹ Sư Diện Tích Lớp 4", desc: "Đạt >= 90% ở bài tính diện tích hình bình hành hoặc hình thoi Lớp 4", icon: "📐" },
-        { id: "phan-so-lop-4", name: "Chuyên Gia Phân Số Lớp 4", desc: "Đạt >= 90% ở bài phân số và các phép tính phân số Lớp 4", icon: "🍰" },
-        { id: "ti-so-lop-4", name: "Nhà Phân Tích Tỉ Số Lớp 4", desc: "Đạt >= 90% ở bài toán tỉ số và tìm hai số Lớp 4", icon: "📈" },
-        { id: "do-luong-y-en-ta-tan", name: "Nhà Cân Đo Lớp 4", desc: "Đạt >= 90% ở bài đơn vị đo khối lượng yến, tạ, tấn Lớp 4", icon: "⚖️" },
-        { id: "hinh-hoc-goc-nhon-tu", name: "Chuyên Gia Góc Học Lớp 4", desc: "Đạt >= 90% ở bài nhận biết góc nhọn, góc tù, góc bẹt Lớp 4", icon: "📐" },
-        { id: "on-tap-lop-4", name: "Vô Địch Toán Lớp 4", desc: "Hoàn thành xuất sắc bài ôn tập chung cuối năm Lớp 4 đạt >= 90%", icon: "🎓" },
-        
-        // Huy hiệu Lớp 6 bổ sung chuyên sâu (9 huy hiệu)
-        { id: "luy-thua-than-sau", name: "Chúa Tể Lũy Thừa Lớp 6", desc: "Đạt >= 95% ở bài lũy thừa với số mũ tự nhiên Lớp 6", icon: "⚡" },
-        { id: "uoc-va-boi", name: "Chiến Thần Ước Bội Lớp 6", desc: "Đạt >= 95% ở bài ước chung lớn nhất hoặc bội chung nhỏ nhất Lớp 6", icon: "🛡️" },
-        { id: "phep-tinh-so-nguyen", name: "Đại Sứ Số Nguyên Lớp 6", desc: "Đạt >= 95% ở các phép tính số nguyên Lớp 6", icon: "❄️" },
-        { id: "hinh-hoc-truc-quan-6", name: "Nhà Thiết Kế Hình Lớp 6", desc: "Đạt >= 95% ở bài hình tam giác đều, hình vuông, hình lục giác đều Lớp 6", icon: "📐" },
-        { id: "hinh-doi-xung-master", name: "Bậc Thầy Đối Xứng Lớp 6", desc: "Đạt >= 95% ở bài hình có trục hoặc tâm đối xứng Lớp 6", icon: "🌀" },
-        { id: "phan-so-tieu-chuan-6", name: "Cao Thủ Phân Số Lớp 6", desc: "Đạt >= 95% ở các bài toán phân số nâng cao Lớp 6", icon: "🍰" },
-        { id: "thap-phan-chuyen-nghiep", name: "Chuyên Gia Số Thập Phân Lớp 6", desc: "Đạt >= 95% ở các bài toán số thập phân Lớp 6", icon: "🎯" },
-        { id: "hinh-hoc-phang-chuan-6", name: "Hình Học Phẳng Lớp 6", desc: "Đạt >= 95% ở các dạng bài hình học phẳng cơ bản Lớp 6", icon: "📐" },
-        { id: "xac-suat-thuc-te", name: "Nhà Tiên Tri Xác Suất Lớp 6", desc: "Đạt >= 95% ở bài học xác suất thực nghiệm Lớp 6", icon: "🎲" },
-        
-        // Cột mốc và phép cộng dồn (6 huy hiệu)
-        { id: "than-dong-toan-hoc", name: "Thần Đồng Toán Học", desc: "Tích lũy đạt mốc 1,000 XP môn Toán", icon: "🧠" },
-        { id: "chien-binh-math-pro", name: "Chiến Binh Toán Học Pro", desc: "Tích lũy đạt mốc 2,500 XP môn Toán", icon: "🛡️" },
-        { id: "huyen-thoai-math-legend", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 5,000 XP môn Toán", icon: "👑" },
-        { id: "streak-math-30", name: "Kỷ Luật Thép 30 Ngày", desc: "Đạt chuỗi học tập liên tục môn Toán từ 30 ngày trở lên", icon: "🔥" },
-        { id: "lam-chu-ly-thuyet-math", name: "Học Giả Lý Thuyết Toán", desc: "Hoàn thành phần lý thuyết của từ 10 bài học Toán trở lên", icon: "📜" },
-        { id: "master-of-math", name: "Đại Sứ Toán Học Toàn Năng", desc: "Mở khóa thành công tất cả 49 huy hiệu Toán học khác", icon: "🏆" }
-    ],
+    // Huy hiệu có sẵn trong hệ thống (50 huy hiệu chuẩn tâm lý học & gamification)
+    systemBadges: (typeof SystemBadgesData !== 'undefined' && SystemBadgesData.SYSTEM_BADGES)
+        ? SystemBadgesData.SYSTEM_BADGES
+        : (typeof window !== 'undefined' && window.SYSTEM_BADGES)
+            ? window.SYSTEM_BADGES
+            : (typeof require !== 'undefined' ? require('./core/system-badges').SYSTEM_BADGES : []),
 
-    // Bộ âm thanh tương tác sử dụng các file âm thanh chuyên nghiệp (.mp3)
-    audio: {
-        isUnlocked: false,
-        tempMuteClick: false,
-        sounds: {},
-        ctx: null,
-        initContext: function() {
-            if (this.ctx) return;
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (AudioContext) {
-                    this.ctx = new AudioContext();
-                }
-            } catch (e) {
-                console.warn("Không khởi tạo được AudioContext:", e);
-            }
-        },
-        init: function() {
-            this.initContext();
-            if (Object.keys(this.sounds).length > 0) return;
-            try {
-                this.sounds = {
-                    startup: new Audio('/sounds/startup.mp3'),
-                    click: new Audio('/sounds/click.mp3'),
-                    tick: new Audio('/sounds/click.mp3'),
-                    correct: new Audio('/sounds/correct.mp3'),
-                    wrong: new Audio('/sounds/wrong.mp3'),
-                    victory: new Audio('/sounds/clapping.mp3'),
-                    defeat: new Audio('/sounds/failed.mp3'),
-                    lose: new Audio('/sounds/lose.mp3'),
-                    sword_hit: new Audio('/sounds/sword hit.mp3'),
-                    magic_spell: new Audio('/sounds/magic spell.mp3'),
-                    background: new Audio('/sounds/background.mp3'),
-                    monter: new Audio('/sounds/monter.mp3')
-                };
-
-                // Thiết lập âm lượng lớn, rõ nét và chuyên nghiệp
-                this.sounds.startup.volume = 0.95;
-                this.sounds.click.volume = 0.9;
-                this.sounds.tick.volume = 0.8;
-                this.sounds.correct.volume = 1.0;
-                this.sounds.wrong.volume = 1.0;
-                this.sounds.victory.volume = 0.95;
-                this.sounds.defeat.volume = 0.95;
-                this.sounds.lose.volume = 0.95;
-                this.sounds.sword_hit.volume = 0.85;
-                this.sounds.magic_spell.volume = 0.85;
-                this.sounds.monter.volume = 0.85;
-                this.sounds.background.volume = 0.22; // Âm lượng nhạc nền vừa phải để nghe rõ âm thanh khác
-
-                // Nạp trước dữ liệu âm thanh
-                for (let key in this.sounds) {
-                    this.sounds[key].load();
-                }
-            } catch (e) {
-                console.error("Lỗi khởi tạo âm thanh:", e);
-            }
-        },
-        playSound: function(name) {
-            this.init();
-            const soundFile = this.sounds[name];
-            if (!soundFile) return;
-            try {
-                // Đặt lại thời gian phát về 0 để âm thanh có thể kích hoạt lại lập tức (không bị trễ do cloneNode)
-                soundFile.currentTime = 0;
-                const playPromise = soundFile.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log(`Không thể phát âm thanh ${name}:`, error);
-                    });
-                }
-            } catch (e) {
-                console.log(`Lỗi khi phát âm thanh ${name}:`, e);
-            }
-        },
-        playStartup: function() {
-            this.playSound('startup');
-        },
-        playClick: function() {
-            this.playSound('click');
-        },
-        playTick: function() {
-            this.playSound('tick');
-        },
-        playCorrect: function() {
-            this.playSound('correct');
-        },
-        playWrong: function() {
-            this.playSound('wrong');
-        },
-        playVictory: function() {
-            this.playSound('victory');
-        },
-        playDefeat: function() {
-            this.playSound('defeat');
-        },
-        playLose: function() {
-            this.playSound('lose');
-        },
-        playBadge: function() {
-            this.playSound('victory');
-        },
-        playSwordHit: function() {
-            this.playSound('sword_hit');
-        },
-        playMagicSpell: function() {
-            this.playSound('magic_spell');
-        },
-        playMessageNotification: function() {
-            this.initContext();
-            if (!this.ctx) {
-                this.playSound('click');
-                return;
-            }
-            try {
-                const now = this.ctx.currentTime;
-                // Nốt thứ nhất (tần số D5)
-                const osc1 = this.ctx.createOscillator();
-                const gain1 = this.ctx.createGain();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(587.33, now); 
-                osc1.frequency.exponentialRampToValueAtTime(880, now + 0.12); 
-                gain1.gain.setValueAtTime(0.12, now);
-                gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
-                osc1.connect(gain1);
-                gain1.connect(this.ctx.destination);
-                osc1.start(now);
-                osc1.stop(now + 0.22);
-
-                // Nốt thứ hai (tần số D6)
-                const osc2 = this.ctx.createOscillator();
-                const gain2 = this.ctx.createGain();
-                osc2.type = 'sine';
-                osc2.frequency.setValueAtTime(880, now + 0.08); 
-                osc2.frequency.exponentialRampToValueAtTime(1174.66, now + 0.22); 
-                gain2.gain.setValueAtTime(0.12, now + 0.08);
-                gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
-                osc2.connect(gain2);
-                gain2.connect(this.ctx.destination);
-                osc2.start(now + 0.08);
-                osc2.stop(now + 0.35);
-            } catch (e) {
-                console.warn("Lỗi phát âm thanh Web Audio API:", e);
-                this.playSound('click');
-            }
-        },
-        playMonter: function() {
-            this.playSound('monter');
-        },
-        playBackground: function() {
-            this.init();
-            if (this.sounds.background) {
-                this.sounds.background.loop = true;
-                this.sounds.background.volume = 0.22; // Đảm bảo âm lượng nhạc nền vừa phải
-                const playPromise = this.sounds.background.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log("Không thể phát nhạc nền:", error);
-                    });
-                }
-            }
-        },
-        stopBackground: function() {
-            if (this.sounds.background) {
-                try {
-                    this.sounds.background.pause();
-                    this.sounds.background.currentTime = 0;
-                } catch (e) {
-                    console.log("Lỗi dừng nhạc nền:", e);
-                }
-            }
-        },
-        playTdSound: function(type) {
-            if (!this.isUnlocked) return;
-            try {
-                this.initContext();
-                const ctx = this.ctx;
-                if (!ctx) return;
-                
-                if (ctx.state === 'suspended') {
-                    ctx.resume();
-                }
-                
-                if (type === 'archer') {
-                    // Tiếng vút tên bay nhẹ nhàng
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(600, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.12);
-                    
-                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.12);
-                    
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.12);
-                    
-                } else if (type === 'bomb') {
-                    // Tiếng nổ pháo trầm (bùm bùm) khi đạn pháo nổ
-                    const bufferSize = ctx.sampleRate * 0.35;
-                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                    const data = buffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) {
-                        data[i] = Math.random() * 2 - 1;
-                    }
-                    
-                    const noiseNode = ctx.createBufferSource();
-                    noiseNode.buffer = buffer;
-                    
-                    const filter = ctx.createBiquadFilter();
-                    filter.type = 'lowpass';
-                    filter.frequency.setValueAtTime(300, ctx.currentTime);
-                    filter.frequency.exponentialRampToValueAtTime(10, ctx.currentTime + 0.35);
-                    
-                    const gain = ctx.createGain();
-                    gain.gain.setValueAtTime(0.5, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-                    
-                    noiseNode.connect(filter);
-                    filter.connect(gain);
-                    gain.connect(ctx.destination);
-                    
-                    noiseNode.start();
-                    noiseNode.stop(ctx.currentTime + 0.35);
-                    
-                } else if (type === 'ice') {
-                    // Tiếng xì xì đóng băng lạnh giá sắc sảo
-                    const osc1 = ctx.createOscillator();
-                    const osc2 = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    
-                    osc1.type = 'sine';
-                    osc1.frequency.setValueAtTime(1000, ctx.currentTime);
-                    osc1.frequency.linearRampToValueAtTime(250, ctx.currentTime + 0.18);
-                    
-                    osc2.type = 'triangle';
-                    osc2.frequency.setValueAtTime(1300, ctx.currentTime);
-                    osc2.frequency.linearRampToValueAtTime(350, ctx.currentTime + 0.18);
-                    
-                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.18);
-                    
-                    osc1.connect(gain);
-                    osc2.connect(gain);
-                    gain.connect(ctx.destination);
-                    
-                    osc1.start();
-                    osc2.start();
-                    osc1.stop(ctx.currentTime + 0.18);
-                    osc2.stop(ctx.currentTime + 0.18);
-                    
-                } else if (type === 'sword_slash') {
-                    // Tiếng kiếm chém leng keng (kim loại va chạm sắc sảo)
-                    const osc1 = ctx.createOscillator();
-                    const osc2 = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    
-                    osc1.type = 'sine';
-                    osc1.frequency.setValueAtTime(1800, ctx.currentTime);
-                    osc1.frequency.exponentialRampToValueAtTime(3500, ctx.currentTime + 0.03);
-                    osc1.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.12);
-                    
-                    osc2.type = 'triangle';
-                    osc2.frequency.setValueAtTime(1400, ctx.currentTime);
-                    osc2.frequency.exponentialRampToValueAtTime(2200, ctx.currentTime + 0.04);
-                    osc2.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.15);
-                    
-                    gain.gain.setValueAtTime(0.25, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
-                    
-                    osc1.connect(gain);
-                    osc2.connect(gain);
-                    gain.connect(ctx.destination);
-                    
-                    osc1.start();
-                    osc2.start();
-                    osc1.stop(ctx.currentTime + 0.16);
-                    osc2.stop(ctx.currentTime + 0.16);
-                } else if (type === 'coin') {
-                    // Tiếng keng keng đồng xu vàng lảnh lót
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(988, ctx.currentTime); // Nốt B5
-                    osc.frequency.setValueAtTime(1318, ctx.currentTime + 0.08); // Nốt E6
-                    
-                    gain.gain.setValueAtTime(0.18, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
-                    
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.35);
-                    
-                } else if (type === 'thunder') {
-                    // Tiếng sét đánh vang dội đầy uy lực (nhiễu trắng + sóng sawtooth trầm)
-                    const bufferSize = ctx.sampleRate * 0.45;
-                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                    const data = buffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) {
-                        data[i] = Math.random() * 2 - 1;
-                    }
-                    const noiseNode = ctx.createBufferSource();
-                    noiseNode.buffer = buffer;
-
-                    const osc = ctx.createOscillator();
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(160, ctx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(30, ctx.currentTime + 0.45);
-
-                    const filter = ctx.createBiquadFilter();
-                    filter.type = 'lowpass';
-                    filter.frequency.setValueAtTime(400, ctx.currentTime);
-
-                    const gain = ctx.createGain();
-                    gain.gain.setValueAtTime(0.35, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
-
-                    noiseNode.connect(filter);
-                    osc.connect(filter);
-                    filter.connect(gain);
-                    gain.connect(ctx.destination);
-
-                    noiseNode.start();
-                    osc.start();
-                    noiseNode.stop(ctx.currentTime + 0.45);
-                    osc.stop(ctx.currentTime + 0.45);
-                }
-            } catch (e) {
-                console.warn("Lỗi phát âm thanh TD:", e);
-            }
-        }
-    },
+    // Bộ âm thanh tương tác sử dụng module AudioService chuyên biệt (js/core/audio-service.js)
+    audio: (typeof AudioService !== 'undefined' && AudioService)
+        ? AudioService
+        : (typeof window !== 'undefined' && window.AudioService)
+            ? window.AudioService
+            : (typeof globalThis !== 'undefined' && globalThis.AudioService)
+                ? globalThis.AudioService
+                : (typeof require !== 'undefined' ? require('./core/audio-service') : null),
 
     // Tạo hiệu ứng pháo hoa giấy Confetti chúc mừng
-    confetti: {
-        canvas: null,
-        ctx: null,
-        particles: [],
-        colors: ["#FF7F50", "#3E8EED", "#2ECC71", "#F1C40F", "#FF4D4D", "#9B59B6", "#1ABC9C"],
-        animationFrame: null,
-        active: false,
-
-        init: function() {
-            this.canvas = document.getElementById("confetti-canvas");
-            if (!this.canvas) return;
-            this.ctx = this.canvas.getContext("2d");
-            this.resize();
-            // Lắng nghe sự kiện để cập nhật size canvas
-            if (!this.hasResizeHandler) {
-                window.addEventListener("resize", () => this.resize());
-                this.hasResizeHandler = true;
-            }
-        },
-
-        resize: function() {
-            if (this.canvas) {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-        },
-
-        start: function() {
-            this.init();
-            if (!this.canvas || !this.ctx) return;
-            this.particles = [];
-            for (let i = 0; i < 150; i++) {
-                this.particles.push({
-                    x: Math.random() * this.canvas.width,
-                    y: Math.random() * this.canvas.height - this.canvas.height,
-                    r: Math.random() * 6 + 4,
-                    d: Math.random() * this.canvas.height,
-                    color: this.colors[Math.floor(Math.random() * this.colors.length)],
-                    tilt: Math.random() * 10 - 5,
-                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
-                    tiltAngle: 0
-                });
-            }
-            this.active = true;
-            if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
-            this.loop();
-            
-            // Tự động dừng sau 4 giây
-            setTimeout(() => {
-                this.stop();
-            }, 4000);
-        },
-
-        loop: function() {
-            if (!this.active) return;
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            let finished = true;
-            this.particles.forEach(p => {
-                p.tiltAngle += p.tiltAngleIncremental;
-                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
-                p.x += Math.sin(p.tiltAngle);
-                p.tilt = Math.sin(p.tiltAngle - p.r / 2) * 15;
-
-                this.ctx.beginPath();
-                this.ctx.lineWidth = p.r;
-                this.ctx.strokeStyle = p.color;
-                this.ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-                this.ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-                this.ctx.stroke();
-
-                if (p.y < this.canvas.height) {
-                    finished = false;
-                }
-            });
-
-            if (!finished) {
-                this.animationFrame = requestAnimationFrame(() => this.loop());
-            } else {
-                this.stop();
-            }
-        },
-
-        stop: function() {
-            this.active = false;
-            if (this.ctx && this.canvas) {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-            if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+    get confetti() {
+        if (typeof ConfettiHelper !== 'undefined') {
+            return ConfettiHelper;
         }
+        return (typeof window !== 'undefined' && window.ConfettiHelper)
+            ? window.ConfettiHelper
+            : (typeof globalThis !== 'undefined' && globalThis.ConfettiHelper)
+                ? globalThis.ConfettiHelper
+                : (typeof require !== 'undefined' ? require('./core/confetti-helper') : null);
     },
 
     // Khởi tạo và cập nhật đồng hồ kỹ thuật số lớn trên màn hình chào mừng
     initSplashClock: function() {
+        if (typeof SplashQuotesService !== 'undefined' && SplashQuotesService) {
+            return SplashQuotesService.initClock();
+        }
         const timeEl = document.getElementById("splash-clock-time");
         const dateEl = document.getElementById("splash-clock-date");
         if (!timeEl || !dateEl) return;
@@ -1051,8 +531,13 @@ const app = {
         }
     },
 
-    // Giữ màn hình luôn sáng bằng Screen Wake Lock API
+    // Giữ màn hình luôn sáng bằng Screen Wake Lock API (js/core/wake-lock-service.js)
     initWakeLock: function() {
+        if (typeof WakeLockService !== 'undefined' && WakeLockService) {
+            WakeLockService.init();
+            return;
+        }
+
         let wakeLock = null;
 
         const requestWakeLock = async () => {
@@ -1085,8 +570,29 @@ const app = {
         });
     },
 
-    // Khởi tạo bộ đếm thời gian không hoạt động (Idle Timer 10 phút)
+    // Khởi tạo bộ đếm thời gian không hoạt động (Idle Timer 10 phút) (js/core/idle-tracker.js)
     initIdleTimer: function() {
+        if (typeof IdleTracker !== 'undefined' && IdleTracker) {
+            IdleTracker.init({
+                timeoutSeconds: 10 * 60,
+                onIdle: () => {
+                    this.returnToSplashScreen();
+                },
+                isAppActive: () => {
+                    const splashScreen = document.getElementById("splash-screen");
+                    return !!(splashScreen && splashScreen.style.display === "none");
+                },
+                isBusy: () => {
+                    const isWatchingVideo = document.body.classList.contains("video-fullscreen-active") || 
+                                           document.querySelector(".btn-exit-video-fullscreen") !== null;
+                    const practiceActiveBox = document.getElementById("practice-active-box");
+                    const isPracticing = !!(practiceActiveBox && !practiceActiveBox.classList.contains("hidden"));
+                    return isWatchingVideo || isPracticing;
+                }
+            });
+            return;
+        }
+
         let idleTime = 0;
         const maxIdleTime = 10 * 60; // 10 phút = 600 giây
 
@@ -1170,6 +676,13 @@ const app = {
 
     // Chọn ngẫu nhiên một câu châm ngôn học tập và hiển thị lên Màn hình chào mừng
     displayRandomSplashQuote: function() {
+        if (typeof SplashQuotesService !== 'undefined' && SplashQuotesService) {
+            const quote = SplashQuotesService.displayRandomQuote();
+            if (quote) {
+                this.currentSplashQuoteIndex = quote.index;
+            }
+            return quote;
+        }
         const textEl = document.getElementById("splash-quote-text");
         const authorEl = document.getElementById("splash-quote-author");
         if (!textEl || !authorEl) return;
@@ -1208,10 +721,14 @@ const app = {
     },
 
     getApiUrl: function(path) {
-        const cleanPath = path.startsWith('/') ? path : '/' + path;
+        if (typeof window !== 'undefined' && window.UrlUtils && typeof window.UrlUtils.getApiUrl === 'function') {
+            return window.UrlUtils.getApiUrl(path);
+        }
+        const rawPath = typeof path === 'string' ? path : (path != null ? String(path) : '');
+        const cleanPath = rawPath.startsWith('/') ? rawPath : '/' + rawPath;
         if (typeof window !== 'undefined' && window.location) {
             if (window.location.protocol === 'file:') {
-                const savedPort = safeStorage.getItem('server_port') || '3000';
+                const savedPort = (typeof safeStorage !== 'undefined' && safeStorage && typeof safeStorage.getItem === 'function' ? safeStorage.getItem('server_port') : null) || '3000';
                 return `http://localhost:${savedPort}${cleanPath}`;
             }
             return cleanPath;
@@ -2501,6 +2018,12 @@ const app = {
     },
 
     escapeJsString: function(str) {
+        if (typeof StringUtils !== 'undefined' && typeof StringUtils.escapeJsString === 'function') {
+            return StringUtils.escapeJsString(str);
+        }
+        if (typeof escapeJsString === 'function') {
+            return escapeJsString(str);
+        }
         if (!str) return "";
         return String(str)
             .replace(/\\/g, "\\\\")
@@ -2510,12 +2033,22 @@ const app = {
     },
 
     normalizeAnswerToken: function(str) {
+        if (typeof StringUtils !== 'undefined' && typeof StringUtils.normalizeAnswerToken === 'function') {
+            return StringUtils.normalizeAnswerToken(str);
+        }
+        if (typeof normalizeAnswerToken === 'function') {
+            return normalizeAnswerToken(str);
+        }
         if (!str) return "";
         return String(str)
             .replace(/^[A-D][\.\)\:\-\s]+/i, "")
             .replace(/<[^>]*>/g, "")
+            .replace(/[’‘ʼʻ]/g, "'")
+            .replace(/[“”«»"]/g, "")
+            .replace(/[–—−]/g, "-")
+            .replace(/[\u00a0\u2000-\u200b\u202f\u3000\ufeff]/g, " ")
             .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
-            .replace(/[\u00a0]/g, " ")
+            .replace(/\s+/g, " ")
             .toLowerCase()
             .trim();
     },
@@ -4411,8 +3944,17 @@ const app = {
         }
     },
 
-    // Helper phát âm Tiếng Anh chuẩn (en-US) offline sử dụng SpeechSynthesis
+    // Helper phát âm Tiếng Anh chuẩn (en-US) offline sử dụng SpeechService (js/core/speech-service.js)
     speakEnglish: function(text, isFallback = false) {
+        if (typeof SpeechService !== 'undefined' && SpeechService.speakEnglish) {
+            SpeechService.speakEnglish(text, isFallback, {
+                onStart: (sourceLabel) => this.updateAudioSourceLabel(sourceLabel),
+                onError: () => this.updateAudioSourceLabel("Lỗi phát âm thanh"),
+                onUnsupported: () => this.updateAudioSourceLabel("Không hỗ trợ phát âm")
+            });
+            return;
+        }
+
         if (!text) return;
         if (!('speechSynthesis' in window)) {
             this.updateAudioSourceLabel("Không hỗ trợ phát âm");
@@ -4451,6 +3993,31 @@ const app = {
         }
     },
 
+    // Helper phát âm Tiếng Việt
+    speakVietnamese: function(text, options = {}) {
+        if (typeof SpeechService !== 'undefined' && SpeechService.speakText) {
+            SpeechService.speakText(text, 'vi-VN', options);
+        }
+    },
+
+    // Helper phát âm đa ngôn ngữ
+    speakText: function(text, lang = 'vi-VN', options = {}) {
+        if (typeof SpeechService !== 'undefined' && SpeechService.speakText) {
+            SpeechService.speakText(text, lang, options);
+        } else if (lang === 'en-US' || lang === 'en') {
+            this.speakEnglish(text);
+        }
+    },
+
+    // Dừng mọi giọng đọc đang phát
+    stopSpeech: function() {
+        if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
+            SpeechService.stopSpeech();
+        } else if (typeof window !== 'undefined' && window.speechSynthesis) {
+            try { window.speechSynthesis.cancel(); } catch(e) {}
+        }
+    },
+
     // Lấy ID video YouTube của bài học (ưu tiên ID tùy chỉnh của phụ huynh)
     getLessonVideoId: function(lessonId) {
         if (this.state.customVideos && this.state.customVideos[lessonId]) {
@@ -4462,6 +4029,9 @@ const app = {
 
     // Hàm Regex thông minh tự động trích xuất ID YouTube từ mọi định dạng link phụ huynh dán vào
     extractYoutubeId: function(input) {
+        if (typeof UrlUtils !== 'undefined' && UrlUtils.extractYoutubeId) {
+            return UrlUtils.extractYoutubeId(input);
+        }
         if (!input) return "";
         input = input.trim();
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -4469,7 +4039,7 @@ const app = {
         if (match && match[2].length === 11) {
             return match[2];
         }
-        return input; // Trả về nguyên bản nếu người dùng đã nhập đúng ID 11 ký tự
+        return input;
     },
 
     // Lấy ID video YouTube của Dạng bài học (ưu tiên ID tùy chỉnh của phụ huynh)
@@ -6918,43 +6488,42 @@ const app = {
         }
     },
 
-    // Kiểm tra điều kiện mở khóa các loại huy hiệu
+    // Kiểm tra điều kiện mở khóa các loại huy hiệu (Ủy quyền đánh giá sang Pure BadgeRulesEvaluator)
     checkAndUnlockBadges: function(lessonId, score, timeSpent = 9999, oldScore = 0, distractions = 0) {
-        // 1. Nhập môn (hoàn thành bất kỳ bài nào >= 80%)
-        if (score >= 80) {
-            this.unlockBadge("nhap-mon");
+        const evaluator = (typeof BadgeRulesEvaluator !== 'undefined' && BadgeRulesEvaluator)
+            ? BadgeRulesEvaluator
+            : (typeof window !== 'undefined' && window.BadgeRulesEvaluator)
+                ? window.BadgeRulesEvaluator
+                : (typeof globalThis !== 'undefined' && globalThis.BadgeRulesEvaluator)
+                    ? globalThis.BadgeRulesEvaluator
+                    : (typeof require !== 'undefined' ? require('./core/badge-rules-evaluator') : null);
+
+        if (evaluator && typeof evaluator.evaluateBadgeRules === 'function') {
+            const qualifiedBadges = evaluator.evaluateBadgeRules(this.state, {
+                lessonId: lessonId,
+                score: score,
+                timeSpent: timeSpent,
+                oldScore: oldScore,
+                distractions: distractions
+            }, this.systemBadges);
+
+            qualifiedBadges.forEach(badgeId => {
+                this.unlockBadge(badgeId);
+            });
+            return;
         }
 
-        // 2. Khởi đầu vững vàng (đạt 100% điểm bất kỳ bài nào)
-        if (score === 100) {
-            this.unlockBadge("khoi-dau-vung-vang");
-        }
-
-        // 3. Chuỗi học tập liên tục
+        // Fallback inline nếu module chưa nạp
+        if (score >= 80) this.unlockBadge("nhap-mon");
+        if (score === 100) this.unlockBadge("khoi-dau-vung-vang");
         if (this.state.streak >= 3) this.unlockBadge("streak-3");
         if (this.state.streak >= 7) this.unlockBadge("streak-7");
         if (this.state.streak >= 15) this.unlockBadge("streak-15");
-
-        // 4. Siêu trí tuệ & Huyền thoại (tích lũy XP)
         if (this.state.xp >= 200) this.unlockBadge("sieu-tri-tue");
         if (this.state.xp >= 500) this.unlockBadge("huyen-thoai-toan-hoc");
-
-        // 5. Thần tốc: Đúng 100% trong thời gian dưới 45 giây (chỉ cho bài luyện tập bình thường 5 câu)
-        if (score === 100 && timeSpent <= 45 && !lessonId.startsWith("kt-")) {
-            this.unlockBadge("tia-chop");
-        }
-
-        // 6. Kiên trì bứt phá: Cải thiện điểm số từ dưới 70% lên đạt giỏi (>= 80%)
-        if (oldScore > 0 && oldScore < 70 && score >= 80) {
-            this.unlockBadge("kien-tri");
-        }
-
-        // 7. Kỷ luật thép: Vượt qua bài kiểm tra cuối chương 10 câu đạt >= 80% mà không có lần xao nhãng nào
-        if (lessonId.startsWith("kt-") && score >= 80 && distractions === 0) {
-            this.unlockBadge("ky-luat-thep");
-        }
-
-        // 8. Các huy hiệu vượt qua bài kiểm tra chương học Lớp 6
+        if (score === 100 && timeSpent <= 45 && !lessonId.startsWith("kt-")) this.unlockBadge("tia-chop");
+        if (oldScore > 0 && oldScore < 70 && score >= 80) this.unlockBadge("kien-tri");
+        if (lessonId.startsWith("kt-") && score >= 80 && distractions === 0) this.unlockBadge("ky-luat-thep");
         if (lessonId === "kt-c1" && score >= 80) this.unlockBadge("bac-thay-so-tu-nhien");
         if (lessonId === "kt-c2" && score >= 80) this.unlockBadge("chien-binh-chia-het");
         if (lessonId === "kt-c3" && score >= 80) this.unlockBadge("ky-si-so-nguyen");
@@ -6964,16 +6533,12 @@ const app = {
         if (lessonId === "kt-c7" && score >= 80) this.unlockBadge("chien-binh-thap-phan");
         if (lessonId === "kt-c8" && score >= 80) this.unlockBadge("phu-thuy-hinh-co-ban");
         if (lessonId === "kt-c9" && score >= 80) this.unlockBadge("bac-thay-xac-suat");
-
-        // Huy hiệu Lớp 1 mới
         if ((lessonId === "l1-bai-1" || lessonId === "l1-bai-2") && score >= 90) this.unlockBadge("dem-so-lop-1");
         if (lessonId === "l1-bai-10" && score >= 90) this.unlockBadge("phep-cong-pham-vi-10");
         if (lessonId === "l1-bai-14" && score >= 90) this.unlockBadge("hinh-khoi-lop-1");
         if ((lessonId === "l1-bai-34" || lessonId === "l1-bai-35") && score >= 90) this.unlockBadge("do-luong-lop-1");
         if (lessonId === "l1-bai-39" && score >= 90) this.unlockBadge("phep-cong-pham-vi-100");
         if (lessonId === "l1-bai-41" && score >= 90) this.unlockBadge("on-tap-lop-1");
-
-        // Huy hiệu Lớp 4 mới
         if ((lessonId === "l4-bai-3" || lessonId === "l4-bai-4") && score >= 90) this.unlockBadge("trieu-lop-trieu");
         if (lessonId === "l4-bai-10" && score >= 90) this.unlockBadge("trung-binh-cong");
         if (lessonId === "l4-bai-11" && score >= 90) this.unlockBadge("tim-hai-so-tong-hieu");
@@ -6984,8 +6549,6 @@ const app = {
         if (lessonId === "l4-bai-33" && score >= 90) this.unlockBadge("do-luong-y-en-ta-tan");
         if (lessonId === "l4-bai-18" && score >= 90) this.unlockBadge("hinh-hoc-goc-nhon-tu");
         if (lessonId === "l4-bai-43" && score >= 90) this.unlockBadge("on-tap-lop-4");
-
-        // Huy hiệu Lớp 6 mới
         if (lessonId === "bai-6" && score >= 95) this.unlockBadge("luy-thua-than-sau");
         if ((lessonId === "bai-12" || lessonId === "bai-13") && score >= 95) this.unlockBadge("uoc-va-boi");
         if ((lessonId === "bai-15" || lessonId === "bai-16") && score >= 95) this.unlockBadge("phep-tinh-so-nguyen");
@@ -6995,8 +6558,6 @@ const app = {
         if ((lessonId === "bai-29" || lessonId === "bai-30") && score >= 95) this.unlockBadge("thap-phan-chuyen-nghiep");
         if ((lessonId === "bai-32" || lessonId === "bai-33") && score >= 95) this.unlockBadge("hinh-hoc-phang-chuan-6");
         if (lessonId === "bai-37" && score >= 95) this.unlockBadge("xac-suat-thuc-te");
-
-        // Gamification & Tích lũy
         if (this.state.xp >= 1000) this.unlockBadge("than-dong-toan-hoc");
         if (this.state.xp >= 2500) this.unlockBadge("chien-binh-math-pro");
         if (this.state.xp >= 5000) this.unlockBadge("huyen-thoai-math-legend");
@@ -7092,6 +6653,10 @@ const app = {
 
     // Theme (Light/Green mode)
     initTheme: function() {
+        if (typeof ThemeService !== 'undefined' && ThemeService) {
+            this.isDarkMode = ThemeService.initStudentTheme();
+            return;
+        }
         const savedTheme = safeStorage.getItem("toan6_theme");
         // Mặc định là xanh lá (green) nếu chưa lưu cấu hình, hoặc nếu lưu là green
         if (savedTheme === 'light') {
@@ -7107,6 +6672,10 @@ const app = {
     },
 
     toggleTheme: function() {
+        if (typeof ThemeService !== 'undefined' && ThemeService) {
+            this.isDarkMode = ThemeService.toggleStudentTheme();
+            return;
+        }
         this.isDarkMode = !this.isDarkMode;
         if (this.isDarkMode) {
             document.body.classList.add("green-mode");
@@ -7131,6 +6700,10 @@ const app = {
     },
 
     updateThemeIcon: function() {
+        if (typeof ThemeService !== 'undefined' && ThemeService) {
+            ThemeService.updateStudentThemeIcon(this.isDarkMode);
+            return;
+        }
         const toggleBtn = document.getElementById("theme-toggle");
         if (this.isDarkMode) {
             // Khi đang ở Green Mode (Lá): hiển thị icon Mặt trăng để bấm chuyển sang Đêm Dạ Lục
@@ -8597,6 +8170,15 @@ const app = {
     },
 
     getUnlockedSkillCardsCount: function() {
+        const evaluator = (typeof EnglishSkillEvaluator !== 'undefined' && EnglishSkillEvaluator)
+            || (typeof window !== 'undefined' && window.EnglishSkillEvaluator)
+            || (typeof globalThis !== 'undefined' && globalThis.EnglishSkillEvaluator)
+            || (typeof require !== 'undefined' ? require('./core/english-skill-evaluator') : null);
+
+        if (evaluator && typeof evaluator.getUnlockedSkillCardsCount === 'function') {
+            return evaluator.getUnlockedSkillCardsCount(this.state, SKILL_CARDS);
+        }
+
         let count = 0;
         SKILL_CARDS.forEach(card => {
             if (card.id !== "unlocked_all_english" && this.isSkillCardUnlocked(card.id)) {
@@ -8607,179 +8189,46 @@ const app = {
     },
 
     isSkillCardUnlocked: function(cardId) {
-        const state = this.state;
-        
-        const checkClassSkillScore = (classLevel, skillKey, minScore) => {
-            if (!state.scores) return false;
-            const prefix = `eng${classLevel}-`;
-            return Object.keys(state.scores).some(key => 
-                key.startsWith(prefix) && 
-                key.endsWith(`-${skillKey}`) && 
-                state.scores[key] >= minScore
-            );
-        };
+        const evaluator = (typeof EnglishSkillEvaluator !== 'undefined' && EnglishSkillEvaluator)
+            || (typeof window !== 'undefined' && window.EnglishSkillEvaluator)
+            || (typeof globalThis !== 'undefined' && globalThis.EnglishSkillEvaluator)
+            || (typeof require !== 'undefined' ? require('./core/english-skill-evaluator') : null);
 
-        const countClassPassedLessons = (classLevel, minScore) => {
-            if (!state.scores) return 0;
-            const prefix = `eng${classLevel}-`;
-            const lessonIds = new Set();
-            Object.keys(state.scores).forEach(key => {
-                if (key.startsWith(prefix) && state.scores[key] >= minScore) {
-                    const parts = key.split('-');
-                    if (parts.length >= 3) {
-                        const part = parts[0] + '-' + parts[1] + '-' + parts[2];
-                        lessonIds.add(part);
-                    }
-                }
-            });
-            return lessonIds.size;
-        };
-
-        const checkDoublePerfect = () => {
-            if (!state.scores) return false;
-            const prefixes = new Set(Object.keys(state.scores).map(k => k.substring(0, k.lastIndexOf('-'))));
-            return Array.from(prefixes).some(pref => state.scores[`${pref}-listening`] === 100 && state.scores[`${pref}-speaking`] === 100);
-        };
-
-        const checkAllRounder = () => {
-            if (!state.scores) return false;
-            const prefixes = new Set(Object.keys(state.scores).map(k => k.substring(0, k.lastIndexOf('-'))));
-            return Array.from(prefixes).some(pref => 
-                (state.scores[`${pref}-listening`] || 0) >= 90 && 
-                (state.scores[`${pref}-speaking`] || 0) >= 90 && 
-                (state.scores[`${pref}-reading`] || 0) >= 90 && 
-                (state.scores[`${pref}-writing`] || state.scores[`${pref}-spelling`] || state.scores[`${pref}-writing_champion`] || 0) >= 90
-            );
-        };
-
-        switch(cardId) {
-            case "listening_master":
-                return this.checkSkillScore(state, 'listening', 90);
-            case "speaking_pro":
-                return this.checkSkillScore(state, 'speaking', 90);
-            case "reading_wizard":
-                return this.checkSkillScore(state, 'reading', 90);
-            case "writing_champion":
-                return this.checkSkillScore(state, 'spelling', 90) || this.checkSkillScore(state, 'writing', 90);
-            case "streak_legend":
-                return (state.englishStreak || state.streak || 0) >= 5;
-            case "streak_hero":
-                return (state.englishStreak || state.streak || 0) >= 10;
-            case "xp_conqueror":
-                return (state.englishXp || 0) >= 1000;
-            case "perfect_score":
-                return this.checkPerfectScore(state);
-            case "theory_explorer":
-                return (state.completedLessonTheory || []).length >= 3;
-            case "gold_collector":
-                return (state.goldSkills || []).length >= 3;
-            case "subtopic_expert":
-                return (state.completedSubtopics || []).length >= 5;
-            case "speed_runner":
-                if (!state.examSessions) return false;
-                return state.examSessions.some(session => session.score === 100 && (session.duration || 0) > 0 && (session.duration || 0) <= 60);
-            case "monster_slayer":
-                return (state.slainMonstersCount || 0) >= 3;
-            case "vocab_slayer":
-                return (state.slainMonstersCount || 0) >= 10;
-                
-            // Lớp 1
-            case "listening_rookie_1":
-                return checkClassSkillScore('1', 'listening', 80);
-            case "speaking_rookie_1":
-                return checkClassSkillScore('1', 'speaking', 80);
-            case "reading_rookie_1":
-                return checkClassSkillScore('1', 'reading', 80);
-            case "writing_rookie_1":
-                return checkClassSkillScore('1', 'spelling', 80) || checkClassSkillScore('1', 'writing', 80);
-            case "vocabulary_explorer_1":
-                return (state.slainMonstersCount || 0) >= 2;
-            case "perfect_star_1":
-                if (!state.scores) return false;
-                return Object.keys(state.scores).some(key => key.startsWith('eng1-') && state.scores[key] === 100);
-            case "bilingual_kid":
-                return countClassPassedLessons('1', 90) >= 5;
-            case "class1_master":
-                return countClassPassedLessons('1', 90) >= 10;
-                
-            // Lớp 4
-            case "listening_apprentice_4":
-                return checkClassSkillScore('4', 'listening', 85);
-            case "speaking_apprentice_4":
-                return checkClassSkillScore('4', 'speaking', 85);
-            case "reading_apprentice_4":
-                return checkClassSkillScore('4', 'reading', 85);
-            case "writing_apprentice_4":
-                return checkClassSkillScore('4', 'spelling', 85) || checkClassSkillScore('4', 'writing', 85);
-            case "vocabulary_explorer_4":
-                return (state.slainMonstersCount || 0) >= 5;
-            case "grammar_rookie":
-                if (!state.scores) return false;
-                return Object.keys(state.scores).filter(key => key.includes('grammar') && state.scores[key] >= 80).length >= 3;
-            case "global_citizen_junior":
-                return countClassPassedLessons('4', 90) >= 10;
-            case "class4_master":
-                return countClassPassedLessons('4', 90) >= 15;
-                
-            // Lớp 6
-            case "listening_expert_6":
-                return checkClassSkillScore('6', 'listening', 90);
-            case "speaking_expert_6":
-                return checkClassSkillScore('6', 'speaking', 90);
-            case "reading_expert_6":
-                return checkClassSkillScore('6', 'reading', 90);
-            case "writing_expert_6":
-                return checkClassSkillScore('6', 'spelling', 90) || checkClassSkillScore('6', 'writing', 90);
-            case "vocabulary_explorer_6":
-                return (state.slainMonstersCount || 0) >= 8;
-            case "grammar_expert":
-                if (!state.scores) return false;
-                return Object.keys(state.scores).filter(key => key.includes('grammar') && state.scores[key] >= 90).length >= 5;
-            case "global_citizen_senior":
-                return countClassPassedLessons('6', 90) >= 15;
-            case "class6_master":
-                return countClassPassedLessons('6', 90) >= 18;
-                
-            // Cột mốc
-            case "streak_bronze":
-                return (state.englishStreak || 0) >= 3;
-            case "streak_gold":
-                return (state.englishStreak || 0) >= 20;
-            case "xp_novice":
-                return (state.englishXp || 0) >= 100;
-            case "xp_apprentice":
-                return (state.englishXp || 0) >= 500;
-            case "xp_master":
-                return (state.englishXp || 0) >= 2000;
-            case "xp_legend":
-                return (state.englishXp || 0) >= 5000;
-            case "theory_scholar":
-                return (state.completedLessonTheory || []).length >= 8;
-            case "vocabulary_monarch":
-                return (state.slainMonstersCount || 0) >= 20;
-            case "speedy_writer":
-                if (!state.examSessions) return false;
-                return state.examSessions.some(session => (session.skill === 'spelling' || session.skill === 'writing') && session.score === 100 && (session.duration || 0) > 0 && (session.duration || 0) <= 40);
-            case "double_perfect":
-                return checkDoublePerfect();
-            case "all_rounder":
-                return checkAllRounder();
-            case "unlocked_all_english":
-                return SKILL_CARDS.every(c => c.id === "unlocked_all_english" || this.isSkillCardUnlocked(c.id));
-                
-            default:
-                return false;
+        if (evaluator && typeof evaluator.isSkillCardUnlocked === 'function') {
+            return evaluator.isSkillCardUnlocked(cardId, this.state, SKILL_CARDS);
         }
+
+        return false;
     },
 
     checkSkillScore: function(state, skillKey, minScore) {
-        if (!state.scores) return false;
-        return Object.keys(state.scores).some(key => key.endsWith(`-${skillKey}`) && state.scores[key] >= minScore);
+        const evaluator = (typeof EnglishSkillEvaluator !== 'undefined' && EnglishSkillEvaluator)
+            || (typeof window !== 'undefined' && window.EnglishSkillEvaluator)
+            || (typeof globalThis !== 'undefined' && globalThis.EnglishSkillEvaluator)
+            || (typeof require !== 'undefined' ? require('./core/english-skill-evaluator') : null);
+
+        if (evaluator && typeof evaluator.checkSkillScore === 'function') {
+            return evaluator.checkSkillScore(state || this.state, skillKey, minScore);
+        }
+
+        const safeState = state || this.state || {};
+        if (!safeState.scores) return false;
+        return Object.keys(safeState.scores).some(key => key.endsWith(`-${skillKey}`) && (safeState.scores[key] || 0) >= minScore);
     },
 
     checkPerfectScore: function(state) {
-        if (!state.scores) return false;
-        return Object.values(state.scores).some(score => score === 100);
+        const evaluator = (typeof EnglishSkillEvaluator !== 'undefined' && EnglishSkillEvaluator)
+            || (typeof window !== 'undefined' && window.EnglishSkillEvaluator)
+            || (typeof globalThis !== 'undefined' && globalThis.EnglishSkillEvaluator)
+            || (typeof require !== 'undefined' ? require('./core/english-skill-evaluator') : null);
+
+        if (evaluator && typeof evaluator.checkPerfectScore === 'function') {
+            return evaluator.checkPerfectScore(state || this.state);
+        }
+
+        const safeState = state || this.state || {};
+        if (!safeState.scores) return false;
+        return Object.values(safeState.scores).some(score => score === 100);
     },
 
     drawEnglishRadarChart: function(canvasId, skillScores = {}, customTextColor = null) {
@@ -9017,39 +8466,17 @@ const app = {
     },
 
     calculateEnglishSkillScores: function(engState) {
-        const stateToUse = engState || (this.state && this.state.subjects && this.state.subjects.english ? this.state.subjects.english : this.state) || {};
-        const sessions = stateToUse.examSessions || [];
-        const scores = { listening: 70, speaking: 70, reading: 70, writing: 70, vocabulary: 70, grammar: 70 };
-        
-        if (sessions.length === 0) {
-            return scores;
+        const evaluator = (typeof EnglishSkillEvaluator !== 'undefined' && EnglishSkillEvaluator)
+            || (typeof window !== 'undefined' && window.EnglishSkillEvaluator)
+            || (typeof globalThis !== 'undefined' && globalThis.EnglishSkillEvaluator)
+            || (typeof require !== 'undefined' ? require('./core/english-skill-evaluator') : null);
+
+        if (evaluator && typeof evaluator.calculateEnglishSkillScores === 'function') {
+            const stateToUse = engState || (this.state && this.state.subjects && this.state.subjects.english ? this.state.subjects.english : this.state) || {};
+            return evaluator.calculateEnglishSkillScores(stateToUse);
         }
 
-        const counts = { listening: 0, speaking: 0, reading: 0, writing: 0, vocabulary: 0, grammar: 0 };
-        const totals = { listening: 0, speaking: 0, reading: 0, writing: 0, vocabulary: 0, grammar: 0 };
-
-        sessions.forEach(sess => {
-            if (sess.answers && Array.isArray(sess.answers)) {
-                sess.answers.forEach(ans => {
-                    let category = ans.category || (sess.skill === 'listening' ? 'listening' : sess.skill === 'speaking' ? 'speaking' : sess.skill === 'reading' ? 'reading' : 'writing');
-                    if (category === 'spelling') category = 'vocabulary';
-                    
-                    if (counts[category] !== undefined) {
-                        counts[category]++;
-                        if (ans.correct) {
-                            totals[category]++;
-                        }
-                    }
-                });
-            }
-        });
-
-        for (const key in scores) {
-            if (counts[key] > 0) {
-                scores[key] = Math.round((totals[key] / counts[key]) * 100);
-            }
-        }
-        return scores;
+        return { listening: 70, speaking: 70, reading: 70, writing: 70, vocabulary: 70, grammar: 70 };
     },
 
     slayVocabularyMonster: function(word) {
@@ -9721,7 +9148,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     exitEnglishLesson: function() {
         this.stopSpeechRecognition();
-        if (typeof window.speechSynthesis !== 'undefined') window.speechSynthesis.cancel();
+        if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
+            SpeechService.stopSpeech();
+        } else if (typeof window.speechSynthesis !== 'undefined') {
+            window.speechSynthesis.cancel();
+        }
         Swal.fire({
             title: "Rời khỏi bài học?",
             text: "Tiến trình của bài học hiện tại sẽ không được lưu lại đâu con nhé!",
@@ -9751,74 +9182,23 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     // Curated exact mappings using high-quality vector illustrations from Icons8 Color style (very stable & professional)
-    wordImageMap: {
-        // Lớp 1 & Lớp 2 Nâng cao
-        "hello": "hello", "goodbye": "goodbye", "name": "name", "what": "question-mark", "you": "user",
-        "book": "open-book", "pen": "pen", "ruler": "ruler", "bag": "schoolbag", "pencil": "pencil",
-        "red": "red-square", "blue": "blue-square", "green": "green-square", "yellow": "yellow-square", "circle": "circle",
-        "one": "one", "two": "two", "three": "three", "four": "four", "five": "five",
-        "father": "man", "mother": "woman", "brother": "boy", "sister": "girl", "baby": "baby",
-        "head": "head", "face": "face", "hand": "hand", "foot": "foot", "hair": "hair",
-        "ball": "soccer-ball", "doll": "doll", "train": "train", "car": "car", "plane": "airplane",
-        "dog": "dog", "cat": "cat", "bird": "bird", "duck": "duck", "sun": "sun",
-        "apple": "apple", "banana": "banana", "milk": "milk-bottle", "cake": "cake", "water": "water-glass",
-        "run": "running", "walk": "running", "jump": "jumping", "dance": "dancing", "sing": "singing", "draw": "drawing",
-        "read": "open-book", "write": "pencil", "listen": "hearing", "speak": "chat", "learn": "brain",
-        "house": "home", "bedroom": "bedroom", "living room": "sofa", "kitchen": "kitchen", "bathroom": "shower",
-        "bed": "bed", "table": "table", "chair": "chair", "sofa": "sofa", "tv": "tv",
-        "shirt": "shirt", "pants": "jeans", "dress": "dress", "shoes": "shoes", "hat": "hat",
-        "orange": "orange", "grape": "grapes", "mango": "mango", "strawberry": "strawberry", "pear": "pear",
-        "cow": "cow", "horse": "horse", "pig": "pig", "sheep": "sheep", "chicken": "chicken",
-        "lion": "lion", "tiger": "tiger", "elephant": "elephant", "monkey": "monkey", "zebra": "zebra",
-        "sky": "cloud", "teacher": "teacher", "doctor": "doctor", "pilot": "pilot", "cook": "cook", "driver": "driver", "bus": "bus",
-
-        // Lớp 4 & Lớp 5 Nâng cao
-        "vietnam": "flag-of-vietnam", "america": "flag-of-usa", "england": "united-kingdom", "japan": "flag-of-japan", "australia": "flag-of-australia",
-        "time": "clock", "clock": "clock", "morning": "sunrise", "afternoon": "sun", "evening": "sunset",
-        "monday": "calendar", "tuesday": "calendar", "wednesday": "calendar", "thursday": "calendar", "friday": "calendar", "saturday": "calendar", "sunday": "calendar",
-        "january": "calendar", "february": "calendar", "march": "calendar", "date": "calendar", "birthday": "birthday-cake",
-        "swim": "swimming", "skate": "skating", "chess": "chess-board", "football": "soccer-ball", "hobby": "hobbies",
-        "maths": "calculator", "science": "test-tube", "music": "music", "history": "history", "english": "united-kingdom",
-        "bakery": "bakery", "bookshop": "book-shelf", "cinema": "cinema", "supermarket": "supermarket", "zoo": "zoo",
-        "sunny": "sun", "rainy": "rain", "windy": "wind", "cloudy": "cloud", "snowy": "snow",
-        "fever": "thermometer", "headache": "headache", "cough": "coughing", "sore throat": "throat", "cold": "cold",
-        "yesterday": "history", "museum": "museum", "beach": "beach", "trip": "suitcase", "stayed": "home",
-        "hometown": "home", "village": "home", "city": "city", "island": "island", "crowded": "crowd",
-        "timetable": "calendar", "lesson": "book", "always": "checked", "usually": "checked", "sometimes": "checked",
-        "tomorrow": "calendar", "next week": "calendar", "holiday": "beach", "visit": "running", "buy": "shopping-cart",
-        "toothache": "headache", "earache": "throat", "medicine": "pill", "dentist": "doctor",
-        "spring": "spring", "summer": "sun", "autumn": "leaf", "winter": "snow", "season": "globe",
-        "left": "left", "right": "right", "straight": "up", "corner": "intersection", "station": "train",
-        "story": "open-book", "intelligent": "brain", "like": "like",
-        "chef": "cook", "astronaut": "astronaut", "nurse": "doctor",
-        "apartment": "city", "cottage": "home", "villa": "home", "noise": "noise", "clean": "sparkles",
-        "traffic": "traffic-light", "rule": "checked", "cross": "running", "sign": "attention", "helmet": "helmet",
-
-        // Lớp 6 & Lớp 7 Nâng cao
-        "calculator": "calculator", "compass": "compass", "uniform": "school-uniform", "textbook": "book", "canteen": "canteen",
-        "drawer": "drawer", "short": "height", "clever": "brain", "creative": "paint-palette", "friendly": "handshake",
-        "neighbourhood": "neighborhood", "temple": "temple", "cathedral": "cathedral", "suburb": "suburb", "noisy": "noise",
-        "forest": "forest", "mountain": "mountain", "waterfall": "waterfall", "desert": "desert",
-        "wish": "star", "fireworks": "fireworks", "blossom": "blossom", "relative": "family", "envelope": "envelope",
-        "cartoon": "cartoon", "channel": "television", "programme": "television", "reporter": "reporter", "educational": "graduation-cap",
-        "badminton": "badminton", "champion": "trophy", "stadium": "stadium", "fit": "fitness", "marathon": "runner",
-        "continent": "globe", "landmark": "landmark", "historic": "castle", "modern": "city", "peaceful": "dove",
-        "recycle": "recycle", "reuse": "reuse", "reduce": "reduce", "environment": "nature", "plastic": "plastic-bottle",
-        "gardening": "gardening", "stamp": "stamp", "coin": "coin", "health": "heart",
-        "calories": "fire", "diet": "salad", "lifestyle": "sports", "disease": "coughing",
-        "volunteer": "handshake", "donate": "present", "clean-up": "broom", "shelter": "home", "homeless": "sad",
-        "instrument": "guitar", "concert": "music", "artist": "paint-palette", "gallery": "picture",
-        "noodle": "noodles", "soup": "soup", "recipe": "book", "ingredient": "ingredients", "turmeric": "ginger",
-        "scholar": "graduation-cap", "monument": "statue", "stone": "stone", "imperial": "crown",
-        "pedestrian": "running", "passenger": "passenger", "license": "card", "fine": "receipt", "road": "road",
-        "comedy": "laughing", "action": "gun", "director": "director", "review": "checked", "boring": "sad",
-        "energy": "lightning", "solar": "sun", "wind": "wind", "coal": "coal", "source": "faucet",
-        "driverless": "car", "eco-friendly": "leaf", "hyperloop": "train", "flying": "airplane", "crash": "explosion"
+    get wordImageMap() {
+        if (typeof WordImageUtils !== 'undefined' && WordImageUtils.wordImageMap) {
+            return WordImageUtils.wordImageMap;
+        }
+        return (typeof wordImageMap !== 'undefined') ? wordImageMap : {};
     },
 
     getWordImagePath: function(word) {
-        const cleanWord = word.toLowerCase().trim();
-        const iconName = this.wordImageMap[cleanWord] || cleanWord.replace(/\s+/g, "-");
+        if (typeof WordImageUtils !== 'undefined' && typeof WordImageUtils.getWordImagePath === 'function') {
+            return WordImageUtils.getWordImagePath(word);
+        }
+        if (typeof getWordImagePath === 'function') {
+            return getWordImagePath(word);
+        }
+        const cleanWord = String(word || "").toLowerCase().trim();
+        const map = this.wordImageMap || {};
+        const iconName = map[cleanWord] || cleanWord.replace(/\s+/g, "-");
         return `https://img.icons8.com/color/180/${iconName}.png`;
     },
 
@@ -9874,6 +9254,69 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
 
     startSpeechRecognition: function(targetText) {
+        if (typeof SpeechRecognitionService !== 'undefined' && SpeechRecognitionService) {
+            if (!SpeechRecognitionService.isSupported()) {
+                Swal.fire("Lỗi", "Trình duyệt không hỗ trợ Web Speech API. Vui lòng dùng Chrome hoặc Edge!", "error");
+                return;
+            }
+
+            const micBtn = document.getElementById("eng-mic-btn");
+            const statusText = document.getElementById("eng-mic-status");
+            const resultBox = document.getElementById("eng-speaking-result");
+
+            SpeechRecognitionService.start({
+                lang: 'en-US',
+                interimResults: false,
+                maxAlternatives: 1,
+                onStart: () => {
+                    this.isRecording = true;
+                    if (micBtn) micBtn.classList.add("recording");
+                    if (statusText) statusText.innerText = "🎙️ Đang lắng nghe... Hãy nói to rõ ràng!";
+                    this.startWaveVisualizer();
+                },
+                onError: (event) => {
+                    console.error("Speech recognition error:", event && event.error ? event.error : event);
+                    this.isRecording = false;
+                    if (micBtn) micBtn.classList.remove("recording");
+                    if (statusText) statusText.innerText = "Lỗi nhận diện: " + (event && event.error ? event.error : "Không xác định");
+                    this.stopWaveVisualizer();
+                },
+                onEnd: () => {
+                    this.isRecording = false;
+                    if (micBtn) micBtn.classList.remove("recording");
+                    this.stopWaveVisualizer();
+                },
+                onResult: (spokenText) => {
+                    console.log("[Speech Results]", spokenText);
+
+                    const evalResult = SpeechRecognitionService.evaluatePronunciation(targetText, spokenText);
+
+                    if (resultBox) {
+                        resultBox.innerHTML = `
+                            <div style="font-size:0.9rem; margin-bottom:0.5rem; color:#64748b; font-weight:700;">Hệ thống nhận diện được:</div>
+                            <div style="font-size:1.4rem; line-height:1.4; margin-bottom:1rem; padding:0.5rem; background:var(--bg-app); border-radius:8px; border:1px solid var(--border-color);">${evalResult.formattedHtml}</div>
+                        `;
+                    }
+
+                    if (statusText) statusText.innerText = `Độ chính xác: ${evalResult.accuracy}%`;
+
+                    this.currentEnglishStudentAnswer = {
+                        spokenText: evalResult.spokenText,
+                        accuracy: evalResult.accuracy,
+                        correct: evalResult.correct
+                    };
+
+                    const checkBtn = document.getElementById("btn-eng-check-answer");
+                    if (checkBtn) {
+                        checkBtn.removeAttribute("disabled");
+                        checkBtn.style.opacity = "1";
+                    }
+                }
+            });
+            this.recognition = SpeechRecognitionService.getRecognition();
+            return;
+        }
+
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
             Swal.fire("Lỗi", "Trình duyệt không hỗ trợ Web Speech API. Vui lòng dùng Chrome hoặc Edge!", "error");
             return;
@@ -9972,14 +9415,20 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     stopSpeechRecognition: function() {
-        if (this.recognition && this.isRecording) {
+        if (typeof SpeechRecognitionService !== 'undefined' && SpeechRecognitionService) {
+            SpeechRecognitionService.stop();
+        } else if (this.recognition && this.isRecording) {
             this.recognition.stop();
         }
+        this.isRecording = false;
         this.stopWaveVisualizer();
     },
 
     toggleSpeechRecognition: function(targetText) {
-        if (this.isRecording) {
+        const isRec = (typeof SpeechRecognitionService !== 'undefined' && SpeechRecognitionService)
+            ? SpeechRecognitionService.isRecording()
+            : this.isRecording;
+        if (isRec) {
             this.stopSpeechRecognition();
         } else {
             this.startSpeechRecognition(targetText);
@@ -9988,6 +9437,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     // --- Các hàm Sóng âm Visualizer & So khớp mờ ---
     getSimilarityScore: function(s1, s2) {
+        if (typeof SimilarityUtils !== 'undefined' && typeof SimilarityUtils.getSimilarityScore === 'function') {
+            return SimilarityUtils.getSimilarityScore(s1, s2);
+        }
+        if (typeof getSimilarityScore === 'function') {
+            return getSimilarityScore(s1, s2);
+        }
         let longer = s1;
         let shorter = s2;
         if (s1.length < s2.length) {
@@ -10002,6 +9457,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     editDistance: function(s1, s2) {
+        if (typeof SimilarityUtils !== 'undefined' && typeof SimilarityUtils.editDistance === 'function') {
+            return SimilarityUtils.editDistance(s1, s2);
+        }
+        if (typeof editDistance === 'function') {
+            return editDistance(s1, s2);
+        }
         s1 = s1.toLowerCase();
         s2 = s2.toLowerCase();
 
@@ -10151,6 +9612,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     // Chạy đồng bộ Read-Along cho Đọc hiểu
     playReadAlong: function(passageText, containerId) {
+        if (typeof SpeechService !== 'undefined' && SpeechService.playReadAlong) {
+            SpeechService.playReadAlong(passageText, containerId);
+            return;
+        }
+
         const container = document.getElementById(containerId);
         if (!container) return;
         
@@ -10287,7 +9753,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     // Vẽ giao diện câu hỏi Tiếng Anh
     renderEnglishQuestion: function() {
         this.stopSpeechRecognition();
-        if (typeof window.speechSynthesis !== 'undefined') window.speechSynthesis.cancel();
+        if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
+            SpeechService.stopSpeech();
+        } else if (typeof window.speechSynthesis !== 'undefined') {
+            window.speechSynthesis.cancel();
+        }
         this.currentEnglishStudentAnswer = null;
 
         const container = document.getElementById("english-interaction-area");
@@ -10651,7 +10121,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     checkEnglishAnswer: function() {
-        if (typeof window.speechSynthesis !== 'undefined') window.speechSynthesis.cancel();
+        if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
+            SpeechService.stopSpeech();
+        } else if (typeof window.speechSynthesis !== 'undefined') {
+            window.speechSynthesis.cancel();
+        }
         const qIndex = this.currentEnglishQuestionIndex;
         const q = this.currentEnglishQuestions[qIndex];
         const qType = q.questionType || q.type || "choice";
@@ -10662,13 +10136,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
         if (qType === "listening" && (!q.options || q.options.length === 0)) {
             // dictation
-            const inputVal = document.getElementById("eng-dictation-input").value.trim().toLowerCase();
-            const cleanInput = inputVal.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+            const inputVal = (document.getElementById("eng-dictation-input").value || "").trim();
+            const cleanInput = this.normalizeAnswerToken(inputVal);
             
             if (q.correctAnswers && Array.isArray(q.correctAnswers) && q.correctAnswers.length > 0) {
-                isCorrect = q.correctAnswers.map(x => x.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")).includes(cleanInput);
+                isCorrect = q.correctAnswers.map(x => this.normalizeAnswerToken(x)).includes(cleanInput);
             } else {
-                const correctVal = (q.correctAnswer || "").toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+                const correctVal = this.normalizeAnswerToken(q.correctAnswer || "");
                 isCorrect = (cleanInput === correctVal);
             }
             studentAnsStr = inputVal;
@@ -10684,8 +10158,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         else if (qType === "reading_cloze") {
             const clozeContainer = document.getElementById("cloze-passage-display");
             const slots = clozeContainer.querySelectorAll(".cloze-slot");
-            const chosenWords = Array.from(slots).map(s => s.innerText.trim().toLowerCase());
-            const correctWords = q.correctAnswers.map(w => w.trim().toLowerCase());
+            const chosenWords = Array.from(slots).map(s => this.normalizeAnswerToken(s.innerText));
+            const correctWords = (q.correctAnswers || []).map(w => this.normalizeAnswerToken(w));
             
             isCorrect = true;
             for (let i = 0; i < correctWords.length; i++) {
@@ -10695,7 +10169,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 }
             }
             studentAnsStr = chosenWords.join(", ");
-            explanation = `Đoạn văn đúng: <br/><b>${q.correctAnswer || q.correctAnswers.join(" - ")}</b>`;
+            explanation = `Đoạn văn đúng: <br/><b>${q.correctAnswer || (q.correctAnswers ? q.correctAnswers.join(" - ") : "")}</b>`;
         }
         else if (qType === "writing" || qType === "writing_unscramble") {
             const slotsPool = document.getElementById("english-slots-pool");
@@ -10703,48 +10177,49 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             
             if (q.scrambledLetters) {
                 // Sắp xếp chữ cái thành từ (Spelling) - ghép không khoảng trắng
-                const studentWord = chosenWords.join("").toLowerCase().replace(/\s+/g, "").replace(/[\u00a0]/g, "").replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
-                const correctWord = q.correctAnswer.toLowerCase().replace(/\s+/g, "").replace(/[\u00a0]/g, "").replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+                const studentWord = this.normalizeAnswerToken(chosenWords.join("")).replace(/\s+/g, "");
+                const correctWord = this.normalizeAnswerToken(q.correctAnswer || "").replace(/\s+/g, "");
                 isCorrect = (studentWord === correctWord);
                 studentAnsStr = chosenWords.join("");
                 explanation = `Từ đúng: <b>${q.correctAnswer}</b>`;
             } else {
                 // Sắp xếp từ thành câu - ghép có khoảng trắng
-                const studentSentence = chosenWords.join(" ").toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
-                const correctSentence = q.correctAnswer.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+                const studentSentence = this.normalizeAnswerToken(chosenWords.join(" "));
+                const correctSentence = this.normalizeAnswerToken(q.correctAnswer || "");
                 isCorrect = (studentSentence === correctSentence);
                 studentAnsStr = chosenWords.join(" ");
                 explanation = `Câu đúng: <b>${q.correctAnswer}</b>`;
             }
         }
         else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
-            const inputVal = document.getElementById("eng-free-writing-input").value.trim();
+            const inputVal = (document.getElementById("eng-free-writing-input").value || "").trim();
             studentAnsStr = inputVal;
+            const cleanInput = this.normalizeAnswerToken(inputVal);
             
             if (q.correctAnswers && Array.isArray(q.correctAnswers)) {
-                isCorrect = q.correctAnswers.map(x => x.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, ""))
-                                            .includes(inputVal.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, ""));
+                isCorrect = q.correctAnswers.map(x => this.normalizeAnswerToken(x)).includes(cleanInput);
                 explanation = `Các đáp án được chấp nhận: <br/><b>${q.correctAnswers.join(" | ")}</b>`;
             } else {
-                const correctSentence = q.correctAnswer.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
-                const cleanInput = inputVal.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+                const correctSentence = this.normalizeAnswerToken(q.correctAnswer || "");
                 isCorrect = (cleanInput === correctSentence);
                 explanation = `Đáp án đúng: <b>${q.correctAnswer}</b>`;
             }
             
             // Smart Grammar Assistant phân tích lỗi chi tiết cho Viết nếu làm sai
             if (!isCorrect && (qType === "writing_completion" || qType === "writing_rewrite")) {
-                const target = q.correctAnswer || q.correctAnswers[0];
+                const target = q.correctAnswer || (q.correctAnswers && q.correctAnswers[0]) || "";
                 let analysis = "Lỗi chưa xác định.";
+                const normInput = this.normalizeAnswerToken(inputVal);
+                const normTarget = this.normalizeAnswerToken(target);
                 
                 // Thuật toán kiểm tra lỗi sư phạm
-                if (inputVal.toLowerCase().includes(target.toLowerCase())) {
+                if (normInput.includes(normTarget)) {
                     analysis = "Dấu câu hoặc ký tự thừa.";
-                } else if (target.toLowerCase().endsWith("s") && !inputVal.toLowerCase().endsWith("s")) {
+                } else if (normTarget.endsWith("s") && !normInput.endsWith("s")) {
                     analysis = "Chia sai động từ ngôi thứ 3 số ít (Thiếu đuôi s/es) hoặc sai danh từ số nhiều.";
-                } else if (target.toLowerCase().endsWith("ed") && !inputVal.toLowerCase().endsWith("ed")) {
+                } else if (normTarget.endsWith("ed") && !normInput.endsWith("ed")) {
                     analysis = "Chưa chia động từ về thì Quá khứ đơn (Thiếu đuôi ed).";
-                } else if (Math.abs(inputVal.length - target.length) <= 2) {
+                } else if (Math.abs(normInput.length - normTarget.length) <= 2) {
                     analysis = "Viết sai chính tả một vài ký tự của từ.";
                 } else {
                     analysis = "Sai cấu trúc ngữ pháp mẫu câu hoặc dùng sai từ vựng.";
@@ -10755,8 +10230,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
         else {
             // Trắc nghiệm thông thường (so khớp chuỗi thông minh để tương thích cả đề cũ và đề mới)
-            const chosenAnswer = q.options[this.currentEnglishStudentAnswer] || "";
-            const correctText = q.correctAnswer || (typeof q.correctIndex !== 'undefined' && q.options[q.correctIndex] ? q.options[q.correctIndex] : "");
+            const chosenAnswer = (q.options && q.options[this.currentEnglishStudentAnswer]) || "";
+            const correctText = q.correctAnswer || (typeof q.correctIndex !== 'undefined' && q.options && q.options[q.correctIndex] ? q.options[q.correctIndex] : "");
             
             const cleanChosen = this.normalizeAnswerToken(chosenAnswer);
             const cleanCorrect = this.normalizeAnswerToken(correctText);
@@ -13875,21 +13350,14 @@ app.escapeRegex = function(str) {
 };
 
 
-// SpeechSynthesis Voices Listener
-if (typeof window !== 'undefined' && window.speechSynthesis) {
-    window._speechVoices = [];
-    const updateVoices = () => {
-        try { window._speechVoices = window.speechSynthesis.getVoices(); } catch(e){}
-    };
-    updateVoices();
-    window.speechSynthesis.onvoiceschanged = updateVoices;
-}
-
-
 // Stop all active English audio and SpeechSynthesis
 app.stopAllEnglishAudio = function() {
     try {
-        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
+            SpeechService.stopSpeech();
+        } else if (typeof window !== 'undefined' && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+        }
         if (app.currentAudioTrack) {
             app.currentAudioTrack.pause();
             app.currentAudioTrack.currentTime = 0;

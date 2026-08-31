@@ -1,23 +1,23 @@
 ﻿#pragma codepage 65001
 #define MyAppName "Toan Hoc Kiosk"
-#define MyAppVersion "13.56"
-#define MyAppPublisher "Binh Minh"
+#define MyAppVersion "13.87"
+#define MyAppPublisher "SkyProtect Dev"
 #define MyAppURL "https://github.com/skyprotect/Hoctap"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
-AppId={{D3F9E9D2-6A92-488F-A3C9-96860DF06D3F}
+AppId={{D64B5358-1544-4866-9E49-57771239B2A8}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={commonpf}\ToanHocKiosk
+DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
-OutputDir=..
-OutputBaseFilename=ToanHocKiosk_Setup_v13.59
+OutputDir=.
+OutputBaseFilename=ToanHocKiosk_Setup_v13.88
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern

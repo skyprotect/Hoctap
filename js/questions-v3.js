@@ -110,15 +110,33 @@ if (typeof Swal === 'undefined' && typeof window !== 'undefined') {
 }
 
 
+const MathUtils = (typeof window !== 'undefined' && window.MathUtils) 
+    || (typeof globalThis !== 'undefined' && globalThis.MathUtils) 
+    || (typeof require === 'function' ? require('./core/math-utils') : null);
+
+const UrlUtils = (typeof window !== 'undefined' && window.UrlUtils) 
+    || (typeof globalThis !== 'undefined' && globalThis.UrlUtils) 
+    || (typeof require === 'function' ? require('./core/url-utils') : null);
+
+const ArrayUtils = (typeof window !== 'undefined' && window.ArrayUtils) 
+    || (typeof globalThis !== 'undefined' && globalThis.ArrayUtils) 
+    || (typeof require === 'function' ? require('./core/array-utils') : null);
+
 const questions = {
     getApiUrl: function(path) {
+        if (UrlUtils && typeof UrlUtils.getApiUrl === 'function') {
+            return UrlUtils.getApiUrl(path);
+        }
         if (window.app && typeof window.app.getApiUrl === 'function') {
             return window.app.getApiUrl(path);
         }
+        const rawPath = typeof path === 'string' ? path : (path != null ? String(path) : '');
+        const cleanPath = rawPath.startsWith('/') ? rawPath : '/' + rawPath;
         if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
-            return `http://localhost:3000${path.startsWith('/') ? '' : '/'}${path}`;
+            const savedPort = (typeof safeStorage !== 'undefined' && safeStorage && typeof safeStorage.getItem === 'function' ? safeStorage.getItem('server_port') : null) || '3000';
+            return `http://localhost:${savedPort}${cleanPath}`;
         }
-        return path;
+        return cleanPath;
     },
     currentQuestions: [],      // Danh sách câu hỏi của bài tập hiện tại
     currentQuestionIndex: 0,   // Câu hỏi hiện tại
@@ -248,145 +266,96 @@ const questions = {
     isWeaknessPracticeMode: false, // Có phải đang làm luyện tập khắc phục điểm yếu không
     isExiting: false,              // Trạng thái đang thoát trắc nghiệm/game
 
-    // Tìm ƯCLN
-    gcd: function(a, b) {
+    // Toán học thuần túy (Pure Math Utilities) - Ủy quyền sang mô-đun độc lập MathUtils
+    gcd: (MathUtils && MathUtils.gcd) || function(a, b) {
         a = Math.round(Math.abs(Number(a) || 0));
         b = Math.round(Math.abs(Number(b) || 0));
-        while (b) {
-            let t = b;
-            b = a % b;
-            a = t;
-        }
+        while (b) { let t = b; b = a % b; a = t; }
         return a || 1;
     },
-
-    // Tìm BCNN
-    lcm: function(a, b) {
-        return Math.abs(a * b) / this.gcd(a, b);
+    lcm: (MathUtils && MathUtils.lcm) || function(a, b) {
+        return Math.abs(a * b) / (MathUtils ? MathUtils.gcd(a, b) : this.gcd(a, b));
     },
-
-    // Phân tích ra thừa số nguyên tố
-    factorize: function(n) {
+    factorize: (MathUtils && MathUtils.factorize) || function(n) {
         if (n <= 1) return n.toString();
         const factors = [];
         let temp = n;
         for (let i = 2; i <= Math.sqrt(n); i++) {
             let count = 0;
-            while (temp % i === 0) {
-                count++;
-                temp /= i;
-            }
-            if (count > 0) {
-                factors.push(count === 1 ? `${i}` : `${i}^${count}`);
-            }
+            while (temp % i === 0) { count++; temp /= i; }
+            if (count > 0) factors.push(count === 1 ? `${i}` : `${i}^${count}`);
         }
-        if (temp > 1) {
-            factors.push(`${temp}`);
-        }
+        if (temp > 1) factors.push(`${temp}`);
         return factors.join(' \\cdot ');
     },
-
-    // Kiểm tra số nguyên tố
-    isPrime: function(num) {
+    isPrime: (MathUtils && MathUtils.isPrime) || function(num) {
         if (num <= 1) return false;
         for (let i = 2; i * i <= num; i++) {
             if (num % i === 0) return false;
         }
         return true;
     },
-
-    // Lấy danh sách các ước nguyên tố phân biệt
-    getUniquePrimeFactors: function(n) {
+    getUniquePrimeFactors: (MathUtils && MathUtils.getUniquePrimeFactors) || function(n) {
         const factors = new Set();
         let temp = n;
         for (let i = 2; i <= temp; i++) {
-            if (this.isPrime(i) && temp % i === 0) {
+            if ((MathUtils ? MathUtils.isPrime(i) : this.isPrime(i)) && temp % i === 0) {
                 factors.add(i);
-                while (temp % i === 0) {
-                    temp /= i;
-                }
+                while (temp % i === 0) temp /= i;
             }
         }
         return Array.from(factors);
     },
-
-    // Tìm các cặp ước nguyên tố
-    findPrimeFactorPairs: function(n) {
+    findPrimeFactorPairs: (MathUtils && MathUtils.findPrimeFactorPairs) || function(n) {
+        const isP = (x) => (MathUtils ? MathUtils.isPrime(x) : this.isPrime(x));
         const pairs = new Set();
         for (let p1 = 2; p1 * p1 <= n; p1++) {
-            if (this.isPrime(p1) && n % p1 === 0) {
+            if (isP(p1) && n % p1 === 0) {
                 let p2 = n / p1;
-                if (this.isPrime(p2)) {
-                    if (p1 <= p2) {
-                        pairs.add(`${p1},${p2}`);
-                    } else {
-                        pairs.add(`${p2},${p1}`);
-                    }
+                if (isP(p2)) {
+                    if (p1 <= p2) pairs.add(`${p1},${p2}`);
+                    else pairs.add(`${p2},${p1}`);
                 }
             }
         }
-        if (this.isPrime(n)) {
-            pairs.add(`${n},1`);
-        }
+        if (isP(n)) pairs.add(`${n},1`);
         return Array.from(pairs);
     },
-
-    // Bội chung nhỏ nhất của 3 số
-    lcm3: function(a, b, c) {
-        return this.lcm(this.lcm(a, b), c);
+    lcm3: (MathUtils && MathUtils.lcm3) || function(a, b, c) {
+        return MathUtils ? MathUtils.lcm3(a, b, c) : this.lcm(this.lcm(a, b), c);
     },
-
-    // Tổng các chữ số của một số
-    sumDigits: function(n) {
+    sumDigits: (MathUtils && MathUtils.sumDigits) || function(n) {
         let sum = 0;
         let temp = Math.abs(n);
-        while (temp) {
-            sum += temp % 10;
-            temp = Math.floor(temp / 10);
-        }
+        while (temp) { sum += temp % 10; temp = Math.floor(temp / 10); }
         return sum;
     },
-
-    // Rút gọn phân số
-    simplify: function(num, den) {
-        const g = this.gcd(num, den);
+    simplify: (MathUtils && MathUtils.simplify) || function(num, den) {
+        const g = (MathUtils ? MathUtils.gcd(num, den) : this.gcd(num, den));
         let sNum = num / g;
         let sDen = den / g;
-        if (sDen < 0) {
-            sNum = -sNum;
-            sDen = -sDen;
-        }
+        if (sDen < 0) { sNum = -sNum; sDen = -sDen; }
         return { num: sNum, den: sDen };
     },
-
-    // Hàm helper chống va chạm đáp án nhiễu trực tiếp
-    SHIFT_IF_COLLIDE: function(val, ans, w1, w2) {
+    SHIFT_IF_COLLIDE: (MathUtils && MathUtils.SHIFT_IF_COLLIDE) || function(val, ans, w1, w2) {
         if (val === undefined || val === null) return val;
         let isString = typeof val === 'string';
         let parsedVal = isString ? Number(val) : val;
-        if (typeof parsedVal !== 'number' || isNaN(parsedVal)) {
-            return val;
-        }
-        const toNum = (x) => {
-            if (typeof x === 'string') return Number(x);
-            return x;
-        };
+        if (typeof parsedVal !== 'number' || isNaN(parsedVal)) return val;
+        const toNum = (x) => (typeof x === 'string' ? Number(x) : x);
         const numAns = ans !== undefined ? toNum(ans) : undefined;
         const numW1 = w1 !== undefined ? toNum(w1) : undefined;
         const numW2 = w2 !== undefined ? toNum(w2) : undefined;
-
         const used = new Set();
         if (numAns !== undefined && !isNaN(numAns)) used.add(numAns);
         if (numW1 !== undefined && !isNaN(numW1)) used.add(numW1);
         if (numW2 !== undefined && !isNaN(numW2)) used.add(numW2);
-
         const diffs = [1, -1, 2, -2, 3, -3, 5, -5, 10, -10];
         let diffIdx = 0;
         let finalVal = parsedVal;
         while (used.has(finalVal) && diffIdx < diffs.length) {
             finalVal = parsedVal + diffs[diffIdx++];
         }
-
         if (isString) {
             if (val.includes('.')) {
                 const decimalPlaces = val.split('.')[1].length;
@@ -398,7 +367,7 @@ const questions = {
     },
 
     // Sinh số ngẫu nhiên trong khoảng [min, max] trừ số 0
-    randomInt: function(min, max, excludeZero = false) {
+    randomInt: (ArrayUtils && ArrayUtils.randomInt) || function(min, max, excludeZero = false) {
         let val = Math.floor(Math.random() * (max - min + 1)) + min;
         if (excludeZero && val === 0) {
             return this.randomInt(min, max, excludeZero);
@@ -407,7 +376,7 @@ const questions = {
     },
 
     // Tráo đổi ngẫu nhiên mảng
-    shuffle: function(array) {
+    shuffle: (ArrayUtils && ArrayUtils.shuffle) || function(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
@@ -416,6 +385,9 @@ const questions = {
 
     // Các hàm bổ trợ phân tích số học dùng cho template đề thi AI
     getPrimeFactors: function(n) {
+        if (typeof MathUtils !== 'undefined' && MathUtils.getPrimeFactors) {
+            return MathUtils.getPrimeFactors(n);
+        }
         if (n <= 1) return [n.toString()];
         const factors = [];
         let temp = n;
@@ -436,6 +408,9 @@ const questions = {
     },
 
     getCommonPrimeFactors: function(a, b) {
+        if (typeof MathUtils !== 'undefined' && MathUtils.getCommonPrimeFactors) {
+            return MathUtils.getCommonPrimeFactors(a, b);
+        }
         const fA = {};
         let temp = a;
         for (let i = 2; i <= temp; i++) {
@@ -467,6 +442,9 @@ const questions = {
     },
 
     getCommonPrimeFactors3: function(a, b, c) {
+        if (typeof MathUtils !== 'undefined' && MathUtils.getCommonPrimeFactors3) {
+            return MathUtils.getCommonPrimeFactors3(a, b, c);
+        }
         const fA = {};
         let temp = a;
         for (let i = 2; i <= temp; i++) {
@@ -508,6 +486,9 @@ const questions = {
     },
 
     getDivisors: function(n) {
+        if (typeof MathUtils !== 'undefined' && MathUtils.getDivisors) {
+            return MathUtils.getDivisors(n);
+        }
         const divs = [];
         for (let i = 1; i <= n; i++) {
             if (n % i === 0) {

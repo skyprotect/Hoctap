@@ -48,9 +48,30 @@
     
     <!-- Mermaid.js & Marked.js -->
     <script src="js/lib/mermaid.min.js"></script>
-    <script src="js/lib/marked.min.js"></script>
     <!-- Parent Portal Stylesheet (Đã tách module độc lập) -->
-    <link rel="stylesheet" href="css/parent.css?v=13.57">
+    <link rel="stylesheet" href="css/parent.css?v=13.87">
+    
+    <!-- Core Infrastructure Utilities -->
+    <script src="js/core/safe-storage.js?v=13.87"></script>
+    <script src="js/core/vietnamese-utils.js?v=13.87"></script>
+    <script src="js/core/sanitize-html.js?v=13.87"></script>
+    <script src="js/core/url-utils.js?v=13.87"></script>
+    <script src="js/core/string-utils.js?v=13.87"></script>
+    <script src="js/core/array-utils.js?v=13.87"></script>
+    <script src="js/core/skill-cards-data.js?v=13.87"></script>
+    <script src="js/core/system-badges.js?v=13.87"></script>
+    <script src="js/core/badge-rules-evaluator.js?v=13.87"></script>
+    <script src="js/core/time-utils.js?v=13.87"></script>
+    <script src="js/core/word-image-utils.js?v=13.87"></script>
+    <script src="js/core/confetti-helper.js?v=13.87"></script>
+    <script src="js/core/audio-service.js?v=13.87"></script>
+    <script src="js/core/speech-service.js?v=13.87"></script>
+    <script src="js/core/speech-recognition-service.js?v=13.87"></script>
+    <script src="js/core/theme-service.js?v=13.87"></script>
+    <script src="js/core/splash-quotes.js?v=13.87"></script>
+    <script src="js/core/english-grammar-data.js?v=13.87"></script>
+    <script src="js/core/english-skill-evaluator.js?v=13.87"></script>
+    <script src="js/core/english-course-data.js?v=13.87"></script>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col">
     <!-- Quả cầu màu sắc chuyển động mờ ảo phía sau -->
@@ -599,51 +620,20 @@
     </div>
 
     <script>
-        function sanitizeHtml(html) {
-            if (typeof html !== 'string') return html;
-            return html
-                .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '')
-                .replace(/\son[a-z]+\s*=\s*(['"][^'"]*['"]|[^\s>]+)/gi, '')
-                .replace(/href\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, '');
-        }
-        window.sanitizeHtml = sanitizeHtml;
 
-        function getApiUrl(path) {
-            if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
-                return `http://localhost:3000${path.startsWith('/') ? '' : '/'}${path}`;
-            }
-            return path;
+        if (typeof window.getApiUrl !== 'function' && typeof UrlUtils !== 'undefined') {
+            window.getApiUrl = UrlUtils.getApiUrl;
         }
-        window.getApiUrl = getApiUrl;
 
         window.app = {
             config: {},
             state: {},
             isDarkMode: true,
-            systemBadges: [
-                { id: "nhap-mon", name: "Nhập Môn Toán 6", desc: "Hoàn thành bài học đầu tiên đạt từ 80%", icon: "🚀" },
-                { id: "khoi-dau-vung-vang", name: "Khởi Đầu Vững Vàng", desc: "Đạt điểm tối đa (100%) một bài học bất kỳ", icon: "🌟" },
-                { id: "streak-3", name: "Bền Bỉ 3 Ngày", desc: "Đạt chuỗi học tập liên tục 3 ngày", icon: "🔥" },
-                { id: "streak-7", name: "Siêu Sao Chuyên Cần", desc: "Đạt chuỗi học tập liên tục 7 ngày", icon: "⚡" },
-                { id: "streak-15", name: "Kỷ Lục Gia Học Tập", desc: "Đạt chuỗi học tập liên tục 15 ngày", icon: "👑" },
-                
-                { id: "bac-thay-so-tu-nhien", name: "Bậc Thầy Số Tự Nhiên", desc: "Vượt qua bài kiểm tra cuối Chương I (>= 80%)", icon: "🔢" },
-                { id: "chien-binh-chia-het", name: "Chiến Binh Chia Hết", desc: "Vượt qua bài kiểm tra cuối Chương II (>= 80%)", icon: "🛡️" },
-                { id: "ky-si-so-nguyen", name: "Kỵ Sĩ Số Nguyên", desc: "Vượt qua bài kiểm tra cuối Chương III (>= 80%)", icon: "❄️" },
-                { id: "phu-thuy-hinh-hoc", name: "Phù Thủy Hình Học", desc: "Vượt qua bài kiểm tra cuối Chương IV (>= 80%)", icon: "📐" },
-                { id: "bac-thay-doi-xung", name: "Bậc Thầy Đối Xứng", desc: "Vượt qua bài kiểm tra cuối Chương V (>= 80%)", icon: "🌀" },
-                
-                { id: "bac-thay-phan-so", name: "Bậc Thầy Phân Số", desc: "Vượt qua bài kiểm tra cuối Chương VI (>= 80%)", icon: "🍰" },
-                { id: "chien-binh-thap-phan", name: "Chiến Binh Thập Phân", desc: "Vượt qua bài kiểm tra cuối Chương VII (>= 80%)", icon: "🎯" },
-                { id: "phu-thuy-hinh-co-ban", name: "Phù Thủy Hình Học Cơ Bản", desc: "Vượt qua bài kiểm tra cuối Chương VIII (>= 80%)", icon: "📐" },
-                { id: "bac-thay-xac-suat", name: "Bậc Thầy Xác Suất", desc: "Vượt qua bài kiểm tra cuối Chương IX (>= 80%)", icon: "🎲" },
-                
-                { id: "tia-chop", name: "Thần Tốc", desc: "Đạt điểm 100% bài luyện tập dưới 45 giây", icon: "⚡" },
-                { id: "kien-tri", name: "Kiên Trì Bứt Phá", desc: "Cải thiện bài tập đạt dưới 70% lên giỏi (>= 80%)", icon: "🌱" },
-                { id: "ky-luat-thep", name: "Kỷ Luật Thép", desc: "Hoàn thành bài kiểm tra chương mà không rời tab lần nào", icon: "🎯" },
-                { id: "sieu-tri-tue", name: "Siêu Trí Tuệ", desc: "Tích lũy đạt mốc 200 XP", icon: "🧠" },
-                { id: "huyen-thoai-toan-hoc", name: "Huyền Thoại Toán Học", desc: "Tích lũy đạt mốc 500 XP", icon: "🏆" }
-            ],
+            systemBadges: (typeof SystemBadgesData !== 'undefined' && SystemBadgesData.SYSTEM_BADGES)
+                ? SystemBadgesData.SYSTEM_BADGES
+                : (typeof window !== 'undefined' && window.SYSTEM_BADGES)
+                    ? window.SYSTEM_BADGES
+                    : [],
             getCompletedLessons: function() {
                 if (!this.state || !this.state.completedSubtopics) return [];
                 return Array.from(new Set(this.state.completedSubtopics));
@@ -656,6 +646,9 @@
                 return lesson ? this.extractYoutubeId(lesson.youtubeId) : "";
             },
             extractYoutubeId: function(input) {
+                if (typeof UrlUtils !== 'undefined' && UrlUtils.extractYoutubeId) {
+                    return UrlUtils.extractYoutubeId(input);
+                }
                 if (!input) return "";
                 input = input.trim();
                 const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -1043,9 +1036,7 @@
     </script>
 
     <!-- Scripts nạp động -->
-    <script src="js/core/safe-storage.js?v=13.57"></script>
-    <script src="js/core/vietnamese-utils.js?v=13.57"></script>
-    <script src="js/lessons.js?v=13.57"></script>
-    <script src="js/parent.js?v=13.57"></script>
+    <script src="js/lessons.js?v=13.87"></script>
+    <script src="js/parent.js?v=13.87"></script>
 </body>
 </html>

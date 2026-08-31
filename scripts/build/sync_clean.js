@@ -38,6 +38,7 @@ const filesToSync = [
 ];
 
 const dirsToSync = [
+  'js/core',
   'js/lib',
   'css',
   'images',

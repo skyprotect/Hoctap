@@ -1,9 +1,19 @@
 // Helper lấy URL API tương ứng (tương thích chạy từ file:// và http://)
+const UrlUtils = (typeof window !== 'undefined' && window.UrlUtils) 
+    || (typeof globalThis !== 'undefined' && globalThis.UrlUtils) 
+    || (typeof require === 'function' ? require('./core/url-utils') : null);
+
 function getApiUrl(path) {
-    if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
-        return `http://localhost:3000${path.startsWith('/') ? '' : '/'}${path}`;
+    if (UrlUtils && typeof UrlUtils.getApiUrl === 'function') {
+        return UrlUtils.getApiUrl(path);
     }
-    return path;
+    const rawPath = typeof path === 'string' ? path : (path != null ? String(path) : '');
+    const cleanPath = rawPath.startsWith('/') ? rawPath : '/' + rawPath;
+    if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
+        const savedPort = (typeof safeStorage !== 'undefined' && safeStorage && typeof safeStorage.getItem === 'function' ? safeStorage.getItem('server_port') : null) || '3000';
+        return `http://localhost:${savedPort}${cleanPath}`;
+    }
+    return cleanPath;
 }
 
 // Quản lý Bảng điều khiển Phụ huynh
@@ -1457,6 +1467,9 @@ const parentDashboard = {
 
     // Tự động khởi tạo theme sáng/tối cho phụ huynh
     initTheme: function() {
+        if (typeof ThemeService !== 'undefined' && ThemeService) {
+            return ThemeService.initParentTheme();
+        }
         const savedTheme = localStorage.getItem('parent_theme') || 'dark';
         if (savedTheme === 'light') {
             document.body.classList.add('light-mode');
@@ -1483,6 +1496,9 @@ const parentDashboard = {
 
     // Chuyển đổi theme sáng/tối
     toggleTheme: function() {
+        if (typeof ThemeService !== 'undefined' && ThemeService) {
+            return ThemeService.toggleParentTheme();
+        }
         if (document.body.classList.contains('light-mode')) {
             document.body.classList.remove('light-mode');
             localStorage.setItem('parent_theme', 'dark');
@@ -2077,6 +2093,15 @@ const parentDashboard = {
 
     playAudioSpeech: function(text) {
         if (!text) return;
+        if (typeof SpeechService !== 'undefined' && SpeechService.speakEnglish) {
+            SpeechService.speakEnglish(text, false, {
+                onUnsupported: () => {
+                    Swal.fire({ icon: 'info', title: 'Thông báo', text: 'Trình duyệt của bạn không hỗ trợ phát âm thanh Web Speech.' });
+                }
+            });
+            return;
+        }
+
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
@@ -2473,8 +2498,15 @@ const parentDashboard = {
                     } else {
                         let correctIdx = q.correctIndex;
                         if ((correctIdx === undefined || correctIdx === null || correctIdx < 0) && q.options && q.options.length > 0 && q.correctAnswer) {
-                            const normAns = typeof app !== 'undefined' && app.normalizeAnswerToken ? app.normalizeAnswerToken(q.correctAnswer) : q.correctAnswer;
-                            const foundIdx = q.options.findIndex(opt => (typeof app !== 'undefined' && app.normalizeAnswerToken ? app.normalizeAnswerToken(opt) : opt) === normAns);
+                            const normAns = (typeof StringUtils !== 'undefined' && typeof StringUtils.normalizeAnswerToken === 'function')
+                                ? StringUtils.normalizeAnswerToken(q.correctAnswer)
+                                : (typeof normalizeAnswerToken === 'function' ? normalizeAnswerToken(q.correctAnswer) : (typeof app !== 'undefined' && app.normalizeAnswerToken ? app.normalizeAnswerToken(q.correctAnswer) : q.correctAnswer));
+                            const foundIdx = q.options.findIndex(opt => {
+                                const normOpt = (typeof StringUtils !== 'undefined' && typeof StringUtils.normalizeAnswerToken === 'function')
+                                    ? StringUtils.normalizeAnswerToken(opt)
+                                    : (typeof normalizeAnswerToken === 'function' ? normalizeAnswerToken(opt) : (typeof app !== 'undefined' && app.normalizeAnswerToken ? app.normalizeAnswerToken(opt) : opt));
+                                return normOpt === normAns;
+                            });
                             if (foundIdx !== -1) correctIdx = foundIdx;
                         }
                         const correctLetter = q.options && q.options.length > 0 ? ["A", "B", "C", "D"][correctIdx !== undefined && correctIdx >= 0 ? correctIdx : 0] : (q.correctAnswer || "OK");
