@@ -4203,7 +4203,22 @@ const app = {
                         if (data && data.state) {
                             this.state = { ...this.state, ...data.state };
                         }
+                        if (data && typeof data.revision === 'number') {
+                            this.baseRevision = data.revision;
+                        }
                         console.log("[Sync] Đồng bộ tiến trình offline lên SQLite thành công.");
+                    } else if (res.status === 409) {
+                        // Stale offline blob bị từ chối OCC -> KHÔNG replay lại.
+                        // Xóa stale data ngay để ngăn vòng lặp vô hạn, sau đó reconcile.
+                        const conflictData = await res.json().catch(() => ({}));
+                        this.conflictRevision = typeof conflictData.currentRevision === 'number' ? conflictData.currentRevision : undefined;
+                        this.conflictBaseRevision = typeof this.baseRevision === 'number' ? this.baseRevision : undefined;
+                        this.hasConflict = true;
+                        this.hasPendingSave = false;
+                        safeStorage.removeItem(localKey + "_offline_dirty");
+                        safeStorage.removeItem(localKey + "_offline_data");
+                        console.warn(`[Sync] Offline blob bị từ chối (409). Server revision: ${this.conflictRevision}. Đang thực hiện reconciliation...`);
+                        await this.attemptConflictReconciliation();
                     } else {
                         console.warn("[Sync] Server trả về lỗi khi đồng bộ offline:", res.status);
                     }
@@ -4211,6 +4226,146 @@ const app = {
                     console.error("[Sync] Lỗi trong quá trình đồng bộ offline:", e);
                 }
             }
+        }
+    },
+
+    // -------------------------------------------------------------------------
+    // OCC CONFLICT RECONCILIATION (v13.98)
+    // Thực hiện hợp nhất client + server sau khi nhận 409.
+    // Chỉ được gọi sau khi đã có server state và serverRevision hợp lệ.
+    // -------------------------------------------------------------------------
+
+    reconcileOccConflict: function(serverState, serverRevision) {
+        if (!serverState || typeof serverRevision !== 'number') {
+            console.warn('[OCC Reconcile] Thiếu serverState hoặc serverRevision hợp lệ. Giữ nguyên conflict.');
+            return false;
+        }
+
+        // 1. Snapshot local state thành plain object (thoát khỏi proxy getters)
+        let localStateSnapshot;
+        try {
+            localStateSnapshot = JSON.parse(JSON.stringify(this.state));
+        } catch (e) {
+            console.error('[OCC Reconcile] Không thể serialize local state:', e);
+            return false;
+        }
+
+        // 2. Gọi mergeStudentState đã tồn tại — đã được validate qua Firestore sync
+        // Cùng ngữ nghĩa: localState = thay đổi cục bộ, cloudState = trạng thái server
+        let merged;
+        try {
+            merged = this.mergeStudentState(localStateSnapshot, serverState);
+        } catch (e) {
+            console.error('[OCC Reconcile] Lỗi trong mergeStudentState:', e);
+            return false;
+        }
+
+        // 3. Override các field KHÔNG safe về giá trị server (bảng phân loại v13.98).
+        //    XP: shared currency proxy — sai số rất cao, không dùng timestamp-winner.
+        //    streak: phụ thuộc ngày hôm nay, Math.max có thể inflate sai.
+        //    Các field economic/counter/config: không có domain rule chứng minh an toàn.
+        const SERVER_WINS_FIELDS = [
+            '_sharedXp', 'xp', 'englishXp', 'xpMerged',
+            'streak', 'lastActiveDate',
+            'parentPin', 'customVideos',
+            'history', 'examSessions',
+            'distractions', 'slainMonstersCount',
+            'gold', 'gems'
+        ];
+        for (const field of SERVER_WINS_FIELDS) {
+            if (Object.prototype.hasOwnProperty.call(serverState, field)) {
+                merged[field] = serverState[field];
+            } else {
+                delete merged[field];
+            }
+        }
+
+        // 4. Cập nhật revision — đây là bước cốt lõi: baseRevision = server revision
+        //    Lần save tiếp theo sẽ dùng revision này và chỉ thành công nếu server chưa bị ghi đè tiếp.
+        this.baseRevision = serverRevision;
+
+        // 5. Áp dụng merged state và tái thiết lập proxies
+        this.state = merged;
+        this.setupSubjectStateProxies();
+
+        // 6. Xóa conflict flags — chỉ xóa sau khi save thành công (xem saveProgress),
+        //    nhưng cũng xóa ngay ở đây vì reconcileOccConflict chỉ được gọi khi đủ thông tin.
+        //    saveProgress 200 sẽ confirm lần cuối.
+        this.hasConflict = false;
+        this.conflictRevision = undefined;
+        this.conflictBaseRevision = undefined;
+
+        console.log(`[OCC Reconcile] Đã hợp nhất thành công với server revision ${serverRevision}.`);
+        return true;
+    },
+
+    // -------------------------------------------------------------------------
+    // Entry point: gọi khi phát hiện conflict 409.
+    // Fetch server state hiện tại → reconcile → save với revision mới.
+    // Mọi failure path đều giữ conflict rõ ràng, KHÔNG tạo vòng lặp retry.
+    // -------------------------------------------------------------------------
+
+    attemptConflictReconciliation: async function() {
+        if (!this.hasConflict) return; // Không có conflict thực sự
+        if (this._isReconciling) return; // Bảo vệ đồng thời
+        this._isReconciling = true;
+
+        const classLevel = this.config.currentClass || '6';
+        const studentId = this.config.defaultStudentId || '';
+
+        try {
+            // Bước 1: Lấy server state hiện tại
+            let serverRes;
+            try {
+                serverRes = await fetch(
+                    this.getApiUrl(`/api/load-progress?classLevel=${encodeURIComponent(classLevel)}&studentId=${encodeURIComponent(studentId)}`)
+                );
+            } catch (netErr) {
+                // Network failure: giữ conflict, KHÔNG retry
+                console.warn('[OCC Reconcile] Lỗi mạng khi lấy server state. Giữ nguyên conflict.', netErr.message);
+                return;
+            }
+
+            if (!serverRes.ok) {
+                console.warn(`[OCC Reconcile] Server trả về ${serverRes.status} khi lấy state. Giữ nguyên conflict.`);
+                return;
+            }
+
+            // Bước 2: Parse server response
+            let serverData;
+            try {
+                serverData = await serverRes.json();
+            } catch (parseErr) {
+                console.warn('[OCC Reconcile] Server response không hợp lệ (JSON). Giữ nguyên conflict.');
+                return;
+            }
+
+            // Bước 3: Kiểm tra revision hợp lệ — thiếu revision = không thể reconcile an toàn
+            const serverRevision = (typeof serverData._revision === 'number') ? serverData._revision
+                                 : (typeof serverData.revision  === 'number') ? serverData.revision
+                                 : null;
+            if (serverRevision === null) {
+                console.warn('[OCC Reconcile] Server response thiếu revision. Giữ nguyên conflict.');
+                return;
+            }
+
+            // Bước 4: Reconcile (merge + override unsafe fields)
+            const reconcileOk = this.reconcileOccConflict(serverData, serverRevision);
+            if (!reconcileOk) {
+                console.warn('[OCC Reconcile] reconcileOccConflict thất bại. Giữ nguyên conflict.');
+                this.hasConflict = true; // Đảm bảo conflict vẫn được đặt
+                return;
+            }
+
+            // Bước 5: Lưu merged state với revision mới — saveProgress tự xử lý failure paths
+            console.log(`[OCC Reconcile] Đang lưu merged state với baseRevision=${this.baseRevision}...`);
+            await this.saveProgress();
+
+        } catch (e) {
+            // Lỗi không mong muốn: giữ nguyên conflict, KHÔNG retry
+            console.error('[OCC Reconcile] Lỗi không mong muốn:', e);
+        } finally {
+            this._isReconciling = false;
         }
     },
 

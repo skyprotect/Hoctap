@@ -1,9 +1,9 @@
 {
-  "version": "13.99",
-  "lastUpdated": "31/08/2026 20:49",
-  "build": 1397,
-  "releaseNotes": "CLIENT OCC CONFLICT MICRO-FIX (v13.98): Xu ly an toan HTTP 409 phia client, ngan chan vong lap retry vo han, luu trang thai xung dot ro rang.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.99/ToanHocKiosk_Setup_v13.99.exe",
-  "changelog": "- Xu ly HTTP 409 (OCC Conflict) an toan o phia client: dat hasConflict=true, ghi conflictRevision va conflictBaseRevision.\n- Ngan chan vong lap retry vo han: 409 huy hasPendingSave truoc khi finally chay.\n- finally block chi retry khi hasPendingSave=true VA khong co xung dot (hasConflict=false).\n- 200 success xoa co xung dot (hasConflict=false, conflictRevision=undefined, conflictBaseRevision=undefined).\n- 409 phan biet ro khoi loi mang: khong trigger offline fallback.\n- Bo sung 12 test moi trong tests/client_occ_conflict.test.js bao phu toan bo ranh gioi 409.",
-  "releaseDate": "2026-08-31T20:49:00+07:00"
+  "version": "13.100",
+  "lastUpdated": "31/08/2026 21:00",
+  "build": 1398,
+  "releaseNotes": "OCC CONFLICT RECONCILIATION (v13.99): Tu dong hoa phat hien, hoa giai xung dot OCC 409 phia client. Bao ve toan ven du lieu server, chi tu dong merge cac field chung minh an toan.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.100/ToanHocKiosk_Setup_v13.100.exe",
+  "changelog": "- reconcileOccConflict(): hoa giai xung dot dung mergeStudentState() hien co (da validate qua Firestore sync). Override XP, streak, history ve server value.\n- attemptConflictReconciliation(): fetch server state -> reconcile -> save voi revision moi. Moi failure path giu conflict ro rang.\n- syncOfflineProgress(): sua 409 path - khong replay stale blob, goi reconciliation thay the.\n- Bo sung 10 test moi trong tests/client_occ_reconciliation.test.js.",
+  "releaseDate": "2026-08-31T21:00:00+07:00"
 }
