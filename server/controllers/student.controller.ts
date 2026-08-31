@@ -34,13 +34,34 @@ export async function loadProgress(req: Request, res: Response): Promise<any> {
 }
 
 export async function saveProgress(req: Request, res: Response): Promise<any> {
-    const { classLevel, studentId, state, studentName } = req.body;
+    const { classLevel, studentId, state, studentName, baseRevision: bodyBaseRevision } = req.body;
     if ((!classLevel && !studentId) || !state) {
         return res.status(400).json({ error: "Thiếu classLevel/studentId hoặc state" });
     }
+
+    // Trích xuất baseRevision ưu tiên từ body.baseRevision hoặc fallback từ state._revision
+    let baseRevision: number | null | undefined = undefined;
+    if (typeof bodyBaseRevision === 'number') {
+        baseRevision = bodyBaseRevision;
+    } else if (state && typeof state._revision === 'number') {
+        baseRevision = state._revision;
+    }
+
     try {
-        const result = await studentService.saveProgress({ classLevel, studentId, studentName, state });
-        res.json({ success: true, message: "Đã lưu tiến độ thành công!", state: result.state });
+        const result = await studentService.saveProgress({ classLevel, studentId, studentName, baseRevision, state });
+        if (result.conflict) {
+            return res.status(409).json({
+                error: "Conflict: Stale revision",
+                conflict: true,
+                currentRevision: result.currentRevision
+            });
+        }
+        res.json({
+            success: true,
+            message: "Đã lưu tiến độ thành công!",
+            state: result.state,
+            revision: result.revision
+        });
     } catch (e: any) {
         console.error("Lỗi save progress vào DB:", e);
         res.status(500).json({ error: e.message });

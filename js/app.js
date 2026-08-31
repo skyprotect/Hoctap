@@ -4247,6 +4247,9 @@ const app = {
             let serverData = null;
             if (res && res.ok) {
                 serverData = await res.json();
+                if (serverData) {
+                    this.baseRevision = typeof serverData._revision === 'number' ? serverData._revision : (typeof serverData.revision === 'number' ? serverData.revision : 1);
+                }
             }
 
             // Tự động kiểm tra và di chuyển dữ liệu cũ từ LocalStorage nếu có
@@ -4433,13 +4436,23 @@ const app = {
         }
 
         try {
+            const payload = {
+                classLevel,
+                studentId,
+                studentName: this.config.studentName,
+                baseRevision: typeof this.baseRevision === 'number' ? this.baseRevision : 1,
+                state: this.state
+            };
             const res = await fetch(this.getApiUrl('/api/save-progress'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ classLevel, studentId, studentName: this.config.studentName, state: this.state })
+                body: JSON.stringify(payload)
             });
             if (res.ok) {
                 const data = await res.json();
+                if (data && typeof data.revision === 'number') {
+                    this.baseRevision = data.revision;
+                }
                 
                 // Đồng bộ thành công -> Xóa cờ dirty offline
                 safeStorage.removeItem(localKey + "_offline_dirty");
@@ -4491,8 +4504,24 @@ const app = {
                         }
                     }
                 }
+                // Lưu thành công thật sự -> xóa cờ xung đột nếu có
+                this.hasConflict = false;
+                this.conflictRevision = undefined;
+                this.conflictBaseRevision = undefined;
+            } else if (res.status === 409) {
+                // Xung đột phiên bản (OCC Conflict) -> Tuyệt đối không ghi đè dữ liệu cục bộ
+                const conflictData = await res.json().catch(() => ({}));
+                // Ghi lại revision của server tại thời điểm xung đột để hỗ trợ đối chiếu sau này
+                this.conflictRevision = typeof conflictData.currentRevision === 'number' ? conflictData.currentRevision : undefined;
+                // Ghi lại revision mà client đã gửi đi và bị từ chối
+                this.conflictBaseRevision = typeof this.baseRevision === 'number' ? this.baseRevision : undefined;
+                this.hasConflict = true;
+                // Hủy bỏ lượt lưu đang chờ: 409 là xung đột rõ ràng, không phải lỗi mạng tạm thời.
+                // Phải chờ bước đối chiếu thủ công hoặc refresh revision trước khi lưu lại.
+                this.hasPendingSave = false;
+                console.warn(`⚠️ [OCC Conflict] Phiên bản tiến trình bị xung đột trên server (Server: ${this.conflictRevision}, Client: ${this.conflictBaseRevision}). Không ghi đè dữ liệu cục bộ.`);
             } else {
-                // Server trả về lỗi (ví dụ 500 SQLITE_BUSY) -> Lưu offline dirty
+                // Server trả về lỗi khác (ví dụ 500 SQLITE_BUSY) -> Lưu offline dirty
                 console.warn("[Offline Sync] Server không thể lưu dữ liệu, lưu offline để đồng bộ sau.");
                 safeStorage.setItem(localKey + "_offline_dirty", "true");
                 safeStorage.setItem(localKey + "_offline_data", JSON.stringify(this.state));
@@ -4503,7 +4532,10 @@ const app = {
             safeStorage.setItem(localKey + "_offline_data", JSON.stringify(this.state));
         } finally {
             this.isSavingProgress = false;
-            if (this.hasPendingSave) {
+            // Chỉ kích hoạt lưu lại nếu có yêu cầu đang chờ VÀ không có xung đột chưa được giải quyết.
+            // Nếu có xung đột (409), hasPendingSave đã được đặt về false ở trên,
+            // nên điều kiện này không thể trigger vòng lặp vô hạn với payload cũ.
+            if (this.hasPendingSave && !this.hasConflict) {
                 this.saveProgress();
             }
         }

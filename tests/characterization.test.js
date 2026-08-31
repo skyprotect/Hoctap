@@ -391,28 +391,25 @@ describe("Characterization Test Suite (P0 Safety Baseline)", () => {
             // 4. Client B thay đổi Gold từ 500 xuống 300 (nhưng state của B vẫn giữ xp: 100 cũ)
             stateFromB.gold = 300;
 
-            // 5. Client A lưu trước
-            await request(app).post('/api/save-progress').send({ studentId, classLevel: "6", state: stateFromA });
+            // 5. Client A lưu trước (thành công -> revision 2)
+            const resA = await request(app).post('/api/save-progress').send({ studentId, classLevel: "6", state: stateFromA });
+            expect(resA.status).toBe(200);
 
-            // 6. Client B lưu sau (ghi đè toàn bộ blob state_json)
-            await request(app).post('/api/save-progress').send({ studentId, classLevel: "6", state: stateFromB });
+            // 6. Client B lưu sau với state cũ chứa revision 1 -> Bị OCC boundary reject với 409 Conflict
+            const resB = await request(app).post('/api/save-progress').send({ studentId, classLevel: "6", state: stateFromB });
+            expect(resB.status).toBe(409);
+            expect(resB.body.conflict).toBe(true);
 
             // 7. Đọc lại state cuối cùng trong CSDL
             const finalRead = await request(app).get(`/api/load-progress?studentId=${studentId}`);
             const finalState = finalRead.body;
 
-            // CHARACTERIZATION RESULT:
-            // Vì hiện tại server ghi đè toàn bộ chuỗi JSON `state_json`, Client B ghi sau đã vô tình ghi đè
-            // làm mất bản cập nhật XP=200 của Client A (XP bị lùi về 100).
-            // Đây là bằng chứng xác thực lỗi Concurrency Lost Update ở kiến trúc hiện tại.
+            // CHARACTERIZATION RESULT (v13.96 OCC Boundary Verified):
+            // Nhờ cơ chế OCC tại Server Boundary, Client B gửi state cũ không thể ghi đè làm mất cập nhật XP=200 của Client A.
+            // Lỗi Concurrency Lost Update đã được loại trừ hoàn toàn.
             console.log(`[CHARACTERIZATION - B11] Final state: xp=${finalState.xp}, gold=${finalState.gold}`);
-            if (finalState.xp === 100 && finalState.gold === 300) {
-                console.log("[CONCURRENCY BUG CONFIRMED] Lost update occurs on concurrent whole-blob state_json save.");
-            }
-
-            // Test này pass khi nó mô tả chính xác hành vi thực tế hiện tại của hệ thống
-            expect(finalState.gold).toBe(300);
-            expect(finalState.xp).toBe(100); // Ghi nhận hiện trạng: XP của A bị mất do B ghi đè
+            expect(finalState.xp).toBe(200); // XP của A được bảo vệ nguyên vẹn
+            expect(finalState.gold).toBe(500); // Gold giữ nguyên trạng thái trước khi B bị từ chối
         });
     });
 });

@@ -185,13 +185,45 @@ export function dbSaveProgress(classLevel: string, stateObj: any): Promise<numbe
     });
 }
 
+export interface StudentProgressWithRevision {
+    state: StudentProgress | null;
+    revision: number;
+}
+
+export function dbGetStudentProgressWithRevision(studentId: string): Promise<StudentProgressWithRevision | null> {
+    return new Promise((resolve, reject) => {
+        DatabasePool.getInstance().get(
+            "SELECT state_json, revision FROM student_progress WHERE student_id = ?",
+            [studentId],
+            (err: Error | null, row: any) => {
+                if (err) return reject(err);
+                if (!row) return resolve(null);
+                let state: any = null;
+                if (row.state_json) {
+                    try {
+                        state = JSON.parse(row.state_json);
+                    } catch (e) {
+                        state = null;
+                    }
+                }
+                const rev = typeof row.revision === 'number' ? row.revision : 1;
+                resolve({ state, revision: rev });
+            }
+        );
+    });
+}
+
 export function dbGetStudentProgress(studentId: string): Promise<StudentProgress | null> {
     return new Promise((resolve, reject) => {
-        DatabasePool.getInstance().get("SELECT state_json FROM student_progress WHERE student_id = ?", [studentId], (err: Error | null, row: any) => {
+        DatabasePool.getInstance().get("SELECT state_json, revision FROM student_progress WHERE student_id = ?", [studentId], (err: Error | null, row: any) => {
             if (err) return reject(err);
             if (row && row.state_json) {
                 try {
-                    resolve(JSON.parse(row.state_json));
+                    const parsed = JSON.parse(row.state_json);
+                    if (parsed && typeof parsed === 'object') {
+                        parsed._revision = typeof row.revision === 'number' ? row.revision : 1;
+                    }
+                    resolve(parsed);
                 } catch (e) {
                     resolve(null);
                 }
@@ -202,11 +234,73 @@ export function dbGetStudentProgress(studentId: string): Promise<StudentProgress
     });
 }
 
+export interface OCCSaveResult {
+    success: boolean;
+    conflict?: boolean;
+    newRevision?: number;
+    currentRevision?: number;
+}
+
+export async function dbSaveStudentProgressOCC(
+    studentId: string,
+    stateObj: any,
+    baseRevision?: number | null
+): Promise<OCCSaveResult> {
+    const jsonStr = JSON.stringify(stateObj);
+    const existing: any = await getQuery("SELECT revision FROM student_progress WHERE student_id = ?", [studentId]);
+
+    // Trường hợp 1: Hàng chưa tồn tại (First save / Insert ban đầu)
+    if (!existing) {
+        await runQuery(
+            "INSERT INTO student_progress (student_id, state_json, revision) VALUES (?, ?, 1)",
+            [studentId, jsonStr]
+        );
+        return { success: true, newRevision: 1 };
+    }
+
+    const currentRevision = typeof existing.revision === 'number' ? existing.revision : 1;
+
+    // Trường hợp 2: Hàng đã tồn tại nhưng client không gửi baseRevision (Legacy row / Legacy client)
+    if (baseRevision === undefined || baseRevision === null) {
+        const updateRes = await runQuery(
+            "UPDATE student_progress SET state_json = ?, revision = revision + 1 WHERE student_id = ? AND revision = ?",
+            [jsonStr, studentId, currentRevision]
+        );
+        if (updateRes.changes === 1) {
+            return { success: true, newRevision: currentRevision + 1 };
+        } else {
+            const recheck: any = await getQuery("SELECT revision FROM student_progress WHERE student_id = ?", [studentId]);
+            return { success: false, conflict: true, currentRevision: recheck ? recheck.revision : currentRevision };
+        }
+    }
+
+    // Trường hợp 3: Client gửi baseRevision
+    // Nếu baseRevision khác currentRevision -> Xung đột ngay, KHÔNG sửa DB
+    if (baseRevision !== currentRevision) {
+        return { success: false, conflict: true, currentRevision };
+    }
+
+    // Thực hiện CONDITIONAL WRITE tại CSDL
+    const updateRes = await runQuery(
+        "UPDATE student_progress SET state_json = ?, revision = revision + 1 WHERE student_id = ? AND revision = ?",
+        [jsonStr, studentId, baseRevision]
+    );
+
+    if (updateRes.changes === 1) {
+        return { success: true, newRevision: baseRevision + 1 };
+    } else {
+        // affected rows === 0 -> Có một transaction khác đã tăng revision trước đó
+        const recheck: any = await getQuery("SELECT revision FROM student_progress WHERE student_id = ?", [studentId]);
+        const latestRev = recheck && typeof recheck.revision === 'number' ? recheck.revision : currentRevision;
+        return { success: false, conflict: true, currentRevision: latestRev };
+    }
+}
+
 export async function dbSaveStudentProgress(studentId: string, stateObj: any, studentName: string | null = null): Promise<sqlite3.RunResult> {
     const jsonStr = JSON.stringify(stateObj);
     const changes = await runQuery(
-        "INSERT INTO student_progress (student_id, state_json) VALUES (?, ?) " +
-        "ON CONFLICT(student_id) DO UPDATE SET state_json = excluded.state_json",
+        "INSERT INTO student_progress (student_id, state_json, revision) VALUES (?, ?, 1) " +
+        "ON CONFLICT(student_id) DO UPDATE SET state_json = excluded.state_json, revision = student_progress.revision + 1",
         [studentId, jsonStr]
     );
     return changes;

@@ -4,7 +4,9 @@
  */
 import { 
     dbGetStudentProgress, 
+    dbGetStudentProgressWithRevision,
     dbSaveStudentProgress, 
+    dbSaveStudentProgressOCC,
     dbDeleteStudentProgress, 
     dbGetProgress, 
     dbSaveProgress, 
@@ -23,7 +25,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '13.91';
+export const APP_VERSION = '13.99';
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)
@@ -53,9 +55,10 @@ export async function saveProgress(params: {
     classLevel?: string;
     studentId?: string;
     studentName?: string;
+    baseRevision?: number | null;
     state: any;
-}): Promise<{ state: any }> {
-    const { classLevel, studentId, studentName, state } = params;
+}): Promise<{ state: any; revision?: number; conflict?: boolean; currentRevision?: number }> {
+    const { classLevel, studentId, studentName, baseRevision, state } = params;
 
     // 1. Thẩm định các exam sessions chưa được thẩm định
     if (state.examSessions && Array.isArray(state.examSessions)) {
@@ -69,8 +72,18 @@ export async function saveProgress(params: {
     }
 
     // 2. Lưu vào CSDL cục bộ
+    let newRevision: number | undefined = undefined;
     if (studentId) {
-        await dbSaveStudentProgress(studentId, state, studentName);
+        // Thực hiện ghi có điều kiện OCC
+        const occResult = await dbSaveStudentProgressOCC(studentId, state, baseRevision);
+        if (occResult.conflict || !occResult.success) {
+            return {
+                state,
+                conflict: true,
+                currentRevision: occResult.currentRevision
+            };
+        }
+        newRevision = occResult.newRevision;
 
         // M03: Lưu exam sessions vào bảng exam_sessions độc lập
         if (state.examSessions && Array.isArray(state.examSessions)) {
@@ -91,7 +104,7 @@ export async function saveProgress(params: {
         await dbSaveProgress(classLevel, state);
     }
 
-    return { state };
+    return { state, revision: newRevision };
 }
 
 export async function deleteStudentProgress(studentId: string): Promise<void> {

@@ -126,6 +126,10 @@ const MathPracticeEvaluator = (typeof window !== 'undefined' && window.MathPract
     || (typeof globalThis !== 'undefined' && globalThis.MathPracticeEvaluator) 
     || (typeof require === 'function' ? require('./core/math-practice-evaluator') : null);
 
+const MathSessionBuilder = (typeof window !== 'undefined' && window.MathSessionBuilder) 
+    || (typeof globalThis !== 'undefined' && globalThis.MathSessionBuilder) 
+    || (typeof require === 'function' ? require('./core/math-session-builder') : null);
+
 const MathAnswerEvaluator = (typeof window !== 'undefined' && window.MathAnswerEvaluator) 
     || (typeof globalThis !== 'undefined' && globalThis.MathAnswerEvaluator) 
     || (typeof require === 'function' ? require('./core/math-answer-evaluator') : null);
@@ -8575,8 +8579,23 @@ const questions = {
             }
         }
 
-        // Tạo bản ghi lượt làm bài (session) hoàn chỉnh và lưu vào state
-        const sessionRecord = {
+        // Tạo bản ghi lượt làm bài (session) hoàn chỉnh và lưu vào state qua module chuyên trách MathSessionBuilder
+        const sessionRecord = MathSessionBuilder ? MathSessionBuilder.buildSessionRecord({
+            lesson: this.currentLesson,
+            level: this.currentLevel,
+            isExam: this.isExamMode,
+            isLessonExam: this.isLessonExamMode,
+            isSubtopicPractice: this.isSubtopicPracticeMode,
+            isWeaknessPractice: this.isWeaknessPracticeMode,
+            subtopic: this.currentSubtopic,
+            correctCount: this.correctCount,
+            totalQuestions: this.currentQuestions.length,
+            scorePercent: scorePercent,
+            timeSpent: timeSpent,
+            distractions: this.practiceDistractions,
+            questions: this.currentQuestions,
+            checkShortAnswer: (userAns, correctAns) => this.checkShortAnswer(userAns, correctAns)
+        }) : {
             id: "sess-" + Date.now(),
             lessonId: this.currentLesson.id,
             lessonTitle: this.currentLesson.title,
@@ -8619,9 +8638,9 @@ const questions = {
         }
         app.state.examSessions.push(sessionRecord);
         // Giới hạn tối đa 150 session gần nhất để tránh LocalStorage bị phình quá lớn
-        if (app.state.examSessions.length > 150) {
-            app.state.examSessions = app.state.examSessions.slice(-150);
-        }
+        app.state.examSessions = MathSessionBuilder
+            ? MathSessionBuilder.retainSessions(app.state.examSessions, 150)
+            : (app.state.examSessions.length > 150 ? app.state.examSessions.slice(-150) : app.state.examSessions);
         app.saveProgress();
 
         // Ẩn/Hiện nút xem lại bài kiểm tra và mặc định ẩn review cho tới khi con nhấn nút xem

@@ -29,10 +29,27 @@ export function initializeSchema(db: sqlite3.Database): Promise<void> {
             db.run(`
                 CREATE TABLE IF NOT EXISTS student_progress (
                     student_id TEXT PRIMARY KEY,
-                    state_json TEXT
+                    state_json TEXT,
+                    revision INTEGER NOT NULL DEFAULT 1
                 )
             `);
             db.run(`CREATE INDEX IF NOT EXISTS idx_student_progress_id ON student_progress(student_id);`);
+
+            // Migration tương thích ngược: Thêm cột revision nếu bảng student_progress cũ chưa có
+            db.all("PRAGMA table_info(student_progress);", (infoErr: Error | null, rows: any[]) => {
+                if (!infoErr && rows && rows.length > 0) {
+                    const hasRevision = rows.some((col: any) => col.name === 'revision');
+                    if (!hasRevision) {
+                        db.run("ALTER TABLE student_progress ADD COLUMN revision INTEGER NOT NULL DEFAULT 1;", (alterErr: Error | null) => {
+                            if (alterErr) {
+                                console.warn("⚠️ Cảnh báo migration thêm cột revision vào student_progress:", alterErr.message);
+                            } else {
+                                console.log("✅ Đã bổ sung thành công cột revision vào bảng student_progress.");
+                            }
+                        });
+                    }
+                }
+            });
 
             // Bảng custom_vocabulary lưu từ vựng tự nạp để ôn tập
             db.run(`
