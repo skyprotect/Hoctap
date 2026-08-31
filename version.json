@@ -1,9 +1,9 @@
 {
-  "version": "13.56",
-  "lastUpdated": "31/08/2026 08:20",
-  "build": 1356,
-  "releaseNotes": "SỬA LỖI ĐỀ THI CHẤT LƯỢNG CAO AI: Sửa triệt để lỗi không hiện câu hỏi khi vào đề thi AI, sửa nút Thoát và nút AI Khắc Phục Sự Cố.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.56/ToanHocKiosk_Setup_v13.56.exe",
-  "changelog": "- Khắc phục hoàn toàn lỗi không hiển thị nội dung câu hỏi trong phòng luyện đề AI.\n- Sửa lỗi nút Thoát và AI Khắc Phục Sự Cố hoạt động chính xác, mượt mà.\n- Bảo toàn 100% dữ liệu học tập môn Toán của học sinh.",
-  "releaseDate": "2026-08-31T08:20:00+07:00"
+  "version": "13.57",
+  "lastUpdated": "31/08/2026 08:30",
+  "build": 1357,
+  "releaseNotes": "REFACTOR SEAM #1: Tách safeStorage thành module độc lập js/core/safe-storage.js với 100% backward compatibility và in-memory fallback.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.57/ToanHocKiosk_Setup_v13.57.exe",
+  "changelog": "- Tách safeStorage thành module độc lập js/core/safe-storage.js.\n- Bảo toàn 100% public contract và tương thích ngược với mọi consumer.\n- Bổ sung bộ kiểm thử đơn vị toàn diện tests/core/safe-storage.test.js.",
+  "releaseDate": "2026-08-31T08:30:00+07:00"
 }

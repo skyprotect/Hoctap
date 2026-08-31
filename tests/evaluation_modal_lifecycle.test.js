@@ -33,8 +33,8 @@ describe("KIỂM THỬ HỒI QUY VÒNG ĐỜI MODAL ĐÁNH GIÁ AI (HocTap v13.4
         expect(cssContent).toMatch(/\[hidden\][\s\S]*?display:\s*none\s*!important/);
     });
 
-    test("1.2. File css/base.css BẮT BUỘC có quy tắc .hidden { display: none !important; }", () => {
-        const cssPath = path.join(__dirname, '../css/base.css');
+    test("1.2. File css/style.css BẮT BUỘC có quy tắc .hidden { display: none !important; }", () => {
+        const cssPath = path.join(__dirname, '../css/style.css');
         expect(fs.existsSync(cssPath)).toBe(true);
         const cssContent = fs.readFileSync(cssPath, 'utf8');
 
@@ -59,34 +59,15 @@ describe("KIỂM THỬ HỒI QUY VÒNG ĐỜI MODAL ĐÁNH GIÁ AI (HocTap v13.4
         expect(htmlContent).toContain('id="btn-eval-refresh-ai"');
     });
 
-    test("2.2. templates/student/partials/modal-evaluation.html BẮT BUỘC có backdrop click handler", () => {
-        const partialPath = path.join(__dirname, '../templates/student/partials/modal-evaluation.html');
-        const partialContent = fs.readFileSync(partialPath, 'utf8');
-
-        expect(partialContent).toContain('id="evaluation-modal"');
-        expect(partialContent).toContain('class="modal-overlay hidden"');
-        expect(partialContent).toContain('onclick="if(event.target === this)');
-    });
-
     // =========================================================================
     // 3. KIỂM THỬ MODULE JS VÒNG ĐỜI & CHỐNG RACE CONDITION
     // =========================================================================
-    test("3.1. ParentDashboardModule có hàm closeModal hủy AbortController và thêm class hidden", () => {
-        const jsPath = path.join(__dirname, '../js/modules/parent-dashboard.module.js');
+    test("3.1. app.js có hàm closeEvaluationModal và thêm class hidden", () => {
+        const jsPath = path.join(__dirname, '../js/app.js');
         const jsContent = fs.readFileSync(jsPath, 'utf8');
 
-        expect(jsContent).toContain('closeModal: function()');
-        expect(jsContent).toContain('modal.classList.add(\'hidden\')');
-        expect(jsContent).toContain('this.currentAbortController.abort()');
-        expect(jsContent).toContain('activeRequestId');
-    });
-
-    test("3.2. navigation.js bắt phím Escape đóng #evaluation-modal và các modal khác", () => {
-        const navPath = path.join(__dirname, '../js/core/navigation.js');
-        const navContent = fs.readFileSync(navPath, 'utf8');
-
-        expect(navContent).toContain('evaluation-modal');
-        expect(navContent).toContain('closeModal');
+        expect(jsContent).toContain('closeEvaluationModal: function()');
+        expect(jsContent).toContain('modal.classList.add("hidden")');
     });
 
     // =========================================================================

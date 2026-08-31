@@ -2,7 +2,7 @@
 // Hỗ trợ 3 cấp độ: Cơ bản (co-ban), Nâng cao (nang-cao), Khó (kho)
 
 // Phòng thủ: Giả lập SweetAlert2 nếu chạy trong môi trường offline không nạp được CDN
-if (typeof Swal === 'undefined') {
+if (typeof Swal === 'undefined' && typeof window !== 'undefined') {
     window.Swal = {
         fire: function(options) {
             console.warn("SweetAlert2 không khả dụng, sử dụng Fallback Popup.");
@@ -561,7 +561,7 @@ const questions = {
 
         let trimmed = cleanedExpr.trim();
         // Phòng thủ: Phát hiện các từ đơn hoặc cụm từ tiếng Việt thuần túy không bọc nháy do AI sinh lỗi
-        const isPlainWord = /^[a-zA-Z0-9đàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ\s\.\,\_]+$/i.test(trimmed);
+        const isPlainWord = /^[a-zA-Z0-9đàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ\s\.\,\_]+$/i.test(trimmed) && !/\b[a-zA-Z_$][a-zA-Z0-9_$]*\.[a-zA-Z_$][a-zA-Z0-9_$]*\b/.test(trimmed);
         if (isPlainWord) {
             // Nếu không phải là số và không trùng với bất kỳ tên biến hay helper
             const isNumber = !isNaN(Number(trimmed));
@@ -1451,7 +1451,13 @@ const questions = {
         }
         
         // 4. Tạo câu hỏi thực tế và tự động xáo trộn các phương án lựa chọn để tránh lỗi đáp án luôn là B
-        let renderedOptions = tempQ.options ? tempQ.options.map(opt => replacePlaceholders(opt, context)) : [];
+        let rawOptions = tempQ.options;
+        if (!rawOptions || !Array.isArray(rawOptions) || rawOptions.length === 0) {
+            if (tempQ.formulas && tempQ.formulas.ans) {
+                rawOptions = ["A. {ans}", "B. {w1}", "C. {w2}", "D. {w3}"];
+            }
+        }
+        let renderedOptions = rawOptions ? rawOptions.map(opt => replacePlaceholders(opt, context)) : [];
         let finalCorrectIndex = tempQ.correctIndex !== undefined ? parseInt(tempQ.correctIndex, 10) : 0;
         if (isNaN(finalCorrectIndex)) finalCorrectIndex = 0;
 
@@ -2379,7 +2385,10 @@ const questions = {
 
     // Bộ sinh đề chi tiết cho 22 dạng bài với 3 cấp độ
     generateQuestion: function(type, level = "co-ban") {
-        if ((type.startsWith("l1-") || type.startsWith("luyen-tap-chung-l1-")) && typeof questionsL1 !== 'undefined') {
+        if (typeof type === 'object' && type !== null && type.isTemplate) {
+            return this.generateQuestionFromTemplate(type);
+        }
+        if (typeof type === 'string' && (type.startsWith("l1-") || type.startsWith("luyen-tap-chung-l1-")) && typeof questionsL1 !== 'undefined') {
             return questionsL1.generateQuestion(type, level);
         }
         if ((type.startsWith("l4-") || type.startsWith("luyen-tap-chung-l4-")) && typeof questionsL4 !== 'undefined') {
@@ -10333,24 +10342,28 @@ const questions = {
     },
 };
 
-window.questions = questions;
+if (typeof window !== 'undefined') {
+    window.questions = questions;
+}
 if (typeof module !== 'undefined') {
     module.exports = questions;
 }
 
 // Đăng ký sự kiện rời tab để đếm số lần xao nhãng trong bài tập hiện tại
-document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === 'hidden') {
-        const lessonScreen = document.getElementById("lesson-detail-panel");
-        const practiceTab = document.getElementById("tab-practice");
-        const resultBox = document.getElementById("practice-result-box");
-        
-        // Nếu đang trong chế độ làm bài tập và chưa ra màn hình kết quả
-        if (lessonScreen && !lessonScreen.classList.contains("hidden") && 
-            practiceTab && !practiceTab.classList.contains("hidden") &&
-            resultBox && resultBox.classList.contains("hidden")) {
+if (typeof document !== 'undefined') {
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === 'hidden') {
+            const lessonScreen = document.getElementById("lesson-detail-panel");
+            const practiceTab = document.getElementById("tab-practice");
+            const resultBox = document.getElementById("practice-result-box");
             
-            questions.practiceDistractions += 1;
+            // Nếu đang trong chế độ làm bài tập và chưa ra màn hình kết quả
+            if (lessonScreen && !lessonScreen.classList.contains("hidden") && 
+                practiceTab && !practiceTab.classList.contains("hidden") &&
+                resultBox && resultBox.classList.contains("hidden")) {
+                
+                questions.practiceDistractions += 1;
+            }
         }
-    }
-});
+    });
+}

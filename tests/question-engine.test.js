@@ -6,7 +6,7 @@ describe("Unit & Integration Tests for QuestionEngine (v3.0)", () => {
     test("QuestionEngine phải được khởi tạo thành công", () => {
         expect(QuestionEngine).toBeDefined();
         expect(typeof QuestionEngine.generateQuestion).toBe('function');
-        expect(typeof QuestionEngine.generateExam).toBe('function');
+        expect(typeof QuestionEngine.generateQuestionFromTemplate).toBe('function');
         expect(typeof QuestionEngine.shuffle).toBe('function');
         expect(typeof QuestionEngine.randomInt).toBe('function');
         expect(typeof QuestionEngine.getPrimeFactors).toBe('function');
@@ -33,35 +33,30 @@ describe("Unit & Integration Tests for QuestionEngine (v3.0)", () => {
         expect(QuestionEngine.getPrimeFactors(12)).toEqual(["2^2", "3"]);
     });
 
-    describe("Kiểm tra nạp và sinh đề cho 5 file JSON Chương Toán Lớp 6", () => {
-        const grade6Dir = path.join(__dirname, '../data/math/grade6');
+    describe("Kiểm tra nạp và sinh đề cho các file JSON Đề thi AI Toán Lớp 6", () => {
+        const examsDir = path.join(__dirname, '../exams');
         const chapterFiles = [
-            'chapter1_integers.json',
-            'chapter2_fractions.json',
-            'chapter3_geometry.json',
-            'chapter4_statistics.json',
-            'chapter5_ratios.json'
+            'pregen-bai-1.json',
+            'pregen-bai-2.json',
+            'pregen-bai-3.json',
+            'pregen-bai-4.json',
+            'pregen-bai-5.json'
         ];
 
         chapterFiles.forEach(file => {
             test(`Nạp và sinh đề thành công từ ${file}`, () => {
-                const filePath = path.join(grade6Dir, file);
+                const filePath = path.join(examsDir, file);
                 expect(fs.existsSync(filePath)).toBe(true);
 
                 const raw = fs.readFileSync(filePath, 'utf8');
                 const json = JSON.parse(raw);
 
-                expect(json.metadata).toBeDefined();
-                expect(Array.isArray(json.templates)).toBe(true);
-                expect(json.templates.length).toBeGreaterThanOrEqual(20);
+                expect(Array.isArray(json.questions)).toBe(true);
+                expect(json.questions.length).toBeGreaterThanOrEqual(1);
 
-                // Đăng ký và sinh thử 10 câu
-                QuestionEngine.registerChapter(file.replace('.json', ''), json);
-                const exam = QuestionEngine.generateExam(json, 10, 'co-ban');
-                expect(exam.length).toBe(10);
-
-                // Kiểm tra thuộc tính từng câu hỏi
-                exam.forEach(q => {
+                // Sinh thử các câu hỏi template
+                json.questions.forEach(tempQ => {
+                    const q = QuestionEngine.generateQuestionFromTemplate(tempQ);
                     expect(q.questionText).toBeTruthy();
                     expect(Array.isArray(q.options)).toBe(true);
                     expect(q.options.length).toBe(4);

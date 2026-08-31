@@ -7,11 +7,11 @@ function sanitizeHtml(html) {
         .replace(/href\s*=\s*['"]\s*javascript:[^'"]*['"]/gi, '');
 }
 
-const safeStorage = {
+const safeStorage = (typeof window !== 'undefined' && window.safeStorage) ? window.safeStorage : {
     fallback: {},
     getItem: function(key) {
         try { return localStorage.getItem(key); }
-        catch(e) { console.warn("Storage.getItem failed:", e); return this.fallback[key] || null; }
+        catch(e) { console.warn("Storage.getItem failed:", e); return this.fallback[key] !== undefined ? this.fallback[key] : null; }
     },
     setItem: function(key, value) {
         try { localStorage.setItem(key, value); }

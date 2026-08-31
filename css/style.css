@@ -243,7 +243,7 @@ button {
 }
 
 /* Tiện ích ẩn hiện */
-.hidden {
+.hidden, [hidden] {
     display: none !important;
 }
 

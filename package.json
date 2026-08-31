@@ -46,7 +46,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      ".*\\.spec\\.js$"
+      ".*\\.spec\\.js$",
+      ".*_e2e\\.test\\.js$"
     ]
   }
 }

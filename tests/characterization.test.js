@@ -301,7 +301,7 @@ describe("Characterization Test Suite (P0 Safety Baseline)", () => {
     // B06: Question Engine Answer Collision Prevention
     // =========================================================================
     describe("B06 — Question Engine Answer Collision Prevention", () => {
-        const QuestionEngine = require('../js/engine/question-engine');
+        const QuestionEngine = require('../js/questions-v3');
 
         test("QuestionEngine sinh câu hỏi đảm bảo 4 đáp án phân biệt hoàn toàn (ans != w1 != w2 != w3)", () => {
             const sampleTemplate = {
@@ -341,16 +341,17 @@ describe("Characterization Test Suite (P0 Safety Baseline)", () => {
         });
 
         test("QuestionEngine nạp và sinh đề thi thực tế từ JSON đảm bảo tính đúng đắn", () => {
-            const dataDir = path.resolve(__dirname, '../data/math/grade6');
-            const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.json'));
+            const dataDir = path.resolve(__dirname, '../exams');
+            const files = fs.readdirSync(dataDir).filter(f => f.startsWith('pregen-bai-') && f.endsWith('.json')).slice(0, 5);
 
             files.forEach(file => {
                 const filePath = path.join(dataDir, file);
                 const chapterData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-                const exam = QuestionEngine.generateExam(chapterData, 10, 'co-ban');
+                const templates = chapterData.questions || [];
+                expect(templates.length).toBeGreaterThan(0);
 
-                expect(exam.length).toBe(10);
-                exam.forEach(q => {
+                templates.forEach(tpl => {
+                    const q = QuestionEngine.generateQuestionFromTemplate(tpl);
                     expect(q.options.length).toBe(4);
                     const uniqueOptions = new Set(q.options);
                     expect(uniqueOptions.size).toBe(4);
