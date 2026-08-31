@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const QuestionEngine = require('../js/engine/question-engine');
+const QuestionEngine = require('../js/questions-v3');
 
 describe("Unit & Integration Tests for QuestionEngine (v3.0)", () => {
     test("QuestionEngine phải được khởi tạo thành công", () => {

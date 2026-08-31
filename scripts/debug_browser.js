@@ -3,7 +3,7 @@ const app = require('../server.js');
 const fs = require('fs');
 
 async function debugBrowser() {
-    console.log('=== BẮT ĐẦU KIỂM THỬ TRÊN TRÌNH DUYỆT THỰC TẾ (v13.52) ===');
+    console.log('=== BẮT ĐẦU KIỂM THỬ TRÊN TRÌNH DUYỆT THỰC TẾ (v13.55) ===');
     
     // Đợi server khởi động
     await new Promise(r => setTimeout(r, 2000));
@@ -61,7 +61,9 @@ async function debugBrowser() {
                 streak: document.getElementById('splash-streak-val')?.textContent,
                 badges: document.getElementById('splash-badge-count')?.textContent,
                 welcomeUser: document.querySelector('.splash-welcome-user')?.textContent,
-                isSplashVisible: !document.getElementById('splash-screen')?.classList.contains('hidden')
+                isSplashVisible: !document.getElementById('splash-screen')?.classList.contains('hidden'),
+                versionTag: document.querySelector('.splash-version-tag')?.textContent,
+                fixedVersionTag: document.querySelector('.version-tag-fixed')?.textContent
             };
         });
         console.log('Splash State:', JSON.stringify(splashData, null, 2));
@@ -74,7 +76,7 @@ async function debugBrowser() {
         const timelineStateSem1 = await page.evaluate(() => {
             const screenTimelineVisible = !document.getElementById('screen-timeline')?.classList.contains('hidden');
             const chapters = document.querySelectorAll('#skill-tree-container .timeline-chapter');
-            const lessons = document.querySelectorAll('#skill-tree-container .lesson-card-item');
+            const lessons = document.querySelectorAll('#skill-tree-container .lesson-node-wrapper');
             const headerXp = document.getElementById('xp-val')?.textContent;
             const headerStreak = document.getElementById('streak-val')?.textContent;
             const headerBadge = document.getElementById('badge-count')?.textContent;
@@ -92,14 +94,36 @@ async function debugBrowser() {
         });
         console.log('Timeline HK1 State:', JSON.stringify(timelineStateSem1, null, 2));
 
-        // --- BƯỚC 3: CHUYỂN SANG HỌC KỲ 2 ---
-        console.log('\n4. Bấm chuyển sang Học kỳ 2:');
+        // --- BƯỚC 3: KIỂM TRA ĐỀ THI ĐỊNH KỲ 7991 ---
+        console.log('\n4. Kiểm tra Module Đề Thi Định Kỳ 7991 (70% TN + 30% TL):');
+        const exam7991Check = await page.evaluate(() => {
+            const hasModule = typeof window.questions7991 !== 'undefined';
+            if (!hasModule) return { hasModule: false };
+            
+            const gk1 = window.questions7991.generate7991Exam('gk1', '6');
+            const ck1 = window.questions7991.generate7991Exam('ck1', '6');
+            return {
+                hasModule: true,
+                gk1Title: gk1.title,
+                gk1TotalPoints: gk1.totalPoints,
+                gk1Mcq: gk1.mcqQuestions ? gk1.mcqQuestions.length : 0,
+                gk1Essay: gk1.essayQuestions ? gk1.essayQuestions.length : 0,
+                ck1Title: ck1.title,
+                ck1TotalPoints: ck1.totalPoints,
+                ck1Mcq: ck1.mcqQuestions ? ck1.mcqQuestions.length : 0,
+                ck1Essay: ck1.essayQuestions ? ck1.essayQuestions.length : 0
+            };
+        });
+        console.log('Exam 7991 Check:', JSON.stringify(exam7991Check, null, 2));
+
+        // --- BƯỚC 4: BẤM CHUYỂN SANG HỌC KỲ 2 ---
+        console.log('\n5. Bấm chuyển sang Học kỳ 2:');
         await page.click('#sem-tab-2');
         await page.waitForTimeout(1000);
 
         const timelineStateSem2 = await page.evaluate(() => {
             const chapters = document.querySelectorAll('#skill-tree-container .timeline-chapter');
-            const lessons = document.querySelectorAll('#skill-tree-container .lesson-card-item');
+            const lessons = document.querySelectorAll('#skill-tree-container .lesson-node-wrapper');
             return {
                 sem1Active: document.getElementById('sem-tab-1')?.classList.contains('active'),
                 sem2Active: document.getElementById('sem-tab-2')?.classList.contains('active'),
@@ -110,11 +134,11 @@ async function debugBrowser() {
         console.log('Timeline HK2 State:', JSON.stringify(timelineStateSem2, null, 2));
 
         // Quay lại HK1 và mở một bài học
-        console.log('\n5. Quay lại HK1 và Mở bài học chi tiết:');
+        console.log('\n6. Quay lại HK1 và Mở bài học chi tiết:');
         await page.click('#sem-tab-1');
         await page.waitForTimeout(1000);
 
-        const firstLesson = await page.$('#skill-tree-container .lesson-card-item');
+        const firstLesson = await page.$('#skill-tree-container .node-btn.active') || await page.$('#skill-tree-container .node-btn');
         if (firstLesson) {
             await firstLesson.click();
             await page.waitForTimeout(1500);
@@ -139,8 +163,8 @@ async function debugBrowser() {
             console.log('Lesson Detail State:', JSON.stringify(lessonDetailState, null, 2));
         }
 
-        // --- BƯỚC 4: BẤM NÚT ĐỔI MÔN HỌC ---
-        console.log('\n6. Bấm nút Đổi môn học (#header-select-subject-btn):');
+        // --- BƯỚC 5: BẤM NÚT ĐỔI MÔN HỌC ---
+        console.log('\n7. Bấm nút Đổi môn học (#header-select-subject-btn):');
         await page.click('#header-select-subject-btn');
         await page.waitForTimeout(1000);
 
@@ -159,8 +183,8 @@ async function debugBrowser() {
         });
         console.log('Subject Select Screen State:', JSON.stringify(subjectScreenState, null, 2));
 
-        // --- BƯỚC 5: CHỌN MÔN TOÁN HỌC TRỞ LẠI ---
-        console.log('\n7. Bấm chọn môn Toán Học:');
+        // --- BƯỚC 6: CHỌN MÔN TOÁN HỌC TRỞ LẠI ---
+        console.log('\n8. Bấm chọn môn Toán Học:');
         const mathCardBtn = await page.$('.subject-card.math-card');
         if (mathCardBtn) {
             await mathCardBtn.click();
@@ -169,7 +193,7 @@ async function debugBrowser() {
         const backToMathState = await page.evaluate(() => {
             return {
                 timelineVisible: !document.getElementById('screen-timeline')?.classList.contains('hidden'),
-                lessonsCount: document.querySelectorAll('#skill-tree-container .lesson-card-item').length
+                lessonsCount: document.querySelectorAll('#skill-tree-container .lesson-node-wrapper').length
             };
         });
         console.log('Back to Math State:', JSON.stringify(backToMathState, null, 2));

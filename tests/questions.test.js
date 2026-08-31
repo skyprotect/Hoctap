@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const questionsV3Path = path.join(__dirname, '../data/grade_6/math/generator.js');
+const questionsV3Path = path.join(__dirname, '../js/questions-v3.js');
 
-describe("Unit Tests for Grade 6 Math Generator (data/grade_6/math/generator.js)", () => {
+describe("Unit Tests for Grade 6 Math Generator (js/questions-v3.js)", () => {
     let questions;
 
     beforeAll(() => {
         try {
-            questions = require('../data/grade_6/math/generators/registry.js');
+            questions = require('../js/questions-v3.js');
         } catch (e) {
             console.error("Lỗi khi load questions trong test:", e);
             throw e;

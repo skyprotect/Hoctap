@@ -1,9 +1,9 @@
 {
-  "version": "13.54",
-  "lastUpdated": "30/08/2026 19:55",
-  "build": 1353,
-  "releaseNotes": "GIT UI RECOVERY: Khôi phục chính xác 100% giao diện và trải nghiệm người dùng v13.27, bảo toàn toàn bộ kiến trúc Modular TypeScript, SQLite CSDL, AI Key Rotation và QuestionEngine.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.54/ToanHocKiosk_Setup_v13.54.exe",
-  "changelog": "- Khôi phục 100% quy tắc CSS (1.057 bộ chọn) từ v13.27 vào hệ thống module CSS (tokens, base, layout, components, english, game, modals, chat, parent) và đóng gói vào css/style.css.\n- Khôi phục toàn bộ giao diện 3D Duolingo Tiếng Anh, Flashcards, Mic Neon, Audio Ripple, Bottom Feedback Banner.\n- Bổ sung đầy đủ 27 phương thức cầu nối UI trên Façade app, sửa triệt để các lỗi click không phản hồi.\n- Bảo toàn 100% kiến trúc Backend TypeScript, Database SQLite, Characterization Tests và bộ bảo vệ dữ liệu học tập môn Toán.",
-  "releaseDate": "2026-08-30T20:33:00+07:00"
+  "version": "13.56",
+  "lastUpdated": "31/08/2026 08:20",
+  "build": 1356,
+  "releaseNotes": "SỬA LỖI ĐỀ THI CHẤT LƯỢNG CAO AI: Sửa triệt để lỗi không hiện câu hỏi khi vào đề thi AI, sửa nút Thoát và nút AI Khắc Phục Sự Cố.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v13.56/ToanHocKiosk_Setup_v13.56.exe",
+  "changelog": "- Khắc phục hoàn toàn lỗi không hiển thị nội dung câu hỏi trong phòng luyện đề AI.\n- Sửa lỗi nút Thoát và AI Khắc Phục Sự Cố hoạt động chính xác, mượt mà.\n- Bảo toàn 100% dữ liệu học tập môn Toán của học sinh.",
+  "releaseDate": "2026-08-31T08:20:00+07:00"
 }

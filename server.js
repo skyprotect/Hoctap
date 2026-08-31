@@ -24,7 +24,7 @@ if (!fs.existsSync(envPath)) {
     }
 }
 require('dotenv').config();
-const APP_VERSION = '13.54';
+const APP_VERSION = '13.55';
 
 const { initIntegrityCheck, DatabasePool } = require('./server/db/database');
 const { runDataMigration, migrateFixMathBugsV12 } = require('./server/services/migration.service');
