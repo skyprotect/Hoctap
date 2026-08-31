@@ -122,6 +122,10 @@ const ArrayUtils = (typeof window !== 'undefined' && window.ArrayUtils)
     || (typeof globalThis !== 'undefined' && globalThis.ArrayUtils) 
     || (typeof require === 'function' ? require('./core/array-utils') : null);
 
+const MathPracticeEvaluator = (typeof window !== 'undefined' && window.MathPracticeEvaluator) 
+    || (typeof globalThis !== 'undefined' && globalThis.MathPracticeEvaluator) 
+    || (typeof require === 'function' ? require('./core/math-practice-evaluator') : null);
+
 const questions = {
     getApiUrl: function(path) {
         if (UrlUtils && typeof UrlUtils.getApiUrl === 'function') {
@@ -9045,73 +9049,44 @@ const questions = {
             if (isCorrect) {
                 this.correctCount++;
             } else {
-                // Trừ 10 XP môn Toán nếu sai (cho phép âm XP)
+                // Trừ 10 XP môn Toán nếu sai (Đảm bảo an toàn không bao giờ âm XP: XP >= 0)
                 if (app && app.state) {
-                    app.state.xp = (app.state.xp || 0) - 10;
+                    app.state.xp = MathPracticeEvaluator
+                        ? MathPracticeEvaluator.applyXpPenalty(app.state.xp, 1, 10)
+                        : Math.max(0, (app.state.xp || 0) - 10);
                 }
             }
             // Lưu kết quả từng câu vào lịch sử cho Phụ huynh (bỏ qua lưu tiến trình từng câu để tránh xung đột)
             app.saveQuestionResult(this.currentLesson.id, q.type, isCorrect, true);
         });
 
-        const scorePercent = Math.round((this.correctCount / this.currentQuestions.length) * 100);
-        let rank = "";
-        let desc = "";
-        let emoji = "";
-        let xpEarned = 0;
-        let isPassed = false;
-
         const _sn = (app && app.config && app.config.studentName) || 'Con';
         const _pn = (app && app.config && app.config.parentName) || 'Bố';
 
-        // Phân loại 6 mức độ nhận thức với mốc đạt >= 80% (Loại Giỏi trở lên)
-        let baseXp = 50;
-        if (this.isExamMode || this.isLessonExamMode) {
-            baseXp = 100;
-        } else {
-            if (this.currentLevel === 'co-ban') baseXp = 50;
-            else if (this.currentLevel === 'nang-cao') baseXp = 70;
-            else if (this.currentLevel === 'kho') baseXp = 100;
-            else if (this.currentLevel === 'chat-luong-cao') baseXp = 150;
-        }
+        // Đánh giá kết quả luyện tập / thi qua module chuyên trách MathPracticeEvaluator
+        const evalResult = MathPracticeEvaluator ? MathPracticeEvaluator.evaluatePracticeResult({
+            correctCount: this.correctCount,
+            totalQuestions: this.currentQuestions.length,
+            currentLevel: this.currentLevel,
+            isExamMode: this.isExamMode,
+            isLessonExamMode: this.isLessonExamMode,
+            studentName: _sn,
+            parentName: _pn
+        }) : {
+            scorePercent: Math.round((this.correctCount / this.currentQuestions.length) * 100),
+            rank: this.correctCount >= this.currentQuestions.length * 0.8 ? "Giỏi" : "Đạt",
+            desc: "Hoàn thành bài tập",
+            emoji: "👍",
+            xpEarned: 50,
+            isPassed: this.correctCount >= this.currentQuestions.length * 0.8
+        };
 
-        if (scorePercent >= 95) {
-            rank = "Xuất sắc";
-            desc = (this.isExamMode || this.isLessonExamMode) ? `${_pn} chúc mừng ${_sn} nhé! Con đã vượt qua bài kiểm tra một cách xuất sắc. ${_pn} tự hào về con lắm!` : `Tuyệt vời ${_sn}! Con đã làm đúng hết các câu hỏi của dạng bài này. ${_pn} thưởng cho con nhé!`;
-            emoji = "👑";
-            xpEarned = baseXp;
-            isPassed = true;
-        } else if (scorePercent >= 80) {
-            rank = "Giỏi";
-            desc = (this.isExamMode || this.isLessonExamMode) ? `Chúc mừng ${_sn}! Con đã đỗ bài kiểm tra và mở khóa bài tiếp theo. ${_pn} rất vui!` : `${_sn} học giỏi lắm! Con đã vượt qua dạng bài luyện tập này rồi. Tiếp tục phát huy con nhé!`;
-            emoji = "🎉";
-            xpEarned = Math.round(baseXp * 0.8);
-            isPassed = true;
-        } else if (scorePercent >= 70) {
-            rank = "Khá";
-            desc = `${_sn} làm khá tốt rồi! Tuy nhiên, con cần đạt từ 80% trở lên để vượt qua. Luyện tập lại một chút, ${_pn} tin con sẽ đạt điểm tuyệt đối!`;
-            emoji = "👍";
-            xpEarned = Math.round(baseXp * 0.5);
-            isPassed = false;
-        } else if (scorePercent >= 50) {
-            rank = "Đạt";
-            desc = `${_sn} đã có tiến bộ rồi! Con hãy xem kỹ lời giải chi tiết của ${_pn} biên soạn ở dưới và làm lại để nâng cao điểm số nhé.`;
-            emoji = "✍️";
-            xpEarned = Math.round(baseXp * 0.3);
-            isPassed = false;
-        } else if (scorePercent >= 35) {
-            rank = "Yếu";
-            desc = `${_sn} cố lên nào! Phần này hơi khó, con hãy đọc lại phần Lý thuyết rồi thử sức lại nhé. ${_pn} luôn đồng hành cùng con!`;
-            emoji = "📚";
-            xpEarned = Math.round(baseXp * 0.1);
-            isPassed = false;
-        } else {
-            rank = "Không đạt";
-            desc = `Không sao đâu ${_sn}! Thất bại là mẹ thành công. Con hãy đọc kỹ hướng dẫn của ${_pn} dưới đây rồi thử lại nhé!`;
-            emoji = "❌";
-            xpEarned = 0;
-            isPassed = false;
-        }
+        const scorePercent = evalResult.scorePercent;
+        const rank = evalResult.rank;
+        const desc = evalResult.desc;
+        const emoji = evalResult.emoji;
+        const xpEarned = evalResult.xpEarned;
+        const isPassed = evalResult.isPassed;
 
         // Phát hiệu ứng âm thanh hoàn thành bài tập dựa trên kết quả đạt/không đạt
         if (window.app && app.audio) {
