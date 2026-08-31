@@ -3,26 +3,24 @@
  * Giúp giải phóng UI Thread và giữ cho FPS ở mức 60.
  */
 
-if (typeof MathUtils === 'undefined' && typeof importScripts === 'function') {
+if (typeof importScripts === 'function') {
     try {
-        importScripts('core/math-utils.js');
+        if (typeof MathUtils === 'undefined') importScripts('core/math-utils.js');
+        if (typeof ArrayUtils === 'undefined') importScripts('core/array-utils.js');
+        if (typeof MathExprEvaluator === 'undefined') importScripts('core/math-expr-evaluator.js');
     } catch (e) {
         // Fallback an toàn nếu môi trường không cho phép importScripts
     }
 }
-if (typeof ArrayUtils === 'undefined' && typeof importScripts === 'function') {
-    try {
-        importScripts('core/array-utils.js');
-    } catch (e) {
-        // Fallback an toàn nếu môi trường không cho phép importScripts
-    }
-}
-const MathUtils = (typeof globalThis !== 'undefined' && globalThis.MathUtils)
+var MathUtils = (typeof globalThis !== 'undefined' && globalThis.MathUtils)
     || (typeof self !== 'undefined' && self.MathUtils)
     || (typeof require === 'function' ? require('./core/math-utils') : null);
-const ArrayUtils = (typeof globalThis !== 'undefined' && globalThis.ArrayUtils)
+var ArrayUtils = (typeof globalThis !== 'undefined' && globalThis.ArrayUtils)
     || (typeof self !== 'undefined' && self.ArrayUtils)
     || (typeof require === 'function' ? require('./core/array-utils') : null);
+var MathExprEvaluator = (typeof globalThis !== 'undefined' && globalThis.MathExprEvaluator)
+    || (typeof self !== 'undefined' && self.MathExprEvaluator)
+    || (typeof require === 'function' ? require('./core/math-expr-evaluator') : null);
 
 const generator = {
     // Toán học thuần túy (Pure Math Utilities) - Ủy quyền sang mô-đun độc lập MathUtils
@@ -248,608 +246,24 @@ const generator = {
     },
 
     evalExpression: function(expr, context) {
-        if (typeof expr !== 'string') {
-            return expr;
+        if (MathExprEvaluator && typeof MathExprEvaluator.evalExpression === 'function') {
+            return MathExprEvaluator.evalExpression(expr, context);
         }
-
-        const self = this;
-
-        // Self-healing: Loại bỏ dấu $ đứng trước ngoặc nhọn của các biến (ví dụ ${A} thành {A})
-        let cleanedExpr = expr.replace(/\$\{([a-zA-Z0-9_]+)\}/g, '{$1}');
-        // Self-healing: Loại bỏ tiền tố variables. và formulas. và this. thường bị AI sinh nhầm
-        cleanedExpr = cleanedExpr.replace(/\b(variables|formulas|this)\./g, '');
-        // Self-healing: Loại bỏ dấu ngoặc nhọn quanh các tên biến đơn giản trong công thức
-        cleanedExpr = cleanedExpr.replace(/\{([a-zA-Z0-9_]+)\}/g, '$1');
-
-        // Self-healing: Thay thế hàm gcd đệ quy cục bộ của AI bằng hàm gcd an toàn của hệ thống
-        cleanedExpr = cleanedExpr.replace(/\(function\s+gcd\s*\([^)]*\)\s*\{\s*return\s+[^}]*\}\)/g, 'gcd');
-
-        // Self-healing: thay thế .values().join(...) thành Array.from(...).join(...)
-        cleanedExpr = cleanedExpr.replace(/([a-zA-Z0-9_$]+)\.values\(\)\.join\(/g, 'Array.from($1.values()).join(');
-
-        // Self-healing: thay thế vòng lặp tìm ước thành getDivisors
-        cleanedExpr = cleanedExpr.replace(/\(\(\)\s*=>\s*\{\s*let\s+(\w+)\s*=\s*\[\]\s*;\s*for\s*\(\s*let\s+(\w+)\s*=\s*1\s*;\s*\2\s*<=\s*([a-zA-Z0-9_$]+)\s*;\s*\2\+\+\s*\)\s*\{\s*if\s*\(\s*\3\s*%\s*\2\s*===\s*0\s*\)\s*\1\.push\(\2\)\s*;\s*\}\s*return\s*\1\s*;\s*\}\)\(\)/g, 'getDivisors($3)');
-
-        let trimmed = cleanedExpr.trim();
-        // Phòng thủ: Phát hiện các từ đơn hoặc cụm từ tiếng Việt thuần túy không bọc nháy do AI sinh lỗi
-        const isPlainWord = /^[a-zA-Z0-9đàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ\s\.\,\_]+$/i.test(trimmed) && !/\b[a-zA-Z_$][a-zA-Z0-9_$]*\.[a-zA-Z_$][a-zA-Z0-9_$]*\b/.test(trimmed);
-        if (isPlainWord) {
-            // Nếu không phải là số và không trùng với bất kỳ tên biến hay helper
-            const isNumber = !isNaN(Number(trimmed));
-            const hasKey = context ? (trimmed in context) : false;
-            const helpersKeys = ['Math', 'parseInt', 'parseFloat', 'isNaN', 'gcd', 'lcm', 'ƯCLN', 'BCNN', 'ucln', 'bcnn', 'isPrime', 'getUniquePrimeFactors', 'findPrimeFactorPairs', 'simplify', 'getDivisors', 'lcm3', 'sumDigits', 'SHIFT_IF_COLLIDE', 'true', 'false', 'null', 'undefined'];
-            if (!isNumber && !hasKey && !helpersKeys.includes(trimmed)) {
-                return trimmed; // Trả về trực tiếp chuỗi chữ!
-            }
-        }
-
-        // Nếu biểu thức bắt đầu bằng function và kết thúc bằng ) (IIFE ẩn danh bị thiếu ngoặc)
-        if (trimmed.startsWith('function') && trimmed.endsWith(')')) {
-            cleanedExpr = '(' + cleanedExpr + ')';
-        }
-
-        // Loại bỏ dấu chấm phẩy ở cuối để tránh lỗi cú pháp khi bọc trong biểu thức trả về
-        cleanedExpr = cleanedExpr.trim();
-        if (cleanedExpr.endsWith(';')) {
-            cleanedExpr = cleanedExpr.slice(0, -1).trim();
-        }
-
-        // Hàm helper để làm tròn số thực phòng ngừa sai số floating-point
-        const roundFloat = (val) => {
-            if (typeof val === 'number' && !Number.isInteger(val)) {
-                const str = val.toString();
-                if (str.includes('000000') || str.includes('999999')) {
-                    val = Math.round(val * 100000) / 100000;
-                }
-                if (Math.abs(val - Math.round(val)) < 1e-9) {
-                    val = Math.round(val);
-                }
-            }
-            return val;
-        };
-
-        try {
-            // Sử dụng Object.create để tránh kích hoạt sớm các Getter trong context
-            const ctx = Object.create(context || {});
-            // Định nghĩa các helper toán học trực tiếp trên ctx che đi prototype
-            Math.gcd = (a, b) => self.gcd(a, b);
-            Math.lcm = (a, b) => self.lcm(a, b);
-            Math.isPrime = (n) => self.isPrime(n);
-            Math.sumDigits = (n) => self.sumDigits(n);
-            const helpers = {
-                this: context,
-                Math: Math,
-                parseInt: parseInt,
-                parseFloat: parseFloat,
-                isNaN: isNaN,
-                abs: (n) => Math.abs(n),
-                gcd: (a, b) => self.gcd(a, b),
-                lcm: (a, b) => self.lcm(a, b),
-                ƯCLN: (a, b) => self.gcd(a, b),
-                BCNN: (a, b) => self.lcm(a, b),
-                ucln: (a, b) => self.gcd(a, b),
-                bcnn: (a, b) => self.lcm(a, b),
-                isPrime: (n) => self.isPrime(n),
-                getUniquePrimeFactors: (n) => self.getUniquePrimeFactors(n),
-                findPrimeFactorPairs: (n) => self.findPrimeFactorPairs(n),
-                simplify: (num, den) => self.simplify(num, den),
-                getDivisors: (n) => self.getDivisors(n),
-                lcm3: (a, b, c) => self.lcm3(a, b, c),
-                sumDigits: (n) => self.sumDigits(n),
-                SHIFT_IF_COLLIDE: (val, ans, w1, w2) => self.SHIFT_IF_COLLIDE(val, ans, w1, w2)
-            };
-
-            for (const [key, val] of Object.entries(helpers)) {
-                Object.defineProperty(ctx, key, {
-                    value: val,
-                    writable: true,
-                    configurable: true,
-                    enumerable: true
-                });
-            }
-            
-            // Biên dịch và chạy biểu thức trong khối with(ctx)
-            const fn = new Function('ctx', `with(ctx) { return (${cleanedExpr}); }`);
-            const res = fn(ctx);
-            return roundFloat(res);
-        } catch (e) {
-            // Fallback sang safeEval nếu new Function gặp lỗi cú pháp (ví dụ: bị chặn bởi CSP)
-            try {
-                const res = this.safeEval(cleanedExpr, context);
-                return roundFloat(res);
-            } catch (err) {
-                console.error("Error evaluating expression:", expr, e);
-                return null;
-            }
-        }
+        return expr;
     },
 
     safeEval: function(expr, context) {
-        const self = this;
-        // Sử dụng prototypal inheritance thay cho spread để tránh trigger trước các getter
-        const ctx = Object.create(context);
-        const helpers = {
-            Math: Math,
-            parseInt: parseInt,
-            parseFloat: parseFloat,
-            isNaN: isNaN,
-            this: ctx
-        };
-
-        for (const [key, val] of Object.entries(helpers)) {
-            Object.defineProperty(ctx, key, {
-                value: val,
-                writable: true,
-                configurable: true,
-                enumerable: true
-            });
+        if (MathExprEvaluator && typeof MathExprEvaluator.safeEval === 'function') {
+            return MathExprEvaluator.safeEval(expr, context);
         }
-
-        // Tokenizer
-        const tokens = [];
-        // Fixed regex: bổ sung toán tử so sánh '<' và '>' vốn bị thiếu ở bản cũ
-        const regex = /\s*(?:(\d+(?:\.\d+)?)|([a-zA-Z_$][a-zA-Z0-9_$]*)|(===|!==|==|!=|<=|>=|<|>|&&|\|\||\.\.\.|=>|[\+\-\*\/%\(\)\,\!\?\:\[\]\{\}\;\=\.])|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"))/g;
-        let match;
-        while ((match = regex.exec(expr)) !== null) {
-            if (match[1] !== undefined) {
-                tokens.push({ type: 'NUMBER', value: parseFloat(match[1]) });
-            } else if (match[2] !== undefined) {
-                tokens.push({ type: 'IDENTIFIER', value: match[2] });
-            } else if (match[3] !== undefined) {
-                tokens.push({ type: 'OPERATOR', value: match[3] });
-            } else if (match[4] !== undefined) {
-                tokens.push({ type: 'STRING', value: match[4].slice(1, -1) });
-            }
-        }
-
-        let tokenIdx = 0;
-        function peek() {
-            return tokens[tokenIdx];
-        }
-        function consume(expectedValue) {
-            const tok = tokens[tokenIdx];
-            if (!tok) {
-                throw new Error("Unexpected end of expression");
-            }
-            if (expectedValue !== undefined && tok.value !== expectedValue) {
-                throw new Error("Expected token " + expectedValue + " but got " + tok.value);
-            }
-            tokenIdx++;
-            return tok;
-        }
-
-        // Đánh giá danh sách các token con (cho filter hoặc sub-scope)
-        function evalSubTokens(subToks, subCtx) {
-            const res = self.safeEvalTokens(subToks, subCtx);
-            return res;
-        }
-
-        // Xử lý IIFE: (() => { statements })()
-        const first = tokens[0];
-        const second = tokens[1];
-        if (first && first.value === '(' && second && second.value === '(') {
-            // Kiểm tra xem có phải cấu trúc IIFE: (() => { ... })()
-            let isIIFE = false;
-            let arrowIdx = -1;
-            for (let i = 0; i < tokens.length; i++) {
-                if (tokens[i].value === '=>') {
-                    isIIFE = true;
-                    arrowIdx = i;
-                    break;
-                }
-            }
-
-            if (isIIFE) {
-                // Parse IIFE
-                tokenIdx = arrowIdx + 1; // Nhảy qua '=>'
-                consume('{');
-                
-                const localScope = Object.create(ctx);
-                let result = null;
-                
-                // Đọc các câu lệnh phân tách bằng dấu chấm phẩy
-                while (peek() && peek().value !== '}') {
-                    const next = peek();
-                    if (next.type === 'IDENTIFIER' && (next.value === 'const' || next.value === 'let' || next.value === 'var')) {
-                        consume(); // const/let/var
-                        const varName = consume().value;
-                        consume('=');
-                        
-                        // Lấy các token biểu thức cho tới khi gặp ';'
-                        const exprToks = [];
-                        while (peek() && peek().value !== ';') {
-                            exprToks.push(consume());
-                        }
-                        if (peek() && peek().value === ';') consume(';');
-                        
-                        localScope[varName] = evalSubTokens(exprToks, localScope);
-                    } else if (next.type === 'IDENTIFIER' && next.value === 'return') {
-                        consume('return');
-                        const exprToks = [];
-                        // Lấy các token cho tới khi gặp ';' hoặc kết thúc khối '}'
-                        while (peek() && peek().value !== ';' && peek().value !== '}') {
-                            exprToks.push(consume());
-                        }
-                        if (peek() && peek().value === ';') consume(';');
-                        result = evalSubTokens(exprToks, localScope);
-                    } else {
-                        // Bỏ qua các token không hợp lệ khác
-                        consume();
-                    }
-                }
-                return result;
-            }
-        }
-
-        return this.safeEvalTokens(tokens, ctx);
+        return null;
     },
 
     safeEvalTokens: function(tokens, ctx) {
-        let tokenIdx = 0;
-        const self = this;
-
-        function peek() {
-            return tokens[tokenIdx];
+        if (MathExprEvaluator && typeof MathExprEvaluator.safeEvalTokens === 'function') {
+            return MathExprEvaluator.safeEvalTokens(tokens, ctx);
         }
-        function consume(expectedValue) {
-            const tok = tokens[tokenIdx];
-            if (!tok) {
-                throw new Error("Unexpected end of expression");
-            }
-            if (expectedValue !== undefined && tok.value !== expectedValue) {
-                throw new Error("Expected token " + expectedValue + " but got " + tok.value);
-            }
-            tokenIdx++;
-            return tok;
-        }
-
-        function parseTernary(skip) {
-            let left = parseLogicalOr(skip);
-            const tok = peek();
-            if (tok && tok.type === 'OPERATOR' && tok.value === '?') {
-                consume('?');
-                let middle = parseTernary(skip || !left);
-                consume(':');
-                let right = parseTernary(skip || !!left);
-                return skip ? null : (left ? middle : right);
-            }
-            return skip ? null : left;
-        }
-
-        function parseLogicalOr(skip) {
-            let left = parseLogicalAnd(skip);
-            let tok = peek();
-            while (tok && tok.type === 'OPERATOR' && tok.value === '||') {
-                consume('||');
-                let right = parseLogicalAnd(skip || !!left);
-                if (!skip) left = left || right;
-                tok = peek();
-            }
-            return left;
-        }
-
-        function parseLogicalAnd(skip) {
-            let left = parseEquality(skip);
-            let tok = peek();
-            while (tok && tok.type === 'OPERATOR' && tok.value === '&&') {
-                consume('&&');
-                let right = parseEquality(skip || !left);
-                if (!skip) left = left && right;
-                tok = peek();
-            }
-            return left;
-        }
-
-        function parseEquality(skip) {
-            let left = parseRelational(skip);
-            let tok = peek();
-            while (tok && tok.type === 'OPERATOR' && (tok.value === '===' || tok.value === '!==' || tok.value === '==' || tok.value === '!=')) {
-                const op = consume().value;
-                let right = parseRelational(skip);
-                if (!skip) {
-                    if (op === '===') left = left === right;
-                    else if (op === '!==') left = left !== right;
-                    else if (op === '==') left = left == right;
-                    else if (op === '!=') left = left != right;
-                }
-                tok = peek();
-            }
-            return left;
-        }
-
-        // parseRelational, parseAdditive, parseMultiplicative, parseUnary, parsePrimary...
-        function parseRelational(skip) {
-            let left = parseAdditive(skip);
-            let tok = peek();
-            while (tok && tok.type === 'OPERATOR' && (tok.value === '<' || tok.value === '>' || tok.value === '<=' || tok.value === '>=')) {
-                const op = consume().value;
-                let right = parseAdditive(skip);
-                if (!skip) {
-                    if (op === '<') left = left < right;
-                    else if (op === '>') left = left > right;
-                    else if (op === '<=') left = left <= right;
-                    else if (op === '>=') left = left >= right;
-                }
-                tok = peek();
-            }
-            return left;
-        }
-
-        function parseAdditive(skip) {
-            let left = parseMultiplicative(skip);
-            let tok = peek();
-            while (tok && tok.type === 'OPERATOR' && (tok.value === '+' || tok.value === '-')) {
-                const op = consume().value;
-                let right = parseMultiplicative(skip);
-                if (!skip) {
-                    if (op === '+') left = left + right;
-                    else if (op === '-') left = left - right;
-                }
-                tok = peek();
-            }
-            return left;
-        }
-
-        function parseMultiplicative(skip) {
-            let left = parseUnary(skip);
-            let tok = peek();
-            while (tok && tok.type === 'OPERATOR' && (tok.value === '*' || tok.value === '/' || tok.value === '%')) {
-                const op = consume().value;
-                let right = parseUnary(skip);
-                if (!skip) {
-                    if (op === '*') left = left * Math.round(right * 1000000) / 1000000;
-                    else if (op === '/') {
-                        if (right === 0) {
-                            throw new Error("Division by zero");
-                        }
-                        left = left / right;
-                    }
-                    else if (op === '%') {
-                        if (right === 0) {
-                            throw new Error("Modulo by zero");
-                        }
-                        left = left % right;
-                    }
-                }
-                tok = peek();
-            }
-            return left;
-        }
-
-        function parseUnary(skip) {
-            let tok = peek();
-            if (tok && tok.type === 'OPERATOR' && (tok.value === '-' || tok.value === '!')) {
-                const op = consume().value;
-                let right = parseUnary(skip);
-                if (skip) return 0;
-                if (op === '-') return -right;
-                if (op === '!') return !right;
-            }
-            return parsePrimary(skip);
-        }
-
-        function parsePrimary(skip) {
-            let tok = consume();
-            if (tok.type === 'NUMBER' || tok.type === 'STRING') {
-                return skip ? 0 : tok.value;
-            }
-
-            if (tok.type === 'IDENTIFIER') {
-                const name = tok.value;
-                let val;
-                let hasResolved = false;
-
-                // Xử lý từ khóa new
-                if (name === 'new') {
-                    const className = consume().value;
-                    consume('(');
-                    const args = [];
-                    if (peek().value !== ')') {
-                        args.push(parseTernary(skip));
-                        while (peek() && peek().value === ',') {
-                            consume(',');
-                            args.push(parseTernary(skip));
-                        }
-                    }
-                    consume(')');
-                    hasResolved = true;
-                    if (!skip) {
-                        if (className === 'Set') {
-                            val = new Set(...args);
-                        } else if (className === 'Map') {
-                            val = new Map(...args);
-                        } else {
-                            throw new Error("Unsupported class for new operator: " + className);
-                        }
-                    }
-                } else if (name === 'Array') {
-                    // Hỗ trợ Array.from(...)
-                    consume('.');
-                    const methodName = consume().value;
-                    consume('(');
-                    const args = [];
-                    if (peek().value !== ')') {
-                        args.push(parseTernary(skip));
-                        while (peek() && peek().value === ',') {
-                            consume(',');
-                            args.push(parseTernary(skip));
-                        }
-                    }
-                    consume(')');
-                    hasResolved = true;
-                    if (!skip) {
-                        if (methodName === 'from') {
-                            val = Array.from(...args);
-                        } else {
-                            throw new Error("Unsupported Array method: " + methodName);
-                        }
-                    }
-                } else if (name === 'Math') {
-                    consume('.');
-                    const methodName = consume().value;
-                    consume('(');
-                    const args = [];
-                    if (peek().value !== ')') {
-                        let isSpread = false;
-                        if (peek().value === '...') {
-                            consume('...');
-                            isSpread = true;
-                        }
-                        const argVal = parseTernary(skip);
-                        if (!skip) {
-                            if (isSpread && Array.isArray(argVal)) {
-                                args.push(...argVal);
-                            } else {
-                                args.push(argVal);
-                            }
-                        }
-
-                        while (peek() && peek().value === ',') {
-                            consume(',');
-                            let isInnerSpread = false;
-                            if (peek().value === '...') {
-                                consume('...');
-                                isInnerSpread = true;
-                            }
-                            const innerArgVal = parseTernary(skip);
-                            if (!skip) {
-                                if (isInnerSpread && Array.isArray(innerArgVal)) {
-                                    args.push(...innerArgVal);
-                                } else {
-                                    args.push(innerArgVal);
-                                }
-                            }
-                        }
-                    }
-                    consume(')');
-                    hasResolved = true;
-                    if (!skip) {
-                        if (typeof Math[methodName] !== 'function') {
-                            throw new Error("Math method " + methodName + " is not a function");
-                        }
-                        val = Math[methodName].apply(null, args);
-                    }
-                } else if (peek() && peek().value === '(') {
-                    // Gọi hàm helper trực tiếp
-                    consume('(');
-                    const args = [];
-                    if (peek().value !== ')') {
-                        args.push(parseTernary(skip));
-                        while (peek() && peek().value === ',') {
-                            consume(',');
-                            args.push(parseTernary(skip));
-                        }
-                    }
-                    consume(')');
-                    hasResolved = true;
-                    if (!skip) {
-                        if (typeof ctx[name] === 'function') {
-                            val = ctx[name].apply(ctx, args);
-                        } else if (typeof self[name] === 'function') {
-                            val = self[name].apply(self, args);
-                        } else {
-                            throw new Error("Function " + name + " is not defined");
-                        }
-                    }
-                }
-
-                if (!hasResolved) {
-                    val = ctx[name];
-                }
-
-                // Vòng lặp phân tích chuỗi thuộc tính hoặc phương thức liên tiếp (ví dụ: a.b.c hoặc a.filter(...).length)
-                while (peek() && (peek().value === '.' || peek().value === '[')) {
-                    if (peek().value === '.') {
-                        consume('.');
-                        const prop = consume().value;
-                        if (skip) continue;
-
-                        if (prop === 'filter' && peek() && peek().value === '(') {
-                            consume('(');
-                            const paramTok = consume(); // x
-                            consume('=>');
-                            
-                            const filterTokens = [];
-                            let parenCount = 1;
-                            while (parenCount > 0) {
-                                const t = consume();
-                                if (t.value === '(') parenCount++;
-                                if (t.value === ')') parenCount--;
-                                if (parenCount > 0) filterTokens.push(t);
-                            }
-
-                            if (Array.isArray(val)) {
-                                val = val.filter(item => {
-                                    const subCtx = Object.create(ctx);
-                                    subCtx[paramTok.value] = item;
-                                    return self.safeEvalTokens(filterTokens, subCtx);
-                                });
-                            }
-                        } else if (val !== undefined && val !== null && typeof val === 'object' && prop in val) {
-                            if (peek() && peek().value === '(') {
-                                consume('(');
-                                const args = [];
-                                if (peek().value !== ')') {
-                                    args.push(parseTernary(skip));
-                                    while (peek() && peek().value === ',') {
-                                        consume(',');
-                                        args.push(parseTernary(skip));
-                                    }
-                                }
-                                consume(')');
-                                if (!skip) {
-                                    if (typeof val[prop] === 'function') {
-                                        val = val[prop].apply(val, args);
-                                    } else {
-                                        throw new Error(prop + " is not a function on object");
-                                    }
-                                }
-                            } else {
-                                if (!skip) {
-                                    val = val[prop];
-                                }
-                            }
-                        } else if (val && prop === 'length' && Array.isArray(val)) {
-                            val = val.length;
-                        } else {
-                            val = undefined;
-                        }
-                    } else if (peek().value === '[') {
-                        consume('[');
-                        const indexVal = parseTernary(skip);
-                        consume(']');
-                        if (!skip && val !== undefined && val !== null) {
-                            val = val[indexVal];
-                        }
-                    }
-                }
-
-                return skip ? 0 : val;
-            }
-
-            if (tok.type === 'OPERATOR' && tok.value === '(') {
-                let val = parseTernary(skip);
-                consume(')');
-                return val;
-            }
-
-            if (tok.type === 'OPERATOR' && tok.value === '[') {
-                const arr = [];
-                if (peek().value !== ']') {
-                    arr.push(parseTernary(skip));
-                    while (peek() && peek().value === ',') {
-                        consume(',');
-                        arr.push(parseTernary(skip));
-                    }
-                }
-                consume(']');
-                return skip ? [] : arr;
-            }
-
-            throw new Error("Unexpected token: " + tok.value);
-        }
-
-        return parseTernary(false);
+        return null;
     },
 
     generateQuestionFromTemplate: function(tempQ, customMaxAttempts = 200) {
@@ -1249,33 +663,45 @@ function sanitizeForClone(obj) {
 }
 
 // Web Worker API listener
-self.onmessage = function(e) {
-    const { questions, maxAttempts } = e.data;
-    const finalAttempts = maxAttempts || 500; // Tăng giới hạn mặc định của Worker lên 500 lần thử
-    const generatedQuestions = [];
+if (typeof self !== 'undefined') {
+    self.onmessage = function(e) {
+        const { questions, maxAttempts } = e.data;
+        const finalAttempts = maxAttempts || 500; // Tăng giới hạn mặc định của Worker lên 500 lần thử
+        const generatedQuestions = [];
 
-    try {
-        for (let i = 0; i < questions.length; i++) {
-            const qTemp = questions[i];
-            try {
-                const genQ = generator.generateQuestionFromTemplate(qTemp, finalAttempts);
-                genQ.isSpacedRepetition = false;
-                genQ.level = 'chat-luong-cao';
-                generatedQuestions.push(sanitizeForClone(genQ));
-            } catch (err) {
-                // Đóng gói chi tiết lỗi kèm template câu hỏi cụ thể gây lỗi (đã làm sạch hàm)
-                self.postMessage({
-                    status: 'error',
-                    message: `Lỗi tại câu số ${i + 1}: ${err.message}`,
-                    stack: err.stack,
-                    failedQuestion: sanitizeForClone(qTemp),
-                    failedIndex: i
-                });
-                return;
+        try {
+            for (let i = 0; i < questions.length; i++) {
+                const qTemp = questions[i];
+                try {
+                    const genQ = generator.generateQuestionFromTemplate(qTemp, finalAttempts);
+                    genQ.isSpacedRepetition = false;
+                    genQ.level = 'chat-luong-cao';
+                    generatedQuestions.push(sanitizeForClone(genQ));
+                } catch (err) {
+                    // Đóng gói chi tiết lỗi kèm template câu hỏi cụ thể gây lỗi (đã làm sạch hàm)
+                    if (typeof self.postMessage === 'function') {
+                        self.postMessage({
+                            status: 'error',
+                            message: `Lỗi tại câu số ${i + 1}: ${err.message}`,
+                            stack: err.stack,
+                            failedQuestion: sanitizeForClone(qTemp),
+                            failedIndex: i
+                        });
+                    }
+                    return;
+                }
+            }
+            if (typeof self.postMessage === 'function') {
+                self.postMessage({ status: 'success', questions: generatedQuestions });
+            }
+        } catch (globalErr) {
+            if (typeof self.postMessage === 'function') {
+                self.postMessage({ status: 'error', message: globalErr.message, stack: globalErr.stack });
             }
         }
-        self.postMessage({ status: 'success', questions: generatedQuestions });
-    } catch (globalErr) {
-        self.postMessage({ status: 'error', message: globalErr.message, stack: globalErr.stack });
-    }
-};
+    };
+}
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = generator;
+}
