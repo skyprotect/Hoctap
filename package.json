@@ -38,7 +38,12 @@
     "quality": "tsc --noEmit && node scripts/quality/check-file-growth.js && jest --runInBand --forceExit",
     "release": "node scripts/build/release.js",
     "release:apk": "node scripts/build/release_apk.js",
-    "sync": "node scripts/build/sync_clean.js"
+    "sync": "node scripts/build/sync_clean.js",
+    "verify:data": "node tools/seam-probe/probe-data.js",
+    "verify:curriculum": "node tools/seam-probe/probe-curriculum.js",
+    "verify:questions": "node tools/seam-probe/probe-questions.js",
+    "verify:lifecycle": "node tools/seam-probe/probe-lifecycle.js",
+    "verify:all": "node tools/seam-probe/verify-all.js"
   },
   "jest": {
     "testMatch": [
