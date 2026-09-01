@@ -25,7 +25,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '14.5';
+export const APP_VERSION = '14.7';
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)

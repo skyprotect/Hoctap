@@ -1,9 +1,9 @@
 {
-  "version": "14.5",
-  "lastUpdated": "01/09/2026 08:07",
-  "build": 1401,
-  "releaseNotes": "MICRO-REFACTOR (v14.01): Khôi phục toàn diện dữ liệu học tập HK2 cho Trần Bình Minh; Bóc tách mô-đun MathTemplateCompiler chuẩn hóa; Sửa lỗi khởi tạo Web Worker ngầm và gia cố nút Thoát trong bài tập & bài kiểm tra.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v14.5/ToanHocKiosk_Setup_v14.5.exe",
-  "changelog": "- EnglishAnswerEvaluator (js/core/english-answer-evaluator.js): Pure Domain Logic 100% đánh giá câu trả lời 6 dạng bài Tiếng Anh và trợ lý ngữ pháp.\n- js/app.js: checkEnglishAnswer ủy thác toàn bộ đánh giá cho EnglishAnswerEvaluator, chỉ giữ lại điều phối UI, audio và state.\n- tests/core/english-answer-evaluator.test.js: 18 unit tests bao phủ 100% các dạng bài và chẩn đoán ngữ pháp.",
-  "releaseDate": "2026-09-01T08:07:00+07:00"
+  "version": "14.7",
+  "lastUpdated": "01/09/2026 19:22",
+  "build": 1402,
+  "releaseNotes": "Tối ưu hóa kiến trúc English Audio Offline-First (CYCLE-ENGLISH-AUDIO-OFFLINE-FIRST): Loại bỏ hoàn toàn phụ thuộc ngoài Google TTS trên runtime học sinh, chuyển đổi sang chu trình Local MP3 -> Web Speech API fallback tức thì, loại bỏ triệt để độ trễ mạng và lỗi 403.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v14.7/ToanHocKiosk_Setup_v14.7.exe",
+  "changelog": "- Tối ưu app.playEnglishVoice(): Phát file âm thanh cục bộ MP3, fallback trực tiếp sang SpeechService khi thiếu file.\n- Loại bỏ URL Google Translate TTS khỏi critical student path, bảo đảm trải nghiệm phát âm ổn định 100% offline.\n- tests/core/english-audio-offline.characterization.test.js: Bao phủ toàn bộ các kịch bản offline, 404 fallback, key sanitization và benchmark độ trễ.",
+  "releaseDate": "2026-09-01T19:22:00+07:00"
 }

@@ -9437,24 +9437,25 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const cleanKey = (audioFileKey || text).toLowerCase().trim().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "");
         const audioUrl = `sounds/english/${cleanKey}.mp3`;
         
-        const audio = new Audio(audioUrl);
-        audio.play()
-            .then(() => {
-                this.updateAudioSourceLabel("File cục bộ (Offline)");
-            })
-            .catch(err => {
-                // Online Google Translate TTS API
-                const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en-US&client=tw-ob&q=${encodeURIComponent(text)}`;
-                const onlineAudio = new Audio(googleTtsUrl);
-                onlineAudio.play()
+        try {
+            const audio = new Audio(audioUrl);
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise
                     .then(() => {
-                        this.updateAudioSourceLabel("Google Translate API (Chuẩn Mỹ)");
+                        this.updateAudioSourceLabel("File cục bộ (Offline)");
                     })
-                    .catch(onlineErr => {
-                        console.warn(`[Speech Fallback] Dùng máy đọc TTS trình duyệt phát âm: ${text}`);
+                    .catch(() => {
+                        // Offline-First Fallback trực tiếp sang Web Speech API của máy
                         this.speakEnglish(text, true);
                     });
-            });
+            } else {
+                this.updateAudioSourceLabel("File cục bộ (Offline)");
+            }
+        } catch (e) {
+            // Lỗi khởi tạo Audio hoặc runtime error -> Fallback an toàn
+            this.speakEnglish(text, true);
+        }
     },
 
     _speakEnglishDup: null,
