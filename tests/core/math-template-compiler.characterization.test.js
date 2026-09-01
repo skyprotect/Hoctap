@@ -41,6 +41,27 @@ describe("MathTemplateCompiler Characterization Test Suite", () => {
             expect(resQ).toBe(rawQ);
             expect(resQ.isTemplateInstance).toBeUndefined();
         });
+
+        test("Main thread throws explicitly when a template compiler is unavailable, while static input still passes through", () => {
+            let unavailableQuestions;
+            const savedCompiler = global.MathTemplateCompiler;
+            try {
+                delete global.MathTemplateCompiler;
+                jest.isolateModules(() => {
+                    jest.doMock('../../js/core/math-template-compiler', () => null);
+                    unavailableQuestions = require('../../js/questions-v3.js');
+                });
+            } finally {
+                if (savedCompiler === undefined) delete global.MathTemplateCompiler;
+                else global.MathTemplateCompiler = savedCompiler;
+                jest.dontMock('../../js/core/math-template-compiler');
+            }
+
+            const staticQuestion = { questionText: 'Câu hỏi tĩnh' };
+            expect(unavailableQuestions.generateQuestionFromTemplate(staticQuestion)).toBe(staticQuestion);
+            expect(() => unavailableQuestions.generateQuestionFromTemplate({ isTemplate: true }))
+                .toThrow('MATH_TEMPLATE_COMPILER_UNAVAILABLE');
+        });
     });
 
     // -------------------------------------------------------------------------

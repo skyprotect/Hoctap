@@ -146,6 +146,10 @@ const MathTemplateCompiler = (typeof window !== 'undefined' && window.MathTempla
     || (typeof globalThis !== 'undefined' && globalThis.MathTemplateCompiler) 
     || (typeof require === 'function' ? require('./core/math-template-compiler') : null);
 
+const StudentExamMarkup = (typeof window !== 'undefined' && window.StudentExamMarkup)
+    || (typeof globalThis !== 'undefined' && globalThis.StudentExamMarkup)
+    || (typeof require === 'function' ? require('./core/student-exam-markup') : null);
+
 const questions = {
     getApiUrl: function(path) {
         if (UrlUtils && typeof UrlUtils.getApiUrl === 'function') {
@@ -543,10 +547,13 @@ const questions = {
         return null;
     },
     generateQuestionFromTemplate: function(tempQ, optionsOrMaxAttempts) {
+        // Static questions are already executable question objects. Only template
+        // compilation is an error when its canonical dependency is unavailable.
+        if (!tempQ || !tempQ.isTemplate) return tempQ;
         if (MathTemplateCompiler && typeof MathTemplateCompiler.generateQuestionFromTemplate === 'function') {
             return MathTemplateCompiler.generateQuestionFromTemplate(tempQ, optionsOrMaxAttempts);
         }
-        return tempQ;
+        throw new Error('MATH_TEMPLATE_COMPILER_UNAVAILABLE: cannot compile a math question template');
     },
 
     // Điểm xuất phát của việc chọn cấp độ bài luyện tập
@@ -9017,235 +9024,12 @@ const questions = {
     renderAndPrintStudentExam: function(lessonTitle, questionsList, includeSolution, classLevel, level) {
         const schoolName = (window.app && app.config && app.config.schoolName) || "HỆ THỐNG GIÁO DỤC CÁ NHÂN HÓA AI";
         const defaultStudentName = (window.app && app.config && app.config.studentName) || "......................................................................";
-        
-        const levelTextMap = {
-            'co-ban': 'Cơ bản',
-            'nang-cao': 'Nâng cao',
-            'kho': 'Khó',
-            'chat-luong-cao': 'Chất lượng cao AI'
-        };
-        const levelText = levelTextMap[level] || 'Nâng cao';
 
-        // Xây dựng Header & Thông tin đề thi
-        let html = `
-            <!-- Trang Đề thi -->
-            <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif;">
-                <!-- Header trường học & tên đề -->
-                <div style="display: flex; justify-content: space-between; align-items: start; border-bottom: 2px solid #000000; padding-bottom: 10px; margin-bottom: 20px;">
-                    <div style="text-align: center; font-weight: bold; font-size: 11px; text-transform: uppercase; width: 45%;">
-                        <p style="margin: 0; padding: 0;">${schoolName}</p>
-                        <p style="font-size: 9px; font-weight: normal; margin-top: 2px; margin-bottom: 0;">Chương trình học tập cá nhân hóa AI</p>
-                    </div>
-                    <div style="text-align: center; font-weight: bold; font-size: 13px; text-transform: uppercase; width: 50%;">
-                        <p style="margin: 0; padding: 0;">ĐỀ THI KIỂM TRA CHUYÊN ĐỀ</p>
-                        <p style="font-size: 11px; font-weight: bold; font-style: italic; text-transform: none; margin-top: 4px; margin-bottom: 0;">Môn: Toán Lớp ${classLevel} - Mức độ: ${levelText}</p>
-                    </div>
-                </div>
-
-                <!-- Tên Chuyên đề -->
-                <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px;">
-                    Chuyên đề: ${lessonTitle}
-                </div>
-
-                <!-- Phần điền thông tin học sinh -->
-                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 20px; line-height: 1.8;">
-                    <div style="width: 60%;">Họ và tên học sinh: <span style="font-weight: bold;">${defaultStudentName}</span></div>
-                    <div style="width: 35%;">Ngày làm bài: ....../....../20...</div>
-                    <div style="width: 60%;">Lớp: ....................................................................</div>
-                    <div style="width: 35%;">Thời gian làm bài: 45 phút</div>
-                </div>
-
-                <!-- Khung ghi điểm & Lời phê -->
-                <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; margin-bottom: 25px; font-size: 13px; text-align: center;">
-                    <thead>
-                        <tr style="background-color: #f8fafc;">
-                            <th style="border: 1px solid #000000; padding: 8px; font-weight: bold; width: 30%;">ĐIỂM SỐ</th>
-                            <th style="border: 1px solid #000000; padding: 8px; font-weight: bold;">LỜI PHÊ CỦA PHỤ HUYNH</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="height: 60px;">
-                            <td style="border: 1px solid #000000;"></td>
-                            <td style="border: 1px solid #000000; text-align: left; padding: 8px; vertical-align: top; color: #64748b;"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div style="font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px dashed #000000; padding-bottom: 4px;">
-                    PHẦN I. CÂU HỎI TRẮC NGHIỆM (10 câu hỏi)
-                </div>
-                <p style="font-style: italic; font-size: 12px; margin-bottom: 15px; color: #475569;">Khoanh tròn vào chữ cái đứng trước câu trả lời đúng nhất hoặc điền vào Bảng đáp án ở cuối đề.</p>
-
-                <!-- Danh sách câu hỏi -->
-                <div style="display: flex; flex-direction: column; gap: 20px;">
-        `;
-
-        // Render từng câu hỏi
-        questionsList.forEach((q, idx) => {
-            const cleanText = q.questionText.replace(/<br\s*\/?>/gi, '<br/>');
-            
-            // Render các phương án lựa chọn A, B, C, D
-            let optionsHtml = "";
-            if (q.options && q.options.length > 0) {
-                optionsHtml = `<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; padding-left: 15px; font-size: 13px;">`;
-                q.options.forEach((opt, oIdx) => {
-                    const cleanOpt = opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
-                    const letter = ["A", "B", "C", "D"][oIdx];
-                    optionsHtml += `<div style="line-height: 1.5;"><span style="font-weight: bold;">${letter}.</span> ${cleanOpt}</div>`;
-                });
-                optionsHtml += `</div>`;
-            }
-
-            html += `
-                <div style="page-break-inside: avoid; break-inside: avoid;">
-                    <div class="math-render" style="font-size: 13.5px; font-weight: 600; line-height: 1.6; text-align: justify;">
-                        Câu ${idx + 1}: ${cleanText}
-                    </div>
-                    ${optionsHtml}
-                </div>
-            `;
+        // Markup ownership is pure and testable; the surrounding delivery flow remains here.
+        const html = StudentExamMarkup.buildStudentExamMarkup(lessonTitle, questionsList, includeSolution, classLevel, level, {
+            schoolName,
+            defaultStudentName
         });
-
-        html += `
-                </div>
-
-                <!-- Bảng điền đáp án trắc nghiệm cho học sinh -->
-                <div style="margin-top: 35px; page-break-inside: avoid; break-inside: avoid;">
-                    <div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 10px; text-transform: uppercase;">
-                        BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM
-                    </div>
-                    <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px;">
-                        <thead>
-                            <tr style="background-color: #f1f5f9; font-weight: bold;">
-                                <td style="border: 1px solid #000000; padding: 6px; font-weight: bold;">Câu hỏi</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">1</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">2</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">3</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">4</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">5</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">6</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">7</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">8</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">9</td>
-                                <td style="border: 1px solid #000000; padding: 6px;">10</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="height: 32px;">
-                                <td style="border: 1px solid #000000; padding: 6px; font-weight: bold;">Đáp án chọn</td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                                <td style="border: 1px solid #000000;"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Footer bản quyền chuyên nghiệp -->
-                <div style="margin-top: 30px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
-                    © Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.
-                </div>
-            </div>
-        `;
-
-        // Render Hướng dẫn giải chi tiết & Đáp án ở trang sau
-        if (includeSolution) {
-            html += `
-                <!-- Ngắt trang sang trang Đáp án riêng biệt -->
-                <div class="print-page-break" style="margin-top: 40px;"></div>
-
-                <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif; margin-top: 20px;">
-                    <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 20px;">
-                        HƯỚNG DẪN GIẢI CHI TIẾT & ĐÁP ÁN ĐỀ THI
-                    </div>
-                    <p style="font-size: 13px; margin-bottom: 15px; font-weight: bold;">Chuyên đề: ${lessonTitle} - Mức độ: ${levelText}</p>
-                    
-                    <!-- Bảng đáp án nhanh -->
-                    <div style="margin-bottom: 25px;">
-                        <div style="font-weight: bold; font-size: 12px; margin-bottom: 8px; text-transform: uppercase;">
-                            1. BẢNG ĐÁP ÁN NHANH
-                        </div>
-                        <table style="width: 100%; border-collapse: collapse; border: 1.2px solid #000000; text-align: center; font-size: 12px;">
-                            <thead>
-                                <tr style="background-color: #f1f5f9; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; padding: 6px;">Câu</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">1</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">2</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">3</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">4</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">5</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">6</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">7</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">8</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">9</td>
-                                    <td style="border: 1px solid #000000; padding: 6px;">10</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="height: 28px; font-weight: bold;">
-                                    <td style="border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;">Đáp án</td>
-            `;
-
-            // Lấy ký tự đáp án nhanh A, B, C, D
-            questionsList.forEach(q => {
-                const correctLetter = ["A", "B", "C", "D"][q.correctIndex || 0];
-                html += `<td style="border: 1px solid #000000; color: #10b981 !important;">${correctLetter}</td>`;
-            });
-
-            html += `
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div style="font-weight: bold; font-size: 12px; margin-bottom: 12px; text-transform: uppercase;">
-                        2. LỜI GIẢI CHI TIẾT TỪNG CÂU
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 18px; font-size: 13px; line-height: 1.6;">
-            `;
-
-            questionsList.forEach((q, idx) => {
-                const correctLetter = ["A", "B", "C", "D"][q.correctIndex || 0];
-                const cleanSol = q.solutionHtml ? q.solutionHtml.replace(/<br\s*\/?>/gi, '<br/>') : "Đang cập nhật...";
-                const cleanTip = q.tip ? q.tip.replace(/<br\s*\/?>/gi, '<br/>') : "";
-
-                html += `
-                    <div style="page-break-inside: avoid; break-inside: avoid; border-bottom: 1px dashed #e2e8f0; padding-bottom: 12px;">
-                        <p style="font-weight: bold; margin-bottom: 4px;">Câu ${idx + 1}: Chọn đáp án ${correctLetter}</p>
-                        <div class="math-render" style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #8b5cf6; color: #334155 !important;">
-                            ${cleanSol}
-                        </div>
-                `;
-
-                if (cleanTip) {
-                    html += `
-                        <div class="math-render" style="margin-top: 6px; padding-left: 10px; font-style: italic; color: #475569 !important; font-size: 12.5px;">
-                            💡 Mẹo làm bài: ${cleanTip}
-                        </div>
-                    `;
-                }
-
-                html += `
-                    </div>
-                `;
-            });
-
-            html += `
-                    </div>
-                    <!-- Footer bản quyền chuyên nghiệp -->
-                    <div style="margin-top: 30px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">
-                        © Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.
-                    </div>
-                </div>
-            `;
-        }
-
         // 1. Hiển thị hộp thoại xem trước (Modal Preview)
         const previewModal = document.getElementById("print-preview-modal");
         const previewPaper = document.getElementById("print-preview-paper");

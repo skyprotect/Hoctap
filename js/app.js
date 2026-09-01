@@ -1225,6 +1225,9 @@ const app = {
             console.error("Lỗi initIdleTimer:", e);
         }
 
+        // Tối ưu hóa khởi động (Design C - Post-Boot Defer): nạp ngầm chuyên đề Tiếng Anh tự tạo sau khi First Usable State đã sẵn sàng
+        this.loadCustomTopics().catch(err => console.error("Lỗi nạp ngầm custom topics:", err));
+
         // Tối ưu hiệu năng: không khởi chạy startHeartbeat ở đây, sẽ khởi chạy khi bé nhấn bắt đầu học tập và vào giao diện chính
     },
 
@@ -2470,24 +2473,8 @@ const app = {
         // 1. Khởi tạo giao diện tức thì
         this.initInstantUI();
 
-        // 2. Tải cấu hình ứng dụng từ SQLite trước tiên để luôn sẵn sàng dữ liệu
-        try {
-            await this.loadConfig();
-        } catch (err) {
-            console.warn("Lỗi loadConfig ban đầu:", err);
-        }
-
-        // Tự động gán thông tin học sinh hiện tại lên Splash Screen ngay khi nạp xong config
-        let initialStudent = this.config.students ? this.config.students.find(s => s.id === this.config.defaultStudentId) : null;
-        if (!initialStudent && this.config.students && this.config.students.length > 0) {
-            initialStudent = this.config.students[0];
-            this.config.defaultStudentId = initialStudent.id;
-        }
-        if (initialStudent) {
-            this.config.studentName = initialStudent.name;
-            this.config.parentName = initialStudent.parentName || "Phụ huynh";
-            this.config.currentClass = initialStudent.classLevel;
-        }
+        // 2. initAppAfterLogin owns configuration loading and student selection.
+        // Calling loadConfig here as well performed the same startup request twice.
 
         try { this.audio.init(); } catch(e){}
         this.checkUpdateAuto();
@@ -4369,6 +4356,36 @@ const app = {
         }
     },
 
+    hasUsableLearningProgress: function(state) {
+        if (!state || typeof state !== 'object') return false;
+
+        const hasEntries = value => !!value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length > 0;
+        const hasItems = value => Array.isArray(value) && value.length > 0;
+        const hasPositiveValue = value => hasEntries(value) && Object.values(value).some(score => typeof score === 'number' && score > 0);
+        const subjects = state.subjects && typeof state.subjects === 'object' ? state.subjects : {};
+        const hasSubjectProgress = (subject, includeEnglishFields = false) => !!subject && typeof subject === 'object' && (
+            hasEntries(subject.scores) ||
+            hasEntries(subject.subtopicScores) ||
+            hasItems(subject.completedSubtopics) ||
+            hasItems(subject.completedLessonTheory) ||
+            hasItems(subject.examSessions) ||
+            (includeEnglishFields && (hasItems(subject.weakVocabulary) || hasPositiveValue(subject.skillScores)))
+        );
+
+        return [state.xp, state._sharedXp, state.englishXp].some(value => typeof value === 'number' && value > 0) ||
+            hasEntries(state.scores) ||
+            hasEntries(state.subtopicScores) ||
+            hasEntries(state.levelScores) ||
+            hasItems(state.completedSubtopics) ||
+            hasItems(state.completedLessonTheory) ||
+            hasItems(state.badges) ||
+            hasItems(state.goldBadges) ||
+            hasItems(state.history) ||
+            hasItems(state.examSessions) ||
+            hasSubjectProgress(subjects.math) ||
+            hasSubjectProgress(subjects.english, true);
+    },
+
     // Đọc tiến trình từ LocalStorage hoặc SQLite
     loadProgress: async function() {
         try {
@@ -4418,9 +4435,10 @@ const app = {
             }
 
             let dataToUse = null;
-            // Nếu có dữ liệu cục bộ và dữ liệu cục bộ tiến triển hơn (XP cao hơn hoặc có điểm)
+            const localHasProgress = this.hasUsableLearningProgress(localData);
+            // Nếu có dữ liệu cục bộ có bằng chứng học tập và dữ liệu cục bộ tiến triển hơn
             // thì chọn dữ liệu cục bộ để lưu/đồng bộ lên server SQLite
-            if (localData && localData.xp > 0 && (!serverData || !serverData.xp || localData.xp > serverData.xp)) {
+            if (localHasProgress && (!serverData || !serverData.xp || localData.xp > serverData.xp)) {
                 console.log(`[Migration] Phát hiện dữ liệu học tập cũ trong trình duyệt (XP: ${localData.xp}). Đang tự động chuyển đổi dữ liệu lên SQLite...`);
                 dataToUse = localData;
                 this.state = { ...this.state, ...localData };
@@ -4528,11 +4546,6 @@ const app = {
             }
             this.restoreMathProgress();
             this.setupSubjectStateProxies();
-            try {
-                await this.loadCustomTopics();
-            } catch (vocabErr) {
-                console.error("Lỗi load custom topics:", vocabErr);
-            }
         } catch (e) {
             console.error("Lỗi đọc dữ liệu lưu trữ từ SQLite:", e);
             // Đảm bảo phục hồi trạng thái state mặc định để tránh crash toàn bộ ứng dụng
@@ -4541,31 +4554,39 @@ const app = {
         }
     },
 
-    // Tải danh sách chuyên đề tự nạp & từ vựng của học sinh
+    // Tải danh sách chuyên đề tự nạp & từ vựng của học sinh (Hỗ trợ in-flight deduplication)
     loadCustomTopics: async function() {
-        const studentId = this.config.defaultStudentId || '';
-        try {
-            const [topicsRes, vocabRes] = await Promise.all([
-                fetch(this.getApiUrl(`/api/custom-topics?studentId=${studentId}`)),
-                fetch(this.getApiUrl(`/api/custom-vocabulary?studentId=${studentId}`))
-            ]);
-            
-            if (topicsRes.ok) {
-                this.customTopics = await topicsRes.json();
-            } else {
-                this.customTopics = [];
-            }
-            
-            if (vocabRes.ok) {
-                this.customVocabulary = await vocabRes.json();
-            } else {
-                this.customVocabulary = [];
-            }
-        } catch (e) {
-            console.error("Lỗi khi tải custom topics/vocab cho học sinh:", e);
-            this.customTopics = [];
-            this.customVocabulary = [];
+        if (this._loadingCustomTopicsPromise) {
+            return this._loadingCustomTopicsPromise;
         }
+        const studentId = this.config.defaultStudentId || '';
+        this._loadingCustomTopicsPromise = (async () => {
+            try {
+                const [topicsRes, vocabRes] = await Promise.all([
+                    fetch(this.getApiUrl(`/api/custom-topics?studentId=${studentId}`)),
+                    fetch(this.getApiUrl(`/api/custom-vocabulary?studentId=${studentId}`))
+                ]);
+
+                if (topicsRes.ok) {
+                    this.customTopics = await topicsRes.json();
+                } else {
+                    this.customTopics = [];
+                }
+
+                if (vocabRes.ok) {
+                    this.customVocabulary = await vocabRes.json();
+                } else {
+                    this.customVocabulary = [];
+                }
+            } catch (e) {
+                console.error("Lỗi khi tải custom topics/vocab cho học sinh:", e);
+                this.customTopics = [];
+                this.customVocabulary = [];
+            } finally {
+                this._loadingCustomTopicsPromise = null;
+            }
+        })();
+        return this._loadingCustomTopicsPromise;
     },
 
     // Ghi tiến trình vào SQLite (có Offline Fallback)

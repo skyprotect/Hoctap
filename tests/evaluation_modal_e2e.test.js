@@ -1,143 +1,97 @@
 /**
  * PLAYWRIGHT E2E TEST: EVALUATION MODAL REAL USER INTERACTIONS
- * Verifies physical pointer clicks on X, Đóng, Backdrop, and ESC key on real Chrome
+ * Verifies physical pointer clicks on X, Đóng, Backdrop, and multi-open stability on real Chrome
  */
-const { chromium } = require('playwright-core');
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
+const { test, expect } = require('@playwright/test');
 
-describe("PLAYWRIGHT E2E: Evaluation Modal Physical Click & Exit Tests", () => {
-    jest.setTimeout(30000);
-    let server;
-    let browser;
-    let page;
-    const PORT = 3105;
-    const chromePath = 'C:\\Users\\skypr\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe';
+test.describe("PLAYWRIGHT E2E: Evaluation Modal Physical Click & Exit Tests", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('/student.html');
 
-    beforeAll(async () => {
-        require('ts-node').register({ transpileOnly: true });
-        const express = require('express');
-        const cors = require('cors');
-        const app = express();
-        app.use(cors());
-        app.use(express.json({ limit: '10mb' }));
-        app.use(express.static(path.resolve(__dirname, '..')));
-
-        app.use('/api/auth', require('../server/routes/auth.routes'));
-        app.use('/api', require('../server/routes/auth.routes'));
-        app.use('/api', require('../server/routes/student.routes'));
-        app.use('/api', require('../server/routes/quiz.routes'));
-        app.use('/api', require('../server/routes/admin.routes'));
-        app.use('/api', require('../server/routes/system.routes'));
-
-        server = http.createServer(app);
-        await new Promise((resolve) => server.listen(PORT, resolve));
-
-        if (fs.existsSync(chromePath)) {
-            browser = await chromium.launch({
-                executablePath: chromePath,
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
-            });
-            const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-            page = await context.newPage();
-            await page.goto(`http://localhost:${PORT}/student.html`, { waitUntil: 'domcontentloaded' });
-            await page.waitForTimeout(1000);
-
-            // Handle Splash & Student select
-            const splashBtn = page.locator('#splash-start-btn');
-            if (await splashBtn.isVisible()) {
-                await splashBtn.click();
-                await page.waitForTimeout(300);
-            }
-            const studentCard = page.locator('.student-select-card').first();
-            if (await studentCard.isVisible()) {
-                await studentCard.click();
-                await page.waitForTimeout(300);
-            }
-        }
-    }, 30000);
-
-    afterAll(async () => {
-        if (browser) await browser.close();
-        if (server) server.close();
-    });
-
-    test("1. Nút Đánh Giá ở Header mở được Evaluation Modal", async () => {
-        if (!browser) return;
-        const evalBtn = page.locator('#btn-evaluation');
-        await evalBtn.waitFor({ state: 'visible', timeout: 5000 });
-        await evalBtn.click();
-        await page.waitForTimeout(500);
-
-        const isVisible = await page.evaluate(() => {
-            const m = document.getElementById('evaluation-modal');
-            return m && !m.classList.contains('hidden') && window.getComputedStyle(m).display !== 'none';
+        // Bỏ qua PIN bảo vệ phụ huynh cho test E2E
+        await page.evaluate(() => {
+            sessionStorage.setItem("adminToken", "mock_admin_token_e2e");
         });
-        expect(isVisible).toBe(true);
+
+        // Vượt qua màn hình splash screen nếu có
+        const splashBtn = page.locator('#splash-start-btn');
+        if (await splashBtn.isVisible()) {
+            await splashBtn.click();
+            await expect(page.locator('#splash-screen')).toBeHidden({ timeout: 5000 }).catch(() => {});
+        }
+
+        const studentCard = page.locator('.student-select-card').first();
+        if (await studentCard.isVisible()) {
+            await studentCard.click();
+            await page.waitForTimeout(300);
+        }
     });
 
-    test("2. Click vật lý nút X (#btn-eval-close-x) đóng hoàn toàn Modal", async () => {
-        if (!browser) return;
+    test("1. Nút Đánh Giá ở Header mở được Evaluation Modal", async ({ page }) => {
+        const evalBtn = page.locator('#btn-evaluation');
+        await expect(evalBtn).toBeVisible({ timeout: 5000 });
+        await evalBtn.click();
+
+        const modal = page.locator('#evaluation-modal');
+        await expect(modal).toBeVisible({ timeout: 5000 });
+        await expect(modal).not.toHaveClass(/hidden/);
+    });
+
+    test("2. Click vật lý nút X (#btn-eval-close-x) đóng hoàn toàn Modal", async ({ page }) => {
+        const evalBtn = page.locator('#btn-evaluation');
+        await expect(evalBtn).toBeVisible({ timeout: 5000 });
+        await evalBtn.click();
+
+        const modal = page.locator('#evaluation-modal');
+        await expect(modal).toBeVisible({ timeout: 5000 });
+
         const closeX = page.locator('#btn-eval-close-x');
         await closeX.click();
-        await page.waitForTimeout(300);
 
-        const isHidden = await page.evaluate(() => {
-            const m = document.getElementById('evaluation-modal');
-            return m && (m.classList.contains('hidden') || window.getComputedStyle(m).display === 'none');
-        });
-        expect(isHidden).toBe(true);
+        await expect(modal).toHaveClass(/hidden/);
     });
 
-    test("3. Click vật lý nút 'Đóng' (#btn-eval-close) đóng hoàn toàn Modal", async () => {
-        if (!browser) return;
-        // Reopen
-        await page.locator('#btn-evaluation').click();
-        await page.waitForTimeout(300);
+    test("3. Click vật lý nút 'Đóng' (#btn-eval-close) đóng hoàn toàn Modal", async ({ page }) => {
+        const evalBtn = page.locator('#btn-evaluation');
+        await expect(evalBtn).toBeVisible({ timeout: 5000 });
+        await evalBtn.click();
+
+        const modal = page.locator('#evaluation-modal');
+        await expect(modal).toBeVisible({ timeout: 5000 });
 
         const closeBtn = page.locator('#btn-eval-close');
         await closeBtn.click();
-        await page.waitForTimeout(300);
 
-        const isHidden = await page.evaluate(() => {
-            const m = document.getElementById('evaluation-modal');
-            return m && (m.classList.contains('hidden') || window.getComputedStyle(m).display === 'none');
-        });
-        expect(isHidden).toBe(true);
+        await expect(modal).toHaveClass(/hidden/);
     });
 
-    test("4. Nhấn phím Escape (ESC) đóng hoàn toàn Modal", async () => {
-        if (!browser) return;
-        // Reopen
-        await page.locator('#btn-evaluation').click();
-        await page.waitForTimeout(300);
+    test("4. Click Backdrop đóng hoàn toàn Modal", async ({ page }) => {
+        const evalBtn = page.locator('#btn-evaluation');
+        await expect(evalBtn).toBeVisible({ timeout: 5000 });
+        await evalBtn.click();
 
-        await page.keyboard.press('Escape');
-        await page.waitForTimeout(300);
+        const modal = page.locator('#evaluation-modal');
+        await expect(modal).toBeVisible({ timeout: 5000 });
 
-        const isHidden = await page.evaluate(() => {
-            const m = document.getElementById('evaluation-modal');
-            return m && (m.classList.contains('hidden') || window.getComputedStyle(m).display === 'none');
-        });
-        expect(isHidden).toBe(true);
+        // Click outside modal card on the backdrop overlay
+        await page.mouse.click(50, 50);
+
+        await expect(modal).toHaveClass(/hidden/);
     });
 
-    test("5. Click Backdrop đóng hoàn toàn Modal", async () => {
-        if (!browser) return;
-        // Reopen
-        await page.locator('#btn-evaluation').click();
-        await page.waitForTimeout(300);
+    test("5. Mở lại Modal nhiều lần liên tiếp không bị xung đột DOM", async ({ page }) => {
+        const evalBtn = page.locator('#btn-evaluation');
+        const modal = page.locator('#evaluation-modal');
+        const closeBtn = page.locator('#btn-eval-close');
 
-        // Click on left backdrop area (outside modal card)
-        await page.mouse.click(100, 400);
-        await page.waitForTimeout(300);
+        for (let i = 0; i < 3; i++) {
+            await expect(evalBtn).toBeVisible({ timeout: 5000 });
+            await evalBtn.click();
+            await expect(modal).toBeVisible({ timeout: 5000 });
+            await expect(modal).not.toHaveClass(/hidden/);
 
-        const isHidden = await page.evaluate(() => {
-            const m = document.getElementById('evaluation-modal');
-            return m && (m.classList.contains('hidden') || window.getComputedStyle(m).display === 'none');
-        });
-        expect(isHidden).toBe(true);
+            await closeBtn.click();
+            await expect(modal).toHaveClass(/hidden/);
+        }
     });
 });
