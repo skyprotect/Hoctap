@@ -25,7 +25,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '13.100';
+export const APP_VERSION = '14.3';
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)
@@ -51,6 +51,118 @@ export async function loadProgress(params: { classLevel?: string; studentId?: st
     return progress || {};
 }
 
+/**
+ * MINIMAL SAFETY OVERWRITE GUARD (STEP 5B)
+ * Bảo vệ chống hạ cấp dữ liệu học tập có thẩm quyền khi nhận payload rỗng/thiếu từ client.
+ */
+export function applyMinimalSafetyGuard(existingState: any, incomingState: any): any {
+    if (!existingState || typeof existingState !== 'object') {
+        return incomingState;
+    }
+    if (!incomingState || typeof incomingState !== 'object') {
+        return existingState;
+    }
+
+    const guarded = { ...existingState, ...incomingState };
+
+    const mergeMaxObject = (o1: any, o2: any) => {
+        const res = { ...(o1 || {}), ...(o2 || {}) };
+        const allKeys = new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})]);
+        for (const k of allKeys) {
+            const v1 = (o1 && typeof o1[k] === 'number') ? o1[k] : 0;
+            const v2 = (o2 && typeof o2[k] === 'number') ? o2[k] : 0;
+            res[k] = Math.max(v1, v2);
+        }
+        return res;
+    };
+
+    const unionArray = (a1: any[], a2: any[]) => Array.from(new Set([...(a1 || []), ...(a2 || [])]));
+
+    // 1. Điểm số bài học & dạng bài (Monotonic Max)
+    guarded.scores = mergeMaxObject(existingState.scores, incomingState.scores);
+    guarded.subtopicScores = mergeMaxObject(existingState.subtopicScores, incomingState.subtopicScores);
+    guarded.levelScores = mergeMaxObject(existingState.levelScores, incomingState.levelScores);
+
+    // 2. Tiến trình hoàn thành (Union Set)
+    guarded.completedSubtopics = unionArray(existingState.completedSubtopics, incomingState.completedSubtopics);
+    guarded.completedLessonTheory = unionArray(existingState.completedLessonTheory, incomingState.completedLessonTheory);
+    guarded.badges = unionArray(existingState.badges, incomingState.badges);
+    guarded.goldBadges = unionArray(existingState.goldBadges, incomingState.goldBadges);
+
+    // 3. Bảo vệ chống sập XP (XP Total Collapse Protection)
+    const exXp = Math.max(existingState.xp || 0, existingState._sharedXp || 0);
+    const inXp = Math.max(incomingState.xp || 0, incomingState._sharedXp || 0);
+    const maxXp = Math.max(exXp, inXp);
+    guarded.xp = maxXp;
+    guarded._sharedXp = maxXp;
+    if (incomingState.englishXp !== undefined || existingState.englishXp !== undefined) {
+        guarded.englishXp = Math.max(existingState.englishXp || 0, incomingState.englishXp || 0, maxXp);
+    }
+
+    // 4. Lịch sử làm bài (History snapshot preservation)
+    if ((!incomingState.history || incomingState.history.length === 0) && Array.isArray(existingState.history) && existingState.history.length > 0) {
+        guarded.history = existingState.history;
+    } else if (Array.isArray(incomingState.history) && incomingState.history.length > 0) {
+        if (Array.isArray(existingState.history) && existingState.history.length > 0) {
+            const inSet = new Set(incomingState.history.map((h: any) => JSON.stringify(h)));
+            const missingOld = existingState.history.filter((h: any) => !inSet.has(JSON.stringify(h)));
+            guarded.history = [...missingOld, ...incomingState.history].slice(-200);
+        } else {
+            guarded.history = incomingState.history;
+        }
+    }
+
+    // 5. Phiên thi trong state (State-level Exam Sessions preservation)
+    if ((!incomingState.examSessions || incomingState.examSessions.length === 0) && Array.isArray(existingState.examSessions) && existingState.examSessions.length > 0) {
+        guarded.examSessions = existingState.examSessions;
+    } else if (Array.isArray(incomingState.examSessions) && Array.isArray(existingState.examSessions)) {
+        const inIds = new Set(incomingState.examSessions.map((s: any) => s.id || s.created_at || JSON.stringify(s)));
+        const missingOld = existingState.examSessions.filter((s: any) => !inIds.has(s.id || s.created_at || JSON.stringify(s)));
+        guarded.examSessions = [...missingOld, ...incomingState.examSessions].slice(-100);
+    }
+
+    // 6. Phân lập và bảo toàn môn học (Subject Isolation: Math & English)
+    if (existingState.subjects || incomingState.subjects) {
+        const exSubj = existingState.subjects || {};
+        const inSubj = incomingState.subjects || {};
+        guarded.subjects = { ...exSubj, ...inSubj };
+
+        // Bảo vệ môn Toán
+        const exMath = exSubj.math || {};
+        const inMath = inSubj.math || {};
+        guarded.subjects.math = {
+            ...exMath,
+            ...inMath,
+            scores: mergeMaxObject(exMath.scores, inMath.scores || (inMath.scores ? {} : guarded.scores)),
+            completedSubtopics: unionArray(exMath.completedSubtopics, inMath.completedSubtopics),
+            subtopicScores: mergeMaxObject(exMath.subtopicScores, inMath.subtopicScores),
+            completedLessonTheory: unionArray(exMath.completedLessonTheory, inMath.completedLessonTheory),
+            examSessions: (inMath.examSessions && inMath.examSessions.length > 0)
+                ? inMath.examSessions
+                : (exMath.examSessions || [])
+        };
+
+        // Bảo vệ môn Tiếng Anh
+        const exEng = exSubj.english || {};
+        const inEng = inSubj.english || {};
+        guarded.subjects.english = {
+            ...exEng,
+            ...inEng,
+            scores: mergeMaxObject(exEng.scores, inEng.scores),
+            completedSubtopics: unionArray(exEng.completedSubtopics, inEng.completedSubtopics),
+            subtopicScores: mergeMaxObject(exEng.subtopicScores, inEng.subtopicScores),
+            completedLessonTheory: unionArray(exEng.completedLessonTheory, inEng.completedLessonTheory),
+            skillScores: mergeMaxObject(exEng.skillScores, inEng.skillScores),
+            weakVocabulary: unionArray(exEng.weakVocabulary, inEng.weakVocabulary),
+            examSessions: (inEng.examSessions && inEng.examSessions.length > 0)
+                ? inEng.examSessions
+                : (exEng.examSessions || [])
+        };
+    }
+
+    return guarded;
+}
+
 export async function saveProgress(params: {
     classLevel?: string;
     studentId?: string;
@@ -74,11 +186,15 @@ export async function saveProgress(params: {
     // 2. Lưu vào CSDL cục bộ
     let newRevision: number | undefined = undefined;
     if (studentId) {
-        // Thực hiện ghi có điều kiện OCC
-        const occResult = await dbSaveStudentProgressOCC(studentId, state, baseRevision);
+        // Đọc trạng thái hiện hữu trong CSDL để áp dụng Minimal Safety Guard
+        const existingProgress = await dbGetStudentProgress(studentId).catch(() => null);
+        const guardedState = existingProgress ? applyMinimalSafetyGuard(existingProgress, state) : state;
+
+        // Thực hiện ghi có điều kiện OCC với state đã được bảo vệ
+        const occResult = await dbSaveStudentProgressOCC(studentId, guardedState, baseRevision);
         if (occResult.conflict || !occResult.success) {
             return {
-                state,
+                state: guardedState,
                 conflict: true,
                 currentRevision: occResult.currentRevision
             };
@@ -86,8 +202,8 @@ export async function saveProgress(params: {
         newRevision = occResult.newRevision;
 
         // M03: Lưu exam sessions vào bảng exam_sessions độc lập
-        if (state.examSessions && Array.isArray(state.examSessions)) {
-            for (const sess of state.examSessions) {
+        if (guardedState.examSessions && Array.isArray(guardedState.examSessions)) {
+            for (const sess of guardedState.examSessions) {
                 if (sess && sess.lessonId) {
                     dbSaveExamSessionRecord(studentId, sess.subject || 'math', sess).catch(err => {
                         console.warn("[ExamSession] Ghi nhận phiên làm bài lỗi:", err.message);
@@ -97,9 +213,11 @@ export async function saveProgress(params: {
         }
 
         // 3. Đồng bộ ngầm lên Firebase
-        syncStudentProgressToFirebase(studentId, state, studentName).catch(err => {
+        syncStudentProgressToFirebase(studentId, guardedState, studentName).catch(err => {
             console.error("[FirebaseSync] Lỗi chạy ngầm đồng bộ:", err);
         });
+
+        return { state: guardedState, revision: newRevision };
     } else if (classLevel) {
         await dbSaveProgress(classLevel, state);
     }

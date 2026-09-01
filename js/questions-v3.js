@@ -138,6 +138,14 @@ const MathExprEvaluator = (typeof window !== 'undefined' && window.MathExprEvalu
     || (typeof globalThis !== 'undefined' && globalThis.MathExprEvaluator) 
     || (typeof require === 'function' ? require('./core/math-expr-evaluator') : null);
 
+const MathQuestionClassifier = (typeof window !== 'undefined' && window.MathQuestionClassifier) 
+    || (typeof globalThis !== 'undefined' && globalThis.MathQuestionClassifier) 
+    || (typeof require === 'function' ? require('./core/math-question-classifier') : null);
+
+const MathTemplateCompiler = (typeof window !== 'undefined' && window.MathTemplateCompiler) 
+    || (typeof globalThis !== 'undefined' && globalThis.MathTemplateCompiler) 
+    || (typeof require === 'function' ? require('./core/math-template-compiler') : null);
+
 const questions = {
     getApiUrl: function(path) {
         if (UrlUtils && typeof UrlUtils.getApiUrl === 'function') {
@@ -534,383 +542,11 @@ const questions = {
         }
         return null;
     },
-
-    generateQuestionFromTemplate: function(tempQ) {
-        if (!tempQ || !tempQ.isTemplate) return tempQ;
-        
-        let context = {};
-        let attempts = 0;
-        const maxAttempts = 200;
-        let constraintsPassed = false;
-        
-        const self = this;
-        // Hàm helper để thay thế các placeholder {varName} hoặc {formulaName} hoặc biểu thức dynamic
-        function replacePlaceholders(str, localContext) {
-            if (typeof str !== 'string') return str;
-            let prev;
-            let limit = 5;
-            do {
-                prev = str;
-                
-                // Bảo vệ LaTeX trước khi xử lý placeholder
-                // 1. Phân số \frac{a}{b}
-                str = str.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, (match, num, den) => {
-                    const trimNum = num.trim();
-                    const trimDen = den.trim();
-                    const numVal = localContext.hasOwnProperty(trimNum) ? localContext[trimNum] : trimNum;
-                    const denVal = localContext.hasOwnProperty(trimDen) ? localContext[trimDen] : trimDen;
-                    return `\\frac__LTX_OPEN__${numVal}__LTX_CLOSE____LTX_OPEN__${denVal}__LTX_CLOSE__`;
-                });
-                
-                // 2. Lũy thừa a^{b}
-                str = str.replace(/([a-zA-Z0-9_\$]+)\^\{([^{}]+)\}/g, (match, base, exp) => {
-                    const trimmed = exp.trim();
-                    const expVal = localContext.hasOwnProperty(trimmed) ? localContext[trimmed] : trimmed;
-                    return `${base}^__LTX_OPEN__${expVal}__LTX_CLOSE__`;
-                });
-                
-                // 3. Các lệnh LaTeX khác dạng \cmd{args} (như \widehat, \vec, \overline, \text...)
-                str = str.replace(/(\\[a-zA-Z]+)\{([^{}]+)\}/g, (match, cmd, content) => {
-                    const trimmed = content.trim();
-                    const contentVal = localContext.hasOwnProperty(trimmed) ? localContext[trimmed] : trimmed;
-                    return `${cmd}__LTX_OPEN__${contentVal}__LTX_CLOSE__`;
-                });
-
-                // Self-healing: loại bỏ dấu $ dư thừa trước và sau các placeholder dạng ${varName}$ hoặc ${varName}
-                str = str.replace(/\$\{([^{}]+)\}\$/g, '{$1}');
-                str = str.replace(/\$\{([^{}]+)\}/g, '{$1}');
-
-                // Xử lý các placeholder thực sự
-                str = str.replace(/\{([^{}]+)\}/g, (match, p1) => {
-                    const trimmed = p1.trim();
-                    if (localContext.hasOwnProperty(trimmed)) {
-                        const val = localContext[trimmed];
-                        if (typeof val !== 'function') {
-                            return val;
-                        }
-                    }
-                    
-                    // Lọc bỏ LaTeX và văn bản tiếng Việt để tránh eval lỗi
-                    if (/[$\\#^[\]~]/.test(trimmed) || trimmed.includes('\\') || (/[a-zA-Z]/.test(trimmed) && /[đàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ]/i.test(trimmed) && !trimmed.includes('ƯCLN') && !trimmed.includes('BCNN') && !trimmed.includes('ucln') && !trimmed.includes('bcnn'))) {
-                        return match;
-                    }
-
-                    // Chỉ eval nếu biểu thức có tham chiếu đến ít nhất một biến trong context
-                    const words = trimmed.match(/[a-zA-Z_][a-zA-Z0-9_]*/g);
-                    const hasVar = words && words.some(w => localContext.hasOwnProperty(w));
-                    if (!hasVar) {
-                        return match;
-                    }
-
-                    // Thử eval biểu thức động
-                    try {
-                        const evalResult = self.evalExpression(trimmed, localContext);
-                        if (evalResult !== null && evalResult !== undefined && typeof evalResult !== 'function') {
-                            return evalResult;
-                        }
-                    } catch (e) {}
-                    return match;
-                });
-
-                // Khôi phục lại ngoặc nhọn của LaTeX
-                str = str.replace(/__LTX_OPEN__/g, '{').replace(/__LTX_CLOSE__/g, '}');
-                // Dọn dẹp dấu ngoặc nhọn thừa bao quanh các chữ cái in hoa (tên điểm, đoạn thẳng, góc hình học)
-                str = str.replace(/\{([A-Z]+)\}/g, '$1');
-                
-                limit--;
-            } while (str !== prev && limit > 0);
-            return str;
+    generateQuestionFromTemplate: function(tempQ, optionsOrMaxAttempts) {
+        if (MathTemplateCompiler && typeof MathTemplateCompiler.generateQuestionFromTemplate === 'function') {
+            return MathTemplateCompiler.generateQuestionFromTemplate(tempQ, optionsOrMaxAttempts);
         }
-
-        while (!constraintsPassed && attempts < maxAttempts) {
-            attempts++;
-            context = {};
-            
-            // 1. Sinh ngẫu nhiên các biến
-            if (tempQ.variables) {
-                for (const [varName, varDef] of Object.entries(tempQ.variables)) {
-                    if (varDef && varDef.hasOwnProperty('fixed')) {
-                        context[varName] = varDef.fixed;
-                        continue;
-                    }
-                    if (varDef && varDef.hasOwnProperty('value')) {
-                        context[varName] = varDef.value;
-                        continue;
-                    }
-                    if (varDef && varDef.hasOwnProperty('options') && Array.isArray(varDef.options)) {
-                        const idx = Math.floor(Math.random() * varDef.options.length);
-                        context[varName] = varDef.options[idx];
-                        continue;
-                    }
-                    const min = varDef.min !== undefined ? varDef.min : 0;
-                    const max = varDef.max !== undefined ? varDef.max : 0;
-                    const step = varDef.step || 1;
-                    
-                    const stepsCount = Math.floor((max - min) / step);
-                    const randomStep = Math.floor(Math.random() * (stepsCount + 1));
-                    const val = min + randomStep * step;
-                    context[varName] = val;
-                }
-            }
-            
-            // 2. Định nghĩa các công thức dưới dạng Getter động để giải quyết triệt để lỗi thứ tự khai báo
-            if (tempQ.formulas) {
-                for (const [formName, formExpr] of Object.entries(tempQ.formulas)) {
-                    Object.defineProperty(context, formName, {
-                        get: function() {
-                            if (('_cache_' + formName) in this) {
-                                return this['_cache_' + formName];
-                            }
-                            this['_cache_' + formName] = null;
-                            const res = self.evalExpression(formExpr, this);
-                            this['_cache_' + formName] = res;
-                            return res;
-                        },
-                        configurable: true,
-                        enumerable: true
-                    });
-                }
-            }
-
-            // Tự động phân tích các constraints dạng đẳng thức để tính toán biến phụ thuộc
-            if (tempQ.constraints) {
-                for (const constraint of tempQ.constraints) {
-                    if (typeof constraint === 'string') {
-                        const parts = constraint.split('===');
-                        if (parts.length === 2) {
-                            const left = parts[0].trim();
-                            const right = parts[1].trim();
-                            
-                            if (tempQ.variables.hasOwnProperty(left)) {
-                                const val = self.evalExpression(right, context);
-                                if (val !== null && val !== undefined) {
-                                    context[left] = val;
-                                }
-                            } else if (tempQ.variables.hasOwnProperty(right)) {
-                                const val = self.evalExpression(left, context);
-                                if (val !== null && val !== undefined) {
-                                    context[right] = val;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // 3. Kiểm tra các ràng buộc (lúc này context đã có đầy đủ variables và formulas)
-            constraintsPassed = true;
-            if (tempQ.constraints && tempQ.constraints.length > 0) {
-                // Nếu số lần thử vượt quá 120, ta bỏ qua các constraints chia hết phức tạp để tránh sập luồng
-                let activeConstraints = tempQ.constraints;
-                if (attempts > 350) {
-                    activeConstraints = []; // Bỏ qua tất cả constraints nếu quá khó
-                } else if (attempts > 120) {
-                    activeConstraints = tempQ.constraints.filter(c => !c.includes('%') && !c.includes('/') && !c.includes('*'));
-                }
-                for (const constraint of activeConstraints) {
-                    if (!this.evalExpression(constraint, context)) {
-                        constraintsPassed = false;
-                        break;
-                    }
-                }
-            }
-
-            // 3.4. Bộ lọc Heuristic: Ép kết quả nguyên cho đại lượng rời rạc
-            if (constraintsPassed) {
-                const isDiscrete = /học sinh|người|bạn|quyển sách|trang|gói|hộp|sản phẩm|xe|đồ chơi|lon|chiếc|đồng|tờ|vé|cái bánh|quả/i.test(tempQ.questionText);
-                const isFractionOrStats = /phan-so|fraction|c10|c11|c12|c13|lt-c6|lt-c8|lt-c9|bai-31|bai-39|bai-40|bai-41|bai-42|bai-43|kt-c9/i.test(tempQ.type || '');
-                if (isDiscrete && !isFractionOrStats) {
-                    // Kiểm tra các giá trị đáp án chính và đáp án nhiễu có bị lẻ không
-                    const ansVal = context.ans;
-                    const w1Val = context.w1;
-                    const w2Val = context.w2;
-                    const w3Val = context.w3;
-                    
-                    let hasFraction = false;
-                    if (typeof ansVal === 'number' && !Number.isInteger(ansVal)) hasFraction = true;
-                    if (typeof w1Val === 'number' && !Number.isInteger(w1Val)) hasFraction = true;
-                    if (typeof w2Val === 'number' && !Number.isInteger(w2Val)) hasFraction = true;
-                    if (typeof w3Val === 'number' && !Number.isInteger(w3Val)) hasFraction = true;
-                    
-                    // Kiểm tra một số biến phụ quan trọng trong formulas
-                    for (const [key, val] of Object.entries(context)) {
-                        if (typeof val === 'number' && !Number.isInteger(val)) {
-                            const lkey = key.toLowerCase();
-                            if (lkey.includes('page') || lkey.includes('prod') || lkey.includes('people') || lkey.includes('student') || lkey.includes('remaining') || lkey.includes('count') || lkey.includes('cost') || lkey.includes('amount')) {
-                                hasFraction = true;
-                                break;
-                            }
-                        }
-                    }
-                    
-                    if (hasFraction && attempts < 100) {
-                        constraintsPassed = false; // Ưu tiên sinh lại bộ số nguyên trong 100 lần đầu để tránh sập luồng
-                    }
-                }
-            }
-
-            // 3.5. Kiểm tra trùng lặp đáp án trong options
-            if (constraintsPassed && tempQ.options) {
-                let renderedOpts = tempQ.options.map(opt => replacePlaceholders(opt, context));
-                let optContents = renderedOpts.map(opt => {
-                    // Loại bỏ thứ tự đáp án ở đầu (ví dụ: A. B. C. D. hoặc A) B) C) D))
-                    const content = opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
-                    // Loại bỏ khoảng trắng, ký hiệu $, LaTeX, dấu câu để so sánh chính xác nội dung
-                    return content.replace(/[\$\s\{\}\\\,\_\'\"]/g, "").toLowerCase();
-                });
-
-                let uniqueOpts = new Set(optContents);
-                if (uniqueOpts.size < optContents.length) {
-                    if (attempts > Math.floor(maxAttempts * 0.9)) {
-                        constraintsPassed = true; // Chấp nhận trùng lặp đáp án nếu đã thử quá 90% số lần để tránh sập
-                    } else if (attempts > 120) {
-                        // Tự phục hồi: phát hiện trùng lặp, chỉnh nhẹ giá trị các phương án nhiễu
-                        const diffs = [1, -1, 2, -2, 3, -3, 5, -5, 10, -10];
-                        let diffIdx = 0;
-                        const usedVals = new Set();
-                        
-                        const ansVal = context.ans;
-                        if (ansVal !== undefined) {
-                            usedVals.add(ansVal);
-                        }
-
-                        // Tìm các key nhiễu trong formulas bắt đầu bằng 'w' hoặc 'dist' hoặc 'opt'
-                        const distractorKeys = Object.keys(tempQ.formulas || {}).filter(k => 
-                            k !== 'ans' && 
-                            (k.startsWith('w') || k.includes('dist') || k.startsWith('opt'))
-                        );
-
-                        const currentVals = {};
-                        distractorKeys.forEach(k => {
-                            currentVals[k] = context[k];
-                        });
-
-                        distractorKeys.forEach(wKey => {
-                            let val = currentVals[wKey];
-                            let isString = typeof val === 'string';
-                            let parsedVal = isString ? Number(val) : val;
-
-                            if (typeof parsedVal === 'number' && !isNaN(parsedVal)) {
-                                while ((usedVals.has(parsedVal) || (ansVal !== undefined && parsedVal === ansVal)) && diffIdx < diffs.length) {
-                                    parsedVal = parsedVal + diffs[diffIdx++];
-                                }
-
-                                let finalVal = parsedVal;
-                                if (isString) {
-                                    if (typeof val === 'string' && val.includes('.')) {
-                                        const decimalPlaces = val.split('.')[1].length;
-                                        finalVal = parsedVal.toFixed(decimalPlaces);
-                                    } else {
-                                        finalVal = parsedVal.toString();
-                                    }
-                                }
-
-                                delete context[wKey];
-                                context[wKey] = finalVal;
-                                usedVals.add(parsedVal);
-                            }
-                        });
-
-                        renderedOpts = tempQ.options.map(opt => replacePlaceholders(opt, context));
-                        optContents = renderedOpts.map(opt => {
-                            const content = opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
-                            return content.replace(/[\$\s\{\}\\\,\_\'\"]/g, "").toLowerCase();
-                        });
-                        uniqueOpts = new Set(optContents);
-
-                        if (uniqueOpts.size === optContents.length) {
-                            constraintsPassed = true; // Phục hồi thành công!
-                        } else {
-                            constraintsPassed = false;
-                        }
-                    } else {
-                        constraintsPassed = false; // Phát hiện trùng lặp, ép sinh lại bộ số mới
-                    }
-                }
-            }
-        }
-        
-        if (!constraintsPassed) {
-            // Thay vì throw error làm sập app, ta sẽ ép constraintsPassed = true và tiếp tục sinh với bộ số hiện tại
-            console.warn("Không thể sinh câu hỏi hoàn hảo sau " + maxAttempts + " lần thử. Tự động dùng fallback.");
-            constraintsPassed = true;
-        }
-        
-        // Đóng băng (evaluate) tất cả các công thức trong context thành giá trị tĩnh trước khi sử dụng
-        if (tempQ.formulas) {
-            for (const formName of Object.keys(tempQ.formulas)) {
-                const val = context[formName];
-                delete context[formName];
-                context[formName] = val;
-            }
-        }
-        
-        // 4. Tạo câu hỏi thực tế và tự động xáo trộn các phương án lựa chọn để tránh lỗi đáp án luôn là B
-        let rawOptions = tempQ.options;
-        if (!rawOptions || !Array.isArray(rawOptions) || rawOptions.length === 0) {
-            if (tempQ.formulas && tempQ.formulas.ans) {
-                rawOptions = ["A. {ans}", "B. {w1}", "C. {w2}", "D. {w3}"];
-            }
-        }
-        let renderedOptions = rawOptions ? rawOptions.map(opt => replacePlaceholders(opt, context)) : [];
-        let finalCorrectIndex = tempQ.correctIndex !== undefined ? parseInt(tempQ.correctIndex, 10) : 0;
-        if (isNaN(finalCorrectIndex)) finalCorrectIndex = 0;
-
-        if (renderedOptions.length > 0) {
-            const oldCorrectIndex = finalCorrectIndex;
-            const cleanOptions = renderedOptions.map(opt => opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim());
-
-            // Tạo danh sách đối tượng để xáo trộn
-            const optionObjects = cleanOptions.map((text, index) => ({ text, isCorrect: index === oldCorrectIndex }));
-            this.shuffle(optionObjects);
-
-            // Tìm vị trí đáp án đúng mới
-            finalCorrectIndex = optionObjects.findIndex(obj => obj.isCorrect);
-            if (finalCorrectIndex === -1) finalCorrectIndex = 0;
-
-            // Bọc lại tiền tố A, B, C, D, E, F
-            const letterMap = ["A", "B", "C", "D", "E", "F"];
-            renderedOptions = optionObjects.map((obj, i) => `${letterMap[i]}. ${obj.text}`);
-            
-            // Đưa chữ cái đáp án đúng mới vào context để tự động replace trong solutionHtml nếu có {ans_letter}
-            context.ans_letter = letterMap[finalCorrectIndex];
-        } else {
-            context.ans_letter = "A";
-        }
-
-        // Thay thế placeholders trong solutionHtml sau khi đã xác định được ans_letter
-        let finalSolutionHtml = replacePlaceholders(tempQ.solutionHtml, context);
-
-        // Fallback: Nếu solutionHtml ghi cứng chữ cái đáp án đúng ban đầu kiểu "Đáp án đúng là D" thì cập nhật lại
-        if (renderedOptions.length > 0 && finalSolutionHtml) {
-            const oldCorrectIndex = tempQ.correctIndex !== undefined ? parseInt(tempQ.correctIndex, 10) : 0;
-            if (oldCorrectIndex !== finalCorrectIndex) {
-                const letterMap = ["A", "B", "C", "D", "E", "F"];
-                const oldLetter = letterMap[oldCorrectIndex];
-                const newLetter = letterMap[finalCorrectIndex];
-                const regexStr = `(đáp án đúng là|dap an dung la|đáp án đúng:|dap an dung:|chọn đáp án|chon dap an|chọn|chon)\\s+${oldLetter}\\b`;
-                finalSolutionHtml = finalSolutionHtml.replace(
-                    new RegExp(regexStr, 'gi'),
-                    (match, p1) => {
-                        return `${p1} ${newLetter}`;
-                    }
-                );
-            }
-        }
-
-        const finalQ = {
-            questionText: replacePlaceholders(tempQ.questionText, context),
-            options: renderedOptions,
-            correctIndex: finalCorrectIndex,
-            hints: tempQ.hints ? tempQ.hints.map(h => replacePlaceholders(h, context)) : [],
-            solutionHtml: finalSolutionHtml,
-            tip: replacePlaceholders(tempQ.tip, context),
-            level: tempQ.level || 'chat-luong-cao',
-            type: tempQ.type,
-            isTemplateInstance: true
-        };
-        
-        return finalQ;
+        return tempQ;
     },
 
     // Điểm xuất phát của việc chọn cấp độ bài luyện tập
@@ -1279,8 +915,42 @@ const questions = {
                             }
                         });
 
-                        // Khởi động Web Worker để chạy ngầm sinh số
-                        const worker = new Worker('js/question-generator-worker.js');
+                        // Khởi động Web Worker để chạy ngầm sinh số hoặc fallback sang Main Thread
+                        let worker = null;
+                        try {
+                            worker = new Worker('js/question-generator-worker.js');
+                        } catch (workerErr) {
+                            console.warn('Không thể khởi tạo Web Worker, chuyển sang biên dịch trực tiếp trên Main Thread:', workerErr);
+                        }
+
+                        if (!worker) {
+                            try {
+                                const compiledQuestions = questions.map(q => {
+                                    if (q && q.isTemplate) {
+                                        const genQ = (MathTemplateCompiler && typeof MathTemplateCompiler.generateQuestionFromTemplate === 'function')
+                                            ? MathTemplateCompiler.generateQuestionFromTemplate(q, 500)
+                                            : this.generateQuestionFromTemplate(q, 500);
+                                        genQ.isSpacedRepetition = false;
+                                        genQ.level = 'chat-luong-cao';
+                                        return genQ;
+                                    }
+                                    return q;
+                                });
+                                Swal.close();
+                                this.currentQuestions = compiledQuestions;
+                                this.currentQuestionIndex = 0;
+                                this.practiceMode = 'standard';
+                                document.getElementById("practice-mode-select-box").classList.add("hidden");
+                                document.getElementById("practice-active-box").classList.remove("hidden");
+                                this.showQuestion();
+                                return;
+                            } catch (directErr) {
+                                console.error('Lỗi biên dịch trực tiếp trên Main Thread:', directErr);
+                                fallbackToLocalGenerators(directErr.message || 'Lỗi biên dịch câu hỏi');
+                                return;
+                            }
+                        }
+
                         worker.postMessage({ questions: questions, maxAttempts: 500 });
 
                         worker.onmessage = (e) => {
@@ -8681,6 +8351,9 @@ const questions = {
         // Cập nhật lại Đánh giá phân tích chi tiết và Lịch sử bài học ở cột phải trang chủ ngay lập tức
         app.updateLessonEvaluation(this.currentLesson.id);
         app.renderLessonHistory(this.currentLesson.id);
+        if (typeof app.renderTimeline === 'function') {
+            app.renderTimeline();
+        }
 
         document.getElementById("practice-active-box").classList.add("hidden");
         document.getElementById("practice-result-box").classList.remove("hidden");
@@ -8818,64 +8491,9 @@ const questions = {
     },
 
     shouldForceMCQ: function(questionText, correctOption) {
-        if (typeof questionText !== 'string' || typeof correctOption !== 'string') return false;
-        
-        const textLower = questionText.toLowerCase();
-        const mcqKeywords = [
-            "dưới đây", "sau đây", "khẳng định nào", "phát biểu nào", 
-            "cách viết nào", "nhận xét nào", "đáp án nào", "công thức nào",
-            "hình nào", "trong các phát biểu", "khẳng định nào đúng", 
-            "khẳng định nào sai", "phát biểu nào đúng", "phát biểu nào sai",
-            "phương án nào", "lựa chọn nào"
-        ];
-        
-        for (const kw of mcqKeywords) {
-            if (textLower.includes(kw)) {
-                return true;
-            }
+        if (MathQuestionClassifier && typeof MathQuestionClassifier.shouldForceMCQ === 'function') {
+            return MathQuestionClassifier.shouldForceMCQ(questionText, correctOption);
         }
-        
-        // Kiểm tra đáp án đúng (correctOption)
-        // Loại bỏ ký tự $
-        let cleanOpt = correctOption.replace(/\$/g, '').trim();
-        
-        // Nếu đáp án có chứa LaTeX phức tạp như phân số, căn thức, song song, vuông góc, góc, tam giác
-        const complexLatex = [
-            "\\frac", "\\sqrt", "\\parallel", "\\perp", "\\angle", "\\triangle", 
-            "\\cup", "\\cap", "\\subset", "\\in", "\\notin", "\\bar", "\\overline",
-            "\\times", "\\cdot", "\\degree", "^"
-        ];
-        for (const latex of complexLatex) {
-            if (correctOption.includes(latex)) {
-                return true;
-            }
-        }
-        
-        // Nếu là tập hợp phức tạp (có dấu ngoặc nhọn)
-        if (correctOption.includes('{') || correctOption.includes('}')) {
-            return true;
-        }
-        
-        // Nếu đáp án chứa văn bản dài (ví dụ có chứa các từ tiếng Việt dài, không chỉ là số và đơn vị)
-        // Loại bỏ các chữ số, dấu phép tính (+ - * / = < >)
-        let textOnly = cleanOpt.replace(/[0-9\+\-\*\/\=\<\>\(\)\;\,\.\%]/g, '').trim();
-        // Loại bỏ các đơn vị thông dụng
-        const units = [
-            "chiếc kẹo", "kẹo", "hộp sữa", "sữa", "hộp", "quả", "bông hoa", "hoa", 
-            "quyển sách", "sách", "vở", "bút", "học sinh", "bạn", "khối rubik", 
-            "khối", "rubik", "phần tử", "ước", "bội", "dm", "cm", "m", "kg", "g", 
-            "giờ", "phút", "giây", "lít", "l", "độ c", "độ", "c", "trang", "tuổi", 
-            "con", "cái", "ngày", "tháng", "năm", "đồng", "đ", "lần"
-        ];
-        for (const unit of units) {
-            textOnly = textOnly.replace(new RegExp('\\b' + unit + '\\b', 'gi'), '').trim();
-        }
-        
-        // Nếu sau khi loại bỏ số và đơn vị, phần chữ còn lại vẫn dài (ví dụ > 5 ký tự) hoặc chứa khoảng trắng (nhiều từ)
-        if (textOnly.replace(/\s+/g, '').length > 5) {
-            return true;
-        }
-        
         return false;
     },
 
@@ -8944,95 +8562,127 @@ const questions = {
         if (this.isExiting) return;
         this.isExiting = true;
 
-        if (this.isGraded) {
-            // Đã chấm điểm: Quay lại bảng điểm kết quả thay vì hiện hộp thoại xác nhận thoát
-            document.getElementById("practice-active-box").classList.add("hidden");
-            document.getElementById("practice-result-box").classList.remove("hidden");
-            document.body.classList.remove("super-focus-active");
+        const resetExitingFlag = () => {
             this.isExiting = false;
-            return;
-        }
+        };
 
-        // [BUG FIX v13.56] Nếu không có câu hỏi nào (lỗi tải đề), thoát ngay lập tức không cần xác nhận
-        if (!this.currentQuestions || this.currentQuestions.length === 0) {
-            if (this.examInterval) clearInterval(this.examInterval);
-            document.getElementById("exam-timer-wrapper").classList.add("hidden");
-            if (window.app && typeof app.expandSidebar === 'function') app.expandSidebar();
-            document.body.classList.remove("super-focus-active");
-            document.body.classList.remove("game-mode-active");
-            if (window.app && typeof app.exitFullscreen === 'function') app.exitFullscreen();
-            document.body.classList.remove("practice-fullscreen-active");
-            if (window.app && typeof app.restoreScrollbar === 'function') app.restoreScrollbar();
-            Swal.close(); // Đóng mọi Swal đang mở (ví dụ: dialog đang tải)
-            setTimeout(() => {
-                document.getElementById("practice-active-box").classList.add("hidden");
-                if (window.app && typeof app.switchLessonTab === 'function') app.switchLessonTab('practice');
-                this.isExiting = false;
-            }, 100);
-            return;
-        }
+        // Đảm bảo cờ isExiting không bao giờ bị khóa vĩnh viễn
+        const exitGuardTimeout = setTimeout(resetExitingFlag, 3000);
 
-        // Tạm dừng game nếu đang chơi game
-        let wasGamePlaying = false;
-        if (window.game && game.isPlaying) {
-            wasGamePlaying = true;
-            game.isPlaying = false; // tạm dừng loop
-        }
-
-        Swal.fire({
-            title: `${(app && app.config && app.config.studentName) || 'Con'} muốn dừng làm bài?`,
-            text: 'Kết quả lượt này sẽ không được lưu. Khi làm lại con sẽ gặp câu hỏi mới hoàn toàn nhé!',
-            icon: 'warning',
-            target: document.getElementById('tab-practice') || 'body',
-            showCancelButton: true,
-            confirmButtonColor: 'var(--danger)',
-            cancelButtonColor: 'var(--primary)',
-            confirmButtonText: 'Có, con muốn dừng',
-            cancelButtonText: 'Không, con làm tiếp'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if (window.game) game.stop();
-                if (this.examInterval) clearInterval(this.examInterval);
-                document.getElementById("exam-timer-wrapper").classList.add("hidden");
-                
-                // Mở rộng lại sidebar
-                if (window.app && typeof app.expandSidebar === 'function') {
-                    app.expandSidebar();
-                }
-                
-                // Tắt Super Focus Mode
+        try {
+            if (this.isGraded) {
+                // Đã chấm điểm: Quay lại bảng điểm kết quả thay vì hiện hộp thoại xác nhận thoát
+                const activeBox = document.getElementById("practice-active-box");
+                if (activeBox) activeBox.classList.add("hidden");
+                const resBox = document.getElementById("practice-result-box");
+                if (resBox) resBox.classList.remove("hidden");
                 document.body.classList.remove("super-focus-active");
-                
-                // Tắt chế độ hiển thị phóng to game
-                document.body.classList.remove("game-mode-active");
-                
-                // Thoát toàn màn hình
-                app.exitFullscreen();
-                document.body.classList.remove("practice-fullscreen-active");
-                
-                // Khôi phục thanh cuộn cho body và html ngay lập tức
-                app.restoreScrollbar();
-                
-                this.currentQuestions = [];
-                
-                // Trì hoãn việc ẩn và chuyển tab để tránh lỗi kẹt scrollbar của trình duyệt do ẩn phần tử đang fullscreen quá nhanh
-                setTimeout(() => {
-                    document.getElementById("practice-active-box").classList.add("hidden");
-                    app.switchLessonTab('practice');
-                    this.isExiting = false;
-                }, 150);
-            } else {
+                clearTimeout(exitGuardTimeout);
                 this.isExiting = false;
-                // Khôi phục game chạy tiếp nếu trước đó đang chơi game
-                if (wasGamePlaying && window.game) {
-                    game.isPlaying = true;
-                    if (game.animationFrame) {
-                        cancelAnimationFrame(game.animationFrame);
-                    }
-                    game.loop();
-                }
+                return;
             }
-        });
+
+            // Nếu không có câu hỏi nào (lỗi tải đề), thoát ngay lập tức không cần xác nhận
+            if (!this.currentQuestions || this.currentQuestions.length === 0) {
+                if (this.examInterval) clearInterval(this.examInterval);
+                const timerWrapper = document.getElementById("exam-timer-wrapper");
+                if (timerWrapper) timerWrapper.classList.add("hidden");
+                if (window.app && typeof app.expandSidebar === 'function') app.expandSidebar();
+                document.body.classList.remove("super-focus-active");
+                document.body.classList.remove("game-mode-active");
+                if (window.app && typeof app.exitFullscreen === 'function') app.exitFullscreen();
+                document.body.classList.remove("practice-fullscreen-active");
+                if (window.app && typeof app.restoreScrollbar === 'function') app.restoreScrollbar();
+                Swal.close();
+                setTimeout(() => {
+                    const activeBox = document.getElementById("practice-active-box");
+                    if (activeBox) activeBox.classList.add("hidden");
+                    if (window.app && typeof app.switchLessonTab === 'function') app.switchLessonTab('practice');
+                    clearTimeout(exitGuardTimeout);
+                    this.isExiting = false;
+                }, 100);
+                return;
+            }
+
+            // Tạm dừng game nếu đang chơi game
+            let wasGamePlaying = false;
+            if (window.game && game.isPlaying) {
+                wasGamePlaying = true;
+                game.isPlaying = false; // tạm dừng loop
+            }
+
+            Swal.fire({
+                title: `${(app && app.config && app.config.studentName) || 'Con'} muốn dừng làm bài?`,
+                text: 'Kết quả lượt này sẽ không được lưu. Khi làm lại con sẽ gặp câu hỏi mới hoàn toàn nhé!',
+                icon: 'warning',
+                target: document.getElementById('tab-practice') || 'body',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--danger)',
+                cancelButtonColor: 'var(--primary)',
+                confirmButtonText: 'Có, con muốn dừng',
+                cancelButtonText: 'Không, con làm tiếp'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        if (window.game) game.stop();
+                        if (this.examInterval) clearInterval(this.examInterval);
+                        const timerWrapper = document.getElementById("exam-timer-wrapper");
+                        if (timerWrapper) timerWrapper.classList.add("hidden");
+                        
+                        if (window.app && typeof app.expandSidebar === 'function') {
+                            app.expandSidebar();
+                        }
+                        
+                        document.body.classList.remove("super-focus-active");
+                        document.body.classList.remove("game-mode-active");
+                        
+                        if (window.app && typeof app.exitFullscreen === 'function') {
+                            app.exitFullscreen();
+                        }
+                        document.body.classList.remove("practice-fullscreen-active");
+                        
+                        if (window.app && typeof app.restoreScrollbar === 'function') {
+                            app.restoreScrollbar();
+                        }
+                        
+                        this.currentQuestions = [];
+                        
+                        setTimeout(() => {
+                            const activeBox = document.getElementById("practice-active-box");
+                            if (activeBox) activeBox.classList.add("hidden");
+                            if (window.app && typeof app.switchLessonTab === 'function') {
+                                app.switchLessonTab('practice');
+                            }
+                            clearTimeout(exitGuardTimeout);
+                            this.isExiting = false;
+                        }, 150);
+                    } catch (cleanupErr) {
+                        console.error('Lỗi dọn dẹp khi thoát bài làm:', cleanupErr);
+                        clearTimeout(exitGuardTimeout);
+                        this.isExiting = false;
+                    }
+                } else {
+                    clearTimeout(exitGuardTimeout);
+                    this.isExiting = false;
+                    // Khôi phục game chạy tiếp nếu trước đó đang chơi game
+                    if (wasGamePlaying && window.game) {
+                        game.isPlaying = true;
+                        if (game.animationFrame) {
+                            cancelAnimationFrame(game.animationFrame);
+                        }
+                        game.loop();
+                    }
+                }
+            }).catch(swalErr => {
+                console.error('Lỗi hộp thoại xác nhận thoát:', swalErr);
+                clearTimeout(exitGuardTimeout);
+                this.isExiting = false;
+            });
+        } catch (err) {
+            console.error('Lỗi ngoại lệ trong exitPractice:', err);
+            clearTimeout(exitGuardTimeout);
+            this.isExiting = false;
+        }
     },
 
     // --- STUDENT PDF PRINTING METHODS ---
@@ -9162,8 +8812,43 @@ const questions = {
                         }
                     });
 
-                    // Khởi chạy Web Worker để sinh số ngẫu nhiên
-                    const worker = new Worker('js/question-generator-worker.js');
+                    // Khởi chạy Web Worker để sinh số ngẫu nhiên hoặc fallback sang Main Thread
+                    let worker = null;
+                    try {
+                        worker = new Worker('js/question-generator-worker.js');
+                    } catch (workerErr) {
+                        console.warn('Không thể khởi tạo Web Worker khi in, chuyển sang biên dịch trực tiếp trên Main Thread:', workerErr);
+                    }
+
+                    if (!worker) {
+                        try {
+                            const compiledQuestions = questions.map(q => {
+                                if (q && q.isTemplate) {
+                                    const genQ = (MathTemplateCompiler && typeof MathTemplateCompiler.generateQuestionFromTemplate === 'function')
+                                        ? MathTemplateCompiler.generateQuestionFromTemplate(q, 500)
+                                        : this.generateQuestionFromTemplate(q, 500);
+                                    genQ.isSpacedRepetition = false;
+                                    genQ.level = 'chat-luong-cao';
+                                    return genQ;
+                                }
+                                return q;
+                            });
+                            Swal.close();
+                            this.renderAndPrintStudentExam(lesson.title, compiledQuestions, includeSolution, classLevel, 'chat-luong-cao');
+                            return;
+                        } catch (directErr) {
+                            Swal.close();
+                            console.error('Lỗi biên dịch trực tiếp khi in:', directErr);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi sinh đề thi',
+                                text: 'Không thể tạo đề thi in: ' + (directErr.message || 'Lỗi không xác định.'),
+                                target: document.getElementById('tab-practice') || 'body'
+                            });
+                            return;
+                        }
+                    }
+
                     worker.postMessage({ questions: questions, maxAttempts: 500 });
 
                     worker.onmessage = (e) => {

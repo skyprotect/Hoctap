@@ -946,6 +946,7 @@ const app = {
                     }
                     this.state.subjects[subj][field] = val;
                 },
+                enumerable: true,
                 configurable: true
             });
         });
@@ -4208,15 +4209,17 @@ const app = {
                         }
                         console.log("[Sync] Đồng bộ tiến trình offline lên SQLite thành công.");
                     } else if (res.status === 409) {
-                        // Stale offline blob bị từ chối OCC -> KHÔNG replay lại.
-                        // Xóa stale data ngay để ngăn vòng lặp vô hạn, sau đó reconcile.
+                        // Stale offline blob bị từ chối OCC -> KHÔNG xóa offline recovery markers ngay!
+                        // Bảo lưu _offline_dirty và _offline_data cho đến khi reconciliation thành công (HTTP 200).
                         const conflictData = await res.json().catch(() => ({}));
                         this.conflictRevision = typeof conflictData.currentRevision === 'number' ? conflictData.currentRevision : undefined;
                         this.conflictBaseRevision = typeof this.baseRevision === 'number' ? this.baseRevision : undefined;
                         this.hasConflict = true;
                         this.hasPendingSave = false;
-                        safeStorage.removeItem(localKey + "_offline_dirty");
-                        safeStorage.removeItem(localKey + "_offline_data");
+                        if (offlineState && (!this.state.xp && !Object.keys(this.state.scores || {}).length)) {
+                            this.state = offlineState;
+                            this.setupSubjectStateProxies();
+                        }
                         console.warn(`[Sync] Offline blob bị từ chối (409). Server revision: ${this.conflictRevision}. Đang thực hiện reconciliation...`);
                         await this.attemptConflictReconciliation();
                     } else {
@@ -4288,12 +4291,9 @@ const app = {
         this.state = merged;
         this.setupSubjectStateProxies();
 
-        // 6. Xóa conflict flags — chỉ xóa sau khi save thành công (xem saveProgress),
-        //    nhưng cũng xóa ngay ở đây vì reconcileOccConflict chỉ được gọi khi đủ thông tin.
-        //    saveProgress 200 sẽ confirm lần cuối.
-        this.hasConflict = false;
-        this.conflictRevision = undefined;
-        this.conflictBaseRevision = undefined;
+        // 6. Conflict flags và offline recovery data sẽ chỉ được xóa bởi saveProgress()
+        //    khi và chỉ khi server chấp nhận revision mới với HTTP 200.
+        //    Nếu lưu thất bại, conflict flags và recovery data vẫn được bảo toàn nguyên vẹn.
 
         console.log(`[OCC Reconcile] Đã hợp nhất thành công với server revision ${serverRevision}.`);
         return true;
@@ -4527,7 +4527,6 @@ const app = {
                 }
             }
             this.restoreMathProgress();
-            await this.saveProgress();
             this.setupSubjectStateProxies();
             try {
                 await this.loadCustomTopics();
@@ -10317,115 +10316,55 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const q = this.currentEnglishQuestions[qIndex];
         const qType = q.questionType || q.type || "choice";
 
-        let isCorrect = false;
-        let explanation = "";
-        let studentAnsStr = "";
-
+        let studentInput = null;
         if (qType === "listening" && (!q.options || q.options.length === 0)) {
-            // dictation
-            const inputVal = (document.getElementById("eng-dictation-input").value || "").trim();
-            const cleanInput = this.normalizeAnswerToken(inputVal);
-            
-            if (q.correctAnswers && Array.isArray(q.correctAnswers) && q.correctAnswers.length > 0) {
-                isCorrect = q.correctAnswers.map(x => this.normalizeAnswerToken(x)).includes(cleanInput);
-            } else {
-                const correctVal = this.normalizeAnswerToken(q.correctAnswer || "");
-                isCorrect = (cleanInput === correctVal);
-            }
-            studentAnsStr = inputVal;
-            explanation = `Đáp án đúng: <b>${q.correctAnswer || (q.correctAnswers ? q.correctAnswers.join(" | ") : "")}</b>`;
-        } 
-        else if (qType === "speaking" || qType === "speaking_roleplay") {
-            if (this.currentEnglishStudentAnswer) {
-                isCorrect = this.currentEnglishStudentAnswer.correct;
-                studentAnsStr = this.currentEnglishStudentAnswer.spokenText;
-                explanation = `Độ chính xác: <b>${this.currentEnglishStudentAnswer.accuracy}%</b>. Cần tối thiểu 60% để đạt.`;
-            }
-        } 
-        else if (qType === "reading_cloze") {
+            const el = document.getElementById("eng-dictation-input");
+            studentInput = el ? el.value : "";
+        } else if (qType === "speaking" || qType === "speaking_roleplay") {
+            studentInput = this.currentEnglishStudentAnswer;
+        } else if (qType === "reading_cloze") {
             const clozeContainer = document.getElementById("cloze-passage-display");
-            const slots = clozeContainer.querySelectorAll(".cloze-slot");
-            const chosenWords = Array.from(slots).map(s => this.normalizeAnswerToken(s.innerText));
-            const correctWords = (q.correctAnswers || []).map(w => this.normalizeAnswerToken(w));
-            
-            isCorrect = true;
-            for (let i = 0; i < correctWords.length; i++) {
-                if (chosenWords[i] !== correctWords[i]) {
-                    isCorrect = false;
-                    break;
-                }
-            }
-            studentAnsStr = chosenWords.join(", ");
-            explanation = `Đoạn văn đúng: <br/><b>${q.correctAnswer || (q.correctAnswers ? q.correctAnswers.join(" - ") : "")}</b>`;
-        }
-        else if (qType === "writing" || qType === "writing_unscramble") {
+            const slots = clozeContainer ? clozeContainer.querySelectorAll(".cloze-slot") : [];
+            studentInput = Array.from(slots).map(s => s.innerText);
+        } else if (qType === "writing" || qType === "writing_unscramble") {
             const slotsPool = document.getElementById("english-slots-pool");
-            const chosenWords = Array.from(slotsPool.children).map(node => node.innerText);
-            
-            if (q.scrambledLetters) {
-                // Sắp xếp chữ cái thành từ (Spelling) - ghép không khoảng trắng
-                const studentWord = this.normalizeAnswerToken(chosenWords.join("")).replace(/\s+/g, "");
-                const correctWord = this.normalizeAnswerToken(q.correctAnswer || "").replace(/\s+/g, "");
-                isCorrect = (studentWord === correctWord);
-                studentAnsStr = chosenWords.join("");
-                explanation = `Từ đúng: <b>${q.correctAnswer}</b>`;
-            } else {
-                // Sắp xếp từ thành câu - ghép có khoảng trắng
-                const studentSentence = this.normalizeAnswerToken(chosenWords.join(" "));
-                const correctSentence = this.normalizeAnswerToken(q.correctAnswer || "");
-                isCorrect = (studentSentence === correctSentence);
-                studentAnsStr = chosenWords.join(" ");
-                explanation = `Câu đúng: <b>${q.correctAnswer}</b>`;
-            }
+            studentInput = slotsPool ? Array.from(slotsPool.children).map(node => node.innerText) : [];
+        } else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
+            const el = document.getElementById("eng-free-writing-input");
+            studentInput = el ? el.value : "";
+        } else {
+            studentInput = this.currentEnglishStudentAnswer;
         }
-        else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
-            const inputVal = (document.getElementById("eng-free-writing-input").value || "").trim();
-            studentAnsStr = inputVal;
-            const cleanInput = this.normalizeAnswerToken(inputVal);
-            
-            if (q.correctAnswers && Array.isArray(q.correctAnswers)) {
-                isCorrect = q.correctAnswers.map(x => this.normalizeAnswerToken(x)).includes(cleanInput);
-                explanation = `Các đáp án được chấp nhận: <br/><b>${q.correctAnswers.join(" | ")}</b>`;
-            } else {
-                const correctSentence = this.normalizeAnswerToken(q.correctAnswer || "");
-                isCorrect = (cleanInput === correctSentence);
-                explanation = `Đáp án đúng: <b>${q.correctAnswer}</b>`;
-            }
-            
-            // Smart Grammar Assistant phân tích lỗi chi tiết cho Viết nếu làm sai
-            if (!isCorrect && (qType === "writing_completion" || qType === "writing_rewrite")) {
-                const target = q.correctAnswer || (q.correctAnswers && q.correctAnswers[0]) || "";
-                let analysis = "Lỗi chưa xác định.";
-                const normInput = this.normalizeAnswerToken(inputVal);
-                const normTarget = this.normalizeAnswerToken(target);
-                
-                // Thuật toán kiểm tra lỗi sư phạm
-                if (normInput.includes(normTarget)) {
-                    analysis = "Dấu câu hoặc ký tự thừa.";
-                } else if (normTarget.endsWith("s") && !normInput.endsWith("s")) {
-                    analysis = "Chia sai động từ ngôi thứ 3 số ít (Thiếu đuôi s/es) hoặc sai danh từ số nhiều.";
-                } else if (normTarget.endsWith("ed") && !normInput.endsWith("ed")) {
-                    analysis = "Chưa chia động từ về thì Quá khứ đơn (Thiếu đuôi ed).";
-                } else if (Math.abs(normInput.length - normTarget.length) <= 2) {
-                    analysis = "Viết sai chính tả một vài ký tự của từ.";
-                } else {
-                    analysis = "Sai cấu trúc ngữ pháp mẫu câu hoặc dùng sai từ vựng.";
+
+        const evaluator = (typeof EnglishAnswerEvaluator !== 'undefined' && EnglishAnswerEvaluator)
+            || (typeof window !== 'undefined' && window.EnglishAnswerEvaluator)
+            || (typeof globalThis !== 'undefined' && globalThis.EnglishAnswerEvaluator)
+            || (typeof require !== 'undefined' ? (function() { try { return require('./core/english-answer-evaluator'); } catch(e) { return null; } })() : null);
+
+        let evalResult;
+        if (evaluator && typeof evaluator.evaluateEnglishAnswer === 'function') {
+            evalResult = evaluator.evaluateEnglishAnswer(q, studentInput, {
+                normalizeFn: (str) => this.normalizeAnswerToken(str)
+            });
+        } else {
+            // Fallback phòng thủ nếu chưa nạp được module
+            evalResult = { isCorrect: false, explanation: "", studentAnsStr: "" };
+            if (qType === "speaking" || qType === "speaking_roleplay") {
+                if (this.currentEnglishStudentAnswer) {
+                    evalResult.isCorrect = this.currentEnglishStudentAnswer.correct;
+                    evalResult.explanation = `Độ chính xác: <b>${this.currentEnglishStudentAnswer.accuracy}%</b>. Cần tối thiểu 60% để đạt.`;
                 }
-                
-                explanation += `<br/><span style="color:#ef4444; font-weight:800;"><i class="fa-solid fa-wand-magic-sparkles"></i> Trợ lý Ngữ pháp:</span> ${analysis}`;
+            } else {
+                const cleanInput = this.normalizeAnswerToken(typeof studentInput === 'string' ? studentInput : "");
+                const cleanCorrect = this.normalizeAnswerToken(q.correctAnswer || "");
+                evalResult.isCorrect = (cleanInput === cleanCorrect);
+                evalResult.explanation = `Đáp án đúng: <b>${q.correctAnswer || ""}</b>`;
             }
         }
-        else {
-            // Trắc nghiệm thông thường (so khớp chuỗi thông minh để tương thích cả đề cũ và đề mới)
-            const chosenAnswer = (q.options && q.options[this.currentEnglishStudentAnswer]) || "";
-            const correctText = q.correctAnswer || (typeof q.correctIndex !== 'undefined' && q.options && q.options[q.correctIndex] ? q.options[q.correctIndex] : "");
-            
-            const cleanChosen = this.normalizeAnswerToken(chosenAnswer);
-            const cleanCorrect = this.normalizeAnswerToken(correctText);
-            isCorrect = (cleanChosen === cleanCorrect || (q.correctIndex !== undefined && this.currentEnglishStudentAnswer === q.correctIndex));
-            studentAnsStr = chosenAnswer;
-            explanation = `Đáp án đúng: <b>${correctText}</b>`;
-        }
+
+        const isCorrect = evalResult.isCorrect;
+        let explanation = evalResult.explanation;
+        const studentAnsStr = evalResult.studentAnsStr;
 
         q.isCorrect = isCorrect;
         if (qType === "listening_passage") {

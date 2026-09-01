@@ -20,9 +20,9 @@ describe("Progress & State Management API Integration Tests", () => {
 
     test("POST /api/save-progress với payload hợp lệ trả về success", async () => {
         const payload = {
-            studentId: "std_htsj4gbmo",
+            studentId: "std_test_progress_api",
             classLevel: "6",
-            studentName: "Trần Bình Minh",
+            studentName: "Test Student",
             state: {
                 xp: 2000,
                 streak: 7,
@@ -41,7 +41,7 @@ describe("Progress & State Management API Integration Tests", () => {
 
     test("POST /api/save-progress với payload thiếu state trả về 400", async () => {
         const payload = {
-            studentId: "std_htsj4gbmo"
+            studentId: "std_test_progress_api"
         };
 
         const res = await request(app)
@@ -65,8 +65,8 @@ describe("Progress & State Management API Integration Tests", () => {
         expect(res.body).toHaveProperty('error');
     });
 
-    test("GET /api/load-progress?studentId=std_htsj4gbmo đọc lại chính xác state vừa lưu", async () => {
-        const res = await request(app).get('/api/load-progress?studentId=std_htsj4gbmo');
+    test("GET /api/load-progress?studentId=std_test_progress_api đọc lại chính xác state vừa lưu", async () => {
+        const res = await request(app).get('/api/load-progress?studentId=std_test_progress_api');
         expect(res.status).toBe(200);
         expect(typeof res.body).toBe('object');
     });

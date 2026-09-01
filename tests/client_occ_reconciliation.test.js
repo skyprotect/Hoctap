@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CLIENT OCC CONFLICT RECONCILIATION TESTS (v13.99)
  * Kiem thu hanh vi hoa giai xung dot (reconciliation) sau HTTP 409.
  *
@@ -164,9 +164,6 @@ function createAppStub(overrides = {}) {
             this.baseRevision = serverRevision;
             this.state = merged;
             this.setupSubjectStateProxies();
-            this.hasConflict = false;
-            this.conflictRevision = undefined;
-            this.conflictBaseRevision = undefined;
             return true;
         },
 
@@ -273,8 +270,10 @@ function createAppStub(overrides = {}) {
                             this.conflictBaseRevision = typeof this.baseRevision === 'number' ? this.baseRevision : undefined;
                             this.hasConflict = true;
                             this.hasPendingSave = false;
-                            safeStorage.removeItem(localKey + '_offline_dirty');
-                            safeStorage.removeItem(localKey + '_offline_data');
+                            if (offlineState && (!this.state.xp && !Object.keys(this.state.scores || {}).length)) {
+                                this.state = offlineState;
+                                this.setupSubjectStateProxies();
+                            }
                             await this.attemptConflictReconciliation();
                         } else {
                             // other errors: keep offline data
@@ -481,5 +480,172 @@ describe('v13.99 — Client OCC Conflict Reconciliation', () => {
         const result = app.reconcileOccConflict({ xp: 999 }, undefined);
         expect(result).toBe(false);
         expect(app.state._sharedXp).toBe(originalXp); // state khong doi
+    });
+
+    // =======================================================================
+    // v13.98.1: OFFLINE CONFLICT RECOVERY SAFETY TESTS
+    // =======================================================================
+
+    // -----------------------------------------------------------------------
+    // TEST 13: 409 initial -> offline data van con nguyen ven (khong bi xoa ngay)
+    // -----------------------------------------------------------------------
+    test('13. 409 initial: _offline_dirty va _offline_data KHONG bi xoa ngay khi nhan 409', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 50, note: 'important local progress' }));
+
+        // Mock fetch de chan tai load-progress bang loi mang
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 })) // save 409
+            .mockImplementationOnce(() => mockFetchError('Network failure'));                   // load fails
+
+        await app.syncOfflineProgress();
+
+        // Du lieu offline recovery phai con nguyen 100%
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBe('true');
+        const preservedData = JSON.parse(mockSafeStorage.getItem(localKey + '_offline_data'));
+        expect(preservedData.xp).toBe(50);
+        expect(preservedData.note).toBe('important local progress');
+        expect(app.hasConflict).toBe(true);
+    });
+
+    // -----------------------------------------------------------------------
+    // TEST 14: 409 followed by network failure -> offline data remains
+    // -----------------------------------------------------------------------
+    test('14. 409 gap network failure khi load state: _offline_dirty va _offline_data duoc bao toan', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 75 }));
+
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 }))
+            .mockImplementationOnce(() => mockFetchError('Connection dropped'));
+
+        await expect(app.syncOfflineProgress()).resolves.not.toThrow();
+
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBe('true');
+        expect(mockSafeStorage.getItem(localKey + '_offline_data')).toBe(JSON.stringify({ xp: 75 }));
+        expect(app.hasConflict).toBe(true);
+        expect(global.fetch).toHaveBeenCalledTimes(2); // khong retry lap vo han
+    });
+
+    // -----------------------------------------------------------------------
+    // TEST 15: 409 followed by missing revision -> offline data remains
+    // -----------------------------------------------------------------------
+    test('15. 409 gap missing revision trong load response: _offline_dirty va _offline_data duoc bao toan', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 88 }));
+
+        // load-progress tra ve 200 nhung khong co _revision hay revision
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 }))
+            .mockResolvedValueOnce(mockResponse(200, { scores: { 'bai-1': 100 } }));
+
+        await app.syncOfflineProgress();
+
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBe('true');
+        expect(mockSafeStorage.getItem(localKey + '_offline_data')).toBe(JSON.stringify({ xp: 88 }));
+        expect(app.hasConflict).toBe(true);
+        expect(app.baseRevision).toBe(1); // chua advance
+    });
+
+    // -----------------------------------------------------------------------
+    // TEST 16: second 409 during reconciliation save -> offline data remains
+    // -----------------------------------------------------------------------
+    test('16. 409 lan 2 khi save reconciliation: _offline_dirty va _offline_data van ton tai, khong retry loop', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 99 }));
+        const serverState = { ...app.state, _revision: 2 };
+
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 })) // offline save -> 409
+            .mockResolvedValueOnce(mockResponse(200, serverState))                             // load-progress -> 200
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 3 })); // reconcile save -> 409 again!
+
+        await app.syncOfflineProgress();
+
+        // Phai con offline data, khong bi mat
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBe('true');
+        expect(mockSafeStorage.getItem(localKey + '_offline_data')).not.toBeNull();
+        expect(app.hasConflict).toBe(true);
+        expect(global.fetch).toHaveBeenCalledTimes(3); // Dung 3 lan, khong infinite loop
+    });
+
+    // -----------------------------------------------------------------------
+    // TEST 17: 409 followed by HTTP 500 on load -> offline data remains
+    // -----------------------------------------------------------------------
+    test('17. 409 gap HTTP 500 khi load server state: _offline_dirty va _offline_data duoc bao toan', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 120 }));
+
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 }))
+            .mockResolvedValueOnce(mockResponse(500, { error: 'Internal Server Error' }));
+
+        await app.syncOfflineProgress();
+
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBe('true');
+        expect(mockSafeStorage.getItem(localKey + '_offline_data')).toBe(JSON.stringify({ xp: 120 }));
+        expect(app.hasConflict).toBe(true);
+        expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+
+    // -----------------------------------------------------------------------
+    // TEST 18: 409 followed by malformed response on load -> offline data remains
+    // -----------------------------------------------------------------------
+    test('18. 409 gap malformed response khi parse JSON: _offline_dirty va _offline_data duoc bao toan', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 130 }));
+
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 }))
+            .mockResolvedValueOnce({
+                ok: true,
+                status: 200,
+                json: async () => { throw new SyntaxError('Unexpected token < in JSON at position 0'); }
+            });
+
+        await app.syncOfflineProgress();
+
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBe('true');
+        expect(mockSafeStorage.getItem(localKey + '_offline_data')).toBe(JSON.stringify({ xp: 130 }));
+        expect(app.hasConflict).toBe(true);
+        expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+
+    // -----------------------------------------------------------------------
+    // TEST 19: Reconciliation success 200 -> offline recovery markers cleared ONLY AFTER 200
+    // -----------------------------------------------------------------------
+    test('19. Reconciliation thanh cong (200): _offline_dirty va _offline_data CHI duoc xoa sau khi save 200', async () => {
+        const app = createAppStub({ baseRevision: 1 });
+        const localKey = app.getLocalStorageKey();
+        mockSafeStorage.setItem(localKey + '_offline_dirty', 'true');
+        mockSafeStorage.setItem(localKey + '_offline_data', JSON.stringify({ xp: 150 }));
+        const serverState = { ...app.state, _revision: 2 };
+
+        global.fetch
+            .mockResolvedValueOnce(mockResponse(409, { conflict: true, currentRevision: 2 }))
+            .mockResolvedValueOnce(mockResponse(200, serverState))
+            .mockResolvedValueOnce(mockResponse(200, { revision: 3 }));
+
+        await app.syncOfflineProgress();
+
+        // Chi xoa sau khi save 200 thanh cong
+        expect(mockSafeStorage.getItem(localKey + '_offline_dirty')).toBeNull();
+        expect(mockSafeStorage.getItem(localKey + '_offline_data')).toBeNull();
+        expect(app.hasConflict).toBe(false);
+        expect(app.baseRevision).toBe(3);
+        expect(app.conflictRevision).toBeUndefined();
+        expect(app.conflictBaseRevision).toBeUndefined();
     });
 });
