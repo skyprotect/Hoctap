@@ -1,4 +1,4 @@
-◇ injected env (7) from .env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (7) from .env // tip: ⌘ override existing { override: true }
 📦 Đã kết nối thành công CSDL SQLite tại: F:\KHQS\AntiGravity\HocTap\database.db
 ==================================================
   Ứng dụng Học Tập (AI Enabled) đang chạy tại:
@@ -9,3 +9,7 @@
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bảo Ngọc (std_baongoc)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bảo Ngọc
 [FirebaseSync] Đồng bộ thành công cho học sinh Đức Phúc (std_f8g31p4yl)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
+[FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Đức Phúc (std_tyc0gfnkz)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh (std_xf9e2lvgv)

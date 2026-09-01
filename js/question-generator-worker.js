@@ -3,6 +3,15 @@
  * Giúp giải phóng UI Thread và giữ cho FPS ở mức 60.
  */
 
+// ── WORKER INITIALIZATION STATE ──────────────────────────────────────────────
+// workerReady is set to true ONLY after all required modules load successfully.
+// Any importScripts() failure sets workerReady = false and records a diagnostic.
+// onmessage checks this flag before attempting any generation.
+// In Node.js (CommonJS / test) this block is skipped entirely; the require()
+// resolution below provides the modules instead.
+var workerReady = true;
+var workerInitError = null;
+
 if (typeof importScripts === 'function') {
     try {
         if (typeof MathUtils === 'undefined') importScripts('core/math-utils.js');
@@ -10,7 +19,13 @@ if (typeof importScripts === 'function') {
         if (typeof MathExprEvaluator === 'undefined') importScripts('core/math-expr-evaluator.js');
         if (typeof MathTemplateCompiler === 'undefined') importScripts('core/math-template-compiler.js');
     } catch (e) {
-        // Fallback an toàn nếu môi trường không cho phép importScripts
+        // importScripts() failed — record the failure; do NOT silently swallow.
+        workerReady = false;
+        workerInitError = {
+            dependency: e && e.message && e.message.includes('core/') ? e.message.split('/').pop() : 'unknown',
+            phase: 'importScripts',
+            message: (e && e.message) ? e.message : String(e)
+        };
     }
 }
 var MathUtils = (typeof globalThis !== 'undefined' && globalThis.MathUtils)
@@ -25,6 +40,24 @@ var MathExprEvaluator = (typeof globalThis !== 'undefined' && globalThis.MathExp
 var MathTemplateCompiler = (typeof globalThis !== 'undefined' && globalThis.MathTemplateCompiler)
     || (typeof self !== 'undefined' && self.MathTemplateCompiler)
     || (typeof require === 'function' ? require('./core/math-template-compiler') : null);
+
+// ── POST-RESOLUTION VALIDATION (Worker context only) ─────────────────────────
+// If importScripts did NOT throw but MathTemplateCompiler is still unavailable
+// (e.g., the script loaded but failed to register its global), record the error.
+// In Node.js the require() branch above always resolves this, so we only run
+// this check when the importScripts path was used (typeof require !== 'function').
+if (typeof importScripts === 'function' && typeof require !== 'function') {
+    if (!MathTemplateCompiler || typeof MathTemplateCompiler.generateQuestionFromTemplate !== 'function') {
+        workerReady = false;
+        if (!workerInitError) {
+            workerInitError = {
+                dependency: 'math-template-compiler.js',
+                phase: 'post-resolution',
+                message: 'MathTemplateCompiler not available after importScripts completed'
+            };
+        }
+    }
+}
 
 const generator = {
     // Toán học thuần túy (Pure Math Utilities) - Ủy quyền sang mô-đun độc lập MathUtils
@@ -274,7 +307,10 @@ const generator = {
         if (MathTemplateCompiler && typeof MathTemplateCompiler.generateQuestionFromTemplate === 'function') {
             return MathTemplateCompiler.generateQuestionFromTemplate(tempQ, customMaxAttempts);
         }
-        return tempQ;
+        // CRITICAL: Do NOT return tempQ here. Returning the raw template as a compiled
+        // question is the root defect — uncompiled placeholders ({ans}, {w1}, …) would
+        // reach the UI. Throw explicitly so the caller's error path fires.
+        throw new Error('WORKER_INIT_FAILED: MathTemplateCompiler unavailable — worker dependencies did not initialize correctly');
     }
 };
 
@@ -302,6 +338,23 @@ function sanitizeForClone(obj) {
 // Web Worker API listener
 if (typeof self !== 'undefined') {
     self.onmessage = function(e) {
+        // ── INITIALIZATION GUARD ────────────────────────────────────────────────
+        // If required modules failed to load, respond with an explicit error.
+        // FORBIDDEN: status='success' when workerReady===false.
+        if (!workerReady) {
+            if (typeof self.postMessage === 'function') {
+                self.postMessage({
+                    status: 'error',
+                    code: 'WORKER_INIT_FAILED',
+                    message: workerInitError
+                        ? `Khởi tạo Worker thất bại [${workerInitError.phase}]: ${workerInitError.message}`
+                        : 'Worker khởi tạo thất bại: không thể nạp các module cần thiết.',
+                    initError: workerInitError
+                });
+            }
+            return;
+        }
+
         const { questions, maxAttempts } = e.data;
         const finalAttempts = maxAttempts || 500; // Tăng giới hạn mặc định của Worker lên 500 lần thử
         const generatedQuestions = [];

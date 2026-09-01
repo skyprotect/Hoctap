@@ -1,9 +1,9 @@
 {
-  "version": "14.3",
+  "version": "14.4",
   "lastUpdated": "01/09/2026 08:07",
   "build": 1401,
   "releaseNotes": "MICRO-REFACTOR (v14.01): Khôi phục toàn diện dữ liệu học tập HK2 cho Trần Bình Minh; Bóc tách mô-đun MathTemplateCompiler chuẩn hóa; Sửa lỗi khởi tạo Web Worker ngầm và gia cố nút Thoát trong bài tập & bài kiểm tra.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v14.3/ToanHocKiosk_Setup_v14.3.exe",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v14.4/ToanHocKiosk_Setup_v14.4.exe",
   "changelog": "- EnglishAnswerEvaluator (js/core/english-answer-evaluator.js): Pure Domain Logic 100% đánh giá câu trả lời 6 dạng bài Tiếng Anh và trợ lý ngữ pháp.\n- js/app.js: checkEnglishAnswer ủy thác toàn bộ đánh giá cho EnglishAnswerEvaluator, chỉ giữ lại điều phối UI, audio và state.\n- tests/core/english-answer-evaluator.test.js: 18 unit tests bao phủ 100% các dạng bài và chẩn đoán ngữ pháp.",
   "releaseDate": "2026-09-01T08:07:00+07:00"
 }
