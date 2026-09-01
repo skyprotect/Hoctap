@@ -1,7 +1,8 @@
 /**
  * @file math-answer-evaluator.test.js
  * Test suite kiểm thử toàn diện module MathAnswerEvaluator (js/core/math-answer-evaluator.js).
- * Đóng băng và đặc tả chính xác 100% hành vi chuẩn hóa (normalization) và so sánh câu trả lời ngắn (short answer evaluation) hiện tại của production.
+ * Đóng băng và kiểm chứng chuẩn hóa (normalization) và so sánh câu trả lời ngắn (short answer evaluation)
+ * theo chuẩn ngữ nghĩa mới: KHÔNG False Positive Substring, Bảo tồn văn bản tiếng Việt & Bóc tách đơn vị có cấu trúc.
  */
 
 const evaluatorModule = require('../../js/core/math-answer-evaluator.js');
@@ -49,26 +50,29 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 expect(cleanAnswer("b) 30")).toBe("30");
             });
 
-            test("Tiền tố 'A ' có khoảng trắng theo sau bị loại bỏ do regex /^[A-D][\\.\\)\\:\\-\\s]+/i", () => {
-                expect(cleanAnswer("A = { 1 ; 2 }")).toBe("={1;2}");
-                expect(cleanAnswer("A. 12 và B. 15")).toBe("12vàb.15");
+            test("Gán biến 'A = { 1 ; 2 }' không bị coi là prefix phương án trắc nghiệm", () => {
+                expect(cleanAnswer("A = { 1 ; 2 }")).toBe("a={1;2}");
             });
 
-            test("Không loại bỏ chữ cái A-D ở giữa chuỗi", () => {
-                expect(cleanAnswer("Đoạn thẳng AB")).toBe("đoạnthẳnab"); // 'g' trong 'thẳng' bị loại bởi unit 'g'
-                expect(cleanAnswer("Điểm E và F")).toBe("điểevàf"); // 'm' trong 'Điểm' bị loại bởi unit 'm'
+            test("Không loại bỏ chữ cái A-D ở giữa chuỗi và bảo tồn ký tự tiếng Việt", () => {
+                // Sửa lỗi cũ: chữ 'g' trong 'thẳng' không bị xóa nhầm bởi đơn vị 'g'
+                expect(cleanAnswer("Đoạn thẳng AB")).toBe("đoạnthẳngab");
+                // Sửa lỗi cũ: chữ 'm' trong 'Điểm' không bị xóa nhầm bởi đơn vị 'm'
+                expect(cleanAnswer("Điểm E và F")).toBe("điểmevàf");
             });
         });
 
         describe("2.2 Loại bỏ ký tự đặc biệt LaTeX ($)", () => {
             test("Loại bỏ dấu $ bao quanh công thức", () => {
                 expect(cleanAnswer("$12$")).toBe("12");
-                expect(cleanAnswer("$\\{1; 2; 3\\}$")).toBe("\\{1;2;3\\}");
-                expect(cleanAnswer("$X = \\{1; 2\\}$")).toBe("x=\\{1;2\\}");
+                expect(cleanAnswer("$\\{1; 2; 3\\}$")).toBe("{1;2;3}");
+                expect(cleanAnswer("$X = \\{1; 2\\}$")).toBe("x={1;2}");
             });
 
-            test("Ký tự 'c' trong \\frac bị ảnh hưởng bởi danh sách unit 'c' (Đặc tả behavior hiện tại)", () => {
-                expect(cleanAnswer("$\\frac{1}{2}$")).toBe("\\fra{1}{2}");
+            test("Phân số LaTeX \\frac{1}{2} được chuyển đổi thành phân số 1/2 và không bị xóa chữ 'c'", () => {
+                // Sửa lỗi cũ: 'c' trong \frac không bị xóa nhầm bởi đơn vị 'c'
+                expect(cleanAnswer("$\\frac{1}{2}$")).toBe("1/2");
+                expect(cleanAnswer("\\dfrac{3}{4}")).toBe("3/4");
             });
         });
 
@@ -84,8 +88,8 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
             });
         });
 
-        describe("2.4 Loại bỏ các từ đơn vị đo lường tiếng Việt theo danh sách production", () => {
-            test("Loại bỏ các từ đơn vị chuẩn: chiếc kẹo, kẹo, hộp sữa, sữa, hộp, quả, bông hoa, hoa, quyển sách, sách, vở, bút, học sinh, bạn, khối rubik, khối, rubik, phần tử, ước, bội, dm, cm, m, kg, g, phút, lít, l, độ c, độ, c", () => {
+        describe("2.4 Bóc tách đơn vị đo lường có cấu trúc ở đuôi số", () => {
+            test("Bóc tách các đơn vị chuẩn xác sau số: chiếc kẹo, kẹo, hộp sữa, sữa, hộp, quả, bông hoa, hoa, quyển sách, sách, vở, bút, học sinh, bạn, khối rubik, khối, rubik, phần tử, ước, bội, dm, cm, m, kg, g, phút, lít, l, độ c, độ", () => {
                 expect(cleanAnswer("15 chiếc kẹo")).toBe("15");
                 expect(cleanAnswer("20 hộp sữa")).toBe("20");
                 expect(cleanAnswer("5 quả")).toBe("5");
@@ -105,9 +109,11 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 expect(cleanAnswer("30 độ c")).toBe("30");
             });
 
-            test("Đặc tả hiện tại: 'giờ' bị chữ 'g' loại bỏ còn 'iờ', 'giây' bị 'g' loại bỏ còn 'iây'", () => {
-                expect(cleanAnswer("15 giờ")).toBe("15iờ");
-                expect(cleanAnswer("15 giây")).toBe("15iây");
+            test("Sửa lỗi cũ: 'giờ' và 'giây' được bóc tách nguyên vẹn sau số, không bị nuốt chữ 'g' thành '15iờ' hay '15iây'", () => {
+                expect(cleanAnswer("15 giờ")).toBe("15");
+                expect(cleanAnswer("15 giây")).toBe("15");
+                expect(cleanAnswer("20 kg")).toBe("20");
+                expect(cleanAnswer("50 gam")).toBe("50");
             });
         });
 
@@ -119,7 +125,7 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
             });
 
             test("Chuyển toàn bộ ký tự hoa thành chữ thường", () => {
-                expect(cleanAnswer("ABC")).toBe("abc"); // Regex unit không có /i nên C hoa không bị xóa trước khi toLowerCase
+                expect(cleanAnswer("ABC")).toBe("abc");
                 expect(cleanAnswer("ĐÁP ÁN A")).toBe("đápána");
             });
         });
@@ -136,7 +142,7 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 expect(cleanAnswer("\t\n")).toBe("");
             });
 
-            test("Số và các kiểu nguyên thủy khác trả về '' (Đặc tả behavior hiện tại)", () => {
+            test("Số và các kiểu nguyên thủy khác trả về '' theo contract", () => {
                 expect(cleanAnswer(0)).toBe("");
                 expect(cleanAnswer(123)).toBe("");
                 expect(cleanAnswer(true)).toBe("");
@@ -163,7 +169,12 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 expect(evaluateShortAnswer("15", "15 học sinh")).toBe(true);
                 expect(evaluateShortAnswer("15 bạn", "15 học sinh")).toBe(true);
                 expect(evaluateShortAnswer("25 cm", "25")).toBe(true);
+                expect(evaluateShortAnswer("25cm", "25")).toBe(true);
+                expect(evaluateShortAnswer("20 cm²", "20")).toBe(true);
                 expect(evaluateShortAnswer("30 độ c", "30")).toBe(true);
+                expect(evaluateShortAnswer("30°C", "30")).toBe(true);
+                expect(evaluateShortAnswer("15 giờ", "15")).toBe(true);
+                expect(evaluateShortAnswer("15 giây", "15")).toBe(true);
             });
 
             test("Trùng khớp khi có tiền tố phương án hoặc ký hiệu LaTeX", () => {
@@ -174,9 +185,19 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 expect(evaluateShortAnswer("B) $15$", "15")).toBe(true);
             });
 
-            test("Trùng khớp biểu thức tập hợp đầy đủ", () => {
+            test("Trùng khớp biểu thức tập hợp đầy đủ và linh hoạt thứ tự", () => {
                 expect(evaluateShortAnswer("B = {1; 2; 3}", "B = {1; 2; 3}")).toBe(true);
                 expect(evaluateShortAnswer("b={1, 2, 3}", "B={1; 2; 3}")).toBe(true);
+                expect(evaluateShortAnswer("{1; 2; 3}", "A = {1; 2; 3}")).toBe(true);
+                expect(evaluateShortAnswer("1; 2; 3", "A = {1; 2; 3}")).toBe(true);
+                expect(evaluateShortAnswer("1, 2, 3", "A = {1; 2; 3}")).toBe(true);
+                expect(evaluateShortAnswer("{3; 2; 1}", "A = {1; 2; 3}")).toBe(true);
+            });
+
+            test("Trùng khớp phương trình gán biến", () => {
+                expect(evaluateShortAnswer("x = 5", "5")).toBe(true);
+                expect(evaluateShortAnswer("5", "x = 5")).toBe(true);
+                expect(evaluateShortAnswer("x = 5", "x = 5")).toBe(true);
             });
         });
 
@@ -190,46 +211,91 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 expect(evaluateShortAnswer(null, null)).toBe(false);
             });
 
-            test("Học sinh nhập rỗng với đáp án dài (>=3 ký tự) trả về false", () => {
+            test("Học sinh nhập rỗng luôn trả về false", () => {
                 expect(evaluateShortAnswer("", "150")).toBe(false);
                 expect(evaluateShortAnswer("   ", "150")).toBe(false);
                 expect(evaluateShortAnswer(null, "150")).toBe(false);
                 expect(evaluateShortAnswer(undefined, "150")).toBe(false);
+                expect(evaluateShortAnswer("", "20")).toBe(false);
             });
         });
 
-        describe("3.3 Quy tắc thông cảm tập hợp và chuỗi con (40% Substring Heuristic)", () => {
-            // cleanCorrect = "={1;2;3}" (length = 8)
-            // 40% threshold = Math.floor(8 * 0.4) = Math.floor(3.2) = 3
-            
-            test("Học sinh gõ chỉ phần tử {1; 2; 3} (len 7 >= 3) cho câu hỏi A = {1; 2; 3}", () => {
-                expect(evaluateShortAnswer("{1; 2; 3}", "A = {1; 2; 3}")).toBe(true);
+        describe("3.3 LOẠI BỎ TRIỆT ĐỂ LỖI SUBSTRING FALSE-POSITIVE (Critical Semantic Hardening)", () => {
+            test("Số 20 không được chấp nhận số 2 hoặc 0 (Sửa lỗi Critical Defect)", () => {
+                expect(evaluateShortAnswer("2", "20")).toBe(false);
+                expect(evaluateShortAnswer("0", "20")).toBe(false);
+                expect(evaluateShortAnswer("20", "20")).toBe(true);
+                expect(evaluateShortAnswer("200", "20")).toBe(false);
+                expect(evaluateShortAnswer("12", "20")).toBe(false);
             });
 
-            test("Học sinh gõ 1; 2; 3 (len 5 >= 3) cho câu hỏi A = {1; 2; 3}", () => {
-                expect(evaluateShortAnswer("1; 2; 3", "A = {1; 2; 3}")).toBe(true);
+            test("Số 100 không được chấp nhận số 1 hoặc 10 (Sửa lỗi Critical Defect)", () => {
+                expect(evaluateShortAnswer("1", "100")).toBe(false);
+                expect(evaluateShortAnswer("10", "100")).toBe(false);
+                expect(evaluateShortAnswer("0", "100")).toBe(false);
+                expect(evaluateShortAnswer("100", "100")).toBe(true);
             });
 
-            test("Học sinh gõ 1;2 (len 3 >= 3, ngưỡng biên threshold) -> true", () => {
-                expect(evaluateShortAnswer("1;2", "A = {1; 2; 3}")).toBe(true);
+            test("Chuỗi dài '1234567890' không được chấp nhận chuỗi con '1234'", () => {
+                expect(evaluateShortAnswer("1234", "1234567890")).toBe(false);
+                expect(evaluateShortAnswer("123", "1234567890")).toBe(false);
+                expect(evaluateShortAnswer("1234567890", "1234567890")).toBe(true);
             });
 
-            test("Học sinh gõ 1; (len 2 < 3, dưới ngưỡng threshold - 1) -> false", () => {
+            test("Tập hợp thiếu phần tử '1; 2' cho đáp án 'A = {1; 2; 3}' phải bị chấm SAI", () => {
+                expect(evaluateShortAnswer("1; 2", "A = {1; 2; 3}")).toBe(false);
                 expect(evaluateShortAnswer("1;", "A = {1; 2; 3}")).toBe(false);
-            });
-
-            test("Chiều ngược lại: cleanUser dài hơn và chứa cleanCorrect với tỷ lệ >= 40%", () => {
-                expect(evaluateShortAnswer("A = {1; 2; 3}", "{1; 2; 3}")).toBe(true);
-            });
-
-            test("Trường hợp chuỗi độ dài 10: ngưỡng 40% là 4", () => {
-                // correct = "1234567890" (len 10), 40% = 4
-                expect(evaluateShortAnswer("1234", "1234567890")).toBe(true); // len 4 >= 4 -> true
-                expect(evaluateShortAnswer("123", "1234567890")).toBe(false); // len 3 < 4 -> false
+                expect(evaluateShortAnswer("1", "A = {1; 2; 3}")).toBe(false);
+                expect(evaluateShortAnswer("{1; 2}", "A = {1; 2; 3}")).toBe(false);
             });
         });
 
-        describe("3.4 Trường hợp không khớp (Incorrect / Disjoint)", () => {
+        describe("3.4 Bảo tồn văn bản Tiếng Việt và Khái niệm Hình học", () => {
+            test("Từ vựng hình học không bị phá hủy bởi bộ bóc tách đơn vị", () => {
+                expect(evaluateShortAnswer("tam giác", "tam giác")).toBe(true);
+                expect(evaluateShortAnswer("Tam giác", "tam giác")).toBe(true);
+                expect(evaluateShortAnswer("Tam giác đều", "tam giác đều")).toBe(true);
+                expect(evaluateShortAnswer("đoạn thẳng", "đoạn thẳng")).toBe(true);
+                expect(evaluateShortAnswer("Đoạn thẳng AB", "đoạn thẳng AB")).toBe(true);
+                expect(evaluateShortAnswer("góc vuông", "góc vuông")).toBe(true);
+                expect(evaluateShortAnswer("đường thẳng", "đường thẳng")).toBe(true);
+                expect(evaluateShortAnswer("trung điểm", "trung điểm")).toBe(true);
+                expect(evaluateShortAnswer("hình vuông", "hình vuông")).toBe(true);
+                expect(evaluateShortAnswer("hình vuông", "hình chữ nhật")).toBe(false);
+            });
+
+            test("Số trục đối xứng", () => {
+                expect(evaluateShortAnswer("1 trục đối xứng", "1 trục đối xứng")).toBe(true);
+                expect(evaluateShortAnswer("1", "1 trục đối xứng")).toBe(true);
+                expect(evaluateShortAnswer("2 trục đối xứng", "1 trục đối xứng")).toBe(false);
+                expect(evaluateShortAnswer("vô số trục đối xứng", "vô số trục đối xứng")).toBe(true);
+                expect(evaluateShortAnswer("không có trục đối xứng", "không có trục đối xứng")).toBe(true);
+            });
+        });
+
+        describe("3.5 Số âm, số thập phân và phân số", () => {
+            test("Số âm", () => {
+                expect(evaluateShortAnswer("-20", "-20")).toBe(true);
+                expect(evaluateShortAnswer("20", "-20")).toBe(false);
+                expect(evaluateShortAnswer("-2", "-20")).toBe(false);
+            });
+
+            test("Số thập phân với dấu chấm và dấu phẩy", () => {
+                expect(evaluateShortAnswer("20.5", "20.5")).toBe(true);
+                expect(evaluateShortAnswer("20,5", "20.5")).toBe(true);
+                expect(evaluateShortAnswer("20.5", "20,5")).toBe(true);
+                expect(evaluateShortAnswer("20", "20.5")).toBe(false);
+            });
+
+            test("Phân số thường và phân số LaTeX", () => {
+                expect(evaluateShortAnswer("1/2", "1/2")).toBe(true);
+                expect(evaluateShortAnswer("$\\frac{1}{2}$", "1/2")).toBe(true);
+                expect(evaluateShortAnswer("1/2", "$\\frac{1}{2}$")).toBe(true);
+                expect(evaluateShortAnswer("1/3", "1/2")).toBe(false);
+            });
+        });
+
+        describe("3.6 Trường hợp không khớp (Incorrect / Disjoint)", () => {
             test("Số khác nhau trả về false", () => {
                 expect(evaluateShortAnswer("15", "25")).toBe(false);
                 expect(evaluateShortAnswer("123", "124")).toBe(false);
@@ -239,6 +305,27 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
             test("Chuỗi không liên quan trả về false", () => {
                 expect(evaluateShortAnswer("abc", "xyz")).toBe(false);
                 expect(evaluateShortAnswer("hình vuông", "hình chữ nhật")).toBe(false);
+            });
+        });
+
+        describe("3.7 Bất biến toán học (Property-Style Invariants)", () => {
+            test("Tính phản xạ (Reflexivity): compare(x, x) === true", () => {
+                const sampleValues = [
+                    "20", "-15", "0", "3.14", "1/2", "20 cm", "30 độ c",
+                    "tam giác đều", "đoạn thẳng AB", "A = {1; 2; 3}", "x = 7"
+                ];
+                sampleValues.forEach(val => {
+                    expect(evaluateShortAnswer(val, val)).toBe(true);
+                });
+            });
+
+            test("Tính phân biệt số học (Distinct numeric values): x != y => compare(x, y) === false", () => {
+                for (let i = 1; i <= 30; i++) {
+                    const x = String(i);
+                    const y = String(i + 1);
+                    expect(evaluateShortAnswer(x, y)).toBe(false);
+                    expect(evaluateShortAnswer(y, x)).toBe(false);
+                }
             });
         });
     });
@@ -270,6 +357,8 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
             expect(QuestionEngine.checkShortAnswer("15 học sinh", "15")).toBe(true);
             expect(QuestionEngine.checkShortAnswer("15", "25")).toBe(false);
             expect(QuestionEngine.checkShortAnswer("{1; 2; 3}", "A = {1; 2; 3}")).toBe(true);
+            expect(QuestionEngine.checkShortAnswer("2", "20")).toBe(false);
+            expect(QuestionEngine.checkShortAnswer("0", "20")).toBe(false);
         });
 
         test("Parity kiểm tra chéo giữa MathAnswerEvaluator và QuestionEngine", () => {
@@ -284,7 +373,12 @@ describe("MathAnswerEvaluator — Pure Math Short Answer Evaluator Suite", () =>
                 [null, "15"],
                 ["15", ""],
                 ["25 cm", "25"],
-                ["5 kg", "5 quả"]
+                ["5 kg", "5 quả"],
+                ["2", "20"],
+                ["0", "20"],
+                ["1", "100"],
+                ["tam giác", "tam giác"],
+                ["đoạn thẳng", "đoạn thẳng"]
             ];
 
             testInputs.forEach(([user, correct]) => {

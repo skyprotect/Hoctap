@@ -1,9 +1,9 @@
 {
-  "version": "14.7",
-  "lastUpdated": "01/09/2026 19:22",
-  "build": 1402,
-  "releaseNotes": "Tối ưu hóa kiến trúc English Audio Offline-First (CYCLE-ENGLISH-AUDIO-OFFLINE-FIRST): Loại bỏ hoàn toàn phụ thuộc ngoài Google TTS trên runtime học sinh, chuyển đổi sang chu trình Local MP3 -> Web Speech API fallback tức thì, loại bỏ triệt để độ trễ mạng và lỗi 403.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v14.7/ToanHocKiosk_Setup_v14.7.exe",
-  "changelog": "- Tối ưu app.playEnglishVoice(): Phát file âm thanh cục bộ MP3, fallback trực tiếp sang SpeechService khi thiếu file.\n- Loại bỏ URL Google Translate TTS khỏi critical student path, bảo đảm trải nghiệm phát âm ổn định 100% offline.\n- tests/core/english-audio-offline.characterization.test.js: Bao phủ toàn bộ các kịch bản offline, 404 fallback, key sanitization và benchmark độ trễ.",
-  "releaseDate": "2026-09-01T19:22:00+07:00"
+  "version": "15.1",
+  "lastUpdated": "02/09/2026 06:55",
+  "build": 1405,
+  "releaseNotes": "Triệt tiêu hoàn toàn trùng lặp phương án câu hỏi Toán (CYCLE-MATH-GENERATOR-COLLISION-HARDENING): Thiết lập chốt chặn bất biến trung tâm ensureUniqueOptions, sửa đổi toàn bộ các công thức nhiễu vi phạm định danh đại số và sụp đổ tham số, bảo đảm 100% câu hỏi trắc nghiệm có 4 phương án phân biệt ngữ nghĩa.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.1/ToanHocKiosk_Setup_v15.1.exe",
+  "changelog": "- Triệt tiêu các điểm lỗi trùng lặp đáp án do định danh đại số và biên tham số tại 51 bộ sinh câu hỏi Toán.\n- Thiết lập chốt chặn bất biến trung tâm ensureUniqueOptions tại questions-v3.js và math-template-compiler.js.\n- Bổ sung bộ kiểm thử hồi quy và thuộc tính tests/core/math-generator-collision.test.js kiểm tra 100% các loại câu hỏi.\n- Bảo đảm bảo toàn độc lập dữ liệu học tập môn Toán của học sinh.",
+  "releaseDate": "2026-09-02T06:55:00+07:00"
 }

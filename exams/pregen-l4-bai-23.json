@@ -200,7 +200,7 @@
         "ans": "totalPages - (readDay1 + readDay2 + readDay3)",
         "w1": "(totalPages + readDay1 + readDay2 + readDay3) === ans ? (totalPages + readDay1 + readDay2 + readDay3 + 7) : (totalPages + readDay1 + readDay2 + readDay3)",
         "w2": "((totalPages - readDay1 - readDay2) === ans || (totalPages - readDay1 - readDay2) === w1) ? (ans + 15) : (totalPages - readDay1 - readDay2)",
-        "w3": "((readDay1 + readDay2 + readDay3 - totalPages) === ans || (readDay1 + readDay2 + readDay3 - totalPages) === w1 || (readDay1 + readDay2 + readDay3 - totalPages) === w2) ? (ans + 22) : (readDay1 + readDay2 + readDay3 - totalPages)"
+        "w3": "((totalPages - readDay1 - readDay3) === ans || (totalPages - readDay1 - readDay3) === w1 || (totalPages - readDay1 - readDay3) === w2) ? (ans + 22) : (totalPages - readDay1 - readDay3)"
       },
       "questionText": "An đọc một cuốn sách có tổng cộng {totalPages} trang. Ngày đầu tiên An đọc được {readDay1} trang. Ngày thứ hai An đọc thêm được {readDay2} trang. Ngày thứ ba An đọc thêm được {readDay3} trang. Hỏi An còn phải đọc bao nhiêu trang nữa thì hết cuốn sách?",
       "options": [

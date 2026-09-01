@@ -1,6 +1,11 @@
 // Bộ quản lý sinh câu hỏi Toán lớp 4 ngẫu nhiên chuẩn Kết nối tri thức với cuộc sống
 // Tuân thủ 100% quy tắc chống trùng đáp án và LaTeX chuẩn trong AGENTS.md
 
+const MathQuestionClassifierL4 = (typeof require === 'function' ? require('./core/math-question-classifier') : null)
+    || (typeof globalThis !== 'undefined' && globalThis.MathQuestionClassifier)
+    || (typeof window !== 'undefined' && window.MathQuestionClassifier)
+    || null;
+
 const questionsL4 = {
     // Hàm phụ trợ sinh số ngẫu nhiên từ min đến max (gồm cả hai biên)
     randomInt: function(min, max) {
@@ -1034,13 +1039,21 @@ const questionsL4 = {
             }
         }
 
+        const correctOptValue = (options && typeof correctIndex === 'number' && options[correctIndex] !== undefined)
+            ? String(options[correctIndex])
+            : '';
+        const shouldForce = (MathQuestionClassifierL4 && typeof MathQuestionClassifierL4.shouldForceMCQ === 'function')
+            ? MathQuestionClassifierL4.shouldForceMCQ(questionText, correctOptValue)
+            : false;
+
         return {
             questionText: questionText,
             options: options,
             correctIndex: correctIndex,
             hints: hints,
             solutionHtml: solutionHtml,
-            tip: tip || "Chúc con làm bài tốt và đạt điểm tối đa!"
+            tip: tip || "Chúc con làm bài tốt và đạt điểm tối đa!",
+            forceMCQ: shouldForce
         };
     }
 };

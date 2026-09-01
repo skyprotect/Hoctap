@@ -1,9 +1,9 @@
-◇ injected env (7) from .env // tip: ⌘ enable debugging { debug: true }
+◇ injected env (7) from .env // tip: ⌁ auth for agents [www.vestauth.com]
 📦 Đã kết nối thành công CSDL SQLite tại: F:\KHQS\AntiGravity\HocTap\database.db
 ==================================================
   Ứng dụng Học Tập (AI Enabled) đang chạy tại:
-  👉 Local:   http://localhost:3001
-  👉 LAN IP:  http://192.168.2.4:3001
+  👉 Local:   http://localhost:3000
+  👉 LAN IP:  http://192.168.2.4:3000
 ==================================================
 [FirebaseSync] Bắt đầu đồng bộ tất cả học sinh lên Firebase...
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bảo Ngọc (std_baongoc)
@@ -12,3 +12,11 @@
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_htsj4gbmo)
 [FirebaseSync] Đã đồng bộ lịch sử quy đổi thẻ lên Firebase cho học sinh Trần Bình Minh
 [FirebaseSync] Đồng bộ thành công cho học sinh Trần Đức Phúc (std_tyc0gfnkz)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh (std_xf9e2lvgv)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_char_b01_1788079158566)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh A (std_iso_a_1788079158655)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh B (std_iso_b_1788079158655)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh Test (std_sub_iso_1788079158675)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh Concurrency (std_concurrency_1788079158789)
+[FirebaseSync] Đồng bộ thành công cho học sinh Trần Bình Minh (std_char_b01_1788079174860)
+[FirebaseSync] Đồng bộ thành công cho học sinh Học sinh A (std_iso_a_1788079174902)

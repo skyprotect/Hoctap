@@ -66,16 +66,12 @@
         },
 
         normalizeAnswerStr: function(str) {
+            if (typeof MathAnswerEvaluator !== 'undefined' && typeof MathAnswerEvaluator.cleanAnswer === 'function') {
+                return MathAnswerEvaluator.cleanAnswer(str);
+            }
             if (!str) return "";
-            let s = str.toString().toLowerCase();
+            let s = str.toString().toLowerCase().trim();
             s = s.replace(/\s+/g, '');
-            s = s.replace(/cm2/g, '');
-            s = s.replace(/cm/g, '');
-            s = s.replace(/m2/g, '');
-            s = s.replace(/m/g, '');
-            s = s.replace(/x=/g, '');
-            s = s.replace(/đápsố:/g, '');
-            s = s.replace(/đápsố/g, '');
             return s;
         },
 
@@ -851,9 +847,12 @@ generateGrade4Exam7991: function(examTitle, type, timeLimit) {
             if (this.currentExamData.shortAnswerQuestions) {
                 this.currentExamData.shortAnswerQuestions.forEach((q, idx) => {
                     const qId = q.id || `sa_${idx+1}`;
-                    const userVal = this.normalizeAnswerStr(this.userAnswers.sa[qId] || "");
-                    const correctVal = this.normalizeAnswerStr(q.correctAnswer || "");
-                    if (userVal === correctVal && userVal !== "") {
+                    const rawUser = this.userAnswers.sa[qId] || "";
+                    const rawCorrect = q.correctAnswer || "";
+                    const isCorrect = (typeof MathAnswerEvaluator !== 'undefined' && typeof MathAnswerEvaluator.evaluateShortAnswer === 'function')
+                        ? MathAnswerEvaluator.evaluateShortAnswer(rawUser, rawCorrect)
+                        : (this.normalizeAnswerStr(rawUser) === this.normalizeAnswerStr(rawCorrect) && this.normalizeAnswerStr(rawUser) !== "");
+                    if (isCorrect) {
                         saScore += (q.scoreWeight || 1.5);
                     }
                 });

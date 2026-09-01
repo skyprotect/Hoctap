@@ -16,8 +16,14 @@
         || (typeof window !== 'undefined' && window.ArrayUtils)
         || (typeof self !== 'undefined' && self.ArrayUtils)
         || {};
+    const mathQuestionClassifier = (typeof require === 'function' ? require('./math-question-classifier') : null)
+        || (root && root.MathQuestionClassifier)
+        || (typeof globalThis !== 'undefined' && globalThis.MathQuestionClassifier)
+        || (typeof window !== 'undefined' && window.MathQuestionClassifier)
+        || (typeof self !== 'undefined' && self.MathQuestionClassifier)
+        || {};
 
-    const api = factory(mathExprEvaluator, arrayUtils);
+    const api = factory(mathExprEvaluator, arrayUtils, mathQuestionClassifier);
 
     if (typeof module === 'object' && typeof module.exports === 'object') {
         module.exports = api;
@@ -26,7 +32,7 @@
     if (typeof window !== 'undefined') window.MathTemplateCompiler = api;
     if (typeof globalThis !== 'undefined') globalThis.MathTemplateCompiler = api;
     if (typeof self !== 'undefined') self.MathTemplateCompiler = api;
-})(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : this, function (MathExprEvaluator, ArrayUtils) {
+})(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : this, function (MathExprEvaluator, ArrayUtils, MathQuestionClassifier) {
     'use strict';
 
     function sanitizeForClone(obj) {
@@ -384,10 +390,51 @@
 
         if (renderedOptions.length > 0) {
             const oldCorrectIndex = finalCorrectIndex;
-            const cleanOptions = renderedOptions.map(opt => opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim());
+            let cleanOptions = renderedOptions.map(opt => opt.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim());
+            const correctText = cleanOptions[oldCorrectIndex] || cleanOptions[0];
+
+            // Đảm bảo không trùng lặp các phương án
+            const uniqueClean = [];
+            uniqueClean.push(correctText);
+            for (let i = 0; i < cleanOptions.length; i++) {
+                if (i === oldCorrectIndex) continue;
+                const opt = cleanOptions[i];
+                const normOpt = opt.replace(/[\$\s\{\}\\\,\_\'\"]/g, "").toLowerCase();
+                const collides = uniqueClean.some(existing => {
+                    const normExisting = existing.replace(/[\$\s\{\}\\\,\_\'\"]/g, "").toLowerCase();
+                    return normOpt === normExisting;
+                });
+                if (!collides) {
+                    uniqueClean.push(opt);
+                }
+            }
+
+            // Bổ sung nếu thiếu phương án do trùng lặp
+            if (uniqueClean.length < cleanOptions.length) {
+                const numMatch = correctText.match(/(-?\d+(?:[\.,]\d+)?)/);
+                let baseNum = numMatch ? parseFloat(numMatch[1].replace(',', '.')) : 10;
+                const isInteger = numMatch ? !numMatch[1].includes('.') && !numMatch[1].includes(',') : true;
+                const diffs = [1, -1, 2, -2, 3, -3, 5, -5, 10, -10, 15, -15, 20, -20];
+                let diffIdx = 0;
+                while (uniqueClean.length < cleanOptions.length && diffIdx < diffs.length) {
+                    const shift = diffs[diffIdx++];
+                    let candidateNum = baseNum + shift;
+                    if (candidateNum < 0 && baseNum >= 0 && !correctText.includes('-')) {
+                        candidateNum = baseNum + Math.abs(shift) + 3;
+                    }
+                    const formattedNum = isInteger ? Math.round(candidateNum).toString() : candidateNum.toFixed(1).replace('.', ',');
+                    let candidateOpt = numMatch ? correctText.replace(numMatch[1], formattedNum) : `${candidateNum}`;
+                    const normCand = candidateOpt.replace(/[\$\s\{\}\\\,\_\'\"]/g, "").toLowerCase();
+                    if (!uniqueClean.some(ex => ex.replace(/[\$\s\{\}\\\,\_\'\"]/g, "").toLowerCase() === normCand)) {
+                        uniqueClean.push(candidateOpt);
+                    }
+                }
+            }
+
+            cleanOptions = uniqueClean;
             
             // Tạo danh sách đối tượng để xáo trộn
-            const optionObjects = cleanOptions.map((text, index) => ({ text, isCorrect: index === oldCorrectIndex }));
+            const optionObjects = cleanOptions.map((text, index) => ({ text, isCorrect: text === correctText }));
             self.shuffle(optionObjects);
 
             // Tìm vị trí đáp án đúng mới
@@ -422,8 +469,18 @@
             }
         }
 
+        const questionTextFinal = replacePlaceholders(tempQ.questionText, context);
+        const correctOptValue = (renderedOptions.length > 0 && typeof finalCorrectIndex === 'number' && renderedOptions[finalCorrectIndex] !== undefined)
+            ? renderedOptions[finalCorrectIndex]
+            : '';
+        const shouldForce = (typeof tempQ.forceMCQ === 'boolean')
+            ? tempQ.forceMCQ
+            : ((MathQuestionClassifier && typeof MathQuestionClassifier.shouldForceMCQ === 'function')
+                ? MathQuestionClassifier.shouldForceMCQ(questionTextFinal, correctOptValue)
+                : false);
+
         const finalQ = {
-            questionText: replacePlaceholders(tempQ.questionText, context),
+            questionText: questionTextFinal,
             options: renderedOptions,
             correctIndex: finalCorrectIndex,
             hints: tempQ.hints ? tempQ.hints.map(h => replacePlaceholders(h, context)) : [],
@@ -431,6 +488,7 @@
             tip: replacePlaceholders(tempQ.tip, context),
             level: tempQ.level || 'chat-luong-cao',
             type: tempQ.type,
+            forceMCQ: shouldForce,
             isTemplateInstance: true,
             debugContext: sanitizeForClone(context)
         };

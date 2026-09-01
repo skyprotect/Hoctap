@@ -411,6 +411,101 @@ const questions = {
         }
     },
 
+    // Đảm bảo các phương án lựa chọn trong câu hỏi trắc nghiệm không bị trùng lặp ngữ nghĩa
+    ensureUniqueOptions: function(qObj) {
+        if (!qObj || !Array.isArray(qObj.options) || qObj.options.length <= 1) return qObj;
+
+        const correctIndex = (typeof qObj.correctIndex === 'number' && qObj.correctIndex >= 0 && qObj.correctIndex < qObj.options.length)
+            ? qObj.correctIndex
+            : 0;
+        const correctVal = qObj.options[correctIndex];
+
+        const self = this;
+        function checkCollision(optA, optB) {
+            if (optA === optB) return true;
+            const cleanA = typeof optA === 'string' ? optA.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim() : String(optA);
+            const cleanB = typeof optB === 'string' ? optB.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim() : String(optB);
+            if (cleanA === cleanB) return true;
+
+            const normA = cleanA.replace(/[\$\s\{\}\\\_\'\"]/g, "").toLowerCase();
+            const normB = cleanB.replace(/[\$\s\{\}\\\_\'\"]/g, "").toLowerCase();
+            if (normA === normB) return true;
+
+            if (typeof MathAnswerEvaluator !== 'undefined' && MathAnswerEvaluator && MathAnswerEvaluator.evaluateShortAnswer) {
+                if (!cleanA.includes('\\in') && !cleanB.includes('\\in') && !cleanA.includes('\\subset') && !cleanB.includes('\\subset')) {
+                    if (MathAnswerEvaluator.evaluateShortAnswer(cleanA, cleanB)) return true;
+                }
+            }
+            return false;
+        }
+
+        const uniqueOptions = [];
+        uniqueOptions.push(correctVal);
+
+        for (let i = 0; i < qObj.options.length; i++) {
+            if (i === correctIndex) continue;
+            const opt = qObj.options[i];
+            let collides = false;
+            for (const existing of uniqueOptions) {
+                if (checkCollision(opt, existing)) {
+                    collides = true;
+                    break;
+                }
+            }
+            if (!collides) {
+                uniqueOptions.push(opt);
+            }
+        }
+
+        if (uniqueOptions.length < qObj.options.length) {
+            const numMatch = correctVal.match(/(-?\d+(?:[\.,]\d+)?)/);
+            const hasDollar = correctVal.startsWith('$') || correctVal.endsWith('$');
+
+            let baseNum = numMatch ? parseFloat(numMatch[1].replace(',', '.')) : 10;
+            const isInteger = numMatch ? !numMatch[1].includes('.') && !numMatch[1].includes(',') : true;
+            const diffs = [1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 10, -10, 15, -15, 20, -20];
+
+            let diffIdx = 0;
+            while (uniqueOptions.length < qObj.options.length && diffIdx < diffs.length) {
+                const shift = diffs[diffIdx++];
+                let candidateNum = baseNum + shift;
+                if (candidateNum < 0 && baseNum >= 0 && !correctVal.includes('-')) {
+                    candidateNum = baseNum + Math.abs(shift) + 3;
+                }
+                const formattedNum = isInteger ? Math.round(candidateNum).toString() : candidateNum.toFixed(1).replace('.', ',');
+                
+                let candidateOpt;
+                if (numMatch) {
+                    candidateOpt = correctVal.replace(numMatch[1], formattedNum);
+                } else {
+                    candidateOpt = hasDollar ? `$${candidateNum}$` : `${candidateNum}`;
+                }
+
+                let collides = false;
+                for (const existing of uniqueOptions) {
+                    if (checkCollision(candidateOpt, existing)) {
+                        collides = true;
+                        break;
+                    }
+                }
+                if (!collides) {
+                    uniqueOptions.push(candidateOpt);
+                }
+            }
+        }
+
+        if (typeof self.shuffle === 'function') {
+            self.shuffle(uniqueOptions);
+        } else if (typeof ArrayUtils !== 'undefined' && ArrayUtils.shuffle) {
+            ArrayUtils.shuffle(uniqueOptions);
+        }
+
+        qObj.options = uniqueOptions;
+        qObj.correctIndex = uniqueOptions.indexOf(correctVal);
+        if (qObj.correctIndex === -1) qObj.correctIndex = 0;
+        return qObj;
+    },
+
     // Các hàm bổ trợ phân tích số học dùng cho template đề thi AI
     getPrimeFactors: function(n) {
         if (typeof MathUtils !== 'undefined' && MathUtils.getPrimeFactors) {
@@ -843,7 +938,9 @@ const questions = {
             const targetShortAnswerCount = examQuestionsCount - mcqCount;
             for (let i = examQuestionsCount - 1; i >= 0; i--) {
                 const q = this.currentQuestions[i];
-                if (shortAnswerAssigned < targetShortAnswerCount && !q.forceMCQ) {
+                const forceMCQ = this.isForceMCQ(q);
+                q.forceMCQ = forceMCQ;
+                if (shortAnswerAssigned < targetShortAnswerCount && !forceMCQ) {
                     q.isShortAnswer = true;
                     shortAnswerAssigned++;
                 } else {
@@ -879,7 +976,9 @@ const questions = {
                 let saCount = 0;
                 for (let i = fallbackQuestions.length - 1; i >= 0; i--) {
                     const q = fallbackQuestions[i];
-                    if (saCount < 4 && !q.forceMCQ) {
+                    const forceMCQ = this.isForceMCQ(q);
+                    q.forceMCQ = forceMCQ;
+                    if (saCount < 4 && !forceMCQ) {
                         q.isShortAnswer = true;
                         saCount++;
                     } else {
@@ -1122,7 +1221,9 @@ const questions = {
             let saCount = 0;
             for (let i = fallbackQuestions.length - 1; i >= 0; i--) {
                 const q = fallbackQuestions[i];
-                if (saCount < 6 && !q.forceMCQ) { q.isShortAnswer = true; saCount++; }
+                const forceMCQ = this.isForceMCQ(q);
+                q.forceMCQ = forceMCQ;
+                if (saCount < 6 && !forceMCQ) { q.isShortAnswer = true; saCount++; }
                 else { q.isShortAnswer = false; }
             }
             this.currentQuestions = fallbackQuestions;
@@ -1193,7 +1294,9 @@ const questions = {
                     const targetShortAnswerCount = totalQs - mcqCount;
                     for (let i = totalQs - 1; i >= 0; i--) {
                         const q = aiQuestions[i];
-                        if (shortAnswerAssigned < targetShortAnswerCount && !q.forceMCQ) {
+                        const forceMCQ = this.isForceMCQ(q);
+                        q.forceMCQ = forceMCQ;
+                        if (shortAnswerAssigned < targetShortAnswerCount && !forceMCQ) {
                             q.isShortAnswer = true;
                             shortAnswerAssigned++;
                         } else {
@@ -1230,7 +1333,9 @@ const questions = {
                 let saCount = 0;
                 for (let i = fallbackQuestions.length - 1; i >= 0; i--) {
                     const q = fallbackQuestions[i];
-                    if (saCount < 6 && !q.forceMCQ) {
+                    const forceMCQ = this.isForceMCQ(q);
+                    q.forceMCQ = forceMCQ;
+                    if (saCount < 6 && !forceMCQ) {
                         q.isShortAnswer = true;
                         saCount++;
                     } else {
@@ -1457,14 +1562,20 @@ const questions = {
 
     // Bộ sinh đề chi tiết cho 22 dạng bài với 3 cấp độ
     generateQuestion: function(type, level = "co-ban") {
+        let externalQ = null;
         if (typeof type === 'object' && type !== null && type.isTemplate) {
-            return this.generateQuestionFromTemplate(type);
+            externalQ = this.generateQuestionFromTemplate(type);
+        } else if (typeof type === 'string' && (type.startsWith("l1-") || type.startsWith("luyen-tap-chung-l1-")) && typeof questionsL1 !== 'undefined') {
+            externalQ = questionsL1.generateQuestion(type, level);
+        } else if ((type.startsWith("l4-") || type.startsWith("luyen-tap-chung-l4-")) && typeof questionsL4 !== 'undefined') {
+            externalQ = questionsL4.generateQuestion(type, level);
         }
-        if (typeof type === 'string' && (type.startsWith("l1-") || type.startsWith("luyen-tap-chung-l1-")) && typeof questionsL1 !== 'undefined') {
-            return questionsL1.generateQuestion(type, level);
-        }
-        if ((type.startsWith("l4-") || type.startsWith("luyen-tap-chung-l4-")) && typeof questionsL4 !== 'undefined') {
-            return questionsL4.generateQuestion(type, level);
+
+        if (externalQ) {
+            if (typeof externalQ.forceMCQ !== 'boolean') {
+                externalQ.forceMCQ = this.isForceMCQ(externalQ);
+            }
+            return externalQ;
         }
 
         let questionText = "";
@@ -3716,7 +3827,7 @@ const questions = {
                         const d = 50;
                         questionText = `Tính nhanh giá trị biểu thức: $A = (${a} - ${b}) - (${c} - ${b} - ${d})$`;
                         const correctVal = a - c + d;
-                        options = [`$${correctVal}$`, `$100$`, `$50$`, `$${a - b - c + b - d}$`];
+                        options = [`$${correctVal}$`, `$${a - c - d}$`, `$${a + c - d}$`, `$${a - c + d - 20}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}$`);
                         hints = [
@@ -3865,7 +3976,10 @@ const questions = {
                         const c = this.randomInt(2, 4);
                         questionText = `Tính giá trị biểu thức sau: $A = (-${a})^2 \\cdot (-${b}) - ${c} \\cdot (-5)$.`;
                         const correctVal = Math.pow(-a, 2) * (-b) - c * (-5);
-                        options = [`$${correctVal}$`, `$${correctVal - 10}$`, `$${-correctVal}$`, `$0$`];
+                        const w1 = (correctVal === 0) ? -10 : -correctVal;
+                        const w2 = (correctVal === 0) ? 10 : correctVal - 10;
+                        const w3 = (correctVal === 0 || correctVal === 5) ? 15 : 0;
+                        options = [`$${correctVal}$`, `$${w1}$`, `$${w2}$`, `$${w3}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}$`);
                         hints = [
@@ -4195,7 +4309,8 @@ const questions = {
                         const p = this.randomInt(4, 10) * 3;
                         questionText = `Một hình tam giác đều có chu vi bằng $${p}\\text{ cm}$. Độ dài mỗi cạnh của hình tam giác đều đó là bao nhiêu?`;
                         const correctVal = p / 3;
-                        options = [`$${correctVal}\\text{ cm}$`, `$${correctVal * 2}\\text{ cm}$`, `$${correctVal - 1}\\text{ cm}$`, `$3\\text{ cm}$`];
+                        const w3 = (correctVal === 3 || correctVal - 1 === 3 || correctVal * 2 === 3) ? (correctVal + 2) : 3;
+                        options = [`$${correctVal}\\text{ cm}$`, `$${correctVal * 2}\\text{ cm}$`, `$${correctVal - 1}\\text{ cm}$`, `$${w3}\\text{ cm}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}\\text{ cm}$`);
                         hints = [
@@ -4246,7 +4361,7 @@ const questions = {
                         const p = 3 * edge;
                         questionText = `Một chiếc bàn hình lục giác đều được ghép khít từ 6 mặt bàn hình tam giác đều bằng nhau. Biết chu vi của một mặt bàn tam giác đều là $${p}\\text{ cm}$. Chu vi của mặt bàn hình lục giác đều lớn là bao nhiêu?`;
                         const correctVal = 6 * edge;
-                        options = [`$${correctVal}\\text{ cm}$`, `$${p * 2}\\text{ cm}$`, `$${correctVal - edge}\\text{ cm}$`, `$${correctVal + edge}\\text{ cm}$`];
+                        options = [`$${correctVal}\\text{ cm}$`, `$${p}\\text{ cm}$`, `$${correctVal - edge}\\text{ cm}$`, `$${correctVal + edge}\\text{ cm}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}\\text{ cm}$`);
                         hints = [
@@ -4329,7 +4444,10 @@ const questions = {
                         const c = this.randomInt(4, 6);
                         questionText = `Cho hình thang cân $ABCD$ có đáy nhỏ $AB = ${a}\\text{ cm}$, đáy lớn $CD = ${b}\\text{ cm}$, cạnh bên $AD = ${c}\\text{ cm}$. Tính chu vi của hình thang cân này.`;
                         const correctVal = a + b + 2 * c;
-                        options = [`$${correctVal}\\text{ cm}$`, `$${a + b + c}\\text{ cm}$`, `$${correctVal - c}\\text{ cm}$`, `$${a * 2 + b + c}\\text{ cm}$`];
+                        const w1 = a + b + c;
+                        const w2 = a + b + 3 * c;
+                        const w3 = (2 * (a + b) === correctVal || 2 * (a + b) === w2) ? 2 * (a + b) + 2 : 2 * (a + b);
+                        options = [`$${correctVal}\\text{ cm}$`, `$${w1}\\text{ cm}$`, `$${w2}\\text{ cm}$`, `$${w3}\\text{ cm}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${correctVal}\\text{ cm}$`);
                         hints = [
@@ -4354,7 +4472,8 @@ const questions = {
                         const edge = this.randomInt(5, 15);
                         const p = 4 * edge;
                         questionText = `Một khung tranh hình thoi có chu vi bằng $${p}\\text{ cm}$. Hỏi độ dài mỗi cạnh của khung tranh hình thoi đó là bao nhiêu?`;
-                        options = [`$${edge}\\text{ cm}$`, `$${edge * 2}\\text{ cm}$`, `$${edge / 2}\\text{ cm}$`, `$4\\text{ cm}$`];
+                        const w3 = (edge === 4 || edge * 2 === 4 || edge + 2 === 4) ? edge + 3 : 4;
+                        options = [`$${edge}\\text{ cm}$`, `$${edge * 2}\\text{ cm}$`, `$${edge + 2}\\text{ cm}$`, `$${w3}\\text{ cm}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${edge}\\text{ cm}$`);
                         hints = [
@@ -4370,7 +4489,7 @@ const questions = {
                         const a = 10;
                         const b = p / 2 - a;
                         questionText = `Cho hình bình hành có chu vi bằng $${p}\\text{ cm}$ và độ dài một cạnh bằng $${a}\\text{ cm}$. Tính độ dài cạnh kề với cạnh đã cho.`;
-                        options = [`$${b}\\text{ cm}$`, `$${a}\\text{ cm}$`, `$${p - a}\\text{ cm}$`, `$6\\text{ cm}$`];
+                        options = [`$${b}\\text{ cm}$`, `$${a}\\text{ cm}$`, `$${p - a}\\text{ cm}$`, `$${b + 4}\\text{ cm}$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${b}\\text{ cm}$`);
                         hints = [
@@ -4471,7 +4590,7 @@ const questions = {
                         const d1 = 8, d2 = 10;
                         questionText = `Một mảnh bìa hình thoi có độ dài hai đường chéo lần lượt là $${d1}\\text{ cm}$ và $${d2}\\text{ cm}$. Tính diện tích mảnh bìa hình thoi đó.`;
                         const s = (d1 * d2) / 2;
-                        options = [`$${s}\\text{ cm}^2$`, `$${d1 * d2}\\text{ cm}^2$`, `$${d1 + d2}\\text{ cm}^2$`, `$${s * 2}\\text{ cm}^2$`];
+                        options = [`$${s}\\text{ cm}^2$`, `$${d1 * d2}\\text{ cm}^2$`, `$${d1 + d2}\\text{ cm}^2$`, `$${(d1 + d2) * 2}\\text{ cm}^2$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${s}\\text{ cm}^2$`);
                         hints = [
@@ -4496,7 +4615,7 @@ const questions = {
                         const h = this.randomInt(4, 8);
                         const s = ((a + b) * h) / 2;
                         questionText = `Tính diện tích hình thang có độ dài hai đáy lần lượt là $${a}\\text{ cm}$ và $${b}\\text{ cm}$, chiều cao bằng $${h}\\text{ cm}$.`;
-                        options = [`$${s}\\text{ cm}^2$`, `$${(a + b) * h}\\text{ cm}^2$`, `$${s * 2}\\text{ cm}^2$`, `$${a * b * h}\\text{ cm}^2$`];
+                        options = [`$${s}\\text{ cm}^2$`, `$${(a + b) * h}\\text{ cm}^2$`, `$${(a + b + h) * 2}\\text{ cm}^2$`, `$${a * b * h}\\text{ cm}^2$`];
                         this.shuffle(options);
                         correctIndex = options.indexOf(`$${s}\\text{ cm}^2$`);
                         hints = [
@@ -4762,10 +4881,11 @@ const questions = {
                         const x = (sum * a) / (a + b);
                         const y = (sum * b) / (a + b);
                         questionText = `Tìm hai số tự nhiên $x$ và $y$ biết rằng $\\frac{x}{y} = \\frac{${a}}{${b}}$ và tổng $x + y = ${sum}$.`;
+                        const delta = (x + a === y) ? a + 2 : a;
                         options = [
                             `$x = ${x}, y = ${y}$`,
                             `$x = ${y}, y = ${x}$`,
-                            `$x = ${x + a}, y = ${y - a}$`,
+                            `$x = ${x + delta}, y = ${y - delta}$`,
                             `$x = ${x - 1}, y = ${y + 1}$`
                         ];
                         hints = [
@@ -5994,7 +6114,8 @@ const questions = {
                         const n = this.randomInt(5, 8);
                         const segments = (n * (n - 1)) / 2;
                         questionText = `Cho $${n}$ điểm phân biệt nằm trên một đường thẳng. Có bao nhiêu đoạn thẳng được tạo thành từ các điểm đó?`;
-                        options = [`$${segments}$ đoạn thẳng`, `$${n}$ đoạn thẳng`, `$${segments + 3}$ đoạn thẳng`, `$${n * 2}$ đoạn thẳng`];
+                        const w4 = (n * 2 === segments) ? n * 2 + 2 : n * 2;
+                        options = [`$${segments}$ đoạn thẳng`, `$${n}$ đoạn thẳng`, `$${segments + 3}$ đoạn thẳng`, `$${w4}$ đoạn thẳng`];
                         this.shuffle(options);
                         hints = [
                             `Cứ chọn 2 điểm trong số các điểm cho trước ta được 1 đoạn thẳng.`,
@@ -6006,7 +6127,8 @@ const questions = {
                         const oa = this.randomInt(2, 5);
                         const ob = this.randomInt(oa + 3, oa + 7);
                         questionText = `Trên tia $Ox$ lấy hai điểm $A$ và $B$ sao cho $OA = ${oa}\\text{ cm}$, $OB = ${ob}\\text{ cm}$. Tính độ dài đoạn thẳng $AB$.`;
-                        options = [`$${ob - oa}\\text{ cm}$`, `$${ob + oa}\\text{ cm}$`, `$${oa}\\text{ cm}$`, `$${ob - oa + 1}\\text{ cm}$`];
+                        const w3 = (oa === ob - oa || oa === ob - oa + 1) ? oa + 2 : oa;
+                        options = [`$${ob - oa}\\text{ cm}$`, `$${ob + oa}\\text{ cm}$`, `$${w3}\\text{ cm}$`, `$${ob - oa + 1}\\text{ cm}$`];
                         this.shuffle(options);
                         hints = [
                             `Vì cả hai điểm $A, B$ đều thuộc tia $Ox$ và $OA < OB$ ($${oa} < ${ob}$) nên điểm $A$ nằm giữa hai điểm $O$ và $B$.`,
@@ -6243,7 +6365,8 @@ const questions = {
                         const n = this.randomInt(5, 9);
                         const angles = (n * (n - 1)) / 2;
                         questionText = `Cho $${n}$ tia chung gốc (không có tia nào trùng nhau). Có tất cả bao nhiêu góc được tạo thành từ các tia này?`;
-                        options = [`$${angles}$ góc`, `$${n}$ góc`, `$${angles - 2}$ góc`, `$${n * 2}$ góc`];
+                        const w4 = (n * 2 === angles) ? n * 2 + 2 : n * 2;
+                        options = [`$${angles}$ góc`, `$${n}$ góc`, `$${angles - 2}$ góc`, `$${w4}$ góc`];
                         // Removed inner shuffle Ch8
                         hints = [
                             `Mỗi cặp tia chung gốc tạo thành một góc.`,
@@ -6256,7 +6379,8 @@ const questions = {
                         const n = pts[this.randomInt(0, pts.length - 1)];
                         const angles = (n * (n - 1)) / 2;
                         questionText = `Cho trước một số tia chung gốc phân biệt. Biết người ta đếm được tất cả $${angles}$ góc được tạo thành từ các tia đó. Hỏi ban đầu có bao nhiêu tia chung gốc?`;
-                        options = [`$${n}$ tia`, `$${n - 1}$ tia`, `$${n + 1}$ tia`, `$${angles / 2}$ tia`];
+                        const w4 = (angles / 2 === n || angles / 2 === n + 1) ? Math.floor(angles / 2) + 2 : angles / 2;
+                        options = [`$${n}$ tia`, `$${n - 1}$ tia`, `$${n + 1}$ tia`, `$${w4}$ tia`];
                         // Removed inner shuffle Ch8
                         hints = [
                             `Áp dụng công thức số góc từ $n$ tia chung gốc: $\\frac{n(n-1)}{2} = ${angles}$.`,
@@ -6286,7 +6410,8 @@ const questions = {
                         const totalRays = 2 * n;
                         const totalAngles = (totalRays * (totalRays - 1)) / 2;
                         questionText = `Cho $${n}$ đường thẳng phân biệt cùng cắt nhau tại một điểm. Có bao nhiêu góc nhỏ hơn góc bẹt được tạo thành từ các đường thẳng này?`;
-                        options = [`$${ans}$ góc`, `$${totalAngles}$ góc`, `$${ans + n}$ góc`, `$${n * (n-1)}$ góc`];
+                        const w3 = ans + 2 * n;
+                        options = [`$${ans}$ góc`, `$${totalAngles}$ góc`, `$${w3}$ góc`, `$${n * (n-1)}$ góc`];
                         // Removed inner shuffle Ch8
                         hints = [
                             `Mỗi đường thẳng đi qua giao điểm tạo thành $2$ tia đối nhau. Vậy $${n}$ đường thẳng tạo thành $2 \\cdot ${n} = ${totalRays}$ tia chung gốc.`,
@@ -6541,7 +6666,8 @@ const questions = {
                         const factor = [5, 10, 20][this.randomInt(0, 2)];
                         const ans = (mon + tue) * factor;
                         questionText = `Biểu đồ tranh thống kê số lượng điện thoại bán ra của cửa hàng: thứ Hai có $${mon}$ hình 📱, thứ Ba có $${tue}$ hình 📱. Chú giải ghi: mỗi hình 📱 đại diện cho $${factor}$ chiếc điện thoại. Hỏi tổng số điện thoại cửa hàng bán được trong hai ngày đó là bao nhiêu?`;
-                        options = [`$${ans}$ chiếc`, `$${mon + tue}$ chiếc`, `$${mon * factor}$ chiếc`, `$${tue * factor}$ chiếc`];
+                        const w4 = (mon === tue) ? (tue + 1) * factor : tue * factor;
+                        options = [`$${ans}$ chiếc`, `$${mon + tue}$ chiếc`, `$${mon * factor}$ chiếc`, `$${w4}$ chiếc`];
                         this.shuffle(options);
                         hints = [
                             `Tính tổng số hình 📱 vẽ trong cả hai ngày: $${mon} + ${tue} = ${mon + tue}$ hình.`,
@@ -6589,7 +6715,7 @@ const questions = {
                         const half = factor / 2;
                         const total = (a + b) * factor + half;
                         questionText = `Biểu đồ tranh thống kê số lượng cây xanh tự làm của hai lớp: Lớp 6A vẽ $${a}$ hình nguyên 🌲 và 1 hình bán phần 🌲; Lớp 6B vẽ $${b}$ hình nguyên 🌲. Chú giải ghi: mỗi hình nguyên đại diện cho $${factor}$ cây, mỗi hình bán phần (nửa hình) đại diện cho $${half}$ cây. Tính tổng số cây trồng được của cả hai lớp.`;
-                        options = [`$${total}$ cây`, `$${(a + b) * factor}$ cây`, `$${total - half}$ cây`, `$${total + half}$ cây`];
+                        options = [`$${total}$ cây`, `$${(a + b) * factor}$ cây`, `$${(a + b - 1) * factor}$ cây`, `$${total + half}$ cây`];
                         this.shuffle(options);
                         hints = [
                             `Đếm tổng số hình nguyên của cả hai lớp: $${a} + ${b} = ${a+b}$ hình.`,
@@ -6839,10 +6965,12 @@ const questions = {
                         const totalAll = bikeA + busA + bikeB + busB;
                         const percent = Math.round((totalBike / totalAll) * 100);
                         questionText = `Biểu đồ cột kép biểu diễn số học sinh đi xe đạp và xe buýt của hai lớp 6A và 6B. Lớp 6A: xe đạp $${bikeA}$ bạn, xe buýt $${busA}$ bạn. Lớp 6B: xe đạp $${bikeB}$ bạn, xe buýt $${busB}$ bạn. Tính tỉ số phần trăm số học sinh đi xe đạp của cả hai lớp trên tổng số học sinh đi học bằng cả hai phương tiện này (làm tròn đến hàng đơn vị).`;
-                        options = [`$${percent}\\%$`, `$${percent - 3}\\%$`, `$${percent + 3}\\%$`, `$50\\%`];
+                        const w3 = (percent === 50 || percent - 3 === 50 || percent + 3 === 50) ? `$${percent + 6}\\%$` : `$50\\%$`;
+                        options = [`$${percent}\\%$`, `$${percent - 3}\\%$`, `$${percent + 3}\\%$`, w3];
                         options = [...new Set(options)];
                         while (options.length < 4) {
-                            options.push(`$${this.randomInt(35, 65)}\\%`);
+                            const opt = `$${this.randomInt(35, 65)}\\%$`;
+                            if (!options.includes(opt)) options.push(opt);
                         }
                         // Removed inner shuffle
                         hints = [
@@ -6858,17 +6986,22 @@ const questions = {
                         const k2 = this.randomInt(8, 14);
                         const totalG = g1 + g2;
                         const totalAll = g1 + k1 + g2 + k2;
-                        const percent = ((totalG / totalAll) * 100).toFixed(1).replace('.', ',');
+                        const rawPercent = (totalG / totalAll) * 100;
+                        const percent = rawPercent.toFixed(1).replace('.', ',');
+                        const opt2Val = (rawPercent - 3).toFixed(1).replace('.', ',');
+                        const opt3Val = (rawPercent + 2).toFixed(1).replace('.', ',');
+                        const opt4Val = (Math.abs(rawPercent - 50) < 0.5) ? (rawPercent + 5).toFixed(1).replace('.', ',') : '50,0';
                         questionText = `Biểu đồ cột kép biểu diễn số học sinh đạt học lực Giỏi và Khá của hai lớp 6A và 6B. Lớp 6A: Giỏi $${g1}$ bạn, Khá $${k1}$ bạn. Lớp 6B: Giỏi $${g2}$ bạn, Khá $${k2}$ bạn. Tính tỉ số phần trăm học sinh đạt học lực Giỏi của cả hai lớp trên tổng số học sinh đạt lực học Khá và Giỏi của cả hai lớp (làm tròn đến chữ số thập phân thứ nhất).`;
                         options = [
                             `$${percent}\\%$`,
-                            `$50,0\\%$`,
-                            `$${(totalG / totalAll * 100 - 3).toFixed(1).replace('.', ',')}\\%$`,
-                            `$${(totalG / totalAll * 100 + 2).toFixed(1).replace('.', ',')}\\%$`
+                            `$${opt4Val}\\%$`,
+                            `$${opt2Val}\\%$`,
+                            `$${opt3Val}\\%$`
                         ];
                         options = [...new Set(options)];
                         while (options.length < 4) {
-                            options.push(`$${this.randomInt(40, 60)},${this.randomInt(0, 9)}\\%$`);
+                            const opt = `$${this.randomInt(40, 60)},${this.randomInt(0, 9)}\\%$`;
+                            if (!options.includes(opt)) options.push(opt);
                         }
                         // Removed inner shuffle
                         hints = [
@@ -7238,15 +7371,12 @@ const questions = {
             }
         }
 
-        // Đảo vị trí đáp án ngẫu nhiên và cập nhật correctIndex
         let correctOptionValue;
         if (typeof correctIndex === 'number' && correctIndex >= 0 && correctIndex < options.length) {
             correctOptionValue = options[correctIndex];
         } else {
             correctOptionValue = options[0];
         }
-        this.shuffle(options);
-        correctIndex = options.indexOf(correctOptionValue);
 
         const qObj = {
             questionText,
@@ -7257,8 +7387,11 @@ const questions = {
             tip
         };
 
+        // Chốt chặn bất biến trung tâm: đảm bảo không trùng lặp đáp án và đảo vị trí ngẫu nhiên
+        this.ensureUniqueOptions(qObj);
+
         // Xác định xem câu hỏi có bắt buộc phải là trắc nghiệm hay không
-        qObj.forceMCQ = this.shouldForceMCQ(questionText, correctOptionValue);
+        qObj.forceMCQ = this.shouldForceMCQ(questionText, qObj.options[qObj.correctIndex]);
 
         return qObj;
     },
@@ -8460,41 +8593,24 @@ const questions = {
     },
 
     checkShortAnswer: function(userInput, correctText) {
-        if (MathAnswerEvaluator && typeof MathAnswerEvaluator.evaluateShortAnswer === 'function') {
+        if (typeof MathAnswerEvaluator !== 'undefined' && typeof MathAnswerEvaluator.evaluateShortAnswer === 'function') {
             return MathAnswerEvaluator.evaluateShortAnswer(userInput, correctText);
         }
         const cleanUser = this.cleanAnswerForComparison(userInput);
         const cleanCorrect = this.cleanAnswerForComparison(correctText);
-        if (!cleanCorrect) return false;
-        
-        // So sánh bằng nhau tuyệt đối sau khi làm sạch
-        if (cleanUser === cleanCorrect) return true;
-        
-        // Kiểm tra thông cảm sai lệch nhỏ nếu là dạng tập hợp, ví dụ người dùng gõ chỉ các phần tử {1; 2; 3} thay vì A={1; 2; 3}
-        if (cleanCorrect.includes(cleanUser) && cleanUser.length >= Math.floor(cleanCorrect.length * 0.4)) return true;
-        if (cleanUser.includes(cleanCorrect) && cleanCorrect.length >= Math.floor(cleanUser.length * 0.4)) return true;
-        
-        return false;
+        if (!cleanCorrect || !cleanUser) return false;
+        return cleanUser === cleanCorrect;
     },
 
     cleanAnswerForComparison: function(ans) {
-        if (MathAnswerEvaluator && typeof MathAnswerEvaluator.cleanAnswer === 'function') {
+        if (typeof MathAnswerEvaluator !== 'undefined' && typeof MathAnswerEvaluator.cleanAnswer === 'function') {
             return MathAnswerEvaluator.cleanAnswer(ans);
         }
         if (typeof ans !== 'string') return '';
-        // Loại bỏ thứ tự phương án ở đầu (A. B. C. D. hoặc A) B) C) D))
-        let s = ans.replace(/^[A-D][\.\)\:\-\s]+/i, '').trim();
-        // Loại bỏ ký tự đặc biệt LaTeX $
+        let s = ans.replace(/^[A-Da-d][\.\)\:\-]\s*/, '').trim();
         s = s.replace(/\$/g, '').trim();
-        // Thay thế dấu phẩy phân cách thành dấu chấm phẩy để đồng bộ (tránh số thập phân dạng d,d)
         s = s.replace(/,\s+/g, ';');
-        s = s.replace(/([a-zA-Z=])\s*,\s*/g, '$1;');
-        s = s.replace(/\s*,\s*([a-zA-Z=])/g, ';$1');
-        // Loại bỏ các chữ cái đơn vị phổ biến trong tiếng Việt của lớp 6
-        s = s.replace(/(chiếc kẹo|kẹo|hộp sữa|sữa|hộp|quả|bông hoa|hoa|quyển sách|sách|vở|bút|học sinh|bạn|khối rubik|khối|rubik|phần tử|ước|bội|dm|cm|m|kg|g|giờ|phút|giây|lít|l|độ c|độ|c)/g, '').trim();
-        // Loại bỏ khoảng trắng và viết thường
-        s = s.replace(/\s+/g, '').toLowerCase();
-        return s;
+        return s.replace(/\s+/g, '').toLowerCase();
     },
 
     shouldForceMCQ: function(questionText, correctOption) {
@@ -8502,6 +8618,27 @@ const questions = {
             return MathQuestionClassifier.shouldForceMCQ(questionText, correctOption);
         }
         return false;
+    },
+
+    isForceMCQ: function(q) {
+        if (MathQuestionClassifier && typeof MathQuestionClassifier.isForceMCQ === 'function') {
+            return MathQuestionClassifier.isForceMCQ(q);
+        }
+        if (!q || typeof q !== 'object') return false;
+        if (typeof q.forceMCQ === 'boolean') return q.forceMCQ;
+        const correctOpt = (q.options && typeof q.correctIndex === 'number' && q.options[q.correctIndex] !== undefined)
+            ? String(q.options[q.correctIndex])
+            : (q.correctAnswer || '');
+        return this.shouldForceMCQ(q.questionText, correctOpt);
+    },
+
+    normalizeQuestionMode: function(q) {
+        if (MathQuestionClassifier && typeof MathQuestionClassifier.normalizeQuestionMode === 'function') {
+            return MathQuestionClassifier.normalizeQuestionMode(q);
+        }
+        if (!q || typeof q !== 'object') return q;
+        q.forceMCQ = this.isForceMCQ(q);
+        return q;
     },
 
     showPracticeReview: function() {
@@ -8978,7 +9115,9 @@ const questions = {
                     const targetShortAnswerCount = examQuestionsCount - mcqCount;
                     for (let i = examQuestionsCount - 1; i >= 0; i--) {
                         const q = questions[i];
-                        if (shortAnswerAssigned < targetShortAnswerCount && !q.forceMCQ) {
+                        const forceMCQ = this.isForceMCQ(q);
+                        q.forceMCQ = forceMCQ;
+                        if (shortAnswerAssigned < targetShortAnswerCount && !forceMCQ) {
                             q.isShortAnswer = true;
                             shortAnswerAssigned++;
                         } else {

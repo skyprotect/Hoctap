@@ -94,7 +94,46 @@
         return false;
     }
 
+    /**
+     * Trích xuất và phân loại đối tượng câu hỏi xem có bắt buộc là trắc nghiệm (MCQ) hay không.
+     * Nếu câu hỏi đã có thuộc tính boolean forceMCQ thì tôn trọng giá trị đó.
+     * Ngược lại, trích xuất questionText và correctOption từ đối tượng câu hỏi để tính toán xác định.
+     * 
+     * @param {any} q - Đối tượng câu hỏi
+     * @returns {boolean}
+     */
+    function isForceMCQ(q) {
+        if (!q || typeof q !== 'object') return false;
+        if (typeof q.forceMCQ === 'boolean') return q.forceMCQ;
+
+        const questionText = typeof q.questionText === 'string' ? q.questionText : '';
+        let correctOption = '';
+        if (Array.isArray(q.options) && typeof q.correctIndex === 'number' && q.options[q.correctIndex] !== undefined) {
+            correctOption = String(q.options[q.correctIndex]);
+        } else if (typeof q.correctAnswer === 'string') {
+            correctOption = q.correctAnswer;
+        } else if (typeof q.correctAnswer === 'number') {
+            correctOption = String(q.correctAnswer);
+        }
+        return shouldForceMCQ(questionText, correctOption);
+    }
+
+    /**
+     * Chuẩn hóa thuộc tính forceMCQ trên đối tượng câu hỏi để luôn là boolean xác định.
+     * 
+     * @param {any} q - Đối tượng câu hỏi
+     * @returns {any}
+     */
+    function normalizeQuestionMode(q) {
+        if (!q || typeof q !== 'object') return q;
+        q.forceMCQ = isForceMCQ(q);
+        return q;
+    }
+
     return {
-        shouldForceMCQ: shouldForceMCQ
+        shouldForceMCQ: shouldForceMCQ,
+        isForceMCQ: isForceMCQ,
+        resolveForceMCQ: isForceMCQ,
+        normalizeQuestionMode: normalizeQuestionMode
     };
 });

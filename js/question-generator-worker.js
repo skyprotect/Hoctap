@@ -7,8 +7,15 @@ var workerInitError = null;
 
 if (typeof importScripts === 'function') {
     try {
-        if (typeof MathExprEvaluator === 'undefined') importScripts('core/math-expr-evaluator.js');
-        if (typeof MathTemplateCompiler === 'undefined') importScripts('core/math-template-compiler.js');
+        if (typeof MathExprEvaluator === 'undefined') {
+            try { importScripts('core/math-expr-evaluator.js'); } catch (e) {}
+        }
+        if (typeof MathQuestionClassifier === 'undefined') {
+            try { importScripts('core/math-question-classifier.js'); } catch (e) {}
+        }
+        if (typeof MathTemplateCompiler === 'undefined') {
+            importScripts('core/math-template-compiler.js');
+        }
     } catch (error) {
         workerReady = false;
         workerInitError = {
@@ -22,6 +29,9 @@ if (typeof importScripts === 'function') {
 var MathExprEvaluator = (typeof globalThis !== 'undefined' && globalThis.MathExprEvaluator)
     || (typeof self !== 'undefined' && self.MathExprEvaluator)
     || (typeof require === 'function' ? require('./core/math-expr-evaluator') : null);
+var MathQuestionClassifier = (typeof globalThis !== 'undefined' && globalThis.MathQuestionClassifier)
+    || (typeof self !== 'undefined' && self.MathQuestionClassifier)
+    || (typeof require === 'function' ? require('./core/math-question-classifier') : null);
 var MathTemplateCompiler = (typeof globalThis !== 'undefined' && globalThis.MathTemplateCompiler)
     || (typeof self !== 'undefined' && self.MathTemplateCompiler)
     || (typeof require === 'function' ? require('./core/math-template-compiler') : null);

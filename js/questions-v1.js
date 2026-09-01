@@ -1,6 +1,11 @@
 // Bộ quản lý sinh câu hỏi Toán lớp 1 ngẫu nhiên chuẩn Kết nối tri thức với cuộc sống
 // Tuân thủ 100% quy tắc chống trùng đáp án và LaTeX chuẩn trong AGENTS.md
 
+const MathQuestionClassifierL1 = (typeof require === 'function' ? require('./core/math-question-classifier') : null)
+    || (typeof globalThis !== 'undefined' && globalThis.MathQuestionClassifier)
+    || (typeof window !== 'undefined' && window.MathQuestionClassifier)
+    || null;
+
 const questionsL1 = {
     // Hàm phụ trợ sinh số ngẫu nhiên từ min đến max (gồm cả hai biên)
     randomInt: function(min, max) {
@@ -1079,13 +1084,21 @@ const questionsL1 = {
                 break;
         }
 
+        const correctOptValue = (options && typeof correctIndex === 'number' && options[correctIndex] !== undefined)
+            ? String(options[correctIndex])
+            : '';
+        const shouldForce = (MathQuestionClassifierL1 && typeof MathQuestionClassifierL1.shouldForceMCQ === 'function')
+            ? MathQuestionClassifierL1.shouldForceMCQ(questionText, correctOptValue)
+            : false;
+
         return {
             questionText,
             options,
             correctIndex,
             hints,
             solutionHtml,
-            tip
+            tip,
+            forceMCQ: shouldForce
         };
     }
 };
