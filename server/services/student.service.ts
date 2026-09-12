@@ -25,7 +25,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '15.13';
+export const APP_VERSION = '15.14';
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)
@@ -234,12 +234,17 @@ export async function heartbeat(studentId: string, classLevel?: string): Promise
     const studentsList: any[] = (config && config.students) || [];
     const studentConf = studentsList.find((s: any) => s.id === studentId);
     const sysConf = SYSTEM_STUDENTS.find(s => s.id === studentId);
-    
-    let studentName = studentConf ? studentConf.name : (sysConf ? sysConf.name : "Học sinh");
-    if ((!studentName || studentName === 'Học sinh') && sysConf) {
-        studentName = sysConf.name;
+
+    // F.1 — Identity validation: chỉ PATCH Firebase khi studentId resolve được thành student hợp lệ.
+    // config.students là runtime source-of-truth (có thể chứa students ngoài SYSTEM_STUDENTS).
+    // SYSTEM_STUDENTS là fallback khi config chưa được load.
+    if (!studentConf && !sysConf) {
+        console.warn(`[Heartbeat] studentId không hợp lệ hoặc không resolve được: "${studentId}". Bỏ qua Firebase sync.`);
+        return; // HTTP response vẫn là success (trả về từ controller), chỉ skip Firebase PATCH
     }
-    const actualClassLevel = studentConf ? studentConf.classLevel : (sysConf ? sysConf.classLevel : (classLevel || "6"));
+
+    let studentName = studentConf ? studentConf.name : sysConf!.name;
+    const actualClassLevel = studentConf ? studentConf.classLevel : (sysConf!.classLevel || classLevel || "6");
 
     const payload = {
         studentId: studentId,
@@ -269,7 +274,40 @@ export async function getLeaderboard(params: { subject?: string; classLevel?: st
         
         let list: any[] = [];
         if (data && typeof data === 'object') {
-            list = Object.values(data);
+            const rawList: any[] = Object.values(data);
+
+            // F.3 — Deduplicate theo canonical studentId với field-wise merge.
+            // Không dùng winner-takes-all vì một record có mathXp cao nhất
+            // có thể không phải record có englishXp cao nhất.
+            // Các numeric XP/streak: giữ max. Các string fields: giữ từ record mới nhất (lastUpdated).
+            const deduped = new Map<string, any>();
+            for (const item of rawList) {
+                if (!item || !item.studentId) continue; // T-LB-04: loại record thiếu studentId
+                const key: string = item.studentId;
+                if (!deduped.has(key)) {
+                    deduped.set(key, { ...item });
+                } else {
+                    // Field-wise merge: numeric fields lấy max, metadata lấy record mới hơn
+                    const existing = deduped.get(key);
+                    const merged = { ...existing };
+                    merged.mathXp = Math.max(existing.mathXp || 0, item.mathXp || 0);
+                    merged.englishXp = Math.max(existing.englishXp || 0, item.englishXp || 0);
+                    merged.mathStreak = Math.max(existing.mathStreak || 0, item.mathStreak || 0);
+                    merged.englishStreak = Math.max(existing.englishStreak || 0, item.englishStreak || 0);
+                    // Giữ lastHeartbeat và appVersion từ record mới nhất
+                    const existingTime = existing.lastUpdated ? new Date(existing.lastUpdated).getTime() : 0;
+                    const itemTime = item.lastUpdated ? new Date(item.lastUpdated).getTime() : 0;
+                    if (itemTime > existingTime) {
+                        merged.lastUpdated = item.lastUpdated;
+                        merged.lastHeartbeat = item.lastHeartbeat || existing.lastHeartbeat;
+                        merged.appVersion = item.appVersion || existing.appVersion;
+                        merged.studentName = item.studentName || existing.studentName;
+                        merged.classLevel = item.classLevel || existing.classLevel;
+                    }
+                    deduped.set(key, merged);
+                }
+            }
+            list = Array.from(deduped.values());
         }
 
         if (classLevel) {

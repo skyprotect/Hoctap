@@ -2975,7 +2975,20 @@ const app = {
         const searchInput = document.getElementById("presence-search-input");
         const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
 
-        let filtered = this.presenceDataCache;
+        // F.4b — Presence render defense:
+        // 1. Lọc entry generic (tên chưa resolve được) trước khi hiển thị.
+        //    Đây là render defense, không xóa dữ liệu Firebase.
+        // 2. Dedup theo studentId (defense-in-depth, server đã dedup ở F.3).
+        const GENERIC_NAMES = ["Học sinh", "Phụ huynh", ""];
+        const seenPresenceIds = new Set();
+        let filtered = this.presenceDataCache.filter(s => {
+            if (!s || !s.studentId) return false;
+            if (GENERIC_NAMES.includes((s.studentName || "").trim())) return false;
+            if (seenPresenceIds.has(s.studentId)) return false;
+            seenPresenceIds.add(s.studentId);
+            return true;
+        });
+
         if (query) {
             filtered = filtered.filter(s => s.studentName && s.studentName.toLowerCase().includes(query));
         }
@@ -3036,6 +3049,9 @@ const app = {
             const grad = gradients[Math.abs(charSum) % gradients.length];
             const onclickAttr = isSelf ? '' : `onclick="app.openChatWindow('${s.studentId}', '${s.studentName.replace(/'/g, "\\'")}')" style="cursor:pointer;"`;
 
+            // F.4b — Xóa fallback 'v12.46' hardcoded. Hiển thị version nếu có, empty nếu không.
+            const versionDisplay = s.appVersion || s.version || '';
+
             return `
                 <div class="presence-user-item" ${onclickAttr} style="${isSelf ? 'border-color: rgba(139, 92, 246, 0.4); background: rgba(139, 92, 246, 0.05);' : ''}">
                     <div class="presence-avatar" style="background:${grad};">
@@ -3046,7 +3062,7 @@ const app = {
                         <div class="presence-name" style="display:flex; align-items:center; gap:5px;">
                             ${s.studentName}
                             ${isSelf ? '<span style="font-size:0.65rem; background:#a855f7; color:white; padding:1px 4px; border-radius:4px; font-weight:800;">Bạn</span>' : ''}
-                            <span class="version-tag" style="font-size:0.7rem; background:rgba(99, 102, 241, 0.12); color:#6366f1; border:1px solid rgba(99, 102, 241, 0.3); padding:0px 5px; border-radius:6px; font-weight:700; font-family:monospace;">${s.appVersion || s.version || 'v12.46'}</span>
+                            ${versionDisplay ? `<span class="version-tag" style="font-size:0.7rem; background:rgba(99, 102, 241, 0.12); color:#6366f1; border:1px solid rgba(99, 102, 241, 0.3); padding:0px 5px; border-radius:6px; font-weight:700; font-family:monospace;">${versionDisplay}</span>` : ''}
                         </div>
                         <div class="presence-meta">
                             Lớp ${s.classLevel || '6'} &bull; ${isOnline ? '<span style="color:#10b981; font-weight:700;">Đang hoạt động</span>' : getFriendlyTime(s.lastHeartbeat)}
@@ -3696,11 +3712,16 @@ const app = {
                             }
                         });
 
-                        // Hàm bắt đầu polling
+                        // F.5 — Hard timeout: ngăn polling chạy vô hạn khi server trả status idle.
                         const startPollingUpdate = (latestVersion) => {
                             let errorCount = 0;
                             let countdown = 12;
                             let isInstallingStarted = false;
+                            let pollingStopped = false; // F.5: cờ singleton chống duplicate loop
+
+                            // F.5: Hard timeout 60 giây kể từ khi bắt đầu poll
+                            const POLL_HARD_TIMEOUT_MS = 60000;
+                            const pollStartTime = Date.now();
 
                             const poll = async () => {
                                 try {
@@ -3737,7 +3758,24 @@ const app = {
                                             confirmButtonText: 'Đóng'
                                         });
                                     } else {
-                                        setTimeout(poll, 800);
+                                        // F.5 — Hard timeout check: status 'idle' sau quá 60 giây → dừng polling
+                                        if (pollingStopped) return; // chống duplicate loop
+                                        const elapsedMs = Date.now() - pollStartTime;
+                                        if (elapsedMs >= POLL_HARD_TIMEOUT_MS) {
+                                            pollingStopped = true;
+                                            console.warn('[Update] Polling timeout sau 60 giây — server vẫn ở trạng thái idle. Dừng polling.');
+                                            Swal.fire({
+                                                title: 'Không thể cập nhật',
+                                                text: 'Máy chủ không phản hồi sau 60 giây. Vui lòng thử lại sau hoặc cài đặt thủ công.',
+                                                icon: 'warning',
+                                                background: 'var(--bg-card)',
+                                                color: 'var(--text-main)',
+                                                confirmButtonText: 'Đóng',
+                                                confirmButtonColor: '#3E8EED'
+                                            });
+                                        } else {
+                                            setTimeout(poll, 800);
+                                        }
                                     }
                                 } catch (err) {
                                     errorCount++;
@@ -12337,7 +12375,17 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (tableWrapper) tableWrapper.classList.remove("hidden");
 
                 if (tbody) {
-                    tbody.innerHTML = list.map((row, i) => {
+                    // F.4 — Client defensive dedup: không render duplicate studentId.
+                    // Server đã dedup (F.3) nhưng đây là defense-in-depth.
+                    // Không merge theo studentName vì hai học sinh khác nhau có thể trùng tên.
+                    const seenIds = new Set();
+                    const dedupedList = list.filter(row => {
+                        if (!row || !row.studentId) return false;
+                        if (seenIds.has(row.studentId)) return false;
+                        seenIds.add(row.studentId);
+                        return true;
+                    });
+                    tbody.innerHTML = dedupedList.map((row, i) => {
                         const isSelf = row.studentId === selfId;
                         const rankClass = isSelf ? 'class="self-rank-row"' : '';
                         

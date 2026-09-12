@@ -39,9 +39,20 @@ export async function syncStudentProgressToFirebase(studentId: string, state: an
         const studentConf = studentsList.find((s: any) => s.id === studentId);
         
         const studentName = studentNameFromClient || (studentConf ? studentConf.name : ((state.student && state.student.name) || (typeof state.student === 'string' ? state.student : "Học sinh")));
+
+        // F.2 — Data quality guard: không PATCH Firebase với tên chưa resolve được.
+        // Các tên không hợp lệ: rỗng, chỉ whitespace, hoặc generic fallback.
+        // Đây là render/data guard, không phải identity guard — canonical identity = studentId.
+        const GENERIC_FALLBACK_NAMES = ["Học sinh", "Phụ huynh", ""];
+        if (!studentName || !studentName.trim() || GENERIC_FALLBACK_NAMES.includes(studentName.trim())) {
+            console.warn(`[FirebaseSync] Bỏ qua sync cho studentId "${studentId}": tên chưa được xác định ("${studentName}").`);
+            return;
+        }
+
         const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6");
 
         // Thu thập các thông số tối giản phục vụ so sánh xếp hạng học sinh
+
         const payload: LeaderboardItem = {
             studentId: studentId,
             studentName: studentName,
