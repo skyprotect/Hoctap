@@ -168,6 +168,7 @@ const installerPath = path.join(ROOT_DIR, 'installer.iss');
 if (fs.existsSync(installerPath)) {
   let installerContent = fs.readFileSync(installerPath, 'utf8');
   
+  installerContent = installerContent.replace(/#define\s+MyAppVersion\s+"[\d\.]+"/g, `#define MyAppVersion "${nextVersion}"`);
   installerContent = installerContent.replace(/AppVersion=[\d\.]+/g, `AppVersion=${nextVersion}`);
   installerContent = installerContent.replace(/OutputBaseFilename=ToanHocKiosk_Setup_v[\d\.]+/g, `OutputBaseFilename=ToanHocKiosk_Setup_v${nextVersion}`);
   

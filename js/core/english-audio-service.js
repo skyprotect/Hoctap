@@ -110,7 +110,8 @@
                             }
                         } catch (e) {}
                     }
-                } else if (typeof require === 'function') {
+                }
+                if (!manifestLoaded && typeof require === 'function') {
                     try {
                         const fs = require('fs');
                         const path = require('path');
@@ -118,6 +119,7 @@
                         if (fs.existsSync(p)) {
                             manifest = JSON.parse(fs.readFileSync(p, 'utf8'));
                             manifestLoaded = true;
+                            logDebug('INIT', 'KOKORO_MANIFEST', false, null, `Loaded ${Object.keys(manifest).length} items from fs`);
                             return true;
                         }
                     } catch(e) {}
@@ -147,27 +149,39 @@
         resolveAudio: function (text, audioFileKey) {
             if (!manifest) return { found: false, canonicalId: null, entry: null, filename: null, url: null };
 
-            const cleanKey = sanitizeAudioKey(audioFileKey || '');
-            const cleanText = sanitizeAudioKey(text || '');
             const rawKey = (audioFileKey || '').trim();
+            const rawKeyNoExt = rawKey.replace(/\.mp3$/i, '').trim();
+            const cleanKey = sanitizeAudioKey(rawKeyNoExt || audioFileKey || '');
+            const cleanText = sanitizeAudioKey(text || '');
 
             let entry = null;
             let canonicalId = null;
 
-            // 1. Kiểm tra trong _items theo canonical ID trực tiếp
+            // 1. Kiểm tra trong _items theo canonical ID trực tiếp hoặc filename
             if (manifest._items) {
                 if (rawKey && manifest._items[rawKey]) {
                     canonicalId = rawKey;
                     entry = manifest._items[rawKey];
+                } else if (rawKeyNoExt && manifest._items[rawKeyNoExt]) {
+                    canonicalId = rawKeyNoExt;
+                    entry = manifest._items[rawKeyNoExt];
                 } else if (cleanKey && manifest._items[cleanKey.toUpperCase()]) {
                     canonicalId = cleanKey.toUpperCase();
                     entry = manifest._items[canonicalId];
+                } else if (rawKey) {
+                    const foundItem = Object.values(manifest._items).find(it => it.filename === rawKey || it.filename === `${rawKeyNoExt}.mp3`);
+                    if (foundItem) {
+                        canonicalId = foundItem.id;
+                        entry = foundItem;
+                    }
                 }
             }
 
             // 2. Kiểm tra trong _aliases
             if (!entry && manifest._aliases) {
-                const targetCid = (cleanKey && manifest._aliases[cleanKey]) || (cleanText && manifest._aliases[cleanText]);
+                const targetCid = (cleanKey && manifest._aliases[cleanKey]) ||
+                                  (rawKeyNoExt && manifest._aliases[rawKeyNoExt]) ||
+                                  (cleanText && manifest._aliases[cleanText]);
                 if (targetCid && manifest._items && manifest._items[targetCid]) {
                     canonicalId = targetCid;
                     entry = manifest._items[targetCid];
@@ -179,6 +193,9 @@
                 if (rawKey && manifest[rawKey]) {
                     entry = manifest[rawKey];
                     canonicalId = entry.id || rawKey;
+                } else if (rawKeyNoExt && manifest[rawKeyNoExt]) {
+                    entry = manifest[rawKeyNoExt];
+                    canonicalId = entry.id || rawKeyNoExt;
                 } else if (cleanKey && manifest[cleanKey]) {
                     entry = manifest[cleanKey];
                     canonicalId = entry.id || cleanKey;

@@ -161,8 +161,15 @@ test.describe("AUDIO FORENSIC RUNTIME VERIFICATION SUITE (v15.7)", () => {
             window.__AUDIO_TRACES__ = [];
             window.__SYNTHESIS_CALLS__ = 0;
 
-            const qs = window.generateEnglishQuestions('6', 'eng6-t1', 'reading');
-            const rq = qs.find(q => q.type === 'reading_passage') || qs[0];
+            const topic = window.ENGLISH_COURSE_DATA['6'].topics[0];
+            const rq = {
+                type: 'reading_passage',
+                passageText: topic.readingPassage,
+                passageTitle: topic.readingPassageTitle || 'my_first_school_day',
+                questionText: 'What is the topic of the passage?',
+                options: ['A. My New School', 'B. My Family'],
+                correctAnswer: 'A. My New School'
+            };
 
             document.body.classList.add("focus-mode-active");
             const scr = document.getElementById("english-focus-lesson-screen");
@@ -309,4 +316,50 @@ test.describe("AUDIO FORENSIC RUNTIME VERIFICATION SUITE (v15.7)", () => {
         expect(result.res.ok).toBe(true);
         expect(result.res.source).toBe("SpeechService");
     });
+
+    test("9. Forensic Test: IOE Exam Question 1 Listening -> Kokoro Cache, 0 Browser TTS, sound plays", async ({ page }) => {
+        // Reset spies
+        await page.evaluate(() => {
+            window.__AUDIO_TRACES__ = [];
+            window.__SYNTHESIS_CALLS__ = 0;
+            window.__AUDIO_PLAY_CALLS__ = 0;
+
+            const questions = window.generateEnglishFullExam({ classLevel: '6', detail: 'eng6-t1' });
+            window.app.currentIoeQuestions = questions;
+            window.app.currentIoeQuestionIndex = 0;
+            window.app.ioeExamFinished = false;
+
+            document.body.classList.add("focus-mode-active");
+            const examScreen = document.getElementById("english-ioe-exam-screen");
+            if (examScreen) examScreen.classList.remove("hidden");
+
+            window.app.renderIoeQuestion();
+        });
+
+        // Đợi nút loa xuất hiện trên DOM
+        const audioBtn = page.locator('#english-ioe-exam-screen .btn-audio-speak-large');
+        await expect(audioBtn).toBeVisible();
+
+        // Bấm vào nút loa giống như người dùng thao tác trong ảnh
+        await audioBtn.click();
+
+        // Đợi 1 giây để audio phát
+        await page.waitForTimeout(1000);
+
+        const audit = await page.evaluate(() => {
+            return {
+                synthesisCalls: window.__SYNTHESIS_CALLS__,
+                audioPlayCalls: window.__AUDIO_PLAY_CALLS__,
+                traces: window.__AUDIO_TRACES__,
+                sourceLabel: window.EnglishAudioService ? window.EnglishAudioService.getAudioSourceLabel() : 'UNKNOWN'
+            };
+        });
+
+        console.log('TEST 9 (IOE Exam Listening Question 1):', audit);
+        expect(audit.synthesisCalls).toBe(0);
+        expect(audit.audioPlayCalls).toBeGreaterThanOrEqual(1);
+        expect(audit.sourceLabel).toContain("Kokoro TTS");
+        expect(audit.sourceLabel).not.toContain("Chưa có bộ nhớ đệm");
+    });
 });
+

@@ -550,8 +550,9 @@ function generateEnglishFullExam(config) {
     const shuffle = (arr) => (ArrayUtils && ArrayUtils.shuffle) ? ArrayUtils.shuffle(arr) : arr.slice().sort(() => Math.random() - 0.5);
 
     let targetTopics = classData.topics;
+    let found = null;
     if (category === "unit" && detail) {
-        const found = classData.topics.find(t => t.id === detail);
+        found = classData.topics.find(t => t.id === detail);
         if (found) targetTopics = [found];
     }
 
@@ -559,36 +560,119 @@ function generateEnglishFullExam(config) {
     const questions = [];
 
     // PART 1. LISTENING (2 questions)
-    const sampleV1 = shuffle(allVocab)[0] || { word: "school", translation: "trường học" };
-    const distractorsL = shuffle(allVocab.filter(v => v.word !== sampleV1.word).map(v => v.word)).slice(0, 3);
-    while (distractorsL.length < 3) distractorsL.push("book", "pen", "ruler");
-    const optionsL1 = shuffle([sampleV1.word, ...distractorsL.slice(0, 3)]);
+    // 100% Asset-Backed Guarantee: Mỗi câu hỏi nghe bắt buộc gắn liền với tệp Kokoro TTS có sẵn
+    const isGrade6Unit1OrGeneral = !found || found.id === "eng6-t1" || category === "semester" || category === "topic";
 
-    questions.push({
-        isTemplate: true,
-        questionType: "listening",
-        category: "listening",
-        questionText: "Listen to the audio recording and choose the correct word: (Nghe đoạn băng và chọn từ đúng)",
-        listeningText: `Welcome to our school. My name is Phong and I am in class 6A. I love my ${sampleV1.word} because it is very modern.`,
-        audioScript: `Welcome to our school. My name is Phong and I am in class 6A. I love my ${sampleV1.word} because it is very modern.`,
-        options: optionsL1.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`),
-        correctAnswer: `${String.fromCharCode(65 + optionsL1.indexOf(sampleV1.word))}. ${sampleV1.word}`,
-        correctIndex: optionsL1.indexOf(sampleV1.word),
-        solutionHtml: `Đoạn nghe nhắc đến từ: <b>'${sampleV1.word}'</b> (${sampleV1.translation}).`
-    });
+    if (isGrade6Unit1OrGeneral) {
+        // Sử dụng 2 tệp ghi âm đề thi chuẩn hóa đã được sinh sẵn bằng Kokoro TTS:
+        // L6_EXAM_LISTENING_01 (l6_exam_listening_01.mp3) & L6_EXAM_LISTENING_02 (l6_exam_listening_02.mp3)
+        const distractorsL1 = shuffle(allVocab.filter(v => v.word && v.word.toLowerCase() !== "school").map(v => v.word)).slice(0, 3);
+        while (distractorsL1.length < 3) distractorsL1.push("classroom", "library", "playground");
+        const optionsL1 = shuffle(["school", ...distractorsL1]);
 
-    questions.push({
-        isTemplate: true,
-        questionType: "listening",
-        category: "listening",
-        questionText: `Listen and complete the blank with ONE word: (Nghe và điền 1 từ còn thiếu vào chỗ trống)<br/><i>"Every morning, students go to the _______ to read books."</i>`,
-        listeningText: "Every morning, students go to the library to read books.",
-        audioScript: "Every morning, students go to the library to read books.",
-        options: null,
-        correctAnswer: "library",
-        correctAnswers: ["library", "Library"],
-        solutionHtml: "Từ còn thiếu trong đoạn nghe là: <b>library</b> (thư viện)."
-    });
+        questions.push({
+            isTemplate: true,
+            questionType: "listening",
+            category: "listening",
+            questionText: "Listen to the audio recording and choose the correct word: (Nghe đoạn băng và chọn từ đúng)",
+            listeningText: "Welcome to our school. My name is Phong and I am in class 6A. I love my school because it is very modern.",
+            audioScript: "Welcome to our school. My name is Phong and I am in class 6A. I love my school because it is very modern.",
+            audioFileKey: "l6_exam_listening_01.mp3",
+            options: optionsL1.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`),
+            correctAnswer: `${String.fromCharCode(65 + optionsL1.indexOf("school"))}. school`,
+            correctIndex: optionsL1.indexOf("school"),
+            solutionHtml: "Đoạn nghe nhắc đến từ: <b>'school'</b> (trường học)."
+        });
+
+        questions.push({
+            isTemplate: true,
+            questionType: "listening",
+            category: "listening",
+            questionText: `Listen and complete the blank with ONE word: (Nghe và điền 1 từ còn thiếu vào chỗ trống)<br/><i>"Every morning, students go to the _______ to read books."</i>`,
+            listeningText: "Every morning, students go to the library to read books.",
+            audioScript: "Every morning, students go to the library to read books.",
+            audioFileKey: "l6_exam_listening_02.mp3",
+            options: null,
+            correctAnswer: "library",
+            correctAnswers: ["library", "Library"],
+            solutionHtml: "Từ còn thiếu trong đoạn nghe là: <b>library</b> (thư viện)."
+        });
+    } else {
+        // Khi học sinh chọn một Unit cụ thể khác (ví dụ Unit 2, Unit 3...):
+        // Trích xuất trực tiếp từ các câu mẫu / mẫu hội thoại của Unit đó (đã có 100% audio MP3)
+        const unitPatterns = (found.sentencePatterns && found.sentencePatterns.length > 0) ? found.sentencePatterns : [];
+        const patternWithQA = unitPatterns.find(p => p.english && p.english.includes(' - '));
+
+        if (patternWithQA) {
+            const parts = patternWithQA.english.split(' - ');
+            const qText = parts[0].trim();
+            const aText = (parts[1] || '').trim();
+
+            const otherAnswers = classData.topics.flatMap(t => (t.sentencePatterns || []).map(p => {
+                const sp = p.english.split(' - ');
+                return (sp[1] || '').trim();
+            })).filter(a => a && a !== aText);
+
+            const distractors = shuffle([...new Set(otherAnswers)]).slice(0, 3);
+            while (distractors.length < 3) distractors.push("Yes, I do.", "No, it isn't.", "It is on the table.");
+            const optionsQA = shuffle([aText, ...distractors]);
+
+            questions.push({
+                isTemplate: true,
+                questionType: "listening",
+                category: "listening",
+                questionText: "Listen to the question and choose the best response: (Nghe câu hỏi và chọn phản hồi đúng)",
+                listeningText: qText,
+                audioScript: qText,
+                audioFileKey: qText,
+                options: optionsQA.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`),
+                correctAnswer: `${String.fromCharCode(65 + optionsQA.indexOf(aText))}. ${aText}`,
+                correctIndex: optionsQA.indexOf(aText),
+                solutionHtml: `Câu hỏi nghe được: <i>"${qText}"</i>. Phản hồi phù hợp nhất là: <b>"${aText}"</b>.`
+            });
+        } else {
+            const firstPattern = unitPatterns[0];
+            const sentenceText = firstPattern ? firstPattern.english.trim() : (allVocab[0] ? allVocab[0].sentence : "This is my house.");
+            const otherSentences = classData.topics.flatMap(t => (t.sentencePatterns || []).map(p => p.english.trim())).filter(s => s !== sentenceText);
+            const distractors = shuffle([...new Set(otherSentences)]).slice(0, 3);
+            while (distractors.length < 3) distractors.push("I love my family.", "There is a garden in front of the house.", "The room is very clean.");
+            const optionsSent = shuffle([sentenceText, ...distractors]);
+
+            questions.push({
+                isTemplate: true,
+                questionType: "listening",
+                category: "listening",
+                questionText: "Listen to the audio recording and choose the correct sentence: (Nghe đoạn băng và chọn câu đúng)",
+                listeningText: sentenceText,
+                audioScript: sentenceText,
+                audioFileKey: sentenceText,
+                options: optionsSent.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`),
+                correctAnswer: `${String.fromCharCode(65 + optionsSent.indexOf(sentenceText))}. ${sentenceText}`,
+                correctIndex: optionsSent.indexOf(sentenceText),
+                solutionHtml: `Đoạn nghe phát câu: <b>"${sentenceText}"</b>.`
+            });
+        }
+
+        // Câu nghe thứ 2: Nghe và chọn từ vựng đúng từ kho từ vựng của Unit
+        const targetVocab = shuffle(allVocab)[0] || { word: "house", translation: "ngôi nhà" };
+        const otherVocabs = shuffle(allVocab.filter(v => v.word !== targetVocab.word).map(v => v.word)).slice(0, 3);
+        while (otherVocabs.length < 3) otherVocabs.push("book", "pen", "desk");
+        const optionsV = shuffle([targetVocab.word, ...otherVocabs]);
+
+        questions.push({
+            isTemplate: true,
+            questionType: "listening",
+            category: "listening",
+            questionText: "Listen to the audio recording and choose the correct word: (Nghe đoạn băng và chọn từ đúng)",
+            listeningText: targetVocab.word,
+            audioScript: targetVocab.word,
+            audioFileKey: targetVocab.word,
+            options: optionsV.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`),
+            correctAnswer: `${String.fromCharCode(65 + optionsV.indexOf(targetVocab.word))}. ${targetVocab.word}`,
+            correctIndex: optionsV.indexOf(targetVocab.word),
+            solutionHtml: `Từ nghe được là: <b>'${targetVocab.word}'</b> (${targetVocab.translation || ''}).`
+        });
+    }
 
     // PART 2. LANGUAGE FOCUS (4 questions)
     const phoneticsBank = [

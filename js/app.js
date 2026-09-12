@@ -14141,10 +14141,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         let audioBox = "";
         if (q.listeningText || q.audioScript || q.category === 'listening' || q.questionType === 'listening' || (q.questionText || '').toLowerCase().includes('listen')) {
             const speechText = q.listeningText || q.audioScript || q.correctAnswer || "";
-            const audioKey = q.listeningText || q.correctAnswer || "";
+            const audioKey = q.audioFileKey || q.audioKey || q.listeningText || q.correctAnswer || "";
             audioBox = `
                 <div style="background:linear-gradient(135deg, #ecfdf5, #d1fae5); border:2px solid #10b981; border-radius:20px; padding:1.2rem; margin:1rem auto 1.5rem auto; max-width:480px; text-align:center; box-shadow:0 4px 12px rgba(16,185,129,0.15);">
-                    <button class="btn-audio-speak-large" type="button" aria-label="Nghe đoạn đọc hoặc bài nghe IOE" onclick="app.playEnglishVoice('${this.escapeJsString(speechText)}', '${this.escapeJsString(audioKey)}')" style="width:75px; height:75px; border-radius:50%; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 14px rgba(16,185,129,0.35); transition:all 0.15s ease;">
+                    <button class="btn-audio-speak-large" type="button" aria-label="Nghe đoạn đọc hoặc bài nghe IOE" onclick="app.playEnglishVoice('${this.escapeJsString(speechText)}', '${this.escapeJsString(audioKey)}', { category: 'CURRICULUM', feature: 'EXAM' })" style="width:75px; height:75px; border-radius:50%; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 14px rgba(16,185,129,0.35); transition:all 0.15s ease;">
                         <i class="fa-solid fa-volume-high"></i>
                     </button>
                     <div style="font-weight:800; color:#047857; font-size:1.05rem; margin-top:0.6rem;">🎧 Bấm nút để nghe đoạn đọc / bài nghe IOE</div>
