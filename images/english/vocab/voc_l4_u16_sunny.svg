@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="grad_rose" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <filter id="soft_shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background Badge -->
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#grad_rose)" filter="url(#soft_shadow)"/>
+  <circle cx="60" cy="60" r="46" fill="#ffffff" opacity="0.18"/>
+  <!-- Semantic Visual Illustration -->
+  <g id="visual_content">
+    <circle cx="60" cy="60" r="22" fill="#facc15" stroke="#eab308" stroke-width="3"/>
+      <line x1="60" y1="22" x2="60" y2="30" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="60" y1="90" x2="60" y2="98" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="22" y1="60" x2="30" y2="60" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="90" y1="60" x2="98" y2="60" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="33" y1="33" x2="39" y2="39" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="81" y1="81" x2="87" y2="87" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="33" y1="87" x2="39" y2="81" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+      <line x1="81" y1="39" x2="87" y2="33" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

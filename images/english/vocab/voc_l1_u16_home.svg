@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="grad_emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="soft_shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background Badge -->
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#grad_emerald)" filter="url(#soft_shadow)"/>
+  <circle cx="60" cy="60" r="46" fill="#ffffff" opacity="0.18"/>
+  <!-- Semantic Visual Illustration -->
+  <g id="visual_content">
+    <polygon points="60,26 24,54 32,54 32,88 88,88 88,54 96,54" fill="#38bdf8" stroke="#0284c7" stroke-width="3"/>
+      <rect x="52" y="60" width="16" height="28" fill="#f59e0b"/>
+      <rect x="40" y="58" width="8" height="8" rx="1" fill="#ffffff"/>
+      <rect x="72" y="58" width="8" height="8" rx="1" fill="#ffffff"/>
+      <circle cx="64" cy="74" r="1.5" fill="#0f172a"/>
+  </g>
+</svg>

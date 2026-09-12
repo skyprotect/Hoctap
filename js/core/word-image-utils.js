@@ -1,10 +1,13 @@
-/**
- * word-image-utils — Từ điển ánh xạ từ vựng tiếng Anh sang hình ảnh vector Icons8 Color style.
+﻿/**
+ * word-image-utils — Từ điển ánh xạ từ vựng tiếng Anh sang hình ảnh vector Semantic Visual (v15.9).
+ * Hỗ trợ tra cứu theo Canonical Vocabulary ID, Context-aware lookup, và fallback tương thích ngược.
  * Độc lập hoàn toàn, hỗ trợ UMD (Node.js CommonJS, Web Workers, Browser Global).
  * 
  * Public Contract:
- * - wordImageMap: Object
- * - getWordImagePath(word: string): string
+ * - wordImageMap: Object (Legacy fallback map)
+ * - visualVocabularyManifest: Object (Canonical Semantic Manifest)
+ * - getWordImagePath(vocabularyIdOrWord: string, context?: Object): string
+ * - getVisualMetadata(vocabularyIdOrWord: string, context?: Object): Object|null
  */
 (function (root, factory) {
     const api = factory();
@@ -13,26 +16,58 @@
     }
     root.WordImageUtils = api;
     root.wordImageMap = api.wordImageMap;
+    root.visualVocabularyManifest = api.visualVocabularyManifest;
     root.getWordImagePath = api.getWordImagePath;
+    root.getVisualMetadata = api.getVisualMetadata;
     if (typeof window !== 'undefined') {
         window.WordImageUtils = api;
         window.wordImageMap = api.wordImageMap;
+        window.visualVocabularyManifest = api.visualVocabularyManifest;
         window.getWordImagePath = api.getWordImagePath;
+        window.getVisualMetadata = api.getVisualMetadata;
     }
     if (typeof globalThis !== 'undefined') {
         globalThis.WordImageUtils = api;
         globalThis.wordImageMap = api.wordImageMap;
+        globalThis.visualVocabularyManifest = api.visualVocabularyManifest;
         globalThis.getWordImagePath = api.getWordImagePath;
+        globalThis.getVisualMetadata = api.getVisualMetadata;
     }
     if (typeof self !== 'undefined') {
         self.WordImageUtils = api;
         self.wordImageMap = api.wordImageMap;
+        self.visualVocabularyManifest = api.visualVocabularyManifest;
         self.getWordImagePath = api.getWordImagePath;
+        self.getVisualMetadata = api.getVisualMetadata;
     }
 })(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : this, function () {
     'use strict';
 
-    // Curated exact mappings using high-quality vector illustrations from Icons8 Color style (very stable & professional)
+    // Nạp manifest cục bộ nếu đang ở môi trường Node.js
+    let visualManifest = {};
+    if (typeof require === 'function') {
+        try {
+            const fs = require('fs');
+            const path = require('path');
+            const manifestPath = path.resolve(__dirname, '../../images/english/visual-vocabulary-manifest.json');
+            if (fs.existsSync(manifestPath)) {
+                visualManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            }
+        } catch (e) {
+            // Browser hoặc runtime không có filesystem
+        }
+    }
+
+    // Index nhanh theo từ vựng thường để tra cứu context-aware
+    const wordLookupIndex = {};
+    Object.keys(visualManifest).forEach(id => {
+        const item = visualManifest[id];
+        const w = (item.word || '').toLowerCase().trim();
+        if (!wordLookupIndex[w]) wordLookupIndex[w] = [];
+        wordLookupIndex[w].push(item);
+    });
+
+    // Legacy exact mappings (Icons8 Color style fallback)
     const wordImageMap = {
         // Lớp 1 & Lớp 2 Nâng cao
         "hello": "hello", "goodbye": "goodbye", "name": "name", "what": "question-mark", "you": "user",
@@ -99,19 +134,76 @@
     };
 
     /**
-     * Lấy đường dẫn hình ảnh Icons8 dựa trên từ vựng tiếng Anh
-     * @param {string} word - Từ vựng tiếng Anh
-     * @returns {string} - Đường dẫn URL ảnh
+     * Lấy metadata trực quan của từ vựng
      */
-    function getWordImagePath(word) {
-        if (!word) return 'https://img.icons8.com/color/180/.png';
-        const cleanWord = String(word).toLowerCase().trim();
+    function getVisualMetadata(vocabularyIdOrWord, context) {
+        if (!vocabularyIdOrWord) return null;
+        const key = String(vocabularyIdOrWord).trim();
+
+        // 1. Kiểm tra theo Canonical ID
+        if (visualManifest[key]) {
+            return visualManifest[key];
+        }
+
+        // 2. Tra cứu theo word + context
+        const cleanWord = key.toLowerCase();
+        const candidates = wordLookupIndex[cleanWord] || [];
+        if (candidates.length > 0) {
+            if (context) {
+                if (context.vocabularyId && visualManifest[context.vocabularyId]) {
+                    return visualManifest[context.vocabularyId];
+                }
+                if (context.grade) {
+                    const gradeMatch = candidates.find(c => String(c.grade) === String(context.grade));
+                    if (gradeMatch) return gradeMatch;
+                }
+                if (context.unitId) {
+                    const unitMatch = candidates.find(c => c.unitId === context.unitId);
+                    if (unitMatch) return unitMatch;
+                }
+            }
+            return candidates[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * Lấy đường dẫn hình ảnh từ vựng:
+     * Ưu tiên Canonical ID -> Context-aware semantic manifest -> Legacy fallback URL
+     * 
+     * @param {string} vocabularyIdOrWord - Canonical Vocabulary ID hoặc từ vựng tiếng Anh
+     * @param {Object} [context] - Ngữ cảnh bổ trợ ({ grade, unitId, sentence, preferOffline })
+     * @returns {string} - Đường dẫn ảnh
+     */
+    function getWordImagePath(vocabularyIdOrWord, context) {
+        if (!vocabularyIdOrWord) return 'https://img.icons8.com/color/180/.png';
+        const key = String(vocabularyIdOrWord).trim();
+
+        // 1. Tra cứu Canonical ID trực tiếp
+        if (visualManifest[key]) {
+            return visualManifest[key].imageFile;
+        }
+
+        // 2. Tra cứu Context-aware semantic metadata
+        const meta = getVisualMetadata(key, context);
+        if (meta && meta.imageFile) {
+            // Nếu có cờ preferOffline hoặc gọi từ Canonical context -> trả về local svg
+            if (context && (context.preferOffline || context.grade || context.unitId || context.isCurriculum)) {
+                return meta.imageFile;
+            }
+        }
+
+        // 3. Tra cứu theo từ vựng thuần túy (backward-compatibility)
+        const cleanWord = key.toLowerCase();
         const iconName = wordImageMap[cleanWord] || cleanWord.replace(/\s+/g, "-");
         return `https://img.icons8.com/color/180/${iconName}.png`;
     }
 
     const WordImageUtils = {
         wordImageMap: wordImageMap,
+        visualVocabularyManifest: visualManifest,
+        getVisualMetadata: getVisualMetadata,
         getWordImagePath: getWordImagePath
     };
 

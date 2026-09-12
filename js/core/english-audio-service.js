@@ -1,20 +1,20 @@
 /**
- * EnglishAudioService — Dịch vụ phát âm thanh Tiếng Anh thống nhất với Chính sách Âm thanh Phân cấp
+ * EnglishAudioService — Dịch vụ phát âm thanh Tiếng Anh thống nhất với Chính sách Âm thanh Phân cấp (v15.9)
  * 
  * CHÍNH SÁCH ÂM THANH (AUDIO POLICY):
  * 1. CURRICULUM = CACHE_ONLY (Vocabulary, Sentences, Listening, Speaking Prompts, Reading, Exam)
  *    - Bắt buộc phát bằng Kokoro TTS Offline Cache (sounds/english/*.mp3).
  *    - NẾU Cache Miss: TUYỆT ĐỐI KHÔNG FALLBACK SANG SpeechSynthesis / Trình duyệt.
  *    - Trả về trạng thái lỗi có kiểm soát { ok: false, source: "NONE", reason: "AUDIO_CACHE_MISSING" }.
- *    - Cập nhật nhãn UI thân thiện, không crash giao diện.
  * 
- * 2. DYNAMIC = FALLBACK_ALLOWED (AI conversation, Random Praise Quotes, Dynamic Practice)
+ * 2. PASSIVE_LISTENING = CACHE_ONLY (Extensive Listening Stories & Dialogues)
+ *    - Bắt buộc phát bằng Kokoro TTS Offline Cache (sounds/english/passive/*.mp3).
+ *    - NẾU Cache Miss: TUYỆT ĐỐI KHÔNG FALLBACK SANG Browser TTS.
+ *    - Trả về controlled failure an toàn.
+ * 
+ * 3. DYNAMIC = FALLBACK_ALLOWED (AI conversation, Random Praise Quotes, Dynamic Practice)
  *    - Ưu tiên Kokoro TTS Cache nếu có sẵn.
  *    - NẾU Cache Miss và allowFallback = true: Cho phép chuyển sang SpeechService / Web Speech API.
- * 
- * Hỗ trợ Chế độ Gỡ lỗi (Debug Mode):
- * - window.__ENGLISH_AUDIO_DEBUG__ = true
- *   Log chuẩn hóa: [AUDIO] feature=... text="..." source=... fallback=... reason=...
  */
 (function (root, factory) {
     const speechServiceDep = root.SpeechService || (typeof require === 'function' ? (function () { try { return require('./speech-service'); } catch (e) { return null; } })() : null);
@@ -37,6 +37,7 @@
     'use strict';
 
     let manifest = {};
+    let passiveManifest = {};
     let manifestLoaded = false;
     let initPromise = null;
     let currentSourceLabel = 'Khởi tạo';
@@ -48,6 +49,7 @@
 
     const AUDIO_POLICY = {
         CURRICULUM: 'CACHE_ONLY',
+        PASSIVE_LISTENING: 'CACHE_ONLY',
         DYNAMIC: 'FALLBACK_ALLOWED'
     };
 
@@ -83,7 +85,7 @@
         AUDIO_POLICY: AUDIO_POLICY,
 
         /**
-         * Nạp audio-manifest.json
+         * Nạp audio-manifest.json và passive-listening-manifest.json
          */
         init: function (manifestData) {
             if (manifestData && typeof manifestData === 'object') {
@@ -97,6 +99,7 @@
             if (initPromise) return initPromise;
 
             initPromise = (async () => {
+                // 1. Nạp qua fetch (Browser)
                 if (typeof fetch === 'function') {
                     const candidateUrls = ['sounds/english/audio-manifest.json', '/sounds/english/audio-manifest.json'];
                     for (const u of candidateUrls) {
@@ -106,11 +109,21 @@
                                 manifest = await response.json();
                                 manifestLoaded = true;
                                 logDebug('INIT', 'KOKORO_MANIFEST', false, null, `Loaded ${Object.keys(manifest).length} items from ${u}`);
-                                return true;
+                                break;
                             }
                         } catch (e) {}
                     }
+
+                    // Nạp thêm passive manifest nếu có
+                    try {
+                        const pRes = await fetch('sounds/english/passive-listening-manifest.json?v=15.9');
+                        if (pRes.ok) {
+                            passiveManifest = await pRes.json();
+                        }
+                    } catch (e) {}
                 }
+
+                // 2. Nạp qua require/fs (Node.js)
                 if (!manifestLoaded && typeof require === 'function') {
                     try {
                         const fs = require('fs');
@@ -120,12 +133,15 @@
                             manifest = JSON.parse(fs.readFileSync(p, 'utf8'));
                             manifestLoaded = true;
                             logDebug('INIT', 'KOKORO_MANIFEST', false, null, `Loaded ${Object.keys(manifest).length} items from fs`);
-                            return true;
+                        }
+                        const pPassive = path.resolve(__dirname, '../../sounds/english/passive-listening-manifest.json');
+                        if (fs.existsSync(pPassive)) {
+                            passiveManifest = JSON.parse(fs.readFileSync(pPassive, 'utf8'));
                         }
                     } catch(e) {}
                 }
                 manifestLoaded = true;
-                return false;
+                return true;
             })();
 
             return initPromise;
@@ -133,6 +149,10 @@
 
         getManifest: function () {
             return manifest;
+        },
+
+        getPassiveManifest: function () {
+            return passiveManifest;
         },
 
         setManifest: function (newManifest) {
@@ -143,16 +163,33 @@
         },
 
         /**
-         * Tra cứu đa chiều Canonical ID & Aliases từ Manifest
-         * @returns {{ found: boolean, canonicalId: string|null, entry: Object|null, filename: string|null, url: string|null }}
+         * Tra cứu đa chiều Canonical ID & Aliases từ Manifest (Curriculum & Passive)
          */
         resolveAudio: function (text, audioFileKey) {
-            if (!manifest) return { found: false, canonicalId: null, entry: null, filename: null, url: null };
-
             const rawKey = (audioFileKey || '').trim();
             const rawKeyNoExt = rawKey.replace(/\.mp3$/i, '').trim();
             const cleanKey = sanitizeAudioKey(rawKeyNoExt || audioFileKey || '');
             const cleanText = sanitizeAudioKey(text || '');
+
+            // 0. Tra cứu trong PASSIVE LISTENING MANIFEST trước
+            if (passiveManifest) {
+                // Kiểm tra theo ID chính xác hoặc lowercase
+                const upperKey = rawKey.toUpperCase();
+                const lowerKey = rawKey.toLowerCase();
+                const passiveItem = passiveManifest[rawKey] || passiveManifest[upperKey] || passiveManifest[lowerKey];
+                if (passiveItem) {
+                    const audioPath = passiveItem.audioFile || `sounds/english/passive/${passiveItem.id.toLowerCase()}.mp3`;
+                    return {
+                        found: true,
+                        canonicalId: passiveItem.id,
+                        entry: passiveItem,
+                        filename: pathBasename(audioPath),
+                        url: audioPath
+                    };
+                }
+            }
+
+            if (!manifest) return { found: false, canonicalId: null, entry: null, filename: null, url: null };
 
             let entry = null;
             let canonicalId = null;
@@ -278,16 +315,16 @@
             const opts = options || {};
             const feature = opts.feature || 'DYNAMIC';
 
-            // Bảo vệ nghiêm ngặt: Nếu là CURRICULUM hoặc allowFallback !== true -> CẤM gọi
-            if (opts.category === 'CURRICULUM' || (!isFallback && opts.allowFallback !== true)) {
-                logDebug(feature, 'NONE', false, 'CURRICULUM_BLOCKED_FROM_TTS', text);
+            // Bảo vệ nghiêm ngặt: Nếu là CURRICULUM hoặc PASSIVE_LISTENING hoặc allowFallback !== true -> CẤM gọi
+            if (opts.category === 'CURRICULUM' || opts.category === 'PASSIVE_LISTENING' || (!isFallback && opts.allowFallback !== true)) {
+                logDebug(feature, 'NONE', false, 'CACHE_ONLY_BLOCKED_FROM_TTS', text);
                 this.updateAudioSourceLabel("Thiếu bộ nhớ đệm (CACHE_ONLY)");
                 if (typeof opts.onError === 'function') {
                     opts.onError({
                         ok: false,
                         source: "NONE",
-                        reason: "CURRICULUM_BLOCKED_FROM_TTS",
-                        message: "Curriculum Audio bị cấm phát qua Browser TTS"
+                        reason: "CACHE_ONLY_BLOCKED_FROM_TTS",
+                        message: "Curriculum & Passive Audio bị cấm phát qua Browser TTS"
                     });
                 }
                 return;
@@ -332,6 +369,7 @@
                                        (typeof globalThis !== 'undefined' && globalThis.SpeechSynthesisUtterance);
                 if (!UtteranceClass) {
                     this.updateAudioSourceLabel("Không hỗ trợ phát âm");
+                    if (typeof opts.onUnsupported === 'function') opts.onUnsupported();
                     return;
                 }
 
@@ -360,14 +398,6 @@
 
         /**
          * Phương thức phát âm thanh chính tuân thủ AUDIO POLICY nghiêm ngặt
-         * 
-         * @param {string} text - Nội dung câu/từ
-         * @param {string} [audioFileKey] - Khóa âm thanh hoặc Canonical ID
-         * @param {Object} [options] - Cấu hình phát âm
-         * @param {string} [options.category='CURRICULUM'] - 'CURRICULUM' hoặc 'DYNAMIC'
-         * @param {string} [options.feature='UNKNOWN'] - 'VOCABULARY', 'LISTENING', 'READING', 'SPEAKING', 'EXAM'
-         * @param {boolean} [options.allowFallback=false] - Chỉ cho phép fallback sang TTS nếu true VÀ category là DYNAMIC
-         * @returns {Promise<Object>} Kết quả phát âm
          */
         playEnglishVoice: async function (text, audioFileKey, options = {}) {
             if (!text || typeof text !== 'string') {
@@ -380,12 +410,14 @@
             }
 
             return new Promise((resolve) => {
-
                 const opts = options || {};
                 const feature = opts.feature || 'CURRICULUM_AUDIO';
-                // Mặc định là CURRICULUM trừ khi khai báo rõ DYNAMIC
                 const isDynamic = opts.category === 'DYNAMIC' && opts.allowFallback === true;
-                const policy = isDynamic ? AUDIO_POLICY.DYNAMIC : AUDIO_POLICY.CURRICULUM;
+                const isPassive = opts.category === 'PASSIVE_LISTENING';
+
+                let policy = AUDIO_POLICY.CURRICULUM;
+                if (isDynamic) policy = AUDIO_POLICY.DYNAMIC;
+                else if (isPassive) policy = AUDIO_POLICY.PASSIVE_LISTENING;
 
                 this.stopAll();
 
@@ -397,20 +429,19 @@
                                    (typeof globalThis !== 'undefined' && globalThis.Audio) ||
                                    (typeof Audio !== 'undefined' && Audio);
 
-                // NẾU CACHE MISS TRONG MANIFEST (và không phải môi trường có thể có file)
-                // và policy là CACHE_ONLY
-                if (!resolved.found && policy === AUDIO_POLICY.CURRICULUM) {
+                // NẾU CACHE MISS TRONG MANIFEST và policy là CACHE_ONLY
+                if (!resolved.found && (policy === AUDIO_POLICY.CURRICULUM || policy === AUDIO_POLICY.PASSIVE_LISTENING)) {
                     logDebug(feature, 'NONE', false, 'CACHE_MISS', text);
                     this.updateAudioSourceLabel("Chưa có bộ nhớ đệm (CACHE_ONLY)");
                     const result = {
                         ok: false,
                         source: "NONE",
                         reason: "AUDIO_CACHE_MISSING",
-                        category: "CURRICULUM",
+                        category: isPassive ? "PASSIVE_LISTENING" : "CURRICULUM",
                         feature: feature,
                         audioKey: audioFileKey || sanitizeAudioKey(text),
                         canonicalId: null,
-                        message: "Tệp âm thanh giáo trình chưa được lưu trong bộ nhớ đệm"
+                        message: "Tệp âm thanh chưa được lưu trong bộ nhớ đệm"
                     };
                     if (typeof opts.onError === 'function') opts.onError(result);
                     resolve(result);
@@ -418,10 +449,9 @@
                 }
 
                 if (!AudioClass) {
-                    // Môi trường không hỗ trợ Audio element
-                    if (policy === AUDIO_POLICY.CURRICULUM) {
+                    if (policy === AUDIO_POLICY.CURRICULUM || policy === AUDIO_POLICY.PASSIVE_LISTENING) {
                         logDebug(feature, 'NONE', false, 'NO_AUDIO_ELEMENT', text);
-                        resolve({ ok: false, source: "NONE", reason: "NO_AUDIO_ELEMENT", category: "CURRICULUM" });
+                        resolve({ ok: false, source: "NONE", reason: "NO_AUDIO_ELEMENT", category: opts.category || "CURRICULUM" });
                         return;
                     }
                     this.speakEnglish(text, true, opts);
@@ -446,7 +476,6 @@
                     if (playPromise !== undefined && typeof playPromise.then === 'function') {
                         playPromise
                             .then(() => {
-                                // Tầng 1: Kokoro TTS thành công
                                 logDebug(feature, 'KOKORO_CACHE', false, null, text, audioUrl);
                                 this.updateAudioSourceLabel("Kokoro TTS (Offline Cache)");
                                 if (typeof opts.onStart === 'function') opts.onStart("Kokoro TTS (Offline Cache)", audio);
@@ -467,62 +496,49 @@
                             .catch((playErr) => {
                                 currentActiveAudio = null;
 
-                                // NẾU LÀ CURRICULUM: TUYỆT ĐỐI KHÔNG FALLBACK SANG TTS
-                                if (policy === AUDIO_POLICY.CURRICULUM) {
+                                // NẾU LÀ CACHE_ONLY: TUYỆT ĐỐI KHÔNG FALLBACK SANG TTS
+                                if (policy === AUDIO_POLICY.CURRICULUM || policy === AUDIO_POLICY.PASSIVE_LISTENING) {
                                     logDebug(feature, 'NONE', false, 'PLAYBACK_REJECTED', text, audioUrl);
                                     this.updateAudioSourceLabel("Lỗi phát tệp đệm (CACHE_ONLY)");
                                     const failure = {
                                         ok: false,
                                         source: "NONE",
                                         reason: "AUDIO_PLAYBACK_ERROR",
-                                        category: "CURRICULUM",
+                                        category: isPassive ? "PASSIVE_LISTENING" : "CURRICULUM",
                                         feature: feature,
                                         audioUrl: audioUrl,
-                                        error: playErr.message
+                                        error: playErr ? playErr.message : "Play rejected"
                                     };
                                     if (typeof opts.onError === 'function') opts.onError(failure);
                                     resolve(failure);
                                     return;
                                 }
 
-                                // DYNAMIC: Cho phép fallback
-                                logDebug(feature, 'SpeechService', true, 'PLAYBACK_REJECTED', text, audioUrl);
-                                this.speakEnglish(text, true, {
-                                    ...opts,
-                                    onEnd: () => {
-                                        if (typeof opts.onEnd === 'function') opts.onEnd();
-                                    }
-                                });
-                                resolve({ ok: true, status: 'fallback', source: 'SpeechService', fallback: true });
+                                // Tầng 2: Dynamic fallback sang Web Speech nếu được phép
+                                logDebug(feature, 'SpeechService', true, 'AUTOPLAY_OR_AUDIO_FAILED', text, audioUrl);
+                                this.speakEnglish(text, true, opts);
+                                resolve({ ok: true, source: 'SpeechService', fallback: true });
                             });
                     } else {
-                        logDebug(feature, 'KOKORO_CACHE', false, null, text, audioUrl);
-                        this.updateAudioSourceLabel("Kokoro TTS (Offline Cache)");
-                        resolve({ ok: true, status: 'playing', source: 'Kokoro TTS (Offline Cache)', canonicalId: resolved.canonicalId });
+                        resolve({ ok: true, source: 'Kokoro TTS (Offline Cache)', audio: audio });
                     }
                 } catch (e) {
                     currentActiveAudio = null;
-                    if (policy === AUDIO_POLICY.CURRICULUM) {
-                        logDebug(feature, 'NONE', false, 'AUDIO_EXCEPTION', text, audioUrl);
-                        resolve({ ok: false, source: "NONE", reason: "AUDIO_EXCEPTION", category: "CURRICULUM", error: e.message });
+                    if (policy === AUDIO_POLICY.CURRICULUM || policy === AUDIO_POLICY.PASSIVE_LISTENING) {
+                        resolve({ ok: false, source: "NONE", reason: "PLAYBACK_EXCEPTION", category: opts.category || "CURRICULUM" });
                         return;
                     }
                     this.speakEnglish(text, true, opts);
-                    resolve({ ok: true, status: 'fallback', source: 'SpeechService', fallback: true });
+                    resolve({ ok: true, source: 'SpeechService', fallback: true });
                 }
             });
-        },
-        enableDebug: function (enabled) {
-            if (typeof window !== 'undefined') window.__ENGLISH_AUDIO_DEBUG__ = !!enabled;
-            if (typeof globalThis !== 'undefined') globalThis.__ENGLISH_AUDIO_DEBUG__ = !!enabled;
         }
     };
 
-    // Tự động khởi tạo nạp manifest ngầm ngay khi script sẵn sàng
-    if (typeof window !== 'undefined' || typeof globalThis !== 'undefined') {
-        try {
-            EnglishAudioService.init();
-        } catch (e) {}
+    function pathBasename(p) {
+        if (!p) return '';
+        const parts = p.replace(/\\/g, '/').split('/');
+        return parts[parts.length - 1];
     }
 
     return EnglishAudioService;

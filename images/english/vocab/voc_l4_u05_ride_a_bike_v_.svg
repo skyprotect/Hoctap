@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="grad_amber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="soft_shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background Badge -->
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#grad_amber)" filter="url(#soft_shadow)"/>
+  <circle cx="60" cy="60" r="46" fill="#ffffff" opacity="0.18"/>
+  <!-- Semantic Visual Illustration -->
+  <g id="visual_content">
+    <circle cx="38" cy="72" r="18" fill="none" stroke="#e0e7ff" stroke-width="4"/>
+      <circle cx="82" cy="72" r="18" fill="none" stroke="#e0e7ff" stroke-width="4"/>
+      <polyline points="38,72 54,72 68,54 82,72" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+      <polyline points="54,72 60,46 48,46" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+      <polyline points="68,54 74,44 82,44" fill="none" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="grad_purple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <filter id="soft_shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background Badge -->
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#grad_purple)" filter="url(#soft_shadow)"/>
+  <circle cx="60" cy="60" r="46" fill="#ffffff" opacity="0.18"/>
+  <!-- Semantic Visual Illustration -->
+  <g id="visual_content">
+    <path d="M 28 68 L 34 54 Q 44 44 60 44 L 72 44 L 86 54 L 94 68 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="3"/>
+      <rect x="24" y="66" width="72" height="12" rx="4" fill="#0284c7"/>
+      <circle cx="40" cy="78" r="9" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+      <circle cx="40" cy="78" r="4" fill="#cbd5e1"/>
+      <circle cx="80" cy="78" r="9" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+      <circle cx="80" cy="78" r="4" fill="#cbd5e1"/>
+      <rect x="42" y="48" width="16" height="14" rx="2" fill="#e0f2fe"/>
+      <rect x="62" y="48" width="16" height="14" rx="2" fill="#e0f2fe"/>
+  </g>
+</svg>

@@ -8861,6 +8861,17 @@ const app = {
             this.renderCustomVocabTab();
         } else if (tabName === 'exams') {
             this.renderStudentEnglishExamCenter();
+        } else if (tabName === 'passive') {
+            this.renderPassiveListeningTab();
+        }
+    },
+
+    // Khởi tạo và hiển thị trình phát nghe thụ động Passive English Listening
+    renderPassiveListeningTab: function() {
+        const container = document.getElementById('passive-listening-player-container');
+        if (!container) return;
+        if (typeof PassiveListeningPlayer !== 'undefined' && PassiveListeningPlayer.init) {
+            PassiveListeningPlayer.init('passive-listening-player-container');
         }
     },
 
@@ -11384,10 +11395,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     const safeSentenceTrans = this.escapeHtml(v.sentenceTranslation || "");
                     const jsWord = this.escapeJsString ? this.escapeJsString(v.word) : v.word.replace(/'/g, "\\'");
                     const jsSentence = this.escapeJsString ? this.escapeJsString(v.sentence) : (v.sentence ? v.sentence.replace(/'/g, "\\'") : "");
+                    const visualMeta = (typeof WordImageUtils !== 'undefined' && WordImageUtils.getVisualMetadata)
+                        ? WordImageUtils.getVisualMetadata(v.word, { grade: currentClass, unitId: lessonId })
+                        : null;
+                    const cleanWordSanitized = (v.word || '').toLowerCase().replace(/[^a-z0-9]/g, '_');
+                    const imgSrc = (visualMeta && visualMeta.path) ? visualMeta.path : `images/english/vocab/voc_${cleanWordSanitized}.svg`;
                     const cardId = `fc-card-${i}`;
 
                     return `
-                    <div class="flashcard-card-3d" id="${cardId}" onclick="app.flipVocabCard('${cardId}')" style="perspective:1000px; height:240px; cursor:pointer;" title="Nhấn để lật thẻ">
+                    <div class="flashcard-card-3d" id="${cardId}" onclick="app.flipVocabCard('${cardId}')" style="perspective:1000px; height:295px; cursor:pointer;" title="Nhấn để lật thẻ">
                         <div class="flashcard-card-3d-inner" style="position:relative; width:100%; height:100%; text-align:center; transition:transform 0.5s; transform-style:preserve-3d; border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,0.04);">
                             <!-- MẶT TRƯỚC: CHỈ HIỆN TỪ VỰNG, IPA, AUDIO - YÊU CẦU ACTIVE RECALL -->
                             <div class="flashcard-front" style="position:absolute; width:100%; height:100%; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:16px; padding:1rem; display:flex; flex-direction:column; justify-content:space-between; align-items:center; background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:2px solid #bfdbfe; box-sizing:border-box;">
@@ -11409,10 +11425,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                                 </div>
                             </div>
 
-                            <!-- MẶT SAU: HIỆN NGHĨA TIẾNG VIỆT, VÍ DỤ NGỮ CẢNH VÀ NÚT TỰ ĐÁNH GIÁ -->
+                            <!-- MẶT SAU: HIỆN NGHĨA TIẾNG VIỆT, MINH HỌA VECTOR SVG SƯ PHẠM, VÍ DỤ NGỮ CẢNH VÀ NÚT TỰ ĐÁNH GIÁ -->
                             <div class="flashcard-back" style="position:absolute; width:100%; height:100%; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:16px; padding:0.8rem; display:flex; flex-direction:column; justify-content:space-between; align-items:center; background:linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border:2px solid #bbf7d0; box-sizing:border-box; transform:rotateY(180deg);">
                                 <div style="width:100%;">
-                                    <div class="flashcard-word-vi" style="font-size:1.15rem; font-weight:900; color:#166534; text-transform:capitalize; margin-bottom:4px;">${safeMeaning}</div>
+                                    <div class="flashcard-word-vi" style="font-size:1.15rem; font-weight:900; color:#166534; text-transform:capitalize; margin-bottom:2px;">${safeMeaning}</div>
+                                    <div class="flashcard-img-wrapper" style="width:58px; height:58px; margin:2px auto 6px auto; background:white; border-radius:10px; border:1.5px solid #bbf7d0; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.04);">
+                                        <img src="${imgSrc}" alt="${safeWord}" style="width:100%; height:100%; object-fit:contain;" onerror="this.parentElement.style.display='none'" />
+                                    </div>
                                     ${safeSentence ? `
                                         <div class="flashcard-phrase-box" style="background:rgba(255,255,255,0.75); border:1px solid #bbf7d0; border-radius:8px; padding:4px 6px; text-align:left; margin-bottom:4px;">
                                             <div style="font-size:0.68rem; color:#15803d; font-weight:800; display:flex; justify-content:space-between; align-items:center;">
