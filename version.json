@@ -1,9 +1,9 @@
 {
-  "version": "15.9",
+  "version": "15.10",
   "lastUpdated": "12/09/2026 19:30",
   "build": 1412,
   "releaseNotes": "Phát hành bản v15.9: Triển khai hoàn chỉnh hai phân hệ sư phạm chuyên biệt: Visual Vocabulary (Từ vựng trực quan đa giác quan 100% vector SVG giáo dục cục bộ cho 512 từ vựng Lớp 1, 4, 6 với quy trình kiểm định ngữ nghĩa và giải quyết từ đa nghĩa) và Passive English Listening (Nghe thụ động phân hóa CEFR Pre-A1, A1, A2 gồm 18 bài nghe chuẩn âm thanh Kokoro TTS offline đa giọng, trình phát PassiveListeningPlayer 3 chế độ PASSIVE/LIGHT/ACTIVE, kiểm soát 0 cuộc gọi Browser TTS, bảo toàn 100% dữ liệu môn Toán).",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.9/ToanHocKiosk_Setup_v15.9.exe",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.10/ToanHocKiosk_Setup_v15.10.exe",
   "changelog": "- Phân hệ Visual Vocabulary: Xây dựng danh mục hình ảnh ngữ nghĩa chuẩn sư phạm visual-vocabulary-manifest.json cho toàn bộ 512 mục từ vựng giáo trình Lớp 1, 4, 6; tự động sinh và kiểm thử 512 tệp vector SVG giáo dục chất lượng cao; giải quyết triệt để vấn đề từ đa nghĩa và ngữ cảnh giáo trình; nâng cấp WordImageUtils hỗ trợ Canonical ID và Context-aware resolution.\n- Phân hệ Passive English Listening: Biên soạn và cấu hình 18 bài nghe phân tầng CEFR Young Learners (Pre-A1, A1, A2) bao phủ 16 chủ đề thực tế; sinh toàn bộ âm thanh chất lượng cao bằng Kokoro TTS offline với fade nhẹ và chuẩn hóa peak biên độ; tạo PassiveListeningService và PassiveListeningPlayer hỗ trợ 3 chế độ nghe (Passive, Light Engagement, Active Recall Transition), tùy chỉnh tốc độ, lặp lại thông minh, hẹn giờ và bật/tắt phụ đề/hình ảnh.\n- Ràng buộc CACHE_ONLY tuyệt đối: Curriculum Audio và Passive Listening hoàn toàn sử dụng bộ nhớ đệm offline, kiểm tra runtime Playwright xác nhận 0 cuộc gọi speechSynthesis.speak.\n- Tích hợp giao diện: Thêm tab 'Nghe thụ động' trong English Portal, hiển thị Flashcard từ vựng kèm minh họa vector SVG trực quan trong Đấu trường Từ vựng.\n- Bảo toàn tuyệt đối 100% dữ liệu môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc theo Quy tắc 10.",
   "releaseDate": "2026-09-12T19:30:00+07:00"
 }
