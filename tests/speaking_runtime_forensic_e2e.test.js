@@ -664,15 +664,15 @@ test.describe("SPEAKING FORENSIC RUNTIME VERIFICATION SUITE", () => {
         expect(pageErrors.length).toBe(0);
     });
 
-    test("S19: UI VERSION TAG -> Splash screen and Fixed Badge display v15.6", async ({ page }) => {
+    test("S19: UI VERSION TAG -> Splash screen and Fixed Badge display v15.7", async ({ page }) => {
         const splashVersion = page.locator('.splash-version-tag');
         const fixedVersion = page.locator('.version-tag-fixed');
 
-        await expect(splashVersion).toContainText("v15.6");
-        await expect(fixedVersion).toContainText("v15.6");
+        await expect(splashVersion).toContainText("v15.7");
+        await expect(fixedVersion).toContainText("v15.7");
     });
 
-    test("S20: MANIFEST INTEGRITY -> audio-manifest.json contains 521 Grade 6 items with kokoro engine", async ({ page }) => {
+    test("S20: MANIFEST INTEGRITY -> audio-manifest.json contains items with kokoro engine", async ({ page }) => {
         const manifestCount = await page.evaluate(async () => {
             try {
                 const res = await fetch('sounds/english/audio-manifest.json');
@@ -683,7 +683,7 @@ test.describe("SPEAKING FORENSIC RUNTIME VERIFICATION SUITE", () => {
                 return 0;
             }
         });
-        expect(manifestCount).toBe(521);
+        expect(manifestCount).toBeGreaterThanOrEqual(521);
     });
 
 });

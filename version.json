@@ -1,9 +1,9 @@
 {
-  "version": "15.6",
-  "lastUpdated": "12/09/2026 13:06",
-  "build": 1409,
-  "releaseNotes": "Phát hành bản v15.6: Nâng cấp đồng bộ Audio/TTS sang Kokoro TTS tự sinh Offline Cache kết hợp Fallback 4 tầng, và hoàn thiện Pronunciation Assessment Pipeline (CTC Trellis Viterbi Forced Alignment, Goodness of Pronunciation GOP, Heuristic Calibration v1.0, Chẩn đoán khẩu hình L2 Việt Nam cho học sinh Lớp 6).",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.6/ToanHocKiosk_Setup_v15.6.exe",
-  "changelog": "- Audio/TTS Migration: Nâng cấp Kokoro TTS chất lượng cao (voice af_bella), lưu trước bộ nhớ đệm Offline Cache (audio-manifest.json), loại bỏ hoàn toàn các lệnh speechSynthesis và new Audio trực tiếp từ giao diện, hợp nhất qua EnglishAudioService với Fallback 4 tầng (Kokoro Cache -> SpeechService -> Browser TTS -> Graceful Error).\n- Speaking Migration: Thiết lập Pronunciation Assessment Pipeline hoàn chỉnh: CTC Trellis Forced Alignment, thuật toán Goodness of Pronunciation (GOP), hiệu chuẩn Heuristic Calibration v1.0, chẩn đoán âm vị rủi ro L2 Việt Nam (/r/, /θ/, /ð/, /ʃ/, /s/, /z/, /t/, /d/) và hướng dẫn khẩu hình sư phạm cho học sinh Lớp 6.\n- Đảm bảo tính trung thực (Truth Gate): Phân định rõ MODEL ≠ PRONUNCIATION SCORER, không sinh điểm âm vị giả từ transcript (chế độ Fallback bắt buộc ghi rõ Assessment Mode: BASIC và phonemeScore = null).\n- Bảo toàn tuyệt đối 100% dữ liệu môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc.",
-  "releaseDate": "2026-09-12T13:06:00+07:00"
+  "version": "15.7",
+  "lastUpdated": "12/09/2026 16:45",
+  "build": 1410,
+  "releaseNotes": "Phát hành bản v15.7: Khắc phục triệt để lỗi phát âm bằng giọng trình duyệt (speechSynthesis); thiết lập chính sách phân cấp âm thanh CURRICULUM = CACHE_ONLY và DYNAMIC = FALLBACK_ALLOWED; sinh và kiểm toán toàn vẹn 100% tệp Kokoro TTS MP3 Offline Cache cho toàn bộ giáo trình Tiếng Anh Lớp 1, Lớp 4 và Lớp 6; loại bỏ hoàn toàn bypass trong Read-Along; xác minh pháp y Runtime bằng Playwright kiểm chứng 0 cuộc gọi Browser TTS trên Chromium.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.7/ToanHocKiosk_Setup_v15.7.exe",
+  "changelog": "- Khắc phục triệt để lỗi âm thanh giáo trình bị phát bằng giọng trình duyệt: Thiết lập chính sách CURRICULUM = CACHE_ONLY và DYNAMIC = FALLBACK_ALLOWED trong EnglishAudioService.\n- Sinh bộ nhớ đệm Kokoro TTS MP3 Offline Cache (voice af_bella, speed 0.95) phủ kín 100% giáo trình: Từ vựng, Câu mẫu, Mẫu câu hỏi/đáp, Bài đọc hiểu, Bài nghe Listening và Đề thi cho Lớp 1, Lớp 4 và Lớp 6.\n- Tái cấu trúc Audio Manifest chuẩn hóa Canonical ID và Aliases hỗ trợ tra cứu đa chiều, loại bỏ mọi điểm mù Cache Miss.\n- Loại bỏ hoàn toàn bypass trong Read-Along: chuyển sang phát tệp MP3 Kokoro thực tế và đồng bộ từ vựng theo currentTime/duration.\n- Bằng chứng pháp y Runtime: Kiểm chứng tự động với Playwright trên trình duyệt Chromium xác nhận 0 cuộc gọi window.speechSynthesis.speak() cho giáo trình.\n- Bảo toàn tuyệt đối 100% dữ liệu môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc.",
+  "releaseDate": "2026-09-12T16:45:00+07:00"
 }

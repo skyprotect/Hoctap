@@ -1,5 +1,5 @@
 /**
- * AUTOMATED QUALITY GATE & CODEBASE INTEGRITY CHECKER (v15.6)
+ * AUTOMATED QUALITY GATE & CODEBASE INTEGRITY CHECKER (v15.7)
  * Kiểm tra toàn diện hệ thống HocTap trước khi đóng gói Release:
  * 1. Cấu trúc thư mục & không tồn tại tệp rác (.old, .tmp, database rác)
  * 2. Tính toàn vẹn của các module Core Toán, Tiếng Anh, Pronunciation Pipeline, Kokoro Audio Cache
@@ -15,12 +15,12 @@ const { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '../..');
 
 console.log("==================================================================");
-console.log("🛡️  HỌCTẬP QUALITY GATE (v15.6) — BẮT ĐẦU KIỂM TRA TOÀN DIỆN");
+console.log("🛡️  HỌCTẬP QUALITY GATE (v15.7) — BẮT ĐẦU KIỂM TRA TOÀN DIỆN");
 console.log("==================================================================");
 
 let hasError = false;
 
-// 1. Kiểm tra cấu trúc module cốt lõi v15.6
+// 1. Kiểm tra cấu trúc module cốt lõi v15.7
 console.log("\n[1/6] Kiểm tra cấu trúc module cốt lõi & Pronunciation/Audio Pipeline...");
 const requiredFiles = [
     'js/questions-v1.js',
@@ -132,7 +132,7 @@ if (hasError) {
     console.error("❌ QUALITY GATE THẤT BẠI.");
     process.exit(1);
 } else {
-    console.log("🏆 QUALITY GATE THÀNH CÔNG RỰC RỠ! Sẵn sàng phát hành Release v15.6.");
+    console.log("🏆 QUALITY GATE THÀNH CÔNG RỰC RỠ! Sẵn sàng phát hành Release v15.7.");
     console.log("==================================================================");
     process.exit(0);
 }

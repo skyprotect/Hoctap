@@ -9048,7 +9048,7 @@ const app = {
                         <span style="font-size:0.85rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; display:block; margin-bottom:0.4rem;">🔊 Từ vựng (Click để nghe phát âm):</span>
                         <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
                             ${topic.vocab.map(v => `
-                                <span class="vocab-badge" onclick="app.playEnglishVoice('${v.word.replace(/'/g, "\\'")}')" style="background:var(--bg-app); border:1px solid var(--border-color); padding:5px 12px; border-radius:99px; font-weight:700; font-size:0.85rem; color:var(--text-main); display:flex; align-items:center; gap:0.4rem; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.01); transition:all 0.15s;" title="Click để nghe phát âm">
+                                <span class="vocab-badge" onclick="app.playEnglishVoice('${v.word.replace(/'/g, "\\'")}', '${v.word.replace(/'/g, "\\'")}', { category: 'CURRICULUM', feature: 'VOCABULARY' })" style="background:var(--bg-app); border:1px solid var(--border-color); padding:5px 12px; border-radius:99px; font-weight:700; font-size:0.85rem; color:var(--text-main); display:flex; align-items:center; gap:0.4rem; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.01); transition:all 0.15s;" title="Click để nghe phát âm">
                                     <i class="fa-solid fa-volume-high" style="color:#2563eb; font-size:0.75rem;"></i>
                                     <b>${v.word}</b> 
                                     <span style="color:#ef4444; font-size:0.8rem; font-weight:600;">${v.phonetics || ''}</span>
@@ -9539,38 +9539,22 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (scoreEl) scoreEl.innerText = (this.currentEnglishScore || 0) * 10;
     },
 
-    playEnglishVoice: function(text, audioFileKey) {
-        if (!text) return;
+    playEnglishVoice: function(text, audioFileKey, options = {}) {
+        if (!text) return Promise.resolve({ ok: false, source: "NONE", reason: "EMPTY_TEXT" });
         if (this.isRecording) {
             this.stopSpeechRecognition();
         }
+        const opts = options || {};
         if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
-            EnglishAudioService.playEnglishVoice(text, audioFileKey);
-            return;
+            return EnglishAudioService.playEnglishVoice(text, audioFileKey, opts);
         }
-        const cleanKey = (audioFileKey || text).toLowerCase().trim().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "");
-        const audioUrl = `sounds/english/${cleanKey}.mp3`;
         
-        try {
-            const audio = new Audio(audioUrl);
-            this._currentAudio = audio;
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => {
-                        this.updateAudioSourceLabel("File cục bộ (Offline)");
-                    })
-                    .catch(() => {
-                        // Offline-First Fallback trực tiếp sang Web Speech API của máy
-                        this.speakEnglish(text, true);
-                    });
-            } else {
-                this.updateAudioSourceLabel("File cục bộ (Offline)");
-            }
-        } catch (e) {
-            // Lỗi khởi tạo Audio hoặc runtime error -> Fallback an toàn
-            this.speakEnglish(text, true);
+        // Môi trường không có EnglishAudioService: chỉ fallback nếu là DYNAMIC
+        if (opts.category === 'DYNAMIC' && opts.allowFallback === true) {
+            this.speakEnglish(text, true, opts);
+            return Promise.resolve({ ok: true, source: 'SpeechService', fallback: true });
         }
+        return Promise.resolve({ ok: false, source: "NONE", reason: "AUDIO_SERVICE_UNAVAILABLE", category: "CURRICULUM" });
     },
 
     _speakEnglishDup: null,
@@ -10049,90 +10033,70 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (timerEl) timerEl.style.display = "none";
     },
 
-    // Chạy đồng bộ Read-Along cho Đọc hiểu
-    playReadAlong: function(passageText, containerId) {
-        if (typeof SpeechService !== 'undefined' && SpeechService.playReadAlong) {
-            SpeechService.playReadAlong(passageText, containerId);
+    // Chạy đồng bộ Read-Along cho Đọc hiểu (Sử dụng Kokoro TTS Offline Cache, KHÔNG bypass sang Browser TTS)
+    playReadAlong: function(passageText, containerId, audioFileKey) {
+        const container = document.getElementById(containerId);
+        if (!container || !passageText) return;
+        
+        const words = passageText.split(/\s+/).filter(w => w.length > 0);
+        container.innerHTML = words.map((w, idx) => `<span id="read-word-${idx}" class="read-along-word" style="font-size:1.4rem; transition: background 0.2s; border-radius: 4px; padding: 2px; margin-right: 4px; display:inline-block; color:var(--text-main); font-weight:600;">${w}</span>`).join(" ");
+
+        const clearHighlights = () => {
+            container.querySelectorAll('.read-along-word').forEach(el => {
+                el.style.backgroundColor = 'transparent';
+                el.style.color = 'var(--text-main)';
+            });
+        };
+
+        const highlightIndex = (targetIdx) => {
+            container.querySelectorAll('.read-along-word').forEach((el, idx) => {
+                if (idx === targetIdx) {
+                    el.style.backgroundColor = '#fef08a';
+                    el.style.color = '#000000';
+                } else {
+                    el.style.backgroundColor = 'transparent';
+                    el.style.color = 'var(--text-main)';
+                }
+            });
+        };
+
+        clearHighlights();
+
+        if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
+            let activeTimer = null;
+            EnglishAudioService.playEnglishVoice(passageText, audioFileKey || passageText, {
+                category: 'CURRICULUM',
+                feature: 'READ_ALONG',
+                allowFallback: false,
+                onStart: (sourceName, audioElement) => {
+                    if (audioElement) {
+                        const duration = audioElement.duration || (words.length * 0.4);
+                        activeTimer = setInterval(() => {
+                            if (!audioElement || audioElement.paused || audioElement.ended) {
+                                if (activeTimer) clearInterval(activeTimer);
+                                return;
+                            }
+                            const cur = audioElement.currentTime || 0;
+                            const dur = audioElement.duration || duration;
+                            const idx = Math.min(words.length - 1, Math.floor((cur / Math.max(dur, 0.1)) * words.length));
+                            highlightIndex(idx);
+                        }, 80);
+                    }
+                },
+                onEnd: () => {
+                    if (activeTimer) clearInterval(activeTimer);
+                    clearHighlights();
+                },
+                onError: (err) => {
+                    if (activeTimer) clearInterval(activeTimer);
+                    clearHighlights();
+                    console.warn("Read-Along audio cache error:", err);
+                }
+            });
             return;
         }
 
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        const words = passageText.split(/\s+/);
-        container.innerHTML = words.map((w, idx) => `<span id="read-word-${idx}" class="read-along-word" style="font-size:1.4rem; transition: background 0.2s; border-radius: 4px; padding: 2px; margin-right: 4px; display:inline-block; color:var(--text-main); font-weight:600;">${w}</span>`).join("");
-
-        if ('speechSynthesis' in window) {
-            try {
-                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-                window.speechSynthesis.cancel();
-                
-                // Clear any existing yellow highlights
-                container.querySelectorAll('.read-along-word').forEach(el => {
-                    el.style.backgroundColor = 'transparent';
-                    el.style.color = 'var(--text-main)';
-                });
-
-                const utterance = new SpeechSynthesisUtterance(passageText);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.8;
-
-                utterance.onboundary = (event) => {
-                    if (event.name === 'word' || typeof event.charIndex === 'number') {
-                        const charIdx = event.charIndex || 0;
-                        let runningLength = 0;
-                        let matchedIdx = 0;
-                        for (let i = 0; i < words.length; i++) {
-                            runningLength += words[i].length + 1;
-                            if (runningLength > charIdx) {
-                                matchedIdx = i;
-                                break;
-                            }
-                        }
-                        
-                        container.querySelectorAll('.read-along-word').forEach((el, idx) => {
-                            if (idx === matchedIdx) {
-                                el.style.backgroundColor = '#fef08a';
-                                el.style.color = '#000000';
-                            } else {
-                                el.style.backgroundColor = 'transparent';
-                                el.style.color = 'var(--text-main)';
-                            }
-                        });
-                    }
-                };
-
-                utterance.onend = () => {
-                    container.querySelectorAll('.read-along-word').forEach(el => {
-                        el.style.backgroundColor = 'transparent';
-                        el.style.color = 'var(--text-main)';
-                    });
-                };
-
-                window.speechSynthesis.speak(utterance);
-            } catch (e) {
-                console.warn("Lỗi Read-Along:", e);
-            }
-        } else {
-            let idx = 0;
-            const timer = setInterval(() => {
-                if (idx > 0) {
-                    const prev = document.getElementById(`read-word-${idx - 1}`);
-                    if (prev) {
-                        prev.style.backgroundColor = 'transparent';
-                        prev.style.color = 'var(--text-main)';
-                    }
-                }
-                const curr = document.getElementById(`read-word-${idx}`);
-                if (curr) {
-                    curr.style.backgroundColor = '#fef08a';
-                    curr.style.color = '#000000';
-                    idx++;
-                } else {
-                    clearInterval(timer);
-                }
-            }, 380);
-        }
+        clearHighlights();
     },
 
     prepareEnglishQuestions: function() {
@@ -10258,7 +10222,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             innerHtml = `
                 <div class="listening-challenge-box" style="text-align:center; width:100%;">
                     <div style="margin:2rem 0; display:inline-block;">
-                        <button class="btn-audio-speak-large" type="button" aria-label="Nghe âm đọc thần chú" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(audioKey)}')" style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg, #60a5fa, #2563eb); border:none; color:white; font-size:2.5rem; cursor:pointer; box-shadow:0 6px 12px rgba(37,99,235,0.3); transition:all 0.1s ease;">
+                        <button class="btn-audio-speak-large" type="button" aria-label="Nghe âm đọc thần chú" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(audioKey)}', { category: 'CURRICULUM', feature: 'LISTENING' })" style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg, #60a5fa, #2563eb); border:none; color:white; font-size:2.5rem; cursor:pointer; box-shadow:0 6px 12px rgba(37,99,235,0.3); transition:all 0.1s ease;">
                             <i class="fa-solid fa-volume-high"></i>
                         </button>
                     </div>
@@ -10287,11 +10251,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             `;
         } 
         else if (qType === "listening_passage") {
-            const audioKey = safePassageTitle || "passage";
+            const audioKey = safePassageTitle || q.topicId || "passage";
             innerHtml = `
                 <div class="listening-passage-box" style="text-align:center; width:100%;">
                     <div style="background:var(--bg-app); border:2px solid var(--border-color); border-radius:20px; padding:1.5rem; margin-bottom:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.8rem;">
-                        <button class="btn-audio-speak-large" type="button" aria-label="Nghe bài nói hoặc hội thoại" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(audioKey)}')" style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #a855f7, #7c3aed); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 12px rgba(124,58,237,0.3); transition:all 0.1s ease;">
+                        <button class="btn-audio-speak-large" type="button" aria-label="Nghe bài nói hoặc hội thoại" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(audioKey)}', { category: 'CURRICULUM', feature: 'LISTENING' })" style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #a855f7, #7c3aed); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 12px rgba(124,58,237,0.3); transition:all 0.1s ease;">
                             <i class="fa-solid fa-volume-high"></i>
                         </button>
                         <div style="font-weight:800; color:var(--text-main); font-size:1.05rem;">🎧 Bấm để nghe bài nói / cuộc hội thoại</div>
@@ -10315,12 +10279,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 <div class="speaking-challenge-box" style="text-align:center; width:100%;">
                     ${isRoleplay ? `
                         <div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); padding:1rem; border-radius:12px; margin-bottom:1rem; display:flex; align-items:center; gap:0.8rem; justify-content:center;">
-                            <button type="button" aria-label="Nghe câu nói của AI" onclick="app.speakEnglish('${this.escapeJsString(safeListeningText)}')" style="background:#3b82f6; border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-volume-high"></i></button>
+                            <button type="button" aria-label="Nghe câu nói của AI" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(safeListeningText)}', { category: 'CURRICULUM', feature: 'SPEAKING' })" style="background:#3b82f6; border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-volume-high"></i></button>
                             <div style="font-weight:700; color:#2563eb; text-align:left;">AI: "${this.escapeHtml(safeListeningText)}"</div>
                         </div>
                         <div style="font-weight:800; font-size:1.1rem; color:var(--text-muted); margin-bottom:1.5rem;">Trả lời của con: (Nói câu chứa từ khóa)</div>
                     ` : `
-                        <button class="btn-tts-speak" type="button" aria-label="Nghe giọng đọc mẫu" onclick="app.speakEnglish('${this.escapeJsString(safeSpeakingText)}')" style="margin-bottom:1.5rem; background:none; border:2px solid #cbd5e1; padding:6px 16px; border-radius:99px; font-weight:700; color:var(--text-main); cursor:pointer;">
+                        <button class="btn-tts-speak" type="button" aria-label="Nghe giọng đọc mẫu" onclick="app.playEnglishVoice('${this.escapeJsString(safeSpeakingText)}', '${this.escapeJsString(safeSpeakingText)}', { category: 'CURRICULUM', feature: 'SPEAKING' })" style="margin-bottom:1.5rem; background:none; border:2px solid #cbd5e1; padding:6px 16px; border-radius:99px; font-weight:700; color:var(--text-main); cursor:pointer;">
                             <i class="fa-solid fa-volume-high"></i> Nghe giọng mẫu
                         </button>
                     `}
@@ -10358,7 +10322,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         </div>
                     </div>
                     <div style="text-align:center; margin-bottom:1.2rem;">
-                        <button class="btn-primary" type="button" aria-label="Nghe đọc bài văn" onclick="app.playReadAlong('${this.escapeJsString(safePassageText)}', 'read-along-container')" style="background:linear-gradient(135deg,#fb923c,#ea580c); border:none; color:white; padding:6px 18px; border-radius:99px; font-weight:800; font-size:0.85rem; cursor:pointer;">
+                        <button class="btn-primary" type="button" aria-label="Nghe đọc bài văn" onclick="app.playReadAlong('${this.escapeJsString(safePassageText)}', 'read-along-container', '${this.escapeJsString(safePassageTitle || '')}')" style="background:linear-gradient(135deg,#fb923c,#ea580c); border:none; color:white; padding:6px 18px; border-radius:99px; font-weight:800; font-size:0.85rem; cursor:pointer;">
                             <i class="fa-solid fa-circle-play"></i> Nghe đọc (Read-Along) 📖
                         </button>
                     </div>
@@ -10371,7 +10335,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                             </div>
                             <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
                                 ${q.vocabList.map(v => `
-                                    <span class="vocab-badge" onclick="app.playEnglishVoice('${this.escapeJsString(v.word || '')}')" style="background:#ffffff; border:1px solid #fde68a; padding:4px 10px; border-radius:8px; font-size:0.82rem; font-weight:700; color:#1e293b; display:inline-flex; align-items:center; gap:0.3rem; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.02);" title="Click để nghe phát âm">
+                                    <span class="vocab-badge" onclick="app.playEnglishVoice('${this.escapeJsString(v.word || '')}', '${this.escapeJsString(v.word || '')}', { category: 'CURRICULUM', feature: 'VOCABULARY' })" style="background:#ffffff; border:1px solid #fde68a; padding:4px 10px; border-radius:8px; font-size:0.82rem; font-weight:700; color:#1e293b; display:inline-flex; align-items:center; gap:0.3rem; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.02);" title="Click để nghe phát âm">
                                         <i class="fa-solid fa-volume-high" style="color:#ea580c; font-size:0.7rem;"></i>
                                         <b>${this.escapeHtml(v.word || '')}</b> 
                                         <span style="color:#ef4444; font-weight:600; font-size:0.78rem;">${this.escapeHtml(v.phonetics || '')}</span>
@@ -11453,7 +11417,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                                         <div class="flashcard-phrase-box" style="background:rgba(255,255,255,0.75); border:1px solid #bbf7d0; border-radius:8px; padding:4px 6px; text-align:left; margin-bottom:4px;">
                                             <div style="font-size:0.68rem; color:#15803d; font-weight:800; display:flex; justify-content:space-between; align-items:center;">
                                                 <span>VÍ DỤ NGỮ CẢNH:</span>
-                                                <button type="button" onclick="event.stopPropagation(); app.speakEnglish('${jsSentence}')" style="background:none; border:none; color:#15803d; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-volume-high"></i></button>
+                                                <button type="button" onclick="event.stopPropagation(); app.playEnglishVoice('${jsSentence}', '${jsSentence}', { category: 'CURRICULUM', feature: 'VOCABULARY' })" style="background:none; border:none; color:#15803d; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-volume-high"></i></button>
                                             </div>
                                             <div style="font-size:0.75rem; font-style:italic; color:#334155; line-height:1.2;">"${safeSentence}"</div>
                                             ${safeSentenceTrans ? `<div style="font-size:0.7rem; color:#64748b; margin-top:2px;">(${safeSentenceTrans})</div>` : ''}
@@ -11643,7 +11607,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         ${q.promptText}
                     </div>
                     ${q.audioToPlay ? `
-                        <button type="button" class="btn-primary" onclick="app.playEnglishVoice('${this.escapeJsString(q.audioToPlay)}', '${this.escapeJsString(q.audioToPlay)}')" style="background:linear-gradient(135deg,#3b82f6,#2563eb); border:none; color:white; padding:8px 20px; border-radius:99px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                        <button type="button" class="btn-primary" onclick="app.playEnglishVoice('${this.escapeJsString(q.audioToPlay)}', '${this.escapeJsString(q.audioToPlay)}', { category: 'CURRICULUM', feature: 'VOCABULARY' })" style="background:linear-gradient(135deg,#3b82f6,#2563eb); border:none; color:white; padding:8px 20px; border-radius:99px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
                             <i class="fa-solid fa-volume-high"></i> Bấm để Nghe lại 🔊
                         </button>
                     ` : ''}
@@ -11667,7 +11631,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         // Tự động phát âm thanh nếu câu hỏi là Audio-first
         if (q.audioToPlay) {
             setTimeout(() => {
-                this.playEnglishVoice(q.audioToPlay, q.audioToPlay);
+                this.playEnglishVoice(q.audioToPlay, q.audioToPlay, { category: 'CURRICULUM', feature: 'VOCABULARY' });
             }, 300);
         }
     },

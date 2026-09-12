@@ -98,7 +98,8 @@ const JUSTIFIED_EXCEPTIONS = [
   { pattern: /^tests[\\/]characterization\.test\.js$/i, maxLines: 600, reason: 'Comprehensive characterization test suite' },
   { pattern: /^tests[\\/]core[\\/]english-grade6-audit-verification\.test\.js$/i, maxLines: 600, reason: 'English Grade 6 audit verification test suite' },
   { pattern: /^tests[\\/]speaking_runtime_forensic_e2e\.test\.js$/i, maxLines: 800, reason: 'Speaking forensic runtime browser E2E test suite' },
-  { pattern: /^tests[\\/]vocab_arena_e2e\.test\.js$/i, maxLines: 500, reason: 'Vocabulary Arena science engine browser E2E test suite' }
+  { pattern: /^tests[\\/]vocab_arena_e2e\.test\.js$/i, maxLines: 500, reason: 'Vocabulary Arena science engine browser E2E test suite' },
+  { pattern: /^js[\\/]core[\\/]english-audio-service\.js$/i, maxLines: 700, reason: 'English audio service with Kokoro TTS cache-only policy and multi-index resolution' }
 ];
 
 function walk(dir, out = []) {

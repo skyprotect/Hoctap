@@ -2091,29 +2091,31 @@ const parentDashboard = {
         checkboxes.forEach(ck => ck.checked = selectAll);
     },
 
-    playAudioSpeech: function(text) {
+    playAudioSpeech: function(text, audioFileKey) {
         if (!text) return;
         if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
-            EnglishAudioService.playEnglishVoice(text);
-            return;
-        }
-        if (typeof SpeechService !== 'undefined' && SpeechService.speakEnglish) {
-            SpeechService.speakEnglish(text, false, {
-                onUnsupported: () => {
-                    Swal.fire({ icon: 'info', title: 'Thông báo', text: 'Trình duyệt của bạn không hỗ trợ phát âm thanh Web Speech.' });
+            EnglishAudioService.playEnglishVoice(text, audioFileKey, {
+                category: 'CURRICULUM',
+                feature: 'PARENT_EXAM_PREVIEW',
+                onError: (err) => {
+                    console.warn("[ParentDashboard] Lỗi phát âm thanh giáo trình:", err);
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Chưa có tệp âm thanh',
+                            text: 'Tệp âm thanh chuẩn Kokoro cho câu hỏi này chưa sẵn sàng trong bộ nhớ đệm.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
                 }
             });
             return;
         }
 
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
-        } else {
-            Swal.fire({ icon: 'info', title: 'Thông báo', text: 'Trình duyệt của bạn không hỗ trợ phát âm thanh Web Speech.' });
+        // Môi trường không có EnglishAudioService
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({ icon: 'info', title: 'Thông báo', text: 'Dịch vụ âm thanh chưa được khởi tạo.' });
         }
     },
 
@@ -2430,8 +2432,9 @@ const parentDashboard = {
 
             let audioBtn = "";
             if (q.listeningText) {
+                const safeAudioKey = (q.audioFileKey || '').replace(/'/g, "\\'");
                 audioBtn = `
-                    <button type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded text-xs transition duration-150 inline-flex items-center gap-1 ml-2 print:hidden cursor-pointer" onclick="parentDashboard.playAudioSpeech('${listeningSnippet}')">
+                    <button type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded text-xs transition duration-150 inline-flex items-center gap-1 ml-2 print:hidden cursor-pointer" onclick="parentDashboard.playAudioSpeech('${listeningSnippet}', '${safeAudioKey}')">
                         <i class="fa-solid fa-volume-high"></i> Nghe Audio
                     </button>
                 `;

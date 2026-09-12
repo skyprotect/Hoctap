@@ -30,7 +30,7 @@ describe('EnglishAudioService — 4-Tier Fallback Architecture', () => {
 
         play() {
             this.paused = false;
-            if (this.shouldFail || (this.src && this.src.includes('missing_audio'))) {
+            if (this.shouldFail || (this.src && (this.src.includes('missing_audio') || this.src.includes('dynamic_key')))) {
                 return Promise.reject(new Error('MEDIA_ELEMENT_ERROR: 404 Not Found'));
             }
             return Promise.resolve();
@@ -134,14 +134,29 @@ describe('EnglishAudioService — 4-Tier Fallback Architecture', () => {
         });
     });
 
-    describe('3. Tầng 2: Fallback sang SpeechService khi file 404', () => {
-        test('tự động chuyển sang SpeechService khi file không tìm thấy', async () => {
-            await EnglishAudioService.playEnglishVoice("missing audio text", "missing_audio", {});
+    describe('3. Chính sách phân cấp âm thanh: CURRICULUM = CACHE_ONLY vs DYNAMIC = FALLBACK_ALLOWED', () => {
+        test('Curriculum Cache Miss: Tuyệt đối KHÔNG fallback sang SpeechService', async () => {
+            const result = await EnglishAudioService.playEnglishVoice("missing audio text", "missing_audio", {
+                category: 'CURRICULUM'
+            });
 
-            // Audio element được thử và thất bại
-            expect(mockAudioInstances.length).toBe(1);
-            // SpeechService đã được gọi
-            expect(mockSynth.cancelCount).toBeGreaterThanOrEqual(1);
+            // BẮT BUỘC: Không gọi speechSynthesis.speak (spokeUtterances rỗng)
+            expect(mockSynth.spokeUtterances.length).toBe(0);
+            expect(result.ok).toBe(false);
+            expect(result.reason).toBe("AUDIO_CACHE_MISSING");
+            expect(result.source).toBe("NONE");
+        });
+
+        test('Dynamic Fallback: Tự động chuyển sang SpeechService khi allowFallback = true', async () => {
+            const result = await EnglishAudioService.playEnglishVoice("dynamic text", "dynamic_key", {
+                category: 'DYNAMIC',
+                allowFallback: true
+            });
+
+            // SpeechService đã được gọi thành công
+            expect(result.ok).toBe(true);
+            expect(result.source).toBe("SpeechService");
+            expect(mockSynth.spokeUtterances.length).toBe(1);
         });
     });
 
