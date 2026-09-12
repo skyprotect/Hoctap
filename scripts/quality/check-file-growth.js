@@ -72,6 +72,7 @@ const JUSTIFIED_EXCEPTIONS = [
   { pattern: /^js[\\/]app\.js$/i, maxLines: 15000, reason: 'Global window.app Façade orchestrator and backward-compatibility router' },
   { pattern: /^js[\\/]core[\\/]english-course-data\.js$/i, maxLines: 9000, reason: 'English complete curriculum dataset' },
   { pattern: /^js[\\/]core[\\/]english-grammar-data\.js$/i, maxLines: 1200, reason: 'English grammar rules and theory dataset' },
+  { pattern: /^js[\\/]core[\\/]gop-scorer\.js$/i, maxLines: 800, reason: 'CTC Trellis Viterbi forced alignment, GOP calculator, and 44-phoneme inventory dataset' },
   { pattern: /^js[\\/]core[\\/]math-expr-evaluator\.js$/i, maxLines: 1000, reason: 'Math expression parsing and safe evaluator' },
   { pattern: /^js[\\/]core[\\/]math-template-compiler\.js$/i, maxLines: 600, reason: 'Math question template compiler' },
   { pattern: /^js[\\/]english_data\.js$/i, maxLines: 1000, reason: 'English legacy course dataset and audio helper' },
@@ -96,7 +97,7 @@ const JUSTIFIED_EXCEPTIONS = [
   { pattern: /^scripts[\\/]maintenance[\\/]pronunciation-assessment[\\/]/i, maxLines: 1000, reason: 'Speech evaluation toolset' },
   { pattern: /^tests[\\/]characterization\.test\.js$/i, maxLines: 600, reason: 'Comprehensive characterization test suite' },
   { pattern: /^tests[\\/]core[\\/]english-grade6-audit-verification\.test\.js$/i, maxLines: 600, reason: 'English Grade 6 audit verification test suite' },
-  { pattern: /^tests[\\/]speaking_runtime_forensic_e2e\.test\.js$/i, maxLines: 650, reason: 'Speaking forensic runtime browser E2E test suite' },
+  { pattern: /^tests[\\/]speaking_runtime_forensic_e2e\.test\.js$/i, maxLines: 800, reason: 'Speaking forensic runtime browser E2E test suite' },
   { pattern: /^tests[\\/]vocab_arena_e2e\.test\.js$/i, maxLines: 500, reason: 'Vocabulary Arena science engine browser E2E test suite' }
 ];
 

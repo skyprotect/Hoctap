@@ -30,6 +30,7 @@ const filesToSync = [
   'css/style.css',
   '.env.example',
   'version.json',
+  'phoneme-map.json',
   'package.json',
   'package-lock.json',
   'tsconfig.json',
@@ -50,6 +51,7 @@ const dirsToSync = [
   'scripts/build',
   'scripts/database',
   'scripts/maintenance',
+  'scripts/tts',
   'dist/apk'
 ];
 
@@ -176,6 +178,17 @@ function sync() {
           console.log(`Could not remove student exam cache file ${file}: ${err.message}`);
         }
       }
+    }
+  }
+
+  // Đảm bảo loại bỏ thư mục models nặng khỏi Clean bundle (âm thanh đã pre-render vào sounds/english/)
+  const cleanModelsDir = path.join(destDir, 'models');
+  if (fs.existsSync(cleanModelsDir)) {
+    try {
+      fs.rmSync(cleanModelsDir, { recursive: true, force: true });
+      console.log('Removed heavy models directory in Clean.');
+    } catch (err) {
+      console.log(`Could not remove models directory in Clean: ${err.message}`);
     }
   }
 

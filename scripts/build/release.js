@@ -143,6 +143,16 @@ if (fs.existsSync(studentHtmlPath)) {
   console.log('✅ Đã cập nhật student.html (Splash tag, Footer tag và các liên kết CSS/JS)');
 }
 
+// B.1 Cập nhật sw.js (CACHE_VERSION = 'vX.X')
+const swJsPath = path.join(ROOT_DIR, 'sw.js');
+if (fs.existsSync(swJsPath)) {
+  let swContent = fs.readFileSync(swJsPath, 'utf8');
+  swContent = swContent.replace(/const\s+CACHE_VERSION\s*=\s*['"]v[\d\.]+['"]\s*;/g, `const CACHE_VERSION = 'v${nextVersion}';`);
+  swContent = swContent.replace(/HOCTAP PWA SERVICE WORKER \(v[\d\.]+\)/g, `HOCTAP PWA SERVICE WORKER (v${nextVersion})`);
+  fs.writeFileSync(swJsPath, swContent, 'utf8');
+  console.log('✅ Đã cập nhật CACHE_VERSION trong sw.js');
+}
+
 // C. Cập nhật version.json
 versionData.version = nextVersion;
 versionData.downloadUrl = `https://github.com/skyprotect/Hoctap/releases/download/v${nextVersion}/ToanHocKiosk_Setup_v${nextVersion}.exe`;

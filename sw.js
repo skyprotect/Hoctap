@@ -1,10 +1,10 @@
 /**
- * HOCTAP PWA SERVICE WORKER (v15.5)
+ * HOCTAP PWA SERVICE WORKER (v15.6)
  * Network-First cho Local-First / Kiosk Server (luôn lấy mã nguồn mới nhất từ disk)
  * Tự động Fallback về Cache khi hoàn toàn mất kết nối mạng.
  */
 
-const CACHE_VERSION = 'v15.5';
+const CACHE_VERSION = 'v15.6';
 const CACHE_NAME = `hoctap-cache-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -12,7 +12,12 @@ const PRECACHE_ASSETS = [
     '/student.html',
     '/parent.html',
     '/css/style.css',
-    '/js/app.js'
+    '/js/app.js',
+    '/js/core/english-audio-service.js',
+    '/js/core/gop-scorer.js',
+    '/js/core/speaking-assessment-adapter.js',
+    '/js/core/pronunciation-assessment-engine.js',
+    '/sounds/english/audio-manifest.json'
 ];
 
 // 1. Install Event: Nạp trước các static assets cốt lõi và bỏ qua chờ

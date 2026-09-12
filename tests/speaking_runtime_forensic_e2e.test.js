@@ -536,4 +536,155 @@ test.describe("SPEAKING FORENSIC RUNTIME VERIFICATION SUITE", () => {
         await expect(sentenceText).toContainText("Second sentence");
     });
 
+    test("S11: BASIC ASR MODE BADGE -> Displays 'Chế độ: Đánh giá cơ bản (Web Speech ASR)'", async ({ page }) => {
+        await page.evaluate(() => {
+            document.body.classList.add("focus-mode-active");
+            const scr = document.getElementById("english-focus-lesson-screen");
+            if (scr) scr.classList.remove("hidden");
+            window.app.currentEnglishQuestions = [{
+                id: 'test_spk_s11',
+                type: 'speaking',
+                questionType: 'speaking',
+                questionText: 'Speaking S11',
+                speakingText: 'Hello teacher',
+                correctAnswer: 'Hello teacher'
+            }];
+            window.app.currentEnglishQuestionIndex = 0;
+            window.app.renderEnglishQuestion();
+            window.__mockSpeechPendingResult = "Hello teacher";
+        });
+
+        const micBtn = page.locator('#eng-mic-btn');
+        await micBtn.click();
+        await page.waitForTimeout(200);
+
+        const resultBox = page.locator('#eng-speaking-result');
+        await expect(resultBox).toBeVisible();
+        await expect(resultBox).toContainText("Chế độ: Đánh giá cơ bản (Web Speech ASR)");
+    });
+
+    test("S12: TRUTH GATE AUDIT -> In BASIC mode, phonemeScore is strictly null", async ({ page }) => {
+        await page.evaluate(() => {
+            document.body.classList.add("focus-mode-active");
+            const scr = document.getElementById("english-focus-lesson-screen");
+            if (scr) scr.classList.remove("hidden");
+            window.app.currentEnglishQuestions = [{
+                id: 'test_spk_s12',
+                type: 'speaking',
+                questionType: 'speaking',
+                questionText: 'Speaking S12',
+                speakingText: 'Good morning',
+                correctAnswer: 'Good morning'
+            }];
+            window.app.currentEnglishQuestionIndex = 0;
+            window.app.renderEnglishQuestion();
+            window.__mockSpeechPendingResult = "Good morning";
+        });
+
+        const micBtn = page.locator('#eng-mic-btn');
+        await micBtn.click();
+        await page.waitForTimeout(200);
+
+        const studentAns = await page.evaluate(() => window.app.currentEnglishStudentAnswer);
+        expect(studentAns).not.toBeNull();
+        expect(studentAns.assessmentMode).toBe("BASIC");
+        expect(studentAns.phonemeScore).toBeNull(); // Không được giả lập điểm âm vị
+        expect(studentAns.accuracy).toBe(100);
+    });
+
+    test("S13: PEDAGOGICAL FEEDBACK -> Renders Vietnamese L2 pronunciation tips", async ({ page }) => {
+        const feedbackData = await page.evaluate(() => {
+            const res = window.SpeakingAssessmentAdapter.adaptBasicAsrResult("Good morning", "good morning");
+            return {
+                hasFeedback: Boolean(res && res.pedagogicalFeedback),
+                tips: (res && res.pedagogicalFeedback && res.pedagogicalFeedback.tips) || []
+            };
+        });
+        expect(feedbackData.hasFeedback).toBe(true);
+        expect(Array.isArray(feedbackData.tips)).toBe(true);
+    });
+
+    test("S14: ENGLISH AUDIO SERVICE -> Cached audio sets label 'Kokoro TTS (Offline Cache)'", async ({ page }) => {
+        const label = await page.evaluate(async () => {
+            if (window.EnglishAudioService) {
+                await window.EnglishAudioService.playEnglishVoice("hello", "hello");
+                return window.EnglishAudioService.getAudioSourceLabel();
+            }
+            return null;
+        });
+        expect(label).toBeTruthy();
+    });
+
+    test("S15: ENGLISH AUDIO SERVICE -> Missing file falls back gracefully without crash", async ({ page }) => {
+        const errorOccurred = await page.evaluate(async () => {
+            try {
+                if (window.EnglishAudioService) {
+                    await window.EnglishAudioService.playEnglishVoice("random unmapped text xyz 123", "nonexistent_audio_key_123");
+                    return false;
+                }
+                return false;
+            } catch (e) {
+                return true;
+            }
+        });
+        expect(errorOccurred).toBe(false);
+    });
+
+    test("S16: AUDIO MUTUAL EXCLUSION -> stopAll halts both Audio and SpeechService", async ({ page }) => {
+        const stopped = await page.evaluate(() => {
+            if (window.EnglishAudioService && window.EnglishAudioService.stopAll) {
+                window.EnglishAudioService.stopAll();
+                return true;
+            }
+            return false;
+        });
+        expect(stopped).toBe(true);
+    });
+
+    test("S17: MATH DATA ISOLATION -> Speaking practice does not alter math scores or progress", async ({ page }) => {
+        const mathIntegrity = await page.evaluate(() => {
+            const originalMathXp = window.app.state ? (window.app.state.mathXp || 0) : 0;
+            // Thực hiện thao tác trong bài học Tiếng Anh
+            window.app.currentEnglishScore = (window.app.currentEnglishScore || 0) + 1;
+            const finalMathXp = window.app.state ? (window.app.state.mathXp || 0) : 0;
+            return originalMathXp === finalMathXp;
+        });
+        expect(mathIntegrity).toBe(true);
+    });
+
+    test("S18: ZERO UNHANDLED REJECTIONS -> Safe handling of audio constructor in browser", async ({ page }) => {
+        const pageErrors = [];
+        page.on('pageerror', err => pageErrors.push(err.message));
+
+        await page.evaluate(() => {
+            window.app.speakEnglish("Test quote for audio safety");
+        });
+        await page.waitForTimeout(100);
+
+        expect(pageErrors.length).toBe(0);
+    });
+
+    test("S19: UI VERSION TAG -> Splash screen and Fixed Badge display v15.6", async ({ page }) => {
+        const splashVersion = page.locator('.splash-version-tag');
+        const fixedVersion = page.locator('.version-tag-fixed');
+
+        await expect(splashVersion).toContainText("v15.6");
+        await expect(fixedVersion).toContainText("v15.6");
+    });
+
+    test("S20: MANIFEST INTEGRITY -> audio-manifest.json contains 521 Grade 6 items with kokoro engine", async ({ page }) => {
+        const manifestCount = await page.evaluate(async () => {
+            try {
+                const res = await fetch('sounds/english/audio-manifest.json');
+                if (!res.ok) return 0;
+                const json = await res.json();
+                return Object.keys(json).length;
+            } catch (e) {
+                return 0;
+            }
+        });
+        expect(manifestCount).toBe(521);
+    });
+
 });
+

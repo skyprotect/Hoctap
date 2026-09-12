@@ -1,0 +1,408 @@
+{
+  "modelName": "vitouphy/wav2vec2-xls-r-300m-timit-phoneme",
+  "onnxExport": "proclivitystudios/vitouphy-wav2vec2-xls-r-300m-timit-phoneme-ONNX",
+  "MODEL_VOCAB_SIZE": 42,
+  "MODEL_OUTPUT_DIMENSION": 44,
+  "blankTokenId": 41,
+  "wordDelimiterTokenId": 0,
+  "phonemeCount": 38,
+  "specialTokenCount": 6,
+  "tokens": {
+    "0": {
+      "modelToken": "|",
+      "isPhoneme": false,
+      "ipa": null,
+      "articulatoryClass": "word_delimiter",
+      "pedagogyLabel": "Phân tách từ",
+      "vietnameseL2Risk": null,
+      "status": "SPECIAL_TOKEN"
+    },
+    "1": {
+      "modelToken": "ɑ",
+      "isPhoneme": true,
+      "ipa": "/ɑː/",
+      "articulatoryClass": "open_back_unrounded_vowel",
+      "pedagogyLabel": "Âm a dài (hot, father)",
+      "vietnameseL2Risk": "Hay đọc thành âm o ngắn",
+      "status": "VERIFIED"
+    },
+    "2": {
+      "modelToken": "æ",
+      "isPhoneme": true,
+      "ipa": "/æ/",
+      "articulatoryClass": "near_open_front_unrounded_vowel",
+      "pedagogyLabel": "Âm a bẹt (cat, black)",
+      "vietnameseL2Risk": "Hay đọc thành e hẹp",
+      "status": "VERIFIED"
+    },
+    "3": {
+      "modelToken": "ə",
+      "isPhoneme": true,
+      "ipa": "/ə/",
+      "articulatoryClass": "mid_central_unrounded_vowel",
+      "pedagogyLabel": "Âm schwa ngắn (about, teacher)",
+      "vietnameseL2Risk": "Hay nhấn nhầm trọng âm",
+      "status": "VERIFIED"
+    },
+    "4": {
+      "modelToken": "aʊ",
+      "isPhoneme": true,
+      "ipa": "/aʊ/",
+      "articulatoryClass": "diphthong",
+      "pedagogyLabel": "Nguyên âm đôi ao (now, house)",
+      "vietnameseL2Risk": "Đọc thiếu độ lướt âm u",
+      "status": "VERIFIED"
+    },
+    "5": {
+      "modelToken": "aɪ",
+      "isPhoneme": true,
+      "ipa": "/aɪ/",
+      "articulatoryClass": "diphthong",
+      "pedagogyLabel": "Nguyên âm đôi ai (my, time)",
+      "vietnameseL2Risk": "Đọc thiếu độ lướt âm i",
+      "status": "VERIFIED"
+    },
+    "6": {
+      "modelToken": "b",
+      "isPhoneme": true,
+      "ipa": "/b/",
+      "articulatoryClass": "voiced_bilabial_plosive",
+      "pedagogyLabel": "Âm b hữu thanh (book, ball)",
+      "vietnameseL2Risk": "Tương đồng tiếng Việt",
+      "status": "VERIFIED"
+    },
+    "7": {
+      "modelToken": "ʧ",
+      "isPhoneme": true,
+      "ipa": "/tʃ/",
+      "articulatoryClass": "voiceless_postalveolar_affricate",
+      "pedagogyLabel": "Âm ch bật hơi (chair, teacher)",
+      "vietnameseL2Risk": "Hay đọc nhẹ như ch tiếng Việt",
+      "status": "VERIFIED"
+    },
+    "8": {
+      "modelToken": "d",
+      "isPhoneme": true,
+      "ipa": "/d/",
+      "articulatoryClass": "voiced_alveolar_plosive",
+      "pedagogyLabel": "Âm d hữu thanh (door, good)",
+      "vietnameseL2Risk": "Hay nuốt khi ở đuôi từ",
+      "status": "VERIFIED"
+    },
+    "9": {
+      "modelToken": "ð",
+      "isPhoneme": true,
+      "ipa": "/ð/",
+      "articulatoryClass": "voiced_dental_fricative",
+      "pedagogyLabel": "Âm th hữu thanh (this, that, they)",
+      "vietnameseL2Risk": "Hay đọc thành d/đ tiếng Việt",
+      "status": "VERIFIED"
+    },
+    "10": {
+      "modelToken": "ɾ",
+      "isPhoneme": true,
+      "ipa": "/ɾ/",
+      "articulatoryClass": "alveolar_tap",
+      "pedagogyLabel": "Âm vỗ tap/flap Mỹ (water, butter)",
+      "vietnameseL2Risk": "Biến thể ngữ âm tiếng Anh - Mỹ",
+      "status": "VERIFIED"
+    },
+    "11": {
+      "modelToken": "ɛ",
+      "isPhoneme": true,
+      "ipa": "/e/",
+      "articulatoryClass": "open_mid_front_unrounded_vowel",
+      "pedagogyLabel": "Âm e ngắn (pen, red)",
+      "vietnameseL2Risk": "Tương đối chuẩn",
+      "status": "VERIFIED"
+    },
+    "12": {
+      "modelToken": "ɝ",
+      "isPhoneme": true,
+      "ipa": "/ɜːr/",
+      "articulatoryClass": "r_colored_vowel",
+      "pedagogyLabel": "Âm ơ uốn lưỡi (bird, girl)",
+      "vietnameseL2Risk": "Thiếu uốn cong đầu lưỡi",
+      "status": "VERIFIED"
+    },
+    "13": {
+      "modelToken": "eɪ",
+      "isPhoneme": true,
+      "ipa": "/eɪ/",
+      "articulatoryClass": "diphthong",
+      "pedagogyLabel": "Nguyên âm đôi ei (name, day)",
+      "vietnameseL2Risk": "Hay đọc bẹt thành e",
+      "status": "VERIFIED"
+    },
+    "14": {
+      "modelToken": "f",
+      "isPhoneme": true,
+      "ipa": "/f/",
+      "articulatoryClass": "voiceless_labiodental_fricative",
+      "pedagogyLabel": "Âm f răng môi (five, father)",
+      "vietnameseL2Risk": "Hay nuốt khi ở đuôi từ",
+      "status": "VERIFIED"
+    },
+    "15": {
+      "modelToken": "g",
+      "isPhoneme": true,
+      "ipa": "/g/",
+      "articulatoryClass": "voiced_velar_plosive",
+      "pedagogyLabel": "Âm g hữu thanh (go, big)",
+      "vietnameseL2Risk": "Hay nuốt âm đuôi g",
+      "status": "VERIFIED"
+    },
+    "16": {
+      "modelToken": " ",
+      "isPhoneme": false,
+      "ipa": null,
+      "articulatoryClass": "whitespace",
+      "pedagogyLabel": "Khoảng trắng",
+      "vietnameseL2Risk": null,
+      "status": "SPECIAL_TOKEN"
+    },
+    "17": {
+      "modelToken": "h",
+      "isPhoneme": true,
+      "ipa": "/h/",
+      "articulatoryClass": "voiceless_glottal_fricative",
+      "pedagogyLabel": "Âm h hơi (hat, hello)",
+      "vietnameseL2Risk": "Tương đồng tiếng Việt",
+      "status": "VERIFIED"
+    },
+    "18": {
+      "modelToken": "ɪ",
+      "isPhoneme": true,
+      "ipa": "/ɪ/",
+      "articulatoryClass": "near_close_front_unrounded_vowel",
+      "pedagogyLabel": "Âm i ngắn (sit, big)",
+      "vietnameseL2Risk": "Hay kéo dài thành i dài",
+      "status": "VERIFIED"
+    },
+    "19": {
+      "modelToken": "i",
+      "isPhoneme": true,
+      "ipa": "/iː/",
+      "articulatoryClass": "close_front_unrounded_vowel",
+      "pedagogyLabel": "Âm i dài (see, tea)",
+      "vietnameseL2Risk": "Thiếu độ căng khóe miệng",
+      "status": "VERIFIED"
+    },
+    "20": {
+      "modelToken": "ʤ",
+      "isPhoneme": true,
+      "ipa": "/dʒ/",
+      "articulatoryClass": "voiced_postalveolar_affricate",
+      "pedagogyLabel": "Âm j hữu thanh rung (job, jump)",
+      "vietnameseL2Risk": "Hay đọc thành d/gi nhẹ",
+      "status": "VERIFIED"
+    },
+    "21": {
+      "modelToken": "k",
+      "isPhoneme": true,
+      "ipa": "/k/",
+      "articulatoryClass": "voiceless_velar_plosive",
+      "pedagogyLabel": "Âm k bật hơi (cat, look)",
+      "vietnameseL2Risk": "Hay nuốt âm k đuôi",
+      "status": "VERIFIED"
+    },
+    "22": {
+      "modelToken": "l",
+      "isPhoneme": true,
+      "ipa": "/l/",
+      "articulatoryClass": "alveolar_lateral_approximant",
+      "pedagogyLabel": "Âm l (like, school)",
+      "vietnameseL2Risk": "Hay đọc thành n ở đầu, nuốt l đuôi",
+      "status": "VERIFIED"
+    },
+    "23": {
+      "modelToken": "m",
+      "isPhoneme": true,
+      "ipa": "/m/",
+      "articulatoryClass": "bilabial_nasal",
+      "pedagogyLabel": "Âm m khép môi (man, room)",
+      "vietnameseL2Risk": "Tương đồng tiếng Việt",
+      "status": "VERIFIED"
+    },
+    "24": {
+      "modelToken": "n",
+      "isPhoneme": true,
+      "ipa": "/n/",
+      "articulatoryClass": "alveolar_nasal",
+      "pedagogyLabel": "Âm n đầu lưỡi (no, sun)",
+      "vietnameseL2Risk": "Hay nhầm với l",
+      "status": "VERIFIED"
+    },
+    "25": {
+      "modelToken": "ŋ",
+      "isPhoneme": true,
+      "ipa": "/ŋ/",
+      "articulatoryClass": "velar_nasal",
+      "pedagogyLabel": "Âm ng đuôi (sing, song)",
+      "vietnameseL2Risk": "Tương đồng tiếng Việt",
+      "status": "VERIFIED"
+    },
+    "26": {
+      "modelToken": "oʊ",
+      "isPhoneme": true,
+      "ipa": "/oʊ/",
+      "articulatoryClass": "diphthong",
+      "pedagogyLabel": "Nguyên âm đôi ou (go, home)",
+      "vietnameseL2Risk": "Hay đọc thành ô cụt",
+      "status": "VERIFIED"
+    },
+    "27": {
+      "modelToken": "ɔɪ",
+      "isPhoneme": true,
+      "ipa": "/ɔɪ/",
+      "articulatoryClass": "diphthong",
+      "pedagogyLabel": "Nguyên âm đôi oi (boy, coin)",
+      "vietnameseL2Risk": "Tương đối chuẩn",
+      "status": "VERIFIED"
+    },
+    "28": {
+      "modelToken": "p",
+      "isPhoneme": true,
+      "ipa": "/p/",
+      "articulatoryClass": "voiceless_bilabial_plosive",
+      "pedagogyLabel": "Âm p bật hơi môi (pen, apple)",
+      "vietnameseL2Risk": "Hay đọc thiếu luồng hơi bật",
+      "status": "VERIFIED"
+    },
+    "29": {
+      "modelToken": "ɹ",
+      "isPhoneme": true,
+      "ipa": "/r/",
+      "articulatoryClass": "alveolar_approximant",
+      "pedagogyLabel": "Âm r uốn cong lưỡi (red, room)",
+      "vietnameseL2Risk": "Hay đọc thẳng lưỡi thành g/r rung",
+      "status": "VERIFIED"
+    },
+    "30": {
+      "modelToken": "s",
+      "isPhoneme": true,
+      "ipa": "/s/",
+      "articulatoryClass": "voiceless_alveolar_fricative",
+      "pedagogyLabel": "Âm s xì nhẹ (sun, bus)",
+      "vietnameseL2Risk": "Lỗi rơi rụng âm cuối phổ biến nhất",
+      "status": "VERIFIED"
+    },
+    "31": {
+      "modelToken": "ʃ",
+      "isPhoneme": true,
+      "ipa": "/ʃ/",
+      "articulatoryClass": "voiceless_postalveolar_fricative",
+      "pedagogyLabel": "Âm sh cong lưỡi tròn môi (she, fish)",
+      "vietnameseL2Risk": "Hay đọc lẫn sang s nhẹ",
+      "status": "VERIFIED"
+    },
+    "32": {
+      "modelToken": "t",
+      "isPhoneme": true,
+      "ipa": "/t/",
+      "articulatoryClass": "voiceless_alveolar_plosive",
+      "pedagogyLabel": "Âm t bật hơi răng (tea, cat)",
+      "vietnameseL2Risk": "Lỗi rơi rụng âm t cuối câu",
+      "status": "VERIFIED"
+    },
+    "33": {
+      "modelToken": "θ",
+      "isPhoneme": true,
+      "ipa": "/θ/",
+      "articulatoryClass": "voiceless_dental_fricative",
+      "pedagogyLabel": "Âm th vô thanh (think, thank, teeth)",
+      "vietnameseL2Risk": "Hay đọc thành t hoặc s",
+      "status": "VERIFIED"
+    },
+    "34": {
+      "modelToken": "ʊ",
+      "isPhoneme": true,
+      "ipa": "/ʊ/",
+      "articulatoryClass": "near_close_back_rounded_vowel",
+      "pedagogyLabel": "Âm u ngắn (book, look)",
+      "vietnameseL2Risk": "Hay đọc thành u dài",
+      "status": "VERIFIED"
+    },
+    "35": {
+      "modelToken": "u",
+      "isPhoneme": true,
+      "ipa": "/uː/",
+      "articulatoryClass": "close_back_rounded_vowel",
+      "pedagogyLabel": "Âm u dài tròn môi (blue, food)",
+      "vietnameseL2Risk": "Thiếu độ chu môi",
+      "status": "VERIFIED"
+    },
+    "36": {
+      "modelToken": "v",
+      "isPhoneme": true,
+      "ipa": "/v/",
+      "articulatoryClass": "voiced_labiodental_fricative",
+      "pedagogyLabel": "Âm v hữu thanh rung răng môi (voice, have)",
+      "vietnameseL2Risk": "Hay nuốt âm đuôi v",
+      "status": "VERIFIED"
+    },
+    "37": {
+      "modelToken": "w",
+      "isPhoneme": true,
+      "ipa": "/w/",
+      "articulatoryClass": "voiced_labiovelar_approximant",
+      "pedagogyLabel": "Âm w tròn môi (we, water)",
+      "vietnameseL2Risk": "Tương đối chuẩn",
+      "status": "VERIFIED"
+    },
+    "38": {
+      "modelToken": "j",
+      "isPhoneme": true,
+      "ipa": "/j/",
+      "articulatoryClass": "palatal_approximant",
+      "pedagogyLabel": "Âm j /y/ (yes, you)",
+      "vietnameseL2Risk": "Hay đọc thành d/gi",
+      "status": "VERIFIED"
+    },
+    "39": {
+      "modelToken": "z",
+      "isPhoneme": true,
+      "ipa": "/z/",
+      "articulatoryClass": "voiced_alveolar_fricative",
+      "pedagogyLabel": "Âm z rung dây thanh (zoo, plays)",
+      "vietnameseL2Risk": "Hay nuốt âm s/z số nhiều và thì hiện tại",
+      "status": "VERIFIED"
+    },
+    "40": {
+      "modelToken": "[UNK]",
+      "isPhoneme": false,
+      "ipa": null,
+      "articulatoryClass": "unknown_token",
+      "pedagogyLabel": "Ký tự ngoài từ điển",
+      "vietnameseL2Risk": null,
+      "status": "SPECIAL_TOKEN"
+    },
+    "41": {
+      "modelToken": "[PAD]",
+      "isPhoneme": false,
+      "ipa": null,
+      "articulatoryClass": "ctc_blank_token",
+      "pedagogyLabel": "Khoảng đệm CTC Blank",
+      "vietnameseL2Risk": null,
+      "status": "SPECIAL_TOKEN"
+    },
+    "42": {
+      "modelToken": "<s>",
+      "isPhoneme": false,
+      "ipa": null,
+      "articulatoryClass": "bos_token",
+      "pedagogyLabel": "Bắt đầu câu",
+      "vietnameseL2Risk": null,
+      "status": "SPECIAL_TOKEN"
+    },
+    "43": {
+      "modelToken": "</s>",
+      "isPhoneme": false,
+      "ipa": null,
+      "articulatoryClass": "eos_token",
+      "pedagogyLabel": "Kết thúc câu",
+      "vietnameseL2Risk": null,
+      "status": "SPECIAL_TOKEN"
+    }
+  }
+}

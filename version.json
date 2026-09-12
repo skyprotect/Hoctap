@@ -1,9 +1,9 @@
 {
-  "version": "15.5",
-  "lastUpdated": "12/09/2026 10:25",
-  "build": 1408,
-  "releaseNotes": "Phát hành bản v15.5: Hoàn tất kiểm chứng thực tế toàn diện (Forensic Verification) kỹ năng Speaking và nâng cấp Đấu trường Từ vựng (Vocabulary Arena) theo chuẩn khoa học: Active Recall 3D Flashcards, mô hình 5 cấp độ Mastery, thuật toán lặp lại ngắt quãng SRS và trắc nghiệm phản xạ 4 chiều.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.5/ToanHocKiosk_Setup_v15.5.exe",
-  "changelog": "- Forensic Runtime Verification & Fix Speaking: Chuẩn hóa ngưỡng phát âm >= 60%, xử lý an toàn transcript rỗng, chống race condition với Session ID token, loại bỏ acoustic echo giữa Audio/TTS và Microphone, ánh xạ mã lỗi Web Speech chi tiết kèm nút Thử lại/Bỏ qua.\n- Hệ sinh thái Đấu trường Từ vựng Khoa học (Vocabulary Arena Science Engine): Thẻ Flashcard 3D theo nguyên lý Active Recall (mặt trước ẩn nghĩa, kích thích não bộ truy xuất; mặt sau hiện nghĩa, ngữ cảnh, phát âm và 4 mức tự đánh giá).\n- Mô hình 5 cấp độ Làm chủ Từ vựng (Mastery Levels 0-5): Cấp độ 5 bắt buộc vượt qua thử thách truy xuất ngắt quãng (Retrieval Practice), loại bỏ việc học vẹt.\n- Đấu trường Trắc nghiệm 4 hướng: Anh -> Việt, Việt -> Anh, Âm thanh -> Anh, Ngữ cảnh -> Điền từ, đi kèm cơ chế sinh đáp án nhiễu động không trùng lặp và phản hồi sư phạm tức thì.\n- Cô lập hoàn toàn tiến trình từ vựng giữa các học sinh và bảo toàn 100% dữ liệu môn Toán của Trần Bình Minh và Trần Đức Phúc.",
-  "releaseDate": "2026-09-12T10:25:00+07:00"
+  "version": "15.6",
+  "lastUpdated": "12/09/2026 13:06",
+  "build": 1409,
+  "releaseNotes": "Phát hành bản v15.6: Nâng cấp đồng bộ Audio/TTS sang Kokoro TTS tự sinh Offline Cache kết hợp Fallback 4 tầng, và hoàn thiện Pronunciation Assessment Pipeline (CTC Trellis Viterbi Forced Alignment, Goodness of Pronunciation GOP, Heuristic Calibration v1.0, Chẩn đoán khẩu hình L2 Việt Nam cho học sinh Lớp 6).",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.6/ToanHocKiosk_Setup_v15.6.exe",
+  "changelog": "- Audio/TTS Migration: Nâng cấp Kokoro TTS chất lượng cao (voice af_bella), lưu trước bộ nhớ đệm Offline Cache (audio-manifest.json), loại bỏ hoàn toàn các lệnh speechSynthesis và new Audio trực tiếp từ giao diện, hợp nhất qua EnglishAudioService với Fallback 4 tầng (Kokoro Cache -> SpeechService -> Browser TTS -> Graceful Error).\n- Speaking Migration: Thiết lập Pronunciation Assessment Pipeline hoàn chỉnh: CTC Trellis Forced Alignment, thuật toán Goodness of Pronunciation (GOP), hiệu chuẩn Heuristic Calibration v1.0, chẩn đoán âm vị rủi ro L2 Việt Nam (/r/, /θ/, /ð/, /ʃ/, /s/, /z/, /t/, /d/) và hướng dẫn khẩu hình sư phạm cho học sinh Lớp 6.\n- Đảm bảo tính trung thực (Truth Gate): Phân định rõ MODEL ≠ PRONUNCIATION SCORER, không sinh điểm âm vị giả từ transcript (chế độ Fallback bắt buộc ghi rõ Assessment Mode: BASIC và phonemeScore = null).\n- Bảo toàn tuyệt đối 100% dữ liệu môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc.",
+  "releaseDate": "2026-09-12T13:06:00+07:00"
 }

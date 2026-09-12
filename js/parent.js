@@ -2093,6 +2093,10 @@ const parentDashboard = {
 
     playAudioSpeech: function(text) {
         if (!text) return;
+        if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
+            EnglishAudioService.playEnglishVoice(text);
+            return;
+        }
         if (typeof SpeechService !== 'undefined' && SpeechService.speakEnglish) {
             SpeechService.speakEnglish(text, false, {
                 onUnsupported: () => {

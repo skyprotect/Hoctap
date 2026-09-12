@@ -1,0 +1,2607 @@
+[
+  {
+    "key": "activity",
+    "text": "activity",
+    "type": "word"
+  },
+  {
+    "key": "outdoor_activities_are_good_for_our_health",
+    "text": "Outdoor activities are good for our health.",
+    "type": "sentence"
+  },
+  {
+    "key": "art",
+    "text": "art",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_art_in_this_picture",
+    "text": "I can see a beautiful art in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "boarding_school",
+    "text": "boarding school",
+    "type": "word"
+  },
+  {
+    "key": "studying_at_a_boarding_school_helps_me_become_independent",
+    "text": "Studying at a boarding school helps me become independent.",
+    "type": "sentence"
+  },
+  {
+    "key": "calculator",
+    "text": "calculator",
+    "type": "word"
+  },
+  {
+    "key": "i_have_a_new_calculator_for_maths_class",
+    "text": "I have a new calculator for Maths class.",
+    "type": "sentence"
+  },
+  {
+    "key": "classmate",
+    "text": "classmate",
+    "type": "word"
+  },
+  {
+    "key": "nam_is_a_friendly_classmate_of_mine",
+    "text": "Nam is a friendly classmate of mine.",
+    "type": "sentence"
+  },
+  {
+    "key": "compass",
+    "text": "compass",
+    "type": "word"
+  },
+  {
+    "key": "we_use_a_compass_to_draw_circles_in_geometry",
+    "text": "We use a compass to draw circles in geometry.",
+    "type": "sentence"
+  },
+  {
+    "key": "favourite",
+    "text": "favourite",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_favourite_together_this_weekend",
+    "text": "We want to favourite together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "help",
+    "text": "help",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_help_in_this_picture",
+    "text": "I can see a beautiful help in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "international",
+    "text": "international",
+    "type": "word"
+  },
+  {
+    "key": "we_learn_the_word_international_in_our_english_class",
+    "text": "We learn the word \"international\" in our English class.",
+    "type": "sentence"
+  },
+  {
+    "key": "interview",
+    "text": "interview",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_interview_in_this_picture",
+    "text": "I can see a beautiful interview in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "knock",
+    "text": "knock",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_knock_together_this_weekend",
+    "text": "We want to knock together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "remember",
+    "text": "remember",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_remember_together_this_weekend",
+    "text": "We want to remember together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "share",
+    "text": "share",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_share_together_this_weekend",
+    "text": "We want to share together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "smart",
+    "text": "smart",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_smart_together_this_weekend",
+    "text": "We want to smart together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "swimming_pool",
+    "text": "swimming pool",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_swimming_pool_in_this_picture",
+    "text": "I can see a beautiful swimming pool in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "between",
+    "text": "between",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_between_in_this_picture",
+    "text": "I can see a beautiful between in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "chest_of_drawers",
+    "text": "chest of drawers",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_chest_of_drawers_in_this_picture",
+    "text": "I can see a beautiful chest of drawers in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "cooker",
+    "text": "cooker",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_cooker_in_this_picture",
+    "text": "I can see a beautiful cooker in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "country_house",
+    "text": "country house",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_country_house_in_this_picture",
+    "text": "I can see a beautiful country house in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "crazy",
+    "text": "crazy",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_crazy_together_this_weekend",
+    "text": "We want to crazy together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "cupboard",
+    "text": "cupboard",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_cupboard_in_this_picture",
+    "text": "I can see a beautiful cupboard in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "department_store",
+    "text": "department store",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_department_store_in_this_picture",
+    "text": "I can see a beautiful department store in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "dishwasher",
+    "text": "dishwasher",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_dishwasher_in_this_picture",
+    "text": "I can see a beautiful dishwasher in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "flat",
+    "text": "flat",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_flat_in_this_picture",
+    "text": "I can see a beautiful flat in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "furniture",
+    "text": "furniture",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_furniture_in_this_picture",
+    "text": "I can see a beautiful furniture in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "hall",
+    "text": "hall",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_hall_in_this_picture",
+    "text": "I can see a beautiful hall in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "in_front_of",
+    "text": "in front of",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_in_front_of_in_this_picture",
+    "text": "I can see a beautiful in front of in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "next_to",
+    "text": "next to",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_next_to_in_this_picture",
+    "text": "I can see a beautiful next to in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "shelf",
+    "text": "shelf",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_shelf_in_this_picture",
+    "text": "I can see a beautiful shelf in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "sink",
+    "text": "sink",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_sink_in_this_picture",
+    "text": "I can see a beautiful sink in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "strange",
+    "text": "strange",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_strange_together_this_weekend",
+    "text": "We want to strange together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "town_house",
+    "text": "town house",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_town_house_in_this_picture",
+    "text": "I can see a beautiful town house in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "wardrobe",
+    "text": "wardrobe",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_wardrobe_in_this_picture",
+    "text": "I can see a beautiful wardrobe in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "active",
+    "text": "active",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_active_together_this_weekend",
+    "text": "We want to active together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "appearance",
+    "text": "appearance",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_appearance_in_this_picture",
+    "text": "I can see a beautiful appearance in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "careful",
+    "text": "careful",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_careful_together_this_weekend",
+    "text": "We want to careful together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "caring",
+    "text": "caring",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_caring_together_this_weekend",
+    "text": "We want to caring together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "cheek",
+    "text": "cheek",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_cheek_in_this_picture",
+    "text": "I can see a beautiful cheek in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "clever",
+    "text": "clever",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_clever_together_this_weekend",
+    "text": "We want to clever together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "confident",
+    "text": "confident",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_confident_together_this_weekend",
+    "text": "We want to confident together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "creative",
+    "text": "creative",
+    "type": "word"
+  },
+  {
+    "key": "she_is_a_creative_student_who_loves_painting",
+    "text": "She is a creative student who loves painting.",
+    "type": "sentence"
+  },
+  {
+    "key": "friendly",
+    "text": "friendly",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_friendly_together_this_weekend",
+    "text": "We want to friendly together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "funny",
+    "text": "funny",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_funny_together_this_weekend",
+    "text": "We want to funny together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "hardworking",
+    "text": "hard-working",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_hardworking_together_this_weekend",
+    "text": "We want to hard-working together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "kind",
+    "text": "kind",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_kind_together_this_weekend",
+    "text": "We want to kind together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "loving",
+    "text": "loving",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_loving_together_this_weekend",
+    "text": "We want to loving together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "personality",
+    "text": "personality",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_personality_in_this_picture",
+    "text": "I can see a beautiful personality in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "shoulder",
+    "text": "shoulder",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_shoulder_in_this_picture",
+    "text": "I can see a beautiful shoulder in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "shy",
+    "text": "shy",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_shy_together_this_weekend",
+    "text": "We want to shy together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "slim",
+    "text": "slim",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_slim_together_this_weekend",
+    "text": "We want to slim together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "art_gallery",
+    "text": "art gallery",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_art_gallery_in_this_picture",
+    "text": "I can see a beautiful art gallery in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "busy",
+    "text": "busy",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_busy_together_this_weekend",
+    "text": "We want to busy together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "cathedral",
+    "text": "cathedral",
+    "type": "word"
+  },
+  {
+    "key": "there_is_a_beautiful_historic_cathedral_in_the_city_center",
+    "text": "There is a beautiful historic cathedral in the city center.",
+    "type": "sentence"
+  },
+  {
+    "key": "cross",
+    "text": "cross",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_cross_together_this_weekend",
+    "text": "We want to cross together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "dislike",
+    "text": "dislike",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_dislike_together_this_weekend",
+    "text": "We want to dislike together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "famous",
+    "text": "famous",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_famous_together_this_weekend",
+    "text": "We want to famous together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "faraway",
+    "text": "faraway",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_faraway_together_this_weekend",
+    "text": "We want to faraway together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "finally",
+    "text": "finally",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_finally_together_this_weekend",
+    "text": "We want to finally together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "narrow",
+    "text": "narrow",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_narrow_together_this_weekend",
+    "text": "We want to narrow together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "outdoor",
+    "text": "outdoor",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_outdoor_together_this_weekend",
+    "text": "We want to outdoor together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "railway_station",
+    "text": "railway station",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_railway_station_in_this_picture",
+    "text": "I can see a beautiful railway station in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "sandy",
+    "text": "sandy",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_sandy_together_this_weekend",
+    "text": "We want to sandy together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "square",
+    "text": "square",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_square_in_this_picture",
+    "text": "I can see a beautiful square in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "suburb",
+    "text": "suburb",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_suburb_in_this_picture",
+    "text": "I can see a beautiful suburb in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "turning",
+    "text": "turning",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_turning_in_this_picture",
+    "text": "I can see a beautiful turning in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "workshop",
+    "text": "workshop",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_workshop_in_this_picture",
+    "text": "I can see a beautiful workshop in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "amazing",
+    "text": "amazing",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_amazing_together_this_weekend",
+    "text": "We want to amazing together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "backpack",
+    "text": "backpack",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_backpack_in_this_picture",
+    "text": "I can see a beautiful backpack in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "boat",
+    "text": "boat",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_boat_in_this_picture",
+    "text": "I can see a beautiful boat in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "desert",
+    "text": "desert",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_desert_in_this_picture",
+    "text": "I can see a beautiful desert in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "island",
+    "text": "island",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_island_in_this_picture",
+    "text": "I can see a beautiful island in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "join_in",
+    "text": "join in",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_join_in_together_this_weekend",
+    "text": "We want to join in together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "landscape",
+    "text": "landscape",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_landscape_in_this_picture",
+    "text": "I can see a beautiful landscape in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "litter",
+    "text": "litter",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_litter_together_this_weekend",
+    "text": "We want to litter together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "manmade",
+    "text": "man-made",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_manmade_together_this_weekend",
+    "text": "We want to man-made together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "mount",
+    "text": "mount",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_mount_in_this_picture",
+    "text": "I can see a beautiful mount in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "mountain_range",
+    "text": "mountain range",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_mountain_range_in_this_picture",
+    "text": "I can see a beautiful mountain range in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "natural_wonder",
+    "text": "natural wonder",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_natural_wonder_in_this_picture",
+    "text": "I can see a beautiful natural wonder in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "plaster",
+    "text": "plaster",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_plaster_in_this_picture",
+    "text": "I can see a beautiful plaster in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "rock",
+    "text": "rock",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_rock_in_this_picture",
+    "text": "I can see a beautiful rock in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "show",
+    "text": "show",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_show_in_this_picture",
+    "text": "I can see a beautiful show in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "suncream",
+    "text": "suncream",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_suncream_in_this_picture",
+    "text": "I can see a beautiful suncream in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "waterfall",
+    "text": "waterfall",
+    "type": "word"
+  },
+  {
+    "key": "the_waterfall_in_the_forest_is_breathtaking",
+    "text": "The waterfall in the forest is breathtaking.",
+    "type": "sentence"
+  },
+  {
+    "key": "behave",
+    "text": "behave",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_behave_together_this_weekend",
+    "text": "We want to behave together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "celebrate",
+    "text": "celebrate",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_celebrate_together_this_weekend",
+    "text": "We want to celebrate together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "cheer",
+    "text": "cheer",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_cheer_together_this_weekend",
+    "text": "We want to cheer together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "decorate",
+    "text": "decorate",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_decorate_together_this_weekend",
+    "text": "We want to decorate together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "family_gathering",
+    "text": "family gathering",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_family_gathering_in_this_picture",
+    "text": "I can see a beautiful family gathering in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "firework",
+    "text": "firework",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_firework_in_this_picture",
+    "text": "I can see a beautiful firework in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "fun",
+    "text": "fun",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_fun_in_this_picture",
+    "text": "I can see a beautiful fun in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "luck",
+    "text": "luck",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_luck_in_this_picture",
+    "text": "I can see a beautiful luck in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "lucky_money",
+    "text": "lucky money",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_lucky_money_in_this_picture",
+    "text": "I can see a beautiful lucky money in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "mochi_rice_cake",
+    "text": "mochi rice cake",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_mochi_rice_cake_in_this_picture",
+    "text": "I can see a beautiful mochi rice cake in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "relative",
+    "text": "relative",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_relative_in_this_picture",
+    "text": "I can see a beautiful relative in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "strike",
+    "text": "strike",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_strike_together_this_weekend",
+    "text": "We want to strike together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "temple",
+    "text": "temple",
+    "type": "word"
+  },
+  {
+    "key": "many_people_visit_the_temple_during_holidays",
+    "text": "Many people visit the temple during holidays.",
+    "type": "sentence"
+  },
+  {
+    "key": "throw",
+    "text": "throw",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_throw_together_this_weekend",
+    "text": "We want to throw together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "welcome",
+    "text": "welcome",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_welcome_together_this_weekend",
+    "text": "We want to welcome together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "wish",
+    "text": "wish",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_wish_in_this_picture",
+    "text": "I can see a beautiful wish in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "animated_film",
+    "text": "animated (film)",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_animated_film_together_this_weekend",
+    "text": "We want to animated (film) together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "cartoon",
+    "text": "cartoon",
+    "type": "word"
+  },
+  {
+    "key": "i_watch_cartoons_on_disney_channel_on_sundays",
+    "text": "I watch cartoons on Disney channel on Sundays.",
+    "type": "sentence"
+  },
+  {
+    "key": "channel",
+    "text": "channel",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_channel_in_this_picture",
+    "text": "I can see a beautiful channel in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "character",
+    "text": "character",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_character_in_this_picture",
+    "text": "I can see a beautiful character in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "clip",
+    "text": "clip",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_clip_in_this_picture",
+    "text": "I can see a beautiful clip in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "comedy",
+    "text": "comedy",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_comedy_in_this_picture",
+    "text": "I can see a beautiful comedy in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "compete",
+    "text": "compete",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_compete_together_this_weekend",
+    "text": "We want to compete together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "cute",
+    "text": "cute",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_cute_together_this_weekend",
+    "text": "We want to cute together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "dolphin",
+    "text": "dolphin",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_dolphin_in_this_picture",
+    "text": "I can see a beautiful dolphin in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "educate",
+    "text": "educate",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_educate_together_this_weekend",
+    "text": "We want to educate together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "educational",
+    "text": "educational",
+    "type": "word"
+  },
+  {
+    "key": "this_television_programme_is_highly_educational_for_kids",
+    "text": "This television programme is highly educational for kids.",
+    "type": "sentence"
+  },
+  {
+    "key": "tv_guide",
+    "text": "(TV) guide",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_tv_guide_in_this_picture",
+    "text": "I can see a beautiful (tv) guide in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "live",
+    "text": "live",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_live_together_this_weekend",
+    "text": "We want to live together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "programme",
+    "text": "programme",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_programme_in_this_picture",
+    "text": "I can see a beautiful programme in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "talent_show",
+    "text": "talent show",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_talent_show_in_this_picture",
+    "text": "I can see a beautiful talent show in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "viewer",
+    "text": "viewer",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_viewer_in_this_picture",
+    "text": "I can see a beautiful viewer in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "aerobics",
+    "text": "aerobics",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_aerobics_in_this_picture",
+    "text": "I can see a beautiful aerobics in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "career",
+    "text": "career",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_career_in_this_picture",
+    "text": "I can see a beautiful career in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "competition",
+    "text": "competition",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_competition_in_this_picture",
+    "text": "I can see a beautiful competition in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "congratulation",
+    "text": "congratulation",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_congratulation_in_this_picture",
+    "text": "I can see a beautiful congratulation in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "equipment",
+    "text": "equipment",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_equipment_in_this_picture",
+    "text": "I can see a beautiful equipment in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "fantastic",
+    "text": "fantastic",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_fantastic_together_this_weekend",
+    "text": "We want to fantastic together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "fit",
+    "text": "fit",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_fit_together_this_weekend",
+    "text": "We want to fit together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "goggles",
+    "text": "goggles",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_goggles_in_this_picture",
+    "text": "I can see a beautiful goggles in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "gym",
+    "text": "gym",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_gym_in_this_picture",
+    "text": "I can see a beautiful gym in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "karate",
+    "text": "karate",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_karate_in_this_picture",
+    "text": "I can see a beautiful karate in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "last",
+    "text": "last",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_last_together_this_weekend",
+    "text": "We want to last together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "marathon",
+    "text": "marathon",
+    "type": "word"
+  },
+  {
+    "key": "my_uncle_ran_a_full_marathon_last_year",
+    "text": "My uncle ran a full marathon last year.",
+    "type": "sentence"
+  },
+  {
+    "key": "racket",
+    "text": "racket",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_racket_in_this_picture",
+    "text": "I can see a beautiful racket in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "score",
+    "text": "score",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_score_together_this_weekend",
+    "text": "We want to score together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "shoot",
+    "text": "shoot",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_shoot_together_this_weekend",
+    "text": "We want to shoot together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "sporty",
+    "text": "sporty",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_sporty_together_this_weekend",
+    "text": "We want to sporty together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "take_place",
+    "text": "take place",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_take_place_together_this_weekend",
+    "text": "We want to take place together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "tournament",
+    "text": "tournament",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_tournament_in_this_picture",
+    "text": "I can see a beautiful tournament in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "river_bank",
+    "text": "(river) bank",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_river_bank_in_this_picture",
+    "text": "I can see a beautiful (river) bank in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "crowded",
+    "text": "crowded",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_crowded_together_this_weekend",
+    "text": "We want to crowded together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "floating_market",
+    "text": "floating market",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_floating_market_in_this_picture",
+    "text": "I can see a beautiful floating market in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "helpful",
+    "text": "helpful",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_helpful_together_this_weekend",
+    "text": "We want to helpful together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "helmet",
+    "text": "helmet",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_helmet_in_this_picture",
+    "text": "I can see a beautiful helmet in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "landmark",
+    "text": "landmark",
+    "type": "word"
+  },
+  {
+    "key": "the_eiffel_tower_is_a_famous_landmark_in_paris",
+    "text": "The Eiffel Tower is a famous landmark in Paris.",
+    "type": "sentence"
+  },
+  {
+    "key": "city_map",
+    "text": "(city) map",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_city_map_in_this_picture",
+    "text": "I can see a beautiful (city) map in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "palace",
+    "text": "palace",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_palace_in_this_picture",
+    "text": "I can see a beautiful palace in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "possessive",
+    "text": "possessive",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_possessive_together_this_weekend",
+    "text": "We want to possessive together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "we_learn_the_word_possessive_in_our_english_class",
+    "text": "We learn the word \"possessive\" in our English class.",
+    "type": "sentence"
+  },
+  {
+    "key": "postcard",
+    "text": "postcard",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_postcard_in_this_picture",
+    "text": "I can see a beautiful postcard in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "rent",
+    "text": "rent",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_rent_together_this_weekend",
+    "text": "We want to rent together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "royal_palace",
+    "text": "Royal Palace",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_royal_palace_in_this_picture",
+    "text": "I can see a beautiful royal palace in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "shell",
+    "text": "shell",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_shell_in_this_picture",
+    "text": "I can see a beautiful shell in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "stall",
+    "text": "stall",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_stall_in_this_picture",
+    "text": "I can see a beautiful stall in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "street_food",
+    "text": "street food",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_street_food_in_this_picture",
+    "text": "I can see a beautiful street food in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "times_square",
+    "text": "Times Square",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_times_square_in_this_picture",
+    "text": "I can see a beautiful times square in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "tower",
+    "text": "tower",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_tower_in_this_picture",
+    "text": "I can see a beautiful tower in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "vacation",
+    "text": "vacation",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_vacation_in_this_picture",
+    "text": "I can see a beautiful vacation in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "appliance",
+    "text": "appliance",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_appliance_in_this_picture",
+    "text": "I can see a beautiful appliance in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "cottage",
+    "text": "cottage",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_cottage_in_this_picture",
+    "text": "I can see a beautiful cottage in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "dry",
+    "text": "dry",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_dry_together_this_weekend",
+    "text": "We want to dry together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "electric_cooker",
+    "text": "electric cooker",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_electric_cooker_in_this_picture",
+    "text": "I can see a beautiful electric cooker in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "helicopter",
+    "text": "helicopter",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_helicopter_in_this_picture",
+    "text": "I can see a beautiful helicopter in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "hitech",
+    "text": "hi-tech",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_hitech_together_this_weekend",
+    "text": "We want to hi-tech together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "housework",
+    "text": "housework",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_housework_in_this_picture",
+    "text": "I can see a beautiful housework in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "location",
+    "text": "location",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_location_in_this_picture",
+    "text": "I can see a beautiful location in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "look_after",
+    "text": "look after",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_look_after_together_this_weekend",
+    "text": "We want to look after together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "ocean",
+    "text": "ocean",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_ocean_in_this_picture",
+    "text": "I can see a beautiful ocean in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "outside",
+    "text": "outside",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_outside_together_this_weekend",
+    "text": "We want to outside together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "solar_energy",
+    "text": "solar energy",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_solar_energy_in_this_picture",
+    "text": "I can see a beautiful solar energy in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "space",
+    "text": "space",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_space_in_this_picture",
+    "text": "I can see a beautiful space in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "super",
+    "text": "super",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_super_together_this_weekend",
+    "text": "We want to super together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "type",
+    "text": "type",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_type_in_this_picture",
+    "text": "I can see a beautiful type in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "ufo_unidentified_flying_object",
+    "text": "UFO (Unidentified Flying Object)",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_ufo_unidentified_flying_object_in_this_picture",
+    "text": "I can see a beautiful ufo (unidentified flying object) in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "washing_machine",
+    "text": "washing machine",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_washing_machine_in_this_picture",
+    "text": "I can see a beautiful washing machine in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "wireless",
+    "text": "wireless",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_wireless_together_this_weekend",
+    "text": "We want to wireless together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "be_in_need",
+    "text": "be in need",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_be_in_need_together_this_weekend",
+    "text": "We want to be in need together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "charity",
+    "text": "charity",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_charity_in_this_picture",
+    "text": "I can see a beautiful charity in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "container",
+    "text": "container",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_container_in_this_picture",
+    "text": "I can see a beautiful container in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "do_a_survey",
+    "text": "do a survey",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_do_a_survey_together_this_weekend",
+    "text": "We want to do a survey together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "environment",
+    "text": "environment",
+    "type": "word"
+  },
+  {
+    "key": "we_should_protect_the_environment_by_planting_more_trees",
+    "text": "We should protect the environment by planting more trees.",
+    "type": "sentence"
+  },
+  {
+    "key": "exchange",
+    "text": "exchange",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_exchange_together_this_weekend",
+    "text": "We want to exchange together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "fair",
+    "text": "fair",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_fair_in_this_picture",
+    "text": "I can see a beautiful fair in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "go_green",
+    "text": "go green",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_go_green_in_this_picture",
+    "text": "I can see a beautiful go green in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "instead_of",
+    "text": "instead of",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_instead_of_in_this_picture",
+    "text": "I can see a beautiful instead of in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "pick_up",
+    "text": "pick up",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_pick_up_together_this_weekend",
+    "text": "We want to pick up together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "president",
+    "text": "president",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_president_in_this_picture",
+    "text": "I can see a beautiful president in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "recycle",
+    "text": "recycle",
+    "type": "word"
+  },
+  {
+    "key": "please_recycle_plastic_bottles_to_reduce_waste",
+    "text": "Please recycle plastic bottles to reduce waste.",
+    "type": "sentence"
+  },
+  {
+    "key": "recycling_bin",
+    "text": "recycling bin",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_recycling_bin_in_this_picture",
+    "text": "I can see a beautiful recycling bin in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "reduce",
+    "text": "reduce",
+    "type": "word"
+  },
+  {
+    "key": "try_to_reduce_the_amount_of_electricity_you_use",
+    "text": "Try to reduce the amount of electricity you use.",
+    "type": "sentence"
+  },
+  {
+    "key": "reuse",
+    "text": "reuse",
+    "type": "word"
+  },
+  {
+    "key": "we_can_reuse_empty_bottles_as_flower_vases",
+    "text": "We can reuse empty bottles as flower vases.",
+    "type": "sentence"
+  },
+  {
+    "key": "reusable",
+    "text": "reusable",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_reusable_together_this_weekend",
+    "text": "We want to reusable together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "rubbish",
+    "text": "rubbish",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_rubbish_in_this_picture",
+    "text": "I can see a beautiful rubbish in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "tip",
+    "text": "tip",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_tip_in_this_picture",
+    "text": "I can see a beautiful tip in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "wrap",
+    "text": "wrap",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_wrap_together_this_weekend",
+    "text": "We want to wrap together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "age",
+    "text": "age",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_age_in_this_picture",
+    "text": "I can see a beautiful age in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "broken",
+    "text": "broken",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_broken_together_this_weekend",
+    "text": "We want to broken together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "choice",
+    "text": "choice",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_choice_in_this_picture",
+    "text": "I can see a beautiful choice in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "do_the_dishes",
+    "text": "do the dishes",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_do_the_dishes_together_this_weekend",
+    "text": "We want to do the dishes together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "do_the_washing",
+    "text": "do the washing",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_do_the_washing_together_this_weekend",
+    "text": "We want to do the washing together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "feelings",
+    "text": "feelings",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_feelings_in_this_picture",
+    "text": "I can see a beautiful feelings in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "guard",
+    "text": "guard",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_guard_in_this_picture",
+    "text": "I can see a beautiful guard in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "height",
+    "text": "height",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_height_in_this_picture",
+    "text": "I can see a beautiful height in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "iron",
+    "text": "iron",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_iron_together_this_weekend",
+    "text": "We want to iron together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "pick",
+    "text": "pick",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_pick_together_this_weekend",
+    "text": "We want to pick together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "planet",
+    "text": "planet",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_planet_in_this_picture",
+    "text": "I can see a beautiful planet in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "price",
+    "text": "price",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_price_in_this_picture",
+    "text": "I can see a beautiful price in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "put_away",
+    "text": "put away",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_put_away_together_this_weekend",
+    "text": "We want to put away together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "repair",
+    "text": "repair",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_repair_together_this_weekend",
+    "text": "We want to repair together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "robot",
+    "text": "robot",
+    "type": "word"
+  },
+  {
+    "key": "robots_will_help_humans_clean_the_house",
+    "text": "Robots will help humans clean the house.",
+    "type": "sentence"
+  },
+  {
+    "key": "space_station",
+    "text": "space station",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_space_station_in_this_picture",
+    "text": "I can see a beautiful space station in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "useful",
+    "text": "useful",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_useful_together_this_weekend",
+    "text": "We want to useful together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "water",
+    "text": "water",
+    "type": "word"
+  },
+  {
+    "key": "we_want_to_water_together_this_weekend",
+    "text": "We want to water together this weekend.",
+    "type": "sentence"
+  },
+  {
+    "key": "weight",
+    "text": "weight",
+    "type": "word"
+  },
+  {
+    "key": "i_can_see_a_beautiful_weight_in_this_picture",
+    "text": "I can see a beautiful weight in this picture.",
+    "type": "sentence"
+  },
+  {
+    "key": "gardening",
+    "text": "gardening",
+    "type": "word"
+  },
+  {
+    "key": "gardening_is_my_main_hobby",
+    "text": "Gardening is my main hobby.",
+    "type": "sentence"
+  },
+  {
+    "key": "stamp",
+    "text": "stamp",
+    "type": "word"
+  },
+  {
+    "key": "he_collects_old_postage_stamps",
+    "text": "He collects old postage stamps.",
+    "type": "sentence"
+  },
+  {
+    "key": "coin",
+    "text": "coin",
+    "type": "word"
+  },
+  {
+    "key": "he_has_a_collection_of_coins",
+    "text": "He has a collection of coins.",
+    "type": "sentence"
+  },
+  {
+    "key": "health",
+    "text": "health",
+    "type": "word"
+  },
+  {
+    "key": "jogging_is_good_for_your_health",
+    "text": "Jogging is good for your health.",
+    "type": "sentence"
+  },
+  {
+    "key": "painting_makes_you_creative",
+    "text": "Painting makes you creative.",
+    "type": "sentence"
+  },
+  {
+    "key": "calories",
+    "text": "calories",
+    "type": "word"
+  },
+  {
+    "key": "apples_have_low_calories",
+    "text": "Apples have low calories.",
+    "type": "sentence"
+  },
+  {
+    "key": "diet",
+    "text": "diet",
+    "type": "word"
+  },
+  {
+    "key": "a_healthy_diet_is_important",
+    "text": "A healthy diet is important.",
+    "type": "sentence"
+  },
+  {
+    "key": "lifestyle",
+    "text": "lifestyle",
+    "type": "word"
+  },
+  {
+    "key": "he_has_an_active_lifestyle",
+    "text": "He has an active lifestyle.",
+    "type": "sentence"
+  },
+  {
+    "key": "disease",
+    "text": "disease",
+    "type": "word"
+  },
+  {
+    "key": "eat_garlic_to_prevent_disease",
+    "text": "Eat garlic to prevent disease.",
+    "type": "sentence"
+  },
+  {
+    "key": "i_exercise_to_stay_fit",
+    "text": "I exercise to stay fit.",
+    "type": "sentence"
+  },
+  {
+    "key": "volunteer",
+    "text": "volunteer",
+    "type": "word"
+  },
+  {
+    "key": "we_volunteer_at_the_library",
+    "text": "We volunteer at the library.",
+    "type": "sentence"
+  },
+  {
+    "key": "donate",
+    "text": "donate",
+    "type": "word"
+  },
+  {
+    "key": "donate_books_to_poor_children",
+    "text": "Donate books to poor children.",
+    "type": "sentence"
+  },
+  {
+    "key": "cleanup",
+    "text": "clean-up",
+    "type": "word"
+  },
+  {
+    "key": "we_joined_the_park_cleanup",
+    "text": "We joined the park clean-up.",
+    "type": "sentence"
+  },
+  {
+    "key": "shelter",
+    "text": "shelter",
+    "type": "word"
+  },
+  {
+    "key": "a_shelter_for_homeless_dogs",
+    "text": "A shelter for homeless dogs.",
+    "type": "sentence"
+  },
+  {
+    "key": "homeless",
+    "text": "homeless",
+    "type": "word"
+  },
+  {
+    "key": "they_help_homeless_people",
+    "text": "They help homeless people.",
+    "type": "sentence"
+  },
+  {
+    "key": "music",
+    "text": "music",
+    "type": "word"
+  },
+  {
+    "key": "music_makes_me_happy",
+    "text": "Music makes me happy.",
+    "type": "sentence"
+  },
+  {
+    "key": "instrument",
+    "text": "instrument",
+    "type": "word"
+  },
+  {
+    "key": "the_guitar_is_my_instrument",
+    "text": "The guitar is my instrument.",
+    "type": "sentence"
+  },
+  {
+    "key": "concert",
+    "text": "concert",
+    "type": "word"
+  },
+  {
+    "key": "we_went_to_a_rock_concert",
+    "text": "We went to a rock concert.",
+    "type": "sentence"
+  },
+  {
+    "key": "artist",
+    "text": "artist",
+    "type": "word"
+  },
+  {
+    "key": "the_artist_painted_a_portrait",
+    "text": "The artist painted a portrait.",
+    "type": "sentence"
+  },
+  {
+    "key": "gallery",
+    "text": "gallery",
+    "type": "word"
+  },
+  {
+    "key": "there_are_many_photos_in_the_gallery",
+    "text": "There are many photos in the gallery.",
+    "type": "sentence"
+  },
+  {
+    "key": "noodle",
+    "text": "noodle",
+    "type": "word"
+  },
+  {
+    "key": "pho_is_a_famous_vietnamese_noodle_soup",
+    "text": "Pho is a famous Vietnamese noodle soup.",
+    "type": "sentence"
+  },
+  {
+    "key": "soup",
+    "text": "soup",
+    "type": "word"
+  },
+  {
+    "key": "the_soup_is_hot",
+    "text": "The soup is hot.",
+    "type": "sentence"
+  },
+  {
+    "key": "recipe",
+    "text": "recipe",
+    "type": "word"
+  },
+  {
+    "key": "follow_the_soup_recipe",
+    "text": "Follow the soup recipe.",
+    "type": "sentence"
+  },
+  {
+    "key": "ingredient",
+    "text": "ingredient",
+    "type": "word"
+  },
+  {
+    "key": "beef_is_the_main_ingredient",
+    "text": "Beef is the main ingredient.",
+    "type": "sentence"
+  },
+  {
+    "key": "turmeric",
+    "text": "turmeric",
+    "type": "word"
+  },
+  {
+    "key": "turmeric_gives_yellow_color",
+    "text": "Turmeric gives yellow color.",
+    "type": "sentence"
+  },
+  {
+    "key": "the_temple_of_literature_is_old",
+    "text": "The Temple of Literature is old.",
+    "type": "sentence"
+  },
+  {
+    "key": "scholar",
+    "text": "scholar",
+    "type": "word"
+  },
+  {
+    "key": "many_scholars_visited_here",
+    "text": "Many scholars visited here.",
+    "type": "sentence"
+  },
+  {
+    "key": "monument",
+    "text": "monument",
+    "type": "word"
+  },
+  {
+    "key": "the_monument_is_historic",
+    "text": "The monument is historic.",
+    "type": "sentence"
+  },
+  {
+    "key": "stone",
+    "text": "stone",
+    "type": "word"
+  },
+  {
+    "key": "the_stone_tablets_are_carved",
+    "text": "The stone tablets are carved.",
+    "type": "sentence"
+  },
+  {
+    "key": "imperial",
+    "text": "imperial",
+    "type": "word"
+  },
+  {
+    "key": "the_imperial_academy",
+    "text": "The Imperial Academy.",
+    "type": "sentence"
+  },
+  {
+    "key": "pedestrian",
+    "text": "pedestrian",
+    "type": "word"
+  },
+  {
+    "key": "pedestrians_walk_on_sidewalks",
+    "text": "Pedestrians walk on sidewalks.",
+    "type": "sentence"
+  },
+  {
+    "key": "passenger",
+    "text": "passenger",
+    "type": "word"
+  },
+  {
+    "key": "passengers_board_the_train",
+    "text": "Passengers board the train.",
+    "type": "sentence"
+  },
+  {
+    "key": "license",
+    "text": "license",
+    "type": "word"
+  },
+  {
+    "key": "you_need_a_driving_license",
+    "text": "You need a driving license.",
+    "type": "sentence"
+  },
+  {
+    "key": "fine",
+    "text": "fine",
+    "type": "word"
+  },
+  {
+    "key": "pay_a_fine_for_speeding",
+    "text": "Pay a fine for speeding.",
+    "type": "sentence"
+  },
+  {
+    "key": "road",
+    "text": "road",
+    "type": "word"
+  },
+  {
+    "key": "cross_the_road_safely",
+    "text": "Cross the road safely.",
+    "type": "sentence"
+  },
+  {
+    "key": "the_comedy_made_us_laugh",
+    "text": "The comedy made us laugh.",
+    "type": "sentence"
+  },
+  {
+    "key": "action",
+    "text": "action",
+    "type": "word"
+  },
+  {
+    "key": "action_films_are_exciting",
+    "text": "Action films are exciting.",
+    "type": "sentence"
+  },
+  {
+    "key": "director",
+    "text": "director",
+    "type": "word"
+  },
+  {
+    "key": "the_director_made_a_masterpiece",
+    "text": "The director made a masterpiece.",
+    "type": "sentence"
+  },
+  {
+    "key": "review",
+    "text": "review",
+    "type": "word"
+  },
+  {
+    "key": "write_a_film_review",
+    "text": "Write a film review.",
+    "type": "sentence"
+  },
+  {
+    "key": "boring",
+    "text": "boring",
+    "type": "word"
+  },
+  {
+    "key": "the_film_was_very_boring",
+    "text": "The film was very boring.",
+    "type": "sentence"
+  },
+  {
+    "key": "energy",
+    "text": "energy",
+    "type": "word"
+  },
+  {
+    "key": "save_energy_at_home",
+    "text": "Save energy at home.",
+    "type": "sentence"
+  },
+  {
+    "key": "solar",
+    "text": "solar",
+    "type": "word"
+  },
+  {
+    "key": "solar_panels_produce_clean_power",
+    "text": "Solar panels produce clean power.",
+    "type": "sentence"
+  },
+  {
+    "key": "wind",
+    "text": "wind",
+    "type": "word"
+  },
+  {
+    "key": "wind_is_a_renewable_energy",
+    "text": "Wind is a renewable energy.",
+    "type": "sentence"
+  },
+  {
+    "key": "coal",
+    "text": "coal",
+    "type": "word"
+  },
+  {
+    "key": "coal_is_a_fossil_fuel",
+    "text": "Coal is a fossil fuel.",
+    "type": "sentence"
+  },
+  {
+    "key": "source",
+    "text": "source",
+    "type": "word"
+  },
+  {
+    "key": "water_is_a_source_of_life",
+    "text": "Water is a source of life.",
+    "type": "sentence"
+  },
+  {
+    "key": "driverless",
+    "text": "driverless",
+    "type": "word"
+  },
+  {
+    "key": "a_driverless_car_is_very_safe",
+    "text": "A driverless car is very safe.",
+    "type": "sentence"
+  },
+  {
+    "key": "ecofriendly",
+    "text": "eco-friendly",
+    "type": "word"
+  },
+  {
+    "key": "electric_buses_are_ecofriendly",
+    "text": "Electric buses are eco-friendly.",
+    "type": "sentence"
+  },
+  {
+    "key": "hyperloop",
+    "text": "hyperloop",
+    "type": "word"
+  },
+  {
+    "key": "the_hyperloop_travels_at_high_speed",
+    "text": "The hyperloop travels at high speed.",
+    "type": "sentence"
+  },
+  {
+    "key": "flying",
+    "text": "flying",
+    "type": "word"
+  },
+  {
+    "key": "a_flying_taxi_in_the_city",
+    "text": "A flying taxi in the city.",
+    "type": "sentence"
+  },
+  {
+    "key": "crash",
+    "text": "crash",
+    "type": "word"
+  },
+  {
+    "key": "avoid_a_traffic_crash",
+    "text": "Avoid a traffic crash.",
+    "type": "sentence"
+  },
+  {
+    "key": "hello_welcome_to_english_class",
+    "text": "Hello! Welcome to English class.",
+    "type": "speaking"
+  },
+  {
+    "key": "good_morning_teacher",
+    "text": "Good morning teacher.",
+    "type": "speaking"
+  },
+  {
+    "key": "good_afternoon",
+    "text": "Good afternoon.",
+    "type": "speaking"
+  },
+  {
+    "key": "nice_to_meet_you",
+    "text": "Nice to meet you.",
+    "type": "speaking"
+  },
+  {
+    "key": "how_are_you_today",
+    "text": "How are you today?",
+    "type": "speaking"
+  },
+  {
+    "key": "i_am_doing_well_thank_you",
+    "text": "I am doing well, thank you.",
+    "type": "speaking"
+  },
+  {
+    "key": "my_name_is_nam",
+    "text": "My name is Nam.",
+    "type": "speaking"
+  },
+  {
+    "key": "i_live_in_hanoi",
+    "text": "I live in Hanoi.",
+    "type": "speaking"
+  },
+  {
+    "key": "i_like_playing_football",
+    "text": "I like playing football.",
+    "type": "speaking"
+  },
+  {
+    "key": "english_is_my_favorite_subject",
+    "text": "English is my favorite subject.",
+    "type": "speaking"
+  }
+]

@@ -23,7 +23,7 @@ firebase-service-account.json
 # Node modules
 node_modules/
 .port.tmp
-.write_test.tmp
+models/
 HocTap_Clean/
 build_tools/
 android_kiosk/app/build/

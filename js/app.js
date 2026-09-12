@@ -3942,10 +3942,14 @@ const app = {
         }
     },
 
-    // Helper phát âm Tiếng Anh chuẩn (en-US) offline sử dụng SpeechService (js/core/speech-service.js)
+    // Helper phát âm Tiếng Anh chuẩn (en-US) offline sử dụng EnglishAudioService & SpeechService
     speakEnglish: function(text, isFallback = false) {
         if (this.isRecording) {
             this.stopSpeechRecognition();
+        }
+        if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
+            EnglishAudioService.playEnglishVoice(text);
+            return;
         }
         if (typeof SpeechService !== 'undefined' && SpeechService.speakEnglish) {
             SpeechService.speakEnglish(text, isFallback, {
@@ -4012,6 +4016,9 @@ const app = {
 
     // Dừng mọi giọng đọc đang phát
     stopSpeech: function() {
+        if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.stopAll) {
+            EnglishAudioService.stopAll();
+        }
         if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
             SpeechService.stopSpeech();
         } else if (typeof window !== 'undefined' && window.speechSynthesis) {
@@ -9537,6 +9544,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (this.isRecording) {
             this.stopSpeechRecognition();
         }
+        if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
+            EnglishAudioService.playEnglishVoice(text, audioFileKey);
+            return;
+        }
         const cleanKey = (audioFileKey || text).toLowerCase().trim().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "");
         const audioUrl = `sounds/english/${cleanKey}.mp3`;
         
@@ -9654,12 +9665,28 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         return;
                     }
 
-                    const evalResult = SpeechRecognitionService.evaluatePronunciation(targetText, cleanText);
+                    const evalResult = (typeof SpeakingAssessmentAdapter !== 'undefined' && SpeakingAssessmentAdapter.adaptBasicAsrResult)
+                        ? SpeakingAssessmentAdapter.adaptBasicAsrResult(targetText, cleanText)
+                        : SpeechRecognitionService.evaluatePronunciation(targetText, cleanText);
 
                     if (resultBox) {
+                        const modeBadge = evalResult.assessmentMode === 'ENHANCED'
+                            ? `<span style="font-size:0.75rem; background:#ecfdf5; color:#059669; border:1px solid #10b981; border-radius:4px; padding:2px 8px; font-weight:700; margin-bottom:6px; display:inline-block;">Chế độ: Đánh giá âm học chi tiết (Acoustic GOP)</span>`
+                            : `<span style="font-size:0.75rem; background:#f8fafc; color:#64748b; border:1px solid #cbd5e1; border-radius:4px; padding:2px 8px; font-weight:700; margin-bottom:6px; display:inline-block;">Chế độ: Đánh giá cơ bản (Web Speech ASR)</span>`;
+
+                        let tipsHtml = '';
+                        if (evalResult.pedagogicalFeedback && Array.isArray(evalResult.pedagogicalFeedback.tips) && evalResult.pedagogicalFeedback.tips.length > 0) {
+                            tipsHtml = `<div style="margin-top:0.5rem; padding:0.5rem 0.75rem; background:#eff6ff; border-left:3px solid #3b82f6; border-radius:4px; font-size:0.85rem; color:#1e40af; text-align:left;">
+                                <strong>💡 Hướng dẫn khẩu hình:</strong><br/>
+                                ${evalResult.pedagogicalFeedback.tips.slice(0, 2).map(t => `• ${t}`).join("<br/>")}
+                            </div>`;
+                        }
+
                         resultBox.innerHTML = `
-                            <div style="font-size:0.9rem; margin-bottom:0.5rem; color:#64748b; font-weight:700;">Hệ thống nhận diện được:</div>
-                            <div style="font-size:1.4rem; line-height:1.4; margin-bottom:1rem; padding:0.5rem; background:var(--bg-app); border-radius:8px; border:1px solid var(--border-color);">${evalResult.formattedHtml}</div>
+                            <div style="margin-bottom:0.4rem;">${modeBadge}</div>
+                            <div style="font-size:0.9rem; margin-bottom:0.3rem; color:#64748b; font-weight:700;">Hệ thống nhận diện được:</div>
+                            <div style="font-size:1.4rem; line-height:1.4; margin-bottom:0.5rem; padding:0.5rem; background:var(--bg-app); border-radius:8px; border:1px solid var(--border-color);">${evalResult.formattedHtml}</div>
+                            ${tipsHtml}
                         `;
                     }
 
@@ -9668,7 +9695,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     this.currentEnglishStudentAnswer = {
                         spokenText: evalResult.spokenText,
                         accuracy: evalResult.accuracy,
-                        correct: Boolean(evalResult.correct) && (evalResult.accuracy >= 60)
+                        correct: Boolean(evalResult.correct) && (evalResult.accuracy >= 60),
+                        assessmentMode: evalResult.assessmentMode || 'BASIC',
+                        phonemeScore: evalResult.phonemeScore !== undefined ? evalResult.phonemeScore : null,
+                        fluencyScore: evalResult.fluencyScore || 0,
+                        completenessScore: evalResult.completenessScore || 0,
+                        pedagogicalFeedback: evalResult.pedagogicalFeedback || null
                     };
 
                     this.setEnglishCheckButtonEnabled(true);
@@ -10678,7 +10710,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (feedbackTitle) feedbackTitle.innerText = "Chính xác! Con thật giỏi 🎉";
                 if (feedbackSubtitle) feedbackSubtitle.innerHTML = explanation || "Đúng rồi!";
                 
-                if (typeof Audio !== 'undefined') {
+                if (typeof AudioService !== 'undefined' && AudioService.playCorrect) {
+                    AudioService.playCorrect();
+                } else if (typeof Audio !== 'undefined') {
                     const soundCorrect = new Audio("sounds/correct.mp3");
                     soundCorrect.play().catch(e => console.log(e));
                 }
@@ -10691,11 +10725,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 }, 250);
 
                 // Có 25% tỷ lệ phát thêm tiếng vỗ tay clapping làm nền
-                if (Math.random() < 0.25 && typeof Audio !== 'undefined') {
+                if (Math.random() < 0.25) {
                     setTimeout(() => {
-                        const clap = new Audio("sounds/clapping.mp3");
-                        clap.volume = 0.35;
-                        clap.play().catch(e => console.log(e));
+                        if (typeof AudioService !== 'undefined' && AudioService.playVictory) {
+                            AudioService.playVictory();
+                        } else if (typeof Audio !== 'undefined') {
+                            const clap = new Audio("sounds/clapping.mp3");
+                            clap.volume = 0.35;
+                            clap.play().catch(e => console.log(e));
+                        }
                     }, 300);
                 }
             } else {
@@ -10741,7 +10779,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     setTimeout(() => focusScreen.classList.remove("shake-effect"), 400);
                 }
 
-                if (typeof Audio !== 'undefined') {
+                if (typeof AudioService !== 'undefined' && AudioService.playWrong) {
+                    AudioService.playWrong();
+                } else if (typeof Audio !== 'undefined') {
                     const soundWrong = new Audio("sounds/wrong.mp3");
                     soundWrong.play().catch(e => console.log(e));
                 }
@@ -14367,9 +14407,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     viBtn.style.pointerEvents = "none";
                 }
                 
-                const correctSound = new Audio("sounds/correct.mp3");
-                correctSound.volume = 0.5;
-                correctSound.play().catch(e => {});
+                if (typeof AudioService !== 'undefined' && AudioService.playCorrect) {
+                    AudioService.playCorrect();
+                } else if (typeof Audio !== 'undefined') {
+                    const correctSound = new Audio("sounds/correct.mp3");
+                    correctSound.volume = 0.5;
+                    correctSound.play().catch(e => {});
+                }
 
                 this.currentIoeMatchingSelected = { eng: null, vi: null };
 
@@ -14412,9 +14456,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     }, 600);
                 }
 
-                const wrongSound = new Audio("sounds/wrong.mp3");
-                wrongSound.volume = 0.5;
-                wrongSound.play().catch(e => {});
+                if (typeof AudioService !== 'undefined' && AudioService.playWrong) {
+                    AudioService.playWrong();
+                } else if (typeof Audio !== 'undefined') {
+                    const wrongSound = new Audio("sounds/wrong.mp3");
+                    wrongSound.volume = 0.5;
+                    wrongSound.play().catch(e => {});
+                }
 
                 this.currentIoeMatchingSelected = { eng: null, vi: null };
             }
@@ -14488,8 +14536,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const scrEl = document.getElementById("ioe-current-score");
             if (scrEl) scrEl.innerText = this.currentIoeScore;
 
-            const correctSound = new Audio("sounds/correct.mp3");
-            correctSound.play().catch(e => {});
+            if (typeof AudioService !== 'undefined' && AudioService.playCorrect) {
+                AudioService.playCorrect();
+            } else if (typeof Audio !== 'undefined') {
+                const correctSound = new Audio("sounds/correct.mp3");
+                correctSound.play().catch(e => {});
+            }
 
             setTimeout(() => {
                 const quotes = ["Fantastic!", "Excellent!", "Well done!", "Awesome!", "Great job!", "Perfect!", "Amazing!", "Superb!", "You did it!", "Good job!"];
@@ -14499,9 +14551,13 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
             if (Math.random() < 0.25) {
                 setTimeout(() => {
-                    const clapping = new Audio("sounds/clapping.mp3");
-                    clapping.volume = 0.35;
-                    clapping.play().catch(e => {});
+                    if (typeof AudioService !== 'undefined' && AudioService.playVictory) {
+                        AudioService.playVictory();
+                    } else if (typeof Audio !== 'undefined') {
+                        const clapping = new Audio("sounds/clapping.mp3");
+                        clapping.volume = 0.35;
+                        clapping.play().catch(e => {});
+                    }
                 }, 300);
             }
 
@@ -14527,8 +14583,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 this.updateEnglishHeaderStats();
             }
 
-            const wrongSound = new Audio("sounds/wrong.mp3");
-            wrongSound.play().catch(e => {});
+            if (typeof AudioService !== 'undefined' && AudioService.playWrong) {
+                AudioService.playWrong();
+            } else if (typeof Audio !== 'undefined') {
+                const wrongSound = new Audio("sounds/wrong.mp3");
+                wrongSound.play().catch(e => {});
+            }
 
             const interactionArea = document.getElementById("ioe-interaction-area");
             if (interactionArea) {
