@@ -143,7 +143,7 @@
     </script>
     
     <!-- Style tùy chỉnh -->
-    <link rel="stylesheet" href="css/style.css?v=15.3">
+    <link rel="stylesheet" href="css/style.css?v=15.4">
 
     <!-- Custom Style cho tính năng Cài đặt Phụ huynh -->
     <style>
@@ -871,7 +871,7 @@
             <button id="splash-start-btn" class="btn-splash-start" onclick="app.enterApp()">
                 BẮT ĐẦU HỌC TẬP &nbsp;<i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div class="splash-version-tag">Phiên bản: v15.3 (Cập nhật: 12/09/2026 09:13)</div>
+            <div class="splash-version-tag">Phiên bản: v15.4 (Cập nhật: 12/09/2026 09:46)</div>
         </div>
     </div>
     <!-- Hộp thoại thông báo khi nhận Huy hiệu (Gamification Badge) -->
@@ -1000,41 +1000,6 @@
                     <!-- Danh sách môn học được render động -->
                 </div>
             </div>
-        
-            <!-- Fallback Containers for Dynamic English Modules -->
-            <div id="english-fallback-nodes" style="display:none;" aria-hidden="true">
-                <div id="english-video-wrapper" class="english-video-wrapper"></div>
-                <button id="eng-mic-btn" class="eng-mic-btn"></button>
-                <div id="eng-mic-status" class="eng-mic-status"></div>
-                <div id="eng-speaking-result" class="eng-speaking-result"></div>
-                <canvas id="speaking-wave-canvas" width="300" height="60"></canvas>
-                <div id="speaking-timer" class="speaking-timer"></div>
-                <textarea id="eng-free-writing-input" class="eng-free-writing-input"></textarea>
-                <input type="text" id="eng-dictation-input" class="eng-dictation-input" />
-                <div id="english-slots-pool" class="english-slots-pool"></div>
-                <div id="english-drag-pool" class="english-drag-pool"></div>
-                <div id="eng-practice-vocab-grid" class="eng-practice-vocab-grid"></div>
-                
-                <!-- Additional Fallback DOM Nodes for English Engine -->
-                <button id="btn-eng-check-answer" class="btn-primary">Kiểm tra</button>
-                <div id="cloze-passage-display" class="cloze-passage-display"></div>
-                <input type="text" id="ioe-fb-input" class="ioe-input" />
-                <button id="btn-ioe-check-answer" class="btn-primary">Gửi đáp án</button>
-                <select id="pdf-subject-select"><option value="english" selected>Tiếng Anh</option></select>
-                <select id="pdf-class-select"><option value="6" selected>Lớp 6</option></select>
-                <select id="pdf-exam-category-select"><option value="unit" selected>Theo Unit</option></select>
-                <select id="pdf-exam-level-select"><option value="basic" selected>Cơ bản</option></select>
-                <select id="pdf-lesson-select"><option value="all" selected>Tất cả</option></select>
-                <span id="infinite-hearts-badge" class="badge">∞ Tim</span>
-                <button id="toggle-infinite-hearts" class="btn-toggle"></button>
-                <div id="eng-speaking-waves" class="speaking-waves"></div>
-                <div id="eng-speaking-transcript" class="speaking-transcript"></div>
-                <svg id="eng-matching-svg-layer" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></svg>
-                <div id="eng-reorder-container" class="reorder-container"></div>
-                <div id="eng-card-detail-modal" class="modal-overlay hidden"></div>
-                <div id="eng-shop-toast" class="toast-notification hidden"></div>
-            </div>
-
         </section>
 
         <!-- MÀN HÌNH 1: LỘ TRÌNH HỌC & HỌC TẬP (SPLIT LAYOUT) -->
@@ -2422,49 +2387,49 @@
 
     <!-- 1. Universal Question Engine & Protection Layer -->
         <!-- Script Scripts -->
-    <script src="js/core/safe-storage.js?v=15.3"></script>
-    <script src="js/core/vietnamese-utils.js?v=15.3"></script>
-    <script src="js/core/sanitize-html.js?v=15.3"></script>
-    <script src="js/core/math-utils.js?v=15.3"></script>
-    <script src="js/core/math-expr-evaluator.js?v=15.3"></script>
-    <script src="js/core/math-practice-evaluator.js?v=15.3"></script>
-    <script src="js/core/math-session-builder.js?v=15.3"></script>
-    <script src="js/core/math-answer-evaluator.js?v=15.3"></script>
-    <script src="js/core/math-question-classifier.js?v=15.3"></script>
-    <script src="js/core/array-utils.js?v=15.3"></script>
-    <script src="js/core/math-template-compiler.js?v=15.3"></script>
-    <script src="js/core/student-exam-markup.js?v=15.3"></script>
-    <script src="js/core/emoji-utils.js?v=15.3"></script>
-    <script src="js/core/url-utils.js?v=15.3"></script>
-    <script src="js/core/string-utils.js?v=15.3"></script>
-    <script src="js/core/grammar-utils.js?v=15.3"></script>
-    <script src="js/core/similarity-utils.js?v=15.3"></script>
-    <script src="js/core/skill-cards-data.js?v=15.3"></script>
-    <script src="js/core/system-badges.js?v=15.3"></script>
-    <script src="js/core/badge-rules-evaluator.js?v=15.3"></script>
-    <script src="js/core/time-utils.js?v=15.3"></script>
-    <script src="js/core/word-image-utils.js?v=15.3"></script>
-    <script src="js/core/confetti-helper.js?v=15.3"></script>
-    <script src="js/core/audio-service.js?v=15.3"></script>
-    <script src="js/core/speech-service.js?v=15.3"></script>
-    <script src="js/core/speech-recognition-service.js?v=15.3"></script>
-    <script src="js/core/theme-service.js?v=15.3"></script>
-    <script src="js/core/splash-quotes.js?v=15.3"></script>
-    <script src="js/core/wake-lock-service.js?v=15.3"></script>
-    <script src="js/core/idle-tracker.js?v=15.3"></script>
-    <script src="js/core/english-grammar-data.js?v=15.3"></script>
-    <script src="js/core/english-skill-evaluator.js?v=15.3"></script>
-    <script src="js/core/english-answer-evaluator.js?v=15.3"></script>
-    <script src="js/core/english-course-data.js?v=15.3"></script>
-    <script src="js/english_data.js?v=15.3"></script>
-    <script src="js/lessons.js?v=15.3"></script>
-    <script src="js/questions-v1.js?v=15.3"></script>
-    <script src="js/questions-v4.js?v=15.3"></script>
-    <script src="js/questions-v3.js?v=15.3"></script>
-    <script src="js/questions-advanced.js?v=15.3"></script>
-    <script src="js/questions-7991.js?v=15.3"></script>
-    <script src="js/game.js?v=15.3"></script>
-    <script src="js/app.js?v=15.3"></script>
+    <script src="js/core/safe-storage.js?v=15.4"></script>
+    <script src="js/core/vietnamese-utils.js?v=15.4"></script>
+    <script src="js/core/sanitize-html.js?v=15.4"></script>
+    <script src="js/core/math-utils.js?v=15.4"></script>
+    <script src="js/core/math-expr-evaluator.js?v=15.4"></script>
+    <script src="js/core/math-practice-evaluator.js?v=15.4"></script>
+    <script src="js/core/math-session-builder.js?v=15.4"></script>
+    <script src="js/core/math-answer-evaluator.js?v=15.4"></script>
+    <script src="js/core/math-question-classifier.js?v=15.4"></script>
+    <script src="js/core/array-utils.js?v=15.4"></script>
+    <script src="js/core/math-template-compiler.js?v=15.4"></script>
+    <script src="js/core/student-exam-markup.js?v=15.4"></script>
+    <script src="js/core/emoji-utils.js?v=15.4"></script>
+    <script src="js/core/url-utils.js?v=15.4"></script>
+    <script src="js/core/string-utils.js?v=15.4"></script>
+    <script src="js/core/grammar-utils.js?v=15.4"></script>
+    <script src="js/core/similarity-utils.js?v=15.4"></script>
+    <script src="js/core/skill-cards-data.js?v=15.4"></script>
+    <script src="js/core/system-badges.js?v=15.4"></script>
+    <script src="js/core/badge-rules-evaluator.js?v=15.4"></script>
+    <script src="js/core/time-utils.js?v=15.4"></script>
+    <script src="js/core/word-image-utils.js?v=15.4"></script>
+    <script src="js/core/confetti-helper.js?v=15.4"></script>
+    <script src="js/core/audio-service.js?v=15.4"></script>
+    <script src="js/core/speech-service.js?v=15.4"></script>
+    <script src="js/core/speech-recognition-service.js?v=15.4"></script>
+    <script src="js/core/theme-service.js?v=15.4"></script>
+    <script src="js/core/splash-quotes.js?v=15.4"></script>
+    <script src="js/core/wake-lock-service.js?v=15.4"></script>
+    <script src="js/core/idle-tracker.js?v=15.4"></script>
+    <script src="js/core/english-grammar-data.js?v=15.4"></script>
+    <script src="js/core/english-skill-evaluator.js?v=15.4"></script>
+    <script src="js/core/english-answer-evaluator.js?v=15.4"></script>
+    <script src="js/core/english-course-data.js?v=15.4"></script>
+    <script src="js/english_data.js?v=15.4"></script>
+    <script src="js/lessons.js?v=15.4"></script>
+    <script src="js/questions-v1.js?v=15.4"></script>
+    <script src="js/questions-v4.js?v=15.4"></script>
+    <script src="js/questions-v3.js?v=15.4"></script>
+    <script src="js/questions-advanced.js?v=15.4"></script>
+    <script src="js/questions-7991.js?v=15.4"></script>
+    <script src="js/game.js?v=15.4"></script>
+    <script src="js/app.js?v=15.4"></script>
     
     <!-- Modal Đánh giá chất lượng học sinh dành cho Phụ huynh -->
     <div id="evaluation-modal" class="modal-overlay hidden" onclick="if(event.target === this) app.closeEvaluationModal()" style="z-index: 2000000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
@@ -2711,9 +2676,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Container phục vụ in đề thi từ trang học sinh -->
-    <div id="student-print-paper"></div>
 
     <!-- Video độc lập tránh lỗi màn hình đen khi xem video fullscreen cho cả Toán và Anh -->
     <div id="global-fullscreen-video-wrapper" class="video-wrapper" style="display:none;"></div>
@@ -3524,7 +3486,7 @@
 
     <!-- Thẻ hiển thị số phiên bản cố định ở góc dưới bên phải -->
     <div class="version-tag-fixed" style="position: fixed; bottom: 8px; right: 8px; z-index: 99999; font-size: 10px; color: var(--text-muted); opacity: 0.65; pointer-events: none; font-family: sans-serif; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">
-        Phiên bản: v15.3 (Cập nhật: 12/09/2026 09:13)
+        Phiên bản: v15.4 (Cập nhật: 12/09/2026 09:46)
     </div>
 
     <!-- OVERLAY CHƠI GAME TỰ DO -->

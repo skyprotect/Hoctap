@@ -25,7 +25,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '15.3';
+export const APP_VERSION = '15.4';
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)
@@ -263,7 +263,7 @@ export async function getLeaderboard(params: { subject?: string; classLevel?: st
 
     try {
         const url = `${FIREBASE_RTDB_URL}leaderboard.json`;
-        const response = await fetch(url);
+        const response = await fetch(url, { signal: AbortSignal.timeout(3000) });
         if (!response.ok) throw new Error(`Firebase RTDB status ${response.status}`);
         const data = await response.json();
         
@@ -282,9 +282,56 @@ export async function getLeaderboard(params: { subject?: string; classLevel?: st
             list.sort((a, b) => (b.englishXp || 0) - (a.englishXp || 0));
         }
 
-        return list;
+        if (list.length > 0) {
+            return list;
+        }
     } catch (err: any) {
-        console.warn("Lỗi đọc Leaderboard từ Firebase RTDB, fallback cache:", err.message);
+        console.warn("Lỗi đọc Leaderboard từ Firebase RTDB, fallback SQLite local:", err.message);
+    }
+
+    // Fallback SQLite local nếu Firebase rỗng hoặc mạng không khả dụng
+    try {
+        const config: any = await dbGetConfig().catch(() => null);
+        const studentsList: any[] = (config && config.students) || SYSTEM_STUDENTS || [];
+        const rows: any[] = await allQuery("SELECT student_id, state_json FROM student_progress").catch(() => []);
+        const progressMap: Record<string, any> = {};
+        for (const row of rows) {
+            if (row && row.student_id && row.state_json) {
+                try {
+                    progressMap[row.student_id] = JSON.parse(row.state_json);
+                } catch (e) {}
+            }
+        }
+
+        let list: any[] = studentsList.map((s: any) => {
+            const prog = progressMap[s.id] || {};
+            const engState = prog.subjects && prog.subjects.english ? prog.subjects.english : prog;
+            return {
+                studentId: s.id,
+                studentName: s.name,
+                classLevel: s.classLevel || "6",
+                mathXp: prog.xp || 0,
+                englishXp: prog.englishXp || engState.englishXp || 0,
+                mathStreak: prog.streak || 0,
+                englishStreak: prog.englishStreak || engState.englishStreak || 0,
+                lastActiveDate: prog.lastActiveDate || "",
+                lastUpdated: new Date().toISOString()
+            };
+        });
+
+        if (classLevel) {
+            list = list.filter(item => String(item.classLevel) === String(classLevel));
+        }
+
+        if (subject === 'math') {
+            list.sort((a, b) => (b.mathXp || 0) - (a.mathXp || 0));
+        } else {
+            list.sort((a, b) => (b.englishXp || 0) - (a.englishXp || 0));
+        }
+
+        return list;
+    } catch (localErr: any) {
+        console.warn("Lỗi fallback SQLite leaderboard:", localErr.message);
         return [];
     }
 }

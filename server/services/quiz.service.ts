@@ -134,6 +134,11 @@ export async function fetchOrGenerateQuestions(params: GetQuestionsParams): Prom
             }
         } catch (fbErr) {}
         
+        if (targetSkill === 'full_exam' || isEnglish) {
+            console.warn(`[QuizService] Gemini error for ${lessonId} (${targetSkill}), returning empty questions for client curriculum fallback.`);
+            return { questions: [] };
+        }
+        
         throw new Error('Lỗi sinh đề AI: ' + err.message);
     }
 }

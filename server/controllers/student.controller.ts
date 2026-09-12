@@ -99,9 +99,9 @@ export async function getLeaderboard(req: Request, res: Response): Promise<void>
     const classLevel = req.query.classLevel as string;
     try {
         const list = await studentService.getLeaderboard({ subject, classLevel });
-        res.json({ success: true, leaderboard: list });
+        res.json({ success: true, data: list, leaderboard: list });
     } catch (err: any) {
-        res.json({ success: true, leaderboard: [] });
+        res.json({ success: true, data: [], leaderboard: [] });
     }
 }
 

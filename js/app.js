@@ -8596,30 +8596,53 @@ const app = {
         }
 
         // 1. Render dữ liệu Toán
-        const mathState = state.subjects ? state.subjects.math : null;
+        const mathState = state.subjects ? state.subjects.math : (state || null);
         if (mathState) {
-            const completedCount = mathState.completedLessons ? Object.keys(mathState.completedLessons).length : 0;
+            let completedCount = 0;
+            if (mathState.completedLessons) {
+                completedCount = Object.keys(mathState.completedLessons).length;
+            } else if (mathState.scores) {
+                completedCount = Object.entries(mathState.scores).filter(([k, v]) => !k.startsWith('eng') && typeof v === 'number' && v >= 50).length;
+            } else if (state.scores) {
+                completedCount = Object.entries(state.scores).filter(([k, v]) => !k.startsWith('eng') && typeof v === 'number' && v >= 50).length;
+            }
             const totalMathLessons = COURSE_DATA.filter(chapter => (chapter.class || "6") === currentClass && (chapter.subject || "math") === "math").reduce((acc, chap) => acc + chap.lessons.length, 0);
             const progressPercent = totalMathLessons > 0 ? Math.round((completedCount / totalMathLessons) * 100) : 0;
             
-            document.getElementById("math-completed-count").innerText = completedCount;
-            document.getElementById("math-total-count").innerText = totalMathLessons;
-            document.getElementById("math-progress-percent").innerText = progressPercent + "%";
-            document.getElementById("math-progress-fill").style.width = progressPercent + "%";
-            document.getElementById("math-towers-count").innerText = state.unlockedTowers ? state.unlockedTowers.length : 1;
+            const mathCompEl = document.getElementById("math-completed-count");
+            if (mathCompEl) mathCompEl.innerText = completedCount;
+            const mathTotEl = document.getElementById("math-total-count");
+            if (mathTotEl) mathTotEl.innerText = totalMathLessons;
+            const mathProgEl = document.getElementById("math-progress-percent");
+            if (mathProgEl) mathProgEl.innerText = progressPercent + "%";
+            const mathFillEl = document.getElementById("math-progress-fill");
+            if (mathFillEl) mathFillEl.style.width = progressPercent + "%";
+            const mathTowEl = document.getElementById("math-towers-count");
+            if (mathTowEl) mathTowEl.innerText = state.unlockedTowers ? state.unlockedTowers.length : 1;
         }
 
         // 2. Render dữ liệu Tiếng Anh
-        const engState = state.subjects ? state.subjects.english : null;
+        const engState = state.subjects ? state.subjects.english : (state.english || state);
         if (engState) {
-            const completedCount = engState.completedLessons ? Object.keys(engState.completedLessons).length : 0;
+            let completedCount = 0;
+            if (engState.completedLessons) {
+                completedCount = Object.keys(engState.completedLessons).length;
+            } else if (engState.scores) {
+                completedCount = Object.entries(engState.scores).filter(([k, v]) => typeof v === 'number' && v >= 50).length;
+            } else if (state.scores) {
+                completedCount = Object.entries(state.scores).filter(([k, v]) => k.startsWith('eng') && typeof v === 'number' && v >= 50).length;
+            }
             const totalEngLessons = COURSE_DATA.filter(chapter => (chapter.class || "6") === currentClass && chapter.subject === "english").reduce((acc, chap) => acc + chap.lessons.length, 0);
             const progressPercent = totalEngLessons > 0 ? Math.round((completedCount / totalEngLessons) * 100) : 0;
 
-            document.getElementById("english-completed-count").innerText = completedCount;
-            document.getElementById("english-total-count").innerText = totalEngLessons;
-            document.getElementById("english-progress-percent").innerText = progressPercent + "%";
-            document.getElementById("english-progress-fill").style.width = progressPercent + "%";
+            const engCompEl = document.getElementById("english-completed-count");
+            if (engCompEl) engCompEl.innerText = completedCount;
+            const engTotEl = document.getElementById("english-total-count");
+            if (engTotEl) engTotEl.innerText = totalEngLessons;
+            const engProgEl = document.getElementById("english-progress-percent");
+            if (engProgEl) engProgEl.innerText = progressPercent + "%";
+            const engFillEl = document.getElementById("english-progress-fill");
+            if (engFillEl) engFillEl.style.width = progressPercent + "%";
 
             // Cập nhật danh sách Quái vật từ vựng (weakVocabulary)
             const ulTargets = document.getElementById("english-targets");
@@ -8669,6 +8692,12 @@ const app = {
                     worstSkill = `${skillLabels[key]} (${minVal}%)`;
                 }
             }
+
+            if (maxVal === minVal) {
+                bestSkill = `Đồng đều (${maxVal}%)`;
+                worstSkill = `Chưa có (Phát triển đều)`;
+            }
+
             const bestEl = document.getElementById("hero-best-skill");
             const worstEl = document.getElementById("hero-worst-skill");
             if (bestEl) bestEl.innerText = bestSkill;
@@ -8735,6 +8764,33 @@ const app = {
     currentEnglishStudentAnswer: null,
     currentEnglishLessonId: null,
     currentEnglishSkill: 'listening', // Kỹ năng mặc định đang học
+    writingChosenBlocks: [],
+
+    getEnglishElement: function(id) {
+        const area = document.getElementById("english-interaction-area") || document.getElementById("english-quiz-content") || document.getElementById("english-quiz-area");
+        if (area && typeof area.querySelector === 'function') {
+            const found = area.querySelector(`#${id}`);
+            if (found) return found;
+        }
+        return document.getElementById(id);
+    },
+
+    setEnglishCheckButtonEnabled: function(enabled) {
+        const checkBtn = this.getEnglishElement("btn-eng-check-answer");
+        if (checkBtn) {
+            if (enabled) {
+                checkBtn.removeAttribute("disabled");
+                checkBtn.classList.remove("disabled");
+                checkBtn.style.opacity = "1";
+                checkBtn.style.cursor = "pointer";
+            } else {
+                checkBtn.setAttribute("disabled", "true");
+                checkBtn.classList.add("disabled");
+                checkBtn.style.opacity = "0.5";
+                checkBtn.style.cursor = "not-allowed";
+            }
+        }
+    },
 
     // Chuyển đổi tab chính Tiếng Anh (Bản đồ, Ôn tập, BXH, Cửa hàng, Hồ sơ)
     
@@ -9507,9 +9563,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 return;
             }
 
-            const micBtn = document.getElementById("eng-mic-btn");
-            const statusText = document.getElementById("eng-mic-status");
-            const resultBox = document.getElementById("eng-speaking-result");
+            const micBtn = this.getEnglishElement("eng-mic-btn");
+            const statusText = this.getEnglishElement("eng-mic-status");
+            const resultBox = this.getEnglishElement("eng-speaking-result");
 
             SpeechRecognitionService.start({
                 lang: 'en-US',
@@ -9554,12 +9610,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         correct: evalResult.correct
                     };
 
-                    const checkBtn = document.getElementById("btn-eng-check-answer");
-                    if (checkBtn) {
-                        checkBtn.removeAttribute("disabled");
-                        checkBtn.classList.remove("disabled");
-                        checkBtn.style.opacity = "1";
-                    }
+                    this.setEnglishCheckButtonEnabled(true);
                 }
             });
             this.recognition = SpeechRecognitionService.getRecognition();
@@ -9578,9 +9629,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         this.recognition.interimResults = false;
         this.recognition.maxAlternatives = 1;
 
-        const micBtn = document.getElementById("eng-mic-btn");
-        const statusText = document.getElementById("eng-mic-status");
-        const resultBox = document.getElementById("eng-speaking-result");
+        const micBtn = this.getEnglishElement("eng-mic-btn");
+        const statusText = this.getEnglishElement("eng-mic-status");
+        const resultBox = this.getEnglishElement("eng-speaking-result");
 
         this.recognition.onstart = () => {
             this.isRecording = true;
@@ -9655,12 +9706,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 correct: isPassing
             };
 
-            const checkBtn = document.getElementById("btn-eng-check-answer");
-            if (checkBtn) {
-                checkBtn.removeAttribute("disabled");
-                checkBtn.classList.remove("disabled");
-                checkBtn.style.opacity = "1";
-            }
+            this.setEnglishCheckButtonEnabled(true);
         };
 
         this.recognition.start();
@@ -9674,14 +9720,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             correct: false,
             skipped: true
         };
-        const statusText = document.getElementById("eng-mic-status");
+        const statusText = this.getEnglishElement("eng-mic-status");
         if (statusText) statusText.innerText = "Đã chọn bỏ qua câu phát âm.";
-        const checkBtn = document.getElementById("btn-eng-check-answer");
-        if (checkBtn) {
-            checkBtn.removeAttribute("disabled");
-            checkBtn.classList.remove("disabled");
-            checkBtn.style.opacity = "1";
-        }
+        this.setEnglishCheckButtonEnabled(true);
     },
 
     stopSpeechRecognition: function() {
@@ -10029,6 +10070,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             window.speechSynthesis.cancel();
         }
         this.currentEnglishStudentAnswer = null;
+        this.writingChosenBlocks = [];
         this.isCheckingEnglishAnswer = false;
         this.isTransitioningEnglishQuestion = false;
 
@@ -10308,25 +10350,16 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         `;
 
         // Kích hoạt lắng nghe thay đổi input tự động
-        const inputFree = document.getElementById("eng-free-writing-input") || document.getElementById("eng-dictation-input");
+        const inputFree = this.getEnglishElement("eng-free-writing-input") || this.getEnglishElement("eng-dictation-input");
         if (inputFree) {
             inputFree.focus();
             inputFree.oninput = (e) => {
-                const checkBtn = document.getElementById("btn-eng-check-answer");
-                if (checkBtn) {
-                    if (e.target.value.trim().length > 0) {
-                        checkBtn.removeAttribute("disabled");
-                        checkBtn.classList.remove("disabled");
-                        checkBtn.style.opacity = "1";
-                    } else {
-                        checkBtn.setAttribute("disabled", "true");
-                        checkBtn.classList.add("disabled");
-                        checkBtn.style.opacity = "0.5";
-                    }
-                }
+                const val = e.target.value.trim();
+                this.currentEnglishStudentAnswer = val.length > 0 ? val : null;
+                this.setEnglishCheckButtonEnabled(val.length > 0);
             };
         } else {
-            const firstOpt = document.getElementById("opt-0");
+            const firstOpt = this.getEnglishElement("opt-0");
             if (firstOpt) {
                 try { firstOpt.focus(); } catch(e) {}
             }
@@ -10339,7 +10372,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const total = safeOptions.length;
         
         for (let i = 0; i < total; i++) {
-            const btn = document.getElementById(`opt-${i}`);
+            const btn = this.getEnglishElement(`opt-${i}`);
             if (btn) {
                 if (i === optIndex) {
                     btn.classList.add("selected");
@@ -10352,26 +10385,19 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
 
         this.currentEnglishStudentAnswer = optIndex;
-
-        const checkBtn = document.getElementById("btn-eng-check-answer");
-        if (checkBtn) {
-            checkBtn.removeAttribute("disabled");
-            checkBtn.classList.remove("disabled");
-            checkBtn.style.opacity = "1";
-        }
+        this.setEnglishCheckButtonEnabled(true);
     },
 
     handleDragBlockClick: function(blockId, word, qType) {
-        const block = document.getElementById(`drag-block-${blockId}`);
+        const block = this.getEnglishElement(`drag-block-${blockId}`);
         if (!block) return;
-
-        const checkBtn = document.getElementById("btn-eng-check-answer");
         
         if (qType === "reading_cloze") {
-            const clozeContainer = document.getElementById("cloze-passage-display");
+            const clozeContainer = this.getEnglishElement("cloze-passage-display");
             const slots = clozeContainer ? clozeContainer.querySelectorAll(".cloze-slot") : [];
-            
-            if (block.parentNode && block.parentNode.id === "english-drag-pool") {
+            const dragPool = this.getEnglishElement("english-drag-pool");
+
+            if (block.parentNode && (block.parentNode.id === "english-drag-pool" || block.parentNode === dragPool)) {
                 // Điền vào slot trống đầu tiên
                 for (let slot of slots) {
                     if (slot.innerHTML === "&nbsp;" || slot.innerText.trim() === "") {
@@ -10390,7 +10416,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 slot.onclick = () => {
                     const bId = slot.getAttribute("data-block-id");
                     if (bId !== null) {
-                        const targetBlock = document.getElementById(`drag-block-${bId}`);
+                        const targetBlock = this.getEnglishElement(`drag-block-${bId}`);
                         if (targetBlock) {
                             targetBlock.style.opacity = "1";
                             targetBlock.style.pointerEvents = "auto";
@@ -10398,73 +10424,51 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         slot.innerHTML = "&nbsp;";
                         slot.removeAttribute("data-block-id");
                         
-                        // Cập nhật nút kiểm tra
-                        let filledCount = 0;
-                        slots.forEach(s => { if (s.innerText.trim().length > 0) filledCount++; });
-                        if (checkBtn) {
-                            if (filledCount > 0) {
-                                checkBtn.removeAttribute("disabled");
-                                checkBtn.classList.remove("disabled");
-                                checkBtn.style.opacity = "1";
-                            } else {
-                                checkBtn.setAttribute("disabled", "true");
-                                checkBtn.classList.add("disabled");
-                                checkBtn.style.opacity = "0.5";
-                            }
-                        }
+                        // Cập nhật trạng thái và nút kiểm tra
+                        const filledSlots = Array.from(slots).map(s => s.innerText.trim()).filter(t => t.length > 0);
+                        this.currentEnglishStudentAnswer = Array.from(slots).map(s => s.innerText.trim());
+                        this.setEnglishCheckButtonEnabled(filledSlots.length > 0);
                     }
                 };
             });
 
             // Kiểm tra xem đã điền từ nào chưa
-            let filledCount = 0;
-            slots.forEach(s => { if (s.innerText.trim().length > 0) filledCount++; });
-            if (checkBtn) {
-                if (filledCount > 0) {
-                    checkBtn.removeAttribute("disabled");
-                    checkBtn.classList.remove("disabled");
-                    checkBtn.style.opacity = "1";
-                } else {
-                    checkBtn.setAttribute("disabled", "true");
-                    checkBtn.classList.add("disabled");
-                    checkBtn.style.opacity = "0.5";
-                }
-            }
+            const filledSlots = Array.from(slots).map(s => s.innerText.trim()).filter(t => t.length > 0);
+            this.currentEnglishStudentAnswer = Array.from(slots).map(s => s.innerText.trim());
+            this.setEnglishCheckButtonEnabled(filledSlots.length > 0);
         } else {
-            // Sắp xếp câu xáo trộn
-            const slotsPool = document.getElementById("english-slots-pool");
-            const dragPool = document.getElementById("english-drag-pool");
+            // Sắp xếp câu xáo trộn (Writing Unscramble / Word pool)
+            const slotsPool = this.getEnglishElement("english-slots-pool");
+            const dragPool = this.getEnglishElement("english-drag-pool");
 
-            if (block.parentNode && block.parentNode.id === "english-drag-pool") {
-                if (slotsPool) slotsPool.appendChild(block);
-            } else {
-                if (dragPool) dragPool.appendChild(block);
+            if (!this.writingChosenBlocks) {
+                this.writingChosenBlocks = [];
             }
 
-            if (checkBtn && slotsPool) {
-                const chosenCount = slotsPool.children.length;
-                if (chosenCount > 0) {
-                    checkBtn.removeAttribute("disabled");
-                    checkBtn.classList.remove("disabled");
-                    checkBtn.style.opacity = "1";
-                } else {
-                    checkBtn.setAttribute("disabled", "true");
-                    checkBtn.classList.add("disabled");
-                    checkBtn.style.opacity = "0.5";
+            if (block.parentNode && (block.parentNode.id === "english-drag-pool" || block.parentNode === dragPool)) {
+                // Chuyển từ pool nguồn sang slots pool
+                if (slotsPool) {
+                    slotsPool.appendChild(block);
+                    this.writingChosenBlocks.push({ id: blockId, word: word });
+                }
+            } else {
+                // Chuyển từ slots pool ngược lại drag pool (undo)
+                if (dragPool) {
+                    dragPool.appendChild(block);
+                    this.writingChosenBlocks = this.writingChosenBlocks.filter(b => b.id !== blockId);
                 }
             }
+
+            const chosenWords = this.writingChosenBlocks.map(b => b.word);
+            this.currentEnglishStudentAnswer = chosenWords.length > 0 ? chosenWords : null;
+            this.setEnglishCheckButtonEnabled(chosenWords.length > 0);
         }
     },
 
     checkEnglishAnswer: function() {
-        if (this.isCheckingEnglishAnswer) return;
+        if (this.isCheckingEnglishAnswer || this.currentEnglishStudentAnswer === null) return;
         this.isCheckingEnglishAnswer = true;
-
-        const checkBtn = document.getElementById("btn-eng-check-answer");
-        if (checkBtn) {
-            checkBtn.setAttribute("disabled", "true");
-            checkBtn.classList.add("disabled");
-        }
+        this.setEnglishCheckButtonEnabled(false);
 
         if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
             SpeechService.stopSpeech();
@@ -10482,26 +10486,28 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
         let studentInput = null;
         if (qType === "listening" && (!q.options || q.options.length === 0)) {
-            const el = document.getElementById("eng-dictation-input");
-            studentInput = el ? el.value : "";
+            const el = this.getEnglishElement("eng-dictation-input");
+            studentInput = el ? el.value.trim() : (this.currentEnglishStudentAnswer || "");
         } else if (qType === "speaking" || qType === "speaking_roleplay") {
             studentInput = this.currentEnglishStudentAnswer;
         } else if (qType === "reading_cloze") {
-            const clozeContainer = document.getElementById("cloze-passage-display");
+            const clozeContainer = this.getEnglishElement("cloze-passage-display");
             const slots = clozeContainer ? clozeContainer.querySelectorAll(".cloze-slot") : [];
-            studentInput = Array.from(slots).map(s => s.innerText);
+            studentInput = slots.length > 0 ? Array.from(slots).map(s => s.innerText.trim()) : (this.currentEnglishStudentAnswer || []);
         } else if (qType === "writing" || qType === "writing_unscramble") {
             const hasWordPool = (q.wordPool && q.wordPool.length > 0) || q.scrambledLetters;
             if (hasWordPool) {
-                const slotsPool = document.getElementById("english-slots-pool");
-                studentInput = slotsPool ? Array.from(slotsPool.children).map(node => node.innerText) : [];
+                const slotsPool = this.getEnglishElement("english-slots-pool");
+                studentInput = slotsPool && slotsPool.children.length > 0
+                    ? Array.from(slotsPool.children).map(node => node.innerText.trim())
+                    : (Array.isArray(this.currentEnglishStudentAnswer) ? this.currentEnglishStudentAnswer : []);
             } else {
-                const el = document.getElementById("eng-free-writing-input");
-                studentInput = el ? el.value : "";
+                const el = this.getEnglishElement("eng-free-writing-input");
+                studentInput = el ? el.value.trim() : (this.currentEnglishStudentAnswer || "");
             }
         } else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
-            const el = document.getElementById("eng-free-writing-input");
-            studentInput = el ? el.value : "";
+            const el = this.getEnglishElement("eng-free-writing-input");
+            studentInput = el ? el.value.trim() : (this.currentEnglishStudentAnswer || "");
         } else {
             studentInput = this.currentEnglishStudentAnswer;
         }
@@ -11101,19 +11107,23 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             .then(resData => {
                 if (loadingDiv) loadingDiv.classList.add("hidden");
                 
-                if (!resData.success || !resData.data || resData.data.length === 0) {
-                    if (emptyDiv) emptyDiv.classList.remove("hidden");
-                    return;
-                }
+                const list = (resData && (resData.data || resData.leaderboard)) || [];
 
                 if (syncTimeSpan) {
                     const now = new Date();
                     const timeStr = now.toTimeString().split(' ')[0];
-                    syncTimeSpan.innerText = `Đồng bộ: ${timeStr} (${resData.source === 'cloud' ? 'Trực tuyến' : 'Ngoại tuyến'})`;
+                    syncTimeSpan.innerText = `Đồng bộ: ${timeStr} (${resData && resData.source === 'cloud' ? 'Trực tuyến' : 'Ngoại tuyến'})`;
                 }
 
+                if (!resData || !resData.success || list.length === 0) {
+                    if (emptyDiv) emptyDiv.classList.remove("hidden");
+                    return;
+                }
+
+                if (tableWrapper) tableWrapper.classList.remove("hidden");
+
                 if (tbody) {
-                    tbody.innerHTML = resData.data.map((row, i) => {
+                    tbody.innerHTML = list.map((row, i) => {
                         const isSelf = row.studentId === selfId;
                         const rankClass = isSelf ? 'class="self-rank-row"' : '';
                         
@@ -12730,8 +12740,14 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             didOpen: () => { Swal.showLoading(); }
         });
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
         try {
-            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=${classLevel}&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`));
+            const response = await fetch(this.getApiUrl(`/api/get-questions?subject=english&classLevel=${classLevel}&category=${category}&level=${level}&grammars=${selectedGrammars.join(',')}&detail=${detail}&lessonId=${detail || category || 'eng6-full'}&skill=full_exam`), {
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
             let data = null;
             if (response.ok) {
                 data = await response.json();
@@ -12782,6 +12798,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
             this.renderIoeQuestion();
         } catch (err) {
+            clearTimeout(timeoutId);
             Swal.close();
             console.error("Lỗi khởi tạo đề thi:", err);
             let fallbackQuestions = [];
