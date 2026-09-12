@@ -916,31 +916,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Boy",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Boy"
+                            "answer": "Boy",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a boy"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A boy and a bus",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A boy and a bus"
+                            "answer": "A boy and a bus",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a boy and a bus."
                         }
                     ]
                 }
@@ -991,31 +1000,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Lake",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Lake"
+                            "answer": "Lake",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a lake"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A lake and a leaf",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A lake and a leaf"
+                            "answer": "A lake and a leaf",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a lake and a leaf."
                         }
                     ]
                 }
@@ -1066,31 +1084,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Banana",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Banana"
+                            "answer": "Banana",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a banana"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A banana and a canteen",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A banana and a canteen"
+                            "answer": "A banana and a canteen",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a banana and a canteen."
                         }
                     ]
                 }
@@ -1149,31 +1176,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Teddy bear",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Teddy bear"
+                            "answer": "Teddy bear",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a teddy bear"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A teddy bear and a tiger",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A teddy bear and a tiger"
+                            "answer": "A teddy bear and a tiger",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a teddy bear and a tiger."
                         }
                     ]
                 }
@@ -1232,31 +1268,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Face",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Face"
+                            "answer": "Face",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a face"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A face and a father",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A face and a father"
+                            "answer": "A face and a father",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a face and a father."
                         }
                     ]
                 }
@@ -1307,31 +1352,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Home",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Home"
+                            "answer": "Home",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a home"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A home and a wash",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A home and a wash"
+                            "answer": "A home and a wash",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a home and a wash."
                         }
                     ]
                 }
@@ -1390,31 +1444,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Lion",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Lion"
+                            "answer": "Lion",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a lion"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A lion and a elephant",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A lion and a elephant"
+                            "answer": "A lion and a elephant",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a lion and a elephant."
                         }
                     ]
                 }
@@ -1473,31 +1536,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Sunny",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Sunny"
+                            "answer": "Sunny",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a sunny"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A sunny and a rainy",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A sunny and a rainy"
+                            "answer": "A sunny and a rainy",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a sunny and a rainy."
                         }
                     ]
                 }
@@ -1556,31 +1628,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Teacher",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Teacher"
+                            "answer": "Teacher",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a teacher"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A teacher and a doctor",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A teacher and a doctor"
+                            "answer": "A teacher and a doctor",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a teacher and a doctor."
                         }
                     ]
                 }
@@ -1639,31 +1720,40 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the first word?",
+                            "question": "What is the first word we learn?",
                             "options": [
                                 "Plane",
                                 "Apple",
                                 "Pen"
                             ],
-                            "answer": "Plane"
+                            "answer": "Plane",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a plane"
                         },
                         {
-                            "question": "Is it fun?",
+                            "question": "Is our lesson fun and happy?",
                             "options": [
                                 "Yes, it is",
                                 "No, it isn't",
                                 "Not mentioned"
                             ],
-                            "answer": "Yes, it is"
+                            "answer": "Yes, it is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "It is fun and happy!"
                         },
                         {
-                            "question": "What do we have?",
+                            "question": "What do we have in our lesson?",
                             "options": [
                                 "A plane and a train",
                                 "A dog",
                                 "A cat"
                             ],
-                            "answer": "A plane and a train"
+                            "answer": "A plane and a train",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a plane and a train."
                         }
                     ]
                 }
@@ -2470,7 +2560,10 @@ const ENGLISH_COURSE_DATA = {
                                 "On the second floor",
                                 "In the gym"
                             ],
-                            "answer": "On the second floor"
+                            "answer": "On the second floor",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "My classroom is on the second floor."
                         },
                         {
                             "question": "Where is the library?",
@@ -2479,7 +2572,10 @@ const ENGLISH_COURSE_DATA = {
                                 "In the computer room",
                                 "On the playground"
                             ],
-                            "answer": "Next to the classroom"
+                            "answer": "Next to the classroom",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We have a library next to the classroom."
                         },
                         {
                             "question": "Is there a computer room?",
@@ -2488,7 +2584,10 @@ const ENGLISH_COURSE_DATA = {
                                 "No, there isn't",
                                 "We do not know"
                             ],
-                            "answer": "Yes, there is"
+                            "answer": "Yes, there is",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "There is a large playground and a modern computer room."
                         }
                     ]
                 },
@@ -3377,7 +3476,10 @@ const ENGLISH_COURSE_DATA = {
                                 "Tall and strong",
                                 "Short and old"
                             ],
-                            "answer": "Tall and strong"
+                            "answer": "Tall and strong",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "My father is tall and strong."
                         },
                         {
                             "question": "Who is taller than the writer?",
@@ -3386,7 +3488,10 @@ const ENGLISH_COURSE_DATA = {
                                 "The mother",
                                 "The brother"
                             ],
-                            "answer": "The brother"
+                            "answer": "The brother",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "He is taller than me, but I am slimmer than him."
                         },
                         {
                             "question": "Who is slimmer?",
@@ -3395,7 +3500,10 @@ const ENGLISH_COURSE_DATA = {
                                 "The writer",
                                 "The father"
                             ],
-                            "answer": "The writer"
+                            "answer": "The writer",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "INFERENTIAL",
+                            "evidence": "He is taller than me, but I am slimmer than him."
                         }
                     ]
                 },
@@ -4558,31 +4666,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "What day is it today?",
                             "options": [
-                                "Unit 1: My New School",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Monday",
+                                "Friday",
+                                "Sunday",
+                                "Saturday"
                             ],
-                            "answer": "Unit 1: My New School"
+                            "answer": "Monday",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Today is Monday, my first day at my new school."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "What is the teacher doing on the board?",
                             "options": [
-                                "activity",
-                                "helicopter",
-                                "spaceship"
+                                "Drawing a map",
+                                "Writing a poem",
+                                "Solving a math problem",
+                                "Cleaning the board"
                             ],
-                            "answer": "activity"
+                            "answer": "Drawing a map",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "My teacher is drawing a map on the board."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What are the students wearing?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "New school uniforms",
+                                "Sports clothes",
+                                "Warm coats",
+                                "Raincoats"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "New school uniforms",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We are wearing our new school uniforms."
                         }
                     ]
                 }
@@ -4791,31 +4911,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "How many rooms does the writer's house have?",
                             "options": [
-                                "Unit 2: My House",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Four rooms",
+                                "Two rooms",
+                                "Three rooms",
+                                "Five rooms"
                             ],
-                            "answer": "Unit 2: My House"
+                            "answer": "Four rooms",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "It has four rooms."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "Where is the big white fridge located?",
                             "options": [
-                                "between",
-                                "helicopter",
-                                "spaceship"
+                                "Next to the window",
+                                "Next to the bed",
+                                "Inside the wardrobe",
+                                "In the living room"
                             ],
-                            "answer": "between"
+                            "answer": "Next to the window",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "In the kitchen, there is a big white fridge next to the window."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What is placed next to the writer's bed?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "A study desk",
+                                "A big white fridge",
+                                "A clothes wardrobe",
+                                "A dining table"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "A study desk",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "My bedroom is small, but it has a nice study desk next to my bed."
                         }
                     ]
                 }
@@ -5016,31 +5148,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "What does Nam look like?",
                             "options": [
-                                "Unit 3: My Friends",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "He is tall and thin with short black hair",
+                                "He is short and heavy with brown hair",
+                                "He has long black hair and green eyes",
+                                "He is short and thin"
                             ],
-                            "answer": "Unit 3: My Friends"
+                            "answer": "He is tall and thin with short black hair",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "He is tall and thin. He has short black hair and big brown eyes."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "How does Nam help the writer?",
                             "options": [
-                                "active",
-                                "helicopter",
-                                "spaceship"
+                                "He helps with homework",
+                                "He cleans the room",
+                                "He cooks dinner",
+                                "He carries the bag"
                             ],
-                            "answer": "active"
+                            "answer": "He helps with homework",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "He always helps me with my homework."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "Why is Nam considered creative?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "He loves making paper models",
+                                "He plays football well",
+                                "He sings very well",
+                                "He runs fast"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "He loves making paper models",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "He is also a creative boy; he loves making paper models."
                         }
                     ]
                 }
@@ -5233,31 +5377,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "Where does the writer live?",
                             "options": [
-                                "Unit 4: My Neighbourhood",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "In a peaceful suburb of Hanoi",
+                                "In the noisy city center",
+                                "Near a crowded supermarket",
+                                "In an apartment in Da Nang"
                             ],
-                            "answer": "Unit 4: My Neighbourhood"
+                            "answer": "In a peaceful suburb of Hanoi",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "I live in a peaceful suburb of Hanoi."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "How is the writer's neighbourhood compared to the city center?",
                             "options": [
-                                "art gallery",
-                                "helicopter",
-                                "spaceship"
+                                "It is much quieter",
+                                "It is much noisier",
+                                "It is more crowded",
+                                "It is very busy"
                             ],
-                            "answer": "art gallery"
+                            "answer": "It is much quieter",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "My neighbourhood is much quieter than the city center."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What facility is NOT available in the neighbourhood?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Big supermarkets",
+                                "A historic temple",
+                                "A large park",
+                                "Fresh trees"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Big supermarkets",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "...but there are no big supermarkets."
                         }
                     ]
                 }
@@ -5458,31 +5614,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "What is Fansipan according to the text?",
                             "options": [
-                                "Unit 5: Natural Wonders of the World",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "The highest mountain in the country",
+                                "The longest river in Vietnam",
+                                "A large cave in Ha Long",
+                                "A historic building"
                             ],
-                            "answer": "Unit 5: Natural Wonders of the World"
+                            "answer": "The highest mountain in the country",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Fansipan is the highest mountain in the country."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "What can visitors see in Ha Long Bay?",
                             "options": [
-                                "amazing",
-                                "helicopter",
-                                "spaceship"
+                                "Beautiful islands and caves",
+                                "High snow mountains",
+                                "Busy city streets",
+                                "Desert sand dunes"
                             ],
-                            "answer": "amazing"
+                            "answer": "Beautiful islands and caves",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Ha Long Bay has beautiful islands and caves."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What must travellers bring when visiting Ha Long Bay?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "A camera",
+                                "A heavy tent",
+                                "A calculator",
+                                "A compass"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "A camera",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "If you travel there, you must bring a camera to take photos of the wonderful views."
                         }
                     ]
                 }
@@ -5675,31 +5843,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "What do people do before Tet?",
                             "options": [
-                                "Unit 6: Our Tet Holiday",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Clean and decorate their houses",
+                                "Go to school early",
+                                "Travel abroad",
+                                "Buy textbooks"
                             ],
-                            "answer": "Unit 6: Our Tet Holiday"
+                            "answer": "Clean and decorate their houses",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Before Tet, people clean and decorate their houses."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "What do children usually receive during Tet?",
                             "options": [
-                                "behave",
-                                "helicopter",
-                                "spaceship"
+                                "Lucky money in red envelopes",
+                                "School uniforms",
+                                "New backpacks",
+                                "Paper models"
                             ],
-                            "answer": "behave"
+                            "answer": "Lucky money in red envelopes",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Children usually receive lucky money in red envelopes."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What should people make to everyone at Tet?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Good wishes",
+                                "Loud noises",
+                                "Difficult tests",
+                                "New schedules"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Good wishes",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We should make good wishes to everyone."
                         }
                     ]
                 }
@@ -5908,31 +6088,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "Which channel provides many educational programmes?",
                             "options": [
-                                "Unit 7: Television",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "VTV7",
+                                "Sports News",
+                                "Movie Channel",
+                                "Music Box"
                             ],
-                            "answer": "Unit 7: Television"
+                            "answer": "VTV7",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "VTV7 has many educational programmes."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "When does the writer watch VTV7?",
                             "options": [
-                                "animated (film)",
-                                "helicopter",
-                                "spaceship"
+                                "Every evening",
+                                "Every morning",
+                                "Only at weekends",
+                                "Late at night"
                             ],
-                            "answer": "animated (film)"
+                            "answer": "Every evening",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "I watch it every evening because it helps me learn new things."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "Why does the writer like watching VTV7?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Because it helps him learn new things",
+                                "Because it is very funny",
+                                "Because there are no commercials",
+                                "Because his friends ask him to"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Because it helps him learn new things",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "...because it helps me learn new things."
                         }
                     ]
                 }
@@ -6141,31 +6333,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "When was the sports event held?",
                             "options": [
-                                "Unit 8: Sports and Games",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Last Saturday",
+                                "Last Sunday",
+                                "Yesterday morning",
+                                "Next Monday"
                             ],
-                            "answer": "Unit 8: Sports and Games"
+                            "answer": "Last Saturday",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Last Saturday, my school held a big sports event."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "Which match did the writer's team win?",
                             "options": [
-                                "aerobics",
-                                "helicopter",
-                                "spaceship"
+                                "The badminton match",
+                                "The table tennis match",
+                                "The football match",
+                                "The chess match"
                             ],
-                            "answer": "aerobics"
+                            "answer": "The badminton match",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Our team won the badminton match and became the school champion."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "How did they feel after the competition?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Proud and tired",
+                                "Sad and angry",
+                                "Bored and sleepy",
+                                "Relaxed and quiet"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Proud and tired",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "We felt very proud and tired after running so much."
                         }
                     ]
                 }
@@ -6382,31 +6586,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "Which Vietnamese cities has the writer visited?",
                             "options": [
-                                "Unit 9: Cities of the World",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Hue and Hanoi",
+                                "Da Nang and Nha Trang",
+                                "Can Tho and Hai Phong",
+                                "Sa Pa and Ha Long"
                             ],
-                            "answer": "Unit 9: Cities of the World"
+                            "answer": "Hue and Hanoi",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "I have travelled to many historic cities in Vietnam, like Hue and Hanoi."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "What is the writer's dream city to visit?",
                             "options": [
-                                "(river) bank",
-                                "helicopter",
-                                "spaceship"
+                                "Tokyo",
+                                "London",
+                                "Paris",
+                                "New York"
                             ],
-                            "answer": "(river) bank"
+                            "answer": "Tokyo",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "My dream is to visit Tokyo."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What does the writer want to see in Tokyo?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Modern landmarks and bullet trains",
+                                "Ancient pyramids",
+                                "Quiet small villages",
+                                "Wild animals"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Modern landmarks and bullet trains",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "I want to see its modern landmarks and bullet trains."
                         }
                     ]
                 }
@@ -6623,31 +6839,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "Where will the writer's future house be located?",
                             "options": [
-                                "Unit 10: Our Houses in the Future",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "On the moon",
+                                "Under the ocean",
+                                "On a high mountain",
+                                "In a green forest"
                             ],
-                            "answer": "Unit 10: Our Houses in the Future"
+                            "answer": "On the moon",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "In the future, I will live in a modern smart house on the moon."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "What will the future house have to generate energy?",
                             "options": [
-                                "appliance",
-                                "helicopter",
-                                "spaceship"
+                                "Solar energy panels",
+                                "Coal generators",
+                                "Gas engines",
+                                "Windmills only"
                             ],
-                            "answer": "appliance"
+                            "answer": "Solar energy panels",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "It will have solar energy panels."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What will robot helpers do in the house?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Clean floors, cook meals, and wash clothes",
+                                "Fly around the moon",
+                                "Drive racing cars",
+                                "Build other houses"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Clean floors, cook meals, and wash clothes",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "There might be some robot helpers to clean the floors, cook meals, and wash clothes."
                         }
                     ]
                 }
@@ -6852,31 +7080,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "Why is our environment in danger?",
                             "options": [
-                                "Unit 11: Our Greener World",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Because of rubbish",
+                                "Because of cold weather",
+                                "Because of high mountains",
+                                "Because of green trees"
                             ],
-                            "answer": "Unit 11: Our Greener World"
+                            "answer": "Because of rubbish",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Our environment is in danger because of rubbish."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "How can we make our city cleaner?",
                             "options": [
-                                "be in need",
-                                "helicopter",
-                                "spaceship"
+                                "Reduce plastic use and reuse bags",
+                                "Cut down more trees",
+                                "Throw away plastic bags",
+                                "Burn more paper"
                             ],
-                            "answer": "be in need"
+                            "answer": "Reduce plastic use and reuse bags",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "If we reduce plastic use and reuse bags, we will make our city cleaner."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What is a good way to protect forests?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Recycling paper",
+                                "Using more wooden furniture",
+                                "Burning dry leaves",
+                                "Building big factories"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Recycling paper",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Recycling paper is also a good way to protect forests."
                         }
                     ]
                 }
@@ -7085,31 +7325,43 @@ const ENGLISH_COURSE_DATA = {
                 "questions": {
                     "reading": [
                         {
-                            "question": "What is the main topic of the passage?",
+                            "question": "What chores can house robots do in the future?",
                             "options": [
-                                "Unit 12: Robots",
-                                "Playing sports",
-                                "Travelling around the world"
+                                "Washing dishes and making bed",
+                                "Driving planes and trains",
+                                "Repairing computers",
+                                "Designing bridges"
                             ],
-                            "answer": "Unit 12: Robots"
+                            "answer": "Washing dishes and making bed",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "...house robots will be able to do chores like washing dishes and making bed."
                         },
                         {
-                            "question": "Which word is mentioned in the reading passage?",
+                            "question": "How will teacher robots help children?",
                             "options": [
-                                "age",
-                                "helicopter",
-                                "spaceship"
+                                "Help children learn languages",
+                                "Do all their homework",
+                                "Drive them to school",
+                                "Cook lunch for them"
                             ],
-                            "answer": "age"
+                            "answer": "Help children learn languages",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "Teacher robots will help children learn languages..."
                         },
                         {
-                            "question": "How does the writer feel about the topic?",
+                            "question": "What is the main role of doctor robots?",
                             "options": [
-                                "Excited and happy",
-                                "Bored and tired",
-                                "Sad"
+                                "Take care of patients",
+                                "Teach school subjects",
+                                "Clean hospital floors",
+                                "Build medical centers"
                             ],
-                            "answer": "Excited and happy"
+                            "answer": "Take care of patients",
+                            "questionType": "READING_DETAIL",
+                            "evidenceType": "EXPLICIT",
+                            "evidence": "...and doctor robots will take care of patients."
                         }
                     ]
                 }

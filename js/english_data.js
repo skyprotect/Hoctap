@@ -246,17 +246,31 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
         });
 
         // DẠNG 5: Nghe hiểu đoạn văn / hội thoại (Listening Comprehension)
-        if (topic.questions && topic.questions.reading && topic.questions.reading.length > 0) {
-            topic.questions.reading.forEach(rq => {
+        const listeningSource = (topic.questions && topic.questions.listening && topic.questions.listening.length > 0)
+            ? topic.questions.listening
+            : ((topic.questions && topic.questions.reading) || []);
+
+        if (listeningSource.length > 0) {
+            listeningSource.forEach(rq => {
+                // Tách biệt thuật ngữ kỹ năng: chuyển đổi "reading passage" thành "audio passage / listening passage"
+                const cleanedQuestion = (rq.question || '')
+                    .replace(/in the reading passage\??/gi, "in the listening passage?")
+                    .replace(/reading passage/gi, "audio passage");
+
+                const evidenceInfo = rq.evidence ? `<br/><b>Dẫn chứng trong bài nghe:</b> <i>"${rq.evidence}"</i>` : '';
+
                 questions.push({
                     type: "listening_passage",
                     category: "listening",
-                    questionText: `Listen to the passage and choose the correct answer: (Nghe đoạn văn/hội thoại và chọn câu trả lời đúng)<br/><br/><b>Question: ${rq.question}</b>`,
+                    questionText: `Listen to the passage and choose the correct answer: (Nghe đoạn văn/hội thoại và chọn câu trả lời đúng)<br/><br/><b>Question: ${cleanedQuestion}</b>`,
                     listeningText: topic.readingPassage,
                     correctAnswer: rq.answer,
                     options: rq.options,
                     passageTitle: topic.readingPassageTitle,
-                    solutionHtml: `<b>Đoạn văn/Cuộc hội thoại nghe được:</b><br/><i>"${topic.readingPassage}"</i><br/><br/>Đáp án đúng là: <b>${rq.answer}</b>.`
+                    questionType: (rq.questionType && rq.questionType.replace('READING_', 'LISTENING_')) || "LISTENING_DETAIL",
+                    evidenceType: rq.evidenceType || "EXPLICIT",
+                    evidence: rq.evidence || "",
+                    solutionHtml: `<b>Đoạn văn/Cuộc hội thoại nghe được:</b><br/><i>"${topic.readingPassage}"</i><br/><br/>Đáp án đúng là: <b>${rq.answer}</b>.${evidenceInfo}`
                 });
             });
         }
@@ -383,6 +397,7 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
         // DẠNG 3: Đọc hiểu đoạn văn trả lời câu hỏi (3 câu lấy từ cấu hình bài học)
         if (topic.questions && topic.questions.reading && topic.questions.reading.length > 0) {
             topic.questions.reading.forEach(rq => {
+                const evidenceInfo = rq.evidence ? `<br/><b>Dẫn chứng trong bài đọc:</b> <i>"${rq.evidence}"</i>` : '';
                 questions.push({
                     type: "reading_passage",
                     category: "reading",
@@ -391,7 +406,10 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
                     correctAnswer: rq.answer,
                     options: rq.options,
                     vocabList: vocabList,
-                    solutionHtml: `Dựa vào đoạn văn <b>"${topic.readingPassageTitle}"</b>, đáp án đúng là: <b>${rq.answer}</b>.`
+                    questionType: rq.questionType || "READING_DETAIL",
+                    evidenceType: rq.evidenceType || "EXPLICIT",
+                    evidence: rq.evidence || "",
+                    solutionHtml: `Dựa vào đoạn văn <b>"${topic.readingPassageTitle || topic.title}"</b>, đáp án đúng là: <b>${rq.answer}</b>.${evidenceInfo}`
                 });
             });
         } else {

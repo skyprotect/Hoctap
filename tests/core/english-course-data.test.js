@@ -17,7 +17,7 @@ const crypto = require('crypto');
 const englishCourseDataModule = require('../../js/core/english-course-data.js');
 const englishDataModule = require('../../js/english_data.js');
 
-const CANONICAL_BASELINE_HASH = '6685330955f6ad92c022d0ff8bf3061d21fd93b4e7f4b4732e8215fc6bf7e645';
+const CANONICAL_BASELINE_HASH = 'acec1d4c5a5da9621212654738d29f2d75cfbca170e453b08592a233a27f598d';
 
 describe('English Course Data Boundary (js/core/english-course-data.js)', () => {
     
