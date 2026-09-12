@@ -1,10 +1,10 @@
 /**
- * HOCTAP PWA SERVICE WORKER (v15.14)
+ * HOCTAP PWA SERVICE WORKER (v15.15)
  * Network-First cho Local-First / Kiosk Server (luôn lấy mã nguồn mới nhất từ disk)
  * Tự động Fallback về Cache khi hoàn toàn mất kết nối mạng.
  */
 
-const CACHE_VERSION = 'v15.14';
+const CACHE_VERSION = 'v15.15';
 const CACHE_NAME = `hoctap-cache-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [

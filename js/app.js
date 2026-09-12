@@ -1980,13 +1980,38 @@ const app = {
             console.log("  - Đã đẩy cấu hình config");
         }
 
-        // 2. Di trú student_progress
+        // 2. Di trú student_progress & dọn dẹp document test trên Firestore
         if (studentProgress && studentProgress.length > 0) {
             const configObj = config ? JSON.parse(config) : null;
             const studentsList = (configObj && configObj.students) || [];
+            const ALLOWED_STUDENT_IDS = new Set(['std_htsj4gbmo', 'std_baongoc', 'std_tyc0gfnkz', 'std_f8g31p4yl']);
+            studentsList.forEach(std => { if (std && std.id) ALLOWED_STUDENT_IDS.add(std.id); });
+
+            // Tự động dọn dẹp các document test rác trên Cloud Firestore collection 'students'
+            try {
+                const snap = await db.collection('students').get();
+                let delCount = 0;
+                const batch = db.batch();
+                snap.forEach(doc => {
+                    if (!ALLOWED_STUDENT_IDS.has(doc.id)) {
+                        batch.delete(doc.ref);
+                        delCount++;
+                    }
+                });
+                if (delCount > 0) {
+                    await batch.commit();
+                    console.log(`🧹 [Firestore Clean] Đã dọn dẹp ${delCount} document test rác trên Firestore 'students'.`);
+                }
+            } catch (cleanErr) {
+                console.warn("⚠️ [Firestore Clean] Cảnh báo dọn dẹp Firestore:", cleanErr.message);
+            }
             
             for (const s of studentProgress) {
                 try {
+                    // Chặn tuyệt đối không đẩy các student_id rác / test lên Firestore
+                    if (!ALLOWED_STUDENT_IDS.has(s.student_id)) {
+                        continue;
+                    }
                     const state = JSON.parse(s.state_json);
                     const studentConf = studentsList.find(std => std.id === s.student_id);
                     const name = studentConf ? studentConf.name : (state.student || "Học sinh");
