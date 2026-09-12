@@ -47,11 +47,28 @@
     async function init(containerId = 'passive-listening-player-container') {
         state.containerId = containerId;
         const service = (typeof window !== 'undefined' && window.PassiveListeningService) || (typeof PassiveListeningService !== 'undefined' ? PassiveListeningService : null);
-        if (service && service.buildSmartPlaylist) {
-            state.playlist = await service.buildSmartPlaylist({ level: state.activeTabLevel });
-            if (state.playlist.length > 0) {
-                state.currentIndex = 0;
-                state.currentLesson = state.playlist[0];
+        if (service) {
+            if (service.getManifest) {
+                try {
+                    const m = await service.getManifest();
+                    if (m && m.lessons) {
+                        state.counts = {
+                            all: m.lessons.length,
+                            preA1: m.lessons.filter(l => l.level === 'Pre-A1').length,
+                            a1: m.lessons.filter(l => l.level === 'A1').length,
+                            a2: m.lessons.filter(l => l.level === 'A2').length
+                        };
+                    }
+                } catch (e) {
+                    console.warn('[PassiveListeningPlayer] Error loading manifest counts:', e);
+                }
+            }
+            if (service.buildSmartPlaylist) {
+                state.playlist = await service.buildSmartPlaylist({ level: state.activeTabLevel });
+                if (state.playlist.length > 0) {
+                    state.currentIndex = 0;
+                    state.currentLesson = state.playlist[0];
+                }
             }
         }
         render();
@@ -104,6 +121,27 @@
         state.audioElement = new AudioClass(audioSrc);
         state.audioElement.playbackRate = state.playbackSpeed;
 
+        // Xin quyền phát qua AudioFocusManager
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+        if (afm) {
+            const granted = afm.requestAudioFocus('PASSIVE_PLAYER', afm.PRIORITY.PASSIVE_PLAYER, (info) => {
+                console.log('[PassiveListeningPlayer] Nhận tín hiệu ngắt âm thanh từ:', info.preemptedBy);
+                if (state.audioElement) {
+                    try { state.audioElement.pause(); } catch (e) {}
+                }
+                state.isPlaying = false;
+                updatePlayPauseButton();
+            }, state.audioElement);
+
+            if (!granted) {
+                console.warn('[PassiveListeningPlayer] Bị từ chối Audio Focus do tác vụ ưu tiên cao hơn đang chạy.');
+                state.isPlaying = false;
+                updatePlayPauseButton();
+                return;
+            }
+        }
+
         state.audioElement.onplay = () => {
             state.isPlaying = true;
             updatePlayPauseButton();
@@ -129,6 +167,7 @@
         } catch (err) {
             console.warn('[PassiveListeningPlayer] Lỗi khởi động playback (Autoplay Policy):', err);
             state.isPlaying = false;
+            if (afm) afm.abandonAudioFocus('PASSIVE_PLAYER');
         }
 
         render();
@@ -142,14 +181,41 @@
             return;
         }
 
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+
         if (state.isPlaying) {
             state.audioElement.pause();
             state.isPlaying = false;
+            if (afm) afm.abandonAudioFocus('PASSIVE_PLAYER');
         } else {
+            if (afm) {
+                const granted = afm.requestAudioFocus('PASSIVE_PLAYER', afm.PRIORITY.PASSIVE_PLAYER, () => {
+                    if (state.audioElement) try { state.audioElement.pause(); } catch (e) {}
+                    state.isPlaying = false;
+                    updatePlayPauseButton();
+                }, state.audioElement);
+                if (!granted) return;
+            }
             state.audioElement.play().catch(e => console.warn('Play error:', e));
             state.isPlaying = true;
         }
         updatePlayPauseButton();
+    }
+
+    function stop() {
+        if (state.audioElement) {
+            try {
+                state.audioElement.pause();
+                state.audioElement.currentTime = 0;
+            } catch (e) {}
+        }
+        state.isPlaying = false;
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+        if (afm) afm.abandonAudioFocus('PASSIVE_PLAYER');
+        updatePlayPauseButton();
+        updateProgressBar();
     }
 
     function nextTrack() {
@@ -305,6 +371,11 @@
         const isA2 = state.activeTabLevel === 'A2';
         const isAll = state.activeTabLevel === 'all';
 
+        const countAll = state.counts ? state.counts.all : 185;
+        const countPreA1 = state.counts ? state.counts.preA1 : 50;
+        const countA1 = state.counts ? state.counts.a1 : 70;
+        const countA2 = state.counts ? state.counts.a2 : 65;
+
         const heroImageSrc = lesson?.visualAssets?.heroImage || 'images/english/passive/pl_prea1_animals_001_hero.svg';
 
         container.innerHTML = `
@@ -330,10 +401,10 @@
                 <!-- Thanh chọn Tab Cấp độ CEFR & Chế độ tương tác -->
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
                     <div style="display:flex; gap:6px; background:var(--bg-app); padding:4px; border-radius:12px; border:1px solid var(--border-color);">
-                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('all')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isAll ? '#3b82f6' : 'none'}; color:${isAll ? 'white' : 'var(--text-muted)'};">Tất cả (18)</button>
-                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('Pre-A1')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isPreA1 ? '#ec4899' : 'none'}; color:${isPreA1 ? 'white' : 'var(--text-muted)'};">Pre-A1 (Starters)</button>
-                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('A1')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isA1 ? '#10b981' : 'none'}; color:${isA1 ? 'white' : 'var(--text-muted)'};">A1 (Movers)</button>
-                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('A2')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isA2 ? '#8b5cf6' : 'none'}; color:${isA2 ? 'white' : 'var(--text-muted)'};">A2 (Flyers)</button>
+                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('all')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isAll ? '#3b82f6' : 'none'}; color:${isAll ? 'white' : 'var(--text-muted)'};">Tất cả (${countAll})</button>
+                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('Pre-A1')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isPreA1 ? '#ec4899' : 'none'}; color:${isPreA1 ? 'white' : 'var(--text-muted)'};">Pre-A1 (${countPreA1})</button>
+                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('A1')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isA1 ? '#10b981' : 'none'}; color:${isA1 ? 'white' : 'var(--text-muted)'};">A1 (${countA1})</button>
+                        <button type="button" onclick="PassiveListeningPlayer.filterLevel('A2')" style="border:none; padding:6px 14px; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; background:${isA2 ? '#8b5cf6' : 'none'}; color:${isA2 ? 'white' : 'var(--text-muted)'};">A2 (${countA2})</button>
                     </div>
 
                     <!-- 3 Chế độ: Passive, Light, Active -->
@@ -501,6 +572,7 @@
         filterLevel: filterLevel,
         playLesson: playLesson,
         togglePlay: togglePlay,
+        stop: stop,
         nextTrack: nextTrack,
         prevTrack: prevTrack,
         setSpeed: setSpeed,

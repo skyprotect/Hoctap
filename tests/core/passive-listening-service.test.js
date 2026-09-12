@@ -1,4 +1,4 @@
-﻿/**
+/**
  * tests/core/passive-listening-service.test.js
  * Unit tests cho PassiveListeningService & Audio Policy CACHE_ONLY (v15.9).
  */
@@ -11,11 +11,11 @@ describe('PassiveListeningService — Hệ thống Nghe Thụ Động Chuẩn CE
         await EnglishAudioService.init();
     });
 
-    test('1. Nạp danh mục bài nghe đầy đủ 18 bài', async () => {
+    test('1. Nạp danh mục bài nghe đầy đủ 185 bài', async () => {
         const manifest = await PassiveListeningService.loadManifest();
         expect(manifest).toBeDefined();
         const keys = Object.keys(manifest);
-        expect(keys.length).toBe(18);
+        expect(keys.length).toBe(185);
     });
 
     test('2. Phân loại theo 3 cấp độ CEFR: Pre-A1, A1, A2', async () => {
@@ -23,9 +23,9 @@ describe('PassiveListeningService — Hệ thống Nghe Thụ Động Chuẩn CE
         const a1 = await PassiveListeningService.getLessons({ level: 'A1' });
         const a2 = await PassiveListeningService.getLessons({ level: 'A2' });
 
-        expect(preA1.length).toBe(6);
-        expect(a1.length).toBe(6);
-        expect(a2.length).toBe(6);
+        expect(preA1.length).toBe(50);
+        expect(a1.length).toBe(70);
+        expect(a2.length).toBe(65);
     });
 
     test('3. Mỗi bài nghe có thông tin speakers và transcript phân đoạn', async () => {

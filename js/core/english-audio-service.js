@@ -292,6 +292,13 @@
          * Dừng toàn bộ âm thanh đang phát
          */
         stopAll: function () {
+            const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                        (typeof globalThis !== 'undefined' && globalThis.AudioFocusManager);
+            if (afm) {
+                afm.abandonAudioFocus('CURRICULUM');
+                afm.abandonAudioFocus('PASSIVE_PLAYER');
+            }
+
             if (currentActiveAudio) {
                 try {
                     currentActiveAudio.pause();
@@ -471,6 +478,18 @@
                     }
 
                     currentActiveAudio = audio;
+
+                    // Xin quyền ưu tiên Audio Focus
+                    const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                                (typeof globalThis !== 'undefined' && globalThis.AudioFocusManager);
+                    const focusOwner = isPassive ? 'PASSIVE_PLAYER' : 'CURRICULUM';
+                    const focusPriority = isPassive ? (afm ? afm.PRIORITY.PASSIVE_PLAYER : 5) : (afm ? afm.PRIORITY.CURRICULUM : 10);
+                    if (afm) {
+                        afm.requestAudioFocus(focusOwner, focusPriority, () => {
+                            try { audio.pause(); } catch(e) {}
+                        }, audio);
+                    }
+
                     const playPromise = audio.play();
 
                     if (playPromise !== undefined && typeof playPromise.then === 'function') {
@@ -482,6 +501,7 @@
 
                                 audio.onended = () => {
                                     currentActiveAudio = null;
+                                    if (afm) afm.abandonAudioFocus(focusOwner);
                                     if (typeof opts.onEnd === 'function') opts.onEnd();
                                 };
 
@@ -495,6 +515,7 @@
                             })
                             .catch((playErr) => {
                                 currentActiveAudio = null;
+                                if (afm) afm.abandonAudioFocus(focusOwner);
 
                                 // NẾU LÀ CACHE_ONLY: TUYỆT ĐỐI KHÔNG FALLBACK SANG TTS
                                 if (policy === AUDIO_POLICY.CURRICULUM || policy === AUDIO_POLICY.PASSIVE_LISTENING) {

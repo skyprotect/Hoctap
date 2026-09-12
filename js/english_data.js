@@ -259,6 +259,8 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
 
                 const evidenceInfo = rq.evidence ? `<br/><b>Dẫn chứng trong bài nghe:</b> <i>"${rq.evidence}"</i>` : '';
 
+                const pAudioKey = topic.readingPassageTitle || topic.id || "passage";
+
                 questions.push({
                     type: "listening_passage",
                     category: "listening",
@@ -267,7 +269,11 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
                     correctAnswer: rq.answer,
                     options: rq.options,
                     passageTitle: topic.readingPassageTitle,
-                    questionType: (rq.questionType && rq.questionType.replace('READING_', 'LISTENING_')) || "LISTENING_DETAIL",
+                    topicId: topic.id,
+                    audioKey: pAudioKey,
+                    passageAudioKey: pAudioKey,
+                    questionType: "listening_passage",
+                    pedagogicalType: (rq.questionType && rq.questionType.replace('READING_', 'LISTENING_')) || "LISTENING_DETAIL",
                     evidenceType: rq.evidenceType || "EXPLICIT",
                     evidence: rq.evidence || "",
                     solutionHtml: `<b>Đoạn văn/Cuộc hội thoại nghe được:</b><br/><i>"${topic.readingPassage}"</i><br/><br/>Đáp án đúng là: <b>${rq.answer}</b>.${evidenceInfo}`
@@ -398,6 +404,8 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
         if (topic.questions && topic.questions.reading && topic.questions.reading.length > 0) {
             topic.questions.reading.forEach(rq => {
                 const evidenceInfo = rq.evidence ? `<br/><b>Dẫn chứng trong bài đọc:</b> <i>"${rq.evidence}"</i>` : '';
+                const pAudioKey = topic.readingPassageTitle || topic.id || "passage";
+
                 questions.push({
                     type: "reading_passage",
                     category: "reading",
@@ -406,7 +414,12 @@ function generateEnglishQuestions(classLevel, topicId, skill) {
                     correctAnswer: rq.answer,
                     options: rq.options,
                     vocabList: vocabList,
-                    questionType: rq.questionType || "READING_DETAIL",
+                    passageTitle: topic.readingPassageTitle,
+                    topicId: topic.id,
+                    audioKey: pAudioKey,
+                    passageAudioKey: pAudioKey,
+                    questionType: "reading_passage",
+                    pedagogicalType: rq.questionType || "READING_DETAIL",
                     evidenceType: rq.evidenceType || "EXPLICIT",
                     evidence: rq.evidence || "",
                     solutionHtml: `Dựa vào đoạn văn <b>"${topic.readingPassageTitle || topic.title}"</b>, đáp án đúng là: <b>${rq.answer}</b>.${evidenceInfo}`

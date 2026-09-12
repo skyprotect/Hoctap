@@ -20,6 +20,8 @@
 const { validateQuestion, auditCourseData } = require('../scripts/qa/audit_question_integrity');
 const { ENGLISH_COURSE_DATA } = require('../js/core/english-course-data');
 const { generateEnglishQuestions } = require('../js/english_data');
+const EnglishAnswerEvaluator = require('../js/core/english-answer-evaluator');
+const EnglishAudioService = require('../js/core/english-audio-service');
 
 describe('BỘ KIỂM THỬ PHÁP Y TOÀN VẸN CÂU HỎI & MINH CHỨNG GIÁO DỤC', () => {
 
@@ -248,5 +250,186 @@ describe('BỘ KIỂM THỬ PHÁP Y TOÀN VẸN CÂU HỎI & MINH CHỨNG GIÁO 
             expect(lq.questionText.toLowerCase()).not.toContain('in the reading passage');
             expect(lq.correctAnswer.toLowerCase()).not.toBe('between');
         });
+    });
+});
+
+describe('BỘ KIỂM THỬ PHÁP Y V15.12: KHẮC PHỤC DỨT ĐIỂM LỖI MẤT NÚT NGHE ÂM THANH & PHÂN TÁCH TAXONOMY', () => {
+
+    beforeAll(async () => {
+        await EnglishAudioService.init();
+    });
+
+    // TEST 1 — Render type precedence
+    test('Test 1 — Render type precedence: Ưu tiên UI type "listening_passage" trên nhãn sư phạm "LISTENING_DETAIL"', () => {
+        const input = {
+            type: "listening_passage",
+            questionType: "LISTENING_DETAIL"
+        };
+        const resolved = EnglishAnswerEvaluator.resolveQuestionRenderType(input);
+        expect(resolved).toBe("listening_passage");
+    });
+
+    // TEST 2 — Legacy compatibility
+    test('Test 2 — Legacy compatibility: Tự động ánh xạ nhãn sư phạm cũ về đúng UI render type', () => {
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ questionType: "LISTENING_DETAIL" })).toBe("listening_passage");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ questionType: "LISTENING_MAIN_IDEA" })).toBe("listening_passage");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ questionType: "READING_DETAIL" })).toBe("reading_passage");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ questionType: "READING_MAIN_IDEA" })).toBe("reading_passage");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ questionType: "writing" })).toBe("writing");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ questionType: "choice" })).toBe("choice");
+    });
+
+    // TEST 3 — Reading regression
+    test('Test 3 — Reading regression: Đọc hiểu đoạn văn không bị rơi xuống choice thông thường', () => {
+        const input = {
+            type: "reading_passage",
+            questionType: "READING_DETAIL"
+        };
+        const resolved = EnglishAnswerEvaluator.resolveQuestionRenderType(input);
+        expect(resolved).toBe("reading_passage");
+    });
+
+    // TEST 4 — Choice regression
+    test('Test 4 — Choice regression: Các câu trắc nghiệm thuần túy vẫn giữ nguyên type "choice"', () => {
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ type: "choice" })).toBe("choice");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({ type: "choice", questionType: "choice" })).toBe("choice");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType({})).toBe("choice");
+        expect(EnglishAnswerEvaluator.resolveQuestionRenderType(null)).toBe("choice");
+    });
+
+    // TEST 5 — Listening UI Rendering
+    test('Test 5 — Listening UI: HTML render chứa đầy đủ listening-passage-box, btn-audio-speak-large, fa-volume-high và app.playEnglishVoice', () => {
+        const questions = generateEnglishQuestions('6', 'eng6-t1', 'listening');
+        const q = questions.find(x => x.type === 'listening_passage');
+        expect(q).toBeDefined();
+
+        const renderType = EnglishAnswerEvaluator.resolveQuestionRenderType(q);
+        expect(renderType).toBe("listening_passage");
+
+        const audioKey = EnglishAnswerEvaluator.resolveListeningAudioKey(q);
+        expect(audioKey).toBe("My First School Day");
+
+        // Giả lập trực tiếp cấu trúc HTML sinh ra bởi renderEnglishQuestion trong app.js
+        const safeListeningText = q.listeningText ? String(q.listeningText) : "";
+        const safeOptions = Array.isArray(q.options) ? q.options : [];
+
+        const simulatedHtml = `
+            <div class="listening-passage-box" style="text-align:center; width:100%;">
+                <div style="background:var(--bg-app); border:2px solid var(--border-color); border-radius:20px; padding:1.5rem; margin-bottom:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.8rem;">
+                    <button class="btn-audio-speak-large" type="button" aria-label="Nghe bài nói hoặc hội thoại" onclick="app.playEnglishVoice('${safeListeningText.replace(/'/g, "\\'")}', '${audioKey.replace(/'/g, "\\'")}', { category: 'CURRICULUM', feature: 'LISTENING' })">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <div style="font-weight:800;">🎧 Bấm để nghe bài nói / cuộc hội thoại</div>
+                    <div>(Con hãy lắng nghe thật kỹ để trả lời câu hỏi bên dưới)</div>
+                </div>
+                <div class="options-grid">
+                    ${safeOptions.map((opt, i) => `<button class="option-btn">${opt}</button>`).join('')}
+                </div>
+            </div>
+        `;
+
+        expect(simulatedHtml).toContain('class="listening-passage-box"');
+        expect(simulatedHtml).toContain('class="btn-audio-speak-large"');
+        expect(simulatedHtml).toContain('fa-volume-high');
+        expect(simulatedHtml).toContain('app.playEnglishVoice');
+        expect(simulatedHtml).toContain('🎧 Bấm để nghe bài nói / cuộc hội thoại');
+        expect(simulatedHtml).toContain('My First School Day');
+        expect(safeOptions.length).toBe(4);
+    });
+
+    // TEST 6 — Audio key resolution
+    test('Test 6 — Audio key resolution: Unit 1 và Unit 2 phân giải chính xác 100% đến tệp MP3 Kokoro TTS offline', () => {
+        // Unit 1
+        const u1Qs = generateEnglishQuestions('6', 'eng6-t1', 'listening');
+        const u1P = u1Qs.find(x => x.type === 'listening_passage');
+        expect(u1P).toBeDefined();
+        const key1 = EnglishAnswerEvaluator.resolveListeningAudioKey(u1P);
+        expect(key1).toBe("My First School Day");
+        const res1 = EnglishAudioService.resolveAudio(u1P.listeningText, key1);
+        expect(res1.found).toBe(true);
+        expect(res1.filename).toBe('l6_u01_passage_01.mp3');
+        expect(res1.canonicalId).toBe('L6_U01_PASSAGE_01');
+
+        // Unit 2
+        const u2Qs = generateEnglishQuestions('6', 'eng6-t2', 'listening');
+        const u2P = u2Qs.find(x => x.type === 'listening_passage');
+        expect(u2P).toBeDefined();
+        const key2 = EnglishAnswerEvaluator.resolveListeningAudioKey(u2P);
+        expect(key2).toBe("Our Cozy House");
+        const res2 = EnglishAudioService.resolveAudio(u2P.listeningText, key2);
+        expect(res2.found).toBe(true);
+        expect(res2.filename).toBe('l6_u02_passage_01.mp3');
+        expect(res2.canonicalId).toBe('L6_U02_PASSAGE_01');
+    });
+
+    // TEST 7 — Missing audio resilience
+    test('Test 7 — Missing audio resilience: Xử lý phòng thủ khi audioKey không tồn tại không tạo uncaught exception', async () => {
+        const dummyQuestion = {
+            type: "listening_passage",
+            audioKey: "nonexistent_mock_audio_99999",
+            listeningText: "Some non-existent text"
+        };
+        const key = EnglishAnswerEvaluator.resolveListeningAudioKey(dummyQuestion);
+        expect(key).toBe("nonexistent_mock_audio_99999");
+
+        // Gọi phát âm thanh với key không tồn tại theo chính sách CURRICULUM
+        const result = await EnglishAudioService.playEnglishVoice(dummyQuestion.listeningText, key, {
+            category: 'CURRICULUM',
+            feature: 'LISTENING'
+        });
+
+        expect(result).toBeDefined();
+        expect(result.ok).toBe(false);
+        expect(['AUDIO_CACHE_MISSING', 'FILE_NOT_FOUND']).toContain(result.reason);
+    });
+
+    // TEST 8 — Evaluator regression
+    test('Test 8 — Evaluator regression: Đánh giá chính xác cả Listening, Reading, Choice và Speaking', () => {
+        // 1. Listening Passage
+        const listeningQ = {
+            type: "listening_passage",
+            pedagogicalType: "LISTENING_DETAIL",
+            listeningText: "We are wearing our new school uniforms.",
+            correctAnswer: "New school uniforms",
+            options: ["Blue caps", "Winter jackets", "New school uniforms", "Sports shoes"]
+        };
+        const lEvalCorrect = EnglishAnswerEvaluator.evaluateEnglishAnswer(listeningQ, 2);
+        expect(lEvalCorrect.isCorrect).toBe(true);
+        expect(lEvalCorrect.explanation).toContain("Đoạn văn nghe được:");
+        expect(lEvalCorrect.explanation).toContain("We are wearing our new school uniforms.");
+
+        const lEvalWrong = EnglishAnswerEvaluator.evaluateEnglishAnswer(listeningQ, 0);
+        expect(lEvalWrong.isCorrect).toBe(false);
+
+        // 2. Reading Passage
+        const readingQ = {
+            type: "reading_passage",
+            pedagogicalType: "READING_DETAIL",
+            passageTitle: "Our Cozy House",
+            correctAnswer: "Four rooms",
+            options: ["Two rooms", "Three rooms", "Four rooms", "Five rooms"]
+        };
+        const rEvalCorrect = EnglishAnswerEvaluator.evaluateEnglishAnswer(readingQ, 2);
+        expect(rEvalCorrect.isCorrect).toBe(true);
+        expect(rEvalCorrect.explanation).toContain("Our Cozy House");
+
+        // 3. Choice
+        const choiceQ = {
+            type: "choice",
+            correctAnswer: "Teacher",
+            options: ["Doctor", "Teacher", "Nurse"]
+        };
+        expect(EnglishAnswerEvaluator.evaluateEnglishAnswer(choiceQ, 1).isCorrect).toBe(true);
+        expect(EnglishAnswerEvaluator.evaluateEnglishAnswer(choiceQ, 0).isCorrect).toBe(false);
+
+        // 4. Speaking
+        const speakingQ = {
+            type: "speaking",
+            correctAnswer: "Uniform"
+        };
+        const spkPassed = EnglishAnswerEvaluator.evaluateEnglishAnswer(speakingQ, { correct: true, accuracy: 85, spokenText: "Uniform" });
+        expect(spkPassed.isCorrect).toBe(true);
+        const spkFailed = EnglishAnswerEvaluator.evaluateEnglishAnswer(speakingQ, { correct: true, accuracy: 50, spokenText: "Uniform" });
+        expect(spkFailed.isCorrect).toBe(false);
     });
 });

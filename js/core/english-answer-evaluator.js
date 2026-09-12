@@ -19,14 +19,26 @@
         module.exports = api;
     }
     root.EnglishAnswerEvaluator = api;
+    root.resolveQuestionRenderType = api.resolveQuestionRenderType;
+    root.resolvePedagogicalType = api.resolvePedagogicalType;
+    root.resolveListeningAudioKey = api.resolveListeningAudioKey;
     if (typeof window !== 'undefined') {
         window.EnglishAnswerEvaluator = api;
+        window.resolveQuestionRenderType = api.resolveQuestionRenderType;
+        window.resolvePedagogicalType = api.resolvePedagogicalType;
+        window.resolveListeningAudioKey = api.resolveListeningAudioKey;
     }
     if (typeof globalThis !== 'undefined') {
         globalThis.EnglishAnswerEvaluator = api;
+        globalThis.resolveQuestionRenderType = api.resolveQuestionRenderType;
+        globalThis.resolvePedagogicalType = api.resolvePedagogicalType;
+        globalThis.resolveListeningAudioKey = api.resolveListeningAudioKey;
     }
     if (typeof self !== 'undefined') {
         self.EnglishAnswerEvaluator = api;
+        self.resolveQuestionRenderType = api.resolveQuestionRenderType;
+        self.resolvePedagogicalType = api.resolvePedagogicalType;
+        self.resolveListeningAudioKey = api.resolveListeningAudioKey;
     }
 })(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : this, function () {
     'use strict';
@@ -222,8 +234,8 @@
         }
 
         let grammarAnalysis = null;
-        const qType = q.questionType || q.type || "";
-        if (!isCorrect && (qType === "writing_completion" || qType === "writing_rewrite")) {
+        const renderType = resolveQuestionRenderType(q);
+        if (!isCorrect && (renderType === "writing_completion" || renderType === "writing_rewrite")) {
             const target = q.correctAnswer || (q.correctAnswers && q.correctAnswers[0]) || "";
             grammarAnalysis = diagnoseGrammarError(rawInput, target, norm);
             explanation += `<br/><span style="color:#ef4444; font-weight:800;"><i class="fa-solid fa-wand-magic-sparkles"></i> Trợ lý Ngữ pháp:</span> ${grammarAnalysis}`;
@@ -238,7 +250,7 @@
     }
 
     /**
-     * Đánh giá câu hỏi trắc nghiệm thông thường (Choice / Phonetics / Reading Passage)
+     * Đánh giá câu hỏi trắc nghiệm thông thường (Choice / Phonetics / Reading Passage / Listening Passage)
      */
     function evaluateChoice(q, studentAnswer, normalizeFn) {
         const norm = normalizeFn || defaultNormalize;
@@ -260,9 +272,13 @@
         );
 
         let explanation = `Đáp án đúng: <b>${correctText}</b>`;
-        const qType = q.questionType || q.type || "";
-        if (qType === "listening_passage") {
-            explanation = `Đoạn văn nghe được:<br/><i style="color:var(--text-main); font-family:Georgia, serif;">"${q.listeningText || ""}"</i><br/><br/>Đáp án đúng: <b>${correctText || q.correctAnswer}</b>`;
+        const renderType = resolveQuestionRenderType(q);
+        if (renderType === "listening_passage") {
+            const passageTranscript = q.listeningText || q.passageText || "";
+            explanation = `Đoạn văn nghe được:<br/><i style="color:var(--text-main); font-family:Georgia, serif;">"${passageTranscript}"</i><br/><br/>Đáp án đúng: <b>${correctText || q.correctAnswer}</b>`;
+        } else if (renderType === "reading_passage") {
+            const pTitle = q.passageTitle || "";
+            explanation = `Dựa vào đoạn văn ${pTitle ? `<b>"${pTitle}"</b>` : "bài đọc"}, đáp án đúng: <b>${correctText || q.correctAnswer}</b>`;
         }
 
         return {
@@ -270,6 +286,128 @@
             studentAnsStr: chosenAnswer,
             explanation: explanation
         };
+    }
+
+    /**
+     * Chuẩn hóa loại giao diện hiển thị câu hỏi (UI Render Type Taxonomy)
+     * Tách biệt hoàn toàn khỏi nhãn phân loại sư phạm (pedagogicalType).
+     * 
+     * @param {Object} q - Đối tượng câu hỏi
+     * @returns {string} - UI Render Type
+     */
+    function resolveQuestionRenderType(q) {
+        if (!q || typeof q !== 'object') return 'choice';
+
+        const rawType = q.type ? String(q.type).trim().toLowerCase() : '';
+        const rawQuestionType = q.questionType ? String(q.questionType).trim() : '';
+
+        // Danh mục các loại giao diện hiển thị hợp lệ (UI Render Taxonomy)
+        const KNOWN_UI_TYPES = [
+            'listening_passage',
+            'reading_passage',
+            'listening',
+            'speaking',
+            'speaking_roleplay',
+            'reading_cloze',
+            'writing_unscramble',
+            'writing_completion',
+            'writing_rewrite',
+            'writing',
+            'reading_qa',
+            'ioe_leave_alone',
+            'ioe_matching',
+            'choice'
+        ];
+
+        // 1. Ưu tiên hàng đầu cho UI type đã được định danh rõ ràng
+        if (rawType && KNOWN_UI_TYPES.includes(rawType)) {
+            return rawType;
+        }
+
+        // 2. Backward compatibility: Nếu q.type chưa có hoặc không chuẩn, nhưng questionType mang nhãn sư phạm
+        if (rawQuestionType === 'LISTENING_DETAIL' || rawQuestionType === 'LISTENING_MAIN_IDEA' || rawQuestionType === 'LISTENING_INFERENCE') {
+            return 'listening_passage';
+        }
+        if (rawQuestionType === 'READING_DETAIL' || rawQuestionType === 'READING_MAIN_IDEA' || rawQuestionType === 'READING_INFERENCE') {
+            return 'reading_passage';
+        }
+
+        // 3. Backward compatibility: Nếu questionType trong code cũ chứa tên UI type
+        const lowerQuestionType = rawQuestionType.toLowerCase();
+        if (lowerQuestionType && KNOWN_UI_TYPES.includes(lowerQuestionType)) {
+            return lowerQuestionType;
+        }
+
+        // 4. Suy luận phòng thủ dựa trên cấu trúc câu hỏi
+        if (q.listeningText || q.audioScript) {
+            if (q.passageTitle || (q.options && q.options.length > 0 && String(q.listeningText).length > 50)) {
+                return 'listening_passage';
+            }
+            return 'listening';
+        }
+        if (q.passageText) {
+            return 'reading_passage';
+        }
+        if (q.passageTemplate || (q.wordPool && q.wordPool.length > 0 && !q.options)) {
+            return 'reading_cloze';
+        }
+        if (q.speakingText) {
+            return 'speaking';
+        }
+
+        // Mặc định fallback an toàn
+        return 'choice';
+    }
+
+    /**
+     * Phân giải nhãn phân loại sư phạm (Pedagogical Taxonomy)
+     * 
+     * @param {Object} q - Đối tượng câu hỏi
+     * @returns {string} - Nhãn sư phạm (ví dụ: 'LISTENING_DETAIL', 'READING_DETAIL', 'MAIN_IDEA', ...)
+     */
+    function resolvePedagogicalType(q) {
+        if (!q || typeof q !== 'object') return '';
+        if (q.pedagogicalType) return String(q.pedagogicalType).trim();
+        if (q.questionType && !['choice', 'listening', 'listening_passage', 'reading_passage', 'speaking', 'writing'].includes(q.questionType)) {
+            return String(q.questionType).trim();
+        }
+        return '';
+    }
+
+    /**
+     * Phân giải khóa định danh âm thanh bài nghe (Audio Key Resolution)
+     * 
+     * @param {Object} q - Đối tượng câu hỏi
+     * @returns {string} - Audio key tối ưu để tra cứu trong audio-manifest
+     */
+    function resolveListeningAudioKey(q) {
+        if (!q || typeof q !== 'object') return 'passage';
+
+        const candidates = [
+            q.audioKey,
+            q.audioFileKey,
+            q.passageAudioKey,
+            q.passageTitle,
+            q.topicId
+        ];
+
+        for (const val of candidates) {
+            if (val !== null && val !== undefined) {
+                const s = String(val).trim();
+                if (s.length > 0 && s !== 'passage') {
+                    return s;
+                }
+            }
+        }
+
+        if (q.passageTitle && String(q.passageTitle).trim().length > 0) {
+            return String(q.passageTitle).trim();
+        }
+        if (q.topicId && String(q.topicId).trim().length > 0) {
+            return String(q.topicId).trim();
+        }
+
+        return 'passage';
     }
 
     /**
@@ -291,20 +429,20 @@
         }
 
         const norm = (options && options.normalizeFn) || defaultNormalize;
-        const qType = q.questionType || q.type || "choice";
+        const renderType = resolveQuestionRenderType(q);
 
-        if (qType === "listening" && (!q.options || q.options.length === 0)) {
+        if (renderType === "listening" && (!q.options || q.options.length === 0)) {
             return evaluateDictation(q, studentInput, norm);
-        } else if (qType === "speaking" || qType === "speaking_roleplay") {
+        } else if (renderType === "speaking" || renderType === "speaking_roleplay") {
             return evaluateSpeaking(q, studentInput);
-        } else if (qType === "reading_cloze") {
+        } else if (renderType === "reading_cloze") {
             return evaluateCloze(q, studentInput, norm);
-        } else if (qType === "writing" || qType === "writing_unscramble") {
+        } else if (renderType === "writing" || renderType === "writing_unscramble") {
             if (Array.isArray(studentInput) || q.wordPool || q.scrambledLetters) {
                 return evaluateUnscramble(q, studentInput, norm);
             }
             return evaluateWriting(q, studentInput, norm);
-        } else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
+        } else if (renderType === "writing_completion" || renderType === "writing_rewrite" || renderType === "reading_qa") {
             return evaluateWriting(q, studentInput, norm);
         } else {
             return evaluateChoice(q, studentInput, norm);
@@ -312,6 +450,9 @@
     }
 
     return {
+        resolveQuestionRenderType: resolveQuestionRenderType,
+        resolvePedagogicalType: resolvePedagogicalType,
+        resolveListeningAudioKey: resolveListeningAudioKey,
         evaluateEnglishAnswer: evaluateEnglishAnswer,
         diagnoseGrammarError: diagnoseGrammarError,
         evaluateDictation: evaluateDictation,

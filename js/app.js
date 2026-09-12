@@ -251,6 +251,20 @@ const app = {
             if (!splashScreen || splashScreen.style.display === "none") return;
             if (isMuted) return;
 
+            // Kiểm tra quyền Audio Focus: Nếu Startup Passive Listening hoặc tác vụ học tập đang phát, không phát đè quote
+            const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                        (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+            if (afm) {
+                const granted = afm.requestAudioFocus('SECONDARY_QUOTE', afm.PRIORITY.SECONDARY_QUOTE, () => {
+                    if (currentlyPlaying) try { currentlyPlaying.pause(); } catch(e) {}
+                    try { bgNen.pause(); } catch(e) {}
+                });
+                if (!granted) {
+                    console.log('[SplashGreeting] Quote audio suppressed in favor of higher-priority audio.');
+                    return;
+                }
+            }
+
             // Đặt cờ ngay lập tức để ngăn chặn lượt phát trùng từ unlockAndPlay hoặc listener khác trong thời gian chờ 2.5s
             hasPlayedOnce = true;
 
@@ -437,10 +451,9 @@ const app = {
                 this.audio.ctx.resume();
             }
 
-            // Chỉ phát nếu chưa tự động phát thành công trước đó (nếu đã autoplay thành công thì bỏ qua không phát trùng)
-            if (!hasPlayedOnce) {
-                playCurrentSplashQuote();
-            }
+            // v15.12: Startup Passive Listening là luồng âm thanh học tập mở đầu độc quyền
+            // Quote audio chỉ phát khi được gọi thủ công, không autoplay
+            hasPlayedOnce = true;
 
             document.removeEventListener("click", unlockAndPlay);
             document.removeEventListener("touchstart", unlockAndPlay);
@@ -451,25 +464,12 @@ const app = {
         document.addEventListener("touchstart", unlockAndPlay);
         document.addEventListener("keydown", unlockAndPlay);
 
-        // Thiết lập phát định kỳ sau mỗi 2 - 3 phút ngẫu nhiên (120 - 180 giây)
-        const startInterval = () => {
-            if (this.splashGreetingTimeout) clearTimeout(this.splashGreetingTimeout);
-            const nextTime = 120000 + Math.random() * 60000;
-            greetingInterval = setTimeout(() => {
-                const splashScreen = document.getElementById("splash-screen");
-                if (splashScreen && splashScreen.style.display !== "none") {
-                    this.nextSplashQuote();
-                }
-            }, nextTime);
-        };
-        
-        // Lưu tham chiếu để có thể reset từ bên ngoài (ví dụ khi nhấn phím Space)
+        // v15.12: Tắt phát tự động định kỳ châm ngôn (startup auto quote = 0)
+        const startInterval = () => {};
         this.resetSplashGreetingInterval = startInterval;
-        startInterval();
-
-        this.splashGreetingTimeout = greetingInterval;
+        this.splashGreetingTimeout = null;
         
-        // Bộ lắng nghe sự kiện nhấn phím Space để đổi nhanh châm ngôn
+        // Bộ lắng nghe sự kiện nhấn phím Space để đổi nhanh châm ngôn & bài nghe thụ động
         const handleSpaceKey = (e) => {
             if (e.code === 'Space' || e.key === ' ' || e.keyCode === 32) {
                 const splashScreen = document.getElementById("splash-screen");
@@ -477,6 +477,9 @@ const app = {
                 if (isSplashVisible) {
                     e.preventDefault(); // Ngăn hành vi cuộn trang mặc định
                     this.nextSplashQuote();
+                    if (typeof this.nextStartupPassiveTrack === 'function') {
+                        this.nextStartupPassiveTrack();
+                    }
                 }
             }
         };
@@ -515,20 +518,376 @@ const app = {
         const splashScreen = document.getElementById("splash-screen");
         if (!splashScreen || splashScreen.style.display === "none") return;
 
-        console.log("Phím Space được nhấn: Chuyển sang châm ngôn tiếp theo.");
-
-        // Chọn câu châm ngôn ngẫu nhiên mới hiển thị lên màn hình
+        console.log("Chuyển sang châm ngôn tiếp theo (Text Only - Startup Passive Listening quản lý âm thanh).");
         this.displayRandomSplashQuote();
-        
-        // Phát âm thanh châm ngôn mới đó kèm theo nhạc đệm
-        if (typeof this.playSplashGreeting === 'function') {
-            this.playSplashGreeting();
+    },
+
+    // ==========================================
+    // STARTUP PASSIVE LISTENING MODE (v15.12)
+    // ==========================================
+    startupPassiveListening: {
+        queue: [],
+        currentIndex: 0,
+        currentLesson: null,
+        audioElement: null,
+        isPlaying: false,
+        isMuted: false,
+        isBound: false
+    },
+
+    // Khởi tạo Startup Passive Listening Mode
+    initStartupPassiveListening: async function() {
+        const studentId = (this.config && this.config.defaultStudentId) || 'default';
+        const classLevel = (this.config && this.config.currentClass) ? parseInt(this.config.currentClass, 10) : 6;
+
+        // Dừng bất kỳ phiên khởi động cũ nào
+        if (typeof this.stopStartupPassiveListening === 'function') {
+            try { this.stopStartupPassiveListening(); } catch(e) {}
         }
 
-        // Reset lại chu kỳ hẹn giờ phát tự động (đếm lại từ đầu 2-3 phút)
-        if (typeof this.resetSplashGreetingInterval === 'function') {
-            this.resetSplashGreetingInterval();
+        const service = (typeof window !== 'undefined' && window.PassiveListeningService) ||
+                        (typeof PassiveListeningService !== 'undefined' ? PassiveListeningService : null);
+        if (!service) {
+            console.warn('[StartupPassiveListening] PassiveListeningService chưa sẵn sàng');
+            return;
         }
+
+        const studentLevel = service.resolveStudentLevel ? service.resolveStudentLevel(classLevel) : (classLevel <= 1 ? 'Pre-A1' : (classLevel <= 4 ? 'A1' : 'A2'));
+        let queue = [];
+        if (typeof service.buildStartupQueue === 'function') {
+            try {
+                queue = await service.buildStartupQueue(studentLevel, 3, studentId);
+            } catch(e) {
+                console.warn('[StartupPassiveListening] Lỗi buildStartupQueue:', e);
+            }
+        }
+
+        if (!queue || queue.length === 0) {
+            if (typeof service.getManifest === 'function') {
+                const m = await service.getManifest();
+                if (m && m.lessons) {
+                    queue = m.lessons.filter(l => l.level === studentLevel).slice(0, 3);
+                    if (queue.length === 0) queue = m.lessons.slice(0, 3);
+                }
+            }
+        }
+
+        this.startupPassiveListening.queue = queue;
+        this.startupPassiveListening.currentIndex = 0;
+        this.startupPassiveListening.currentLesson = queue[0] || null;
+
+        this.bindStartupPassiveUI();
+        this.renderStartupPassiveTrack();
+
+        // Tự động phát bài đầu tiên
+        if (queue.length > 0) {
+            this.playStartupPassiveTrack(0, { autoStart: true });
+        }
+    },
+
+    bindStartupPassiveUI: function() {
+        if (this.startupPassiveListening.isBound) return;
+        this.startupPassiveListening.isBound = true;
+
+        const playBtn = document.getElementById("splash-pl-play-btn");
+        const prevBtn = document.getElementById("splash-pl-prev-btn");
+        const nextBtn = document.getElementById("splash-pl-next-btn");
+        const muteBtn = document.getElementById("splash-pl-mute-btn");
+        const progressTrack = document.getElementById("splash-pl-progress-track");
+
+        if (playBtn) {
+            playBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.toggleStartupPassivePlayback();
+            };
+        }
+        if (prevBtn) {
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.prevStartupPassiveTrack();
+            };
+        }
+        if (nextBtn) {
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.nextStartupPassiveTrack();
+            };
+        }
+        if (muteBtn) {
+            muteBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.toggleStartupPassiveMute();
+            };
+        }
+        if (progressTrack) {
+            progressTrack.onclick = (e) => {
+                e.stopPropagation();
+                this.seekStartupPassiveAudio(e);
+            };
+        }
+
+        // Mở khóa âm thanh khi người dùng click/touch/keydown lần đầu
+        const unlockAudio = () => {
+            const splash = document.getElementById("splash-screen");
+            if (!splash || splash.style.display === "none") return;
+
+            const st = this.startupPassiveListening;
+            if (!st.isPlaying && st.currentLesson && st.audioElement) {
+                st.audioElement.play().then(() => {
+                    st.isPlaying = true;
+                    this.updateStartupPassivePlayBtn();
+                    const hint = document.getElementById("splash-autoplay-hint");
+                    if (hint) hint.classList.add("hidden");
+                }).catch(() => {});
+            }
+
+            document.removeEventListener("click", unlockAudio);
+            document.removeEventListener("touchstart", unlockAudio);
+            document.removeEventListener("keydown", unlockAudio);
+        };
+
+        document.addEventListener("click", unlockAudio);
+        document.addEventListener("touchstart", unlockAudio);
+        document.addEventListener("keydown", unlockAudio);
+    },
+
+    renderStartupPassiveTrack: function() {
+        const st = this.startupPassiveListening;
+        const lesson = st.currentLesson;
+        if (!lesson) return;
+
+        const titleEl = document.getElementById("splash-pl-title");
+        const speakerEl = document.getElementById("splash-pl-speaker");
+        const levelEl = document.getElementById("splash-pl-level");
+        const queuePosEl = document.getElementById("splash-pl-queue-pos");
+        const durTimeEl = document.getElementById("splash-pl-dur-time");
+
+        if (titleEl) titleEl.innerText = lesson.title;
+        if (speakerEl) {
+            const speakerNames = (lesson.speakers || []).map(s => s.name).join(' & ');
+            speakerEl.innerText = `Giọng đọc: ${speakerNames || 'Amy & Dan'} • ${lesson.topic || 'Hội thoại'}`;
+        }
+        if (levelEl) {
+            levelEl.innerText = lesson.level;
+            levelEl.style.background = lesson.level === 'Pre-A1' ? '#fce7f3' : (lesson.level === 'A1' ? '#dcfce7' : '#ede9fe');
+            levelEl.style.color = lesson.level === 'Pre-A1' ? '#be185d' : (lesson.level === 'A1' ? '#15803d' : '#6d28d9');
+        }
+        if (queuePosEl) {
+            queuePosEl.innerText = `${st.currentIndex + 1}/${st.queue.length}`;
+        }
+        if (durTimeEl) {
+            const dur = lesson.durationSec || 60;
+            const m = Math.floor(dur / 60);
+            const s = Math.round(dur % 60);
+            durTimeEl.innerText = `${m}:${String(s).padStart(2, '0')}`;
+        }
+        this.updateStartupPassivePlayBtn();
+    },
+
+    updateStartupPassivePlayBtn: function() {
+        const playBtn = document.getElementById("splash-pl-play-btn");
+        if (playBtn) {
+            playBtn.innerHTML = this.startupPassiveListening.isPlaying 
+                ? '<i class="fa-solid fa-pause"></i>' 
+                : '<i class="fa-solid fa-play"></i>';
+        }
+    },
+
+    playStartupPassiveTrack: function(index, options = {}) {
+        const st = this.startupPassiveListening;
+        if (!st.queue || st.queue.length === 0) return;
+
+        if (index >= 0 && index < st.queue.length) {
+            st.currentIndex = index;
+            st.currentLesson = st.queue[index];
+        }
+
+        const lesson = st.currentLesson;
+        if (!lesson) return;
+
+        // Dừng audio cũ nếu có
+        if (st.audioElement) {
+            try {
+                st.audioElement.pause();
+                st.audioElement.currentTime = 0;
+            } catch(e) {}
+            st.audioElement = null;
+        }
+
+        this.renderStartupPassiveTrack();
+
+        const AudioClass = (typeof window !== 'undefined' && window.Audio) ||
+                           (typeof Audio !== 'undefined' ? Audio : null);
+        if (!AudioClass) return;
+
+        const audio = new AudioClass(lesson.audioFile);
+        audio.volume = st.isMuted ? 0 : 0.95;
+        st.audioElement = audio;
+
+        // Xin quyền Single Educational Audio Focus
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+        if (afm) {
+            const granted = afm.requestAudioFocus('STARTUP_PASSIVE', afm.PRIORITY.STARTUP_PASSIVE, (info) => {
+                console.log('[StartupPassiveListening] Bị ngắt bởi tác vụ ưu tiên:', info.preemptedBy);
+                if (st.audioElement) {
+                    try { st.audioElement.pause(); } catch(e) {}
+                }
+                st.isPlaying = false;
+                this.updateStartupPassivePlayBtn();
+            }, audio);
+
+            if (!granted) {
+                console.warn('[StartupPassiveListening] Bị từ chối Audio Focus');
+                st.isPlaying = false;
+                this.updateStartupPassivePlayBtn();
+                return;
+            }
+        }
+
+        audio.onplay = () => {
+            st.isPlaying = true;
+            this.updateStartupPassivePlayBtn();
+            const hint = document.getElementById("splash-autoplay-hint");
+            if (hint) hint.classList.add("hidden");
+        };
+
+        audio.onpause = () => {
+            st.isPlaying = false;
+            this.updateStartupPassivePlayBtn();
+        };
+
+        audio.ontimeupdate = () => {
+            const cur = audio.currentTime || 0;
+            const dur = audio.duration || lesson.durationSec || 1;
+            const pct = Math.min(100, Math.max(0, (cur / dur) * 100));
+
+            const fill = document.getElementById("splash-pl-progress-fill");
+            if (fill) fill.style.width = `${pct}%`;
+
+            const curEl = document.getElementById("splash-pl-curr-time");
+            if (curEl) {
+                const m = Math.floor(cur / 60);
+                const s = Math.floor(cur % 60);
+                curEl.innerText = `${m}:${String(s).padStart(2, '0')}`;
+            }
+        };
+
+        audio.onended = () => {
+            console.log('[StartupPassiveListening] Bài nghe kết thúc, tự động chuyển sang bài tiếp theo.');
+            const service = (typeof window !== 'undefined' && window.PassiveListeningService) ||
+                            (typeof PassiveListeningService !== 'undefined' ? PassiveListeningService : null);
+            if (service && service.saveProgress) {
+                service.saveProgress(lesson.id, lesson.durationSec || 60, true);
+            }
+            const nextIdx = (st.currentIndex + 1) % st.queue.length;
+            this.playStartupPassiveTrack(nextIdx);
+        };
+
+        audio.onerror = (err) => {
+            console.warn('[StartupPassiveListening] Lỗi nạp audio file:', lesson.audioFile, err);
+            st.isPlaying = false;
+            this.updateStartupPassivePlayBtn();
+        };
+
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                st.isPlaying = true;
+                this.updateStartupPassivePlayBtn();
+                const hint = document.getElementById("splash-autoplay-hint");
+                if (hint) hint.classList.add("hidden");
+            }).catch(err => {
+                console.log('[StartupPassiveListening] Autoplay bị chặn bởi chính sách trình duyệt:', err.message);
+                st.isPlaying = false;
+                this.updateStartupPassivePlayBtn();
+                const hint = document.getElementById("splash-autoplay-hint");
+                if (hint) hint.classList.remove("hidden");
+            });
+        }
+    },
+
+    toggleStartupPassivePlayback: function() {
+        const st = this.startupPassiveListening;
+        if (!st.audioElement) {
+            this.playStartupPassiveTrack(st.currentIndex);
+            return;
+        }
+
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+
+        if (st.isPlaying) {
+            st.audioElement.pause();
+            st.isPlaying = false;
+            if (afm) afm.abandonAudioFocus('STARTUP_PASSIVE');
+        } else {
+            if (afm) {
+                const granted = afm.requestAudioFocus('STARTUP_PASSIVE', afm.PRIORITY.STARTUP_PASSIVE, () => {
+                    if (st.audioElement) try { st.audioElement.pause(); } catch(e) {}
+                    st.isPlaying = false;
+                    this.updateStartupPassivePlayBtn();
+                }, st.audioElement);
+                if (!granted) return;
+            }
+            st.audioElement.play().catch(e => console.warn('[StartupPassiveListening] play error:', e));
+            st.isPlaying = true;
+        }
+        this.updateStartupPassivePlayBtn();
+    },
+
+    nextStartupPassiveTrack: function() {
+        const st = this.startupPassiveListening;
+        if (!st.queue || st.queue.length === 0) return;
+        const nextIdx = (st.currentIndex + 1) % st.queue.length;
+        this.playStartupPassiveTrack(nextIdx);
+    },
+
+    prevStartupPassiveTrack: function() {
+        const st = this.startupPassiveListening;
+        if (!st.queue || st.queue.length === 0) return;
+        const prevIdx = (st.currentIndex - 1 + st.queue.length) % st.queue.length;
+        this.playStartupPassiveTrack(prevIdx);
+    },
+
+    toggleStartupPassiveMute: function() {
+        const st = this.startupPassiveListening;
+        st.isMuted = !st.isMuted;
+        if (st.audioElement) {
+            st.audioElement.volume = st.isMuted ? 0 : 0.95;
+        }
+        const muteBtn = document.getElementById("splash-pl-mute-btn");
+        if (muteBtn) {
+            muteBtn.innerHTML = st.isMuted 
+                ? '<i class="fa-solid fa-volume-xmark" style="color:#ef4444;"></i>' 
+                : '<i class="fa-solid fa-volume-high"></i>';
+        }
+    },
+
+    seekStartupPassiveAudio: function(e) {
+        const st = this.startupPassiveListening;
+        if (!st.audioElement || !st.audioElement.duration) return;
+        const track = document.getElementById("splash-pl-progress-track");
+        if (!track) return;
+        const rect = track.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        st.audioElement.currentTime = ratio * st.audioElement.duration;
+    },
+
+    stopStartupPassiveListening: function() {
+        const st = this.startupPassiveListening;
+        if (st.audioElement) {
+            try {
+                st.audioElement.pause();
+                st.audioElement.currentTime = 0;
+            } catch(e) {}
+            st.audioElement = null;
+        }
+        st.isPlaying = false;
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+        if (afm) afm.abandonAudioFocus('STARTUP_PASSIVE');
+        this.updateStartupPassivePlayBtn();
     },
 
     // Giữ màn hình luôn sáng bằng Screen Wake Lock API (js/core/wake-lock-service.js)
@@ -666,12 +1025,10 @@ const app = {
         splashScreen.style.display = "flex";
         splashScreen.classList.remove("fade-out");
 
-        // Khởi động lại âm thanh chào mừng và cập nhật châm ngôn
+        // Khởi động lại âm thanh chào mừng và cập nhật châm ngôn (startup auto quote = 0)
         this.initSplashGreeting();
         this.displayRandomSplashQuote();
-        if (typeof this.playSplashGreeting === 'function') {
-            this.playSplashGreeting();
-        }
+        this.initStartupPassiveListening();
     },
 
     // Chọn ngẫu nhiên một câu châm ngôn học tập và hiển thị lên Màn hình chào mừng
@@ -1035,6 +1392,7 @@ const app = {
         
         // 5. Cập nhật giao diện chào mừng và timeline
         this.initSplashGreeting();
+        this.initStartupPassiveListening();
         
         // Cập nhật các chỉ số Gamification lên Màn hình chào mừng
         const splashStreak = document.getElementById("splash-streak-val");
@@ -1126,11 +1484,8 @@ const app = {
         try { this.updateWelcomeViewerPanelText(); } catch(e) { console.error("Lỗi updateWelcomeViewerPanelText:", e); }
         try { this.initTheme(); } catch(e) { console.error("Lỗi initTheme:", e); }
         try { this.initSplashGreeting(); } catch(e) { console.error("Lỗi initSplashGreeting:", e); }
-        
-        // Thử phát câu chào châm ngôn đầu tiên
-        if (typeof this.playSplashGreeting === 'function') {
-            try { this.playSplashGreeting(); } catch(e) { console.error("Lỗi playSplashGreeting:", e); }
-        }
+        // Khởi động Startup Passive Listening Mode độc quyền thay thế Quote Audio (v15.12)
+        try { this.initStartupPassiveListening(); } catch(e) { console.error("Lỗi initStartupPassiveListening:", e); }
 
         // 2. Chạy ngầm nạp tiến trình học tập từ CSDL SQLite và vẽ lộ trình bài học phía sau
         try {
@@ -2396,6 +2751,16 @@ const app = {
         // Dừng âm thanh nhắc nhở của Splash Screen
         if (typeof this.stopSplashGreeting === 'function') {
             try { this.stopSplashGreeting(); } catch(e){}
+        }
+        // Dừng âm thanh Startup Passive Listening và giải phóng Audio Focus (v15.12)
+        if (typeof this.stopStartupPassiveListening === 'function') {
+            try { this.stopStartupPassiveListening(); } catch(e){}
+        }
+        const afm = (typeof window !== 'undefined' && window.AudioFocusManager) ||
+                    (typeof AudioFocusManager !== 'undefined' ? AudioFocusManager : null);
+        if (afm) {
+            afm.abandonAudioFocus('STARTUP_PASSIVE');
+            afm.abandonAudioFocus('SECONDARY_QUOTE');
         }
 
         try {
@@ -9550,6 +9915,28 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (scoreEl) scoreEl.innerText = (this.currentEnglishScore || 0) * 10;
     },
 
+    resolveQuestionRenderType: function(q) {
+        if (typeof EnglishAnswerEvaluator !== 'undefined' && EnglishAnswerEvaluator.resolveQuestionRenderType) {
+            return EnglishAnswerEvaluator.resolveQuestionRenderType(q);
+        }
+        if (typeof resolveQuestionRenderType === 'function') {
+            return resolveQuestionRenderType(q);
+        }
+        if (!q || typeof q !== 'object') return 'choice';
+        return q.type || q.questionType || 'choice';
+    },
+
+    resolveListeningAudioKey: function(q) {
+        if (typeof EnglishAnswerEvaluator !== 'undefined' && EnglishAnswerEvaluator.resolveListeningAudioKey) {
+            return EnglishAnswerEvaluator.resolveListeningAudioKey(q);
+        }
+        if (typeof resolveListeningAudioKey === 'function') {
+            return resolveListeningAudioKey(q);
+        }
+        if (!q || typeof q !== 'object') return 'passage';
+        return q.audioKey || q.audioFileKey || q.passageAudioKey || q.passageTitle || q.topicId || 'passage';
+    },
+
     playEnglishVoice: function(text, audioFileKey, options = {}) {
         if (!text) return Promise.resolve({ ok: false, source: "NONE", reason: "EMPTY_TEXT" });
         if (this.isRecording) {
@@ -9557,13 +9944,21 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
         const opts = options || {};
         if (typeof EnglishAudioService !== 'undefined' && EnglishAudioService.playEnglishVoice) {
-            return EnglishAudioService.playEnglishVoice(text, audioFileKey, opts);
+            return EnglishAudioService.playEnglishVoice(text, audioFileKey, opts).catch(err => {
+                console.warn('[AUDIO] Playback error caught:', err);
+                return { ok: false, source: "NONE", reason: "PLAYBACK_ERROR", error: err };
+            });
         }
         
         // Môi trường không có EnglishAudioService: chỉ fallback nếu là DYNAMIC
         if (opts.category === 'DYNAMIC' && opts.allowFallback === true) {
-            this.speakEnglish(text, true, opts);
-            return Promise.resolve({ ok: true, source: 'SpeechService', fallback: true });
+            try {
+                this.speakEnglish(text, true, opts);
+                return Promise.resolve({ ok: true, source: 'SpeechService', fallback: true });
+            } catch(err) {
+                console.warn('[AUDIO] Fallback speech error:', err);
+                return Promise.resolve({ ok: false, source: 'NONE', reason: 'SPEECH_ERROR', error: err });
+            }
         }
         return Promise.resolve({ ok: false, source: "NONE", reason: "AUDIO_SERVICE_UNAVAILABLE", category: "CURRICULUM" });
     },
@@ -10116,7 +10511,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const normalize = w => w.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim();
         
         this.currentEnglishQuestions.forEach(q => {
-            let qType = q.questionType || q.type || "choice";
+            let qType = this.resolveQuestionRenderType(q);
             if ((qType === "writing" || qType === "writing_unscramble") && !q.scrambledLetters && q.wordPool && q.wordPool.length > 1) {
                 const correctAnswer = q.correctAnswer || "";
                 const correctWordsNormalized = correctAnswer
@@ -10215,11 +10610,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             progressText.innerText = `Câu ${qIndex + 1}/${total}`;
         }
 
-        let qType = q.questionType || q.type || "choice";
-        const safeListeningText = q.listeningText ? String(q.listeningText) : "";
-        const safePassageText = q.passageText ? String(q.passageText) : "";
+        let qType = this.resolveQuestionRenderType(q);
+        const safeListeningText = q.listeningText ? String(q.listeningText) : (q.passageText ? String(q.passageText) : "");
+        const safePassageText = q.passageText ? String(q.passageText) : (q.listeningText ? String(q.listeningText) : "");
         const safeSpeakingText = q.speakingText ? String(q.speakingText) : (q.correctAnswer ? String(q.correctAnswer) : "");
-        const safePassageTitle = q.passageTitle ? String(q.passageTitle) : "passage";
+        const safePassageTitle = q.passageTitle ? String(q.passageTitle) : "";
         const safeQuestionText = q.questionText ? String(q.questionText) : "";
         const safeOptions = Array.isArray(q.options) ? q.options : [];
 
@@ -10262,7 +10657,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             `;
         } 
         else if (qType === "listening_passage") {
-            const audioKey = safePassageTitle || q.topicId || "passage";
+            const audioKey = this.resolveListeningAudioKey(q);
             innerHtml = `
                 <div class="listening-passage-box" style="text-align:center; width:100%;">
                     <div style="background:var(--bg-app); border:2px solid var(--border-color); border-radius:20px; padding:1.5rem; margin-bottom:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.8rem;">
@@ -10325,6 +10720,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             `;
         } 
         else if (qType === "reading_passage") {
+            const readingAudioKey = this.resolveListeningAudioKey(q);
             innerHtml = `
                 <div class="reading-passage-box" style="width:100%;">
                     <div style="background:#fefefe; border: 2px solid #e2e8f0; border-radius:16px; padding:1.2rem; margin-bottom:1.2rem; box-shadow:inset 0 2px 4px rgba(0,0,0,0.02); max-height:220px; overflow-y:auto; font-family:'Georgia', serif;">
@@ -10333,7 +10729,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         </div>
                     </div>
                     <div style="text-align:center; margin-bottom:1.2rem;">
-                        <button class="btn-primary" type="button" aria-label="Nghe đọc bài văn" onclick="app.playReadAlong('${this.escapeJsString(safePassageText)}', 'read-along-container', '${this.escapeJsString(safePassageTitle || '')}')" style="background:linear-gradient(135deg,#fb923c,#ea580c); border:none; color:white; padding:6px 18px; border-radius:99px; font-weight:800; font-size:0.85rem; cursor:pointer;">
+                        <button class="btn-primary" type="button" aria-label="Nghe đọc bài văn" onclick="app.playReadAlong('${this.escapeJsString(safePassageText)}', 'read-along-container', '${this.escapeJsString(readingAudioKey)}')" style="background:linear-gradient(135deg,#fb923c,#ea580c); border:none; color:white; padding:6px 18px; border-radius:99px; font-weight:800; font-size:0.85rem; cursor:pointer;">
                             <i class="fa-solid fa-circle-play"></i> Nghe đọc (Read-Along) 📖
                         </button>
                     </div>
@@ -10588,7 +10984,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             return;
         }
 
-        const qType = q.questionType || q.type || "choice";
+        const qType = this.resolveQuestionRenderType(q);
 
         let studentInput = null;
         if (qType === "listening" && (!q.options || q.options.length === 0)) {
@@ -10638,7 +11034,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         ? "Đã bỏ qua câu phát âm."
                         : `Độ chính xác: <b>${this.currentEnglishStudentAnswer.accuracy || 0}%</b>. Cần tối thiểu 60% để đạt.`;
                 }
-            } else if (qType === "choice" || qType === "reading_passage" || (qType === "listening" && q.options && q.options.length > 0)) {
+            } else if (qType === "choice" || qType === "reading_passage" || qType === "listening_passage" || (qType === "listening" && q.options && q.options.length > 0)) {
                 let chosenText = "";
                 if (typeof studentInput === "number" && q.options && q.options[studentInput] !== undefined) {
                     chosenText = q.options[studentInput];
