@@ -119,6 +119,14 @@
             };
         }
 
+        if (studentAnswer.skipped) {
+            return {
+                isCorrect: false,
+                studentAnsStr: "(Bỏ qua)",
+                explanation: "Đã bỏ qua câu phát âm."
+            };
+        }
+
         const isCorrect = Boolean(studentAnswer.correct);
         const spokenText = studentAnswer.spokenText || "";
         const accuracy = typeof studentAnswer.accuracy === 'number' ? studentAnswer.accuracy : 0;
@@ -292,7 +300,10 @@
         } else if (qType === "reading_cloze") {
             return evaluateCloze(q, studentInput, norm);
         } else if (qType === "writing" || qType === "writing_unscramble") {
-            return evaluateUnscramble(q, studentInput, norm);
+            if (Array.isArray(studentInput) || q.wordPool || q.scrambledLetters) {
+                return evaluateUnscramble(q, studentInput, norm);
+            }
+            return evaluateWriting(q, studentInput, norm);
         } else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
             return evaluateWriting(q, studentInput, norm);
         } else {

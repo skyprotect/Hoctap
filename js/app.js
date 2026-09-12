@@ -2036,6 +2036,16 @@ const app = {
             .replace(/\r?\n/g, " ");
     },
 
+    escapeHtml: function(str) {
+        if (str == null) return "";
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    },
+
     normalizeAnswerToken: function(str) {
         if (typeof StringUtils !== 'undefined' && typeof StringUtils.normalizeAnswerToken === 'function') {
             return StringUtils.normalizeAnswerToken(str);
@@ -8620,11 +8630,13 @@ const app = {
                     ulTargets.innerHTML = `<li class="no-weak-words">🎉 Tuyệt vời! Bạn không có quái vật từ vựng nào!</li>`;
                 } else {
                     weakWords.forEach(word => {
+                        const safeWord = this.escapeHtml(word);
+                        const safeJsWord = this.escapeJsString(word);
                         ulTargets.innerHTML += `
                             <li class="weak-word-item">
                                 <i class="fa-solid fa-ghost weak-word-icon"></i>
-                                <span>${word}</span>
-                                <button class="btn-slay-word" onclick="app.slayVocabularyMonster('${word}')">Tiêu diệt ⚔️</button>
+                                <span>${safeWord}</span>
+                                <button class="btn-slay-word" onclick="app.slayVocabularyMonster('${safeJsWord}')" aria-label="Tiêu diệt quái vật từ vựng ${safeWord}">Tiêu diệt ⚔️</button>
                             </li>
                         `;
                     });
@@ -8865,6 +8877,31 @@ const app = {
         
         if (prevScore >= 80) {
             return score >= 80 ? 'completed' : 'active';
+        }
+        return 'locked';
+    },
+
+    // Trạng thái mở khóa các vòng tự luyện IOE (độc lập với currentEnglishSkill)
+    getIoeLessonStatus: function(topicId) {
+        const currentClass = this.config.currentClass || "6";
+        const classData = window.ENGLISH_COURSE_DATA && window.ENGLISH_COURSE_DATA[currentClass];
+        if (!classData || !classData.topics) return 'locked';
+        
+        const topics = classData.topics;
+        const index = topics.findIndex(t => t.id === topicId);
+        if (index === -1) return 'locked';
+        if (index === 0) {
+            const score = (this.state.scores && this.state.scores[`ioe-${topicId}`]) || 0;
+            return score >= 100 ? 'completed' : 'active';
+        }
+        
+        const prevTopic = topics[index - 1];
+        const prevIoeScore = (this.state.scores && this.state.scores[`ioe-${prevTopic.id}`]) || 0;
+        const skills = ['listening', 'speaking', 'reading', 'writing'];
+        const prevSkillPassed = skills.some(sk => (this.state.scores && (this.state.scores[`${prevTopic.id}-${sk}`] || 0) >= 80));
+        if (prevIoeScore >= 100 || prevSkillPassed) {
+            const score = (this.state.scores && this.state.scores[`ioe-${topicId}`]) || 0;
+            return score >= 100 ? 'completed' : 'active';
         }
         return 'locked';
     },
@@ -9145,7 +9182,7 @@ showEnglishGrammarModal: function(topicId) {
         if (!topic || !topic.grammar) return;
 
         Swal.fire({
-            title: `<div style="font-size:1.35rem; font-weight:900; color:#1e3a8a; margin-bottom:5px;">📖 LÝ THUYẾT NGỮ PHÁP</div><div style="font-size:0.95rem; color:#ea580c; font-weight:800;">${topic.title}</div>`,
+            title: `<div style="font-size:1.35rem; font-weight:900; color:#1e3a8a; margin-bottom:5px;">📖 LÝ THUYẾT NGỮ PHÁP</div><div style="font-size:0.95rem; color:#ea580c; font-weight:800;">${this.escapeHtml(topic.title)}</div>`,
             html: `
                 <div class="grammar-modal-content" style="text-align: left; font-family: inherit; font-size: 0.95rem; line-height: 1.6; color: var(--text-main); max-height: 60vh; overflow-y: auto; padding: 0.8rem 1.2rem; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin: 0.8rem 0; border-radius: 8px; background: var(--bg-app);">
                     ${topic.grammar}
@@ -9301,6 +9338,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     this.currentEnglishQuestionIndex = 0;
                     this.currentEnglishScore = 0;
                     this.currentEnglishWrongCount = 0;
+                    this.currentEnglishLessonStartTime = Date.now();
                     
                     document.body.classList.add("focus-mode-active");
                     document.getElementById("english-focus-lesson-screen").classList.remove("hidden");
@@ -9333,6 +9371,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         this.currentEnglishQuestionIndex = 0;
                         this.currentEnglishScore = 0;
                         this.currentEnglishWrongCount = 0;
+                        this.currentEnglishLessonStartTime = Date.now();
                         
                         document.body.classList.add("focus-mode-active");
                         document.getElementById("english-focus-lesson-screen").classList.remove("hidden");
@@ -9486,7 +9525,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     console.error("Speech recognition error:", event && event.error ? event.error : event);
                     this.isRecording = false;
                     if (micBtn) micBtn.classList.remove("recording");
-                    if (statusText) statusText.innerText = "Lỗi nhận diện: " + (event && event.error ? event.error : "Không xác định");
+                    const errCode = event && event.error ? event.error : "Không xác định";
+                    if (statusText) statusText.innerHTML = `Lỗi nhận diện (${errCode}). Con có thể <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua câu này ⏭️</a>`;
                     this.stopWaveVisualizer();
                 },
                 onEnd: () => {
@@ -9517,6 +9557,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     const checkBtn = document.getElementById("btn-eng-check-answer");
                     if (checkBtn) {
                         checkBtn.removeAttribute("disabled");
+                        checkBtn.classList.remove("disabled");
                         checkBtn.style.opacity = "1";
                     }
                 }
@@ -9526,7 +9567,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
 
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            Swal.fire("Lỗi", "Trình duyệt không hỗ trợ Web Speech API. Vui lòng dùng Chrome hoặc Edge!", "error");
+            Swal.fire("Lỗi", "Trình duyệt không hỗ trợ Web Speech API. Con có thể bỏ qua phần phát âm này.", "warning");
+            this.skipSpeakingQuestion();
             return;
         }
 
@@ -9548,10 +9590,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         };
 
         this.recognition.onerror = (event) => {
-            console.error("Speech recognition error:", event.error);
+            console.error("Speech recognition error:", event && event.error);
             this.isRecording = false;
             if (micBtn) micBtn.classList.remove("recording");
-            if (statusText) statusText.innerText = "Lỗi nhận diện: " + event.error;
+            const errCode = event && event.error ? event.error : "Lỗi thu âm";
+            if (statusText) statusText.innerHTML = `Lỗi nhận diện (${errCode}). Con có thể <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua câu này ⏭️</a>`;
             this.stopWaveVisualizer();
         };
 
@@ -9603,8 +9646,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const accuracy = cleanTarget.length > 0 ? Math.round((correctCount / cleanTarget.length) * 100) : 0;
             if (statusText) statusText.innerText = `Độ chính xác: ${accuracy}%`;
 
-            // Ngưỡng đạt phát âm nhẹ nhàng hơn (>= 50% hoặc đúng >= 1 từ với câu cực ngắn)
-            const isPassing = (cleanTarget.length <= 2) ? (correctCount >= 1) : (accuracy >= 50);
+            // Ngưỡng đạt phát âm chuẩn hóa 60% đồng bộ với SpeechRecognitionService
+            const isPassing = (cleanTarget.length <= 2) ? (correctCount >= 1) : (accuracy >= 60);
 
             this.currentEnglishStudentAnswer = {
                 spokenText,
@@ -9615,11 +9658,30 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const checkBtn = document.getElementById("btn-eng-check-answer");
             if (checkBtn) {
                 checkBtn.removeAttribute("disabled");
+                checkBtn.classList.remove("disabled");
                 checkBtn.style.opacity = "1";
             }
         };
 
         this.recognition.start();
+    },
+
+    skipSpeakingQuestion: function() {
+        this.stopSpeechRecognition();
+        this.currentEnglishStudentAnswer = {
+            spokenText: "(Bỏ qua)",
+            accuracy: 0,
+            correct: false,
+            skipped: true
+        };
+        const statusText = document.getElementById("eng-mic-status");
+        if (statusText) statusText.innerText = "Đã chọn bỏ qua câu phát âm.";
+        const checkBtn = document.getElementById("btn-eng-check-answer");
+        if (checkBtn) {
+            checkBtn.removeAttribute("disabled");
+            checkBtn.classList.remove("disabled");
+            checkBtn.style.opacity = "1";
+        }
     },
 
     stopSpeechRecognition: function() {
@@ -9967,22 +10029,40 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             window.speechSynthesis.cancel();
         }
         this.currentEnglishStudentAnswer = null;
+        this.isCheckingEnglishAnswer = false;
+        this.isTransitioningEnglishQuestion = false;
 
         const container = document.getElementById("english-interaction-area");
         if (!container) return;
         container.innerHTML = "";
 
         const banner = document.getElementById("bottom-feedback-banner");
-        if (banner) banner.className = "bottom-feedback-banner";
+        if (banner) {
+            banner.className = "bottom-feedback-banner";
+            banner.setAttribute("role", "alert");
+            banner.setAttribute("aria-live", "assertive");
+        }
 
         const qIndex = this.currentEnglishQuestionIndex;
-        const total = this.currentEnglishQuestions.length;
-        const q = this.currentEnglishQuestions[qIndex];
+        const total = (this.currentEnglishQuestions && this.currentEnglishQuestions.length) || 0;
+        const q = this.currentEnglishQuestions && this.currentEnglishQuestions[qIndex];
+
+        if (!q) {
+            container.innerHTML = `<p style="text-align:center; color:#64748b; padding:2rem;">Không tìm thấy câu hỏi luyện tập.</p>`;
+            return;
+        }
 
         // Tiến trình bài học
         const progressPct = total > 0 ? Math.round((qIndex / total) * 100) : 0;
         const progressBar = document.getElementById("english-lesson-progress");
-        if (progressBar) progressBar.style.width = `${progressPct}%`;
+        if (progressBar) {
+            progressBar.style.width = `${progressPct}%`;
+            progressBar.setAttribute("role", "progressbar");
+            progressBar.setAttribute("aria-valuenow", String(progressPct));
+            progressBar.setAttribute("aria-valuemin", "0");
+            progressBar.setAttribute("aria-valuemax", "100");
+            progressBar.setAttribute("aria-label", "Tiến trình bài học");
+        }
         
         const progressText = document.getElementById("english-focus-progress-text");
         if (progressText) {
@@ -9990,36 +10070,43 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
 
         let qType = q.questionType || q.type || "choice";
-        let headerHtml = `<h2 style="font-size:1.3rem; font-weight:800; color:var(--text-main); text-align:center; margin-bottom:1.5rem; line-height:1.5;">${q.questionText}</h2>`;
+        const safeListeningText = q.listeningText ? String(q.listeningText) : "";
+        const safePassageText = q.passageText ? String(q.passageText) : "";
+        const safeSpeakingText = q.speakingText ? String(q.speakingText) : (q.correctAnswer ? String(q.correctAnswer) : "");
+        const safePassageTitle = q.passageTitle ? String(q.passageTitle) : "passage";
+        const safeQuestionText = q.questionText ? String(q.questionText) : "";
+        const safeOptions = Array.isArray(q.options) ? q.options : [];
+
+        let headerHtml = `<h2 style="font-size:1.3rem; font-weight:800; color:var(--text-main); text-align:center; margin-bottom:1.5rem; line-height:1.5;">${safeQuestionText}</h2>`;
         let innerHtml = "";
 
         if (qType === "listening") {
-            const isDictation = !q.options || q.options.length === 0;
-            const audioKey = q.listeningText || q.correctAnswer || "";
+            const isDictation = safeOptions.length === 0;
+            const audioKey = safeListeningText || q.correctAnswer || "";
             
             innerHtml = `
                 <div class="listening-challenge-box" style="text-align:center; width:100%;">
                     <div style="margin:2rem 0; display:inline-block;">
-                        <button class="btn-audio-speak-large" onclick="app.playEnglishVoice('${q.listeningText.replace(/'/g, "\\'")}', '${audioKey.replace(/'/g, "\\'")}')" style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg, #60a5fa, #2563eb); border:none; color:white; font-size:2.5rem; cursor:pointer; box-shadow:0 6px 12px rgba(37,99,235,0.3); transition:all 0.1s ease;">
+                        <button class="btn-audio-speak-large" type="button" aria-label="Nghe âm đọc thần chú" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(audioKey)}')" style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg, #60a5fa, #2563eb); border:none; color:white; font-size:2.5rem; cursor:pointer; box-shadow:0 6px 12px rgba(37,99,235,0.3); transition:all 0.1s ease;">
                             <i class="fa-solid fa-volume-high"></i>
                         </button>
                     </div>
                     <p style="color:#64748b; font-weight:700; font-size:0.9rem; margin-top:0.5rem; margin-bottom:2rem;">Nhấn nút để nghe âm đọc thần chú</p>
                     
                     ${isDictation ? `
-                        <input type="text" id="eng-dictation-input" class="form-input" style="text-align:center; font-size:1.3rem; max-width:320px; padding:0.8rem; border-radius:12px; border:2px solid var(--border-color); background:var(--bg-app); color:var(--text-main);" placeholder="Gõ câu/từ bạn nghe được..." autocomplete="off">
+                        <input type="text" id="eng-dictation-input" class="form-input" aria-label="Nhập câu hoặc từ nghe được" style="text-align:center; font-size:1.3rem; max-width:320px; padding:0.8rem; border-radius:12px; border:2px solid var(--border-color); background:var(--bg-app); color:var(--text-main);" placeholder="Gõ câu/từ bạn nghe được..." autocomplete="off">
                     ` : `
-                        <div class="options-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:1.2rem; width:100%; max-width:480px; margin: 0 auto;">
-                            ${q.options.map((opt, i) => {
-                                const cleanWord = opt.replace(/^[A-D]\.\s*/, "").toLowerCase().trim();
+                        <div class="options-grid" role="radiogroup" aria-label="Các phương án hình ảnh" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:1.2rem; width:100%; max-width:480px; margin: 0 auto;">
+                            ${safeOptions.map((opt, i) => {
+                                const cleanWord = String(opt).replace(/^[A-D]\.\s*/, "").toLowerCase().trim();
                                 const imgPath = this.getWordImagePath(cleanWord);
                                 const emoji = this.getWordEmoji(cleanWord);
                                 return `
-                                    <button class="option-btn duolingo-style" onclick="app.selectEnglishOption(${i})" id="opt-${i}" style="display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:1.2rem 0.5rem; height:auto; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:16px;">
+                                    <button class="option-btn duolingo-style" role="radio" aria-checked="false" tabindex="0" aria-label="Phương án ${i + 1}: ${this.escapeHtml(opt)}" onclick="app.selectEnglishOption(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.selectEnglishOption(${i});}" id="opt-${i}" style="display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:1.2rem 0.5rem; height:auto; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:16px; cursor:pointer;">
                                         <div class="flashcard-image-container" style="height:70px; width:70px; display:flex; justify-content:center; align-items:center;">
-                                            <img src="${imgPath}" onerror="this.onerror=null; this.parentNode.innerHTML='<span style=\\'font-size:2.5rem;\\'>${emoji}</span>';" style="max-height:100%; max-width:100%; object-fit:contain;" />
+                                            <img src="${imgPath}" alt="${this.escapeHtml(opt)}" onerror="this.onerror=null; this.parentNode.innerHTML='<span style=\\'font-size:2.5rem;\\'>${emoji}</span>';" style="max-height:100%; max-width:100%; object-fit:contain;" />
                                         </div>
-                                        <span style="font-weight:700; color:var(--text-main);">${opt}</span>
+                                        <span style="font-weight:700; color:var(--text-main);">${this.escapeHtml(opt)}</span>
                                     </button>
                                 `;
                             }).join("")}
@@ -10029,21 +10116,21 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             `;
         } 
         else if (qType === "listening_passage") {
-            const audioKey = q.passageTitle || "passage";
+            const audioKey = safePassageTitle || "passage";
             innerHtml = `
                 <div class="listening-passage-box" style="text-align:center; width:100%;">
                     <div style="background:var(--bg-app); border:2px solid var(--border-color); border-radius:20px; padding:1.5rem; margin-bottom:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.8rem;">
-                        <button class="btn-audio-speak-large" onclick="app.playEnglishVoice('${q.listeningText.replace(/'/g, "\\'")}', '${audioKey.replace(/'/g, "\\'")}')" style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #a855f7, #7c3aed); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 12px rgba(124,58,237,0.3); transition:all 0.1s ease;">
+                        <button class="btn-audio-speak-large" type="button" aria-label="Nghe bài nói hoặc hội thoại" onclick="app.playEnglishVoice('${this.escapeJsString(safeListeningText)}', '${this.escapeJsString(audioKey)}')" style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #a855f7, #7c3aed); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 12px rgba(124,58,237,0.3); transition:all 0.1s ease;">
                             <i class="fa-solid fa-volume-high"></i>
                         </button>
                         <div style="font-weight:800; color:var(--text-main); font-size:1.05rem;">🎧 Bấm để nghe bài nói / cuộc hội thoại</div>
                         <div style="font-size:0.85rem; color:var(--text-muted); font-style:italic;">(Con hãy lắng nghe thật kỹ để trả lời câu hỏi bên dưới)</div>
                     </div>
                     
-                    <div class="options-grid" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px; margin:0 auto;">
-                        ${q.options.map((opt, i) => `
-                            <button class="option-btn duolingo-style" onclick="app.selectEnglishOption(${i})" id="opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main);">
-                                ${opt}
+                    <div class="options-grid" role="radiogroup" aria-label="Các phương án trả lời" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px; margin:0 auto;">
+                        ${safeOptions.map((opt, i) => `
+                            <button class="option-btn duolingo-style" role="radio" aria-checked="false" tabindex="0" aria-label="Phương án ${i + 1}: ${this.escapeHtml(opt)}" onclick="app.selectEnglishOption(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.selectEnglishOption(${i});}" id="opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); cursor:pointer;">
+                                ${this.escapeHtml(opt)}
                             </button>
                         `).join("")}
                     </div>
@@ -10051,24 +10138,23 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             `;
         }
         else if (qType === "speaking" || qType === "speaking_roleplay") {
-            const speakText = q.speakingText || q.correctAnswer || "";
             const isRoleplay = qType === "speaking_roleplay";
             
             innerHtml = `
                 <div class="speaking-challenge-box" style="text-align:center; width:100%;">
                     ${isRoleplay ? `
                         <div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); padding:1rem; border-radius:12px; margin-bottom:1rem; display:flex; align-items:center; gap:0.8rem; justify-content:center;">
-                            <button onclick="app.speakEnglish('${q.listeningText.replace(/'/g, "\\'")}')" style="background:#3b82f6; border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-volume-high"></i></button>
-                            <div style="font-weight:700; color:#2563eb; text-align:left;">AI: "${q.listeningText}"</div>
+                            <button type="button" aria-label="Nghe câu nói của AI" onclick="app.speakEnglish('${this.escapeJsString(safeListeningText)}')" style="background:#3b82f6; border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-volume-high"></i></button>
+                            <div style="font-weight:700; color:#2563eb; text-align:left;">AI: "${this.escapeHtml(safeListeningText)}"</div>
                         </div>
                         <div style="font-weight:800; font-size:1.1rem; color:var(--text-muted); margin-bottom:1.5rem;">Trả lời của con: (Nói câu chứa từ khóa)</div>
                     ` : `
-                        <button class="btn-tts-speak" onclick="app.speakEnglish('${speakText.replace(/'/g, "\\'")}')" style="margin-bottom:1.5rem; background:none; border:2px solid #cbd5e1; padding:6px 16px; border-radius:99px; font-weight:700; color:var(--text-main); cursor:pointer;">
+                        <button class="btn-tts-speak" type="button" aria-label="Nghe giọng đọc mẫu" onclick="app.speakEnglish('${this.escapeJsString(safeSpeakingText)}')" style="margin-bottom:1.5rem; background:none; border:2px solid #cbd5e1; padding:6px 16px; border-radius:99px; font-weight:700; color:var(--text-main); cursor:pointer;">
                             <i class="fa-solid fa-volume-high"></i> Nghe giọng mẫu
                         </button>
                     `}
                     
-                    <div class="speaking-sentence-text" id="eng-speaking-sentence" style="font-size:1.5rem; font-weight:900; color:#2563eb; margin-bottom:1.5rem;">${speakText}</div>
+                    <div class="speaking-sentence-text" id="eng-speaking-sentence" style="font-size:1.5rem; font-weight:900; color:#2563eb; margin-bottom:1.5rem;">${this.escapeHtml(safeSpeakingText)}</div>
                     
                     <div id="eng-speaking-result" style="width:100%;"></div>
                     
@@ -10079,10 +10165,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     </div>
                     
                     <div style="margin:1.5rem 0;">
-                        <button class="micro-btn-neon" id="eng-mic-btn" onclick="app.toggleSpeechRecognition('${speakText.replace(/'/g, "\\'")}')" style="width:70px; height:70px; border-radius:50%; border:none; background:#ef4444; color:white; font-size:1.8rem; cursor:pointer; box-shadow:0 4px 10px rgba(239,68,68,0.3); display:inline-flex; justify-content:center; align-items:center; transition:all 0.2s ease;">
+                        <button class="micro-btn-neon" id="eng-mic-btn" type="button" aria-label="Bật micro để phát âm" onclick="app.toggleSpeechRecognition('${this.escapeJsString(safeSpeakingText)}')" style="width:70px; height:70px; border-radius:50%; border:none; background:#ef4444; color:white; font-size:1.8rem; cursor:pointer; box-shadow:0 4px 10px rgba(239,68,68,0.3); display:inline-flex; justify-content:center; align-items:center; transition:all 0.2s ease;">
                             <i class="fa-solid fa-microphone"></i>
                         </button>
                         <div class="speech-status-text" id="eng-mic-status" style="margin-top:8px; font-size:0.85rem; color:#64748b; font-weight:700;">Nhấn Mic để bắt đầu nói</div>
+                        <div style="margin-top:0.8rem;">
+                            <button type="button" class="btn-skip-speaking" onclick="app.skipSpeakingQuestion()" aria-label="Bỏ qua câu phát âm" style="background:none; border:1px dashed #94a3b8; color:#64748b; padding:5px 14px; border-radius:99px; font-size:0.82rem; font-weight:700; cursor:pointer;">
+                                Bỏ qua câu nói này ⏭️
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -10092,11 +10183,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 <div class="reading-passage-box" style="width:100%;">
                     <div style="background:#fefefe; border: 2px solid #e2e8f0; border-radius:16px; padding:1.2rem; margin-bottom:1.2rem; box-shadow:inset 0 2px 4px rgba(0,0,0,0.02); max-height:220px; overflow-y:auto; font-family:'Georgia', serif;">
                         <div id="read-along-container" style="line-height:1.6; text-align:left;">
-                            ${q.passageText}
+                            ${safePassageText}
                         </div>
                     </div>
                     <div style="text-align:center; margin-bottom:1.2rem;">
-                        <button class="btn-primary" onclick="app.playReadAlong('${q.passageText.replace(/'/g, "\\'")}', 'read-along-container')" style="background:linear-gradient(135deg,#fb923c,#ea580c); border:none; color:white; padding:6px 18px; border-radius:99px; font-weight:800; font-size:0.85rem; cursor:pointer;">
+                        <button class="btn-primary" type="button" aria-label="Nghe đọc bài văn" onclick="app.playReadAlong('${this.escapeJsString(safePassageText)}', 'read-along-container')" style="background:linear-gradient(135deg,#fb923c,#ea580c); border:none; color:white; padding:6px 18px; border-radius:99px; font-weight:800; font-size:0.85rem; cursor:pointer;">
                             <i class="fa-solid fa-circle-play"></i> Nghe đọc (Read-Along) 📖
                         </button>
                     </div>
@@ -10109,62 +10200,86 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                             </div>
                             <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
                                 ${q.vocabList.map(v => `
-                                    <span class="vocab-badge" onclick="app.playEnglishVoice('${v.word.replace(/'/g, "\\'")}')" style="background:#ffffff; border:1px solid #fde68a; padding:4px 10px; border-radius:8px; font-size:0.82rem; font-weight:700; color:#1e293b; display:inline-flex; align-items:center; gap:0.3rem; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.02);" title="Click để nghe phát âm">
+                                    <span class="vocab-badge" onclick="app.playEnglishVoice('${this.escapeJsString(v.word || '')}')" style="background:#ffffff; border:1px solid #fde68a; padding:4px 10px; border-radius:8px; font-size:0.82rem; font-weight:700; color:#1e293b; display:inline-flex; align-items:center; gap:0.3rem; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.02);" title="Click để nghe phát âm">
                                         <i class="fa-solid fa-volume-high" style="color:#ea580c; font-size:0.7rem;"></i>
-                                        <b>${v.word}</b> 
-                                        <span style="color:#ef4444; font-weight:600; font-size:0.78rem;">${v.phonetics || ''}</span>
-                                        <span style="font-weight:normal; color:#64748b;">: ${v.translation}</span>
+                                        <b>${this.escapeHtml(v.word || '')}</b> 
+                                        <span style="color:#ef4444; font-weight:600; font-size:0.78rem;">${this.escapeHtml(v.phonetics || '')}</span>
+                                        <span style="font-weight:normal; color:#64748b;">: ${this.escapeHtml(v.translation || '')}</span>
                                     </span>
                                 `).join("")}
                             </div>
                         </div>
                     ` : ''}
                     
-                    <div class="options-grid" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px; margin:0 auto;">
-                        ${q.options.map((opt, i) => `
-                            <button class="option-btn duolingo-style" onclick="app.selectEnglishOption(${i})" id="opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main);">
-                                ${opt}
+                    <div class="options-grid" role="radiogroup" aria-label="Các phương án trả lời" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px; margin:0 auto;">
+                        ${safeOptions.map((opt, i) => `
+                            <button class="option-btn duolingo-style" role="radio" aria-checked="false" tabindex="0" aria-label="Phương án ${i + 1}: ${this.escapeHtml(opt)}" onclick="app.selectEnglishOption(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.selectEnglishOption(${i});}" id="opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); cursor:pointer;">
+                                ${this.escapeHtml(opt)}
                             </button>
                         `).join("")}
                     </div>
                 </div>
             `;
         }
-        else if (qType === "reading_cloze" || qType === "writing" || qType === "writing_unscramble") {
+        else if (qType === "reading_cloze") {
             const wordsList = q.wordPool || [];
+            const safePassageTemplate = q.passageTemplate ? String(q.passageTemplate) : "";
             
             innerHtml = `
                 <div class="writing-challenge-box" style="width:100%;">
-                    ${qType === "reading_cloze" ? `
-                        <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:1.2rem; border-radius:12px; margin-bottom:1.5rem; text-align:left; font-size:1.1rem; line-height:1.8; color:var(--text-main);" id="cloze-passage-display">
-                            ${q.passageTemplate.replace(/\{(\d+)\}/g, '<span class="cloze-slot" style="display:inline-block; width:80px; border-bottom:2px solid #94a3b8; margin:0 4px; text-align:center; font-weight:800; color:#2563eb;">&nbsp;</span>')}
-                        </div>
-                    ` : `
+                    <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:1.2rem; border-radius:12px; margin-bottom:1.5rem; text-align:left; font-size:1.1rem; line-height:1.8; color:var(--text-main);" id="cloze-passage-display">
+                        ${safePassageTemplate.replace(/\{(\d+)\}/g, '<span class="cloze-slot" style="display:inline-block; width:80px; border-bottom:2px solid #94a3b8; margin:0 4px; text-align:center; font-weight:800; color:#2563eb;">&nbsp;</span>')}
+                    </div>
+                    
+                    <div class="english-drag-container" id="english-drag-pool" style="display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; width:100%; padding:0.5rem;">
+                        ${wordsList.map((word, i) => `
+                            <div class="drag-word-block" id="drag-block-${i}" role="button" tabindex="0" aria-label="Từ: ${this.escapeHtml(word)}. Nhấn để chọn" onclick="app.handleDragBlockClick(${i}, '${this.escapeJsString(word)}', '${qType}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.handleDragBlockClick(${i}, '${this.escapeJsString(word)}', '${qType}');}" style="background:var(--bg-card); border:2px solid var(--border-color); border-bottom:4px solid var(--border-color); border-radius:10px; padding:0.5rem 1rem; font-weight:800; cursor:pointer; user-select:none; color:var(--text-main); font-size:0.95rem; transition:transform 0.1s;">${this.escapeHtml(word)}</div>
+                        `).join("")}
+                    </div>
+                </div>
+            `;
+        }
+        else if (qType === "writing" || qType === "writing_unscramble") {
+            const hasWordPool = (q.wordPool && q.wordPool.length > 0) || q.scrambledLetters;
+
+            if (hasWordPool) {
+                const wordsList = q.wordPool || [];
+                innerHtml = `
+                    <div class="writing-challenge-box" style="width:100%;">
                         ${q.scrambledLetters ? `
                             <div style="display: flex; gap: 0.6rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                                ${q.scrambledLetters.split('-').map(letter => `
-                                    <span class="scrambled-letter-card">${letter}</span>
+                                ${String(q.scrambledLetters).split('-').map(letter => `
+                                    <span class="scrambled-letter-card">${this.escapeHtml(letter)}</span>
                                 `).join('')}
                             </div>
                         ` : ''}
                         <div class="english-slots-container" id="english-slots-pool" style="min-height:55px; border:2px dashed #cbd5e1; border-radius:12px; width:100%; display:flex; gap:0.5rem; justify-content:center; align-items:center; padding:0.5rem; margin-bottom:1.5rem; background:var(--bg-app); flex-wrap:wrap;">
                             <!-- Thẻ kéo thả click chuyển vị trí -->
                         </div>
-                    `}
-                    
-                    <div class="english-drag-container" id="english-drag-pool" style="display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; width:100%; padding:0.5rem;">
-                        ${wordsList.map((word, i) => `
-                            <div class="drag-word-block" id="drag-block-${i}" onclick="app.handleDragBlockClick(${i}, '${word.replace(/'/g, "\\'")}', '${qType}')" style="background:var(--bg-card); border:2px solid var(--border-color); border-bottom:4px solid var(--border-color); border-radius:10px; padding:0.5rem 1rem; font-weight:800; cursor:pointer; user-select:none; color:var(--text-main); font-size:0.95rem; transition:transform 0.1s;">${word}</div>
-                        `).join("")}
+                        
+                        <div class="english-drag-container" id="english-drag-pool" style="display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; width:100%; padding:0.5rem;">
+                            ${wordsList.map((word, i) => `
+                                <div class="drag-word-block" id="drag-block-${i}" role="button" tabindex="0" aria-label="Từ: ${this.escapeHtml(word)}. Nhấn để sắp xếp" onclick="app.handleDragBlockClick(${i}, '${this.escapeJsString(word)}', '${qType}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.handleDragBlockClick(${i}, '${this.escapeJsString(word)}', '${qType}');}" style="background:var(--bg-card); border:2px solid var(--border-color); border-bottom:4px solid var(--border-color); border-radius:10px; padding:0.5rem 1rem; font-weight:800; cursor:pointer; user-select:none; color:var(--text-main); font-size:0.95rem; transition:transform 0.1s;">${this.escapeHtml(word)}</div>
+                            `).join("")}
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            } else {
+                // Viết tự do nếu câu writing không có wordPool
+                innerHtml = `
+                    <div style="width:100%; text-align:center;">
+                        <div style="margin-bottom:1.5rem;">
+                            <input type="text" id="eng-free-writing-input" class="form-input" aria-label="Gõ câu trả lời của con" style="text-align:center; font-size:1.2rem; width:100%; max-width:420px; padding:0.8rem; border-radius:12px; border:2px solid var(--border-color); background:var(--bg-app); color:var(--text-main);" placeholder="Gõ câu trả lời của con..." autocomplete="off">
+                        </div>
+                    </div>
+                `;
+            }
         }
         else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
             innerHtml = `
                 <div style="width:100%; text-align:center;">
                     <div style="margin-bottom:1.5rem;">
-                        <input type="text" id="eng-free-writing-input" class="form-input" style="text-align:center; font-size:1.2rem; width:100%; max-width:420px; padding:0.8rem; border-radius:12px; border:2px solid var(--border-color); background:var(--bg-app); color:var(--text-main);" placeholder="Gõ câu trả lời của con..." autocomplete="off">
+                        <input type="text" id="eng-free-writing-input" class="form-input" aria-label="Gõ câu trả lời của con" style="text-align:center; font-size:1.2rem; width:100%; max-width:420px; padding:0.8rem; border-radius:12px; border:2px solid var(--border-color); background:var(--bg-app); color:var(--text-main);" placeholder="Gõ câu trả lời của con..." autocomplete="off">
                     </div>
                 </div>
             `;
@@ -10172,10 +10287,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         else {
             // Trắc nghiệm mặc định
             innerHtml = `
-                <div class="options-grid" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px; margin:0 auto;">
-                    ${q.options.map((opt, i) => `
-                        <button class="option-btn duolingo-style" onclick="app.selectEnglishOption(${i})" id="opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main);">
-                            ${opt}
+                <div class="options-grid" role="radiogroup" aria-label="Các phương án trả lời" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px; margin:0 auto;">
+                    ${safeOptions.map((opt, i) => `
+                        <button class="option-btn duolingo-style" role="radio" aria-checked="false" tabindex="0" aria-label="Phương án ${i + 1}: ${this.escapeHtml(opt)}" onclick="app.selectEnglishOption(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.selectEnglishOption(${i});}" id="opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:var(--bg-card); border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); cursor:pointer;">
+                            ${this.escapeHtml(opt)}
                         </button>
                     `).join("")}
                 </div>
@@ -10186,7 +10301,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             ${headerHtml}
             ${innerHtml}
             <div style="margin-top:2.5rem; text-align:center; width:100%;">
-                <button class="btn-primary disabled" id="btn-eng-check-answer" onclick="app.checkEnglishAnswer()" disabled style="padding:0.75rem 2.5rem; border-radius:12px; font-weight:800; font-size:1rem; opacity:0.5; cursor:pointer;">
+                <button class="btn-primary disabled" id="btn-eng-check-answer" onclick="app.checkEnglishAnswer()" disabled aria-label="Kiểm tra câu trả lời" style="padding:0.75rem 2.5rem; border-radius:12px; font-weight:800; font-size:1rem; opacity:0.5; cursor:pointer;">
                     <i class="fa-solid fa-circle-check"></i> Kiểm Tra
                 </button>
             </div>
@@ -10201,27 +10316,37 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (checkBtn) {
                     if (e.target.value.trim().length > 0) {
                         checkBtn.removeAttribute("disabled");
+                        checkBtn.classList.remove("disabled");
                         checkBtn.style.opacity = "1";
                     } else {
                         checkBtn.setAttribute("disabled", "true");
+                        checkBtn.classList.add("disabled");
                         checkBtn.style.opacity = "0.5";
                     }
                 }
             };
+        } else {
+            const firstOpt = document.getElementById("opt-0");
+            if (firstOpt) {
+                try { firstOpt.focus(); } catch(e) {}
+            }
         }
     },
 
     selectEnglishOption: function(optIndex) {
-        const q = this.currentEnglishQuestions[this.currentEnglishQuestionIndex];
-        const total = q.options.length;
+        const q = this.currentEnglishQuestions && this.currentEnglishQuestions[this.currentEnglishQuestionIndex];
+        const safeOptions = (q && Array.isArray(q.options)) ? q.options : [];
+        const total = safeOptions.length;
         
         for (let i = 0; i < total; i++) {
             const btn = document.getElementById(`opt-${i}`);
             if (btn) {
                 if (i === optIndex) {
                     btn.classList.add("selected");
+                    btn.setAttribute("aria-checked", "true");
                 } else {
                     btn.classList.remove("selected");
+                    btn.setAttribute("aria-checked", "false");
                 }
             }
         }
@@ -10231,6 +10356,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const checkBtn = document.getElementById("btn-eng-check-answer");
         if (checkBtn) {
             checkBtn.removeAttribute("disabled");
+            checkBtn.classList.remove("disabled");
             checkBtn.style.opacity = "1";
         }
     },
@@ -10243,23 +10369,19 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         
         if (qType === "reading_cloze") {
             const clozeContainer = document.getElementById("cloze-passage-display");
-            const slots = clozeContainer.querySelectorAll(".cloze-slot");
+            const slots = clozeContainer ? clozeContainer.querySelectorAll(".cloze-slot") : [];
             
-            if (block.parentNode.id === "english-drag-pool") {
+            if (block.parentNode && block.parentNode.id === "english-drag-pool") {
                 // Điền vào slot trống đầu tiên
-                let filled = false;
                 for (let slot of slots) {
                     if (slot.innerHTML === "&nbsp;" || slot.innerText.trim() === "") {
-                        slot.innerHTML = word;
+                        slot.innerHTML = this.escapeHtml(word);
                         slot.setAttribute("data-block-id", blockId);
                         block.style.opacity = "0.3";
                         block.style.pointerEvents = "none";
-                        filled = true;
                         break;
                     }
                 }
-            } else {
-                // Nếu click vào một ô trong slot thì sẽ trả lại (đã xử lý bằng click vào cloze slot bên dưới)
             }
 
             // Gán sự kiện click vào cloze slot để gỡ ra
@@ -10282,9 +10404,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         if (checkBtn) {
                             if (filledCount > 0) {
                                 checkBtn.removeAttribute("disabled");
+                                checkBtn.classList.remove("disabled");
                                 checkBtn.style.opacity = "1";
                             } else {
                                 checkBtn.setAttribute("disabled", "true");
+                                checkBtn.classList.add("disabled");
                                 checkBtn.style.opacity = "0.5";
                             }
                         }
@@ -10298,9 +10422,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             if (checkBtn) {
                 if (filledCount > 0) {
                     checkBtn.removeAttribute("disabled");
+                    checkBtn.classList.remove("disabled");
                     checkBtn.style.opacity = "1";
                 } else {
                     checkBtn.setAttribute("disabled", "true");
+                    checkBtn.classList.add("disabled");
                     checkBtn.style.opacity = "0.5";
                 }
             }
@@ -10309,19 +10435,21 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const slotsPool = document.getElementById("english-slots-pool");
             const dragPool = document.getElementById("english-drag-pool");
 
-            if (block.parentNode.id === "english-drag-pool") {
-                slotsPool.appendChild(block);
+            if (block.parentNode && block.parentNode.id === "english-drag-pool") {
+                if (slotsPool) slotsPool.appendChild(block);
             } else {
-                dragPool.appendChild(block);
+                if (dragPool) dragPool.appendChild(block);
             }
 
-            if (checkBtn) {
+            if (checkBtn && slotsPool) {
                 const chosenCount = slotsPool.children.length;
                 if (chosenCount > 0) {
                     checkBtn.removeAttribute("disabled");
+                    checkBtn.classList.remove("disabled");
                     checkBtn.style.opacity = "1";
                 } else {
                     checkBtn.setAttribute("disabled", "true");
+                    checkBtn.classList.add("disabled");
                     checkBtn.style.opacity = "0.5";
                 }
             }
@@ -10329,13 +10457,27 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     checkEnglishAnswer: function() {
+        if (this.isCheckingEnglishAnswer) return;
+        this.isCheckingEnglishAnswer = true;
+
+        const checkBtn = document.getElementById("btn-eng-check-answer");
+        if (checkBtn) {
+            checkBtn.setAttribute("disabled", "true");
+            checkBtn.classList.add("disabled");
+        }
+
         if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
             SpeechService.stopSpeech();
         } else if (typeof window.speechSynthesis !== 'undefined') {
             window.speechSynthesis.cancel();
         }
         const qIndex = this.currentEnglishQuestionIndex;
-        const q = this.currentEnglishQuestions[qIndex];
+        const q = this.currentEnglishQuestions && this.currentEnglishQuestions[qIndex];
+        if (!q) {
+            this.isCheckingEnglishAnswer = false;
+            return;
+        }
+
         const qType = q.questionType || q.type || "choice";
 
         let studentInput = null;
@@ -10349,8 +10491,14 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const slots = clozeContainer ? clozeContainer.querySelectorAll(".cloze-slot") : [];
             studentInput = Array.from(slots).map(s => s.innerText);
         } else if (qType === "writing" || qType === "writing_unscramble") {
-            const slotsPool = document.getElementById("english-slots-pool");
-            studentInput = slotsPool ? Array.from(slotsPool.children).map(node => node.innerText) : [];
+            const hasWordPool = (q.wordPool && q.wordPool.length > 0) || q.scrambledLetters;
+            if (hasWordPool) {
+                const slotsPool = document.getElementById("english-slots-pool");
+                studentInput = slotsPool ? Array.from(slotsPool.children).map(node => node.innerText) : [];
+            } else {
+                const el = document.getElementById("eng-free-writing-input");
+                studentInput = el ? el.value : "";
+            }
         } else if (qType === "writing_completion" || qType === "writing_rewrite" || qType === "reading_qa") {
             const el = document.getElementById("eng-free-writing-input");
             studentInput = el ? el.value : "";
@@ -10372,12 +10520,25 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             // Fallback phòng thủ nếu chưa nạp được module
             evalResult = { isCorrect: false, explanation: "", studentAnsStr: "" };
             if (qType === "speaking" || qType === "speaking_roleplay") {
-                if (this.currentEnglishStudentAnswer) {
-                    evalResult.isCorrect = this.currentEnglishStudentAnswer.correct;
-                    evalResult.explanation = `Độ chính xác: <b>${this.currentEnglishStudentAnswer.accuracy}%</b>. Cần tối thiểu 60% để đạt.`;
+                if (this.currentEnglishStudentAnswer !== null && this.currentEnglishStudentAnswer !== undefined) {
+                    evalResult.isCorrect = Boolean(this.currentEnglishStudentAnswer.correct);
+                    evalResult.explanation = this.currentEnglishStudentAnswer.skipped
+                        ? "Đã bỏ qua câu phát âm."
+                        : `Độ chính xác: <b>${this.currentEnglishStudentAnswer.accuracy || 0}%</b>. Cần tối thiểu 60% để đạt.`;
                 }
+            } else if (qType === "choice" || qType === "reading_passage" || (qType === "listening" && q.options && q.options.length > 0)) {
+                let chosenText = "";
+                if (typeof studentInput === "number" && q.options && q.options[studentInput] !== undefined) {
+                    chosenText = q.options[studentInput];
+                } else if (typeof studentInput === "string") {
+                    chosenText = studentInput;
+                }
+                const cleanInput = this.normalizeAnswerToken(chosenText);
+                const cleanCorrect = this.normalizeAnswerToken(q.correctAnswer || "");
+                evalResult.isCorrect = (cleanInput.length > 0 && cleanInput === cleanCorrect) || (typeof q.correctIndex !== "undefined" && studentInput === q.correctIndex);
+                evalResult.explanation = `Đáp án đúng: <b>${q.correctAnswer || ""}</b>`;
             } else {
-                const cleanInput = this.normalizeAnswerToken(typeof studentInput === 'string' ? studentInput : "");
+                const cleanInput = this.normalizeAnswerToken(typeof studentInput === 'string' ? studentInput : (Array.isArray(studentInput) ? studentInput.join(" ") : ""));
                 const cleanCorrect = this.normalizeAnswerToken(q.correctAnswer || "");
                 evalResult.isCorrect = (cleanInput === cleanCorrect);
                 evalResult.explanation = `Đáp án đúng: <b>${q.correctAnswer || ""}</b>`;
@@ -10390,7 +10551,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
         q.isCorrect = isCorrect;
         if (qType === "listening_passage") {
-            explanation = `Đoạn văn nghe được:<br/><i style="color:var(--text-main); font-family:Georgia, serif;">"${q.listeningText}"</i><br/><br/>Đáp án đúng: <b>${q.correctAnswer}</b>`;
+            explanation = `Đoạn văn nghe được:<br/><i style="color:var(--text-main); font-family:Georgia, serif;">"${q.listeningText || ""}"</i><br/><br/>Đáp án đúng: <b>${q.correctAnswer || ""}</b>`;
         }
 
         // Đẩy kết quả vào banner phản hồi Duolingo
@@ -10412,8 +10573,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 if (feedbackTitle) feedbackTitle.innerText = "Chính xác! Con thật giỏi 🎉";
                 if (feedbackSubtitle) feedbackSubtitle.innerHTML = explanation || "Đúng rồi!";
                 
-                const soundCorrect = new Audio("sounds/correct.mp3");
-                soundCorrect.play().catch(e => console.log(e));
+                if (typeof Audio !== 'undefined') {
+                    const soundCorrect = new Audio("sounds/correct.mp3");
+                    soundCorrect.play().catch(e => console.log(e));
+                }
 
                 // Phát giọng đọc khen ngợi tiếng Anh tự nhiên (TTS) sau 250ms
                 setTimeout(() => {
@@ -10423,7 +10586,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 }, 250);
 
                 // Có 25% tỷ lệ phát thêm tiếng vỗ tay clapping làm nền
-                if (Math.random() < 0.25) {
+                if (Math.random() < 0.25 && typeof Audio !== 'undefined') {
                     setTimeout(() => {
                         const clap = new Audio("sounds/clapping.mp3");
                         clap.volume = 0.35;
@@ -10473,23 +10636,33 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     setTimeout(() => focusScreen.classList.remove("shake-effect"), 400);
                 }
 
-                const soundWrong = new Audio("sounds/wrong.mp3");
-                soundWrong.play().catch(e => console.log(e));
+                if (typeof Audio !== 'undefined') {
+                    const soundWrong = new Audio("sounds/wrong.mp3");
+                    soundWrong.play().catch(e => console.log(e));
+                }
             }
 
             actionArea.innerHTML = `
-                <button class="btn-feedback-action" onclick="app.nextEnglishQuestion()">Tiếp Tục <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn-feedback-action" id="btn-english-next-action" onclick="app.nextEnglishQuestion()" aria-label="Tiếp tục sang câu tiếp theo">Tiếp Tục <i class="fa-solid fa-chevron-right"></i></button>
             `;
+            const nextBtn = document.getElementById("btn-english-next-action");
+            if (nextBtn) {
+                try { nextBtn.focus(); } catch(e) {}
+            }
         }
     },
 
     nextEnglishQuestion: function() {
+        if (this.isTransitioningEnglishQuestion) return;
+        this.isTransitioningEnglishQuestion = true;
+        this.isCheckingEnglishAnswer = false;
+
         this.currentEnglishQuestionIndex++;
-        const total = this.currentEnglishQuestions.length;
+        const total = (this.currentEnglishQuestions && this.currentEnglishQuestions.length) || 0;
 
         if (this.currentEnglishQuestionIndex >= total) {
             // Vượt qua thử thách!
-            const finalScorePct = Math.round((this.currentEnglishScore / total) * 100);
+            const finalScorePct = total > 0 ? Math.round((this.currentEnglishScore / total) * 100) : 0;
             
             document.getElementById("english-focus-lesson-screen").classList.add("hidden");
             document.body.classList.remove("focus-mode-active");
@@ -10512,12 +10685,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 xpEarned = 0;
             }
 
+            const duration = Math.round((Date.now() - (this.currentEnglishLessonStartTime || Date.now())) / 1000);
+
             // Lưu lịch sử chi tiết
             const session = {
                 id: "sess_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
                 lessonId: lessonId,
                 skill: this.currentEnglishSkill,
                 score: finalScorePct,
+                duration: duration,
                 timestamp: Date.now(),
                 answers: this.currentEnglishQuestions.map((q, idx) => ({
                     questionIndex: idx,
@@ -10533,7 +10709,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.checkAndReward100PercentLesson(lessonId, 'english');
             
             if ((this.currentEnglishSkill === 'spelling' || this.currentEnglishSkill === 'writing') && finalScorePct === 100) {
-                this.state.slainMonstersCount = (this.state.slainMonstersCount || 0) + 1;
+                this.state.perfectLessons = this.state.perfectLessons || {};
+                if (!this.state.perfectLessons[scoreKey]) {
+                    this.state.perfectLessons[scoreKey] = true;
+                    this.state.slainMonstersCount = (this.state.slainMonstersCount || 0) + 1;
+                }
             }
             
             // Quản lý Streak độc lập
@@ -10551,6 +10731,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
 
             this.saveEnglishState();
+            setTimeout(() => {
+                this.isTransitioningEnglishQuestion = false;
+            }, 300);
 
             Swal.fire({
                 title: finalScorePct >= 80 ? "Chúc mừng Chiến binh! 👑" : "Hoàn thành thử thách!",
@@ -10562,6 +10745,9 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             });
         } else {
             this.renderEnglishQuestion();
+            setTimeout(() => {
+                this.isTransitioningEnglishQuestion = false;
+            }, 300);
         }
     },
 
@@ -10571,8 +10757,29 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (!placeholder) return;
         placeholder.innerHTML = "";
 
-        const currentClass = this.config.currentClass || "6";
-        const lessons = COURSE_DATA.filter(chap => chap.subject === "english" && String(chap.class || "6") === String(currentClass)).flatMap(chap => chap.lessons);
+        const currentClass = String(this.config.currentClass || "6");
+        const engData = (typeof ENGLISH_COURSE_DATA !== 'undefined' && ENGLISH_COURSE_DATA) || 
+                        (typeof window !== 'undefined' && window.ENGLISH_COURSE_DATA) ||
+                        (typeof globalThis !== 'undefined' && globalThis.ENGLISH_COURSE_DATA);
+        let lessons = [];
+        if (engData && engData[currentClass] && Array.isArray(engData[currentClass].topics)) {
+            lessons = engData[currentClass].topics.map(t => ({
+                id: t.id,
+                title: t.title,
+                vocabulary: (t.vocab || []).map(v => ({
+                    word: v.word || "",
+                    ipa: v.phonetics || v.ipa || "",
+                    phonetics: v.phonetics || v.ipa || "",
+                    meaning: v.translation || v.meaning || "",
+                    translation: v.translation || v.meaning || "",
+                    sentence: v.sentence || v.example || "",
+                    sentenceTranslation: v.sentenceTranslation || ""
+                }))
+            }));
+        }
+        if (lessons.length === 0 && typeof COURSE_DATA !== 'undefined' && Array.isArray(COURSE_DATA)) {
+            lessons = COURSE_DATA.filter(chap => chap.subject === "english" && String(chap.class || "6") === currentClass).flatMap(chap => chap.lessons || []);
+        }
 
         if (lessons.length === 0) {
             placeholder.innerHTML = `<p style="color:#64748b; text-align:center;">Chưa có từ vựng nào được nạp cho lớp ${currentClass}.</p>`;
@@ -10762,22 +10969,60 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const grid = document.getElementById("eng-practice-vocab-grid");
         if (!grid) return;
         
-        const lesson = getLessonById(lessonId);
-        if (!lesson || !lesson.vocabulary) {
+        const currentClass = String(this.config.currentClass || "6");
+        const engData = (typeof ENGLISH_COURSE_DATA !== 'undefined' && ENGLISH_COURSE_DATA) || 
+                        (typeof window !== 'undefined' && window.ENGLISH_COURSE_DATA) ||
+                        (typeof globalThis !== 'undefined' && globalThis.ENGLISH_COURSE_DATA);
+        let vocabList = [];
+
+        // 1. Thử tìm trong canonical data trước (nguồn chuẩn)
+        if (engData && engData[currentClass] && Array.isArray(engData[currentClass].topics)) {
+            const topic = engData[currentClass].topics.find(t => t.id === lessonId);
+            if (topic && Array.isArray(topic.vocab)) {
+                vocabList = topic.vocab.map(v => ({
+                    word: v.word || "",
+                    ipa: v.phonetics || v.ipa || "",
+                    meaning: v.translation || v.meaning || "",
+                    sentence: v.sentence || v.example || ""
+                }));
+            }
+        }
+
+        // 2. Fallback sang getLessonById (legacy bridge)
+        if (vocabList.length === 0 && typeof getLessonById === 'function') {
+            const lesson = getLessonById(lessonId);
+            if (lesson && Array.isArray(lesson.vocabulary)) {
+                vocabList = lesson.vocabulary.map(v => ({
+                    word: v.word || "",
+                    ipa: v.ipa || v.phonetics || "",
+                    meaning: v.meaning || v.translation || "",
+                    sentence: v.sentence || v.example || ""
+                }));
+            }
+        }
+
+        if (vocabList.length === 0) {
             grid.innerHTML = `<p style="color:#64748b; text-align:center;">Chưa có từ vựng cho bài học này.</p>`;
             return;
         }
 
         grid.innerHTML = `
             <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:1.2rem; width:100%;">
-                ${lesson.vocabulary.map(v => `
-                    <div class="vocab-interactive-card" onclick="app.playEnglishVoice('${v.word.replace(/'/g, "\\'")}', '${v.word.replace(/'/g, "\\'")}')" style="background:var(--bg-card); border: 2px solid var(--border-color); border-radius: 16px; padding:1.2rem; text-align:center; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.02); transition:transform 0.2s;">
-                        <div style="font-weight:800; font-size:1.2rem; color:var(--text-main);">${v.word}</div>
-                        <div style="color:#64748b; font-size:0.85rem; margin:4px 0;">${v.ipa || ''}</div>
-                        <div style="color:#10b981; font-weight:800; font-size:0.95rem;">${v.meaning}</div>
-                        <div style="font-size:0.75rem; color:#94a3b8; font-style:italic; margin-top:8px; border-top:1px solid var(--border-color); padding-top:6px;">"${v.sentence}"</div>
+                ${vocabList.map(v => {
+                    const safeWord = this.escapeHtml(v.word);
+                    const safeIpa = this.escapeHtml(v.ipa);
+                    const safeMeaning = this.escapeHtml(v.meaning);
+                    const safeSentence = this.escapeHtml(v.sentence);
+                    const jsWord = this.escapeJsString ? this.escapeJsString(v.word) : v.word.replace(/'/g, "\\'");
+                    return `
+                    <div class="vocab-interactive-card" role="button" tabindex="0" aria-label="Nghe phát âm từ: ${safeWord}" onclick="app.playEnglishVoice('${jsWord}', '${jsWord}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.playEnglishVoice('${jsWord}', '${jsWord}');}" style="background:var(--bg-card); border: 2px solid var(--border-color); border-radius: 16px; padding:1.2rem; text-align:center; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.02); transition:transform 0.2s;">
+                        <div style="font-weight:800; font-size:1.2rem; color:var(--text-main);">${safeWord}</div>
+                        <div style="color:#64748b; font-size:0.85rem; margin:4px 0;">${safeIpa}</div>
+                        <div style="color:#10b981; font-weight:800; font-size:0.95rem;">${safeMeaning}</div>
+                        <div style="font-size:0.75rem; color:#94a3b8; font-style:italic; margin-top:8px; border-top:1px solid var(--border-color); padding-top:6px;">"${safeSentence}"</div>
                     </div>
-                `).join("")}
+                `;
+                }).join("")}
             </div>
         `;
     },
@@ -12130,30 +12375,39 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             const card = document.createElement("div");
             card.style.cssText = `background: white; border: 2px solid #cbd5e1; border-radius: 16px; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: all 0.2s; position: relative; margin-bottom: 1rem;`;
 
-            // Xây dựng badges từ vựng
-            const vocabHtml = topicVocab.map(v => `
-                <span class="vocab-badge" onclick="app.playEnglishVoice('${v.word.replace(/'/g, "\\'")}')" style="background:#f8fafc; border:1px solid #e2e8f0; padding:4px 10px; border-radius:99px; font-weight:700; font-size:0.8rem; color:#334155; display:inline-flex; align-items:center; gap:0.4rem; cursor:pointer; transition:all 0.15s;" title="Nhấn để nghe">
+            // Xây dựng badges từ vựng an toàn XSS
+            const vocabHtml = topicVocab.map(v => {
+                const safeWord = this.escapeHtml(v.word || '');
+                const safePhonetics = this.escapeHtml(v.phonetics || '');
+                const safeTranslation = this.escapeHtml(v.translation || '');
+                const jsWord = this.escapeJsString ? this.escapeJsString(v.word || '') : (v.word || '').replace(/'/g, "\\'");
+                const safeAttrWord = this.escapeHtml(jsWord);
+                return `
+                <span class="vocab-badge" role="button" tabindex="0" aria-label="Nghe phát âm từ: ${safeWord}" onclick="app.playEnglishVoice('${safeAttrWord}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.playEnglishVoice('${safeAttrWord}');}" style="background:#f8fafc; border:1px solid #e2e8f0; padding:4px 10px; border-radius:99px; font-weight:700; font-size:0.8rem; color:#334155; display:inline-flex; align-items:center; gap:0.4rem; cursor:pointer; transition:all 0.15s;" title="Nhấn để nghe">
                     <i class="fa-solid fa-volume-high" style="color:#7c3aed; font-size:0.7rem;"></i>
-                    <b>${v.word}</b> 
-                    <span style="color:#ef4444; font-size:0.75rem; font-weight:600;">${v.phonetics || ''}</span>
-                    <span style="font-weight:normal; color:#64748b; font-size:0.75rem;">: ${v.translation}</span>
+                    <b>${safeWord}</b> 
+                    <span style="color:#ef4444; font-size:0.75rem; font-weight:600;">${safePhonetics}</span>
+                    <span style="font-weight:normal; color:#64748b; font-size:0.75rem;">: ${safeTranslation}</span>
                 </span>
-            `).join(" ");
+            `;
+            }).join(" ");
 
             // Điểm số cao nhất của chuyên đề này
             const scoreKey = `${topic.id}-${this.currentEnglishSkill}`;
             const score = this.state.scores[scoreKey] || 0;
+            const safeTopicTitle = this.escapeHtml(topic.title || '');
+            const jsTopicId = this.escapeJsString ? this.escapeJsString(topic.id || '') : (topic.id || '').replace(/'/g, "\\'");
 
             card.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; border-bottom:1px solid #f1f5f9; padding-bottom:0.6rem;">
                     <div>
                         <span style="font-weight:900; font-size:0.75rem; color:#7c3aed; text-transform:uppercase;">Chuyên đề ${idx + 1} (${dateStr})</span>
-                        <h5 style="margin:2px 0 0 0; font-size:1.1rem; font-weight:800; color:#1e293b;">${topic.title}</h5>
+                        <h5 style="margin:2px 0 0 0; font-size:1.1rem; font-weight:800; color:#1e293b;">${safeTopicTitle}</h5>
                     </div>
                     <div style="display:flex; gap:0.5rem; align-items:center;">
                         ${score >= 80 ? `<span style="font-size:1.5rem; text-shadow:0 0 8px gold;" title="Đã hoàn thành xuất sắc!">👑</span>` : `<span style="font-size:1.2rem; filter:grayscale(100%); opacity:0.3;">👑</span>`}
                         <span style="font-size:0.9rem; font-weight:800; color:${score >= 80 ? '#10b981' : '#f59e0b'};">${score}%</span>
-                        <button onclick="app.deleteStudentCustomTopic('${topic.id}')" style="background:none; border:none; color:#ef4444; cursor:pointer; padding:4px; font-size:0.95rem;" title="Xóa chuyên đề"><i class="fa-solid fa-trash-can"></i></button>
+                        <button onclick="app.deleteStudentCustomTopic('${jsTopicId}')" aria-label="Xóa chuyên đề" style="background:none; border:none; color:#ef4444; cursor:pointer; padding:4px; font-size:0.95rem;" title="Xóa chuyên đề"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
 
@@ -12164,7 +12418,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 </div>
 
                 <div style="display:flex; justify-content:flex-end; margin-top:0.3rem;">
-                    <button class="btn-primary" onclick="app.startEnglishLesson('${topic.id}')" style="cursor:pointer; background:linear-gradient(135deg, #7c3aed, #6d28d9); border:none; padding:0.5rem 1rem; font-size:0.85rem; border-radius:10px; color:white; font-weight:800; display:flex; align-items:center; gap:0.4rem; box-shadow:0 2px 4px rgba(124,58,237,0.15);">
+                    <button class="btn-primary" onclick="app.startEnglishLesson('${jsTopicId}')" aria-label="Luyện tập chuyên đề ${safeTopicTitle}" style="cursor:pointer; background:linear-gradient(135deg, #7c3aed, #6d28d9); border:none; padding:0.5rem 1rem; font-size:0.85rem; border-radius:10px; color:white; font-weight:800; display:flex; align-items:center; gap:0.4rem; box-shadow:0 2px 4px rgba(124,58,237,0.15);">
                         <i class="fa-solid fa-play"></i> Luyện tập ngay
                     </button>
                 </div>
@@ -12312,9 +12566,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (!placeholder) return;
         placeholder.innerHTML = "";
 
-        const currentClass = this.config.currentClass || "6";
-        const classData = window.ENGLISH_COURSE_DATA[currentClass];
-        if (!classData) {
+        const currentClass = String(this.config.currentClass || "6");
+        const engData = (typeof ENGLISH_COURSE_DATA !== 'undefined' && ENGLISH_COURSE_DATA) || 
+                        (typeof window !== 'undefined' && window.ENGLISH_COURSE_DATA) ||
+                        (typeof globalThis !== 'undefined' && globalThis.ENGLISH_COURSE_DATA);
+        const classData = engData && engData[currentClass];
+        if (!classData || !Array.isArray(classData.topics)) {
             placeholder.innerHTML = `<p style="color:#64748b; text-align:center;">Chưa có dữ liệu bài học cho khối lớp ${currentClass}.</p>`;
             return;
         }
@@ -12324,7 +12581,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 ${classData.topics.map((topic, i) => {
                     const scoreKey = `ioe-${topic.id}`;
                     const bestScore = this.state.scores[scoreKey] || 0;
-                    const status = this.getEnglishLessonStatus(topic.id); // Tận dụng hệ thống mở khóa có sẵn
+                    const status = typeof this.getIoeLessonStatus === 'function' ? this.getIoeLessonStatus(topic.id) : this.getEnglishLessonStatus(topic.id);
 
                     return `
                         <div class="ioe-round-card" style="background:var(--bg-card); border: 2px solid ${status === 'locked' ? 'var(--border-color)' : '#3b82f6'}; border-radius: 16px; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem; opacity: ${status === 'locked' ? 0.6 : 1}; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
@@ -12442,6 +12699,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     startStudentEnglishExamOnline: async function() {
+        if (this.state.englishHearts <= 0 && !this.state.infiniteHearts) {
+            Swal.fire("Hết Trái tim! ❤️", "Con hãy hồi tim hoặc bật Vô hạn tim để bắt đầu thi đấu nhé!", "warning");
+            return;
+        }
+
         const catSelect = document.getElementById("student-eng-category-select");
         const levelSelect = document.getElementById("student-eng-level-select");
         const detailSelect = document.getElementById("student-eng-detail-select");
@@ -12495,6 +12757,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                 return;
             }
 
+            this.ioeExamFinished = false;
             this.currentIoeQuestions = questions;
             this.currentIoeQuestionIndex = 0;
             this.currentIoeScore = 0;
@@ -12527,6 +12790,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             } else if (typeof window.generateIoeQuestions === "function") {
                 fallbackQuestions = window.generateIoeQuestions(classLevel, detail || "eng6-t1");
             }
+            if (!fallbackQuestions || fallbackQuestions.length === 0) {
+                Swal.fire("Thông báo", "Không thể khởi tạo câu hỏi cho đề thi này. Vui lòng thử lại.", "warning");
+                return;
+            }
+            this.ioeExamFinished = false;
             this.currentIoeQuestions = fallbackQuestions;
             this.currentIoeQuestionIndex = 0;
             this.currentIoeScore = 0;
@@ -12943,6 +13211,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             return;
         }
 
+        this.ioeExamFinished = false;
         this.currentIoeQuestions = questions;
         this.currentIoeQuestionIndex = 0;
         this.currentIoeScore = 0;
@@ -12951,16 +13220,23 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         this.currentIoeTopicId = topicId;
         this.currentIoeTimeRemaining = 1200; // 20 phút
 
-        // Reset UI counters
-        document.getElementById("ioe-correct-count").innerText = 0;
-        document.getElementById("ioe-wrong-count").innerText = 0;
-        document.getElementById("ioe-current-score").innerText = 0;
+        // Reset UI counters (null-safe)
+        const corrEl = document.getElementById("ioe-correct-count");
+        if (corrEl) corrEl.innerText = 0;
+        const wrgEl = document.getElementById("ioe-wrong-count");
+        if (wrgEl) wrgEl.innerText = 0;
+        const scrEl = document.getElementById("ioe-current-score");
+        if (scrEl) scrEl.innerText = 0;
 
         document.body.classList.add("focus-mode-active");
-        document.getElementById("english-ioe-exam-screen").classList.remove("hidden");
+        const examScreen = document.getElementById("english-ioe-exam-screen");
+        if (examScreen) examScreen.classList.remove("hidden");
 
         // Khởi động Timer
-        if (this.currentIoeTimer) clearInterval(this.currentIoeTimer);
+        if (this.currentIoeTimer) {
+            clearInterval(this.currentIoeTimer);
+            this.currentIoeTimer = null;
+        }
         this.currentIoeTimer = setInterval(() => this.updateIoeTimer(), 1000);
         this.updateIoeTimer();
 
@@ -12969,7 +13245,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     updateIoeTimer: function() {
         if (this.currentIoeTimeRemaining <= 0) {
-            clearInterval(this.currentIoeTimer);
+            if (this.currentIoeTimer) {
+                clearInterval(this.currentIoeTimer);
+                this.currentIoeTimer = null;
+            }
             Swal.fire({
                 title: "Hết giờ làm bài! ⏱️",
                 text: "Đồng hồ đã chỉ về 0. Hệ thống sẽ tự động nộp bài thi IOE của con.",
@@ -12985,7 +13264,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const mins = Math.floor(this.currentIoeTimeRemaining / 60);
         const secs = this.currentIoeTimeRemaining % 60;
         const display = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        document.getElementById("ioe-timer").innerText = display;
+        const timerEl = document.getElementById("ioe-timer");
+        if (timerEl) timerEl.innerText = display;
     },
 
     exitIoeExam: function() {
@@ -13000,8 +13280,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             color: 'var(--text-main)'
         }).then(result => {
             if (result.isConfirmed) {
-                if (this.currentIoeTimer) clearInterval(this.currentIoeTimer);
-                document.getElementById("english-ioe-exam-screen").classList.add("hidden");
+                if (this.currentIoeTimer) {
+                    clearInterval(this.currentIoeTimer);
+                    this.currentIoeTimer = null;
+                }
+                const screen = document.getElementById("english-ioe-exam-screen");
+                if (screen) screen.classList.add("hidden");
                 document.body.classList.remove("focus-mode-active");
                 this.renderEnglishIoe();
             }
@@ -13018,24 +13302,51 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         container.innerHTML = "";
 
         const qIndex = this.currentIoeQuestionIndex;
-        const total = this.currentIoeQuestions.length;
-        const q = this.currentIoeQuestions[qIndex];
+        const total = (this.currentIoeQuestions && this.currentIoeQuestions.length) || 0;
+        const q = this.currentIoeQuestions && this.currentIoeQuestions[qIndex];
+
+        if (!q) {
+            container.innerHTML = `<p style="text-align:center; color:#64748b; padding:2rem;">Không tìm thấy câu hỏi IOE.</p>`;
+            return;
+        }
 
         // Cập nhật nhãn tiến trình
-        const progressPct = Math.round((qIndex / total) * 100);
-        document.getElementById("ioe-exam-progress").style.width = `${progressPct}%`;
-        document.getElementById("ioe-progress-text").innerText = `Câu ${qIndex + 1}/${total}`;
+        const progressPct = total > 0 ? Math.round((qIndex / total) * 100) : 0;
+        const progEl = document.getElementById("ioe-exam-progress");
+        if (progEl) progEl.style.width = `${progressPct}%`;
+        const progTxt = document.getElementById("ioe-progress-text");
+        if (progTxt) progTxt.innerText = `Câu ${qIndex + 1}/${total}`;
 
-        let headerHtml = `<h2 style="font-size:1.35rem; font-weight:900; color:var(--text-main); text-align:center; margin-bottom:1.5rem; line-height:1.5;">${q.questionText}</h2>`;
+        const safeQuestionText = this.escapeHtml(q.questionText || "");
+        let headerHtml = `<h2 style="font-size:1.35rem; font-weight:900; color:var(--text-main); text-align:center; margin-bottom:1.5rem; line-height:1.5;">${safeQuestionText}</h2>`;
         let innerHtml = "";
 
+        // 1. Chuẩn bị Audio Box độc lập phía trên nội dung tương tác (nếu có bài nghe)
+        let audioBox = "";
+        if (q.listeningText || q.audioScript || q.category === 'listening' || q.questionType === 'listening' || (q.questionText || '').toLowerCase().includes('listen')) {
+            const speechText = q.listeningText || q.audioScript || q.correctAnswer || "";
+            const audioKey = q.listeningText || q.correctAnswer || "";
+            audioBox = `
+                <div style="background:linear-gradient(135deg, #ecfdf5, #d1fae5); border:2px solid #10b981; border-radius:20px; padding:1.2rem; margin:1rem auto 1.5rem auto; max-width:480px; text-align:center; box-shadow:0 4px 12px rgba(16,185,129,0.15);">
+                    <button class="btn-audio-speak-large" type="button" aria-label="Nghe đoạn đọc hoặc bài nghe IOE" onclick="app.playEnglishVoice('${this.escapeJsString(speechText)}', '${this.escapeJsString(audioKey)}')" style="width:75px; height:75px; border-radius:50%; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 14px rgba(16,185,129,0.35); transition:all 0.15s ease;">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <div style="font-weight:800; color:#047857; font-size:1.05rem; margin-top:0.6rem;">🎧 Bấm nút để nghe đoạn đọc / bài nghe IOE</div>
+                    <div style="font-size:0.85rem; color:#065f46; font-style:italic; margin-top:0.2rem;">(Con hãy lắng nghe thật kỹ để chọn từ/câu đúng nhé)</div>
+                </div>
+            `;
+        }
+
+        // 2. Phân loại renderer theo q.type
+        const safeOptions = Array.isArray(q.options) ? q.options : [];
+
         if (q.type === "ioe_leave_alone") {
-            const letters = q.scrambled.toUpperCase().split("");
+            const letters = (q.scrambled || "").toUpperCase().split("");
             innerHtml = `
                 <div style="text-align:center; width:100%;">
                     <div style="display:flex; gap:0.8rem; justify-content:center; margin:2.5rem 0; flex-wrap:wrap;">
                         ${letters.map((char, i) => `
-                            <button class="ioe-letter-btn" id="ioe-la-char-${i}" onclick="app.handleIoeLeaveAloneClick(${i})" style="width:55px; height:55px; border-radius:12px; border:2px solid #cbd5e1; background:white; font-size:1.5rem; font-weight:900; color:#1e293b; cursor:pointer; box-shadow:0 4px 0 #cbd5e1; transition:all 0.1s ease;">${char}</button>
+                            <button class="ioe-letter-btn" id="ioe-la-char-${i}" onclick="app.handleIoeLeaveAloneClick(${i})" aria-label="Chữ cái ${this.escapeHtml(char)}" style="width:55px; height:55px; border-radius:12px; border:2px solid #cbd5e1; background:white; font-size:1.5rem; font-weight:900; color:#1e293b; cursor:pointer; box-shadow:0 4px 0 #cbd5e1; transition:all 0.1s ease;">${this.escapeHtml(char)}</button>
                         `).join("")}
                     </div>
                 </div>
@@ -13045,7 +13356,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             innerHtml = `
                 <div style="text-align:center; width:100%; margin:2rem 0;">
                     <div style="margin-bottom:1.5rem;">
-                        <input type="text" id="ioe-fb-input" class="form-input" maxlength="1" style="text-align:center; font-size:2rem; width:80px; height:80px; padding:0; border-radius:16px; border:3px solid #3b82f6; background:var(--bg-app); color:#2563eb; font-weight:900; text-transform:uppercase;" autocomplete="off">
+                        <input type="text" id="ioe-fb-input" class="form-input" maxlength="1" aria-label="Nhập chữ cái còn thiếu" style="text-align:center; font-size:2rem; width:80px; height:80px; padding:0; border-radius:16px; border:3px solid #3b82f6; background:var(--bg-app); color:#2563eb; font-weight:900; text-transform:uppercase;" autocomplete="off">
                     </div>
                     <p style="color:#64748b; font-weight:700; font-size:0.9rem;">Nhập chữ cái còn thiếu vào ô trên</p>
                 </div>
@@ -13053,26 +13364,30 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         }
         else if (q.type === "ioe_pair_matching") {
             const shuffleArray = (arr) => arr.slice().sort(() => Math.random() - 0.5);
-            const engWords = q.pairs.map(p => p.eng);
-            const viMeanings = q.pairs.map(p => p.vi);
+            const pairs = Array.isArray(q.pairs) ? q.pairs : [];
+            const engWords = pairs.map(p => p.eng);
+            const viMeanings = pairs.map(p => p.vi);
             
             const shufEng = shuffleArray(engWords);
             const shufVi = shuffleArray(viMeanings);
 
             innerHtml = `
+                <div id="ioe-matching-counter" style="text-align:center; font-weight:800; color:#3b82f6; font-size:1rem; margin-bottom:0.5rem;" aria-live="polite">
+                    Đã ghép: 0 / ${pairs.length} cặp
+                </div>
                 <div style="display:flex; gap:2.5rem; width:100%; justify-content:center; align-items:stretch; margin:1.5rem 0;">
                     <div style="display:flex; flex-direction:column; gap:0.8rem; flex:1; max-width:240px;">
                         <div style="text-align:center; font-weight:900; color:#2563eb; font-size:0.95rem; margin-bottom:4px; text-transform:uppercase;">Tiếng Anh</div>
                         ${shufEng.map((eng, i) => {
                             const safeId = "m_" + String(eng).toLowerCase().replace(/[^a-z0-9]/g, "_");
-                            return `<button class="ioe-matching-btn eng" id="ioe-match-eng-${safeId}" onclick="app.handleIoeMatchingClick('eng', '${safeId}', '${app.escapeJsString(eng)}')" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${eng}</button>`;
+                            return `<button class="ioe-matching-btn eng" id="ioe-match-eng-${safeId}" onclick="app.handleIoeMatchingClick('eng', '${safeId}', '${this.escapeJsString(eng)}')" aria-label="Từ tiếng Anh: ${this.escapeHtml(eng)}" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${this.escapeHtml(eng)}</button>`;
                         }).join("")}
                     </div>
                     <div style="display:flex; flex-direction:column; gap:0.8rem; flex:1; max-width:240px;">
                         <div style="text-align:center; font-weight:900; color:#10b981; font-size:0.95rem; margin-bottom:4px; text-transform:uppercase;">Nghĩa Tiếng Việt</div>
                         ${shufVi.map((vi, i) => {
                             const safeId = "m_" + String(vi).toLowerCase().replace(/[^a-z0-9]/g, "_");
-                            return `<button class="ioe-matching-btn vi" id="ioe-match-vi-${safeId}" onclick="app.handleIoeMatchingClick('vi', '${safeId}', '${app.escapeJsString(vi)}')" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${vi}</button>`;
+                            return `<button class="ioe-matching-btn vi" id="ioe-match-vi-${safeId}" onclick="app.handleIoeMatchingClick('vi', '${safeId}', '${this.escapeJsString(vi)}')" aria-label="Nghĩa tiếng Việt: ${this.escapeHtml(vi)}" style="padding:0.9rem 1rem; border-radius:12px; border:2px solid #cbd5e1; background:white; font-weight:700; color:var(--text-main); font-size:0.95rem; cursor:pointer; text-align:left; transition:all 0.15s ease; box-shadow:0 3px 0 #cbd5e1; width:100%;">${this.escapeHtml(vi)}</button>`;
                         }).join("")}
                     </div>
                 </div>
@@ -13089,35 +13404,20 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         </div>
                     </div>
                     
-                    <div class="options-grid" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px;">
-                        ${q.options.map((opt, i) => `
-                            <button class="option-btn duolingo-style" onclick="app.selectIoeOption(${i})" id="ioe-opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:white; border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); font-size:0.95rem; width:100%;">
-                                ${opt}
+                    <div class="options-grid" role="radiogroup" aria-label="Các phương án trả lời" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px;">
+                        ${safeOptions.map((opt, i) => `
+                            <button class="option-btn duolingo-style" role="radio" aria-checked="false" tabindex="0" onclick="app.selectIoeOption(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.selectIoeOption(${i});}" id="ioe-opt-${i}" aria-label="Phương án ${i + 1}: ${this.escapeHtml(opt)}" style="text-align:left; padding:1rem 1.2rem; background:white; border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); font-size:0.95rem; width:100%;">
+                                ${this.escapeHtml(opt)}
                             </button>
                         `).join("")}
                     </div>
                 </div>
             `;
         }
-        let audioBox = "";
-        if (q.listeningText || q.audioScript || q.category === 'listening' || q.questionType === 'listening' || (q.questionText || '').toLowerCase().includes('listen')) {
-            const speechText = q.listeningText || q.audioScript || q.correctAnswer || "";
-            const audioKey = q.listeningText || q.correctAnswer || "";
-            audioBox = `
-                <div style="background:linear-gradient(135deg, #ecfdf5, #d1fae5); border:2px solid #10b981; border-radius:20px; padding:1.2rem; margin:1rem auto 1.5rem auto; max-width:480px; text-align:center; box-shadow:0 4px 12px rgba(16,185,129,0.15);">
-                    <button class="btn-audio-speak-large" type="button" onclick="app.playEnglishVoice('${speechText.replace(/'/g, "\\'")}', '${audioKey.replace(/'/g, "\\'")}')" style="width:75px; height:75px; border-radius:50%; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; font-size:2.2rem; cursor:pointer; box-shadow:0 6px 14px rgba(16,185,129,0.35); transition:all 0.15s ease;">
-                        <i class="fa-solid fa-volume-high"></i>
-                    </button>
-                    <div style="font-weight:800; color:#047857; font-size:1.05rem; margin-top:0.6rem;">🎧 Bấm nút để nghe đoạn đọc / bài nghe IOE</div>
-                    <div style="font-size:0.85rem; color:#065f46; font-style:italic; margin-top:0.2rem;">(Con hãy lắng nghe thật kỹ để chọn từ/câu đúng nhé)</div>
-                </div>
-            `;
-        }
-
         else {
+            // Mặc định: Trắc nghiệm Khỉ leo cây (ioe_choice)
             innerHtml = `
                 <div style="display:flex; flex-direction:column; align-items:center; width:100%;">
-                    ${audioBox}
                     <div style="display:flex; align-items:center; gap:2rem; margin:1rem 0 2rem 0; width:100%; justify-content:center;">
                         <div style="font-size:5.5rem; filter:drop-shadow(0 8px 12px rgba(0,0,0,0.15));" class="ioe-monkey-animate">🐒</div>
                         <div style="background:#dcfce7; border:2px solid #22c55e; padding:1rem; border-radius:16px; position:relative; max-width:400px; color:#166534; font-weight:700; font-size:0.95rem; line-height:1.5; box-shadow:0 4px 6px rgba(0,0,0,0.02);">
@@ -13126,10 +13426,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         </div>
                     </div>
                     
-                    <div class="options-grid" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px;">
-                        ${q.options.map((opt, i) => `
-                            <button class="option-btn duolingo-style" onclick="app.selectIoeOption(${i})" id="ioe-opt-${i}" style="text-align:left; padding:1rem 1.2rem; background:white; border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); font-size:0.95rem; width:100%;">
-                                ${opt}
+                    <div class="options-grid" role="radiogroup" aria-label="Các phương án trả lời" style="display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:480px;">
+                        ${safeOptions.map((opt, i) => `
+                            <button class="option-btn duolingo-style" role="radio" aria-checked="false" tabindex="0" onclick="app.selectIoeOption(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.selectIoeOption(${i});}" id="ioe-opt-${i}" aria-label="Phương án ${i + 1}: ${this.escapeHtml(opt)}" style="text-align:left; padding:1rem 1.2rem; background:white; border: 2px solid var(--border-color); border-radius:12px; font-weight:700; color:var(--text-main); font-size:0.95rem; width:100%;">
+                                ${this.escapeHtml(opt)}
                             </button>
                         `).join("")}
                     </div>
@@ -13139,6 +13439,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
         container.innerHTML = `
             ${headerHtml}
+            ${audioBox}
             ${innerHtml}
             <div style="margin-top:2.5rem; text-align:center; width:100%;">
                 <button class="btn-primary disabled" id="btn-ioe-check-answer" onclick="app.checkIoeAnswer()" disabled style="padding:0.75rem 2.5rem; border-radius:12px; font-weight:800; font-size:1rem; opacity:0.5; cursor:pointer; background:#2563eb; border-color:#2563eb;">
@@ -13157,9 +13458,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                     if (val.length > 0) {
                         this.currentIoeSelectedAnswer = val;
                         checkBtn.removeAttribute("disabled");
+                        checkBtn.classList.remove("disabled");
                         checkBtn.style.opacity = "1";
                     } else {
                         checkBtn.setAttribute("disabled", "true");
+                        checkBtn.classList.add("disabled");
                         checkBtn.style.opacity = "0.5";
                     }
                 }
@@ -13169,7 +13472,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     handleIoeLeaveAloneClick: function(letterIndex) {
         const q = this.currentIoeQuestions[this.currentIoeQuestionIndex];
-        const lettersCount = q.scrambled.length;
+        const lettersCount = (q && q.scrambled) ? q.scrambled.length : 0;
 
         for (let i = 0; i < lettersCount; i++) {
             const btn = document.getElementById(`ioe-la-char-${i}`);
@@ -13195,19 +13498,20 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const checkBtn = document.getElementById("btn-ioe-check-answer");
         if (checkBtn) {
             checkBtn.removeAttribute("disabled");
+            checkBtn.classList.remove("disabled");
             checkBtn.style.opacity = "1";
         }
     },
 
     handleIoeMatchingClick: function(type, elementId, value) {
         const q = this.currentIoeQuestions[this.currentIoeQuestionIndex];
+        if (!q || !Array.isArray(q.pairs)) return;
 
         if (this.currentIoeMatchingPairsDone.some(pair => pair[type] === value)) return;
 
         const buttons = document.querySelectorAll(`.ioe-matching-btn.${type}`);
         buttons.forEach(btn => {
             const valAttr = btn.getAttribute("id").replace(`ioe-match-${type}-`, "");
-            const cleanVal = valAttr.replace(/_/g, " ");
             if (!this.currentIoeMatchingPairsDone.some(pair => pair[type].replace(/\s+/g, "_").toLowerCase() === valAttr.toLowerCase())) {
                 btn.style.background = "white";
                 btn.style.borderColor = "#cbd5e1";
@@ -13257,10 +13561,16 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
                 this.currentIoeMatchingSelected = { eng: null, vi: null };
 
+                const counterEl = document.getElementById("ioe-matching-counter");
+                if (counterEl) {
+                    counterEl.innerText = `Đã ghép: ${this.currentIoeMatchingPairsDone.length} / ${q.pairs.length} cặp`;
+                }
+
                 if (this.currentIoeMatchingPairsDone.length === q.pairs.length) {
                     const checkBtn = document.getElementById("btn-ioe-check-answer");
                     if (checkBtn) {
                         checkBtn.removeAttribute("disabled");
+                        checkBtn.classList.remove("disabled");
                         checkBtn.style.opacity = "1";
                     }
                 }
@@ -13301,15 +13611,18 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     selectIoeOption: function(optIndex) {
         const q = this.currentIoeQuestions[this.currentIoeQuestionIndex];
-        const total = q.options.length;
+        const safeOptions = (q && Array.isArray(q.options)) ? q.options : [];
+        const total = safeOptions.length;
         
         for (let i = 0; i < total; i++) {
             const btn = document.getElementById(`ioe-opt-${i}`);
             if (btn) {
                 if (i === optIndex) {
                     btn.classList.add("selected");
+                    btn.setAttribute("aria-checked", "true");
                 } else {
                     btn.classList.remove("selected");
+                    btn.setAttribute("aria-checked", "false");
                 }
             }
         }
@@ -13319,6 +13632,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         const checkBtn = document.getElementById("btn-ioe-check-answer");
         if (checkBtn) {
             checkBtn.removeAttribute("disabled");
+            checkBtn.classList.remove("disabled");
             checkBtn.style.opacity = "1";
         }
     },
@@ -13326,6 +13640,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     checkIoeAnswer: function() {
         const qIndex = this.currentIoeQuestionIndex;
         const q = this.currentIoeQuestions[qIndex];
+        if (!q) return;
 
         let isCorrect = false;
         let explanation = "";
@@ -13341,7 +13656,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             explanation = q.solutionHtml;
         }
         else if (q.type === "ioe_pair_matching") {
-            isCorrect = (this.currentIoeMatchingPairsDone && this.currentIoeMatchingPairsDone.length === q.pairs.length);
+            isCorrect = (this.currentIoeMatchingPairsDone && this.currentIoeMatchingPairsDone.length === (q.pairs ? q.pairs.length : 0));
             explanation = q.solutionHtml;
         }
         else {
@@ -13356,8 +13671,10 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             this.currentIoeCorrectCount++;
             this.currentIoeScore += 10;
             
-            document.getElementById("ioe-correct-count").innerText = this.currentIoeCorrectCount;
-            document.getElementById("ioe-current-score").innerText = this.currentIoeScore;
+            const corrEl = document.getElementById("ioe-correct-count");
+            if (corrEl) corrEl.innerText = this.currentIoeCorrectCount;
+            const scrEl = document.getElementById("ioe-current-score");
+            if (scrEl) scrEl.innerText = this.currentIoeScore;
 
             const correctSound = new Audio("sounds/correct.mp3");
             correctSound.play().catch(e => {});
@@ -13386,7 +13703,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             });
         } else {
             this.currentIoeWrongCount++;
-            document.getElementById("ioe-wrong-count").innerText = this.currentIoeWrongCount;
+            const wrgEl = document.getElementById("ioe-wrong-count");
+            if (wrgEl) wrgEl.innerText = this.currentIoeWrongCount;
 
             // Trừ 10 XP khi làm sai (ràng buộc XP không âm)
             let currentXp = this.state.englishXp || 0;
@@ -13419,7 +13737,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     nextIoeQuestion: function() {
         this.currentIoeQuestionIndex++;
-        const total = this.currentIoeQuestions.length;
+        const total = (this.currentIoeQuestions && this.currentIoeQuestions.length) || 0;
 
         if (this.currentIoeQuestionIndex >= total) {
             this.finishIoeExam();
@@ -13429,9 +13747,16 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     finishIoeExam: function() {
-        if (this.currentIoeTimer) clearInterval(this.currentIoeTimer);
+        if (this.ioeExamFinished) return;
+        this.ioeExamFinished = true;
+
+        if (this.currentIoeTimer) {
+            clearInterval(this.currentIoeTimer);
+            this.currentIoeTimer = null;
+        }
         
-        document.getElementById("english-ioe-exam-screen").classList.add("hidden");
+        const screen = document.getElementById("english-ioe-exam-screen");
+        if (screen) screen.classList.add("hidden");
         document.body.classList.remove("focus-mode-active");
 
         const finalScore = this.currentIoeScore;

@@ -788,11 +788,19 @@ function generateIoeQuestions(classLevel, topicId) {
     });
 
     // 3. DẠNG 3: Cool Pair Matching (Cặp đôi hoàn hảo) - 4 câu
+    const allAvailableVocab = [...cumulativeVocab];
+    const otherWords = classData.topics.flatMap(t => t.vocab).filter(v => !allAvailableVocab.some(av => av.word.toLowerCase() === v.word.toLowerCase()));
+    allAvailableVocab.push(...shuffleArray(otherWords));
+
     for (let m = 0; m < 4; m++) {
-        const shufVocab3 = shuffleArray(cumulativeVocab);
-        const selectedVocab3 = shufVocab3.slice(0, Math.min(5, shufVocab3.length));
-        
-        let pairs = selectedVocab3.map(v => ({ eng: v.word, vi: v.translation }));
+        let pairs = [];
+        if (allAvailableVocab.length >= 20) {
+            pairs = allAvailableVocab.slice(m * 5, m * 5 + 5).map(v => ({ eng: v.word, vi: v.translation }));
+        } else {
+            const startIdx = (m * 3) % Math.max(1, allAvailableVocab.length);
+            const rotated = [...allAvailableVocab.slice(startIdx), ...allAvailableVocab.slice(0, startIdx)];
+            pairs = rotated.slice(0, 5).map(v => ({ eng: v.word, vi: v.translation }));
+        }
         if (pairs.length < 5) {
             const backupWords = classData.topics.flatMap(t => t.vocab).map(v => ({ eng: v.word, vi: v.translation }));
             const filteredBackup = backupWords.filter(bw => !pairs.some(p => p.eng === bw.eng));

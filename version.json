@@ -1,9 +1,9 @@
 {
-  "version": "15.1",
-  "lastUpdated": "02/09/2026 06:55",
-  "build": 1405,
-  "releaseNotes": "Triệt tiêu hoàn toàn trùng lặp phương án câu hỏi Toán (CYCLE-MATH-GENERATOR-COLLISION-HARDENING): Thiết lập chốt chặn bất biến trung tâm ensureUniqueOptions, sửa đổi toàn bộ các công thức nhiễu vi phạm định danh đại số và sụp đổ tham số, bảo đảm 100% câu hỏi trắc nghiệm có 4 phương án phân biệt ngữ nghĩa.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.1/ToanHocKiosk_Setup_v15.1.exe",
-  "changelog": "- Triệt tiêu các điểm lỗi trùng lặp đáp án do định danh đại số và biên tham số tại 51 bộ sinh câu hỏi Toán.\n- Thiết lập chốt chặn bất biến trung tâm ensureUniqueOptions tại questions-v3.js và math-template-compiler.js.\n- Bổ sung bộ kiểm thử hồi quy và thuộc tính tests/core/math-generator-collision.test.js kiểm tra 100% các loại câu hỏi.\n- Bảo đảm bảo toàn độc lập dữ liệu học tập môn Toán của học sinh.",
-  "releaseDate": "2026-09-02T06:55:00+07:00"
+  "version": "15.3",
+  "lastUpdated": "12/09/2026 09:10",
+  "build": 1406,
+  "releaseNotes": "Phát hành chính thức Phân hệ Tiếng Anh Lớp 6 (ENGLISH PRO GRADE 6) đạt chuẩn Release Candidate RC-1: Khắc phục triệt để 28 lỗi kiểm toán, bổ sung type guard runtime API an toàn, bảo vệ chống race condition và XSS, bảo toàn 100% dữ liệu môn Toán.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.3/ToanHocKiosk_Setup_v15.3.exe",
+  "changelog": "- Khôi phục và chuẩn hóa toàn bộ 4 kỹ năng Nghe - Nói - Đọc - Viết phân hệ Tiếng Anh Lớp 6.\n- Khắc phục lỗi chọn đáp án A (index=0) và ranh giới đánh giá thuần túy (ERR-01, ERR-03).\n- Bổ sung nút Bỏ qua câu nói (Skip Speaking) an toàn khi gặp sự cố micro (ERR-05, DISC-05).\n- Sửa cấu trúc render IOE và phòng thủ runtime type-guards cho options, listeningText, passageText (DISC-02, DISC-07, DISC-09, DISC-10).\n- Idempotent hóa toàn bộ các luồng nhạy cảm: checkEnglishAnswer, nextEnglishQuestion, finishIoeExam.\n- Lọc sạch 100% XSS bằng escapeHtml cho Custom Vocab và Profile (DISC-01, NEW-SEC-01).\n- Bảo toàn tuyệt đối dữ liệu môn Toán của học sinh Trần Bình Minh và Trần Đức Phúc.",
+  "releaseDate": "2026-09-12T09:10:00+07:00"
 }

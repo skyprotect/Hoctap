@@ -12,11 +12,60 @@
 })(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : this, function () {
     'use strict';
 
+    function buildAnswerTable(list, isFillable) {
+        if (!list || list.length === 0) {
+            const label = isFillable ? 'Câu hỏi' : 'Câu';
+            const rowLabel = isFillable ? 'Đáp án chọn' : 'Đáp án';
+            const border = isFillable ? '1.5px solid #000000' : '1.2px solid #000000';
+            const rowHeight = isFillable ? '32px' : '28px';
+            const labelStyle = isFillable ? 'border: 1px solid #000000; padding: 6px; font-weight: bold;' : 'border: 1px solid #000000; padding: 6px;';
+            const bodyLabelStyle = isFillable
+                ? 'border: 1px solid #000000; padding: 6px; font-weight: bold;'
+                : 'border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;';
+            return `<table style="width: 100%; border-collapse: collapse; border: ${border}; text-align: center; font-size: 12px;"><thead><tr style="background-color: #f1f5f9; font-weight: bold;"><td style="${labelStyle}">${label}</td></tr></thead><tbody><tr style="${isFillable ? 'height: 32px;' : 'height: 28px; font-weight: bold;'}"><td style="${bodyLabelStyle}">${rowLabel}</td></tr></tbody></table>`;
+        }
+
+        const chunkSize = 10;
+        let tablesHtml = '';
+        for (let chunkStart = 0; chunkStart < list.length; chunkStart += chunkSize) {
+            const chunk = list.slice(chunkStart, chunkStart + chunkSize);
+            const isLastChunk = chunkStart + chunkSize >= list.length;
+            const marginStyle = isLastChunk ? '' : ' margin-bottom: 8px;';
+            const border = isFillable ? '1.5px solid #000000' : '1.2px solid #000000';
+            const rowHeight = isFillable ? '32px' : '28px';
+            const label = isFillable ? 'Câu hỏi' : 'Câu';
+            const rowLabel = isFillable ? 'Đáp án chọn' : 'Đáp án';
+            const labelStyle = isFillable ? 'border: 1px solid #000000; padding: 6px; font-weight: bold;' : 'border: 1px solid #000000; padding: 6px;';
+            const bodyLabelStyle = isFillable
+                ? 'border: 1px solid #000000; padding: 6px; font-weight: bold;'
+                : 'border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;';
+
+            let headerCells = `<td style="${labelStyle}">${label}</td>`;
+            let bodyCells = `<td style="${bodyLabelStyle}">${rowLabel}</td>`;
+
+            chunk.forEach((q, cIdx) => {
+                const qNum = chunkStart + cIdx + 1;
+                headerCells += `<td style="border: 1px solid #000000; padding: 6px;">${qNum}</td>`;
+                if (isFillable) {
+                    bodyCells += `<td style="border: 1px solid #000000;"></td>`;
+                } else {
+                    const letter = ['A', 'B', 'C', 'D'][q.correctIndex || 0];
+                    bodyCells += `<td style="border: 1px solid #000000; color: #10b981 !important;">${letter}</td>`;
+                }
+            });
+
+            tablesHtml += `<table style="width: 100%; border-collapse: collapse; border: ${border}; text-align: center; font-size: 12px;${marginStyle}"><thead><tr style="background-color: #f1f5f9; font-weight: bold;">${headerCells}</tr></thead><tbody><tr style="${isFillable ? 'height: 32px;' : 'height: 28px; font-weight: bold;'}">${bodyCells}</tr></tbody></table>`;
+        }
+        return tablesHtml;
+    }
+
     function buildStudentExamMarkup(lessonTitle, questionsList, includeSolution, classLevel, level, metadata) {
-        const schoolName = metadata.schoolName;
-        const defaultStudentName = metadata.defaultStudentName;
+        const schoolName = (metadata && metadata.schoolName) || '';
+        const defaultStudentName = (metadata && metadata.defaultStudentName) || '';
         const levelTextMap = { 'co-ban': 'Cơ bản', 'nang-cao': 'Nâng cao', 'kho': 'Khó', 'chat-luong-cao': 'Chất lượng cao AI' };
         const levelText = levelTextMap[level] || 'Nâng cao';
+        const list = Array.isArray(questionsList) ? questionsList : [];
+        const questionCount = list.length;
         let html = `
             <!-- Trang Đề thi -->
             <div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif;">
@@ -27,12 +76,12 @@
                 <div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px;">Chuyên đề: ${lessonTitle}</div>
                 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 20px; line-height: 1.8;"><div style="width: 60%;">Họ và tên học sinh: <span style="font-weight: bold;">${defaultStudentName}</span></div><div style="width: 35%;">Ngày làm bài: ....../....../20...</div><div style="width: 60%;">Lớp: ....................................................................</div><div style="width: 35%;">Thời gian làm bài: 45 phút</div></div>
                 <table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; margin-bottom: 25px; font-size: 13px; text-align: center;"><thead><tr style="background-color: #f8fafc;"><th style="border: 1px solid #000000; padding: 8px; font-weight: bold; width: 30%;">ĐIỂM SỐ</th><th style="border: 1px solid #000000; padding: 8px; font-weight: bold;">LỜI PHÊ CỦA PHỤ HUYNH</th></tr></thead><tbody><tr style="height: 60px;"><td style="border: 1px solid #000000;"></td><td style="border: 1px solid #000000; text-align: left; padding: 8px; vertical-align: top; color: #64748b;"></td></tr></tbody></table>
-                <div style="font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px dashed #000000; padding-bottom: 4px;">PHẦN I. CÂU HỎI TRẮC NGHIỆM (10 câu hỏi)</div>
+                <div style="font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px dashed #000000; padding-bottom: 4px;">PHẦN I. CÂU HỎI TRẮC NGHIỆM (${questionCount} câu hỏi)</div>
                 <p style="font-style: italic; font-size: 12px; margin-bottom: 15px; color: #475569;">Khoanh tròn vào chữ cái đứng trước câu trả lời đúng nhất hoặc điền vào Bảng đáp án ở cuối đề.</p>
                 <div style="display: flex; flex-direction: column; gap: 20px;">`;
 
-        questionsList.forEach((q, idx) => {
-            const cleanText = q.questionText.replace(/<br\s*\/?>/gi, '<br/>');
+        list.forEach((q, idx) => {
+            const cleanText = (q.questionText || '').replace(/<br\s*\/?>/gi, '<br/>');
             let optionsHtml = '';
             if (q.options && q.options.length > 0) {
                 optionsHtml = '<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; padding-left: 15px; font-size: 13px;">';
@@ -46,13 +95,11 @@
             html += `<div style="page-break-inside: avoid; break-inside: avoid;"><div class="math-render" style="font-size: 13.5px; font-weight: 600; line-height: 1.6; text-align: justify;">Câu ${idx + 1}: ${cleanText}</div>${optionsHtml}</div>`;
         });
 
-        html += `</div><div style="margin-top: 35px; page-break-inside: avoid; break-inside: avoid;"><div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 10px; text-transform: uppercase;">BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM</div><table style="width: 100%; border-collapse: collapse; border: 1.5px solid #000000; text-align: center; font-size: 12px;"><thead><tr style="background-color: #f1f5f9; font-weight: bold;"><td style="border: 1px solid #000000; padding: 6px; font-weight: bold;">Câu hỏi</td>${[1,2,3,4,5,6,7,8,9,10].map(number => `<td style="border: 1px solid #000000; padding: 6px;">${number}</td>`).join('')}</tr></thead><tbody><tr style="height: 32px;"><td style="border: 1px solid #000000; padding: 6px; font-weight: bold;">Đáp án chọn</td>${Array(10).fill('<td style="border: 1px solid #000000;"></td>').join('')}</tr></tbody></table></div><div style="margin-top: 30px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">© Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.</div></div>`;
+        html += `</div><div style="margin-top: 35px; page-break-inside: avoid; break-inside: avoid;"><div style="font-weight: bold; font-size: 12px; text-align: center; margin-bottom: 10px; text-transform: uppercase;">BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM</div>${buildAnswerTable(list, true)}</div><div style="margin-top: 30px; border-top: 1px solid #d1d5db; padding-top: 6px; text-align: center; font-size: 9px; color: #4b5563; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; opacity: 0.85;">© Copyright by Trần Hải Đăng - Khoa Binh chủng, Trường Quân sự Quân khu 3 (Hotline: 0978396032). All rights reserved.</div></div>`;
 
         if (includeSolution) {
-            html += `<div class="print-page-break" style="margin-top: 40px;"></div><div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif; margin-top: 20px;"><div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 20px;">HƯỚNG DẪN GIẢI CHI TIẾT & ĐÁP ÁN ĐỀ THI</div><p style="font-size: 13px; margin-bottom: 15px; font-weight: bold;">Chuyên đề: ${lessonTitle} - Mức độ: ${levelText}</p><div style="margin-bottom: 25px;"><div style="font-weight: bold; font-size: 12px; margin-bottom: 8px; text-transform: uppercase;">1. BẢNG ĐÁP ÁN NHANH</div><table style="width: 100%; border-collapse: collapse; border: 1.2px solid #000000; text-align: center; font-size: 12px;"><thead><tr style="background-color: #f1f5f9; font-weight: bold;"><td style="border: 1px solid #000000; padding: 6px;">Câu</td>${[1,2,3,4,5,6,7,8,9,10].map(number => `<td style="border: 1px solid #000000; padding: 6px;">${number}</td>`).join('')}</tr></thead><tbody><tr style="height: 28px; font-weight: bold;"><td style="border: 1px solid #000000; background-color: #f1f5f9; color: #000000 !important;">Đáp án</td>`;
-            questionsList.forEach(q => { html += `<td style="border: 1px solid #000000; color: #10b981 !important;">${['A', 'B', 'C', 'D'][q.correctIndex || 0]}</td>`; });
-            html += `</tr></tbody></table></div><div style="font-weight: bold; font-size: 12px; margin-bottom: 12px; text-transform: uppercase;">2. LỜI GIẢI CHI TIẾT TỪNG CÂU</div><div style="display: flex; flex-direction: column; gap: 18px; font-size: 13px; line-height: 1.6;">`;
-            questionsList.forEach((q, idx) => {
+            html += `<div class="print-page-break" style="margin-top: 40px;"></div><div class="print-exam-page text-black bg-white" style="font-family: 'Times New Roman', Times, Georgia, serif; margin-top: 20px;"><div style="text-align: center; font-weight: bold; font-size: 15px; text-transform: uppercase; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 20px;">HƯỚNG DẪN GIẢI CHI TIẾT & ĐÁP ÁN ĐỀ THI</div><p style="font-size: 13px; margin-bottom: 15px; font-weight: bold;">Chuyên đề: ${lessonTitle} - Mức độ: ${levelText}</p><div style="margin-bottom: 25px;"><div style="font-weight: bold; font-size: 12px; margin-bottom: 8px; text-transform: uppercase;">1. BẢNG ĐÁP ÁN NHANH</div>${buildAnswerTable(list, false)}</div><div style="font-weight: bold; font-size: 12px; margin-bottom: 12px; text-transform: uppercase;">2. LỜI GIẢI CHI TIẾT TỪNG CÂU</div><div style="display: flex; flex-direction: column; gap: 18px; font-size: 13px; line-height: 1.6;">`;
+            list.forEach((q, idx) => {
                 const correctLetter = ['A', 'B', 'C', 'D'][q.correctIndex || 0];
                 const cleanSol = q.solutionHtml ? q.solutionHtml.replace(/<br\s*\/?>/gi, '<br/>') : 'Đang cập nhật...';
                 const cleanTip = q.tip ? q.tip.replace(/<br\s*\/?>/gi, '<br/>') : '';
@@ -65,5 +112,5 @@
         return html;
     }
 
-    return { buildStudentExamMarkup };
+    return { buildStudentExamMarkup, buildAnswerTable };
 });

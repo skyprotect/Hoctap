@@ -146,14 +146,14 @@ describe('renderAndPrintStudentExam deterministic document-markup contract', () 
         expect(html).toContain('tip & <strong>raw</strong>');
     });
 
-    test('TC-10 missing optional fields and empty question list: accepts no options/solution/tip, while retaining fixed student answer-table markup', () => {
+    test('TC-10 missing optional fields and empty question list: accepts no options/solution/tip, with dynamic question count in header', () => {
         const optionalMissing = renderPreview('Tối thiểu', [makeQuestion({ options: undefined, solutionHtml: undefined, tip: undefined })]);
         const empty = renderPreview('Rỗng', [], false);
 
         expect(optionalMissing).not.toContain('grid-template-columns');
         expect(optionalMissing).toContain('Đang cập nhật...');
         expect(empty).not.toContain('Câu 1:');
-        expect(empty).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (10 câu hỏi)');
+        expect(empty).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (0 câu hỏi)');
         expect(empty).toContain('BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM');
     });
 
@@ -190,5 +190,104 @@ describe('renderAndPrintStudentExam deterministic document-markup contract', () 
 
         expect(StudentExamMarkup.buildStudentExamMarkup('Thuần', list, true, '6', 'kho', metadata))
             .toBe(renderPreview('Thuần', list, true, '6', 'kho'));
+    });
+
+    test('TC-14 scalability 1-question: header states 1 question, table contains slot 1, answer key aligns', () => {
+        const list = [makeQuestion({ questionText: 'Câu hỏi đơn', correctIndex: 2 })];
+        const html = renderPreview('Đề 1 câu', list, true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (1 câu hỏi)');
+        expect(html).toContain('<td style="border: 1px solid #000000; padding: 6px;">1</td>');
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">2</td>');
+        expect(html).toContain('>C</td>');
+    });
+
+    test('TC-15 scalability 10-question: header states 10 questions, single table with 10 slots and all answers aligned', () => {
+        const list = Array.from({ length: 10 }, (_, i) => makeQuestion({
+            questionText: `Nội dung ${i + 1}`,
+            correctIndex: i % 4
+        }));
+        const html = renderPreview('Đề 10 câu', list, true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (10 câu hỏi)');
+        for (let i = 1; i <= 10; i++) {
+            expect(html).toContain(`Câu ${i}: Nội dung ${i}`);
+            expect(html).toContain(`<td style="border: 1px solid #000000; padding: 6px;">${i}</td>`);
+        }
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">11</td>');
+    });
+
+    test('TC-16 scalability 11-question: splits into 2 chunk tables (10 + 1), numbering complete', () => {
+        const list = Array.from({ length: 11 }, (_, i) => makeQuestion({
+            questionText: `Nội dung ${i + 1}`,
+            correctIndex: i % 4
+        }));
+        const html = renderPreview('Đề 11 câu', list, true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (11 câu hỏi)');
+        expect(html).toContain('Câu 1: Nội dung 1');
+        expect(html).toContain('Câu 11: Nội dung 11');
+        expect(html).toContain('<td style="border: 1px solid #000000; padding: 6px;">11</td>');
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">12</td>');
+    });
+
+    test('TC-17 scalability 16-question: 2 chunk tables (10 + 6), no truncation, all 16 slots and solutions complete', () => {
+        const letters = ['A', 'B', 'C', 'D'];
+        const list = Array.from({ length: 16 }, (_, i) => makeQuestion({
+            questionText: `Nội dung bài toán ${i + 1}`,
+            correctIndex: i % 4
+        }));
+        const html = renderPreview('Đề 16 câu', list, true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (16 câu hỏi)');
+        for (let i = 1; i <= 16; i++) {
+            expect(html).toContain(`Câu ${i}: Nội dung bài toán ${i}`);
+            expect(html).toContain(`<td style="border: 1px solid #000000; padding: 6px;">${i}</td>`);
+            expect(html).toContain(`Câu ${i}: Chọn đáp án ${letters[(i - 1) % 4]}`);
+        }
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">17</td>');
+    });
+
+    test('TC-18 scalability 18-question: 2 chunk tables (10 + 8), no truncation, full key alignment', () => {
+        const letters = ['A', 'B', 'C', 'D'];
+        const list = Array.from({ length: 18 }, (_, i) => makeQuestion({
+            questionText: `Câu hỏi nâng cao ${i + 1}`,
+            correctIndex: (i * 2) % 4
+        }));
+        const html = renderPreview('Đề 18 câu', list, true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (18 câu hỏi)');
+        for (let i = 1; i <= 18; i++) {
+            expect(html).toContain(`Câu ${i}: Câu hỏi nâng cao ${i}`);
+            expect(html).toContain(`<td style="border: 1px solid #000000; padding: 6px;">${i}</td>`);
+            expect(html).toContain(`Câu ${i}: Chọn đáp án ${letters[((i - 1) * 2) % 4]}`);
+        }
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">19</td>');
+    });
+
+    test('TC-19 scalability 20-question: 2 full chunk tables (10 + 10), complete 1..20 answer positions and solutions', () => {
+        const letters = ['A', 'B', 'C', 'D'];
+        const list = Array.from({ length: 20 }, (_, i) => makeQuestion({
+            questionText: `Chuyên đề số ${i + 1}`,
+            correctIndex: (i + 1) % 4
+        }));
+        const html = renderPreview('Đề 20 câu', list, true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (20 câu hỏi)');
+        for (let i = 1; i <= 20; i++) {
+            expect(html).toContain(`Câu ${i}: Chuyên đề số ${i}`);
+            expect(html).toContain(`<td style="border: 1px solid #000000; padding: 6px;">${i}</td>`);
+            expect(html).toContain(`Câu ${i}: Chọn đáp án ${letters[i % 4]}`);
+        }
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">21</td>');
+    });
+
+    test('TC-20 scalability 0-question: handles empty array gracefully without crash', () => {
+        const html = renderPreview('Đề trống', [], true);
+
+        expect(html).toContain('PHẦN I. CÂU HỎI TRẮC NGHIỆM (0 câu hỏi)');
+        expect(html).toContain('BẢNG ĐIỀN ĐÁP ÁN TRẮC NGHIỆM');
+        expect(html).toContain('1. BẢNG ĐÁP ÁN NHANH');
+        expect(html).not.toContain('<td style="border: 1px solid #000000; padding: 6px;">1</td>');
     });
 });
