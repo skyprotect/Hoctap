@@ -177,40 +177,51 @@ describe("SpeechRecognitionService Unit Tests", () => {
             expect(res.correct).toBe(true);
         });
 
-        test("18. Short sentence rule (<= 2 từ): Chỉ cần đúng >= 1 từ là đạt (correct = true)", () => {
+        test("18. Pronunciation threshold: 50% là không đạt (< 60%)", () => {
             const res = SpeechRecognitionService.evaluatePronunciation("Good morning", "Good night");
             expect(res.accuracy).toBe(50);
-            expect(res.correct).toBe(true); // Câu 2 từ đúng 1 từ -> đạt
+            expect(res.correct).toBe(false); // 50% < 60% -> không đạt
         });
 
-        test("19. Long sentence rule (> 2 từ): Đạt >= 50% là passing", () => {
+        test("19. Passing threshold: Đạt >= 60% là passing (correct = true)", () => {
             const res = SpeechRecognitionService.evaluatePronunciation("She is a good student", "She is a bad person");
             // 3/5 từ đúng ("She", "is", "a") -> 60%
             expect(res.accuracy).toBe(60);
             expect(res.correct).toBe(true);
         });
 
-        test("20. Below passing threshold: Dưới 50% câu dài là không đạt (correct = false)", () => {
+        test("20. Below passing threshold: Dưới 60% là không đạt (correct = false)", () => {
             const res = SpeechRecognitionService.evaluatePronunciation("I want to learn English", "I play game everyday");
-            // 2/5 từ được tính ("I" khớp chính xác, "English" chứa ký tự "i") -> 40% < 50% -> correct = false
+            // 2/5 từ được tính ("I" khớp chính xác, "English" chứa ký tự "i") -> 40% < 60% -> correct = false
             expect(res.accuracy).toBe(40);
             expect(res.correct).toBe(false);
         });
 
-        test("21. Empty input: Xử lý an toàn không crash", () => {
+        test("21. Empty input: Xử lý an toàn không crash, trả về correct = false", () => {
             const res1 = SpeechRecognitionService.evaluatePronunciation("", "");
             expect(res1.accuracy).toBe(0);
-            expect(res1.correct).toBe(true); // cleanTarget.length = 0 <= 2 và correctCount = 0
+            expect(res1.correct).toBe(false);
 
             const res2 = SpeechRecognitionService.evaluatePronunciation("Hello", "");
             expect(res2.accuracy).toBe(0);
             expect(res2.correct).toBe(false);
+
+            const res3 = SpeechRecognitionService.evaluatePronunciation("Hello", "   ");
+            expect(res3.accuracy).toBe(0);
+            expect(res3.correct).toBe(false);
         });
 
         test("22. Special characters: Loại bỏ dấu câu trước khi so khớp", () => {
             const res = SpeechRecognitionService.evaluatePronunciation("What is this?", "what is this");
             expect(res.accuracy).toBe(100);
             expect(res.correct).toBe(true);
+        });
+
+        test("23. checkMicrophoneSupport() trả về trạng thái hỗ trợ Web Speech và mediaDevices", () => {
+            const sup = SpeechRecognitionService.checkMicrophoneSupport();
+            expect(sup).toHaveProperty('speechRecognition');
+            expect(sup).toHaveProperty('mediaDevices');
+            expect(sup.supported).toBe(true);
         });
     });
 });

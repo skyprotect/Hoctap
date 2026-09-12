@@ -51,6 +51,16 @@
             return recordingState;
         },
 
+        checkMicrophoneSupport: function() {
+            const hasWebSpeech = this.isSupported();
+            const hasMediaDevices = typeof navigator !== 'undefined' && !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+            return {
+                speechRecognition: hasWebSpeech,
+                mediaDevices: hasMediaDevices,
+                supported: hasWebSpeech
+            };
+        },
+
         getRecognition: function() {
             return recognitionInstance;
         },
@@ -182,10 +192,12 @@
                 }
             });
 
-            const accuracy = cleanTarget.length > 0 ? Math.round((correctCount / cleanTarget.length) * 100) : 0;
+            const accuracy = (cleanTarget.length > 0 && cleanSpoken.length > 0)
+                ? Math.round((correctCount / cleanTarget.length) * 100)
+                : 0;
 
-            // Ngưỡng đạt phát âm: >= 50% hoặc đúng >= 1 từ với câu cực ngắn (<= 2 từ)
-            const isPassing = (cleanTarget.length <= 2) ? (correctCount >= 1 || cleanTarget.length === 0) : (accuracy >= 50);
+            // Ngưỡng đạt phát âm chuẩn hóa: >= 60% thống nhất toàn hệ thống (59% FAIL, 60% PASS, 61% PASS)
+            const isPassing = (cleanSpoken.length > 0 && cleanTarget.length > 0) ? (accuracy >= 60) : false;
 
             return {
                 spokenText: rawSpoken,

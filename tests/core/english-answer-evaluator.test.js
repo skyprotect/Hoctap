@@ -73,7 +73,38 @@ describe('EnglishAnswerEvaluator (js/core/english-answer-evaluator.js)', () => {
             expect(res.explanation).toContain('85%');
         });
 
-        test('Incorrect when accuracy < 60% or missing answer', () => {
+        test('Strict Threshold verification: 59% FAIL, 60% PASS, 61% PASS, >=95% PASS', () => {
+            const q = { type: 'speaking' };
+
+            // 59% DÙ correct: true CŨNG PHẢI LÀ FAIL
+            const res59 = evaluateSpeaking(q, { correct: true, accuracy: 59, spokenText: 'Hello' });
+            expect(res59.isCorrect).toBe(false);
+
+            // 60% ĐẠT NGƯỠNG -> PASS
+            const res60 = evaluateSpeaking(q, { correct: true, accuracy: 60, spokenText: 'Hello world' });
+            expect(res60.isCorrect).toBe(true);
+
+            // 61% ĐẠT NGƯỠNG -> PASS
+            const res61 = evaluateSpeaking(q, { correct: true, accuracy: 61, spokenText: 'Hello world' });
+            expect(res61.isCorrect).toBe(true);
+
+            // >= 95% ĐẠT HOÀN HẢO -> PASS
+            const res95 = evaluateSpeaking(q, { correct: true, accuracy: 98, spokenText: 'Hello world' });
+            expect(res95.isCorrect).toBe(true);
+
+            // 0% -> FAIL
+            const res0 = evaluateSpeaking(q, { correct: false, accuracy: 0, spokenText: '' });
+            expect(res0.isCorrect).toBe(false);
+
+            // NaN / undefined -> FAIL
+            const resNaN = evaluateSpeaking(q, { correct: true, accuracy: NaN, spokenText: 'Test' });
+            expect(resNaN.isCorrect).toBe(false);
+
+            const resUndef = evaluateSpeaking(q, { correct: true, accuracy: undefined, spokenText: 'Test' });
+            expect(resUndef.isCorrect).toBe(false);
+        });
+
+        test('Incorrect when accuracy < 60% or missing answer or skipped', () => {
             const q = { type: 'speaking' };
             const studentAns = { correct: false, accuracy: 45, spokenText: 'Hela word' };
             const res = evaluateSpeaking(q, studentAns);
@@ -81,6 +112,10 @@ describe('EnglishAnswerEvaluator (js/core/english-answer-evaluator.js)', () => {
 
             const missingRes = evaluateSpeaking(q, null);
             expect(missingRes.isCorrect).toBe(false);
+
+            const skippedRes = evaluateSpeaking(q, { skipped: true });
+            expect(skippedRes.isCorrect).toBe(false);
+            expect(skippedRes.explanation).toContain('bỏ qua');
         });
     });
 

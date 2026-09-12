@@ -3944,6 +3944,9 @@ const app = {
 
     // Helper phát âm Tiếng Anh chuẩn (en-US) offline sử dụng SpeechService (js/core/speech-service.js)
     speakEnglish: function(text, isFallback = false) {
+        if (this.isRecording) {
+            this.stopSpeechRecognition();
+        }
         if (typeof SpeechService !== 'undefined' && SpeechService.speakEnglish) {
             SpeechService.speakEnglish(text, isFallback, {
                 onStart: (sourceLabel) => this.updateAudioSourceLabel(sourceLabel),
@@ -8765,6 +8768,7 @@ const app = {
     currentEnglishLessonId: null,
     currentEnglishSkill: 'listening', // Kỹ năng mặc định đang học
     writingChosenBlocks: [],
+    englishSpeakingSessionId: 0,
 
     getEnglishElement: function(id) {
         const area = document.getElementById("english-interaction-area") || document.getElementById("english-quiz-content") || document.getElementById("english-quiz-area");
@@ -9449,6 +9453,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     },
 
     exitEnglishLesson: function() {
+        this.englishSpeakingSessionId = (this.englishSpeakingSessionId || 0) + 1;
         this.stopSpeechRecognition();
         if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
             SpeechService.stopSpeech();
@@ -9529,11 +9534,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     playEnglishVoice: function(text, audioFileKey) {
         if (!text) return;
+        if (this.isRecording) {
+            this.stopSpeechRecognition();
+        }
         const cleanKey = (audioFileKey || text).toLowerCase().trim().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "");
         const audioUrl = `sounds/english/${cleanKey}.mp3`;
         
         try {
             const audio = new Audio(audioUrl);
+            this._currentAudio = audio;
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise
@@ -9557,43 +9566,95 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
 
     startSpeechRecognition: function(targetText) {
-        if (typeof SpeechRecognitionService !== 'undefined' && SpeechRecognitionService) {
-            if (!SpeechRecognitionService.isSupported()) {
-                Swal.fire("Lỗi", "Trình duyệt không hỗ trợ Web Speech API. Vui lòng dùng Chrome hoặc Edge!", "error");
-                return;
-            }
+        // 1. Audio Mutual Exclusion: Dừng ngay TTS và âm thanh mẫu đang phát trước khi thu âm
+        if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
+            SpeechService.stopSpeech();
+        } else if (typeof window.speechSynthesis !== 'undefined') {
+            window.speechSynthesis.cancel();
+        }
+        if (this._currentAudio) {
+            try { this._currentAudio.pause(); this._currentAudio.currentTime = 0; } catch(e) {}
+        }
 
-            const micBtn = this.getEnglishElement("eng-mic-btn");
-            const statusText = this.getEnglishElement("eng-mic-status");
-            const resultBox = this.getEnglishElement("eng-speaking-result");
+        // 2. Race-Condition Protection: Tăng Speaking Session Token ID
+        this.englishSpeakingSessionId = (this.englishSpeakingSessionId || 0) + 1;
+        const currentSessionId = this.englishSpeakingSessionId;
+        const currentQIndex = this.currentEnglishQuestionIndex;
 
+        const micBtn = this.getEnglishElement("eng-mic-btn");
+        const statusText = this.getEnglishElement("eng-mic-status");
+        const resultBox = this.getEnglishElement("eng-speaking-result");
+
+        // Đảm bảo nút Kiểm Tra ở trạng thái disabled khi bắt đầu phiên thu âm
+        this.currentEnglishStudentAnswer = null;
+        this.setEnglishCheckButtonEnabled(false);
+
+        if (typeof SpeechRecognitionService !== 'undefined' && SpeechRecognitionService && SpeechRecognitionService.isSupported()) {
             SpeechRecognitionService.start({
                 lang: 'en-US',
                 interimResults: false,
                 maxAlternatives: 1,
                 onStart: () => {
+                    if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
                     this.isRecording = true;
                     if (micBtn) micBtn.classList.add("recording");
                     if (statusText) statusText.innerText = "🎙️ Đang lắng nghe... Hãy nói to rõ ràng!";
                     this.startWaveVisualizer();
                 },
                 onError: (event) => {
+                    if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
                     console.error("Speech recognition error:", event && event.error ? event.error : event);
                     this.isRecording = false;
                     if (micBtn) micBtn.classList.remove("recording");
-                    const errCode = event && event.error ? event.error : "Không xác định";
-                    if (statusText) statusText.innerHTML = `Lỗi nhận diện (${errCode}). Con có thể <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua câu này ⏭️</a>`;
                     this.stopWaveVisualizer();
+
+                    const errCode = event && event.error ? event.error : "Không xác định";
+                    let errMsg = `Lỗi nhận diện (${errCode}).`;
+                    if (errCode === 'not-allowed') {
+                        errMsg = "Chưa cấp quyền Microphone. Con hãy bấm 'Cho phép' trên thanh địa chỉ trình duyệt, hoặc bấm Bỏ qua nhé.";
+                    } else if (errCode === 'audio-capture') {
+                        errMsg = "Không tìm thấy thiết bị Microphone hoặc Mic đang bận. Con hãy kiểm tra lại thiết bị hoặc Bỏ qua.";
+                    } else if (errCode === 'no-speech') {
+                        errMsg = "Không nghe thấy tiếng. Con hãy thử bấm Mic nói lại to hơn hoặc Bỏ qua nhé.";
+                    } else if (errCode === 'network') {
+                        errMsg = "Lỗi kết nối mạng đến dịch vụ giọng nói. Con hãy thử lại hoặc Bỏ qua.";
+                    } else if (errCode === 'aborted') {
+                        errMsg = "Đã dừng nhận diện giọng nói.";
+                    } else if (errCode === 'service-not-allowed') {
+                        errMsg = "Trình duyệt chặn dịch vụ giọng nói. Con hãy dùng Chrome/Edge hoặc Bỏ qua.";
+                    }
+
+                    if (statusText) {
+                        statusText.innerHTML = `${errMsg} <br/><div style="margin-top:6px; display:inline-flex; gap:10px;"><a href="javascript:void(0)" onclick="app.startSpeechRecognition('${this.escapeJsString(targetText)}')" style="color:#2563eb; font-weight:800; text-decoration:underline;">Thử lại 🔄</a> <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua ⏭️</a></div>`;
+                    }
+                    this.currentEnglishStudentAnswer = null;
+                    this.setEnglishCheckButtonEnabled(false);
                 },
                 onEnd: () => {
+                    if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
                     this.isRecording = false;
                     if (micBtn) micBtn.classList.remove("recording");
                     this.stopWaveVisualizer();
                 },
                 onResult: (spokenText) => {
+                    if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
                     console.log("[Speech Results]", spokenText);
 
-                    const evalResult = SpeechRecognitionService.evaluatePronunciation(targetText, spokenText);
+                    const cleanText = (spokenText || "").trim();
+                    // Transcript rỗng hoặc chỉ khoảng trắng -> Không kích hoạt nút Kiểm Tra
+                    if (!cleanText) {
+                        this.isRecording = false;
+                        if (micBtn) micBtn.classList.remove("recording");
+                        this.stopWaveVisualizer();
+                        if (statusText) {
+                            statusText.innerHTML = `Chưa nghe rõ giọng nói. Con hãy <a href="javascript:void(0)" onclick="app.startSpeechRecognition('${this.escapeJsString(targetText)}')" style="color:#2563eb; font-weight:800; text-decoration:underline;">Thử lại 🔄</a> hoặc <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua ⏭️</a>`;
+                        }
+                        this.currentEnglishStudentAnswer = null;
+                        this.setEnglishCheckButtonEnabled(false);
+                        return;
+                    }
+
+                    const evalResult = SpeechRecognitionService.evaluatePronunciation(targetText, cleanText);
 
                     if (resultBox) {
                         resultBox.innerHTML = `
@@ -9602,12 +9663,12 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         `;
                     }
 
-                    if (statusText) statusText.innerText = `Độ chính xác: ${evalResult.accuracy}%`;
+                    if (statusText) statusText.innerText = `Độ chính xác: ${evalResult.accuracy}% (Cần >= 60% để đạt)`;
 
                     this.currentEnglishStudentAnswer = {
                         spokenText: evalResult.spokenText,
                         accuracy: evalResult.accuracy,
-                        correct: evalResult.correct
+                        correct: Boolean(evalResult.correct) && (evalResult.accuracy >= 60)
                     };
 
                     this.setEnglishCheckButtonEnabled(true);
@@ -9623,17 +9684,15 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             return;
         }
 
+        // Native Web Speech API fallback
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         this.recognition = new SpeechRecognition();
         this.recognition.lang = 'en-US';
         this.recognition.interimResults = false;
         this.recognition.maxAlternatives = 1;
 
-        const micBtn = this.getEnglishElement("eng-mic-btn");
-        const statusText = this.getEnglishElement("eng-mic-status");
-        const resultBox = this.getEnglishElement("eng-speaking-result");
-
         this.recognition.onstart = () => {
+            if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
             this.isRecording = true;
             if (micBtn) micBtn.classList.add("recording");
             if (statusText) statusText.innerText = "🎙️ Đang lắng nghe... Hãy nói to rõ ràng!";
@@ -9641,35 +9700,63 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         };
 
         this.recognition.onerror = (event) => {
+            if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
             console.error("Speech recognition error:", event && event.error);
             this.isRecording = false;
             if (micBtn) micBtn.classList.remove("recording");
-            const errCode = event && event.error ? event.error : "Lỗi thu âm";
-            if (statusText) statusText.innerHTML = `Lỗi nhận diện (${errCode}). Con có thể <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua câu này ⏭️</a>`;
             this.stopWaveVisualizer();
+
+            const errCode = event && event.error ? event.error : "Lỗi thu âm";
+            let errMsg = `Lỗi nhận diện (${errCode}).`;
+            if (errCode === 'not-allowed') {
+                errMsg = "Chưa cấp quyền Microphone. Con hãy bấm 'Cho phép' trên thanh địa chỉ trình duyệt, hoặc bấm Bỏ qua nhé.";
+            } else if (errCode === 'audio-capture') {
+                errMsg = "Không tìm thấy thiết bị Microphone hoặc Mic đang bận. Con hãy kiểm tra lại thiết bị hoặc Bỏ qua.";
+            } else if (errCode === 'no-speech') {
+                errMsg = "Không nghe thấy tiếng. Con hãy thử bấm Mic nói lại to hơn hoặc Bỏ qua nhé.";
+            }
+
+            if (statusText) {
+                statusText.innerHTML = `${errMsg} <br/><div style="margin-top:6px; display:inline-flex; gap:10px;"><a href="javascript:void(0)" onclick="app.startSpeechRecognition('${this.escapeJsString(targetText)}')" style="color:#2563eb; font-weight:800; text-decoration:underline;">Thử lại 🔄</a> <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua ⏭️</a></div>`;
+            }
+            this.currentEnglishStudentAnswer = null;
+            this.setEnglishCheckButtonEnabled(false);
         };
 
         this.recognition.onend = () => {
+            if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
             this.isRecording = false;
             if (micBtn) micBtn.classList.remove("recording");
             this.stopWaveVisualizer();
         };
 
         this.recognition.onresult = (event) => {
-            const spokenText = event.results[0][0].transcript;
+            if (currentSessionId !== this.englishSpeakingSessionId || this.currentEnglishQuestionIndex !== currentQIndex) return;
+            const spokenText = event.results && event.results[0] && event.results[0][0] ? event.results[0][0].transcript : "";
             console.log("[Speech Results]", spokenText);
 
-            const cleanSpoken = spokenText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim().split(/\s+/);
-            const cleanTarget = targetText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim().split(/\s+/);
-            const rawTargetWords = targetText.split(/\s+/);
+            const cleanText = (spokenText || "").trim();
+            if (!cleanText) {
+                this.isRecording = false;
+                if (micBtn) micBtn.classList.remove("recording");
+                this.stopWaveVisualizer();
+                if (statusText) {
+                    statusText.innerHTML = `Chưa nghe rõ giọng nói. Con hãy <a href="javascript:void(0)" onclick="app.startSpeechRecognition('${this.escapeJsString(targetText)}')" style="color:#2563eb; font-weight:800; text-decoration:underline;">Thử lại 🔄</a> hoặc <a href="javascript:void(0)" onclick="app.skipSpeakingQuestion()" style="color:#ef4444; font-weight:800; text-decoration:underline;">Bỏ qua ⏭️</a>`;
+                }
+                this.currentEnglishStudentAnswer = null;
+                this.setEnglishCheckButtonEnabled(false);
+                return;
+            }
+
+            const cleanSpoken = cleanText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim().split(/\s+/).filter(Boolean);
+            const cleanTarget = targetText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim().split(/\s+/).filter(Boolean);
+            const rawTargetWords = targetText.trim() ? targetText.split(/\s+/) : [];
 
             let formattedHtml = "";
             let correctCount = 0;
 
             rawTargetWords.forEach(word => {
                 const cleanWord = word.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim();
-                
-                // Thuật toán so khớp mờ Levenshtein
                 let wordFound = false;
                 for (let spokenWord of cleanSpoken) {
                     const similarity = app.getSimilarityScore(spokenWord, cleanWord);
@@ -9695,21 +9782,28 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
 
             const accuracy = cleanTarget.length > 0 ? Math.round((correctCount / cleanTarget.length) * 100) : 0;
-            if (statusText) statusText.innerText = `Độ chính xác: ${accuracy}%`;
+            if (statusText) statusText.innerText = `Độ chính xác: ${accuracy}% (Cần >= 60% để đạt)`;
 
-            // Ngưỡng đạt phát âm chuẩn hóa 60% đồng bộ với SpeechRecognitionService
-            const isPassing = (cleanTarget.length <= 2) ? (correctCount >= 1) : (accuracy >= 60);
+            // Ngưỡng đạt phát âm chuẩn hóa: >= 60%
+            const isPassing = (cleanSpoken.length > 0 && cleanTarget.length > 0) ? (accuracy >= 60) : false;
 
             this.currentEnglishStudentAnswer = {
-                spokenText,
-                accuracy,
+                spokenText: cleanText,
+                accuracy: accuracy,
                 correct: isPassing
             };
 
             this.setEnglishCheckButtonEnabled(true);
         };
 
-        this.recognition.start();
+        try {
+            this.recognition.start();
+        } catch (err) {
+            console.error("Native recognition start failed:", err);
+            this.isRecording = false;
+            if (micBtn) micBtn.classList.remove("recording");
+            this.stopWaveVisualizer();
+        }
     },
 
     skipSpeakingQuestion: function() {
@@ -9729,9 +9823,11 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (typeof SpeechRecognitionService !== 'undefined' && SpeechRecognitionService) {
             SpeechRecognitionService.stop();
         } else if (this.recognition && this.isRecording) {
-            this.recognition.stop();
+            try { this.recognition.stop(); } catch(e) {}
         }
         this.isRecording = false;
+        const micBtn = this.getEnglishElement("eng-mic-btn");
+        if (micBtn) micBtn.classList.remove("recording");
         this.stopWaveVisualizer();
     },
 
@@ -10063,6 +10159,7 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
 
     // Vẽ giao diện câu hỏi Tiếng Anh
     renderEnglishQuestion: function() {
+        this.englishSpeakingSessionId = (this.englishSpeakingSessionId || 0) + 1;
         this.stopSpeechRecognition();
         if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
             SpeechService.stopSpeech();
@@ -10468,6 +10565,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
     checkEnglishAnswer: function() {
         if (this.isCheckingEnglishAnswer || this.currentEnglishStudentAnswer === null) return;
         this.isCheckingEnglishAnswer = true;
+        this.englishSpeakingSessionId = (this.englishSpeakingSessionId || 0) + 1;
+        this.stopSpeechRecognition();
         this.setEnglishCheckButtonEnabled(false);
 
         if (typeof SpeechService !== 'undefined' && SpeechService.stopSpeech) {
@@ -10662,6 +10761,8 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         if (this.isTransitioningEnglishQuestion) return;
         this.isTransitioningEnglishQuestion = true;
         this.isCheckingEnglishAnswer = false;
+        this.englishSpeakingSessionId = (this.englishSpeakingSessionId || 0) + 1;
+        this.stopSpeechRecognition();
 
         this.currentEnglishQuestionIndex++;
         const total = (this.currentEnglishQuestions && this.currentEnglishQuestions.length) || 0;
@@ -10971,8 +11072,157 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
         this.loadPracticeLessonVocab(lessons[0].id);
     },
 
+    // =========================================================================
+    // HỆ SINH THÁI ĐẤU TRƯỜNG TỪ VỰNG KHOA HỌC (VOCABULARY ARENA SCIENCE ENGINE)
+    // =========================================================================
+    currentVocabQuiz: null,
+
+    getCurrentStudentId: function() {
+        return this.currentStudentId || (this.config && this.config.defaultStudentId) || 'std_htsj4gbmo';
+    },
+
+    getVocabMasteryStore: function(targetStudentId) {
+        const studentId = targetStudentId || this.getCurrentStudentId();
+        if (!this.state.subjects) this.state.subjects = {};
+        if (!this.state.subjects.english) this.state.subjects.english = {};
+        if (!this.state.subjects.english.vocabMasteryByStudent) {
+            this.state.subjects.english.vocabMasteryByStudent = {};
+        }
+        if (this.state.subjects.english.vocabMasteryByStudent[studentId]) {
+            return this.state.subjects.english.vocabMasteryByStudent[studentId];
+        }
+        try {
+            const raw = localStorage.getItem(`vocab_mastery_${studentId}`);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                this.state.subjects.english.vocabMasteryByStudent[studentId] = parsed;
+                return parsed;
+            }
+        } catch (e) {}
+        return {};
+    },
+
+    saveVocabMasteryStore: function(store, targetStudentId) {
+        const studentId = targetStudentId || this.getCurrentStudentId();
+        if (!this.state.subjects) this.state.subjects = {};
+        if (!this.state.subjects.english) this.state.subjects.english = {};
+        if (!this.state.subjects.english.vocabMasteryByStudent) {
+            this.state.subjects.english.vocabMasteryByStudent = {};
+        }
+        this.state.subjects.english.vocabMasteryByStudent[studentId] = store;
+        if (studentId === this.getCurrentStudentId()) {
+            this.state.subjects.english.vocabMastery = store;
+        }
+        try {
+            localStorage.setItem(`vocab_mastery_${studentId}`, JSON.stringify(store));
+        } catch (e) {}
+        if (typeof this.saveProgress === 'function') {
+            this.saveProgress();
+        }
+    },
+
+    getWordMasteryRecord: function(word, unitId) {
+        const currentClass = String(this.config.currentClass || "6");
+        const cleanWord = (word || "").toLowerCase().trim();
+        const key = `${currentClass}_${unitId}_${cleanWord}`;
+        const store = this.getVocabMasteryStore();
+        if (store[key]) return { ...store[key] };
+        return {
+            word: word,
+            unitId: unitId,
+            grade: currentClass,
+            masteryLevel: 0,
+            status: 'learning',
+            attemptCount: 0,
+            correctCount: 0,
+            wrongCount: 0,
+            streak: 0,
+            lastReviewedAt: 0,
+            nextReviewAt: 0,
+            intervalMinutes: 0,
+            retrievalSuccess: {},
+            isWeak: false
+        };
+    },
+
+    flipVocabCard: function(cardId) {
+        const card = document.getElementById(cardId);
+        if (card) {
+            card.classList.toggle('flipped');
+        }
+    },
+
+    assessVocabFlashcard: function(word, unitId, assessment) {
+        const currentClass = String(this.config.currentClass || "6");
+        const cleanWord = (word || "").toLowerCase().trim();
+        const key = `${currentClass}_${unitId}_${cleanWord}`;
+        const store = this.getVocabMasteryStore();
+        const record = store[key] || this.getWordMasteryRecord(word, unitId);
+
+        record.attemptCount = (record.attemptCount || 0) + 1;
+        record.lastReviewedAt = Date.now();
+        record.lastSelfAssessment = assessment;
+
+        if (assessment === 'forgot') {
+            record.intervalMinutes = 10;
+            record.isWeak = true;
+            record.streak = 0;
+            record.masteryLevel = Math.max(1, (record.masteryLevel || 0) - 1);
+            record.nextReviewAt = Date.now() + 10 * 60 * 1000;
+        } else if (assessment === 'hard') {
+            record.intervalMinutes = Math.max(30, Math.round((record.intervalMinutes || 10) * 1.2));
+            record.nextReviewAt = Date.now() + record.intervalMinutes * 60 * 1000;
+        } else if (assessment === 'good') {
+            record.intervalMinutes = Math.max(1440, Math.round((record.intervalMinutes || 60) * 2));
+            record.nextReviewAt = Date.now() + record.intervalMinutes * 60 * 1000;
+            record.isWeak = false;
+            if (record.masteryLevel < 2) record.masteryLevel = 2;
+        } else if (assessment === 'easy') {
+            record.intervalMinutes = Math.max(4320, Math.round((record.intervalMinutes || 120) * 2.5));
+            record.nextReviewAt = Date.now() + record.intervalMinutes * 60 * 1000;
+            record.isWeak = false;
+            if (record.masteryLevel < 2) record.masteryLevel = 2;
+        }
+
+        store[key] = record;
+        this.saveVocabMasteryStore(store);
+
+        // Hiển thị toast nhẹ nhàng
+        const assessLabels = {
+            forgot: 'Sẽ ôn lại sau 10 phút nhé! 💪',
+            hard: 'Ghi nhận từ khó! Sẽ ưu tiên ôn tập sớm 📖',
+            good: 'Tốt lắm! Tiếp tục phát huy ✨',
+            easy: 'Tuyệt vời! Từ này con đã nhớ sâu 🌟'
+        };
+        const msg = assessLabels[assessment] || 'Đã lưu đánh giá!';
+        if (typeof Swal !== 'undefined' && Swal.mixin) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: false
+            });
+            Toast.fire({ icon: 'success', title: msg });
+        }
+
+        this.loadPracticeLessonVocab(unitId);
+    },
+
+    getVocabGridElement: function() {
+        let grid = document.getElementById("eng-practice-vocab-grid");
+        if (!grid) {
+            const placeholder = document.getElementById("english-vocab-lab-placeholder");
+            if (placeholder) {
+                placeholder.innerHTML = `<div id="eng-practice-vocab-grid"></div>`;
+                grid = document.getElementById("eng-practice-vocab-grid");
+            }
+        }
+        return grid;
+    },
+
     loadPracticeLessonVocab: function(lessonId) {
-        const grid = document.getElementById("eng-practice-vocab-grid");
+        const grid = this.getVocabGridElement();
         if (!grid) return;
         
         const currentClass = String(this.config.currentClass || "6");
@@ -10981,9 +11231,235 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
                         (typeof globalThis !== 'undefined' && globalThis.ENGLISH_COURSE_DATA);
         let vocabList = [];
 
-        // 1. Thử tìm trong canonical data trước (nguồn chuẩn)
+        // 1. Tìm trong canonical data
         if (engData && engData[currentClass] && Array.isArray(engData[currentClass].topics)) {
-            const topic = engData[currentClass].topics.find(t => t.id === lessonId);
+            const topic = engData[currentClass].topics.find(t => {
+                if (t.id === lessonId) return true;
+                const cleanId = String(lessonId).toLowerCase().replace(/[-_]/g, '');
+                const tCleanId = String(t.id).toLowerCase().replace(/[-_]/g, '');
+                if (tCleanId === cleanId) return true;
+                if (cleanId.replace('u', 't') === tCleanId) return true;
+                if (cleanId.replace('unit', 't') === tCleanId) return true;
+                return false;
+            });
+            if (topic && Array.isArray(topic.vocab)) {
+                vocabList = topic.vocab.map(v => ({
+                    word: v.word || "",
+                    ipa: v.phonetics || v.ipa || "",
+                    meaning: v.translation || v.meaning || "",
+                    sentence: v.sentence || v.example || "",
+                    sentenceTranslation: v.sentenceTranslation || ""
+                }));
+            }
+        }
+
+        // 2. Fallback sang getLessonById
+        if (vocabList.length === 0 && typeof getLessonById === 'function') {
+            const lesson = getLessonById(lessonId);
+            if (lesson && Array.isArray(lesson.vocabulary)) {
+                vocabList = lesson.vocabulary.map(v => ({
+                    word: v.word || "",
+                    ipa: v.ipa || v.phonetics || "",
+                    meaning: v.meaning || v.translation || "",
+                    sentence: v.sentence || v.example || "",
+                    sentenceTranslation: ""
+                }));
+            }
+        }
+
+        if (vocabList.length === 0) {
+            grid.innerHTML = `<p style="color:#64748b; text-align:center;">Chưa có từ vựng cho bài học này.</p>`;
+            return;
+        }
+
+        // Lấy dữ liệu mastery từ store
+        const store = this.getVocabMasteryStore();
+        const now = Date.now();
+        let masteredCount = 0;
+        let learningCount = 0;
+        let dueCount = 0;
+
+        const enrichedList = vocabList.map(v => {
+            const cleanWord = (v.word || "").toLowerCase().trim();
+            const key = `${currentClass}_${lessonId}_${cleanWord}`;
+            const keyT1 = `${currentClass}_eng6-t1_${cleanWord}`;
+            const keyU1 = `${currentClass}_eng6-u1_${cleanWord}`;
+            const record = store[key] || store[keyT1] || store[keyU1] || {
+                word: v.word,
+                unitId: lessonId,
+                grade: currentClass,
+                masteryLevel: 0,
+                status: 'learning',
+                attemptCount: 0,
+                correctCount: 0,
+                wrongCount: 0,
+                streak: 0,
+                lastReviewedAt: 0,
+                nextReviewAt: 0,
+                intervalMinutes: 0,
+                retrievalSuccess: {},
+                isWeak: false
+            };
+
+            const isDue = (record.nextReviewAt > 0 && record.nextReviewAt <= now) || record.isWeak;
+            if (record.masteryLevel >= 5) {
+                masteredCount++;
+            } else if (record.masteryLevel > 0) {
+                learningCount++;
+            }
+            if (isDue) {
+                dueCount++;
+            }
+
+            return { ...v, record, isDue };
+        });
+
+        const totalWords = enrichedList.length;
+        const progressPct = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0;
+
+        // Level Label helper
+        const getLevelBadge = (lvl) => {
+            if (lvl >= 5) return `<span style="background:#10b981; color:white; padding:2px 8px; border-radius:99px; font-size:0.7rem; font-weight:800;">Level 5 — Làm chủ 👑</span>`;
+            if (lvl === 4) return `<span style="background:#3b82f6; color:white; padding:2px 8px; border-radius:99px; font-size:0.7rem; font-weight:800;">Level 4 — Ngữ cảnh 💬</span>`;
+            if (lvl === 3) return `<span style="background:#8b5cf6; color:white; padding:2px 8px; border-radius:99px; font-size:0.7rem; font-weight:800;">Level 3 — Phản xạ ⚡</span>`;
+            if (lvl === 2) return `<span style="background:#f59e0b; color:white; padding:2px 8px; border-radius:99px; font-size:0.7rem; font-weight:800;">Level 2 — Nhớ nghĩa 💡</span>`;
+            if (lvl === 1) return `<span style="background:#64748b; color:white; padding:2px 8px; border-radius:99px; font-size:0.7rem; font-weight:800;">Level 1 — Nhận biết 👁️</span>`;
+            return `<span style="background:#cbd5e1; color:#475569; padding:2px 8px; border-radius:99px; font-size:0.7rem; font-weight:800;">Level 0 — Mới 🆕</span>`;
+        };
+
+        grid.innerHTML = `
+            <!-- BẢNG ĐIỀU KHIỂN TIẾN ĐỘ MASTERY KHOA HỌC -->
+            <div class="vocab-mastery-dashboard" style="background:var(--bg-card); border:2px solid var(--border-color); border-radius:18px; padding:1.2rem 1.5rem; margin-bottom:1.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <div style="font-weight:900; font-size:1.15rem; color:var(--text-main); display:flex; align-items:center; gap:0.5rem;">
+                            <span>🧠 Tiến độ Làm chủ Từ vựng (Mastery Tracking)</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">
+                            Áp dụng phương pháp gợi nhớ chủ động (Active Recall) & Ôn tập ngắt quãng (Spaced Repetition)
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="btn-start-vocab-quiz" type="button" onclick="app.startVocabArenaQuiz('${lessonId}')" style="background:linear-gradient(135deg, #ef4444, #dc2626); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:900; font-size:0.92rem; cursor:pointer; box-shadow:0 4px 10px rgba(220,38,38,0.25); display:inline-flex; align-items:center; gap:8px; transition:transform 0.15s;">
+                        <i class="fa-solid fa-gamepad"></i> ⚔️ Bắt đầu Đấu trường Thử thách
+                    </button>
+                </div>
+
+                <!-- Thống kê trạng thái 3 nhóm từ vựng -->
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:0.8rem; margin-bottom:1rem;">
+                    <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); padding:0.6rem 0.8rem; border-radius:12px; text-align:center;">
+                        <div style="font-size:1.3rem; font-weight:900; color:#10b981;" id="vocab-stat-mastered">${masteredCount}</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:#065f46;">🟢 Đã làm chủ (Lv5)</div>
+                    </div>
+                    <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); padding:0.6rem 0.8rem; border-radius:12px; text-align:center;">
+                        <div style="font-size:1.3rem; font-weight:900; color:#f59e0b;" id="vocab-stat-learning">${learningCount}</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:#92400e;">🟡 Đang rèn luyện</div>
+                    </div>
+                    <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); padding:0.6rem 0.8rem; border-radius:12px; text-align:center;">
+                        <div style="font-size:1.3rem; font-weight:900; color:#ef4444;" id="vocab-stat-due">${dueCount}</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:#991b1b;">🔴 Cần ôn tập</div>
+                    </div>
+                </div>
+
+                <!-- Thanh tiến độ tổng thể -->
+                <div style="width:100%; background:var(--bg-app); height:10px; border-radius:6px; overflow:hidden; border:1px solid var(--border-color);">
+                    <div id="vocab-mastery-progress-bar" style="width:${progressPct}%; background:linear-gradient(90deg, #3b82f6, #10b981); height:100%; border-radius:6px; transition:width 0.4s ease;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px; font-size:0.78rem; font-weight:700; color:var(--text-muted);">
+                    <span>Mức độ làm chủ toàn bài: <b style="color:var(--text-main);">${progressPct}%</b> (${masteredCount}/${totalWords} từ)</span>
+                    ${dueCount > 0 ? `<span style="color:#ef4444; font-weight:800;">⚠️ Có ${dueCount} từ đến hạn cần ôn lại!</span>` : `<span style="color:#10b981;">✅ Không có từ quá hạn</span>`}
+                </div>
+            </div>
+
+            <!-- DANH SÁCH THẺ FLASHCARD 3D TƯƠNG TÁC (ACTIVE RECALL) -->
+            <div class="flashcards-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap:1.2rem; width:100%;">
+                ${enrichedList.map((v, i) => {
+                    const safeWord = this.escapeHtml(v.word);
+                    const safeIpa = this.escapeHtml(v.ipa);
+                    const safeMeaning = this.escapeHtml(v.meaning);
+                    const safeSentence = this.escapeHtml(v.sentence);
+                    const safeSentenceTrans = this.escapeHtml(v.sentenceTranslation || "");
+                    const jsWord = this.escapeJsString ? this.escapeJsString(v.word) : v.word.replace(/'/g, "\\'");
+                    const jsSentence = this.escapeJsString ? this.escapeJsString(v.sentence) : (v.sentence ? v.sentence.replace(/'/g, "\\'") : "");
+                    const cardId = `fc-card-${i}`;
+
+                    return `
+                    <div class="flashcard-card-3d" id="${cardId}" onclick="app.flipVocabCard('${cardId}')" style="perspective:1000px; height:240px; cursor:pointer;" title="Nhấn để lật thẻ">
+                        <div class="flashcard-card-3d-inner" style="position:relative; width:100%; height:100%; text-align:center; transition:transform 0.5s; transform-style:preserve-3d; border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,0.04);">
+                            <!-- MẶT TRƯỚC: CHỈ HIỆN TỪ VỰNG, IPA, AUDIO - YÊU CẦU ACTIVE RECALL -->
+                            <div class="flashcard-front" style="position:absolute; width:100%; height:100%; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:16px; padding:1rem; display:flex; flex-direction:column; justify-content:space-between; align-items:center; background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:2px solid #bfdbfe; box-sizing:border-box;">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    ${getLevelBadge(v.record.masteryLevel)}
+                                    ${v.isDue ? `<span style="background:#fee2e2; color:#ef4444; border:1px solid #fca5a5; padding:1px 6px; border-radius:99px; font-size:0.68rem; font-weight:800;">Cần ôn ⏰</span>` : ''}
+                                </div>
+                                
+                                <div style="margin: auto 0;">
+                                    <div class="flashcard-word-eng" style="font-size:1.35rem; font-weight:900; color:#1d4ed8; text-transform:capitalize; margin-bottom:2px;">${safeWord}</div>
+                                    <div style="color:#64748b; font-size:0.85rem; font-weight:600;">${safeIpa}</div>
+                                    <button class="btn-tts-speak" type="button" onclick="event.stopPropagation(); app.playEnglishVoice('${jsWord}', '${jsWord}')" style="margin-top:8px; background:#3b82f6; border:none; color:white; padding:4px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+                                        <i class="fa-solid fa-volume-high"></i> Nghe
+                                    </button>
+                                </div>
+
+                                <div style="font-size:0.72rem; color:#475569; font-weight:700; background:rgba(255,255,255,0.7); padding:3px 8px; border-radius:8px;">
+                                    💡 Con có nhớ nghĩa từ này không? (Bấm lật thẻ)
+                                </div>
+                            </div>
+
+                            <!-- MẶT SAU: HIỆN NGHĨA TIẾNG VIỆT, VÍ DỤ NGỮ CẢNH VÀ NÚT TỰ ĐÁNH GIÁ -->
+                            <div class="flashcard-back" style="position:absolute; width:100%; height:100%; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:16px; padding:0.8rem; display:flex; flex-direction:column; justify-content:space-between; align-items:center; background:linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border:2px solid #bbf7d0; box-sizing:border-box; transform:rotateY(180deg);">
+                                <div style="width:100%;">
+                                    <div class="flashcard-word-vi" style="font-size:1.15rem; font-weight:900; color:#166534; text-transform:capitalize; margin-bottom:4px;">${safeMeaning}</div>
+                                    ${safeSentence ? `
+                                        <div class="flashcard-phrase-box" style="background:rgba(255,255,255,0.75); border:1px solid #bbf7d0; border-radius:8px; padding:4px 6px; text-align:left; margin-bottom:4px;">
+                                            <div style="font-size:0.68rem; color:#15803d; font-weight:800; display:flex; justify-content:space-between; align-items:center;">
+                                                <span>VÍ DỤ NGỮ CẢNH:</span>
+                                                <button type="button" onclick="event.stopPropagation(); app.speakEnglish('${jsSentence}')" style="background:none; border:none; color:#15803d; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-volume-high"></i></button>
+                                            </div>
+                                            <div style="font-size:0.75rem; font-style:italic; color:#334155; line-height:1.2;">"${safeSentence}"</div>
+                                            ${safeSentenceTrans ? `<div style="font-size:0.7rem; color:#64748b; margin-top:2px;">(${safeSentenceTrans})</div>` : ''}
+                                        </div>
+                                    ` : ''}
+                                </div>
+
+                                <!-- 4 Nút Tự Đánh Giá Học Tập (Self-Assessment) -->
+                                <div style="width:100%; border-top:1px dashed #86efac; padding-top:4px;">
+                                    <div style="font-size:0.7rem; font-weight:800; color:#14532d; margin-bottom:3px;">Con nhớ từ này thế nào?</div>
+                                    <div style="display:flex; gap:3px; justify-content:center; flex-wrap:wrap;">
+                                        <button class="btn-self-assess" type="button" title="Quên rồi -> Ôn lại sau 10 phút" onclick="event.stopPropagation(); app.assessVocabFlashcard('${jsWord}', '${lessonId}', 'forgot')">😣 Quên</button>
+                                        <button class="btn-self-assess" type="button" title="Khó nhớ -> Ôn lại sau 30 phút" onclick="event.stopPropagation(); app.assessVocabFlashcard('${jsWord}', '${lessonId}', 'hard')">😐 Khó</button>
+                                        <button class="btn-self-assess" type="button" title="Nhớ được -> Ôn lại sau 1 ngày" onclick="event.stopPropagation(); app.assessVocabFlashcard('${jsWord}', '${lessonId}', 'good')">🙂 Nhớ</button>
+                                        <button class="btn-self-assess" type="button" title="Rất dễ -> Ôn lại sau 3 ngày" onclick="event.stopPropagation(); app.assessVocabFlashcard('${jsWord}', '${lessonId}', 'easy')">😄 Rất dễ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join("")}
+            </div>
+        `;
+    },
+
+    // =========================================================================
+    // ĐẤU TRƯỜNG TRẮC NGHIỆM THỬ THÁCH TỪ VỰNG (4 HƯỚNG RETRIEVAL PRACTICE)
+    // =========================================================================
+    startVocabArenaQuiz: function(lessonId) {
+        const currentClass = String(this.config.currentClass || "6");
+        const engData = (typeof ENGLISH_COURSE_DATA !== 'undefined' && ENGLISH_COURSE_DATA) || 
+                        (typeof window !== 'undefined' && window.ENGLISH_COURSE_DATA) ||
+                        (typeof globalThis !== 'undefined' && globalThis.ENGLISH_COURSE_DATA);
+        let vocabList = [];
+
+        if (engData && engData[currentClass] && Array.isArray(engData[currentClass].topics)) {
+            const topic = engData[currentClass].topics.find(t => {
+                if (t.id === lessonId) return true;
+                const cleanId = String(lessonId).toLowerCase().replace(/[-_]/g, '');
+                const tCleanId = String(t.id).toLowerCase().replace(/[-_]/g, '');
+                if (tCleanId === cleanId) return true;
+                if (cleanId.replace('u', 't') === tCleanId) return true;
+                if (cleanId.replace('unit', 't') === tCleanId) return true;
+                return false;
+            });
             if (topic && Array.isArray(topic.vocab)) {
                 vocabList = topic.vocab.map(v => ({
                     word: v.word || "",
@@ -10994,7 +11470,6 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
         }
 
-        // 2. Fallback sang getLessonById (legacy bridge)
         if (vocabList.length === 0 && typeof getLessonById === 'function') {
             const lesson = getLessonById(lessonId);
             if (lesson && Array.isArray(lesson.vocabulary)) {
@@ -11007,28 +11482,348 @@ startEnglishLesson: function(lessonId, skipIntro = false) {
             }
         }
 
-        if (vocabList.length === 0) {
-            grid.innerHTML = `<p style="color:#64748b; text-align:center;">Chưa có từ vựng cho bài học này.</p>`;
+        if (vocabList.length < 3) {
+            Swal.fire("Thông báo", "Chủ đề này cần ít nhất 3 từ vựng để mở Đấu trường Thử thách!", "info");
             return;
         }
 
+        // Sinh 6 - 8 câu hỏi thử thách ngẫu nhiên 4 hướng
+        const questions = [];
+        const shuffledVocab = [...vocabList].sort(() => 0.5 - Math.random());
+        const selectedWords = shuffledVocab.slice(0, Math.min(8, shuffledVocab.length));
+
+        selectedWords.forEach((item, idx) => {
+            // Xoay vòng 4 hướng câu hỏi
+            const mode = idx % 4; // 0: En -> Vi, 1: Vi -> En, 2: Audio -> En, 3: Context -> En
+            let qType = 'en_to_vi';
+            let promptText = '';
+            let audioToPlay = '';
+            let correctAnswer = '';
+            let options = [];
+
+            if (mode === 0) {
+                // Hướng 1: English -> Vietnamese
+                qType = 'en_to_vi';
+                promptText = `Từ <b>"${item.word}"</b> có nghĩa tiếng Việt là gì?`;
+                correctAnswer = item.meaning;
+                const otherMeanings = vocabList.filter(x => x.word !== item.word).map(x => x.meaning);
+                const distractors = [...new Set(otherMeanings)].sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
+            } else if (mode === 1) {
+                // Hướng 2: Vietnamese -> English
+                qType = 'vi_to_en';
+                promptText = `Nghĩa tiếng Việt <b>"${item.meaning}"</b> tương ứng với từ tiếng Anh nào?`;
+                correctAnswer = item.word;
+                const otherWords = vocabList.filter(x => x.word !== item.word).map(x => x.word);
+                const distractors = [...new Set(otherWords)].sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
+            } else if (mode === 2) {
+                // Hướng 3: Audio -> English
+                qType = 'audio_to_en';
+                promptText = `🔊 Nghe phát âm bí ẩn và chọn từ tiếng Anh đúng:`;
+                audioToPlay = item.word;
+                correctAnswer = item.word;
+                const otherWords = vocabList.filter(x => x.word !== item.word).map(x => x.word);
+                const distractors = [...new Set(otherWords)].sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
+            } else {
+                // Hướng 4: Context -> Missing Word
+                qType = 'context_to_en';
+                correctAnswer = item.word;
+                let maskedSentence = item.sentence;
+                if (maskedSentence && maskedSentence.toLowerCase().includes(item.word.toLowerCase())) {
+                    const reg = new RegExp(item.word, 'gi');
+                    maskedSentence = maskedSentence.replace(reg, '_______');
+                } else {
+                    maskedSentence = `I like to practice _______ every day.`;
+                }
+                promptText = `Điền từ thích hợp vào chỗ trống:<br/><i style="color:#2563eb;">"${maskedSentence}"</i>`;
+                const otherWords = vocabList.filter(x => x.word !== item.word).map(x => x.word);
+                const distractors = [...new Set(otherWords)].sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
+            }
+
+            questions.push({
+                wordItem: item,
+                qType: qType,
+                direction: qType,
+                promptText: promptText,
+                audioToPlay: audioToPlay,
+                correctAnswer: correctAnswer,
+                options: options
+            });
+        });
+
+        this.currentVocabQuiz = {
+            lessonId: lessonId,
+            questions: questions,
+            currentIndex: 0,
+            score: 0,
+            streak: 0,
+            maxStreak: 0,
+            results: [],
+            isSubmitting: false
+        };
+
+        this.renderVocabQuizQuestion();
+    },
+
+    renderVocabQuizQuestion: function() {
+        const grid = this.getVocabGridElement();
+        if (!grid || !this.currentVocabQuiz) return;
+
+        const quiz = this.currentVocabQuiz;
+        const qIndex = quiz.currentIndex;
+        const total = quiz.questions.length;
+
+        if (qIndex >= total) {
+            this.finishVocabQuiz();
+            return;
+        }
+
+        const q = quiz.questions[qIndex];
+        quiz.isSubmitting = false;
+
         grid.innerHTML = `
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:1.2rem; width:100%;">
-                ${vocabList.map(v => {
-                    const safeWord = this.escapeHtml(v.word);
-                    const safeIpa = this.escapeHtml(v.ipa);
-                    const safeMeaning = this.escapeHtml(v.meaning);
-                    const safeSentence = this.escapeHtml(v.sentence);
-                    const jsWord = this.escapeJsString ? this.escapeJsString(v.word) : v.word.replace(/'/g, "\\'");
-                    return `
-                    <div class="vocab-interactive-card" role="button" tabindex="0" aria-label="Nghe phát âm từ: ${safeWord}" onclick="app.playEnglishVoice('${jsWord}', '${jsWord}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); app.playEnglishVoice('${jsWord}', '${jsWord}');}" style="background:var(--bg-card); border: 2px solid var(--border-color); border-radius: 16px; padding:1.2rem; text-align:center; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.02); transition:transform 0.2s;">
-                        <div style="font-weight:800; font-size:1.2rem; color:var(--text-main);">${safeWord}</div>
-                        <div style="color:#64748b; font-size:0.85rem; margin:4px 0;">${safeIpa}</div>
-                        <div style="color:#10b981; font-weight:800; font-size:0.95rem;">${safeMeaning}</div>
-                        <div style="font-size:0.75rem; color:#94a3b8; font-style:italic; margin-top:8px; border-top:1px solid var(--border-color); padding-top:6px;">"${safeSentence}"</div>
+            <div class="vocab-quiz-container" style="background:var(--bg-card); border:2px solid #3b82f6; border-radius:20px; padding:1.8rem; width:100%; max-width:650px; margin:0 auto; box-shadow:0 8px 24px rgba(59,130,246,0.1);">
+                <!-- Header Đấu trường: Tiến trình + Streak + Nút Thoát -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; border-bottom:1px dashed var(--border-color); padding-bottom:0.8rem;">
+                    <div style="display:flex; align-items:center; gap:0.6rem;">
+                        <span style="font-weight:900; color:#2563eb; font-size:1.1rem;">Câu ${qIndex + 1}/${total}</span>
+                        ${quiz.streak >= 2 ? `<span style="background:#fee2e2; color:#ef4444; padding:2px 8px; border-radius:99px; font-weight:800; font-size:0.75rem;">🔥 Chuỗi: ${quiz.streak}</span>` : ''}
                     </div>
+                    <button type="button" onclick="app.loadPracticeLessonVocab('${quiz.lessonId}')" style="background:none; border:none; color:var(--text-muted); font-size:0.85rem; font-weight:700; cursor:pointer;">
+                        <i class="fa-solid fa-arrow-left"></i> Quay lại Thẻ từ
+                    </button>
+                </div>
+
+                <!-- Nội dung câu hỏi -->
+                <div style="text-align:center; margin-bottom:1.8rem;">
+                    <div style="font-size:1.15rem; font-weight:800; color:var(--text-main); line-height:1.5; margin-bottom:1rem;">
+                        ${q.promptText}
+                    </div>
+                    ${q.audioToPlay ? `
+                        <button type="button" class="btn-primary" onclick="app.playEnglishVoice('${this.escapeJsString(q.audioToPlay)}', '${this.escapeJsString(q.audioToPlay)}')" style="background:linear-gradient(135deg,#3b82f6,#2563eb); border:none; color:white; padding:8px 20px; border-radius:99px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-volume-high"></i> Bấm để Nghe lại 🔊
+                        </button>
+                    ` : ''}
+                </div>
+
+                <!-- Danh sách 4 phương án trả lời -->
+                <div id="vocab-quiz-options-container" style="display:flex; flex-direction:column; gap:0.75rem;">
+                    ${q.options.map((opt, i) => `
+                        <button class="option-btn duolingo-style vocab-quiz-option-btn" id="vocab-opt-${i}" type="button" onclick="app.handleVocabQuizAnswer(${i})" style="text-align:left; padding:0.9rem 1.2rem; background:var(--bg-card); border:2px solid var(--border-color); border-radius:14px; font-weight:800; font-size:1rem; color:var(--text-main); cursor:pointer; transition:all 0.15s;">
+                            <span style="display:inline-block; width:26px; height:26px; border-radius:50%; background:rgba(0,0,0,0.05); text-align:center; line-height:26px; margin-right:8px; font-size:0.85rem;">${String.fromCharCode(65 + i)}</span>
+                            ${this.escapeHtml(opt)}
+                        </button>
+                    `).join("")}
+                </div>
+
+                <!-- Hộp phản hồi tức thì -->
+                <div id="vocab-quiz-feedback-box" style="display:none; margin-top:1.5rem; padding:1rem; border-radius:12px; text-align:center;"></div>
+            </div>
+        `;
+
+        // Tự động phát âm thanh nếu câu hỏi là Audio-first
+        if (q.audioToPlay) {
+            setTimeout(() => {
+                this.playEnglishVoice(q.audioToPlay, q.audioToPlay);
+            }, 300);
+        }
+    },
+
+    handleVocabQuizAnswer: function(chosenIndex) {
+        if (!this.currentVocabQuiz || this.currentVocabQuiz.isSubmitting) return;
+        this.currentVocabQuiz.isSubmitting = true;
+
+        const quiz = this.currentVocabQuiz;
+        const q = quiz.questions[quiz.currentIndex];
+        const chosenText = q.options[chosenIndex];
+        const isCorrect = (chosenText === q.correctAnswer);
+
+        // Cập nhật streak & score
+        if (isCorrect) {
+            quiz.score += 10;
+            quiz.streak++;
+            if (quiz.streak > quiz.maxStreak) quiz.maxStreak = quiz.streak;
+        } else {
+            quiz.streak = 0;
+        }
+
+        // Cập nhật mastery record cho từ vựng này
+        const word = q.wordItem.word;
+        const currentClass = String(this.config.currentClass || "6");
+        const key = `${currentClass}_${quiz.lessonId}_${word.toLowerCase().trim()}`;
+        const store = this.getVocabMasteryStore();
+        const record = store[key] || this.getWordMasteryRecord(word, quiz.lessonId);
+
+        record.attemptCount = (record.attemptCount || 0) + 1;
+        record.lastReviewedAt = Date.now();
+        if (!record.retrievalSuccess) record.retrievalSuccess = {};
+
+        if (isCorrect) {
+            record.correctCount = (record.correctCount || 0) + 1;
+            record.streak = (record.streak || 0) + 1;
+
+            // Đánh dấu hướng retrieval tương ứng
+            if (q.qType === 'en_to_vi') record.retrievalSuccess.enToVi = true;
+            if (q.qType === 'vi_to_en') record.retrievalSuccess.viToEn = true;
+            if (q.qType === 'audio_to_en') record.retrievalSuccess.audioToEn = true;
+            if (q.qType === 'context_to_en') record.retrievalSuccess.contextToWord = true;
+
+            // Nâng bậc Mastery Level khoa học
+            if (record.retrievalSuccess.enToVi && record.masteryLevel < 2) record.masteryLevel = 2;
+            if (record.retrievalSuccess.viToEn && record.retrievalSuccess.audioToEn && record.masteryLevel < 3) record.masteryLevel = 3;
+            if (record.retrievalSuccess.contextToWord && record.masteryLevel < 4) record.masteryLevel = 4;
+            if (record.masteryLevel >= 4 && (record.intervalMinutes || 0) >= 1440 && (record.correctCount || 0) >= 3) {
+                record.masteryLevel = 5;
+                record.status = 'mastered';
+            }
+
+            // Tăng khoảng cách ôn tập
+            record.intervalMinutes = Math.max(1440, Math.round((record.intervalMinutes || 60) * 1.8));
+            record.nextReviewAt = Date.now() + record.intervalMinutes * 60 * 1000;
+            record.isWeak = false;
+        } else {
+            record.wrongCount = (record.wrongCount || 0) + 1;
+            record.streak = 0;
+            record.isWeak = true;
+            record.intervalMinutes = 10;
+            record.nextReviewAt = Date.now() + 10 * 60 * 1000;
+        }
+
+        store[key] = record;
+        this.saveVocabMasteryStore(store);
+
+        quiz.results.push({ word: word, isCorrect: isCorrect });
+
+        // Highlight các nút đáp án
+        q.options.forEach((opt, idx) => {
+            const btn = document.getElementById(`vocab-opt-${idx}`);
+            if (btn) {
+                btn.disabled = true;
+                btn.style.cursor = "default";
+                if (opt === q.correctAnswer) {
+                    btn.style.borderColor = "#10b981";
+                    btn.style.background = "rgba(16,185,129,0.1)";
+                    btn.style.color = "#047857";
+                } else if (idx === chosenIndex && !isCorrect) {
+                    btn.style.borderColor = "#ef4444";
+                    btn.style.background = "rgba(239,68,68,0.1)";
+                    btn.style.color = "#b91c1c";
+                }
+            }
+        });
+
+        // Hiển thị feedback
+        const feedbackBox = document.getElementById("vocab-quiz-feedback-box");
+        if (feedbackBox) {
+            feedbackBox.style.display = "block";
+            if (isCorrect) {
+                feedbackBox.style.background = "rgba(16,185,129,0.1)";
+                feedbackBox.style.border = "1px solid #10b981";
+                feedbackBox.innerHTML = `
+                    <div style="color:#10b981; font-weight:900; font-size:1.1rem; margin-bottom:0.4rem;">
+                        🎉 Xuất sắc! Đáp án hoàn toàn chính xác.
+                    </div>
+                    <button class="btn-primary" type="button" onclick="app.nextVocabQuizQuestion()" style="background:#10b981; border:none; color:white; padding:8px 24px; border-radius:10px; font-weight:800; cursor:pointer; margin-top:6px;">
+                        Tiếp tục ➡️
+                    </button>
                 `;
-                }).join("")}
+            } else {
+                feedbackBox.style.background = "rgba(239,68,68,0.08)";
+                feedbackBox.style.border = "1px solid #ef4444";
+                feedbackBox.innerHTML = `
+                    <div style="color:#ef4444; font-weight:900; font-size:1.05rem; margin-bottom:0.3rem;">
+                        💡 Chưa chính xác! Đáp án đúng là: <b>"${this.escapeHtml(q.correctAnswer)}"</b>
+                    </div>
+                    ${q.wordItem.sentence ? `<div style="font-size:0.85rem; color:#475569; font-style:italic; margin-bottom:6px;">Ví dụ: "${this.escapeHtml(q.wordItem.sentence)}"</div>` : ''}
+                    <button class="btn-primary" type="button" onclick="app.nextVocabQuizQuestion()" style="background:#ef4444; border:none; color:white; padding:8px 24px; border-radius:10px; font-weight:800; cursor:pointer; margin-top:4px;">
+                        Đã hiểu & Tiếp tục ➡️
+                    </button>
+                `;
+            }
+        }
+    },
+
+    nextVocabQuizQuestion: function() {
+        if (!this.currentVocabQuiz) return;
+        this.currentVocabQuiz.currentIndex++;
+        this.renderVocabQuizQuestion();
+    },
+
+    finishVocabQuiz: function() {
+        const grid = this.getVocabGridElement();
+        if (!grid || !this.currentVocabQuiz) return;
+
+        const quiz = this.currentVocabQuiz;
+        const total = quiz.questions.length;
+        const correctCount = quiz.results.filter(r => r.isCorrect).length;
+        const accuracyPct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+        const weakWords = quiz.results.filter(r => !r.isCorrect).map(r => r.word);
+
+        // Cộng 30 XP Tiếng Anh cho học sinh (Bảo toàn 100% môn Toán)
+        if (correctCount > 0) {
+            const earnedXp = Math.min(50, correctCount * 5 + 10);
+            this.state.englishXp = (this.state.englishXp || 0) + earnedXp;
+            if (!this.state.subjects) this.state.subjects = {};
+            if (!this.state.subjects.english) this.state.subjects.english = {};
+            this.state.subjects.english.xp = (this.state.subjects.english.xp || 0) + earnedXp;
+            if (typeof this.saveProgress === 'function') {
+                this.saveProgress();
+            }
+        }
+
+        grid.innerHTML = `
+            <div style="background:var(--bg-card); border:2px solid #10b981; border-radius:20px; padding:2rem; width:100%; max-width:600px; margin:0 auto; text-align:center; box-shadow:0 8px 24px rgba(16,185,129,0.12);">
+                <div style="font-size:3rem; margin-bottom:0.5rem;">🏆</div>
+                <h3 style="margin:0 0 0.5rem 0; font-weight:900; font-size:1.5rem; color:#10b981;">
+                    HOÀN THÀNH ĐẤU TRƯỜNG TỪ VỰNG!
+                </h3>
+                <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.5rem;">
+                    Con đã hoàn thành buổi kiểm tra phản xạ từ vựng khoa học.
+                </p>
+
+                <!-- Kết quả chi tiết -->
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; margin-bottom:1.5rem;">
+                    <div style="background:var(--bg-app); padding:0.8rem; border-radius:12px; border:1px solid var(--border-color);">
+                        <div style="font-size:1.4rem; font-weight:900; color:#2563eb;">${correctCount}/${total}</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted);">Đúng</div>
+                    </div>
+                    <div style="background:var(--bg-app); padding:0.8rem; border-radius:12px; border:1px solid var(--border-color);">
+                        <div style="font-size:1.4rem; font-weight:900; color:#f59e0b;">${accuracyPct}%</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted);">Độ chính xác</div>
+                    </div>
+                    <div style="background:var(--bg-app); padding:0.8rem; border-radius:12px; border:1px solid var(--border-color);">
+                        <div style="font-size:1.4rem; font-weight:900; color:#10b981;">+${Math.min(50, correctCount * 5 + 10)}</div>
+                        <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted);">XP Tiếng Anh</div>
+                    </div>
+                </div>
+
+                <!-- Danh sách từ cần ôn lại nếu có -->
+                ${weakWords.length > 0 ? `
+                    <div style="background:#fee2e2; border:1px solid #fca5a5; border-radius:12px; padding:0.8rem; margin-bottom:1.5rem; text-align:left;">
+                        <div style="font-weight:800; color:#b91c1c; font-size:0.85rem; margin-bottom:4px;">
+                            🔴 Các từ cần lưu ý ôn luyện thêm:
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            ${weakWords.map(w => `<span style="background:white; color:#991b1b; padding:2px 8px; border-radius:6px; font-weight:700; font-size:0.82rem; border:1px solid #fca5a5;">${this.escapeHtml(w)}</span>`).join("")}
+                        </div>
+                    </div>
+                ` : `
+                    <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:12px; padding:0.8rem; margin-bottom:1.5rem; color:#065f46; font-weight:800; font-size:0.9rem;">
+                        ✨ Thật tuyệt vời! Con đã trả lời đúng tất cả các từ vựng trong thử thách lần này.
+                    </div>
+                `}
+
+                <div style="display:flex; gap:1rem; justify-content:center;">
+                    <button class="btn-primary" type="button" onclick="app.startVocabArenaQuiz('${quiz.lessonId}')" style="background:#3b82f6; border:none; color:white; padding:10px 20px; border-radius:12px; font-weight:800; cursor:pointer;">
+                        <i class="fa-solid fa-rotate-right"></i> Thử thách lại
+                    </button>
+                    <button class="btn-primary" type="button" onclick="app.loadPracticeLessonVocab('${quiz.lessonId}')" style="background:#10b981; border:none; color:white; padding:10px 20px; border-radius:12px; font-weight:800; cursor:pointer;">
+                        <i class="fa-solid fa-check"></i> Hoàn tất & Quay lại
+                    </button>
+                </div>
             </div>
         `;
     },

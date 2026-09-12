@@ -95,7 +95,9 @@ const JUSTIFIED_EXCEPTIONS = [
   { pattern: /^scripts[\\/]maintenance[\\/]exams_auditor\.js$/i, maxLines: 700, reason: 'Question template pedagogical integrity checker script' },
   { pattern: /^scripts[\\/]maintenance[\\/]pronunciation-assessment[\\/]/i, maxLines: 1000, reason: 'Speech evaluation toolset' },
   { pattern: /^tests[\\/]characterization\.test\.js$/i, maxLines: 600, reason: 'Comprehensive characterization test suite' },
-  { pattern: /^tests[\\/]core[\\/]english-grade6-audit-verification\.test\.js$/i, maxLines: 600, reason: 'English Grade 6 audit verification test suite' }
+  { pattern: /^tests[\\/]core[\\/]english-grade6-audit-verification\.test\.js$/i, maxLines: 600, reason: 'English Grade 6 audit verification test suite' },
+  { pattern: /^tests[\\/]speaking_runtime_forensic_e2e\.test\.js$/i, maxLines: 650, reason: 'Speaking forensic runtime browser E2E test suite' },
+  { pattern: /^tests[\\/]vocab_arena_e2e\.test\.js$/i, maxLines: 500, reason: 'Vocabulary Arena science engine browser E2E test suite' }
 ];
 
 function walk(dir, out = []) {

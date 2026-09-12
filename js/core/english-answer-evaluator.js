@@ -127,9 +127,9 @@
             };
         }
 
-        const isCorrect = Boolean(studentAnswer.correct);
         const spokenText = studentAnswer.spokenText || "";
         const accuracy = typeof studentAnswer.accuracy === 'number' ? studentAnswer.accuracy : 0;
+        const isCorrect = Boolean(studentAnswer.correct) && (accuracy >= 60);
 
         return {
             isCorrect: isCorrect,

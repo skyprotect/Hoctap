@@ -1,9 +1,9 @@
 {
-  "version": "15.4",
-  "lastUpdated": "12/09/2026 09:35",
-  "build": 1407,
-  "releaseNotes": "Phát hành bản v15.4: Sửa triệt để 100% các lỗi tương tác UI thực tế: Xóa bỏ hoàn toàn duplicate fallback IDs trong DOM, sửa tương tác Writing word scramble và duplicate words, thêm timeout an toàn 5s cho khởi tạo Đề thi AI, chuẩn hóa Bảng xếp hạng Đấu trường và khắc phục phân tích kỹ năng/tiến trình Hồ sơ chiến binh.",
-  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.4/ToanHocKiosk_Setup_v15.4.exe",
-  "changelog": "- Xóa bỏ hoàn toàn khối #english-fallback-nodes và duplicate IDs trong student.html, khôi phục tương tác cho nút Kiểm Tra trên toàn bộ 4 kỹ năng.\n- Sửa triệt để cơ chế kéo thả/click từ trong Writing (handleDragBlockClick) với định danh instance ID riêng biệt, hỗ trợ từ trùng lặp (duplicate words) và hoàn tác hai chiều mượt mà.\n- Bổ sung AbortController timeout 5 giây cho khởi tạo Đề thi AI, tự động fallback sang bộ sinh đề offline, ngăn chặn hoàn toàn hiện tượng treo spinner vô hạn.\n- Chuẩn hóa response API Leaderboard ({ success: true, data: list, leaderboard: list }) và bổ sung SQLite local fallback khi Firebase offline.\n- Sửa logic tính Kỹ năng mạnh nhất / Cần rèn luyện thêm trong Hồ sơ chiến binh khi các điểm số bằng nhau, và đồng bộ cách tính bài học hoàn thành dựa trên scores.",
-  "releaseDate": "2026-09-12T09:35:00+07:00"
+  "version": "15.5",
+  "lastUpdated": "12/09/2026 10:25",
+  "build": 1408,
+  "releaseNotes": "Phát hành bản v15.5: Hoàn tất kiểm chứng thực tế toàn diện (Forensic Verification) kỹ năng Speaking và nâng cấp Đấu trường Từ vựng (Vocabulary Arena) theo chuẩn khoa học: Active Recall 3D Flashcards, mô hình 5 cấp độ Mastery, thuật toán lặp lại ngắt quãng SRS và trắc nghiệm phản xạ 4 chiều.",
+  "downloadUrl": "https://github.com/skyprotect/Hoctap/releases/download/v15.5/ToanHocKiosk_Setup_v15.5.exe",
+  "changelog": "- Forensic Runtime Verification & Fix Speaking: Chuẩn hóa ngưỡng phát âm >= 60%, xử lý an toàn transcript rỗng, chống race condition với Session ID token, loại bỏ acoustic echo giữa Audio/TTS và Microphone, ánh xạ mã lỗi Web Speech chi tiết kèm nút Thử lại/Bỏ qua.\n- Hệ sinh thái Đấu trường Từ vựng Khoa học (Vocabulary Arena Science Engine): Thẻ Flashcard 3D theo nguyên lý Active Recall (mặt trước ẩn nghĩa, kích thích não bộ truy xuất; mặt sau hiện nghĩa, ngữ cảnh, phát âm và 4 mức tự đánh giá).\n- Mô hình 5 cấp độ Làm chủ Từ vựng (Mastery Levels 0-5): Cấp độ 5 bắt buộc vượt qua thử thách truy xuất ngắt quãng (Retrieval Practice), loại bỏ việc học vẹt.\n- Đấu trường Trắc nghiệm 4 hướng: Anh -> Việt, Việt -> Anh, Âm thanh -> Anh, Ngữ cảnh -> Điền từ, đi kèm cơ chế sinh đáp án nhiễu động không trùng lặp và phản hồi sư phạm tức thì.\n- Cô lập hoàn toàn tiến trình từ vựng giữa các học sinh và bảo toàn 100% dữ liệu môn Toán của Trần Bình Minh và Trần Đức Phúc.",
+  "releaseDate": "2026-09-12T10:25:00+07:00"
 }

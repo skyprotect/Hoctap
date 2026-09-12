@@ -5585,6 +5585,26 @@ body.english-mode.focus-mode-active .english-main-stage {
     margin-top: auto;
 }
 
+.btn-self-assess {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 99px;
+    padding: 3px 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.btn-self-assess:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+}
+.btn-self-assess:active {
+    transform: translateY(1px);
+}
+
 /* Nút đáp án 3D Duolingo Style (Sáng) */
 .option-btn.duolingo-style {
     position: relative;
