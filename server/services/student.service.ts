@@ -25,7 +25,7 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '15.17';
+export const APP_VERSION = '15.18';
 
 // ============================================================================
 // CANONICAL IDENTITY RESOLVER
