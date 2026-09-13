@@ -25,7 +25,32 @@ import {
 import { auditExamSessionHelper } from './gemini.service';
 import { StudentProgress, ExamSession } from '../types';
 
-export const APP_VERSION = '15.15';
+export const APP_VERSION = '15.17';
+
+// ============================================================================
+// CANONICAL IDENTITY RESOLVER
+// Single source of truth: một studentId chỉ hợp lệ khi resolve được qua
+// config.students (runtime) HOẶC SYSTEM_STUDENTS (build-time fallback).
+// Không dùng displayName làm identity. Không hardcode whitelist production.
+// ============================================================================
+
+/**
+ * Resolve studentId thành student hợp lệ dựa trên config runtime + SYSTEM_STUDENTS fallback.
+ * Invariant: một studentId hợp lệ PHẢI bắt đầu bằng "std_" VÀ phải tồn tại trong registry.
+ * Test-generated IDs (std_char_*, std_concurrency_*, std_iso_*, std_sub_*) không có
+ * trong registry nên sẽ resolve thành null và bị chặn ở mọi Firebase write path.
+ * @returns student object nếu hợp lệ, null nếu không
+ */
+export async function resolveCanonicalStudent(studentId: string): Promise<{ id: string; name: string; classLevel: string } | null> {
+    if (!studentId || typeof studentId !== 'string' || !studentId.startsWith('std_')) return null;
+    const config: any = await dbGetConfig().catch(() => null);
+    const studentsList: any[] = (config && config.students) || [];
+    const runtimeMatch = studentsList.find((s: any) => s.id === studentId);
+    if (runtimeMatch) return { id: runtimeMatch.id, name: runtimeMatch.name, classLevel: runtimeMatch.classLevel || '6' };
+    const sysMatch = SYSTEM_STUDENTS.find(s => s.id === studentId);
+    if (sysMatch) return { id: sysMatch.id, name: sysMatch.name, classLevel: sysMatch.classLevel || '6' };
+    return null;
+}
 
 // ============================================================================
 // 1. TIẾN TRÌNH HỌC TẬP & THÔNG TIN HỌC SINH (PROGRESS & STUDENT INFO)
@@ -230,37 +255,30 @@ export async function deleteStudentProgress(studentId: string): Promise<void> {
 }
 
 export async function heartbeat(studentId: string, classLevel?: string): Promise<void> {
-    const config: any = await dbGetConfig().catch(() => null);
-    const studentsList: any[] = (config && config.students) || [];
-    const studentConf = studentsList.find((s: any) => s.id === studentId);
-    const sysConf = SYSTEM_STUDENTS.find(s => s.id === studentId);
-
-    // F.1 — Identity validation: chỉ PATCH Firebase khi studentId resolve được thành student hợp lệ.
-    // config.students là runtime source-of-truth (có thể chứa students ngoài SYSTEM_STUDENTS).
-    // SYSTEM_STUDENTS là fallback khi config chưa được load.
-    if (!studentConf && !sysConf) {
-        console.warn(`[Heartbeat] studentId không hợp lệ hoặc không resolve được: "${studentId}". Bỏ qua Firebase sync.`);
-        return; // HTTP response vẫn là success (trả về từ controller), chỉ skip Firebase PATCH
+    // F.1 — Identity validation: dùng canonical resolver duy nhất.
+    // Test-generated IDs không có trong registry → resolve thành null → skip Firebase.
+    const canonical = await resolveCanonicalStudent(studentId);
+    if (!canonical) {
+        console.warn(`[Heartbeat] studentId không resolve được trong registry: "${studentId}". Bỏ qua Firebase PATCH. [LB-GUARD-F1]`);
+        return; // HTTP response vẫn là success, chỉ skip Firebase PATCH
     }
 
-    let studentName = studentConf ? studentConf.name : sysConf!.name;
-    const actualClassLevel = studentConf ? studentConf.classLevel : (sysConf!.classLevel || classLevel || "6");
-
     const payload = {
-        studentId: studentId,
-        studentName: studentName,
-        classLevel: actualClassLevel,
+        studentId: canonical.id,
+        studentName: canonical.name,
+        classLevel: canonical.classLevel,
         lastHeartbeat: new Date().toISOString(),
         appVersion: `v${APP_VERSION}`
     };
 
-    const url = `${FIREBASE_RTDB_URL}leaderboard/${studentId}.json`;
+    const url = `${FIREBASE_RTDB_URL}leaderboard/${canonical.id}.json`;
     await fetch(url, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     }).catch(err => console.warn(`[HeartbeatSync] Lỗi Firebase: ${err.message}`));
 }
+
 
 export async function getLeaderboard(params: { subject?: string; classLevel?: string }): Promise<any[]> {
     const subject = params.subject || 'english';
@@ -276,13 +294,29 @@ export async function getLeaderboard(params: { subject?: string; classLevel?: st
         if (data && typeof data === 'object') {
             const rawList: any[] = Object.values(data);
 
+            // D-INV-1+2 — Server Invariant: loại record không có studentId hợp lệ
+            // hoặc studentId không tồn tại trong canonical registry.
+            // Đây dựa vào config.students (runtime) + SYSTEM_STUDENTS (fallback).
+            // Không hardcode whitelist — nếu admin thêm student mới vào config, nó tự động hợp lệ.
+            const registryConf: any = await dbGetConfig().catch(() => null);
+            const registryStudents: any[] = (registryConf && registryConf.students) || [];
+            const validIdSet = new Set<string>([
+                ...SYSTEM_STUDENTS.map(s => s.id),
+                ...registryStudents.map((s: any) => s.id)
+            ]);
+
             // F.3 — Deduplicate theo canonical studentId với field-wise merge.
-            // Không dùng winner-takes-all vì một record có mathXp cao nhất
-            // có thể không phải record có englishXp cao nhất.
-            // Các numeric XP/streak: giữ max. Các string fields: giữ từ record mới nhất (lastUpdated).
+            // Invariant 3: 2 student khác studentId nhưng cùng tên vẫn tồn tại độc lập.
+            // Invariant 4: duplicate cùng canonical studentId → không tạo duplicate row.
+            // Invariant 5: field-wise merge, không dùng "highest XP object wins".
             const deduped = new Map<string, any>();
             for (const item of rawList) {
                 if (!item || !item.studentId) continue; // T-LB-04: loại record thiếu studentId
+                // D-INV-2: loại record có studentId không tồn tại trong registry
+                if (!validIdSet.has(item.studentId)) {
+                    console.warn(`[Leaderboard] Loại record không hợp lệ: "${item.studentId}" không tồn tại trong registry. [LB-GUARD-D2]`);
+                    continue;
+                }
                 const key: string = item.studentId;
                 if (!deduped.has(key)) {
                     deduped.set(key, { ...item });
@@ -309,6 +343,7 @@ export async function getLeaderboard(params: { subject?: string; classLevel?: st
             }
             list = Array.from(deduped.values());
         }
+
 
         if (classLevel) {
             list = list.filter(item => String(item.classLevel) === String(classLevel));

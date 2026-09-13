@@ -1,6 +1,6 @@
 ﻿#pragma codepage 65001
 #define MyAppName "Toan Hoc Kiosk"
-#define MyAppVersion "15.15"
+#define MyAppVersion "15.17"
 #define MyAppPublisher "SkyProtect Dev"
 #define MyAppURL "https://github.com/skyprotect/Hoctap"
 
@@ -17,7 +17,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputDir=.
-OutputBaseFilename=ToanHocKiosk_Setup_v15.15
+OutputBaseFilename=ToanHocKiosk_Setup_v15.17
 Compression=lzma2/fast
 SolidCompression=no
 WizardStyle=modern

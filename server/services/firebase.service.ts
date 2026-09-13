@@ -13,6 +13,10 @@ import {
     db
 } from '../db/database';
 import { StudentProgress, LeaderboardItem } from '../types';
+// resolveCanonicalStudent được import lazy để tránh circular dependency
+// (student.service.ts import firebase.service.ts và ngược lại)
+// Thay vào đó, duplicate minimal resolver tại đây dựa trên cùng source of truth.
+
 
 export const FIREBASE_RTDB_URL = process.env.FIREBASE_DATABASE_URL ? (process.env.FIREBASE_DATABASE_URL.endsWith('/') ? process.env.FIREBASE_DATABASE_URL : process.env.FIREBASE_DATABASE_URL + '/') : "https://binhminhchamhoc-default-rtdb.firebaseio.com/";
 
@@ -37,17 +41,26 @@ export async function syncStudentProgressToFirebase(studentId: string, state: an
         const config: any = await dbGetConfig().catch(() => null);
         const studentsList: any[] = (config && config.students) || [];
         const studentConf = studentsList.find((s: any) => s.id === studentId);
-        
-        const studentName = studentNameFromClient || (studentConf ? studentConf.name : ((state.student && state.student.name) || (typeof state.student === 'string' ? state.student : "Học sinh")));
 
-        // F.2 — Data quality guard: không PATCH Firebase với tên chưa resolve được.
-        // Các tên không hợp lệ: rỗng, chỉ whitespace, hoặc generic fallback.
-        // Đây là render/data guard, không phải identity guard — canonical identity = studentId.
-        const GENERIC_FALLBACK_NAMES = ["Học sinh", "Phụ huynh", ""];
-        if (!studentName || !studentName.trim() || GENERIC_FALLBACK_NAMES.includes(studentName.trim())) {
-            console.warn(`[FirebaseSync] Bỏ qua sync cho studentId "${studentId}": tên chưa được xác định ("${studentName}").`);
+        // F.2-IDENTITY — Identity guard: reject nếu studentId không resolve được.
+        // Đây là lớp bảo vệ tại sync path, bổ sung cho F.1 tại heartbeat().
+        // Test-generated IDs (std_char_*, std_iso_*, v.v.) không có trong registry → bị chặn.
+        const { SYSTEM_STUDENTS } = require('../db/seed');
+        const sysConf = SYSTEM_STUDENTS.find((s: any) => s.id === studentId);
+        if (!studentConf && !sysConf) {
+            console.warn(`[FirebaseSync] studentId "${studentId}" không tồn tại trong registry. Bỏ qua Firebase sync. [LB-GUARD-F2]`);
             return;
         }
+        
+        const studentName = studentNameFromClient || (studentConf ? studentConf.name : sysConf.name);
+
+        // F.2-NAME — Data quality guard: không PATCH Firebase với tên generic.
+        const GENERIC_FALLBACK_NAMES = ["Học sinh", "Phụ huynh", ""];
+        if (!studentName || !studentName.trim() || GENERIC_FALLBACK_NAMES.includes(studentName.trim())) {
+            console.warn(`[FirebaseSync] Bỏ qua sync cho studentId "${studentId}": tên generic ("${studentName}"). [LB-GUARD-F2-NAME]`);
+            return;
+        }
+
 
         const classLevel = studentConf ? studentConf.classLevel : (state.classLevel || (state.student && state.student.classLevel) || "6");
 

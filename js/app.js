@@ -3004,15 +3004,26 @@ const app = {
         // 1. Lọc entry generic (tên chưa resolve được) trước khi hiển thị.
         //    Đây là render defense, không xóa dữ liệu Firebase.
         // 2. Dedup theo studentId (defense-in-depth, server đã dedup ở F.3).
-        const GENERIC_NAMES = ["Học sinh", "Phụ huynh", ""];
+        // 3. Loại tên bắt đầu bằng "Học sinh" (bao gồm suffix A, B, Test, Concurrency, v.v.)
+        //    Server-side đã filter theo registry, client filter này là lớp bảo vệ thứ hai.
+        const GENERIC_NAME_EXACT = ["Phụ huynh", ""];
+        const isGenericName = (name) => {
+            if (!name) return true;
+            const trimmed = name.trim();
+            if (!trimmed) return true;
+            if (GENERIC_NAME_EXACT.includes(trimmed)) return true;
+            if (trimmed === "Học sinh" || trimmed.startsWith("Học sinh ")) return true;
+            return false;
+        };
         const seenPresenceIds = new Set();
         let filtered = this.presenceDataCache.filter(s => {
             if (!s || !s.studentId) return false;
-            if (GENERIC_NAMES.includes((s.studentName || "").trim())) return false;
+            if (isGenericName(s.studentName || "")) return false;
             if (seenPresenceIds.has(s.studentId)) return false;
             seenPresenceIds.add(s.studentId);
             return true;
         });
+
 
         if (query) {
             filtered = filtered.filter(s => s.studentName && s.studentName.toLowerCase().includes(query));
